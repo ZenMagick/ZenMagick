@@ -57,3 +57,4 @@ Initial Release:
 - introduce theme.css as a way for themes to add on top of the default
   site.css rather than taking a copie to add a few lines.
   Also, it's easy to just change the colours that way
+- Fix ZMRequest::getPageBase()
