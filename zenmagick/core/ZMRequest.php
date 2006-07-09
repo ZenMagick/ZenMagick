@@ -107,7 +107,6 @@ class ZMRequest {
      */
     function getPageBase() {
         $base = null;
-        print_r($_REQUEST);
         if (!$this->isSecure()) { 
             $base = HTTP_SERVER . DIR_WS_CATALOG;
         } else {
