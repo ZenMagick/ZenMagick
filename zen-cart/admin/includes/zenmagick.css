@@ -1,0 +1,47 @@
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006 ZenMagick
+ *
+ * Portions Copyright (c) 2002-2003 Geir Landrö
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * $Id$
+ */
+
+div#main, div#content {padding:8px;}
+fieldset {padding:12px;margin-bottom:12px;}
+legend {font-weight:bold;color:#c96e29;}
+legend span {font-size:114%;background:#e3e3e3;}
+th {color:#000;background:#e3a679;border-right:1px solid #fff;padding:3px;}
+td {padding:2px 8px;}
+fieldset table {border:1px solid #c0c0c0;}
+ul.closed {display:none;}
+ul.open {display:block;}
+#cnav {float:left;width:20%;border:1px solid gray;padding:8px;margin:8px 5px;}
+#content {margin-left:20%;}
+
+/*--------------------------------------------------|
+| dTree 2.05 | www.destroydrop.com/javascript/tree/ |
+|---------------------------------------------------|
+| Copyright (c) 2002-2003 Geir Landrö               |
+|--------------------------------------------------*/
+.dtree {font-family:Verdana,Geneva,Arial,Helvetica,sans-serif;font-size:11px;color:#666;white-space:nowrap;}
+.dtree img {border:0px;vertical-align:middle;}
+.dtree a {color:#333;text-decoration:none;}
+.dtree a.node, .dtree a.nodeSel {white-space:nowrap;padding:1px 2px 1px 2px;}
+.dtree a.node:hover, .dtree a.nodeSel:hover {color:#333;text-decoration:underline;}
+.dtree a.nodeSel {background-color:#c0d2ec;}
+.dtree .clip {overflow:hidden;}

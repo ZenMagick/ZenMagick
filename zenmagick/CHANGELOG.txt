@@ -1,0 +1,59 @@
+Initial Release:
+- Fix state selection in create_account
+- Find/fix invalid '&lt;? ' PHP open tags
+- fieldset in create_account
+- Fix missing state field in create_account
+- split common.js and category.js
+- add popupWindow to common.js
+- Sort features by id
+- Fix manufactureres code (use join as some manufacturers do not have entries
+  in TABLE_MANUFACTURERS_INFO)
+- changed features table layout; feature description is now limited and
+  feature value of type 'text' to allow for longer values
+- Switch ZM_DB_PREFIX to 'zm_', enable features
+- Add zm_get_zen_includes() method to reliably get the zen-cart/inlcudes
+  directory
+- Fix error when $messageStack->messages does not exist
+- Added ZMFeatures::getFeatureList(), getFeatureTypes() amd
+  getFeatureTypeForId()
+- Restructured ZMFeatures
+- add auto_increment to zm_features primary key
+- New zen-cart admin extension to manage Features
+- zen-cart admin utility to browse the catalog using dtee
+- Fix ZMRequest:getCategoryPathArray() to always return an array
+- Added ZMEZPages and model/ZMEZPage
+- Add ezpages.php box to default theme
+- Added ez-page page view (incl. controller)
+- Added sitemap
+- Make redirect views work in store.php; this is still very ugly, though
+- Add Unsubscribe controller to redirect to accoun_newsletter page
+- Added views for conditions, privacy and shippinginfo
+- Won't setup GV FAQ, as it's easier to set up as EZ TOC pages...
+- Add coupon stuff
+- Added contact us view/controller
+- Add i18n support per theme; requires to remove zen_date_raw definition in
+  zen-cart/includes/languages/english.php
+- The i18n change also requires init.ph to be includes earlier in index.php
+- small view improvements
+- added ez support in menu and footer
+- reworked .htaccess file for permalinks
+- add support for multiple feature values
+- Added product comparison to default theme
+- Allow PHP code in EZ-pages
+- Make defaulting to 'default' theme work
+- Allow for custom template code per page using a single template
+- Add zm_env
+- Include theme info into class loader
+- Make cPath stick in zmFeatures.php
+- support cPath in post requests
+- use textarea for feature values
+- ezpages box: support for sbchapter query parameter to overwrite the default
+- Support for editing features and feature values
+- New attribute hidden for features
+- Fix controller path
+- do not allow duplicates in new features list, etc
+- fix hidden feature regression (feature key is defined as feature name in
+  features list)
+- introduce theme.css as a way for themes to add on top of the default
+  site.css rather than taking a copie to add a few lines.
+  Also, it's easy to just change the colours that way

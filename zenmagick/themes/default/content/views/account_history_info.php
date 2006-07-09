@@ -1,0 +1,98 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * $Id$
+ */
+?>
+
+<h3><?php zm_l10n("Item Details") ?></h3>
+<table cellpadding="0" cellspacing="0">
+    <tbody>
+    <?php foreach ($zm_order->getOrderItems() as $orderItem) { ?>
+        <tr>
+            <td class="qty"><?php echo $orderItem->getQty() ?> x </td>
+            <td class="itm">
+                <?php echo $orderItem->getName() ?>
+                <?php if ($orderItem->hasAttributes()) { ?>
+                    <br/>
+                    <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
+                        <p><span class="attr"><?php echo $attribute->getName() ?>:</span>
+                        <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
+                            <?php if (!$first) { ?>, <?php } ?>
+                            <span class="atval"><?php echo $attributeValue->getName() ?></span>
+                        <?php $first = false; } ?>
+                        </p>
+                    <?php } ?>
+                <?php } ?>
+            </td>
+            <td class="price"><?php zm_format_currency($orderItem->getCalculatedPrice()) ?></td>
+        </tr>
+    <?php } ?>
+    <?php foreach ($zm_order->getOrderTotals() as $orderTotal) { ?>
+        <tr>
+            <td colspan="2" class="total"><?php echo $orderTotal->getName() ?></td>
+            <td class="price"><?php echo $orderTotal->getValue() ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+</table>
+
+<h3><?php zm_l10n("Order History") ?></h3>
+<table cellpadding="0" cellspacing="0">
+    <tbody>
+    <?php foreach ($zm_order->getOrderStati() as $orderStatus) { ?>
+        <tr>
+            <td><?php zm_date_short($orderStatus->getDateAdded()) ?></td>
+            <td><?php echo $orderStatus->getName() ?></td>
+            <td class="cmt"><?php echo $orderStatus->getComment() ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+</table>
+
+<h3><?php zm_l10n("Address Details") ?></h3>
+<div id="addr">
+    <div id="daddr">
+        <h4>Shipping Address</h4>
+        <?php $address = $zm_order->getShippingaddress(); ?>
+        <?php echo $address->getFirstName() . ' ' . $address->getLastName(); ?><br>
+        <?php echo $address->getCompanyName(); ?><br>
+        <?php echo $address->getAddress(); ?><br>
+        <?php echo $address->getSuburb(); ?><br>
+        <?php echo $address->getPostcode(); ?><br>
+        <?php echo $address->getCity(); ?><br>
+        <?php echo $address->getState(); ?><br>
+        <?php $country = $address->getCountry(); echo $country->getName(); ?><br>
+    </div>
+    <div id="baddr">
+        <h4>Billing Address</h4>
+        <?php $address = $zm_order->getBillingAddress(); ?>
+        <?php echo $address->getFirstName() . ' ' . $address->getLastName(); ?><br>
+        <?php echo $address->getCompanyName(); ?><br>
+        <?php echo $address->getAddress(); ?><br>
+        <?php echo $address->getSuburb(); ?><br>
+        <?php echo $address->getPostcode(); ?><br>
+        <?php echo $address->getCity(); ?><br>
+        <?php echo $address->getState(); ?><br>
+        <?php $country = $address->getCountry(); echo $country->getName(); ?><br>
+    </div>
+</div>
