@@ -77,7 +77,7 @@ class ZMRuntime {
 
     // get the (valid) theme id
     function getThemeId() {
-        $themeId = $this->getRawThemeId();
+        $themeId = strtolower($this->getRawThemeId());
         $path = $this->getThemeBasePath().$themeId;
         if (!@file_exists($path) || !@is_dir($path)) {
             //error_log("ZenMagick: invalid theme id: '".$zm_runtime->getThemeId().'"');
