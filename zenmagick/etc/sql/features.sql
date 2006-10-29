@@ -70,6 +70,10 @@ CREATE TABLE zen_product_features (
 INSERT INTO zen_feature_types (feature_type_id, feature_type) VALUES (1, 'text');
 
 
+INSERT INTO zen_products_options_values_to_products_options (products_options_values_to_products_options_id, products_options_id, products_options_values_id) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
 
 
 
