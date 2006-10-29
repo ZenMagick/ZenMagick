@@ -38,7 +38,7 @@
         $endTime = explode (' ', microtime());
         $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
     ?>
-    Execution Time: <?php echo round($executionTime, 4); ?>;
+    Page Execution Time: <?php echo round($executionTime, 4); ?>;
   </p>
   <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://zenmagick.radebatz.net">ZenMagick</a></p>
   <p>&copy; 2006 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design by <a href="http://andreasviklund.com">Andreas Viklund</a></p>

@@ -1,3 +1,9 @@
+Release 0.4.1
+- add conveniece function zm_ezpage_link($id)
+- fixed wrong index validation bug in feature admin
+- fixed missing featured in feature admin when displaying error messages
+- added missing bit of SQL to features.sql
+
 Initial Release:
 - Fix state selection in create_account
 - Find/fix invalid '&lt;? ' PHP open tags
