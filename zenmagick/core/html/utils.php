@@ -422,4 +422,16 @@
     }
 
 
+    // create full link
+    function zm_ezpage_link($id, $text=null, $echo=true) {
+    global $zm_pages;
+        $page = $zm_pages->getPageForId($id);
+        $target = $page->isNewWin() ? ' target="_blank"' : '';
+        $link = '<a href="' . zm_ezpage_href($page, false) . '"' . $target . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
+
+        if ($echo) echo $link;
+        return $link;
+    }
+
+
 ?>
