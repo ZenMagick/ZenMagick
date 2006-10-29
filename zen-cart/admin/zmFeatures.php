@@ -96,8 +96,8 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $edit_product_feature = true;
         $update_id = (int)$zm_request->getRequestParameter('featureId');
         $value_index = (int)$zm_request->getRequestParameter('index');
-        $features = $zm_features->getFeaturesForProductId($productId);
-        foreach ($features as $feature) {
+        $pFeatures = $zm_features->getFeaturesForProductId($productId);
+        foreach ($pFeatures as $feature) {
           if ($feature->getId() == $update_id) {
             break;
           }
@@ -114,10 +114,10 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
 
         // stop duplicate index
         $invalid = false;
-        $features = $zm_features->getFeaturesForProductId($productId);
-        foreach ($features as $feature) {
+        $pFeatures = $zm_features->getFeaturesForProductId($productId);
+        foreach ($pFeatures as $feature) {
           $values = $feature->getValues();
-          if (array_key_exists($index, $values)) {
+          if (array_key_exists($index, $values) && $featureId == $feature->getId()) {
             $invalid = true;
             $messageStack->add('Duplicate index '.$index, 'error');
             // preset
@@ -308,8 +308,10 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
                             <?php echo $editType ?>
                           <?php } else { ?>
                             <select name="featureId">
-                              <?php foreach ($features as $feature) { $type = $feature->getType(); ?>
-                                <option value="<?php echo $feature->getId() ?>"><?php echo $feature->getName() ?></option>
+                              <?php foreach ($features as $feature) {
+                                $type = $feature->getType();
+                                $selected = $featureId == $feature->getId() ? " selected=\"selected\"" : "";?>
+                                <option value="<?php echo $feature->getId() ?>"<?php echo $selected?>><?php echo $feature->getName() ?></option>
                               <?php } ?>
                             </select>
                           <?php } ?>
