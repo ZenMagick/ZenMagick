@@ -3,6 +3,13 @@ Release 0.4.1
 - fixed wrong index validation bug in feature admin
 - fixed missing featured in feature admin when displaying error messages
 - added missing bit of SQL to features.sql
+- Added ZenMagick settings to zm_env() output
+- make 'default_layout' the default default layout for all themes
+- support for optional local.php file that may override default settings
+- added support to use ZenMagick from within external PHP web applications
+- feature admin was missing in release file :/
+- website:
+  * feature documentation
 
 Initial Release:
 - Fix state selection in create_account

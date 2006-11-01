@@ -68,4 +68,6 @@
         $zm_runtime->addFilter(zm_get_instance($filter));
     }
 
+    // local settings
+    include $zm_runtime->getZMRootPath()."local.php";
 ?>

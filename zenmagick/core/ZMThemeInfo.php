@@ -45,6 +45,7 @@ class ZMThemeInfo {
         $this->layout_ = array();
         $this->js_default_events_ = array();
         $this->js_events_ = array();
+        $this->setDefaultLayout('default_layout');
         $this->setViewDir("views/");
     }
 

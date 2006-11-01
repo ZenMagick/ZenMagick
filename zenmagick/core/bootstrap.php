@@ -207,7 +207,7 @@
      * @package net.radebatz.zenmagick
      */
     function zm_env() {
-    global $zm_loader;
+    global $zm_loader, $_ZM_SETTINGS;
 
         echo "<h3><em>ZenMagick</em> class instances</h3>";
         echo "<ul>";
@@ -237,6 +237,13 @@
             if (zm_starts_with($function, "zm_")) {
                 echo "<li>" . $function . "</li>";
             }
+        }
+        echo "</ul>";
+
+        echo "<h3><em>ZenMagick</em> settings</h3>";
+        echo "<ul>";
+        foreach ($_ZM_SETTINGS as $key => $value) {
+            echo "<li>" . $key . " = " . $value . "</li>";
         }
         echo "</ul>";
 

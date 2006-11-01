@@ -51,12 +51,14 @@ class ZMStaticController extends ZMRequestController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request, $zm_crumbtrail, $zm_theme;
         // prepare page name for crumbtrail
         $sub = $zm_request->getSubPageName();
         $sub = str_replace('_', ' ', $sub);
         $sub = ucwords($sub);
         $zm_crumbtrail->addCrumb($sub);
+
+        $this->exportGlobal("zm_theme", $zm_theme);
 
         return true;
     }
