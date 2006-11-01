@@ -69,5 +69,8 @@
     }
 
     // local settings
-    include $zm_runtime->getZMRootPath()."local.php";
+    $local = $zm_runtime->getZMRootPath()."local.php";
+    if (file_exists($local)) {
+        include $local;
+    }
 ?>
