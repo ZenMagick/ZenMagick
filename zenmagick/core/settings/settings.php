@@ -123,4 +123,19 @@
     // store
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
 
+    // banner
+    $_ZM_SETTINGS['bannerGroup1'] = SHOW_BANNERS_GROUP_SET1;
+    $_ZM_SETTINGS['bannerGroup2'] = SHOW_BANNERS_GROUP_SET2;
+    $_ZM_SETTINGS['bannerGroup3'] = SHOW_BANNERS_GROUP_SET3;
+    $_ZM_SETTINGS['bannerGroup4'] = SHOW_BANNERS_GROUP_SET4;
+    $_ZM_SETTINGS['bannerGroup5'] = SHOW_BANNERS_GROUP_SET5;
+    $_ZM_SETTINGS['bannerGroup6'] = SHOW_BANNERS_GROUP_SET6;
+    $_ZM_SETTINGS['bannerGroup7'] = SHOW_BANNERS_GROUP_SET7;
+    $_ZM_SETTINGS['bannerGroup8'] = SHOW_BANNERS_GROUP_SET8;
+    $_ZM_SETTINGS['bannerGroupAll'] = SHOW_BANNERS_GROUP_SET_ALL;
+
+    // images
+    $_ZM_SETTINGS['imgSuffixMedium'] = IMAGE_SUFFIX_MEDIUM;
+    $_ZM_SETTINGS['imgSuffixLarge'] = IMAGE_SUFFIX_LARGE;
+
 ?>

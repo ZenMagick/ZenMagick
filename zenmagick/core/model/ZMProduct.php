@@ -123,7 +123,9 @@ class ZMProduct {
         // include hidden
         return $this->features_;
     }
-    function getImageInfo() { return new ZMProductImageInfo($this); }
+    function getImageInfo() { return new ZMImageInfo($this->image_); }
+    function getAdditionalImages() { return _zm_get_additional_images($this->image_); }
+
     function isAttributePrice() { return zm_has_product_attributes_values($this->id_); }
 
     function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this); }

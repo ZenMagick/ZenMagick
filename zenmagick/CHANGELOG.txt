@@ -8,8 +8,11 @@ Release 0.4.1
 - support for optional local.php file that may override default settings
 - added support to use ZenMagick from within external PHP web applications
 - feature admin was missing in release file :/
+- banner support
+- improved product image handling and support for additional images
 - website:
   * feature documentation
+  * accessing the API from external web applications (PHP)
 
 Initial Release:
 - Fix state selection in create_account

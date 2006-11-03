@@ -25,53 +25,53 @@
 
 
 /**
- * Product images.
+ * Image information.
  *
  * @author mano
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMProductImageInfo {
-    var $product_;
-    var $ext_;
-    var $imageBase_;
+class ZMImageInfo {
     var $imageDefault_;
     var $imageMedium_;
     var $imageLarge_;
 
 
     // create new instance
-    function ZMProductImageInfo($product) {
-        $this->product_ = $product;
-        $image = $product->image_;
-        $this->ext_ = substr($image, strrpos($image, '.'));
-        if ('' != $image) {
-            $this->imageBase_ = ereg_replace($this->ext_, '', $image);
-        } else {
-            $this->imageBase_ = '';
-        }
-        $this->imageMedium_ = $this->imageBase_ . IMAGE_SUFFIX_MEDIUM . $this->ext_;
-        $this->imageLarge_ = $this->imageBase_ . IMAGE_SUFFIX_LARGE . $this->ext_;
+    function ZMImageInfo($image) {
+        $comp = _zm_split_image_name($image);
+        $subdir = $comp[0];
+        $ext = $comp[1];
+        $imageBase = $comp[2];
 
-        // validate files
-        $this->imageDefault_ = DIR_WS_IMAGES . $image;
+        // set default image
+        $this->imageDefault_ = zm_image_href($image, false);
 
-        if (!file_exists(DIR_WS_IMAGES . 'medium/' . $this->imageMedium_)) {
-            $this->imageMedium_ = DIR_WS_IMAGES . $image;
+        // evaluate optional medium image
+        $medium = $imageBase.zm_setting('imgSuffixMedium').$ext;
+        $medium = zm_image_href('medium/'.$medium, false);
+        if (!file_exists($medium)) {
+            // default to next smaller version
+            $this->imageMedium_ = $this->imageDefault_;
         } else {
-            $this->imageMedium_ = DIR_WS_IMAGES . 'medium/' . $this->imageMedium_;
+            $this->imageMedium_ = $medium;
         }
 
-        if (!file_exists(DIR_WS_IMAGES . 'large/' . $this->imageLarge_)) {
+        // evaluate optional large image
+        $large = $imageBase.zm_setting('imgSuffixLarge').$ext;
+        $large = zm_image_href('large/'.$large, false);
+        if (!file_exists($large)) {
+            // default to next smaller version
             $this->imageLarge_ = $this->imageMedium_;
         } else {
-            $this->imageLarge_ = DIR_WS_IMAGES . 'large/' . $this->imageLarge_;
+            $this->imageLarge_ = $large;
         }
     }
 
+
     // create new instance
     function __construct($product) {
-        $this->ZMProductImageInfo($product);
+        $this->ZMImageInfo($product);
     }
 
     function __destruct() {
@@ -79,7 +79,7 @@ class ZMProductImageInfo {
 
 
     // getter/setter
-    function hasImage() { return '' != $this->product_->getDefaultImage(); }
+    function hasImage() { return '' != $this->imageDefault_; }
     function getDefaultImage() { return $this->imageDefault_; }
     function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
     function getMediumImage() { return $this->imageMedium_; }

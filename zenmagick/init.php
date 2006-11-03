@@ -62,6 +62,7 @@
     $zm_messages = new ZMMessages();
     $zm_pages = new ZMEZPages();
     $zm_coupons = new ZMCoupons();
+    $zm_banners = new ZMBanners();
 
     // do this only after all global instances are set up
     foreach ($zmt_filter_names as $filter) {

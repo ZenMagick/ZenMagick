@@ -335,11 +335,13 @@
             $html .= ' name="' . $id . '"';
         }
         $html .= ' method="' . $method . '">';
+        $html .= '<div class="hidden>';
         $html .= '<input type="hidden" name="main_page" value="' . $page . '" />';
         parse_str($params, $query);
         foreach ($query as $name => $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
+        $html .= '</div>';
 
         if ($echo) echo $html;
         return $html;
@@ -431,6 +433,50 @@
 
         if ($echo) echo $link;
         return $link;
+    }
+
+
+    /**
+     * Create an image href with <code>DIR_WS_IMAGES</code> as base.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string src The relative source name.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A full URL.
+     */
+    function zm_image_href($src, $echo=true) {
+        $href = DIR_WS_IMAGES . $src;
+
+        if ($echo) echo $href;
+        return $href;
+    }
+
+    /**
+     * Create an redirect href for the given action and id.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string action The redirect action.
+     * @param string id The redirect id.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A full URL.
+     */
+    function zm_redirect_href($action, $id, $echo=true) {
+        return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
+    }
+
+    /**
+     * Convert a given relative href/URL into a absolute one based on teh current context.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string href The URL to convert..
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string The absolute href.
+     */
+    function zm_absolute_href($href, $echo=true) {
+        $href = dirname(zm_href(null, null, false)) . "/" . $href;
+
+        if ($echo) echo $href;
+        return $href;
     }
 
 

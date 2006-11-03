@@ -249,4 +249,74 @@
 
     }
 
+
+    /**
+     * Split image name into components that we need to process it.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string image The image.
+     * @return array An array consisting of [optional subdirectory], [file extension], [basename]
+     */
+    function _zm_split_image_name($image) {
+        // optional subdir on all levels
+        $subdir = dirname($image);
+        $subdir = "." == $subdir ? "" : $subdir."/";
+
+        // the file extension
+        $ext = substr($image, strrpos($image, '.'));
+
+        // filename without suffix
+        $basename = '';
+        if ('' != $image) {
+            $basename = ereg_replace($ext, '', $image);
+        }
+
+        return array($subdir, $ext, $basename);
+    }
+
+
+    /**
+     * Look up additional product images.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string image The image to look up.
+     * @return array An array of <code>ZMImageInfo</code> instances.
+     */
+    function _zm_get_additional_images($image) {
+        $comp = _zm_split_image_name($image);
+        $subdir = $comp[0];
+        $ext = $comp[1];
+        $realImageBase = basename($comp[2]);
+
+        // directory to scan
+        $dirname = zm_image_href($sizedir.$subdir, false);
+
+        $imageList = array();
+        if ($dir = @dir($dirname)) {
+            while ($file = $dir->read()) {
+                if (!is_dir($dirname . $file)) {
+                    if (zm_ends_with($file, $ext)) {
+                        if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
+                            if ($file != basename($image)) {
+                                if ($realImageBase . ereg_replace($realImageBase, '', $file) == $file) {
+                                    array_push($imageList, $file);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $dir->close();
+            sort($imageList);
+        }
+
+        // create ZMImageInfo list...
+        $imageInfoList = array();
+        foreach ($imageList as $aimg) {
+            array_push($imageInfoList, new ZMImageInfo($subdir.$aimg));
+        }
+
+        return $imageInfoList;
+    }
+
 ?>
