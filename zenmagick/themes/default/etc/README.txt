@@ -1,1 +1,1 @@
-Additional stuff as documentation, etc.
+Additional stuff like documentation, etc.
