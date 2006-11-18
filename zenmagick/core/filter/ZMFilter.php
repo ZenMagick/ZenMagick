@@ -25,7 +25,7 @@
 
 
 /**
- * Result list filte.
+ * Result list filter.
  *
  * @author mano
  * @package net.radebatz.zenmagick.filter
