@@ -112,4 +112,10 @@
     function zm_redirect($url) { zen_redirect($url); }
     function zm_exit() { zen_exit(); }
 
+    function zm_resolve_zc_class($clazz) {
+        if (!class_exists($clazz)) {
+            require_once(DIR_WS_CLASSES . $clazz. '.php');
+        }
+    }
+
 ?>

@@ -27,10 +27,12 @@
 <h3><?php zm_l10n("Quick Search") ?></h3>
 <div id="sb_search" class="box">
     <?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', null, "get") ?>
-        <input type="hidden" name="search_in_description" value="1" />
-        <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
-        <?php $onfocus = "if(this.value=='" . zm_l10n_get("enter search") . "') this.value='';" ?>
-        <input type="text" id="keyword" name="keyword" value="<?php zm_l10n("enter search") ?>" onfocus="<?php echo $onfocus ?>" />
+        <div>
+            <input type="hidden" name="search_in_description" value="1" />
+            <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
+            <?php $onfocus = "if(this.value=='" . zm_l10n_get("enter search") . "') this.value='';" ?>
+            <input type="text" id="keyword" name="keyword" value="<?php zm_l10n("enter search") ?>" onfocus="<?php echo $onfocus ?>" />
+        </div>
     </form>
     <a class="clear" href="<?php zm_href(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
 </div>

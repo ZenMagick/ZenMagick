@@ -92,7 +92,13 @@ class ZMRequestController {
     }
 
     // process a GET request
-    function processGet() { return true; }
+    function processGet() {
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb(zm_title(false));
+        return true;
+    }
+
     // process a POST request
     function processPost() { return $this->processGet(); }
 
@@ -104,7 +110,7 @@ class ZMRequestController {
 
     // utility method for subclasses
     function exportGlobal($name, &$instance) {
-        if (null == $instance)
+        if (null === $instance)
             return;
         $this->globals_[$name] = $instance;
     }

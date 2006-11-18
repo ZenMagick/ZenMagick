@@ -35,3 +35,23 @@ function popupWindow(url) {
     win.focus();
   }
 }
+
+function newWin(link) {
+  var win = window.open(link.href);
+  if (win && win.focus) {
+    win.focus();
+  }
+}
+
+function productPopup(e, parent) {
+  if (e.preventDefault) e.preventDefault();
+  var win = window.open("","pimage","height=206,width=246");
+  if (!win) return;
+  win.document.write('<!DOCTYPE html><html>'
+    + '<title>' + document.getElementsByTagName('title')[0].innerHTML + '</title>'
+    + '<style type="text/css">html,body,p{margin:0;padding:0}body{color:#6b6b6b}p{margin:8px;font:70% sans-serif;text-align:center}a{color:#125991}</style>'
+    + '<p><img id="theimg" src="' + parent.href + '" height="160" width="200" alt="">'
+    + '<p>[ <a href="#" onclick="javascript:window.close()">Close Window</a> ]</html>');
+  win.document.close();
+  win.focus();
+}

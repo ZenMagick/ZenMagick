@@ -41,7 +41,7 @@
     if (zm_setting('isEnableZenMagick') && ($zm_theme->isValidRequest() || null != $zm_controller)) {
         // load theme's extra resources
         foreach ($zm_theme->getExtraFiles() as $shared) {
-            include($shared);
+            include_once($shared);
         }
         $zm_themeInfo = $zm_theme->getThemeInfo();
         $zm_view = null;

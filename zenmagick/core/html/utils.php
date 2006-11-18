@@ -335,7 +335,7 @@
             $html .= ' name="' . $id . '"';
         }
         $html .= ' method="' . $method . '">';
-        $html .= '<div class="hidden>';
+        $html .= '<div>';
         $html .= '<input type="hidden" name="main_page" value="' . $page . '" />';
         parse_str($params, $query);
         foreach ($query as $name => $value) {
@@ -365,11 +365,13 @@
         $params = 'action=add_product&products_id='.$productId;
         $html .= '<form action="' . zm_secure_href(zen_get_info_page($productId), $params, false) . '"';
         $html .= ' method="post" enctype="multipart/form-data">';
+        $html .= '<div>';
         $html .= '<input type="hidden" name="action" value="add_product" />';
         $html .= '<input type="hidden" name="products_id" value="'.$productId.'" />';
         if (0 < $quantity) {
             $html .= '<input type="hidden" name="cart_quantity" value="'.$quantity.'" />';
         }
+        $html .= '</div>';
 
         echo $html;
         return $html;
@@ -416,19 +418,19 @@
     }
 
 
-    // get a nicer version of the page name
-    function zm_nice_page_name($name=null) {
-    global $zm_request;
-        $name = null == $name ? $zm_request->getPageName() : $name;
-        return ucwords(str_replace('_', ' ', $name));
-    }
-
-
-    // create full link
+    /**
+     * Create a full HTML &gt;a&lt; tag.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param integer id The EZ page id.
+     * @param string text Optional link text.
+     * @param bool echo If <code>true</code>, the link will be echo'ed as well as returned.
+     * @return string A full HTML link.
+     */
     function zm_ezpage_link($id, $text=null, $echo=true) {
     global $zm_pages;
         $page = $zm_pages->getPageForId($id);
-        $target = $page->isNewWin() ? ' target="_blank"' : '';
+        $target = $page->isNewWin() ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
         $link = '<a href="' . zm_ezpage_href($page, false) . '"' . $target . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
 
         if ($echo) echo $link;
@@ -451,6 +453,7 @@
         return $href;
     }
 
+
     /**
      * Create an redirect href for the given action and id.
      *
@@ -463,6 +466,7 @@
     function zm_redirect_href($action, $id, $echo=true) {
         return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
     }
+
 
     /**
      * Convert a given relative href/URL into a absolute one based on teh current context.
@@ -479,5 +483,35 @@
         return $href;
     }
 
+    /**
+     * Encode a given string to valid HTML.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string s The string to decode.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string The encoded HTML.
+     */
+    function zm_htmlencode($s, $echo=true) {
+        $s = htmlentities($s);
+
+        if ($echo) echo $s;
+        return $s;
+    }
+
+
+    /**
+     * Strip HTML tags from the given text.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string text The text to clean up.
+     * @param bool echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
+     * @return string The stripped text.
+     */
+    function zm_strip_html($text, $echo=true) {
+        $clean = zen_clean_html($text);
+
+        if ($echo) echo $clean;
+        return $clean;
+    }
 
 ?>

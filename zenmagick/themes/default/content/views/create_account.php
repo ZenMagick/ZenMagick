@@ -28,13 +28,13 @@
   zm_js_rule('Checked', 'gender', "Please choose a gender."),
   zm_js_rule('Length', 'firstname', "Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH),
   zm_js_rule('Length', 'lastname', "Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'dob', "Your Date of Birth must be in this format: MM/DD/YYYY (eg 05/21/1970)."),
+  zm_js_rule('Length', 'dob', vsprintf("Your Date of Birth must be in this format: %s.", UI_DATE_FORMAT_SAMPLE), strlen(UI_DATE_FORMAT)),
   zm_js_rule('Length', 'email_address', "Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH),
   zm_js_rule('Length', 'street_address', "Your Street Address must contain a minimum of %s characters.", ENTRY_STREET_ADDRESS_MIN_LENGTH),
   zm_js_rule('Length', 'city', "Your City must contain a minimum of %s characters.", ENTRY_CITY_MIN_LENGTH),
   zm_js_rule('Length', 'state', "Your State must contain a minimum of %s characters.", ENTRY_STATE_MIN_LENGTH),
   zm_js_rule('Length', 'postcode', "Your Post Code must contain a minimum of %s characters.", ENTRY_POSTCODE_MIN_LENGTH),
-  zm_js_rule('NotEmpty', 'country', "You must select a country."),
+  zm_js_rule('NotEmpty', 'zone_country_id', "You must select a country."),
   zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
 ) ?>
 <?php include $zm_theme->themeFile("validation.js"); ?>
@@ -80,7 +80,7 @@
                 <?php if (zm_setting('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /></td>
+                        <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /><?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -140,7 +140,7 @@
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php zm_idp_select('country', $zm_countries->getCountries(), 1, $country ? $country->getId() : null) ?></td>
+                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $country ? $country->getId() : null) ?></td>
                 </tr>
 
                 <tr>

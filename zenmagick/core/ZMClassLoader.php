@@ -91,6 +91,8 @@ echo "</pre>";
             require_once($classfile);
         }
 
+        zm_log("newInstance: name: " . $name .  ", zmname: " . $zmname, 4);
+
         if (null == $classfile && null == $zmclassfile)
             return null;
 

@@ -1,4 +1,5 @@
-Release 0.4.1
+Release 0.4.5
+- upgraded to zen-cart 1.3.6
 - add conveniece function zm_ezpage_link($id)
 - fixed wrong index validation bug in feature admin
 - fixed missing featured in feature admin when displaying error messages
@@ -10,9 +11,39 @@ Release 0.4.1
 - feature admin was missing in release file :/
 - banner support
 - improved product image handling and support for additional images
+- fixed a bug in the feature admin tree view related to apostrophes in the
+  category name
+- make HTML for (most) pages validate
+- added support for meta tags and titles
+- added echo parameter for zm_htmlurlencode/decode
+- added new zm_htmlencode
+- fixed registration error: missing country
+- removed zm_nice_page_name in favour of zm_title and $zm_meta (ZMMetaTags)
+- added zm_strip_html wrapper for zen_clean_html
+- fixed login error messages if login not found
+- added fix to be able to submit the login as post instead of get - this
+  avoids having the password in the URL!
+- extensions to l10n, plus phpdoc
+- added ZMMetaTags for meta tag and title generation
+- added newWin(this) JS function
+- added zm_resolve_zc_class; this is mostly for internal use to load zen-cart
+  classes on demand
+- added getCategories() to ZMCategories
+- added ZMSearch as wrapper around a search
+- added advanced_search view to default theme
+- Moved crumbtrail handling from ZMDefaultController to ZMRequestController
+- Added PHP support for define pages
+- added proper popup for large images
+- renamed view for actegory list to category_list.php; category.php is now for
+  categories that do not have items only; new setting 'isUseCategoryPage'
+- fixed reference problem when categories would lose their children - sounds
+  horrible, eh?
+- fixed bug retreiving featured products
 - website:
   * feature documentation
   * accessing the API from external web applications (PHP)
+  * document disabling ZenMagick templates
+
 
 Initial Release:
 - Fix state selection in create_account

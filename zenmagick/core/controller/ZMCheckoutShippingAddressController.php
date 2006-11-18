@@ -54,7 +54,7 @@ class ZMCheckoutShippingAddressController extends ZMRequestController {
     global $zm_request, $zm_crumbtrail, $zm_cart;
 
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $address = new ZMAddress();
         $address->populateFromRequest();

@@ -41,8 +41,7 @@
     <?php $pages = $zm_pages->getPagesForHeader(); ?>
     <?php $pages = array(); /* disabled */ ?>
     <?php foreach ($pages as $page) { ?>
-        <li><a href="<?php zm_ezpage_href($page) ?>"><?php echo $page->getTitle() ?></a></li>
+        <li><?php zm_ezpage_link($page->getId()) ?></li>
     <?php } ?>
-
   </ul>
 </div>

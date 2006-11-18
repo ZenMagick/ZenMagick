@@ -42,7 +42,7 @@
             $class = trim($class);
             $html .= '<a' . ('' != $class ? ' class="'.$class.'"' : '') . ' href="' .
                         zm_href(FILENAME_DEFAULT, '&'.$category->getPath(), '', false, false) .
-                        '">'.$category->getName().'</a>';
+                        '">'.zm_htmlencode($category->getName(), false).'</a>';
             if (0 < $noOfProducts) {
                 //$html .= ' ('.$noOfProducts.')';
             }

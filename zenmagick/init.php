@@ -63,6 +63,7 @@
     $zm_pages = new ZMEZPages();
     $zm_coupons = new ZMCoupons();
     $zm_banners = new ZMBanners();
+    $zm_meta = $zm_loader->newInstance('MetaTags');
 
     // do this only after all global instances are set up
     foreach ($zmt_filter_names as $filter) {
@@ -74,4 +75,12 @@
     if (file_exists($local)) {
         include $local;
     }
+
+    // security fix
+    if ("login" == $zm_request->getPageName()) {
+        // *disable* zc account create code
+        $_GET['action'] = $_POST['action'];
+        unset($_POST['action']);
+    }
+
 ?>

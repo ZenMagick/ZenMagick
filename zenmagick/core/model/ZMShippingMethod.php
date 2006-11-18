@@ -3,7 +3,7 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006 ZenMagick
  *
- * Protions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify

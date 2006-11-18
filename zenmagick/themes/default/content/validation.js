@@ -22,7 +22,7 @@
  * $Id$
  */
 ?>
-<script type="text/javascript">
+<script type="text/javascript"><!--
 function isValidLength(elem, min) { return !(elem.value == '' || elem.value.length < min); }
 function isSelected(elem, value) { return elem.value == value; }
 function isAnySelected(elem) { return -1 != elem.selectedIndex; }
@@ -50,4 +50,4 @@ if (isValid) { _submitted = true;
 } else { alert(msg); }
 return isValid;
 }
-</script>
+--></script>

@@ -54,7 +54,7 @@ class ZMGvSendController extends ZMRequestController {
     global $zm_request, $zm_crumbtrail, $zm_accounts, $zm_messages;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
         $this->exportGlobal("zm_gvreceiver", new ZMGVReceiver());

@@ -24,7 +24,6 @@
  */
 ?>
 
-
 <?php 
     // create list of features per product in same order
     $featureList = array();

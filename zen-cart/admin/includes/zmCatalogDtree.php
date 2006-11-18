@@ -58,7 +58,7 @@
          $products = $zm_products->getProductsForCategoryId($categoryId);
          foreach ($products as $product) {
             $url = ",'".$pUrlPrefix."?cPath=".$zm_request->getCategoryPath()."&amp;productId=".$product->getId()."'";
-            echo "catalog.add(".$index++.",".$zm_dtree_catalog_map[$categoryId].",'".$product->getName()."'".$url.",'','','includes/dtree/img/globe.gif');\n";
+            echo "catalog.add(".$index++.",".$zm_dtree_catalog_map[$categoryId].",'".addslashes($product->getName())."'".$url.",'','','includes/dtree/img/globe.gif');\n";
          }
       }
 

@@ -25,7 +25,7 @@
 
 
 /**
- * Default controller.
+ * Empty default controller.
  *
  * @author mano
  * @package net.radebatz.zenmagick.controller
@@ -44,18 +44,6 @@ class ZMDefaultController extends ZMRequestController {
     }
 
     function __destruct() {
-    }
-
-
-    /** API implementation */
-
-    // process a GET request
-    function processGet() {
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
-
-        return true;
     }
 
 }

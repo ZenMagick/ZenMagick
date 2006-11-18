@@ -53,7 +53,7 @@ class ZMShoppingCartController extends ZMRequestController {
     function processGet() {
     global $zm_crumbtrail, $zm_cart;
 
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         if ($zm_cart->isEmpty()) {
             $this->setResponseView(new ZMView("empty_cart", "empty_cart"));

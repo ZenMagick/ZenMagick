@@ -24,4 +24,4 @@
  */
 ?>
 
-<?php $zm_theme->includeStaticPageContent($zm_request->getSubPageName()) ?>
+<?php echo eval('?>'.$zm_theme->includeStaticPageContent($zm_request->getSubPageName(), false)) ?>

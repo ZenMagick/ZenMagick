@@ -28,7 +28,7 @@
   <p id="fpages">
       <?php $pages = $zm_pages->getPagesForFooter(); ?>
       <?php foreach ($pages as $page) { ?>
-          <a href="<?php zm_ezpage_href($page) ?>"><?php echo $page->getTitle() ?></a>
+          <?php zm_ezpage_link($page->getId()) ?>
       <?php } ?>
   </p>
   <p>

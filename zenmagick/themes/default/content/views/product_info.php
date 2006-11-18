@@ -29,27 +29,12 @@
 
 <?php zm_add_product_form($zm_product->getId()) ?>
   <?php $imageInfo = $zm_product->getImageInfo() ?>
-  <script type="text/javascript">
-      function productImgPopup(link) {
-          var height = <?php echo MEDIUM_IMAGE_HEIGHT ?>;
-          var width = <?php echo MEDIUM_IMAGE_WIDTH ?>;
-          var args = "status,height="+(height+240)+",width="+(width+220);
-          var win = window.open("", "bigimg", args);
-          if (null != win) {
-              win.document.write(<?php
-                ?>'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<?php
-                ?><html><head><title><?php stripslashes($zm_product->getName()) ?></title><?php
-                ?><link rel=stylesheet href="<?php $zm_theme->themeURL("popup.css") ?>" type="text/css"></head><?php
-                ?><body class=bigimage><p><img src="<?php echo zm_htmlurlencode($imageInfo->getMediumImage()) ?>"<?php
-                ?>height=266 width=405 alt=""></p><?php
-                ?><p>[ <a href="javascript:window.close()">Close Window</a> ]</p></body></html>');
-              win.document.close();
-              win.focus();
-          }
-      }
-  </script>
   <div>
-      <a href="<?php echo $imageInfo->getMediumImage() ?>" onclick="productImgPopup(); return false;"><?php zm_product_image($zm_product) ?></a>
+      <?php if ($imageInfo->hasLargeImage()) { ?>
+          <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php zm_product_image($zm_product) ?></a>
+      <?php } else { ?>
+          <?php zm_product_image($zm_product) ?>
+      <?php } ?>
       <div id="desc"><?php echo $zm_product->getDescription(); ?></div>
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php echo $manufacturer->getName() ?><br />
@@ -79,7 +64,21 @@
 
   <fieldset>
       <label for="cart_quantity"><?php zm_l10n("Quantity") ?></label>
-      <input type="text" name="cart_quantity" value="1" maxlength="6" size="4" />
+      <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
       <input type="submit" value="<?php zm_l10n("Add to cart") ?>" />
   </fieldset>
+
+  <?php $addImgList = $zm_product->getAdditionalImages(); ?>
+  <?php if (0 < count($addImgList)) { ?>
+      <fieldset>
+          <legend><?php zm_l10n("Additional Images") ?></legend>
+          <?php foreach ($addImgList as $addImg) { ?>
+              <?php if ($addImg->hasLargeImage()) { ?>
+                  <a href="<?php zm_absolute_href($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+              <?php } else { ?>
+                  <img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" />
+              <?php } ?>
+          <?php } ?>
+      </fieldset>
+  <?php } ?>
 </form>

@@ -29,8 +29,8 @@
 <?php if (0 < count($pages)) { ?>
     <h3><?php zm_l10n("Important Links") ?></h3>
     <div id="sb_ezpages" class="box">
-        <?php foreach ($pages as $page) { $target = $page->isNewWin() ? 'target="_blank" ': ''; ?>
-            <a href="<?php zm_ezpage_href($page) ?>"<?php echo $target ?>><?php echo $page->getTitle() ?></a>
+        <?php foreach ($pages as $page) { ?>
+            <?php zm_ezpage_link($page->getId())?>
         <?php } ?>
     </div>
 <?php } ?>

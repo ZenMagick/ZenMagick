@@ -90,6 +90,12 @@ class ZMCategories {
         return 0 < $results->RecordCount();
     }
 
+    // get all categories
+    function getCategories() {
+        if (!$this->loaded()) { $this->_load(); }
+        return $this->categories_;
+    }
+
     // get the categorie tree
     function getCategoryTree() {
         if (null == $this->tree_) {
@@ -100,7 +106,8 @@ class ZMCategories {
 
     function getCategoryForId($id) {
         if (!$this->loaded()) { $this->_load(); }
-        return $this->categories_[$id];
+        $cat =&  $this->categories_[$id];
+        return $cat; //$this->categories_[$id];
     }
 
 
@@ -225,6 +232,7 @@ class ZMCategories {
         foreach ($this->categories_ as $category) {
             $nname = "n".$category->id_;
             usort($$nname->children_, array($this, "_nodeCompare"));
+            $this->categories_[$category->id_] =& $$nname;
         }
         usort($this->tree_, array($this, "_nodeCompare"));
     }

@@ -42,7 +42,7 @@
 
     // format for account dob, advanced search or simply everywhere where zen-cart
     // is using zen_raw_date(..)
-    define('UI_DATE_FORMAT', 'DD/MM/YYYY');
+    define('UI_DATE_FORMAT', 'dd/mm/yyyy');
     define('UI_DATE_FORMAT_SAMPLE', '16/11/1967');
 
     // HTML i18n settings

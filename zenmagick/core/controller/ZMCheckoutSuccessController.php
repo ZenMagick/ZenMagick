@@ -54,7 +54,7 @@ class ZMCheckoutSuccessController extends ZMRequestController {
     global $zm_request, $zm_crumbtrail, $zm_orders, $zm_accounts;
 
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId(), 1);
         $this->exportGlobal("zm_order", $orders[0]);

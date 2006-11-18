@@ -1,33 +1,30 @@
 zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
-- banner boxes
 - missing side boxes; do we?
-- product popups; do we?
+- implement category page
 
 
 usablility:
 - add category (no products) controller/view
-- fix default theme IE bugs
+- fix default theme IE bugs; test in IE7
 - admin interface for ZM config values
 - SQL import that can prepend the ZM_DB_PREFIX
 - more documentation
-- regexp style fields for generating various image names; eg:
-  small = /images/products/$model_T.JPG
-  medium = /images/products/$model.JPG
-  large = /images/products/$model_L.JPG
 - generic interface to manage theme settings
+
 
 code quality:
 - improve ZMClassLoader to resolve dependencies
 - improve class loader to load only actually required files; what about functions?
-- Proper use of references (ie usage of & when passing objects around)
+- Proper use of references (ie usage of ampersand (&amp;) when passing objects around)
 - ZMView -> ZMForwardView, ZMRedirectView + ZMView as base class
 - refactor SQL to generic sql layer? overkill? ... but still fun?
 - restructure to have zenmagick outside htdocs
 - admin:features: error handling, form validation
 - more phpdoc
 - use bind on $db for all SQL
+- random query in ZMProducts
 
 
 new features:
@@ -35,5 +32,4 @@ new features:
 - external API; application_top + init?
 
 docs:
-- enable/disable themes
-- 
+- ???

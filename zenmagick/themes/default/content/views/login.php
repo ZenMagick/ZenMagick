@@ -23,6 +23,7 @@
  * $Id$
  */
 ?>
+
 <?php zm_secure_form(FILENAME_LOGIN, "action=process") ?>
   <p>
     <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>

@@ -125,7 +125,7 @@ class ZMTheme {
 
 
     // include static page content
-    function includeStaticPageContent($page) {
+    function includeStaticPageContent($page, $echo=true) {
     global $zm_request, $zm_runtime;
         $language = $zm_request->getLanguageName();
         $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getRawThemeId().'/define_' . $page . '.php';
@@ -133,7 +133,10 @@ class ZMTheme {
             $filename = DIR_WS_LANGUAGES . $language . '/html_includes/define_' . $page . '.php';
         }
 
-        include $filename;
+        $contents = file_get_contents($filename);
+
+        if ($echo) echo $contents;
+        return $contents;
     }
 
 

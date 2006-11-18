@@ -3,7 +3,7 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006 ZenMagick
  *
- * Protions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
@@ -33,6 +33,10 @@
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
 
+    // HTML generation / validation
+    //$_ZM_SETTINGS['isXHTML'] = true;
+    $_ZM_SETTINGS['isJSTarget'] = true;
+
     // ZM permalinks
     $_ZM_SETTINGS['isZMPermalinks'] = false;
     // default to default in ZM themes
@@ -41,6 +45,9 @@
     // main layout
     $_ZM_SETTINGS['isEnableLeftColumn'] = COLUMN_LEFT_STATUS != 0;
     $_ZM_SETTINGS['isEnableRightColumn'] = COLUMN_RIGHT_STATUS != 0;
+
+    // use category page
+    $_ZM_SETTINGS['isUseCategoryPage'] = true;
 
     $_ZM_SETTINGS['isSortAttributesByName'] = PRODUCTS_OPTIONS_SORT_ORDER != '0';
     // sort attribute values
@@ -121,6 +128,7 @@
     $_ZM_SETTINGS['isContactUsStoreAddress'] = CONTACT_US_STORE_NAME_ADDRESS == '1';
 
     // store
+    $_ZM_SETTINGS['storeName'] = STORE_NAME;
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
 
     // banner
@@ -137,5 +145,11 @@
     // images
     $_ZM_SETTINGS['imgSuffixMedium'] = IMAGE_SUFFIX_MEDIUM;
     $_ZM_SETTINGS['imgSuffixLarge'] = IMAGE_SUFFIX_LARGE;
+
+    // meta
+    $_ZM_SETTINGS['metaTagKeywordDelimiter'] = ', ';
+    $_ZM_SETTINGS['metaTagCrumbtrailDelimiter'] = ' - ';
+    $_ZM_SETTINGS['metaTitleDelimiter'] = ' :: ';
+    $_ZM_SETTINGS['metaTitlePrefix'] = 'title_';
 
 ?>

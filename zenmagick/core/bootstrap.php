@@ -177,6 +177,7 @@
      */
     function zm_get_instance($className, $isa=null) {
         if (class_exists($className)) {
+            zm_log("creating new " . $className, 4);
             $obj = new $className();
             if (null == $isa || is_a($obj, $isa)) {
                 return $obj;
@@ -318,5 +319,20 @@
 
         return $imageInfoList;
     }
+
+
+    /**
+     * Simple wrapper around <code>debug_backtrace()</code>.
+     *
+     * @package net.radebatz.zenmagick
+     * @param bool die If true, die after printing the stack.
+     */
+    function zm_backtrace($die=true) {
+        echo "<pre>";
+        print_r(debug_backtrace());
+        echo "</pre>";
+        if ($die) die("trace'n die");
+    }
+
 
 ?>

@@ -54,7 +54,7 @@ class ZMAccountHistoryInfoController extends ZMRequestController {
     global $zm_request, $zm_crumbtrail, $zm_orders;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_nice_page_name(), zm_secure_href(FILENAME_ACCOUNT_HISTORY, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false), zm_secure_href(FILENAME_ACCOUNT_HISTORY, '', false));
         $zm_crumbtrail->addCrumb("Order # ".$zm_request->getOrderId());
 
         $order = $zm_orders->getOrderForId($zm_request->getOrderId());

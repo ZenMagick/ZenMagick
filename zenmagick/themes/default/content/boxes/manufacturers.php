@@ -29,10 +29,12 @@
     <h3><?php zm_l10n("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">
         <?php zm_form(FILENAME_DEFAULT, '', null, "get") ?>
-            <?php zm_idp_select('manufacturers_id', array_merge(array(new ZMIdNamePair("", zm_l10n_get("Please Select"))), $manufacturers), 3, $zm_request->getManufacturerId(), 'this.form.submit()') ?>
-            <noscript>
-                <input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" />
-            </noscript>
+            <div>
+                <?php zm_idp_select('manufacturers_id', array_merge(array(new ZMIdNamePair("", zm_l10n_get("Please Select"))), $manufacturers), 3, $zm_request->getManufacturerId(), 'this.form.submit()') ?>
+                <noscript>
+                    <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
+                </noscript>
+            </div>
         </form>
     </div>
 <?php } ?>

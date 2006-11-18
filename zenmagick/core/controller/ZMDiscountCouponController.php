@@ -53,7 +53,7 @@ class ZMDiscountCouponController extends ZMRequestController {
     function processGet() {
     global $zm_crumbtrail;
 
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         return true;
     }

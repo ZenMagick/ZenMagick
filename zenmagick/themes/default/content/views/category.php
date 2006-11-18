@@ -23,9 +23,27 @@
  * $Id$
  */
 ?>
+<h2><?php echo $zm_category->getName() ?></h2>
 
-<?php if ($zm_resultList->hasResults()) { ?>
-    <?php processResultList($zm_resultList, "product", "handle_product_result", "product_table_def") ?>
-<?php } else { ?>
-    <h2><?php zm_l10n("There are no products in this category") ?></h2>
+<?php if ($zm_category->hasChildren()) { ?>
+    <h3><?php zm_l10n("Available Categories") ?></h3>
+    <?php foreach ($zm_category->getChildren() as $category) { ?>
+        <?php echo $category->getName() ?><br />
+    <?php } ?>
+<?php } ?>
+
+<?php $featured = $zm_products->getFeaturedProducts($zm_category->getId(), 4); ?>
+
+<?php if (0 < count($featured)) { ?>
+    <h3>Featured Products</h3>
+    <div id="featured">
+      <?php foreach ($featured as $product) { ?>
+        <div>
+          <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a></p>
+          <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
+          <?php $offers = $product->getOffers(); ?>
+          <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
+        </div>
+      <?php } ?>
+    </div>
 <?php } ?>

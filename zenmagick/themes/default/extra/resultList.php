@@ -51,6 +51,7 @@
         $options = $resultList->getSortOptions();
         if ($sort && $options->hasOptions()) {
             $html .= zm_form(null, '', null, "get", null, false);
+            $html .= '<div>';
             $html .= '<input type="hidden" name="page" value="' . $resultList->getCurrentPageNumber() . '" />';
             if ($zm_request->getCategoryPath()) {
                 $html .= '<input type="hidden" name="cPath" value="' . $zm_request->getCategoryPath() . '" />';
@@ -69,6 +70,7 @@
               }
             $html .= '</select>';
             $html .= '<input type="submit" class="btn" value="' . zm_l10n_get("Sort / Reverse") . '" />';
+            $html .= '</div>';
             $html .= '</form>';
         }
 
@@ -123,7 +125,7 @@
         $html .= '</td><td class="pinfo">';
         $html .= '<a href="' . zm_product_href($product->getId(), false) . '">' . 
             $product->getName() . '</a><br/>';
-        $html .= zm_more($product->getDescription(), 120, false);
+        $html .= zm_more(zm_strip_html($product->getDescription(), false), 120, false);
         $html .= '</td><td class="pprice">';
         $html .= zm_format_currency($product->getPrice(), false);
         $html .= '</td></tr>';

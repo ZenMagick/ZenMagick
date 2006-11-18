@@ -123,10 +123,10 @@ class ZMProducts {
 
 
     // get featured products
-    function getFeaturedProducts($categoryId = null, $max = 1) {
+    function getFeaturedProducts($categoryId=null, $max=1) {
     global $zm_request;
-		$query = null;
-        if (null == $categoryId || 0 == $categoyId) {
+		    $query = null;
+        if (null == $categoryId || 0 == $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p 
                       left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
@@ -135,14 +135,15 @@ class ZMProducts {
                       and f.status = '1'";
         } else {
             $query = "select distinct p.products_id
-                      from " . TABLE_PRODUCTS . " p
-                      left join " . TABLE_FEATURED . " f on p.products_id = f.products_id " .
-                       TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                      where p.products_id = p2c.products_id
-                      and c.parent_id = '" . $categoryId . "'
-                      and p.products_id = f.products_id
-                      and p.products_status = '1'
-                      and f.status = '1'";
+                     from (" . TABLE_PRODUCTS . " p
+                     left join " . TABLE_FEATURED . " f on p.products_id = f.products_id), " .
+                      TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .
+                      TABLE_CATEGORIES . " c
+                     where p.products_id = p2c.products_id
+                     and p2c.categories_id = c.categories_id
+                     and c.parent_id = '" . $categoryId . "'
+                     and p.products_id = f.products_id
+                     and p.products_status = 1 and f.status = 1";
         }
 
         $productIds = array();
@@ -150,7 +151,6 @@ class ZMProducts {
         while (0 < $left) {
             $results = $this->db_->ExecuteRandomMulti($query, $left);
             if (0 == $results->RecordCount()) {
-                echo "no results; left = $left, results: " . count ($productIds);
                 break;
             }
             while (!$results->EOF) {
@@ -160,7 +160,12 @@ class ZMProducts {
                 if ($max == count($productIds))
                     break;
             }
-            $left = $max - count($productIds);
+            $reminder = $max - count($productIds);
+            if ($reminder == $left) {
+                // can't find any more
+                break;
+            }
+            $left = $reminder;
         }
         return $this->getProductsForIds($productIds);
     }
@@ -187,10 +192,12 @@ class ZMProducts {
 
         // productIds
         $productIds = array();
+        $left = $max;
         while ($max > count($productIds)) {
             $results = $this->db_->ExecuteRandomMulti($query, $max);
-            if (0 == $results->RecordCount())
+            if (0 == $results->RecordCount()) {
                 break;
+            }
             while (!$results->EOF) {
                 // make sure we do not have duplicates
                 $productIds[$results->fields['products_id']] = $results->fields['products_id'];
@@ -198,6 +205,12 @@ class ZMProducts {
                 if ($max == count($productIds))
                     break;
             }
+            $reminder = $max - count($productIds);
+            if ($reminder == $left) {
+                // can't find any more
+                break;
+            }
+            $left = $reminder;
         }
         return $this->getProductsForIds($productIds);
     }
@@ -228,14 +241,27 @@ class ZMProducts {
         }
         $results = $this->db_->Execute($query);
 
-        // productIds
+       // productIds
         $productIds = array();
-        while (!$results->EOF) {
-            if (0 == $results->RecordCount())
+        $left = $max;
+        while ($max > count($productIds)) {
+            $results = $this->db_->ExecuteRandomMulti($query, $max);
+            if (0 == $results->RecordCount()) {
                 break;
-            $productId = $results->fields['products_id'];
-            $productIds[$productId] = $productId;
-            $results->MoveNext();
+            }
+            while (!$results->EOF) {
+                // make sure we do not have duplicates
+                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+                $results->MoveNext();
+                if ($max == count($productIds))
+                    break;
+            }
+            $reminder = $max - count($productIds);
+            if ($reminder == $left) {
+                // can't find any more
+                break;
+            }
+            $left = $reminder;
         }
         return $this->getProductsForIds($productIds);
     }

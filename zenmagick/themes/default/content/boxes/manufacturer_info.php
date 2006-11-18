@@ -36,7 +36,7 @@
                 $target = '';
                 if (zm_not_null($manufacturer->getURL())) {
                     $url = zm_href(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer->getId(), false);
-                    $target = ' target="_blank"';
+                    $target = zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                 }
                 ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo zm_pimage($manufacturer->getImage()) ?></a><?php
                 if (zm_not_null($manufacturer->getURL())) {
@@ -49,7 +49,7 @@
                 $text = zm_l10n_get("Other Products");
                 if (zm_not_null($manufacturer->getURL())) {
                     $url = zm_href(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer->getId(), false);
-                    $target = ' target="_blank"';
+                    $target = zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     $text = zm_l10n_get("Manufacturer Homepage");
                 }
                 ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
@@ -61,3 +61,4 @@
         </div>
     <?php } ?>
 <?php } ?>
+

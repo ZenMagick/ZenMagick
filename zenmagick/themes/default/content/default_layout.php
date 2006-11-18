@@ -30,13 +30,14 @@
         include $zm_theme->themeFile($pageLayout);
     }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php zm_title() ?> :: ZenMagick</title>
+    <title><?php $zm_meta->getTitle()?></title>
     <base href="<?php echo $zm_request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-    <meta name="description" content="ZenMagick default theme" />
+    <meta name="keywords" content="<?php $zm_meta->getKeywords()?>" />
+    <meta name="description" content="<?php $zm_meta->getDescription()?>" />
     <link rel="stylesheet" href="<?php $zm_theme->themeURL("site.css") ?>" type="text/css" media="screen,projection" />
     <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
     <script type="text/javascript" src="<?php $zm_theme->themeURL("category.js") ?>"></script>

@@ -52,7 +52,7 @@ fieldset h4 {margin-bottom:8px;}
 #content ul#messages .warn {background:#ff0;color:#000;}
 #content ul#messages .error {background:#e55;color:#fff;}
 
-#container {width:90%;margin:10px auto;background-color:#fff;background:#fff;border:2px solid #a0a0a0;line-height:130%;text-align:left;}
+#container {width:96%;margin:10px auto;background-color:#fff;background:#fff;border:2px solid #a0a0a0;line-height:130%;text-align:left;}
 
 #header {height:86;margin:1px 1px 1px 1px;background:#467aa7;color:#fff;}
 #header h1 {padding:25px 0 0 20px;font-size:2.4em;background-color:inherit;color:#f0f2f4;letter-spacing:-2px;font-weight:normal;}
@@ -255,7 +255,7 @@ div#eztoc ul {list-style:none;margin:0;padding:0;}
 div#eztoc ul li {margin:0;padding:1px;}
 div#eztoc ul li a {display:block;text-decoration:underline;}
 div#eztoc ul li.act a {text-decoration:none;}
-div#eztoc p {text-align:center;margin:4px 0 0;padding:0;}
+div#eztoc p {text-align:center;margin:8px 0 0;padding:0;}
 div#eztoc p a {color:white;background:#467aa7;padding:2px 3px;}
 div#eztoc p a:hover {text-decoration:none;}
 
@@ -272,3 +272,10 @@ div#eztoc p a:hover {text-decoration:none;}
 /* index */
 #b_index h3 {text-decoration:underline;}
 #featured div {float:left;width:150px;border:1px dotted gray;text-align:center;margin-right:6px;}
+
+/* advanved search */
+#b_advanced_search #help {text-align:right;}
+#b_advanced_search #asfilter {margin-top:18px;}
+#b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#fff;background-color:#467aa7;}
+#b_advanced_search #asfilter fieldset {border-color:#467aa7;border-style:dotted;}
+#b_advanced_search #asfilter fieldset legend {color:#303030;background-color:#fff;}

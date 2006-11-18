@@ -3,7 +3,7 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006 ZenMagick
  *
- * Protions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
@@ -182,6 +182,7 @@ class ZMOrders {
     function _getOrderItems($order) {
         $orderItems = array();
 
+        zm_resolve_zc_class("order");
         $zenOrder = new order($order->getId());
         // keep ref for further use
         $order->zenOrder_ = $zenOrder;
@@ -303,6 +304,7 @@ class ZMOrders {
     function _getOrderTotals($order) {
         $zenOrder = $order->zenOrder_;
         if (null == $zenOrder) {
+            zm_resolve_zc_class("order");
             $zenOrder = new order($order->getId());
             // keep ref for further use
             $order->zenOrder_ = $zenOrder;

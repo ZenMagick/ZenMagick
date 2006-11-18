@@ -57,7 +57,6 @@ class ZMStaticController extends ZMRequestController {
         $sub = str_replace('_', ' ', $sub);
         $sub = ucwords($sub);
         $zm_crumbtrail->addCrumb($sub);
-
         $this->exportGlobal("zm_theme", $zm_theme);
 
         return true;

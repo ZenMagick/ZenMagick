@@ -54,7 +54,7 @@ class ZMLogoffController extends ZMRequestController {
     global $zm_crumbtrail, $zm_cart;
 
         zm_clear_session();
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         // also refresh the cart
         $zm_cart->refresh();

@@ -51,7 +51,7 @@ class ZMIndexController extends ZMRequestController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_products;
+    global $zm_request, $zm_categories, $zm_crumbtrail, $zm_products;
 
         // crumbtrail handling
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
@@ -64,14 +64,21 @@ class ZMIndexController extends ZMRequestController {
         $max = zm_setting('maxProductResultList');
         if (null != $zm_request->getCategoryPath()) {
             $resultList = new ZMResultList($zm_products->getProductsForCategoryId($zm_request->getCategoryId()), $max);
-            $viewName = "category";
+            $viewName = "category_list";
         } else if (null != $zm_request->getManufacturerId()) {
             $resultList = new ZMResultList($zm_products->getProductsForManufacturerId($zm_request->getManufacturerId()), $max);
             $viewName = "manufacturer";
         } else if (null != $zm_request->getRequestParameter('compareId')) {
             $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getRequestParameter('compareId')), $max);
+            $viewName = "category_list";
+        }
+
+        $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+        if ($viewName == "category_list" && ((!$resultList->hasResults() || $category->hasChildren()) && zm_setting('isUseCategoryPage'))) {
             $viewName = "category";
         }
+
+        $this->exportGlobal("zm_category", $category);
         $this->exportGlobal("zm_resultList", $resultList);
         $this->setResponseView(new ZMView($viewName, $viewName));
 

@@ -24,21 +24,14 @@
  */
 ?>
 
-<script type="text/javascript">
-    var rules = new Array(
-        new Array('Checked', 'gender', '<?php zm_l10n("Please choose a gender.") ?>'),
-        new Array('Length', 'firstname', <?php echo ENTRY_FIRST_NAME_MIN_LENGTH ?>,
-                  '<?php zm_l10n("Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH) ?>'),
-        new Array('Length', 'lastname', <?php echo ENTRY_LAST_NAME_MIN_LENGTH ?>,
-                  '<?php zm_l10n("Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH) ?>'),
-        new Array('Length', 'dob', <?php echo ENTRY_DOB_MIN_LENGTH ?>,
-                  '<?php zm_l10n("Your Date of Birth must be in this format: %s (eg %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?>'),
-        new Array('Length', 'email_address', <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH ?>,
-                  '<?php zm_l10n("Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH) ?>'),
-        new Array('Length', 'telephone', <?php echo ENTRY_TELEPHONE_MIN_LENGTH ?>,
-                  '<?php zm_l10n("Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH) ?>')
-    );
-</script>
+<?php zm_js_validation(
+  zm_js_rule('Checked', 'gender', "Please choose a gender."),
+  zm_js_rule('Length', 'firstname', "Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH),
+  zm_js_rule('Length', 'lastname', "Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH),
+  zm_js_rule('Length', 'dob', vsprintf("Your Date of Birth must be in this format: %s.", UI_DATE_FORMAT_SAMPLE), strlen(UI_DATE_FORMAT)),
+  zm_js_rule('Length', 'email_address', "Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH),
+  zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
+) ?>
 <?php include $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", null, "post", "return validate(this);") ?>
@@ -71,7 +64,7 @@
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                    <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /><?php zm_l10n("&nbsp;(%s)", UI_DATE_FORMAT) ?></td>
+                    <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /><?php zm_l10n("&nbsp;(%s)", UI_DATE_FORMAT_SAMPLE) ?></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>

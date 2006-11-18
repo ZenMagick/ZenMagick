@@ -53,7 +53,7 @@ class ZMContactUsController extends ZMRequestController {
     function processGet() {
     global $zm_request, $zm_crumbtrail;
 
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $this->exportGlobal("zm_contact", new ZMContactInfo());
         if ('success' == $zm_request->getRequestParameter('action')) {

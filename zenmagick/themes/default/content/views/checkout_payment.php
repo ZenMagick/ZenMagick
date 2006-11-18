@@ -66,14 +66,14 @@
         } else {
           ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php zm_radio_state($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
         }
-        ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label</p><?php
+        ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
         $fields = $type->getFields();
         if (0 < count($fields)) {
             ?><table class="pt" cellpadding="0" cellspacing="0"><tbody><?php
             foreach ($fields as $field) {
               ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
             }
-            ?></table><?php
+            ?></tbody></table><?php
           }
       }
   ?>
@@ -91,7 +91,7 @@
                     ?><tr><td><label><?php echo $field->getLabel() ?>:</label></td><td><?php echo $field->getHTML() ?></td></tr><?php
                 }
               } ?>
-                </table>
+                </tbody></table>
               </fieldset>
       <?php } ?>
 

@@ -53,7 +53,7 @@ class ZMAccountController extends ZMRequestController {
     function processGet() {
     global $zm_request, $zm_crumbtrail, $zm_orders, $zm_accounts;
 
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId(), zm_setting('accountOrderHistoryLimit'));
         $resultList = new ZMResultList($orders);
