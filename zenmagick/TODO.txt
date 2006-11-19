@@ -3,6 +3,8 @@ zen-cart:
 - support more zen-cart options/features
 - missing side boxes; do we?
 - implement category page
+- 22 pages missing!
+- reviews page & handling, writing them, etc...
 
 
 usablility:
@@ -12,6 +14,9 @@ usablility:
 - SQL import that can prepend the ZM_DB_PREFIX
 - more documentation
 - generic interface to manage theme settings
+- create required zc sidebox, module, ot_ dummy/wrapper/proxy files on demand
+- sefu/seo support
+- store settings somewhere?
 
 
 code quality:
@@ -25,6 +30,13 @@ code quality:
 - more phpdoc
 - use bind on $db for all SQL
 - random query in ZMProducts
+- fix category navigation for IE
+- optional fallback of category navigation as with current zen-cart
+- remove theme controller path from loader
+- replicate useful init stuff from zen-cart
+
+proper class hierachy
+=> dao, model, business
 
 
 new features:
@@ -33,3 +45,14 @@ new features:
 
 docs:
 - ???
+
+admin:
+- framework
+- different structure
+- nicer
+- extendable
+- modify
+- modules
+- MVC
+- include install
+- cleanup obsolete files?

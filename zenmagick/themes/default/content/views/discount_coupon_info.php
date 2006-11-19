@@ -26,7 +26,7 @@
 
 <?php $restrictions = $zm_coupon->getRestrictions(); ?>
 <p><?php zm_l10n("The Discount Coupon Redemption Code you have entered is for %s.", $zm_coupon->getName()) ?></p>
-<p><?php zm_l10n("Discount Offer:<br />") ?><?php echo $zm_coupon->getDescription() ?></p>
+<p><?php zm_l10n("Discount Offer:") ?><br /><?php echo $zm_coupon->getDescription() ?></p>
 
 <h4><?php zm_l10n("Promotional Period") ?></h4>
 <p><?php zm_l10n("The coupon is valid between %s and %s.", zm_date_short($zm_coupon->getStartDate(), false), zm_date_short($zm_coupon->getExpiryDate(), false)) ?></p>

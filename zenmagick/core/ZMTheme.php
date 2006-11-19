@@ -153,7 +153,7 @@ class ZMTheme {
         $themes = array();
         $handle = @opendir($zm_runtime->getThemeBasePath());
         while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file)
+            if ("." == $file || ".." == $file || "CVS" == $file)
                 continue;
             array_push($themes, $file);
         }
