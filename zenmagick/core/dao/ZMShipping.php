@@ -39,7 +39,7 @@ class ZMShipping {
     global $shipping_modules;
         $this->provider_ = array();
         if (!class_exists('shipping')) {
-            require_once(DIR_WS_CLASSES . 'shipping.php');
+            zm_resolve_zc_class('shipping');
             $zenShipping = new shipping();
         } else {
             $zenShipping = $shipping_modules;
@@ -62,16 +62,16 @@ class ZMShipping {
 
     function isFreeShipping() {
     global $order;
-        if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true')) {
+        if (zm_setting('isOrderTotalFreeShipping')) {
             $pass = false;
-            switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
+            switch (zm_setting('freeShippingDestination')) {
               case 'national':
-                  if ($order->delivery['country_id'] == STORE_COUNTRY) {
+                  if ($order->delivery['country_id'] == zm_setting('storeCountry')) {
                       $pass = true;
                   }
                   break;
               case 'international':
-                  if ($order->delivery['country_id'] != STORE_COUNTRY) {
+                  if ($order->delivery['country_id'] != zm_setting('storeCountry')) {
                       $pass = true;
                   }
                   break;
@@ -80,7 +80,7 @@ class ZMShipping {
                   break;
             }
 
-            if (($pass == true) && ($_SESSION['cart']->show_total() >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) {
+            if (($pass == true) && ($_SESSION['cart']->show_total() >= zm_setting('freeShippingOrderThreshold'))) {
                 return true;
             }
         }

@@ -102,8 +102,10 @@ class ZMCountries {
     function getZoneCode($countryId, $zoneId, $defaultZone='') {
         $sql = "select zone_code
                 from " . TABLE_ZONES . "
-                where zone_country_id = '" . $countryId . "'
-                and zone_id = '" . $zoneId . "'";
+                where zone_country_id = :countryId
+                and zone_id = :zoneId";
+        $sql = $this->db_->bindVars($sql, ":countryId", $countryId, "integer");
+        $sql = $this->db_->bindVars($sql, ":zoneId", $zoneId, "integer");
 
         $results = $this->db_->Execute($sql);
         if ($results->RecordCount() > 0) {
@@ -118,11 +120,12 @@ class ZMCountries {
         if (null == $countryId || '' == $countryId) {
             return array();
         }
-        $query = "select distinct zone_code, zone_name
+        $sql = "select distinct zone_code, zone_name
                   from " . TABLE_ZONES . "
-                  where zone_country_id = '" . $countryId . "'
+                  where zone_country_id = :countryId
                   order by zone_name";
-        $results = $this->db_->Execute($query);
+        $sql = $this->db_->bindVars($sql, ":countryId", $countryId, "integer");
+        $results = $this->db_->Execute($sql);
 
         $zones = array();
         while (!$results->EOF) {

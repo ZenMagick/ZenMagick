@@ -53,7 +53,8 @@ class ZMAccounts {
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                   customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral
                 from " . TABLE_CUSTOMERS . "
-                where customers_id = '" . $accountId . "'";
+                where customers_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
         $results = $this->db_->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {
@@ -65,6 +66,7 @@ class ZMAccounts {
 
 
     function emailExists($email) {
+        //XXX TODO: zm_db_prepare_input???
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . "
                 where customers_email_address = '" . zm_db_prepare_input($email) . "'";
@@ -75,6 +77,7 @@ class ZMAccounts {
 
     function createAccount($account) {
         $subscriptions = $account->getSubscriptions();
+        //XXX TODO: bindVars!
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
@@ -111,7 +114,8 @@ class ZMAccounts {
     function _isNewsletterSubscriber($account) {
         $sql = "select customers_newsletter
                 from " . TABLE_CUSTOMERS . "
-                where customers_id = '" . $account->getId() . "'";
+                where customers_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
         $results = $this->db_->Execute($sql);
         return $results->fields['customers_newsletter'] == '1';
     }
@@ -119,7 +123,8 @@ class ZMAccounts {
     function _isGlobalProductSubscriber($account) {
         $sql = "select global_product_notifications
                 from " . TABLE_CUSTOMERS_INFO . "
-                where  customers_info_id = '" . (int)$account->getId() . "'";
+                where  customers_info_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
         $results = $this->db_->Execute($sql);
         return $results->fields['global_product_notifications'] == '1';
     }
@@ -127,8 +132,8 @@ class ZMAccounts {
     function _getSubscribedProductIds($account) {
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                where  customers_id = '" . (int)$account->getId() . "'";
-        $results = $this->db_->Execute($sql);
+                where  customers_info_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
         $productIds = array();
         while (!$results->EOF) {
             array_push($productIds, $results->fields['products_id']);
@@ -139,9 +144,10 @@ class ZMAccounts {
 
 
     //
-    function getVoucherBalanceForId($id) {
+    function getVoucherBalanceForId($accountId) {
         $sql = "select amount from " . TABLE_COUPON_GV_CUSTOMER . "
-                where customer_id='" . $id . "'";
+                where customer_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
         $results = $this->db_->Execute($sql);
         if (!$results->EOF) {
             return $results->fields['amount'];

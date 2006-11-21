@@ -59,8 +59,10 @@ class ZMManufacturers {
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id
-                and mi.languages_id = '" . $zm_request->getLanguageId() . "')
-                where m.manufacturers_id = " . $manufacturerId;
+                and mi.languages_id = :languageId)
+                where m.manufacturers_id = :manufacturerId";
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':manufacturerId', $manufacturerId, 'integer');
 
         $results = $this->db_->Execute($sql);
         if (0 < $results->RecordCount()) {
@@ -83,7 +85,8 @@ class ZMManufacturers {
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id
-                and mi.languages_id = '" . $zm_request->getLanguageId() . "')";
+                and mi.languages_id = :languageId)";
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
         $results = $this->db_->Execute($sql);
 
         $manufacturers = array();

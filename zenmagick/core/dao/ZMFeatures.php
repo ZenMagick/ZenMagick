@@ -62,12 +62,13 @@ class ZMFeatures {
         if (null != $this->features_)
             return;
 
-        $query = "select f.feature_id, f.feature_type_id, f.language_id, f.feature_name, f.feature_description,
-                  f.hidden
-                  from " .ZM_TABLE_FEATURES . " f
-                  where f.language_id = '" . $zm_request->getLanguageId() . "'";
+        $sql = "select f.feature_id, f.feature_type_id, f.language_id, f.feature_name, f.feature_description,
+                f.hidden
+                from " .ZM_TABLE_FEATURES . " f
+                where f.language_id = :languageId";
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
 
-        $results = $this->db_->Execute($query);
+        $results = $this->db_->Execute($sql);
 
         $this->features_ = array();
         while (!$results->EOF) {
@@ -157,6 +158,7 @@ class ZMFeatures {
 
     // add feature
     function addFeature($type, $languageId, $name, $description, $hidden=false) {
+        //XXX TODO: bindVars
         $sql = "insert into " . ZM_TABLE_FEATURES . "
                 (feature_type_id, language_id, feature_name, feature_description, hidden)
                 values ( " . zen_db_input($type) . ",
@@ -174,7 +176,8 @@ class ZMFeatures {
                 set feature_name = :name,
                     feature_description = :description,
                     hidden = :hidden
-                where feature_id = :featureId and language_id = :languageId";
+                where feature_id = :featureId
+                and language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ':name', $name, 'string');
         $sql = $this->db_->bindVars($sql, ':description', $description, 'string');
         $sql = $this->db_->bindVars($sql, ':hidden', $hidden, 'integer');
@@ -201,8 +204,10 @@ class ZMFeatures {
     // remove feature for product
     function removeFeatureForProduct($productId, $featureId, $index=null) {
         $sql = "delete from " . ZM_TABLE_PRODUCT_FEATURES . "
-                where product_id = " . $productId . "
-                and feature_id = " . $featureId;
+                where product_id = :productId
+                and feature_id = :featureId";
+        $sql = $this->db_->bindVars($sql, ':productId', $productId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':featureId', $productId, 'integer');
         if (null != $index) {
             $sql .= " and feature_index_id = " . $index;
         }
@@ -235,11 +240,12 @@ class ZMFeatures {
         if (array_key_exists($productId, $this->productFeatures_))
             return $this->productFeatures_[$productId];
 
-        $query = "select f.product_feature_id, f.feature_id, f.feature_index_id, f.feature_value
+        $sql = "select f.product_feature_id, f.feature_id, f.feature_index_id, f.feature_value
                   from " . ZM_TABLE_PRODUCT_FEATURES . " f
-                  where f.product_id = '" . $productId . "'
+                  where f.product_id = :productId
                   order by f.feature_id, f.feature_index_id";
-        $results = $this->db_->Execute($query);
+        $sql = $this->db_->bindVars($sql, ':productId', $productId, 'integer');
+        $results = $this->db_->Execute($sql);
 
         $this->_loadFeatures();
 

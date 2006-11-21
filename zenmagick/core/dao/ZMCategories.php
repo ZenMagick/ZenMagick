@@ -86,7 +86,7 @@ class ZMCategories {
         // quick check to avoid db access
         if ($this->loaded()) { return 0 < count($this->categories_); }
 
-        $results = $this->db_->Execute("select categories_id from " . TABLE_CATEGORIES . " where categories_status=1 limit 1");
+        $results = $this->db_->Execute("select categories_id from " . TABLE_CATEGORIES . " where categories_status = 1 limit 1");
         return 0 < $results->RecordCount();
     }
 
@@ -120,19 +120,23 @@ class ZMCategories {
             $query = "select c.categories_id, cd.categories_name, c.parent_id
                       from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
                       where c.categories_id = cd.categories_id
-                      and cd.language_id = '" . $zm_request->getLanguageId() . "'
+                      and cd.language_id = :languageId
                       and c.categories_status = '1'
                       order by sort_order, cd.categories_name";
+            $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), "integer");
         } else {
+            //XXX TODO: what is $value
             $query = "select ptc.category_id as categories_id, cd.categories_name, c.parent_id
                       from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd, " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " ptc
                       where c.parent_id = '" . (int)$value . "'
                       and ptc.category_id = cd.categories_id
                       and ptc.product_type_id = '" . $this->type_ . "'
                       and c.categories_id = ptc.category_id
-                      and cd.language_id='" . $zm_request->getLanguageId() ."'
+                      and cd.language_id = :languageId
                       and c.categories_status= '1'
                       order by sort_order, cd.categories_name";
+            $query = $this->db_->bindVars($query, ":type", $this->type_, "integer");
+            $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), "integer");
         }
 
         $results = $this->db_->Execute($query, '', true, 150);

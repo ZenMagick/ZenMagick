@@ -84,6 +84,7 @@ class ZMOffers {
             return $this->product_->price_;
 
         // **non** display_only **but** attributes_price_base_included
+        //XXX TODO: bindVars
         $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
                 from " . TABLE_PRODUCTS_ATTRIBUTES . "
                 where products_id = '" . $this->product_->id_ . "'
@@ -117,7 +118,8 @@ class ZMOffers {
     function _getSpecialPrice() {
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
-                where products_id = '" . $this->product_->getId() . "' and status='1'";
+                where products_id = :productId and status='1'";
+        $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
         $results = $this->db_->Execute($sql);
         $specialPrice = null;
         if (0 < $results->RecordCount()) {

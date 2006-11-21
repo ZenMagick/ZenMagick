@@ -54,7 +54,8 @@ class ZMAddresses {
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
                   customers_id
                 from " . TABLE_ADDRESS_BOOK . "
-                where address_book_id = '" . $addressId . "'";
+                where address_book_id = :addressId";
+        $sql = $this->db_->bindVars($sql, ":addressId", $addressId, "integer");
         $results = $this->db_->Execute($sql);
 
         $address = null;
@@ -74,7 +75,8 @@ class ZMAddresses {
         $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id
                 from " . TABLE_ADDRESS_BOOK . "
-                where customers_id = '" . $accountId . "'";
+                where customers_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
         $results = $this->db_->Execute($sql);
 
         $addresses = array();
@@ -118,7 +120,8 @@ class ZMAddresses {
     function getAddressFormatForId($id) {
         $sql = "select address_format as format
                 from " . TABLE_ADDRESS_FORMAT . "
-                where address_format_id = '" . $id . "'";
+                where address_format_id = :id";
+        $sql = $this->db_->bindVars($sql, ":id", $id, "integer");
         $results = $this->db_->Execute($sql);
         return $results->fields['format'];
     }

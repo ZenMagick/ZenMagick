@@ -66,10 +66,12 @@ class ZMAttributes {
     global $zm_request;
         $sql = "select count(*) as total
                 from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
-                where patrib.products_id='" . $this->product_->getId() . "'
+                where patrib.products_id = :productId
                 and patrib.options_id = popt.products_options_id
-                and popt.language_id = '" . $zm_request->getLanguageId() . "'" .
-                " limit 1";
+                and popt.language_id = :languageId
+                limit 1";
+        $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $results = $this->db_->Execute($sql);
         return 0 < $results->fields['total'];
     }
@@ -144,10 +146,12 @@ class ZMAttributes {
                 popt.products_options_type, popt.products_options_length, popt.products_options_comment, popt.products_options_size,
                 popt.products_options_images_per_row, popt.products_options_images_style
                 from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
-                where patrib.products_id='" . $this->product_->getId() . "'
+                where patrib.products_id = :productId
                 and patrib.options_id = popt.products_options_id
-                and popt.language_id = '" . $zm_request->getLanguageId() . "' " .
+                and popt.language_id = :languageId " .
                 $attributesOrderBy;
+        $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $attributeResults = $this->db_->Execute($sql);
 
         // iterate over all attributes
@@ -156,12 +160,13 @@ class ZMAttributes {
 
             $sql = "select pov.products_options_values_id, pov.products_options_values_name, pa.*
                     from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
-                    where pa.products_id = '" . $this->product_->getId() . "'
+                    where pa.products_id = :productId
                     and pa.options_id = '" . $attribute->getId() . "'
                     and pa.options_values_id = pov.products_options_values_id
-                    and pov.language_id = '" . $zm_request->getLanguageId() . "' " .
+                    and pov.language_id = :languageId " .
                     $valuesOrderBy;
-
+            $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+            $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
             $valueResults = $this->db_->Execute($sql);
 
             // get all values for the current attribute
