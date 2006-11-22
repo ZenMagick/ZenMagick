@@ -32,7 +32,7 @@ a:hover {color:#2a5a8a;text-decoration:none;background-color:inherit;}
 a img {border:none;}
 p {padding:0 0 1.2em 0;}
 form p {margin-top:0;margin-bottom:6px;padding:0;}
-input.btn, a.btn {width:auto;padding:1px 3px;border:1px outset gray;font-size:0.9em;text-align:center;margin:0 3px;background-color:#80b0da;color:white;}
+input.btn, a.btn {width:auto;padding:1px 3px;border:1px outset gray;font-size:0.9em;text-align:center;margin:0 3px;background-color:#80b0da;color:black;}
 input.btn:active, a.btn:active {border:1px inset gray;}
 input.btn {cursor:pointer;cursor:hand;}
 a.btn {font-weight:normal;padding:2px 4px 3px 4px;}
@@ -279,3 +279,22 @@ div#eztoc p a:hover {text-decoration:none;}
 #b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#fff;background-color:#467aa7;}
 #b_advanced_search #asfilter fieldset {border-color:#467aa7;border-style:dotted;}
 #b_advanced_search #asfilter fieldset legend {color:#303030;background-color:#fff;}
+
+/* reviews */
+#b_product_reviews_info #pinfo {margin-bottom:3px;}
+#b_product_reviews_info #pinfo img {float:left;}
+#b_product_reviews_info #author {margin:5px 0 8px;font-weight:bold;}
+#b_product_reviews_info #author span {margin-left:8px;}
+#b_product_reviews_info #author #stars img {vertical-align:bottom;}
+#b_product_reviews_info #rlongtext {border:1px solid gray;padding:4px;margin-bottom:3px;}
+
+/* reviews write */
+#b_product_reviews_write #pinfo {margin-bottom:3px;}
+#b_product_reviews_write #pinfo img {float:left;}
+#b_product_reviews_write #author {margin:5px 0 8px;font-weight:bold;}
+#b_product_reviews_write textarea {display:block;}
+
+/* tell a friend */
+#b_tell_a_friend label {width:11em;float:left;}
+#b_tell_a_friend fieldset br {clear:left;}
+#b_tell_a_friend .advisory {margin-top:24px;}

@@ -34,7 +34,7 @@
   zm_js_rule('Length', 'postcode', "Your Post Code must contain a minimum of %s characters.", ENTRY_POSTCODE_MIN_LENGTH),
   zm_js_rule('NotEmpty', 'country', "You must select a country.")
 ) ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php $country = $address->getCountry(); ?>
 <?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>

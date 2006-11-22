@@ -40,7 +40,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
-     * @param string params Query string style parameter 
+     * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
@@ -51,7 +51,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
-     * @param string params Query string style parameter 
+     * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full, secure URL.
      */
@@ -59,11 +59,16 @@
 
     function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
     global $zm_request;
-        if (null == $view) {
+        if (null == $view || null == $params) {
             // merge params into current query
             parse_str($zm_request->getQueryString(), $queryArr);
-            parse_str($params, $paramsArr);
-            $query = array_merge($queryArr, $paramsArr);
+            if (null == $params) {
+                $query = $queryArr;
+                unset($query['main_page']);
+            } else {
+                parse_str($params, $paramsArr);
+                $query = array_merge($queryArr, $paramsArr);
+            }
             $params = '';
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;

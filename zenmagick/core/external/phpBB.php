@@ -101,6 +101,12 @@
         $zm_runtime->reconnectDB();
 
         return true;
-      }
+    }
+
+    // phpBB link
+    function zm_get_phpBB_href() {
+    global $phpBB;
+        return zm_href($phpBB->phpBB['phpbb_url'] . FILENAME_BB_INDEX);
+    }
 
 ?>

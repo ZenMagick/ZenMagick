@@ -103,12 +103,6 @@
         return $html;
     }
 
-    // phpBB link
-    function zm_get_phpBB_href() {
-    global $phpBB;
-        return zm_href($phpBB->phpBB['phpbb_url'] . FILENAME_BB_INDEX);
-    }
-
     function zm_redirect($url) { zen_redirect($url); }
     function zm_exit() { zen_exit(); }
 
@@ -116,6 +110,30 @@
         if (!class_exists($clazz)) {
             require_once(DIR_WS_CLASSES . $clazz. '.php');
         }
+    }
+
+    // get online counter
+    function zm_get_online_counts() {
+    global $db;
+
+        // expire
+        $timeAgo = (time() - 1200);
+        $sql = "delete from " . TABLE_WHOS_ONLINE . "
+                where time_last_click < :timeAgo";
+        $sql = $db->bindVars($sql, ":timeAgo", $timeAgo, 'integer');
+        $db->Execute($sql);
+
+        $sql = "select customer_id from " . TABLE_WHOS_ONLINE;
+        $results = $db->Execute($sql);
+        $guests = 0;
+        $members = 0;
+        while (!$results->EOF) {
+            if (!$results->fields['customer_id'] == 0) $members++;
+            if ($results->fields['customer_id'] == 0) $guests++;
+            $results->MoveNext();
+        }
+
+        return array(($guests+$members), $guests, $members);
     }
 
 ?>

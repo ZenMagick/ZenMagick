@@ -63,9 +63,10 @@
   <?php } ?>
 
   <fieldset>
+      <legend><?php zm_l10n("Shopping Options") ?></legend>
       <label for="cart_quantity"><?php zm_l10n("Quantity") ?></label>
       <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
-      <input type="submit" value="<?php zm_l10n("Add to cart") ?>" />
+      <input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" />
   </fieldset>
 
   <?php $addImgList = $zm_product->getAdditionalImages(); ?>
@@ -78,6 +79,20 @@
               <?php } else { ?>
                   <img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
+          <?php } ?>
+      </fieldset>
+  <?php } ?>
+  <?php if ($zm_product->hasReviews() || $zm_product->getTypeSetting('reviews') || $zm_product->getTypeSetting('tell_a_friend')) { ?>
+      <fieldset>
+          <legend><?php zm_l10n("Other Options") ?></legend>
+          <?php if ($zm_product->hasReviews()) { ?>
+              <a class="btn" href="<?php zm_href(FILENAME_PRODUCT_REVIEWS_INFO, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
+          <?php } ?>
+          <?php if ($zm_product->getTypeSetting('reviews')) { ?>
+              <a class="btn" href="<?php zm_href(FILENAME_PRODUCT_REVIEWS_WRITE, null) ?>"><?php zm_l10n("Write a Review") ?></a>
+          <?php } ?>
+          <?php if ($zm_product->getTypeSetting('tell_a_friend')) { ?>
+              <a class="btn" href="<?php zm_href(FILENAME_TELL_A_FRIEND, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>

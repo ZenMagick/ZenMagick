@@ -32,7 +32,7 @@
   zm_js_rule('Length', 'email_address', "Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH),
   zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
 ) ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", null, "post", "return validate(this);") ?>
     <fieldset>

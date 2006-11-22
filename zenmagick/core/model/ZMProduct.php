@@ -130,6 +130,7 @@ class ZMProduct {
 
     function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this); }
     function getReviewCount() { global $zm_reviews; return $zm_reviews->getReviewCount($this); }
+    function getTypeSetting($field) { global $zm_products; return $zm_products->getProductTypeSetting($this->id_, $field); }
 
 }
 

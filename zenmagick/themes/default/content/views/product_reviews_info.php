@@ -24,26 +24,26 @@
  */
 ?>
 
-<h2><?php echo $zm_product->getName(); ?></h2>
+<?php zm_add_product_form($zm_product->getId(), 1) ?>
+  <div>  
+    <div id="pinfo">
+      <?php $imageInfo = $zm_product->getImageInfo() ?>
+      <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image($zm_product) ?></a>
+      <?php echo $zm_product->getDescription(); ?>
+    </div>
+    <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
 
-<form>
-  <?php zm_format_currency($zm_product->getPrice()); ?>
-
-  <?php $imageInfo = $zm_product->getImageInfo() ?>
-  <a href="<?php echo $imageInfo->getMediumImage() ?>"><?php zm_product_image($zm_product) ?></a>
-
-  <hr/>
-  <p><a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_l10n("Product Information") ?></a></p>
-
-  <p><?php zm_l10n("by %s", $zm_review->getAuthor()) ?></p>
-  <div id="rlongtext">
-      <?php echo $zm_review->getText() ?>
+    <p id="author">
+      <?php zm_l10n("Review by: %s", $zm_review->getAuthor()) ?>
+      <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()) ?>
+      <span id="stars">
+        <?php echo zm_image('stars_'.$review->getRating().'.gif', $rtext) ?>
+        <?php echo $rtext ?>
+      </span>
+    </p>
+    <div id="rlongtext">
+        <?php echo $zm_review->getText() ?>
+    </div>
   </div>
-  <p>
-    <em>Rating:</em>
-    <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()) ?>
-    <?php echo zm_image('stars_'.$review->getRating().'.gif', $rtext) ?>
-    <?php echo $rtext ?>
-  </p>
-
 </form>

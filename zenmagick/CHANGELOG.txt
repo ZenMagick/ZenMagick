@@ -1,3 +1,13 @@
+Current:
+- Converted most of the SQL generation to using bindVars(...)
+- Added a few more settings
+- minor fixes and layout changes
+- added a few moew sideboxes
+- added reviews and tell_a_friend views and corresponding controller
+- added getTypeSetting($name) to ZMProduct
+- renamed search_header.php search.php
+
+
 Release 0.4.5
 - upgraded to zen-cart 1.3.6
 - add conveniece function zm_ezpage_link($id)

@@ -122,6 +122,43 @@ class ZMProducts {
     }
 
 
+    // product type options
+    function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
+        $sql = "select products_type from " . TABLE_PRODUCTS . "
+                where products_id = :productId";
+        $sql = $this->db_->bindVars($sql, ":productId", $productId, 'integer');
+        $typeResults = $this->db_->Execute($sql);
+
+        $sql = "select type_handler from " . TABLE_PRODUCT_TYPES . "
+                where type_id = :typeId";
+        $sql = $this->db_->bindVars($sql, ":typeId", $typeResults->fields['products_type'], 'integer');
+        $keyResults = $this->db_->Execute($sql);
+
+        $key = strtoupper($keySuffix . $keyResults->fields['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
+
+        $sql = "select configuration_value from " . TABLE_PRODUCT_TYPE_LAYOUT . "
+                where configuration_key = :key";
+        $sql = $this->db_->bindVars($sql, ":key", $key, 'string');
+        $valueResults = $this->db_->Execute($sql);
+
+        if ($valueResults->RecordCount() > 0) {
+            // type result
+            return 1 == $valueResults->fields['configuration_value'];
+        } else {
+            // fallback general configuration
+            $sql = "select configuration_value from " . TABLE_CONFIGURATION . "
+                    where configuration_key = :key";
+            $sql = $this->db_->bindVars($sql, ":typeId", $key, 'string');
+            $valueResults = $this->db_->Execute($sql);
+
+            if ($valueResults->RecordCount() > 0) {
+                return 1 == $valueResults->fields['configuration_value'];
+            }
+        }
+        return false;
+    }
+
+
     // get featured products
     function getFeaturedProducts($categoryId=null, $max=1) {
     global $zm_request;

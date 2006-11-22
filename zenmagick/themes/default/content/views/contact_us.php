@@ -35,7 +35,7 @@
   zm_js_rule('NotEmpty', 'email', "Please enter your E-Mail Address."),
   zm_js_rule('NotEmpty', 'enquiry', "Please enter a Message.")
 ) ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_form(FILENAME_CONTACT_US, 'action=send', null, "post", "return validate(this);") ?>
     <fieldset>

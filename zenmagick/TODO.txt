@@ -2,7 +2,7 @@ zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
 - missing side boxes; do we?
-- implement category page
+- implement category page; switch for category nav to support that!
 - 22 pages missing!
 - reviews page & handling, writing them, etc...
 
@@ -17,6 +17,7 @@ usablility:
 - create required zc sidebox, module, ot_ dummy/wrapper/proxy files on demand
 - sefu/seo support
 - store settings somewhere?
+- have separate wrapper around store settings (eg. name, etc)
 
 
 code quality:
@@ -41,7 +42,7 @@ proper class hierachy
 
 new features:
 - custom filter per theme?
-- external API; application_top + init?
+- APIs for other apps; for example WordPress, etc...
 
 docs:
 - ???

@@ -48,7 +48,7 @@
     <?php } ?>
 
     <?php $voucherBalance = $zm_account->getVoucherBalance(); ?>
-    <?php if (0 <= $voucherBalance) { ?>
+    <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
             <p>

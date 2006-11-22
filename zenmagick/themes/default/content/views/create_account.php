@@ -37,7 +37,7 @@
   zm_js_rule('NotEmpty', 'zone_country_id', "You must select a country."),
   zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
 ) ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", null, "post", "return validate(this);") ?>
     <?php if (zm_setting('isPrivacyMessage')) { ?>

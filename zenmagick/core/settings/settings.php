@@ -27,7 +27,7 @@
 
     $_ZM_SETTINGS = array();
     // these must be the first five entries
-    $_ZM_SETTINGS['isEnableZenMagick'] = true;
+    $_ZM_SETTINGS['isEnableZenMagick'] = false;
     $_ZM_SETTINGS['ZenMagickVersion'] = '${zenmagick.version}';
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
@@ -130,6 +130,12 @@
     // store
     $_ZM_SETTINGS['storeName'] = STORE_NAME;
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
+    $_ZM_SETTINGS['storeCountry'] = STORE_COUNTRY;
+
+    // modules/shipping
+    $_ZM_SETTINGS['isOrderTotalFreeShipping'] = defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true';
+    $_ZM_SETTINGS['freeShippingDestination'] = MODULE_ORDER_TOTAL_SHIPPING_DESTINATION;
+    $_ZM_SETTINGS['freeShippingOrderThreshold'] = MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER;
 
     // banner
     $_ZM_SETTINGS['bannerGroup1'] = SHOW_BANNERS_GROUP_SET1;
