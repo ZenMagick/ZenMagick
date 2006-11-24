@@ -50,10 +50,16 @@ new features:
 - APIs for other apps; for example WordPress, etc...
 - get a logo and favicon
 
+
 docs:
 - ???
 
+
 admin:
+- implement merge option for language mapping tool
+
+
+ZenMagick admin:
 - framework
 - different structure
 - nicer
