@@ -12,6 +12,8 @@ Current:
 - removed empty login.php sidebox - zen-cart now comes with it's own version
 - removed theme view from default theme
 - make checkout payments page validate
+- admin auto patch option; this will re-patch a admin file to enable the
+  ZenMagick menu after a zen-cart upgrade
 
 
 Release 0.4.5
