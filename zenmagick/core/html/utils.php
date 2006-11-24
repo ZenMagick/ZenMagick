@@ -25,12 +25,6 @@
 ?>
 <?php
 
-    /******************************************
-     * Core HTML functionallity.
-     * Unless there is a really good reason, themes should not reimplement these.
-     * HTML generated with these functions is usually not visible but only structural code.
-     */
-
 
     /**
      * Create a URL for a href.
@@ -59,15 +53,15 @@
 
     function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
     global $zm_request;
-        if (null == $view || null == $params) {
-            // merge params into current query
-            parse_str($zm_request->getQueryString(), $queryArr);
-            if (null == $params) {
-                $query = $queryArr;
+        if (null === $view || null === $params) {
+            $query = array();
+            if (null === $view || null === $params) {
+                parse_str($zm_request->getQueryString(), $query);
                 unset($query['main_page']);
-            } else {
-                parse_str($params, $paramsArr);
-                $query = array_merge($queryArr, $paramsArr);
+            }
+            if (null != $params) {
+                parse_str($params, $arr);
+                $query = array_merge($query, $arr);
             }
             $params = '';
             foreach ($query as $name => $value) {
@@ -337,7 +331,7 @@
             $html .= ' onsubmit="' . $onsubmit . '"';
         }
         if (null != $id) {
-            $html .= ' name="' . $id . '"';
+            $html .= ' id="' . $id . '"';
         }
         $html .= ' method="' . $method . '">';
         $html .= '<div>';

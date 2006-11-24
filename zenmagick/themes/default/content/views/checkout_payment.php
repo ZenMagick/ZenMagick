@@ -47,7 +47,10 @@
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php echo $total->getName() ?>(<?php echo $total->getType() ?>)</td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr>
+                      <td class="total"><?php echo $total->getName() ?>(<?php echo $total->getType() ?>)</td>
+                      <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
+                  </tr><?php
               }
           ?>
           </tbody>

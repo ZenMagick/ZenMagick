@@ -90,8 +90,8 @@ class ZMFeatures {
         if (null != $this->featureTypes_)
             return;
 
-        $query = "select f.feature_type_id, f.feature_type
-                  from " . ZM_TABLE_FEATURE_TYPES. " f";
+        $query = "select feature_type_id, feature_type
+                  from " . ZM_TABLE_FEATURE_TYPES;
 
         $results = $this->db_->Execute($query);
 
@@ -148,9 +148,11 @@ class ZMFeatures {
     }
 
     // remove feature for the given id
-    function removeFeatureForId($id) {
+    function removeFeatureForId($featureId) {
         $sql = "delete from " . ZM_TABLE_FEATURES . "
-                where feature_id = '" . $id . "'";
+                where feature_id = :featureId";
+        $sql = $this->db_->bindVars($sql, ':featureId', $featureId, 'integer');
+
         $this->db_->Execute($sql);
         $this->featureDescriptions_ = null;
         return true;
@@ -158,14 +160,15 @@ class ZMFeatures {
 
     // add feature
     function addFeature($type, $languageId, $name, $description, $hidden=false) {
-        //XXX TODO: bindVars
         $sql = "insert into " . ZM_TABLE_FEATURES . "
                 (feature_type_id, language_id, feature_name, feature_description, hidden)
-                values ( " . zen_db_input($type) . ",
-                         " . $languageId . ",
-                        '" . zen_db_input($name) . "',
-                        '" . zen_db_input($description) . "',
-                        '" . zen_db_input($hidden) . "')";
+                values (:type, :languageId, :name, :description, :hidden)";
+        $sql = $this->db_->bindVars($sql, ':type', $type, 'integer');
+        $sql = $this->db_->bindVars($sql, ':languageId', $languageId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':name', $name, 'string');
+        $sql = $this->db_->bindVars($sql, ':description', $description, 'string');
+        $sql = $this->db_->bindVars($sql, ':hidden', $hidden, 'integer');
+
         $this->db_->Execute($sql);
         return true;
     }
@@ -183,6 +186,7 @@ class ZMFeatures {
         $sql = $this->db_->bindVars($sql, ':hidden', $hidden, 'integer');
         $sql = $this->db_->bindVars($sql, ':featureId', $featureId, 'integer');
         $sql = $this->db_->bindVars($sql, ':languageId', $languageId, 'integer');
+
         $this->db_->Execute($sql);
         // invalidate cache
         $this->features_ = null;
@@ -193,10 +197,12 @@ class ZMFeatures {
     function addFeatureForProduct($productId, $featureId, $value, $index=1) {
         $sql = "insert into " . ZM_TABLE_PRODUCT_FEATURES . "
                 (product_id, feature_id, feature_index_id, feature_value)
-                values ( " . $productId . ",
-                         " . $featureId . ",
-                         " . $index . ",
-                        '" . zen_db_input($value) . "')";
+                values (:productId, :featureId, :index, :value)";
+        $sql = $this->db_->bindVars($sql, ':productId', $productId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':featureId', $featureId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':index', $index, 'integer');
+        $sql = $this->db_->bindVars($sql, ':value', $value, 'string');
+
         $this->db_->Execute($sql);
         return true;
     }
@@ -229,6 +235,7 @@ class ZMFeatures {
         $sql = $this->db_->bindVars($sql, ':productId', $productId, 'integer');
         $sql = $this->db_->bindVars($sql, ':featureId', $featureId, 'integer');
         $sql = $this->db_->bindVars($sql, ':oldIndex', $oldIndex, 'integer');
+
         $this->db_->Execute($sql);
         // invalidate cache
         unset($this->productFeatures_[$productId]);

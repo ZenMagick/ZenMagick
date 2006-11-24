@@ -24,13 +24,15 @@
  */
 ?>
 
-<?php $themeInfoList = $zm_theme->getThemeInfoList(); ?>
-<?php foreach ($themeInfoList as $themeInfo) { ?>
-    Name: <?php echo $themeInfo->getName(); ?><br>
-    Version: <?php echo $themeInfo->getVersion(); ?><br>
-    Author: <?php echo $themeInfo->getAuthor(); ?><br>
-    Description: <?php echo $themeInfo->getDescription(); ?><br>
-    Error Page: <?php echo $themeInfo->getErrorPage(); ?><br>
-    Default Layout: <?php echo ($themeInfo->hasDefaultLayout() ? $themeInfo->getDefaultLayout() : "None"); ?><br>
-    <hr>
+<?php if (0 == $zm_request->getProductId() && 'specials' != $zm_request->getPageName()) { ?>
+    <?php $products = $zm_products->getSpecials(1); ?>
+    <?php if (0 != count($products)) { $product = $products[0]; ?>
+        <h3><a href="<?php zm_href(FILENAME_SPECIALS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Specials") ?></h3>
+        <div id="sb_specials" class="box">
+            <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a></p>
+            <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
+            <?php $offers = $product->getOffers(); ?>
+            <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
+        </div>
+    <?php } ?>
 <?php } ?>

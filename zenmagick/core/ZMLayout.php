@@ -76,14 +76,9 @@ class ZMLayout {
         $sql = "select distinct layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 where layout_box_location = 0
                   and layout_box_status = '1'
-                  and layout_template ='" . $zm_runtime->getRawThemeId() . "'
+                  and layout_template = :themeId
                 order by layout_box_sort_order";
-                  /*
-                  and (layout_template ='" . $zm_runtime->getThemeId() . "'
-                   or layout_template ='" . $zm_runtime->getRawThemeId() . "'
-                   or layout_template ='template_" . $zm_runtime->getThemeId() . "')
-                   */
-
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getRawThemeId(), 'integer');
         $results = $this->db_->Execute($sql);
 
         $boxes = array();
@@ -104,12 +99,12 @@ class ZMLayout {
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
-        $sql = "select layout_box_name, layout_template from " . TABLE_LAYOUT_BOXES . "
+        $sql = "select distinct layout_box_name, layout_template from " . TABLE_LAYOUT_BOXES . "
                 where layout_box_location = 1
                   and layout_box_status = '1'
-                  and layout_template ='" . $zm_runtime->getRawThemeId() . "'
+                  and layout_template = :themeId
                 order by layout_box_sort_order";
-
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getRawThemeId(), 'integer');
         $results = $this->db_->Execute($sql);
 
         $boxes = array();

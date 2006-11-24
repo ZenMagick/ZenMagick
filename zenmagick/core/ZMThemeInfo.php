@@ -67,6 +67,8 @@ class ZMThemeInfo {
     function setAuthor($author) { $this->info_['author'] = $author; }
     function getDescription() { return $this->info_['description']; }
     function setDescription($text) { $this->info_['description'] = $text; }
+    function getPath() { return $this->info_['path']; }
+    function setPath($text) { $this->info_['path'] = $text; }
 
     function getErrorPage() { return $this->config_['errorpage']; }
     function setErrorPage($name) { $this->config_['errorpage'] = $name; }

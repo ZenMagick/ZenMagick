@@ -63,10 +63,14 @@ class ZMProducts {
                   left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
                   TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id
                   where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
-                  and pd.language_id = '".$zm_request->getLanguageId()."' and p2c.categories_id = '".$categoryId."'
+                  and pd.language_id = :languageId
+                  and p2c.categories_id = :categoryId
                   order by p.products_sort_order, pd.products_name";
+        $query = $this->db_->bindVars($query, ":productId", $zm_request->getLanguageId(), "integer");
+        $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
+
         $results = $this->db_->Execute($query);
-        // product hash
+
         $products = array();
         while (!$results->EOF) {
             $product = $this->_newProduct($results->fields);
@@ -81,18 +85,21 @@ class ZMProducts {
     function getProductsForManufacturerId($manufacturerId) {
     global $zm_request;
         $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
-                  p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
-                  p.products_tax_class_id, pd.products_description,
-                  IF(s.status = '1', s.specials_new_products_price, NULL) as specials_new_products_price,
-                  IF(s.status ='1', s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order
+                    p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
+                    p.products_tax_class_id, pd.products_description,
+                    IF(s.status = '1', s.specials_new_products_price, NULL) as specials_new_products_price,
+                    IF(s.status ='1', s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order
                   from ". TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p
-                  left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
-                  TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id
+                    left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
+                    TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id
                   where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
-                  and pd.language_id = '".$zm_request->getLanguageId()."' and p.manufacturers_id = '".$manufacturerId."'
+                    and pd.language_id = :languageId
+                    and p.manufacturers_id = :manufacturerId
                   order by p.products_sort_order, pd.products_name";
+        $query = $this->db_->bindVars($query, ":manufacturerId", $manufacturerId, 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
         $results = $this->db_->Execute($query);
-        // product hash
+
         $products = array();
         while (!$results->EOF) {
             $product = $this->_newProduct($results->fields);
@@ -109,9 +116,10 @@ class ZMProducts {
                   from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                   where p.products_status = '1'
                   and p.products_id = p2c.products_id
-                  and p2c.categories_id = '" . $categoryId . "'";
+                  and p2c.categories_id = :categoryId";
+        $query = $this->db_->bindVars($query, ":categoryId", $categoryId, 'integer');
         $results = $this->db_->Execute($query);
-        // productIds
+
         $productIds = array();
         while (!$results->EOF) {
             $productId = $results->fields['products_id'];
@@ -178,9 +186,10 @@ class ZMProducts {
                       TABLE_CATEGORIES . " c
                      where p.products_id = p2c.products_id
                      and p2c.categories_id = c.categories_id
-                     and c.parent_id = '" . $categoryId . "'
+                     and c.parent_id = :categoryId
                      and p.products_id = f.products_id
                      and p.products_status = 1 and f.status = 1";
+            $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
         }
 
         $productIds = array();
@@ -225,7 +234,8 @@ class ZMProducts {
         $query = "select p.products_id
                   from " . TABLE_PRODUCTS . " p
                   where p.products_status = '1' " . $queryLimit . "
-                  limit " . zm_setting('maxNewProducts');
+                  limit :limit"; zm_setting('maxNewProducts');
+        $query = $this->db_->bindVars($query, ":limit", zm_setting('maxNewProducts'), "integer");
 
         // productIds
         $productIds = array();
@@ -265,24 +275,49 @@ class ZMProducts {
                       and p.products_ordered > 0
                       and p.products_id = p2c.products_id
                       and p2c.categories_id = c.categories_id
-                      and '" . $categoryId . "' in (c.categories_id, c.parent_id)
+                      and :categoryId in (c.categories_id, c.parent_id)
                       order by p.products_ordered desc
-                      limit " . $max;
+                      limit :limit";
+            $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
+            $query = $this->db_->bindVars($query, ":limit", $max, "integer");
         } else {
             $query = "select distinct p.products_id, p.products_ordered
                       from " . TABLE_PRODUCTS . " p
                       where p.products_status = '1'
                       and p.products_ordered > 0
                       order by p.products_ordered desc
-                      limit " . $max;
+                      limit :limit";
+            $query = $this->db_->bindVars($query, ":limit", $max, "integer");
         }
         $results = $this->db_->Execute($query);
 
-       // productIds
+        $productIds = array();
+        while (!$results->EOF) {
+            // make sure we do not have duplicates
+            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+            $results->MoveNext();
+        }
+        return $this->getProductsForIds($productIds);
+    }
+
+
+    // get specials
+    function getSpecials($max=0) {
+        $max = 0 == $max ? zm_setting('maxSpecialProducts') : $max;
+
+        $sql = "select distinct p.products_id
+                from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
+                where p.products_status = 1
+                and p.products_id = s.products_id
+                and s.status = 1
+                limit :limit";
+        $sql = $this->db_->bindVars($sql, ":limit", $max, "integer");
+
+        // productIds
         $productIds = array();
         $left = $max;
         while ($max > count($productIds)) {
-            $results = $this->db_->ExecuteRandomMulti($query, $max);
+            $results = $this->db_->ExecuteRandomMulti($sql, $max);
             if (0 == $results->RecordCount()) {
                 break;
             }
@@ -314,14 +349,17 @@ class ZMProducts {
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_status = '1'
-                 and p.products_model = '" . $model . "'
+                 and p.products_model = :model
                  and pd.products_id = p.products_id
-                 and pd.language_id = '" . $zm_request->getLanguageId() . "'";
-
+                 and pd.language_id = :languageId";
+        $sql = $this->db_->bindVars($sql, ":model", $model, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $results = $this->db_->Execute($sql);
+
         if (0 == $results->RecordCount()) {
             return null;
         }
+
         return $this->_newProduct($results->fields);
     }
 
@@ -336,9 +374,11 @@ class ZMProducts {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                 where p.products_id = '" . $productId . "'
+                 where p.products_id = :productId
                  and pd.products_id = p.products_id
-                 and pd.language_id = '" . $zm_request->getLanguageId() . "'";
+                 and pd.language_id = :languageId";
+        $sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
         if (0 == $results->RecordCount()) {
@@ -355,6 +395,7 @@ class ZMProducts {
         if (0 == count($productIds))
             return array();
 
+        //XXX TODO bindVars
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -364,8 +405,9 @@ class ZMProducts {
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (" . zm_db_array($productIds) . ")
                  and pd.products_id = p.products_id
-                 and pd.language_id = '" . $zm_request->getLanguageId() . "'";
-
+                 and pd.language_id = :languageId";
+        //XXX$sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $results = $this->db_->Execute($sql);
 
         $products = array();
@@ -386,8 +428,10 @@ class ZMProducts {
 
         $sql = "update " . TABLE_PRODUCTS_DESCRIPTION . "
                 set products_viewed = products_viewed+1
-                where products_id = '" . $productId ."'
-                and language_id = '" . $zm_request->getLanguageId() . "'";
+                where products_id = :productId
+                and language_id = :languageId";
+        $sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $result = $this->db_->Execute($sql);
     }
 

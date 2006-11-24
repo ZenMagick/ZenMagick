@@ -56,10 +56,13 @@ class ZMReviews {
     global $zm_request;
         $query = "select count(*) as count
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
-                where r.products_id = '" . $product->getId() . "'
+                where r.products_id = :productId
                   and r.reviews_id = rd.reviews_id
-                  and rd.languages_id = '" . $zm_request->getLanguageId() . "'
+                  and rd.languages_id = :languageId
                   and r.status = '1'";
+        $query = $this->db_->bindVars($query, ":productId", $product->getId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+
         $results = $this->db_->Execute($query);
         return $results->fields['count'];
     }
@@ -74,12 +77,14 @@ class ZMReviews {
                 where p.products_status = '1'
                 and p.products_id = r.products_id
                 and r.reviews_id = rd.reviews_id
-                and rd.languages_id = '" . $zm_request->getLanguageId() . "'
+                and rd.languages_id = :languageId
                 and p.products_id = pd.products_id
-                and pd.language_id = '" . $zm_request->getLanguageId() . "'
+                and pd.language_id = :languageId
                 and r.status = '1'";
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+
         if (null != $productId) {
-            $query .= " and p.products_id = '" . $productId . "'";
+            $query .= $this->db_->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
         }
         $query .= " limit " . MAX_RANDOM_SELECT_REVIEWS;
 
@@ -113,11 +118,14 @@ class ZMReviews {
                 where p.products_status = '1'
                 and p.products_id = r.products_id
                 and r.reviews_id = rd.reviews_id
-                and rd.languages_id = '" . $zm_request->getLanguageId() . "'
+                and rd.languages_id = :languageId
                 and p.products_id = pd.products_id
-                and pd.language_id = '" . $zm_request->getLanguageId() . "'
+                and pd.language_id = :languageId
                 and r.status = '1'
-                and p.products_id = '" . $productId . "'";
+                and p.products_id = :productId";
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":productId", $productId, 'integer');
+
         $reviews = array();
         $results = $this->db_->Execute($query);
         while (!$results->EOF) {
@@ -139,11 +147,14 @@ class ZMReviews {
                 where p.products_status = '1'
                 and p.products_id = r.products_id
                 and r.reviews_id = rd.reviews_id
-                and rd.languages_id = '" . $zm_request->getLanguageId() . "'
+                and rd.languages_id = :languageId
                 and p.products_id = pd.products_id
-                and pd.language_id = '" . $zm_request->getLanguageId() . "'
+                and pd.language_id = :languageId
                 and r.status = '1'
-                and r.reviews_id = '" . $reviewId . "'";
+                and r.reviews_id = :reviewId";
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":reviewId", $reviewId, 'integer');
+
         $results = $this->db_->Execute($query);
         $review = null;
         if (!$results->EOF) {
@@ -156,7 +167,9 @@ class ZMReviews {
     function updateViewCount($reviewId) {
         $query = "update " . TABLE_REVIEWS . "
                   set reviews_read = reviews_read+1
-                  where reviews_id = '" . $reviewId . "'";
+                  where reviews_id = :reviewId";
+        $query = $this->db_->bindVars($query, ":reviewId", $reviewId, 'integer');
+
         $result = $this->db_->Execute($sql);
     }
 

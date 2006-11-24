@@ -27,7 +27,7 @@
 
     $_ZM_SETTINGS = array();
     // these must be the first five entries
-    $_ZM_SETTINGS['isEnableZenMagick'] = false;
+    $_ZM_SETTINGS['isEnableZenMagick'] = true;
     $_ZM_SETTINGS['ZenMagickVersion'] = '${zenmagick.version}';
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
@@ -68,6 +68,8 @@
     $_ZM_SETTINGS['newProductsLimit'] = SHOW_NEW_PRODUCTS_LIMIT;
     // max new products
     $_ZM_SETTINGS['maxNewProducts'] = MAX_RANDOM_SELECT_NEW;
+    // max specials products
+    $_ZM_SETTINGS['maxSpecialProducts'] = MAX_RANDOM_SELECT_SPECIALS;
 
     // show privacy message
     $_ZM_SETTINGS['isPrivacyMessage'] = DISPLAY_PRIVACY_CONDITIONS == 'true';
@@ -157,5 +159,8 @@
     $_ZM_SETTINGS['metaTagCrumbtrailDelimiter'] = ' - ';
     $_ZM_SETTINGS['metaTitleDelimiter'] = ' :: ';
     $_ZM_SETTINGS['metaTitlePrefix'] = 'title_';
+
+    // flags :)
+    $_ZM_SETTINGS['flagMaxColumns'] = MAX_LANGUAGE_FLAGS_COLUMNS;
 
 ?>

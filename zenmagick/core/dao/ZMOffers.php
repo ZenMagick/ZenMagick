@@ -84,12 +84,12 @@ class ZMOffers {
             return $this->product_->price_;
 
         // **non** display_only **but** attributes_price_base_included
-        //XXX TODO: bindVars
         $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
                 from " . TABLE_PRODUCTS_ATTRIBUTES . "
-                where products_id = '" . $this->product_->id_ . "'
+                where products_id = :productId
                 and attributes_display_only != '1' and attributes_price_base_included='1'". "
                 order by options_id, price_prefix, options_values_price";
+        $sql = $this->db_->bindVars($sql, ':productId', $this->product_->id_, 'integer');
         $results = $this->db_->Execute($sql);
 
         // add attributes price to price
@@ -147,12 +147,15 @@ class ZMOffers {
                 where sale_categories_all like '%," . $this->product_->masterCategoryId_ . ",%' and sale_status = '1'
                 and (sale_date_start <= now() or sale_date_start = '0001-01-01')
                 and (sale_date_end >= now() or sale_date_end = '0001-01-01')
-                and (sale_pricerange_from <= '" . $basePrice . "' or sale_pricerange_from = '0')
-                and (sale_pricerange_to >= '" . $basePrice . "' or sale_pricerange_to = '0')";
+                and (sale_pricerange_from <= :basePrice  or sale_pricerange_from = '0')
+                and (sale_pricerange_to >= :basePrice or sale_pricerange_to = '0')";
+        $sql = $this->db_->bindVars($sql, ":basePrice", $basePrice, "currency");
         $results = $this->db_->Execute($sql);
+
         if ($results->RecordCount() < 1) {
            return 0;
         }
+
         // read result
         $saleType = $results->fields['sale_deduction_type'];
         $saleValue = $results->fields['sale_deduction_value'];

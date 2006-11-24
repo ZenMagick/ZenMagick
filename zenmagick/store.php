@@ -28,16 +28,10 @@
     // needs to be instantiated after application_top.php
     $zm_messages = new ZMMessages();
 
-    //TODO: get rid of
-    if ($zm_request->getPageName() == 'admin') {
-        include('admin/l10n_create.php');
-        exit;
-    }
-
     // main theme handler
     $zm_theme = new ZMTheme();
     $zm_controller = $zm_loader->newInstance(zm_mk_classname($zm_request->getPageName().'Controller'));
-
+    
     if (zm_setting('isEnableZenMagick') && ($zm_theme->isValidRequest() || null != $zm_controller)) {
         // load theme's extra resources
         foreach ($zm_theme->getExtraFiles() as $shared) {

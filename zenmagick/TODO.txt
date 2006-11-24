@@ -35,6 +35,11 @@ code quality:
 - optional fallback of category navigation as with current zen-cart
 - remove theme controller path from loader
 - replicate useful init stuff from zen-cart
+- get proper random query (mostly products)
+- compare for null needs ===
+- reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
+- rework default theme result list handling
+- get rid of ZenMagick db package
 
 proper class hierachy
 => dao, model, business

@@ -6,6 +6,12 @@ Current:
 - added reviews and tell_a_friend views and corresponding controller
 - added getTypeSetting($name) to ZMProduct
 - renamed search_header.php search.php
+- added notification boxes
+- reorganised and extended the ZenMagick admin screen(s); now there is a top
+  level ZenMagick menu
+- removed empty login.php sidebox - zen-cart now comes with it's own version
+- removed theme view from default theme
+- make checkout payments page validate
 
 
 Release 0.4.5

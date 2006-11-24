@@ -64,12 +64,15 @@ class ZMOrders {
                 o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
                 o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.orders_id = '" . $orderId . "'
+                where o.orders_id = :orderId
                 and o.orders_id = ot.orders_id
                 and ot.class = 'ot_total'
                 and o.orders_status = s.orders_status_id
-                and s.language_id = '" . $zm_request->getLanguageId() . "'
+                and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
+        $sql = $this->db_->bindVars($sql, ":orderId", $orderId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+
         $results = $this->db_->Execute($sql);
 
         $order = null;
@@ -98,12 +101,14 @@ class ZMOrders {
                 o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
                 o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.customers_id = '" . $accountId . "'
+                where o.customers_id = :accountId
                 and o.orders_id = ot.orders_id
                 and ot.class = 'ot_total'
                 and o.orders_status = s.orders_status_id
-                and s.language_id = '" . $zm_request->getLanguageId() . "'
+                and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
         $results = $this->db_->Execute($sql);
 
         $orders = array();
@@ -119,13 +124,16 @@ class ZMOrders {
 
     function _getOrderStatiForId($orderId) {
     global $zm_request;
-        $query = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
+        $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
                   from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
-                  where osh.orders_id = '" . $orderId . "'
+                  where osh.orders_id = :orderId
                   and osh.orders_status_id = os.orders_status_id
-                  and os.language_id = '" . $zm_request->getLanguageId() . "'
+                  and os.language_id = :languageId
                   order by osh.date_added";
-        $results = $this->db_->Execute($query);
+        $sql = $this->db_->bindVars($sql, ":orderId", $orderId, "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+
+        $results = $this->db_->Execute($sql);
 
         $stati = array();
         while (!$results->EOF) {

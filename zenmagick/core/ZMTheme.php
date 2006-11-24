@@ -177,7 +177,9 @@ class ZMTheme {
         // load
         require_once $infoFile;
         // create instance
-        return new $infoClass();
+        $clazz = new $infoClass();
+        $clazz->setPath($themeId);
+        return $clazz;
     }
 
 

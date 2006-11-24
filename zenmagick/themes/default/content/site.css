@@ -138,8 +138,8 @@ label {margin:2px 4px 4px 3px;}
 #sb_order_history ul {margin-left:12px;}
 #sb_bestsellers li a:hover {text-decoration:underline;}
 
-#sb_featured, #sb_newproducts {text-align:center;}
-#sb_featured p, #sb_newproducts p {margin:0;padding:1px;}
+#sb_featured, #sb_newproducts, #sb_specials {text-align:center;}
+#sb_featured p, #sb_newproducts p, #sb_specials p {margin:0;padding:1px;}
 
 #sb_tellafriend input#to_email_address {width:6em;}
 #sb_tellafriend input.btn {float:right;}
@@ -161,6 +161,8 @@ body#b_account_password #content {padding-left:20px;}
 #sb_login #password {width:5.2em;}
 #sb_login .btn {float:right;}
 
+#sb_languages, #sb_product_notifications {text-align:center;}
+
 body#b_account_edit #content table {padding-left:20px;}
 body#b_account_edit #content table #label {width:12em;}
 body#b_account_edit #content table td {padding:2px;}
@@ -174,6 +176,7 @@ body#b_create_account #content span {padding-left:2px;color:#f02025;font-size:80
 body#b_account_history_info #content table {border:1px solid #c0c0c0;padding-bottom:4px;padding-right:3px;width:98%;margin-bottom:12px;}
 body#b_account_history_info div#addr {margin-top:10px;}
 body#b_account_history_info div#addr div {float:left;width:48%;border:1px solid #c0c0c0;padding:4px 3px;margin-right:3px;}
+body#b_account_history_info div#addr div#baddr {float:right;}
 body#b_account_history_info td {vertical-align:top;padding:2px 3px 5px 3px;}
 body#b_account_history_info td.qty {text-align:right;width:2.2em;}
 body#b_account_history_info td.price {text-align:right;font-weight:bold;}

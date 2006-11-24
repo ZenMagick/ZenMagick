@@ -98,13 +98,17 @@ class ZMShoppingCart {
                         pa.options_values_price, pa.price_prefix
                     from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval,
                        " . TABLE_PRODUCTS_ATTRIBUTES . " pa
-                    where pa.products_id = '" . (int)$item->getId() . "'
-                    and pa.options_id = '" . $option . "'
+                    where pa.products_id = :productId
+                    and pa.options_id = :option
                     and pa.options_id = popt.products_options_id
                     and pa.options_values_id = '" . $type . "'
                     and pa.options_values_id = poval.products_options_values_id
-                    and popt.language_id = '" . $zm_request->getLanguageId() . "'
-                    and poval.language_id = '" . $zm_request->getLanguageId() . "'";
+                    and popt.language_id = :languageId
+                    and poval.language_id = :languageId";
+            $sql = $this->db_->bindVars($sql, ":productId", $item->getId(), "integer");
+            $sql = $this->db_->bindVars($sql, ":option", $option, "integer");
+            $sql = $this->db_->bindVars($sql, ":productId", $zm_request->getLanguageId(), "integer");
+
             $results = $this->db_->Execute($sql);
 
             $name = $results->fields['products_options_name'];
@@ -270,8 +274,12 @@ class ZMShoppingCart {
     // JS validation code as provided by the payment modules
     function getPaymentsJavaScript($echo=true) {
         $payments = $this->_getPayments();
-        $js = $payments->getPaymentsJavaScript($echo);
+        $js = $payments->getPaymentsJavaScript(false);
 
+        // strip invalid script attribute
+        $js = str_replace(' language="javascript"', '', $js);
+
+        if ($echo) echo $js;
         return $js;
     }
 

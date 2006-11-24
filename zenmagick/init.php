@@ -64,6 +64,7 @@
     $zm_coupons = new ZMCoupons();
     $zm_banners = new ZMBanners();
     $zm_meta = $zm_loader->newInstance('MetaTags');
+    $zm_languages = new ZMLanguages();
 
     // do this only after all global instances are set up
     foreach ($zmt_filter_names as $filter) {

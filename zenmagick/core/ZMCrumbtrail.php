@@ -33,14 +33,11 @@
  */
 class ZMCrumbtrail {
     // db access
-    var $db_;
     var $crumbs_;
 
 
     // create new instance
     function ZMCrumbtrail() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
         $this->crumbs_ = array();
 
         // always add home
@@ -104,16 +101,14 @@ class ZMCrumbtrail {
 
     // add product (by id)
     function addProduct($productId) {
-    global $zm_request;
+    global $zm_request, $zm_products;
+
         if (null == $productId)
             return;
 
-        //TODO: move to Product.php
-        $sql = "select products_name from " . TABLE_PRODUCTS_DESCRIPTION . "
-                where products_id = '" . (int)$productId . "' and language_id = '" . (int)$zm_request->getLanguageId() . "'";
-        $results = $this->db_->Execute($sql);
-        if (0 < $results->RecordCount()) {
-            $this->addCrumb($results->fields['products_name'], zm_href(zm_get_info_page($productId), '&products_id=' . $productId, false));
+        $product = $zm_products->getProductForId($productId);
+        if (null != $product) {
+            $this->addCrumb($product->getName(), zm_product_href($productId, false));
         }
     }
 

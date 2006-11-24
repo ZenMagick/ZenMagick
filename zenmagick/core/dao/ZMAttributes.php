@@ -161,10 +161,11 @@ class ZMAttributes {
             $sql = "select pov.products_options_values_id, pov.products_options_values_name, pa.*
                     from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
                     where pa.products_id = :productId
-                    and pa.options_id = '" . $attribute->getId() . "'
+                    and pa.options_id = :attributeId
                     and pa.options_values_id = pov.products_options_values_id
                     and pov.language_id = :languageId " .
                     $valuesOrderBy;
+            $sql = $this->db_->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
             $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
             $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
             $valueResults = $this->db_->Execute($sql);

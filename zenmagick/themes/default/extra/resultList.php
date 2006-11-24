@@ -87,7 +87,9 @@
 
         $html .= rnblk($resultList, $sort);
 
-        $html .= zm_form(ZM_FILENAME_COMPARE_PRODUCTS, '', null, 'get', null, false);
+        if ($resultCallback == 'handle_product_result') {
+            $html .= zm_form(ZM_FILENAME_COMPARE_PRODUCTS, '', null, 'get', null, false);
+        }
         $html .= '<table cellspacing="0" cellpadding="0">';
         if (null != $tableDefCallback) {
             $html .= call_user_func($tableDefCallback);
@@ -103,8 +105,10 @@
 
         $html .= "</tbody>";
         $html .= '</table>';
-        $html .= '<div class="btn"><input type="submit" class="btn" value="'.zm_l10n_get("Compare Selected").'" /></div>';
-        $html .= '</form>';
+        if ($resultCallback == 'handle_product_result') {
+            $html .= '<div class="btn"><input type="submit" class="btn" value="'.zm_l10n_get("Compare Selected").'" /></div>';
+            $html .= '</form>';
+        }
         $html .= rnblk($resultList, $sort);
         $html .= '</div>';
 
@@ -135,7 +139,7 @@
     function handle_order_result($order, $first, $odd) {
         $html = '<tr class="'.($odd?"odd":"even").($first?" first":" other").'"><td>';
         $html .= '<a href="' . zm_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId(), false) . '">' . 
-            $order->getId() . '</a>';
+            zm_l10n_get("Order #%s", $order->getId()) . '</a>';
         $html .= '</td><td>';
         $html .= zm_date_short($order->getOrderDate(), false);
         $html .= '</td><td>';

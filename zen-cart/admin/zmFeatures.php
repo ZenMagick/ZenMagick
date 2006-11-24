@@ -24,10 +24,10 @@
  */
 ?>
 <?php  
-require('includes/application_top.php');
-require('includes/zmCatalogDtree.php');
-require('../zenmagick/init.php');
-define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
+require_once('includes/application_top.php');
+require_once('includes/zmCatalogDtree.php');
+require_once('../zenmagick/init.php');
+require_once('../zenmagick/admin_init.php');
 
     // set up some stuff
     $featureTypes = $zm_features->getFeatureTypes();
@@ -153,7 +153,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
 <html <?php echo HTML_PARAMS; ?>>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title><?php echo TITLE; ?></title>
+    <title>ZenMagick Product Features</title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
@@ -177,7 +177,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         <?php zm_catalog_dtree(ZM_ADMINFN_FEATURES, ZM_ADMINFN_FEATURES) ?>
       </div>
 
-      <div id="content">
+      <div id="catalogContent">
         <fieldset>
           <legend>Feature Maintenance</legend>
           <h3>Available features</h3>
@@ -337,4 +337,3 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
 
   </body>
 </html>
-

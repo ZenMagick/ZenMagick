@@ -66,10 +66,11 @@ class ZMAccounts {
 
 
     function emailExists($email) {
-        //XXX TODO: zm_db_prepare_input???
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . "
-                where customers_email_address = '" . zm_db_prepare_input($email) . "'";
+                where customers_email_address = :email";
+        $sql = $this->db_->bindVars($sql, ":email", $email, "string");
+
         $results = $this->db_->Execute($sql);
         return $results->fields['total'] > 0;
     }
@@ -77,18 +78,32 @@ class ZMAccounts {
 
     function createAccount($account) {
         $subscriptions = $account->getSubscriptions();
-        //XXX TODO: bindVars!
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
                  customers_default_address_id, customers_password, customers_authorization, 
                  customers_gender, customers_dob
-                ) values (" . zm_db_values(
+                ) values (:firstName, :lastName, :email, :nickName, :phone, :fax, :subscriptions,
+                          :emailFormat, 0, :password, :customerApproval, :gender, :dob)
+                " . zm_db_values(
                  $account->firstName_, $account->lastName_, $account->email_, $account->nickName_,
                  $account->phone_, $account->fax_, $subscriptions->isNewsletterSubscriber?1:0, $account->emailFormat_,
                  0, zm_encrypt_password($account->password_), zm_setting('defaultCustomerApproval'),
                  $account->gender_, $account->dob_) . ")";
-        echo $sql;
+        $sql = $this->db_->bindVars($sql, ":firstName", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":lastName", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":email", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":nickName", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":phone", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":fax", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":subscriptions", $accountId, "integer");
+        $sql = $this->db_->bindVars($sql, ":emailFormat", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":password", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":customerApproval", $accountId, "integer");
+        $sql = $this->db_->bindVars($sql, ":gender", $accountId, "string");
+        $sql = $this->db_->bindVars($sql, ":dob", $accountId, "date");
+
+        //echo $sql;
         $this->db_->Execute($sql);
         $account->id_ = $this->db_->Insert_ID();
         return $account;
@@ -116,6 +131,7 @@ class ZMAccounts {
                 from " . TABLE_CUSTOMERS . "
                 where customers_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
+
         $results = $this->db_->Execute($sql);
         return $results->fields['customers_newsletter'] == '1';
     }
@@ -125,6 +141,7 @@ class ZMAccounts {
                 from " . TABLE_CUSTOMERS_INFO . "
                 where  customers_info_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
+
         $results = $this->db_->Execute($sql);
         return $results->fields['global_product_notifications'] == '1';
     }
@@ -132,9 +149,11 @@ class ZMAccounts {
     function _getSubscribedProductIds($account) {
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                where  customers_info_id = :accountId";
+                where  customers_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
+
         $productIds = array();
+        $results = $this->db_->Execute($sql);
         while (!$results->EOF) {
             array_push($productIds, $results->fields['products_id']);
             $results->MoveNext();
@@ -148,6 +167,7 @@ class ZMAccounts {
         $sql = "select amount from " . TABLE_COUPON_GV_CUSTOMER . "
                 where customer_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
+
         $results = $this->db_->Execute($sql);
         if (!$results->EOF) {
             return $results->fields['amount'];

@@ -31,7 +31,9 @@ fieldset table {border:1px solid #c0c0c0;}
 ul.closed {display:none;}
 ul.open {display:block;}
 #cnav {float:left;width:20%;border:1px solid gray;padding:8px;margin:8px 5px;}
-#content {margin-left:20%;}
+#catalogContent {margin-left:20%;}
+#content form {font-size:105%;}
+#content input {margin:5px 3px;vertical-align:middle;}
 
 /*--------------------------------------------------|
 | dTree 2.05 | www.destroydrop.com/javascript/tree/ |
