@@ -32,6 +32,7 @@
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
+    $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
 
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;

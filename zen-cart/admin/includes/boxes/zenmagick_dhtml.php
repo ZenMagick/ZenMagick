@@ -18,7 +18,9 @@ require_once('../zenmagick/admin_init.php');
   $za_heading = array('text' => "ZenMagick", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
   $za_contents[] = array('text' => "Features", 'link' => zen_href_link(ZM_ADMINFN_FEATURES, '', 'NONSSL'));
   $za_contents[] = array('text' => "Language Tool", 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
-  $za_contents[] = array('text' => "Installation Cleanup", 'link' => zen_href_link(ZM_ADMINFN_CLEANUP, '', 'NONSSL'));
+  if (0 != count(zm_get_obsolete_files())) {
+    $za_contents[] = array('text' => "Installation Cleanup", 'link' => zen_href_link(ZM_ADMINFN_CLEANUP, '', 'NONSSL'));
+  }
 
 ?>
 <!-- tools //-->
