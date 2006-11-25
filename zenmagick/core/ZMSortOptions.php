@@ -74,10 +74,12 @@ class ZMSortOptions {
         }
         return false;
     }
+
     function hasOptions() {
     global $_ZM_PRODUCT_LISTING_FIELDS;
         return 0 != count($_ZM_PRODUCT_LISTING_FIELDS);
     }
+
     function getOptions() {
     global $_ZM_PRODUCT_LISTING_FIELDS;
         $options = array();

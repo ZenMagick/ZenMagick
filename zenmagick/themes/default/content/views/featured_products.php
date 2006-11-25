@@ -24,15 +24,8 @@
  */
 ?>
 
-<?php $products = $zm_products->getNewProducts(null, 1); ?>
-<?php if (1 == count($products)) {
-    $product = $products[0];
-    ?>
-    <h3><a href="<?php zm_href(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("New Products") ?></h3>
-    <div id="sb_newproducts" class="box">
-        <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a></p>
-        <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
-        <?php $offers = $product->getOffers(); ?>
-        <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
-    </div>
+<?php if ($zm_resultList->hasResults()) { ?>
+    <?php processResultList($zm_resultList, "product", "handle_product_result", "product_table_def") ?>
+<?php } else { ?>
+    <h2><?php zm_l10n("There are no new products in this category") ?></h2>
 <?php } ?>

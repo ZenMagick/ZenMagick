@@ -66,7 +66,7 @@ class ZMProducts {
                   and pd.language_id = :languageId
                   and p2c.categories_id = :categoryId
                   order by p.products_sort_order, pd.products_name";
-        $query = $this->db_->bindVars($query, ":productId", $zm_request->getLanguageId(), "integer");
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), "integer");
         $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
 
         $results = $this->db_->Execute($query);
@@ -118,15 +118,8 @@ class ZMProducts {
                   and p.products_id = p2c.products_id
                   and p2c.categories_id = :categoryId";
         $query = $this->db_->bindVars($query, ":categoryId", $categoryId, 'integer');
-        $results = $this->db_->Execute($query);
 
-        $productIds = array();
-        while (!$results->EOF) {
-            $productId = $results->fields['products_id'];
-            $productIds[$productId] = $productId;
-            $results->MoveNext();
-        }
-        return $productIds;
+        return $this->_getProductIds($query);
     }
 
 
@@ -170,7 +163,8 @@ class ZMProducts {
     // get featured products
     function getFeaturedProducts($categoryId=null, $max=1) {
     global $zm_request;
-		    $query = null;
+
+		$query = null;
         if (null == $categoryId || 0 == $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p 
@@ -192,78 +186,58 @@ class ZMProducts {
             $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
         }
 
-        $productIds = array();
-        $left = $max;
-        while (0 < $left) {
-            $results = $this->db_->ExecuteRandomMulti($query, $left);
-            if (0 == $results->RecordCount()) {
-                break;
-            }
-            while (!$results->EOF) {
-                // make sure we do not have duplicates
-                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-                $results->MoveNext();
-                if ($max == count($productIds))
-                    break;
-            }
-            $reminder = $max - count($productIds);
-            if ($reminder == $left) {
-                // can't find any more
-                break;
-            }
-            $left = $reminder;
-        }
+        $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds);
     }
 
 
     // get new products
-    function getNewProducts($max=1) {
+    // optional category limit, max, manual time limit in days (if globalLimit > 2); defaults to 120 days; 0 == use globalLimit
+    function getNewProducts($categoryId=null, $max=0, $timeLimit=120) {
+        $timeLimit = 0 == $timeLimit ? zm_setting('globalNewProductsLimit') : $timeLimit;
+
         $queryLimit = '';
-        switch (zm_setting('newProductsLimit')) {
+        switch (zm_setting('globalNewProductsLimit')) {
             case '0':
+                // no global limit
                 $queryLimit = '';
                 break;
             case '1':
-                $queryLimit = " and date_format(p.products_date_added, '%Y%m') >= date_format(now(), '%Y%m')";
+                // global limit og one date
+                $newDate = date('Ym', time()) . '01';
+                $queryLimit = $this->db_bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
             default:
-                $queryLimit = ' and TO_DAYS(NOW()) - TO_DAYS(p.products_date_added) <= '.zm_setting('newProductsLimit');
+                // 120 days; 24 hours; 60 mins; 60secs
+                $dateRange = time() - ($timeLimit * 24 * 60 * 60);
+                $newDate = date('Ymd', $dateRange);
+                $queryLimit = $this->db_bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
         }
-        $query = "select p.products_id
-                  from " . TABLE_PRODUCTS . " p
-                  where p.products_status = '1' " . $queryLimit . "
-                  limit :limit"; zm_setting('maxNewProducts');
-        $query = $this->db_->bindVars($query, ":limit", zm_setting('maxNewProducts'), "integer");
 
-        // productIds
-        $productIds = array();
-        $left = $max;
-        while ($max > count($productIds)) {
-            $results = $this->db_->ExecuteRandomMulti($query, $max);
-            if (0 == $results->RecordCount()) {
-                break;
-            }
-            while (!$results->EOF) {
-                // make sure we do not have duplicates
-                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-                $results->MoveNext();
-                if ($max == count($productIds))
-                    break;
-            }
-            $reminder = $max - count($productIds);
-            if ($reminder == $left) {
-                // can't find any more
-                break;
-            }
-            $left = $reminder;
+        $query = null;
+        if (null == $categoryId) {
+            $query = "select p.products_id
+                      from " . TABLE_PRODUCTS . " p
+                      where p.products_status = 1" . $queryLimit;
+        } else {
+            $query = "select distinct p.products_id
+                      from " . TABLE_PRODUCTS . " p
+                      left join " . TABLE_SPECIALS . " s
+                      on p.products_id = s.products_id, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                      where p.products_id = p2c.products_id
+                      and p2c.categories_id = c.categories_id
+                      and c.parent_id = :categoryId
+                      and p.products_status = 1" . $queryLimit;
+            $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
         }
+
+        $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds);
     }
 
 
-    function getBestSellers($categoryId, $max=0) {
+    function getBestSellers($categoryId=null, $max=0) {
         $max = 0 == $max ? zm_setting('maxBestSellers') : $max;
 
         $query = null;
@@ -289,14 +263,10 @@ class ZMProducts {
                       limit :limit";
             $query = $this->db_->bindVars($query, ":limit", $max, "integer");
         }
+
         $results = $this->db_->Execute($query);
 
-        $productIds = array();
-        while (!$results->EOF) {
-            // make sure we do not have duplicates
-            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-            $results->MoveNext();
-        }
+        $productIds = $this->_getProductIds($query);
         return $this->getProductsForIds($productIds);
     }
 
@@ -313,28 +283,7 @@ class ZMProducts {
                 limit :limit";
         $sql = $this->db_->bindVars($sql, ":limit", $max, "integer");
 
-        // productIds
-        $productIds = array();
-        $left = $max;
-        while ($max > count($productIds)) {
-            $results = $this->db_->ExecuteRandomMulti($sql, $max);
-            if (0 == $results->RecordCount()) {
-                break;
-            }
-            while (!$results->EOF) {
-                // make sure we do not have duplicates
-                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-                $results->MoveNext();
-                if ($max == count($productIds))
-                    break;
-            }
-            $reminder = $max - count($productIds);
-            if ($reminder == $left) {
-                // can't find any more
-                break;
-            }
-            $left = $reminder;
-        }
+        $productIds = $this->_getRandomProductIds($sql, $max);
         return $this->getProductsForIds($productIds);
     }
 
@@ -354,6 +303,7 @@ class ZMProducts {
                  and pd.language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":model", $model, "integer");
         $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+
         $results = $this->db_->Execute($sql);
 
         if (0 == $results->RecordCount()) {
@@ -408,6 +358,7 @@ class ZMProducts {
                  and pd.language_id = :languageId";
         //XXX$sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
         $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+
         $results = $this->db_->Execute($sql);
 
         $products = array();
@@ -432,7 +383,51 @@ class ZMProducts {
                 and language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
         $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+
         $result = $this->db_->Execute($sql);
+    }
+
+
+    function _getProductIds($sql) {
+        $results = $this->db_->Execute($sql);
+
+        $productIds = array();
+        while (!$results->EOF) {
+            $productId = $results->fields['products_id'];
+            $productIds[$productId] = $productId;
+            $results->MoveNext();
+        }
+
+        return $productIds;
+    }
+
+
+    function _getRandomProductIds($sql, $max=0) {
+        0 == $max && zm_log("invalid max value: ".$max, 3);
+
+        $productIds = array();
+        $left = $max;
+        while (0 < $left) {
+            $results = $this->db_->ExecuteRandomMulti($sql, $left);
+            if (0 == $results->RecordCount()) {
+                break;
+            }
+            while (!$results->EOF) {
+                // make sure we do not have duplicates
+                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+                $results->MoveNext();
+                if ($max == count($productIds))
+                    break;
+            }
+            $reminder = $max - count($productIds);
+            if ($reminder == $left) {
+                // can't find any more
+                break;
+            }
+            $left = $reminder;
+        }
+
+        return $productIds;
     }
 
 

@@ -320,6 +320,7 @@
     }
 
     function _zm_build_form($page, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $echo=true) {
+    global $zm_request;
         $html = '';
         if (zm_starts_with($page, "http")) {
             $action = $page;
@@ -335,7 +336,7 @@
         }
         $html .= ' method="' . $method . '">';
         $html .= '<div>';
-        $html .= '<input type="hidden" name="main_page" value="' . $page . '" />';
+        $html .= '<input type="hidden" name="main_page" value="' . (null == $page ? $zm_request->getPageName() : $page) . '" />';
         parse_str($params, $query);
         foreach ($query as $name => $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';

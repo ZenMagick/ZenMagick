@@ -62,15 +62,12 @@
 
     // max result list
     $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;
-    // max best sellers
     $_ZM_SETTINGS['maxBestSellers'] = MAX_DISPLAY_BESTSELLERS;
-
-    // new products limit
-    $_ZM_SETTINGS['newProductsLimit'] = SHOW_NEW_PRODUCTS_LIMIT;
-    // max new products
-    $_ZM_SETTINGS['maxNewProducts'] = MAX_RANDOM_SELECT_NEW;
-    // max specials products
     $_ZM_SETTINGS['maxSpecialProducts'] = MAX_RANDOM_SELECT_SPECIALS;
+    // this is a general limit
+    $_ZM_SETTINGS['globalNewProductsLimit'] = SHOW_NEW_PRODUCTS_LIMIT;
+    // this is a display limit
+    $_ZM_SETTINGS['maxNewProducts'] = MAX_DISPLAY_NEW_PRODUCTS;
 
     // show privacy message
     $_ZM_SETTINGS['isPrivacyMessage'] = DISPLAY_PRIVACY_CONDITIONS == 'true';

@@ -40,6 +40,14 @@ code quality:
 - reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
 - rework default theme result list handling
 - get rid of ZenMagick db package
+- random select!!
+- new max results handling (in particular products) - urgent!
+- rethink sorting
+- what are filters, again?
+- extends ZMSort to allow ZMSortOptions to collect available options based on found sort classes
+  similar to filters
+- use 3rd party API for db access
+
 
 proper class hierachy
 => dao, model, business
@@ -52,7 +60,7 @@ new features:
 
 
 docs:
-- ???
+- sorting, filtering
 
 
 admin:
