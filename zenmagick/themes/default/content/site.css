@@ -254,7 +254,7 @@ table#cart td.tot {border-top:1px solid gray;}
 div#eztoc {border:1px solid gray; float:left;margin:0 6px 6px 0;padding:3px;}
 div#eztoc h4 {color:white;background:#578bb8;padding:3px;}
 body#b_page #content h2 {text-align:left;}
-div#eztoc ul {list-style:none;margin:0;padding:0;}
+div#eztoc ul {list-style:none;margin:3px;padding:0;}
 div#eztoc ul li {margin:0;padding:1px;}
 div#eztoc ul li a {display:block;text-decoration:underline;}
 div#eztoc ul li.act a {text-decoration:none;}

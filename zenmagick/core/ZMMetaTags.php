@@ -69,7 +69,7 @@ class ZMMetaTags {
      * @return string The page title.
      */
     function getTitle($echo=true) {
-    global $zm_request;
+    global $zm_request, $zm_page;
 
         $this->_initMetaTags();
 
@@ -88,6 +88,8 @@ class ZMMetaTags {
             $title = $this->_formatCrumbtrail();
         } else if (zm_starts_with($zm_request->getPageName(), 'product_')) {
             $title = $this->product_;
+        } else if ('page' == $zm_request->getPageName() && isset($zm_page)) {
+            $title = $zm_page->getTitle();
         }
 
         if (0 < strlen($title)) $title .= zm_setting('metaTitleDelimiter');
