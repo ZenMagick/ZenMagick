@@ -43,7 +43,6 @@ class ZMClassLoader {
     global $zm_runtime;
         $this->classPath_ = array();
         $this->classPath_ = array_merge($this->classPath_, $this->_findClasses($zm_runtime->getThemePath()."/".ZM_THEME_EXTRA));
-        $this->classPath_ = array_merge($this->classPath_, $this->_findClasses($zm_runtime->getThemePath()."/".ZM_THEME_CONTROLLER));
         $this->classPath_ = array_merge($this->classPath_, $this->_findClasses($zm_runtime->getControllerPath()));
         $this->classPath_ = array_merge($this->classPath_, $this->_findClasses($zm_runtime->getZMRootPath()."core/"));
         $this->classPath_ = array_merge($this->classPath_, $this->_findClasses($zm_runtime->getThemePath(), false));

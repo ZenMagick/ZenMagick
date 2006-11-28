@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMStaticController extends ZMRequestController {
+class ZMStaticController extends ZMController {
 
     // create new instance
     function ZMStaticController() {
@@ -51,13 +51,13 @@ class ZMStaticController extends ZMRequestController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_theme;
+    global $zm_request, $zm_crumbtrail;
+
         // prepare page name for crumbtrail
         $sub = $zm_request->getSubPageName();
         $sub = str_replace('_', ' ', $sub);
         $sub = ucwords($sub);
         $zm_crumbtrail->addCrumb($sub);
-        $this->exportGlobal("zm_theme", $zm_theme);
 
         return true;
     }

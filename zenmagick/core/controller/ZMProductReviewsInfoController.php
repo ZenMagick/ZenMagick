@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMProductReviewsInfoController extends ZMRequestController {
+class ZMProductReviewsInfoController extends ZMController {
 
     // create new instance
     function ZMProductReviewsInfoController() {

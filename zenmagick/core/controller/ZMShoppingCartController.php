@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMShoppingCartController extends ZMRequestController {
+class ZMShoppingCartController extends ZMController {
 
     // create new instance
     function ZMShoppingCartController() {

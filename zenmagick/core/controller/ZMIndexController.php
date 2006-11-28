@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMIndexController extends ZMRequestController {
+class ZMIndexController extends ZMController {
 
     // create new instance
     function ZMIndexController() {

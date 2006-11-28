@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMAddressBookProcessController extends ZMRequestController {
+class ZMAddressBookProcessController extends ZMController {
 
     // create new instance
     function ZMAddressBookProcessController() {

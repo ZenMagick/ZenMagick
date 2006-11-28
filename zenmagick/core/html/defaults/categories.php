@@ -28,23 +28,45 @@
     /**
      * Build a nested unordered list from the given categories.
      *
+     * <p>Supports show category count and use category page.</p>
+     *
+     * <p>Links in the active path (&lt;a&gt;) will have a class named <code>act</code>,
+     * empty categories will have a class <code>empty</code>. Note that both can occur
+     * at the same time.</p>
+     *
      * @package net.radebatz.zenmagick.html.defaults
      * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
-     * @param string id An optional id for the root <code>&lt;ul&gt;</code> tag.
+     * @param bool activeParent If true, the parent category is considered in the current category path.
+     * @param bool root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
      * @return string The given categories as nested unordered list.
      */
-    function zm_build_category_tree_list($categories, $id=null) {
+    function zm_build_category_tree_list($categories, $activeParent=false, $root=true) {
+    global $zm_products;
         $html = '';
-
-        $html .= '<ul'.(null != $id ? ' id="'.$id.'"' : '').'>';
+        $html .= '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
+            $active = $category->isActive();
+            $noOfProducts = zm_setting('isShowCategoryProductCount') ? count($zm_products->getProductIdsForCategoryId($category->getId())) : 0;
+            $empty = 0 == $noOfProducts;
             $html .= '<li>';
-            $html .= '<a href="' .
+            $class = '';
+            $class = $active ? 'act' : '';
+            $class = $empty ? ' empty' : '';
+            $class = trim($class);
+            $onclick = $empty ? (zm_setting('isUseCategoryPage') ? '' : ' onclick="return catclick(this);"') : '';
+            $html .= '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         zm_href(FILENAME_DEFAULT, '&'.$category->getPath(), '', false, false) .
-                        '">'.$category->getName().'</a>';
-            if ($category->hasChildren()) {
-                $html .= zm_build_category_tree_list($category->getChildren(), null);
+                        '">'.zm_htmlencode($category->getName(), false).'</a>';
+            if (0 < $noOfProducts) {
+                $html .= '('.$noOfProducts.')';
             }
+            if ($category->hasChildren()) {
+                $html .= '&gt;';
+            }
+            if ($category->hasChildren()) { // && $active) {
+                $html .= buildCategoryTreeList($category->getChildren(), $active, false);
+            }
+            $html .= '</li>';
         }
         $html .= '</ul>';
 

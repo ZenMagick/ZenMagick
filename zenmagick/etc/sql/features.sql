@@ -8,8 +8,8 @@
 #                    to be treated differently
 #
 
-DROP TABLE IF EXISTS zen_feature_types;
-CREATE TABLE zen_feature_types (
+DROP TABLE IF EXISTS zm_feature_types;
+CREATE TABLE zm_feature_types (
   feature_type_id int(11) NOT NULL auto_increment,
   feature_type varchar(32) NOT NULL default '',
   PRIMARY KEY (feature_type_id)
@@ -29,8 +29,8 @@ CREATE TABLE zen_feature_types (
 #  hidden :               features that can be used for business logic only
 #
 
-DROP TABLE IF EXISTS zen_features;
-CREATE TABLE zen_features (
+DROP TABLE IF EXISTS zm_features;
+CREATE TABLE zm_features (
   feature_id int(11) NOT NULL auto_increment,
   feature_type_id int(11) NOT NULL,
   language_id int(11) NOT NULL default '1',
@@ -53,8 +53,8 @@ CREATE TABLE zen_features (
 #  feature_value :      the actual value
 #
 
-DROP TABLE IF EXISTS zen_product_features;
-CREATE TABLE zen_product_features (
+DROP TABLE IF EXISTS zm_product_features;
+CREATE TABLE zm_product_features (
   product_feature_id int(11) NOT NULL auto_increment,
   product_id int(11) NOT NULL,
   feature_id int(11) NOT NULL,
@@ -67,29 +67,4 @@ CREATE TABLE zen_product_features (
 # --------------------------------------------------------
 
 
-INSERT INTO zen_feature_types (feature_type_id, feature_type) VALUES (1, 'text');
-
-
-INSERT INTO zen_products_options_values_to_products_options (products_options_values_to_products_options_id, products_options_id, products_options_values_id) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3);
-
-
-
-# --------------------------------------------------------
-# some test data
-#
-# --------------------------------------------------------
-INSERT INTO zen_features (feature_id, feature_type_id, language_id, feature_name, feature_description) 
-  VALUES (1, 1, 1, 'Heads', 'Number of heads');
-INSERT INTO zen_features (feature_id, feature_type_id, language_id, feature_name, feature_description) 
-  VALUES (2, 1, 1, 'Humour', 'Related humourous stuff');
-INSERT INTO zen_features (feature_id, feature_type_id, language_id, feature_name, feature_description) 
-  VALUES (3, 1, 1, 'Special', 'Special stuff');
-
-INSERT INTO zen_product_features (product_feature_id, product_id, feature_id, feature_index_id, feature_value) 
-  VALUES (1, 1, 1, 1, '2');
-INSERT INTO zen_product_features (product_feature_id, product_id, feature_id, feature_index_id, feature_value) 
-  VALUES (2, 1, 3, 1, 'Super gut!');
-
+INSERT INTO zm_feature_types (feature_type_id, feature_type) VALUES (1, 'text');

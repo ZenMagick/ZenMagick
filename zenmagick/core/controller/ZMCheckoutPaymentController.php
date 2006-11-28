@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMCheckoutPaymentController extends ZMRequestController {
+class ZMCheckoutPaymentController extends ZMController {
 
     // create new instance
     function ZMCheckoutPaymentController() {

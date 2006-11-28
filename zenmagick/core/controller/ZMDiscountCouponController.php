@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMDiscountCouponController extends ZMRequestController {
+class ZMDiscountCouponController extends ZMController {
 
     // create new instance
     function ZMDiscountCouponController() {

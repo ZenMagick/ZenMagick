@@ -22,6 +22,7 @@
  * $Id$
  */
 
+// focus on particular fomr element
 function focus($id) {
     if (document.getElementById) {
         var elem = document.getElementById($id);
@@ -29,6 +30,7 @@ function focus($id) {
     }
 }
 
+// small info popup
 function popupWindow(url) {
   var win = window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150');
   if (win && win.focus) {
@@ -36,6 +38,7 @@ function popupWindow(url) {
   }
 }
 
+// new window (alternative to target="_blank")
 function newWin(link) {
   var win = window.open(link.href);
   if (win && win.focus) {
@@ -43,6 +46,7 @@ function newWin(link) {
   }
 }
 
+// product image popup
 function productPopup(e, parent) {
   if (e.preventDefault) e.preventDefault();
   var win = window.open("","pimage","height=206,width=246");
@@ -54,4 +58,24 @@ function productPopup(e, parent) {
     + '<p>[ <a href="#" onclick="javascript:window.close()">Close Window</a> ]</html>');
   win.document.close();
   win.focus();
+}
+
+// handle click on empty category (if configured)
+function catclick(link) {
+    var siblings = link.parentNode.childNodes;
+    // find ul sibling
+    for (var ii=0; ii < siblings.length; ++ii) {
+        if ('UL' == siblings[ii].nodeName) {
+            var ul = siblings[ii];
+            if ("none" == ul.style.display || ("" == ul.style.display && -1 == ul.className.indexOf('act'))) {
+                ul.style.display = "block";
+                ul.style.visibility = "visible";
+            } else {
+                ul.style.display = "none";
+                ul.style.visibility = "hidden";
+            }
+            return false
+        }
+    }
+    return true;
 }

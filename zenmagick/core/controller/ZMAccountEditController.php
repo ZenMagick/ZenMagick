@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMAccountEditController extends ZMRequestController {
+class ZMAccountEditController extends ZMController {
 
     // create new instance
     function ZMAccountEditController() {

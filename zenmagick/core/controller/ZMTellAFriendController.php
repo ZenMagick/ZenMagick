@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMTellAFriendController extends ZMRequestController {
+class ZMTellAFriendController extends ZMController {
 
     // create new instance
     function ZMTellAFriendController() {

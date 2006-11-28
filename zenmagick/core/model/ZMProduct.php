@@ -96,6 +96,7 @@ class ZMProduct {
     function getManufacturer() { global $zm_manufacturers; return $zm_manufacturers->getManufacturerForProduct($this); }
     function getWeight() { return $this->weight_; }
     function getQuantity() { return $this->quantity_; }
+    function isSoldOut() { return 0 >= $this->quantity_; }
     function getQtyBoxStatus() { return $this->qtyBoxStatus_; }
     function getQtyOrderMax() { return $this->qtyOrderMax_; }
     function isFree() { return $this->isFree_; }

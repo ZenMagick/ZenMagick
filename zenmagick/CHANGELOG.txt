@@ -14,6 +14,18 @@ Current:
 - make checkout payments page validate
 - admin auto patch option; this will re-patch a admin file to enable the
   ZenMagick menu after a zen-cart upgrade
+- merged default theme category code into core
+- fixed category navigation for IE
+- '%' is not correctly quoted when using zm_l10n(...)
+- removed text data from features.sql
+- removed zen_ prefix, added zm_ prefix; NOTE: this results in different table
+  names; if you have modified any of the base date, you will have to reapply
+  those changes.
+- removed theme controller path from classpath; theme controller are now only
+  found when in the extra directory
+- fixed support for category page
+- ez and static page have now access to all global ZenMagick references
+- renamed ZMRequestController ZMController
 
 
 Release 0.4.5

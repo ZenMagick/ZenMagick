@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMAccountHistoryInfoController extends ZMRequestController {
+class ZMAccountHistoryInfoController extends ZMController {
 
     // create new instance
     function ZMAccountHistoryInfoController() {

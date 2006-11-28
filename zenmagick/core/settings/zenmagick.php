@@ -30,15 +30,14 @@
     define('ZM_CONTROLLER_PATH', 'zenmagick/core/controller/');
     define('ZM_THEME_BASE_PATH', 'zenmagick/themes/');
     define('ZM_THEME_CONTENT', 'content/');
-    define('ZM_THEME_CONTROLLER', 'controller/');
     define('ZM_THEME_EXTRA', 'extra/');
     define('ZM_THEME_BOXES', 'content/boxes/');
 
     // db
     define('ZM_DB_PREFIX', DB_PREFIX);
-    define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'feature_types');
-    define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'product_features');
-    define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'features');
+    define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');
+    define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'zm_product_features');
+    define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
 
     // files
     define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');

@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMAdvancedSearchController extends ZMRequestController {
+class ZMAdvancedSearchController extends ZMController {
 
     // create new instance
     function ZMAdvancedSearchController() {

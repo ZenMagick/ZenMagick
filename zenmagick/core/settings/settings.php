@@ -49,6 +49,7 @@
 
     // use category page
     $_ZM_SETTINGS['isUseCategoryPage'] = true;
+    $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
 
     $_ZM_SETTINGS['isSortAttributesByName'] = PRODUCTS_OPTIONS_SORT_ORDER != '0';
     // sort attribute values

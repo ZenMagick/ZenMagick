@@ -29,7 +29,7 @@
 /**
  * Custom default controller.
  */
-class DefaultController extends ZMRequestController {
+class DefaultController extends ZMController {
 
     // create new instance
     function DefaultController() {

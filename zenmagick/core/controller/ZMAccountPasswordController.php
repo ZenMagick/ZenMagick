@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMAccountPasswordController extends ZMRequestController {
+class ZMAccountPasswordController extends ZMController {
 
     // create new instance
     function ZMAccountPasswordController() {
