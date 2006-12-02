@@ -51,7 +51,7 @@ require('../zenmagick/admin_init.php');
       'attributes' => ZM_ADMINFN_CATALOG_MANAGER.'?view=attributes'.$navParams,
       'features' => ZM_ADMINFN_CATALOG_MANAGER.'?view=features'.$navParams
   );
-  if ('' == $cPath) { $nav['catalog'] = ''; }
+  if ('' == $cPath) { $nav['category'] = ''; }
   if ('' == $productId) { $nav['product'] = ''; $nav['attributes'] = ''; $nav['features'] = ''; }
 
 ?>
