@@ -29,7 +29,7 @@
     /**
      * Get a phpBB database connection.
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.external
      * @return queryFactory A <code>zen-cart</code><code>queryFactor</code> instance.
      */
     function zm_get_bb_db() {
@@ -43,7 +43,7 @@
     /**
      * Checks whether a given phpBB nickname exists or not.
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.external
      * @param string nick The nickname to validate.
      * @return bool <code>true</code> if the nickname exists, <code>false</code> if not.
      */
@@ -66,7 +66,7 @@
     /**
      * Createsa phpBB account.
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.external
      * @param string nick The nickname.
      * @param string email The email address.
      * @param string password The password.
@@ -103,7 +103,12 @@
         return true;
     }
 
-    // phpBB link
+    /**
+     * Createsa phpBB href.
+     *
+     * @package net.radebatz.zenmagick.external
+     * @return string A href to the phpBB main page.
+     */
     function zm_get_phpBB_href() {
     global $phpBB;
         return zm_href($phpBB->phpBB['phpbb_url'] . FILENAME_BB_INDEX);
