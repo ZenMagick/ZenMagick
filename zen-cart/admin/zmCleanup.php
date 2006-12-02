@@ -35,12 +35,14 @@ require_once('../zenmagick/admin_init.php');
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/controller");
 
     // delete
-    foreach ($_POST['obsolete'] as $file) {
-      if (is_file($file)) {
-        unlink($file);
-      } else if (is_dir($file)) {
-        rmdir($file);
-      }
+    if (isset($_POST) && array_key_exists('obsolete', $_POST)) {
+        foreach ($_POST['obsolete'] as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            } else if (is_dir($file)) {
+                rmdir($file);
+            }
+        }
     }
 
 ?>
