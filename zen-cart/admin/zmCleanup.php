@@ -72,7 +72,7 @@ require_once('../zenmagick/admin_init.php');
       }
     </script>
   </head>
-  <body id="b_features" onload="init()">
+  <body id="b_cleanup" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
     <div id="main">

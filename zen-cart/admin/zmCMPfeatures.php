@@ -24,15 +24,10 @@
  */
 ?>
 <?php  
-require('includes/application_top.php');
-require('includes/zmCatalogDtree.php');
-require('../zenmagick/init.php');
-define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
-
     // set up some stuff
     $featureTypes = $zm_features->getFeatureTypes();
     $features = $zm_features->getFeatureList();
-    $productId = $zm_request->getRequestParameter('productId');
+    $productId = $zm_request->getProductId();
 
     $edit_feature = false;
     $feature_name = '';
@@ -48,7 +43,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $id = (int)$zm_request->getRequestParameter('feature_id');
         $zm_features->removeFeatureForId($id);
         // reload
-        zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES . "?cPath=" . $zm_request->getCategoryPath()));
+        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER . "?view=features&amp;cPath=" . $zm_request->getCategoryPath()));
         break;
 
       case 'update_feature':
@@ -58,7 +53,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $hidden = $zm_request->getRequestParameter('hidden');
         $zm_features->updateFeature($id, $zm_request->getLanguageId(), $name, $description, $hidden);
         // reload
-        zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES . "?cPath=" . $zm_request->getCategoryPath()));
+        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER . "?view=features&amp;cPath=" . $zm_request->getCategoryPath()));
         break;
 
       case 'edit_feature':
@@ -79,7 +74,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $hidden = null != $zm_request->getRequestParameter('hidden') ? '1' : '0';
         $zm_features->addFeature($type, $zm_request->getLanguageId(), $name, $description, $hidden);
         // reload
-        zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES . "?cPath=" . $zm_request->getCategoryPath()));
+        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER . "?view=features&amp;cPath=" . $zm_request->getCategoryPath()));
         break;
 
       case 'update_feature_value':
@@ -89,7 +84,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $index = $zm_request->getRequestParameter('index');
         $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
         // reload
-        zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES."?productId=" . $productId . "&cPath=" . $zm_request->getCategoryPath()));
+        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER."?view=features&amp;productId=" . $productId . "&amp;cPath=" . $zm_request->getCategoryPath()));
         break;
 
       case 'edit_feature_value':
@@ -129,7 +124,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         if (!$invalid) {
           $zm_features->addFeatureForProduct($productId, $featureId, $value, $index);
           // reload
-          zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES."?productId=" . $productId . "&cPath=" . $zm_request->getCategoryPath()));
+          zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER."?view=features&amp;productId=" . $productId . "&cPath=" . $zm_request->getCategoryPath()));
         }
         break;
 
@@ -138,7 +133,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
         $index = $zm_request->getRequestParameter('index');
         $zm_features->removeFeatureForProduct($productId, $featureId, $index);
         // reload
-        zen_redirect(zen_href_link(ZM_ADMINFN_FEATURES."?productId=" . $productId . "&cPath=" . $zm_request->getCategoryPath()));
+        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER."?view=features&amp;productId=" . $productId . "&cPath=" . $zm_request->getCategoryPath()));
         break;
 
     }
@@ -147,37 +142,7 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
     if (0 != $productId) {
       $product = $zm_products->getProductForId($productId);
     }
-
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title><?php echo TITLE; ?></title>
-    <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
-    <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-    <script type="text/javascript" src="includes/menu.js"></script>
-    <script type="text/javascript" src="includes/general.js"></script>
-    <script type="text/javascript">
-      function init() {
-        cssjsmenu('navbar');
-        if (document.getElementById) {
-          var kill = document.getElementById('hoverJS');
-          kill.disabled = true;
-        }
-      }
-    </script>
-  </head>
-  <body id="b_features" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
-    <div id="main">
-      <div id="cnav" class="dtree">
-        <?php zm_catalog_dtree(ZM_ADMINFN_FEATURES, ZM_ADMINFN_FEATURES, false, true) ?>
-      </div>
-
-      <div id="content">
         <fieldset>
           <legend>Feature Maintenance</legend>
           <h3>Available features</h3>
@@ -199,16 +164,17 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
                   <td><?php echo $feature->getDescription() ?></td>
                   <td><?php echo ($feature->isHidden()?'x':'') ?></td>
                   <td>
-                    <a href="?action=edit_feature&amp;feature_id=<?php echo $feature->getId() ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>">Edit</a>
+                    <a href="?action=edit_feature&amp;view=features&amp;feature_id=<?php echo $feature->getId() ?>&amp;<?php echo (null != $product?'products_id='.$productId.'&amp;':'')?>cPath=<?php echo $zm_request->getCategoryPath() ?>">Edit</a>
                     &nbsp;|&nbsp;
-                    <a href="?action=remove_feature&amp;feature_id=<?php echo $feature->getId() ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>">Delete</a>
+    <a href="?action=remove_feature&amp;view=features&amp;feature_id=<?php echo $feature->getId() ?>&amp;<?php echo (null != $product?'products_id='.$productId.'&amp;':'')?>cPath=<?php echo $zm_request->getCategoryPath() ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($name)?>\'?');">Delete</a>
                   </td>
                 </tr>
               <?php } ?>
             </tbody>
           </table>
           <h3><?php echo ($edit_feature ? "Edit" : "Add") ?> feature</h3>
-          <form action="<?php echo ZM_ADMINFN_FEATURES ?>" method="post">
+          <form action="<?php echo ZM_ADMINFN_CATALOG_MANAGER ?>" method="post">
+            <input type="hidden" name="view" value="features">
             <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>">
             <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
             <table cellspacing="0" cellpadding="2">
@@ -276,9 +242,9 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
                         <td><?php echo $value ?></td>
                         <td><?php echo $index ?></td>
                         <td>
-                          <a href="?action=edit_feature_value&amp;productId=<?php echo $product->getId() ?>&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>">Edit</a>
+                          <a href="?action=edit_feature_value&amp;view=features&amp;productId=<?php echo $product->getId() ?>&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>">Edit</a>
                           &nbsp;|&nbsp;
-                          <a href="?action=remove_feature_value&amp;productId=<?php echo $product->getId() ?>&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>">Delete</a>
+                    <a href="?action=remove_feature_value&amp;view=features&amp;productId=<?php echo $product->getId() ?>&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?>&amp;cPath=<?php echo $zm_request->getCategoryPath() ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\'?');">Delete</a>
                         </td>
                       </tr>
                     <?php } ?>
@@ -287,8 +253,9 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
                 </table>
               <?php } ?>
                 <h3><?php echo ($edit_product_feature ? "Update" : "Add") ?> Product Feature</h3>
-                <form action="<?php echo ZM_ADMINFN_FEATURES ?>" method="post">
+                <form action="<?php echo ZM_ADMINFN_CATALOG_MANAGER ?>" method="post">
                   <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
+                  <input type="hidden" name="view" value="features">
                   <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>">
                   <input type="hidden" name="productId" value="<?php echo $product->getId() ?>">
                   <table cellspacing="0" cellpadding="2">
@@ -332,9 +299,4 @@ define ('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
                 </form>
             </fieldset>
           <?php } ?>
-        </div>
-    </div>
-
-  </body>
-</html>
 
