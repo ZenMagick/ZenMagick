@@ -137,6 +137,33 @@ class ZMReviews {
     }
 
 
+    // get all reviews
+    function getAllReviews() {
+    global $zm_request;
+        $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
+                rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
+                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                where p.products_status = '1'
+                and p.products_id = r.products_id
+                and r.reviews_id = rd.reviews_id
+                and rd.languages_id = :languageId
+                and p.products_id = pd.products_id
+                and pd.language_id = :languageId
+                and r.status = '1'";
+        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+
+        $reviews = array();
+        $results = $this->db_->Execute($query);
+        while (!$results->EOF) {
+            $review = $this->_newReview($results->fields);
+            array_push($reviews, $review);
+            $results->MoveNext();
+        }
+        return $reviews;
+    }
+
+
     // get a specific review
     function getReviewForId($reviewId) {
     global $zm_request;

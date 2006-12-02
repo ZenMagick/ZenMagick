@@ -79,6 +79,7 @@ class ZMAttributeValue {
     function isDisplayOnly() { return $this->isDisplayOnly_; }
     function isDefault() { return $this->isDefault_; }
     function isDiscounted() { return $this->isDiscounted_; }
+    function hasImage() { return null !== $this->image_ && '' != $this->image_; }
     function getImage() { return $this->image_; }
     function isOneTime() { return $this->isOneTime_; }
     function isPriceFactorOneTime() { return $this->isPriceFactorOneTime_; }

@@ -119,6 +119,7 @@
 
     function product_table_def() { return ''; }
     function order_table_def() { return ''; }
+    function review_table_def() { return ''; }
 
     function handle_product_result($product, $first, $odd) {
         $html = '<tr class="'.($odd?"odd":"even").($first?" first":" other").'"><td class="cpt">';
@@ -149,6 +150,26 @@
         $html .= zm_l10n($order->getStatus());
         $html .= '</td><td class="pprice">';
         $html .= zm_format_currency($order->getTotal(), false);
+        $html .= '</td></tr>';
+        return $html;
+    }
+
+    function handle_review_result($review, $first, $odd) {
+    global $zm_products;
+
+        $product = $zm_products->getProductForId($review->getProductId());
+        $html = '<tr class="'.($odd?"odd":"even").($first?" first":" other").'"><td lass="cpt">';
+        $html .= '<a href="' . zm_product_href($review->getProductId(), false) . '">' . 
+            zm_product_image($product, false) . '</a>';
+        $html .= "<h3>".$product->getName()."</h3>"; 
+        $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating());
+        $html .= "<p>".zm_image('stars_'.$review->getRating().'.gif', $rtext)."</p>";
+        $html .= '<p class="rtext">'.zm_more(zm_strip_html($review->getText(), false), 120, false).'</p>';
+        $html .= '<p class="rinfo">'.zm_l10n_get("Date added: %s by %s", $review->getDateAdded(), $review->getAuthor()).'</p>';
+        $html .= '</td><td class="lnks">';
+        $html .= '<p><a class="btn" href="' . zm_product_href($product->getId(), false) . '">' . zm_l10n_get("Product Information") . '</a></p>';
+        $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
+        $html .= '<p><a class="btn" href="' . zm_href(FILENAME_PRODUCT_REVIEWS_INFO, $params, false) . '">' . zm_l10n_get("Read full review") . '</a></p>';
         $html .= '</td></tr>';
         return $html;
     }

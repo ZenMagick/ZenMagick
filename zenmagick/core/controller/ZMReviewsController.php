@@ -25,22 +25,22 @@
 
 
 /**
- * Request controller for new products.
+ * Request controller for reviews list.
  *
  * @author mano
  * @package net.radebatz.zenmagick.controller
  * @version $Id$
  */
-class ZMProductsNewController extends ZMController {
+class ZMReviewsController extends ZMController {
 
     // create new instance
-    function ZMProductsNewController() {
+    function ZMReviewsController() {
         parent::__construct();
     }
 
     // create new instance
     function __construct() {
-        $this->ZMProductsNewController();
+        $this->ZMReviewsController();
     }
 
     function __destruct() {
@@ -51,15 +51,17 @@ class ZMProductsNewController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_categories, $zm_crumbtrail, $zm_products;
+    global $zm_request, $zm_crumbtrail, $zm_products, $zm_reviews;
 
         // crumbtrail handling
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
         $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addCrumb("New Products");
+        $zm_crumbtrail->addProduct($zm_request->getProductId());
+        $zm_crumbtrail->addCrumb("Reviews");
 
-        $resultList = new ZMResultList($zm_products->getNewProducts($zm_request->getCategoryId()));
+        $resultList = new ZMResultList($zm_reviews->getAllReviews());
         $this->exportGlobal("zm_resultList", $resultList);
+
         return true;
     }
 

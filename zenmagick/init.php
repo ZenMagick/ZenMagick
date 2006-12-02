@@ -66,6 +66,7 @@
     $zm_meta = $zm_loader->newInstance('MetaTags');
     $zm_languages = new ZMLanguages();
 
+
     // do this only after all global instances are set up
     foreach ($zmt_filter_names as $filter) {
         $zm_runtime->addFilter(zm_get_instance($filter));

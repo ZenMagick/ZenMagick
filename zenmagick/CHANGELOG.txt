@@ -26,6 +26,11 @@ Current:
 - fixed support for category page
 - ez and static page have now access to all global ZenMagick references
 - renamed ZMRequestController ZMController
+- Added support for attribute images
+- Added new rss sidebox plus supporting classes; uses lastRSS (included in
+  ZenMagick distribution)
+- Added all review related views
+- Added first iteration of ZenMagick CatalogManager
 
 
 Release 0.4.5

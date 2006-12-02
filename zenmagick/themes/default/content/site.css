@@ -44,6 +44,7 @@ select {min-width:4.2em;}
 .clear {clear:both;}
 .rclear {clear:right;}
 fieldset h4 {margin-bottom:8px;}
+span.strike {text-decoration:line-through;}
 
 /* layout stuff */
 #content ul#messages {margin-left:0;padding-left:0;}
@@ -86,7 +87,7 @@ div#footer p#fpages {border-bottom:2px solid white;padding:4px;background:#80b0d
 div#footer p#fpages a {text-decoration:underline;margin:4px;}
 
 /* side boxed */
-.box {margin:0 0 10px 0;padding:5px;border:1px solid #c0c0c0;background-color:#fafbfc;color:#505050;font-size:0.9em;}
+.box {margin:0 0 10px 0;padding:5px;border:1px solid #c0c0c0;background-color:#fafbfc;color:#505050;font-size:0.9em;width:138px;}
 .box p {margin:3px 0;padding:3px 0;}
 /* box header */
 #leftcol h3, #rightcol h3 {margin:0;padding:2px 6px;background-color:#578bb8;color:#f0f2f4;font-size:90%;border-bottom:1px solid #777;}
@@ -108,10 +109,11 @@ div#footer p#fpages a {text-decoration:underline;margin:4px;}
 .rnav span.pno {font-size:90%;margin-right:2em;}
 
 /* product info */
-#product_info #content img.product {float:left;margin:0 16px 8px 0;}
+#b_product_info #content img.product {float:left;margin:0 16px 8px 0;}
 fieldset {padding:7px;margin-bottom:6px;border:1px solid #c0c0c0;}
 legend {padding:2px 6px;font-weight:bold;color:#467aa7;}
 label {margin:2px 4px 4px 3px;}
+#b_product_info #content label img {margin:0 3px;}
 
 
 /* ZenMagick boxes */
@@ -150,6 +152,9 @@ label {margin:2px 4px 4px 3px;}
 #sb_cart a {font-size:90%;}
 #sb_cart a:hover {text-decoration:underline;}
 #sb_cart p {text-align:right;font-weight:bold;padding:0;}
+
+#sb_rss dt {font-weight:bold;}
+#sb_rss dd {margin-left:12px;}
 
 body#b_login #content label {display:block;margin-left:0;}
 body#b_login #content {padding-left:20px;}
@@ -284,6 +289,12 @@ div#eztoc p a:hover {text-decoration:none;}
 #b_advanced_search #asfilter fieldset legend {color:#303030;background-color:#fff;}
 
 /* reviews */
+#b_reviews #content table {width:98%;}
+#b_reviews a img {float:left;}
+#b_reviews .rtext {min-height:2.2em;}
+#b_reviews .rinfo {font-weight:bold;}
+#b_reviews .lnks {width:12em;}
+
 #b_product_reviews_info #pinfo {margin-bottom:3px;}
 #b_product_reviews_info #pinfo img {float:left;}
 #b_product_reviews_info #author {margin:5px 0 8px;font-weight:bold;}

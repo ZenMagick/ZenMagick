@@ -50,8 +50,7 @@
                 // if we do not have a url try our luck with the image...
                 $html = $img;
             } else {
-                $target = $banner->isNewWin() ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
-                $html = '<a href="'.zm_redirect_href('banner', $banner->getId(), false).'"'.$target.'>'.$img.'</a>';
+                $html = '<a href="'.zm_redirect_href('banner', $banner->getId(), false).'"'.zm_href_target($banner->isNewWin(), false).'>'.$img.'</a>';
             }
         }
 

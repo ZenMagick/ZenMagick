@@ -65,6 +65,8 @@
     $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;
     $_ZM_SETTINGS['maxBestSellers'] = MAX_DISPLAY_BESTSELLERS;
     $_ZM_SETTINGS['maxSpecialProducts'] = MAX_RANDOM_SELECT_SPECIALS;
+    $_ZM_SETTINGS['maxRandomReviews'] = MAX_RANDOM_SELECT_REVIEWS;
+
     // this is a general limit
     $_ZM_SETTINGS['globalNewProductsLimit'] = SHOW_NEW_PRODUCTS_LIMIT;
     // this is a display limit

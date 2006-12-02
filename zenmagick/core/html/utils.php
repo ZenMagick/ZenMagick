@@ -430,8 +430,7 @@
     function zm_ezpage_link($id, $text=null, $echo=true) {
     global $zm_pages;
         $page = $zm_pages->getPageForId($id);
-        $target = $page->isNewWin() ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
-        $link = '<a href="' . zm_ezpage_href($page, false) . '"' . $target . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
+        $link = '<a href="' . zm_ezpage_href($page, false) . '"' . zm_href_target($page->isNewWin(), false) . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
 
         if ($echo) echo $link;
         return $link;
@@ -512,6 +511,26 @@
 
         if ($echo) echo $clean;
         return $clean;
+    }
+
+
+    /**
+     * Create a HTML <code>target</code> or <code>onclick</code> attribute for a link.
+     *
+     * <p>Please note that ther is already a snigle whitespace in front of the attribute name.</p>
+     *
+     * <p>Behaviour is controlled with the <em>ZenMagick</em> setting <code>isJSTarget</code>.</p>
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param bool newWin If <code>true</code>, HTML for opening in a new window will be created.
+     * @param bool echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
+     * @return string A preformatted attribute in the form ' name="value"'
+     */
+    function zm_href_target($newWin=true, $echo=true) {
+        $text = $newWin ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
+
+        if ($echo) echo $text;
+        return $text;
     }
 
 ?>

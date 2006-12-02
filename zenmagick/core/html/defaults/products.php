@@ -25,12 +25,6 @@
 ?>
 <?php
 
-    // build HTML elements for product attributes;
-    // This will return an array where each element is an array with:
-    //   ['name'] = the attribute name
-    //   ['type'] = the HTML element type
-    //   ['html'] = An array of HTML elements (may be only one, depending on the type)
-
     /**
      * Helper to generate HTML for product attributes.
      *
@@ -50,6 +44,8 @@
      * @return array An array containing HTML formatted attributes.
      */
     function zm_build_attribute_elements($product) {
+      global $db;
+
         $elements = array();
         // not sure how this could happen!
         $attributes = $product->getAttributes();
@@ -159,7 +155,7 @@
         $html = '<select name="id['.$attribute->getId().']">';
         foreach ($attribute->getValues() as $value) {
             $selected = $value->isDefault() ? ' selected="selected"' : '';
-            $html .= '<option value="'.$value->getId().'"'.$selected.'>'._zm_buildAttributeValueLabel($product, $value).'</option>';
+            $html .= '<option value="'.$value->getId().'"'.$selected.'>'._zm_buildAttributeValueLabel($product, $value, false).'</option>';
         }
         $html .= '</select>';
         array_push($elements, $html);
@@ -168,8 +164,12 @@
     }
 
 
-    function _zm_buildAttributeValueLabel($product, $value) {
-        $label = zm_l10n_get($value->getName());
+    function _zm_buildAttributeValueLabel($product, $value, $enableImage=true) {
+        $label = '';
+        if ($value->hasImage() && $enableImage) {
+            $label = '<img src="' . zm_image_href($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'" />';
+        }
+        $label .= zm_l10n_get($value->getName());
 
         if ($value->isFree() && $product->isFree()) {
             $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), false));
@@ -191,10 +191,10 @@
           $html .= zm_l10n_get("Starting at: ");
       }
       if ($offers->isSpecial() || $offers->isSale()) {
-          $html .= '<strike class="base">' . zm_format_currency($offers->getBasePrice(), false) . '</strike> ';
+          $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), false) . '</span> ';
           if ($offers->isSpecial())  {
               if ($offers->isSale()) {
-                 $html .= '<strike class="special">' . zm_format_currency($offers->getSpecialPrice(), false) . '</strike>';
+                 $html .= '<span class="strike special">' . zm_format_currency($offers->getSpecialPrice(), false) . '</span>';
               } else {
                  $html .= zm_format_currency($offers->getSpecialPrice(), false);
               }
