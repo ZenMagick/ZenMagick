@@ -34,6 +34,8 @@
     $_ZM_SETTINGS['isDieOnError'] = false;
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
 
+    $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
+
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;

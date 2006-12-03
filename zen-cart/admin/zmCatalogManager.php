@@ -29,30 +29,33 @@ require('includes/zmCatalogDtree.php');
 require('../zenmagick/init.php');
 require('../zenmagick/admin_init.php');
 
-  $productId = $zm_request->getProductId();
-  $productId = 0 == $productId ? '' : $productId;
-  $cPath = $zm_request->getCategoryPath();
-  $view = $zm_request->getRequestParameter('view');
+    // capture output as CMPs might redirect...
+    ob_start();
 
-  // default for new selection
-  if ('' != $productId && null == $view) {
-      $view = 'product';
-  } else if ('' != $cPath && null == $view) {
-      $view = 'category';
-  }
+    $productId = $zm_request->getProductId();
+    $productId = 0 == $productId ? '' : $productId;
+    $cPath = $zm_request->getCategoryPath();
+    $view = $zm_request->getRequestParameter('view');
 
-  // common nav params
-  $navParams = '&products_id='.$productId.'&amp;cPath='.$cPath;
+    // default for new selection
+    if ('' != $productId && null == $view) {
+        $view = 'product';
+    } else if ('' != $cPath && null == $view) {
+        $view = 'category';
+    }
 
-  // set up navigation defaults
-  $nav = array(
-      'category' => ZM_ADMINFN_CATALOG_MANAGER.'?view=category'.$navParams,
-      'product' => ZM_ADMINFN_CATALOG_MANAGER.'?view=product'.$navParams,
-      'attributes' => ZM_ADMINFN_CATALOG_MANAGER.'?view=attributes'.$navParams,
-      'features' => ZM_ADMINFN_CATALOG_MANAGER.'?view=features'.$navParams
-  );
-  if ('' == $cPath) { $nav['category'] = ''; }
-  if ('' == $productId) { $nav['product'] = ''; $nav['attributes'] = ''; $nav['features'] = ''; }
+    // common nav params
+    $navParams = '&amp;products_id='.$productId.'&amp;cPath='.$cPath;
+
+    // set up navigation defaults
+    $nav = array(
+        'category' => ZM_ADMINFN_CATALOG_MANAGER.'?view=category'.$navParams,
+        'product' => ZM_ADMINFN_CATALOG_MANAGER.'?view=product'.$navParams,
+        'attributes' => ZM_ADMINFN_CATALOG_MANAGER.'?view=attributes'.$navParams,
+        'features' => ZM_ADMINFN_CATALOG_MANAGER.'?view=features'.$navParams
+    );
+    if ('' == $cPath) { $nav['category'] = ''; }
+    if ('' == $productId) { $nav['product'] = ''; $nav['attributes'] = ''; $nav['features'] = ''; }
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -106,4 +109,4 @@ require('../zenmagick/admin_init.php');
 
   </body>
 </html>
-
+<?php ob_end_flush(); ?>

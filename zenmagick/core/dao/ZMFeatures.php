@@ -213,9 +213,10 @@ class ZMFeatures {
                 where product_id = :productId
                 and feature_id = :featureId";
         $sql = $this->db_->bindVars($sql, ':productId', $productId, 'integer');
-        $sql = $this->db_->bindVars($sql, ':featureId', $productId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':featureId', $featureId, 'integer');
         if (null != $index) {
-            $sql .= " and feature_index_id = " . $index;
+            $sql .= " and feature_index_id = :index";
+            $sql = $this->db_->bindVars($sql, ':index', $index, 'integer');
         }
         $this->db_->Execute($sql);
         return true;
