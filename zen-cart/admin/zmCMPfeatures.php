@@ -172,9 +172,9 @@
                   <td><?php echo $feature->getDescription() ?></td>
                   <td><?php echo ($feature->isHidden()?'x':'') ?></td>
                   <td>
-                    <a href="?action=edit_feature&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>">Edit</a>
+                    <a class="btn" href="?action=edit_feature&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>">Edit</a>
                     &nbsp;|&nbsp;
-    <a href="?action=remove_feature&amp;view=features&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($name)?>\'?');">Delete</a>
+                    <a class="btn del" href="?action=remove_feature&amp;view=features&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($name)?>\'?');">Delete</a>
                   </td>
                 </tr>
               <?php } ?>
@@ -220,7 +220,7 @@
                     <input type="checkbox" name="hidden" value="1" <?php echo ($feature_hidden?'checked="checked"':'') ?>>
                   </td>
                   <td>
-                    <input type="submit" value="<?php echo ($edit_feature ? "Update" : "Add") ?>">
+                    <input type="submit" class="btn" value="<?php echo ($edit_feature ? "Update" : "Add") ?>">
                   </td>
                 </tr>
               </tbody>
@@ -250,9 +250,9 @@
                         <td><?php echo $value ?></td>
                         <td><?php echo $index ?></td>
                         <td>
-                          <a href="?action=edit_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>">Edit</a>
+                          <a class="btn" href="?action=edit_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>">Edit</a>
                           &nbsp;|&nbsp;
-                    <a href="?action=remove_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\'?');">Delete</a>
+                          <a class="btn del" href="?action=remove_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\'?');">Delete</a>
                         </td>
                       </tr>
                     <?php } ?>
@@ -299,7 +299,7 @@
                           <input type="text" size="5" name="index" value="<?php echo $value_index ?>">
                         </td>
                         <td>
-                          <input type="submit" value="<?php echo ($edit_product_feature ? "Update" : "Add") ?>">
+                          <input type="submit" class="btn" value="<?php echo ($edit_product_feature ? "Update" : "Add") ?>">
                         </td>
                       </tr>
                     </tbody>

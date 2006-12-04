@@ -145,7 +145,7 @@ class ZMCategories {
     function _load() {
     global $zm_request;
         // load all straight away - should be faster to sort them later on
-        $query = "select c.categories_id, cd.categories_name, c.parent_id
+        $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
                   from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
                   where c.categories_id = cd.categories_id
                   and cd.language_id = :languageId
@@ -161,6 +161,10 @@ class ZMCategories {
                            $results->fields['categories_name'],
                            false
                           );
+            $category->description_ = $results->fields['categories_description'];
+            $category->sortOrder_ = $results->fields['sort_order'];
+            $category->image_ = $results->fields['categories_image'];
+
             // apply path
             foreach ($this->path_ as $catId) {
                 if ($catId == $category->id_)
