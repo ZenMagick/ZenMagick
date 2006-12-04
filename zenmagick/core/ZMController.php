@@ -83,7 +83,7 @@ class ZMController {
         foreach ($GLOBALS as $name => $instance) {
             if (zm_starts_with($name, "zm_")) {
                 if (is_object($instance)) {
-                    $this->exportGlobal($name, $instance);
+                    $this->exportGlobal($name, $GLOBALS[$name]);
                 }
             }
         }
@@ -134,7 +134,7 @@ class ZMController {
     function exportGlobal($name, &$instance) {
         if (null === $instance)
             return;
-        $this->globals_[$name] = $instance;
+        $this->globals_[$name] =& $instance;
     }
 
 }

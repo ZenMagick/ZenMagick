@@ -50,7 +50,7 @@
     $_ZM_SETTINGS['isEnableRightColumn'] = COLUMN_RIGHT_STATUS != 0;
 
     // use category page
-    $_ZM_SETTINGS['isUseCategoryPage'] = true;
+    $_ZM_SETTINGS['isUseCategoryPage'] = false;
     $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
 
     $_ZM_SETTINGS['isSortAttributesByName'] = PRODUCTS_OPTIONS_SORT_ORDER != '0';

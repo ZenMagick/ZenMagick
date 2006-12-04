@@ -1,20 +1,14 @@
 zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
-- missing side boxes; do we?
-- implement category page; switch for category nav to support that!
 - 22 pages missing!
-- reviews page & handling, writing them, etc...
 
 
 usablility:
-- add category (no products) controller/view
 - fix default theme IE bugs; test in IE7
 - admin interface for ZM config values
-- SQL import that can prepend the ZM_DB_PREFIX
 - more documentation
 - generic interface to manage theme settings
-- create required zc sidebox, module, ot_ dummy/wrapper/proxy files on demand
 - sefu/seo support
 - store settings somewhere?
 - have separate wrapper around store settings (eg. name, etc)
@@ -29,9 +23,7 @@ code quality:
 - restructure to have zenmagick outside htdocs
 - admin:features: error handling, form validation
 - more phpdoc
-- use bind on $db for all SQL
 - random query in ZMProducts
-- fix category navigation for IE
 - optional fallback of category navigation as with current zen-cart
 - remove theme controller path from loader
 - replicate useful init stuff from zen-cart

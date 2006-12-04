@@ -32,7 +32,7 @@
      * @param string value A value to be sanitized so that i can safely be used for SQL.
      * @return string A save version of the input value.
      */
-    function zm_db_prepare_input($value) { return addslashes(zen_db_prepare_input($value)); }
+    function _zm_db_prepare_input($value) { return addslashes(zen_db_prepare_input($value)); }
 
     /**
      * Var arg list of DB values.
