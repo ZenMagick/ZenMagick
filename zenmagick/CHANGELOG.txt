@@ -32,6 +32,10 @@ Current:
 - Added all review related views
 - Added first iteration of ZenMagick CatalogManager
 - JS based confirm dialog for admin delete operations
+- Added new validation framework (allows for both client and server side
+  validation)
+- added error view to default theme
+- fixed some more validation errors
 
 
 Release 0.4.5

@@ -25,7 +25,7 @@
 ?>
 
 <?php $address = $zm_address; ?>
-<?php zm_secure_form(FILENAME_ADDRESS_BOOK_PROCESS, "action=update&edit=".$zm_address->getId(), null, "post", "return validate(this);") ?>
+<?php zm_secure_form(FILENAME_ADDRESS_BOOK_PROCESS, "action=update&edit=".$zm_address->getId(), 'address', "post", "return validate(this);") ?>
     <?php include "address.php" ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
 </form>

@@ -43,8 +43,7 @@
         if ($echo) echo $price;
         return $price;
     }
-    function zm_not_null($value) { return zen_not_null($value); }
-    function zm_empty($value) { return !zen_not_null($value); }
+    function zm_is_empty($value) { return !zen_not_null($value); }
     function zm_add_tax($value, $rate) { return zen_add_tax($value, $rate); }
 
     // simple request scope cache

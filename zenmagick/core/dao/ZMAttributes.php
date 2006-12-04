@@ -148,7 +148,7 @@ class ZMAttributes {
                 from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
                 where patrib.products_id = :productId
                 and patrib.options_id = popt.products_options_id
-                and popt.language_id = :languageId " .
+                and popt.language_id = :languageId" .
                 $attributesOrderBy;
         $sql = $this->db_->bindVars($sql, ":productId", $this->product_->getId(), "integer");
         $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");

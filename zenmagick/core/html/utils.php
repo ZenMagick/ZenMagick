@@ -241,7 +241,7 @@
             $params .= '&chapter='.$page->getTocChapter();
         }
         $href = $page->isSSL() ? zm_secure_href(FILENAME_EZPAGES, $params, false) : zm_href(FILENAME_EZPAGES, $params, false);
-        if (zm_not_null($page->getAltUrl())) {
+        if (!zm_is_empty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
             $view = $query['main_page'];
@@ -251,7 +251,7 @@
                 $params .= "&".$name."=".$value;
             }
             $href = $page->isSSL() ? zm_secure_href($view, $params, false) : zm_href($view, $params, false);
-        } else if (zm_not_null($page->getAltUrlExternal())) {
+        } else if (!zm_is_empty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
 
@@ -335,13 +335,19 @@
             $html .= ' id="' . $id . '"';
         }
         $html .= ' method="' . $method . '">';
-        $html .= '<div>';
-        $html .= '<input type="hidden" name="main_page" value="' . (null == $page ? $zm_request->getPageName() : $page) . '" />';
         parse_str($params, $query);
+        $div = false;
+        if (0 < count($query)) { $html .= '<div>'; $div = true; }
         foreach ($query as $name => $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
-        $html .= '</div>';
+        parse_str($page, $pquery);
+        if (!array_key_exists('main_page', $pquery)) {
+            if (!$div) { $html .= '<div>'; }
+            $html .= '<input type="hidden" name="main_page" value="' . (null == $page ? $zm_request->getPageName() : $page) . '" />';
+            if (!$div) { $html .= '</div>'; }
+        }
+        if (0 < count($query)) $html .= '</div>';
 
         if ($echo) echo $html;
         return $html;
@@ -380,14 +386,14 @@
 
     // do/do not echo code for a selected radio button
     function zm_radio_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && zm_empty($value))) {
+        if ($setting == $value || ($default && zm_is_empty($value))) {
             echo ' checked="checked"';
         }
     }
 
     // do/do not echo code for a selected checkbox
     function zm_checkbox_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && zm_empty($value))) {
+        if ($setting == $value || ($default && zm_is_empty($value))) {
             echo ' checked="checked"';
         }
     }
@@ -446,7 +452,7 @@
      * @return string A full URL.
      */
     function zm_image_href($src, $echo=true) {
-        $href = DIR_WS_IMAGES . $src;
+        $href = DIR_WS_CATALOG.DIR_WS_IMAGES . $src;
 
         if ($echo) echo $href;
         return $href;

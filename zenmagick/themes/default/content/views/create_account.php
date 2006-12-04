@@ -24,22 +24,28 @@
  */
 ?>
 
-<?php zm_js_validation(
-  zm_js_rule('Checked', 'gender', "Please choose a gender."),
-  zm_js_rule('Length', 'firstname', "Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'lastname', "Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'dob', vsprintf("Your Date of Birth must be in this format: %s.", UI_DATE_FORMAT_SAMPLE), strlen(UI_DATE_FORMAT)),
-  zm_js_rule('Length', 'email_address', "Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH),
-  zm_js_rule('Length', 'street_address', "Your Street Address must contain a minimum of %s characters.", ENTRY_STREET_ADDRESS_MIN_LENGTH),
-  zm_js_rule('Length', 'city', "Your City must contain a minimum of %s characters.", ENTRY_CITY_MIN_LENGTH),
-  zm_js_rule('Length', 'state', "Your State must contain a minimum of %s characters.", ENTRY_STATE_MIN_LENGTH),
-  zm_js_rule('Length', 'postcode', "Your Post Code must contain a minimum of %s characters.", ENTRY_POSTCODE_MIN_LENGTH),
-  zm_js_rule('NotEmpty', 'zone_country_id', "You must select a country."),
-  zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
-) ?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('account', array(
+        new ZMRequiredRule('gender', 'Please choose a gender.'),
+        new ZMRequiredRule('firstname', 'Please enter your first name.'),
+        new ZMRequiredRule('lastname', 'Please enter your last name.'),
+        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
+        new ZMRegexpRule('dob', UI_DATE_FORMAT_VALIDATION, vsprintf('Please enter a valid date of birth in the form \'%s\'.', UI_DATE_FORMAT)),
+        new ZMRequiredRule('email_address', 'Please enter your email address.'),
+        new ZMEmailRule('email_address', 'Please enter a valid email address.'),
+        new ZMRequiredRule('street_address', 'Please enter your address.'),
+        new ZMRequiredRule('city', 'Please enter a City.'),
+        new ZMRequiredRule('state', 'Please enter a state.'),
+        new ZMRequiredRule('postcode', 'Please enter a postcode.'),
+        new ZMRequiredRule('zone_country_id', 'Please select a country.'),
+        new ZMRequiredRule('telephone', "Please enter your telephone details.")
+    )));
+    $validator->toJSString('account');
+?>
+<?php include $zm_theme->themeFile("validation.js"); ?>
 
-<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", null, "post", "return validate(this);") ?>
+<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'account', "post", "return validate(this);") ?>
     <?php if (zm_setting('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>

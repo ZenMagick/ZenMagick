@@ -104,10 +104,40 @@ class ZMCategories {
         return $this->tree_;
     }
 
-    function getCategoryForId($id) {
+    function getCategoryForId($categoryId, $languageId=null) {
+    global $zm_request;
+
+        if (null != $languageId && $languageId != $zm_request->getLanguageId()) {
+            // not preloaded
+            $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
+                      from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
+                      where c.categories_id = cd.categories_id
+                      and c.categories_id = :categoryId
+                      and cd.language_id = :languageId
+                      and c.categories_status = '1'
+                      order by sort_order, cd.categories_name";
+            $query = $this->db_->bindVars($query, ":categoryId", $categoryId, 'integer');
+            $query = $this->db_->bindVars($query, ":languageId", $languageId, 'integer');
+
+            $results = $this->db_->Execute($query);
+
+            $category = null;
+            if (!$results->EOF) {
+                $category = &new ZMCategory($results->fields['categories_id'],
+                               $results->fields['parent_id'],
+                               $results->fields['categories_name'],
+                               false
+                              );
+                $category->description_ = $results->fields['categories_description'];
+                $category->sortOrder_ = $results->fields['sort_order'];
+                $category->image_ = $results->fields['categories_image'];
+            }
+            return $category;
+        }
+
         if (!$this->loaded()) { $this->_load(); }
-        $cat =&  $this->categories_[$id];
-        return $cat; //$this->categories_[$id];
+        $cat =& $this->categories_[$categoryId];
+        return $cat;
     }
 
 

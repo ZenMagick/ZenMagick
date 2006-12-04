@@ -125,7 +125,7 @@ class ZMOffers {
         if (0 < $results->RecordCount()) {
     	      $specialPrice = $results->fields['specials_new_products_price'];
         }
-        return zm_not_null($specialPrice) ? $specialPrice : null;
+        return !zm_is_empty($specialPrice) ? $specialPrice : null;
     }
 
 

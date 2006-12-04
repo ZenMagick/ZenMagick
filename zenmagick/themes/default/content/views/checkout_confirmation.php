@@ -107,7 +107,7 @@
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
-    <div><?php echo (zm_not_null($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
+    <div><?php echo (!zm_is_empty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
 </fieldset>
 
 

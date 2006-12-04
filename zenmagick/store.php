@@ -52,11 +52,15 @@
          */
         if (null != $zm_controller) {
             if ($zm_controller->process()) {
+                $zm_view = $zm_controller->getResponseView();
                 // *export* globals from controller into view space
                 foreach ($zm_controller->getGlobals() as $name => $instance) {
                     $$name = $instance;
                 }
-                $zm_view = $zm_controller->getResponseView();
+                if (!file_exists($zm_theme->themeFile($zm_themeInfo->getViewDir().$zm_content_include.'.php'))) {
+                    $errorpage = $zm_themeInfo->getErrorPage();
+                    $zm_view = new ZMView($errorpage, $errorpage);
+                }
             } else {
                 $errorpage = $zm_themeInfo->getErrorPage();
                 $zm_view = new ZMView($errorpage, $errorpage);

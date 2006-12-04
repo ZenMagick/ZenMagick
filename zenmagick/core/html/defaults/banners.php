@@ -41,12 +41,12 @@
         if (null == $banner)
             return $html;
 
-        if (!zm_empty($banner->getText())) {
+        if (!zm_is_empty($banner->getText())) {
             // use text if not empty
             $html = $banner->getText();
         } else {
             $img = '<img src="'.zm_image_href($banner->getImage(), false).'" alt="'.$banner->getTitle().'" />';
-            if (zm_empty($banner->getUrl())) {
+            if (zm_is_empty($banner->getUrl())) {
                 // if we do not have a url try our luck with the image...
                 $html = $img;
             } else {

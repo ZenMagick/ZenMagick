@@ -24,17 +24,21 @@
  */
 ?>
 
-<?php zm_js_validation(
-  zm_js_rule('Checked', 'gender', "Please choose a gender."),
-  zm_js_rule('Length', 'firstname', "Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'lastname', "Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'street_address', "Your Street Address must contain a minimum of %s characters.", ENTRY_STREET_ADDRESS_MIN_LENGTH),
-  zm_js_rule('Length', 'city', "Your City must contain a minimum of %s characters.", ENTRY_CITY_MIN_LENGTH),
-  zm_js_rule('Length', 'state', "Your State must contain a minimum of %s characters.", ENTRY_STATE_MIN_LENGTH),
-  zm_js_rule('Length', 'postcode', "Your Post Code must contain a minimum of %s characters.", ENTRY_POSTCODE_MIN_LENGTH),
-  zm_js_rule('NotEmpty', 'country', "You must select a country.")
-) ?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('address', array(
+        new ZMRequiredRule('gender', 'Please choose a gender.'),
+        new ZMRequiredRule('firstname', 'Please enter your first name.'),
+        new ZMRequiredRule('lastname', 'Please enter your last name.'),
+        new ZMRequiredRule('street_address', 'Please enter your address.'),
+        new ZMRequiredRule('city', 'Please enter a City.'),
+        new ZMRequiredRule('state', 'Please enter a state.'),
+        new ZMRequiredRule('postcode', 'Please enter a postcode.'),
+        new ZMRequiredRule('zone_country_id', 'Please select a country.')
+    )));
+    $validator->toJSString('address');
+?>
+<?php include $zm_theme->themeFile("validation.js"); ?>
 
 <?php $country = $address->getCountry(); ?>
 <?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>
@@ -97,7 +101,7 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('country', array_merge(array(new ZMIdNamePair("", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $country ? $country->getId() : null) ?></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array(new ZMIdNamePair("", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $country ? $country->getId() : null) ?></td>
             </tr>
             <?php if (!$address->isPrimary()) { ?>
                  <tr>

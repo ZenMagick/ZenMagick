@@ -37,7 +37,7 @@
     function zm_format_address($address, $html=true, $echo=true) {
     global $zm_countries, $zm_addresses;
         $company = $address->getCompanyName();
-        if (zm_not_null($address->getFirstName())) {
+        if (!zm_is_empty($address->getFirstName())) {
             $firstname = $address->getFirstName();
             $lastname = $address->getLastName();
         } else {
@@ -84,7 +84,7 @@
         // $format is using all the local variables...
         eval("\$out = \"$format\";");
 
-        if (zm_setting('isAccountCompany') && zm_not_null($company) ) {
+        if (zm_setting('isAccountCompany') && !zm_is_empty($company) ) {
             $out = $company . $cr . $out;
         }
 

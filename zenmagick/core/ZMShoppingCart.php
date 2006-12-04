@@ -101,13 +101,14 @@ class ZMShoppingCart {
                     where pa.products_id = :productId
                     and pa.options_id = :option
                     and pa.options_id = popt.products_options_id
-                    and pa.options_values_id = '" . $type . "'
+                    and pa.options_values_id = :type
                     and pa.options_values_id = poval.products_options_values_id
                     and popt.language_id = :languageId
                     and poval.language_id = :languageId";
+            $sql = $this->db_->bindVars($sql, ":type", $type, "integer");
             $sql = $this->db_->bindVars($sql, ":productId", $item->getId(), "integer");
             $sql = $this->db_->bindVars($sql, ":option", $option, "integer");
-            $sql = $this->db_->bindVars($sql, ":productId", $zm_request->getLanguageId(), "integer");
+            $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
 
             $results = $this->db_->Execute($sql);
 
@@ -192,8 +193,8 @@ class ZMShoppingCart {
     */
     }
 
-    function hasShippingAddress() { return zm_not_null($_SESSION['sendto']); }
-    function hasBillingAddress() { return zm_not_null($_SESSION['billto']); }
+    function hasShippingAddress() { return !zm_is_empty($_SESSION['sendto']); }
+    function hasBillingAddress() { return !zm_is_empty($_SESSION['billto']); }
 
     function getShippingAddress() {
     global $zm_addresses;

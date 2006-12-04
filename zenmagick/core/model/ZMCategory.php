@@ -40,6 +40,9 @@ class ZMCategory {
     var $name_;
     var $active_;
     var $children_;
+    var $description_;
+    var $sortOrder_;
+    var $image_;
 
 
     // create new instance
@@ -74,6 +77,9 @@ class ZMCategory {
     function hasChildren() { return 0 < count($this->children_); }
     function addChild($child) { array_push($this->children_, $child); }
     function getChildren() { return $this->children_; }
+    function getDescription() { return $this->description_; }
+    function getSortOrder() { return $this->sortOrder_; }
+    function getImage() { return $this->image_; }
 
     // build path
     function getPath() {
