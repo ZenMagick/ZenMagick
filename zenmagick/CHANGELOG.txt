@@ -1,4 +1,4 @@
-Current:
+Release 0.5.0:
 - Converted most of the SQL generation to using bindVars(...)
 - Added a few more settings
 - minor fixes and layout changes
@@ -38,6 +38,7 @@ Current:
 - fixed some more validation errors
 - allow themes to include the default theme's extra code (default)
 - fix runtime reconnectDB method
+- added (still somewhat experimental) wordpress sidebox
 
 
 Release 0.4.5
