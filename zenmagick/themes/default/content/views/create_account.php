@@ -43,7 +43,7 @@
     )));
     $validator->toJSString('account');
 ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'account', "post", "return validate(this);") ?>
     <?php if (zm_setting('isPrivacyMessage')) { ?>

@@ -40,7 +40,7 @@
     )));
     $validator->toJSString('contactus');
 ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_form(FILENAME_CONTACT_US, 'action=send', 'contactus', "post", "return validate(this);") ?>
     <fieldset>

@@ -38,7 +38,7 @@
     )));
     $validator->toJSString('address');
 ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php $country = $address->getCountry(); ?>
 <?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>

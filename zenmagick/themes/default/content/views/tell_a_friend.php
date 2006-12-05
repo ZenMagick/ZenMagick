@@ -24,15 +24,21 @@
  */
 ?>
 
-<?php zm_js_validation(
-  zm_js_rule('NotEmpty', 'from_name', "Please enter your name."),
-  zm_js_rule('NotEmpty', 'from_email_address', "Please enter your email address."),
-  zm_js_rule('NotEmpty', 'to_name', "Please enter your friend's email name."),
-  zm_js_rule('NotEmpty', 'to_email_address', "Please enter your friend's email address.")
-) ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('tellafriend', array(
+        new ZMRequiredRule('from_name', 'Please enter your name.'),
+        new ZMRequiredRule('from_email_address', 'Please enter your email address.'),
+        new ZMEmailRule('from_email_address', "Please enter a valid email address."),
+        new ZMRequiredRule('to_name', "Please enter your friend's name."),
+        new ZMRequiredRule('to_email_address', "Please enter your friend's email address."),
+        new ZMEmailRule('to_email_address', "Please enter a valid friend's email address.")
+    )));
+    $validator->toJSString('tellafriend');
+?>
 <?php include_once $zm_theme->themeFile("validation.js"); ?>
 
-<?php zm_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $zm_request->getProductId(), null, 'post', 'return validate(this)'); ?>
+<?php zm_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $zm_request->getProductId(), 'tellafriend', 'post', 'return validate(this)'); ?>
    <fieldset>
       <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 

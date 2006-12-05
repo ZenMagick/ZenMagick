@@ -33,7 +33,8 @@
     )));
     $validator->toJSString('login');
 ?>
-<?php include $zm_theme->themeFile("validation.js"); ?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
+
 <?php zm_secure_form(FILENAME_LOGIN, "action=process", 'login', 'post', 'return validate(this);') ?>
   <p>
     <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
