@@ -28,7 +28,7 @@
  * Request controller base class.
  *
  * @author mano
- * @package net.radebatz.zenmagick.controller
+ * @package net.radebatz.zenmagick
  * @abstract
  * @version $Id$
  */
