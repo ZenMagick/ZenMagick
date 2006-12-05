@@ -3,6 +3,7 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006 ZenMagick
  *
+ * Portions Copyright (c)      Vojtech Semecky, webmaster @ webdot . cz
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
  *

@@ -1,7 +1,7 @@
 zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
-- 22 pages missing!
+- 22 pages (or less :) missing!
 
 
 usablility:
@@ -53,6 +53,7 @@ new features:
 
 docs:
 - sorting, filtering
+- add version to apidocs (somehow)
 
 
 admin:
