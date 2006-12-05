@@ -39,6 +39,7 @@ Release 0.5.0:
 - allow themes to include the default theme's extra code (default)
 - fix runtime reconnectDB method
 - added (still somewhat experimental) wordpress sidebox
+- added search results page
 
 
 Release 0.4.5

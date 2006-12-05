@@ -431,6 +431,23 @@ class ZMProducts {
     }
 
 
+    // will load products that are found with teh given SQL
+    function getProductsForSQL($sql) {
+        $results = $this->db_->Execute($sql);
+        if (0 == $results->RecordCount()) {
+            return null;
+        }
+
+        $productIds = array();
+        while (!$results->EOF) {
+            // make sure we do not have duplicates
+            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+            $results->MoveNext();
+        }
+        return $this->getProductsForIds($productIds);
+    }
+
+
     function _newProduct($fields) {
     global $zm_features;
         $product = new ZMProduct($fields['products_id'], $fields['products_name'], $fields['products_description']);
