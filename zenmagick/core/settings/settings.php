@@ -36,6 +36,9 @@
 
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
 
+    $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE;
+    $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
+
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;

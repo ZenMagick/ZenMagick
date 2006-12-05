@@ -46,9 +46,8 @@ class ZMRss {
         $this->channel_ = $channel;
         $this->limit_ = $limit;
         $rss = new lastRSS();
-        //XXX
-        //$rss->cache_dir = './temp';
-        $rss->cache_time = 1200;
+        $rss->cache_dir = zm_setting('rssCacheDir');
+        $rss->cache_time = zm_setting('rssCacheTimeout');
         $rs = $rss->Get($this->url_);
         $this->channel_ = new ZMRssChannel($rs);
         $this->items_ = array();
