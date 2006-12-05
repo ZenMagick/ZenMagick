@@ -27,17 +27,17 @@
 <?php
   //Thu, 30 Nov 2006 01:50:13 +0000
   function zm_parse_rss_date($date) {
-      ereg("[a-zA-Z]+, ([1-3]?[0-9]) ([a-zA-Z]+) ([0-9]{4}) .*", $date, $regs);
+      ereg("[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{4}) .*", $date, $regs);
       return $regs[1].'/'.$regs[2].'/'.$regs[3];
   } 
 ?>
-<?php if (!is_object($zm_rss)) { $zm_rss = new ZMRss('http://prgch205/news/?feed=rss2'); } if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
+<?php $zm_rss = new ZMRss('http://www.alistapart.com/rss.xml'); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
     <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php zm_htmlencode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>
             <?php foreach ($zm_rss->getItems() as $item) { ?>
                 <dt><?php echo zm_parse_rss_date($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"><?php zm_htmlencode($item->getTitle()); ?></a></dd>
+                <dd><a href="<?php echo $item->getLink() ?>"<?php zm_href_target() ?>><?php zm_htmlencode($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>
     </div>

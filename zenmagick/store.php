@@ -38,6 +38,12 @@
             include_once($shared);
         }
         $zm_themeInfo = $zm_theme->getThemeInfo();
+        if ($zm_themeInfo->isExtendExtras() && $zm_runtime->getThemeId() != 'default') {
+            foreach (zm_find_includes($zm_runtime->getThemeBasePath()."default/" . ZM_THEME_EXTRA, true) as $extras) {
+                include_once($extras);
+            }
+        }
+
         $zm_view = null;
 
         // use default if we really want to process this request

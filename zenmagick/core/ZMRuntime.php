@@ -94,6 +94,8 @@ class ZMRuntime {
     // reconnect; used when switching between databases
     function reconnectDB() {
         $db = $this->getDB();
+        $db->selectdb(DB_DATABASE);
+	      $db->close();
 	      $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE, USE_PCONNECT, false);
     }
 

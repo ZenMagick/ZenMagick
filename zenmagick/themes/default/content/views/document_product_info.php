@@ -50,7 +50,7 @@
   <a href="<?php echo $imageInfo->getMediumImage() ?>" onclick="productImgPopup(); return false;"><?php zm_product_image($zm_product) ?></a>
   <div id="desc"><?php echo $zm_product->getDescription(); ?></div>
   <p id="price"><?php echo $zm_product->getModel() ?>: <?php zm_fmt_price($zm_product) ?></p>
-  <?php $attributes = zm_buildAttributeElements($zm_product); ?>
+  <?php $attributes = zm_build_attribute_elements($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
           <legend><?php echo $attribute['name'] ?></legend>

@@ -26,18 +26,21 @@
 
 <?php
 
-    $langNav = array(
-        'english' => ZM_ADMINFN_CATALOG_MANAGER.'?view=category&amp;lang=english'.$navParams,
-        'deutsch' => ZM_ADMINFN_CATALOG_MANAGER.'?view=category&amp;lang=deutsch'.$navParams
-    );
+    // default to english
     $lang = $zm_request->getRequestParameter('lang', 'english');
-
     $languageId = $zm_request->getLanguageId();
-    if ($lang == 'deutsch') {
-        $languageId = 2;
+
+    $langNav = array();
+    foreach ($zm_languages->getLanguages() as $language) {
+        $langNav[$language->getDirectory()] = ZM_ADMINFN_CATALOG_MANAGER.'?view=category&amp;lang='.$language->getDirectory().$navParams;
+        if ($lang == $language->getDirectory()) {
+            // language to display
+            $languageId = $language->getId();;
+        }
     }
 
     $category = $zm_categories->getCategoryForId($zm_request->getCategoryId(), $languageId);
+
 ?>
 
 <form action="<?php echo ZM_ADMINFN_CATALOG_MANAGER ?>" method="post">
@@ -102,9 +105,12 @@
         </p>
     </fieldset>
 
+    <h3>Update, move, delete, etc. coming soon...</h3>
+    <!--
     <div class="btn">
         <input type="submit" class="btn" value="Save">
         <input type="submit" class="btn mod" value="Move">
         <input type="submit" class="btn del" value="Delete" onclick="return zm_user_confirm('Delete category \'<?php echo $category->getName() ?>\'?');">
     </div>
+    -->
 </form>

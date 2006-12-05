@@ -86,7 +86,9 @@ require_once('../zenmagick/admin_init.php');
           <?php if (0 == count($obsolete)) { ?>
             <h3>Congratulations - Your installation appears to be clean !</h3>
           <?php } else { ?>
-            <form action="<?php echo ZM_ADMINFN_CLEANUP ?>" method="post" onsubmit="return zm_user_confirm('Delete selected files?$featureId');">
+            <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
+              and unless you have modified them, or are sure that you need them they can safely be removed.</p>
+            <form action="<?php echo ZM_ADMINFN_CLEANUP ?>" method="post" onsubmit="return zm_user_confirm('Delete selected files?');">
               <fieldset>
                 <legend>Select the files you wish to delete</legend>
                 <?php $ii = 0; foreach ($obsolete as $file) { $name = zm_mk_relative($file); ?>

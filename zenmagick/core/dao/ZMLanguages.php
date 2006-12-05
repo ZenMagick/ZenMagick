@@ -40,7 +40,7 @@ class ZMLanguages {
         $zcLanguage = new language();
         foreach ($zcLanguage->catalog_languages as $zccLanguage) {
             $language = $this->_newLanguage($zccLanguage);
-            $this->languages_[$language->getCode()] = &$language;
+            $this->languages_[$language->getCode()] = $language;
         }
     }
 

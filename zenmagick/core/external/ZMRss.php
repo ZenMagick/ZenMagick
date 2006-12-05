@@ -49,7 +49,7 @@ class ZMRss {
         //XXX
         //$rss->cache_dir = './temp';
         $rss->cache_time = 1200;
-        $rs = $rss->get($this->url_);
+        $rs = $rss->Get($this->url_);
         $this->channel_ = new ZMRssChannel($rs);
         $this->items_ = array();
         if (null != $rs) {

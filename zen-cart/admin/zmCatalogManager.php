@@ -84,10 +84,11 @@ require('../zenmagick/admin_init.php');
 
     <div id="main">
       <div id="cnav" class="dtree">
-        <?php zm_catalog_dtree(ZM_ADMINFN_CATALOG_MANAGER, ZM_ADMINFN_CATALOG_MANAGER, true) ?>
+        <?php zm_catalog_dtree(ZM_ADMINFN_CATALOG_MANAGER, ZM_ADMINFN_CATALOG_MANAGER, false) ?>
       </div>
 
       <div id="content">
+<?php /*
           <div id="pnav">
             <ul class="hnav">
               <?php foreach ($nav as $name => $url) { ?>
@@ -105,6 +106,9 @@ require('../zenmagick/admin_init.php');
             <?php } ?>
         </div>
       </div>
+ */ ?>
+            <?php include('zmCMPfeatures.php'); ?>
+        </div>
     </div>
 
   </body>

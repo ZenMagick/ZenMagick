@@ -25,11 +25,6 @@
 ?>
 <?php
 
-    function zm_adm_cmp_redirect($view, $params) {
-        ob_end_clean();
-        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER . "?view=".$view.$params));
-    }
-
     // cPath and productId are set in zmCatalogManager.php
     $hrefParams = "&amp;view=features".$navParams;
 
@@ -161,7 +156,7 @@
                 <th>Type</th>
                 <th>Description</th>
                 <th>Hidden</th>
-                <th></th>
+                <th>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -173,8 +168,7 @@
                   <td><?php echo ($feature->isHidden()?'x':'') ?></td>
                   <td>
                     <a class="btn" href="?action=edit_feature&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>">Edit</a>
-                    &nbsp;|&nbsp;
-                    <a class="btn del" href="?action=remove_feature&amp;view=features&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($name)?>\'?');">Delete</a>
+                    <a class="btn del" href="?action=remove_feature&amp;view=features&amp;featureId=<?php echo $feature->getId() ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($feature->getName())?>\' ?');">Delete</a>
                   </td>
                 </tr>
               <?php } ?>
@@ -184,6 +178,7 @@
           <form action="<?php echo ZM_ADMINFN_CATALOG_MANAGER ?>" method="post">
             <input type="hidden" name="view" value="features">
             <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>">
+            <input type="hidden" name="productId" value="<?php echo $productId ?>">
             <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
             <table cellspacing="0" cellpadding="2">
               <thead>
@@ -192,7 +187,7 @@
                   <th>Name</th>
                   <th>Description</th>
                   <th>Hidden</th>
-                  <th></th>
+                  <th><th>
                 </tr>
               </thead>
               <tbody>
@@ -239,7 +234,7 @@
                       <th>Name</th>
                       <th>Value</th>
                       <th>Index</th>
-                      <th></th>
+                      <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -251,8 +246,7 @@
                         <td><?php echo $index ?></td>
                         <td>
                           <a class="btn" href="?action=edit_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>">Edit</a>
-                          &nbsp;|&nbsp;
-                          <a class="btn del" href="?action=remove_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\'?');">Delete</a>
+                          <a class="btn del" href="?action=remove_feature_value&amp;featureId=<?php echo $feature->getId() ?>&amp;index=<?php echo $index ?><?php echo $hrefParams ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\' ?');">Delete</a>
                         </td>
                       </tr>
                     <?php } ?>
@@ -266,11 +260,11 @@
                   <input type="hidden" name="view" value="features">
                   <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>">
                   <input type="hidden" name="productId" value="<?php echo $product->getId() ?>">
-                  <table cellspacing="0" cellpadding="2">
+                  <table cellspacing="0" cellpadding="2" border=1 width="100%">
                     <thead>
                       <tr>
                         <th>Feature</th>
-                        <th>Value</th>
+                        <th style="width:55%;">Value</th>
                         <th>Index</th>
                         <th></th>
                       </tr>
@@ -292,7 +286,7 @@
                           <?php } ?>
                         </td>
                         <td>
-                          <textarea cols="60" rows="5" name="value"><?php echo $value_text ?></textarea>
+                          <textarea cols="70" rows="5" name="value"><?php echo $value_text ?></textarea>
                         </td>
                         <td>
                           <input type="hidden" size="5" name="oldIndex" value="<?php echo $value_index ?>">

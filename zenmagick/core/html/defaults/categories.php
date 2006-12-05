@@ -64,7 +64,7 @@
                 $html .= '&gt;';
             }
             if ($category->hasChildren()) { // && $active) {
-                $html .= buildCategoryTreeList($category->getChildren(), $active, false);
+                $html .= zm_build_category_tree_list($category->getChildren(), $active, false);
             }
             $html .= '</li>';
         }

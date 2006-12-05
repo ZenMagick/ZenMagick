@@ -87,6 +87,11 @@ require_once('../zenmagick/admin_init.php');
     <div id="main">
       <div id="content">
         <h2>ZenMagick Language Tool</h2>
+        <p>This tool helps you find language strings in your themes. Just select a theme and you will 
+          get a full list of all strings and where they are used.</p>
+        <p>The selected mapping can also be downloaded in a format that you can cut'paste right into your <code>l10n.php</code> file.</p>
+        <p><strong>NOTE:</strong> '%s' and other strings starting wiht '%' are used as placeholders for things like order numbers, etc.</p>
+
         <form action="<?php echo ZM_ADMINFN_L10N ?>" method="post">
           <fieldset>
             <legend>Select Theme to display the language mappings</legend>

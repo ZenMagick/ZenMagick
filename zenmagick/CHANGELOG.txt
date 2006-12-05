@@ -36,6 +36,8 @@ Current:
   validation)
 - added error view to default theme
 - fixed some more validation errors
+- allow themes to include the default theme's extra code (default)
+- fix runtime reconnectDB method
 
 
 Release 0.4.5
