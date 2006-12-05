@@ -1,3 +1,10 @@
+## upgrade cleanup
+DROP TABLE IF EXISTS feature_types;
+DROP TABLE IF EXISTS zen_feature_types;
+DROP TABLE IF EXISTS features;
+DROP TABLE IF EXISTS zen_features;
+DROP TABLE IF EXISTS product_features;
+DROP TABLE IF EXISTS zen_product_features;
 
 
 #

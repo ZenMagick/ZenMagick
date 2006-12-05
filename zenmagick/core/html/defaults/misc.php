@@ -188,68 +188,6 @@
     }
 
     /**
-     * Creates a single JavaScript form validation rule.
-     *
-     * <p>Type may be on of:</p>
-     * <ul>
-     *  <li>Length - check for a particular length</li>
-     *  <li>Selected - check if a particular value is selected</li>
-     *  <li>AnySelected - check if any option is selected</li>
-     *  <li>NotEmpty - check if not empty</li>
-     *  <li>Checked check if any checked</li>
-     *  <li>Match - compare values (password validation)</li>
-     * </ul>
-     *
-     * <p>For examples see <em>ZenMagick's</em> default theme.</p>
-     *
-     * @package net.radebatz.zenmagick.html.defaults
-     * @param string type The rule type.
-     * @param string name The form element name to validate.
-     * @param string msg A (non-localized) error message.
-     * @param mixed arg Optional argument that will be passed into <code>zm_l10n_get(..)</code> to format the message
-     *  and as additional argument in the JavaScript validation code (used for max length, values to compare, etc)
-     * @return string A JavaScript formatted validation rule.
-     */
-    function zm_js_rule($type, $name, $msg, $arg=null) {
-        $js = '';
-        $js .= "new Array('".$type."'";
-        $js .= ",'".$name."'";
-        $js .= ",'".addslashes(zm_l10n_get($msg, $arg))."'";
-        if (null != $arg) {
-            $js .= ",".$arg;
-        }
-        $js .= ")";
-        return $js;
-    }
-
-    /**
-     * Create a JavaScript block for form validation.
-     *
-     * <p>For examples see <em>ZenMagick's</em> default theme.</p>
-     *
-     * <p><strong>NOTE:</strong> Currently, only one validation per page is supported.</p>
-     *
-     * @package net.radebatz.zenmagick.html.defaults
-     * @param var args Variable length number of rules.
-     * @return string A JavaScript block containing form validation code.
-     */
-    function zm_js_validation($args) {
-        $js = '';
-        $js .= '<script type="text/javascript">';
-        $js .= 'var rules = new Array(';
-        $rules = func_get_args();
-        $first = true;
-        foreach ($rules as $rule) {
-            if (!$first) $js .= ',';
-            $first = false;
-            $js .= $rule;
-        }
-        $js .= ')';
-        $js .= '</script>';
-        echo $js;
-    }
-
-    /**
      * Create a list of values separated by the given separator string.
      *
      * @package net.radebatz.zenmagick.html.defaults

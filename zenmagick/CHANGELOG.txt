@@ -2,7 +2,7 @@ Release 0.5.0:
 - Converted most of the SQL generation to using bindVars(...)
 - Added a few more settings
 - minor fixes and layout changes
-- added a few moew sideboxes
+- added a few more sideboxes
 - added reviews and tell_a_friend views and corresponding controller
 - added getTypeSetting($name) to ZMProduct
 - renamed search_header.php search.php
@@ -40,6 +40,7 @@ Release 0.5.0:
 - fix runtime reconnectDB method
 - added (still somewhat experimental) wordpress sidebox
 - added search results page
+- renamed ZenMagick specific database tables
 
 
 Release 0.4.5
