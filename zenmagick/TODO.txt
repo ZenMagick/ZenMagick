@@ -40,6 +40,7 @@ code quality:
   similar to filters
 - use 3rd party API for db access
 - language support for ZenMagick admin area
+- file write check for dummy sidebox create
 
 proper class hierachy
 => dao, model, business
