@@ -80,9 +80,13 @@ require_once('../zenmagick/admin_init.php');
     // create empty dummy files...
     foreach ($missingBoxes as $box) {
         if (!file_exists(ZEN_DIR_FS_BOXES.$box)) {
-            $handle = fopen(ZEN_DIR_FS_BOXES.$box, 'a');
-            fwrite($handle, '<?php /** dummy file created by ZenMagick **/ ?>');
-            fclose($handle);
+            if (is_writeable(ZEN_DIR_FS_BOXES.$box)) {
+                $handle = fopen(ZEN_DIR_FS_BOXES.$box, 'a');
+                fwrite($handle, '<?php /** dummy file created by ZenMagick **/ ?>');
+                fclose($handle);
+            } else {
+            zm_log("** ZenMagick: no permission to create dummy sideboxes", 1);
+            }
         }
     }
 
