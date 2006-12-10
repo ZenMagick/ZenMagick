@@ -79,8 +79,12 @@
             $queryString = zm_htmlurldecode($url['query']);
             parse_str($queryString, $query);
             $path = dirname($url['path']).'/';
+            if (zm_starts_with($path, '\\')) {
+                $path = substr($path, 1);
+            }
             $page = $query['main_page'];
             $translate = true;
+            $removeNames = array('main_page', 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
             switch ($page) {
                 case 'index':
                 case 'category':
@@ -105,7 +109,7 @@
                     }
                     break;
                 case 'login':
-                case 'logout':
+                case 'logoff':
                 case 'account':
                 case 'account_edit':
                 case 'account_password':
@@ -133,26 +137,90 @@
                 case 'shopping_cart':
                     $path .= "cart/";
                     break;
+                case 'account_notifications':
+                    $path .= "account/notifications/";
+                    if (array_key_exists('products_id', $query)) {
+                        $path .= $query['products_id'];
+                    }
+                    break;
+                case 'tell_a_friend':
+                    $path .= "tellafriend/".$query['products_id'];
+                    break;
+                case 'page':
+                    $path .= "page/".$query['id'];
+                    break;
+                case 'site_map':
+                    $path .= "sitemap/";
+                    break;
+                case 'specials':
+                    $path .= "specials";
+                    break;
+                case 'privacy':
+                    $path .= "privacy";
+                    break;
+                case 'contact_us':
+                    $path .= "contactus/";
+                    break;
+                case 'products_new':
+                    $path .= "newproducts/";
+                    break;
+                case 'password_forgotten':
+                    $path .= "account/password/forgotten/";
+                    break;
+                case 'create_account':
+                    $path .= "account/create/";
+                    break;
+                case 'create_account':
+                    $path .= "account/create/";
+                    break;
+                case 'advanced_search':
+                    $path .= "search/advanced/";
+                    break;
+                case 'advanced_search_result':
+                    $path .= "search/advanced/results";
+                    break;
+                case 'featured_products':
+                    $path .= "featured/";
+                    break;
+                case 'checkout_shipping':
+                    $path .= "checkout/shipping/";
+                    break;
+                case 'checkout_shipping_address':
+                    $path .= "checkout/shipping/address/";
+                    break;
+                case 'checkout_payment':
+                    $path .= "checkout/payment/";
+                    break;
+                case 'checkout_payment_address':
+                    $path .= "checkout/payment/address/";
+                    break;
+                case 'checkout_confirmation':
+                    $path .= "checkout/confirm/";
+                    break;
+                case 'redirect':
+                    $path .= "redirect/";
+                    // kepp rest
+                    $removeNames = array('main_page');
+                    break;
                 default:
                     $translate = false;
+                    zm_log("no permalink mapping for: ".$page, 1);
                     break;
             }
-            // always append at end
-            if (array_key_exists("action", $query)) {
-                $path .= "/".$query['action'];
+            foreach ($removeNames as $rkey) {
+                if (array_key_exists($rkey, $query)) {
+                    unset($query[$rkey]);
+                }
             }
-            if (array_key_exists("page", $query)) {
-                $path .= "/".$query['page'];
+            // remaining query
+            $params = '';
+            foreach ($query as $key => $value) {
+                $params .= '&'.$key.'='.$value;
             }
-            if (array_key_exists("filter_id", $query)) {
-                $path .= "/".$query['filter_id'];
-            }
-            if (array_key_exists("sort", $query)) {
-                $path .= "/".$query['sort'];
-            }
+            $params = (0 < strlen($params) ? ('?'.substr($params, 1)) : '');
 
             if ($translate) {
-                $href = $url['scheme']."://".$url['host'].$path.$url['fragment'];
+                $href = $url['scheme']."://".$url['host'].$path.$url['fragment'].$params;
             }
         }
 

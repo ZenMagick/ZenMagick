@@ -44,7 +44,7 @@
     $_ZM_SETTINGS['isJSTarget'] = true;
 
     // ZM permalinks
-    $_ZM_SETTINGS['isZMPermalinks'] = false;
+    $_ZM_SETTINGS['isZMPermalinks'] = true;
     // default to default in ZM themes
     $_ZM_SETTINGS['isEnableThemeDefaults'] = true;
 

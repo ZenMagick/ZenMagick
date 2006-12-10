@@ -24,17 +24,23 @@
  */
 ?>
 
-<?php zm_js_validation(
-  zm_js_rule('Checked', 'gender', "Please choose a gender."),
-  zm_js_rule('Length', 'firstname', "Your First Name must contain a minimum of %s characters.", ENTRY_FIRST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'lastname', "Your Last Name must contain a minimum of %s characters.", ENTRY_LAST_NAME_MIN_LENGTH),
-  zm_js_rule('Length', 'dob', vsprintf("Your Date of Birth must be in this format: %s.", UI_DATE_FORMAT_SAMPLE), strlen(UI_DATE_FORMAT)),
-  zm_js_rule('Length', 'email_address', "Your E-Mail Address must contain a minimum of %s characters.", ENTRY_EMAIL_ADDRESS_MIN_LENGTH),
-  zm_js_rule('Length', 'telephone', "Your Telephone Number must contain a minimum of %s characters.", ENTRY_TELEPHONE_MIN_LENGTH)
-) ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('address', array(
+        new ZMRequiredRule('gender', 'Please choose a gender.'),
+        new ZMRequiredRule('firstname', 'Please enter your first name.'),
+        new ZMRequiredRule('lastname', 'Please enter your last name.'),
+        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
+        new ZMRegexpRule('dob', UI_DATE_FORMAT_VALIDATION, vsprintf('Please enter a valid date of birth in the form \'%s\'.', UI_DATE_FORMAT)),
+        new ZMRequiredRule('email_address', 'Please enter your email address.'),
+        new ZMEmailRule('email_address', 'Please enter a valid email address.'),
+        new ZMRequiredRule('telephone', "Please enter your telephone details.")
+    )));
+    $validator->toJSString('account');
+?>
 <?php include_once $zm_theme->themeFile("validation.js"); ?>
 
-<?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", null, "post", "return validate(this);") ?>
+<?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", 'account', "post", "return validate(this);") ?>
     <fieldset>
         <legend><?php zm_l10n("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">

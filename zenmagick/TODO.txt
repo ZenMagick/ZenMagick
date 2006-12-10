@@ -41,6 +41,8 @@ code quality:
 - use 3rd party API for db access
 - language support for ZenMagick admin area
 - file write check for dummy sidebox create
+- error message if file permissions missing
+- fallback menu if no permissions
 
 proper class hierachy
 => dao, model, business
