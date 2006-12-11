@@ -50,10 +50,18 @@
     </fieldset>
 <?php } ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
+<?php if ($zm_resultList->hasResults()) { /* show last three */ ?>
     <h3>
-        <a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY) ?>"><?php zm_l10n("(Show All)") ?></a>
+        <?php if (3 < $zm_resultList->getNumberOfResults()) { ?>
+            <a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY) ?>"><?php zm_l10n("(Show All)") ?></a>
+        <?php } ?>
         <?php zm_l10n("Previous Orders") ?>
     </h3>
-    <?php processResultList($zm_resultList, "orders", "handle_order_result", "order_table_def", false) ?>
+    <div class="rlist">
+        <table cellspacing="0" cellpadding="0"><tbody>
+            <?php $count = 0; $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
+              <?php include('resultlist/order.php') ?>
+            <?php $first = false; $odd = !$odd; if (++$cont > 2) { break; } } ?>
+        </tbody></table>
+    </div>
 <?php } ?>

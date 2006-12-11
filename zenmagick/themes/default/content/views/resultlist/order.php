@@ -24,21 +24,11 @@
  */
 ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-    </div>
-
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $review) { ?>
-              <?php include('resultlist/review.php') ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-    </div>
-<?php } else { ?>
-    <h2><?php zm_l10n("There are no reviews available at this time") ?></h2>
-<?php } ?>
+<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+    <td><a href="<?php zm_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId()) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
+    <td><?php zm_date_short($order->getOrderDate()) ?></td>
+    <?php $address = $order->getBillingAddress(); ?>
+    <td><?php echo $address->getFullName()  ?></td>
+    <td><?php zm_l10n($order->getStatus()) ?></td>
+    <td class="pprice"><?php zm_format_currency($order->getTotal()) ?></td>
+</tr>

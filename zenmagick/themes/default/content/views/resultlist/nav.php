@@ -24,21 +24,18 @@
  */
 ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
+<?php if (1 < $zm_resultList->getNumberOfPages()) { ?>
+    <div class="rnav">
+        <span class="pno"><?php zm_l10n("Page %s/%s", $zm_resultList->getCurrentPageNumber(), $zm_resultList->getNumberOfPages()) ?></span>
+        <?php if ($zm_resultList->hasPreviousPage()) { ?>
+            <a href="<?php $zm_resultList->getPreviousURL() ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
+        <?php } ?>
+        <?php if ($zm_resultList->hasNextPage()) { ?>
+            <a href="<?php $zm_resultList->getNextURL() ?>"><?php zm_l10n("Next") ?></a>
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Next") ?></span>
+        <?php } ?>
     </div>
-
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $review) { ?>
-              <?php include('resultlist/review.php') ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-    </div>
-<?php } else { ?>
-    <h2><?php zm_l10n("There are no reviews available at this time") ?></h2>
 <?php } ?>

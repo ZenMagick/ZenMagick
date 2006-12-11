@@ -24,21 +24,12 @@
  */
 ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-    </div>
-
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $review) { ?>
-              <?php include('resultlist/review.php') ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-    </div>
-<?php } else { ?>
-    <h2><?php zm_l10n("There are no reviews available at this time") ?></h2>
-<?php } ?>
+<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+    <td class="cpt"><input type="checkbox" name="compareId[]" value="<?php echo $product->getId() ?>" /></td>
+    <td><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a></td>
+    <td class="pinfo">
+        <a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a><br/>
+        <?php zm_more(zm_strip_html($product->getDescription(), false), 120) ?>
+    </td>
+    <td class="pprice"><?php zm_format_currency($product->getPrice()) ?></td>
+</tr>
