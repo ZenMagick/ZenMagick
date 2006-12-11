@@ -19,43 +19,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
 
 /**
- * Custom default controller.
+ * A record company.
+ *
+ * @author mano
+ * @version $Id$
  */
-class DefaultController extends ZMController {
+class RecordCompany {
+    var $id_;
+    var $name_;
+    var $url_;
+
 
     // create new instance
-    function DefaultController() {
-        parent::__construct();
+    function RecordCompany() {
+        $this->id_ = 0;
+        $this->name_ = '';
+        $this->url_ = null;
     }
 
     // create new instance
     function __construct() {
-        $this->DefaultController();
+        $this->RecordCompany();
     }
 
     function __destruct() {
     }
 
 
-    /** API implementation */
-
-    // process a GET request
-    function processGet() {
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Theme-Default-Controller-Demo-Crumbtrail");
-        $zm_crumbtrail->addCrumb(zm_title(false));
-
-        return true;
-    }
+    // getter/setter
+    function getId() { return $this->id_; }
+    function getName() { return $this->name_; }
+    function hasUrl() { return !zm_is_empty($this->url_); }
+    function getUrl() { return $this->url_; }
 
 }
 

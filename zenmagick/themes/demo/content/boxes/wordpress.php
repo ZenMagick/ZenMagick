@@ -1,6 +1,6 @@
 <?php 
     // init wordpress
-    define('WP_USE_THEMES', false); require_once('M:\webserver\radebatz.net\mano/bolg/wp-config.php'); 
+    define('WP_USE_THEMES', false); require_once('M:\webserver\zenmagick.radebatz.net\wordpress/wp-config.php'); 
     // set up configured categories, etc
     query_posts("category_name=ZenMagick&showposts=5&cat=ZenMagick");
 ?>

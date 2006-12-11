@@ -26,29 +26,23 @@
 <?php
 
 /**
- * Theme info for default theme.
+ * Theme info for demo theme.
  */
-class DefaultThemeInfo extends ZMThemeInfo {
+class DemoThemeInfo extends ZMThemeInfo {
 
     // create new instance
-    function DefaultThemeInfo() {
+    function DemoThemeInfo() {
         parent::__construct();
-        $this->setName('Default');
-        $this->setVersion('0.4');
+        $this->setName('ProductDemo');
+        $this->setVersion('0.1');
         $this->setAuthor('ZenMagick 2006');
-        $this->setDescription('ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates');
+        $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
 
         $this->setErrorPage('error');
         $this->setDefaultLayout('default_layout');
 
-        // configure individual layout templates
-        //$this->setLayout('static', 'special_layout');
-
         // keep error page simple
         $this->setLayout('error', null);
-
-        // set default JS event handler; i.e. for ALL pages
-        $this->setDefaultPageEventHandler('onload', "inject_category_code();");
 
         // set JS event handler
         $this->setPageEventHandler('onload', 'login', "focus('email_address');");
@@ -56,7 +50,7 @@ class DefaultThemeInfo extends ZMThemeInfo {
 
     // create new instance
     function __construct() {
-        $this->DefaultThemeInfo();
+        $this->DemoThemeInfo();
     }
     
 }

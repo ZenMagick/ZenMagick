@@ -25,40 +25,38 @@
 ?>
 <?php
 
+
 /**
- * Theme info for default theme.
+ * Custom default controller.
  */
-class DefaultThemeInfo extends ZMThemeInfo {
+class DefaultController extends ZMController {
 
     // create new instance
-    function DefaultThemeInfo() {
+    function DefaultController() {
         parent::__construct();
-        $this->setName('Default');
-        $this->setVersion('0.4');
-        $this->setAuthor('ZenMagick 2006');
-        $this->setDescription('ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates');
-
-        $this->setErrorPage('error');
-        $this->setDefaultLayout('default_layout');
-
-        // configure individual layout templates
-        //$this->setLayout('static', 'special_layout');
-
-        // keep error page simple
-        $this->setLayout('error', null);
-
-        // set default JS event handler; i.e. for ALL pages
-        $this->setDefaultPageEventHandler('onload', "inject_category_code();");
-
-        // set JS event handler
-        $this->setPageEventHandler('onload', 'login', "focus('email_address');");
     }
 
     // create new instance
     function __construct() {
-        $this->DefaultThemeInfo();
+        $this->DefaultController();
     }
-    
+
+    function __destruct() {
+    }
+
+
+    /** API implementation */
+
+    // process a GET request
+    function processGet() {
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return true;
+    }
+
 }
 
 ?>

@@ -19,46 +19,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
+
 /**
- * Theme info for default theme.
+ * An artist.
+ *
+ * @author mano
+ * @version $Id$
  */
-class DefaultThemeInfo extends ZMThemeInfo {
+class Artist {
+    var $id_;
+    var $name_;
+    var $genre_;
+    var $image_;
+    var $url_;
+    var $recordCompany_;
+
 
     // create new instance
-    function DefaultThemeInfo() {
-        parent::__construct();
-        $this->setName('Default');
-        $this->setVersion('0.4');
-        $this->setAuthor('ZenMagick 2006');
-        $this->setDescription('ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates');
-
-        $this->setErrorPage('error');
-        $this->setDefaultLayout('default_layout');
-
-        // configure individual layout templates
-        //$this->setLayout('static', 'special_layout');
-
-        // keep error page simple
-        $this->setLayout('error', null);
-
-        // set default JS event handler; i.e. for ALL pages
-        $this->setDefaultPageEventHandler('onload', "inject_category_code();");
-
-        // set JS event handler
-        $this->setPageEventHandler('onload', 'login', "focus('email_address');");
+    function Artist() {
+        $this->id_ = 0;
+        $this->name_ = '';
+        $this->genre_ = '';
+        $this->image_ = null;
+        $this->url_ = null;
+        $this->recordCompany_ = null;
     }
 
     // create new instance
     function __construct() {
-        $this->DefaultThemeInfo();
+        $this->Artist();
     }
-    
+
+    function __destruct() {
+    }
+
+
+    // getter/setter
+    function getId() { return $this->id_; }
+    function getName() { return $this->name_; }
+    function getGenre() { return $this->genre_; }
+    function hasImage() { return !zm_is_empty($this->image_); }
+    function getImage() { return $this->image_; }
+    function hasUrl() { return !zm_is_empty($this->url_); }
+    function getUrl() { return $this->url_; }
+    function getRecordCompany() { return $this->recordCompany_; }
+
 }
 
 ?>
