@@ -25,26 +25,21 @@
 
 
 /**
- * Filter products by category.
+ * Filter products by a single category.
  *
  * @author mano
- * @package net.radebatz.zenmagick.filter
+ * @package net.radebatz.zenmagick.resultlist.filter
  * @version $Id$
  */
-class ZMCategoryFilter { //extends ZMFilter {
-    var $categoryId_;
+class ZMCategoryFilter extends ZMResultListFilter {
     var $productIds_;
 
 
     // create new instance
     function ZMCategoryFilter() {
     global $zm_request;
-        //parent::__construct();
-
-        $this->categoryId_ = null;
-        if (null == $zm_request->getCategoryId()) {
-            $this->categoryId_ = $zm_request->getFilterId();
-        }
+        parent::__construct('cfilter');
+        $this->productIds_ = null;
     }
 
     // create new instance
@@ -56,22 +51,26 @@ class ZMCategoryFilter { //extends ZMFilter {
     }
 
 
-    // lazy load
+    // lazy load all included productIds
     function _getProductIds() {
     global $zm_products;
+
         if (null == $this->productIds_) {
-            $this->productIds_ = $zm_products->getProductIdsForCategoryId($this->categoryId_);
+            $this->productIds_ = $zm_products->getProductIdsForCategoryId($this->filterValue_);
         }
         return $this->productIds_;
     }
 
 
-    // is filter active for this request
-    function isActive() { return null != $this->categoryId_; }
-    // check for valid product
-    function isValid($product) {
+    /**
+     * Return <code>true</code> if the given object is to be excluded.
+     *
+     * @param mixed obj The obecjt to examine.
+     * @return bool <code>true</code> if the object is to be excluded, <code>false</code> if not.
+     */
+    function exclude($obj) {
         $productIds = $this->_getProductIds();
-        return array_key_exists($product->getId(), $productIds);
+        return !array_key_exists($obj->getId(), $productIds);
     }
 
 }

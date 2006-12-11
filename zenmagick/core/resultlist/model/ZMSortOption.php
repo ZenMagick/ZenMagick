@@ -25,37 +25,44 @@
 
 
 /**
- * Result list filter.
+ * A single sort option.
+ *
+ * <p>The returned name will automatically reflect the current status, the id the sort
+ * order.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.filter
+ * @package net.radebatz.zenmagick.resultlist.model
  * @version $Id$
  */
-class ZMFilter {
+class ZMSortOption {
+    var $name_;
+    var $id_;
+    var $active_;
+    var $decending_;
 
 
     // create new instance
-    function ZMFilter() {
+    function ZMSortOption($name, $id, $active=false, $decending=false) {
+        $this->name_ = $name;
+        $this->id_ = $id;
+        $this->active_ = $active;
+        $this->decending_ = $decending;
     }
 
     // create new instance
-    function __construct() {
-        $this->ZMFilter();
+    function __construct($name, $id, $active=false, $decending=false) {
+        $this->ZMSortOption($name, $id, $active, $decending);
     }
 
     function __destruct() {
     }
 
 
-    /** Filter API */
-
-    // is filter active
-    function isActive() { return true; }
-
-    // is the given object valid; a return value != true will remove the
-    // object from the result list
-    function isValid($object) { return true; }
-
+    //getter
+    function getId() { return $this->id_ . ($this->active_ ? ($this->decending_ ? '_a' : '_d') : ""); }
+    function getName() { return zm_l10n_get($this->name_) . ($this->active_ ? ($this->decending_ ? '-' : '+') : ""); }
+    function isActive() { return $this->active_; }
+    function isDecending() { return $this->decending_; }
 }
 
 ?>

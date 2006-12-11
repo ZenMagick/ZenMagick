@@ -25,40 +25,38 @@
 
 
 /**
- * Filter products by manufacturer.
+ * A single filter option.
  *
  * @author mano
- * @package net.radebatz.zenmagick.filter
+ * @package net.radebatz.zenmagick.resultlist.model
  * @version $Id$
  */
-class ZMManufacturerFilter { //extends ZMFilter {
-    var $manufacturerId_;
+class ZMFilterOption {
+    var $name_;
+    var $id_;
+    var $active_;
 
 
     // create new instance
-    function ZMManufacturerFilter() {
-    global $zm_request;
-        //parent::__construct();
-
-        $this->manufacturerId_ = null;
-        if (null == $zm_request->getManufacturerId()) {
-            $this->manufacturerId_ = $zm_request->getFilterId();
-        }
+    function ZMFilterOption($name, $id, $active=false) {
+        $this->name_ = $name;
+        $this->id_ = $id;
+        $this->active_ = $active;
     }
 
     // create new instance
-    function __construct() {
-        $this->ZMManufacturerFilter();
+    function __construct($name, $id, $active=false) {
+        $this->ZMFilterOption($name, $id, $active);
     }
 
     function __destruct() {
     }
 
 
-    // is filter active for this request
-    function isActive() { return null != $this->manufacturerId_; }
-    // check for valid product
-    function isValid($product) { return $product->getManufacturerId() == $this->manufacturerId_; }
+    //getter
+    function getId() { return $this->id_; }
+    function getName() { return $this->name_; }
+    function isActive() { return $this->active_; }
 
 }
 
