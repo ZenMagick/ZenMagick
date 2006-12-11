@@ -72,6 +72,12 @@ class ZMIndexController extends ZMController {
             $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getRequestParameter('compareId')), $max);
             $viewName = "category_list";
         }
+        if (null != $resultList) {
+            $resultList->addFilter(new ZMManufacturerFilter());
+            //$resultList->addFilter(new ZMCategoryFilter());
+            $resultList->addSorter(new ZMProductSorter());
+            $resultList->refresh();
+        }
 
         $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
         if ($viewName == "category_list" && ((!$resultList->hasResults() || $category->hasChildren()) && zm_setting('isUseCategoryPage'))) {

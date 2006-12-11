@@ -55,14 +55,13 @@ class ZMRequest {
     function getShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
     function getPageName() { return $_GET['main_page']; }
     function getPageIndex() {  return isset($_GET['page']) ? $_GET['page'] : 1; }
-    function getSortOrder() {  return isset($_GET['sort']) ? $_GET['sort'] : null; }
+    function getSortId() {  return isset($_GET['sort']) ? $_GET['sort'] : null; }
     function getSubPageName() { return isset($_GET['cat']) ? $_GET['cat'] : null; }
     function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getRequestParameter("productId", 0); }
     function getModel() { return isset($_GET['model']) ? $_GET['model'] : null; }
     function getCategoryPath() { return $this->getRequestParameter('cPath', null); }
     function getCategoryPathArray() { global $cPath_array; return is_array($cPath_array) ? $cPath_array : array(); }
     function getManufacturerId() { return isset($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : null; }
-    function getFilterId() { return isset($_GET['filter_id']) ? (int)$_GET['filter_id'] : null; }
     function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : null; }
     function getReviewId() { return isset($_GET['reviews_id']) ? (int)$_GET['reviews_id'] : 0; }
     function getOrderId() { return isset($_GET['order_id']) ? (int)$_GET['order_id'] : null; }

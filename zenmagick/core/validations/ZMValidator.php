@@ -109,6 +109,8 @@ class ZMValidator {
                 }
                 array_push($msgList, $rule->getErrorMsg());
                 $this->messages_[$rule->getName()] = $msgList;
+                if ($rule->skipFieldOnError())
+                    continue;
             }
         }
 

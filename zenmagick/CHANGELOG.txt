@@ -1,3 +1,16 @@
+Release 0.5.1:
+- Fixed missing file permission check for creating dummy sidebar boxes
+- Refactored result list, filter an sort classes
+- Added media manager related classes
+- Refactored result list handling to includes rather than functions
+- added getFullName() to ZMAccount
+- pretty links support using .htaccess files and URL rewriting
+- new function zm_media_href(...)
+- new ZMDateRule validation rule (untested)
+- new demo theme that implements a few non mainstrean things (also moved the
+  new boxes there)
+
+
 Release 0.5.0:
 - Converted most of the SQL generation to using bindVars(...)
 - Added a few more settings

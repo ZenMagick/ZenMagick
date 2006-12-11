@@ -84,9 +84,14 @@
                 $errorpage = $zm_themeInfo->getErrorPage();
                 $zm_view = new ZMView($errorpage, $errorpage);
             }
-            // expected to be in views
-            $zm_content_include = $zm_view->getContentName();
-            include($zm_theme->getThemePath($zm_view->getTemplateName().'.php'));
+            // expected to be in views; not neccesarrily if error is full page!
+            if ($zm_view->isUsingTiles()) {
+                $zm_content_include = $zm_view->getContentName();
+                include($zm_theme->getThemePath($zm_view->getTemplateName().'.php'));
+            } else {
+                // content is full page
+                include($zm_theme->getThemePath($zm_view->getContentName()).".php");
+            }
         } else {
             // content is full page
             include($zm_theme->getThemePath($zm_view->getContentName()));

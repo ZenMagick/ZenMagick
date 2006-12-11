@@ -73,7 +73,7 @@
         $view = $view == null ? $zm_request->getPageName() : $view;
         $href = zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
 
-        if (zm_setting('isZMPermalinks')) {
+        if (zm_setting('isZMPrettyLinks')) {
             // adjust to match .htaccess rewrite rules
             $url = parse_url($href);
             $queryString = zm_htmlurldecode($url['query']);
@@ -605,6 +605,22 @@
 
         if ($echo) echo $text;
         return $text;
+    }
+
+
+    /**
+     * Media href.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string filename The media filename.
+     * @param bool echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
+     * @return A URL.
+     */
+    function zm_media_href($filename, $echo=true) {
+        $href = DIR_WS_MEDIA.$filename;
+
+        if ($echo) echo $href;
+        return $href;
     }
 
 ?>

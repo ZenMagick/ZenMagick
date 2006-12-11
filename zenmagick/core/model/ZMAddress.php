@@ -164,6 +164,7 @@ class ZMAddress extends ZMModel {
     function getCountry() { return $this->country_; }
     function isPrimary() { return $this->isPrimary_; }
     function getFormat() { return $this->format_; }
+    function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
 
 }
 
