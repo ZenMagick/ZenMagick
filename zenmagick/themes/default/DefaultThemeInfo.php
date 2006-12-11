@@ -48,7 +48,7 @@ class DefaultThemeInfo extends ZMThemeInfo {
         $this->setLayout('error', null);
 
         // set default JS event handler; i.e. for ALL pages
-        $this->setDefaultPageEventHandler('onload', "inject_category_code();");
+        //$this->setDefaultPageEventHandler('onload', "inject_category_code();");
 
         // set JS event handler
         $this->setPageEventHandler('onload', 'login', "focus('email_address');");

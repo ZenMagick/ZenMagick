@@ -204,7 +204,7 @@
                     break;
                 default:
                     $translate = false;
-                    zm_log("no permalink mapping for: ".$page, 1);
+                    zm_log("no permalink mapping for: ".$page, 4);
                     break;
             }
             foreach ($removeNames as $rkey) {
@@ -537,7 +537,7 @@
      * @return string A full URL.
      */
     function zm_redirect_href($action, $id, $echo=true) {
-        return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
+        return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&amp;goto=".$id, false, $echo);
     }
 
 
