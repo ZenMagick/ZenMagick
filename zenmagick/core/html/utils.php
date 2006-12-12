@@ -197,10 +197,13 @@
                 case 'checkout_confirmation':
                     $path .= "checkout/confirm/";
                     break;
+                case 'gv_send':
+                    $path .= "account/giftcard/send/";
+                    break;
                 case 'redirect':
-                    $path .= "redirect/";
-                    // kepp rest
-                    $removeNames = array('main_page');
+                    $path .= "redirect/".$query['action']."/".$query['goto'];
+                    array_push($removeNames, 'goto');
+                    array_push($removeNames, 'action');
                     break;
                 default:
                     $translate = false;
