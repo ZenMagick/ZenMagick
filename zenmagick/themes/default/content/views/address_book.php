@@ -34,7 +34,7 @@
             <?php } ?>
             <a class="btn" href="<?php zm_secure_href(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId()) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
-        <?php if (zm_not_null($address->getCompanyName())) { echo $address->getCompanyName() . "<br />"; } ?>
+        <?php if (!zm_is_empty($address->getCompanyName())) { echo $address->getCompanyName() . "<br />"; } ?>
         <?php echo $address->getAddress(); ?><br />
         <?php echo $address->getSuburb(); ?><br />
         <?php echo $address->getPostcode(); ?><br />

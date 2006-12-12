@@ -450,7 +450,7 @@ class ZMProducts {
 
     function _newProduct($fields) {
     global $zm_features;
-        $product = new ZMProduct($fields['products_id'], $fields['products_name'], $fields['products_description']);
+        $product =& new ZMProduct($fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status = $fields['products_status'];
         $product->model_ = $fields['products_model'];
         $product->image_ = $fields['products_image'];

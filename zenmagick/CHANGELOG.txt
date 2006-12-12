@@ -1,14 +1,30 @@
-Release 0.5.1:
+Release 0.6.0:
 - Fixed missing file permission check for creating dummy sidebar boxes
 - Refactored result list, filter an sort classes
-- Added media manager related classes
+- Added media manager and music related classes
 - Refactored result list handling to includes rather than functions
 - added getFullName() to ZMAccount
 - pretty links support using .htaccess files and URL rewriting
 - new function zm_media_href(...)
 - new ZMDateRule validation rule (untested)
-- new demo theme that implements a few non mainstrean things (also moved the
-  new boxes there)
+- new demo theme; this will contain sample code/customizations
+  NOTE: you will have to create a dummy zen-cart template directory in order
+	to use the theme
+- new music product page - there you go
+- fixed lots of regressions; in particular broken validations, SQL errors and
+  product listings
+- re-structured the core files (again, and perhaps still not the last time...)
+- partly stripped ZMModel as the new validation code makes this obsolete (the
+  implementation code will stay around until I find time to rewrite the update
+  stuff)
+- renamed rss and wordpress sideboxes to rss.in.php and wordpress.in.php,
+  respectively. People using them should rename them in order to avoid
+  overwriting them with the next update
+- Added specals view - not sure if the SQL is correct, though
+- Fixed bug when payments do not have confirmation fields
+- Excluding controller classes from being loaded on init - they (and possibly
+  more) are loaded using the loader
+- Created my first image from scratch using Gimp :)
 
 
 Release 0.5.0:

@@ -100,7 +100,7 @@ class ZMManufacturers {
 
     
     function _newManufacturer($fields) {
-        $manufacturer = new ZMManufacturer($fields['manufacturers_id'], $fields['manufacturers_name']);
+        $manufacturer =& new ZMManufacturer($fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];
         $manufacturer->url_ = $fields['manufacturers_url'];
         return $manufacturer;

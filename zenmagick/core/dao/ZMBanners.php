@@ -157,7 +157,7 @@ class ZMBanners {
 
     // build banner
     function _newBanner($fields) {
-        $banner = new ZMBanner();
+        $banner =& new ZMBanner();
         $banner->id_ = $fields['banners_id'];
         $banner->title_ = $fields['banners_title'];
         $banner->image_ = $fields['banners_image'];

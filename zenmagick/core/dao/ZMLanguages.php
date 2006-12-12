@@ -58,7 +58,7 @@ class ZMLanguages {
     function getLanguageForCode($code) { return array_key_exists($code, $this->languages_) ? $this->languages_[$code] : null; }
 
     function _newLanguage($fields) {
-        $language = new ZMLanguage();
+        $language =& new ZMLanguage();
         $language->id_ = $fields['id'];
         $language->name_ = $fields['name'];
         $language->image_ = $fields['image'];

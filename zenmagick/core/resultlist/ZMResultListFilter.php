@@ -126,6 +126,16 @@ class ZMResultListFilter {
     function getOptions() { $options = array(); return $options; }
 
     /**
+     * Returns <code>true</code> if this filter is avaialble for usage.
+     *
+     * <p>Filter might be configured but not be useful if there is for example only
+     * one category or manufacturer to choose from.</p>
+     *
+     * @return bool <code>true</code> if available, <code>false</code> if not.
+     */
+    function isAvailable() { return 1 < count($this->getOptions()); }
+
+    /**
      * Returns the filters unique form field name.
      *
      * @return string The filters unique form field name.

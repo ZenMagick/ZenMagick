@@ -148,7 +148,7 @@ class ZMEZPages {
 
 
     function _newPage($fields) {
-        $page = new ZMEZPage($fields['pages_id'], $fields['pages_title']);
+        $page =& new ZMEZPage($fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];
         $page->htmlText_ = $fields['pages_html_text'];

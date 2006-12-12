@@ -25,7 +25,7 @@
 ?>
 <?php
     // allow for custom layout settings without having to copy the whole file every time...
-    $pageLayout = "layout/".$zm_view->getName().".php";
+    $pageLayout = "layout/".$zm_view->getPage().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
         include $zm_theme->themeFile($pageLayout);
     }
@@ -45,7 +45,7 @@
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL("theme.css") ?>" type="text/css" media="screen,projection" />
     <?php } ?>
-    <?php $pageCSS = "css/".$zm_view->getName().".css"; ?>
+    <?php $pageCSS = "css/".$zm_view->getPage().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL($pageCSS) ?>" type="text/css" media="screen,projection" />
@@ -62,7 +62,7 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
+  <body id="b_<?php echo $zm_view->getPage() ?>"<?php zm_onload() ?>>
     <div id="container">
       <?php include $zm_theme->themeFile("header.php") ?>
       <?php include $zm_theme->themeFile("menu.php") ?>
@@ -84,7 +84,7 @@
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $zm_request->getPageName()) { ?>
+        <?php if ('index' != $zm_view->getPage()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo zm_build_crumbtrail($zm_crumbtrail, " &gt; "); ?>
         <?php } ?>
 
@@ -96,7 +96,7 @@
             </ul>
         <?php } ?>
 
-        <?php include $zm_theme->themeFile($zm_themeInfo->getViewDir().$zm_content_include.'.php'); ?>
+        <?php include($zm_view->getViewFilename()) ?>
       </div>
 
       <?php include $zm_theme->themeFile("footer.php") ?>

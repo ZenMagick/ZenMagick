@@ -26,7 +26,7 @@
 
 <?php
     $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('address', array(
+    $validator->addRuleSet(new ZMRuleSet('account', array(
         new ZMRequiredRule('gender', 'Please choose a gender.'),
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
@@ -34,7 +34,8 @@
         new ZMRegexpRule('dob', UI_DATE_FORMAT_VALIDATION, vsprintf('Please enter a valid date of birth in the form \'%s\'.', UI_DATE_FORMAT)),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
-        new ZMRequiredRule('telephone', "Please enter your telephone details.")
+        new ZMRequiredRule('telephone', "Please enter your telephone details."),
+        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, vsprintf('our Telephone Number must contain a minimum of %s characters.', ENTRY_TELEPHONE_MIN_LENGTH))
     )));
     $validator->toJSString('account');
 ?>

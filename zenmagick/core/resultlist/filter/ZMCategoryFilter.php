@@ -73,6 +73,24 @@ class ZMCategoryFilter extends ZMResultListFilter {
         return !array_key_exists($obj->getId(), $productIds);
     }
 
+    /**
+     * Returns a list of all available filter values.
+     *
+     * @return array An array of string values.
+     */
+    function getOptions() {
+        $options = array();
+        foreach ($this->list_->getAllResults() as $result) {
+            $category = null; //TODO:$result->getDefaultCategory();
+            if (null != $category) {
+                $option =& new ZMFilterOption($category->getName(), $category->getId(), $category->getId() == $this->filterValues_[0]);
+                $options[$option->getId()] = $option;
+            }
+        }
+
+        return $options;
+    }
+
 }
 
 ?>

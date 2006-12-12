@@ -25,7 +25,7 @@
 
 
 /**
- * Base class for model classes.
+ * Empty marker class (for now).
  *
  * @author mano
  * @package net.radebatz.zenmagick
@@ -46,14 +46,10 @@ class ZMModel {
     }
 
 
-    // populate from request
+    /**
+     * Populate all available fields from the current request.
+     */
     function populateFromRequest() {
-        return true;
-    }
-
-
-    // validate this account
-    function isValid() {
         return true;
     }
 

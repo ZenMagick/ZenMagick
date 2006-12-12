@@ -28,7 +28,7 @@
     <?php zm_form(null, '', null, "get") ?>
         <?php if ($zm_resultList->hasFilters()) { ?>
             <div class="rlf">
-                <?php foreach($zm_resultList->getFilters() as $filter) { ?>
+                <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
                     <select id="<?php echo $filter->getId() ?>" name="<?php echo $filter->getId() ?>">
                         <option value=""><?php zm_l10n("Filter by ...") ?></option>
                         <?php foreach($filter->getOptions() as $option) { ?>

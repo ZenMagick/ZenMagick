@@ -58,6 +58,5 @@
             </p>
         </fieldset>
     <?php } ?>
-    <?php /*TODO*/if (zm_setting('isDownloadsEnabled')) include(DIR_WS_MODULES . 'downloads.php'); ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>

@@ -84,12 +84,7 @@ class ZMAccounts {
                  customers_default_address_id, customers_password, customers_authorization, 
                  customers_gender, customers_dob
                 ) values (:firstName, :lastName, :email, :nickName, :phone, :fax, :subscriptions,
-                          :emailFormat, 0, :password, :customerApproval, :gender, :dob)
-                " . zm_db_values(
-                 $account->firstName_, $account->lastName_, $account->email_, $account->nickName_,
-                 $account->phone_, $account->fax_, $subscriptions->isNewsletterSubscriber?1:0, $account->emailFormat_,
-                 0, zm_encrypt_password($account->password_), zm_setting('defaultCustomerApproval'),
-                 $account->gender_, $account->dob_) . ")";
+                          :emailFormat, 0, :password, :customerApproval, :gender, :dob)";
         $sql = $this->db_->bindVars($sql, ":firstName", $accountId, "string");
         $sql = $this->db_->bindVars($sql, ":lastName", $accountId, "string");
         $sql = $this->db_->bindVars($sql, ":email", $accountId, "string");
@@ -111,7 +106,7 @@ class ZMAccounts {
 
 
     function _newAccount($fields) {
-        $account = new ZMAccount();
+        $account =& new ZMAccount();
         $account->id_ = $fields['customers_id'];
         $account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_lastname'];

@@ -81,7 +81,7 @@
         <?php echo $address->getPostcode(); ?><br>
         <?php echo $address->getCity(); ?><br>
         <?php echo $address->getState(); ?><br>
-        <?php $country = $address->getCountry(); echo $country->getName(); ?><br>
+        <?php $country = $address->getCountry(); if (null != $country) { echo $country->getName(); } ?><br>
     </div>
     <div id="baddr">
         <h4>Billing Address</h4>

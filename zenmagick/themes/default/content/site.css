@@ -24,8 +24,7 @@
 * {margin:0; padding:0;}
 
 body {font:72% Verdana,Tahoma,Arial,sans-serif;line-height:1.4em;text-align:center;color:#303030;background:#e8eaec;}
-/* TODO: */
-body {behavior:url("/zen-cart/zenmagick/themes/default/content/csshover.htc");}
+body {behavior:url("zenmagick/themes/default/content/csshover.htc");}
 
 a {color:#467aa7;font-weight:bold;text-decoration:none;background-color:inherit;}
 a:hover {color:#2a5a8a;text-decoration:none;background-color:inherit;}
@@ -55,7 +54,7 @@ span.strike {text-decoration:line-through;}
 
 #container {width:96%;margin:10px auto;background-color:#fff;background:#fff;border:2px solid #a0a0a0;line-height:130%;text-align:left;}
 
-#header {height:86;margin:1px 1px 1px 1px;background:#467aa7;color:#fff;}
+#header {height:86;margin:1px 1px 1px 1px;background-color:#467aa7;color:#fff;}
 #header h1 {padding:25px 0 0 20px;font-size:2.4em;background-color:inherit;color:#f0f2f4;letter-spacing:-2px;font-weight:normal;}
 #header h1 a {color:#f0f2f4}
 #header h2 {margin:10px 0 0 40px;font-size:1.4em;background-color:inherit;color:#f0f2f4;letter-spacing:-1px;font-weight:normal;}
@@ -87,10 +86,10 @@ div#footer p#fpages {border-bottom:2px solid white;padding:4px;background:#80b0d
 div#footer p#fpages a {text-decoration:underline;margin:4px;}
 
 /* side boxed */
-.box {margin:0 0 10px 0;padding:5px;border:1px solid #c0c0c0;background-color:#fafbfc;color:#505050;font-size:0.9em;width:138px;}
+.box {margin:0 0 10px 0;padding:5px;border:1px solid #c0c0c0;background-color:#fafbfc;color:#505050;font-size:0.9em;width:138px;overflow:hidden;}
 .box p {margin:3px 0;padding:3px 0;}
 /* box header */
-#leftcol h3, #rightcol h3 {margin:0;padding:2px 6px;background-color:#578bb8;color:#f0f2f4;font-size:90%;border-bottom:1px solid #777;}
+#leftcol h3, #rightcol h3 {margin:0;padding:2px 6px;background-color:#578bb8;color:#f0f2f4;font-size:90%;border-bottom:1px solid #777;background-image:url(images/topleft.gif);background-repeat:no-repeat;}
 #leftcol h3 a, #rightcol h3 a {color:#fff;font-size:80%;float:right;}
 #leftcol select, #rightcol select {font-size:98%;}
 
@@ -312,3 +311,6 @@ div#eztoc p a:hover {text-decoration:none;}
 #b_tell_a_friend label {width:11em;float:left;}
 #b_tell_a_friend fieldset br {clear:left;}
 #b_tell_a_friend .advisory {margin-top:24px;}
+
+/* music */
+div.mcol {border:1px solid gray;background-color:#fafbfc;padding:2px;}

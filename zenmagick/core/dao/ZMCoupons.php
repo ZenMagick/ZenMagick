@@ -76,7 +76,7 @@ class ZMCoupons {
 
     // create coupon from map
     function _newCoupon($fields) {
-        $coupon = new ZMCoupon($fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
+        $coupon =& new ZMCoupon($fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
         $coupon->name_ = $fields['coupon_name'];
         $coupon->description_ = $fields['coupon_description'];

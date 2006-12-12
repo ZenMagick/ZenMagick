@@ -24,7 +24,18 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_ACCOUNT_PASSWORD, "action=process") ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('password', array(
+        new ZMRequiredRule('password_current', 'Please enter you current password.'),
+        new ZMRequiredRule('password_new', 'Please enter the new password.'),
+        new ZMRequiredRule('password_confirmation', 'Please confirm the new password.')
+    )));
+    $validator->toJSString('password');
+?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
+
+<?php zm_secure_form(FILENAME_ACCOUNT_PASSWORD, "action=process", 'password', "post", "return validate(this);") ?>
     <fieldset>
         <legend><?php zm_l10n("Change Password") ?></legend>
         <p>

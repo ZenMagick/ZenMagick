@@ -130,9 +130,18 @@ class ZMResultList {
 
 
     // getter/setter
-    function hasSorters() { return 0 != count($this->sorters_); }
+    function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
     function getSorters() { return $this->sorters_; }
-    function hasFilters() { return 0 != count($this->filters_); }
+    function hasFilters() {
+        $has = false;
+        foreach ($this->filters_ as $filter) {
+            if ($filter->isAvailable()) {
+                $has = true;
+                break;
+            }
+        }
+        return $has && 1 < count($this->results_);
+    }
     function getFilters() { return $this->filters_; }
 
     function hasResults() { return 0 != count($this->results_); }

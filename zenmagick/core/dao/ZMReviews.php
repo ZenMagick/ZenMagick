@@ -202,7 +202,7 @@ class ZMReviews {
 
 
     function _newReview($fields) {
-        $review = new ZMReview();
+        $review =& new ZMReview();
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];
         $review->text_ = $fields['reviews_text'];

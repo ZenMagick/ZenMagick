@@ -32,14 +32,10 @@
     $_zm_bin = dirname(__FILE__)."/core";
     require($_zm_bin."/bootstrap.php");
     $includes = zm_find_includes($_zm_bin, true);
-    $zmt_filter_names = array();
     foreach ($includes as $include) {
-        if (!zm_ends_with($include, "/bootstrap.php")) {
-            if (!(false === strpos($include, "core/filter"))) {
-                array_push($zmt_filter_names, str_replace('.php', '', basename($include)));
-            }
+        // exclude some stuff that gets loaded by the loader
+        if (false === strpos($include, '/controller/'))
             include($include);
-        }
     }
     // set up main class instances (aka the ZenMagick API)
     $zm_runtime = new ZMRuntime();
@@ -65,24 +61,18 @@
     $zm_banners = new ZMBanners();
     $zm_meta = $zm_loader->newInstance('MetaTags');
     $zm_languages = new ZMLanguages();
+    $zm_music = new ZMMusic();
+    $zm_mediaManager = new ZMMediaManager();
 
-
-    // do this only after all global instances are set up
-    foreach ($zmt_filter_names as $filter) {
-        $zm_runtime->addFilter(zm_get_instance($filter));
-    }
+    // needs to be instantiated after application_top.php
+    $zm_messages = new ZMMessages();
 
     // local settings
-    $local = $zm_runtime->getZMRootPath()."local.php";
-    if (file_exists($local)) {
-        include $local;
+    $_zm_local = $zm_runtime->getZMRootPath()."local.php";
+    if (file_exists($_zm_local)) {
+        include $_zm_local;
     }
 
-    // security fix
-    if ("login" == $zm_request->getPageName()) {
-        // *disable* zc account create code
-        $_GET['action'] = $_POST['action'];
-        unset($_POST['action']);
-    }
+    require('zc_fixes.php');
 
 ?>

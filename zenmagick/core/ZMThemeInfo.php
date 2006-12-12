@@ -48,6 +48,7 @@ class ZMThemeInfo {
         $this->setDefaultLayout('default_layout');
         $this->setViewDir("views/");
         $this->setExtendExtras(true);
+        $this->setErrorPage('error');
     }
 
     // create new instance

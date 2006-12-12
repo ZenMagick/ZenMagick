@@ -93,7 +93,7 @@ class ZMPayments {
         $confirmation = $zenModule->confirmation();
 
         $paymentType = new ZMPaymentType($zenModule->code, $zenModule->title);
-        if (is_array($confirmation)) {
+        if (is_array($confirmation) && array_key_exists('fields', $confirmation)) {
             foreach ($confirmation['fields'] as $zenField) {
                 $paymentType->addField(new ZMPaymentField($zenField['title'], $zenField['field']));
             }

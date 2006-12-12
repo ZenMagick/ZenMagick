@@ -32,9 +32,11 @@
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
-    $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
 
+    $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
+
+    $_ZM_SETTINGS['isDisplayTimerStats'] = STORE_PAGE_PARSE_TIME == 'true';
 
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE;
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
@@ -43,7 +45,7 @@
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;
 
-    // ZM permalinks
+    // ZM pretty URLs
     $_ZM_SETTINGS['isZMPrettyLinks'] = true;
     // default to default in ZM themes
     $_ZM_SETTINGS['isEnableThemeDefaults'] = true;

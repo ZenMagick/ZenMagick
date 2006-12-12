@@ -79,7 +79,7 @@ class ZMAttributes {
 
     // create new attribute
     function _newAttribute($fields) {
-        $attribute = new ZMAttribute($fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
+        $attribute =& new ZMAttribute($fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
         return $attribute;
@@ -89,7 +89,7 @@ class ZMAttributes {
     // create new attribute value
     function _newAttributeValue($fields) {
     global $zm_runtime;
-        $value = new ZMAttributeValue($fields['products_options_values_id'], $fields['products_options_values_name']);
+        $value =& new ZMAttributeValue($fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
         $value->isFree_ = ('1' == $fields['product_attribute_is_free']);

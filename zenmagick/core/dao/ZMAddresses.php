@@ -93,7 +93,7 @@ class ZMAddresses {
 
     function _newAddress($fields) {
     global $zm_countries;
-        $address = new ZMAddress();
+        $address =& new ZMAddress();
         $address->addressId_ = $fields['address_book_id'];
         $address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields['entry_lastname'];

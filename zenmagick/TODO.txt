@@ -2,6 +2,11 @@ zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
 - 22 pages (or less :) missing!
+- specials
+- category filter (get default category)
+- gv send is broken
+- downloadable stuff...
+- product_free_shipping_info and a couple more are still missing
 
 
 usablility:
@@ -12,7 +17,14 @@ usablility:
 - sefu/seo support
 - store settings somewhere?
 - have separate wrapper around store settings (eg. name, etc)
+- zmboxconfig; admin/theme support? get it working at all
+- zm_form: convert action query params to hidden fields
+- more validations plus separate validation rules from views/templates; this could be a big file containing all validations that gets included once (or include_once per form); each form imports JS and creates rules as required
+- new lighter theme for zm? rounded corners of sideboxes?
+- misc package? leave only bootstrap in core?
 
+db:
+- config values, sidebox config
 
 code quality:
 - improve ZMClassLoader to resolve dependencies
@@ -43,6 +55,22 @@ code quality:
 - file write check for dummy sidebox create
 - error message if file permissions missing
 - fallback menu if no permissions
+- proper installation routine
+- rename zmcontroller zmbasecontroller?
+- uniform class prefix for base classes? zmbasefilter, zbbasesort(er)
+- conditional class loading - we do not need everything all the time?
+  * use loader to get instances - it can load on demand
+  * how do we know what to load?
+  * lowercase is code - always
+  * currently controller are all loaded
+  * do not need model -> dao's can use loader
+  * we do need core & dao, everything else could be loader?
+  * var-args for zm_get_instance?
+  * theme code must use loader ?
+- load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
+- not sure about the specials SQL...
+- create empty c'tors for all model classes and use loader in dao; them exclude from loading
+- use reflection to populate model classes from request?
 
 proper class hierachy
 => dao, model, business
@@ -52,18 +80,20 @@ new features:
 - custom filter per theme?
 - APIs for other apps; for example WordPress, etc...
 - get a logo and favicon
+- controller to configure sort options based on theme settings; this 
+- add code that if required fails, other rules are skipped - add property 
+  to tell validator that - ah need the JS as well!!!
 
 
 docs:
 - sorting, filtering
 - add version to apidocs (somehow)
+- install instructions: until 1.0 remove core directory before upgrade
+- disable 'skip single product categories' -> otherwise the view can't be resolved properly...
 
 
 admin:
 - implement merge option for language mapping tool
-- handle redirect in CMP
-- create dummy CMPs
-- disable all but features
 
 
 ZenMagick admin:

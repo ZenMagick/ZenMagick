@@ -35,13 +35,11 @@
  * @version $Id$
  */
 class ZMRuntime {
-    var $filter_;
     var $themeId_;
 
     // create new instance
     function ZMRuntime() {
         // init with defaults
-        $this->filter_ = array();
         $this->themeId_ = null;
     }
 
@@ -69,8 +67,6 @@ class ZMRuntime {
     function getThemeBoxPath($themeId=null) { return $this->getThemePath($themeId)."/".ZM_THEME_BOXES; }
     function getZMRootPath() {  return DIR_FS_CATALOG.ZM_ROOT; }
     function getApplicationRoot() { return DIR_WS_CATALOG; }
-    function getFilter() { return $this->filter_; }
-    function addFilter($filter) { if (null != $filter) array_push($this->filter_, $filter); }
 
     function setThemeId($themeId) { $this->themeId_ = $themeId; }
     function getRawThemeId() { return (null != $this->themeId_ ? $this->themeId_ : basename(DIR_WS_TEMPLATE)); }

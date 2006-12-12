@@ -25,84 +25,36 @@
 ?>
 <?php
 
-    // needs to be instantiated after application_top.php
-    $zm_messages = new ZMMessages();
+//TODO
+$zm_theme = new ZMTheme();
 
-    // main theme handler
-    $zm_theme = new ZMTheme();
-    $zm_controller = $zm_loader->newInstance(zm_mk_classname($zm_request->getPageName().'Controller'));
-    
-    if (zm_setting('isEnableZenMagick') && ($zm_theme->isValidRequest() || null != $zm_controller)) {
-        // load theme's extra resources
-        foreach ($zm_theme->getExtraFiles() as $shared) {
-            include_once($shared);
-        }
-        $zm_themeInfo = $zm_theme->getThemeInfo();
-        if ($zm_themeInfo->isExtendExtras() && $zm_runtime->getThemeId() != 'default') {
-            foreach (zm_find_includes($zm_runtime->getThemeBasePath()."default/" . ZM_THEME_EXTRA, true) as $extras) {
-                include_once($extras);
+    // main request processor
+    if (zm_setting('isEnableZenMagick')) {
+        // get controller
+        $zm_controller = $zm_loader->newInstance(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $zm_controller = null == $zm_controller ? $zm_loader->newInstance("DefaultController") : $zm_controller;
+        if ($zm_controller->validateRequest()) {
+
+            // load theme's extra resources
+            foreach ($zm_theme->getExtraFiles() as $shared) {
+                require_once($shared);
             }
-        }
-
-        $zm_view = null;
-
-        // use default if we really want to process this request
-        if (null == $zm_controller) {
-            $zm_controller = $zm_loader->newInstance("DefaultController");
-        }
-
-        /*
-         * Either we can go directly to the template (no controller)
-         * or the controller may change the response view
-         * NOTE: this is not foolproof and only for step by step merging of templates.
-         */
-        if (null != $zm_controller) {
-            if ($zm_controller->process()) {
-                $zm_view = $zm_controller->getResponseView();
-                // *export* globals from controller into view space
-                foreach ($zm_controller->getGlobals() as $name => $instance) {
-                    $$name = $instance;
+            $zm_themeInfo = $zm_theme->getThemeInfo();
+            if ($zm_themeInfo->isExtendExtras() && $zm_runtime->getThemeId() != 'default') {
+                foreach (zm_find_includes($zm_runtime->getThemeBasePath()."default/" . ZM_THEME_EXTRA, true) as $extras) {
+                    require_once($extras);
                 }
-            } else {
-                $errorpage = $zm_themeInfo->getErrorPage();
-                $zm_view = new ZMView($errorpage, $errorpage);
             }
-        } else {
-            // use default view
-            $zm_view = new ZMView($zm_request->getPageName(), $zm_request->getPageName());
-        }
 
-        //TODO cleanup
-        // process response view
-        $zm_content_include = null;
-        if ($zm_view->isRedirectView()) {
-            zm_redirect($zm_view->getContentName());
-            zm_exit();
-        } else if ($zm_view->isUsingTiles()) {
-            // ugh!
-            if (!file_exists($zm_theme->themeFile($zm_themeInfo->getViewDir().$zm_view->getContentName().'.php'))) {
-                $errorpage = $zm_themeInfo->getErrorPage();
-                $zm_view = new ZMView($errorpage, $errorpage);
-            }
-            // expected to be in views; not neccesarrily if error is full page!
-            if ($zm_view->isUsingTiles()) {
-                $zm_content_include = $zm_view->getContentName();
-                include($zm_theme->getThemePath($zm_view->getTemplateName().'.php'));
-            } else {
-                // content is full page
-                include($zm_theme->getThemePath($zm_view->getContentName()).".php");
-            }
-        } else {
-            // content is full page
-            include($zm_theme->getThemePath($zm_view->getContentName()));
-        }
+            // execute controller
+            $_zm_view = $zm_controller->process();
 
-        require('includes/application_bottom.php');
-        exit;
-    } else if ($current_page == 'admin') {
-        require('zenmagick/admin/l10n_create.php');
-        require('includes/application_bottom.php');
-        exit;
+            // generate response
+            $_zm_view->generate();
+
+            require('includes/application_bottom.php');
+            exit;
+        }
     }
 
     // default to zen-cart

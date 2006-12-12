@@ -62,8 +62,7 @@ class ZMManufacturerFilter extends ZMResultListFilter {
      */
     function getOptions() {
         $options = array();
-
-        foreach ($this->list_->getALlResults() as $result) {
+        foreach ($this->list_->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
                 $option =& new ZMFilterOption($manufacturer->getName(), $manufacturer->getId(), $manufacturer->getId() == $this->filterValues_[0]);

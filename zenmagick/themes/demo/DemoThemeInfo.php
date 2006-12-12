@@ -37,15 +37,6 @@ class DemoThemeInfo extends ZMThemeInfo {
         $this->setVersion('0.1');
         $this->setAuthor('ZenMagick 2006');
         $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
-
-        $this->setErrorPage('error');
-        $this->setDefaultLayout('default_layout');
-
-        // keep error page simple
-        $this->setLayout('error', null);
-
-        // set JS event handler
-        $this->setPageEventHandler('onload', 'login', "focus('email_address');");
     }
 
     // create new instance

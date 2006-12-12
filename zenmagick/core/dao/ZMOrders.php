@@ -147,14 +147,14 @@ class ZMOrders {
 
 
     function _newOrderStatus($fields) {
-        $status = new ZMOrderStatus($fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
+        $status =& new ZMOrderStatus($fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
         $status->comment_ = $fields['comments'];
         return $status;
     }
 
 
     function _newOrder($fields) {
-        $order = new ZMOrder($fields['orders_id']);
+        $order =& new ZMOrder($fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
         $order->accountId_ = $fields['customers_id'];
@@ -205,7 +205,7 @@ class ZMOrders {
 
     // parse zen-cart order items (PHP5 only)
     function _newOrderItem_v5($zenItem) {
-        $orderItem = new ZMOrderItem();
+        $orderItem =& new ZMOrderItem();
         $orderItem->id_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
@@ -254,7 +254,7 @@ class ZMOrders {
             }
         }
 
-        $orderItem = new ZMOrderItem();
+        $orderItem =& new ZMOrderItem();
         $orderItem->id_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
@@ -270,7 +270,7 @@ class ZMOrders {
 
 
     function _newAccount($fields) {
-        $account = new ZMAccount();
+        $account =& new ZMAccount();
         $account->accountId_ = $fields['customers_id'];
         //$account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_name'];
@@ -290,7 +290,7 @@ class ZMOrders {
 
     function _newAddress($fields, $prefix) {
     global $zm_countries;
-        $address = new ZMAddress();
+        $address =& new ZMAddress();
         $address->addressId_ = 0;
         //$address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields[$prefix.'_name'];
