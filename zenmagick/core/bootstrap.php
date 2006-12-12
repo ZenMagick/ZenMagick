@@ -25,6 +25,8 @@
 ?>
 <?php
 
+if (!function_exists("zm_get_zen_include_dir")) {
+
     /**
      * Get the (full file system) <code>zen-cart</code> include directory.
      *
@@ -334,5 +336,6 @@
         if ($die) die("trace'n die");
     }
 
+}
 
 ?>
