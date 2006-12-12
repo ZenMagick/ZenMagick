@@ -85,7 +85,7 @@ require_once('../zenmagick/admin_init.php');
                 fwrite($handle, '<?php /** dummy file created by ZenMagick **/ ?>');
                 fclose($handle);
             } else {
-            zm_log("** ZenMagick: no permission to create dummy sideboxes", 1);
+                zm_log("** ZenMagick: no permission to create dummy sideboxes", 1);
             }
         }
     }
