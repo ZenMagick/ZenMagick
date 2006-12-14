@@ -36,7 +36,7 @@
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
 
-    $_ZM_SETTINGS['isDisplayTimerStats'] = STORE_PAGE_PARSE_TIME == 'true';
+    $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE;
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
