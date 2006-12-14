@@ -56,7 +56,7 @@
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php echo $total->getName() ?>(<?php echo $total->getType() ?>)</td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr><td class="total"><?php echo $total->getName() ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
               }
           ?>
 
@@ -68,16 +68,18 @@
     <legend><?php zm_l10n("Payment Method") ?></legend>
     <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
     <?php $paymentType = $zm_cart->getPaymentType() ?>
-    <h4><?php echo $paymentType->getName() ?></h4>
-    <?php $fields = $paymentType->getFields();
-        if (0 < count($fields)) {
-            ?><table cellpadding="0" cellspacing="0"><tbody><?php
-            foreach ($fields as $field) {
-              ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+    <?php if (null != $paymentType) { ?>
+      <h4><?php echo $paymentType->getName() ?></h4>
+      <?php $fields = $paymentType->getFields();
+          if (0 < count($fields)) {
+              ?><table cellpadding="0" cellspacing="0"><tbody><?php
+              foreach ($fields as $field) {
+                ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+              }
+              ?></table><?php
             }
-            ?></table><?php
-          }
-    ?>
+      ?>
+    <?php } ?>
 </fieldset>
 
 <?php if (!$zm_cart->isVirtual()) { ?>

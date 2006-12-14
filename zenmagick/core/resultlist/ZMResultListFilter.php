@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.resultlist
  * @version $Id$
  */
-class ZMResultListFilter {
+class ZMResultListFilter extends ZMObject {
     var $list_;
     var $id_;
     var $filterValues_;
@@ -40,6 +40,8 @@ class ZMResultListFilter {
     // create new instance
     function ZMResultListFilter($id=null) {
     global $zm_request;
+
+        parent::__construct();
 
         $this->id_ = $id;
         $this->filterValues_ = explode(",", $zm_request->getRequestParameter($this->id_, ''));

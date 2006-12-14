@@ -1,12 +1,13 @@
 zen-cart:
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
-- 22 pages (or less :) missing!
-- specials
 - category filter (get default category)
 - gv send is broken
 - downloadable stuff...
 - product_free_shipping_info and a couple more are still missing
+- can't checkout rope product
+- file attribute
+- shipping calculator
 
 
 usablility:
@@ -22,6 +23,7 @@ usablility:
 - more validations plus separate validation rules from views/templates; this could be a big file containing all validations that gets included once (or include_once per form); each form imports JS and creates rules as required
 - new lighter theme for zm? rounded corners of sideboxes?
 - misc package? leave only bootstrap in core?
+- popup content should be in define/ez pages or such...
 
 db:
 - config values, sidebox config
@@ -30,8 +32,6 @@ code quality:
 - improve ZMClassLoader to resolve dependencies
 - improve class loader to load only actually required files; what about functions?
 - Proper use of references (ie usage of ampersand (&amp;) when passing objects around)
-- ZMView -> ZMForwardView, ZMRedirectView + ZMView as base class
-- refactor SQL to generic sql layer? overkill? ... but still fun?
 - restructure to have zenmagick outside htdocs
 - admin:features: error handling, form validation
 - more phpdoc
@@ -46,13 +46,8 @@ code quality:
 - get rid of ZenMagick db package
 - random select!!
 - new max results handling (in particular products) - urgent!
-- rethink sorting
-- what are filters, again?
-- extends ZMSort to allow ZMSortOptions to collect available options based on found sort classes
-  similar to filters
 - use 3rd party API for db access
 - language support for ZenMagick admin area
-- file write check for dummy sidebox create
 - error message if file permissions missing
 - fallback menu if no permissions
 - proper installation routine
@@ -71,6 +66,8 @@ code quality:
 - not sure about the specials SQL...
 - create empty c'tors for all model classes and use loader in dao; them exclude from loading
 - use reflection to populate model classes from request?
+- more sophisticated controller matching ti request URLs (mainly main_page)
+- test all class changes in PHP5
 
 proper class hierachy
 => dao, model, business

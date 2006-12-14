@@ -59,9 +59,9 @@
     </h3>
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $count = 0; $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
+            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
               <?php include('resultlist/order.php') ?>
-            <?php $first = false; $odd = !$odd; if (++$cont > 2) { break; } } ?>
+            <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>
 <?php } ?>

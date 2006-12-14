@@ -74,13 +74,14 @@ class ZMThemeView extends ZMView {
     /**
      * Returns the full view filename to be includes by a template.
      *
+     * @return string subdir Optional subdirectory name within the views directory.
      * @return string The view filename.
      */
-    function getViewFilename() {
+    function getViewFilename($subdir=null) {
     global $zm_theme;
 
         $themeInfo = $zm_theme->getThemeInfo();
-        return $zm_theme->themeFile($themeInfo->getViewDir().$this->page_.'.php');
+        return $zm_theme->themeFile($themeInfo->getViewDir().(null!=$subdir?($subdir.'/'):'').$this->page_.'.php');
     }
 
 

@@ -28,6 +28,44 @@
 if (!function_exists("zm_get_zen_include_dir")) {
 
     /**
+     * ZenMagick base class.
+     *
+     * @author mano
+     * @package net.radebatz.zenmagick
+     */
+    class ZMObject {
+        var $loader_;
+
+        // create new instance
+        function ZMObject() {
+        global $zm_loader;
+            $this->loader_ =& $zm_loader;
+        }
+
+        // create new instance
+        function __construct() {
+            $this->ZMObject();
+        }
+
+        function __destruct() {
+        }
+
+
+        /**
+         * Shortcut to create new class instance.
+         *
+         * @param string name The class name.
+         * @param var_args A variable number of arguments that will be used as arguments for
+         * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
+         */
+        function create($name) {
+            $args = func_get_args();
+            array_shift($args);
+            return $this->loader_->createWithArgs($name, $args);
+        }
+    }
+
+    /**
      * Get the (full file system) <code>zen-cart</code> include directory.
      *
      * @package net.radebatz.zenmagick
@@ -114,7 +152,7 @@ if (!function_exists("zm_get_zen_include_dir")) {
      * @param bool recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
-    function zm_find_includes($dir, $recursive = false) {
+    function zm_find_includes($dir, $recursive=false) {
         $includes = array();
         if (!file_exists($dir) || !is_dir($dir)) {
             return $includes;
@@ -143,6 +181,7 @@ if (!function_exists("zm_get_zen_include_dir")) {
                 $includes = array_merge($includes, zm_find_includes($dir, $recursive));
             }
         }
+
         return $includes;
     }
 
@@ -175,12 +214,35 @@ if (!function_exists("zm_get_zen_include_dir")) {
      * @package net.radebatz.zenmagick
      * @param string className The name of the class to instantiate.
      * @param string isa Optional <em>IS A</em> check.
+     * @param array args Optional constructor arguments.
      * @return mixed A class instance or <code>null</code>.
      */
-    function zm_get_instance($className, $isa=null) {
+    function zm_get_instance($className, $isa=null, $args=null) {
         if (class_exists($className)) {
+            $args = null == $args ? array() : $args;
             zm_log("creating new " . $className, 4);
-            $obj = new $className();
+            $obj = null;
+            switch (count($args)) {
+            case 0:
+                $obj = new $className();
+                break;
+            case 1:
+                $obj = new $className($args[0]);
+                break;
+            case 2:
+                $obj = new $className($args[0], $args[1]);
+                break;
+            case 3:
+                $obj = new $className($args[0], $args[1], $args[2]);
+                break;
+            case 4:
+                $obj = new $className($args[0], $args[1], $args[2], $args[3]);
+                break;
+            default:
+                zm_log("unsupported number of arguments " . $className, 2);
+                zm_backtrace();
+                break;
+            }
             if (null == $isa || is_a($obj, $isa)) {
                 return $obj;
             }
@@ -286,6 +348,8 @@ if (!function_exists("zm_get_zen_include_dir")) {
      * @return array An array of <code>ZMImageInfo</code> instances.
      */
     function _zm_get_additional_images($image) {
+    global $zm_loader;
+
         $comp = _zm_split_image_name($image);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -316,7 +380,7 @@ if (!function_exists("zm_get_zen_include_dir")) {
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            array_push($imageInfoList, new ZMImageInfo($subdir.$aimg));
+            array_push($imageInfoList, $zm_loader->create("ImageInfo", $subdir.$aimg));
         }
 
         return $imageInfoList;

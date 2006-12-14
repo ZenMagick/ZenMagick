@@ -31,22 +31,25 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMShipping {
-    var $provider_;
+class ZMShipping extends ZMDao {
+
 
     // create new instance
     function ZMShipping() {
     global $shipping_modules;
+
+        parent::__construct();
+
         $this->provider_ = array();
         if (!class_exists('shipping')) {
             zm_resolve_zc_class('shipping');
-            $zenShipping = new shipping();
+            $zenShipping =& new shipping();
         } else {
-            $zenShipping = $shipping_modules;
+            $zenShipping =& $shipping_modules;
         }
         $quotes = $zenShipping->quote();
         foreach ($quotes as $quote) {
-            array_push($this->provider_, new ZMShippingProvider($quote));
+            array_push($this->provider_, $this->create("ShippingProvider", $quote));
         }
 
     }

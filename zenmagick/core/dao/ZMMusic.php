@@ -30,15 +30,12 @@
  * @author mano
  * @version $Id$
  */
-class ZMMusic {
-    // db access
-    var $db_;
+class ZMMusic extends ZMDao {
 
 
     // create new instance
     function ZMMusic() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -93,14 +90,14 @@ class ZMMusic {
         $sql = $this->db_->bindVars($sql, ":genreId", $extra->fields['music_genre_id'], "integer");
         $musicGenre = $this->db_->Execute($sql);
 
-        $theArtist =& new ZMArtist();
+        $theArtist =& $this->create("Artist");
         $theArtist->id_ = $artist->fields['artists_id'];
         $theArtist->name_ = $artist->fields['artists_name'];
         $theArtist->genre_ = $musicGenre->fields['music_genre_name'];
         $theArtist->image_ = $artist->fields['artists_image'];
         $theArtist->url_ = $artistInfo->fields['artists_url'];
 
-        $theRecordCompany =& new ZMRecordCompany();
+        $theRecordCompany =& $this->create("RecordCompany");
         $theRecordCompany->id_ = $extra->fields['record_company_id'];
         $theRecordCompany->name_ = $recordCompanyInfo->fields['record_company_name'];
         $theRecordCompany->url_ = $recordCompanyInfo->fields['record_company_url'];

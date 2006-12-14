@@ -38,17 +38,18 @@
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <meta name="keywords" content="<?php $zm_meta->getKeywords()?>" />
     <meta name="description" content="<?php $zm_meta->getDescription()?>" />
-    <link rel="stylesheet" href="<?php $zm_theme->themeURL("site.css") ?>" type="text/css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("ie.css") ?>"  /><![endif]-->
     <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
     <script type="text/javascript" src="<?php $zm_theme->themeURL("category.js") ?>"></script>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
-      <link rel="stylesheet" href="<?php $zm_theme->themeURL("theme.css") ?>" type="text/css" media="screen,projection" />
+      <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
     <?php } ?>
     <?php $pageCSS = "css/".$zm_view->getPage().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
-      <link rel="stylesheet" href="<?php $zm_theme->themeURL($pageCSS) ?>" type="text/css" media="screen,projection" />
+      <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
     <?php } ?>
     <?php if (!$zm_layout->isLeftColEnabled() || !$zm_layout->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
@@ -63,6 +64,10 @@
   </head>
 
   <body id="b_<?php echo $zm_view->getPage() ?>"<?php zm_onload() ?>>
+    <?php $bannerBox = $zm_banners->getBannerForIndex(1); if (null != $bannerBox) { ?>
+        <div id="bannerOne"><?php zm_display_banner($bannerBox); ?></div>
+    <?php } ?>
+
     <div id="container">
       <?php include $zm_theme->themeFile("header.php") ?>
       <?php include $zm_theme->themeFile("menu.php") ?>
@@ -88,6 +93,10 @@
             <?php echo zm_build_crumbtrail($zm_crumbtrail, " &gt; "); ?>
         <?php } ?>
 
+        <?php $bannerBox = $zm_banners->getBannerForIndex(3); if (null != $bannerBox) { ?>
+            <div id="bannerThree"><?php zm_display_banner($bannerBox); ?></div>
+        <?php } ?>
+
         <?php if ($zm_messages->hasMessages()) { ?>
             <ul id="messages">
             <?php foreach ($zm_messages->getMessages() as $message) { ?>
@@ -97,10 +106,18 @@
         <?php } ?>
 
         <?php include($zm_view->getViewFilename()) ?>
+
+        <?php $bannerBox = $zm_banners->getBannerForIndex(4); if (null != $bannerBox) { ?>
+            <div id="bannerFour"><?php zm_display_banner($bannerBox); ?></div>
+        <?php } ?>
       </div>
 
       <?php include $zm_theme->themeFile("footer.php") ?>
     </div>
+
+    <?php $bannerBox = $zm_banners->getBannerForIndex(6); if (null != $bannerBox) { ?>
+        <div id="bannerSix"><?php zm_display_banner($bannerBox); ?></div>
+    <?php } ?>
 
   </body>
 </html>

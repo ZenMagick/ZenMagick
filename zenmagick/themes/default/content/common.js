@@ -30,14 +30,6 @@ function focus($id) {
     }
 }
 
-// small info popup
-function popupWindow(url) {
-  var win = window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150');
-  if (win && win.focus) {
-    win.focus();
-  }
-}
-
 // new window (alternative to target="_blank")
 function newWin(link) {
   var win = window.open(link.href);
@@ -46,10 +38,22 @@ function newWin(link) {
   }
 }
 
+// zen-cart popups
+function zcPopupWindow(url, name) {
+  var win = window.open(url,name,'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=450,height=320,screenX=150,screenY=150,top=150,left=150');
+  if (win && win.focus) {
+    win.focus();
+  }
+}
+function popupWindow(url) { zcPopupWindow(url, 'popupWindow'); }
+function couponpopupWindow(url) { zcPopupWindow(url, 'couponpopupWindow'); }
+function submitFunction(gv, total) { if ((gv.value && gv.value >= total) || gv >= total) { submitter = 1; } }
+
+
 // product image popup
 function productPopup(e, parent) {
   if (e.preventDefault) e.preventDefault();
-  var win = window.open("","pimage","height=206,width=246");
+  var win = window.open("","productImageWindow","height=206,width=246");
   if (!win) return;
   win.document.write('<!DOCTYPE html><html>'
     + '<title>' + document.getElementsByTagName('title')[0].innerHTML + '</title>'

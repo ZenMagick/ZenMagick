@@ -31,13 +31,14 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMCrumbtrail {
-    // db access
+class ZMCrumbtrail extends ZMObject {
     var $crumbs_;
 
 
     // create new instance
     function ZMCrumbtrail() {
+        parent::__construct();
+
         $this->crumbs_ = array();
 
         // always add home
@@ -70,7 +71,7 @@ class ZMCrumbtrail {
 
     // add a single element
     function addCrumb($name, $url = null) {
-        array_push($this->crumbs_, new ZMCrumb($name, $url));
+        array_push($this->crumbs_, $this->create("Crumb", $name, $url));
     }
 
 

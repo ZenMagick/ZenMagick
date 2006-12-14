@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_LOGIN, "action=update_product") ?>
+<?php zm_secure_form(FILENAME_SHOPPING_CART, "action=update_product") ?>
     <table cellpadding="0" cellspacing="0">
         <tbody>
         <?php $odd = true; $first = true; foreach ($zm_cart->getItems() as $item) { ?>

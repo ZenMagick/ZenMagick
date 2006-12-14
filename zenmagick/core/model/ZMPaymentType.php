@@ -34,20 +34,22 @@
 class ZMPaymentType {
     var $id_;
     var $name_;
+    var $instructions_;
     var $error_;
     var $fields_;
 
     // create new instance
-    function ZMPaymentType($id, $name) {
+    function ZMPaymentType($id, $name, $instructions='') {
         $this->id_ = $id;
         $this->name_ = $name;
+        $this->instructions_ = $instructions;
         $this->error_ = null;
         $this->fields_ = array();
     }
 
     // create new instance
-    function __construct($id, $name) {
-        $this->ZMPaymentType($id, $name);
+    function __construct($id, $name, $instructions='') {
+        $this->ZMPaymentType($id, $name, $instructions);
     }
 
     function __destruct() {
@@ -57,6 +59,7 @@ class ZMPaymentType {
     // getter/setter
     function getId() { return $this->id_; }
     function getName() { return $this->name_; }
+    function getInstructions() { return $this->instructions_; }
     function getError() { return $this->error_; }
     function getFields() { return $this->fields_; }
     function addField($field) { array_push($this->fields_, $field); }

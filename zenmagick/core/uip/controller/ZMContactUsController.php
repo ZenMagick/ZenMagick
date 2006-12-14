@@ -55,20 +55,22 @@ class ZMContactUsController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $this->exportGlobal("zm_contact", new ZMContactInfo());
+        $view =& new ZMThemeView("contact_us");
+        $this->exportGlobal("zm_contact", $this->create("ContactInfo"));
         if ('success' == $zm_request->getRequestParameter('action')) {
-            $this->setResponseView(new ZMView("contact_us_success", "contact_us_success"));
+            $view =& new ZMThemeView("contact_us_success");
         }
 
-        return true;
+        return $view;
     }
+
 
     // process a POST request
     function processPost() {
     global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb(zm_nice_page_name());
-        $contactInfo = new ZMContactInfo();
+        $contactInfo =& $this->create("ContactInfo");
         $contactInfo->populateFromRequest();
         $this->exportGlobal("zm_contact", $contactInfo);
 

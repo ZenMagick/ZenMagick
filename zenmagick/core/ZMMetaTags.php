@@ -39,7 +39,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMMetaTags {
+class ZMMetaTags extends ZMObject {
     var $db_;
     var $topCategories_ = null;
     var $crumbtrail_ = null;
@@ -50,6 +50,9 @@ class ZMMetaTags {
     // create new instance
     function ZMMetaTags($delimiter=null) {
     global $zm_runtime;
+
+        parent::__construct();
+
         $this->db_ = $zm_runtime->getDB();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : zm_setting('metaTagKeywordDelimiter');
     }
@@ -190,7 +193,7 @@ class ZMMetaTags {
         if (null != $this->crumbtrail_)
             return;
 
-        $this->crumbtrail_ = new ZMCrumbtrail();
+        $this->crumbtrail_ = $this->create("Crumbtrail");
         $this->crumbtrail_->addCategoryPath($zm_request->getCategoryPathArray());
         $this->crumbtrail_->addManufacturer($zm_request->getManufacturerId());
         $this->crumbtrail_->addProduct($zm_request->getProductId());

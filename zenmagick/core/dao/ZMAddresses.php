@@ -31,13 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMAddresses {
-    var $db_;
+class ZMAddresses extends ZMDao {
+
 
     // create new instance
     function ZMAddresses() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -93,7 +92,7 @@ class ZMAddresses {
 
     function _newAddress($fields) {
     global $zm_countries;
-        $address =& new ZMAddress();
+        $address =& $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];
         $address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields['entry_lastname'];

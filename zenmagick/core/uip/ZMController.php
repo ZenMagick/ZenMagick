@@ -32,7 +32,7 @@
  * @abstract
  * @version $Id$
  */
-class ZMController {
+class ZMController extends ZMObject {
     var $page_;
     var $globals_;
 
@@ -40,6 +40,9 @@ class ZMController {
     // create new instance
     function ZMController() {
     global $zm_request;
+
+        parent::__construct();
+
         $this->globals_ = array();
         $this->page_ = $zm_request->getPageName();
     }
@@ -62,7 +65,7 @@ class ZMController {
     global $zm_theme;
 
         //TODO
-        return $zm_theme->isValidRequest();
+        return is_subclass_of($this, "ZMController") || $zm_theme->isValidRequest();
     }
 
 

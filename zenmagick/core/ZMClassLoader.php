@@ -69,7 +69,20 @@ echo "</pre>";
 
 
     // locate, load and instantiate a given class;
-    function newInstance($name) {
+    function create($name) {
+        $args = func_get_args();
+        array_shift($args);
+        return $this->_create($name, $args);
+    }
+
+    // locate, load and instantiate a given class;
+    function createWithArgs($name, $args) {
+        return $this->_create($name, $args);
+    }
+
+    // locate, load and instantiate a given class;
+    function _create($name, $args) {
+
         $classfile = null;
         $zmname = "ZM".$name;
         $zmclassfile = null;
@@ -95,7 +108,7 @@ echo "</pre>";
         if (null == $classfile && null == $zmclassfile)
             return null;
 
-        return zm_get_instance(null != $classfile ? $name : $zmname);
+        return zm_get_instance(null != $classfile ? $name : $zmname, null, $args);
     }
 
 

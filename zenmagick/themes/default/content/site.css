@@ -24,18 +24,17 @@
 * {margin:0; padding:0;}
 
 body {font:72% Verdana,Tahoma,Arial,sans-serif;line-height:1.4em;text-align:center;color:#303030;background:#e8eaec;}
-body {behavior:url("zenmagick/themes/default/content/csshover.htc");}
 
 a {color:#467aa7;font-weight:bold;text-decoration:none;background-color:inherit;}
 a:hover {color:#2a5a8a;text-decoration:none;background-color:inherit;}
 a img {border:none;}
 p {padding:0 0 1.2em 0;}
 form p {margin-top:0;margin-bottom:6px;padding:0;}
-input.btn, a.btn {width:auto;padding:1px 3px;border:1px outset gray;font-size:0.9em;text-align:center;margin:0 3px;background-color:#80b0da;color:black;}
+input.btn, a.btn {padding:1px 3px;border:1px outset gray;font:.94em Verdana,Tahoma,Arial,sans-serif;text-align:center;margin:0 3px;background-color:#80b0da;color:black;}
 input.btn:active, a.btn:active {border:1px inset gray;}
-input.btn {cursor:pointer;cursor:hand;}
-a.btn {font-weight:normal;padding:2px 4px 3px 4px;}
-#content a.btn:hover {text-decoration:none;}
+input.btn {cursor:pointer;}
+a.btn {font-weight:normal;padding:2px 4px;}
+#content a.btn:hover {text-decoration:none;color:black;}
 .legend {font-size:80%;}
 p.man span {padding-left:2px;color:#f02025;font-size:80%;}
 label span, .legend span {padding-left:2px;color:#f02025;font-size:80%;}
@@ -54,7 +53,7 @@ span.strike {text-decoration:line-through;}
 
 #container {width:96%;margin:10px auto;background-color:#fff;background:#fff;border:2px solid #a0a0a0;line-height:130%;text-align:left;}
 
-#header {height:86;margin:1px 1px 1px 1px;background-color:#467aa7;color:#fff;}
+#header {height:76px;margin:1px 1px 1px 1px;background-color:#467aa7;color:#fff;}
 #header h1 {padding:25px 0 0 20px;font-size:2.4em;background-color:inherit;color:#f0f2f4;letter-spacing:-2px;font-weight:normal;}
 #header h1 a {color:#f0f2f4}
 #header h2 {margin:10px 0 0 40px;font-size:1.4em;background-color:inherit;color:#f0f2f4;letter-spacing:-1px;font-weight:normal;}
@@ -155,7 +154,7 @@ label {margin:2px 4px 4px 3px;}
 #sb_rss dt {font-weight:bold;}
 #sb_rss dd {margin-left:12px;}
 
-body#b_login #content label {display:block;margin-left:0;}
+body#b_login #content label, body#b_time_out #content label {display:block;margin-left:0;}
 body#b_login #content {padding-left:20px;}
 body#b_account_password #content label {display:block;margin-left:0;}
 body#b_account_password #content {padding-left:20px;}
@@ -232,7 +231,9 @@ body#b_checkout_payment table#ot {width:100%;}
 body#b_checkout_payment table#ot td.total {text-align:right;font-weight:bold;padding-right:3px;}
 body#b_checkout_payment table#ot td.price {text-align:right;width:6em;}
 body#b_checkout_payment table#ot td.tot {border-top:1px solid gray;}
+body#b_checkout_payment table.pt td {vertical-align:top;padding-bottom:3px;}
 body#b_checkout_payment p.paytype, body#b_checkout_payment p.credittype {margin-top:8px;padding:4px 2px;clear:both;}
+body#b_checkout_payment p.credittype {text-decoration:underline;}
 body#b_checkout_payment p.paytype:hover {color:white;background-color:#578bb8;cursor:pointer;}
 
 

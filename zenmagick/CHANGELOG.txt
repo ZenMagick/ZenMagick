@@ -25,6 +25,23 @@ Release 0.6.0:
 - Excluding controller classes from being loaded on init - they (and possibly
   more) are loaded using the loader
 - Created my first image from scratch using Gimp :)
+- popup support; popups are located under: [theme]/content/views/popup and
+  have their own layout and CSS
+- fixed invalid HTML in payments page plus missing checkbox for gv redemption
+- allow payment type == null on checkout confirmation page (when using gv,
+  etc)
+- make JavaScript submitFunction(..) on payments page work as expected; if gv
+  reedemption value >= total, payment type is not mandatory any more
+- Most classes now extend from ZMObject which is a generic base class
+- Class loading is done using ZMObject::create, thus allowing us to restrict
+  generic class loading (exludes controller and model so far)
+- made the buttons look a bit nicer - still missing a bit in IE =/
+- added time_out view
+- make sorter work in advanced search
+- add default sorting for search results
+- search sidebox is now conditionally and will now show during advanced search
+  or search results
+- added header/footer banner to default_layout and footer
 
 
 Release 0.5.0:

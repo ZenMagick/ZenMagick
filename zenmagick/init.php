@@ -34,8 +34,9 @@
     $includes = zm_find_includes($_zm_bin, true);
     foreach ($includes as $include) {
         // exclude some stuff that gets loaded by the loader
-        if (false === strpos($include, '/controller/'))
+        if (false === strpos($include, '/controller/') && false === strpos($include, '/model/')) {
             include($include);
+        }
     }
     // set up main class instances (aka the ZenMagick API)
     $zm_runtime = new ZMRuntime();
@@ -59,7 +60,7 @@
     $zm_pages = new ZMEZPages();
     $zm_coupons = new ZMCoupons();
     $zm_banners = new ZMBanners();
-    $zm_meta = $zm_loader->newInstance('MetaTags');
+    $zm_meta = $zm_loader->create('MetaTags');
     $zm_languages = new ZMLanguages();
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();

@@ -31,13 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMOrders {
-    var $db_;
+class ZMOrders extends ZMDao {
+
 
     // create new instance
     function ZMOrders() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -147,14 +146,14 @@ class ZMOrders {
 
 
     function _newOrderStatus($fields) {
-        $status =& new ZMOrderStatus($fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
+        $status =& $this->create("OrderStatus", $fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
         $status->comment_ = $fields['comments'];
         return $status;
     }
 
 
     function _newOrder($fields) {
-        $order =& new ZMOrder($fields['orders_id']);
+        $order =& $this->create("Order", $fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
         $order->accountId_ = $fields['customers_id'];
@@ -205,7 +204,7 @@ class ZMOrders {
 
     // parse zen-cart order items (PHP5 only)
     function _newOrderItem_v5($zenItem) {
-        $orderItem =& new ZMOrderItem();
+        $orderItem =& $this->create("OrderItem");
         $orderItem->id_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
@@ -218,10 +217,10 @@ class ZMOrders {
                 if (array_key_exists($name, $attributesLookup)) {
                     $attribute = $attributesLookup[$name];
                 } else {
-                    $attribute = new ZMAttribute(0, $name, null);
+                    $attribute =& $this->create("Attribute", 0, $name, null);
                     $attributesLookup[$name] = $attribute;
                 }
-                $attributeValue = new ZMAttributeValue(0, $zenAttribute['value']);
+                $attributeValue =& $this->create("AttributeValue", 0, $zenAttribute['value']);
                 $attributeValue->pricePrefix_ = $zenAttribute['prefix'];
                 $attributeValue->price_ = $zenAttribute['price'];
                 array_push($attribute->values_, $attributeValue);
@@ -244,17 +243,17 @@ class ZMOrders {
                     $atname = $attributesLookup[$name];
                 } else {
                     $atname = str_replace(' ', '', $name);
-                    $$atname = new ZMAttribute(0, $name, null);
+                    $$atname =& $this->create("Attribute", 0, $name, null);
                     $attributesLookup[$name] = $atname;
                 }
-                $attributeValue = &new ZMAttributeValue(0, $zenAttribute['value']);
+                $attributeValue =& $this->create("AttributeValue", 0, $zenAttribute['value']);
                 $attributeValue->pricePrefix_ = $zenAttribute['prefix'];
                 $attributeValue->price_ = $zenAttribute['price'];
                 array_push($$atname->values_, $attributeValue);
             }
         }
 
-        $orderItem =& new ZMOrderItem();
+        $orderItem =& $this->create("OrderItem");
         $orderItem->id_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
@@ -270,7 +269,7 @@ class ZMOrders {
 
 
     function _newAccount($fields) {
-        $account =& new ZMAccount();
+        $account =& $this->create("Account");
         $account->accountId_ = $fields['customers_id'];
         //$account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_name'];
@@ -283,14 +282,14 @@ class ZMOrders {
         //$account->referrals_ = $fields['customers_referral'];
         //$account->defaultAddressId_ = $fields['customers_default_address_id'];
         //XXX
-        $account->accounts_ = new ZMAccount();
+        $account->accounts_ =& $this->create("Account");
         return $account;
     }
 
 
     function _newAddress($fields, $prefix) {
     global $zm_countries;
-        $address =& new ZMAddress();
+        $address =& $this->create("Address");
         $address->addressId_ = 0;
         //$address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields[$prefix.'_name'];
@@ -319,7 +318,7 @@ class ZMOrders {
         }
         $totals = array();
         foreach ($zenOrder->totals as $zenTotal) {
-            $total = new ZMOrderTotal($zenTotal['title'], $zenTotal['text'], $zenTotal['class']);
+            $total =& $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['class']);
             if (array_key_exists($total->getType(), $totals)) die('duplicate order total type!');
             $totals[$total->getType()] = $total;
         }

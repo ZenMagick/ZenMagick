@@ -67,7 +67,7 @@ class ZMAccount extends ZMModel {
         $this->referrals_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = '';
-        $this->subscriptions_ = new ZMSubscriptions($this);
+        $this->subscriptions_ = $this->create("Subscriptions", $this);
     }
 
     // create new instance
@@ -82,6 +82,7 @@ class ZMAccount extends ZMModel {
     // populate from request
     function populateFromRequest() {
     global $zm_request;
+
         $this->id_ = 0;
         $this->firstName_ = $zm_request->getRequestParameter('firstname', '');
         $this->lastName_ = $zm_request->getRequestParameter('lastname', '');
@@ -95,7 +96,7 @@ class ZMAccount extends ZMModel {
         $this->emailFormat_ = $zm_request->getRequestParameter('email_format', 'TEXT');
         $this->referral_ = $zm_request->getRequestParameter('referral', '');
         $this->password_ = $zm_request->getRequestParameter('password', '');
-        $this->subscriptions_ = new ZMSubscriptions(null, $zm_request->getRequestParameter('newsletter', false), null);
+        $this->subscriptions_ = $this->create("Subscriptions", null, $zm_request->getRequestParameter('newsletter', false), null);
     }
 
 

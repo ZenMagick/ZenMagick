@@ -58,6 +58,9 @@
     $_ZM_SETTINGS['isUseCategoryPage'] = false;
     $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
 
+    // sort default
+    $_ZM_SETTINGS['defaultProductSortOrder'] = 'price';
+
     $_ZM_SETTINGS['isSortAttributesByName'] = PRODUCTS_OPTIONS_SORT_ORDER != '0';
     // sort attribute values
     $_ZM_SETTINGS['isSortAttributeValuesByPrice'] = PRODUCTS_OPTIONS_SORT_BY_PRICE != '1';

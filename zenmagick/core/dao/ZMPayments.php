@@ -31,13 +31,16 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMPayments {
+class ZMPayments extends ZMDao {
     var $zenModules_;
 
 
     // create new instance
     function ZMPayments() {
     global $payment_modules;
+
+        parent::__construct();
+
         if (!isset($payment_modules)) {
             require_once(DIR_WS_CLASSES . 'payment.php');
             $this->zenModules_ = new payment;
@@ -62,13 +65,13 @@ class ZMPayments {
         $zenTypes = $this->zenModules_->selection();
         $paymentTypes = array();
         foreach ($zenTypes as $zenType) {
-            $paymentType = new ZMPaymentType($zenType['id'], $zenType['module']);
+            $paymentType =& $this->create("PaymentType", $zenType['id'], $zenType['module']);
             if (isset($zenType['error'])) {
                 $paymentType->error_ = $zenType['error'];
             }
             if (isset($zenType['fields'])) {
                 foreach ($zenType['fields'] as $zenField) {
-                    $paymentType->addField(new ZMPaymentField($zenField['title'], $zenField['field']));
+                    $paymentType->addField($this->create("PaymentField", $zenField['title'], $zenField['field']));
                 }
             }
             array_push($paymentTypes, $paymentType);
@@ -90,12 +93,13 @@ class ZMPayments {
     // get selected payment type
     function getSelectedPaymentType() {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
+        if (!$zenModule) return null;
         $confirmation = $zenModule->confirmation();
 
-        $paymentType = new ZMPaymentType($zenModule->code, $zenModule->title);
+        $paymentType =& $this->create("PaymentType", $zenModule->code, $zenModule->title);
         if (is_array($confirmation) && array_key_exists('fields', $confirmation)) {
             foreach ($confirmation['fields'] as $zenField) {
-                $paymentType->addField(new ZMPaymentField($zenField['title'], $zenField['field']));
+                $paymentType->addField($this->create("PaymentField", $zenField['title'], $zenField['field']));
             }
         }
 

@@ -69,7 +69,7 @@ class ZMAddressBookProcessController extends ZMController {
             $view =& new ZMThemeView('address_book_delete');
         } else {
             $zm_crumbtrail->addCrumb("New Entry");
-            $this->exportGlobal("zm_address", new ZMAddress());
+            $this->exportGlobal("zm_address", $this->create("Address"));
             $view =& new ZMThemeView('address_book_create');
         }
 

@@ -56,7 +56,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $address = new ZMAddress();
+        $address =& $this->create("Address");
         $address->populateFromRequest();
         $this->exportGlobal("zm_address", $address);
 

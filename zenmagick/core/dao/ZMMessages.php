@@ -31,13 +31,17 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMMessages {
+class ZMMessages extends ZMDao {
     var $messages_;
     var $uniqueMsgRef_;
+
 
     // create new instance
     function ZMMessages() {
     global $messageStack;
+
+        parent::__construct();
+
         $this->messages_ = array();
         $this->uniqueMsgRef_ = array();
         if (isset($messageStack) && isset($messageStack->messages)) {
@@ -65,7 +69,7 @@ class ZMMessages {
         if (array_key_exists($text, $this->uniqueMsgRef_))
             return;
         $this->uniqueMsgRef_[$text] = $text;
-        array_push($this->messages_, new ZMMessage($text, $type));
+        array_push($this->messages_, $this->create("Message", $text, $type));
     }
 
     function hasMessages($type=null) {

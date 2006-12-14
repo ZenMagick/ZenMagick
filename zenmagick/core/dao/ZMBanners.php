@@ -31,14 +31,14 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMBanners {
-    var $db_;
+class ZMBanners extends ZMDao {
     var $banners_;
+
 
     // create new instance
     function ZMBanners() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->banners_ = array();
     }
 
@@ -157,7 +157,7 @@ class ZMBanners {
 
     // build banner
     function _newBanner($fields) {
-        $banner =& new ZMBanner();
+        $banner =& $this->create("ZMBanner");
         $banner->id_ = $fields['banners_id'];
         $banner->title_ = $fields['banners_title'];
         $banner->image_ = $fields['banners_image'];

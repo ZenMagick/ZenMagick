@@ -31,8 +31,9 @@
  * @package net.radebatz.zenmagick.resultlist
  * @version $Id$
  */
-class ZMResultListSorter {
+class ZMResultListSorter extends ZMObject {
     var $id_;
+    var $defaultSortId_;
     var $sortId_;
     var $decending_;
 
@@ -41,7 +42,10 @@ class ZMResultListSorter {
     function ZMResultListSorter($id=null) {
     global $zm_request;
 
+        parent::__construct();
+
         $this->id_ = $id;
+        $this->defaultSortId_ = null;
         $this->sortId_ = $zm_request->getSortId();
         $this->decending_ = zm_ends_with($this->sortId_, '_d');
         if (zm_ends_with($this->sortId_, '_a') || $this->decending_) {
@@ -59,7 +63,18 @@ class ZMResultListSorter {
     }
 
 
-    /** Sort API */
+    /**
+     * Set the default sort id.
+     *
+     * @param string sortId The default sort id.
+     */
+    function setDefaultSortId($sortId) {
+        $this->defaultSortId_ = $sortId;
+        if (null === $this->sortId_) {
+            $this->sortId_ = $this->defaultSortId_;
+        }
+    }
+
 
     /**
      * Returns true if the current sort order is descending.

@@ -55,9 +55,9 @@ class ZMGvSendController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
-        $this->exportGlobal("zm_gvreceiver", new ZMGVReceiver());
+        $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
-        $view =& new ZMThemeView('gv_send');
+        $view =& $this->create("ThemeView", 'gv_send');
         if ('doneprocess' == $zm_request->getRequestParameter('action')) {
             $zm_messages->add(zm_l10n_get("Gift Certificate successfully send."), 'msg');
             //$view =& new ZMThemeView('account');
@@ -76,7 +76,7 @@ class ZMGvSendController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
-        $receiver = new ZMGVReceiver();
+        $receiver = $this->create("GVReceiver");
         $receiver->populateFromRequest();
         $this->exportGlobal("zm_gvreceiver", $receiver);
 
@@ -88,11 +88,12 @@ class ZMGvSendController extends ZMController {
             $zm_messages->add(zm_l10n_get("Please enter a valid email address."));
         }
 
+        $view =& new ZMThemeView('account');
         if ('send' == $zm_request->getRequestParameter('action') && !$zm_messages->hasMessages()) {
-            return new ZMThemeView('gv_send_confirm');
+            $view =& new ZMThemeView('gv_send_confirm');
         }
 
-        return new ZMThemeView('account');
+        return $view;
     }
 
 }

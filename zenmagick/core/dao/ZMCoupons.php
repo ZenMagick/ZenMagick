@@ -31,13 +31,13 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMCoupons {
-    var $db_;
+class ZMCoupons extends ZMDao {
+
 
     // create new instance
     function ZMCoupons() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->countries_ = null;
     }
 
@@ -76,7 +76,7 @@ class ZMCoupons {
 
     // create coupon from map
     function _newCoupon($fields) {
-        $coupon =& new ZMCoupon($fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
+        $coupon =& $this->create("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
         $coupon->name_ = $fields['coupon_name'];
         $coupon->description_ = $fields['coupon_description'];
@@ -99,15 +99,15 @@ class ZMCoupons {
         $products = array();
         while (!$results->EOF) {
             if (0 != $results->fields['category_id']) {
-                $restriction = new ZMCategoryCouponRestriction($results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
+                $restriction =& $this->create("CategoryCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
                 array_push($categories, $restriction);
             } else {
-                $restriction = new ZMProductCouponRestriction($results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
+                $restriction =& $this->create("ProductCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
                 array_push($products, $restriction);
             }
             $results->MoveNext();
         }
-        return new ZMCouponRestrictions($categories, $products);
+        return $this->create("CouponRestrictions", $categories, $products);
     }
 
 }

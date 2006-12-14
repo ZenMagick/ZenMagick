@@ -36,15 +36,18 @@
 <?php include_once $zm_theme->themeFile("validation.js"); ?>
 
 <?php zm_secure_form(FILENAME_LOGIN, "action=process", 'login', 'post', 'return validate(this);') ?>
-  <p>
-    <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-    <input type="text" id="email_address" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-  </p>
-  <p>
-    <label for="password"><?php zm_l10n("Password") ?></label>
-    <input type="password" id="password" name="password" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
-  </p>
-  <p class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></p>
+  <fieldset>
+    <legend><?php zm_l10n("Login") ?></legend>
+    <p>
+      <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
+      <input type="text" id="email_address" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+    </p>
+    <p>
+      <label for="password"><?php zm_l10n("Password") ?></label>
+      <input type="password" id="password" name="password" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+    </p>
+  </fieldset>
+  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
   <p><a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a></p>
   <p><a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a></p>
 </form>

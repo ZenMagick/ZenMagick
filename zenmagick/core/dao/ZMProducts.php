@@ -31,15 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMProducts {
-    // db access
-    var $db_;
+class ZMProducts extends ZMDao {
 
 
     // create new instance
     function ZMProducts() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -449,7 +446,7 @@ class ZMProducts {
 
     function _newProduct($fields) {
     global $zm_features;
-        $product =& new ZMProduct($fields['products_id'], $fields['products_name'], $fields['products_description']);
+        $product =& $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status = $fields['products_status'];
         $product->model_ = $fields['products_model'];
         $product->image_ = $fields['products_image'];
@@ -473,8 +470,8 @@ class ZMProducts {
         // raw price
         $product->price_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick
-        $product->offers_ = new ZMOffers($product);
-        $product->attributes_ = new ZMAttributes($product);
+        $product->offers_ =& $this->create("Offers", $product);
+        $product->attributes_ =& $this->create("Attributes", $product);
         //TODO
         $product->features_ = $zm_features->getFeaturesForProductId($product->getId());
         return $product;

@@ -31,15 +31,15 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMCountries {
-    var $db_;
+class ZMCountries extends ZMDao {
     var $countries_;
     var $countriesById_;
 
+
     // create new instance
     function ZMCountries() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->countries_ = null;
     }
 
@@ -74,7 +74,7 @@ class ZMCountries {
         $this->countries_ = array();
         $results = $this->db_->Execute($sql);
         while (!$results->EOF) {
-            $country = new ZMCountry();
+            $country =& $this->create("Country");
             $country->id_ = $results->fields['countries_id'];
             $country->name_ = $results->fields['countries_name'];
             $country->isoCode2_ = $results->fields['countries_iso_code_2'];
@@ -129,7 +129,7 @@ class ZMCountries {
 
         $zones = array();
         while (!$results->EOF) {
-            $zone = new ZMIdNamePair($results->fields['zone_code'], $results->fields['zone_name']);
+            $zone =& $this->create("IdNamePair", $results->fields['zone_code'], $results->fields['zone_name']);
             $zones[$zone->getId()] = $zone;
             $results->MoveNext();
         }

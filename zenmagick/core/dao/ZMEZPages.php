@@ -31,15 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMEZPages {
-    // db access
-    var $db_;
+class ZMEZPages extends ZMDao {
 
 
     // create new instance
     function ZMEZPages() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -148,7 +145,7 @@ class ZMEZPages {
 
 
     function _newPage($fields) {
-        $page =& new ZMEZPage($fields['pages_id'], $fields['pages_title']);
+        $page =& $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];
         $page->htmlText_ = $fields['pages_html_text'];

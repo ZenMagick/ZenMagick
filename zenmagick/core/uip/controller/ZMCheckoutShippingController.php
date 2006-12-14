@@ -56,7 +56,7 @@ class ZMCheckoutShippingController extends ZMController {
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $this->exportGlobal("zm_shipping", new ZMShipping());
+        $this->exportGlobal("zm_shipping", $this->create("Shipping"));
 
         return new ZMThemeView('checkout_shipping');
     }

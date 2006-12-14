@@ -31,17 +31,19 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMShippingProvider {
+class ZMShippingProvider extends ZMModel {
     var $zenQuote_;
     var $methods_;
 
 
     // create new instance
     function ZMShippingProvider($zenQuote) {
+        parent::__construct();
+
         $this->zenQuote_ = $zenQuote;
         $this->methods_ = array();
         foreach ($this->zenQuote_['methods'] as $method) {
-            $method = new ZMShippingMethod($this, $method);
+            $method = $this->create("ShippingMethod", $this, $method);
             $this->methods_[$method->getId()] = $method;
         }
     }

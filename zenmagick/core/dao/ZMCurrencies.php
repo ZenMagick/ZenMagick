@@ -31,18 +31,21 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMCurrencies {
+class ZMCurrencies extends ZMDao {
     var $currencies_;
 
     // create new instance
     function ZMCurrencies() {
     global $currencies;
+
+        parent::__construct();
+
         $this->currencies_ = array();
 
         if (isset($currencies) && is_object($currencies)) {
             reset($currencies->currencies);
             while (list($id, $arr) = each($currencies->currencies)) {
-                $this->currencies_[$id] = new ZMCurrency($id, $arr);
+                $this->currencies_[$id] =& $this->create("Currency", $id, $arr);
             }
         }
     }

@@ -31,8 +31,7 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMOffers {
-    var $db_;
+class ZMOffers extends ZMDao {
     var $product_;
     var $basePrice_;
     var $specialPrice_;
@@ -43,8 +42,8 @@ class ZMOffers {
 
     // create new instance
     function ZMOffers($product) {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->product_ = $product;
         $this->basePrice_ = null;
         $this->specialPrice_ = null;

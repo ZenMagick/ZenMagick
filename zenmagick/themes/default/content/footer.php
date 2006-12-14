@@ -43,6 +43,11 @@
         Page Execution Time: <?php echo round($executionTime, 4); ?>;
       </p>
   <?php } ?>
+
+  <?php $bannerBox = $zm_banners->getBannerForIndex(5); if (null != $bannerBox) { ?>
+      <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
+  <?php } ?>
+
   <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://zenmagick.radebatz.net">ZenMagick</a></p>
   <p>&copy; 2006 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on <a href="http://andreasviklund.com">Andreas Viklund</a></p>
 </div>

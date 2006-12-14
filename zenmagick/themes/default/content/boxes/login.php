@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php if ($zm_request->isGuest() && 'login' != $zm_request->getPageName()) { ?>
+<?php if ($zm_request->isGuest() && 'login' != $zm_request->getPageName() && 'time_out' != $zm_request->getPageName()) { ?>
     <h3><?php zm_l10n("Login") ?></h3>
     <div id="sb_login" class="box">
         <?php zm_secure_form(FILENAME_LOGIN, "action=process") ?>

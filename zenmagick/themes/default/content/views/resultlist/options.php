@@ -50,7 +50,7 @@
                     <?php zm_hidden_list('compareId[]', $zm_request->getRequestParameter("compareId")) ?>
                 <?php } ?>
 
-                <select id="sort" name="sort" onchange="this.form.submit()">
+                <select id="sort" name="sort_id" onchange="this.form.submit()">
                     <option value=""><?php zm_l10n("Sort by ...") ?></option>
                     <?php foreach($zm_resultList->getSorters() as $sorter) { ?>
                         <?php foreach($sorter->getOptions() as $option) { ?>

@@ -55,7 +55,7 @@ class ZMRequest {
     function getShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
     function getPageName() { return $_GET['main_page']; }
     function getPageIndex() {  return isset($_GET['page']) ? $_GET['page'] : 1; }
-    function getSortId() {  return isset($_GET['sort']) ? $_GET['sort'] : null; }
+    function getSortId() {  return isset($_GET['sort_id']) ? $_GET['sort_id'] : null; }
     function getSubPageName() { return isset($_GET['cat']) ? $_GET['cat'] : null; }
     function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getRequestParameter("productId", 0); }
     function getModel() { return isset($_GET['model']) ? $_GET['model'] : null; }

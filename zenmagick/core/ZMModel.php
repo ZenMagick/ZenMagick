@@ -31,10 +31,12 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMModel {
+class ZMModel extends ZMObject {
+
 
     // create new instance
     function ZMModel() {
+        parent::__construct();
     }
 
     // create new instance

@@ -34,7 +34,7 @@
  * @package net.radebatz.zenmagick.model.rss
  * @version $Id$
  */
-class ZMRss {
+class ZMRss extends ZMObject {
     var $url_;
     var $limit_;
     var $channel_;
@@ -43,6 +43,9 @@ class ZMRss {
 
     // create new instance
     function ZMRss($url, $category=null, $limit=5) {
+
+        parent::__construct();
+
         $this->url_ = $url;
         $this->channel_ = $channel;
         $this->limit_ = $limit;
@@ -50,11 +53,11 @@ class ZMRss {
         $rss->cache_dir = zm_setting('rssCacheDir');
         $rss->cache_time = zm_setting('rssCacheTimeout');
         $rs = $rss->Get($this->url_);
-        $this->channel_ = new ZMRssChannel($rs);
+        $this->channel_ = $this->create("RssChannel", $rs);
         $this->items_ = array();
         if (null != $rs) {
             foreach($rs['items'] as $rs_item) {
-                $item = new ZMRssItem($rs_item);
+                $item = $this->create("RssItem", $rs_item);
                 if (null == $category || $category == $item->getCategory()) {
                     array_push($this->items_, $item);
                 }

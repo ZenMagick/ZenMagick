@@ -31,13 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMMediaManager {
-    var $db_;
+class ZMMediaManager extends ZMDao {
+
 
     // create new instance
     function ZMMediaManager() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -102,7 +101,7 @@ class ZMMediaManager {
 
 
     function _newMediaCollection($fields) {
-        $collection =& new ZMMediaCollection();
+        $collection =& $this->create("MediaCollection");
         $collection->name_ = $fields['media_name'];
 
         return $collection;
@@ -110,11 +109,11 @@ class ZMMediaManager {
 
 
     function _newMedia($clip, $type) {
-        $media =& new ZMMedia();
+        $media =& $this->create("Media");
         $media->id_ = $clip['clip_id'];
         $media->filename_ = $clip['clip_filename'];
         $media->dateAdded_ = $clip['date_added'];
-        $mediaType =& new ZMMediaType();
+        $mediaType =& $this->create("MediaType");
         $mediaType->id_ = $type['type_id'];
         $mediaType->name_ = $type['type_name'];
         $mediaType->extension_ = $type['type_ext'];

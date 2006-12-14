@@ -119,8 +119,12 @@
                     $page = str_replace('_', '/', $page);
                     $path .= $page."/";
                     break;
+                case 'account_history':
+                    $path .= "account/history/";
+                    break;
+                case 'address_book':
                 case 'account_history_info':
-                    $path .= "orderhistory/".$query['order_id'];
+                    $path .= "account/history/order/".$query['order_id'];
                     break;
                 case 'address_book':
                     $path .= "addressbook/".$query['order_id'];
@@ -174,13 +178,19 @@
                     $path .= "account/create/";
                     break;
                 case 'advanced_search':
-                    $path .= "search/advanced/";
+                    $path .= "search/";
                     break;
                 case 'advanced_search_result':
-                    $path .= "search/advanced/results";
+                    $path .= "search/results";
                     break;
                 case 'featured_products':
                     $path .= "featured/";
+                    break;
+                case 'checkout_process':
+                    $path .= "checkout/process/";
+                    break;
+                case 'checkout_success':
+                    $path .= "checkout/success/";
                     break;
                 case 'checkout_shipping':
                     $path .= "checkout/shipping/";
@@ -200,14 +210,23 @@
                 case 'gv_send':
                     $path .= "account/giftcard/send/";
                     break;
+                case 'time_out':
+                    $path .= "timeout/";
+                    break;
                 case 'redirect':
                     $path .= "redirect/".$query['action']."/".$query['goto'];
                     array_push($removeNames, 'goto');
                     array_push($removeNames, 'action');
                     break;
                 default:
-                    $translate = false;
-                    zm_log("no permalink mapping for: ".$page, 4);
+                    if (zm_starts_with($page, 'popup_')) {
+                        $path .= "popup/".substr($page, 6);
+                    } else {
+                        $translate = false;
+                        if (!zm_is_empty($page)) {
+                            zm_log("no permalink mapping for: ".$page, 1);
+                        }
+                    }
                     break;
             }
             foreach ($removeNames as $rkey) {
@@ -376,6 +395,8 @@
      * hidden form fields.
      * The reason for adding to the action is the weiryd way zen-card is looking at
      * <code>$_GET</code> and <code>$_POST</code>.</p>
+     *
+     * <p>Query parameters in the <code>$page</code> url will be added (merged) too.</p>
      * 
      * @package net.radebatz.zenmagick.html
      * @param string page The action page name.
@@ -398,6 +419,14 @@
         } else {
             $action = $secure ? zm_secure_href($page, $params, false) : zm_href($page, $params, false);
         }
+
+        // parse all params 
+        parse_str($params, $query);
+        $aurl = parse_url($action);
+        $aparams = zm_htmlurldecode($aurl['query']);
+        parse_str($aparams, $aquery);
+        $query = array_merge($aquery, $query);
+
         $html .= '<form action="' . $action . '"';
         if (null != $onsubmit) {
             $html .= ' onsubmit="' . $onsubmit . '"';
@@ -406,14 +435,14 @@
             $html .= ' id="' . $id . '"';
         }
         $html .= ' method="' . $method . '">';
-        parse_str($params, $query);
+
+        // add hidden stuff
         $div = false;
         if (0 < count($query)) { $html .= '<div>'; $div = true; }
         foreach ($query as $name => $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
-        parse_str($page, $pquery);
-        if (!array_key_exists('main_page', $pquery)) {
+        if (!array_key_exists('main_page', $aquery)) {
             if (!$div) { $html .= '<div>'; }
             $html .= '<input type="hidden" name="main_page" value="' . (null == $page ? $zm_request->getPageName() : $page) . '" />';
             if (!$div) { $html .= '</div>'; }
@@ -540,7 +569,7 @@
      * @return string A full URL.
      */
     function zm_redirect_href($action, $id, $echo=true) {
-        return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&amp;goto=".$id, false, $echo);
+        return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
     }
 
 

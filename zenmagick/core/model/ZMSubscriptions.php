@@ -40,11 +40,9 @@ class ZMSubscriptions {
 
     // create new instance
     function ZMSubscriptions($account, $newsletter=null, $productIds=null) {
-    global $zm_accounts;
         $this->account_ = $account;
         $this->newsletter_ = $newsletter;
         $this->productIds_ = $productIds;
-        $this->accounts_ = $zm_accounts;
     }
 
     // create new instance
@@ -58,28 +56,37 @@ class ZMSubscriptions {
 
     // getter/setter
     function isNewsletterSubscriber() {
+    global $zm_accounts;
+
         if (null == $this->account_) {
             return null === $this->newsletter_ ? false : $this->newsletter_;
         }
-        return $this->accounts_->_isNewsletterSubscriber($this->account_);
+        return $zm_accounts->_isNewsletterSubscriber($this->account_);
     }
+
     function isGlobalProductSubscriber() {
+    global $zm_accounts;
+
         if (null == $this->account_) {
             return false;
         }
-        return $this->accounts_->_isGlobalProductSubscriber($this->account_);
+        return $zm_accounts->_isGlobalProductSubscriber($this->account_);
     }
 
     function hasProductSubscriptions() {
+    global $zm_accounts;
+
         if (null == $this->productIds_) {
-            $this->productIds_ = $this->accounts_->_getSubscribedProductIds($this->account_);
+            $this->productIds_ = $zm_accounts->_getSubscribedProductIds($this->account_);
         }
         return 0 != count($this->productIds_); 
     }
 
     function getSubscribedProductIds() {
+    global $zm_accounts;
+
         if (null == $this->productIds_) {
-            $this->productIds_ = $this->accounts_->_getSubscribedProductIds($this->account_);
+            $this->productIds_ = $zm_accounts->_getSubscribedProductIds($this->account_);
         }
         return $this->productIds_;
     }

@@ -55,7 +55,7 @@ class ZMAdvancedSearchController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $search = new ZMSearch();
+        $search =& $this->create("Search");
         $this->exportGlobal("zm_search", $search);
 
         return new ZMThemeView('advanced_search');

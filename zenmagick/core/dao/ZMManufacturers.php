@@ -31,15 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMManufacturers {
-    // db access
-    var $db_;
+class ZMManufacturers extends ZMDao {
 
 
     // create new instance
     function ZMManufacturers() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -100,7 +97,7 @@ class ZMManufacturers {
 
     
     function _newManufacturer($fields) {
-        $manufacturer =& new ZMManufacturer($fields['manufacturers_id'], $fields['manufacturers_name']);
+        $manufacturer =& $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];
         $manufacturer->url_ = $fields['manufacturers_url'];
         return $manufacturer;

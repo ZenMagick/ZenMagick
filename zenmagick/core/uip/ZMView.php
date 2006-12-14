@@ -31,11 +31,12 @@
  * @package net.radebatz.uip.zenmagick
  * @version $Id$
  */
-class ZMView {
+class ZMView extends ZMObject {
     var $controller_;
 
     // create new instance
     function ZMView() {
+        parent::__construct();
     }
 
     // create new instance

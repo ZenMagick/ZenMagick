@@ -31,9 +31,7 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMCategories {
-    // db access
-    var $db_;
+class ZMCategories extends ZMDao {
     // current path
     var $path_;
     // category type
@@ -47,8 +45,8 @@ class ZMCategories {
 
     // create new instance
     function ZMCategories($path = null, $type = null) {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->path_ = (null != $path ? $path : array());
         $this->type_ = $type;
         $this->categories_ = null;
@@ -123,14 +121,7 @@ class ZMCategories {
 
             $category = null;
             if (!$results->EOF) {
-                $category = &new ZMCategory($results->fields['categories_id'],
-                               $results->fields['parent_id'],
-                               $results->fields['categories_name'],
-                               false
-                              );
-                $category->description_ = $results->fields['categories_description'];
-                $category->sortOrder_ = $results->fields['sort_order'];
-                $category->image_ = $results->fields['categories_image'];
+                $category =& $this->_newCategory($results->fields);
             }
             return $category;
         }
@@ -156,14 +147,7 @@ class ZMCategories {
 
         $this->categories_ = array();
         while (!$results->EOF) {
-            $category = &new ZMCategory($results->fields['categories_id'],
-                           $results->fields['parent_id'],
-                           $results->fields['categories_name'],
-                           false
-                          );
-            $category->description_ = $results->fields['categories_description'];
-            $category->sortOrder_ = $results->fields['sort_order'];
-            $category->image_ = $results->fields['categories_image'];
+            $category =& $this->_newCategory($results->fields);
 
             // apply path
             foreach ($this->path_ as $catId) {
@@ -260,6 +244,15 @@ class ZMCategories {
 
     function _nodeCompare($n1, $n2) {
         return ($n1->id_ == $n2->id_ ? 0 : ($n1->id_ > $n2->id_) ? +1 : -1);
+    }
+
+    // build category
+    function _newCategory($fields) {
+        $category =& $this->create("Category", $fields['categories_id'], $fields['parent_id'], $fields['categories_name'], false);
+        $category->description_ = $fields['categories_description'];
+        $category->sortOrder_ = $fields['sort_order'];
+        $category->image_ = $fields['categories_image'];
+        return $category;
     }
 
 }

@@ -31,15 +31,12 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMReviews {
-    // db access
-    var $db_;
+class ZMReviews extends ZMDao {
 
 
     // create new instance
     function ZMReviews() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -202,7 +199,7 @@ class ZMReviews {
 
 
     function _newReview($fields) {
-        $review =& new ZMReview();
+        $review =& $this->create("Review");
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];
         $review->text_ = $fields['reviews_text'];

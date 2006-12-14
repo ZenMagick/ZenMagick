@@ -32,7 +32,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMShoppingCart {
+class ZMShoppingCart extends ZMObject {
     var $db_;
     var $cart_;
     var $zenTotals_;
@@ -41,13 +41,15 @@ class ZMShoppingCart {
 
     // create new instance
     function ZMShoppingCart() {
-    global $zm_runtime;
+    global $zm_loader, $zm_runtime;
+
+        parent::__construct();
+
         $this->db_ = $zm_runtime->getDB();
+        $this->loader_ = $zm_loader;
         $this->refresh();
         $this->zenTotals_ = null;
         $this->payments_ = null;
-        // header_php.php
-        //XXX: $this->cart_->get_products(true);
     }
 
     // create new instance
@@ -76,7 +78,7 @@ class ZMShoppingCart {
         $zenItems = $this->cart_->get_products();
         $items = array();
         foreach ($zenItems as $zenItem) {
-            $item = new ZMShoppingCartItem($this, $zenItem);
+            $item =& $this->create("ShoppingCartItem", $this, $zenItem);
             array_push($items, $item);
         }
         return $items;
@@ -86,6 +88,7 @@ class ZMShoppingCart {
 
     function _getItemAttributes($item) {
     global $zm_request;
+
         // collect attribute values for same attribute
         $attributesLookup = array();
 
@@ -117,7 +120,7 @@ class ZMShoppingCart {
                 $atname = $attributesLookup[$name];
             } else {
                 $atname = str_replace(' ', '', $name);
-                $$atname = new ZMAttribute($option, $name, null);
+                $$atname =& $this->create("Attribute", $option, $name, null);
                 $attributesLookup[$name] = $atname;
             }
 
@@ -126,7 +129,7 @@ class ZMShoppingCart {
                 // text is user input
                 $value = $item->zenItem_['attributes_values'][$option];
             }
-            $attributeValue = &new ZMAttributeValue($type, $value);
+            $attributeValue =& $this->create("AttributeValue", $type, $value);
 
             $attributeValue->pricePrefix_ = $results->fields['options_values_price'];
             $attributeValue->price_ = $results->fields['options_values_price'];
@@ -144,53 +147,13 @@ class ZMShoppingCart {
     function getShippingMethodId() { return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null; }
     function getPaymentMethodId() { return isset($_SESSION['payment']) ? $_SESSION['payment'] : null; }
     function getShippingMethod() {
-        $order = new order();
+        $order =& new order();
         return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
-    /*
-        $id = $this->getShippingMethodId();
-        if (null == $id)
-            return null;
-
-        $shipping = new ZMShipping();
-        return $shipping->getShippingMethodForId($id);
-    */
     }
+
     function getPaymentType() {
-        $payments = new ZMPayments();
+        $payments =& $this->create("Payments");
         return $payments->getSelectedPaymentType();
-        /*
-        $zenModules = $payments->getZenModules();
-        print_r($zenModules->selected_module);
-        print_r($GLOBALS[$zenModules->selected_module]);
-        $mod = $GLOBALS[$zenModules->selected_module];
-        print_r($mod->confirmation());
-        */
-    /*
-        $payment_modules = new payment($_SESSION['payment']);
-        $payment_modules->update_status();
-        if (is_array($payment_modules->modules)) {
-            $payment_modules->pre_confirmation_check();
-        }
-
-        $method = null;
-        if (is_array($payment_modules->modules)) {
-            if (is_object($GLOBALS[$payment_modules->selected_module]) && ($GLOBALS[$payment_modules->selected_module]->enabled) ) {
-                $method = new ZMPaymentMethod(); 
-                print_r($this->selected_module);
-            }
-        }
-        */
-
-        $class =& $_SESSION['payment'];
-        return $GLOBALS[$class]->title;
-    /*
-        $id = $this->getPaymentMethodId();
-        if (null == $id)
-            return null;
-
-        $payments = $this->getPaymentTypes();
-        return array_key_exists($id, $payments) ? $payments[$id] : null;
-    */
     }
 
     function hasShippingAddress() { return !zm_is_empty($_SESSION['sendto']); }
@@ -234,10 +197,10 @@ class ZMShoppingCart {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
                 require_once(DIR_WS_CLASSES . 'order_total.php');
-                $zenTotals = new order_total();
+                $zenTotals =& new order_total();
             }
             require_once(DIR_WS_CLASSES . 'order.php');
-            $GLOBALS['order'] = new order;
+            $GLOBALS['order'] =& new order;
             $this->zenTotals_->process();
         }
 
@@ -259,7 +222,7 @@ class ZMShoppingCart {
             foreach ($output as $zenTotal) {
                 //print_r($zenTotal);
                 //echo "t:".$zenTotal."<br>";
-                array_push($totals, new ZMOrderTotal($zenTotal['title'], $zenTotal['text'], $type));
+                array_push($totals, $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $type));
             }
         }
         return $totals;
@@ -267,7 +230,7 @@ class ZMShoppingCart {
 
     function _getPayments() {
         if (null == $this->payments_) {
-            $this->payments_ = new ZMPayments();
+            $this->payments_ =& $this->create("Payments");
         }
         return $this->payments_;
     }
@@ -277,8 +240,11 @@ class ZMShoppingCart {
         $payments = $this->_getPayments();
         $js = $payments->getPaymentsJavaScript(false);
 
-        // strip invalid script attribute
+        //XXX strip invalid script attribute
         $js = str_replace(' language="javascript"', '', $js);
+
+        //XXX XHMTL does not know name attributes on form elements
+        $js = str_replace('document.checkout_payment', 'document.forms.checkout_payment', $js);
 
         if ($echo) echo $js;
         return $js;
@@ -297,17 +263,28 @@ class ZMShoppingCart {
         $zenTypes = $zenTotals->credit_selection();
         $creditTypes = array();
         foreach ($zenTypes as $zenType) {
-            $creditType = new ZMPaymentType($zenType['id'], $zenType['module']);
+            $creditType =& $this->create("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
             if (isset($zenType['credit_class_error'])) {
                 $creditType->error_ = $zenType['credit_class_error'];
             }
             if (isset($zenType['fields'])) {
                 foreach ($zenType['fields'] as $zenField) {
-                    $creditType->addField(new ZMPaymentField($zenField['title'], $zenField['field']));
+                    //XXX fix HTML
+                    $field = str_replace('textfield', 'text', $zenField['field']);
+                    $creditType->addField($this->create("PaymentField", $zenField['title'], $field));
                 }
             }
+            if (isset($zenType['checkbox'])) {
+                //XXX fix HTML
+                $checkbox = str_replace('textfield', 'text', $zenType['checkbox']);
+                $pos = strpos( $checkbox, '<input');
+                $title = trim(substr($checkbox, 0, $pos));
+                $field = trim(substr($checkbox, $pos));
+                //XXX fix submitFunction functionallity
+                $field = str_replace('submitFunction()', "submitFunction(this, ".$this->getTotal().")", $field);
+                $creditType->addField($this->create("PaymentField", $title, $field));
+            }
             array_push($creditTypes, $creditType);
-            //echo "<pre>"; print_r($zenType); echo "</pre>";
         }
 
         return $creditTypes;

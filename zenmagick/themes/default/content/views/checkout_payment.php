@@ -32,7 +32,7 @@
     <?php zm_format_address($zm_cart->getBillingAddress()) ?>
 </fieldset>
 
-<script type="text/javascript">var submitter = null;</script>
+<script type="text/javascript">var submitter = 0;</script>
 <?php $zm_cart->getPaymentsJavaScript() ?>
 
 <?php zm_secure_form(FILENAME_CHECKOUT_CONFIRMATION, '', 'checkout_payment', 'post', 'return check_form();') ?>
@@ -48,7 +48,7 @@
                       $tot = ' tot';
                   }
                   ?><tr>
-                      <td class="total"><?php echo $total->getName() ?>(<?php echo $total->getType() ?>)</td>
+                      <td class="total"><?php echo $total->getName() ?></td>
                       <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
                   </tr><?php
               }
@@ -56,6 +56,22 @@
           </tbody>
       </table>
   </fieldset>
+
+  <?php $creditTypes = $zm_cart->getCreditTypes(); ?>
+  <?php if (0 < count($creditTypes)) { ?>
+      <fieldset>
+          <legend><?php zm_l10n("Credit Options") ?></legend>
+          <?php foreach ($creditTypes as $type) { ?>
+              <p class="credittype"><?php echo $type->getName() ?></p>
+              <div class="instr"><?php echo $type->getInstructions() ?></div>
+              <table class="pt" cellpadding="0" cellspacing="0"><tbody>
+                  <?php foreach ($type->getFields() as $field) { ?>
+                     <tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
+                  <?php } ?>
+              </tbody></table>
+          <?php } ?>
+      </fieldset>
+  <?php } ?>
 
   <fieldset id="paytypes">
       <legend><?php zm_l10n("Payment Options") ?></legend>
@@ -82,28 +98,12 @@
   ?>
   </fieldset>
 
-  <?php $creditTypes = $zm_cart->getCreditTypes(); ?>
-      <?php if (0 < count($creditTypes)) { ?>
-          <fieldset>
-              <legend><?php zm_l10n("Credit Options") ?></legend>
-              <?php
-              foreach ($creditTypes as $type) {
-                ?><p class="credittype"><?php echo $type->getName() ?></p><?php
-                ?><table class="pt" cellpadding="0" cellspacing="0"><tbody><?php
-                foreach ($type->getFields() as $field) {
-                    ?><tr><td><label><?php echo $field->getLabel() ?>:</label></td><td><?php echo $field->getHTML() ?></td></tr><?php
-                }
-              } ?>
-                </tbody></table>
-              </fieldset>
-      <?php } ?>
-
-    <fieldset>
-        <legend><?php zm_l10n("Comments") ?></legend>
-        <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
-        <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $zm_cart->getComment() ?></textarea></td></tr></table>
-    </fieldset>
+  <fieldset>
+      <legend><?php zm_l10n("Comments") ?></legend>
+      <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
+      <?php /* Fix for IE bug regarding textarea... */ ?>
+      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $zm_cart->getComment() ?></textarea></td></tr></table>
+  </fieldset>
 
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>

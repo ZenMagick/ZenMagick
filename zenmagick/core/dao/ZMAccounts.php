@@ -31,13 +31,11 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMAccounts {
-    var $db_;
+class ZMAccounts extends ZMDao {
 
     // create new instance
     function ZMAccounts() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
     }
 
     // create new instance
@@ -59,7 +57,7 @@ class ZMAccounts {
         $account = null;
         if (0 < $results->RecordCount()) {
             $account = $this->_newAccount($results->fields);
-            $account->subscriptions_ = new ZMSubscriptions($account);
+            $account->subscriptions_ =& $this->create("Subscriptions", $account);
         }
         return $account;
     }
@@ -106,7 +104,7 @@ class ZMAccounts {
 
 
     function _newAccount($fields) {
-        $account =& new ZMAccount();
+        $account =& $this->create("Account");
         $account->id_ = $fields['customers_id'];
         $account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_lastname'];

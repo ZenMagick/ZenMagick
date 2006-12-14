@@ -31,9 +31,7 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMFeatures {
-    // db access
-    var $db_;
+class ZMFeatures extends ZMDao {
     var $features_;
     var $productFeatures_;
     var $featureTypes_;
@@ -41,8 +39,8 @@ class ZMFeatures {
 
     // create new instance
     function ZMFeatures() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->features_ = array();
         $this->productFeatures_ = array();
         $this->featureTypes_ = null;
@@ -72,7 +70,7 @@ class ZMFeatures {
 
         $this->features_ = array();
         while (!$results->EOF) {
-            $feature = new ZMFeature();
+            $feature =& $this->create("Feature");
             $feature->id_ = $results->fields['feature_id'];
             $feature->type_ = $results->fields['feature_type_id'];
             $feature->name_ = $results->fields['feature_name'];
@@ -117,7 +115,7 @@ class ZMFeatures {
 
         $types = array();
         foreach ($this->featureTypes_ as $id => $name) {
-            $types[$id] = new ZMIdNamePair($id, $name);
+            $types[$id] =& $this->create("IdNamePair", $id, $name);
         }
 
         return $types;
@@ -129,7 +127,7 @@ class ZMFeatures {
 
         $type = null;
         if (array_key_exists($id, $this->featureTypes_)) {
-            $type = new ZMIdNamePair($id, $this->featureTypes_[$id]);
+            $type =& $this->create("IdNamePair", $id, $this->featureTypes_[$id]);
         }
 
         return $type;
@@ -265,7 +263,7 @@ class ZMFeatures {
                 if (null != $feature) {
                     $features[$feature->getName()] = $feature;
                 }
-                $feature = new ZMFeature();
+                $feature =& $this->create("Feature");
             }
             $feature->id_ = $results->fields['feature_id'];
             $tmp = $this->features_[$feature->id_];

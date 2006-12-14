@@ -31,11 +31,14 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMLanguages {
+class ZMLanguages extends ZMDao {
     var $languages_;
+
 
     // create new instance
     function ZMLanguages() {
+        parent::__construct();
+
         zm_resolve_zc_class('language');
         $zcLanguage = new language();
         foreach ($zcLanguage->catalog_languages as $zccLanguage) {
@@ -58,7 +61,7 @@ class ZMLanguages {
     function getLanguageForCode($code) { return array_key_exists($code, $this->languages_) ? $this->languages_[$code] : null; }
 
     function _newLanguage($fields) {
-        $language =& new ZMLanguage();
+        $language =& $this->create("Language");
         $language->id_ = $fields['id'];
         $language->name_ = $fields['name'];
         $language->image_ = $fields['image'];

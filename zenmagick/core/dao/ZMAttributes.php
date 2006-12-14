@@ -31,9 +31,7 @@
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
-class ZMAttributes {
-    // db access
-    var $db_;
+class ZMAttributes extends ZMDao {
     var $product_;
     var $hasAttributes_;
     var $attributes_;
@@ -45,8 +43,8 @@ class ZMAttributes {
      * @param ZMProduct product The product whose attributes we want to load.
      */
     function ZMAttributes($product) {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->product_ = $product;
         $this->attributes_ = array();
         $this->hasAttributes_ = $this->_checkForAttributes();
@@ -79,7 +77,7 @@ class ZMAttributes {
 
     // create new attribute
     function _newAttribute($fields) {
-        $attribute =& new ZMAttribute($fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
+        $attribute =& $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
         return $attribute;
@@ -89,7 +87,7 @@ class ZMAttributes {
     // create new attribute value
     function _newAttributeValue($fields) {
     global $zm_runtime;
-        $value =& new ZMAttributeValue($fields['products_options_values_id'], $fields['products_options_values_name']);
+        $value =& $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
         $value->isFree_ = ('1' == $fields['product_attribute_is_free']);

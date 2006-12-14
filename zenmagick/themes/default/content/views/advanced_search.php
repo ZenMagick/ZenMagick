@@ -24,14 +24,33 @@
  */
 ?>
 
-<?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', null, "get", "return validate(this);") ?>
+<?php
+    $validator = new ZMValidator();
+    $validator->addRuleSet(new ZMRuleSet('advanced_search', array(
+        new ZMRequiredRule('keyword', 'Search cannot be empty.')
+    )));
+    $validator->toJSString('advanced_search');
+?>
+<?php include_once $zm_theme->themeFile("validation.js"); ?>
+
+<?php define(KEYWORD_DEFAULT, zm_l10n_get("enter search")); ?>
+
+<script type="text/javascript">
+  function fixasvalues(form) {
+    if (form.askeyword.value == '<?php echo KEYWORD_DEFAULT ?>') form.askeyword.value = '';
+    if (form.dfrom.value == '<?php echo UI_DATE_FORMAT ?>') form.dfrom.value = '';
+    if (form.dto.value == '<?php echo UI_DATE_FORMAT ?>') form.dto.value = '';
+  }
+</script>
+
+<?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', 'advanced_search', "get", "fixasvalues(this); return validate(this);") ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">
             <a href="javascript:popupWindow('<?php zm_href(FILENAME_POPUP_SEARCH_HELP, false) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
         <div>
-            <?php $onfocus = "if(this.value=='" . zm_l10n_get("enter search") . "') this.value='';" ?>
-            <input type="text" id="askeyword" name="keyword" value="<?php echo $zm_search->getKeyword(zm_l10n_get("enter search")) ?>" onfocus="<?php echo $onfocus ?>" />
+            <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
+            <input type="text" id="askeyword" name="keyword" value="<?php echo $zm_search->getKeyword(KEYWORD_DEFAULT) ?>" onfocus="<?php echo $onfocus ?>" />
             <?php $checked = $zm_search->getIncludeDescription() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="search_in_description" name="search_in_description" value="1" <?php echo $checked?>/>
             <label class="checkboxLabel" for="search_in_description"><?php zm_l10n("Search in product descriptions"); ?></label>

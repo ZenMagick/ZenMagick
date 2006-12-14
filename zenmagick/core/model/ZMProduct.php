@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMProduct {
+class ZMProduct extends ZMModel {
     var $id_;
     var $name_;
     var $description_;
@@ -67,6 +67,8 @@ class ZMProduct {
 
     // create new instance
     function ZMProduct($id, $name, $description) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->name_ = $name;
         $this->description_ = $description;
@@ -124,7 +126,7 @@ class ZMProduct {
         // include hidden
         return $this->features_;
     }
-    function getImageInfo() { return new ZMImageInfo($this->image_); }
+    function getImageInfo() { return $this->create("ImageInfo", $this->image_); }
     function getAdditionalImages() { return _zm_get_additional_images($this->image_); }
 
     function isAttributePrice() { return zm_has_product_attributes_values($this->id_); }
