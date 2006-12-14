@@ -122,12 +122,11 @@
                 case 'account_history':
                     $path .= "account/history/";
                     break;
-                case 'address_book':
                 case 'account_history_info':
                     $path .= "account/history/order/".$query['order_id'];
                     break;
                 case 'address_book':
-                    $path .= "addressbook/".$query['order_id'];
+                    $path .= "addressbook/";
                     break;
                 case 'product_reviews':
                     $path .= "reviews/".$query['products_id'];
