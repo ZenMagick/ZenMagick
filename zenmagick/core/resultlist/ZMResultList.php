@@ -133,14 +133,11 @@ class ZMResultList {
     function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
     function getSorters() { return $this->sorters_; }
     function hasFilters() {
-        $has = false;
         foreach ($this->filters_ as $filter) {
             if ($filter->isAvailable()) {
-                $has = true;
-                break;
+                return true;
             }
         }
-        return $has && 1 < count($this->results_);
     }
     function getFilters() { return $this->filters_; }
 

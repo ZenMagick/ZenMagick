@@ -147,6 +147,16 @@ class ZMController extends ZMObject {
         $this->globals_[$name] =& $instance;
     }
 
+    /**
+     * Returns the named global.
+     *
+     * @param string name The object name.
+     * @param mixed instance An object instance or <code>null</code>.
+     */
+    function getGlobal($name) {
+        return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
+    }
+
 }
 
 ?>

@@ -59,8 +59,8 @@
                         <?php } ?>
                     <?php } ?>
                 </select>
-                <input type="submit" class="btn" value="<?php zm_l10n("Sort / Reverse") ?>" />
             </div>
         <?php } ?>
+        <input type="submit" class="btn" value="<?php zm_l10n("Sort / Reverse / Filter") ?>" />
     </form>
 <?php } ?>

@@ -25,7 +25,7 @@
 ?>
 <?php
 
-if (!function_exists("zm_get_zen_include_dir")) {
+if (!class_exists("ZMObject")) {
 
     /**
      * ZenMagick base class.
@@ -39,6 +39,7 @@ if (!function_exists("zm_get_zen_include_dir")) {
         // create new instance
         function ZMObject() {
         global $zm_loader;
+
             $this->loader_ =& $zm_loader;
         }
 
@@ -65,14 +66,6 @@ if (!function_exists("zm_get_zen_include_dir")) {
         }
     }
 
-    /**
-     * Get the (full file system) <code>zen-cart</code> include directory.
-     *
-     * @package net.radebatz.zenmagick
-     * @return string <code>zen-cart</code> include directory.
-     */
-    function zm_get_zen_include_dir() { return dirname(dirname(dirname(__FILE__))); }
-
 
     /**
      * Simple <em>ZenMagick</em> logging function.
@@ -93,6 +86,7 @@ if (!function_exists("zm_get_zen_include_dir")) {
      */
     function zm_setting($name) {
     global $_ZM_SETTINGS;
+
         if (!array_key_exists($name, $_ZM_SETTINGS)) {
             zm_log("can't find setting: '".$name."'");
             if (zm_setting('isDieOnError')) die("can't find setting: '".$name."'");
@@ -100,15 +94,6 @@ if (!function_exists("zm_get_zen_include_dir")) {
         }
         return $_ZM_SETTINGS[$name];
     }
-
-
-    /**
-     * Return the request method for the current server request.
-     *
-     * @package net.radebatz.zenmagick
-     * @return string The request method for the current server request.
-     */
-    function zm_get_request_method() { return $_SERVER['REQUEST_METHOD']; }
 
 
     /**

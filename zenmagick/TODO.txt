@@ -1,4 +1,6 @@
-zen-cart:
+missing zen-cart stuff
+======================
+
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
 - category filter (get default category)
@@ -10,96 +12,86 @@ zen-cart:
 - shipping calculator
 
 
-usablility:
+
+usablility / quality / performance / etc
+========================================
+
+bugs:
 - fix default theme IE bugs; test in IE7
+- popup content should be in define/ez pages or such...
+- load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
+  (not really a bug, but proper prefix detection to avoid errors)
+
+admin/install:
 - admin interface for ZM config values
-- more documentation
 - generic interface to manage theme settings
-- sefu/seo support
+- features: error handling, form validation
+- language support for ZenMagick admin area
+- error message if file permissions missing
+- proper installation routine
+- fallback menu if no permissions
+- implement merge option for language mapping tool
+- framework?
+
+structure:
 - store settings somewhere?
 - have separate wrapper around store settings (eg. name, etc)
 - zmboxconfig; admin/theme support? get it working at all
-- zm_form: convert action query params to hidden fields
-- more validations plus separate validation rules from views/templates; this could be a big file containing all validations that gets included once (or include_once per form); each form imports JS and creates rules as required
+- restructure to have zenmagick outside htdocs?
+- reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
+- create empty c'tors for all model classes and use loader in dao; them exclude from loading
+- use reflection to populate model classes from request?
+- proper class hierachy - dao, model, business (mostly there, me thinks - business is perhaps only required
+  if doing updates, etc)
+- APIs for other apps; for example WordPress, etc...
+- modules base class?
+
+general:
+- more validations plus separate validation rules from views/templates; 
+  this could be a big file containing all validations that gets included once 
+  (or include_once per form); each form imports JS and creates rules as required
 - new lighter theme for zm? rounded corners of sideboxes?
 - misc package? leave only bootstrap in core?
-- popup content should be in define/ez pages or such...
+- Proper use of references (ie usage of ampersand (&amp;) when passing objects around) (mostly done, I think)
+- compare for null needs ===
+- test all class changes in PHP5
+- get a logo and favicon
+- add code that if required fails, other rules are skipped - add property 
+  to tell validator that - ah need the JS as well!!!
 
 db:
 - config values, sidebox config
+- random query in ZMProducts = more generic db interface ? how to integrate with zen-cart?
+- get proper random query (mostly products)
+- recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
+- new max results handling (in particular products) - urgent! (this is done, right?)
+- use 3rd party API for db access??
+- not sure about the specials SQL...
 
-code quality:
+(class) loading:
 - improve ZMClassLoader to resolve dependencies
 - improve class loader to load only actually required files; what about functions?
-- Proper use of references (ie usage of ampersand (&amp;) when passing objects around)
-- restructure to have zenmagick outside htdocs
-- admin:features: error handling, form validation
-- more phpdoc
-- random query in ZMProducts
-- optional fallback of category navigation as with current zen-cart
 - remove theme controller path from loader
-- replicate useful init stuff from zen-cart
-- get proper random query (mostly products)
-- compare for null needs ===
-- reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
-- rework default theme result list handling
-- get rid of ZenMagick db package
-- random select!!
-- new max results handling (in particular products) - urgent!
-- use 3rd party API for db access
-- language support for ZenMagick admin area
-- error message if file permissions missing
-- fallback menu if no permissions
-- proper installation routine
-- rename zmcontroller zmbasecontroller?
-- uniform class prefix for base classes? zmbasefilter, zbbasesort(er)
 - conditional class loading - we do not need everything all the time?
   * use loader to get instances - it can load on demand
   * how do we know what to load?
   * lowercase is code - always
   * currently controller are all loaded
-  * do not need model -> dao's can use loader
-  * we do need core & dao, everything else could be loader?
+  * do not need model - dao's can use loader
+  * we do need core + dao, everything else could be loader?
   * var-args for zm_get_instance?
   * theme code must use loader ?
-- load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
-- not sure about the specials SQL...
-- create empty c'tors for all model classes and use loader in dao; them exclude from loading
-- use reflection to populate model classes from request?
-- more sophisticated controller matching ti request URLs (mainly main_page)
-- test all class changes in PHP5
-
-proper class hierachy
-=> dao, model, business
+- more sophisticated controller matching to request URLs (mainly main_page)
 
 
-new features:
-- custom filter per theme?
-- APIs for other apps; for example WordPress, etc...
-- get a logo and favicon
-- controller to configure sort options based on theme settings; this 
-- add code that if required fails, other rules are skipped - add property 
-  to tell validator that - ah need the JS as well!!!
 
+documentation
+=============
 
-docs:
+- more documentation
+- more phpdoc
 - sorting, filtering
 - add version to apidocs (somehow)
 - install instructions: until 1.0 remove core directory before upgrade
-- disable 'skip single product categories' -> otherwise the view can't be resolved properly...
-
-
-admin:
-- implement merge option for language mapping tool
-
-
-ZenMagick admin:
-- framework
-- different structure
-- nicer
-- extendable
-- modify
-- modules
-- MVC
-- include install
-- cleanup obsolete files?
+- disable 'skip single product categories' - otherwise the view can't be resolved properly...
+- basic CSS id/class system in default theme

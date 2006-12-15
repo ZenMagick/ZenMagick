@@ -19,45 +19,51 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * $Id$
  */
 ?>
 <?php
 
 
 /**
- * A record company.
+ * Custom index controller.
  *
- * @author mano
- * @package net.radebatz.zenmagick.model
- * @version $Id$
+ * <p>Shows how extra filter can be implemented and attached to result lists.</p>
  */
-class ZMRecordCompany {
-    var $id_;
-    var $name_;
-    var $url_;
-
+class IndexController extends ZMIndexController {
 
     // create new instance
-    function ZMRecordCompany() {
-        $this->id_ = 0;
-        $this->name_ = '';
-        $this->url_ = null;
+    function IndexController() {
+        parent::__construct();
     }
 
     // create new instance
     function __construct() {
-        $this->ZMRecordCompany();
+        $this->IndexController();
     }
 
     function __destruct() {
     }
 
 
-    // getter/setter
-    function getId() { return $this->id_; }
-    function getName() { return $this->name_; }
-    function hasUrl() { return !zm_is_empty($this->url_); }
-    function getUrl() { return $this->url_; }
+    /** API implementation */
+
+    // process a GET request
+    function processGet() {
+        // normal processing
+        $view = parent::processGet();
+
+        $resultList =& $this->getGlobal("zm_resultList");
+        if (null != $resultList) {
+            // set refresh flag to true
+            $resultList->addFilter(new AlphaFilter(), true);
+            // update global
+            $this->exportGlobal("zm_resultList", $resultList);
+        }
+
+        return $view;
+    }
 
 }
 

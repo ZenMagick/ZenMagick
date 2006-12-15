@@ -128,6 +128,9 @@
                 case 'address_book':
                     $path .= "addressbook/";
                     break;
+                case 'address_book_process':
+                    $path .= "addressbook/process/";
+                    break;
                 case 'product_reviews':
                     $path .= "reviews/".$query['products_id'];
                     break;

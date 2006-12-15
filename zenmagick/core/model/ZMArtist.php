@@ -28,6 +28,7 @@
  * An artist.
  *
  * @author mano
+ * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
 class ZMArtist {
