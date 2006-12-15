@@ -304,7 +304,7 @@
      * Create a HTML <code>&lt;a&gt;</code> tag with a small product image for the given product.
      *
      * <p>In constrast to the <code>..._href</code> functions, this one will
-     * return a full HTML <code>&lt;a&gt;</code> tag.</p>
+     * return a full HTML <code>&lt;img&gt;</code> tag.</p>
      *
      * @package net.radebatz.zenmagick.html
      * @param ZMProduct product A product.
@@ -527,7 +527,7 @@
 
 
     /**
-     * Create a full HTML &gt;a&lt; tag.
+     * Create a full HTML &lt;a&gt; tag.
      *
      * @package net.radebatz.zenmagick.html
      * @param integer id The EZ page id.

@@ -28,6 +28,7 @@
  * Optional music stuff.
  *
  * @author mano
+ * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
 class ZMMusic extends ZMDao {
