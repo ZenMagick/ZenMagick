@@ -56,7 +56,7 @@ if (!class_exists("ZMObject")) {
          * Shortcut to create new class instance.
          *
          * @param string name The class name.
-         * @param var_args A variable number of arguments that will be used as arguments for
+         * @param var args A variable number of arguments that will be used as arguments for
          * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
          */
         function create($name) {

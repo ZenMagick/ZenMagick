@@ -30,7 +30,7 @@
      *
      * <p>Converts the values in the given array into a komma separated list.</p>
      *
-     * @package net.radebatz.zenmagick.db
+     * @package net.radebatz.zenmagick.dao
      * @param string sql The sql to work on.
      * @param string bindName The name to bind the list to.
      * @param string type The value type.

@@ -42,6 +42,7 @@
      */
     function zm_build_category_tree_list($categories, $activeParent=false, $root=true) {
     global $zm_products;
+
         $html = '';
         $html .= '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {

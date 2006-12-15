@@ -30,7 +30,7 @@
      *
      * @package net.radebatz.zenmagick
      * @param string text The text.
-     * @param var_args A variable number of arguments that will be used as arguments for
+     * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      */
@@ -46,7 +46,7 @@
      *
      * @package net.radebatz.zenmagick
      * @param string text The text.
-     * @param var_args A variable number of arguments that will be used as arguments for
+     * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      */
@@ -63,7 +63,7 @@
      * @package net.radebatz.zenmagick
      * @param string text The text.
      * @param string default A default text in case there is no localized version of the given text.
-     * @param var_args A variable number of arguments that will be used as arguments for
+     * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      */

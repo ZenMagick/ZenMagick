@@ -36,6 +36,7 @@
      */
     function zm_format_address($address, $html=true, $echo=true) {
     global $zm_countries, $zm_addresses;
+
         $company = $address->getCompanyName();
         if (!zm_is_empty($address->getFirstName())) {
             $firstname = $address->getFirstName();
