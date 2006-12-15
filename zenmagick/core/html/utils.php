@@ -212,6 +212,9 @@
                 case 'gv_send':
                     $path .= "account/giftcard/send/";
                     break;
+                case 'gv_faq':
+                    $path .= "account/giftcard/faq/";
+                    break;
                 case 'time_out':
                     $path .= "timeout/";
                     break;
