@@ -32,10 +32,12 @@
  * @version $Id$
  */
 class ZMRequest {
+    var $controller_;
 
     // create new instance
     function ZMRequest() {
         $this->_init_l10n_i18n();
+        $this->controller_ = null;
     }
 
     // create new instance
@@ -69,6 +71,8 @@ class ZMRequest {
     function getRequestParameter($name, $default=null) { 
         return isset($_GET[$name]) ? zm_stripslashes($_GET[$name]) : (isset($_POST[$name]) ? zm_stripslashes($_POST[$name]) : $default);
     }
+    function getController() { return $this->controller_; }
+    function setController(&$controller) { $this->controller_ =& $controller; }
 
     function getCategoryId() {
     global $zm_runtime;

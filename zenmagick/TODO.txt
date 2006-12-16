@@ -21,6 +21,7 @@ bugs:
 - popup content should be in define/ez pages or such...
 - load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
   (not really a bug, but proper prefix detection to avoid errors)
+- do not create sidebox dummies for filenames including '.in.'
 
 admin/install:
 - admin interface for ZM config values

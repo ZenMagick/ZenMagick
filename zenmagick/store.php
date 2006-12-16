@@ -32,9 +32,10 @@ $zm_theme = new ZMTheme();
     if (zm_setting('isEnableZenMagick')) {
 
         // get controller
-        $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $zm_controller =& $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
         if ($zm_controller->validateRequest()) {
+            $zm_request->setController($zm_controller);
 
             // load theme's extra resources
             foreach ($zm_theme->getExtraFiles() as $shared) {
