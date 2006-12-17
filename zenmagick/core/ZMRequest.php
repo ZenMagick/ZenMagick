@@ -132,11 +132,11 @@ class ZMRequest {
         if (array_key_exists($lang, $GLOBALS['zm_l10n_text']))
             return;
 
-        $path = $zm_runtime->getThemeLangPath().$lang;
+        $path = $zm_runtime->getThemeLangPath().$lang."/";
         $includes = zm_find_includes($path);
         if (0 < count($includes)) {
             foreach ($includes as $include) {
-                include $include;
+                require_once($include);
             }
         }
 

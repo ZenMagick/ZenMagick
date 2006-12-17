@@ -29,13 +29,13 @@
     ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_bin = dirname(__FILE__)."/core";
-    require($_zm_bin."/bootstrap.php");
+    $_zm_bin = dirname(__FILE__)."/core/";
+    require_once($_zm_bin."bootstrap.php");
     $includes = zm_find_includes($_zm_bin, true);
     foreach ($includes as $include) {
         // exclude some stuff that gets loaded by the loader
         if (false === strpos($include, '/controller/') && false === strpos($include, '/model/')) {
-            include($include);
+            require_once($include);
         }
     }
     // set up main class instances (aka the ZenMagick API)
@@ -71,9 +71,9 @@
     // local settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
-        include $_zm_local;
+        include_once($_zm_local);
     }
 
-    require('zc_fixes.php');
+    require_once('zc_fixes.php');
 
 ?>

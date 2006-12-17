@@ -151,7 +151,7 @@ if (!class_exists("ZMObject")) {
             if ("." == $file || ".." == $file)
                 continue;
 
-            $file = $dir."/".$file;
+            $file = $dir.$file;
             if (is_dir($file)) {
                 array_push($dirs, $file);
             } else if (zm_ends_with($file, ".php")) {
@@ -163,7 +163,7 @@ if (!class_exists("ZMObject")) {
         // process last
         if ($recursive) {
             foreach ($dirs as $dir) {
-                $includes = array_merge($includes, zm_find_includes($dir, $recursive));
+                $includes = array_merge($includes, zm_find_includes($dir."/", $recursive));
             }
         }
 

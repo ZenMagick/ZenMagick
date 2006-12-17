@@ -96,14 +96,15 @@ echo "</pre>";
             }
         }
 
-        if (null != $zmclassfile) {
+        zm_log("newInstance: name: " . $name .  ", zmname: " . $zmname, 4);
+
+        // require_once doesn't seem to work properly in some cases...
+        if (null != $zmclassfile && !class_exists($zmname)) {
             require_once($zmclassfile);
         }
-        if (null != $classfile) {
+        if (null != $classfile && !class_exists($name)) {
             require_once($classfile);
         }
-
-        zm_log("newInstance: name: " . $name .  ", zmname: " . $zmname, 4);
 
         if (null == $classfile && null == $zmclassfile)
             return null;
