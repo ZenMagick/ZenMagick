@@ -45,7 +45,7 @@ class ZMLanguage {
 
     // create new instance
     function __construct() {
-        $this->ZMCurrency();
+        $this->ZMLanguage();
     }
 
     function __destruct() {
