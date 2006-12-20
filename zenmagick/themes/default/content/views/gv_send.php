@@ -39,7 +39,7 @@
         <textarea id="message" cols="50" rows="8"><?php echo $zm_gvreceiver->getMessage() ?></textarea><br />
         <p class="man"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?zm_l10n("Send Gift Certificate") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>
 </form>
 
 <p class="rclear">

@@ -58,7 +58,7 @@ class ZMView extends ZMObject {
      *
      * @param controller ZMController The corresponding controller.
      */
-    function setController($controller) { $this->controller_ =& $controller; }
+    function setController(&$controller) { $this->controller_ =& $controller; }
 
     /**
      * Get the controller for this view.

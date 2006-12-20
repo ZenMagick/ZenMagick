@@ -46,7 +46,7 @@
     $_ZM_SETTINGS['isJSTarget'] = true;
 
     // ZM pretty URLs
-    $_ZM_SETTINGS['isZMPrettyLinks'] = true;
+    $_ZM_SETTINGS['isZMPrettyLinks'] = false;
     // default to default in ZM themes
     $_ZM_SETTINGS['isEnableThemeDefaults'] = true;
 

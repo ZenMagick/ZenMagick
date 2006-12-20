@@ -25,27 +25,22 @@
 ?>
 <?php
 
-//TODO
+// TODO: theme stuff
 $zm_theme = new ZMTheme();
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
 
         // get controller
-        $zm_controller =& $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
+        $zm_request->setController($zm_controller);
         if ($zm_controller->validateRequest()) {
-            $zm_request->setController($zm_controller);
-
-            // load theme's extra resources
-            foreach ($zm_theme->getExtraFiles() as $shared) {
-                require_once($shared);
-            }
+            // TODO: theme stuff
             $zm_themeInfo = $zm_theme->getThemeInfo();
-            if ($zm_themeInfo->isExtendExtras() && $zm_runtime->getThemeId() != 'default') {
-                foreach (zm_find_includes($zm_runtime->getThemeBasePath()."default/" . ZM_THEME_EXTRA, true) as $extras) {
-                    require_once($extras);
-                }
+            // need to do this in global namespace
+            foreach ($themeLoader->getStatic() as $static) {
+                require_once($static);
             }
 
             // execute controller

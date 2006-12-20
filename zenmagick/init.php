@@ -25,25 +25,48 @@
 ?>
 <?php
 
-    error_reporting(E_ALL ^ E_NOTICE);
-    ini_set("register_globals", 0);
+    error_reporting(E_ALL^E_NOTICE);
+    @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_bin = dirname(__FILE__)."/core/";
-    require_once($_zm_bin."bootstrap.php");
-    $includes = zm_find_includes($_zm_bin, true);
+    $_zm_bin_dir = dirname(__FILE__)."/core/";
+    require_once($_zm_bin_dir."bootstrap.php");
+    require_once($_zm_bin_dir."settings/settings.php");
+    require_once($_zm_bin_dir."settings/zenmagick.php");
+    require_once($_zm_bin_dir."ZMLoader.php");
+
+    // configure core loader
+    $coreLoader =& new ZMLoader('coreLoader');
+    $coreLoader->addPath($_zm_bin_dir);
+    // need to do this in global namespace
+    foreach ($coreLoader->getStatic() as $static) {
+        require_once($static);
+    }
+
+    // use loader for all class loading from here?
+    $zm_runtime = $coreLoader->create("ZMRuntime");
+
+    // configure theme loader
+    $themeLoader =& new ZMLoader("themeLoader");
+    // TODO: theme stuff
+    $themeLoader->addPath($zm_runtime->getThemePath()."/".ZM_THEME_EXTRA);
+
+    // use theme loader first
+    $coreLoader->setParent($themeLoader);
+
+    // here the loader should take over...
+    $includes = zm_find_includes($_zm_bin_dir, true);
     foreach ($includes as $include) {
         // exclude some stuff that gets loaded by the loader
-        if (false === strpos($include, '/controller/') && false === strpos($include, '/model/')) {
+        if (false === strpos($include, '/controller/') && false === strpos($include, '/model/') && false === strpos($include, '/settings/')) {
             require_once($include);
         }
     }
-    // set up main class instances (aka the ZenMagick API)
-    $zm_runtime = new ZMRuntime();
-    $zm_loader = new ZMClassLoader();
+    $zm_loader =& $coreLoader;
     $zm_request = new ZMRequest();
-    $zm_layout = new ZMLayout();
 
+    // set up main class instances (aka the ZenMagick API)
+    $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
     $zm_reviews = new ZMReviews();
     $zm_categories = new ZMCategories($cPath_array);
@@ -71,9 +94,9 @@
     // local settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
-        include_once($_zm_local);
+        include $_zm_local;
     }
 
-    require_once('zc_fixes.php');
+    require('zc_fixes.php');
 
 ?>

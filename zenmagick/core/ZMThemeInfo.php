@@ -47,7 +47,6 @@ class ZMThemeInfo {
         $this->js_events_ = array();
         $this->setDefaultLayout('default_layout');
         $this->setViewDir("views/");
-        $this->setExtendExtras(true);
         $this->setErrorPage('error');
     }
 
@@ -71,8 +70,6 @@ class ZMThemeInfo {
     function setDescription($text) { $this->info_['description'] = $text; }
     function getPath() { return $this->info_['path']; }
     function setPath($text) { $this->info_['path'] = $text; }
-    function isExtendExtras() { return $this->info_['extras']; }
-    function setExtendExtras($bool) { $this->info_['extras'] = $bool; }
 
     function getErrorPage() { return $this->config_['errorpage']; }
     function setErrorPage($name) { $this->config_['errorpage'] = $name; }

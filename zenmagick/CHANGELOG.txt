@@ -4,7 +4,7 @@ Release 0.6.0:
 - Added media manager and music related classes
 - Refactored result list handling to includes rather than functions
 - added getFullName() to ZMAccount
-- pretty links support using .htaccess files and URL rewriting
+- pretty links support using .htaccess files and URL rewriting (disabled)
 - new function zm_media_href(...)
 - new ZMDateRule validation rule (untested)
 - new demo theme; this will contain sample code/customizations

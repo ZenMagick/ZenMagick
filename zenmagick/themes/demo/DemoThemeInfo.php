@@ -37,6 +37,9 @@ class DemoThemeInfo extends ZMThemeInfo {
         $this->setVersion('0.1');
         $this->setAuthor('ZenMagick 2006');
         $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
+
+        $this->setLayout('popup_cvv_help', 'popup_layout');
+        $this->setLayout('popup_search_help', 'popup_layout');
     }
 
     // create new instance

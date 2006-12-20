@@ -52,7 +52,7 @@ class IndexController extends ZMIndexController {
     // process a GET request
     function processGet() {
         // normal processing
-        $view = parent::processGet();
+        $view =& parent::processGet();
 
         $resultList =& $this->getGlobal("zm_resultList");
         if (null != $resultList) {
