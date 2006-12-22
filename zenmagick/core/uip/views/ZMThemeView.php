@@ -74,14 +74,28 @@ class ZMThemeView extends ZMView {
     /**
      * Returns the full view filename to be includes by a template.
      *
-     * @return string subdir Optional subdirectory name within the views directory.
+     * @param string subdir Optional subdirectory name within the views directory.
+     * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
+     *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
      * @return string The view filename.
      */
-    function getViewFilename($subdir=null) {
+    function getViewFilename($subdir=null, $prefixToDir=true) {
     global $zm_theme;
 
         $themeInfo = $zm_theme->getThemeInfo();
-        return $zm_theme->themeFile($themeInfo->getViewDir().(null!=$subdir?($subdir.'/'):'').$this->page_.'.php');
+        $filename = $themeInfo->getViewDir();
+        if (null != $subdir) {
+            $filename .= $subdir.'/';
+            if ($prefixToDir) {
+                $filename .= substr($this->page_, strlen($subdir)+1);
+            } else {
+                $filename .= $this->page_;
+            }
+        } else {
+            $filename .= $this->page_;
+        }
+        $filename .= '.php';
+        return $filename;
     }
 
 

@@ -51,8 +51,8 @@
                     </thead>
                     <tbody>
                     <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
-                        <tr><td colspan="3"><strong><?php echo $provider->getName() ?></strong></td></tr>
-                        <?php foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
+                        <tr><td colspan="3"><strong><?php echo $provider->getName() ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
+                        <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
                             <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || (zm_shipping_id($method, false) == $zm_cart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php echo $method->getName() ?></td>

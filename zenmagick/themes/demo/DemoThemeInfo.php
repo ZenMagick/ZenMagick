@@ -40,6 +40,7 @@ class DemoThemeInfo extends ZMThemeInfo {
 
         $this->setLayout('popup_cvv_help', 'popup_layout');
         $this->setLayout('popup_search_help', 'popup_layout');
+        $this->setLayout('popup_shipping_estimator', 'popup_layout');
     }
 
     // create new instance

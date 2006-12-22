@@ -50,6 +50,7 @@ class DefaultThemeInfo extends ZMThemeInfo {
         // popups use their own simple page layout
         $this->setLayout('popup_cvv_help', 'popup_layout');
         $this->setLayout('popup_search_help', 'popup_layout');
+        $this->setLayout('popup_shipping_estimator', 'popup_layout');
 
         // set default JS event handler; i.e. for ALL pages
         //$this->setDefaultPageEventHandler('onload', "inject_category_code();");

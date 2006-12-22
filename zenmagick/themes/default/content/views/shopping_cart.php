@@ -65,4 +65,8 @@
         <input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" />
         <a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("Checkout") ?></a>
     </div>
+    <div>
+        <a class="btn" href="<?php zm_secure_href(FILENAME_POPUP_SHIPPING_ESTIMATOR); ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+    </div>
+
 </form>

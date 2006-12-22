@@ -96,3 +96,76 @@ documentation
 - install instructions: until 1.0 remove core directory before upgrade
 - disable 'skip single product categories' - otherwise the view can't be resolved properly...
 - basic CSS id/class system in default theme
+
+
+stuff
+=====
+
+
+- Options Followsymlinks ??
+- iheritence problem with custom code when base classes are not yet loaded!
+- is this where we need convention that upper case is class and needs to be created using loader???
+- demo defautl controller:
+        // normal processing
+        $view =& parent::processGet();
+return $view!!
+- for optional overwrites we need to load code before app-top!
+- zm_create() as shortcut for $zm_loader->create()...
+
+- view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
+
+- remove inherit from default template extra code as there isn't! also to complicated....
+bad enough with theme handling...
+themeconfig extend each other as well!!
+
+RewriteBase takes only one param!!!!!!!!!!!!!!!!!!!!!!!!
+
+- val rules:min -> minlength, also maxlength, range
+
+- loading reloaded:
+=> class loader rename loader - loads classes **and** code
+=> mk independant from any globals,
+=> bootstrap should be bootstrap, loader and the the loader does the rest...
+=> loader hirachy to reflect theme code? parent first, etc...
+
+themes:
+* themeconfig:
+  - theme specific config
+
+* theme
+   theme code plus ref to theme config
+   => getThemeConfig()
+   => all the stuff views/templates are doing right now
+
+* runtime
+  - knows the configured theme,
+     => getThemeId
+     => getTHeme
+     ** the rest is job of theme!!
+
+
+- reorganize admin_init
+- put some usefult stuff into local.in.php
+- ZMaddress: populate with default store country:         $this->country_ = $zm_countries->getCountryForId($zm_request->getRequestParameter('country', zm_setting('storeCountry')));
+- replace all require, etc with zm_resolve_zc_class()
+- shipping calculator
+- module framework?
+=> implement DPS as showcase
+=> ZMModule => ZMpaymentModule, ZMShippingModule, ZMOrderTotalModule
+=> shared attr. like enabled/disabled, zone for shipping modules, etc + getter setter for order, etc...
+=> could be distributed as extra functions/classes to work with zc
+- http://faq.1and1.com/scripting_languages_supported/configuring_apache_server_using_htaccess/4.html
+- real SEO: wrapper class that converts:
+-> a given href to something useful: ie/category names rather than numbers...
+-> does the reverse without to much overhead...
+
+
+- shipping display: check error -> still displaying as option if error!
+                    <tr><td colspan="3"><strong><?php echo $provider->getName() ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
+                        <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
+do not display at all??
+- references & in shipping / cart where zc stuff gets passed around?
+- l10n for module messages...
+- use zm_format_address(..) everywhere?
+- get rid of popup prefix (filename)
+
