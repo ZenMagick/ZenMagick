@@ -146,7 +146,7 @@
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $country ? $country->getId() : null) ?></td>
+                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $country->getId() != 0 ? $country->getId() : zm_setting('storeCountry')) ?></td>
                 </tr>
 
                 <tr>

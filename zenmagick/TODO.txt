@@ -160,12 +160,7 @@ themes:
 -> does the reverse without to much overhead...
 
 
-- shipping display: check error -> still displaying as option if error!
-                    <tr><td colspan="3"><strong><?php echo $provider->getName() ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
-                        <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
-do not display at all??
 - references & in shipping / cart where zc stuff gets passed around?
 - l10n for module messages...
 - use zm_format_address(..) everywhere?
-- get rid of popup prefix (filename)
-
+-ajax ? everyone is doing that these days...
