@@ -27,6 +27,7 @@
 
     // needs to be instantiated after application_top.php
     $zm_messages = new ZMMessages();
+    $zm_categories->setPath($cPath_array);
 
     // TODO: theme stuff
     $zm_theme = new ZMTheme();

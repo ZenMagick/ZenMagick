@@ -72,7 +72,28 @@ class ZMRuntime {
     function getApplicationRoot() { return DIR_WS_CATALOG; }
 
     function setThemeId($themeId) { $this->themeId_ = $themeId; }
-    function getRawThemeId() { return (null != $this->themeId_ ? $this->themeId_ : basename(DIR_WS_TEMPLATE)); }
+    function getRawThemeId() {
+        $themeId = $this->themeId_;
+        //TODO: themes
+        if (null == $themeId) {
+            $db = $this->getDB();
+            $template_dir = "";
+            $sql = "select template_dir
+                    from " . TABLE_TEMPLATE_SELECT . "
+                    where template_language = 0";
+            $template_query = $db->Execute($sql);
+            $themeId = $template_query->fields['template_dir'];
+
+            $sql = "select template_dir
+                    from " . TABLE_TEMPLATE_SELECT . "
+                    where template_language = '" . $_SESSION['languages_id'] . "'";
+            $template_query = $db->Execute($sql);
+            if ($template_query->RecordCount() > 0) {
+                $themeId = $template_query->fields['template_dir'];
+            }
+        }
+        return $themeId;
+    }
 
     // get the (valid) theme id
     function getThemeId() {

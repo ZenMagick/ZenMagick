@@ -72,6 +72,13 @@ class ZMCategories extends ZMDao {
     }
 
 
+    /**
+     * Set the active path.
+     *
+     * @param array path The current path array.
+     */
+    function setPath($path) { $this->path_ = $path; }
+
     // return the current category or null
     function getActiveCategory() {
         return null != $this->path_ && 0 < count($this->path_) ?

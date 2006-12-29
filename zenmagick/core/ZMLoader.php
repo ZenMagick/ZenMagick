@@ -85,6 +85,22 @@ class ZMLoader {
 
 
     /**
+     * Get the class path.
+     *
+     * <p>This will return the full class path incl. all parent loader.</p>
+     *
+     * @return array Class path array.
+     */
+    function getClassPath() {
+        $classPath = array_merge($this->path_);
+        if (null != $this->parent_) {
+            $classPath = array_merge($this->parent_->getClassPath(), $classPath);
+        }
+
+        return $classPath;
+    }
+
+    /**
      * Add a given path to the loaders path.
      *
      * @param string path The path to add.

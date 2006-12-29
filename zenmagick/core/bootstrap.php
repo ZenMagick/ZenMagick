@@ -283,7 +283,8 @@ if (!class_exists("ZMObject")) {
             if (zm_starts_with($name, "zm_")) {
                 if (is_object($instance)) {
                     // get proper class name...
-                    echo "<li>$" . $name. " :: " . $classes[get_class($instance)] . "</li>";
+                    $clazz = strtolower(get_class($instance));
+                    echo "<li>$" . $name. " :: " . (array_key_exists($clazz, $classes) ? $classes[$clazz] : get_class($instance)) . "</li>";
                 }
             }
         }

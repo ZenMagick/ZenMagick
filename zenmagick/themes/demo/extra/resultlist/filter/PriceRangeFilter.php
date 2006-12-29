@@ -40,11 +40,13 @@ class PriceRangeFilter extends ZMResultListFilter {
         parent::__construct('prfilter', zm_l10n_get('Price Range'));
 
         $this->ranges_ = array();
-        // values are in the form of from-to
-        foreach ($this->filterValues_ as $value) {
-            $range = explode('-', $value);
-            if (!zm_is_empty($value)) {
-                $this->ranges_[$value] = $range;
+        if (!zm_is_empty($this->filterValues_) && is_array($this->filterValues_)) {
+            // values are in the form of from-to
+            foreach ($this->filterValues_ as $value) {
+                $range = explode('-', $value);
+                if (!zm_is_empty($value)) {
+                    $this->ranges_[$value] = $range;
+                }
             }
         }
     }
@@ -92,7 +94,7 @@ class PriceRangeFilter extends ZMResultListFilter {
             $highest = $highest >= $price ? $highest : $price;
         }
 
-        echo $lowest . " - " . $highest;
+        //echo $lowest . " - " . $highest;
 
         // get about 8 ranges
         $diff = ($highest-$lowest) / 8;

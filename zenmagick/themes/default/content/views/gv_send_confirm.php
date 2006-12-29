@@ -55,11 +55,11 @@
         <p class="note"><?php zm_l10n("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="<?zm_l10n("Send Gift Certificate") ?>" /></div>
-    <div><input type="submit" class="btn" name="edit" value="<?zm_l10n("Edit") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>
+    <div><input type="submit" class="btn" name="edit" value="<?php zm_l10n("Edit") ?>" /></div>
 </form>
 
 <p>
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo zm_setting('emailAdvisory') ?>
+    <?php echo str_replace('-', '', EMAIL_ADVISORY) ?>
 </p>

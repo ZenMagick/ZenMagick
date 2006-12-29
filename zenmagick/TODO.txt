@@ -22,6 +22,8 @@ bugs:
   (not really a bug, but proper prefix detection to avoid errors)
 - do not create sidebox dummies for filenames including '.in.'
 - file [permissions for created files???
+- long text like EMAIL_ADVISORY, popup contents needs to be put somewhere...
+- rely less on zen-cart defines as they might not be available during init...
 
 admin/install:
 - admin interface for ZM config values
