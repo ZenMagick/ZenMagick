@@ -47,7 +47,11 @@ class ZMShoppingCartController extends ZMController {
         $this->ZMShoppingCartController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

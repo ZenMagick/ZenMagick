@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMOrderItem {
+class ZMOrderItem extends ZMModel {
     var $id_;
     var $qty_;
     var $name_;
@@ -45,6 +45,8 @@ class ZMOrderItem {
      * Default c'tor.
      */
     function ZMOrderItem() {
+        parent::__construct();
+
         $this->attributes_ = array();
     }
 
@@ -53,7 +55,11 @@ class ZMOrderItem {
         $this->ZMOrderItem();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

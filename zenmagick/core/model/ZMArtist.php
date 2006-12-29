@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMArtist {
+class ZMArtist extends ZMModel {
     var $id_;
     var $name_;
     var $genre_;
@@ -57,6 +57,9 @@ class ZMArtist {
         $this->ZMArtist();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 

@@ -33,7 +33,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCategory {
+class ZMCategory extends ZMModel {
     var $id_;
     var $parent_;
     var $parentId_;
@@ -49,6 +49,8 @@ class ZMCategory {
      * Default c'tor.
      */
     function ZMCategory($id, $parentId, $name, $active = false) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->parent_ = null;
         $this->parentId_ = $parentId;
@@ -62,7 +64,11 @@ class ZMCategory {
         $this->ZMCategory($id, $parentId, $name, $active);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

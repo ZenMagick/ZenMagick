@@ -56,7 +56,11 @@ class ZMController extends ZMObject {
         $this->ZMController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

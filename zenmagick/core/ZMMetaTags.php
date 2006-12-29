@@ -70,7 +70,11 @@ class ZMMetaTags extends ZMObject {
         $this->ZMMetaTags($delimiter);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
     /**

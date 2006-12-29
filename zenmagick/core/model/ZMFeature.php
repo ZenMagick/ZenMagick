@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMFeature {
+class ZMFeature extends ZMModel {
     var $id_;
     var $type_;
     var $name_;
@@ -44,6 +44,8 @@ class ZMFeature {
      * Default c'tor.
      */
     function ZMFeature() {
+        parent::__construct();
+
         $this->id_ = 0;
 		    $this->values_ = array();
     }
@@ -53,7 +55,11 @@ class ZMFeature {
         $this->ZMFeature();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

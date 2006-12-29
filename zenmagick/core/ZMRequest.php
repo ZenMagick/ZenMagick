@@ -50,6 +50,9 @@ class ZMRequest {
         $this->ZMRequest();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 
@@ -249,6 +252,10 @@ class ZMRequest {
      */
     function _init_l10n_i18n() {
     global $zm_runtime;
+
+        if (!zm_setting('isEnableZenMagick'))
+            return;
+
         if (!isset($GLOBALS['zm_l10n_text'])) {
             $GLOBALS['zm_l10n_text'] = array();
         }

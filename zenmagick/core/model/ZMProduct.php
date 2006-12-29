@@ -86,7 +86,11 @@ class ZMProduct extends ZMModel {
         $this->ZMProduct($id, $name, $description);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

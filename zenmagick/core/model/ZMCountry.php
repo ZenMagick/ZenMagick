@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCountry {
+class ZMCountry extends ZMModel {
     var $id_;
     var $name_;
     var $isoCode2_;
@@ -43,6 +43,8 @@ class ZMCountry {
      * Default c'tor.
      */
     function ZMCountry() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->name_ = '';
         $this->isoCode2_ = '';
@@ -55,7 +57,11 @@ class ZMCountry {
         $this->ZMCountry();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -64,7 +64,11 @@ class ZMCategories extends ZMDao {
         $this->ZMCategories($path, $type);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

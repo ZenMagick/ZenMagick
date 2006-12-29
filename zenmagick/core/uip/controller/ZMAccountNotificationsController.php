@@ -47,7 +47,11 @@ class ZMAccountNotificationsController extends ZMController {
         $this->ZMAccountNotificationsController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

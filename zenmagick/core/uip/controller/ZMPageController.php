@@ -47,7 +47,11 @@ class ZMPageController extends ZMController {
         $this->ZMPageController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

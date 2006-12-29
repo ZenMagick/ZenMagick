@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMProductCouponRestriction {
+class ZMProductCouponRestriction extends ZMModel {
     var $allowed_;
     var $productId_;
 
@@ -43,6 +43,8 @@ class ZMProductCouponRestriction {
      * @param int productId The product id this restriction applies to.
      */
     function ZMProductCouponRestriction($allowed, $productId) {
+        parent::__construct();
+
 		    $this->allowed_ = $allowed;
 		    $this->productId_ = $productId;
     }
@@ -52,7 +54,11 @@ class ZMProductCouponRestriction {
         $this->ZMProductCouponRestriction($allowed, $productId);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

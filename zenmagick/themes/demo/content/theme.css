@@ -1,0 +1,85 @@
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006 ZenMagick
+ *
+ * Based on andreas08 by Andreas Viklund  -  http://andreasviklund.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * $Id$
+ */
+
+body {color:#303030;background:white;}
+a {color:black;}
+a:hover {color:black;}
+input.btn, a.btn {background-color:#655f68;color:white;}
+#content a.btn:hover {color:white;}
+p.man span {color:#f02025;}
+label span, .legend span {color:#f02025;}
+#content h3 {color:#d32814;}
+
+#content ul#messages .msg {background:#6f6;color:#000;}
+#content ul#messages .warn {background:#ff0;color:#000;}
+#content ul#messages .error {background:#e55;color:#fff;}
+
+#header {background-color:#7e7782;color:#4c474e;}
+#header h1 {color:#4c474e;}
+#header h1 a {color:#4c474e}
+#header h2 {color:#f0f2f4;font-weight:bold;}
+
+#menu {background:#323034;color:#fff;}
+#menu li a {color:#fff;font-weight:bold;}
+#menu a:hover {text-decoration:underline;background:#323034;color:white;}
+
+#crumbtrail {color:black;}
+#content h2 {color:#505050;}
+
+#footer {color:#fff;background:#323034;}
+#footer a {color:#f0f0f0;}
+#footer a:hover {color:#fff;}
+div#footer p#fpages {background:#7e7782;}
+
+/* side boxed */
+.box {background-color:#f2f2f3;color:#505050;}
+/* box header */
+#leftcol h3, #rightcol h3 {background-color:#cbc9cd;color:black;}
+#leftcol h3 a, #rightcol h3 a {color:#fff;}
+
+/* result lists */
+.rlist th {background-color:#f2f2f3;}
+.rlist tr.even td {background-color:#f2f2f3;}
+.rnav span.nin {color:#c0c0c0;}
+
+/* product info */
+legend {color:#d32814;}
+
+body#b_account_edit #content span {color:#f02025;}
+body#b_create_account #content span {color:#f02025;}
+body#b_shopping_cart tr.even td {background-color:#f2f2f3;}
+body#b_address_book_process #content span {color:#f02025;}
+#content #address span {color:#f02025;}
+
+table#smethods tr.smethod:hover td {color:white;background-color:#d32814;}
+body#b_checkout_payment p.paytype:hover {color:white;background-color:#d32814;}
+
+div#eztoc h4 {color:white;background:#578bb8;}
+div#eztoc p a {color:white;background:#467aa7;}
+
+#b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#d32814;background-color:#fff;}
+
+div.mcol {background-color:#f2f2f3;}
+
+/* popup stuff */
+span.example {background-color:#c0c0c0;color:#d32814;}

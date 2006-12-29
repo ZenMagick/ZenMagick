@@ -70,7 +70,11 @@ class ZMResultListSorter extends ZMObject {
         $this->ZMResultListSorter($id, $name);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

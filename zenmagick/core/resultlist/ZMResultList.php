@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.resultlist
  * @version $Id$
  */
-class ZMResultList {
+class ZMResultList extends ZMObject {
     var $results_;
     var $page_;
     var $pagination_;
@@ -48,6 +48,8 @@ class ZMResultList {
      */
     function ZMResultList($results, $pagination=10, $page=0) {
     global $zm_request;
+
+        parent::__construct();
 
         $this->results_ = $results;
         $this->filters_ = array();
@@ -69,7 +71,11 @@ class ZMResultList {
         $this->ZMResultList($results, $pagination, $page);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

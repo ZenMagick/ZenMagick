@@ -53,7 +53,11 @@ class ZMDao extends ZMObject {
         $this->ZMDao();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 }

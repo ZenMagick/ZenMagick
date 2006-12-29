@@ -47,7 +47,11 @@ class ZMProductComparisonController extends ZMController {
         $this->ZMProductComparisonController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

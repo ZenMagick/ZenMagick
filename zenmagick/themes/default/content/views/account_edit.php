@@ -71,7 +71,7 @@
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                    <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /><?php zm_l10n("&nbsp;(%s)", UI_DATE_FORMAT_SAMPLE) ?></td>
+                    <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>

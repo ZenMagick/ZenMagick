@@ -32,7 +32,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMSubscriptions {
+class ZMSubscriptions extends ZMModel {
     var $account_;
     var $newsletter_;
     var $productIds_;
@@ -46,6 +46,8 @@ class ZMSubscriptions {
      * @param array productIds List of subscribed product ids.
      */
     function ZMSubscriptions($account, $newsletter=null, $productIds=null) {
+        parent::__construct();
+
         $this->account_ = $account;
         $this->newsletter_ = $newsletter;
         $this->productIds_ = $productIds;
@@ -56,7 +58,11 @@ class ZMSubscriptions {
         $this->ZMSubscriptions($account, $newsletter, $productIds);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

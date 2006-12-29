@@ -47,7 +47,11 @@ class ZMEZPages extends ZMDao {
         $this->ZMEZPages();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

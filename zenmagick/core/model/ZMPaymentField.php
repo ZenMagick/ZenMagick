@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMPaymentField {
+class ZMPaymentField extends ZMModel {
     var $label_;
     var $html_;
 
@@ -43,6 +43,8 @@ class ZMPaymentField {
      * @param string html The (input) field HTML.
      */
     function ZMPaymentField($label, $html) {
+        parent::__construct();
+
         $this->label_ = $label;
         $this->html_ = $html;
     }
@@ -52,7 +54,11 @@ class ZMPaymentField {
         $this->ZMPaymentField($label, $html);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

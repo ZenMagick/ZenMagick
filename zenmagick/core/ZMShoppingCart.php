@@ -61,7 +61,11 @@ class ZMShoppingCart extends ZMObject {
         $this->ZMShoppingCart();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -35,18 +35,34 @@ class ZMRegexpRule extends ZMRule {
     var $regexp_;
 
 
-    // create new instance; msg is localized message
+    /**
+     * Create new regexp rule.
+     *
+     * @param string name The field name.
+     * @param string regexp The regular expression.
+     * @param string msg Optional message.
+     */
     function ZMRegexpRule($name, $regexp, $msg=null) {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->regexp_ = $regexp;
     }
 
-    // create new instance
+    /**
+     * Create new regexp rule.
+     *
+     * @param string name The field name.
+     * @param string regexp The regular expression.
+     * @param string msg Optional message.
+     */
     function __construct($name, $regexp, $msg=null) {
         $this->ZMRegexpRule($name, $regexp, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

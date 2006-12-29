@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMRecordCompany {
+class ZMRecordCompany extends ZMModel {
     var $id_;
     var $name_;
     var $url_;
@@ -41,6 +41,8 @@ class ZMRecordCompany {
      * Default c'tor.
      */
     function ZMRecordCompany() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->name_ = '';
         $this->url_ = null;
@@ -51,7 +53,11 @@ class ZMRecordCompany {
         $this->ZMRecordCompany();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

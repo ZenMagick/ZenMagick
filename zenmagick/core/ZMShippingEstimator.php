@@ -49,7 +49,11 @@ class ZMShippingEstimator extends ZMObject {
         $this->ZMShippingEstimator();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

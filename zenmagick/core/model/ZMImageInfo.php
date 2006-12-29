@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMImageInfo {
+class ZMImageInfo extends ZMModel {
     var $imageDefault_;
     var $imageMedium_;
     var $imageLarge_;
@@ -43,6 +43,8 @@ class ZMImageInfo {
      * @param string image The image name.
      */
     function ZMImageInfo($image) {
+        parent::__construct();
+
         $comp = _zm_split_image_name($image);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -78,7 +80,11 @@ class ZMImageInfo {
         $this->ZMImageInfo($product);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

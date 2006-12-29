@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMBanner {
+class ZMBanner extends ZMModel {
     var $id_;
     var $title_;
     var $image_;
@@ -44,6 +44,8 @@ class ZMBanner {
      * Default c'tor.
      */
     function ZMBanner() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->title_ = '';
         $this->image_ = null;
@@ -57,7 +59,11 @@ class ZMBanner {
         $this->ZMBanner();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

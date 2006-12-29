@@ -47,7 +47,11 @@ class ZMProductsNewController extends ZMController {
         $this->ZMProductsNewController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

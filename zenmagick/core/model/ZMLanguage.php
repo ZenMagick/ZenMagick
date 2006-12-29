@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMLanguage {
+class ZMLanguage extends ZMModel {
     var $id_;
     var $name_;
     var $image_;
@@ -43,6 +43,7 @@ class ZMLanguage {
      * Default c'tor.
      */
     function ZMLanguage() {
+        parent::__construct();
     }
 
     // create new instance
@@ -50,7 +51,11 @@ class ZMLanguage {
         $this->ZMLanguage();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

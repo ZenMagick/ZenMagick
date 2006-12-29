@@ -47,7 +47,11 @@ class ZMAccountPasswordController extends ZMController {
         $this->ZMAccountPasswordController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

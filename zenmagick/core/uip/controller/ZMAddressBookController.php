@@ -47,7 +47,11 @@ class ZMAddressBookController extends ZMController {
         $this->ZMAddressBookController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

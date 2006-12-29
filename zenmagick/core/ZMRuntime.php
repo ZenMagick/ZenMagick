@@ -53,6 +53,9 @@ class ZMRuntime {
         $this->ZMRuntime();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 

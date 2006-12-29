@@ -49,7 +49,11 @@ class ZMCoupons extends ZMDao {
         $this->ZMCoupons();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

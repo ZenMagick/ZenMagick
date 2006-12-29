@@ -31,12 +31,13 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMTheme {
+class ZMTheme extends ZMObject {
 
     /**
      * Default c'tor.
      */
     function ZMTheme() {
+        parent::__construct();
     }
 
     /**
@@ -46,12 +47,17 @@ class ZMTheme {
         $this->ZMTheme();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 
     function isValidRequest() {
     global $zm_runtime, $zm_request;
+
         $themeInfo = $this->getThemeInfo();
         $view = $this->themeFile($themeInfo->getViewDir().$zm_request->getPageName().".php");
         return $this->hasTemplate() || file_exists($view);
@@ -61,6 +67,7 @@ class ZMTheme {
     // checks, if a template exists for the current request
     function hasTemplate($name=null) {
     global $zm_request;
+
         $name = null == $name ? $zm_request->getPageName() : $name;
         return file_exists($this->getThemePath($name.'.php'));
     }
@@ -69,6 +76,7 @@ class ZMTheme {
     // resolve theme relative uri
     function themeURL($uri, $echo=true) {
     global $zm_runtime;
+
         $url = $zm_runtime->getThemeBaseURI().$zm_runtime->getThemeId()."/".ZM_THEME_CONTENT.$uri;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($zm_runtime->getThemeContentPath().$uri)) {
             // check for default
@@ -87,6 +95,7 @@ class ZMTheme {
     // get the full template path
     function getThemePath($name) {
     global $zm_runtime;
+
         $file = $zm_runtime->getThemeContentPath().$name;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
@@ -131,6 +140,7 @@ class ZMTheme {
     // include static page content
     function includeStaticPageContent($page, $echo=true) {
     global $zm_request, $zm_runtime;
+
         $language = $zm_request->getLanguageName();
         $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getRawThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename)) {
@@ -147,6 +157,7 @@ class ZMTheme {
     // get a list of all themes extra files to be included
     function getExtraFiles() {
     global $zm_runtime;
+
         return zm_find_includes($zm_runtime->getThemePath()."/" . ZM_THEME_EXTRA, true);
     }
 
@@ -154,6 +165,7 @@ class ZMTheme {
     // get all theme names
     function getThemeDirList() {
     global $zm_runtime;
+
         $themes = array();
         $handle = @opendir($zm_runtime->getThemeBasePath());
         while (false !== ($file = readdir($handle))) { 
@@ -169,6 +181,7 @@ class ZMTheme {
     // get current theme info
     function getThemeInfo($themeId=null) {
     global $zm_runtime;
+
         // theme id
         $themeId = null == $themeId ? $zm_runtime->getThemeId() : $themeId;
         // theme base path
@@ -190,6 +203,7 @@ class ZMTheme {
     // get theme list
     function getThemeInfoList() {
     global $zm_runtime;
+
         $infoList = array();
         $basePath = $zm_runtime->getThemeBasePath();
         $dirs = $this->getThemeDirList();

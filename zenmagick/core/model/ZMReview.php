@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMReview {
+class ZMReview extends ZMModel {
     var $id_;
     var $rating_;
     var $productId_;
@@ -46,6 +46,8 @@ class ZMReview {
      * Default c'tor.
      */
     function ZMReview() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->rating_ = 0;
         $this->productId_ = 0;
@@ -61,7 +63,11 @@ class ZMReview {
         $this->ZMReview();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

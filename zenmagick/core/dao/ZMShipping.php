@@ -62,7 +62,11 @@ class ZMShipping extends ZMDao {
         $this->ZMShipping();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

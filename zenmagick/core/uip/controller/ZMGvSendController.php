@@ -47,7 +47,11 @@ class ZMGvSendController extends ZMController {
         $this->ZMGvSendController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

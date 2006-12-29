@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCoupon {
+class ZMCoupon extends ZMModel {
     var $id_;
     var $code_;
     var $type_;
@@ -49,6 +49,8 @@ class ZMCoupon {
      * Default c'tor.
      */
     function ZMCoupon($id, $code, $type) {
+        parent::__construct();
+
 		    $this->id_ = $id;
 		    $this->code_ = $code;
 		    $this->type_ = $type;
@@ -59,7 +61,11 @@ class ZMCoupon {
         $this->ZMCoupon($id, $code, $type);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

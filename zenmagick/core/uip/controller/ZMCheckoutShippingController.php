@@ -47,7 +47,11 @@ class ZMCheckoutShippingController extends ZMController {
         $this->ZMCheckoutShippingController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

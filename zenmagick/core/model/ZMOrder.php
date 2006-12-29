@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMOrder {
+class ZMOrder extends ZMModel {
     var $id_;
     var $accountId_;
     var $status_;
@@ -54,6 +54,8 @@ class ZMOrder {
      * @param int id The order id.
      */
     function ZMOrder($id) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->zenOrder_ = null;
         $this->zmOrders_ = null;
@@ -64,7 +66,11 @@ class ZMOrder {
         $this->ZMOrder($id);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

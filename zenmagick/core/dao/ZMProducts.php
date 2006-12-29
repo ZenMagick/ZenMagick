@@ -47,7 +47,11 @@ class ZMProducts extends ZMDao {
         $this->ZMProducts();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -47,7 +47,11 @@ class ZMOrders extends ZMDao {
         $this->ZMOrders();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

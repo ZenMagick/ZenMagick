@@ -36,19 +36,38 @@ class ZMDateRule extends ZMRule {
     var $format_;
 
 
-    // create new instance; msg is localized message
+    /**
+     * Create new date rule.
+     *
+     * @param string name The field name.
+     * @param string regexp The date regexp.
+     * @param string format The date format (eg: DD/MM/YYY)
+     * @param string msg Optional message.
+     */
     function ZMDateRule($name, $regexp, $format, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
+
         $this->regexp_ = $regexp;
         $this->format_ = $format_;
     }
 
-    // create new instance
+    /**
+     * Create new date rule.
+     *
+     * @param string name The field name.
+     * @param string regexp The date regexp.
+     * @param string format The date format (eg: DD/MM/YYY)
+     * @param string msg Optional message.
+     */
     function __construct($name, $regexp, $format, $msg=null) {
         $this->ZMDateRule($name, $regexp, $format, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

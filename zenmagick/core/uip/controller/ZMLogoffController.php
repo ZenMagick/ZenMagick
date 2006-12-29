@@ -47,7 +47,11 @@ class ZMLogoffController extends ZMController {
         $this->ZMLogoffController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

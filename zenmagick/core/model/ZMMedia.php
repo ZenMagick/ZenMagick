@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMMedia {
+class ZMMedia extends ZMModel {
     var $id_;
     var $filename_;
     var $dateAdded_;
@@ -42,6 +42,8 @@ class ZMMedia {
      * Default c'tor.
      */
     function ZMMedia() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->filename_ = null;
         $this->dateAdded_ = null;
@@ -53,7 +55,11 @@ class ZMMedia {
         $this->ZMMedia();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

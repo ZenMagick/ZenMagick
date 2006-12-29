@@ -64,7 +64,13 @@ class ZMRss extends ZMObject {
         if (null != $rs) {
             foreach($rs['items'] as $rs_item) {
                 $item = $this->create("RssItem", $rs_item);
-                if (null == $category || $category == $item->getCategory()) {
+                    /**
+     * Create new rule set.
+     *
+     * @param string id The id.
+     * @param array rules Optional initial list of rules.
+     */
+if (null == $category || $category == $item->getCategory()) {
                     array_push($this->items_, $item);
                 }
                 if ($this->limit_ <= count($this->items_)) {
@@ -85,7 +91,11 @@ class ZMRss extends ZMObject {
         $this->ZMRss($url, $category, $limit);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

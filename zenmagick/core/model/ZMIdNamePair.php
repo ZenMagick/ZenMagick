@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMIdNamePair {
+class ZMIdNamePair extends ZMModel {
     var $id_;
     var $name_;
 
@@ -43,6 +43,8 @@ class ZMIdNamePair {
      * @param string name The name.
      */
     function ZMIdNamePair($id, $name) {
+        parent::__construct();
+
 		    $this->id_ = $id;
 		    $this->name_ = $name;
     }
@@ -52,7 +54,11 @@ class ZMIdNamePair {
         $this->ZMIdNamePair($id, $name);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

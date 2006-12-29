@@ -33,7 +33,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMAttributeValue {
+class ZMAttributeValue extends ZMModel {
     var $id_;
     var $name_;
     var $price_;
@@ -63,7 +63,11 @@ class ZMAttributeValue {
         $this->ZMAttributeValue($id, $name);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -25,8 +25,11 @@
 ?>
 <?php
 
-// TODO: theme stuff
-$zm_theme = new ZMTheme();
+    // needs to be instantiated after application_top.php
+    $zm_messages = new ZMMessages();
+
+    // TODO: theme stuff
+    $zm_theme = new ZMTheme();
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {

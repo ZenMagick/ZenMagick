@@ -34,17 +34,31 @@
 class ZMEmailRule extends ZMRule {
 
 
-    // create new instance; msg is localized message
+    /**
+     * Create new email rule.
+     *
+     * @param string name The field name.
+     * @param string msg Optional message.
+     */
     function ZMEmailRule($name, $msg=null) {
         parent::__construct($name, "%s is not a valid email.", $msg);
     }
 
-    // create new instance
+    /**
+     * Create new email rule.
+     *
+     * @param string name The field name.
+     * @param string msg Optional message.
+     */
     function __construct($name, $msg=null) {
         $this->ZMEmailRule($name, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

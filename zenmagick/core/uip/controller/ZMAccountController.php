@@ -47,7 +47,11 @@ class ZMAccountController extends ZMController {
         $this->ZMAccountController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

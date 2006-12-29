@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMShoppingCartItem {
+class ZMShoppingCartItem extends ZMModel {
     var $cart_;
     var $zenItem_;
     var $taxRate_;
@@ -45,6 +45,8 @@ class ZMShoppingCartItem {
      * @param array zenItem The zen-cart shopping item infos.
      */
     function ZMShoppingCartItem($cart, $zenItem) {
+        parent::__construct();
+
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
         $this->taxRate_ = null;
@@ -56,7 +58,11 @@ class ZMShoppingCartItem {
         $this->ZMShoppingCartItem($cart, $zenItem);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

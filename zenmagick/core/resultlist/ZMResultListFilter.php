@@ -65,7 +65,11 @@ class ZMResultListFilter extends ZMObject {
         $this->ZMResultListFilter($id, $name);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

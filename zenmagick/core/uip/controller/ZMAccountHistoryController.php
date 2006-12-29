@@ -47,7 +47,11 @@ class ZMAccountHistoryController extends ZMController {
         $this->ZMAccountHistoryController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

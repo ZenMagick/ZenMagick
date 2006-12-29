@@ -34,7 +34,7 @@
  * @package net.radebatz.zenmagick.resultlist.model
  * @version $Id$
  */
-class ZMSortOption {
+class ZMSortOption extends ZMModel {
     var $name_;
     var $id_;
     var $active_;
@@ -50,6 +50,8 @@ class ZMSortOption {
      * @param bool decending Ascending/decending flag (default is ascending.
      */
     function ZMSortOption($name, $id, $active=false, $decending=false) {
+        parent::__construct();
+
         $this->name_ = $name;
         $this->id_ = $id;
         $this->active_ = $active;
@@ -68,7 +70,11 @@ class ZMSortOption {
         $this->ZMSortOption($name, $id, $active, $decending);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

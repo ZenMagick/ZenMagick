@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.resultlist.model
  * @version $Id$
  */
-class ZMFilterOption {
+class ZMFilterOption extends ZMModel {
     var $name_;
     var $id_;
     var $active_;
@@ -45,6 +45,8 @@ class ZMFilterOption {
      * @param bool active Optional active flag if this option is currently active.
      */
     function ZMFilterOption($name, $id, $active=false) {
+        parent::__construct();
+
         $this->name_ = $name;
         $this->id_ = $id;
         $this->active_ = $active;
@@ -61,7 +63,11 @@ class ZMFilterOption {
         $this->ZMFilterOption($name, $id, $active);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -59,7 +59,11 @@ class ZMAttributes extends ZMDao {
         $this->ZMAttributes($product);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

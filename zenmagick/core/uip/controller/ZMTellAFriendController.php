@@ -47,7 +47,11 @@ class ZMTellAFriendController extends ZMController {
         $this->ZMTellAFriendController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

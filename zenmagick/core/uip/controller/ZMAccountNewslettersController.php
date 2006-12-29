@@ -47,7 +47,11 @@ class ZMAccountNewslettersController extends ZMController {
         $this->ZMAccountNewslettersController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -47,7 +47,11 @@ class ZMDiscountCouponController extends ZMController {
         $this->ZMDiscountCouponController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMAttribute {
+class ZMAttribute extends ZMModel {
     var $id_;
     var $name_;
     var $type_;
@@ -44,6 +44,8 @@ class ZMAttribute {
      * Default c'tor.
      */
     function ZMAttribute($id, $name, $type) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->name_ = $name;
         $this->type_ = $type;
@@ -55,7 +57,11 @@ class ZMAttribute {
         $this->ZMAttribute($id, $name, $type);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

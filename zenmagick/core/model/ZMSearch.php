@@ -31,12 +31,13 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMSearch {
+class ZMSearch extends ZMModel {
 
     /**
      * Default c'tor.
      */
     function ZMSearch() {
+        parent::__construct();
     }
 
     // create new instance
@@ -44,7 +45,11 @@ class ZMSearch {
         $this->ZMSearch();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -37,7 +37,10 @@ class ZMRuleSet {
 
 
     /**
-     * Default c'tor.
+     * Create new rule set.
+     *
+     * @param string id The id.
+     * @param array rules Optional initial list of rules.
      */
     function ZMRuleSet($id, $rules=null) {
         $this->id_ = $id;
@@ -45,12 +48,18 @@ class ZMRuleSet {
     }
 
     /**
-     * Default c'tor.
+     * Create new rule set.
+     *
+     * @param string id The id.
+     * @param array rules Optional initial list of rules.
      */
     function __construct($id, $rules=null) {
         $this->ZMRuleSet($id, $rules);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 

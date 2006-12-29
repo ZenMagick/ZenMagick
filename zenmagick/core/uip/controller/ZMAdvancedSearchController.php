@@ -47,7 +47,11 @@ class ZMAdvancedSearchController extends ZMController {
         $this->ZMAdvancedSearchController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -31,8 +31,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMLayout {
-    var $db_;
+class ZMLayout extends ZMDao {
     var $leftColEnabled_;
     var $rightColEnabled_;
     var $leftColBoxes_;
@@ -43,8 +42,8 @@ class ZMLayout {
      * Default c'tor.
      */
     function ZMLayout() {
-    global $zm_runtime;
-        $this->db_ = $zm_runtime->getDB();
+        parent::__construct();
+
         $this->leftColEnabled_ = true;
         $this->rightColEnabled_ = true;
         $this->leftColBoxes_ = null;
@@ -58,7 +57,11 @@ class ZMLayout {
         $this->ZMLayout();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

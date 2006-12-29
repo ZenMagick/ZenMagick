@@ -41,7 +41,9 @@ class ZMOffers extends ZMDao {
 
 
     /**
-     * Default c'tor.
+     * Create new offers instance for the given product.
+     *
+     * @param ZMProduct product The product.
      */
     function ZMOffers($product) {
         parent::__construct();
@@ -56,13 +58,19 @@ class ZMOffers extends ZMDao {
     }
 
     /**
-     * Default c'tor.
+     * Create new offers instance for the given product.
+     *
+     * @param ZMProduct product The product.
      */
     function __construct($product) {
         $this->ZMOffers($product);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

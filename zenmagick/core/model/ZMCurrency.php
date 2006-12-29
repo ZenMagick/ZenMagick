@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCurrency {
+class ZMCurrency extends ZMModel {
     var $id_;
     var $name_;
     var $symbolLeft_;
@@ -46,6 +46,8 @@ class ZMCurrency {
      * Default c'tor.
      */
     function ZMCurrency($id, $arr) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->name_ = $arr['title'];
         $this->symbolLeft_ = $arr['symbol_left'];
@@ -61,7 +63,11 @@ class ZMCurrency {
         $this->ZMCurrency($id, $arr);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -47,7 +47,11 @@ class ZMIndexController extends ZMController {
         $this->ZMIndexController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

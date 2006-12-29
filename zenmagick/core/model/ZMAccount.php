@@ -77,7 +77,11 @@ class ZMAccount extends ZMModel {
         $this->ZMAccount();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

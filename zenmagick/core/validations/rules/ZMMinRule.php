@@ -35,18 +35,34 @@ class ZMMinRule extends ZMRule {
     var $min_;
 
 
-    // create new instance; msg is localized message
+    /**
+     * Create new min length rule.
+     *
+     * @param string name The field name.
+     * @param int min The minimun length.
+     * @param string msg Optional message.
+     */
     function ZMMinRule($name, $min, $msg=null) {
         parent::__construct($name, "%s must be at leat %s characters long.", $msg);
         $this->min_ = $min;
     }
 
-    // create new instance
+    /**
+     * Create new min length rule.
+     *
+     * @param string name The field name.
+     * @param int min The minimun length.
+     * @param string msg Optional message.
+     */
     function __construct($name, $min, $msg=null) {
         $this->ZMMinRule($name, $min, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -47,7 +47,11 @@ class ZMUnsubscribeController extends ZMController {
         $this->ZMUnsubscribeController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

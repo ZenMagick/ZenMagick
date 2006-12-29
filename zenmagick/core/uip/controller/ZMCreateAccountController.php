@@ -47,7 +47,11 @@ class ZMCreateAccountController extends ZMController {
         $this->ZMCreateAccountController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

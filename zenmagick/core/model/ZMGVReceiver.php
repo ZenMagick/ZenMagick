@@ -55,7 +55,11 @@ class ZMGVReceiver extends ZMModel {
         $this->ZMGVReceiver();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

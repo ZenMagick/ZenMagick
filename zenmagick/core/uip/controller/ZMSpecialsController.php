@@ -47,7 +47,11 @@ class ZMSpecialsController extends ZMController {
         $this->ZMSpecialsController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

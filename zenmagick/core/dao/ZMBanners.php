@@ -51,7 +51,11 @@ class ZMBanners extends ZMDao {
         $this->ZMBanners();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

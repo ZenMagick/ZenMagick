@@ -35,6 +35,8 @@ if (!function_exists('zen_date_raw')) {
      * The function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
      * and <code>YYYY</code> in the format.</p>
      *
+     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
+     *
      * @package net.radebatz.zenmagick
      * @param string date A date (usually provided by the user).
      * @param bool reverse If <code>true</code>, the returned data will be reversed.
@@ -47,31 +49,32 @@ if (!function_exists('zen_date_raw')) {
         $cc = '??';
         $yy = '??';
 
+        $format = strtoupper(UI_DATE_FORMAT);
         // parse
-        $dpos = strpos(UI_DATE_FORMAT, 'DD');
-        if (!(false === $dpos)) {
+        $dpos = strpos($format, 'DD');
+        if (false !== $dpos) {
             $dd = substr($date, $dpos, 2);
         }
-        $mpos = strpos(UI_DATE_FORMAT, 'MM');
-        if (!(false === $mpos)) {
+        $mpos = strpos($format, 'MM');
+        if (false !== $mpos) {
             $mm = substr($date, $mpos, 2);
         }
-        $cpos = strpos(UI_DATE_FORMAT, 'CC');
-        if (!(false === $cpos)) {
+        $cpos = strpos($format, 'CC');
+        if (false !== $cpos) {
             $cc = substr($date, $cpos, 2);
         }
-        $cypos = strpos(UI_DATE_FORMAT, 'YYYY');
-        if (!(false === $cypos)) {
+        $cypos = strpos($format, 'YYYY');
+        if (false !== $cypos) {
             $cc = substr($date, $cypos, 2);
             $yy = substr($date, $cypos+2, 2);
         } else {
-            $ypos = strpos(UI_DATE_FORMAT, 'YY');
-            if (!(false === $ypos)) {
+            $ypos = strpos($format, 'YY');
+            if (false !== $ypos) {
                 $yy = substr($date, $ypos, 2);
             }
         }
 
-        $raw = $reverse ? $mm.$dd.$cc.$yy : $cc.$yy.$dd.$mm;
+        $raw = $reverse ? $mm.$dd.$cc.$yy : $cc.$yy.$mm.$dd;
         return $raw;
     }
 }

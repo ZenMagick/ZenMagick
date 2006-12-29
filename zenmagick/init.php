@@ -88,9 +88,6 @@
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();
 
-    // needs to be instantiated after application_top.php
-    $zm_messages = new ZMMessages();
-
     // local settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {

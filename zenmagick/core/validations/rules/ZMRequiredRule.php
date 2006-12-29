@@ -34,17 +34,31 @@
 class ZMRequiredRule extends ZMRule {
 
 
-    // create new instance; msg is localized message
+    /**
+     * Create new required rule.
+     *
+     * @param string name The field name.
+     * @param string msg Optional message.
+     */
     function ZMRequiredRule($name, $msg=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
-    // create new instance
+    /**
+     * Create new required rule.
+     *
+     * @param string name The field name.
+     * @param string msg Optional message.
+     */
     function __construct($name, $msg=null) {
         $this->ZMRequiredRule($name, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

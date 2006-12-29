@@ -52,7 +52,11 @@ class ZMCountries extends ZMDao {
         $this->ZMCountries();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

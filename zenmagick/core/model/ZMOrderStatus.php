@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMOrderStatus {
+class ZMOrderStatus extends ZMModel {
     var $id_;
     var $name_;
     var $dateAdded_;
@@ -47,6 +47,8 @@ class ZMOrderStatus {
      * @param string comment An optional comment.
      */
     function ZMOrderStatus($id, $name, $dateAdded, $comment=null) {
+        parent::__construct();
+
 		    $this->id_ = $id;
 		    $this->name_ = $name;
 		    $this->dateAdded_ = $dateAdded;
@@ -58,7 +60,11 @@ class ZMOrderStatus {
         $this->ZMOrderStatus($id, $name, $dateAdded, $comment);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

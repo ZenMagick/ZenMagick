@@ -48,7 +48,11 @@ class ZMMediaManager extends ZMDao {
         $this->ZMMediaManager();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

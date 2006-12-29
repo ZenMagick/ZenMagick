@@ -47,7 +47,11 @@ class ZMManufacturerFilter extends ZMResultListFilter {
         $this->ZMManufacturerFilter();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

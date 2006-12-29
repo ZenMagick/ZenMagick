@@ -34,6 +34,7 @@
 class ZMView extends ZMObject {
     var $controller_;
 
+
     /**
      * Default c'tor.
      */
@@ -48,7 +49,11 @@ class ZMView extends ZMObject {
         $this->ZMView();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

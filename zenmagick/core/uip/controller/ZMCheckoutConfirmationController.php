@@ -47,7 +47,11 @@ class ZMCheckoutConfirmationController extends ZMController {
         $this->ZMCheckoutConfirmationController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

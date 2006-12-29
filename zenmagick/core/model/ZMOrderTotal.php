@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMOrderTotal {
+class ZMOrderTotal extends ZMModel {
     var $name_;
     var $value_;
     var $type_;
@@ -45,6 +45,8 @@ class ZMOrderTotal {
      * @param string type The total type.
      */
     function ZMOrderTotal($name, $value, $type) {
+        parent::__construct();
+
         $this->name_ = $name;
         $this->value_ = $value;
         $this->type_ = $type;
@@ -55,7 +57,11 @@ class ZMOrderTotal {
         $this->ZMOrderTotal($name, $value, $type);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

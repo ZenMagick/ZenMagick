@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCrumb {
+class ZMCrumb extends ZMModel {
     var $name_;
     var $url_;
 
@@ -40,6 +40,8 @@ class ZMCrumb {
      * Default c'tor.
      */
     function ZMCrumb($name, $url = null) {
+        parent::__construct();
+
         $this->name_ = $name;
         $this->url_ = $url;
     }
@@ -49,7 +51,11 @@ class ZMCrumb {
         $this->ZMCrumb($name, $url);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -38,7 +38,11 @@ class ZMRule {
 
 
     /**
-     * Default c'tor.
+     * Create new validation rule.
+     *
+     * @param string name The field name.
+     * @param string defaultMsg The default error message.
+     * @param string msg Optional custom error message.
      */
     function ZMRule($name, $defaultMsg, $msg=null) {
         $this->name_ = $name;
@@ -47,12 +51,19 @@ class ZMRule {
     }
 
     /**
-     * Default c'tor.
+     * Create new validation rule.
+     *
+     * @param string name The field name.
+     * @param string defaultMsg The default error message.
+     * @param string msg Optional custom error message.
      */
     function __construct($name, $defaultMsg, $msg=null) {
         $this->ZMRule($name, $defaultMsg, $msg);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 

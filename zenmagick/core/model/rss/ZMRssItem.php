@@ -34,7 +34,7 @@
  * @package net.radebatz.zenmagick.model.rss
  * @version $Id$
  */
-class ZMRssItem {
+class ZMRssItem extends ZMModel {
     var $item_;
 
 
@@ -44,6 +44,8 @@ class ZMRssItem {
      * @param array Array of item data.
      */
     function ZMRssItem($item) {
+        parent::__construct();
+
         $this->item_ = $item;
     }
 
@@ -56,7 +58,11 @@ class ZMRssItem {
         $this->ZMRssChannel($item);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

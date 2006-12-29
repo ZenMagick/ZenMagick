@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMCategoryCouponRestriction {
+class ZMCategoryCouponRestriction extends ZMModel {
     var $allowed_;
     var $categoryId_;
 
@@ -40,6 +40,8 @@ class ZMCategoryCouponRestriction {
      * Default c'tor.
      */
     function ZMCategoryCouponRestriction($allowed, $categoryId) {
+        parent::__construct();
+
 		    $this->allowed_ = $allowed;
 		    $this->categoryId_ = $categoryId;
     }
@@ -49,7 +51,11 @@ class ZMCategoryCouponRestriction {
         $this->ZMCategoryCouponRestriction($allowed, $categoryId);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

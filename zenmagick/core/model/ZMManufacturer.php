@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMManufacturer {
+class ZMManufacturer extends ZMModel {
     var $id_;
     var $name_;
     var $image_;
@@ -45,6 +45,8 @@ class ZMManufacturer {
      * @param string name The name.
      */
     function ZMManufacturer($id, $name) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->name_ = $name;
         $this->image_ = null;
@@ -56,7 +58,11 @@ class ZMManufacturer {
         $this->ZMManufacturer($id, $name);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

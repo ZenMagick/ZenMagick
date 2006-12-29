@@ -55,7 +55,11 @@ class ZMFeatures extends ZMDao {
         $this->ZMFeatures();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

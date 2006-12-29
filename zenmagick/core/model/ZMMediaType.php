@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMMediaType {
+class ZMMediaType extends ZMModel {
     var $id_;
     var $name_;
     var $extension_;
@@ -41,6 +41,8 @@ class ZMMediaType {
      * Default c'tor.
      */
     function ZMMediaType() {
+        parent::__construct();
+
         $this->id_ = 0;
         $this->name_ = null;
         $this->extension_ = null;
@@ -51,7 +53,11 @@ class ZMMediaType {
         $this->ZMMediaType();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

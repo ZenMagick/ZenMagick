@@ -47,7 +47,11 @@ class ZMContactUsController extends ZMController {
         $this->ZMContactUsController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

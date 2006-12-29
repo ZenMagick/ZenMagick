@@ -36,20 +36,28 @@ class ZMRedirectView extends ZMView {
 
 
     /**
-     * Default c'tor.
+     * Create a new redirect view.
+     *
+     * @param string url The redirect url.
      */
     function ZMRedirectView($view) {
         $this->url_ = zm_href($view, '', false);
     }
 
     /**
-     * Default c'tor.
+     * Create a new redirect view.
+     *
+     * @param string url The redirect url.
      */
     function __construct($view) {
         $this->ZMRedirectView($view);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

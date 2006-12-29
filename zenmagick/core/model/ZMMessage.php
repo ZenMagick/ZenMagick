@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMMessage {
+class ZMMessage extends ZMModel {
     var $text_;
     var $type_;
 
@@ -43,6 +43,8 @@ class ZMMessage {
      * @param string type The message type.
      */
     function ZMMessage($text, $type='error') {
+        parent::__construct();
+
         $this->text_ = $text;
         $this->type_ = $type;
     }
@@ -52,7 +54,11 @@ class ZMMessage {
         $this->ZMMessage($text, $type);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

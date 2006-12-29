@@ -33,17 +33,25 @@
  */
 class ZMFeaturedProductsController extends ZMController {
 
-    // create new instance
+    /**
+     * Default d'tor.
+     */
     function ZMFeaturedProductsController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default d'tor.
+     */
     function __construct() {
         $this->ZMFeaturedProductsController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

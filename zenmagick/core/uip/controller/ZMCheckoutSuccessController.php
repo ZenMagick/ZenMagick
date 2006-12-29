@@ -47,7 +47,11 @@ class ZMCheckoutSuccessController extends ZMController {
         $this->ZMCheckoutSuccessController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

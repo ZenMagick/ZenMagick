@@ -30,7 +30,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMThemeInfo {
+class ZMThemeInfo extends ZMObject {
     var $info_;
     var $config_;
     var $layout_;
@@ -42,6 +42,8 @@ class ZMThemeInfo {
      * Default c'tor.
      */
     function ZMThemeInfo() {
+        parent::__construct();
+
         $this->info_ = array();
         $this->config_ = array();
         $this->layout_ = array();
@@ -59,7 +61,11 @@ class ZMThemeInfo {
         $this->ZMThemeInfo();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

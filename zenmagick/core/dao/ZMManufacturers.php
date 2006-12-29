@@ -48,7 +48,11 @@ class ZMManufacturers extends ZMDao {
         $this->ZMManufacturers();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -57,7 +57,11 @@ class ZMShippingProvider extends ZMModel {
         $this->ZMShippingProvider($zenQuote);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

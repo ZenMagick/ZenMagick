@@ -47,7 +47,11 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         $this->ZMCheckoutPaymentAddressController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

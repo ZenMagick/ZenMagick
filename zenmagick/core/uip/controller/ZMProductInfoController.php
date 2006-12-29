@@ -47,7 +47,11 @@ class ZMProductInfoController extends ZMController {
         $this->ZMProductInfoController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

@@ -65,7 +65,11 @@ class ZMProductSorter extends ZMResultListSorter {
         $this->ZMProductSorter();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

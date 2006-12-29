@@ -44,7 +44,7 @@ class ZMCrumbtrail extends ZMObject {
         $this->crumbs_ = array();
 
         // always add home
-        $this->addCrumb(HEADER_TITLE_CATALOG, zm_href(FILENAME_DEFAULT, '', false));
+        $this->addCrumb("Home", zm_href(FILENAME_DEFAULT, '', false));
     }
 
     /**
@@ -54,7 +54,11 @@ class ZMCrumbtrail extends ZMObject {
         $this->ZMCrumbtrail();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

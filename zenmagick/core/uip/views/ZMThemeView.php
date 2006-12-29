@@ -38,20 +38,28 @@ class ZMThemeView extends ZMView {
 
 
     /**
-     * Default c'tor.
+     * Create new theme view view.
+     *
+     * @param string page The page (view) name.
      */
     function ZMThemeView($page) {
         $this->page_ = $page;
     }
 
     /**
-     * Default c'tor.
+     * Create new theme view view.
+     *
+     * @param string page The page (view) name.
      */
     function __construct($page) {
         $this->ZMThemeView($page);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

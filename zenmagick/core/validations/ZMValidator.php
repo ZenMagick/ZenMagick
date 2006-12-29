@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.validations
  * @version $Id$
  */
-class ZMValidator {
+class ZMValidator extends ZMObject {
     // each set contains rules for a single form
     var $sets_;
     var $messages_;
@@ -41,6 +41,8 @@ class ZMValidator {
      * Default c'tor.
      */
     function ZMValidator() {
+        parent::__construct();
+
         $this->sets_ = array();
         $this->messages_ = array();
     }
@@ -52,7 +54,11 @@ class ZMValidator {
         $this->ZMValidator();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

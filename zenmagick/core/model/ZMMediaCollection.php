@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMMediaCollection {
+class ZMMediaCollection extends ZMModel {
     var $name_;
     var $items_;
 
@@ -40,6 +40,8 @@ class ZMMediaCollection {
      * Default c'tor.
      */
     function ZMMediaCollection() {
+        parent::__construct();
+
         $this->name_ = '';
         $this->items_ = array();
     }
@@ -49,7 +51,11 @@ class ZMMediaCollection {
         $this->ZMMediaCollection();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

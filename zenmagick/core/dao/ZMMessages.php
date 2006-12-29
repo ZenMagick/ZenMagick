@@ -64,7 +64,11 @@ class ZMMessages extends ZMDao {
         $this->ZMMessages();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

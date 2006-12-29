@@ -58,7 +58,11 @@ class ZMPayments extends ZMDao {
         $this->ZMPayments();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

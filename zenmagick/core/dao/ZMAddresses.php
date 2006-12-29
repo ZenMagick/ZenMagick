@@ -47,7 +47,11 @@ class ZMAddresses extends ZMDao {
         $this->ZMAddresses();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

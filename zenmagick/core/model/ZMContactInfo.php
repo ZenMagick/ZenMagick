@@ -55,7 +55,11 @@ class ZMContactInfo extends ZMModel {
         $this->ZMContactInfo($name, $email, $message);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

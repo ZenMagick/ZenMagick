@@ -60,7 +60,11 @@ class ZMCurrencies extends ZMDao {
         $this->ZMCurrencies();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

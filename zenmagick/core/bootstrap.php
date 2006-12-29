@@ -55,6 +55,9 @@ if (!class_exists("ZMObject")) {
             $this->ZMObject();
         }
 
+        /**
+         * Default d'tor.
+         */
         function __destruct() {
         }
 

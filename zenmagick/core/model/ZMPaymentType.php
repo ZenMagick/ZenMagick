@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMPaymentType {
+class ZMPaymentType extends ZMModel {
     var $id_;
     var $name_;
     var $instructions_;
@@ -47,6 +47,8 @@ class ZMPaymentType {
      * @param string instructions Optional instructions.
      */
     function ZMPaymentType($id, $name, $instructions='') {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->name_ = $name;
         $this->instructions_ = $instructions;
@@ -59,7 +61,11 @@ class ZMPaymentType {
         $this->ZMPaymentType($id, $name, $instructions);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

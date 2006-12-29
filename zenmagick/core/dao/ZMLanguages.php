@@ -56,7 +56,11 @@ class ZMLanguages extends ZMDao {
         $this->ZMLanguages();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

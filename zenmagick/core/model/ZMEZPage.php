@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMEZPage {
+class ZMEZPage extends ZMModel {
     var $id_;
     var $title_;
     var $altUrl_;
@@ -57,6 +57,8 @@ class ZMEZPage {
      * @param string title The page title.
      */
     function ZMEZPage($id, $title) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->title_ = $title;
         $this->altUrl_ = null;
@@ -79,7 +81,11 @@ class ZMEZPage {
         $this->ZMEZPage($id, $title);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

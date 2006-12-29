@@ -40,7 +40,9 @@ class ZMCategoryFilter extends ZMResultListFilter {
      */
     function ZMCategoryFilter() {
     global $zm_request;
+
         parent::__construct('cfilter', zm_l10n_get('Category'));
+
         $this->productIds_ = null;
     }
 
@@ -51,7 +53,11 @@ class ZMCategoryFilter extends ZMResultListFilter {
         $this->ZMCategoryFilter();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

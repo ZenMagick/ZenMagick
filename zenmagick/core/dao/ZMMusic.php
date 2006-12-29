@@ -47,7 +47,11 @@ class ZMMusic extends ZMDao {
         $this->ZMMusic();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

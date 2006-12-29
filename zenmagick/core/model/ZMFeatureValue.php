@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMFeatureValue {
+class ZMFeatureValue extends ZMModel {
     var $id_;
     var $index_;
     var $value_;
@@ -45,6 +45,8 @@ class ZMFeatureValue {
      * @param mixed The actual value.
      */
     function ZMFeatureValue($id, $index, $value) {
+        parent::__construct();
+
         $this->id_ = $id;
         $this->index_ = $index;
         $this->value_ = $value;
@@ -55,7 +57,11 @@ class ZMFeatureValue {
         $this->ZMFeatureValue($id, $index, $value);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

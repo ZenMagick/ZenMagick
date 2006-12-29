@@ -77,7 +77,9 @@ class ZMLoader {
         $this->ZMLoader($name);
     }
 
-    /** Destroy instance. */
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 

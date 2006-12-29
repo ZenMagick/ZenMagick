@@ -47,7 +47,11 @@ class ZMProductReviewsWriteController extends ZMController {
         $this->ZMProductReviewsWriteController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

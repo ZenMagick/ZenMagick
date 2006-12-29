@@ -47,7 +47,11 @@ class ZMStaticController extends ZMController {
         $this->ZMStaticController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 

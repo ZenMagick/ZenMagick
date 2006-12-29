@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
-class ZMShippingMethod {
+class ZMShippingMethod extends ZMModel {
     var $provider_;
     var $zenMethod_;
 
@@ -43,6 +43,8 @@ class ZMShippingMethod {
      * @param array zenMethod The zen-cart method infos.
      */
     function ZMShippingMethod($provider, $zenMethod) {
+        parent::__construct();
+
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
     }
@@ -52,7 +54,11 @@ class ZMShippingMethod {
         $this->ZMShippingMethod($provider, $zenMethod);
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
+        parent::__destruct();
     }
 
 
