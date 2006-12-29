@@ -16,6 +16,8 @@ Current:
 - changed the init sequence to allow to load i18n stuff before zen-cart; init
   is now done before the zen-cart template init code
 - fixed a stupid date handling bug in the registration form
+- added experimental price range filter to demo theme
+- moved other.php from default to demo theme
 
 Release 0.6.0:
 - Fixed missing file permission check for creating dummy sidebar boxes
