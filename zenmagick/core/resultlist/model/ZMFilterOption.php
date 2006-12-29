@@ -37,14 +37,26 @@ class ZMFilterOption {
     var $active_;
 
 
-    // create new instance
+    /**
+     * Create a new filter option.
+     *
+     * @param string name The option name.
+     * @param int id The option id.
+     * @param bool active Optional active flag if this option is currently active.
+     */
     function ZMFilterOption($name, $id, $active=false) {
         $this->name_ = $name;
         $this->id_ = $id;
         $this->active_ = $active;
     }
 
-    // create new instance
+    /**
+     * Create a new filter option.
+     *
+     * @param string name The option name.
+     * @param int id The option id.
+     * @param bool active Optional active flag if this option is currently active.
+     */
     function __construct($name, $id, $active=false) {
         $this->ZMFilterOption($name, $id, $active);
     }
@@ -53,9 +65,25 @@ class ZMFilterOption {
     }
 
 
-    //getter
+    /**
+     * Get the option id.
+     *
+     * @return int The option id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the option name.
+     *
+     * @return string The option name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Check if this option is active.
+     *
+     * @return bool <code>true</code> if this option is active, <code>false</code>, if not.
+     */
     function isActive() { return $this->active_; }
 
 }

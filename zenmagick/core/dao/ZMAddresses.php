@@ -33,13 +33,16 @@
  */
 class ZMAddresses extends ZMDao {
 
-
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAddresses() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAddresses();
     }

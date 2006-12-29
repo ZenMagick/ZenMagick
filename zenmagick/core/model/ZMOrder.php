@@ -48,7 +48,11 @@ class ZMOrder {
     var $zmOrders_;
 
 
-    // create new instance
+    /**
+     * Create order.
+     *
+     * @param int id The order id.
+     */
     function ZMOrder($id) {
         $this->id_ = $id;
         $this->zenOrder_ = null;

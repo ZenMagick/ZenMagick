@@ -57,7 +57,9 @@ class IndexController extends ZMIndexController {
         $resultList =& $this->getGlobal("zm_resultList");
         if (null != $resultList) {
             // set refresh flag to true
-            $resultList->addFilter(new AlphaFilter(), true);
+            $resultList->addFilter($this->create("AlphaFilter"), true);
+            // add multi price range filter
+            $resultList->addFilter($this->create("PriceRangeFilter"), true);
             // update global
             $this->exportGlobal("zm_resultList", $resultList);
         }

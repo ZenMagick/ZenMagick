@@ -35,14 +35,18 @@ class ZMRedirectView extends ZMView {
     var $url_;
 
 
-    // create new instance
-    function ZMRedirectView($url) {
-        $this->url_ = $url;
+    /**
+     * Default c'tor.
+     */
+    function ZMRedirectView($view) {
+        $this->url_ = zm_href($view, '', false);
     }
 
-    // create new instance
-    function __construct($url) {
-        $this->ZMRedirectView($url);
+    /**
+     * Default c'tor.
+     */
+    function __construct($view) {
+        $this->ZMRedirectView($view);
     }
 
     function __destruct() {

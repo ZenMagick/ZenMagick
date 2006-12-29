@@ -33,13 +33,16 @@
  */
 class ZMReviews extends ZMDao {
 
-
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMReviews() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMReviews();
     }

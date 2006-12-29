@@ -49,7 +49,9 @@ class ZMAccount extends ZMModel {
     var $subscriptions_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAccount() {
         parent::__construct();
 

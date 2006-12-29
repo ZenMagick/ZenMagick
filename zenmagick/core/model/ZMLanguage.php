@@ -39,7 +39,9 @@ class ZMLanguage {
     var $directory_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMLanguage() {
     }
 

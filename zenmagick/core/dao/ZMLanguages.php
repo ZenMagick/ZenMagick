@@ -35,7 +35,9 @@ class ZMLanguages extends ZMDao {
     var $languages_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMLanguages() {
         parent::__construct();
 
@@ -47,7 +49,9 @@ class ZMLanguages extends ZMDao {
         }
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMLanguages();
     }

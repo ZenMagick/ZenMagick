@@ -41,7 +41,13 @@ class ZMRss extends ZMObject {
     var $items_;
 
 
-    // create new instance
+    /**
+     * Create a new RSS feed
+     *
+     * @param string url The feed url.
+     * @param string category An optional category.
+     * @param int limit An optional item limit (default is 5).
+     */
     function ZMRss($url, $category=null, $limit=5) {
 
         parent::__construct();
@@ -68,7 +74,13 @@ class ZMRss extends ZMObject {
         }
     }
 
-    // create new instance
+    /**
+     * Create a new RSS feed
+     *
+     * @param string url The feed url.
+     * @param string category An optional category.
+     * @param int limit An optional item limit (default is 5).
+     */
     function __construct($url, $category=null, $limit=5) {
         $this->ZMRss($url, $category, $limit);
     }

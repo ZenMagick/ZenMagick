@@ -37,12 +37,16 @@ class ZMThemeView extends ZMView {
     var $page_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMThemeView($page) {
         $this->page_ = $page;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($page) {
         $this->ZMThemeView($page);
     }

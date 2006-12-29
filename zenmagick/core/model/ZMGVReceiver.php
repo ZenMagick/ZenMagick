@@ -38,7 +38,9 @@ class ZMGVReceiver extends ZMModel {
     var $message_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMGVReceiver() {
         parent::__construct();
 
@@ -71,6 +73,7 @@ class ZMGVReceiver extends ZMModel {
     function getName() { return $this->name_; }
     function getEmail() { return $this->email_; }
     function getAmount() { return $this->amount_; }
+    function hasMessage() { return !zm_is_empty($this->message_); }
     function getMessage() { return $this->message_; }
 
 }

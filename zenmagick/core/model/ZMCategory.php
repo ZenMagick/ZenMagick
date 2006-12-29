@@ -45,7 +45,9 @@ class ZMCategory {
     var $image_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCategory($id, $parentId, $name, $active = false) {
         $this->id_ = $id;
         $this->parent_ = null;

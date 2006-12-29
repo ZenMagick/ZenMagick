@@ -40,7 +40,10 @@ class ZMOrderItem {
     var $calculatedPrice_;
     var $attributes_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMOrderItem() {
         $this->attributes_ = array();
     }

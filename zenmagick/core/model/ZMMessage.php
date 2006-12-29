@@ -32,10 +32,16 @@
  * @version $Id$
  */
 class ZMMessage {
-	var $text_;
-	var $type_;
+    var $text_;
+    var $type_;
 
-    // create new instance
+
+    /**
+     * Create new message.
+     *
+     * @param string text The message text.
+     * @param string type The message type.
+     */
     function ZMMessage($text, $type='error') {
         $this->text_ = $text;
         $this->type_ = $type;

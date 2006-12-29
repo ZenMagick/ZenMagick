@@ -2,6 +2,17 @@ Current:
 - First draft of shipping estimator
 - removed popup_ prefix from popup views
 - country dropdowns default now to store country
+- Fix edit GV send for non image buttons
+- Fixed GV Send form handling and page flow
+- Added name to result list sorter and filter
+- Fixed broken alpha filter
+- added a dark colour setup to the demo theme; great to start customising
+  colours
+- had another go at phpdoc
+- zm_href and decendents now support multi value parameter
+- added sanity check to result list  to always return a valid page
+- added code to auto generate dummy templates in zen-cart
+- started cleanup of undocumented functions
 
 Release 0.6.0:
 - Fixed missing file permission check for creating dummy sidebar boxes

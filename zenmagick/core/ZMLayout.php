@@ -39,7 +39,9 @@ class ZMLayout {
     var $rightColBoxes_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMLayout() {
     global $zm_runtime;
         $this->db_ = $zm_runtime->getDB();
@@ -49,7 +51,9 @@ class ZMLayout {
         $this->rightColBoxes_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMLayout();
     }

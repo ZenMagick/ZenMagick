@@ -37,7 +37,9 @@ class ZMMediaType {
     var $extension_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMMediaType() {
         $this->id_ = 0;
         $this->name_ = null;

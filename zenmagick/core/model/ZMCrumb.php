@@ -32,10 +32,13 @@
  * @version $Id$
  */
 class ZMCrumb {
-	var $name_;
-	var $url_;
+    var $name_;
+    var $url_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMCrumb($name, $url = null) {
         $this->name_ = $name;
         $this->url_ = $url;

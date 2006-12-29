@@ -33,12 +33,16 @@
  */
 class ZMProductReviewsController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMProductReviewsController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMProductReviewsController();
     }
@@ -46,8 +50,6 @@ class ZMProductReviewsController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

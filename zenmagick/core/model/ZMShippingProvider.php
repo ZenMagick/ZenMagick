@@ -36,7 +36,11 @@ class ZMShippingProvider extends ZMModel {
     var $methods_;
 
 
-    // create new instance
+    /**
+     * Create a new shipping provider.
+     *
+     * @param array zenQuote The zen-cart shipping quote infos for this provider.
+     */
     function ZMShippingProvider($zenQuote) {
         parent::__construct();
 

@@ -36,7 +36,9 @@ class ZMMessages extends ZMDao {
     var $uniqueMsgRef_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMMessages() {
     global $messageStack;
 
@@ -55,7 +57,9 @@ class ZMMessages extends ZMDao {
         }
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMMessages();
     }

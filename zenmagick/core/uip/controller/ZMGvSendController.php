@@ -33,12 +33,16 @@
  */
 class ZMGvSendController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMGvSendController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMGvSendController();
     }
@@ -60,14 +64,14 @@ class ZMGvSendController extends ZMController {
         $view =& $this->create("ThemeView", 'gv_send');
         if ('doneprocess' == $zm_request->getRequestParameter('action')) {
             $zm_messages->add(zm_l10n_get("Gift Certificate successfully send."), 'msg');
-            //$view =& new ZMThemeView('account');
+            //$view =& new ZMRedirectView('account');
         }
 
         return $view;
     }
 
     // process a POST request
-    function XprocessPost() {
+    function processPost() {
     global $zm_request, $zm_crumbtrail, $zm_accounts, $zm_messages;
     // zen header stuff
     global $error_amount, $error_email;
@@ -90,7 +94,11 @@ class ZMGvSendController extends ZMController {
 
         $view =& new ZMThemeView('account');
         if ('send' == $zm_request->getRequestParameter('action') && !$zm_messages->hasMessages()) {
-            $view =& new ZMThemeView('gv_send_confirm');
+            if (null != $zm_request->getRequestParameter('edit_x', null)) {
+                $view =& new ZMThemeView('gv_send');
+            } else {
+                $view =& new ZMThemeView('gv_send_confirm');
+            }
         }
 
         return $view;

@@ -33,12 +33,16 @@
  */
 class ZMAccountEditController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAccountEditController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAccountEditController();
     }
@@ -46,8 +50,6 @@ class ZMAccountEditController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

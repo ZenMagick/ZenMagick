@@ -33,12 +33,16 @@
  */
 class ZMAccountNewslettersController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAccountNewslettersController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAccountNewslettersController();
     }
@@ -46,8 +50,6 @@ class ZMAccountNewslettersController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

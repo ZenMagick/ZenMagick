@@ -37,7 +37,11 @@ class ZMImageInfo {
     var $imageLarge_;
 
 
-    // create new instance
+    /**
+     * Create new image info.
+     *
+     * @param string image The image name.
+     */
     function ZMImageInfo($image) {
         $comp = _zm_split_image_name($image);
         $subdir = $comp[0];

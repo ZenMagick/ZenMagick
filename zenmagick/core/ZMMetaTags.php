@@ -33,7 +33,7 @@
  * entirely by looking at category and product id in the request.</p>
  *
  * <p>All other pages will get served default values base on the store configuration.
- * Only exception is the homepage where the keywords will include the po categories.</p>
+ * Only exception is the homepage where the keywords will include the top categories.</p>
  *
  * @author mano
  * @package net.radebatz.zenmagick
@@ -47,7 +47,11 @@ class ZMMetaTags extends ZMObject {
     var $keywordDelimiter_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     *
+     * @param string delimiter Optional keyword delimiter.
+     */
     function ZMMetaTags($delimiter=null) {
     global $zm_runtime;
 
@@ -57,7 +61,11 @@ class ZMMetaTags extends ZMObject {
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : zm_setting('metaTagKeywordDelimiter');
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     *
+     * @param string delimiter Optional keyword delimiter.
+     */
     function __construct($delimiter=null) {
         $this->ZMMetaTags($delimiter);
     }

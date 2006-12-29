@@ -38,7 +38,13 @@ class ZMSubscriptions {
     var $productIds_;
 
 
-    // create new instance
+    /**
+     * Create new subscription info.
+     *
+     * @param ZMAccount account The account.
+     * @param bool newsletter Newsletter subscription flag.
+     * @param array productIds List of subscribed product ids.
+     */
     function ZMSubscriptions($account, $newsletter=null, $productIds=null) {
         $this->account_ = $account;
         $this->newsletter_ = $newsletter;

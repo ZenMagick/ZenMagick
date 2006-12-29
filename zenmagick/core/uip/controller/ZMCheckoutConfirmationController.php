@@ -33,12 +33,16 @@
  */
 class ZMCheckoutConfirmationController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCheckoutConfirmationController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCheckoutConfirmationController();
     }
@@ -46,8 +50,6 @@ class ZMCheckoutConfirmationController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

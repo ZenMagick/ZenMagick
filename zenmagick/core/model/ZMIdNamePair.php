@@ -36,7 +36,12 @@ class ZMIdNamePair {
     var $name_;
 
 
-    // create new instance
+    /**
+     * Create new id - name pair.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     */
     function ZMIdNamePair($id, $name) {
 		    $this->id_ = $id;
 		    $this->name_ = $name;

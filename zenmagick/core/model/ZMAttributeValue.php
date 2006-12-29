@@ -48,11 +48,11 @@ class ZMAttributeValue {
     var $image_;
     var $isOneTime_;
     var $isPriceFactorOneTime_;
-/*
-[products_options_values_id] => 16 [products_options_values_name] => Red [products_attributes_id] => 508 [products_id] => 78 [options_id] => 1 [options_values_id] => 16 [options_values_price] => 100.0000 [price_prefix] => + [products_options_sort_order] => 10 [product_attribute_is_free] => 0 [products_attributes_weight] => 0 [products_attributes_weight_prefix] => + [attributes_display_only] => 0 [attributes_default] => 0 [attributes_discounted] => 1 [attributes_image] => [attributes_price_base_included] => 1 [attributes_price_onetime] => 0.0000 [attributes_price_factor] => 0.0000 [attributes_price_factor_offset] => 0.0000 [attributes_price_factor_onetime] => 0.0000 [attributes_price_factor_onetime_offset] => 0.0000 [attributes_qty_prices] => [attributes_qty_prices_onetime] => [attributes_price_words] => 0.0000 [attributes_price_words_free] => 0 [attributes_price_letters] => 0.0000 [attributes_price_letters_free] => 0 [attributes_required] => 0 ) 
-*/
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMAttributeValue($id, $name) {
         $this->id_ = $id;
         $this->name_ = $name;

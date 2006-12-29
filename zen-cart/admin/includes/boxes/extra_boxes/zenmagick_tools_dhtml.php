@@ -79,7 +79,7 @@ require_once('../zenmagick/admin_init.php');
 
     // create empty dummy files...
     foreach ($missingBoxes as $box) {
-        if (!file_exists(ZEN_DIR_FS_BOXES.$box)) {
+        if (!file_exists(ZEN_DIR_FS_BOXES.$box) && zm_setting('isAutoCreateZCSideboxes')) {
             if (is_writeable(ZEN_DIR_FS_BOXES.$box)) {
                 $handle = fopen(ZEN_DIR_FS_BOXES.$box, 'a');
                 fwrite($handle, '<?php /** dummy file created by ZenMagick **/ ?>');
@@ -90,4 +90,26 @@ require_once('../zenmagick/admin_init.php');
         }
     }
 
+    //******** auto build ZenMagick theme dummies *************
+    $zm_theme = new ZMTheme();
+    $themeInfos = $zm_theme->getThemeInfoList();
+    foreach ($themeInfos as $themeInfo) {
+        if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath()) && zm_setting('isAutoCreateZCThemeDummies')) {
+            if ('default' == $themeInfo->getPath())
+                continue;
+            if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
+                mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath());
+                $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath()."/template_info.php", 'a');
+                fwrite($handle, '<?php /** dummy file created by ZenMagick **/'."\n");
+                fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");
+                fwrite($handle, '  $template_name = ' . "'" . addslashes($themeInfo->getName()) . "';\n");
+                fwrite($handle, '  $template_author = ' . "'" . addslashes($themeInfo->getAuthor()) . "';\n");
+                fwrite($handle, '  $template_description = ' . "'" . addslashes($themeInfo->getDescription()) . "';\n");
+                fwrite($handle, '?>');
+                fclose($handle);
+            } else {
+                zm_log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getPath(), 1);
+            }
+        }
+    }
 ?>

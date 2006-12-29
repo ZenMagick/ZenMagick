@@ -37,13 +37,18 @@
 class ZMRuntime {
     var $themeId_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMRuntime() {
         // init with defaults
         $this->themeId_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMRuntime();
     }
@@ -52,11 +57,6 @@ class ZMRuntime {
     }
 
 
-    // getter/setter
-    function getCurrencies() { global $currencies; return $currencies; }
-    function getCategories() { global $zm_categories; return $zm_categories; }
-    function getProducts() { global $zm_products; return $zm_products; }
-    function getManufacturers() { global $zm_manufacturers; return $zm_manufacturers; }
     function getDB() { global $db; return $db; }
     function getControllerPath() { return DIR_FS_CATALOG.ZM_CONTROLLER_PATH; }
     function getThemePath($themeId=null) { return $this->getThemeBasePath().((null!=$themeId||!zm_setting('isEnableThemeDefaults'))?$themeId:$this->getThemeId()); }

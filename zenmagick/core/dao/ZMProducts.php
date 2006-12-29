@@ -33,13 +33,16 @@
  */
 class ZMProducts extends ZMDao {
 
-
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMProducts() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMProducts();
     }

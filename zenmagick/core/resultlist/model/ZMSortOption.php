@@ -41,7 +41,14 @@ class ZMSortOption {
     var $decending_;
 
 
-    // create new instance
+    /**
+     * Create a new sort option.
+     *
+     * @param string name The option name.
+     * @param int id The option id.
+     * @param bool active Optional active flag if this option is currently active.
+     * @param bool decending Ascending/decending flag (default is ascending.
+     */
     function ZMSortOption($name, $id, $active=false, $decending=false) {
         $this->name_ = $name;
         $this->id_ = $id;
@@ -49,7 +56,14 @@ class ZMSortOption {
         $this->decending_ = $decending;
     }
 
-    // create new instance
+    /**
+     * Create a new sort option.
+     *
+     * @param string name The option name.
+     * @param int id The option id.
+     * @param bool active Optional active flag if this option is currently active.
+     * @param bool decending Ascending/decending flag (default is ascending.
+     */
     function __construct($name, $id, $active=false, $decending=false) {
         $this->ZMSortOption($name, $id, $active, $decending);
     }
@@ -58,11 +72,35 @@ class ZMSortOption {
     }
 
 
-    //getter
-    function getId() { return $this->id_ . ($this->active_ ? ($this->decending_ ? '_a' : '_d') : ""); }
-    function getName() { return zm_l10n_get($this->name_) . ($this->active_ ? ($this->decending_ ? '-' : '+') : ""); }
+    /**
+     * Get the option id.
+     *
+     * @return int The option id.
+     */
+    function getId() { return $this->id_; }
+
+    /**
+     * Get the option name.
+     *
+     * @return string The option name.
+     */
+    function getName() { return $this->name_; }
+
+    /**
+     * Check if this option is active.
+     *
+     * @return bool <code>true</code> if this option is active, <code>false</code>, if not.
+     */
     function isActive() { return $this->active_; }
+
+    /**
+     * Check if the sorting is ascending or decending.
+     *
+     * @return bool <code>true</code> if sorting is decending, <code>false</code> if sorting
+     *  is ascending.
+     */
     function isDecending() { return $this->decending_; }
+
 }
 
 ?>

@@ -33,12 +33,16 @@
  */
 class ZMProductInfoController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMProductInfoController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMProductInfoController();
     }
@@ -46,8 +50,6 @@ class ZMProductInfoController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

@@ -38,12 +38,20 @@ class ZMRssItem {
     var $item_;
 
 
-    // create new instance
+    /**
+     * Create new RSS item.
+     *
+     * @param array Array of item data.
+     */
     function ZMRssItem($item) {
         $this->item_ = $item;
     }
 
-    // create new instance
+    /**
+     * Create new RSS item.
+     *
+     * @param array Array of item data.
+     */
     function __construct($item) {
         $this->ZMRssChannel($item);
     }
@@ -52,11 +60,39 @@ class ZMRssItem {
     }
 
 
-    /** getter **/
+    /**
+     * Get the item title.
+     *
+     * @return string The item title.
+     */
     function getTitle() { return $this->item_['title']; }
+
+    /**
+     * Get the item link.
+     *
+     * @return string The item link.
+     */
     function getLink() { return $this->item_['link']; }
+
+    /**
+     * Get the item description.
+     *
+     * @return string The item description.
+     */
     function getDescription() { return $this->item_['description']; }
+
+    /**
+     * Get the item category.
+     *
+     * @return string The item category.
+     */
     function getCategory() { return $this->item_['category']; }
+
+    /**
+     * Get the item publish date.
+     *
+     * @return string The item publish date.
+     */
     function getPubDate() { return $this->item_['pubDate']; }
 
 }

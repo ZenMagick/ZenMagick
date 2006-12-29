@@ -38,7 +38,9 @@ class ZMMedia {
     var $type_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMMedia() {
         $this->id_ = 0;
         $this->filename_ = null;

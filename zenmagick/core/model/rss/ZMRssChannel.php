@@ -38,12 +38,20 @@ class ZMRssChannel {
     var $rs_;
 
 
-    // create new instance
+    /**
+     * Create new RSS channel.
+     *
+     * @param array Channel data.
+     */
     function ZMRssChannel($rs) {
         $this->rs_ = $rs;
     }
 
-    // create new instance
+    /**
+     * Create new RSS channel.
+     *
+     * @param array Channel data.
+     */
     function __construct($rs) {
         $this->ZMRssChannel($rs);
     }
@@ -52,16 +60,74 @@ class ZMRssChannel {
     }
 
 
-    /** getter **/
+    /**
+     * Get the channel title.
+     *
+     * @return string The channel title.
+     */
     function getTitle() { return $this->rs_['title']; }
+
+    /**
+     * Get the channel link.
+     *
+     * @return string The channel link.
+     */
     function getLink() { return $this->rs_['link']; }
+
+    /**
+     * Get the channel encoding.
+     *
+     * @return string The channel encoding.
+     */
     function getEncoding() { return $this->rs_['encoding']; }
+
+    /**
+     * Get the channel description.
+     *
+     * @return string The channel description.
+     */
     function getDescription() { return $this->rs_['description']; }
+
+    /**
+     * Get the channels last build date.
+     *
+     * @return string The channels last build date.
+     */
     function getLastBuildDate() { return $this->rs_['lastBuildDate']; }
+
+    /**
+     * Get the channels image title.
+     *
+     * @return string The channels image title.
+     */
     function getImageTitle() { return $this->rs_['image_title']; }
+
+    /**
+     * Get the channels image link.
+     *
+     * @return string The channels image link.
+     */
     function getImageLink() { return $this->rs_['image_link']; }
+
+    /**
+     * Get the channels image width.
+     *
+     * @return string The channels image width.
+     */
     function getImageWidth() { return $this->rs_['image_width']; }
+
+    /**
+     * Get the channels image height.
+     *
+     * @return string The channels image height.
+     */
     function getImageHeight() { return $this->rs_['image_height']; }
+
+    /**
+     * Checks if the channel has an image.
+     *
+     * @return bool <code>true</code> if a channel image is available, <code>false</code> if not.
+     */
     function hasImage() { return array_key_exists($this->rs_, 'image_url'); }
 
 }

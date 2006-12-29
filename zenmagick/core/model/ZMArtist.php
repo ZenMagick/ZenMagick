@@ -40,7 +40,9 @@ class ZMArtist {
     var $recordCompany_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMArtist() {
         $this->id_ = 0;
         $this->name_ = '';

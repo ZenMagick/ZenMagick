@@ -38,7 +38,9 @@ class ZMContactInfo extends ZMModel {
     var $message_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMContactInfo($name='', $email='', $message='') {
         parent::__construct();
 

@@ -36,7 +36,7 @@
         <label for="amount"><?php zm_l10n("Gift Certificate Amount") ?><span>*</span></label><br />
         <input type="text" id="amount" name="amount" value="<?php zm_format_currency($zm_gvreceiver->getAmount()) ?>" /><br />
         <label for="message"><?php zm_l10n("Message Text") ?></label><br />
-        <textarea id="message" cols="50" rows="8"><?php echo $zm_gvreceiver->getMessage() ?></textarea><br />
+        <textarea id="message" name="message" cols="50" rows="8"><?php echo $zm_gvreceiver->getMessage() ?></textarea><br />
         <p class="man"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>

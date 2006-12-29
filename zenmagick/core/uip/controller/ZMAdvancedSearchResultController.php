@@ -33,12 +33,16 @@
  */
 class ZMAdvancedSearchResultController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAdvancedSearchResultController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAdvancedSearchResultController();
     }
@@ -46,8 +50,6 @@ class ZMAdvancedSearchResultController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

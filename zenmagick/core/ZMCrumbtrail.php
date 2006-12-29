@@ -35,7 +35,9 @@ class ZMCrumbtrail extends ZMObject {
     var $crumbs_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCrumbtrail() {
         parent::__construct();
 
@@ -45,7 +47,9 @@ class ZMCrumbtrail extends ZMObject {
         $this->addCrumb(HEADER_TITLE_CATALOG, zm_href(FILENAME_DEFAULT, '', false));
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCrumbtrail();
     }

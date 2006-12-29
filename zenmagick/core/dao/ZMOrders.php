@@ -33,13 +33,16 @@
  */
 class ZMOrders extends ZMDao {
 
-
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMOrders() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMOrders();
     }

@@ -65,7 +65,13 @@ class ZMProduct extends ZMModel {
     var $features_;
 
 
-    // create new instance
+    /**
+     * Create new product.
+     *
+     * @param int id The product id.
+     * @param string name The product name.
+     * @param string description The product description.
+     */
     function ZMProduct($id, $name, $description) {
         parent::__construct();
 

@@ -31,7 +31,7 @@
     <h3><a href="<?php zm_href(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("New Products") ?></h3>
     <div id="sb_newproducts" class="box">
         <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a></p>
-        <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
+        <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_htmlencode($product->getName()) ?></a></p>
         <?php $offers = $product->getOffers(); ?>
         <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
     </div>

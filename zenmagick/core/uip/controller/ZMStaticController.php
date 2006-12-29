@@ -33,12 +33,16 @@
  */
 class ZMStaticController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMStaticController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMStaticController();
     }
@@ -46,8 +50,6 @@ class ZMStaticController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

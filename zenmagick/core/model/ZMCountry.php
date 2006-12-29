@@ -39,7 +39,9 @@ class ZMCountry {
     var $addressFormatId_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCountry() {
         $this->id_ = 0;
         $this->name_ = '';

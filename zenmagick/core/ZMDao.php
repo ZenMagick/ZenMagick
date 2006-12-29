@@ -35,7 +35,9 @@ class ZMDao extends ZMObject {
     var $db_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMDao() {
     global $zm_runtime;
 
@@ -44,9 +46,14 @@ class ZMDao extends ZMObject {
         $this->db_ =& $zm_runtime->getDB();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMDao();
+    }
+
+    function __destruct() {
     }
 
 }

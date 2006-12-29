@@ -35,21 +35,25 @@ class ZMPayments extends ZMDao {
     var $zenModules_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMPayments() {
     global $payment_modules;
 
         parent::__construct();
 
         if (!isset($payment_modules)) {
-            require_once(DIR_WS_CLASSES . 'payment.php');
+            zm_resolve_zc_class('payment');
             $this->zenModules_ = new payment;
         } else {
             $this->zenModules_ = $payment_modules;
         }
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMPayments();
     }

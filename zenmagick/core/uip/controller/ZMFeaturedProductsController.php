@@ -47,8 +47,6 @@ class ZMFeaturedProductsController extends ZMController {
     }
 
 
-    /** API implementation */
-
     // process a GET request
     function processGet() {
     global $zm_request, $zm_categories, $zm_crumbtrail, $zm_products;

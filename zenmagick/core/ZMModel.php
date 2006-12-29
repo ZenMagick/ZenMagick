@@ -25,7 +25,7 @@
 
 
 /**
- * Empty marker class (for now).
+ * Model base class.
  *
  * @author mano
  * @package net.radebatz.zenmagick
@@ -34,12 +34,16 @@
 class ZMModel extends ZMObject {
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMModel() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMModel();
     }

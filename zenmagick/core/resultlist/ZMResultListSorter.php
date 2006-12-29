@@ -33,13 +33,19 @@
  */
 class ZMResultListSorter extends ZMObject {
     var $id_;
+    var $name_;
     var $defaultSortId_;
     var $sortId_;
     var $decending_;
 
 
-    // create new instance
-    function ZMResultListSorter($id=null) {
+    /**
+     * Create a new result list sorter.
+     *
+     * @param string id An optional sorter id.
+     * @param string name An optional sorter name.
+     */
+    function ZMResultListSorter($id=null, $name='') {
     global $zm_request;
 
         parent::__construct();
@@ -54,9 +60,14 @@ class ZMResultListSorter extends ZMObject {
 
     }
 
-    // create new instance
-    function __construct($id=null) {
-        $this->ZMResultListSorter($id);
+    /**
+     * Create a new result list sorter.
+     *
+     * @param string id An optional sorter id.
+     * @param string name An optional sorter name.
+     */
+    function __construct($id=null, $name='') {
+        $this->ZMResultListSorter($id, $name);
     }
 
     function __destruct() {
@@ -114,6 +125,13 @@ class ZMResultListSorter extends ZMObject {
      */
     function getId() { return $this->id_; }
 
+
+    /**
+     * Returns the sorter name.
+     *
+     * @return string The sorter name.
+     */
+    function getName() { return $this->name_; }
 }
 
 ?>

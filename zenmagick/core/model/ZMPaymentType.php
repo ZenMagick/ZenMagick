@@ -38,7 +38,14 @@ class ZMPaymentType {
     var $error_;
     var $fields_;
 
-    // create new instance
+
+    /**
+     * Create a new payment type.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     * @param string instructions Optional instructions.
+     */
     function ZMPaymentType($id, $name, $instructions='') {
         $this->id_ = $id;
         $this->name_ = $name;

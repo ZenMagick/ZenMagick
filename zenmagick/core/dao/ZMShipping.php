@@ -28,13 +28,14 @@
  * Access class for shipping options.
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
 class ZMShipping extends ZMDao {
 
-
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMShipping() {
     global $shipping_modules;
 
@@ -54,7 +55,9 @@ class ZMShipping extends ZMDao {
 
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMShipping();
     }

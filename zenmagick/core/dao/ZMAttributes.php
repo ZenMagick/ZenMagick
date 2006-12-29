@@ -50,7 +50,11 @@ class ZMAttributes extends ZMDao {
         $this->hasAttributes_ = $this->_checkForAttributes();
     }
 
-    // create new instance
+    /**
+     * Create new instance for the given product.
+     *
+     * @param ZMProduct product The product whose attributes we want to load.
+     */
     function __construct($product) {
         $this->ZMAttributes($product);
     }

@@ -30,20 +30,27 @@ if (!class_exists("ZMObject")) {
     /**
      * ZenMagick base class.
      *
+     * <p>This is the base class for all ZenMagick classes and contains some very basic
+     * stuff that might be usefull for most/all classes.</p>
+     *
      * @author mano
      * @package net.radebatz.zenmagick
      */
     class ZMObject {
         var $loader_;
 
-        // create new instance
+        /**
+         * Default c'tor.
+         */
         function ZMObject() {
         global $zm_loader;
 
             $this->loader_ =& $zm_loader;
         }
 
-        // create new instance
+        /**
+         * Default c'tor.
+         */
         function __construct() {
             $this->ZMObject();
         }
@@ -53,7 +60,7 @@ if (!class_exists("ZMObject")) {
 
 
         /**
-         * Shortcut to create new class instance.
+         * Shortcut to create new class instances.
          *
          * @param string name The class name.
          * @param var args A variable number of arguments that will be used as arguments for
@@ -384,6 +391,60 @@ if (!class_exists("ZMObject")) {
         echo "</pre>";
         if ($die) die("trace'n die");
     }
+
+
+    /**
+     * Check if a given value is empty.
+     *
+     * @package net.radebatz.zenmagick
+     * @param mixed value The value to check.
+     * @return bool <code>true> if the value is empty or <code>null</code>, <code>false</code> if not.
+     */
+    function zm_is_empty($value) { return !zen_not_null($value); }
+
+
+    /**
+     * Redirect to the given url.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string url A fully qualified url.
+     */
+    function zm_redirect($url) { zen_redirect($url); }
+
+
+    /**
+     * Exit execution.
+     *
+     * <p>Calling this function will end all request handling in an ordered manner.</p>
+     *
+     * @package net.radebatz.zenmagick
+     */
+    function zm_exit() { zen_exit(); }
+
+
+    /**
+     * Resolve the given zen-cart class.
+     *
+     * <p>This functuon ensures that the given class is loaded.</p>
+     *
+     * @package net.radebatz.zenmagick
+     * @param string clazz The class name.
+     */
+    function zm_resolve_zc_class($clazz) {
+        if (!class_exists($clazz)) {
+            require_once(DIR_WS_CLASSES . $clazz. '.php');
+        }
+    }
+
+
+    /**
+     * Encrypt the given password.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string password The password to encrypt.
+     * @return string The encrypted password.
+     */
+    function zm_encrypt_password($password) { return zen_encrypt_password($password); }
 
 }
 

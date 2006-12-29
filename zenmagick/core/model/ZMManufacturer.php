@@ -38,7 +38,12 @@ class ZMManufacturer {
     var $url_;
 
 
-    // create new instance
+    /**
+     * Create new manufacturer
+     *
+     * @param int id The manufacturer id.
+     * @param string name The name.
+     */
     function ZMManufacturer($id, $name) {
         $this->id_ = $id;
         $this->name_ = $name;

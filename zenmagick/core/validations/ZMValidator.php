@@ -37,13 +37,17 @@ class ZMValidator {
     var $messages_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMValidator() {
         $this->sets_ = array();
         $this->messages_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMValidator();
     }

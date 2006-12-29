@@ -33,12 +33,16 @@
  */
 class ZMCreateAccountController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCreateAccountController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCreateAccountController();
     }
@@ -46,8 +50,6 @@ class ZMCreateAccountController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

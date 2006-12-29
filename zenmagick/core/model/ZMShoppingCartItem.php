@@ -37,7 +37,13 @@ class ZMShoppingCartItem {
     var $taxRate_;
     var $attributes_;
 
-    // create new instance
+
+    /**
+     * Create new shopping cart item
+     *
+     * @param ZMShoppingCart cart The associated shopping cart.
+     * @param array zenItem The zen-cart shopping item infos.
+     */
     function ZMShoppingCartItem($cart, $zenItem) {
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;

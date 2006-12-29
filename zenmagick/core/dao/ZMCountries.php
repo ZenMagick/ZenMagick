@@ -36,14 +36,18 @@ class ZMCountries extends ZMDao {
     var $countriesById_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCountries() {
         parent::__construct();
 
         $this->countries_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCountries();
     }

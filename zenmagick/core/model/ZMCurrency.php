@@ -42,7 +42,9 @@ class ZMCurrency {
     var $value_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCurrency($id, $arr) {
         $this->id_ = $id;
         $this->name_ = $arr['title'];

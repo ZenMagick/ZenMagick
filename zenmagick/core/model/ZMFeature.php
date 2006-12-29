@@ -40,7 +40,9 @@ class ZMFeature {
     var $values_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMFeature() {
         $this->id_ = 0;
 		    $this->values_ = array();

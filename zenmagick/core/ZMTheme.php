@@ -33,11 +33,15 @@
  */
 class ZMTheme {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMTheme() {
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMTheme();
     }
@@ -175,7 +179,7 @@ class ZMTheme {
         // theme info file name
         $infoFile = $basePath.$themeId."/".$infoClass.".php";
         // load
-        require_once $infoFile;
+        require_once($infoFile);
         // create instance
         $clazz = new $infoClass();
         $clazz->setPath($themeId);

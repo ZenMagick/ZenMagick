@@ -34,29 +34,40 @@
 class ZMResultListFilter extends ZMObject {
     var $list_;
     var $id_;
+    var $name_;
     var $filterValues_;
 
 
-    // create new instance
-    function ZMResultListFilter($id=null) {
+    /**
+     * Create a new result list filter.
+     *
+     * @param string id An optional filter id.
+     * @param string name An optional filter name.
+     */
+    function ZMResultListFilter($id=null, $name='') {
     global $zm_request;
 
         parent::__construct();
 
         $this->id_ = $id;
-        $this->filterValues_ = explode(",", $zm_request->getRequestParameter($this->id_, ''));
+        $this->name_ = $name;
+        $value = $zm_request->getRequestParameter($this->id_, '');
+        $this->filterValues_ = $this->isMultiSelection() ? $value : explode(",", $value);
     }
 
-    // create new instance
-    function __construct($list, $id=null) {
-        $this->ZMResultListFilter($list, $id);
+    /**
+     * Create a new result list filter.
+     *
+     * @param string id An optional filter id/name.
+     * @param string name An optional filter name.
+     */
+    function __construct($id=null, $name='') {
+        $this->ZMResultListFilter($id, $name);
     }
 
     function __destruct() {
     }
 
-
-    /** Filter API */
 
     /**
      * Set the result list we belong to.
@@ -142,7 +153,14 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return string The filters unique form field name.
      */
-    function getId() { return $this->id_; }
+    function getId() { return $this->id_ . ($this->isMultiSelection() ? '[]' : ''); }
+
+    /**
+     * Returns the filter name.
+     *
+     * @return string The filter name.
+     */
+    function getName() { return $this->name_; }
 
 }
 

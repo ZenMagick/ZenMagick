@@ -33,12 +33,16 @@
  */
 class ZMUnsubscribeController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMUnsubscribeController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMUnsubscribeController();
     }
@@ -46,8 +50,6 @@ class ZMUnsubscribeController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

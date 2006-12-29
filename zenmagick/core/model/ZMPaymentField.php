@@ -35,7 +35,13 @@ class ZMPaymentField {
     var $label_;
     var $html_;
 
-    // create new instance
+
+    /**
+     * Create new payment (input) field.
+     *
+     * @param string label The field label.
+     * @param string html The (input) field HTML.
+     */
     function ZMPaymentField($label, $html) {
         $this->label_ = $label;
         $this->html_ = $html;

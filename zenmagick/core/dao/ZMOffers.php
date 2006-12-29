@@ -40,7 +40,9 @@ class ZMOffers extends ZMDao {
     var $discountPercent_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMOffers($product) {
         parent::__construct();
 
@@ -53,7 +55,9 @@ class ZMOffers extends ZMDao {
         $this->_calculatePrice();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($product) {
         $this->ZMOffers($product);
     }

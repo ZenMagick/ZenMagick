@@ -40,7 +40,9 @@ class ZMAttribute {
     var $values_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAttribute($id, $name, $type) {
         $this->id_ = $id;
         $this->name_ = $name;

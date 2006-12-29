@@ -37,14 +37,18 @@ class ZMRule {
     var $defaultMsg_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMRule($name, $defaultMsg, $msg=null) {
         $this->name_ = $name;
         $this->defaultMsg_ = $defaultMsg;
         $this->msg_ = $msg;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($name, $defaultMsg, $msg=null) {
         $this->ZMRule($name, $defaultMsg, $msg);
     }

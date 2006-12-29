@@ -36,13 +36,17 @@ class ZMRuleSet {
     var $rules_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMRuleSet($id, $rules=null) {
         $this->id_ = $id;
         $this->rules_ = null != $rules ? $rules : array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($id, $rules=null) {
         $this->ZMRuleSet($id, $rules);
     }

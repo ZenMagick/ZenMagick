@@ -34,27 +34,39 @@
 class ZMResultList {
     var $results_;
     var $page_;
-    var $resultsPerPage_;
+    var $pagination_;
     var $filters_;
     var $sorters_;
 
 
-    // create new instance
-    function ZMResultList($results, $resultsPerPage=10, $page=0) {
+    /**
+     * Create new result list.
+     *
+     * @param array The results.
+     * @param int pagination Number of results per page (default is 10)
+     * @param int page The current page number (default is 0)
+     */
+    function ZMResultList($results, $pagination=10, $page=0) {
     global $zm_request;
 
         $this->results_ = $results;
         $this->filters_ = array();
         $this->sorters_ = array();
-        $this->resultsPerPage_ = $resultsPerPage;
+        $this->pagination_ = $pagination;
         $page = 0 == $page ? $zm_request->getPageIndex() : $page;
         $this->page_ = $page;
         $this->refresh();
     }
 
-    // create new instance
-    function __construct($results, $resultsPerPage=10, $page=0) {
-        $this->ZMResultList($results, $resultsPerPage, $page);
+    /**
+     * Create new result list.
+     *
+     * @param array The results.
+     * @param int pagination Number of results per page (default is 10)
+     * @param int page The current page number (default is 0)
+     */
+    function __construct($results, $pagination=10, $page=0) {
+        $this->ZMResultList($results, $pagination, $page);
     }
 
     function __destruct() {
@@ -88,12 +100,12 @@ class ZMResultList {
 
     // calculate end index
     function _getEndIndex() {
-        $index = $this->page_ * $this->resultsPerPage_;
+        $index = $this->page_ * $this->pagination_;
 	      return $index > $this->getNumberOfResults() ? $this->getNumberOfResults() : $index;
     }
 
     // calculate start index
-    function _getStartIndex() { return ($this->page_-1) * $this->resultsPerPage_; }
+    function _getStartIndex() { return ($this->page_-1) * $this->pagination_; }
 
 
     /**
@@ -102,6 +114,9 @@ class ZMResultList {
     function refresh() {
         $this->results_ = $this->_applyFilters($this->results_);
         $this->results_ = $this->_applySort($this->results_);
+        if ($this->page_ > $this->getNumberOfPages()) {
+            $this->page_ = $this->getNumberOfPages();
+        }
     }
 
 
@@ -145,8 +160,8 @@ class ZMResultList {
     function getAllResults() { return $this->results_; }
     function getNumberOfResults() { return count($this->results_); }
     function getCurrentPageNumber() { return $this->page_; }
-    function getResultsPerPage() { return $this->resultsPerPage_; }
-    function getNumberOfPages() { return ceil($this->getNumberOfResults()/$this->resultsPerPage_); }
+    function getPagination() { return $this->pagination_; }
+    function getNumberOfPages() { return ceil($this->getNumberOfResults()/$this->pagination_); }
     function hasPreviousPage() { return 1 < $this->page_; }
     function hasNextPage() { return $this->page_ < $this->getNumberOfPages(); }
     function getPreviousPageNumber() { return $this->hasPreviousPage() ? ($this->page_-1) : 1; }

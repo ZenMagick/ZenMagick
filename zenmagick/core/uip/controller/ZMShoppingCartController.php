@@ -33,12 +33,16 @@
  */
 class ZMShoppingCartController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMShoppingCartController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMShoppingCartController();
     }
@@ -46,8 +50,6 @@ class ZMShoppingCartController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

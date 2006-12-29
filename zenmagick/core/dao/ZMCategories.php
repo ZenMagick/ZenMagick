@@ -43,7 +43,9 @@ class ZMCategories extends ZMDao {
     var $tree_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCategories($path = null, $type = null) {
         parent::__construct();
 
@@ -55,7 +57,9 @@ class ZMCategories extends ZMDao {
         $this->_buildTree();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($path = null, $type = null) {
         $this->ZMCategories($path, $type);
     }

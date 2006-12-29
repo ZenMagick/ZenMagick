@@ -33,14 +33,18 @@
  */
 class ZMShippingEstimator extends ZMObject {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMShippingEstimator() {
         parent::__construct();
 
         zm_resolve_zc_class("http_client");
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMShippingEstimator();
     }
@@ -49,18 +53,33 @@ class ZMShippingEstimator extends ZMObject {
     }
 
 
+    /**
+     * Get the postcode.
+     *
+     * @return string The postcode for the current calculations.
+     */
     function getPostcode() { 
         $zip_code = (isset($_SESSION['cart_zip_code'])) ? $_SESSION['cart_zip_code'] : '';
         $zip_code = (isset($_POST['zip_code'])) ? strip_tags(addslashes($_POST['zip_code'])) : $zip_code;
         return $zip_code;
     }
 
+    /**
+     * Get the state id.
+     *
+     * @return int The state id for the current shipping calculation.
+     */
     function getStateId() {
         $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int)$_SESSION['cart_zone'] : '';
         $state_zone_id = (isset($_POST['state'])) ? $_POST['state'] : $state_zone_id;
         return $state_zone_id;
     }
 
+    /**
+     * Get the country id.
+     *
+     * @return int The country id for the current address.
+     */
     function getCountryId() {
         $countryId = zm_setting('storeCountry');
         if (isset($_POST['country_id'])){
@@ -71,6 +90,11 @@ class ZMShippingEstimator extends ZMObject {
         return $countryId;
     }
 
+    /**
+     * Get address id.
+     *
+     * @return int The address id for the current address (if any); default is <code>0</code>.
+     */
     function _getAddressId() {
         $addressId = 0;
         if (isset($_POST['address_id'])) {
@@ -84,6 +108,11 @@ class ZMShippingEstimator extends ZMObject {
         return $addressId;
     }
 
+    /**
+     * Get a zen-cart style address (array).
+     *
+     * @return array Array containing a zen-cart style address.
+     */
     function getZCAddress() {
     global $order, $country_info;
         $address = null;

@@ -33,12 +33,16 @@
  */
 class ZMPageController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMPageController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMPageController();
     }
@@ -46,8 +50,6 @@ class ZMPageController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

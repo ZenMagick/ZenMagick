@@ -36,7 +36,9 @@ class ZMCouponRestrictions {
     var $products_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCouponRestrictions($categories, $products) {
 		    $this->categories_ = $categories;
 		    $this->products_ = $products;

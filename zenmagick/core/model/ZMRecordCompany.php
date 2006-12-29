@@ -37,7 +37,9 @@ class ZMRecordCompany {
     var $url_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMRecordCompany() {
         $this->id_ = 0;
         $this->name_ = '';

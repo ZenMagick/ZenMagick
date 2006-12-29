@@ -29,8 +29,10 @@
         <?php if ($zm_resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
-                    <select id="<?php echo $filter->getId() ?>" name="<?php echo $filter->getId() ?>">
-                        <option value=""><?php zm_l10n("Filter by ...") ?></option>
+                    <?php /* if multi select do not auto submit */ ?>
+                    <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
+                    <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
+                        <option value=""><?php zm_l10n("Filter by '%s' ...", $filter->getName()) ?></option>
                         <?php foreach($filter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
@@ -61,6 +63,6 @@
                 </select>
             </div>
         <?php } ?>
-        <input type="submit" class="btn" value="<?php zm_l10n("Sort / Reverse / Filter") ?>" />
+        <div><input type="submit" class="btn" value="<?php zm_l10n("Sort / Reverse / Filter") ?>" /></div>
     </form>
 <?php } ?>

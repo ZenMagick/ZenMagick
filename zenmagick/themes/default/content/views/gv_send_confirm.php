@@ -25,19 +25,41 @@
 ?>
 
 
-<p><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
-zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_gvreceiver->getName(), $zm_gvreceiver->getEmail()) ?></p>
-
 <?php zm_form(FILENAME_GV_SEND, 'action=process') ?>
-    <input type="hidden" name="send_name" value="<?php echo $zm_account->getFullName() ?>" />
-    <input type="hidden" name="to_name" value="<?php echo $zm_gvreceiver->getName() ?>" />
-    <input type="hidden" name="email" value="<?php echo $zm_gvreceiver->getEmail() ?>" />
-    <input type="hidden" name="amount" value="<?php echo $zm_gvreceiver->getAmount() ?>" />
-    <input type="hidden" name="message" value="<?php echo $zm_gvreceiver->getMessage() ?>" />
-    <div class="btn"><input type="submit" value="<?zm_l10n("Send Gift Certificate") ?>" /></div>
+    <div>
+        <input type="hidden" name="send_name" value="<?php echo $zm_account->getFullName() ?>" />
+        <input type="hidden" name="to_name" value="<?php echo $zm_gvreceiver->getName() ?>" />
+        <input type="hidden" name="email" value="<?php echo $zm_gvreceiver->getEmail() ?>" />
+        <input type="hidden" name="amount" value="<?php echo $zm_gvreceiver->getAmount() ?>" />
+        <input type="hidden" name="message" value="<?php echo $zm_gvreceiver->getMessage() ?>" />
+    </div>
+    <fieldset>
+        <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
+
+        <p class="note"><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
+          zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_gvreceiver->getName(), $zm_gvreceiver->getEmail()) ?>
+        </p>
+
+        <fieldset>
+            <legend><?php zm_l10n("Your message") ?></legend>
+            <p>
+              <?php zm_l10n(zm_setting('gvSendMainMessage'), $zm_gvreceiver->getName(), zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_account->getFullName()) ?>
+              <?php if ($zm_gvreceiver->hasMessage()) { ?>
+                <br/>
+                <?php zm_l10n(zm_setting('gvSendPersonalMessage'), $zm_account->getFirstName()); ?>
+                <?php echo $zm_gvreceiver->getMessage() ?>
+              <?php } ?>
+            </p>
+        </fieldset>
+
+        <p class="note"><?php zm_l10n("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
+    </fieldset>
+
+    <div class="btn"><input type="submit" class="btn" value="<?zm_l10n("Send Gift Certificate") ?>" /></div>
+    <div><input type="submit" class="btn" name="edit" value="<?zm_l10n("Edit") ?>" /></div>
 </form>
 
-<p class="rclear">
+<p>
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
     <?php echo zm_setting('emailAdvisory') ?>
 </p>

@@ -5,12 +5,11 @@ missing zen-cart stuff
 - support more zen-cart options/features
 - category filter (get default category)
 - gv send is broken
-- downloadable stuff...
 - product_free_shipping_info and a couple more are still missing
 - can't checkout rope product
 - file attribute
-- shipping calculator
-
+- fix continue button on checkout success page (this is default behaviour...)
+- cleanup CSS, make theme more consistent
 
 
 usablility / quality / performance / etc
@@ -22,6 +21,7 @@ bugs:
 - load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
   (not really a bug, but proper prefix detection to avoid errors)
 - do not create sidebox dummies for filenames including '.in.'
+- file [permissions for created files???
 
 admin/install:
 - admin interface for ZM config values
@@ -46,6 +46,7 @@ structure:
   if doing updates, etc)
 - APIs for other apps; for example WordPress, etc...
 - modules base class?
+- merge theme lang settings with default...
 
 general:
 - more validations plus separate validation rules from views/templates; 
@@ -59,6 +60,11 @@ general:
 - get a logo and favicon
 - add code that if required fails, other rules are skipped - add property 
   to tell validator that - ah need the JS as well!!!
+- use zm_htmlencode() where required (even alt/title for product images)
+- clean up zen-bridge
+- remove validation.php; merge validation into single file, validate request handling...
+- filter need a name?
+- demo price filter
 
 db:
 - config values, sidebox config
@@ -101,21 +107,15 @@ documentation
 stuff
 =====
 
+- zm_setting support second parameter for setting stuff using var_args...
 
 - Options Followsymlinks ??
-- iheritence problem with custom code when base classes are not yet loaded!
 - is this where we need convention that upper case is class and needs to be created using loader???
-- demo defautl controller:
-        // normal processing
-        $view =& parent::processGet();
-return $view!!
 - for optional overwrites we need to load code before app-top!
 - zm_create() as shortcut for $zm_loader->create()...
 
 - view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
 
-- remove inherit from default template extra code as there isn't! also to complicated....
-bad enough with theme handling...
 themeconfig extend each other as well!!
 
 RewriteBase takes only one param!!!!!!!!!!!!!!!!!!!!!!!!
@@ -146,9 +146,6 @@ themes:
 
 - reorganize admin_init
 - put some usefult stuff into local.in.php
-- ZMaddress: populate with default store country:         $this->country_ = $zm_countries->getCountryForId($zm_request->getRequestParameter('country', zm_setting('storeCountry')));
-- replace all require, etc with zm_resolve_zc_class()
-- shipping calculator
 - module framework?
 => implement DPS as showcase
 => ZMModule => ZMpaymentModule, ZMShippingModule, ZMOrderTotalModule

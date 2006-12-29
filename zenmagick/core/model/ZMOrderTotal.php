@@ -36,7 +36,14 @@ class ZMOrderTotal {
     var $value_;
     var $type_;
 
-    // create new instance
+
+    /**
+     * Create new total.
+     *
+     * @param string name The total name.
+     * @param float value The total value.
+     * @param string type The total type.
+     */
     function ZMOrderTotal($name, $value, $type) {
         $this->name_ = $name;
         $this->value_ = $value;

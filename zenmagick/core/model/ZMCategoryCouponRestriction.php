@@ -36,7 +36,9 @@ class ZMCategoryCouponRestriction {
     var $categoryId_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCategoryCouponRestriction($allowed, $categoryId) {
 		    $this->allowed_ = $allowed;
 		    $this->categoryId_ = $categoryId;

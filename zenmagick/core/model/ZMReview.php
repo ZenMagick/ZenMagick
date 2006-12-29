@@ -42,7 +42,9 @@ class ZMReview {
     var $author_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMReview() {
         $this->id_ = 0;
         $this->rating_ = 0;

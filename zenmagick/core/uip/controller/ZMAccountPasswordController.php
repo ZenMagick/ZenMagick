@@ -33,12 +33,16 @@
  */
 class ZMAccountPasswordController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAccountPasswordController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAccountPasswordController();
     }
@@ -46,8 +50,6 @@ class ZMAccountPasswordController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

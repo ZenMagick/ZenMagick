@@ -48,7 +48,9 @@ class ZMAddress extends ZMModel {
     var $format_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAddress() {
         parent::__construct();
 

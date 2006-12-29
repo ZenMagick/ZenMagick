@@ -36,7 +36,12 @@ class ZMProductCouponRestriction {
     var $productId_;
 
 
-    // create new instance
+    /**
+     * Create new coupon restriction.
+     *
+     * @param bool allowed The allowed flag.
+     * @param int productId The product id this restriction applies to.
+     */
     function ZMProductCouponRestriction($allowed, $productId) {
 		    $this->allowed_ = $allowed;
 		    $this->productId_ = $productId;
@@ -56,7 +61,7 @@ class ZMProductCouponRestriction {
     function isAllowed() { return $this->allowed_; }
 
     /**
-     * Returns the category.
+     * Returns the product.
      *
      * @return A <code>ZMProduct</code> instance.
      */

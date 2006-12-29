@@ -43,7 +43,6 @@
         if ($echo) echo $price;
         return $price;
     }
-    function zm_is_empty($value) { return !zen_not_null($value); }
     function zm_add_tax($value, $rate) { return zen_add_tax($value, $rate); }
 
     // simple request scope cache
@@ -72,8 +71,6 @@
     function zm_pimage($src, $alt='', $width='', $height='', $parameters='') {
         return zen_image(DIR_WS_IMAGES.$src, $alt, $width, $height, $parameters);
     }
-    function zm_encrypt_password($password) { return zen_encrypt_password($password); }
-    function zm_get_zen_cart() { return $_SESSION['cart']; }
 
     function zm_clear_session() {
         @zen_session_destroy();
@@ -100,15 +97,6 @@
 
         if ($echo) echo $html;
         return $html;
-    }
-
-    function zm_redirect($url) { zen_redirect($url); }
-    function zm_exit() { zen_exit(); }
-
-    function zm_resolve_zc_class($clazz) {
-        if (!class_exists($clazz)) {
-            require_once(DIR_WS_CLASSES . $clazz. '.php');
-        }
     }
 
     // get online counter

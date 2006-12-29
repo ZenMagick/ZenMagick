@@ -34,12 +34,16 @@
 class ZMMediaManager extends ZMDao {
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMMediaManager() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMMediaManager();
     }

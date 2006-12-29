@@ -33,12 +33,16 @@
  */
 class ZMProductComparisonController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMProductComparisonController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMProductComparisonController();
     }
@@ -46,8 +50,6 @@ class ZMProductComparisonController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

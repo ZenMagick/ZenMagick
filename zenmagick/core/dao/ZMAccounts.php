@@ -33,12 +33,16 @@
  */
 class ZMAccounts extends ZMDao {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAccounts() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAccounts();
     }

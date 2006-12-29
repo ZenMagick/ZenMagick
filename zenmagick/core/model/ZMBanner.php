@@ -40,7 +40,9 @@ class ZMBanner {
     var $url_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMBanner() {
         $this->id_ = 0;
         $this->title_ = '';

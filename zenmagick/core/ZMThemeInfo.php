@@ -38,7 +38,9 @@ class ZMThemeInfo {
     var $js_events_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMThemeInfo() {
         $this->info_ = array();
         $this->config_ = array();
@@ -50,7 +52,9 @@ class ZMThemeInfo {
         $this->setErrorPage('error');
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMThemeInfo();
     }

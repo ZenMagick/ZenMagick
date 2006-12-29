@@ -39,7 +39,9 @@ class ZMShoppingCart extends ZMObject {
     var $payments_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMShoppingCart() {
     global $zm_loader, $zm_runtime;
 
@@ -52,7 +54,9 @@ class ZMShoppingCart extends ZMObject {
         $this->payments_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMShoppingCart();
     }
@@ -61,7 +65,8 @@ class ZMShoppingCart extends ZMObject {
     }
 
 
-    function refresh() { $this->cart_ = zm_get_zen_cart(); }
+    function refresh() { $this->cart_ = $_SESSION['cart']; }
+
 
     // getter/setter
     function isEmpty() { return 0 == $this->getSize(); }
@@ -196,10 +201,10 @@ class ZMShoppingCart extends ZMObject {
         if (null == $this->zenTotals_) {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
-                require_once(DIR_WS_CLASSES . 'order_total.php');
+                zm_resolve_zc_class('order_total');
                 $zenTotals =& new order_total();
             }
-            require_once(DIR_WS_CLASSES . 'order.php');
+            zm_resolve_zc_class('order');
             $GLOBALS['order'] =& new order;
             $this->zenTotals_->process();
         }

@@ -33,12 +33,16 @@
  */
 class ZMSpecialsController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMSpecialsController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMSpecialsController();
     }
@@ -46,8 +50,6 @@ class ZMSpecialsController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

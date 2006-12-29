@@ -33,12 +33,16 @@
  */
 class ZMAddressBookProcessController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAddressBookProcessController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAddressBookProcessController();
     }
@@ -46,8 +50,6 @@ class ZMAddressBookProcessController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

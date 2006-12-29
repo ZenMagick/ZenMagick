@@ -25,11 +25,16 @@
 ?>
 <?php
 
-    // security fix
+    // security fix to allow post for login
     if ("login" == $zm_request->getPageName()) {
         // *disable* zc account create code
         $_GET['action'] = $_POST['action'];
         unset($_POST['action']);
+    }
+
+    // non image button for gv_send edit
+    if (isset($_POST) && array_key_exists('edit', $_POST) && 'gv_send' == $zm_request->getPageName()) {
+        $_POST['edit_x'] = 2;
     }
 
 ?>

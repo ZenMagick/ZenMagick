@@ -50,7 +50,12 @@ class ZMEZPage {
     var $tocChapter_;
 
 
-    // create new instance
+    /**
+     * Create new page.
+     *
+     * @param int id The page id.
+     * @param string title The page title.
+     */
     function ZMEZPage($id, $title) {
         $this->id_ = $id;
         $this->title_ = $title;

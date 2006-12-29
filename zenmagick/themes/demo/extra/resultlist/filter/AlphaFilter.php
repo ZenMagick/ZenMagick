@@ -34,7 +34,7 @@ class AlphaFilter extends ZMResultListFilter {
 
     // create new instance
     function AlphaFilter() {
-        parent::__construct('afilter');
+        parent::__construct('afilter', zm_l10n_get('First character of Name'));
     }
 
     // create new instance
@@ -65,7 +65,7 @@ class AlphaFilter extends ZMResultListFilter {
         foreach ($this->list_->getAllResults() as $result) {
             $char = strtolower(substr($result->getName(), 0, 1));
             if (!array_key_exists($char, $keys)) {
-                $keys[$char] = strtoupper($char);
+                $keys[$char] = strtoupper($char).'...';
             }
         }
 

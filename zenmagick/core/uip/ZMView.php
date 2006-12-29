@@ -34,12 +34,16 @@
 class ZMView extends ZMObject {
     var $controller_;
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMView() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMView();
     }

@@ -37,7 +37,13 @@ class ZMFeatureValue {
     var $value_;
 
 
-    // create new instance
+    /**
+     * Create new feature value.
+     *
+     * @param int id The feature id.
+     * @param int index The value index.
+     * @param mixed The actual value.
+     */
     function ZMFeatureValue($id, $index, $value) {
         $this->id_ = $id;
         $this->index_ = $index;

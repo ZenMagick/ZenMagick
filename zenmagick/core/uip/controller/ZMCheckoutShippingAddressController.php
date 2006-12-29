@@ -47,8 +47,6 @@ class ZMCheckoutShippingAddressController extends ZMController {
     }
 
 
-    /** API implementation */
-
     // process a GET request
     function processGet() {
     global $zm_request, $zm_crumbtrail, $zm_cart;

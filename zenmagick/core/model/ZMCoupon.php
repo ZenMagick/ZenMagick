@@ -45,7 +45,9 @@ class ZMCoupon {
     var $usesPerUser_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCoupon($id, $code, $type) {
 		    $this->id_ = $id;
 		    $this->code_ = $code;

@@ -33,7 +33,9 @@
  */
 class ZMSearch {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMSearch() {
     }
 

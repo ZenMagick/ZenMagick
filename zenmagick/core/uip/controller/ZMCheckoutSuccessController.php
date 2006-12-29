@@ -33,12 +33,16 @@
  */
 class ZMCheckoutSuccessController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCheckoutSuccessController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCheckoutSuccessController();
     }
@@ -46,8 +50,6 @@ class ZMCheckoutSuccessController extends ZMController {
     function __destruct() {
     }
 
-
-    /** API implementation */
 
     // process a GET request
     function processGet() {

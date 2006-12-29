@@ -37,7 +37,9 @@ class ZMController extends ZMObject {
     var $globals_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMController() {
     global $zm_request;
 
@@ -47,7 +49,9 @@ class ZMController extends ZMObject {
         $this->page_ = $zm_request->getPageName();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMController();
     }

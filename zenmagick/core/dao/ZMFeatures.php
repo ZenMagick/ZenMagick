@@ -37,7 +37,9 @@ class ZMFeatures extends ZMDao {
     var $featureTypes_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMFeatures() {
         parent::__construct();
 
@@ -46,7 +48,9 @@ class ZMFeatures extends ZMDao {
         $this->featureTypes_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMFeatures();
     }

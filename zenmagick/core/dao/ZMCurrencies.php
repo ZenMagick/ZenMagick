@@ -34,7 +34,10 @@
 class ZMCurrencies extends ZMDao {
     var $currencies_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMCurrencies() {
     global $currencies;
 
@@ -50,7 +53,9 @@ class ZMCurrencies extends ZMDao {
         }
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCurrencies();
     }

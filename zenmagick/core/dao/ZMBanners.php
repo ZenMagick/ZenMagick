@@ -35,14 +35,18 @@ class ZMBanners extends ZMDao {
     var $banners_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMBanners() {
         parent::__construct();
 
         $this->banners_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMBanners();
     }

@@ -51,12 +51,16 @@ class ZMProductSorter extends ZMResultListSorter {
     );
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMProductSorter() {
         parent::__construct('psort');
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMProductSorter();
     }
@@ -77,8 +81,6 @@ class ZMProductSorter extends ZMResultListSorter {
     function _cmpPrice($a, $b) { return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1; }
     function _cmpWeight($a, $b) { return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1; }
 
-
-    /** Sort API */
 
 
     /**

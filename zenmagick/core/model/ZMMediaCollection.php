@@ -36,7 +36,9 @@ class ZMMediaCollection {
     var $items_;
 
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMMediaCollection() {
         $this->name_ = '';
         $this->items_ = array();

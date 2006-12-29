@@ -28,7 +28,7 @@
  * Shipping method.
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package net.radebatz.zenmagick.model
  * @version $Id$
  */
 class ZMShippingMethod {
@@ -36,7 +36,12 @@ class ZMShippingMethod {
     var $zenMethod_;
 
 
-    // create new instance
+    /**
+     * Create new shipping method.
+     *
+     * @param ZMShippingProvider provider The shipping provider for this method.
+     * @param array zenMethod The zen-cart method infos.
+     */
     function ZMShippingMethod($provider, $zenMethod) {
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;

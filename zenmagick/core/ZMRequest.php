@@ -34,13 +34,18 @@
 class ZMRequest {
     var $controller_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function ZMRequest() {
         $this->_init_l10n_i18n();
         $this->controller_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMRequest();
     }
@@ -49,50 +54,170 @@ class ZMRequest {
     }
 
 
-    // getter/setter
+    /**
+     * Get the language id.
+     *
+     * @return int The current language id.
+     */
     function getLanguageId() { return (int)$_SESSION['languages_id']; }
+
+    /**
+     * Get the current language name.
+     *
+     * @return string The current language name.
+     */
     function getLanguageName() { return $_SESSION['language']; }
+
+    /**
+     * Get the full query string.
+     *
+     * @return string The full query string for this request.
+     */
     function getQueryString() { return $_SERVER['QUERY_STRING']; }
+
+    /**
+     * Get the current currency id.
+     *
+     * @return int The current currency id.
+     */
     function getCurrencyId() { return $_SESSION['currency']; }
+
+    /**
+     * Get the current shopping cart.
+     *
+     * @return ZMShoppingCart The current shopping cart (may be empty).
+     */
     function getShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
+
+    /**
+     * Get the current page name; ie the <code>main_page</code> value.
+     *
+     * @return string The value of the <code>main_page</code> query parameter.
+     */
     function getPageName() { return $_GET['main_page']; }
+
+    /**
+     * Get the current page index (if available).
+     *
+     * @return int The current page index (default is 1).
+     */
     function getPageIndex() {  return isset($_GET['page']) ? $_GET['page'] : 1; }
+
+    /**
+     * Get the current sort id.
+     *
+     * @return string The current sort id.
+     */
     function getSortId() {  return isset($_GET['sort_id']) ? $_GET['sort_id'] : null; }
+
+    /** 
+     * Get the sub page name; this is the contents name for static pages.
+     *
+     * @return strin The static page contents id.
+     */
     function getSubPageName() { return isset($_GET['cat']) ? $_GET['cat'] : null; }
+
+    /**
+     * Get the product id.
+     *
+     * @return int The request product id or <code>0</code>.
+     */
     function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getRequestParameter("productId", 0); }
+
+    /**
+     * Get the request model number.
+     *
+     * @return string The model numner or <code>null</code>.
+     */
     function getModel() { return isset($_GET['model']) ? $_GET['model'] : null; }
+
+    /**
+     * Get the current category path.
+     *
+     * @return string The category path value (<code>cPath</code>) or <code>null</code>.
+     */
     function getCategoryPath() { return $this->getRequestParameter('cPath', null); }
+
+    /**
+     * Get the category path arry.
+     *
+     * @return array The current category path broken into an array of category ids.
+     */
     function getCategoryPathArray() { global $cPath_array; return is_array($cPath_array) ? $cPath_array : array(); }
+
+    /**
+     * Get the manufacturer id.
+     *
+     * @return int The manufacturer id or <code>0</code>.
+     */
     function getManufacturerId() { return isset($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : null; }
-    function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : null; }
+
+    /**
+     * Get the account id.
+     *
+     * @return int The account id for the currently logged in user or <code>0</code>.
+     */
+    function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
+
+    /**
+     * Get the current review id.
+     *
+     * @return int The current review id or <code>0</code>.
+     */
     function getReviewId() { return isset($_GET['reviews_id']) ? (int)$_GET['reviews_id'] : 0; }
-    function getOrderId() { return isset($_GET['order_id']) ? (int)$_GET['order_id'] : null; }
+
+    /**
+     * Get the current order id.
+     *
+     * @return int The current order id or <code>0</code>.
+     */
+    function getOrderId() { return isset($_GET['order_id']) ? (int)$_GET['order_id'] : 0; }
+
+    /**
+     * Returns <code>true</code> if the user is not logged in.
+     *
+     * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
+     */
     function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
+
+    /**
+     * Generic access method for request parameter.
+     *
+     * <p>This method is evaluating both <code>GET</code> and <code>POST</code> parameter.</p>
+     *
+     * @param string name The paramenter name.
+     * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
+     * @return string The parameter value or the default value or <code>null</code>.
+     */
     function getRequestParameter($name, $default=null) { 
         return isset($_GET[$name]) ? zm_stripslashes($_GET[$name]) : (isset($_POST[$name]) ? zm_stripslashes($_POST[$name]) : $default);
     }
+
+    /**
+     * Get the controller for this request.
+     *
+     * @return ZMController The current controller or <code>null</code>.
+     */
     function getController() { return $this->controller_; }
+
+    /**
+     * Set the current controller.
+     *
+     * @param ZMController controller The new controller.
+     */
     function setController(&$controller) { $this->controller_ =& $controller; }
 
+    /**
+     * Get the current category id.
+     *
+     * @return int The current category id or <code>0</code>.
+     */
     function getCategoryId() {
-    global $zm_runtime;
-        $categories = $zm_runtime->getCategories();
-        $category = $categories->getActiveCategory();
-        return null != $category ? $category->getId() : null;
-    }
+    global $zm_categories;
 
-    function getCrumbtrail() {
-    global $zm_runtime;
-        $crumbtrail = new Crumbtrail($zm_runtime->getDB(), $this->getCategoryPathArray());
-        if (null != $this->getManufacturerId()) {
-            $crumbtrail->addManufacturer($this->getManufacturerId());
-        }
-        if (null != $this->getProductId()) {
-            $crumbtrail->addProduct($this->getProductId(), $this->getLanguageId());
-        }
-        return $crumbtrail;
+        $category = $zm_categories->getActiveCategory();
+        return null != $category ? $category->getId() : 0;
     }
-
 
     /**
      * Checks if the current request is secure or note.
@@ -118,7 +243,10 @@ class ZMRequest {
          return $base;
     }
 
-    // set up l10n/i18n support
+    /**
+     * Sets up l10n/i18n support.
+     * TODO: this has to move...
+     */
     function _init_l10n_i18n() {
     global $zm_runtime;
         if (!isset($GLOBALS['zm_l10n_text'])) {

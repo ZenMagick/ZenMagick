@@ -43,6 +43,7 @@ select {min-width:4.2em;}
 .rclear {clear:right;}
 fieldset h4 {margin-bottom:8px;}
 span.strike {text-decoration:line-through;}
+.note {}
 
 /* layout stuff */
 #content ul#messages {margin-left:0;padding-left:0;}
