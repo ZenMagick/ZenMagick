@@ -24,7 +24,6 @@
  */
 ?>
 
-
 <?php zm_form(FILENAME_GV_SEND, 'action=process') ?>
     <div>
         <input type="hidden" name="send_name" value="<?php echo $zm_account->getFullName() ?>" />

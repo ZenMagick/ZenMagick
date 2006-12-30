@@ -91,9 +91,9 @@
     // local settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
-        include $_zm_local;
+        include($_zm_local);
     }
 
-    require('zc_fixes.php');
+    require_once('zc_fixes.php');
 
 ?>

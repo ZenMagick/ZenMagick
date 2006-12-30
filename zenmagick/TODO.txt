@@ -24,6 +24,7 @@ bugs:
 - file [permissions for created files???
 - long text like EMAIL_ADVISORY, popup contents needs to be put somewhere...
 - rely less on zen-cart defines as they might not be available during init...
+- there seem to be some issues under *nix that are related to using symbolic links - needs some investigation ..
 
 admin/install:
 - admin interface for ZM config values
