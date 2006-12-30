@@ -46,7 +46,7 @@ require_once('../zenmagick/admin_init.php');
         if (is_writeable(ZEN_ADMIN_FILE)) {
             zm_log("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu", 1);
             $handle = fopen(ZEN_ADMIN_FILE, "at");
-            fwrite($handle, "\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); ?>");
+            fwrite($handle, "\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); /* added by ZenMagick auto patcher */ ?>");
             fclose($handle);
         } else {
             zm_log("** ZenMagick: no permission to patch zen-cart admin extras_dhtml.php", 1);
@@ -83,7 +83,7 @@ require_once('../zenmagick/admin_init.php');
         foreach ($missingBoxes as $box) {
             if (!file_exists(ZEN_DIR_FS_BOXES.$box) && zm_setting('isAutoCreateZCSideboxes')) {
                 if (is_writeable(ZEN_DIR_FS_BOXES.$box)) {
-                    $handle = fopen(ZEN_DIR_FS_BOXES.$box, 'a');
+                    $handle = fopen(ZEN_DIR_FS_BOXES.$box, 'at');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick **/ ?>');
                     fclose($handle);
                 } else {
@@ -102,7 +102,7 @@ require_once('../zenmagick/admin_init.php');
                 continue;
             if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                 mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath());
-                $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath()."/template_info.php", 'a');
+                $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath()."/template_info.php", 'at');
                 fwrite($handle, '<?php /** dummy file created by ZenMagick **/'."\n");
                 fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");
                 fwrite($handle, '  $template_name = ' . "'" . addslashes($themeInfo->getName()) . "';\n");
@@ -115,4 +115,48 @@ require_once('../zenmagick/admin_init.php');
             }
         }
     }
+
+    //******** patch index.php for ZenMagick theme handling *************
+    define('ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
+    if (file_exists(ZEN_INDEX_PHP)) {
+        $handle = @fopen(ZEN_INDEX_PHP, 'rt');
+        $lines = array();
+        if ($handle) {
+            while (!feof($handle)) {
+                $line = fgets($handle, 4096);
+                array_push($lines, $line);
+            }
+            fclose($handle);
+        }
+        // look for ZenMagick code...
+        $needsPatch = true;
+        foreach ($lines as $line) {
+            if (false !== strpos($line, "zenmagick/store.php")) {
+                $needsPatch = false;
+                break;
+            }
+        }
+        if ($needsPatch && zm_setting('isAdminPatchThemeSupport')) {
+            if (is_writeable(ZEN_INDEX_PHP) && zm_setting('isAdminPatchThemeSupport')) {
+                $patchedLines = array();
+                // need to insert before the zen-cart html_header...
+                foreach ($lines as $line) {
+                    if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
+                        array_push($patchedLines, "  require('zenmagick/store.php'); /* added by ZenMagick auto patcher */\n");
+                    }
+                    array_push($patchedLines, $line);
+                }
+
+                // rewrite index.php
+                $handle = fopen(ZEN_INDEX_PHP, 'wt');
+                foreach ($patchedLines as $line) {
+                    fwrite($handle, $line);
+                }
+                fclose($handle);
+            } else {
+                zm_log("** ZenMagick: no permission to patch theme support into index.php", 1);
+            }
+        }
+    }
+    
 ?>

@@ -1,4 +1,8 @@
-Current:
+Release 0.6.2:
+- Added patch support for main index.php; this means ZenMagick does not
+  overwrite existing files any more!
+
+Release 0.6.1:
 - First draft of shipping estimator
 - removed popup_ prefix from popup views
 - country dropdowns default now to store country

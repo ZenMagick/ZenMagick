@@ -33,6 +33,7 @@
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
 
+    $_ZM_SETTINGS['isAdminPatchThemeSupport'] = true;
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
     $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
