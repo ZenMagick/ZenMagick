@@ -34,6 +34,12 @@ ul.open {display:block;}
 /* catalog tree */
 #b_features #content, #b_catalog_manager #content {margin-left:23%;}
 
+ul#messages {margin:8px 14px;padding:0;}
+ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}
+ul#messages .msg {background:#6f6;color:#000;}
+ul#messages .warn {background:#ff0;color:#000;}
+ul#messages .error {background:#e55;color:#fff;}
+
 div.btn {height:2.4em;}
 div.btn input {float:right;}
 input.btn, a.btn {width:auto;padding:1px 3px;border:1px outset gray;font-size:0.9em;text-align:center;margin:0 7px;background-color:#003D00;color:white;font-weight:bold;text-transform:uppercase;}
