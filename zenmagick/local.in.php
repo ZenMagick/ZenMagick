@@ -1,7 +1,7 @@
 <?php
     // disable ZenMagick themes
-    //$_ZM_SETTINGS['isEnableZenMagick'] = false;
+    //zm_setting('isEnableZenMagick', true);
 
     // enable search engine friendly URLs
-    //$_ZM_SETTINGS['isZMPrettyLinks'] = true;
+    //zm_setting('isZMPrettyLinks', true);
 ?>

@@ -44,8 +44,8 @@ class DefaultThemeInfo extends ZMThemeInfo {
         // configure individual layout templates
         //$this->setLayout('static', 'special_layout');
 
-        // keep error page simple
-        $this->setLayout('error', null);
+        // keep error page simple; the default full error page requires a define page..
+        //$this->setLayout('error', null);
 
         // popups use their own simple page layout
         $this->setLayout('popup_cvv_help', 'popup_layout');

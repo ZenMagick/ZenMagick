@@ -92,17 +92,26 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string name The setting to check.
+     * @param mixed value Optional new value.
      * @return mixed The setting value or <code>null</code>.
      */
     function zm_setting($name) {
     global $_ZM_SETTINGS;
 
-        if (!array_key_exists($name, $_ZM_SETTINGS)) {
+        $oldValue = array_key_exists($name, $_ZM_SETTINGS) ? $_ZM_SETTINGS[$name] : null;
+        if (null == $oldValue && !array_key_exists($name, $_ZM_SETTINGS)) {
             zm_log("can't find setting: '".$name."'");
             if (zm_setting('isDieOnError')) die("can't find setting: '".$name."'");
-            return null;
         }
-        return $_ZM_SETTINGS[$name];
+
+        // check for optional value
+        $args = func_get_args();
+        if (1 < count($args)) {
+            // got a value
+            $_ZM_SETTINGS[$name] = $args[1];
+        }
+
+        return $oldValue;
     }
 
 

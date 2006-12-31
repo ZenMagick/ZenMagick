@@ -67,7 +67,7 @@ class ZMProductInfoController extends ZMController {
         }
 
         if (null == $product) {
-            return false;
+            return new ZMThemeView('error');
         }
 
         $this->exportGlobal("zm_product", $product);
