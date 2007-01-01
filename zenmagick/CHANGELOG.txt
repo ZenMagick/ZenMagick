@@ -5,6 +5,8 @@ Release 0.6.2:
   more
 - zm_setting(..) now accepts a second parameter to set values; the return
   value is the old value or null
+- added getDefaultCategory() to ZMProduct; this will return either the master
+  category or the first mapped category for the product
 
 Release 0.6.1:
 - First draft of shipping estimator

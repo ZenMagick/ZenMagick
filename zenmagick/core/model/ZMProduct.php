@@ -145,6 +145,21 @@ class ZMProduct extends ZMModel {
     function getReviewCount() { global $zm_reviews; return $zm_reviews->getReviewCount($this); }
     function getTypeSetting($field) { global $zm_products; return $zm_products->getProductTypeSetting($this->id_, $field); }
 
+    /**
+     * Get the default category.
+     *
+     * <p>This will return either the master category or the first mapped category for this
+     * product.</p>
+     *
+     * @return ZMCategory The default category.
+     */
+    function getDefaultCategory() {
+    global $zm_categories;
+
+        return null != $this->masterCategoryId_ ? $zm_categories->getCategoryForId($this->masterCategoryId_) :
+            $zm_categories->getDefaultCategoryForProductId($this->id_);
+    }
+
 }
 
 ?>

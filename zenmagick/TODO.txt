@@ -10,6 +10,7 @@ missing zen-cart stuff
 - file attribute
 - fix continue button on checkout success page (this is default behaviour...)
 - cleanup CSS, make theme more consistent
+- impl. SKIP_SINGLE_PRODUCT_CATEGORIES
 
 
 usablility / quality / performance / etc

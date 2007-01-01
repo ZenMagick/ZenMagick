@@ -79,16 +79,48 @@ class ZMCategories extends ZMDao {
      */
     function setPath($path) { $this->path_ = $path; }
 
-    // return the current category or null
+    /**
+     * Return the current category.
+     * <p>This should rather be in <code>ZMRequest</code>.</p>
+     *
+     * @return ZMCategory The current category or <code>null</code>.
+     */
     function getActiveCategory() {
         return null != $this->path_ && 0 < count($this->path_) ?
                 $this->getCategoryForId($this->path_[count($this->path_)-1]) : null;
     }
 
-    // return the current category id or 0
+    /**
+     * Return the current category id.
+     * <p>This should rather be in <code>ZMRequest</code>.</p>
+     *
+     * @return int The current category id or <code>0</code>.
+     */
     function getActiveCategoryId() {
         return null != $this->path_ && 0 < count($this->path_) ?
                 $this->path_[count($this->path_)-1] : 0;
+    }
+
+    /**
+     * Get the default category for the given product id.
+     * <p>This will return the first mapped category.</p>
+     *
+     * @param int productId The product id.
+     * @return ZMCategory The default category (or <code>null</code>).
+     */
+    function getDefaultCategoryForProductId($productId) {
+        $sql = "SELECT categories_id
+                FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
+                WHERE c products_id = :productId";
+        $sql = $this->db_->bindVars($query, ":productId", $productId, 'integer');
+        $results = $this->db_->Execute($sql);
+
+        $category = null;
+        if (!$results->EOF) {
+            $category =& $this->getCategoryForId($results->fields);
+        }
+        
+        return $category;
     }
 
     // returns true if categories have been loaded
