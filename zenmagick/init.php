@@ -58,7 +58,9 @@
     $includes = zm_find_includes($_zm_bin_dir, true);
     foreach ($includes as $include) {
         // exclude some stuff that gets loaded by the loader
-        if (false === strpos($include, '/controller/') && false === strpos($include, '/model/') && false === strpos($include, '/settings/')) {
+        if (false === strpos($include, '/controller/') 
+            && false === strpos($include, '/model/') 
+            && false === strpos($include, '/settings/')) {
             require_once($include);
         }
     }

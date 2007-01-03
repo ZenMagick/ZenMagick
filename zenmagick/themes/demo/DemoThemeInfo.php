@@ -33,8 +33,8 @@ class DemoThemeInfo extends ZMThemeInfo {
     // create new instance
     function DemoThemeInfo() {
         parent::__construct();
-        $this->setName('ProductDemo');
-        $this->setVersion('0.1');
+        $this->setName('ZenMagick Demo Theme');
+        $this->setVersion('0.2');
         $this->setAuthor('ZenMagick 2006');
         $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
 

@@ -11,6 +11,7 @@ missing zen-cart stuff
 - fix continue button on checkout success page (this is default behaviour...)
 - cleanup CSS, make theme more consistent
 - impl. SKIP_SINGLE_PRODUCT_CATEGORIES
+- obsolete files: popup_* other.php
 
 
 usablility / quality / performance / etc

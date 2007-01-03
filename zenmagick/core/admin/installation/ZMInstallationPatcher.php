@@ -1,0 +1,128 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+<?php
+
+
+/**
+ * Provides support for all file patching of zen-cart files ZenMagick might need.
+ *
+ * @author mano
+ * @package net.radebatz.zenmagick.admin.installation
+ * @version $Id$
+ */
+class ZMInstallationPatcher extends ZMObject {
+    var $patches_;
+
+
+    /**
+     * Default c'tor.
+     */
+    function ZMInstallationPatcher() {
+        parent::__construct();
+
+        $this->_loadPatches();
+    }
+
+    /**
+     * Default c'tor.
+     */
+    function __construct() {
+        $this->ZMInstallationPatcher();
+    }
+
+    /**
+     * Default d'tor.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Load all patches.
+     */
+    function _loadPatches() {
+    global $zm_loader;
+
+        foreach ($zm_loader->getClassPath() as $clazz => $file) {
+            if (false !== strpos($file, "installation") && false != strpos($file, "patches")) {
+                $patch =& $zm_loader->create($clazz);
+                $this->patches_[$patch->getId()] = $patch;
+            }
+        }
+    }
+
+    /**
+     * Returns <code>true</code> if any patches left to run.
+     *
+     * @return bool <code>true</code> if there are any patches left that could be run.
+     */
+    function isPatchesOpen() {
+        foreach ($this->patches_ as $id => $patch) {
+            if ($patch->isOpen()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Execute all open patches.
+     *
+     * @param bool force If set to <code>true</code> it will force patching even if
+     *  it is disabled as per settings.
+     * @return bool <code>true</code> if <strong>all</strong> patching was successful, <code>false</code> if not.
+     */
+    function patch($force=false) {
+        $result = true;
+        foreach ($this->patches_ as $id => $patch) {
+            $result |= $patch->patch($force);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the patch for the given id.
+     *
+     * @param string id The patch id.
+     * @return ZMInstallationPatch The corresponding installation patch or <code>null</code>.
+     */
+    function getPatchForId($id) {
+        return array_key_exists($id, $this->patches_) ? $this->patches_[$id] : null;
+    }
+
+    /**
+     * Get all patches.
+     *
+     * @return array A list of <code>ZMInstallationPatch</code> instances.
+     */
+    function getPatches() {
+        return $this->patches_;
+    }
+
+}
+
+?>

@@ -22,7 +22,7 @@ require_once('../zenmagick/admin_init.php');
     $za_contents = array();
 
     $installer = new ZMInstallationPatcher();
-    if ($installer->isPatchesAvailable()) {
+    if ($installer->isPatchesOpen()) {
         $za_contents[] = array('text' => "Installation", 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
     }
 

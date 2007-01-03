@@ -37,15 +37,14 @@ if (!defined('IS_ADMIN_FLAG')) {
 require_once('../zenmagick/init.php');
 require_once('../zenmagick/admin_init.php');
 
-    $needsInstallOption = false;
     $installer = new ZMInstallationPatcher();
-
-    if ($installer->isPatchesAvailable()) {
-        // do something; or at least try...
-        $needsInstallOption = $installer->patch();
+    if ($installer->isPatchesOpen()) {
+        // try to run all patches
+        $installer->patch();
     }
 
-    if ($needsInstallOption && $installer->isAdminRebuildRequired()) {
+    $adminMenuPatch = $installer->getPatchForId('adminMenu');
+    if ($adminMenuPatch->isOpen()) {
         // only if no ZenMagick menu item
         $za_contents[] = array('text' => "ZenMagick Installation", 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
     }
