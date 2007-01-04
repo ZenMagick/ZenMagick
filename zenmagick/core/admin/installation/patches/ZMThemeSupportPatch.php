@@ -59,9 +59,10 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
     /**
      * Checks if this patch can still be applied.
      *
+     * @param array lines The file contents of <code>index.php</code>.
      * @return bool <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    function isOpen($lines=null) {
         if (null == $lines) {
             $lines = $this->_loadIndexPHP();
         }

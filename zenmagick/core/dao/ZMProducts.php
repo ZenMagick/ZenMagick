@@ -209,13 +209,13 @@ class ZMProducts extends ZMDao {
             case '1':
                 // global limit og one date
                 $newDate = date('Ym', time()) . '01';
-                $queryLimit = $this->db_bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
+                $queryLimit = $this->db_->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
             default:
                 // 120 days; 24 hours; 60 mins; 60secs
                 $dateRange = time() - ($timeLimit * 24 * 60 * 60);
                 $newDate = date('Ymd', $dateRange);
-                $queryLimit = $this->db_bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
+                $queryLimit = $this->db_->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
         }
 

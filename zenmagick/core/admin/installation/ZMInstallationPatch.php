@@ -90,6 +90,17 @@ class ZMInstallationPatch extends ZMObject {
     }
 
     /**
+     * Get the precondition message.
+     *
+     * <p>This will return an empty string when <code>isReady()</code> returns <code>true</code>.</p>
+     *
+     * @return string The preconditions message or an empty string.
+     */
+    function getPreconditionsMessage() {
+        return "";
+    }
+
+    /**
      * Execute this patch.
      *
      * @param bool force If set to <code>true</code> it will force patching even if

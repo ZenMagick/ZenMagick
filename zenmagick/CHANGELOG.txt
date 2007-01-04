@@ -7,6 +7,9 @@ Release 0.6.2:
   value is the old value or null
 - added getDefaultCategory() to ZMProduct; this will return either the master
   category or the first mapped category for the product
+- invalid db code in ZMProducts.php
+- option to disable language support for ez-pages as zen-cart ignores the
+  languages_id (disabled as default)
 
 Release 0.6.1:
 - First draft of shipping estimator

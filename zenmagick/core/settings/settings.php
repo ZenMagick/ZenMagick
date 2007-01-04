@@ -33,6 +33,7 @@
     $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
 
+    // patch flags
     $_ZM_SETTINGS['isAdminPatchThemeSupport'] = true;
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
@@ -40,6 +41,7 @@
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
+    // rss config
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE;
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
 
@@ -59,6 +61,9 @@
     // use category page
     $_ZM_SETTINGS['isUseCategoryPage'] = false;
     $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
+
+    // language support for ez-pages
+    $_ZM_SETTINGS['isEZPagesLangSupport'] = false;
 
     // sort default
     $_ZM_SETTINGS['defaultProductSortOrder'] = 'price';
