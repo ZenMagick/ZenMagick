@@ -33,13 +33,8 @@ require_once('../zenmagick/admin_init.php');
         "adminMenu" => "Install ZenMagick admin menu",
         "themeSupport" => "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)",
         "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
-        "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme"
-    );
-    $patchPreconditions = array(
-        "adminMenu" => "Need file permissions (664 or 666) to modify <code>admin/includes/boxes/extras_dhtml.php</code>",
-        "themeSupport" => "Need permission (664 or 666) to modify <code>index.php</code>",
-        "themeDummies" => "Need permission to create files in <code>includes/templates</code>",
-        "sideboxDummies" => "Need permission ot create ifiles in <code>includes/modules/sideboxes</code>"
+        "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme",
+        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function if favour of the ZenMagick implementation"
     );
 
     $installer = new ZMInstallationPatcher();
@@ -104,7 +99,8 @@ require_once('../zenmagick/admin_init.php');
                   <input type="checkbox" id="<?php echo $patch->getId() ?>" name="<?php echo $patch->getId() ?>" value="x">
                   <label for="<?php echo $patch->getId() ?>"><?php echo $patchLabel[$patch->getId()] ?></label>
                   <?php if (!$patch->isReady()) { ?>
-                    <span class="error"><?php echo $patchPreconditions[$patch->getId()] ?></span>
+                    <!--<span class="error"><?php echo $patchPreconditions[$patch->getId()] ?></span>-->
+                    <span class="error"><?php echo $patch->getPreconditionsMessage() ?></span>
                   <?php } ?>
                   <br>
                 <?php } ?>
@@ -112,7 +108,10 @@ require_once('../zenmagick/admin_init.php');
 
           </fieldset>
 
-          <div><input type="submit" value="Install"></div>
+          <div>
+            <input type="submit" value="Install">
+            <a href="">Refresh</a>
+          </div>
         </form>
 
       </div>

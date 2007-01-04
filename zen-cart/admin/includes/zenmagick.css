@@ -36,9 +36,10 @@ ul.open {display:block;}
 
 ul#messages {margin:8px 14px;padding:0;}
 ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}
-ul#messages .msg {background:#6f6;color:#000;}
-ul#messages .warn {background:#ff0;color:#000;}
-ul#messages .error {background:#e55;color:#fff;}
+ul#messages .msg, span.msg {background:#6f6;color:#000;}
+ul#messages .warn, span.warn {background:#ff0;color:#000;}
+ul#messages .error, span.error {background:#e55;color:#fff;}
+span.msg, span.warn, span.error {padding:2px;margin-left:10px;}
 
 div.btn {height:2.4em;}
 div.btn input {float:right;}
@@ -74,6 +75,7 @@ p.opt label {margin-right:1.3em;}
 p.or {font-weight:bold;margin:3px 3em;}
 fieldset hr {margin:8px 0;}
 
+#main fieldset#patches label span {margin-left:24px;}
 
 #main #cnav {width:21%;overflow:auto;}
 /*--------------------------------------------------|

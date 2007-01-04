@@ -38,6 +38,7 @@
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
     $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
+    $_ZM_SETTINGS['isI18nSupport'] = false;
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
