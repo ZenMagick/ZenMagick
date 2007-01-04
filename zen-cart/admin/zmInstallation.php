@@ -75,7 +75,7 @@ require_once('../zenmagick/admin_init.php');
       }
     </script>
   </head>
-  <body id="b_cleanup" onload="init()">
+  <body id="b_installation" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
     <?php if ($zm_messages->hasMessages()) { ?>
@@ -91,17 +91,18 @@ require_once('../zenmagick/admin_init.php');
         <h2>ZenMagick Installation</h2>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected items ?');">
-          <fieldset>
+          <fieldset id="patches">
             <legend>Available Patches</legend>
 
             <?php foreach ($patches as $id => $patch) { ?>
                 <?php if ($patch->isOpen()) { ?>
                   <input type="checkbox" id="<?php echo $patch->getId() ?>" name="<?php echo $patch->getId() ?>" value="x">
-                  <label for="<?php echo $patch->getId() ?>"><?php echo $patchLabel[$patch->getId()] ?></label>
-                  <?php if (!$patch->isReady()) { ?>
-                    <!--<span class="error"><?php echo $patchPreconditions[$patch->getId()] ?></span>-->
-                    <span class="error"><?php echo $patch->getPreconditionsMessage() ?></span>
-                  <?php } ?>
+                  <label for="<?php echo $patch->getId() ?>">
+                      <?php echo $patchLabel[$patch->getId()] ?>
+                      <?php if (!$patch->isReady()) { ?>
+                        <br><span class="error"><?php echo $patch->getPreconditionsMessage() ?></span>
+                      <?php } ?>
+                  </label>
                   <br>
                 <?php } ?>
             <?php } ?>
