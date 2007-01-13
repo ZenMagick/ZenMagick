@@ -79,6 +79,9 @@
     // max orders in account overview
     $_ZM_SETTINGS['accountOrderHistoryLimit'] = 3;
 
+    // page not found
+    $_ZM_SETTINGS['isPageNotFoundDefinePage'] = DEFINE_PAGE_NOT_FOUND_STATUS == '1';
+
     // max result list
     $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;
     $_ZM_SETTINGS['maxBestSellers'] = MAX_DISPLAY_BESTSELLERS;

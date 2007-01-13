@@ -14,6 +14,8 @@ Release 0.6.2:
   languages_id (disabled as default)
 - Fix double slash '//' in pretty URLs
 - add option to .htaccess file to make it work under *nix
+- added page_not_found view
+- fix missing chapter for pretty links
 
 Release 0.6.1:
 - First draft of shipping estimator

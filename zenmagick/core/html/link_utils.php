@@ -164,6 +164,10 @@
                     break;
                 case 'page':
                     $path .= "page/".$query['id'];
+                    if (array_key_exists('chapter', $query)) {
+                        $path .= "/".$query['chapter'];
+                        array_push($removeNames, 'chapter');
+                    }
                     break;
                 case 'site_map':
                     $path .= "sitemap/";
