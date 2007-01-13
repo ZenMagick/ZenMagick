@@ -105,7 +105,7 @@ class ZMI18nPatch extends ZMInstallationPatch {
             $files = $this->_getUnpatchedFiles();
             foreach ($files as $file => $lines) {
                 $handle = fopen(_ZM_ZEN_DIR_FS_LANGUAGES . $file, 'wt');
-                foreach ($patchedLines as $line) {
+                foreach ($lines as $line) {
                     fwrite($handle, $line);
                 }
                 fclose($handle);
@@ -130,10 +130,10 @@ class ZMI18nPatch extends ZMInstallationPatch {
                 if (zm_ends_with($file, '.php')) {
                     $lines = $this->_loadFileLines($file);
                     foreach ($lines as $ii => $line) {
-                        if (false !== strpos($line, "function") && false !== strpos($line, "zen_date_raw")) {
+                        if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw(") && false === strpos($line, "NOT_USED ")) {
                             // change already here
                             $lines[$ii] = str_replace('zen_date_raw', 'zen_date_raw_NOT_USED', $line);
-                            $lines[$ii] = trim($lines[$ii]) . " /* added by ZenMagick installation patcher */\n";
+                            $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */\n";
                             // store in array
                             $files[$file] = $lines;
                             break;

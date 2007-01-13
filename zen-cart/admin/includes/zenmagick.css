@@ -75,7 +75,7 @@ p.opt label {margin-right:1.3em;}
 p.or {font-weight:bold;margin:3px 3em;}
 fieldset hr {margin:8px 0;}
 
-#main fieldset#patches label span {margin-left:24px;}
+#main fieldset#patches p.error {margin:15px 0 0 5px;padding:3px 18px;background:url(../images/icons/error.gif) no-repeat 3px 4px;background-color:#c00000;color:#fff;}
 
 #main #cnav {width:21%;overflow:auto;}
 /*--------------------------------------------------|

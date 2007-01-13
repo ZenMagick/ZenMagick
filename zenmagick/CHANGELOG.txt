@@ -1,15 +1,19 @@
 Release 0.6.2:
 - Added patch support for main index.php; this means ZenMagick does not
   overwrite existing files any more!
+- new admin menu item 'Installation'; this is either under tools if file
+  permissions do not allow to add the ZenMagick menu, or under ZenMagick
 - return error view when ez page not found; same for product page and a few
   more
 - zm_setting(..) now accepts a second parameter to set values; the return
   value is the old value or null
 - added getDefaultCategory() to ZMProduct; this will return either the master
   category or the first mapped category for the product
-- invalid db code in ZMProducts.php
+- fixed invalid db code in ZMProducts.php
 - option to disable language support for ez-pages as zen-cart ignores the
   languages_id (disabled as default)
+- Fix double slash '//' in pretty URLs
+- add option to .htaccess file to make it work under *nix
 
 Release 0.6.1:
 - First draft of shipping estimator

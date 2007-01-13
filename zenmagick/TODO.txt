@@ -4,14 +4,11 @@ missing zen-cart stuff
 - implement missing weight and onetime prices for attributes
 - support more zen-cart options/features
 - category filter (get default category)
-- gv send is broken
 - product_free_shipping_info and a couple more are still missing
 - can't checkout rope product
 - file attribute
 - fix continue button on checkout success page (this is default behaviour...)
 - cleanup CSS, make theme more consistent
-- impl. SKIP_SINGLE_PRODUCT_CATEGORIES
-- obsolete files: popup_* other.php
 
 
 usablility / quality / performance / etc
@@ -20,7 +17,7 @@ usablility / quality / performance / etc
 bugs:
 - fix default theme IE bugs; test in IE7
 - popup content should be in define/ez pages or such...
-- load local first, check if array exists ni both places (before loading local and when loading settings - should work for db-prefix?
+- load local first, check if array exists in both places (before loading local and when loading settings - should work for db-prefix?
   (not really a bug, but proper prefix detection to avoid errors)
 - do not create sidebox dummies for filenames including '.in.'
 - file [permissions for created files???

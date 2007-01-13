@@ -96,12 +96,12 @@ require_once('../zenmagick/admin_init.php');
 
             <?php foreach ($patches as $id => $patch) { ?>
                 <?php if ($patch->isOpen()) { ?>
+                  <?php if (!$patch->isReady()) { ?>
+                    <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
+                  <?php } ?>
                   <input type="checkbox" id="<?php echo $patch->getId() ?>" name="<?php echo $patch->getId() ?>" value="x">
                   <label for="<?php echo $patch->getId() ?>">
                       <?php echo $patchLabel[$patch->getId()] ?>
-                      <?php if (!$patch->isReady()) { ?>
-                        <br><span class="error"><?php echo $patch->getPreconditionsMessage() ?></span>
-                      <?php } ?>
                   </label>
                   <br>
                 <?php } ?>

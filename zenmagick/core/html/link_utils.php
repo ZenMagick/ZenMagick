@@ -84,6 +84,10 @@
             $url = parse_url($href);
             $queryString = zm_htmlurldecode($url['query']);
             parse_str($queryString, $query);
+            $path = dirname($url['path']);
+            if (!zm_ends_with($path, '/')) {
+                $path .= '/';
+            }
             $path = dirname($url['path']).'/';
             if (zm_starts_with($path, '\\')) {
                 $path = substr($path, 1);
