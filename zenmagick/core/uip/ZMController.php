@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package net.radebatz.zenmagick.uip
- * @abstract
  * @version $Id$
  */
 class ZMController extends ZMObject {

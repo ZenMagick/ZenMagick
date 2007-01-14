@@ -16,6 +16,8 @@ Release 0.6.2:
 - add option to .htaccess file to make it work under *nix
 - added page_not_found view
 - fix missing chapter for pretty links
+- added new ZMAjaxController; controller may now return null as view if they
+  generate content themselfs
 
 Release 0.6.1:
 - First draft of shipping estimator

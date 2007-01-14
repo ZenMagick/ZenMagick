@@ -51,7 +51,9 @@
             $_zm_view = $zm_controller->process();
 
             // generate response
-            $_zm_view->generate();
+            if (null != $_zm_view) {
+                $_zm_view->generate();
+            }
 
             require('includes/application_bottom.php');
             exit;
