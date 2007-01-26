@@ -36,7 +36,7 @@ Depending on your server configuration you might be better of using something di
 <p>Some things to keep in mind:</p>
 <ul>
   <li>This is demo code and kept very simple (basically I just modified the demo code found for Prototype and YUI)</li>
-  <li>The zones will be loaded when selecting a country (Australia and Canada are at the top of countries that have zones configured...)</li>
+  <li>The zones will be loaded when selecting a country (Austria and Canada are at the top of countries that have zones configured...)</li>
   <li>To me XML feels a bit faster - I haven't done any benchmarking, though</li>
   <li>The JSON generating code in the Ajax controller is probably not the best (yet)</li>
   <li>The HTML formatting of the results is intentionally *very* simple</li>
@@ -116,7 +116,7 @@ Depending on your server configuration you might be better of using something di
                     pj_zones.options[pj_zones.length] = zone;
 
                     // zones are stored under their id
-                    json = Object.values(json) 
+                    if (undefined === json.length) json = Object.values(json) 
                     for (var ii=0; ii < json.length; ++ii) {
                         var zone = new Option(json[ii].name+' ('+json[ii].id+')', json[ii].id, false, false);
                         pj_zones.options[pj_zones.length] = zone;

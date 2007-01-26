@@ -88,7 +88,6 @@
             if (!zm_ends_with($path, '/')) {
                 $path .= '/';
             }
-            $path = dirname($url['path']).'/';
             if (zm_starts_with($path, '\\')) {
                 $path = substr($path, 1);
             }
