@@ -7,6 +7,8 @@ Release 0.6.2:
   more
 - zm_setting(..) now accepts a second parameter to set values; the return
   value is the old value or null
+- upaded local.in.php to reflect this change; using $_ZM_SETTINGS is not
+  deprecated - this might eventually disappear altogether...
 - added getDefaultCategory() to ZMProduct; this will return either the master
   category or the first mapped category for the product
 - fixed invalid db code in ZMProducts.php
@@ -18,6 +20,27 @@ Release 0.6.2:
 - fix missing chapter for pretty links
 - added new ZMAjaxController; controller may now return null as view if they
   generate content themselfs
+- phpdoc, again...
+- added foreign keys to the features.sql
+- features SQL can now be installed using the ZenMagick installation screen
+- added examples of how to disable automatic zen-cart patching to local.in.php
+- features SQL can now be installed using the ZenMagick installation page
+- view path for non default themes in ZMThemeView
+- added support to enable/disable the crumbtrail
+- Fixed broken fragment (eg: #bottom) for pretty links
+- Moved classes around quite a bit (again!)
+- Added support to enable/disable ez-pages links in header/footer and sidebox 
+- Quite a number of small HTML/CSS changes
+- Added Ajax support to the request handling architecture;
+- Added country/zone Ajax controller
+- Added shopping cart Ajax controller (not complete)
+- new ajax_demo view in the demo theme that illustrates the use of the Ajax
+  controller; added prototype and a subset of yui for that
+- Added new setting to control the method suffix for ajax methods (defaults to
+  JSON)
+- Website update
+- when loading the theme extra code, load local.php as first file (if
+  available)
 
 Release 0.6.1:
 - First draft of shipping estimator

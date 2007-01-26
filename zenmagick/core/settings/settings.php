@@ -39,6 +39,7 @@
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
     $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
     $_ZM_SETTINGS['isI18nSupport'] = false;
+    $_ZM_SETTINGS['isPatchRewriteBase'] = true;
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
@@ -50,6 +51,10 @@
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;
 
+    // Ajax
+    $_ZM_SETTINGS['isEchoJSON'] = false;
+    $_ZM_SETTINGS['ajaxFormat'] = 'JSON';
+
     // ZM pretty URLs
     $_ZM_SETTINGS['isZMPrettyLinks'] = false;
     // default to default in ZM themes
@@ -58,6 +63,11 @@
     // main layout
     $_ZM_SETTINGS['isEnableLeftColumn'] = COLUMN_LEFT_STATUS != 0;
     $_ZM_SETTINGS['isEnableRightColumn'] = COLUMN_RIGHT_STATUS != 0;
+
+    $_ZM_SETTINGS['isShowCrumbtrail'] = DEFINE_BREADCRUMB_STATUS == '1';
+    $_ZM_SETTINGS['isShowEZHeaderNav'] = EZPAGES_STATUS_HEADER == '1';
+    $_ZM_SETTINGS['isShowEZBoxesNav'] = EZPAGES_STATUS_SIDEBOX == '1';
+    $_ZM_SETTINGS['isShowEZFooterNav'] = EZPAGES_STATUS_FOOTER == '1';
 
     // use category page
     $_ZM_SETTINGS['isUseCategoryPage'] = false;
@@ -110,7 +120,6 @@
     // account
     $_ZM_SETTINGS['firstNameMinLength'] = ENTRY_FIRST_NAME_MIN_LENGTH;
     $_ZM_SETTINGS['lastNameMinLength'] = ENTRY_LAST_NAME_MIN_LENGTH;
-    $_ZM_SETTINGS['emailMinLength'] = ENTRY_EMAIL_MIN_LENGTH;
     $_ZM_SETTINGS['phoneMinLength'] = ENTRY_TELEPHONE_MIN_LENGTH;
     $_ZM_SETTINGS['addressMinLength'] = ENTRY_STREET_ADDRESS_MIN_LENGTH;
     $_ZM_SETTINGS['postcodeMinLength'] = ENTRY_POSTCODE_MIN_LENGTH;
@@ -126,9 +135,6 @@
 
     // downloads
     $_ZM_SETTINGS['isDownloadsEnabled'] = DOWNLOAD_ENABLED == 'true';
-
-    // email advisory
-    $_ZM_SETTINGS['emailAdvisory'] = str_replace('-', '', EMAIL_ADVISORY);
 
     // default/store currency
     $_ZM_SETTINGS['defaultCurrency'] = DEFAULT_CURRENCY;
@@ -157,6 +163,7 @@
     $_ZM_SETTINGS['storeName'] = STORE_NAME;
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
     $_ZM_SETTINGS['storeCountry'] = STORE_COUNTRY;
+    $_ZM_SETTINGS['storeEmail'] = STORE_OWNER_EMAIL_ADDRESS;
 
     // modules/shipping
     $_ZM_SETTINGS['isOrderTotalFreeShipping'] = defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true';

@@ -36,6 +36,7 @@ ul.open {display:block;}
 
 ul#messages {margin:8px 14px;padding:0;}
 ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}
+ul#messages .success, span.success {background:#eee;color:#000;}
 ul#messages .msg, span.msg {background:#6f6;color:#000;}
 ul#messages .warn, span.warn {background:#ff0;color:#000;}
 ul#messages .error, span.error {background:#e55;color:#fff;}
@@ -75,7 +76,9 @@ p.opt label {margin-right:1.3em;}
 p.or {font-weight:bold;margin:3px 3em;}
 fieldset hr {margin:8px 0;}
 
-#main fieldset#patches p.error {margin:15px 0 0 5px;padding:3px 18px;background:url(../images/icons/error.gif) no-repeat 3px 4px;background-color:#c00000;color:#fff;}
+#main fieldset.patches p.error {margin:15px 0 0 5px;padding:3px 18px;background:url(../images/icons/error.gif) no-repeat 3px 4px;background-color:#c00000;color:#fff;}
+input.all {margin-top:8px;}
+.submit {margin-top:12px;}
 
 #main #cnav {width:21%;overflow:auto;}
 /*--------------------------------------------------|

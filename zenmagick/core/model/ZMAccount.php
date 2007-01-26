@@ -127,9 +127,6 @@ class ZMAccount extends ZMModel {
             $zm_messages->add(zm_l10n_get("Your Date of Birth must be in this format: DD/MM/YYYY (eg 21/05/1970)"));
         }
 
-        if (strlen($this->email_) < zm_setting('emailMinLength')) {
-            $zm_messages->add(zm_l10n_get("Your Email must contain a minimum of %s characters.", zm_setting('emailMinLength')));
-        }
         if (!zm_valid_email($this->email_)) {
             $zm_messages->add(zm_l10n_get("Your E-Mail Address does not appear to be valid - please make any necessary corrections."));
         } else if($zm_accounts->emailExists($this->email_)) {

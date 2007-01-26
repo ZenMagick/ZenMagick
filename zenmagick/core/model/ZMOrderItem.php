@@ -63,14 +63,60 @@ class ZMOrderItem extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the order item id.
+     *
+     * @return int The order item id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the quantity.
+     *
+     * @return int The quantity for this item.
+     */
     function getQty() { return $this->qty_; }
+
+    /**
+     * Get the item name.
+     *
+     * @return string The item name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the model.
+     *
+     * @return string The item model.
+     */
     function getModel() { return $this->model_; }
+
+    /**
+     * Get the tax rate.
+     *
+     * @return float The tax rate.
+     */
     function getTaxRate() { return $this->taxRate_; }
+
+    /**
+     * Get the calculated price.
+     *
+     * @return float The calculated price.
+     */
     function getCalculatedPrice() { return $this->calculatedPrice_; }
+
+    /**
+     * Checks if the item has associated attributes.
+     *
+     * @return bool </code>true</code> if attributes exist, <code>false</code> if not.
+     */
     function hasAttributes() { return 0 < count($this->attributes_); }
+
+    /**
+     * Get the item attributes.
+     *
+     * @return array A list of <code>ZMAttribute</code> instances.
+     */
     function getAttributes() { return $this->attributes_; }
 
 }

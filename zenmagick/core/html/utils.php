@@ -47,21 +47,6 @@
 
 
     /**
-     * Checks, if the current page is a checkout page.
-     * 
-     * <p><strong>NOTE:</strong> The shopping cart is <strong>also</strong> considered a checkoput page.</p>
-     *
-     * @package net.radebatz.zenmagick.html
-     * @return <code>true</code> if the current page is either a checkout page or the shopping cart.
-     */
-    function zm_is_checkout_page() {
-    global $zm_request;
-        $page = $zm_request->getPageName();
-        return 'shopping_cart' == $page || !(false === strpos($page, 'checkout_'));
-    }
-
-
-    /**
      * Encode a given string to valid HTML.
      *
      * @package net.radebatz.zenmagick.html

@@ -66,7 +66,7 @@ class ZMInstallationPatcher extends ZMObject {
     global $zm_loader;
 
         foreach ($zm_loader->getClassPath() as $clazz => $file) {
-            if (false !== strpos($file, "installation") && false != strpos($file, "patches")) {
+            if (false !== strpos($file, "installation") && false != strpos($file, "patches") && 'patches' != basename(dirname($file))) {
                 $patch =& $zm_loader->create($clazz);
                 $this->patches_[$patch->getId()] = $patch;
             }
@@ -76,10 +76,14 @@ class ZMInstallationPatcher extends ZMObject {
     /**
      * Returns <code>true</code> if any patches left to run.
      *
+     * @param string groupId Optional group id.
      * @return bool <code>true</code> if there are any patches left that could be run.
      */
-    function isPatchesOpen() {
+    function isPatchesOpen($groupId=null) {
         foreach ($this->patches_ as $id => $patch) {
+            if (null != $groupId && $patch->getGroupId() != $groupId) {
+                continue;
+            }
             if ($patch->isOpen()) {
                 return true;
             }
@@ -117,10 +121,19 @@ class ZMInstallationPatcher extends ZMObject {
     /**
      * Get all patches.
      *
+     * @param string groupId Optional group id.
      * @return array A list of <code>ZMInstallationPatch</code> instances.
      */
-    function getPatches() {
-        return $this->patches_;
+    function getPatches($groupId=null) {
+        $patches = array();
+        foreach ($this->patches_ as $id => $patch) {
+            if (null != $groupId && $patch->getGroupId() != $groupId) {
+                continue;
+            }
+            $patches[$id] = $patch;
+        }
+
+        return $patches;
     }
 
 }

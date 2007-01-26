@@ -43,7 +43,12 @@
             // TODO: theme stuff
             $zm_themeInfo = $zm_theme->getThemeInfo();
             // need to do this in global namespace
-            foreach ($themeLoader->getStatic() as $static) {
+            $_zm_tstatic = $themeLoader->getStatic();
+            // load local.php first
+            if (array_key_exists('local', $_zm_tstatic)) {
+                require_once($_zm_tstatic['local']);
+            }
+            foreach ($_zm_tstatic as $static) {
                 require_once($static);
             }
 

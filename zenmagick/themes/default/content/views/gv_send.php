@@ -44,5 +44,5 @@
 
 <p class="rclear">
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo zm_setting('emailAdvisory') ?>
+    <?php zm_l10n('<strong>IMPORTANT:</strong> For your protection and to prevent malicious use, all emails sent via this web site are logged and the contents recorded and available to the store owner. If you feel that you have received this email in error, please send an email to %s', zm_setting('storeEmail')) ?>
 </p>

@@ -69,20 +69,75 @@ class ZMShoppingCart extends ZMObject {
     }
 
 
+    /**
+     * Refresh the cart.
+     */
     function refresh() { $this->cart_ = $_SESSION['cart']; }
 
 
-    // getter/setter
+    /**
+     * Check if the cart is empty.
+     *
+     * @return bool <code>true</code> if the cart is empty, <code>false</code> if the cart is not empty.
+     */
     function isEmpty() { return 0 == $this->getSize(); }
+
+    /**
+     * Get the size of the cart.
+     *
+     * <p><strong>NOTE:</strong> This is the number of line items in the cart, not the total number of products.</p>
+     *
+     * @return int The number of different products in the cart.
+     */
     function getSize() { return isset($this->cart_) ? count($this->cart_->get_products()) : 0; }
+
+    /**
+     * Get the carts weight.
+     *
+     * @return float The weight if the shopping cart.
+     */
     function getWeight() { return $this->cart_->show_weight(); }
 
+    /**
+     * Checks if there are only gift vouchers in the cart.
+     *
+     * @return bool <code>true</code> if only vouchers are in the cart.
+     */
     function isGVOnly() { return $this->cart_->gv_only(); }
+
+    /**
+     * Checks for free products in the cart.
+     *
+     * @return int The number of free products in the cart.
+     */
     function freeProductsCount() { return $this->cart_->in_cart_check('product_is_free','1'); }
+
+    /**
+     * Checks for virtual products in the cart.
+     *
+     * @return int The number of virtual products in the cart.
+     */
     function virtualProductsCount() { return $this->cart_->in_cart_check('products_virtual','1'); }
+
+    /**
+     * Checks for free shipping.
+     *
+     * @return bool <code>true</code> if the cart is free of shipping.
+     */
     function freeShippingCount() { return $this->cart_->in_cart_check('product_is_always_free_shipping','1'); }
+
+    /**
+     * Check for virtual cart.
+     * 
+     * @return bool <code>true</code> if the cart is purely virtual.
+     */
     function isVirtual() { return $_SESSION['sendto'] == false; }
 
+    /**
+     * Get the items in the cart.
+     *
+     * @return array List of <code>ZMShoppingCartItem</code>s.
+     */
     function getItems() {
         $zenItems = $this->cart_->get_products();
         $items = array();
@@ -93,8 +148,19 @@ class ZMShoppingCart extends ZMObject {
         return $items;
     }
 
+    /**
+     * Get the cart total.
+     *
+     * @return float The cart total.
+     */
     function getTotal() { return $this->cart_->show_total(); }
 
+    /**
+     * Get product attributes for the given item.
+     *
+     * @param ZmShoppingCartItem item The item.
+     * @return array List of product attributes.
+     */
     function _getItemAttributes($item) {
     global $zm_request;
 
@@ -152,34 +218,94 @@ class ZMShoppingCart extends ZMObject {
         return $attributes;
     }
 
+    /**
+     * Get the customer comment.
+     *
+     * @return string The customer comment.
+     */
     function getComment() { return isset($_SESSION['comments']) ?  $_SESSION['comments'] : ''; }
+
+    /**
+     * Get the selected shipping method id.
+     *
+     * @return int The shipping method id.
+     */
     function getShippingMethodId() { return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null; }
+
+    /**
+     * Get the id of the selected payment method.
+     *
+     * @return int The payment method id.
+     */
     function getPaymentMethodId() { return isset($_SESSION['payment']) ? $_SESSION['payment'] : null; }
+
+    /**
+     * Get the selected shipping method.
+     *
+     * @return mixed The zen-cart shipping method.
+     */
     function getShippingMethod() {
         $order =& new order();
         return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
     }
 
+    /**
+     * Get the selected payment type.
+     *
+     * @return ZMPaymentType The payment type.
+     */
     function getPaymentType() {
         $payments =& $this->create("Payments");
         return $payments->getSelectedPaymentType();
     }
 
+    /**
+     * Checks if the cart has a shipping address.
+     *
+     * @return bool <code>true</code> if there is a shipping address, <code>false</code> if not.
+     */
     function hasShippingAddress() { return !zm_is_empty($_SESSION['sendto']); }
+
+    /**
+     * Checks if the cart has a billing address.
+     *
+     * @return bool <code>true</code> if there is a billing address, <code>false</code> if not.
+     */
     function hasBillingAddress() { return !zm_is_empty($_SESSION['billto']); }
 
+    /**
+     * Get the current shipping address.
+     *
+     * @return ZMAddress The shipping address.
+     */
     function getShippingAddress() {
     global $zm_addresses;
         return $zm_addresses->getAddressForId($_SESSION['sendto']);
     }
 
+    /**
+     * Get the selected billing address.
+     *
+     * @return ZMAddress The billing address.
+     */
     function getBillingAddress() {
     global $zm_addresses;
         return $zm_addresses->getAddressForId($_SESSION['billto']);
     }
 
-
-    // get the action URL for the actual order form
+    /**
+     * Returns the URL for the actual order form.
+     *
+     * <p>An example for the actual order form might look similar to this:</p>
+     * <pre>
+     *   &lt;?php zm_secure_form($zm_cart-&gt;getOrderFormURL()) ?&gt;
+     *     &lt;?php $zm_cart-&gt;getOrderFormContent() ?&gt;
+     *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="&lt;?php zm_l10n("Confirm to order") ?&gt;" /&gt;&lt;/div&gt;
+     *   &lt;/form&gt;
+     * </pre>
+     *
+     * @return string The URL to be used for the actual order form.
+     */
     function getOrderFormURL() {
     global $$_SESSION['payment'];
         $url = zm_secure_href(FILENAME_CHECKOUT_PROCESS, '', false);
@@ -189,7 +315,13 @@ class ZMShoppingCart extends ZMObject {
         return $url;
     }
 
-    // get the order form form elements
+    /**
+     * Returns the order form elements.
+     *
+     * @param bool echo If <code>true</code>, echo the code.
+     * @return mixed The form content for the actual order process.
+     * @see net.radebatz.zenmagick.ZMShoppingCart#getOrderFormURL
+     */
     function getOrderFormContent($echo=true) {
         $payments = $this->_getPayments();
         $zenModules = $payments->getZenModules();
@@ -199,7 +331,9 @@ class ZMShoppingCart extends ZMObject {
         return $content;
     }
     
-
+    /**
+     * Get zen-cart order totals.
+     */
     function _getZenTotals() {
     global $order_total_modules;
         if (null == $this->zenTotals_) {
@@ -217,7 +351,11 @@ class ZMShoppingCart extends ZMObject {
     }
 
 
-    // get shopping cart totals
+    /**
+     * Get the order totals.
+     *
+     * @return array List of <code>ZMOrderTotal</code> instances.
+     */
     function getTotals() {
         $zenTotals = $this->_getZenTotals();
         $totals = array();
@@ -237,6 +375,9 @@ class ZMShoppingCart extends ZMObject {
         return $totals;
     }
 
+    /**
+     * Get payments.
+     */
     function _getPayments() {
         if (null == $this->payments_) {
             $this->payments_ =& $this->create("Payments");
@@ -244,7 +385,12 @@ class ZMShoppingCart extends ZMObject {
         return $this->payments_;
     }
 
-    // JS validation code as provided by the payment modules
+    /**
+     * Generate the JavaScript for the payment form validation.
+     *
+     * @param bool echo If <code>true</code>, echo the code.
+     * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
+     */
     function getPaymentsJavaScript($echo=true) {
         $payments = $this->_getPayments();
         $js = $payments->getPaymentsJavaScript(false);
@@ -259,13 +405,25 @@ class ZMShoppingCart extends ZMObject {
         return $js;
     }
 
-    // available payment types
+    /**
+     * Get a list of the available payment types.
+     *
+     * @return array List of <code>ZMPaymentType</code> instances.
+     */
     function getPaymentTypes() {
         $payments = $this->_getPayments();
         return $payments->getPaymentTypes();
     }
 
-    // available credit options
+    /**
+     * Get list of available credit types; eg promo codes, etc.
+     *
+     * <p><strong>NOTE:</strong> This is also using <code>ZMPaymentType</code> as class
+     * to handle the data. Only difference is that the payment type is used to reduce
+     * the cart total.</p>
+     *
+     * @return array List of <code>ZMPaymentType</code> instances.
+     */
     function getCreditTypes() {
         // looks suspiciously like getPaymentTypes in ZMPayments...
         $zenTotals = $this->_getZenTotals();

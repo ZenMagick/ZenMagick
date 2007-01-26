@@ -57,7 +57,13 @@ class ZMManufacturers extends ZMDao {
 
 
     // get manufacturer for id
-    function getManufacturerForId($manufacturerId) {
+    /**
+     * Get manufacturer for id.
+     *
+     * @param int id The manufacturer id.
+     * @return ZMManufacturer The manufacturer or <code>null</code>.
+     */
+    function getManufacturerForId($id) {
     global $zm_request;
         $manufacturer = null;
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
@@ -67,7 +73,7 @@ class ZMManufacturers extends ZMDao {
                 and mi.languages_id = :languageId)
                 where m.manufacturers_id = :manufacturerId";
         $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
-        $sql = $this->db_->bindVars($sql, ':manufacturerId', $manufacturerId, 'integer');
+        $sql = $this->db_->bindVars($sql, ':manufacturerId', $id, 'integer');
 
         $results = $this->db_->Execute($sql);
         if (0 < $results->RecordCount()) {
@@ -76,14 +82,21 @@ class ZMManufacturers extends ZMDao {
         return $manufacturer;
     }
 
-
-    // get manufacturer for product
+    /**
+     * Get the manufacturer for the given product.
+     *
+     * @param ZMProduct product The product.
+     * @return ZMManufacturer The manufacturer or </code>null</code>.
+     */
     function getManufacturerForProduct($product) {
 		    return $this->getManufacturerForId($product->manufacturerId_);
     }
 
-
-    // get all manufacturers
+    /**
+     * Get all manufacturers.
+     *
+     * @return array List of <code>ZMManufacturer</code> instances.
+     */
     function getManufacturers() {
     global $zm_request;
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
@@ -103,7 +116,10 @@ class ZMManufacturers extends ZMDao {
         return $manufacturers;
     }
 
-    
+
+    /**
+     * Create new manufacturer instance.
+     */
     function _newManufacturer($fields) {
         $manufacturer =& $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];

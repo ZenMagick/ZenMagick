@@ -23,14 +23,14 @@
 
 * {margin:0; padding:0;}
 
-body {font:72% Verdana,Tahoma,Arial,sans-serif;line-height:1.4em;text-align:center;color:#303030;background:#e8eaec;}
+body {font:74% Verdana,Tahoma,Arial,sans-serif;line-height:1.4em;text-align:center;color:#303030;background:#e8eaec;}
 
 a {color:#467aa7;font-weight:bold;text-decoration:none;background-color:inherit;}
 a:hover {color:#2a5a8a;text-decoration:none;background-color:inherit;}
 a img {border:none;}
 p {padding:0 0 1.2em 0;}
 form p {margin-top:0;margin-bottom:6px;padding:0;}
-input.btn, a.btn {padding:1px 3px;border:1px outset gray;font:.94em Verdana,Tahoma,Arial,sans-serif;text-align:center;margin:0 3px;background-color:#80b0da;color:black;}
+input.btn, a.btn {padding:1px 3px;border:1px outset gray;font:.94em Verdana,Tahoma,Arial,sans-serif;text-align:center;margin:0 3px;background-color:#80b0da;color:#fff;}
 input.btn:active, a.btn:active {border:1px inset gray;}
 input.btn {cursor:pointer;}
 a.btn {font-weight:normal;padding:2px 4px;}
@@ -109,7 +109,7 @@ div#footer p#fpages a {text-decoration:underline;margin:4px;}
 
 /* product info */
 #b_product_info #content img.product {float:left;margin:0 16px 8px 0;}
-fieldset {padding:7px;margin-bottom:6px;border:1px solid #c0c0c0;}
+fieldset {padding:9px 7px;margin-bottom:6px;border:1px solid #c0c0c0;}
 legend {padding:2px 6px;font-weight:bold;color:#467aa7;}
 label {margin:2px 4px 4px 3px;}
 #b_product_info #content label img {margin:0 3px;}

@@ -68,11 +68,39 @@ class ZMOrderStatus extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the order status id.
+     *
+     * @return int The order status id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the order status name.
+     *
+     * @return string The order status name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the date it was added.
+     *
+     * @return string The date the attribute was added.
+     */
     function getDateAdded() { return $this->dateAdded_; }
+
+    /**
+     * Checks if a comment exists for this status.
+     *
+     * @return bool </code>true</code> if a comment exist, <code>false</code> if not.
+     */
     function hasComment() { return zm_not_null($this->comment_); }
+
+    /**
+     * Get the comment.
+     *
+     * @return string The comment (might be empty).
+     */
     function getComment() { return $this->comment_; }
 
 }

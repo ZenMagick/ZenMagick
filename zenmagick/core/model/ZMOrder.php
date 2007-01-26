@@ -74,21 +74,90 @@ class ZMOrder extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the order id.
+     *
+     * @return int The order id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the account id.
+     *
+     * @return int The account id.
+     */
     function getAccountId() { return $this->accountId_; }
+
+    /**
+     * Get the order status.
+     *
+     * @return string The order status.
+     */
     function getStatus() { return $this->status_; }
+
+    /**
+     * Get the order date.
+     *
+     * @return string The order date.
+     */
     function getOrderDate() { return $this->orderDate_; }
+
+    /**
+     * Get the account for this order.
+     *
+     * @return ZMAccount The account.
+     */
     function getAccount() { return $this->account_; }
+
+    /**
+     * Get the shipping address.
+     *
+     * @return ZMAddress The shipping address or <code>null</code>.
+     */
     function getShippingAddress() { return $this->shippingAddress_; }
+
+    /**
+     * Get the billing address.
+     *
+     * @return ZMAddress The billing address or <code>null</code>.
+     */
     function getBillingAddress() { return $this->billingAddress_; }
+
+    /**
+     * Checks if the order has a shipping address.
+     *
+     * @return bool <code>true</code> if a shipping address exists, <code>false</code> if not.
+     */
     function hasShippingAddress() {
         return !(empty($this->shippingAddress_->lastName_) && empty($this->shippingAddress_->address_));
     }
 
+    /**
+     * Get the order items.
+     *
+     * @return array A list of <code>ZMOrderItem<code> instances.
+     */
     function getOrderItems() { return $this->zmOrders_->_getOrderItems($this); }
+
+    /**
+     * Get the order status history.
+     *
+     * @return array A list of previous order stati.
+     */
     function getOrderStati() { return $this->zmOrders_->_getOrderStatiForId($this->id_); }
+
+    /**
+     * Get the order total.
+     *
+     * @return float The order total.
+     */
     function getTotal() { return $this->total_; }
+
+    /**
+     * Get all order totals.
+     *
+     * @return array A list of <code>ZMOrderTotal</code> instances.
+     */
     function getOrderTotals() { return $this->zmOrders_->_getOrderTotals($this); }
 
 }

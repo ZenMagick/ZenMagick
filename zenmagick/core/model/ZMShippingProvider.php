@@ -27,6 +27,9 @@
 /**
  * Shipping provider.
  *
+ * <p>A shipping provider may offer 1-n shipping methods, depending on the
+ * address, etc.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.model
  * @version $Id$
@@ -65,15 +68,67 @@ class ZMShippingProvider extends ZMModel {
     }
 
 
+    /**
+     * Get the shipping provider id.
+     *
+     * @return int The shipping provider id.
+     */
     function getId() { return $this->zenQuote_['id']; }
+
+    /**
+     * Get the shipping provider name.
+     *
+     * @return string The shipping provider name.
+     */
     function getName() { return $this->zenQuote_['module']; }
+
+    /**
+     * Get the shipping tax rate.
+     *
+     * @return float The shipping tax rate.
+     */
     function getTaxRate() { return isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0; }
+
+    /**
+     * Checks if an icon exists for this provider.
+     *
+     * @return bool <code>true</code> if an icon, <code>false</code> if not.
+     */
     function hasIcon() { return isset($this->zenQuote_['icon']); }
+
+    /**
+     * Get the icon.
+     *
+     * @return string The icon.
+     */
     function getIcon() { return $this->hasIcon() ? $this->zenQuote_['icon'] : null; }
+
+    /**
+     * Checks if errors are logged for this provider.
+     *
+     * @return bool <code>true</code> if errors exist, <code>false</code> if not.
+     */
     function hasError() { return isset($this->zenQuote_['error']); }
+
+    /**
+     * Get the errors.
+     *
+     * @return array List of error messages.
+     */
     function getError() { return $this->hasError() ?  $this->zenQuote_['error'] : null; }
 
+    /**
+     * Checks if shipping methods are available from this provider.
+     *
+     * @return bool <code>true</code> if shipping methods exist, <code>false</code> if not.
+     */
     function hasShippingMethods() { return 0 < count ($this->methods_); }
+
+    /**
+     * Get the available shipping methods.
+     *
+     * @return array A list of <code>ZMShippingMethod</code> instances.
+     */
     function getShippingMethods() { return $this->methods_; }
 
 }

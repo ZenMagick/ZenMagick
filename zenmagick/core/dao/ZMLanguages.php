@@ -65,9 +65,24 @@ class ZMLanguages extends ZMDao {
 
 
     // getter/setter
+    /**
+     * Get all languages.
+     *
+     * @return array List of <code>ZMLanguage</code> instances.
+     */
     function getLanguages() { return $this->languages_; }
+
+    /**
+     * Get language for the given code.
+     *
+     * @return ZMLanguage A language or <code>null</code>.
+     */
     function getLanguageForCode($code) { return array_key_exists($code, $this->languages_) ? $this->languages_[$code] : null; }
 
+
+    /**
+     * Create new language instance.
+     */
     function _newLanguage($fields) {
         $language =& $this->create("Language");
         $language->id_ = $fields['id'];

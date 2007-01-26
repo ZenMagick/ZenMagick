@@ -23,18 +23,15 @@ bugs:
 - file [permissions for created files???
 - long text like EMAIL_ADVISORY, popup contents needs to be put somewhere...
 - rely less on zen-cart defines as they might not be available during init...
-- there seem to be some issues under *nix that are related to using symbolic links - needs some investigation ..
 
 admin/install:
 - admin interface for ZM config values
 - generic interface to manage theme settings
 - features: error handling, form validation
 - language support for ZenMagick admin area
-- error message if file permissions missing
-- proper installation routine
-- fallback menu if no permissions
 - implement merge option for language mapping tool
 - framework?
+- reorganize admin_init (started)
 
 structure:
 - store settings somewhere?
@@ -42,21 +39,18 @@ structure:
 - zmboxconfig; admin/theme support? get it working at all
 - restructure to have zenmagick outside htdocs?
 - reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
-- create empty c'tors for all model classes and use loader in dao; them exclude from loading
 - use reflection to populate model classes from request?
-- proper class hierachy - dao, model, business (mostly there, me thinks - business is perhaps only required
-  if doing updates, etc)
 - APIs for other apps; for example WordPress, etc...
 - modules base class?
 - merge theme lang settings with default...
+- add global extra folder; move local.php to there; themes can actually have local.php too!
+- l10n for module messages...
+- use zm_format_address(..) everywhere?
 
 general:
 - more validations plus separate validation rules from views/templates; 
   this could be a big file containing all validations that gets included once 
   (or include_once per form); each form imports JS and creates rules as required
-- new lighter theme for zm? rounded corners of sideboxes?
-- misc package? leave only bootstrap in core?
-- Proper use of references (ie usage of ampersand (&amp;) when passing objects around) (mostly done, I think)
 - compare for null needs ===
 - test all class changes in PHP5
 - get a logo and favicon
@@ -64,23 +58,23 @@ general:
   to tell validator that - ah need the JS as well!!!
 - use zm_htmlencode() where required (even alt/title for product images)
 - clean up zen-bridge
-- remove validation.php; merge validation into single file, validate request handling...
 - filter need a name?
-- demo price filter
+- always add default extra to class loader - declare as common area for all themes...
+- val rules:min -> minlength, also maxlength, range
+- zm_create() as shortcut for $zm_loader->create()...
+- get rid of core/misc/validations.php
 
 db:
 - config values, sidebox config
 - random query in ZMProducts = more generic db interface ? how to integrate with zen-cart?
 - get proper random query (mostly products)
 - recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
-- new max results handling (in particular products) - urgent! (this is done, right?)
 - use 3rd party API for db access??
 - not sure about the specials SQL...
 
 (class) loading:
-- improve ZMClassLoader to resolve dependencies
+- improve ZMClassLoader to resolve dependencies  (PHP5 only?)
 - improve class loader to load only actually required files; what about functions?
-- remove theme controller path from loader
 - conditional class loading - we do not need everything all the time?
   * use loader to get instances - it can load on demand
   * how do we know what to load?
@@ -90,7 +84,6 @@ db:
   * we do need core + dao, everything else could be loader?
   * var-args for zm_get_instance?
   * theme code must use loader ?
-- more sophisticated controller matching to request URLs (mainly main_page)
 
 
 
@@ -108,28 +101,16 @@ documentation
 
 stuff
 =====
-
-- zm_setting support second parameter for setting stuff using var_args...
-
-- Options Followsymlinks ??
 - is this where we need convention that upper case is class and needs to be created using loader???
 - for optional overwrites we need to load code before app-top!
-- zm_create() as shortcut for $zm_loader->create()...
-
 - view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
+- themeconfig extend each other as well!!
 
-themeconfig extend each other as well!!
 
-RewriteBase takes only one param!!!!!!!!!!!!!!!!!!!!!!!!
 
-- val rules:min -> minlength, also maxlength, range
 
-- loading reloaded:
-=> class loader rename loader - loads classes **and** code
-=> mk independant from any globals,
-=> bootstrap should be bootstrap, loader and the the loader does the rest...
-=> loader hirachy to reflect theme code? parent first, etc...
-
+Theme handling notes
+====================
 themes:
 * themeconfig:
   - theme specific config
@@ -145,21 +126,14 @@ themes:
      => getTHeme
      ** the rest is job of theme!!
 
-
-- reorganize admin_init
-- put some usefult stuff into local.in.php
-- module framework?
+Module notes
+============
 => implement DPS as showcase
 => ZMModule => ZMpaymentModule, ZMShippingModule, ZMOrderTotalModule
 => shared attr. like enabled/disabled, zone for shipping modules, etc + getter setter for order, etc...
 => could be distributed as extra functions/classes to work with zc
-- http://faq.1and1.com/scripting_languages_supported/configuring_apache_server_using_htaccess/4.html
+
 - real SEO: wrapper class that converts:
 -> a given href to something useful: ie/category names rather than numbers...
 -> does the reverse without to much overhead...
-
-
-- references & in shipping / cart where zc stuff gets passed around?
-- l10n for module messages...
-- use zm_format_address(..) everywhere?
--ajax ? everyone is doing that these days...
+-> do we need to reinvent this??

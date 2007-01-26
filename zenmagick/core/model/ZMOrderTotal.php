@@ -65,9 +65,25 @@ class ZMOrderTotal extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the order total name.
+     *
+     * @return string The order total name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the order total value.
+     *
+     * @return float The order total name.
+     */
     function getValue() { return $this->value_; }
+
+    /**
+     * Get the order total type.
+     *
+     * @return string The order total type.
+     */
     function getType() { return $this->type_; }
 
 }

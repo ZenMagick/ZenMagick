@@ -23,7 +23,10 @@
  * $Id$
  */
 ?>
-<?php  
+<?php
+
+// dismiss sqlpatch output as we do only want to use the code...
+ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
 require_once('../zenmagick/init.php');
 require_once('../zenmagick/admin_init.php');
@@ -34,23 +37,47 @@ require_once('../zenmagick/admin_init.php');
         "themeSupport" => "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)",
         "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
         "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme",
-        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function if favour of the ZenMagick implementation"
+        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function if favour of the ZenMagick implementation",
+
+        "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links)",
+
+        "sqlFeatures" => "Install Features database tables"
     );
 
     $installer = new ZMInstallationPatcher();
-    $patches = $installer->getPatches();
+    $filePatches = $installer->getPatches('file');
+    $sqlPatches = $installer->getPatches('sql');
+    $obsolete = zm_get_obsolete_files();
 
     // install
     if (isset($_POST)) {
-        foreach ($patches as $id => $patch) {
-            if (array_key_exists($patch->getId(), $_POST)) {
-                if ($patch->patch(true)) {
-                    $zm_messages->add($patchLabel[$patch->getId()]." installed successfully", 'msg');
-                } else {
-                    $zm_messages->add("Could not ".$patchLabel[$patch->getId()]);
+        foreach ($_POST as $name => $value) {
+            if (zm_starts_with($name, 'patch_')) {
+                $patch = $installer->getPatchForId($value);
+                if (null != $patch) {
+                    $status = $patch->patch(true);
+                    $zm_messages->addAll($patch->getMessages());
+                    if ($status) {
+                        $zm_messages->add($patchLabel[$patch->getId()]." installed successfully", 'msg');
+                    } else {
+                        $zm_messages->add("Could not ".$patchLabel[$patch->getId()]);
+                    }
                 }
             }
         }
+    }
+
+    // delete
+    if (isset($_POST) && array_key_exists('obsolete', $_POST)) {
+        foreach ($_POST['obsolete'] as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            } else if (is_dir($file)) {
+                rmdir($file);
+            }
+        }
+        // refresh
+        $obsolete = zm_get_obsolete_files();
     }
 
 ?>
@@ -73,6 +100,14 @@ require_once('../zenmagick/admin_init.php');
           kill.disabled = true;
         }
       }
+      function sync_all(box, name) {
+        var boxes = document.getElementsByTagName('input');
+        for (var ii=0; ii<boxes.length; ++ii) {
+          if (0 == boxes[ii].name.indexOf(name)) {
+            boxes[ii].checked = box.checked;
+          }
+        }
+      }
     </script>
   </head>
   <body id="b_installation" onload="init()">
@@ -91,28 +126,81 @@ require_once('../zenmagick/admin_init.php');
         <h2>ZenMagick Installation</h2>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected items ?');">
-          <fieldset id="patches">
-            <legend>Available Patches</legend>
+          <fieldset class="patches">
+            <legend>Available ZenMagick Patches</legend>
 
-            <?php foreach ($patches as $id => $patch) { ?>
+            <?php foreach ($filePatches as $id => $patch) { ?>
                 <?php if ($patch->isOpen()) { ?>
                   <?php if (!$patch->isReady()) { ?>
                     <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
                   <?php } ?>
-                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="<?php echo $patch->getId() ?>" value="x">
+                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_file_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>">
                   <label for="<?php echo $patch->getId() ?>">
                       <?php echo $patchLabel[$patch->getId()] ?>
                   </label>
                   <br>
                 <?php } ?>
             <?php } ?>
+            <?php if (!$installer->isPatchesOpen('file')) { ?>
+              <h3>Congratulations - Your installation seems to be fully patched!</h3>
+            <?php } else { ?>
+              <input type="checkbox" class="all" id="fall" name="fall" value="" onclick="sync_all(this, 'patch_file_')">
+              <label for="fall">Select/Unselect All</label><br>
 
+              <div class="submit">
+                <input type="submit" value="Install">
+                <a href="">Refresh</a>
+              </div>
+            <?php } ?>
           </fieldset>
+        </form>
 
-          <div>
-            <input type="submit" value="Install">
-            <a href="">Refresh</a>
-          </div>
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected SQL updates?');">
+          <fieldset class="patches">
+            <legend>Install ZenMagick SQL Extensions</legend>
+
+            <?php foreach ($sqlPatches as $id => $patch) { ?>
+                <?php if ($patch->isOpen()) { ?>
+                  <?php if (!$patch->isReady()) { ?>
+                    <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
+                  <?php } ?>
+                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_sql_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>">
+                  <label for="<?php echo $patch->getId() ?>">
+                      <?php echo $patchLabel[$patch->getId()] ?>
+                  </label>
+                  <br>
+                <?php } ?>
+            <?php } ?>
+            <?php if (!$installer->isPatchesOpen('sql')) { ?>
+              <h3>Congratulations - Your database seems to be fully patched!</h3>
+            <?php } else { ?>
+              <input type="checkbox" class="all" id="sall" name="sall" value="" onclick="sync_all(this, 'patch_sql_')">
+              <label for="sall">Select/Unselect All</label><br>
+
+              <div class="submit">
+                <input type="submit" value="Install">
+              </div>
+            <?php } ?>
+          </fieldset>
+        </form>
+
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Delete selected files?');">
+          <fieldset id="obsolete">
+            <legend>Remove obsolete ZenMagick files</legend>
+            <?php if (0 == count($obsolete)) { ?>
+              <h3>Congratulations - Your installation appears to be clean!</h3>
+            <?php } else { ?>
+              <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
+                and unless you have modified them, or are sure that you need them they can safely be removed.</p>
+              <?php $ii = 0; foreach ($obsolete as $file) { $name = zm_mk_relative($file); ?>
+                <input type="checkbox" id="obsolete-<?php echo $ii ?>" name="obsolete[]" value="<?php echo $file ?>">
+                <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
+              <?php ++$ii; } ?>
+              <input type="checkbox" class="all" id="oall" name="oall" value="" onclick="sync_all(this, 'obsolete')">
+              <label for="oall">Select/Unselect All</label><br>
+              <div class="submit"><input type="submit" value="Remove"></div>
+            <?php } ?>
+          </fieldset>
         </form>
 
       </div>

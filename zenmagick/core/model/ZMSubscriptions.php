@@ -66,7 +66,11 @@ class ZMSubscriptions extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Checks if the user has subscribed to the newsletter.
+     *
+     * @return bool <code>true</code> if the user is subscribed, <code>false</code> if not.
+     */
     function isNewsletterSubscriber() {
     global $zm_accounts;
 
@@ -76,6 +80,11 @@ class ZMSubscriptions extends ZMModel {
         return $zm_accounts->_isNewsletterSubscriber($this->account_);
     }
 
+    /**
+     * Checks if the user is a global product subscriber.
+     *
+     * @return bool <code>true</code> if the user is subscribed, <code>false</code> if not.
+     */
     function isGlobalProductSubscriber() {
     global $zm_accounts;
 
@@ -85,6 +94,11 @@ class ZMSubscriptions extends ZMModel {
         return $zm_accounts->_isGlobalProductSubscriber($this->account_);
     }
 
+    /**
+     * Checks if the user has product subscriptions.
+     *
+     * @return bool <code>true</code> if the user has product subscriptions, <code>false</code> if not.
+     */
     function hasProductSubscriptions() {
     global $zm_accounts;
 
@@ -94,6 +108,11 @@ class ZMSubscriptions extends ZMModel {
         return 0 != count($this->productIds_); 
     }
 
+    /**
+     * Get the subscribed producst.
+     *
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getSubscribedProductIds() {
     global $zm_accounts;
 

@@ -74,22 +74,39 @@ class ZMOffers extends ZMDao {
     }
 
 
-    // have attributes prices that will affect the final price?
+    /**
+     * Checks if there are attribute prices that will affect the final price.
+     *
+     * @return bool <code>true</code> if attribute prices exist.
+     */
     function isAttributePrice() { return zm_has_product_attributes_values($this->product_->getId()); }
 
-    // the basic product price
+    /**
+     * Get the product price.
+     *
+     * @return float The product price.
+     */
     function getProductPrice() {
         return zm_add_tax($this->product_->price_, $this->taxRate_);
     }
 
-
-    // calculate lowest possible price (product + lowest attribute price of each group)
+    /**
+     * Get the base price; this is the lowest possible price.
+     *
+     * <p>The base price consists of the product price plus the lowest attribute price (if any).</p>
+     *
+     * @return float The base price.
+     */
     function getBasePrice() {
         if (null === $this->basePrice_) {
             $this->basePrice_ = zm_add_tax($this->_getBasePrice(), $this->taxRate_);
         }
         return $this->basePrice_;
     }
+
+    /**
+     * Calculate the base price.
+     */
     function _getBasePrice() {
         if (!$this->product_->pricedByAttributes_)
             return $this->product_->price_;
@@ -118,14 +135,21 @@ class ZMOffers extends ZMDao {
         return $basePrice;
     }
 
-
-    // this is a specific new price
+    /**
+     * Get the special price.
+     *
+     * @return float The special price.
+     */
     function getSpecialPrice() {
         if (null === $this->specialPrice_) {
             $this->specialPrice_ = zm_add_tax($this->_getSpecialPrice(), $this->taxRate_);
         }
         return $this->specialPrice_;
     }
+
+    /**
+     * Calculate the special price.
+     */
     function _getSpecialPrice() {
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
@@ -139,8 +163,11 @@ class ZMOffers extends ZMDao {
         return !zm_is_empty($specialPrice) ? $specialPrice : null;
     }
 
-
-    // discounted 'sale' price
+    /**
+     * Get the discount price.
+     *
+     * @return float The discount price.
+     */
     function getSalePrice() {
         if (null === $this->salePrice_) {
             // no tax here, as sale price is based on base/special price
@@ -148,6 +175,10 @@ class ZMOffers extends ZMDao {
         }
         return $this->salePrice_;
     }
+
+    /**
+     * Calculate the discount price.
+     */
     function _getSalePrice() {
   	    $basePrice = $this->getBasePrice();
   	    $specialPrice = $this->getSpecialPrice();
@@ -218,7 +249,9 @@ class ZMOffers extends ZMDao {
     }
 
 
-    // calculate best price
+    /**
+     * Calculate the (best) price.
+     */
     function _calculatePrice() {
         $basePrice = $this->getBasePrice();
         $specialPrice = $this->getSpecialPrice();
@@ -235,12 +268,41 @@ class ZMOffers extends ZMDao {
         }
     }
 
-
-    // getter/setter
+    /**
+     * Get the discount.
+     *
+     * @return float The discount in percent.
+     */
     function getDiscount() { return $this->discountPercent_; }
+
+    /**
+     * Get the tax rate for the product.
+     *
+     * @return float The tax rate.
+     */
     function getTaxRate() { return $this->taxRate_; }
+
+    /**
+     * Checks if a special price is available.
+     *
+     * @return bool <code>true</code> if a special price is available.
+     */
     function isSpecial() { return 0 != $this->specialPrice_ && $this->specialPrice_ != $this->basePrice_ && !$this->isSale(); }
+
+    /**
+     * Checks if a sale price is available.
+     *
+     * @return bool <code>true</code> if a sale price is available.
+     */
     function isSale() { return 0 != $this->salePrice_; }
+
+    /**
+     * Get the calculated price.
+     *
+     * <p>This is the actual price, taking into account if sale or discount are available.</p>
+     *
+     * @return float The calculated price.
+     */
     function getCalculatedPrice() { return (0 != $this->salePrice_ ? $this->salePrice_ : 
                                                       (0 != $this->specialPrice_ ? $this->specialPrice_ : $this->basePrice_)); }
 

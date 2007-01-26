@@ -25,13 +25,7 @@
 ?>
 
 <?php $zm_theme->includeStaticPageContent("main_page") ?>
-
 <?php $featured = $zm_products->getFeaturedProducts(0, 4); ?>
-<h3>Custom CSS:</h3>
-<pre>
-    <?php $zm_theme->getThemeFileContents("css/index.css");  ?>
-</pre>
-
 <h3>Featured Products</h3>
 <div id="featured">
   <?php foreach ($featured as $product) { ?>

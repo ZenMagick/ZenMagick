@@ -108,6 +108,9 @@ class ZMMediaManager extends ZMDao {
     }
 
 
+    /**
+     * Create new media collection instance.
+     */
     function _newMediaCollection($fields) {
         $collection =& $this->create("MediaCollection");
         $collection->name_ = $fields['media_name'];
@@ -115,7 +118,9 @@ class ZMMediaManager extends ZMDao {
         return $collection;
     }
 
-
+    /**
+     * Create new media instance.
+     */
     function _newMedia($clip, $type) {
         $media =& $this->create("Media");
         $media->id_ = $clip['clip_id'];

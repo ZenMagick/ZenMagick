@@ -89,7 +89,7 @@
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $zm_view->getPage()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $zm_view->getPage() && zm_setting('isShowCrumbtrail')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo zm_build_crumbtrail($zm_crumbtrail, " &gt; "); ?>
         <?php } ?>
 

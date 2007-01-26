@@ -48,7 +48,9 @@ class ZMRecordCompany extends ZMModel {
         $this->url_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMRecordCompany();
     }
@@ -61,10 +63,32 @@ class ZMRecordCompany extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the record company id.
+     *
+     * @return int The record company id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the record company name.
+     *
+     * @return string The name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Checks if a URL exists for this company.
+     *
+     * @return bool <code>true</code> if a URL exists, <code>false</code> if not.
+     */
     function hasUrl() { return !zm_is_empty($this->url_); }
+
+    /**
+     * Get the record company ULR.
+     *
+     * @return string The URL.
+     */
     function getUrl() { return $this->url_; }
 
 }

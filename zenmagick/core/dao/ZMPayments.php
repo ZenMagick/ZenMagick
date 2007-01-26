@@ -66,9 +66,16 @@ class ZMPayments extends ZMDao {
     }
 
 
+    /**
+     * Get the zen-cart payment modules.
+     */
     function getZenModules() { return $this->zenModules_; }
 
-    // get payment types
+    /**
+     * Get the available payment types.
+     *
+     * @return array List of <code>ZMPaymentType</code> instances.
+     */
     function getPaymentTypes() {
         $zenTypes = $this->zenModules_->selection();
         $paymentTypes = array();
@@ -89,7 +96,12 @@ class ZMPayments extends ZMDao {
         return $paymentTypes;
     }
 
-    // JS validation code as provided by the payment modules
+    /**
+     * Generate the JavaScript for the payment form validation.
+     *
+     * @param bool echo If <code>true</code>, echo the code.
+     * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
+     */
     function getPaymentsJavaScript($echo=true) {
         $js = $this->zenModules_->javascript_validation();
 
@@ -97,8 +109,11 @@ class ZMPayments extends ZMDao {
         return $js;
     }
 
-
-    // get selected payment type
+    /**
+     * Get the selected payment type.
+     *
+     * @return ZMPaymentType The payment type.
+     */
     function getSelectedPaymentType() {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) return null;

@@ -147,16 +147,16 @@
     }
 ?>
         <fieldset>
-          <legend>Feature Maintenance</legend>
-          <h3>Available features</h3>
+        <legend><?php zm_l10n('Feature Maintenance') ?></legend>
+        <h3><?php zm_l10n('Available Features') ?></h3>
           <table cellspacing="0" cellpadding="2">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Hidden</th>
-                <th>Options</th>
+                <th><?php zm_l10n('Name') ?></th>
+                <th><?php zm_l10n('Type') ?></th>
+                <th><?php zm_l10n('Description') ?></th>
+                <th><?php zm_l10n('Hidden') ?></th>
+                <th><?php zm_l10n('Options') ?></th>
               </tr>
             </thead>
             <tbody>
@@ -183,10 +183,10 @@
             <table cellspacing="0" cellpadding="2">
               <thead>
                 <tr>
-                  <th>Feature Type</th>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Hidden</th>
+                  <th><?php zm_l10n('Feature Type') ?></th>
+                  <th><?php zm_l10n('Name') ?></th>
+                  <th><?php zm_l10n('Description') ?></th>
+                  <th><?php zm_l10n('Hidden') ?></th>
                   <th><th>
                 </tr>
               </thead>
@@ -231,10 +231,10 @@
                 <table cellspacing="0" cellpadding="2">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Value</th>
-                      <th>Index</th>
-                      <th>Options</th>
+                      <th><?php zm_l10n('Name') ?></th>
+                      <th><?php zm_l10n('Value') ?></th>
+                      <th><?php zm_l10n('Index') ?></th>
+                      <th><?php zm_l10n('Options') ?></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -254,7 +254,7 @@
                   </tbody>
                 </table>
               <?php } ?>
-                <h3><?php echo ($edit_product_feature ? "Update" : "Add") ?> Product Feature</h3>
+                <h3><?php zm_l10n($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
                 <form action="<?php echo ZM_ADMINFN_CATALOG_MANAGER ?>" method="post">
                   <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
                   <input type="hidden" name="view" value="features">
@@ -263,9 +263,9 @@
                   <table cellspacing="0" cellpadding="2" border=1 width="100%">
                     <thead>
                       <tr>
-                        <th>Feature</th>
-                        <th style="width:55%;">Value</th>
-                        <th>Index</th>
+                        <th><?php zm_l10n('Feature') ?></th>
+                        <th style="width:55%;"><?php zm_l10n('Value') ?></th>
+                        <th><?php zm_l10n('Index') ?></th>
                         <th></th>
                       </tr>
                     </thead>

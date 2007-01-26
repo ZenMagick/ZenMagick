@@ -46,7 +46,7 @@ require_once('../zenmagick/admin_init.php');
     $adminMenuPatch = $installer->getPatchForId('adminMenu');
     if ($adminMenuPatch->isOpen()) {
         // only if no ZenMagick menu item
-        $za_contents[] = array('text' => "ZenMagick Installation", 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
+        $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
     }
     
 ?>

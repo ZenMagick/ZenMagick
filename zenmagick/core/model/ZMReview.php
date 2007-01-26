@@ -71,14 +71,60 @@ class ZMReview extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the review id.
+     *
+     * @return int The review id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the rating.
+     *
+     * @return int The review rating.
+     */
     function getRating() { return $this->rating_; }
+
+    /**
+     * Get the review product id.
+     *
+     * @return int The review product id.
+     */
     function getProductId() { return $this->productId_; }
+
+    /**
+     * Get the review product name.
+     *
+     * @return int The review product name.
+     */
     function getProductName() { return $this->productName_; }
+
+    /**
+     * Get the review product image.
+     *
+     * @return string The review product image.
+     */
     function getProductImage() { return $this->productImage_; }
+
+    /**
+     * Get the review text.
+     *
+     * @return string The review text.
+     */
     function getText() { return $this->text_; }
+
+    /**
+     * Get the date the review was added.
+     *
+     * @return string The added date.
+     */
     function getDateAdded() { return $this->dateAdded_; }
+
+    /**
+     * Get the review author.
+     *
+     * @return string The name of the author.
+     */
     function getAuthor() { return $this->author_; }
 
 }

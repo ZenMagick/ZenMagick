@@ -25,12 +25,14 @@
 ?>
 
 <div id="footer">
-  <p id="fpages">
-      <?php $pages = $zm_pages->getPagesForFooter(); ?>
-      <?php foreach ($pages as $page) { ?>
-          <?php zm_ezpage_link($page->getId()) ?>
-      <?php } ?>
-  </p>
+  <?php if (zm_setting('isShowEZFooterNav')) { ?>
+      <p id="fpages">
+          <?php $pages = $zm_pages->getPagesForFooter(); ?>
+          <?php foreach ($pages as $page) { ?>
+              <?php zm_ezpage_link($page->getId()) ?>
+          <?php } ?>
+      </p>
+  <?php } ?>
   <?php if (zm_setting('isDisplayTimerStats')) { ?>
       <p>
         <?php $db = $zm_runtime->getDB(); ?>
@@ -49,5 +51,5 @@
   <?php } ?>
 
   <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://zenmagick.radebatz.net">ZenMagick</a></p>
-  <p>&copy; 2006 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on <a href="http://andreasviklund.com">Andreas Viklund</a></p>
+  <p>&copy; 2006 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
 </div>

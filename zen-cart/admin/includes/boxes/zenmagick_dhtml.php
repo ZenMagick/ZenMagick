@@ -22,17 +22,11 @@ require_once('../zenmagick/admin_init.php');
     $za_contents = array();
 
     $installer = new ZMInstallationPatcher();
-    if ($installer->isPatchesOpen()) {
-        $za_contents[] = array('text' => "Installation", 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
-    }
+    $za_contents[] = array('text' => zm_l10n_get("Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
 
-    $za_contents[] = array('text' => "Catalog Manager", 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
-    $za_contents[] = array('text' => "Language Tool", 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
+    $za_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
+    $za_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
 
-    if (0 != count(zm_get_obsolete_files())) {
-        $za_contents[] = array('text' => "Installation Cleanup", 'link' => zen_href_link(ZM_ADMINFN_CLEANUP, '', 'NONSSL'));
-    }
-  
     echo zen_draw_admin_box($za_heading, $za_contents);
 ?>
 <!-- zenmagick_eof //-->

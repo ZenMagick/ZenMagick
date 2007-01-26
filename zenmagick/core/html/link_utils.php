@@ -102,6 +102,8 @@
                         $path .= "category/".$query['cPath'];
                     } else if (array_key_exists("manufacturers_id", $query)) {
                         $path .= "manufacturer/".$query['manufacturers_id'];
+                    } else {
+                        $path .= "home";
                     }
                     break;
                 case 'static':
@@ -243,7 +245,7 @@
                     } else {
                         $translate = false;
                         if (!zm_is_empty($page)) {
-                            zm_log("no permalink mapping for: ".$page, 1);
+                            zm_log("no pretty link mapping for: ".$page);
                         }
                     }
                     break;
@@ -261,7 +263,7 @@
             $params = (0 < strlen($params) ? ('?'.substr($params, 1)) : '');
 
             if ($translate) {
-                $href = $url['scheme']."://".$url['host'].$path.$url['fragment'].$params;
+                $href = $url['scheme']."://".$url['host'].$path.(zm_is_empty($url['fragment']) ? '' : '#'.$url['fragment']).$params;
             }
         }
 
@@ -428,6 +430,25 @@
 
         if ($echo) echo $href;
         return $href;
+    }
+
+    /**
+     * Convenience function.
+     *
+     * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string controller The controller name without the leading <em>ajax_</em>.
+     * @param string method The name of the method to call.
+     * @param string params Query string style parameter; if <code>null</code> add all current parameter
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A complete Ajax URL.
+     */
+    function zm_ajax_href($controller, $method, $params='', $echo=true) { 
+        $url = str_replace('&amp;', '&', _zm_build_href('ajax_'.$controller, $params.'&method='.$method, false, false));
+
+        if ($echo) echo $url;
+        return $url;
     }
 
 ?>

@@ -313,6 +313,7 @@ if (!class_exists("ZMObject")) {
         echo "<h3><em>ZenMagick</em> settings</h3>";
         echo "<ul>";
         foreach ($_ZM_SETTINGS as $key => $value) {
+            if (zm_starts_with($key, 'is')) { $value = $value ? "true" : "false"; }
             echo "<li>" . $key . " = " . $value . "</li>";
         }
         echo "</ul>";
@@ -396,7 +397,7 @@ if (!class_exists("ZMObject")) {
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
      * @package net.radebatz.zenmagick
-     * @param bool die If true, die after printing the stack.
+     * @param bool die If true, die after printing the stackstack.
      */
     function zm_backtrace($die=true) {
         echo "<pre>";
@@ -458,6 +459,20 @@ if (!class_exists("ZMObject")) {
      * @return string The encrypted password.
      */
     function zm_encrypt_password($password) { return zen_encrypt_password($password); }
+
+
+    /**
+     * Get the currently elapsed page execution time.
+     *
+     * @package net.radebatz.zenmagick
+     * @return long The execution time in milliseconds.
+     */
+    function zm_get_execution_time() {
+        $startTime = explode (' ', PAGE_PARSE_START_TIME);
+        $endTime = explode (' ', microtime());
+        $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
+        return round($executionTime, 4);
+    }
 
 }
 

@@ -72,7 +72,12 @@ class ZMMessages extends ZMDao {
     }
 
 
-    // getter/setter
+    /**
+     * Add a message.
+     *
+     * @param string text The message text.
+     * @param string type The message type; default is 'error'.
+     */
     function add($text, $type='error') {
         if (array_key_exists($text, $this->uniqueMsgRef_))
             return;
@@ -80,6 +85,22 @@ class ZMMessages extends ZMDao {
         array_push($this->messages_, $this->create("Message", $text, $type));
     }
 
+    /**
+     * Add a group of messages.
+     *
+     * @param array messages List of <code>ZMMessage</code> instances.
+     */
+    function addAll($messages) {
+        foreach ($messages as $msg) {
+            $this->add($msg->getText(), $msg->getType());
+        }
+    }
+
+    /**
+     * Checks if there are any messages available.
+     *
+     * @return bool <code>true</code> if messages are available, <code>false</code> if not.
+     */
     function hasMessages($type=null) {
         if (null == $type) {
             return 0 != count($this->messages_);
@@ -93,6 +114,11 @@ class ZMMessages extends ZMDao {
         return false;
     }
 
+    /**
+     * Get all messages.
+     *
+     * @return array List of <code>ZMMessage</code> instances.
+     */
     function getMessages() { return $this->messages_; }
 
 }

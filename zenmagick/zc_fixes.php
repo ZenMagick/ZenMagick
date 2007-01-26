@@ -32,7 +32,7 @@
         unset($_POST['action']);
     }
 
-    // non image button for gv_send edit
+    // non image button for gv_send edit; yuk!
     if (isset($_POST) && array_key_exists('edit', $_POST) && 'gv_send' == $zm_request->getPageName()) {
         $_POST['edit_x'] = 2;
     }

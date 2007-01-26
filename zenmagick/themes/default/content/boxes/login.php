@@ -34,7 +34,7 @@
             </div>
             <div>
                 <label for="password"><?php zm_l10n("Password") ?></label>
-                <input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" />
+                <input type="submit" class="btn" value="<?php zm_l10n("Login") ?>" />
                 <input type="password" id="password" name="password" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password', 9) ?> /> 
             </div>
           </form>

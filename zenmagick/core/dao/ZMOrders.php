@@ -55,6 +55,12 @@ class ZMOrders extends ZMDao {
     }
 
 
+    /**
+     * Get order for the given id.
+     *
+     * @param int id The order id.
+     * @return ZMOrder A order or <code>null</code>.
+     */
     function getOrderForId($orderId) {
     global $zm_request;
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -89,7 +95,13 @@ class ZMOrders extends ZMDao {
         return $order;
     }
 
-
+    /**
+     * Get all orders for the given account id.
+     *
+     * @param int accountId The account id.
+     * @param int limit Optional result limit.
+     * @return array List of <code>ZMOrder</code> instances.
+     */
     function getOrdersForAccountId($accountId, $limit=0) {
     global $zm_request;
         // order only
@@ -127,7 +139,9 @@ class ZMOrders extends ZMDao {
         return $orders;
     }
 
-
+    /**
+     * Get order stati for order.
+     */
     function _getOrderStatiForId($orderId) {
     global $zm_request;
         $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
@@ -151,14 +165,18 @@ class ZMOrders extends ZMDao {
         return $stati;
     }
 
-
+    /**
+     * Create new order status instance.
+     */
     function _newOrderStatus($fields) {
         $status =& $this->create("OrderStatus", $fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
         $status->comment_ = $fields['comments'];
         return $status;
     }
 
-
+    /**
+     * Create new order instance.
+     */
     function _newOrder($fields) {
         $order =& $this->create("Order", $fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
@@ -192,7 +210,9 @@ class ZMOrders extends ZMDao {
         return $order;
     }
 
-
+    /**
+     * Get order items
+     */
     function _getOrderItems($order) {
         $orderItems = array();
 
@@ -208,8 +228,9 @@ class ZMOrders extends ZMDao {
         return $orderItems;
     }
 
-
-    // parse zen-cart order items (PHP5 only)
+    /**
+     * Create new order item instance (PHP5 only)
+     */
     function _newOrderItem_v5($zenItem) {
         $orderItem =& $this->create("OrderItem");
         $orderItem->id_ = $zenItem['id'];
@@ -237,8 +258,9 @@ class ZMOrders extends ZMDao {
         return $orderItem;
     }
 
-
-    // parse zen-cart order items (PHP4 and PHP5)
+    /**
+     * Create new order item instance.
+     */
     function _newOrderItem($zenItem) {
         // keep reference of used variables
         $attributesLookup = array();
@@ -274,7 +296,9 @@ class ZMOrders extends ZMDao {
         return $orderItem;
     }
 
-
+    /**
+     * Create new account instance.
+     */
     function _newAccount($fields) {
         $account =& $this->create("Account");
         $account->accountId_ = $fields['customers_id'];
@@ -293,7 +317,9 @@ class ZMOrders extends ZMDao {
         return $account;
     }
 
-
+    /**
+     * Create new address instance.
+     */
     function _newAddress($fields, $prefix) {
     global $zm_countries;
         $address =& $this->create("Address");
@@ -313,8 +339,9 @@ class ZMOrders extends ZMDao {
         return $address;
     }
 
-
-    // get order totals
+    /**
+     * Get order totals.
+     */
     function _getOrderTotals($order) {
         $zenOrder = $order->zenOrder_;
         if (null == $zenOrder) {

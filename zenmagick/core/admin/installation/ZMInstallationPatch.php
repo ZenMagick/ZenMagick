@@ -33,6 +33,7 @@
  */
 class ZMInstallationPatch extends ZMObject {
     var $id_ = null;
+    var $messages_ = null;
 
 
     /**
@@ -44,6 +45,7 @@ class ZMInstallationPatch extends ZMObject {
         parent::__construct();
 
         $this->id_ = $id;
+        $this->messages_ = array();
     }
 
     /**
@@ -90,6 +92,15 @@ class ZMInstallationPatch extends ZMObject {
     }
 
     /**
+     * Get the patch group id.
+     *
+     * @return string The patch group id.
+     */
+    function getGroupId() {
+        return '';
+    }
+
+    /**
      * Get the precondition message.
      *
      * <p>This will return an empty string when <code>isReady()</code> returns <code>true</code>.</p>
@@ -98,6 +109,15 @@ class ZMInstallationPatch extends ZMObject {
      */
     function getPreconditionsMessage() {
         return "";
+    }
+
+    /**
+     * Get optional installation messages.
+     *
+     * @return array List of <code>ZMMessage</code> instances.
+     */
+    function getMessages() {
+        return $this->messages_;
     }
 
     /**

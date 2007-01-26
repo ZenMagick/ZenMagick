@@ -34,14 +34,15 @@
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_LOGOFF); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!$zm_cart->isEmpty()/* && !zm_is_checkout_page()*/) { ?>
+    <?php if (!$zm_cart->isEmpty() && !zm_is_checkout_page()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>
-    <?php $pages = $zm_pages->getPagesForHeader(); ?>
-    <?php $pages = array(); /* disabled */ ?>
-    <?php foreach ($pages as $page) { ?>
-        <li><?php zm_ezpage_link($page->getId()) ?></li>
+    <?php if (zm_setting('isShowEZHeaderNav')) { ?>
+        <?php $pages = $zm_pages->getPagesForHeader(); ?>
+        <?php foreach ($pages as $page) { ?>
+            <li><?php zm_ezpage_link($page->getId()) ?></li>
+        <?php } ?>
     <?php } ?>
   </ul>
 </div>

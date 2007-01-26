@@ -62,8 +62,18 @@ class ZMPaymentField extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the field name/label.
+     *
+     * @return string The field name/label.
+     */
     function getLabel() { return $this->label_; }
+
+    /**
+     * Get the field HTML.
+     *
+     * @return string The field HTML.
+     */
     function getHTML() { return $this->html_; }
 
 }

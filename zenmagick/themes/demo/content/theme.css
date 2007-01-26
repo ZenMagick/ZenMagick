@@ -44,7 +44,8 @@ label span, .legend span {color:#f02025;}
 #menu a:hover {text-decoration:underline;background:#323034;color:white;}
 
 #crumbtrail {color:black;}
-#content h2 {color:#505050;}
+#content h1 {margin-bottom:8px;}
+#content h2, #content h3 {color:#505050;}
 
 #footer {color:#fff;background:#323034;}
 #footer a {color:#f0f0f0;}

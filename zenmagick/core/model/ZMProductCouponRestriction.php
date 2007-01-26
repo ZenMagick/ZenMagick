@@ -62,8 +62,11 @@ class ZMProductCouponRestriction extends ZMModel {
     }
 
 
-
-    // getter/setter
+    /**
+     * Checks if this coupon restriction is allowed.
+     *
+     * @return bool <code>true</code> if this coupon restriction is allowed, <code>false</code> if not.
+     */
     function isAllowed() { return $this->allowed_; }
 
     /**

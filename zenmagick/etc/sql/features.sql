@@ -45,7 +45,8 @@ CREATE TABLE zm_features (
   feature_description varchar(128) NOT NULL,
   hidden int(1) NOT NULL default '0',
   PRIMARY KEY (feature_id),
-  KEY idx_feature_id_language_id_zm (feature_type_id, language_id)
+  KEY idx_feature_id_language_id_zm (feature_type_id, language_id),
+  FOREIGN KEY (feature_type_id) REFERENCES zm_feature_types (feature_type_id) ON DELETE CASCADE
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -68,7 +69,9 @@ CREATE TABLE zm_product_features (
   feature_index_id int(11) NOT NULL default '1',
   feature_value text NOT NULL default '',
   PRIMARY KEY (product_feature_id),
-  KEY idx_product_id_feature_id_zm (product_id, feature_id)
+  KEY idx_product_id_feature_id_zm (product_id, feature_id),
+  FOREIGN KEY (product_id) REFERENCES products (products_id) ON DELETE CASCADE,
+  FOREIGN KEY (feature_id) REFERENCES zm_features (feature_id) ON DELETE CASCADE
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

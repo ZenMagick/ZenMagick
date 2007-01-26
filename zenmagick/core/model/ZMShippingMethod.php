@@ -62,9 +62,32 @@ class ZMShippingMethod extends ZMModel {
     }
 
 
+    /**
+     * Get the shipping method id.
+     *
+     * @return int The shipping method id.
+     */
     function getId() { return $this->zenMethod_['id']; }
+
+    /**
+     * Get the shipping method name.
+     *
+     * @return string The shipping method name.
+     */
     function getName() { return $this->zenMethod_['title']; }
+
+    /**
+     * Get the shipping cost.
+     *
+     * @return float The shipping cost.
+     */
     function getCost() { return zm_add_tax($this->zenMethod_['cost'], $this->provider_->getTaxRate()); }
+
+    /**
+     * Get the shipping provider.
+     *
+     * @return ZMShippingProvider The shipping provider.
+     */
     function getProvider() { return $this->provider_; }
 
 }
