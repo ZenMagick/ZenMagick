@@ -1,3 +1,6 @@
+Release 0.6.3:
+- Added down_for_maintenance view
+
 Release 0.6.2:
 - Added patch support for main index.php; this means ZenMagick does not
   overwrite existing files any more!
