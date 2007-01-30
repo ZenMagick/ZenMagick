@@ -115,7 +115,7 @@ class ZMSQLPatch extends ZMInstallationPatch {
         }
 
         if (!zm_is_empty($results['output'])) {
-            foreach ($query_results['output'] as $value) {
+            foreach ($results['output'] as $value) {
                 if (!zm_is_empty($value)) {
                     array_push($this->messages_, $this->create("Message", 'ERROR: '.$value.'.', 'error'));
                 }
