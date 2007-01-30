@@ -1,5 +1,7 @@
 Release 0.6.3:
 - Added down_for_maintenance view
+- fixed wrong variable name in SQL patch code
+- added temp. fix to ZMCategories when database empty
 
 Release 0.6.2:
 - Added patch support for main index.php; this means ZenMagick does not

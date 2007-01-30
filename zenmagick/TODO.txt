@@ -9,6 +9,7 @@ missing zen-cart stuff
 - file attribute
 - fix continue button on checkout success page (this is default behaviour...)
 - cleanup CSS, make theme more consistent
+- down for maintenance settings
 
 
 usablility / quality / performance / etc
@@ -63,6 +64,7 @@ general:
 - val rules:min -> minlength, also maxlength, range
 - zm_create() as shortcut for $zm_loader->create()...
 - get rid of core/misc/validations.php
+- feature groups - create a group once and asdsing to products rather than doing every product individually...
 
 db:
 - config values, sidebox config

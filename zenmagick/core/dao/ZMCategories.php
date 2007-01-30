@@ -237,6 +237,9 @@ class ZMCategories extends ZMDao {
 
         // create instances using node id as name (suffix)
         foreach ($this->categories_ as $category) {
+            // TODO:XXX: where does this guy come from???
+            if (0 == $id) { unset($this->categories_[$id]); continue; } 
+
             $nname = "n".$category->id_;
             $$nname = $category;
         }
