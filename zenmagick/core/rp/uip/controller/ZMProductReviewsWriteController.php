@@ -67,7 +67,7 @@ class ZMProductReviewsWriteController extends ZMController {
         }
 
         if (null == $product) {
-            return new ZMThemeView('error');
+            return $this->findView('error');
         }
 
         $this->exportGlobal("zm_product", $product);
@@ -79,7 +79,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $zm_crumbtrail->addProduct($product->getId());
         $zm_crumbtrail->addCrumb("Reviews");
 
-        return new ZMThemeView('product_reviews_write');
+        return $this->findView('product_reviews_write');
     }
 
 }

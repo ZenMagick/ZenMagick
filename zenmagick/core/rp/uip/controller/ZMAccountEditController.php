@@ -65,7 +65,7 @@ class ZMAccountEditController extends ZMController {
         $account = $zm_accounts->getAccountForId($zm_request->getAccountId());
         $this->exportGlobal("zm_account", $account);
 
-        return new ZMThemeView('account_edit');
+        return $this->findView('account_edit');
     }
 
 }

@@ -107,6 +107,7 @@ class ZMController extends ZMObject {
         if (null != $view) {
             $view->setController($this);
         }
+
         return $view;
     }
 
@@ -119,7 +120,7 @@ class ZMController extends ZMObject {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return new ZMThemeView($this->page_);
+        return $this->findView($this->page_);
     }
 
 
@@ -162,6 +163,20 @@ class ZMController extends ZMObject {
      */
     function getGlobal($name) {
         return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
+    }
+
+    /**
+     * Lookup the appropriate view for the given name.
+     *
+     * <p>This implementation might be changed later on to allow for view mapping to make the page
+     * flow configurable amd extract that knowlege from the controller into some sort of config
+     * file or other piece of logic.</p>
+     *
+     * @param string page The page (view) name.
+     */
+    function findView($page) {
+        $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $page);
+        return $view;
     }
 
 }

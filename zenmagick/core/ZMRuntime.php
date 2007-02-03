@@ -36,6 +36,7 @@
  */
 class ZMRuntime {
     var $themeId_;
+    var $dbThemeId_;
 
 
     /**
@@ -44,6 +45,7 @@ class ZMRuntime {
     function ZMRuntime() {
         // init with defaults
         $this->themeId_ = null;
+        $this->dbThemeId_ = null;
     }
 
     /**
@@ -76,21 +78,25 @@ class ZMRuntime {
         $themeId = $this->themeId_;
         //TODO: themes
         if (null == $themeId) {
-            $db = $this->getDB();
-            $template_dir = "";
-            $sql = "select template_dir
-                    from " . TABLE_TEMPLATE_SELECT . "
-                    where template_language = 0";
-            $template_query = $db->Execute($sql);
-            $themeId = $template_query->fields['template_dir'];
-
-            $sql = "select template_dir
-                    from " . TABLE_TEMPLATE_SELECT . "
-                    where template_language = '" . $_SESSION['languages_id'] . "'";
-            $template_query = $db->Execute($sql);
-            if ($template_query->RecordCount() > 0) {
+            if (null == $this->dbThemeId_) {
+                $db = $this->getDB();
+                $template_dir = "";
+                $sql = "select template_dir
+                        from " . TABLE_TEMPLATE_SELECT . "
+                        where template_language = 0";
+                $template_query = $db->Execute($sql);
                 $themeId = $template_query->fields['template_dir'];
+
+                $sql = "select template_dir
+                        from " . TABLE_TEMPLATE_SELECT . "
+                        where template_language = '" . $_SESSION['languages_id'] . "'";
+                $template_query = $db->Execute($sql);
+                if ($template_query->RecordCount() > 0) {
+                    $themeId = $template_query->fields['template_dir'];
+                }
+                $this->dbThemeId_ = $themeId;
             }
+            $themeId = $this->dbThemeId_;
         }
         return $themeId;
     }

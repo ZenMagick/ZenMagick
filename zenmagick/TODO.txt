@@ -9,7 +9,6 @@ missing zen-cart stuff
 - file attribute
 - fix continue button on checkout success page (this is default behaviour...)
 - cleanup CSS, make theme more consistent
-- down for maintenance settings
 
 
 usablility / quality / performance / etc
@@ -64,7 +63,12 @@ general:
 - val rules:min -> minlength, also maxlength, range
 - zm_create() as shortcut for $zm_loader->create()...
 - get rid of core/misc/validations.php
-- feature groups - create a group once and asdsing to products rather than doing every product individually...
+
+performance:
+- improve :)
+- redo zm_find_includes, _zm_build_href, zm_get_instance, 
+- create compressed version?
+- extract caching strategy to config file or other storage
 
 db:
 - config values, sidebox config
@@ -106,6 +110,7 @@ stuff
 - is this where we need convention that upper case is class and needs to be created using loader???
 - for optional overwrites we need to load code before app-top!
 - view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
+  => controller need to use getView() method to be able to dynamically change the view impl.
 - themeconfig extend each other as well!!
 
 

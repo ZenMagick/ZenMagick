@@ -70,7 +70,7 @@ class ZMDiscountCouponController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_nice_page_name());
 
-        $view =& new ZMThemeView('discount_coupon');
+        $viewName = 'discount_coupon';
         $code = $zm_request->getRequestParameter('lookup_discount_coupon');
         if (null == $code) {
             $zm_messages->add(zm_l10n_get("Please enter a coupon code."), "warn");
@@ -81,11 +81,11 @@ class ZMDiscountCouponController extends ZMController {
                 $this->exportGlobal("zm_coupon_code", $code);
             } else {
                 $this->exportGlobal("zm_coupon", $coupon);
-                $view =& new ZMThemeView('discount_coupon_info');
+                $viewName = 'discount_coupon_info';
             }
         }
 
-        return $view;
+        return $this->findView($viewName);
     }
 
 }

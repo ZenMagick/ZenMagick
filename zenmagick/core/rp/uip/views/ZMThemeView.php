@@ -43,6 +43,8 @@ class ZMThemeView extends ZMView {
      * @param string page The page (view) name.
      */
     function ZMThemeView($page) {
+        parent::__construct();
+
         $this->page_ = $page;
     }
 

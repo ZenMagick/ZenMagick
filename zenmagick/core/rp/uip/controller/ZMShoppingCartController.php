@@ -61,12 +61,7 @@ class ZMShoppingCartController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $view =& new ZMThemeView('shopping_cart');
-        if ($zm_cart->isEmpty()) {
-            $view =& new ZMThemeView('empty_cart');
-        }
-
-        return $view;
+        return $this->findView($zm_cart->isEmpty() ? 'empty_cart' : 'shopping_cart');
     }
 
 }

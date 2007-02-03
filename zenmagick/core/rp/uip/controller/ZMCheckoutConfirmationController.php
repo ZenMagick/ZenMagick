@@ -62,7 +62,7 @@ class ZMCheckoutConfirmationController extends ZMController {
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return new ZMThemeView('checkout_confirmation');
+        return $this->findView('checkout_confirmation');
     }
 
 }

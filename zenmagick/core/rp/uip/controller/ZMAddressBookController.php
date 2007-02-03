@@ -65,7 +65,7 @@ class ZMAddressBookController extends ZMController {
         $addresses = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addresses", $addresses);
 
-        return new ZMThemeView('address_book');
+        return $this->findView('address_book');
     }
 
 }

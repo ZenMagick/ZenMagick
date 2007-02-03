@@ -26,14 +26,16 @@
 <?php
 
     error_reporting(E_ALL^E_NOTICE);
+    ini_set("display_errors",false);
+    ini_set("log_errors",true); 
     @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
     $_zm_bin_dir = dirname(__FILE__)."/core/";
-    require_once($_zm_bin_dir."bootstrap.php");
-    require_once($_zm_bin_dir."settings/settings.php");
-    require_once($_zm_bin_dir."settings/zenmagick.php");
-    require_once($_zm_bin_dir."ZMLoader.php");
+    require($_zm_bin_dir."bootstrap.php");
+    require($_zm_bin_dir."settings/settings.php");
+    require($_zm_bin_dir."settings/zenmagick.php");
+    require($_zm_bin_dir."ZMLoader.php");
 
     // configure core loader
     $coreLoader =& new ZMLoader('coreLoader');
@@ -96,6 +98,8 @@
         include($_zm_local);
     }
 
-    require_once('zc_fixes.php');
+    if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
+
+    require('zc_fixes.php');
 
 ?>

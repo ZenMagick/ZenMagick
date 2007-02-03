@@ -65,7 +65,7 @@ class ZMLogoffController extends ZMController {
         // also refresh the cart
         $zm_cart->refresh();
 
-        return new ZMThemeView('logoff');
+        return $this->findView('logoff');
     }
 
 }

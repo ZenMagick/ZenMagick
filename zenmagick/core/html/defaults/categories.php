@@ -34,6 +34,8 @@
      * empty categories will have a class <code>empty</code>. Note that both can occur
      * at the same time.</p>
      *
+     * <p>Uses output buffering for increased performance.</p>
+     *
      * @package net.radebatz.zenmagick.html.defaults
      * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
      * @param bool activeParent If true, the parent category is considered in the current category path.
@@ -43,34 +45,35 @@
     function zm_build_category_tree_list($categories, $activeParent=false, $root=true) {
     global $zm_products;
 
-        $html = '';
-        $html .= '<ul' . ($activeParent ? ' class="act"' : '') . '>';
+        if ($root) { ob_start(); }
+        echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
             $active = $category->isActive();
             $noOfProducts = zm_setting('isShowCategoryProductCount') ? count($zm_products->getProductIdsForCategoryId($category->getId())) : 0;
             $empty = 0 == $noOfProducts;
-            $html .= '<li>';
+            echo '<li>';
             $class = '';
             $class = $active ? 'act' : '';
             $class = $empty ? ' empty' : '';
             $class = trim($class);
             $onclick = $empty ? (zm_setting('isUseCategoryPage') ? '' : ' onclick="return catclick(this);"') : '';
-            $html .= '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
+            echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         zm_href(FILENAME_DEFAULT, '&'.$category->getPath(), '', false, false) .
                         '">'.zm_htmlencode($category->getName(), false).'</a>';
             if (0 < $noOfProducts) {
-                $html .= '('.$noOfProducts.')';
+                echo '('.$noOfProducts.')';
             }
             if ($category->hasChildren()) {
-                $html .= '&gt;';
+                echo '&gt;';
             }
             if ($category->hasChildren()) { // && $active) {
-                $html .= zm_build_category_tree_list($category->getChildren(), $active, false);
+                zm_build_category_tree_list($category->getChildren(), $active, false);
             }
-            $html .= '</li>';
+            echo '</li>';
         }
-        $html .= '</ul>';
+        echo '</ul>';
 
+        $html = $root ? ob_get_clean() : '';
         return $html;
     }
 

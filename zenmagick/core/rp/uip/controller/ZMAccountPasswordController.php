@@ -62,7 +62,7 @@ class ZMAccountPasswordController extends ZMController {
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return new ZMThemeView('account_password');
+        return $this->findView('account_password');
     }
 
 }

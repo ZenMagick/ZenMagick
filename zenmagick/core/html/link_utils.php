@@ -53,6 +53,7 @@
 
     function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
     global $zm_request;
+
         if (null === $view || null === $params) {
             $query = array();
             if (null === $view || null === $params) {

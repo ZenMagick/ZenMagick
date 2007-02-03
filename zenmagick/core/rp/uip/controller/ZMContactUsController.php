@@ -61,13 +61,13 @@ class ZMContactUsController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $view =& new ZMThemeView("contact_us");
+        $viewname = "contact_us";
         $this->exportGlobal("zm_contact", $this->create("ContactInfo"));
         if ('success' == $zm_request->getRequestParameter('action')) {
-            $view =& new ZMThemeView("contact_us_success");
+            $viewName = "contact_us_success";
         }
 
-        return $view;
+        return $this->findView($viewName);
     }
 
 
@@ -80,7 +80,7 @@ class ZMContactUsController extends ZMController {
         $contactInfo->populateFromRequest();
         $this->exportGlobal("zm_contact", $contactInfo);
 
-        return new ZMThemeView('contact_us');
+        return $this->findView('contact_us');
     }
 
 }

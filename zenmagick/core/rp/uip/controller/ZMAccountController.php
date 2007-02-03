@@ -67,7 +67,7 @@ class ZMAccountController extends ZMController {
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
 
-        return new ZMThemeView('account');
+        return $this->findView('account');
     }
 
 }

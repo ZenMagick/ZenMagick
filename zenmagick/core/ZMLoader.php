@@ -137,9 +137,7 @@ class ZMLoader {
     function getStatic() {
         $static = array();
         foreach ($this->path_ as $name => $file) {
-            $char = substr($name, 0, 1);
-            $lower = strtolower($char);
-            if ($lower == $char) {
+            if ($name != ucfirst($name)) {
                 $static[$name] = $file;
             }
         }
@@ -176,8 +174,8 @@ class ZMLoader {
 
         zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
 
-        if (null != $zmclassfile && !class_exists($zmname)) { require_once($zmclassfile); }
-        if (null != $classfile && !class_exists($name)) { require_once($classfile); }
+        if (null != $zmclassfile && !class_exists($zmname)) { require($zmclassfile); }
+        if (null != $classfile && !class_exists($name)) { require($classfile); }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }

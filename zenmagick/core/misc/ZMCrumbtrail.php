@@ -68,7 +68,7 @@ class ZMCrumbtrail extends ZMObject {
      * @return string The name of the last crumbtrail element.
      */
     function getLastCrumb() {
-        return $this->crumbs_[count($this->crumbs_)-1];
+        return end($this->crumbs_);
     }
 
     /**

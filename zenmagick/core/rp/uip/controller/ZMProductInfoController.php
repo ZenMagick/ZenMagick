@@ -67,7 +67,7 @@ class ZMProductInfoController extends ZMController {
         }
 
         if (null == $product) {
-            return new ZMThemeView('error');
+            return $this->findView('error');
         }
 
         $this->exportGlobal("zm_product", $product);
@@ -80,7 +80,7 @@ class ZMProductInfoController extends ZMController {
         $zm_crumbtrail->addProduct($product->getId());
 
         $viewName = zen_get_info_page($product->getId());
-        return new ZMThemeView($viewName);
+        return $this->findView($viewName);
     }
 
 }

@@ -28,12 +28,13 @@
     $_ZM_SETTINGS = array();
     // these must be the first five entries
     $_ZM_SETTINGS['isEnableZenMagick'] = true;
-    $_ZM_SETTINGS['ZenMagickVersion'] = '${zenmagick.version}';
+    $_ZM_SETTINGS['ZenMagickVersion'] = '0.6.2';
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
-    $_ZM_SETTINGS['isLogEnabled'] = 0 != $_ZM_SETTINGS['logLevel'];
+    $_ZM_SETTINGS['isLogEnabled'] = false; //0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
 
     // patch flags
+    $_ZM_SETTINGS['isEnablePatching'] = true;
     $_ZM_SETTINGS['isAdminPatchThemeSupport'] = true;
     $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
     $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
@@ -43,13 +44,25 @@
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
+    // page cache
+    $_ZM_SETTINGS['isPageCacheEnabled'] = true;
+    $_ZM_SETTINGS['pageCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/pages/";
+    $_ZM_SETTINGS['pageCacheTTL'] = 300; // in sec.
+
     // rss config
-    $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE;
+    $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/rss/";
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
 
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;
+
+    // system
+    $_ZM_SETTINGS['isAdmin'] = defined('IS_ADMIN_FLAG');
+
+    $_ZM_SETTINGS['isEnableOB'] = GZIP_LEVEL != '1';
+    $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
+    $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;

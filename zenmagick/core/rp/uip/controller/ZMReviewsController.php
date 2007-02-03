@@ -68,7 +68,7 @@ class ZMReviewsController extends ZMController {
         $resultList = new ZMResultList($zm_reviews->getAllReviews());
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return new ZMThemeView('reviews');
+        return $this->findView('reviews');
     }
 
 }

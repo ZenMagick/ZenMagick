@@ -92,24 +92,33 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string name The setting to check.
-     * @param mixed value Optional new value.
      * @return mixed The setting value or <code>null</code>.
      */
     function zm_setting($name) {
     global $_ZM_SETTINGS;
 
-        $oldValue = array_key_exists($name, $_ZM_SETTINGS) ? $_ZM_SETTINGS[$name] : null;
-        if (null == $oldValue && !array_key_exists($name, $_ZM_SETTINGS)) {
+        if (!array_key_exists($name, $_ZM_SETTINGS)) {
             zm_log("can't find setting: '".$name."'");
             if (zm_setting('isDieOnError')) die("can't find setting: '".$name."'");
+            return null;
         }
+        return $_ZM_SETTINGS[$name];
+    }
 
-        // check for optional value
-        $args = func_get_args();
-        if (1 < count($args)) {
-            // got a value
-            $_ZM_SETTINGS[$name] = $args[1];
-        }
+
+    /**
+     * Set configuration value.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string name The setting to check.
+     * @param mixed value (New) value.
+     * @return mixed The old setting value or <code>null</code>.
+     */
+    function zm_set_setting($name, $value) {
+    global $_ZM_SETTINGS;
+
+        $oldValue = array_key_exists($name, $_ZM_SETTINGS) ? $_ZM_SETTINGS[$name] : null;
+        $_ZM_SETTINGS[$name] = $value;
 
         return $oldValue;
     }
@@ -139,24 +148,28 @@ if (!class_exists("ZMObject")) {
      *  <code>false</code> if not.
      */
     function zm_ends_with($s, $end) {
-        if (strlen($s) < strlen($end))
-            return false;
-        return $end == substr($s, strlen($s) - strlen($end));
+        $endLen = strlen($end);
+        return $end == substr($s, -$endLen);
     }
 
 
     /**
      * Scan (recursively) for <code>.php</code> files.
      *
-     * <p>It is worth mentioning that directories will always be processed only after all plain files
-     * in a directory.</p>
+     * <p>It is worth mentioning that directories will always be processed only after
+     * all plain files in a directory are done.</p>
      *
      * @package net.radebatz.zenmagick
      * @param string dir The name of the root directory to scan.
      * @param bool recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
-    function zm_find_includes($dir, $recursive=false) {
+    $_zm_includes_buffer = array();
+    function zm_find_includes($dir, $recursive=false, $root=true) {
+    global $_zm_includes_buffer;
+
+        if ($root) $_zm_includes_buffer = array();
+
         $includes = array();
         if (!file_exists($dir) || !is_dir($dir)) {
             return $includes;
@@ -174,7 +187,7 @@ if (!class_exists("ZMObject")) {
             if (is_dir($file)) {
                 array_push($dirs, $file);
             } else if (zm_ends_with($file, ".php")) {
-                array_push($includes, $file);
+                array_push($_zm_includes_buffer, $file);
             }
         }
         @closedir($handle);
@@ -182,11 +195,11 @@ if (!class_exists("ZMObject")) {
         // process last
         if ($recursive) {
             foreach ($dirs as $dir) {
-                $includes = array_merge($includes, zm_find_includes($dir."/", $recursive));
+                zm_find_includes($dir."/", $recursive, false);
             }
         }
 
-        return $includes;
+        return $_zm_includes_buffer;
     }
 
 
@@ -397,24 +410,31 @@ if (!class_exists("ZMObject")) {
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
      * @package net.radebatz.zenmagick
-     * @param bool die If true, die after printing the stackstack.
+     * @param string msg If set, die with the provided message.
      */
-    function zm_backtrace($die=true) {
+    function zm_backtrace($msg=null) {
         echo "<pre>";
         print_r(debug_backtrace());
         echo "</pre>";
-        if ($die) die("trace'n die");
+        if (null !== $msg) die($msg);
     }
 
 
     /**
-     * Check if a given value is empty.
+     * Check if a given value or array is empty.
      *
      * @package net.radebatz.zenmagick
-     * @param mixed value The value to check.
+     * @param mixed value The value or array to check.
      * @return bool <code>true> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
-    function zm_is_empty($value) { return !zen_not_null($value); }
+    function zm_is_empty($value) { 
+        // support for arrays
+        if (is_array($value)) {
+            return 0 < count($value);
+        }
+
+        return (empty($value) && 0 == strlen($value)) || null == $value || 0 == strlen(trim($value));
+    }
 
 
     /**

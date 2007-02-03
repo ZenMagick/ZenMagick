@@ -66,17 +66,18 @@ class ZMIndexController extends ZMController {
 
         // decide which index view to use and prepare index data
         $resultList = null;
-        $view =& new ZMThemeView('index');
         $max = zm_setting('maxProductResultList');
+        $viewName = 'index';
+
         if (null != $zm_request->getCategoryPath()) {
             $resultList = new ZMResultList($zm_products->getProductsForCategoryId($zm_request->getCategoryId()), $max);
-            $view =& new ZMThemeView('category_list');
+            $viewName = 'category_list';
         } else if (null != $zm_request->getManufacturerId()) {
             $resultList = new ZMResultList($zm_products->getProductsForManufacturerId($zm_request->getManufacturerId()), $max);
-            $view =& new ZMThemeView('manufacturer');
+            $viewName = 'manufacturer';
         } else if (null != $zm_request->getRequestParameter('compareId')) {
             $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getRequestParameter('compareId')), $max);
-            $view =& new ZMThemeView('category_list');
+            $viewName = 'category_list';
         }
         if (null != $resultList) {
             $resultList->addFilter(new ZMManufacturerFilter());
@@ -87,13 +88,13 @@ class ZMIndexController extends ZMController {
 
         $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
         if ($viewName == "category_list" && ((!$resultList->hasResults() || $category->hasChildren()) && zm_setting('isUseCategoryPage'))) {
-            $view =& new ZMThemeView('category');
+            $viewName = 'category';
         }
 
         $this->exportGlobal("zm_category", $category);
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $view;
+        return $this->findView($viewName);
     }
 
 }

@@ -1,6 +1,25 @@
 Release 0.6.3:
 - Added down_for_maintenance view
 - fixed wrong variable name in SQL patch code
+- performance: split zm_setting into zm_setting and zm_set_setting (updated
+  local.in.php)
+- performance: zm_ends_with
+- Fix: ZMCategories: proper null check using === and !===
+- performance: use output buffering creating the category list
+- performance: loader
+- Changed the signature of zm_backtrace to make it more useful (I think)
+- performance: enable standard output buffering if gzip compression not
+  available or disabled
+- changed all controller to use findView(..) to find the returned
+  view object
+- changed the default rss cache dir to be in line with the page cache settings
+- included PEAR:Cache_Lite to distribution as cache driver
+- performance: logging is now disabled in the default configuration
+- implemented page caching; at the moment pages are cached if the user is not
+  logged in; caching and expiry times can be configured in local.php
+- added option to disable all patching rather than disabling all patches
+  individually;
+- fix bug in installation screen when gzip compression enabled
 
 Release 0.6.2:
 - Added patch support for main index.php; this means ZenMagick does not
@@ -40,6 +59,7 @@ Release 0.6.2:
 - Added shopping cart Ajax controller (not complete)
 - new ajax_demo view in the demo theme that illustrates the use of the Ajax
   controller; added prototype and a subset of yui for that
+- Added PEAR:Services_JSON to distribution
 - Added new setting to control the method suffix for ajax methods (defaults to
   JSON)
 - Website update

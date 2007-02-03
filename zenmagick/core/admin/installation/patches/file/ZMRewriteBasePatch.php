@@ -115,7 +115,7 @@ class ZMRewriteBasePatch extends ZMInstallationPatch {
             return false;
         }
 
-        if (zm_setting('isPatchRewriteBase') || $force) {
+        if ((zm_setting('isEnablePatching') && zm_setting('isPatchRewriteBase')) || $force) {
             $lines = $this->_loadFileLines(_ZM_HTACCESS);
             $lines = $this->_fixLines($lines);
             $handle = fopen(_ZM_HTACCESS, 'wb');

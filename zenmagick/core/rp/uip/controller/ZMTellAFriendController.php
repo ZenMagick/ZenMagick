@@ -67,7 +67,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         if (null == $product) {
-            return new ZMThemeView('error');
+            return $this->findView('error');
         }
 
         $this->exportGlobal("zm_product", $product);
@@ -79,7 +79,7 @@ class ZMTellAFriendController extends ZMController {
         $zm_crumbtrail->addProduct($product->getId());
         $zm_crumbtrail->addCrumb("Tell A Friend");
 
-        return new ZMThemeView('tell_a_friend');
+        return $this->findView('tell_a_friend');
     }
 
 }

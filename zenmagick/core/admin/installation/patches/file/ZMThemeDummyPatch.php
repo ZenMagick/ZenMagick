@@ -112,7 +112,7 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        if (!zm_setting('isAutoCreateZCThemeDummies') && !$force && $this->isOpen()) {
+        if (!(zm_setting('isEnablePatching') && zm_setting('isAutoCreateZCThemeDummies')) && !$force && $this->isOpen()) {
             // disabled
             zm_log("** ZenMagick: create theme dummies disabled - skipping");
             return false;

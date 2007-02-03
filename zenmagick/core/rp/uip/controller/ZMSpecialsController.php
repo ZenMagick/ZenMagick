@@ -73,7 +73,7 @@ class ZMSpecialsController extends ZMController {
         }
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return new ZMThemeView('specials');
+        return $this->findView('specials');
     }
 
 }

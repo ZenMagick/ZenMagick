@@ -61,6 +61,7 @@
             }
 
             require('includes/application_bottom.php');
+            if (zm_setting('isEnableOB')) { ob_end_flush(); }
             exit;
         }
     }

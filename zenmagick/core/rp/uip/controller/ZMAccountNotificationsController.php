@@ -65,7 +65,7 @@ class ZMAccountNotificationsController extends ZMController {
         $account = $zm_accounts->getAccountForId($zm_request->getAccountId());
         $this->exportGlobal("zm_subscriptions", $account->getSubscriptions());
 
-        return new ZMThemeView('account_notifications');
+        return $this->findView('account_notifications');
     }
 
 }

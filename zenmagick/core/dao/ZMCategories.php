@@ -49,7 +49,7 @@ class ZMCategories extends ZMDao {
     function ZMCategories($path = null, $type = null) {
         parent::__construct();
 
-        $this->path_ = (null != $path ? $path : array());
+        $this->path_ = (null !== $path ? $path : array());
         $this->type_ = $type;
         $this->categories_ = null;
         $this->tree_ = null;
@@ -86,8 +86,8 @@ class ZMCategories extends ZMDao {
      * @return ZMCategory The current category or <code>null</code>.
      */
     function getActiveCategory() {
-        return null != $this->path_ && 0 < count($this->path_) ?
-                $this->getCategoryForId($this->path_[count($this->path_)-1]) : null;
+        return null !== $this->path_ && 0 < count($this->path_) ?
+                $this->getCategoryForId(end($this->path_)) : null;
     }
 
     /**
@@ -97,8 +97,8 @@ class ZMCategories extends ZMDao {
      * @return int The current category id or <code>0</code>.
      */
     function getActiveCategoryId() {
-        return null != $this->path_ && 0 < count($this->path_) ?
-                $this->path_[count($this->path_)-1] : 0;
+        return null !== $this->path_ && 0 < count($this->path_) ?
+                end($this->path_) : 0;
     }
 
     /**
@@ -124,7 +124,7 @@ class ZMCategories extends ZMDao {
     }
 
     // returns true if categories have been loaded
-    function loaded() { return null != $this->categories_; }
+    function loaded() { return null !== $this->categories_; }
 
     // returns true if active categories are available
     function hasActive() {
@@ -143,7 +143,7 @@ class ZMCategories extends ZMDao {
 
     // get the categorie tree
     function getCategoryTree() {
-        if (null == $this->tree_) {
+        if (null === $this->tree_) {
             $this->_buildTree();
         }
         return $this->tree_;
@@ -245,7 +245,8 @@ class ZMCategories extends ZMDao {
         $processed = array();
 
         // find leafs and process
-        while (count($processed) != count($this->categories_)) {
+        $max = count($this->categories_);
+        while (count($processed) != $max) {
             foreach ($this->categories_ as $category) {
                 $nname = "n".$category->id_;
                 if (array_key_exists($nname, $processed))
@@ -271,7 +272,7 @@ class ZMCategories extends ZMDao {
                         $$nname->parent_ = $$pnname;
                         $$pnname->addChild($$nname);
                     } else {
-                        $this->tree_[$$nname->id_] = $$nname;
+                      $this->tree_[$$nname->id_] = $$nname;
                     }
 
                     // mark as processed
