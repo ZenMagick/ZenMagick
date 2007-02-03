@@ -170,6 +170,10 @@ class ZMLoader {
     function load($name) {
         $classfile = $this->getClassFile($name);
         $zmname = "ZM".$name;
+
+        if (class_exists($name) && class_exists($zmname)) { return $name; }
+        if (class_exists($zmname)) { return $zmname; }
+
         $zmclassfile = $this->getClassFile($zmname);
 
         zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
