@@ -26,6 +26,7 @@ require_once('../zenmagick/admin_init.php');
 
     $za_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
     $za_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
+    $za_contents[] = array('text' => zm_l10n_get("Cache Manager"), 'link' => zen_href_link(ZM_ADMINFN_CACHE, '', 'NONSSL'));
 
     echo zen_draw_admin_box($za_heading, $za_contents);
 ?>

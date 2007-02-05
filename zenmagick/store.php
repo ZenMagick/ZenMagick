@@ -35,6 +35,17 @@
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
 
+        // check page cache
+        if (zm_setting('isPageCacheEnabled')) {
+            $pageCache = $zm_runtime->getPageCache();
+            if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
+                echo $contents;
+                require('includes/application_bottom.php');
+                if (zm_setting('isEnableOB')) { ob_end_flush(); }
+                exit;
+            }
+        }
+
         // get controller
         $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;

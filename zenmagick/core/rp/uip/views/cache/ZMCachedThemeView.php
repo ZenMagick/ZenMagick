@@ -46,8 +46,6 @@
  * @version $Id$
  */
 class ZMCachedThemeView extends ZMThemeView {
-    var $cache_;
-
 
     /**
      * Create new view.
@@ -56,15 +54,6 @@ class ZMCachedThemeView extends ZMThemeView {
      */
     function ZMCachedThemeView($page) {
         parent::__construct($page);
-
-        // Set a few options
-        $options = array(
-            'cacheDir' => zm_setting('pageCacheDir'),
-            'lifeTime' => zm_setting('pageCacheTTL')
-        );
-
-        // Create a Cache_Lite object
-        $this->cache_ = new Cache_Lite($options);
     }
 
     /**
@@ -84,40 +73,21 @@ class ZMCachedThemeView extends ZMThemeView {
     }
 
     /**
-     * Evaluates whether the current page can be cached or not.
-     *
-     * @return string A cache id or <code>null</code>.
-     */
-    function _isCacheable() {
-    global $zm_request;
-
-        if ($zm_request->isGuest()) {
-            // all anonymous content to be cached
-            return $this->page_ . '-' . $zm_request->getQueryString();
-        }
-
-        return null;
-    }
-
-    /**
      * Generate view response.
      */
     function generate() { 
-        $id = null;
-        if (null === ($id = $this->_isCacheable())) {
+    global $zm_runtime;
+
+        $pageCache = $zm_runtime->getPageCache();
+        if (!$pageCache->isCacheable()) {
             parent::generate();
             return;
-        }
-
-        if ($contents = $this->cache_->get($id)) {
-            // return cache data
-            echo $contents;
         } else {
             // not in cache
             ob_start();
             parent::generate();
             $contents = ob_get_flush();
-            $this->cache_->save($contents);
+            $pageCache->save($contents);
         }
 
     }

@@ -37,6 +37,7 @@
 class ZMRuntime {
     var $themeId_;
     var $dbThemeId_;
+    var $pageCache_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMRuntime {
         // init with defaults
         $this->themeId_ = null;
         $this->dbThemeId_ = null;
+        $this->pageCache_ = null;
     }
 
     /**
@@ -62,7 +64,27 @@ class ZMRuntime {
     }
 
 
+    /**
+     * Get the database dao.
+     *
+     * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
+     */
     function getDB() { global $db; return $db; }
+
+    /**
+     * Get the page cache.
+     *
+     * @return ZMCache A <code>ZMCache</code> instance or <code>null</code>.
+     */
+    function getPageCache() {
+    global $zm_loader;
+
+        if (null === $this->pageCache_) {
+            $this->pageCache_ = $zm_loader->create('PageCache');
+        }
+        return $this->pageCache_;
+    }
+
     function getControllerPath() { return DIR_FS_CATALOG.ZM_CONTROLLER_PATH; }
     function getThemePath($themeId=null) { return $this->getThemeBasePath().((null!=$themeId||!zm_setting('isEnableThemeDefaults'))?$themeId:$this->getThemeId()); }
     function getThemeContentPath($themeId=null) { return $this->getThemePath($themeId)."/".ZM_THEME_CONTENT; }
