@@ -171,8 +171,16 @@ class ZMLoader {
         $classfile = $this->getClassFile($name);
         $zmname = "ZM".$name;
 
-        if (class_exists($name) && class_exists($zmname)) { return $name; }
-        if (class_exists($zmname)) { return $zmname; }
+        // all loaded
+        if (class_exists($name) && class_exists($zmname)) {
+            // make sure it's a ZenMagick class
+            while ($parent = get_parent_class($name)) {
+                echo $parent;
+                if ('ZMObject' == $parent) {
+                    return $name;
+                }
+            }
+        }
 
         $zmclassfile = $this->getClassFile($zmname);
 
@@ -180,6 +188,12 @@ class ZMLoader {
 
         if (null != $zmclassfile && !class_exists($zmname)) { require($zmclassfile); }
         if (null != $classfile && !class_exists($name)) { require($classfile); }
+
+        // loaded but not in classpath
+        if (null === $classfile && null === $zmclassfile) {
+           if (class_exists($zmname)) { return $zmname; }
+           else if (class_exists($name)) { return $name; }
+        }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }
@@ -216,6 +230,7 @@ class ZMLoader {
      */
     function _create($name, $args) {
         $clazz = $this->load($name);
+        echo "clazz: ".$clazz;
         return null != $clazz ? zm_get_instance($clazz, null, $args) : null;
     }
 

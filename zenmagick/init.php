@@ -31,22 +31,30 @@
     @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_bin_dir = dirname(__FILE__)."/core/";
-    require($_zm_bin_dir."bootstrap.php");
-    require($_zm_bin_dir."settings/settings.php");
-    require($_zm_bin_dir."settings/zenmagick.php");
-    require($_zm_bin_dir."ZMLoader.php");
+    $_zm_bin_core = dirname(__FILE__)."/core.php";
+    if (file_exists($_zm_bin_core)) {
+        require($_zm_bin_core);
+        $coreLoader =& new ZMLoader('coreLoader');
+    } else {
+        $_zm_bin_dir = dirname(__FILE__)."/core/";
+        require($_zm_bin_dir."bootstrap.php");
+        require($_zm_bin_dir."settings/settings.php");
+        require($_zm_bin_dir."settings/zenmagick.php");
+        require($_zm_bin_dir."ZMLoader.php");
 
-    // configure core loader
-    $coreLoader =& new ZMLoader('coreLoader');
-    $coreLoader->addPath($_zm_bin_dir);
-    // need to do this in global namespace
-    foreach ($coreLoader->getStatic() as $static) {
-        require_once($static);
+        // configure core loader
+        $coreLoader =& new ZMLoader('coreLoader');
+        $coreLoader->addPath($_zm_bin_dir);
+        // need to do this in global namespace
+        foreach ($coreLoader->getStatic() as $static) {
+            require_once($static);
+        }
     }
 
+    echo "xx";
     // use loader for all class loading from here?
     $zm_runtime = $coreLoader->create("ZMRuntime");
+    echo "zz".$zm_runtime;
 
     // configure theme loader
     $themeLoader =& new ZMLoader("themeLoader");
