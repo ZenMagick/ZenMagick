@@ -354,4 +354,4 @@ class ZMCoreCompressor extends ZMObject {
 
 }
 
-?> 
+?>

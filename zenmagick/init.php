@@ -111,5 +111,4 @@
     if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
     require('zc_fixes.php');
-
 ?>
