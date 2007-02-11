@@ -533,6 +533,28 @@ if (!class_exists("ZMObject")) {
         return $hierachy;
     }
 
+    /**
+     * Make dir.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string dir The folder name.
+     * @param int perms The file permisssions; (default: 755)
+     * @param bool recursive Optional recursive flag; (default: <code>true</code>)
+     * @return bool <code>true</code> on success.
+     */
+    function zm_mkdir($dir, $perms=755, $recursive=true) {
+        if (file_exists($dir) && is_dir($dir))
+            return true;
+
+        $parent = dirname($dir);
+        if (!file_exists($parent) && $recursive) {
+            if(!zm_mkdir($parent, $perms, $recursive))
+                return false;
+        }
+        $result = mkdir($dir, octdec($perms));
+        return $result;
+    }
+
 }
 
 ?>
