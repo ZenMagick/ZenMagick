@@ -494,27 +494,44 @@ if (!class_exists("ZMObject")) {
         return round($executionTime, 4);
     }
 
-    /**
-     * Make dir.
-     *
-     * @package net.radebatz.zenmagick
-     * @param string dir The folder name.
-     * @param int perms The file permisssions; (default: 755)
-     * @param bool recursive Optional recursive flag; (default: <code>true</code>)
-     * @return bool <code>true</code> on success.
-     */
-	function zm_mkdir($dir, $perms=755, $recursive=true) {
-		if (file_exists($dir) && is_dir($dir))
-			return true;
 
-		$parent = dirname($dir);
-		if (!file_exists($parent) && $recursive) {
-			if(!zm_mkdir($parent, $perms, $recursive))
-				return false;
-		}
-		$result = mkdir($dir, octdec($perms));
-		return $result;
-	}
+    /**
+     * Remove a directory (tree).
+     *
+     * @param string dir The directory name.
+     * @param bool recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
+     */
+    function zm_rmdir($dir, $recursive=true) {
+        if (is_dir($dir)) {
+            if (substr($dir, -1) != '/') { $dir .= '/'; }
+            $handle = opendir($dir);
+            while (false !== ($file = readdir($handle))) {
+                if ('.' != $file && '..' != $file) {
+                    $path = $dir.$file;
+                    if (is_dir($path) && $recursive) {
+                        zm_rmdir($path, $recursive);
+                    } else {
+                       unlink($path);
+                    }
+                }
+            }
+            closedir($handle);
+            rmdir($dir);
+        }
+    }
+
+
+    /**
+     * Get class hierachy for the given class/object.
+     *
+     * @param mixed object The object or class name.
+     * @return array The class hierachy.
+     */
+    function zm_class_hierachy($object) {
+        $hierachy = array($object);
+        while($object = get_parent_class($object)) { $hierachy[] = $object; }
+        return $hierachy;
+    }
 
 }
 

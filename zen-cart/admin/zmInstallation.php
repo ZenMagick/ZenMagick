@@ -26,6 +26,7 @@
 <?php
 
 // dismiss sqlpatch output as we do only want to use the code...
+define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
 require_once('../zenmagick/init.php');
@@ -37,13 +38,14 @@ require_once('../zenmagick/admin_init.php');
         "themeSupport" => "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)",
         "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
         "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme",
-        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function if favour of the ZenMagick implementation",
+        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of the ZenMagick implementation",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links)",
 
         "sqlFeatures" => "Install Features database tables"
     );
 
+    $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
     $filePatches = $installer->getPatches('file');
     $sqlPatches = $installer->getPatches('sql');
@@ -78,6 +80,32 @@ require_once('../zenmagick/admin_init.php');
         }
         // refresh
         $obsolete = zm_get_obsolete_files();
+    }
+
+    // update
+    if (isset($_POST)) {
+        $didGenerate = false;
+        if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
+            $coreCompressor->generate();
+            $didGenerate = true;
+        }
+        if (array_key_exists('singleCoreGenerate', $_POST)) {
+            $coreCompressor->generate();
+            $didGenerate = true;
+        }
+
+        if ($coreCompressor->hasErrors()) {
+            foreach ($coreCompressor->getErrors() as $msg) {
+                $zm_messages->add($msg, 'error');
+            }
+        } else if ($didGenerate) {
+            $zm_messages->add("Succsesfully (re-)generated core.php", 'msg');
+        }
+
+        if (array_key_exists('optimize', $_POST) && !array_key_exists('singleCore', $_POST)) {
+            $coreCompressor->disable();
+            $zm_messages->add("DIsabled usage of core.php", 'msg');
+        }
     }
 
 ?>
@@ -181,6 +209,22 @@ require_once('../zenmagick/admin_init.php');
                 <input type="submit" value="Install">
               </div>
             <?php } ?>
+          </fieldset>
+        </form>
+
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take awhile...)');">
+          <fieldset id="optimize">
+            <legend>Optimising ZenMagick</legend>
+              <input type="hidden" id="optimize" name="optimize" value="x">
+              <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
+              <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
+              <label for="singleCore"><?php zm_l10n("Use single core.php file"); ?></label>
+              <?php if ($coreCompressor->isEnabled()) { ?>
+                  <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
+                  <label for="singleCoreGenerate"><?php zm_l10n("Regenerate core.php"); ?></label>
+              <?php } ?>
+              <br>
+              <div class="submit"><input type="submit" value="Update"></div>
           </fieldset>
         </form>
 

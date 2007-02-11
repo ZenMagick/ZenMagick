@@ -170,30 +170,35 @@ class ZMLoader {
     function load($name) {
         $classfile = $this->getClassFile($name);
         $zmname = "ZM".$name;
+        $zmclassfile = $this->getClassFile($zmname);
 
-        // all loaded
-        if (class_exists($name) && class_exists($zmname)) {
-            // make sure it's a ZenMagick class
-            while ($parent = get_parent_class($name)) {
-                echo $parent;
-                if ('ZMObject' == $parent) {
+        // additional stuff for single core file, as there is no classpath!
+        if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
+            if (class_exists($name)) {
+                if (zm_starts_with($name, 'ZM')) {
                     return $name;
+                } else {
+                    // make sure we load a ZenMagick class; otherwise there is 
+                    // overlap with zen-cart class names
+                    $parent = $name;
+                    while (false !== ($parent = get_parent_class($parent))) {
+                        if ('ZMObject' == $parent) {
+                            return $name;
+                        }
+                    }
                 }
+            } 
+            // this is not the else case, as we need it as fallback if $name
+            // does not get resolved
+            if (class_exists($zmname)) {
+                return $zmname;
             }
         }
-
-        $zmclassfile = $this->getClassFile($zmname);
 
         zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
 
         if (null != $zmclassfile && !class_exists($zmname)) { require($zmclassfile); }
         if (null != $classfile && !class_exists($name)) { require($classfile); }
-
-        // loaded but not in classpath
-        if (null === $classfile && null === $zmclassfile) {
-           if (class_exists($zmname)) { return $zmname; }
-           else if (class_exists($name)) { return $name; }
-        }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }
@@ -230,7 +235,6 @@ class ZMLoader {
      */
     function _create($name, $args) {
         $clazz = $this->load($name);
-        echo "clazz: ".$clazz;
         return null != $clazz ? zm_get_instance($clazz, null, $args) : null;
     }
 

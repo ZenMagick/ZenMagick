@@ -112,6 +112,12 @@ stuff
 - view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
   => controller need to use getView() method to be able to dynamically change the view impl.
 - themeconfig extend each other as well!!
+- look into using/supporting gettext
+- zmInstasllation!
+- zmcorecompressor
+- core.php trims about 200ms of request handling...
+- if core.php => custom classes must extend from zmobject, otherwise they might not be found... or the other way round, use the loader only for zm or zm derived classes!
+- use get_class_hierachy to resolve missing classes when loading!!
 
 
 

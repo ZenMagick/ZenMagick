@@ -82,7 +82,7 @@ require_once('../zenmagick/admin_init.php');
             <label for="pageCache"><?php zm_l10n("Page Cache") ?></label>
             <br>
             <div class="submit">
-              <input type="submit" value="Install">
+              <input type="submit" value="Clear">
             </div>
           </fieldset>
         </form>

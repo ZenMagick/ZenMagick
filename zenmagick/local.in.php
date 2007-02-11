@@ -8,6 +8,9 @@
     // disable ZenMagick page caching
     //zm_set_setting('isPageCacheEnabled', false);
 
+    // disable output buffering in case gzip is disabled
+    //zm_set_setting('isEnableOB', false);
+
 
     /*===============================================================================
      * The following settings are to disable automatic patching of zen-cart files.

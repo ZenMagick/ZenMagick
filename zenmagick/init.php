@@ -31,9 +31,11 @@
     @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_bin_core = dirname(__FILE__)."/core.php";
-    if (file_exists($_zm_bin_core)) {
-        require($_zm_bin_core);
+    $_zm_bin_file = dirname(__FILE__)."/core.php";
+    if (!IS_ADMIN_FLAG && file_exists($_zm_bin_file)) {
+        require($_zm_bin_file);
+
+        // configure core loader
         $coreLoader =& new ZMLoader('coreLoader');
     } else {
         $_zm_bin_dir = dirname(__FILE__)."/core/";
@@ -51,10 +53,8 @@
         }
     }
 
-    echo "xx";
     // use loader for all class loading from here?
     $zm_runtime = $coreLoader->create("ZMRuntime");
-    echo "zz".$zm_runtime;
 
     // configure theme loader
     $themeLoader =& new ZMLoader("themeLoader");
@@ -65,13 +65,15 @@
     $coreLoader->setParent($themeLoader);
 
     // here the loader should take over...
-    $includes = zm_find_includes($_zm_bin_dir, true);
-    foreach ($includes as $include) {
-        // exclude some stuff that gets loaded by the loader
-        if (false === strpos($include, '/controller/') 
-            && false === strpos($include, '/model/') 
-            && false === strpos($include, '/settings/')) {
-            require_once($include);
+    if (!defined('ZM_SINGLE_CORE')) {
+        $includes = zm_find_includes($_zm_bin_dir, true);
+        foreach ($includes as $include) {
+            // exclude some stuff that gets loaded by the loader
+            if (false === strpos($include, '/controller/') 
+                && false === strpos($include, '/model/') 
+                && false === strpos($include, '/settings/')) {
+                require_once($include);
+            }
         }
     }
     $zm_loader =& $coreLoader;
