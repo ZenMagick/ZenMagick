@@ -58,19 +58,14 @@ class ZMRss extends ZMObject {
         $rss = new lastRSS();
         $rss->cache_dir = zm_setting('rssCacheDir');
         $rss->cache_time = zm_setting('rssCacheTimeout');
+        $rss->CDATA = 'strip';
         $rs = $rss->Get($this->url_);
         $this->channel_ = $this->create("RssChannel", $rs);
         $this->items_ = array();
         if (null != $rs) {
             foreach($rs['items'] as $rs_item) {
                 $item = $this->create("RssItem", $rs_item);
-                    /**
-     * Create new rule set.
-     *
-     * @param string id The id.
-     * @param array rules Optional initial list of rules.
-     */
-if (null == $category || $category == $item->getCategory()) {
+                if (null == $category || $category == $item->getCategory()) {
                     array_push($this->items_, $item);
                 }
                 if ($this->limit_ <= count($this->items_)) {

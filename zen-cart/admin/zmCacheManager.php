@@ -26,8 +26,7 @@
 <?php
 
 require_once('includes/application_top.php');
-require_once('../zenmagick/init.php');
-require_once('../zenmagick/admin_init.php');
+require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
 
 
     // clear

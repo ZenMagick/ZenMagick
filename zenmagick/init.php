@@ -69,9 +69,11 @@
         $includes = zm_find_includes($_zm_bin_dir, true);
         foreach ($includes as $include) {
             // exclude some stuff that gets loaded by the loader
-            if (false === strpos($include, '/controller/') 
-                && false === strpos($include, '/model/') 
-                && false === strpos($include, '/settings/')) {
+            if ((false === strpos($include, '/controller/')
+                && false === strpos($include, '/model/')
+                && false === strpos($include, '/admin/')
+                && false === strpos($include, '/settings/'))
+                || (false !== strpos($include, '/admin/') && zm_setting('isAdmin'))) {
                 require_once($include);
             }
         }
@@ -110,5 +112,5 @@
 
     if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
-    require('zc_fixes.php');
+    require(DIR_FS_CATALOG.'zenmagick/zc_fixes.php');
 ?>

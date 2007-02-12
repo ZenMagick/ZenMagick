@@ -43,4 +43,11 @@
     define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
     define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
 
+    // admin
+    define('ZM_ADMINFN_INSTALLATION', 'zmInstallation.php');
+    define('ZM_ADMINFN_CATALOG_MANAGER', 'zmCatalogManager.php');
+    define('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
+    define('ZM_ADMINFN_L10N', 'zmL10n.php');
+    define('ZM_ADMINFN_CACHE', 'zmCacheManager.php');
+
 ?>

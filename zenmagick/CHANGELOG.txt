@@ -21,6 +21,10 @@ Release 0.6.3:
   individually;
 - fix bug in installation screen when gzip compression enabled
 - added cache manager admin screen to be able to manually clear the page cache
+- get rid of admin_init.php
+- fix some problems resolving relative require filenames in admin and init.php
+- fix cut'paste error in ZMRss and wrong c;tor call in ZMRssItem
+- Configure lastRSS to strip CDATA
 
 Release 0.6.2:
 - Added patch support for main index.php; this means ZenMagick does not

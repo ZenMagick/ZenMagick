@@ -29,13 +29,13 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-/*
- * Check for any patches that need be applied. If they are disabled or can't be applied, 
- * display installation menu item for manual installation.
- */
+require_once(DIR_FS_CATALOG.'zenmagick/init.php');
 
-require_once('../zenmagick/init.php');
-require_once('../zenmagick/admin_init.php');
+
+    /*
+     * Check for any patches that need be applied. If they are disabled or can't be applied, 
+     * display installation menu item for manual installation.
+     */
 
     $installer = new ZMInstallationPatcher();
     if ($installer->isPatchesOpen()) {

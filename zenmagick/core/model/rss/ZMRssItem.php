@@ -55,7 +55,7 @@ class ZMRssItem extends ZMModel {
      * @param array Array of item data.
      */
     function __construct($item) {
-        $this->ZMRssChannel($item);
+        $this->ZMRssItem($item);
     }
 
     /**
