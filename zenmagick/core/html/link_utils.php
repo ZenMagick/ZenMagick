@@ -258,7 +258,7 @@
             // remaining query
             $params = '';
             foreach ($query as $key => $value) {
-                $params .= '&'.$key.'='.$value;
+                $params .= '&amp;'.$key.'='.$value;
             }
             $params = (0 < strlen($params) ? ('?'.substr($params, 1)) : '');
 
