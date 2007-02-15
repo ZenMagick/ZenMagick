@@ -33,7 +33,7 @@ define('_ZM_ZEN_DIR_FS_LANGUAGES', DIR_FS_CATALOG_LANGUAGES);
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMI18nPatch extends ZMInstallationPatch {
+class ZMI18nPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -74,21 +74,12 @@ class ZMI18nPatch extends ZMInstallationPatch {
     function isReady() {
         $files = $this->_getUnpatchedFiles();
         foreach ($files as $file => $lines) {
-            if (!is_writeable(_ZM_ZEN_DIR_FS_LANGUAGES . $file)) {
+            if (!is_writeable($file)) {
                 return false;
             }
         }
 
         return true;
-    }
-
-    /**
-     * Get the patch group id.
-     *
-     * @return string The patch group id.
-     */
-    function getGroupId() {
-        return 'file';
     }
 
     /**
@@ -113,20 +104,34 @@ class ZMI18nPatch extends ZMInstallationPatch {
         if ((zm_setting('isEnablePatching') && zm_setting('isI18nSupport')) || $force) {
             $files = $this->_getUnpatchedFiles();
             foreach ($files as $file => $lines) {
-                $handle = fopen(_ZM_ZEN_DIR_FS_LANGUAGES . $file, 'wb');
-                // avoid last linefeed
-                $first = true;
-                foreach ($lines as $line) {
-                    if (!$first) $line = "\n".$line;
-                    fwrite($handle, $line);
-                    $first = false;
-                }
-                fclose($handle);
-                return true;
+                $this->putFileLines($file, $lines);
             }
+            return true;
         }
 
         return true;
+    }
+    
+
+    /**
+     * Generates a list of all patched zen-cart language files.
+     *
+     * @return array Hash with filename as key and contents as array of lines as value.
+     */
+    function _getPatchedFiles() {
+        $files = array();
+        if (file_exists(_ZM_ZEN_DIR_FS_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_LANGUAGES)) {
+            $handle = opendir(_ZM_ZEN_DIR_FS_LANGUAGES);
+            while (false !== ($file = readdir($handle))) {
+                if (zm_ends_with($file, '.php')) {
+                    $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_LANGUAGES.$file);
+                    $files[_ZM_ZEN_DIR_FS_LANGUAGES.$file] = $lines;
+                }
+            }
+            closedir($handle);
+        }
+
+        return $files;
     }
     
 
@@ -141,14 +146,14 @@ class ZMI18nPatch extends ZMInstallationPatch {
             $handle = opendir(_ZM_ZEN_DIR_FS_LANGUAGES);
             while (false !== ($file = readdir($handle))) {
                 if (zm_ends_with($file, '.php')) {
-                    $lines = $this->_loadFileLines($file);
+                    $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_LANGUAGES.$file);
                     foreach ($lines as $ii => $line) {
                         if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw(") && false === strpos($line, "_DISABLED ")) {
                             // change already here
                             $lines[$ii] = str_replace('zen_date_raw', 'zen_date_raw_DISABLED', $line);
                             $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";
                             // store in array
-                            $files[$file] = $lines;
+                            $files[_ZM_ZEN_DIR_FS_LANGUAGES.$file] = $lines;
                             break;
                         }
                     }
@@ -160,26 +165,30 @@ class ZMI18nPatch extends ZMInstallationPatch {
         return $files;
     }
     
+
     /**
-     * Load the file contents of the given language file.
+     * Revert the patch.
      *
-     * @param string name The filename.
-     * @return array File contents as lines or <code>null</code>.
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function _loadFileLines($file) {
-        $lines = array();
-        if (file_exists(_ZM_ZEN_DIR_FS_LANGUAGES.$file)) {
-            $handle = @fopen(_ZM_ZEN_DIR_FS_LANGUAGES.$file, 'rb');
-            if ($handle) {
-                while (!feof($handle)) {
-                    $line = rtrim(fgets($handle, 4096));
-                    array_push($lines, $line);
-                }
-                fclose($handle);
-            }
+    function undo() {
+        if ($this->isOpen()) {
+            return true;
         }
 
-        return $lines;
+        $status = true;
+        foreach ($this->_getPatchedFiles() as $file => $lines) {
+            // fix patched line
+            foreach ($lines as $ii => $line) {
+                if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw_DISABLED(")) {
+                    $lines[$ii] = str_replace('_DISABLED', '', $lines[$ii]);
+                    $lines[$ii] = str_replace(' /* modified by ZenMagick installation patcher */', '', $lines[$ii]);
+                }
+            }
+            $this->putFileLines($file, $lines);
+        }
+
+        return true;
     }
     
 }

@@ -131,6 +131,15 @@ class ZMInstallationPatch extends ZMObject {
         return true;
     }
     
+    /**
+     * Revert the patch.
+     *
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        return true;
+    }
+    
 }
 
 ?>

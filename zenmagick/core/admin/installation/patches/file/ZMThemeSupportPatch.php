@@ -32,7 +32,7 @@ define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMThemeSupportPatch extends ZMInstallationPatch {
+class ZMThemeSupportPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -64,7 +64,7 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->_loadIndexPHP();
+            $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
         }
 
         // look for ZenMagick code...
@@ -87,15 +87,6 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
     }
 
     /**
-     * Get the patch group id.
-     *
-     * @return string The patch group id.
-     */
-    function getGroupId() {
-        return 'file';
-    }
-
-    /**
      * Get the precondition message.
      *
      * <p>This will return an empty string when <code>isReady()</code> returns <code>true</code>.</p>
@@ -114,7 +105,7 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->_loadIndexPHP();
+        $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
         if (!$this->isOpen($lines)) {
             return true;
         }
@@ -125,18 +116,12 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
                 // need to insert before the zen-cart html_header...
                 foreach ($lines as $line) {
                     if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                        array_push($patchedLines, "  require('zenmagick/store.php'); /* added by ZenMagick installation patcher */\n");
+                        array_push($patchedLines, "  require('zenmagick/store.php'); /* added by ZenMagick installation patcher */");
                     }
                     array_push($patchedLines, $line);
                 }
 
-                // rewrite index.php
-                $handle = fopen(_ZM_ZEN_INDEX_PHP, 'wb');
-                foreach ($patchedLines as $line) {
-                    fwrite($handle, $line."\n");
-                }
-                fclose($handle);
-                return true;
+                return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
             } else {
                 zm_log("** ZenMagick: no permission to patch theme support into index.php", 1);
                 return false;
@@ -152,24 +137,32 @@ class ZMThemeSupportPatch extends ZMInstallationPatch {
     
 
     /**
-     * Load the file contents of <code>index.php</code>.
+     * Revert the patch.
      *
-     * @return array File contents as lines or <code>null</code>.
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function _loadIndexPHP() {
-        $lines = array();
-        if (file_exists(_ZM_ZEN_INDEX_PHP)) {
-            $handle = @fopen(_ZM_ZEN_INDEX_PHP, 'rb');
-            if ($handle) {
-                while (!feof($handle)) {
-                    $line = rtrim(fgets($handle, 4096));
-                    array_push($lines, $line);
-                }
-                fclose($handle);
-            }
+    function undo() {
+        $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
+        if ($this->isOpen($lines)) {
+            return true;
         }
 
-        return $lines;
+        if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
+            // rewrite index.php
+            $handle = fopen(_ZM_ZEN_INDEX_PHP, 'wb');
+            foreach ($lines as $line) {
+                if (false !== strpos($line, "require") && false !== strpos($line, "zenmagick/store.php")) {
+                    continue;
+                }
+                fwrite($handle, $line."\n");
+            }
+            fclose($handle);
+        } else {
+            zm_log("** ZenMagick: no permission to patch index.php for uninstall", 1);
+            return false;
+        }
+
+        return true;
     }
     
 }

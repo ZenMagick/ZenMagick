@@ -29,7 +29,7 @@
 define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
-require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
+require_once('../zenmagick/init.php');
 
     // locale
     $patchLabel = array(
@@ -55,13 +55,31 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
         foreach ($_POST as $name => $value) {
             if (zm_starts_with($name, 'patch_')) {
                 $patch = $installer->getPatchForId($value);
-                if (null != $patch) {
+                if (null != $patch && $patch->isOpen()) {
                     $status = $patch->patch(true);
                     $zm_messages->addAll($patch->getMessages());
                     if ($status) {
                         $zm_messages->add($patchLabel[$patch->getId()]." installed successfully", 'msg');
                     } else {
                         $zm_messages->add("Could not ".$patchLabel[$patch->getId()]);
+                    }
+                }
+            }
+        }
+    }
+
+    // uninstall
+    if (isset($_GET) && array_key_exists('uninstall', $_GET)) {
+        $group = $_GET['uninstall'];
+        if ('file' == $group) {
+            foreach ($filePatches as $id => $patch) {
+                if (!$patch->isOpen()) {
+                    $status = $patch->undo();
+                    $zm_messages->addAll($patch->getMessages());
+                    if ($status) {
+                        $zm_messages->add("Uninstalled: ".$patchLabel[$patch->getId()]." successfully", 'msg');
+                    } else {
+                        $zm_messages->add("Could not uninstall ".$patchLabel[$patch->getId()]);
                     }
                 }
             }
@@ -156,12 +174,12 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
           <fieldset class="patches">
             <legend>Available ZenMagick Patches</legend>
 
-            <?php foreach ($filePatches as $id => $patch) { ?>
-                <?php if ($patch->isOpen()) { ?>
+            <?php $hasChecked = false; foreach ($filePatches as $id => $patch) { ?>
+                <?php if ($patch->isOpen() || true) { ?>
                   <?php if (!$patch->isReady()) { ?>
                     <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
                   <?php } ?>
-                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_file_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>">
+                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_file_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>" <?php if (!$patch->isOpen()) { $hasChecked = true; ?>disabled="disabled" checked="checked" <?php } ?>>
                   <label for="<?php echo $patch->getId() ?>">
                       <?php echo $patchLabel[$patch->getId()] ?>
                   </label>
@@ -177,6 +195,11 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
               <div class="submit">
                 <input type="submit" value="Install">
                 <a href="">Refresh</a>
+              </div>
+            <?php } ?>
+            <?php if ($hasChecked) { ?>
+              <div class="submit">
+                <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> Additionally created files and <code>.htaccess</code> file changes must be reverted manually.
               </div>
             <?php } ?>
           </fieldset>
@@ -212,7 +235,7 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
         </form>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take awhile...)');">
-          <fieldset id="optimize">
+          <fieldset id="optimisation">
             <legend>Optimising ZenMagick</legend>
               <input type="hidden" id="optimize" name="optimize" value="x">
               <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>

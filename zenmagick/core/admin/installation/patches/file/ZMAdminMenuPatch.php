@@ -33,7 +33,7 @@ define('_ZM_ZEN_ADMIN_FILE', DIR_WS_BOXES . "extras_dhtml.php");
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMAdminMenuPatch extends ZMInstallationPatch {
+class ZMAdminMenuPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -77,15 +77,6 @@ class ZMAdminMenuPatch extends ZMInstallationPatch {
     }
 
     /**
-     * Get the patch group id.
-     *
-     * @return string The patch group id.
-     */
-    function getGroupId() {
-        return 'file';
-    }
-
-    /**
      * Get the precondition message.
      *
      * <p>This will return an empty string when <code>isReady()</code> returns <code>true</code>.</p>
@@ -125,6 +116,22 @@ class ZMAdminMenuPatch extends ZMInstallationPatch {
         }
 
         return true;
+    }
+    
+    /**
+     * Revert the patch.
+     *
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        if ($this->isOpen()) {
+            return true;
+        }
+
+        $contents = $this->readFile(_ZM_ZEN_ADMIN_FILE);
+        $contents = str_replace("\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n", "", $contents);
+
+        return $this->writeFile(_ZM_ZEN_ADMIN_FILE, $contents);
     }
     
 }
