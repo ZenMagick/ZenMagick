@@ -36,6 +36,7 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/content/views/popup/popup_cvv_help.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/content/views/popup/popup_search_help.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/lang/english/other.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/admin_init.php");
 
 
     // check for existance of all obsolete files
