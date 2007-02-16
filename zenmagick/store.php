@@ -51,7 +51,8 @@
         $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
         $zm_request->setController($zm_controller);
         if ($zm_controller->validateRequest()) {
-            // TODO: theme stuff
+
+            // TODO: theme stuff !!!!!!!!!
             $zm_themeInfo = $zm_theme->getThemeInfo();
             // need to do this in global namespace
             $_zm_tstatic = $themeLoader->getStatic();
@@ -61,6 +62,27 @@
             }
             foreach ($_zm_tstatic as $static) {
                 require_once($static);
+            }
+
+            // for now handle theme switch....
+            if ($zm_runtime->getThemeId() != $zm_themeInfo->getThemeId()) {
+                // theme switch; allow once only
+                $themeLoader->addPath($zm_runtime->getThemePath()."/".ZM_THEME_EXTRA);
+                $zm_themeInfo = $zm_theme->getThemeInfo();
+                // need to do this in global namespace
+                $_zm_tstatic = $themeLoader->getStatic();
+                // load local.php first
+                if (array_key_exists('local', $_zm_tstatic)) {
+                    require_once($_zm_tstatic['local']);
+                }
+                foreach ($_zm_tstatic as $static) {
+                    require_once($static);
+                }
+
+                // get controller
+                $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+                $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
+                $zm_request->setController($zm_controller);
             }
 
             // execute controller

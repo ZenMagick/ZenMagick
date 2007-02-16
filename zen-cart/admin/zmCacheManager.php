@@ -71,7 +71,7 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
 
     <div id="main">
       <div id="content">
-      <h2><?zm_l10n("ZenMagick Cache Manager") ?></h2>
+      <h2><?php zm_l10n("ZenMagick Cache Manager") ?> <?php if (zm_setting('isPageCacheEnabled')) { zm_l10n("- ACTIVE"); } else { zm_l10n("- DISABLED"); } ?></h2>
 
         <form action="<?php echo ZM_ADMINFN_CACHE ?>" method="post" onsubmit="return zm_user_confirm('Clear cache ?');">
           <fieldset class="cahce">

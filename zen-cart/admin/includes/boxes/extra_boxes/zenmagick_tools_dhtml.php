@@ -34,7 +34,7 @@ if (!defined('IS_ADMIN_FLAG')) {
  * display installation menu item for manual installation.
  */
 
-require_once('../zenmagick/init.php');
+require_once(DIR_FS_CATALOG.'zenmagick/init.php');
 
     $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET) && 'file' == $_GET['uninstall'];
     $installer = new ZMInstallationPatcher();

@@ -234,7 +234,7 @@ require_once('../zenmagick/init.php');
           </fieldset>
         </form>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take awhile...)');">
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take a while...)');">
           <fieldset id="optimisation">
             <legend>Optimising ZenMagick</legend>
               <input type="hidden" id="optimize" name="optimize" value="x">

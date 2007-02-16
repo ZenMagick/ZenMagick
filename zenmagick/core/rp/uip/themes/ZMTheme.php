@@ -194,9 +194,9 @@ class ZMTheme extends ZMObject {
         // load
         require_once($infoFile);
         // create instance
-        $clazz = new $infoClass();
-        $clazz->setPath($themeId);
-        return $clazz;
+        $obj = new $infoClass();
+        $obj->setThemeId($themeId);
+        return $obj;
     }
 
 

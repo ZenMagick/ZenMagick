@@ -31,6 +31,7 @@
  * @version $Id$
  */
 class ZMThemeInfo extends ZMObject {
+    var $id_;
     var $info_;
     var $config_;
     var $layout_;
@@ -70,6 +71,8 @@ class ZMThemeInfo extends ZMObject {
 
 
     // getter/setter
+    function setThemeId($themeId) { $this->themeId_ = $themeId; }
+    function getThemeId() { return $this->themeId_; }
     function getName() { return $this->info_['name']; }
     function setName($name) { $this->info_['name'] = $name; }
     function getVersion() { return $this->info_['version']; }
