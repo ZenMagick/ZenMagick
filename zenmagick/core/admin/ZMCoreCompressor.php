@@ -310,6 +310,23 @@ class ZMCoreCompressor extends ZMObject {
         //echo "** compress " . $in . " into " . $outfile . "\n";
         $files = zm_find_includes($in.'/', true);
 
+        $tmp = array();
+        // mess around with results to find some files we need to add first...
+        foreach ($files as $name => $file) {
+            $off = strpos($file, $in);
+            $tmp[substr($file, $off+strlen($in)+1)] = $file;
+        }
+        $tmp2 = array();
+        array_push($tmp2, $tmp['bootstrap.php']); unset($tmp['bootstrap.php']);
+        array_push($tmp2, $tmp['1/settings.php']); unset($tmp['1/settings.php']);
+        array_push($tmp2, $tmp['1/zenmagick.php']); unset($tmp['1/zenmagick.php']);
+        array_push($tmp2, $tmp['ZMLoader.php']); unset($tmp['ZMLoader.php']);
+        foreach ($tmp as $file) {
+            array_push($tmp2, $file);
+        }
+
+        $files = $tmp2;
+
         if (!$handle = fopen($outfile, 'ab')) {
             array_push($this->errors_, 'could not open file for writing ' . $outfile);
             return;
@@ -323,13 +340,14 @@ class ZMCoreCompressor extends ZMObject {
         $currLevel = 0;
         while (0 < count($files)) {
             $processed = 0;
-            foreach ($files as $name => $infile) {
+            foreach ($files as $key => $infile) {
+                //echo $key.' '.$infile."<br>";
                 $path = explode('/', $infile);
                 $level = count($path)-count($inpath)-1;
-                if ($level == $currLevel) {
+                if ($level == $currLevel || $key < 4) {
                     ++$processed;
                     //echo $infile . " >> " . $outfile . "\n";
-                    unset($files[$name]);
+                    unset($files[$key]);
                     $source = file_get_contents($infile);
 
                     if (false) {
