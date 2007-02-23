@@ -1,9 +1,10 @@
 Release 0.6.4:
-- fix: 0.6.3 returns 0.6.2 as version number
+- fix: release 0.6.3 returns wrong version number (0.6.2)
 - fixed: (unused) SQL for language support for ez pages
 - JS validation fix for single radio button - thanks Ryan for the patch
 - small fix in local.in.php
 - fix broken pretty link urls
+- exclude account pages from page cache
 
 Release 0.6.3:
 - Added down_for_maintenance view
