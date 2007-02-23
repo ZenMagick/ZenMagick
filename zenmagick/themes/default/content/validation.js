@@ -29,7 +29,7 @@ if (elem.type) {
 switch (elem.type.toLowerCase()) {
 case 'text': case 'password': case 'textarea': return '' != elem.value; break;
 case 'checkbox': return elem.checked; break;
-case 'radio': for (var ii=0; ii<elem.length; ++ii) { if (elem[ii].checked) { return true; } } return false; break;
+case 'radio': if (typeof(elem.length) == "undefined" && elem.checked) { return true; } for (var ii=0; ii<elem.length; ++ii) { if (elem[ii].checked) { return true; } } return false; break;
 case 'select': return -1 != elem.selectedIndex; break;
 }
 } else { for (var ii=0; ii<elem.length; ++ii) { if (elem[ii].checked) { return true; } } return false; }

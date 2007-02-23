@@ -28,7 +28,7 @@
     $_ZM_SETTINGS = array();
     // these must be the first five entries
     $_ZM_SETTINGS['isEnableZenMagick'] = true;
-    $_ZM_SETTINGS['ZenMagickVersion'] = '0.6.2';
+    $_ZM_SETTINGS['ZenMagickVersion'] = '${zenmagick.version}';
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = false; //0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;

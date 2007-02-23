@@ -260,7 +260,7 @@
             foreach ($query as $key => $value) {
                 $params .= '&amp;'.$key.'='.$value;
             }
-            $params = (0 < strlen($params) ? ('?'.substr($params, 1)) : '');
+            $params = (0 < strlen($params) ? ('?'.substr($params, 5)) : '');
 
             if ($translate) {
                 $href = $url['scheme']."://".$url['host'].$path.(zm_is_empty($url['fragment']) ? '' : '#'.$url['fragment']).$params;

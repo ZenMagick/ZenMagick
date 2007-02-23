@@ -1,6 +1,6 @@
 <?php
     // disable ZenMagick themes
-    //zm_set_setting('isEnableZenMagick', true);
+    //zm_set_setting('isEnableZenMagick', false);
 
     // enable search engine friendly URLs
     //zm_set_setting('isZMPrettyLinks', true);

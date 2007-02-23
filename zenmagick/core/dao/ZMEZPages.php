@@ -77,6 +77,8 @@ class ZMEZPages extends ZMDao {
 
     // get pages for chapter id
     function getPagesForChapterId($chapterId) {
+    global $zm_request;
+
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . " 
                 WHERE ((status_toc = 1 and toc_sort_order <> 0) and toc_chapter= :chapterID)
@@ -101,6 +103,8 @@ class ZMEZPages extends ZMDao {
 
     // get pages for header
     function getPagesForHeader() {
+    global $zm_request;
+
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_header = 1
                 and header_sort_order > 0";
@@ -123,6 +127,8 @@ class ZMEZPages extends ZMDao {
 
     // get pages for sidebar
     function getPagesForSidebar() {
+    global $zm_request;
+
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_sidebox = 1
                 and sidebox_sort_order > 0";
@@ -145,6 +151,8 @@ class ZMEZPages extends ZMDao {
 
     // get pages for footer
     function getPagesForFooter() {
+    global $zm_request;
+
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_footer = 1
                 and footer_sort_order > 0";
