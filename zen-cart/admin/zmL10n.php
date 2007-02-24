@@ -95,7 +95,7 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
           <fieldset>
             <legend>Select Theme to display the language mappings</legend>
             <?php $theme = new ZMTheme(); $themeInfoList = $theme->getThemeInfoList(); ?>
-            <select id=theme" name="theme" onchange="this.form.submit()">
+            <select id="theme" name="theme" onchange="this.form.submit()">
               <option value="">Select Theme</option>
               <?php foreach ($themeInfoList as $themeInfo) { ?>
                 <?php $selected = $themePath == $themeInfo->getPath() ? ' selected="selected"' : ''; ?>
@@ -116,6 +116,7 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
             <?php } ?>
           <?php } ?>
         <?php } ?>
+      </div>
     </div>
 
   </body>

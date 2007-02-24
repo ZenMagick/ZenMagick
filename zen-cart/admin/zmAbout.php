@@ -28,20 +28,12 @@
 require_once('includes/application_top.php');
 require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
 
-
-    // clear
-    if (isset($_POST) && array_key_exists('pageCache', $_POST)) {
-        $pageCache = $zm_runtime->getPageCache();
-        $ok = $pageCache->clear();
-        $zm_messages->add('Clear page cache ' . ($ok ? 'successful' : 'failed'), $ok ? 'msg' : 'error');
-    }
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title><?php zm_l10n("ZenMagick Cache Manager") ?></title>
+    <title><?php zm_l10n("About ZenMagick") ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
@@ -58,34 +50,25 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
       }
     </script>
   </head>
-  <body id="b_cache" onload="init()">
+  <body id="b_about" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
-    <?php if ($zm_messages->hasMessages()) { ?>
-        <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
-            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
-        <?php } ?>
-        </ul>
-    <?php } ?>
 
     <div id="main">
       <div id="content">
-        <h2><?php zm_l10n("ZenMagick Cache Manager - %s", zm_l10n_get(zm_setting('isPageCacheEnabled') ? "ACTIVE" : "DISABLED")); ?></h2>
-
-        <form action="<?php echo ZM_ADMINFN_CACHE ?>" method="post" onsubmit="return zm_user_confirm('Clear cache ?');">
-          <fieldset class="cahce">
-          <legend><?php zm_l10n("Clear Cache Options") ?></legend>
-
-            <input type="checkbox" id="pageCache" name="pageCache" value="x">
-            <label for="pageCache"><?php zm_l10n("Page Cache") ?></label>
-            <br>
-            <div class="submit">
-            <input type="submit" value="<?php zm_l10n("Clear") ?>">
-            </div>
-          </fieldset>
-        </form>
-
+          <div class="about" id="about">
+          <h2><?php zm_l10n("About ZenMagick") ?></h2>
+              <p><span class="label">Version:</span> <?php echo zm_setting('ZenMagickVersion'); ?></p>
+              <p><span class="label">Homepage:</span> <a href="http://zenmagick.radebatz.net">zenmagick.radebatz.net</a></p>
+              <p><span class="label">Author:</span> Martin Rademacher</p>
+          </div>
+          <div class="about">
+            <?php zm_phpinfo(1); ?>
+            <p><?php zm_l10n('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
+          </div>
+          <div class="about">
+            <h2><?php zm_l10n("The ZenMagick environment") ?></h2>
+            <?php zm_env(); ?>
+          </div>
       </div>
     </div>
 

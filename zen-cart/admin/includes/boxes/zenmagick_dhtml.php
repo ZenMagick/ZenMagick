@@ -26,6 +26,10 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
     $za_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
     $za_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
     $za_contents[] = array('text' => zm_l10n_get("Cache Manager"), 'link' => zen_href_link(ZM_ADMINFN_CACHE, '', 'NONSSL'));
+    if (file_exists(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE)) {
+        $za_contents[] = array('text' => zm_l10n_get("Console"), 'link' => zen_href_link(ZM_ADMINFN_CONSOLE, '', 'SSL'));
+    }
+    $za_contents[] = array('text' => zm_l10n_get("About"), 'link' => zen_href_link(ZM_ADMINFN_ABOUT, '', 'NONSSL'));
 
     echo zen_draw_admin_box($za_heading, $za_contents);
 ?>
