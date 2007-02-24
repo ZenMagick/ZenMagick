@@ -166,4 +166,24 @@
         return $text;
     }
 
+
+    /**
+     * <code>phpinfo</code> wrapper.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param what What to display (see phpinfo manual for more)
+     * @return bool <code>true</code> on success.
+     */
+    function zm_phpinfo($what, $echo=true) {
+        ob_start();                                                                                                       
+        phpinfo($what);                                                                                                       
+        $info = ob_get_contents();                                                                                       
+        ob_end_clean();                                                                                                   
+        $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
+        $info = str_replace('width="600"', '', $info);
+
+        if ($echo) echo $info;
+        return $info;
+    }
+
 ?>
