@@ -64,11 +64,12 @@ class ZMCoupons extends ZMDao {
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     function getCouponForCode($code) {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select * from " . TABLE_COUPONS . " c
                 left join " . TABLE_COUPONS_DESCRIPTION . " cd
                 on (c.coupon_id = cd.coupon_id
-                and cd.language_id = '" . $zm_request->getLanguageId() . "')
+                and cd.language_id = '" . $zm_runtime->getLanguageId() . "')
                 where c.coupon_code = :code";
         $sql = $this->db_->bindVars($sql, ':code', $code, 'string');
         $results = $this->db_->Execute($sql);

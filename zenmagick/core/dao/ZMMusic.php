@@ -62,7 +62,7 @@ class ZMMusic extends ZMDao {
      * @return Artist Artist information.
      */
     function getArtistForProductId($productId) {
-    global $zm_request;
+    global $zm_runtime;
 
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "
                 where products_id = :productId";
@@ -78,7 +78,7 @@ class ZMMusic extends ZMDao {
                 where artists_id = :artistId
                 and languages_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $artistInfo = $this->db_->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_COMPANY . "
@@ -90,7 +90,7 @@ class ZMMusic extends ZMDao {
                 where record_company_id = :recordCompanyId
                 and languages_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $recordCompanyInfo = $this->db_->Execute($sql);
 
         $sql = "select * from " . TABLE_MUSIC_GENRE . "

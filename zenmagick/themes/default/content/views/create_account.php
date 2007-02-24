@@ -31,7 +31,7 @@
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
         new ZMRequiredRule('dob', 'Please enter your date of birth.'),
-        new ZMRegexpRule('dob', UI_DATE_FORMAT_VALIDATION, vsprintf('Please enter a valid date of birth in the form \'%s\'.', UI_DATE_FORMAT)),
+        new ZMDateRule('dob', UI_DATE_FORMAT),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),

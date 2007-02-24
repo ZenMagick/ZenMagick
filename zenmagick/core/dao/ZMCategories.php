@@ -150,9 +150,9 @@ class ZMCategories extends ZMDao {
     }
 
     function getCategoryForId($categoryId, $languageId=null) {
-    global $zm_request;
+    global $zm_runtime;
 
-        if (null != $languageId && $languageId != $zm_request->getLanguageId()) {
+        if (null != $languageId && $languageId != $zm_runtime->getLanguageId()) {
             // not preloaded
             $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
                       from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
@@ -181,7 +181,8 @@ class ZMCategories extends ZMDao {
 
     // load all categories
     function _load() {
-    global $zm_request;
+    global $zm_runtime;
+
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
                   from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
@@ -189,7 +190,7 @@ class ZMCategories extends ZMDao {
                   and cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), "integer");
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $results = $this->db_->Execute($query, '', true, 150);
 
         $this->categories_ = array();

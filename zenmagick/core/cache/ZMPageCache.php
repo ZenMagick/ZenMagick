@@ -70,7 +70,6 @@ class ZMPageCache extends ZMCache {
      *  <li>The request is not a secure request</li>
      *  <li>The page is not a checkout page</li>
      *  <li>The shoppingcart is empty</li>
-     *  <li>The page is not an account page</li>
      * </ol>
      *
      * @return string A cache id or <code>null</code>.
@@ -78,10 +77,10 @@ class ZMPageCache extends ZMCache {
     function isCacheable() {
     global $zm_request, $zm_cart;
         
-        return !$zm_request->isSecure() 
-          && !zm_is_checkout_page(true) 
-          && $zm_cart->isEmpty() 
-          && false === strpos($zm_request->getPageName(), 'account');
+    return !$zm_request->isSecure() 
+      && !zm_is_checkout_page(true) 
+      && $zm_cart->isEmpty() 
+      && false === strpos($zm_request->getPageName(), 'account');
     }
 
     /**

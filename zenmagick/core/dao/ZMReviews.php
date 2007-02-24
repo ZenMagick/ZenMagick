@@ -57,7 +57,8 @@ class ZMReviews extends ZMDao {
 
     // get the number of reviews for a product
     function getReviewCount($product) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select count(*) as count
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                 where r.products_id = :productId
@@ -65,7 +66,7 @@ class ZMReviews extends ZMDao {
                   and rd.languages_id = :languageId
                   and r.status = '1'";
         $query = $this->db_->bindVars($query, ":productId", $product->getId(), 'integer');
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         $results = $this->db_->Execute($query);
         return $results->fields['count'];
@@ -73,7 +74,8 @@ class ZMReviews extends ZMDao {
 
     // get a random review
     function getRandomReviews($productId=null, $max=1) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -85,7 +87,7 @@ class ZMReviews extends ZMDao {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         if (null != $productId) {
             $query .= $this->db_->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
@@ -114,7 +116,8 @@ class ZMReviews extends ZMDao {
 
     // get all reviews for the given productId
     function getReviewsForProductId($productId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -127,7 +130,7 @@ class ZMReviews extends ZMDao {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and p.products_id = :productId";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
         $query = $this->db_->bindVars($query, ":productId", $productId, 'integer');
 
         $reviews = array();
@@ -143,7 +146,8 @@ class ZMReviews extends ZMDao {
 
     // get all reviews
     function getAllReviews() {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -155,7 +159,7 @@ class ZMReviews extends ZMDao {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         $reviews = array();
         $results = $this->db_->Execute($query);
@@ -170,7 +174,8 @@ class ZMReviews extends ZMDao {
 
     // get a specific review
     function getReviewForId($reviewId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -183,7 +188,7 @@ class ZMReviews extends ZMDao {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and r.reviews_id = :reviewId";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
         $query = $this->db_->bindVars($query, ":reviewId", $reviewId, 'integer');
 
         $results = $this->db_->Execute($query);

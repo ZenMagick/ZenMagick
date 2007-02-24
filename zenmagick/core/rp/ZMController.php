@@ -69,10 +69,11 @@ class ZMController extends ZMObject {
      * @return bool <code>true</code> if the controller can handle the request, <code>false</code> if not.
      */
     function validateRequest() {
-    global $zm_theme;
+    global $zm_runtime;
 
-        //TODO
-        return is_subclass_of($this, "ZMController") || $zm_theme->isValidRequest();
+        $theme = $zm_runtime->getTheme();
+
+        return is_subclass_of($this, "ZMController") || $theme->isValidRequest();
     }
 
 

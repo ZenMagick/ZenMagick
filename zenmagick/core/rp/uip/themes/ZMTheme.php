@@ -25,26 +25,36 @@
 
 
 /**
- * Theme handling.
+ * A theme.
  *
  * @author mano
  * @package net.radebatz.zenmagick.rp.uip.themes
  * @version $Id$
  */
 class ZMTheme extends ZMObject {
+    var $themeId_;
+    var $themeInfo_;
+
 
     /**
      * Default c'tor.
+     *
+     * @params string themeId The theme id/name.
      */
-    function ZMTheme() {
+    function ZMTheme($themeId) {
         parent::__construct();
+
+        $this->themeId_ = $themeId;
+        $this->themeInfo_ = null;
     }
 
     /**
      * Default c'tor.
+     *
+     * @params string themeId The theme id/name.
      */
-    function __construct() {
-        $this->ZMTheme();
+    function __construct($themeId) {
+        $this->ZMTheme($themeId);
     }
 
     /**
@@ -55,33 +65,61 @@ class ZMTheme extends ZMObject {
     }
 
 
-    function isValidRequest() {
-    global $zm_runtime, $zm_request;
+    /**
+     * Get this themes id.
+     *
+     * @return string The theme id.
+     */
+    function getThemeId() { return $this->themeId_; }
 
+    /**
+     * Check if this theme has either a content view or a page template for the current request.
+     *
+     * <p>The applied logic is as follows:</p>
+     * <ol>
+     *  <li>If not, assuming the default layout is used, check if a content view exists</li>
+     *  <li>Check if a layout exists for the given page</li>
+     * </ol>
+     *
+     * @param string page The page name.
+     * @return bool <code>true</code> if this theme can handle the given page.
+     */
+    function isValidRequest($page) {
         $themeInfo = $this->getThemeInfo();
-        $view = $this->themeFile($themeInfo->getViewDir().$zm_request->getPageName().".php");
-        return $this->hasTemplate() || file_exists($view);
+        $view = $this->themeFile($themeInfo->getViewDir().$page.".php");
+        return file_exists($view) || $this->hasLayout($page);
     }
 
-
-    // checks, if a template exists for the current request
-    function hasTemplate($name=null) {
-    global $zm_request;
-
-        $name = null == $name ? $zm_request->getPageName() : $name;
-        return file_exists($this->getThemePath($name.'.php'));
+    /**
+     * Check if a layout is configured for the given page.
+     *
+     * @param string page The page name.
+     * @return bool <code>true</code> if a layout file is configured for the given page.
+     */
+    function hasLayout($page) {
+        // layouts reside in the content directory
+        return file_exists($this->getThemePath($page.'.php'));
     }
 
-
-    // resolve theme relative uri
+    /**
+     * Resolve a theme relative URI.
+     *
+     * <p>The given <code>uri</code> is assumed to be relative to the themes <em>content</em> folder.</p>
+     *
+     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
+     * the method will try to resolve the name in the default theme.</p>
+     *
+     * @param string uri The relative URI.
+     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @return string An absolute URL.
+     */
     function themeURL($uri, $echo=true) {
     global $zm_runtime;
 
-        $url = $zm_runtime->getThemeBaseURI().$zm_runtime->getThemeId()."/".ZM_THEME_CONTENT.$uri;
-        if (zm_setting('isEnableThemeDefaults') && !file_exists($zm_runtime->getThemeContentPath().$uri)) {
-            // check for default
-            if (file_exists($zm_runtime->getThemeContentPath('default').$uri)) {
-                $url = $zm_runtime->getThemeBaseURI().'default'."/".ZM_THEME_CONTENT.$uri;
+        $url = $zm_runtime->getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
+        if (zm_setting('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
+            if (file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$uri)) {
+                $url = $zm_runtime->getThemesPathPrefix().ZM_DEFAULT_THEME."/".ZM_THEME_CONTENT_DIR.$uri;
             }
         }
 
@@ -92,58 +130,115 @@ class ZMTheme extends ZMObject {
     }
 
 
-    // get the full template path
-    function getThemePath($name) {
+    /**
+     * Return the full filename for the themes root directory.
+     *
+     * @return string The themes root directory.
+     */
+    function getRootDir() {
     global $zm_runtime;
 
-        $file = $zm_runtime->getThemeContentPath().$name;
+        return $zm_runtime->getThemesDir() . $this->themeId_ . '/';
+    }
+
+    /**
+     * Return the path of the extra directory.
+     *
+     * @return string A full filename denoting the themes extra directory.
+     */
+    function getExtraDir() {
+        return $this->getRootDir() . ZM_THEME_EXTRA_DIR;
+    }
+
+    /**
+     * Return the path of the boxes directory.
+     *
+     * @return string A full filename denoting the themes boxes directory.
+     */
+    function getBoxesDir() {
+        return $this->getRootDir() . ZM_THEME_BOXES_DIR;
+    }
+
+    /**
+     * Return the path of the content directory.
+     *
+     * @return string A full filename denoting the themes content directory.
+     */
+    function getContentDir() {
+        return $this->getRootDir() . ZM_THEME_CONTENT_DIR;
+    }
+
+    /**
+     * Return the path of the views directory.
+     *
+     * @return string A full filename denoting the themes views directory.
+     */
+    function getViewsDir() {
+        $themeInfo = $this->getThemeInfo();
+        return $themeInfo->getViewsDir();
+    }
+
+    /**
+     * Return the path of the lang directory.
+     *
+     * @return string A full filename denoting the themes lang directory.
+     */
+    function getLangDir() {
+        return $this->getRootDir() . ZM_THEME_LANG_DIR;
+    }
+
+    /**
+     * Resolve a theme relative filename into a full path.
+     *
+     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
+     * the method will try to resolve the name in the default theme.</p>
+     *
+     * @param string name A theme relative filename.
+     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @return string A fully qualified filename.
+     */
+    function themeFile($name, $echo=false) {
+    global $zm_runtime;
+
+        $file = $this->getContentDir().$name;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
-            $dfile = $zm_runtime->getThemeContentPath('default').$name;
+            $dfile = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$name;
             if (file_exists($dfile)) {
-                // update only if found - otherwise leave original filename for easier error analysis
                 $file = $dfile;
             }
         }
 
+		    if ($echo) echo $file;
         return $file;
     }
 
-
-    // resolve theme relative filename
-    function themeFile($name, $echo=false) {
-        $file = $this->getThemePath($name);
-
-		    if ($echo) echo $file;
-		    return $file;
-    }
-
-
-    // resolve theme relative filename and check for existence
+    /**
+     * Check if the given theme relative file exists.
+     *
+     * @param string name A theme relative filename.
+     * @return bool <code>true</code> if the file exists, <code>false</code> if not.
+     */
     function themeFileExists($name) {
-		    return file_exists($this->themeFile($name, false));
+		    return file_exists($this->themeFile($name));
     }
 
+    /**
+     * Get the content of a static (define) page.
+     *
+     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
+     * the method will try to resolve the name in the default theme.</p>
+     *
+     * @param string page The page name.
+     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @return string The content.
+     */
+    function staticPageContent($page, $echo=true) {
+    global $zm_runtime;
 
-    // get contents of a theme file
-    function getThemeFileContents($name, $echo=true) {
-        if (!$this->themeFileExists($name))
-            return "";
-
-		    $contents = file_get_contents($this->themeFile($name));
-
-        if ($echo) echo $contents;
-		    return $contents;
-    }
-
-
-    // include static page content
-    function includeStaticPageContent($page, $echo=true) {
-    global $zm_request, $zm_runtime;
-
-        $language = $zm_request->getLanguageName();
-        $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getRawThemeId().'/define_' . $page . '.php';
-        if (!file_exists($filename)) {
+        $language = $zm_runtime->getLanguageName();
+        $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
+        if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
             $filename = DIR_WS_LANGUAGES . $language . '/html_includes/define_' . $page . '.php';
         }
 
@@ -153,67 +248,28 @@ class ZMTheme extends ZMObject {
         return $contents;
     }
 
-
-    // get a list of all themes extra files to be included
-    function getExtraFiles() {
-    global $zm_runtime;
-
-        return zm_find_includes($zm_runtime->getThemePath()."/" . ZM_THEME_EXTRA, true);
+    /**
+     * Old version of <code>staticPageContent(..)</code>.
+     * @deprecated
+     */
+    function includeStaticPageContent($page, $echo=true) {
+        zm_backtrace('this method is deprecated; please use staticPageContent(..) instead.');
+        return $this->staticPageContent($page, $echo);
     }
 
-
-    // get all theme names
-    function getThemeDirList() {
+    /**
+     * Get the <code>ZMThemeInfo</code> for this theme.
+     *
+     * @return ZMThemeInfo A <code>ZMThemeInfo</code> instance.
+     */
+    function getThemeInfo() {
     global $zm_runtime;
 
-        $themes = array();
-        $handle = @opendir($zm_runtime->getThemeBasePath());
-        while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file || "CVS" == $file)
-                continue;
-            array_push($themes, $file);
-        }
-        @closedir($handle);
-        return $themes;
-    }
-
-
-    // get current theme info
-    function getThemeInfo($themeId=null) {
-    global $zm_runtime;
-
-        // theme id
-        $themeId = null == $themeId ? $zm_runtime->getThemeId() : $themeId;
-        // theme base path
-        $basePath = $zm_runtime->getThemeBasePath();
-        $infoName = $themeId. ' ThemeInfo';
-        // theme info class name
-        $infoClass = zm_mk_classname($infoName);
-        // theme info file name
-        $infoFile = $basePath.$themeId."/".$infoClass.".php";
-        // load
-        require_once($infoFile);
-        // create instance
-        $obj = new $infoClass();
-        $obj->setThemeId($themeId);
-        return $obj;
-    }
-
-
-    // get theme list
-    function getThemeInfoList() {
-    global $zm_runtime;
-
-        $infoList = array();
-        $basePath = $zm_runtime->getThemeBasePath();
-        $dirs = $this->getThemeDirList();
-        // load info classes and get instance
-        foreach ($dirs as $dir) {
-            // assuming that directory name corresponds with theme id
-            array_push($infoList, $this->getThemeInfo($dir));
+        if (null == $this->themeInfo_) {
+            $this->themeInfo_ =& $zm_runtime->getThemeInfoForId($this->themeId_);
         }
 
-        return $infoList;
+        return $this->themeInfo_;
     }
 
 }

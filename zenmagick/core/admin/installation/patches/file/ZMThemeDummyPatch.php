@@ -61,12 +61,12 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        //TODO: theme stuff
-        $theme = new ZMTheme();
-        $themeInfos = $theme->getThemeInfoList();
-        foreach ($themeInfos as $themeInfo) {
-            if ('default' == $themeInfo->getPath())
+    global $zm_themes;
+
+        foreach ($zm_themes->getThemeInfoList() as $themeInfo) {
+            if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
+            }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath())) {
                 return true;
             }
@@ -112,18 +112,18 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
+    global $zm_themes;
+
         if (!(zm_setting('isEnablePatching') && zm_setting('isAutoCreateZCThemeDummies')) && !$force && $this->isOpen()) {
             // disabled
             zm_log("** ZenMagick: create theme dummies disabled - skipping");
             return false;
         }
 
-        //TODO: theme stuff
-        $theme = new ZMTheme();
-        $themeInfos = $theme->getThemeInfoList();
-        foreach ($themeInfos as $themeInfo) {
-            if ('default' == $themeInfo->getPath())
+        foreach ($zm_themes->getThemeInfoList() as $themeInfo) {
+            if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
+            }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath())) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                     mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath());

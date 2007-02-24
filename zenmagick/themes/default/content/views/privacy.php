@@ -24,4 +24,4 @@
  */
 ?>
 
-<?php $zm_theme->includeStaticPageContent("privacy") ?>
+<?php $zm_theme->staticPageContent("privacy") ?>

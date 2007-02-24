@@ -36,8 +36,9 @@
  */
 class ZMRuntime {
     var $themeId_;
-    var $dbThemeId_;
     var $pageCache_;
+    var $theme_;
+    var $themes_;
 
 
     /**
@@ -46,8 +47,8 @@ class ZMRuntime {
     function ZMRuntime() {
         // init with defaults
         $this->themeId_ = null;
-        $this->dbThemeId_ = null;
         $this->pageCache_ = null;
+        $this->theme_ = null;
     }
 
     /**
@@ -85,61 +86,150 @@ class ZMRuntime {
         return $this->pageCache_;
     }
 
-    function getControllerPath() { return DIR_FS_CATALOG.ZM_CONTROLLER_PATH; }
-    function getThemePath($themeId=null) { return $this->getThemeBasePath().((null!=$themeId||!zm_setting('isEnableThemeDefaults'))?$themeId:$this->getThemeId()); }
-    function getThemeContentPath($themeId=null) { return $this->getThemePath($themeId)."/".ZM_THEME_CONTENT; }
-    function getThemeBasePath() { return DIR_FS_CATALOG.ZM_THEME_BASE_PATH; }
-    function getThemeBaseURI() { return $this->getApplicationRoot().ZM_THEME_BASE_PATH; }
-    function getThemeLangPath() { return $this->getThemeBasePath().$this->getThemeId()."/lang/"; }
-    function getThemeBoxPath($themeId=null) { return $this->getThemePath($themeId)."/".ZM_THEME_BOXES; }
+    /**
+     * Return the directory containing all themes.
+     *
+     * @return string The base directory for themes.
+     */
+    function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
+
+    /**
+     * Return the base path for theme URIs.
+     *
+     * @return string The URL path prefix for all themes.
+     */
+    function getThemesPathPrefix() { return $this->getContext().ZM_THEMES_DIR; }
+
+    /**
+     * Get the current theme.
+     *
+     * @return ZMTheme The current theme.
+     */
+    function getTheme() {
+        if (null == $this->theme_) {
+            $this->theme_ =& new ZMTheme($this->getThemeId());
+        }
+
+        return $this->theme_;
+    }
+
+    /**
+     * Get the single <code>ZMThemes</code> instance.
+     *
+     * @return ZMThemes A <code>ZMThemes</code> object.
+     */
+    function getThemes() {
+        if (null == $this->themes_) {
+            $this->themes_ =& new ZMThemes();
+        }
+
+        return $this->themes_;
+    }
+
+    /**
+     * Get <code>ZMThemeInfo</code> instance for the current (or given) theme Id.
+     *
+     * @param string themeId The theme id or <code>null</code> for the current theme id.
+     * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
+     */
+    function getThemeInfoForId($themeId=null) {
+        $themes =& $this->getThemes();
+        return $themes->getThemeInfoForId($themeId);
+    }
+
+    /**
+     * Get the full ZenMagick installation path.
+     *
+     * @return string The ZenMagick installation folder.
+     */
     function getZMRootPath() {  return DIR_FS_CATALOG.ZM_ROOT; }
-    function getApplicationRoot() { return DIR_WS_CATALOG; }
 
-    function setThemeId($themeId) { $this->themeId_ = $themeId; }
-    function getRawThemeId() {
-        $themeId = $this->themeId_;
-        //TODO: themes
-        if (null == $themeId) {
-            if (null == $this->dbThemeId_) {
-                $db = $this->getDB();
-                $template_dir = "";
-                $sql = "select template_dir
-                        from " . TABLE_TEMPLATE_SELECT . "
-                        where template_language = 0";
-                $template_query = $db->Execute($sql);
-                $themeId = $template_query->fields['template_dir'];
+    /**
+     * The application context.
+     *
+     * @return string The application context.
+     */
+    function getContext() { return DIR_WS_CATALOG; }
 
-                $sql = "select template_dir
-                        from " . TABLE_TEMPLATE_SELECT . "
-                        where template_language = '" . $_SESSION['languages_id'] . "'";
-                $template_query = $db->Execute($sql);
-                if ($template_query->RecordCount() > 0) {
-                    $themeId = $template_query->fields['template_dir'];
-                }
-                $this->dbThemeId_ = $themeId;
-            }
-            $themeId = $this->dbThemeId_;
-        }
-        return $themeId;
+    /**
+     * Set the theme id.
+     *
+     * <p>This will overwrite the configured theme id.</p>
+     *
+     * <p>Calling this method is quite expensive, as all theme specific stuff needs
+     * to be updated - <strong>this is not completely implemented yet</strong>.</p>
+     *
+     * @param string themeId The new theme id.
+     */
+    function setThemeId($themeId) { $this->themeId_ = $themeId; $this->theme_ = null; }
+
+    /**
+     * Get the configured zen-cart theme id.
+     *
+     * @return string The configured zen-cart theme id.
+     */
+    function getZCThemeId() {
+        $themes =& $this->getThemes();
+        return $themes->getZCThemeId();
     }
 
-    // get the (valid) theme id
+    /**
+     * Get the effective theme id.
+     *
+     * @return string The currently effective theme id.
+     */
     function getThemeId() {
-        $themeId = strtolower($this->getRawThemeId());
-        $path = $this->getThemeBasePath().$themeId;
-        if (!@file_exists($path) || !@is_dir($path)) {
-            //error_log("ZenMagick: invalid theme id: '".$zm_runtime->getThemeId().'"');
-            return "default";
+        if (null != $this->themeId_) {
+            return $this->themeId_;
         }
+
+        $themeId = strtolower($this->getZCThemeId($this->getLanguageId()));
+        $path = $this->getThemesDir().$themeId;
+        if (!@file_exists($path) || !@is_dir($path)) {
+            zm_log("invalid theme id: '".$themeId.'"');
+            return ZM_DEFAULT_THEME;
+        }
+
         return $themeId;
     }
 
+    /**
+     * Get the language id.
+     *
+     * @return int The current language id.
+     */
+    function getLanguageId() { return (int)$_SESSION['languages_id']; }
+
+    /**
+     * Get the current language name.
+     *
+     * @return string The current language name.
+     */
+    function getLanguageName() { return $_SESSION['language']; }
+
+    /**
+     * Get the current currency id.
+     *
+     * @return int The current currency id.
+     */
+    function getCurrencyId() { return $_SESSION['currency']; }
+
+    /**
+     * Checks if <em>phpBB</em> is installed or not.
+     *
+     * @return bool <code>true</code> if <em>phpBB</em> has been configured.
+     */
     function isBBActive() {
     global $phpBB;
+
         return $phpBB->phpBB['db_installed_config'] && $phpBB->phpBB['files_installed'];
     }
 
-    // reconnect; used when switching between databases
+    /**
+     * Reconnect to the zen-cart database.
+     *
+     * <p>This is not very reliable at the moment.</p>
+     */
     function reconnectDB() {
         $db = $this->getDB();
         $db->selectdb(DB_DATABASE);

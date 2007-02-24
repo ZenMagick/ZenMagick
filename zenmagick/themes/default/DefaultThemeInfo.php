@@ -30,36 +30,32 @@
  */
 class DefaultThemeInfo extends ZMThemeInfo {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function DefaultThemeInfo() {
         parent::__construct();
+
         $this->setName('Default');
-        $this->setVersion('0.4');
-        $this->setAuthor('ZenMagick 2006');
+        $this->setVersion('0.7');
+        $this->setAuthor('ZenMagick 2006-2007');
         $this->setDescription('ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates');
 
         $this->setErrorPage('error');
         $this->setDefaultLayout('default_layout');
-
-        // configure individual layout templates
-        //$this->setLayout('static', 'special_layout');
-
-        // keep error page simple; the default full error page requires a define page..
-        //$this->setLayout('error', null);
 
         // popups use their own simple page layout
         $this->setLayout('popup_cvv_help', 'popup_layout');
         $this->setLayout('popup_search_help', 'popup_layout');
         $this->setLayout('popup_shipping_estimator', 'popup_layout');
 
-        // set default JS event handler; i.e. for ALL pages
-        //$this->setDefaultPageEventHandler('onload', "inject_category_code();");
-
         // set JS event handler
         $this->setPageEventHandler('onload', 'login', "focus('email_address');");
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->DefaultThemeInfo();
     }

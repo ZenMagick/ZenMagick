@@ -44,37 +44,10 @@ if (!function_exists('zen_date_raw')) {
      *  or <code>MMDDYYYY</code>, respectivley.
      */
     function zen_date_raw($date, $reverse=false) {
-        $dd = '??';
-        $mm = '??';
-        $cc = '??';
-        $yy = '??';
+        $da = zm_parse_date($date, UI_DATE_FORMAT);
 
-        $format = strtoupper(UI_DATE_FORMAT);
-        // parse
-        $dpos = strpos($format, 'DD');
-        if (false !== $dpos) {
-            $dd = substr($date, $dpos, 2);
-        }
-        $mpos = strpos($format, 'MM');
-        if (false !== $mpos) {
-            $mm = substr($date, $mpos, 2);
-        }
-        $cpos = strpos($format, 'CC');
-        if (false !== $cpos) {
-            $cc = substr($date, $cpos, 2);
-        }
-        $cypos = strpos($format, 'YYYY');
-        if (false !== $cypos) {
-            $cc = substr($date, $cypos, 2);
-            $yy = substr($date, $cypos+2, 2);
-        } else {
-            $ypos = strpos($format, 'YY');
-            if (false !== $ypos) {
-                $yy = substr($date, $ypos, 2);
-            }
-        }
-
-        $raw = $reverse ? $mm.$dd.$cc.$yy : $cc.$yy.$mm.$dd;
+        //$raw = $reverse ? $mm.$dd.$cc.$yy : $cc.$yy.$mm.$dd;
+        $raw = $reverse ? $da[1].$da[0].$da[2].$da[3] : $da[2].$da[3].$da[1].$da[0];
         return $raw;
     }
 }

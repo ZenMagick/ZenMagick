@@ -39,6 +39,7 @@
      */
     function zm_db_value_list($sql, $bindName, $values, $type) {
     global $zm_runtime;
+
         $db = $zm_runtime->getDB();
 
         $fragment = '';

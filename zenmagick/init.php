@@ -36,33 +36,36 @@
         require($_zm_bin_file);
 
         // configure core loader
-        $coreLoader =& new ZMLoader('coreLoader');
+        $zm_loader =& new ZMLoader('coreLoader');
     } else {
         $_zm_bin_dir = dirname(__FILE__)."/core/";
         require($_zm_bin_dir."bootstrap.php");
         require($_zm_bin_dir."settings/settings.php");
         require($_zm_bin_dir."settings/zenmagick.php");
         require($_zm_bin_dir."ZMLoader.php");
+        require($_zm_bin_dir."ZMDao.php");
+        require($_zm_bin_dir."dao/ZMThemes.php");
+        require($_zm_bin_dir."rp/uip/themes/ZMTheme.php");
 
         // configure core loader
-        $coreLoader =& new ZMLoader('coreLoader');
-        $coreLoader->addPath($_zm_bin_dir);
+        $zm_loader =& new ZMLoader('coreLoader');
+        $zm_loader->addPath($_zm_bin_dir);
         // need to do this in global namespace
-        foreach ($coreLoader->getStatic() as $static) {
+        foreach ($zm_loader->getStatic() as $static) {
             require_once($static);
         }
     }
 
     // use loader for all class loading from here?
-    $zm_runtime = $coreLoader->create("ZMRuntime");
+    $zm_runtime = $zm_loader->create("ZMRuntime");
 
     // configure theme loader
-    $themeLoader =& new ZMLoader("themeLoader");
-    // TODO: theme stuff
-    $themeLoader->addPath($zm_runtime->getThemePath()."/".ZM_THEME_EXTRA);
+    $zm_theme = $zm_runtime->getTheme();
+    $_zm_themeLoader =& new ZMLoader("themeLoader");
+    $_zm_themeLoader->addPath($zm_theme->getExtraDir());
 
     // use theme loader first
-    $coreLoader->setParent($themeLoader);
+    $zm_loader->setParent($_zm_themeLoader);
 
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {
@@ -78,8 +81,8 @@
             }
         }
     }
-    $zm_loader =& $coreLoader;
     $zm_request = new ZMRequest();
+    $zm_themes = new ZMThemes();
 
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
@@ -104,7 +107,7 @@
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();
 
-    // local settings
+    // global settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
         include($_zm_local);

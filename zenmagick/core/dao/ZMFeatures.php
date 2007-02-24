@@ -64,7 +64,8 @@ class ZMFeatures extends ZMDao {
 
 
     function _loadFeatures() {
-    global $zm_request;
+    global $zm_runtime;
+
         if (null != $this->features_)
             return;
 
@@ -72,7 +73,7 @@ class ZMFeatures extends ZMDao {
                 f.hidden
                 from " .ZM_TABLE_FEATURES . " f
                 where f.language_id = :languageId";
-        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
 
         $results = $this->db_->Execute($sql);
 

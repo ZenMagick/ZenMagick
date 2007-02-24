@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMDateRule extends ZMRule {
-    var $regexp_;
     var $format_;
 
 
@@ -40,27 +39,24 @@ class ZMDateRule extends ZMRule {
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string regexp The date regexp.
-     * @param string format The date format (eg: DD/MM/YYY)
+     * @param string format The date format (eg: DD/MM/YYYY)
      * @param string msg Optional message.
      */
-    function ZMDateRule($name, $regexp, $format, $msg=null) {
+    function ZMDateRule($name, $format, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
 
-        $this->regexp_ = $regexp;
-        $this->format_ = $format_;
+        $this->format_ = $format;
     }
 
     /**
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string regexp The date regexp.
-     * @param string format The date format (eg: DD/MM/YYY)
+     * @param string format The date format (eg: DD/MM/YYYY)
      * @param string msg Optional message.
      */
-    function __construct($name, $regexp, $format, $msg=null) {
-        $this->ZMDateRule($name, $regexp, $format, $msg);
+    function __construct($name, $format, $msg=null) {
+        $this->ZMDateRule($name, $format, $msg);
     }
 
     /**
@@ -78,34 +74,9 @@ class ZMDateRule extends ZMRule {
      * @return bool <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        // check regexp first
-        if (!(array_key_exists($this->name_, $req) && eregi($this->regexp_, $req[$this->name_]))) {
-            return false;
-        }
+        $da = zm_parse_date($date, $this->format_);
 
-        // day
-        $day = "1";
-        $dpos = strpos($this->format_, "DD");
-        if (!(false === $dpos)) {
-            $day = substr($date, $dpos, 2);
-        }
-
-        // month
-        $month = "1";
-        $mpos = strpos($format, "MM");
-        if (!(false === $mpos)) {
-            $month = substr($date, $mpos, 2);
-        }
-
-        // year
-        $year = 1;
-        $yspos = strpos($format, "Y");
-        $yepos = strrpos($format, "Y");
-        if (!(false === $yspos) && !(false === $yepos)) {
-            $year = substr($date, $yspos, $yepos-$yspos+1);
-        }
-
-        return @checkdate($month, $day, $year);
+        return @checkdate($da[1], $da[0], $da[2].$da[3]);
     }
 
 
@@ -125,10 +96,10 @@ class ZMDateRule extends ZMRule {
      * @return string Formatted JavaScript .
      */
     function toJSString() {
-        $js = "    new Array('regexp'";
+        $js = "    new Array('date'";
         $js .= ",'".$this->name_."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".'"'.$this->regexp_.'"';
+        $js .= ",".'"'.$this->format_.'"';
         $js .= ")";
         return $js;
     }

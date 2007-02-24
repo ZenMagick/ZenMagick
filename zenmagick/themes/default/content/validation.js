@@ -23,7 +23,31 @@
  */
 ?>
 <script type="text/javascript"><!--
-// generic field tester
+// generic
+function isValidDate(day, month, year) {
+if (month < 1 || month > 12) { return false; }
+if (day < 1 || day > 31) { return false; }
+if ((month == 4 || month == 6 || month == 9 || month == 11) && (day == 31)) { return false; }
+if (month == 2) { var leap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)); if (day > 29 || (day == 29 && !leap)) { return false; } } return true; }
+function parseDate(s, format) {
+var dd = '??'; var mm = '??'; var cc = '??'; var yy = '??';
+format = format.toUpperCase();
+var dpos = format.indexOf('DD');
+if (-1 != dpos) { dd = s.substring(dpos, dpos+2); }
+var mpos = format.indexOf('MM');
+if (-1 != mpos) { mm = s.substring(mpos, mpos+2); }
+var cpos = format.indexOf('CC');
+if (-1 != cpos) { cc = s.substring(cpos, cpos+2); }
+var cypos = format.indexOf('YYYY');
+if (-1 != cypos) { cc = s.substring(cypos, cypos+2); yy = s.substring(cypos+2, cypos+2+2);
+} else { var ypos = format.indexOf('YY'); if (-1 != ypos) { yy = s.substring(ypos, ypos+2); } }
+return new Array(dd, mm, cc.concat(yy));
+}
+
+// validations
+function isDate(elem, format) {
+var da = parseDate(elem.value, format); return isValidDate(da[0], da[1], da[2]);
+}
 function isNotEmpty(elem) { 
 if (elem.type) {
 switch (elem.type.toLowerCase()) {
@@ -43,7 +67,7 @@ function isFieldMatch(elem1, elem2) { return elem1.value == elem2.value; }
 var _zm_submitted = false;
 // generic form validation
 function validate(form) {
-if (_zm_submitted) { alert('<?php zm_l10n("This form has already been submitted. Please press Ok and wait for this process to be completed.") ?>'); return false; }
+if (_zm_submitted) { alert('<?php zm_l10n("This form has already been submitted. Please press Ok and wait for this process to complete.") ?>'); return false; }
 var msg = '<?php zm_l10n("Errors have occurred during the processing of your form.\\n\\nPlease make the following corrections:\\n\\n") ?>';
 var isValid = true;
 var rules = eval(form.id+"_rules");
@@ -53,6 +77,7 @@ case 'required': if (!isNotEmpty(form.elements[rule[1]])) { isValid = false; msg
 case 'min': if (!isMinLength(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'regexp': if (!isRegexp(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'fieldMatch': if (!isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
+case 'date': if (!isDate(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 default: alert('unknown validation rule: ' + rule[0]); break;
 }
 }

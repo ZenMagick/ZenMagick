@@ -114,6 +114,7 @@ class ZMLayout extends ZMDao {
      */
     function getLeftColBoxNames() {
     global $zm_runtime;
+
         if (null != $this->leftColBoxes_)
             return $this->leftColBoxes_;
 
@@ -122,13 +123,16 @@ class ZMLayout extends ZMDao {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getRawThemeId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'integer');
         $results = $this->db_->Execute($sql);
 
+        $theme = $zm_runtime->getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
-            if (file_exists($zm_runtime->getThemeBoxPath() . $box) || file_exists($zm_runtime->getThemeBoxPath('default') . $box)) {
+            if (file_exists($theme->getBoxesDir() . $box) 
+              || (zm_setting('isEnableThemeDefaults') && file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+
                 array_push($boxes, $box);
             }
             $results->MoveNext();
@@ -144,6 +148,7 @@ class ZMLayout extends ZMDao {
      */
     function getRightColBoxNames() {
     global $zm_runtime;
+
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
@@ -152,13 +157,15 @@ class ZMLayout extends ZMDao {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getRawThemeId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'integer');
         $results = $this->db_->Execute($sql);
 
+        $theme = $zm_runtime->getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
-            if (file_exists($zm_runtime->getThemeBoxPath() . $box) || file_exists($zm_runtime->getThemeBoxPath('default') . $box)) {
+            if (file_exists($theme->getBoxesDir() . $box) 
+              || (zm_setting('isEnableThemeDefaults') && file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
                 array_push($boxes, $box);
             }
             $results->MoveNext();

@@ -45,9 +45,6 @@
     define('UI_DATE_FORMAT', 'dd/mm/yyyy');
     define('UI_DATE_FORMAT_SAMPLE', '16/11/1967');
 
-    // a validation regular expression
-    define('UI_DATE_FORMAT_VALIDATION', '[0-3][0-9]/[0-1][0-9]/[1-2][0-9]{3}');
-
     // HTML i18n settings
     define('HTML_PARAMS','dir="ltr" lang="en"');
     // charset for web pages and emails

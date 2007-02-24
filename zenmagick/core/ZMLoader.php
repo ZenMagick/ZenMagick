@@ -111,6 +111,20 @@ class ZMLoader {
     }
 
     /**
+     * Get the root loader.
+     *
+     * @return ZMLoader The top element in the loader hierachy.
+     */
+    function getRootLoader() {
+        $root = $this;
+        while (null != $root->parent_) {
+            $root =& $root->parent_;
+        }
+
+        return $root;
+    }
+
+    /**
      * Set the parent loader.
      *
      * @param ZMLoader parent The new parent.
@@ -131,15 +145,29 @@ class ZMLoader {
     }
 
     /**
-     * Returns a map of all the static code in the path. Code is identified by a filename starting with
+     * Returns a list of all the static code in this loaders path. Code is identified by a filename starting with
      * a lower case character.
+     *
+     * @return array Static files with local.php being the first (if it exists).
      */
     function getStatic() {
         $static = array();
+        // get full list
         foreach ($this->path_ as $name => $file) {
             if ($name != ucfirst($name)) {
                 $static[$name] = $file;
             }
+        }
+
+        if (array_key_exists('local', $static)) {
+            // get local to top 
+            $tmp = array();
+            array_push($tmp, $static['local']);
+            unset($static['local']);
+            foreach ($static as $name => $file) {
+                array_push($tmp, $file);
+            }
+           $static = $tmp; 
         }
 
         return $static;

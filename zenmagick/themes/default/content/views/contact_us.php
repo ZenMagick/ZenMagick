@@ -28,7 +28,7 @@
     <address><?php echo nl2br(zm_setting('storeNameAddress')); ?></address>
 <?php } ?>
 
-<?php $zm_theme->includeStaticPageContent("contact_us") ?>
+<?php $zm_theme->staticPageContent("contact_us") ?>
 
 <?php
     $validator = new ZMValidator();

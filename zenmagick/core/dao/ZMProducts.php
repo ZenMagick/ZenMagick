@@ -57,7 +57,8 @@ class ZMProducts extends ZMDao {
 
     // get products for category
     function getProductsForCategoryId($categoryId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
                   p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
                   p.products_tax_class_id, pd.products_description,
@@ -70,7 +71,7 @@ class ZMProducts extends ZMDao {
                   and pd.language_id = :languageId
                   and p2c.categories_id = :categoryId
                   order by p.products_sort_order, pd.products_name";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), "integer");
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
 
         $results = $this->db_->Execute($query);
@@ -87,7 +88,8 @@ class ZMProducts extends ZMDao {
 
     // get products for manufacturer
     function getProductsForManufacturerId($manufacturerId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
                     p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
                     p.products_tax_class_id, pd.products_description,
@@ -101,7 +103,7 @@ class ZMProducts extends ZMDao {
                     and p.manufacturers_id = :manufacturerId
                   order by p.products_sort_order, pd.products_name";
         $query = $this->db_->bindVars($query, ":manufacturerId", $manufacturerId, 'integer');
-        $query = $this->db_->bindVars($query, ":languageId", $zm_request->getLanguageId(), 'integer');
+        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
         $results = $this->db_->Execute($query);
 
         $products = array();
@@ -166,7 +168,7 @@ class ZMProducts extends ZMDao {
 
     // get featured products
     function getFeaturedProducts($categoryId=null, $max=1) {
-    global $zm_request;
+    global $zm_runtime;
 
 		$query = null;
         if (null == $categoryId || 0 == $categoryId) {
@@ -293,7 +295,8 @@ class ZMProducts extends ZMDao {
 
 
     function getProductForModel($model) {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -306,7 +309,7 @@ class ZMProducts extends ZMDao {
                  and pd.products_id = p.products_id
                  and pd.language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":model", $model, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
 
@@ -320,7 +323,8 @@ class ZMProducts extends ZMDao {
 
     // will load product with any status
     function getProductForId($productId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -332,7 +336,7 @@ class ZMProducts extends ZMDao {
                  and pd.products_id = p.products_id
                  and pd.language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
         if (0 == $results->RecordCount()) {
@@ -345,7 +349,8 @@ class ZMProducts extends ZMDao {
 
     // will load products with any status
     function getProductsForIds($productIds) {
-    global $zm_request;
+    global $zm_runtime;
+
         if (0 == count($productIds))
             return array();
 
@@ -360,7 +365,7 @@ class ZMProducts extends ZMDao {
                  and pd.products_id = p.products_id
                  and pd.language_id = :languageId";
         $sql = zm_db_value_list($sql, ":productIdList", $productIds, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
 
@@ -376,7 +381,8 @@ class ZMProducts extends ZMDao {
 
 
     function updateViewCount($productId) {
-    global $zm_request;
+    global $zm_runtime;
+
         if (null == $product)
             return;
 
@@ -385,7 +391,7 @@ class ZMProducts extends ZMDao {
                 where products_id = :productId
                 and language_id = :languageId";
         $sql = $this->db_->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $result = $this->db_->Execute($sql);
     }

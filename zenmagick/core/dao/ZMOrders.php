@@ -62,7 +62,8 @@ class ZMOrders extends ZMDao {
      * @return ZMOrder A order or <code>null</code>.
      */
     function getOrderForId($orderId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
                 o.customers_street_address, o.customers_suburb, o.customers_city,
                 o.customers_postcode, o.customers_state, o.customers_country,
@@ -83,7 +84,7 @@ class ZMOrders extends ZMDao {
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
         $sql = $this->db_->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
 
@@ -103,7 +104,8 @@ class ZMOrders extends ZMDao {
      * @return array List of <code>ZMOrder</code> instances.
      */
     function getOrdersForAccountId($accountId, $limit=0) {
-    global $zm_request;
+    global $zm_runtime;
+
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -126,7 +128,7 @@ class ZMOrders extends ZMDao {
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
         $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $results = $this->db_->Execute($sql);
 
         $orders = array();
@@ -143,7 +145,8 @@ class ZMOrders extends ZMDao {
      * Get order stati for order.
      */
     function _getOrderStatiForId($orderId) {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
                   from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                   where osh.orders_id = :orderId
@@ -151,7 +154,7 @@ class ZMOrders extends ZMDao {
                   and os.language_id = :languageId
                   order by osh.date_added";
         $sql = $this->db_->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);
 

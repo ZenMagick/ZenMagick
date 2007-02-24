@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $zm_theme->includeStaticPageContent("main_page") ?>
+<?php $zm_theme->staticPageContent("main_page") ?>
 <?php $featured = $zm_products->getFeaturedProducts(0, 4); ?>
 <h3>Featured Products</h3>
 <div id="featured">

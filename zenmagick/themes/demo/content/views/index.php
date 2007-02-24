@@ -34,7 +34,7 @@
   <li>Custom colour schema using custom site wide CSS (theme.css) that builds on the default CSS (this is a feature of default_layout.php)</li>
 </ul>
 
-<?php $zm_theme->includeStaticPageContent("main_page") ?>
+<?php $zm_theme->staticPageContent("main_page") ?>
 <?php $featured = $zm_products->getFeaturedProducts(0, 4); ?>
 <h3>Featured Products</h3>
 <div id="featured">

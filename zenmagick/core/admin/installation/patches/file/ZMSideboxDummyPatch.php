@@ -140,9 +140,10 @@ class ZMSideboxDummyPatch extends ZMInstallationPatch {
     global $zm_runtime;
 
         $missingBoxes = array();
-        $boxPath = $zm_runtime->getThemeBoxPath();
+        $theme = $zm_runtime->getTheme();
+        $boxPath = $theme->getBoxesDir();
         if (file_exists($boxPath) && is_readable($boxPath)) {
-            $handle = opendir($zm_runtime->getThemeBoxPath());
+            $handle = opendir($theme->getBoxesDir());
             $zmBoxes = array();
             while (false !== ($file = readdir($handle))) {
                 $zmBoxes[$file] = $file;

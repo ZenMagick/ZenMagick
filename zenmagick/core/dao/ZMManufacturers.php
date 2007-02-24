@@ -64,7 +64,8 @@ class ZMManufacturers extends ZMDao {
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
     function getManufacturerForId($id) {
-    global $zm_request;
+    global $zm_runtime;
+
         $manufacturer = null;
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
@@ -72,7 +73,7 @@ class ZMManufacturers extends ZMDao {
                 on (m.manufacturers_id = mi.manufacturers_id
                 and mi.languages_id = :languageId)
                 where m.manufacturers_id = :manufacturerId";
-        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
         $sql = $this->db_->bindVars($sql, ':manufacturerId', $id, 'integer');
 
         $results = $this->db_->Execute($sql);
@@ -98,13 +99,14 @@ class ZMManufacturers extends ZMDao {
      * @return array List of <code>ZMManufacturer</code> instances.
      */
     function getManufacturers() {
-    global $zm_request;
+    global $zm_runtime;
+
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id
                 and mi.languages_id = :languageId)";
-        $sql = $this->db_->bindVars($sql, ':languageId', $zm_request->getLanguageId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
         $results = $this->db_->Execute($sql);
 
         $manufacturers = array();

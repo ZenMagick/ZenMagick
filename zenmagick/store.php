@@ -29,9 +29,6 @@
     $zm_messages = new ZMMessages();
     $zm_categories->setPath($cPath_array);
 
-    // TODO: theme stuff
-    $zm_theme = new ZMTheme();
-
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
 
@@ -40,6 +37,11 @@
             $pageCache = $zm_runtime->getPageCache();
             if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
                 echo $contents;
+                if (zm_setting('isDisplayTimerStats')) {
+                    $_zm_db = $zm_runtime->getDB();
+                    echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
+                    echo 'page: ' . zm_get_elapsed_time() . ' sec. -->';
+                }
                 require('includes/application_bottom.php');
                 if (zm_setting('isEnableOB')) { ob_end_flush(); }
                 exit;
@@ -55,26 +57,27 @@
             // TODO: theme stuff !!!!!!!!!
             $zm_themeInfo = $zm_theme->getThemeInfo();
             // need to do this in global namespace
-            $_zm_tstatic = $themeLoader->getStatic();
-            // load local.php first
-            if (array_key_exists('local', $_zm_tstatic)) {
-                require_once($_zm_tstatic['local']);
-            }
+            $_zm_tstatic = $_zm_themeLoader->getStatic();
             foreach ($_zm_tstatic as $static) {
                 require_once($static);
             }
 
-            // for now handle theme switch....
+            // TODO: theme switch; allow once only
+            // ideally, this should all be called inside ZMRuntime::setThemeId(..)
+            // actually, there should be someone else responsible for updaing all this ;)
+            // ... like a request dispatcher...
             if ($zm_runtime->getThemeId() != $zm_themeInfo->getThemeId()) {
-                // theme switch; allow once only
-                $themeLoader->addPath($zm_runtime->getThemePath()."/".ZM_THEME_EXTRA);
+                $zm_theme = $zm_runtime->getTheme();
+
+                // add new root loader
+                $_zm_defaultThemeLoader =& new ZMLoader("defaultThemeLoader");
+                $_zm_defaultThemeLoader->addPath($zm_theme->getExtraDir());
+                $rootLoader = $zm_loader->getRootLoader();
+                $rootLoader->setParent($_zm_defaultThemeLoader);
+
                 $zm_themeInfo = $zm_theme->getThemeInfo();
                 // need to do this in global namespace
-                $_zm_tstatic = $themeLoader->getStatic();
-                // load local.php first
-                if (array_key_exists('local', $_zm_tstatic)) {
-                    require_once($_zm_tstatic['local']);
-                }
+                $_zm_tstatic = $_zm_defaultThemeLoader->getStatic();
                 foreach ($_zm_tstatic as $static) {
                     require_once($static);
                 }

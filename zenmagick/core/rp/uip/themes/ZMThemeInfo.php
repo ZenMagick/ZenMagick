@@ -26,6 +26,9 @@
 /**
  * Theme info base class.
  *
+ * <p>If a <code>parent</code> is set, configuration, layout and a few other settings 
+ * will be merged.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.rp.uip.themes
  * @version $Id$
@@ -37,26 +40,32 @@ class ZMThemeInfo extends ZMObject {
     var $layout_;
     var $js_default_events_;
     var $js_events_;
+    var $parent_;
 
 
     /**
      * Default c'tor.
+     *
+     * @param ZMThemeInfo parent Optional parent theme info instance.
      */
     function ZMThemeInfo() {
         parent::__construct();
 
+        $this->parent_ = array();
         $this->info_ = array();
         $this->config_ = array();
         $this->layout_ = array();
         $this->js_default_events_ = array();
         $this->js_events_ = array();
         $this->setDefaultLayout('default_layout');
-        $this->setViewDir("views/");
+        $this->setViewsDir("views/");
         $this->setErrorPage('error');
     }
 
     /**
      * Default c'tor.
+     *
+     * @param ZMThemeInfo parent Optional parent theme info instance.
      */
     function __construct() {
         $this->ZMThemeInfo();
@@ -69,6 +78,21 @@ class ZMThemeInfo extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Set a parent theme info.
+     *
+     * <p>This is to allow to use the default theme info configuration.</p>
+     *
+     * @param ZMThemeInfo parent An optional parent theme info.
+     */
+    function setParent(&$parent) {
+        $this->parent_ =& $parent;
+        $this->config_ = array_merge($parent->config_, $this->config_);
+        $this->layout_ = array_merge($parent->layout_, $this->layout_);
+        $this->js_default_events_ = array_merge($parent->js_default_events_, $this->js_default_events_);
+        $this->js_events_ = array_merge($parent->js_events_, $this->js_events_);
+    }
 
     // getter/setter
     function setThemeId($themeId) { $this->themeId_ = $themeId; }
@@ -96,8 +120,8 @@ class ZMThemeInfo extends ZMObject {
     function setDefaultLayout($name) { $this->config_['default-template'] = $name; }
     function setLayout($page, $name) { $this->layout_[$page] = $name; }
 
-    function setViewDir($dir) { $this->config_['view-dir'] = $dir; }
-    function getViewDir() { return $this->config_['view-dir']; }
+    function setViewsDir($dir) { $this->config_['view-dir'] = $dir; }
+    function getViewsDir() { return $this->config_['view-dir']; }
 
     function getTemplateFor($name) {
         if (array_key_exists($name, $this->layout_)) {

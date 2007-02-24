@@ -96,9 +96,7 @@ class ZMThemeView extends ZMView {
     function getViewFilename($subdir=null, $prefixToDir=true) {
     global $zm_theme;
 
-        //XXX TODO: theme stuff
-        $themeInfo = $zm_theme->getThemeInfo();
-        $filename = $themeInfo->getViewDir();
+        $filename = $zm_theme->getViewsDir();
         if (null != $subdir) {
             $filename .= $subdir.'/';
             if ($prefixToDir) {
@@ -131,9 +129,9 @@ class ZMThemeView extends ZMView {
         $template = $this->getTemplate();
         if (null != $template) {
             $zm_content_include = $this->page_;
-            include($zm_theme->getThemePath($template.'.php'));
+            include($zm_theme->themeFile($template.'.php'));
         } else {
-            include($zm_theme->getThemePath($this->page_.'.php'));
+            include($zm_theme->themeFile($this->page_.'.php'));
         }
     }
 

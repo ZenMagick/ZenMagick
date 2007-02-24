@@ -30,20 +30,30 @@
  */
 class DemoThemeInfo extends ZMThemeInfo {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function DemoThemeInfo() {
         parent::__construct();
+
         $this->setName('ZenMagick Demo Theme');
-        $this->setVersion('0.2');
-        $this->setAuthor('ZenMagick 2006');
+        $this->setVersion('0.3');
+        $this->setAuthor('ZenMagick 2006-2007');
         $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
 
-        $this->setLayout('popup_cvv_help', 'popup_layout');
-        $this->setLayout('popup_search_help', 'popup_layout');
-        $this->setLayout('popup_shipping_estimator', 'popup_layout');
+        // configure individual layout templates
+        //$this->setLayout('static', 'special_layout');
+
+        // keep error page simple; the default full error page requires a define page..
+        //$this->setLayout('error', null);
+
+        // set default JS event handler; i.e. for ALL pages
+        //$this->setDefaultPageEventHandler('onload', "inject_category_code();");
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->DemoThemeInfo();
     }

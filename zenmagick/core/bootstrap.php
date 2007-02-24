@@ -487,7 +487,7 @@ if (!class_exists("ZMObject")) {
      * @package net.radebatz.zenmagick
      * @return long The execution time in milliseconds.
      */
-    function zm_get_execution_time() {
+    function zm_get_elapsed_time() {
         $startTime = explode (' ', PAGE_PARSE_START_TIME);
         $endTime = explode (' ', microtime());
         $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];

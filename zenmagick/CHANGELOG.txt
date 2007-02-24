@@ -1,3 +1,25 @@
+Release 0.7.0
+- added about page
+- added optional PHP console; good for debuging, but a possible security issue,
+  so it's distributed in the etc directory and needs to be copied manually into
+  the zen-cart admin folder
+- removed echo from eval calls
+- theme code refactoring
+- moved getCurrencyId() and getLanguageId() and getLanguageName() from ZMRequest to ZMRuntime
+- theme info will inherit default settings
+- added zm_phpinfo() function that strips some of the original formatting
+- fix: removed unneccessary echo from eval(..) calls
+- renamed ZMRuntime::getApplicationRoot() to getContext()
+- ZMLoader::getStatic() now guarantees that local.php is the first item if it
+  exists
+- language settings are now also inherited from the default theme
+- changed default templates to use ZMDateRule to validate dates - the JS
+  validation is now also more strict; this also means UI_DATE_FORMAT_VALIDATION
+  is obsolete :)
+- refactored generic date parsing into zm_parse_date(..)
+- excluded account, write and edit pages from page cache - this is a temp.
+  solutions until I can come up with some proper config for this
+
 Release 0.6.4:
 - fix: release 0.6.3 returns wrong version number (0.6.2)
 - fixed: (unused) SQL for language support for ez pages

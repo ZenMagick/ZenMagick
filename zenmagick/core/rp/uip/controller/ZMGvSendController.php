@@ -68,7 +68,7 @@ class ZMGvSendController extends ZMController {
         $view =& $this->create("ThemeView", 'gv_send');
         if ('doneprocess' == $zm_request->getRequestParameter('action')) {
             $zm_messages->add(zm_l10n_get("Gift Certificate successfully send."), 'msg');
-            $view =& new ZMRedirectView('account');
+            //$view =& new ZMRedirectView('account');
         }
 
         return $view;

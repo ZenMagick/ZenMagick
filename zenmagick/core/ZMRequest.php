@@ -58,32 +58,11 @@ class ZMRequest {
 
 
     /**
-     * Get the language id.
-     *
-     * @return int The current language id.
-     */
-    function getLanguageId() { return (int)$_SESSION['languages_id']; }
-
-    /**
-     * Get the current language name.
-     *
-     * @return string The current language name.
-     */
-    function getLanguageName() { return $_SESSION['language']; }
-
-    /**
      * Get the full query string.
      *
      * @return string The full query string for this request.
      */
     function getQueryString() { return $_SERVER['QUERY_STRING']; }
-
-    /**
-     * Get the current currency id.
-     *
-     * @return int The current currency id.
-     */
-    function getCurrencyId() { return $_SESSION['currency']; }
 
     /**
      * Get the current shopping cart.
@@ -261,17 +240,29 @@ class ZMRequest {
         }
 
         // language for this request
-        $lang = $this->getLanguageName();
+        $lang = $zm_runtime->getLanguageName();
 
         // check if is already initialised
         if (array_key_exists($lang, $GLOBALS['zm_l10n_text']))
             return;
 
-        $path = $zm_runtime->getThemeLangPath().$lang."/";
+        $theme = $zm_runtime->getTheme();
+        $path = $theme->getLangDir().$lang."/";
         $includes = zm_find_includes($path);
         if (0 < count($includes)) {
             foreach ($includes as $include) {
                 require_once($include);
+            }
+        }
+
+        // or do we always do this???
+        if (zm_setting('isEnableThemeDefaults')) {
+            $defaultLangPath = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$lang."/";
+            $includes = zm_find_includes($defaultLangPath);
+            if (0 < count($includes)) {
+                foreach ($includes as $include) {
+                    require_once($include);
+                }
             }
         }
 

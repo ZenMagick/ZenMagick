@@ -28,26 +28,32 @@
     // validate date
     function zm_checkdate($date, $format="DD/MM/YYYY") {
         // day
-        $day = "1";
+        $day = 1;
         $dpos = strpos($format, "DD");
         if (!(false === $dpos)) {
             $day = substr($date, $dpos, 2);
         }
 
         //month
-        $month = "1";
+        $month = 1;
         $mpos = strpos($format, "MM");
         if (!(false === $mpos)) {
             $month = substr($date, $mpos, 2);
         }
 
         // year
-        $year = 1;
-        $yspos = strpos($format, "Y");
-        $yepos = strrpos($format, "Y");
-        if (!(false === $yspos) && !(false === $yepos)) {
-            $year = substr($date, $yspos, $yepos-$yspos+1);
+        $cc = 1; $yy = 1;
+        $cypos = strpos($format, 'YYYY');
+        if (false !== $cypos) {
+            $cc = substr($date, $cypos, 2);
+            $yy = substr($date, $cypos+2, 2);
+        } else {
+            $ypos = strpos($format, 'YY');
+            if (false !== $ypos) {
+                $yy = substr($date, $ypos, 2);
+            }
         }
+        $year = $cc.$yy;
 
         return @checkdate($month, $day, $year);
     }

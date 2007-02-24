@@ -30,7 +30,7 @@
     <div id="sb_currencies" class="box">
         <?php zm_form(FILENAME_DEFAULT, '', null, "get") ?>
             <div>
-                <?php zm_idp_select('currency', $currencyList, 1, $zm_request->getCurrencyId(), 'this.form.submit()') ?>
+                <?php zm_idp_select('currency', $currencyList, 1, $zm_runtime->getCurrencyId(), 'this.form.submit()') ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
                 </noscript>

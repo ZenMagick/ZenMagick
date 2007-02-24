@@ -32,8 +32,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMShoppingCart extends ZMObject {
-    var $db_;
+class ZMShoppingCart extends ZMDao {
     var $cart_;
     var $zenTotals_;
     var $payments_;
@@ -43,12 +42,8 @@ class ZMShoppingCart extends ZMObject {
      * Default c'tor.
      */
     function ZMShoppingCart() {
-    global $zm_loader, $zm_runtime;
-
         parent::__construct();
 
-        $this->db_ = $zm_runtime->getDB();
-        $this->loader_ = $zm_loader;
         $this->refresh();
         $this->zenTotals_ = null;
         $this->payments_ = null;
@@ -162,7 +157,7 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of product attributes.
      */
     function _getItemAttributes($item) {
-    global $zm_request;
+    global $zm_runtime;
 
         // collect attribute values for same attribute
         $attributesLookup = array();
@@ -186,7 +181,7 @@ class ZMShoppingCart extends ZMObject {
             $sql = $this->db_->bindVars($sql, ":type", $type, "integer");
             $sql = $this->db_->bindVars($sql, ":productId", $item->getId(), "integer");
             $sql = $this->db_->bindVars($sql, ":option", $option, "integer");
-            $sql = $this->db_->bindVars($sql, ":languageId", $zm_request->getLanguageId(), "integer");
+            $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
             $results = $this->db_->Execute($sql);
 

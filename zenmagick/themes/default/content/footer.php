@@ -37,12 +37,7 @@
       <p>
         <?php $db = $zm_runtime->getDB(); ?>
         Queries: <?php echo $db->queryCount(); ?>; Query Time: <?php echo round($db->queryTime(), 4); ?>;
-        <?php
-            $startTime = explode (' ', PAGE_PARSE_START_TIME);
-            $endTime = explode (' ', microtime());
-            $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
-        ?>
-        Page Execution Time: <?php echo round($executionTime, 4); ?>;
+        Page Execution Time: <?php echo zm_get_elapsed_time(); ?>;
       </p>
   <?php } ?>
 
@@ -51,5 +46,5 @@
   <?php } ?>
 
   <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://zenmagick.radebatz.net">ZenMagick</a></p>
-  <p>&copy; 2006 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
+  <p>&copy; 2006-2007 <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
 </div>
