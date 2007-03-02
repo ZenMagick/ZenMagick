@@ -111,20 +111,6 @@ class ZMLoader {
     }
 
     /**
-     * Get the root loader.
-     *
-     * @return ZMLoader The top element in the loader hierachy.
-     */
-    function getRootLoader() {
-        $root = $this;
-        while (null != $root->parent_) {
-            $root =& $root->parent_;
-        }
-
-        return $root;
-    }
-
-    /**
      * Set the parent loader.
      *
      * @param ZMLoader parent The new parent.
@@ -147,6 +133,8 @@ class ZMLoader {
     /**
      * Returns a list of all the static code in this loaders path. Code is identified by a filename starting with
      * a lower case character.
+     *
+     * <p>Note: This is an instance specific method. There is no delegation to a parent loader.</p>
      *
      * @return array Static files with local.php being the first (if it exists).
      */

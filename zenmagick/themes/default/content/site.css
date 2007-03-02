@@ -125,6 +125,7 @@ label {margin:2px 4px 4px 3px;}
 /* show only active sub-categories */
 #sb_categories ul ul {display:none;}
 #sb_categories ul.act {display:block;}
+#sb_categories a.curr {text-decoration:underline;}
 
 #sb_manufacturers select, #sb_currencies select {width:100%;}
 #sb_reviews {text-align:center;}

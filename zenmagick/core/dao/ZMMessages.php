@@ -46,15 +46,7 @@ class ZMMessages extends ZMDao {
 
         $this->messages_ = array();
         $this->uniqueMsgRef_ = array();
-        if (isset($messageStack) && isset($messageStack->messages)) {
-            foreach ($messageStack->messages as $zenMessage) {
-                $pos = strpos($zenMessage['text'], "/>");
-                $text = substr($zenMessage['text'], $pos+2);
-                $this->add($text, 
-                  (false === strpos($zenMessage['params'], 'Error') 
-                    ? (false === strpos($zenMessage['params'], 'Success') ? "warn" : "msg") : "error"));
-            }
-        }
+        $this->loadMessageStack();
     }
 
     /**
@@ -71,6 +63,22 @@ class ZMMessages extends ZMDao {
         parent::__destruct();
     }
 
+    /**
+     * Load messages from zen-cart message stack.
+     */
+    function loadMessageStack() {
+    global $messageStack;
+
+        if (isset($messageStack) && isset($messageStack->messages)) {
+            foreach ($messageStack->messages as $zenMessage) {
+                $pos = strpos($zenMessage['text'], "/>");
+                $text = substr($zenMessage['text'], $pos+2);
+                $this->add($text, 
+                  (false === strpos($zenMessage['params'], 'Error') 
+                    ? (false === strpos($zenMessage['params'], 'Success') ? "warn" : "msg") : "error"));
+            }
+        }
+    }
 
     /**
      * Add a message.

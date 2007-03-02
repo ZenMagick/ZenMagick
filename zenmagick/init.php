@@ -45,7 +45,7 @@
         require($_zm_bin_dir."ZMLoader.php");
         require($_zm_bin_dir."ZMDao.php");
         require($_zm_bin_dir."dao/ZMThemes.php");
-        require($_zm_bin_dir."rp/uip/themes/ZMTheme.php");
+        //require($_zm_bin_dir."rp/uip/themes/ZMTheme.php");
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
@@ -57,15 +57,7 @@
     }
 
     // use loader for all class loading from here?
-    $zm_runtime = $zm_loader->create("ZMRuntime");
-
-    // configure theme loader
-    $zm_theme = $zm_runtime->getTheme();
-    $_zm_themeLoader =& new ZMLoader("themeLoader");
-    $_zm_themeLoader->addPath($zm_theme->getExtraDir());
-
-    // use theme loader first
-    $zm_loader->setParent($_zm_themeLoader);
+    $zm_runtime =& $zm_loader->create("ZMRuntime");
 
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {
@@ -83,12 +75,13 @@
     }
     $zm_request = new ZMRequest();
     $zm_themes = new ZMThemes();
+    $zm_layout = new ZMLayout();
 
     // set up main class instances (aka the ZenMagick API)
-    $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
     $zm_reviews = new ZMReviews();
-    $zm_categories = new ZMCategories($cPath_array);
+    print_r($cPath_array);
+    $zm_categories = new ZMCategories();
     $zm_features = new ZMFeatures();
     $zm_manufacturers = new ZMManufacturers();
     $zm_accounts = new ZMAccounts();
@@ -97,15 +90,18 @@
     $zm_countries = new ZMCountries();
     $zm_orders = new ZMOrders();
     $zm_cart = new ZMShoppingCart();
-    $zm_crumbtrail = new ZMCrumbtrail();
     $zm_messages = new ZMMessages();
     $zm_pages = new ZMEZPages();
     $zm_coupons = new ZMCoupons();
     $zm_banners = new ZMBanners();
-    $zm_meta = $zm_loader->create('MetaTags');
     $zm_languages = new ZMLanguages();
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();
+
+    // these can be replaced by themes; will be reinitializes durin theme switching
+    $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
+    $zm_meta =& $zm_loader->create('MetaTags');
+
 
     // global settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
@@ -113,7 +109,23 @@
         include($_zm_local);
     }
 
+    require(DIR_FS_CATALOG.'zenmagick/zc_fixes.php');
+
+    // handle page caching
+    if (zm_setting('isEnableZenMagick') && zm_setting('isPageCacheEnabled')) {
+        $pageCache = $zm_runtime->getPageCache();
+        if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
+            echo $contents;
+            if (zm_setting('isDisplayTimerStats')) {
+                $_zm_db = $zm_runtime->getDB();
+                echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
+                echo 'page: ' . zm_get_elapsed_time() . ' sec. -->';
+            }
+            require('includes/application_bottom.php');
+            exit;
+        }
+    }
+
     if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
-    require(DIR_FS_CATALOG.'zenmagick/zc_fixes.php');
 ?>

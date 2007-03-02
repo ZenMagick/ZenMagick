@@ -25,29 +25,20 @@
 ?>
 <?php
 
-    // needs to be instantiated after application_top.php
-    $zm_messages = new ZMMessages();
+    $zm_messages->loadMessageStack();
     $zm_categories->setPath($cPath_array);
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
-
-        // check page cache
-        if (zm_setting('isPageCacheEnabled')) {
-            $pageCache = $zm_runtime->getPageCache();
-            if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
-                echo $contents;
-                if (zm_setting('isDisplayTimerStats')) {
-                    $_zm_db = $zm_runtime->getDB();
-                    echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
-                    echo 'page: ' . zm_get_elapsed_time() . ' sec. -->';
-                }
-                require('includes/application_bottom.php');
-                if (zm_setting('isEnableOB')) { ob_end_flush(); }
-                exit;
-            }
+        
+        $dispatcher = new ZMRequestDispatcher();
+        if ($dispatcher->dispatch()) {
+            require('includes/application_bottom.php');
+            if (zm_setting('isEnableOB')) { ob_end_flush(); }
+            exit;
         }
 
+      /*
         // get controller
         $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
@@ -100,6 +91,7 @@
             if (zm_setting('isEnableOB')) { ob_end_flush(); }
             exit;
         }
+       */
     }
 
     // default to zen-cart

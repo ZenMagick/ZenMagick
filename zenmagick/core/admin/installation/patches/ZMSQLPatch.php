@@ -113,14 +113,6 @@ class ZMSQLPatch extends ZMInstallationPatch {
         if ($results['ignored'] != 0) {
             array_push($this->messages_, $this->create("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
         }
-
-        if (!zm_is_empty($results['output'])) {
-            foreach ($results['output'] as $value) {
-                if (!zm_is_empty($value)) {
-                    array_push($this->messages_, $this->create("Message", 'ERROR: '.$value.'.', 'error'));
-                }
-            }
-        }
     }
 
 }

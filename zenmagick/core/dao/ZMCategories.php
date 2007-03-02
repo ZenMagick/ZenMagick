@@ -77,7 +77,14 @@ class ZMCategories extends ZMDao {
      *
      * @param array path The current path array.
      */
-    function setPath($path) { $this->path_ = $path; }
+    function setPath($path) { 
+        $this->path_ = $path;
+        
+        $this->categories_ = null;
+        $this->tree_ = null;
+        // required to make category->getPath() work
+        $this->_buildTree();
+    }
 
     /**
      * Return the current category.
@@ -111,8 +118,8 @@ class ZMCategories extends ZMDao {
     function getDefaultCategoryForProductId($productId) {
         $sql = "SELECT categories_id
                 FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
-                WHERE c products_id = :productId";
-        $sql = $this->db_->bindVars($query, ":productId", $productId, 'integer');
+                WHERE products_id = :productId";
+        $sql = $this->db_->bindVars($sql, ":productId", $productId, 'integer');
         $results = $this->db_->Execute($sql);
 
         $category = null;

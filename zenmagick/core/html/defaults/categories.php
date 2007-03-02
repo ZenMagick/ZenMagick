@@ -54,7 +54,8 @@
             echo '<li>';
             $class = '';
             $class = $active ? 'act' : '';
-            $class = $empty ? ' empty' : '';
+            $class .= $empty ? ' empty' : '';
+            $class .= ($active && !$category->hasChildren()) ? ' curr' : '';
             $class = trim($class);
             $onclick = $empty ? (zm_setting('isUseCategoryPage') ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .

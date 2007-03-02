@@ -430,7 +430,7 @@ if (!class_exists("ZMObject")) {
     function zm_is_empty($value) { 
         // support for arrays
         if (is_array($value)) {
-            return 0 < count($value);
+            return 0 == count($value);
         }
 
         return (empty($value) && 0 == strlen($value)) || null == $value || 0 == strlen(trim($value));
@@ -553,6 +553,31 @@ if (!class_exists("ZMObject")) {
         }
         $result = mkdir($dir, octdec($perms));
         return $result;
+    }
+
+    /**
+     * Create a PHP directive for all global ZenMagick objects.
+     *
+     * <p>This can be used as argument for <code>eval(..)</code> to make all
+     * ZenMagick globals available. Example: <code>eval(zm_globals());</code>.</p>
+     *
+     * @package net.radebatz.zenmagick
+     * @return string A valid PHP global directive including all ZenMagick globals.
+     */
+    function zm_globals() {
+        $code = 'global ';
+        $first = true;
+        foreach ($GLOBALS as $name => $instance) {
+            if (zm_starts_with($name, "zm_")) {
+                if (is_object($instance)) {
+                    if (!$first) $code .= ", ";
+                    $code .= '$'.$name;
+                    $first = false;
+                }
+            }
+        }
+        $code .= ";";
+        return $code;
     }
 
 }
