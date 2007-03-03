@@ -77,10 +77,10 @@ class ZMPageCache extends ZMCache {
     function isCacheable() {
     global $zm_request, $zm_cart;
         
-    return !$zm_request->isSecure() 
-      && !zm_is_checkout_page(true) 
-      && $zm_cart->isEmpty() 
-      && false === strpos($zm_request->getPageName(), 'account');
+        return !$zm_request->isSecure() 
+          && !zm_is_checkout_page(true) 
+          && $zm_cart->isEmpty() 
+          && false === strpos($zm_request->getPageName(), 'account');
     }
 
     /**
@@ -92,9 +92,9 @@ class ZMPageCache extends ZMCache {
      * @return string A cache id or <code>null</code>.
      */
     function getId() {
-    global $zm_request;
+    global $zm_runtime, $zm_request;
 
-        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId();
+        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $zm_runtime->getLanguageId();
     }
 
 }

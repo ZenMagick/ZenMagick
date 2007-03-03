@@ -112,7 +112,6 @@ class ZMI18nPatch extends ZMFilePatch {
         return true;
     }
     
-
     /**
      * Generates a list of all patched zen-cart language files.
      *
@@ -134,7 +133,6 @@ class ZMI18nPatch extends ZMFilePatch {
         return $files;
     }
     
-
     /**
      * Generates a list of all unpatched zen-cart language files.
      *
@@ -165,6 +163,14 @@ class ZMI18nPatch extends ZMFilePatch {
         return $files;
     }
     
+    /**
+     * Check if this patch supports undo.
+     *
+     * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
+     */
+    function canUndo() {
+        return true;
+    }
 
     /**
      * Revert the patch.

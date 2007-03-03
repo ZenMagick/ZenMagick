@@ -93,6 +93,7 @@ class ZMCoreCompressor extends ZMObject {
 
     /**
      * Check for errors.
+        $themes = $zm_runtime->getThemes();
      *
      * @return bool <code>true</code> if errors exist.
      */
@@ -202,12 +203,12 @@ class ZMCoreCompressor extends ZMObject {
         if (null !== $out) {
             // write to file
             if (!$handle = fopen($out, 'ab')) {
-                array_push($this->errors_, 'could not open file for writing ' . $file);
+                array_push($this->errors_, 'could not open file for writing ' . $out);
                 return;
             }
 
             if (false === fwrite($handle, $source)) {
-                array_push($this->errors_, 'could not write to file ' . $file);
+                array_push($this->errors_, 'could not write to file ' . $out);
                 return;
             }
       
@@ -241,8 +242,16 @@ class ZMCoreCompressor extends ZMObject {
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
                     mkdir(dirname($outdir), 0755);
+                    if (!file_exists(dirname($outdir))) {
+                        array_push($this->errors_, 'could not create directory ' . dirname($outdir));
+                        return;
+                    }
                 }
                 mkdir($outdir, 0755);
+                if (!file_exists($outdir)) {
+                    array_push($this->errors_, 'could not create directory ' . $outdir);
+                    return;
+                }
             }
             //echo $infile . " >> " . $outfile ."\n";
             $this->_stripPhpFile($infile, $outfile);
@@ -274,8 +283,16 @@ class ZMCoreCompressor extends ZMObject {
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
                     mkdir(dirname($outdir), 0755);
+                    if (!file_exists(dirname($outdir))) {
+                        array_push($this->errors_, 'could not create directory ' . dirname($outdir));
+                        return;
+                    }
                 }
                 mkdir($outdir, 0755);
+                if (!file_exists($outdir)) {
+                    array_push($this->errors_, 'could not create directory ' . $outdir);
+                    return;
+                }
             }
             $outfile = $outdir.'/'.basename($infile);
             $sub = 1;
@@ -287,12 +304,12 @@ class ZMCoreCompressor extends ZMObject {
             $source = file_get_contents($infile);
 
             if (!$handle = fopen($outfile, 'ab')) {
-                array_push($this->errors_, 'could not open file for writing ' . $file);
+                array_push($this->errors_, 'could not open file for writing ' . $outfile);
                 return;
             }
 
             if (false === fwrite($handle, $source)) {
-                array_push($this->errors_, 'could not write to file ' . $file);
+                array_push($this->errors_, 'could not write to file ' . $outfile);
                 return;
             }
       

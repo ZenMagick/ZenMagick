@@ -23,7 +23,7 @@
 ?>
 <?php
 
-define('_ZM_ZEN_ADMIN_FILE', DIR_WS_BOXES . "extras_dhtml.php");
+define('_ZM_ZEN_ADMIN_FILE', DIR_FS_ADMIN . DIR_WS_BOXES . "extras_dhtml.php");
 
 
 /**
@@ -118,6 +118,15 @@ class ZMAdminMenuPatch extends ZMFilePatch {
         return true;
     }
     
+    /**
+     * Check if this patch supports undo.
+     *
+     * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
+     */
+    function canUndo() {
+        return true;
+    }
+
     /**
      * Revert the patch.
      *

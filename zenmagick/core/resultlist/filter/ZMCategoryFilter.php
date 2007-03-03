@@ -65,7 +65,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
     function _getProductIds() {
     global $zm_products;
 
-        if (null == $this->productIds_) {
+        if (null === $this->productIds_) {
             $this->productIds_ = $zm_products->getProductIdsForCategoryId($this->filterValue_);
         }
         return $this->productIds_;

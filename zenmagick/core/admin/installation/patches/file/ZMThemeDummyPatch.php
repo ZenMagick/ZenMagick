@@ -61,9 +61,10 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-    global $zm_themes;
+    global $zm_runtime;
 
-        foreach ($zm_themes->getThemeInfoList() as $themeInfo) {
+        $themes = $zm_runtime->getThemes();
+        foreach ($themes->getThemeInfoList() as $themeInfo) {
             if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
             }
@@ -112,15 +113,16 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-    global $zm_themes;
+    global $zm_runtime;
 
+        $themes = $zm_runtime->getThemes();
         if (!(zm_setting('isEnablePatching') && zm_setting('isAutoCreateZCThemeDummies')) && !$force && $this->isOpen()) {
             // disabled
             zm_log("** ZenMagick: create theme dummies disabled - skipping");
             return false;
         }
 
-        foreach ($zm_themes->getThemeInfoList() as $themeInfo) {
+        foreach ($themes->getThemeInfoList() as $themeInfo) {
             if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
             }

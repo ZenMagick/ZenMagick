@@ -74,7 +74,6 @@
         }
     }
     $zm_request = new ZMRequest();
-    $zm_themes = new ZMThemes();
     $zm_layout = new ZMLayout();
 
     // set up main class instances (aka the ZenMagick API)

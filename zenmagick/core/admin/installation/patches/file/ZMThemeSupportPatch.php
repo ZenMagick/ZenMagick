@@ -134,7 +134,15 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
+    /**
+     * Check if this patch supports undo.
+     *
+     * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
+     */
+    function canUndo() {
+        return true;
+    }
 
     /**
      * Revert the patch.

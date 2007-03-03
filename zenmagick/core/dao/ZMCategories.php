@@ -124,7 +124,7 @@ class ZMCategories extends ZMDao {
 
         $category = null;
         if (!$results->EOF) {
-            $category =& $this->getCategoryForId($results->fields);
+            $category =& $this->getCategoryForId($results->fields['categories_id']);
         }
         
         return $category;

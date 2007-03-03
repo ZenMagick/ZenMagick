@@ -19,6 +19,21 @@ Release 0.7.0
 - refactored generic date parsing into zm_parse_date(..)
 - excluded account, write and edit pages from page cache - this is a temp.
   solutions until I can come up with some proper config for this
+- fix zm_is_empty for arrays
+- added ZMRequestDispatcher to allow for multiple theme switching
+  => all ZenMagick globals are instantiated before, MetaTags and Crumbtrail
+  may be overwritten with theme versions; same stays true for controller
+  => switching is only supported in extra code, everything else is not defined
+  => the switch will be done after *all* extra code has been loaded
+- fix categories code and underline current category in sidebox
+- moved cache check into init.php, thus cutting out more code
+- fixed broken SQL patch
+- added canUndo() metod to ZMInstallatinPatch
+- added better file permission checks to core.php compressor
+- added language to key for page cache
+- use full names in patch messages
+- fix ZMProduct::getDefaultCategory()
+
 
 Release 0.6.4:
 - fix: release 0.6.3 returns wrong version number (0.6.2)
