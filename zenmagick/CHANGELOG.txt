@@ -33,6 +33,8 @@ Release 0.7.0
 - added language to key for page cache
 - use full names in patch messages
 - fix ZMProduct::getDefaultCategory()
+- fix features SQL for MySQL > 5.0.24
+- fix some dao SQL issues with MySQL > 5.0.24
 
 
 Release 0.6.4:

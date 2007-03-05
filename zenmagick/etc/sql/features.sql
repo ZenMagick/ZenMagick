@@ -67,7 +67,7 @@ CREATE TABLE zm_product_features (
   product_id int(11) NOT NULL,
   feature_id int(11) NOT NULL,
   feature_index_id int(11) NOT NULL default '1',
-  feature_value text NOT NULL default '',
+  feature_value text NOT NULL,
   PRIMARY KEY (product_feature_id),
   KEY idx_product_id_feature_id_zm (product_id, feature_id),
   FOREIGN KEY (product_id) REFERENCES products (products_id) ON DELETE CASCADE,

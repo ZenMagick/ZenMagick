@@ -60,17 +60,20 @@ class ZMProducts extends ZMDao {
     global $zm_runtime;
 
         $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
-                  p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
-                  p.products_tax_class_id, pd.products_description,
-                  IF(s.status = '1', s.specials_new_products_price, NULL) as specials_new_products_price,
-                  IF(s.status ='1', s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order
-                  from ". TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p
-                  left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
-                  TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id
-                  where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
-                  and pd.language_id = :languageId
-                  and p2c.categories_id = :categoryId
-                  order by p.products_sort_order, pd.products_name";
+                p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
+                p.products_tax_class_id, pd.products_description,
+                IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
+                IF(s.status =1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
+                p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status
+                from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .
+                TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
+                TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p2c.products_id = s.products_id
+                where p.products_status = 1
+                and p.products_id = p2c.products_id
+                and pd.products_id = p2c.products_id
+                and pd.language_id = :languageId
+                and p2c.categories_id = :categoryId
+                order by p.products_sort_order, pd.products_name";
         $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
 
@@ -93,15 +96,18 @@ class ZMProducts extends ZMDao {
         $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
                     p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
                     p.products_tax_class_id, pd.products_description,
-                    IF(s.status = '1', s.specials_new_products_price, NULL) as specials_new_products_price,
-                    IF(s.status ='1', s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order
-                  from ". TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p
-                    left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
-                    TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id
-                  where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
+                    IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
+                    IF(s.status = 1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
+                    p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status
+                    from " . TABLE_PRODUCTS . " p left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " .
+                    TABLE_PRODUCTS_DESCRIPTION . " pd, " .
+                    TABLE_MANUFACTURERS . " m
+                    where p.products_status = 1
+                    and pd.products_id = p.products_id
                     and pd.language_id = :languageId
+                    and p.manufacturers_id = m.manufacturers_id
                     and p.manufacturers_id = :manufacturerId
-                  order by p.products_sort_order, pd.products_name";
+                    order by p.products_sort_order, pd.products_name";
         $query = $this->db_->bindVars($query, ":manufacturerId", $manufacturerId, 'integer');
         $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
         $results = $this->db_->Execute($query);
