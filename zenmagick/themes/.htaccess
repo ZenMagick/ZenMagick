@@ -1,0 +1,11 @@
+##
+## Apache httpd access control for ZenMagick themes
+##
+## $Id$
+##
+
+## Allow GET for all
+<LimitExcept GET>
+  Order Allow,Deny
+  Allow from all
+</LimitExcept>

@@ -1,0 +1,23 @@
+##
+## Apache httpd access control for ZenMagick
+##
+## This is the most restrictive configuration, with exceptions configured
+## in subfolders as required.
+##
+## $Id$
+##
+
+## no directory indexing
+Options -Indexes
+
+## disable all access methods
+<LimitExcept>
+  Order Allow,Deny
+  Deny from all
+</LimitExcept>
+
+## generally deny access to PHP files
+<Files *.php>
+  Order Deny,Allow
+  Deny from all
+</Files>
