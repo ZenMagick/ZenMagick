@@ -2,13 +2,10 @@ missing zen-cart stuff
 ======================
 
 - implement missing weight and onetime prices for attributes
-- support more zen-cart options/features
-- category filter (get default category)
+- support more zen-cart options/features - do we?
 - product_free_shipping_info and a couple more are still missing
 - can't checkout rope product
 - file attribute
-- fix continue button on checkout success page (this is default behaviour...)
-- cleanup CSS, make theme more consistent
 
 
 usablility / quality / performance / etc
@@ -17,12 +14,12 @@ usablility / quality / performance / etc
 bugs:
 - fix default theme IE bugs; test in IE7
 - popup content should be in define/ez pages or such...
-- load local first, check if array exists in both places (before loading local and when loading settings - should work for db-prefix?
-  (not really a bug, but proper prefix detection to avoid errors)
 - do not create sidebox dummies for filenames including '.in.'
-- file [permissions for created files???
+- file permissions for created files???
 - long text like EMAIL_ADVISORY, popup contents needs to be put somewhere...
 - rely less on zen-cart defines as they might not be available during init...
+- make filter/sorter look nicer and easier to configure (autodetect??)
+- make price filter actually work
 
 admin/install:
 - admin interface for ZM config values
@@ -38,115 +35,37 @@ structure:
 - have separate wrapper around store settings (eg. name, etc)
 - zmboxconfig; admin/theme support? get it working at all
 - restructure to have zenmagick outside htdocs?
-- reorganize theme code; ZMTheme should delegate to ZMThemes, or ZMThemes plus ZMTheme
 - use reflection to populate model classes from request?
 - APIs for other apps; for example WordPress, etc...
-- modules base class?
-- merge theme lang settings with default...
 - add global extra folder; move local.php to there; themes can actually have local.php too!
-- l10n for module messages...
-- use zm_format_address(..) everywhere?
+- l10n for module (eg payments) messages...
+- improve ZMClassLoader to resolve dependencies (use get_parent_class(..) or better 
+  get_class_hierachy(..) for PHP4 comp.)
+- db: config values, sidebox config
+- random query in ZMProducts = more generic db interface ? how to integrate with zen-cart?
+- get proper random query (mostly products)
+- db: recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
+- not sure about the product specials SQL...
 
 general:
-- more validations plus separate validation rules from views/templates; 
-  this could be a big file containing all validations that gets included once 
-  (or include_once per form); each form imports JS and creates rules as required
-- compare for null needs ===
-- test all class changes in PHP5
 - get a logo and favicon
-- add code that if required fails, other rules are skipped - add property 
-  to tell validator that - ah need the JS as well!!!
-- use zm_htmlencode() where required (even alt/title for product images)
 - clean up zen-bridge
-- filter need a name?
-- always add default extra to class loader - declare as common area for all themes...
 - val rules:min -> minlength, also maxlength, range
 - zm_create() as shortcut for $zm_loader->create()...
 - get rid of core/misc/validations.php
+- look into using/supporting gettext
+- more documentation
+- more phpdoc
 
 performance:
 - improve :)
 - redo zm_find_includes, _zm_build_href, zm_get_instance, 
-- create compressed version?
-- extract caching strategy to config file or other storage
-
-db:
-- config values, sidebox config
-- random query in ZMProducts = more generic db interface ? how to integrate with zen-cart?
-- get proper random query (mostly products)
-- recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
-- use 3rd party API for db access??
-- not sure about the specials SQL...
-
-(class) loading:
-- improve ZMClassLoader to resolve dependencies  (PHP5 only?)
-- improve class loader to load only actually required files; what about functions?
-- conditional class loading - we do not need everything all the time?
-  * use loader to get instances - it can load on demand
-  * how do we know what to load?
-  * lowercase is code - always
-  * currently controller are all loaded
-  * do not need model - dao's can use loader
-  * we do need core + dao, everything else could be loader?
-  * var-args for zm_get_instance?
-  * theme code must use loader ?
 
 
-
-documentation
-=============
-
-- more documentation
-- more phpdoc
-- sorting, filtering
-- add version to apidocs (somehow)
-- install instructions: until 1.0 remove core directory before upgrade
-- disable 'skip single product categories' - otherwise the view can't be resolved properly...
-- basic CSS id/class system in default theme
-
-
-stuff
-=====
-- is this where we need convention that upper case is class and needs to be created using loader???
-- for optional overwrites we need to load code before app-top!
-- view/template cache ??? view->getResponse(); view can delegate to cache if configured,ob_start()
-  => controller need to use getView() method to be able to dynamically change the view impl.
-- themeconfig extend each other as well!!
-- look into using/supporting gettext
-- zmInstasllation!
-- zmcorecompressor
-- core.php trims about 200ms of request handling...
-- if core.php => custom classes must extend from zmobject, otherwise they might not be found... or the other way round, use the loader only for zm or zm derived classes!
-- use get_class_hierachy to resolve missing classes when loading!!
-
-
-
-
-Theme handling notes
-====================
-themes:
-* themeconfig:
-  - theme specific config
-
-* theme
-   theme code plus ref to theme config
-   => getThemeConfig()
-   => all the stuff views/templates are doing right now
-
-* runtime
-  - knows the configured theme,
-     => getThemeId
-     => getTHeme
-     ** the rest is job of theme!!
 
 Module notes
 ============
 => implement DPS as showcase
-=> ZMModule => ZMpaymentModule, ZMShippingModule, ZMOrderTotalModule
+=> ZMModule => ZMPaymentModule, ZMShippingModule, ZMOrderTotalModule
 => shared attr. like enabled/disabled, zone for shipping modules, etc + getter setter for order, etc...
 => could be distributed as extra functions/classes to work with zc
-
-- real SEO: wrapper class that converts:
--> a given href to something useful: ie/category names rather than numbers...
--> does the reverse without to much overhead...
--> do we need to reinvent this??

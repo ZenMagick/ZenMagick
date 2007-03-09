@@ -26,6 +26,7 @@
 <?php
 
 if (!function_exists('zen_date_raw')) {
+
     /**
      * Convert UI date into a <em>raw date format</em> that zen-cart
      * understands.
@@ -38,7 +39,7 @@ if (!function_exists('zen_date_raw')) {
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
      * @package net.radebatz.zenmagick
-     * @param string date A date (usually provided by the user).
+     * @param string date A date (usually part of a form submit by the user).
      * @param bool reverse If <code>true</code>, the returned data will be reversed.
      * @return string The provided date converted into the format <code>YYYYDDMM</code>
      *  or <code>MMDDYYYY</code>, respectivley.
@@ -50,6 +51,64 @@ if (!function_exists('zen_date_raw')) {
         $raw = $reverse ? $da[1].$da[0].$da[2].$da[3] : $da[2].$da[3].$da[1].$da[0];
         return $raw;
     }
+
 }
+
+    /**
+     * Lookup and echo a i18n specific setting.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string name The setting name.
+     * @return string A value or null.
+     */
+    function zm_i18n($name) {
+        $i18n = array();
+        if (isset($GLOBALS['_zm_i18n_text'])) {
+            $i18n = $GLOBALS['_zm_i18n_text'];
+        }
+
+        return isset($i18n[$name]) ? $i18n[$name] : null;
+    }
+
+    /**
+     * Add i18n setting.
+     *
+     * @package net.radebatz.zenmagick
+     * @param mixed name The setting name or an array of settings.
+     * @param string value The value (will be ignored if <code>name</code> is of type array).
+     */
+    function zm_i18n_add($name, $value=null) {
+        // ensure we have an array to start with
+        if (!isset($GLOBALS['_zm_i18n_text'])) {
+            $GLOBALS['_zm_i18n_text'] = array();
+        }
+
+        if (is_array($name)) {
+            $GLOBALS['_zm_i18n_text'] = array_merge($GLOBALS['_zm_i18n_text'], $name);
+        } else {
+            $GLOBALS['_zm_i18n_text'][$name] = $value;
+        }
+    }
+
+    /**
+     * Finalise i18n settings.
+     *
+     * <p>This function will convert all i18n settings into corresponding <code>defines</code> and
+     * do all additional stuff that should be done just once.</p>
+     *
+     * @package net.radebatz.zenmagick
+     */
+    function zm_i18n_finalise() {
+        if (!isset($GLOBALS['_zm_i18n_text'])) {
+            return;
+        }
+        foreach ($GLOBALS['_zm_i18n_text'] as $name => $value) {
+            define($name, $value);
+        }
+
+        if (defined('LC_TIME_LOCALE')) {
+            @setlocale(LC_TIME, LC_TIME_LOCALE);
+        }
+    }
 
 ?>

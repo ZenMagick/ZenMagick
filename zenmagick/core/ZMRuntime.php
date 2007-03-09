@@ -127,6 +127,21 @@ class ZMRuntime {
     }
 
     /**
+     * Get <code>ZMTheme</code> instance for the current (or given) theme Id.
+     *
+     * @param string themeId The theme id or <code>null</code> for the current theme id.
+     * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
+     */
+    function getThemeForId($themeId=null) {
+        if (null == $themeId) {
+            return $this->getTheme();
+        }
+        $theme =& new ZMTheme($themeId);
+
+        return $theme;
+    }
+
+    /**
      * Get <code>ZMThemeInfo</code> instance for the current (or given) theme Id.
      *
      * @param string themeId The theme id or <code>null</code> for the current theme id.

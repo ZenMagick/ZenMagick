@@ -25,29 +25,24 @@
 ?>
 <?php
 
-    /**
-     * The settings <code>UI_DATE_FORMAT</code> and <code>UI_DATE_FORMAT_SAMPLE</code>
-     * are designed to work with a generic zen_raw_date(..) function provided
-     * by ZenMagick.
-     */
+    zm_i18n_add(array(
+        // system locale
+        'LC_TIME_LOCALE' => 'en_US.ISO_8859-1',
 
-    // locale
-    @setlocale(LC_TIME, 'en_US.ISO_8859-1');
+        // to format dates
+        'DATE_FORMAT' => 'd/m/Y',
 
-    // various date/time settings as in zen-cart
-    define('DATE_FORMAT_SHORT', '%d/%m/%Y');
-    define('DATE_FORMAT_LONG', '%A %d %B, %Y');
-    define('DATE_FORMAT', 'd/m/Y');
-    define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+        // to parse user input 
+        'UI_DATE_FORMAT' => 'dd/mm/yyyy',
+        'UI_DATE_FORMAT_SAMPLE' => '16/11/1967',
 
-    // format for account dob, advanced search or simply everywhere where zen-cart
-    // is using zen_raw_date(..)
-    define('UI_DATE_FORMAT', 'dd/mm/yyyy');
-    define('UI_DATE_FORMAT_SAMPLE', '16/11/1967');
+        // various date/time formats used
+        'DATE_FORMAT_LONG' => '%A %d %B, %Y',
+        'DATE_TIME_FORMAT' => '%d/%m/%Y %H:%M:%S',
 
-    // HTML i18n settings
-    define('HTML_PARAMS','dir="ltr" lang="en"');
-    // charset for web pages and emails
-    define('HTML_CHARSET', 'iso-8859-1');
+        // HTML settings for pages and emails
+        'HTML_PARAMS' => 'dir="ltr" lang="en"',
+        'HTML_CHARSET' => 'iso-8859-1'
+    ));
 
 ?>

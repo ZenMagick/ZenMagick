@@ -101,12 +101,19 @@
     $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
     $zm_meta =& $zm_loader->create('MetaTags');
 
-
     // global settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
         include($_zm_local);
     }
+
+    // load 
+    if (zm_setting('isEnableZenMagick')) {
+        $zm_theme =& zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
+    } else {
+        $zm_theme =& $zm_runtime->getTheme();
+    }
+    $zm_themeInfo = $zm_theme->getThemeInfo();
 
     require(DIR_FS_CATALOG.'zenmagick/zc_fixes.php');
 

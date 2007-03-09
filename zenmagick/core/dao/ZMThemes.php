@@ -115,7 +115,7 @@ class ZMThemes extends ZMDao {
         $themes = array();
         $handle = @opendir($zm_runtime->getThemesDir());
         while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file || "CVS" == $file)
+            if (zm_starts_with($file, '.') || 'CVS' == $file)
                 continue;
             array_push($themes, $file);
         }

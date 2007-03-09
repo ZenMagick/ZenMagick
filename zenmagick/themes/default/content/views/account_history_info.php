@@ -73,26 +73,10 @@
 <div id="addr">
     <div id="daddr">
         <h4>Shipping Address</h4>
-        <?php $address = $zm_order->getShippingaddress(); ?>
-        <?php echo $address->getFirstName() . ' ' . $address->getLastName(); ?><br>
-        <?php echo $address->getCompanyName(); ?><br>
-        <?php echo $address->getAddress(); ?><br>
-        <?php echo $address->getSuburb(); ?><br>
-        <?php echo $address->getPostcode(); ?><br>
-        <?php echo $address->getCity(); ?><br>
-        <?php echo $address->getState(); ?><br>
-        <?php $country = $address->getCountry(); if (null != $country) { echo $country->getName(); } ?><br>
+        <?php zm_format_address($zm_order->getShippingaddress()) ?>
     </div>
     <div id="baddr">
         <h4>Billing Address</h4>
-        <?php $address = $zm_order->getBillingAddress(); ?>
-        <?php echo $address->getFirstName() . ' ' . $address->getLastName(); ?><br>
-        <?php echo $address->getCompanyName(); ?><br>
-        <?php echo $address->getAddress(); ?><br>
-        <?php echo $address->getSuburb(); ?><br>
-        <?php echo $address->getPostcode(); ?><br>
-        <?php echo $address->getCity(); ?><br>
-        <?php echo $address->getState(); ?><br>
-        <?php $country = $address->getCountry(); echo $country->getName(); ?><br>
+        <?php zm_format_address($zm_order->getBillingAddress()) ?>
     </div>
 </div>

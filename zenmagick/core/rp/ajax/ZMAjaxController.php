@@ -145,7 +145,6 @@ class ZMAjaxController extends ZMController {
             foreach ($obj as $k => $o) {
                 $props[$k] = $this->flattenObject($o, $methods, $formatter);
             }
-            //print_r($props);
             return $props;
         }
 
@@ -220,9 +219,9 @@ class ZMAjaxController extends ZMController {
         $language_page_directory = DIR_WS_LANGUAGES . $_SESSION['language'] . '/';
         $directory_array = $template->get_template_part($code_page_directory, '/^header_php/');
         foreach ($directory_array as $value) {
-          require($code_page_directory . '/' . $value);
+            require($code_page_directory . '/' . $value);
         }
-        require($template->get_template_dir('main_template_vars.php',DIR_WS_TEMPLATE, $current_page_base,'common'). '/main_template_vars.php');
+        require($template->get_template_dir('main_template_vars.php', DIR_WS_TEMPLATE, $current_page_base,'common'). '/main_template_vars.php');
     }
 
 }

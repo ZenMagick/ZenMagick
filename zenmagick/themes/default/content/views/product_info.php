@@ -35,11 +35,11 @@
       <?php } else { ?>
           <?php zm_product_image($zm_product) ?>
       <?php } ?>
-      <div id="desc"><?php echo $zm_product->getDescription(); ?></div>
+      <div id="desc"><?php echo $zm_product->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php zm_l10n("Producer") ?>: <?php echo $manufacturer->getName() ?><br />
+        <?php zm_l10n("Producer") ?>: <?php zm_htmlencode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php echo $zm_product->getModel() ?>: <?php zm_fmt_price($zm_product) ?></p>
+      <p id="price"><?php zm_htmlencode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
   </div>
 
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>
@@ -57,7 +57,7 @@
       <fieldset>
           <legend><?php zm_l10n("Features") ?></legend>
           <?php foreach ($features as $feature) { ?>
-          <?php echo $feature->getName() ?>: <?php  zm_list_values($feature->getValues()) ?> <?php echo $feature->getDescription() ?><br />
+          <?php echo $feature->getName() ?>: <?php zm_list_values($feature->getValues()) ?> <?php zm_htmlencode($feature->getDescription()) ?><br />
           <?php } ?>
       </fieldset>
   <?php } ?>

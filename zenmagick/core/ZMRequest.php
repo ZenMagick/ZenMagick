@@ -39,7 +39,6 @@ class ZMRequest {
      * Default c'tor.
      */
     function ZMRequest() {
-        $this->_init_l10n_i18n();
         $this->controller_ = null;
     }
 
@@ -223,51 +222,6 @@ class ZMRequest {
             $base = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
         }
          return $base;
-    }
-
-    /**
-     * Sets up l10n/i18n support.
-     * TODO: this has to move...
-     */
-    function _init_l10n_i18n() {
-    global $zm_runtime;
-
-        if (!zm_setting('isEnableZenMagick'))
-            return;
-
-        if (!isset($GLOBALS['zm_l10n_text'])) {
-            $GLOBALS['zm_l10n_text'] = array();
-        }
-
-        // language for this request
-        $lang = $zm_runtime->getLanguageName();
-
-        // check if is already initialised
-        if (array_key_exists($lang, $GLOBALS['zm_l10n_text']))
-            return;
-
-        $theme = $zm_runtime->getTheme();
-        $path = $theme->getLangDir().$lang."/";
-        $includes = zm_find_includes($path);
-        if (0 < count($includes)) {
-            foreach ($includes as $include) {
-                require_once($include);
-            }
-        }
-
-        // or do we always do this???
-        if (zm_setting('isEnableThemeDefaults')) {
-            $defaultLangPath = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$lang."/";
-            $includes = zm_find_includes($defaultLangPath);
-            if (0 < count($includes)) {
-                foreach ($includes as $include) {
-                    require_once($include);
-                }
-            }
-        }
-
-        // store language
-        $GLOBALS['zm_l10n_text'][$lang] = $zm_l10n_text;
     }
 
 }

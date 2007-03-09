@@ -30,7 +30,7 @@
     <div id="sb_bestsellers" class="box">
         <ol>
         <?php foreach ($products as $product) { ?>
-            <li><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_more($product->getName(), 28) ?></a></li>
+            <li><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_htmlencode(zm_more($product->getName(), 28, false)) ?></a></li>
         <?php } ?>
         </ol>
     </div>

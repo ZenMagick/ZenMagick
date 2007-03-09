@@ -90,7 +90,6 @@ class ZMPayments extends ZMDao {
                 }
             }
             array_push($paymentTypes, $paymentType);
-            //echo "<pre>"; print_r($zenType); echo "</pre>";
         }
 
         return $paymentTypes;

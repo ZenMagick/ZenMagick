@@ -35,7 +35,7 @@
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details."),
-        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, vsprintf('our Telephone Number must contain a minimum of %s characters.', ENTRY_TELEPHONE_MIN_LENGTH))
+        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, vsprintf('Your Telephone Number must contain a minimum of %s characters.', ENTRY_TELEPHONE_MIN_LENGTH))
     )));
     $validator->toJSString('account');
 ?>

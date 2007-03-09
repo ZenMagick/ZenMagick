@@ -34,13 +34,7 @@
             <?php } ?>
             <a class="btn" href="<?php zm_secure_href(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId()) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
-        <?php if (!zm_is_empty($address->getCompanyName())) { echo $address->getCompanyName() . "<br />"; } ?>
-        <?php echo $address->getAddress(); ?><br />
-        <?php echo $address->getSuburb(); ?><br />
-        <?php echo $address->getPostcode(); ?><br />
-        <?php echo $address->getCity(); ?><br />
-        <?php echo $address->getState(); ?><br />
-        <?php $country = $address->getCountry(); echo $country->getName(); ?><br />
+        <?php zm_format_address($address) ?>
     </fieldset>
 <?php } ?>
 <div class="btn"><a href="<?php zm_secure_href(FILENAME_ADDRESS_BOOK_PROCESS) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>

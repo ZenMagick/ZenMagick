@@ -58,6 +58,26 @@
     }
 
     /**
+     * Add language mappings.
+     *
+     * @package net.radebatz.zenmagick
+     * @param array map The new/additional mappings.
+     */
+    function zm_l10n_add($map) {
+        // sanitiy check
+        if (!is_array($map)) {
+            return;
+        }
+
+        // ensure we have an array to start with
+        if (!isset($GLOBALS['_zm_l10n_text'])) {
+            $GLOBALS['_zm_l10n_text'] = array();
+        }
+
+        $GLOBALS['_zm_l10n_text'] = array_merge($GLOBALS['_zm_l10n_text'], $map);
+    }
+
+    /**
      * The actual <code>l10n</code> workhorse.
      *
      * @package net.radebatz.zenmagick
@@ -68,13 +88,9 @@
      * @return string A localized version based on the current language, or the original text.
      */
     function _zm_l10n_lookup($text, $default, $args=null) {
-    global $zm_runtime;
-
-        // get the right language
         $l10n = array();
-        $lang = $zm_runtime->getLanguageName();
-        if (array_key_exists($lang, $GLOBALS['zm_l10n_text'])) {
-            $l10n = $GLOBALS['zm_l10n_text'][$lang];
+        if (isset($GLOBALS['_zm_l10n_text'])) {
+            $l10n = $GLOBALS['_zm_l10n_text'];
         }
 
         // get localized text or default to provided default

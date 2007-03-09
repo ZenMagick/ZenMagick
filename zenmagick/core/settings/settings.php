@@ -41,6 +41,7 @@
     $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
     $_ZM_SETTINGS['isI18nSupport'] = false;
     $_ZM_SETTINGS['isPatchRewriteBase'] = true;
+    $_ZM_SETTINGS['isUltimateSeoPatchSupport'] = false;
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
@@ -48,6 +49,8 @@
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
     $_ZM_SETTINGS['pageCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/pages/";
     $_ZM_SETTINGS['pageCacheTTL'] = 300; // in sec.
+    // method to determine if page is cacheable or not
+    $_ZM_SETTINGS['pageCacheStrategyCallback'] = 'zm_is_page_cacheable';
 
     // rss config
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/rss/";

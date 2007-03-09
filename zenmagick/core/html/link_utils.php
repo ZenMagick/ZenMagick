@@ -51,6 +51,70 @@
      */
     function zm_secure_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, true, $echo); }
 
+    /**
+     * ZenMagick implementation of zen-cart's zen_href_link function.
+     */
+    function _zm_zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    global $request_type, $session_started, $http_domain, $https_domain;
+
+        if (zm_is_empty($page)) zm_backtrace('missing page parameter');
+
+        // default to non ssl
+        $server = HTTP_SERVER;
+        if ($transport == 'SSL' && zm_setting('isEnableSSL')) {
+            $server = HTTPS_SERVER;
+        }
+
+        $path = '';
+        if ($useContext) {
+            $path = HTTPS_SERVER == $server ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG;
+        }
+
+        // trim '?' and '&' from params
+        while ('?' == ($char = substr($params, 0, 1)) || '&' == $char) $params = substr($params, 1);
+        while ('?' == ($char = substr($params, -1)) || '&' == $char) $params = substr($params, 0, -1);
+
+        $query = '?';
+        if ($isStatic) {
+            $path .= $page;
+        } else {
+            $path .= 'index.php';
+            $query .= 'main_page=' . $page . '&';
+        }
+
+        if (!zm_is_empty($params)) {
+            $query .= zen_output_string($params);
+        }
+
+        // trim trailing '?' and '&' from path
+        while ('?' == ($char = substr($path, -1)) || '&' == $char) $path = substr($path, 0, -1);
+
+        // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
+        $sid = null;
+        if ($addSessionId && $session_started && !zm_setting('isForceCookieUse')) {
+            if (defined('SID') && !zm_is_empty(SID)) {
+                // defined, so use it
+                $sid = SID;
+            } elseif (($request_type == 'NONSSL' && HTTPS_SERVER == $server) || ($request_type == 'SSL' && HTTP_SERVER == $server)) {
+                // switch from http to https or vice versa
+                if ($http_domain != $https_domain) {
+                    $sid = zen_session_name() . '=' . zen_session_id();
+                }
+            }
+        }
+
+        if (null !== $sid) {
+            $query .= '&' . zen_output_string($sid);
+        }
+
+        $query = (1 < strlen($query)) ? $query : '';
+
+        return zm_htmlurlencode($server.$path.$query);
+    }
+
+    /**
+     * Build a href / url.
+     */
     function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
     global $zm_request;
 
@@ -78,7 +142,14 @@
 
         // default to current view
         $view = $view == null ? $zm_request->getPageName() : $view;
-        $href = zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
+
+        $href= null;
+        $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : false;
+        if ($seoEnabled && function_exists('zen_href_link_seo')) {
+            $href = zen_href_link_seo($view, $params, $secure ? 'SSL' : 'NONSSL');
+        } else {
+            $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
+        }
 
         if (zm_setting('isZMPrettyLinks')) {
             // adjust to match .htaccess rewrite rules

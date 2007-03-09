@@ -46,7 +46,7 @@ return new Array(dd, mm, cc.concat(yy));
 
 // validations
 function isDate(elem, format) {
-var da = parseDate(elem.value, format); return isValidDate(da[0], da[1], da[2]);
+var da = parseDate(elem.value, format); return ('' == elem.value || isValidDate(da[0], da[1], da[2]));
 }
 function isNotEmpty(elem) { 
 if (elem.type) {
@@ -59,8 +59,8 @@ case 'select': return -1 != elem.selectedIndex; break;
 } else { for (var ii=0; ii<elem.length; ++ii) { if (elem[ii].checked) { return true; } } return false; }
 return true;
 }
-function isMinLength(elem, min) { return !(elem.value == '' || elem.value.length < min); }
-function isRegexp(elem, expr) { return elem.value.match(expr); }
+function isMinLength(elem, min) { return ('' == elem.value || elem.value.length >= min); }
+function isRegexp(elem, expr) { return ('' == elem.value || elem.value.match(expr)); }
 function isFieldMatch(elem1, elem2) { return elem1.value == elem2.value; }
 
 // stop duplicate form submits

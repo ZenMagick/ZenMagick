@@ -30,68 +30,11 @@
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
-        
-        $dispatcher = new ZMRequestDispatcher();
-        if ($dispatcher->dispatch()) {
+        if (zm_dispatch()) {
             require('includes/application_bottom.php');
             if (zm_setting('isEnableOB')) { ob_end_flush(); }
             exit;
         }
-
-      /*
-        // get controller
-        $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
-        $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
-        $zm_request->setController($zm_controller);
-        if ($zm_controller->validateRequest()) {
-
-            // TODO: theme stuff !!!!!!!!!
-            $zm_themeInfo = $zm_theme->getThemeInfo();
-            // need to do this in global namespace
-            $_zm_tstatic = $_zm_themeLoader->getStatic();
-            foreach ($_zm_tstatic as $static) {
-                require_once($static);
-            }
-
-            // TODO: theme switch; allow once only
-            // ideally, this should all be called inside ZMRuntime::setThemeId(..)
-            // actually, there should be someone else responsible for updaing all this ;)
-            // ... like a request dispatcher...
-            if ($zm_runtime->getThemeId() != $zm_themeInfo->getThemeId()) {
-                $zm_theme = $zm_runtime->getTheme();
-
-                // add new root loader
-                $_zm_defaultThemeLoader =& new ZMLoader("defaultThemeLoader");
-                $_zm_defaultThemeLoader->addPath($zm_theme->getExtraDir());
-                $rootLoader = $zm_loader->getRootLoader();
-                $rootLoader->setParent($_zm_defaultThemeLoader);
-
-                $zm_themeInfo = $zm_theme->getThemeInfo();
-                // need to do this in global namespace
-                $_zm_tstatic = $_zm_defaultThemeLoader->getStatic();
-                foreach ($_zm_tstatic as $static) {
-                    require_once($static);
-                }
-
-                // get controller
-                $zm_controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
-                $zm_controller = null == $zm_controller ? $zm_loader->create("DefaultController") : $zm_controller;
-                $zm_request->setController($zm_controller);
-            }
-
-            // execute controller
-            $_zm_view = $zm_controller->process();
-
-            // generate response
-            if (null != $_zm_view) {
-                $_zm_view->generate();
-            }
-
-            require('includes/application_bottom.php');
-            if (zm_setting('isEnableOB')) { ob_end_flush(); }
-            exit;
-        }
-       */
     }
 
     // default to zen-cart

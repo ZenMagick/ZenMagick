@@ -57,14 +57,30 @@
     }
 
     // find all l10n strings
-    function zm_build_theme_l10n_map($root) {
+    function zm_build_theme_l10n_map($root, $defaults=false, $merge=false) {
+    global $zm_runtime;
+
+        $themeId = basename($root);
         $l10nMap = array();
+
+        if ($defaults) {
+            // do default theme first
+            $l10nMap = zm_build_theme_l10n_map(dirname($root).'/'.ZM_DEFAULT_THEME, false, false);
+        }
+
+        if ($merge) {
+            // load existing mappings
+            $zm_runtime->setThemeId($themeId);
+            zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $themeId);
+            if (0 < count($GLOBALS['_zm_i18n_text'])) {
+                $l10nMap['inherited_mappings'] = $GLOBALS['_zm_l10n_text'];
+            }
+        }
+
         $includes = zm_find_includes($root.'/', true);
         foreach ($includes as $include) {
             $strings = array();
-            //echo "<h4>".$include."</h4>";
             $contents = file_get_contents($include);
-            //echo $contents;
             $pos = 0;
             while (-1 < $pos) {
                 $pos = strpos($contents, "zm_l10n", $pos);
@@ -93,7 +109,6 @@
                           break;
                     }
                     $pos += $qi-$ob+1;
-                    //echo "quote is: ".$quote."<br>";
                     $text = '';
                     if ('' != $quote) {
                         // have a quote
@@ -113,7 +128,6 @@
                                 break;
                         }
                         $strings[$text] = $text;
-                        //echo $text."<br>";
                     } else {
                         // found something, but not a string
                         // echo "<span style='color:red;'>Found something: '".substr($contents, $qi-10, 20)."...'</span><br>";

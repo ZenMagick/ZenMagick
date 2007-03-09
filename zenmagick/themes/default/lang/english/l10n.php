@@ -24,14 +24,15 @@
  */
 ?>
 <?php
-    $zm_l10n_text = array(
+
+    zm_l10n_add(array(
         // sort options
         'PRODUCT_LIST_NAME' => 'Name',
         'PRODUCT_LIST_PRICE' => 'Price',
         'PRODUCT_LIST_MANUFACTURER' => 'Manufacturer',
 
         // static names / crumbtrails
-        'Shippinginfo' => 'Shipping &amp; Returns',
+        'Shippinginfo' => 'Shipping & Returns',
         'Privacy' => 'Our Privacy Policy',
         'Account' => 'My Account',
         'Account Edit' => 'Edit Account',
@@ -42,5 +43,6 @@
         'Change Payment Address' => 'Change Billing Address',
         'Checkout Confirmation' => 'Confirmation',
         'Gv Send' => 'Send Gift Certificate'
-    );
+      ));
+
 ?>

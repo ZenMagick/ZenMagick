@@ -74,6 +74,14 @@ class ZMInstallationPatch extends ZMObject {
 
 
     /**
+     * Returns a list of other patches it depends on.
+     *
+     * @return array List of patch names.
+     */
+    function dependsOn() { return array(); }
+
+
+    /**
      * Checks if this patch can still be applied.
      *
      * @return bool <code>true</code> if this patch can still be applied.

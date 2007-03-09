@@ -38,7 +38,7 @@
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
     function zm_product_image($product, $echo=true) {
-        $img = zen_image(DIR_WS_IMAGES . $product->getDefaultImage(), $product->getName(), 
+        $img = zen_image(DIR_WS_IMAGES . $product->getDefaultImage(), zm_htmlencode($product->getName(), false), 
             '', '', 'class="product"');
 
         if ($echo) echo $img;

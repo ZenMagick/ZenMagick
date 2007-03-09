@@ -79,9 +79,13 @@ class ZMResultList extends ZMObject {
     }
 
 
-    // apply all active filter to the results
+    /**
+     * Apply all configured filter.
+     *
+     * @param array list The result list to process.
+     * @return array The remaining results.
+     */
     function _applyFilters($list) {
-        // create local copy
         foreach ($this->filters_ as $filter) {
             if (!$filter->isActive())
                 continue;
@@ -92,7 +96,12 @@ class ZMResultList extends ZMObject {
         return $list;
     }
 
-    // apply all active sorter to the results
+    /**
+     * Apply all configured sorter.
+     *
+     * @param array list The result list to process.
+     * @return array The sorted results.
+     */
     function _applySort($list) {
         foreach ($this->sorters_ as $sorter) {
             if (!$sorter->isActive())
@@ -104,13 +113,21 @@ class ZMResultList extends ZMObject {
         return $list;
     }
 
-    // calculate end index
+    /**
+     * Calculate end index.
+     *
+     * @return int The end index.
+     */
     function _getEndIndex() {
         $index = $this->page_ * $this->pagination_;
 	      return $index > $this->getNumberOfResults() ? $this->getNumberOfResults() : $index;
     }
 
-    // calculate start index
+    /**
+     * Calculate start index.
+     *
+     * @return int The start index.
+     */
     function _getStartIndex() { return ($this->page_-1) * $this->pagination_; }
 
 
@@ -149,10 +166,25 @@ class ZMResultList extends ZMObject {
         $refresh && $this->refresh();
     }
 
-
-    // getter/setter
+    /**
+     * Check if any sorter are active.
+     *
+     * @return bool <code>true</code> if sorter are active, <code>false</code> if not.
+     */
     function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
+
+    /**
+     * Get all sorter.
+     *
+     * @return array A list of <code>ZMResultListSorter</code>.
+     */
     function getSorters() { return $this->sorters_; }
+
+    /**
+     * Check if any filter are active.
+     *
+     * @return bool <code>true</code> if filter are active, <code>false</code> if not.
+     */
     function hasFilters() {
         foreach ($this->filters_ as $filter) {
             if ($filter->isAvailable()) {
@@ -160,30 +192,112 @@ class ZMResultList extends ZMObject {
             }
         }
     }
+
+    /**
+     * Get all filter.
+     *
+     * @return array A list of <code>ZMResultListFilter</code>.
+     */
     function getFilters() { return $this->filters_; }
 
+    /**
+     * Checks if there are results available.
+     *
+     * @return bool <code>true</code> if results are available, <code>false</code> if not.
+     */
     function hasResults() { return 0 != count($this->results_); }
+
+    /**
+     * Returns all results.
+     *
+     * @return array All results.
+     */
     function getAllResults() { return $this->results_; }
+
+    /**
+     * Count results.
+     *
+     * @return int The number if results.
+     */
     function getNumberOfResults() { return count($this->results_); }
+
+    /**
+     * Get the current page number.
+     *
+     * @return int The current page number.
+     */
     function getCurrentPageNumber() { return $this->page_; }
+
+    /**
+     * Get the configured pagination.
+     *
+     * @return int The number of results per page.
+     */
     function getPagination() { return $this->pagination_; }
+
+    /**
+     * Get the calculated number of pages.
+     *
+     * @return int The number of pages.
+     */
     function getNumberOfPages() { return ceil($this->getNumberOfResults()/$this->pagination_); }
+
+    /**
+     * Check if a previous page is available.
+     *
+     * @return bool <code>true</code> if a previous page is available, <code>false</code> if not.
+     */
     function hasPreviousPage() { return 1 < $this->page_; }
+
+    /**
+     * Check if a next page is available.
+     *
+     * @return bool <code>true</code> if a next page is available, <code>false</code> if not.
+     */
     function hasNextPage() { return $this->page_ < $this->getNumberOfPages(); }
+
+    /**
+     * Get the previous page number.
+     *
+     * @return int The previous page number; (default: 1)
+     */
     function getPreviousPageNumber() { return $this->hasPreviousPage() ? ($this->page_-1) : 1; }
+
+    /**
+     * Get the next page number.
+     *
+     * @return int The next page number.
+     */
     function getNextPageNumber() { return $this->hasNextPage() ? ($this->page_+1) : $this->getNumberOfPages(); }
+
+    /**
+     * Get the results for the current page.
+     *
+     * @return array List of results for the current page.
+     */
     function getResults() {
         $start = $this->_getStartIndex();
         $end = $this->_getEndIndex();
         return array_slice($this->results_, $start, $end-$start);
     }
 
+    /**
+     * Build a URL pointing to the previous page.
+     *
+     * @return string A URL pointing to the previous page.
+     */
     function getPreviousURL($echo=true) {
         $url = zm_href(null, "&page=".$this->getPreviousPageNumber(), false);
 
         if ($echo) echo $url;
         return $url;
     }
+
+    /**
+     * Build a URL pointing to the next page.
+     *
+     * @return string A URL pointing to the next page.
+     */
     function getNextURL($echo=true) {
         $url = zm_href(null, "&page=".$this->getNextPageNumber(), false);
 

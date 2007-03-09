@@ -580,6 +580,122 @@ if (!class_exists("ZMObject")) {
         return $code;
     }
 
+    /**
+     * Load locale settings (l10n/i18n)for the given theme id.
+     *
+     * <p>NOTE: This is only going to load settings. However, since i18n
+     * settings need to be set using <code>define(..)</code>, this is done
+     * in a separate function, once loading (and theme switching) is over.</p>
+     *
+     * @package net.radebatz.zenmagick
+     * @param ZMTheme theme The theme.
+     * @param string languageName The language name.
+     */
+    function zm_load_theme_locale($theme, $languageName) {
+        $path = $theme->getLangDir().$languageName."/";
+        $includes = zm_find_includes($path);
+        if (0 < count($includes)) {
+            foreach ($includes as $include) {
+                require_once($include);
+            }
+        }
+    }
+
+    /**
+     * Resolve theme incl. loader update, theme switching and all theme default
+     * handling.
+     *
+     * <p>This is <strong>the</strong> method in the ZenMagick theme handling. It will:</p>
+     * <ol>
+     *  <li>Configure the theme loader to add theme specific code (controller) to the classpath</li>
+     *  <li>Init l10n/i18n</li>
+     *  <li>Load the theme specific <code>extra</code> code</li>
+     *  <li>Check for theme switching and repeat the process if needed</li>
+     * </ol>
+     *
+     * <p>Passing default theme id rather than the current theme id is equivalent to
+     * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
+     *
+     * @param string themeId The themeId to start with.
+     * @return ZMTheme The final theme.
+     */
+    function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
+    global $zm_runtime, $zm_request, $zm_loader;
+
+        // get root loader
+        $rootLoader =& $zm_loader;
+        while (null != $rootLoader->parent_) {
+            $rootLoader =& $rootLoader->parent_;
+        }
+
+        // set up theme
+        $theme = $zm_runtime->getThemeForId($themeId);
+        $themeInfo = $theme->getThemeInfo();
+
+        // configure theme loader
+        $themeLoader =& new ZMLoader("themeLoader");
+        $themeLoader->addPath($theme->getExtraDir());
+
+        // add loader to root loader
+        $rootLoader->setParent($themeLoader);
+
+        // these can be replaced by themes; will be reinitializes during theme switching
+    global $zm_crumbtrail, $zm_meta;
+        $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
+        $zm_meta =& $zm_loader->create('MetaTags');
+
+        // init l10n/i18n
+        zm_load_theme_locale($theme, $zm_runtime->getlanguageName());
+
+        // use theme loader to load static stuff
+        foreach ($themeLoader->getStatic() as $static) {
+            require_once($static);
+        }
+
+        // check for theme switching
+        if ($zm_runtime->getThemeId() != $themeInfo->getThemeId()) {
+            return zm_resolve_theme($zm_runtime->getThemeId(), true);
+        }
+
+        // finalise i18n
+        zm_i18n_finalise();
+
+        return $theme;
+    }
+
+    /**
+     * Dispatch the current request.
+     *
+     * @return bool <code>true</code> if the request was dispatched, <code>false</code> if not.
+     * @todo Support for internal forwards.
+     */
+    function zm_dispatch() {
+    global $zm_runtime, $zm_request, $zm_loader;
+
+        $controller =& $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+        if (null == $controller) {
+            $controller = $zm_loader->create("DefaultController");
+        }
+
+        if ($controller->validateRequest()) {
+            $zm_request->setController($controller);
+
+            eval(zm_globals());
+
+            // execute controller
+            $view = $controller->process();
+
+            // generate response
+            if (null != $view) {
+                $view->generate();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 ?>

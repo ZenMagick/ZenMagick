@@ -34,4 +34,7 @@
     // disable .htaccess Rewritebase patching
     //zm_set_setting('isPatchRewriteBase', false);
 
+    // enable Ultimate SEO patching
+    //zm_set_setting('isUltimateSeoPatchSupport', true);
+
 ?>

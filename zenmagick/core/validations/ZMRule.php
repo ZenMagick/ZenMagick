@@ -69,16 +69,6 @@ class ZMRule {
 
 
     /**
-     * Tells the validatior to skip remaining checks if this one fails.
-     *
-     * @return bool <code>true</code> if the validator should skip the remaining validations for this field.
-     */
-    function skipFieldOnError() {
-        return false;
-    }
-
-
-    /**
      * Validate the given request data.
      *
      * @param array req The request data.

@@ -63,24 +63,19 @@ class ZMPageCache extends ZMCache {
 
 
     /**
-     * Evalues if the current page is cacheable or not.
+     * Controls if the current page is cacheable or not.
      *
-     * <p>The strategy is as follows:</p>
-     * <ol>
-     *  <li>The request is not a secure request</li>
-     *  <li>The page is not a checkout page</li>
-     *  <li>The shoppingcart is empty</li>
-     * </ol>
+     * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
      *
-     * @return string A cache id or <code>null</code>.
+     * @return bool <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function isCacheable() {
-    global $zm_request, $zm_cart;
-        
-        return !$zm_request->isSecure() 
-          && !zm_is_checkout_page(true) 
-          && $zm_cart->isEmpty() 
-          && false === strpos($zm_request->getPageName(), 'account');
+        $callback = zm_setting('pageCacheStrategyCallback');
+        if (function_exists($callback)) {
+            return $callback();
+        }
+
+        return false;
     }
 
     /**
@@ -89,7 +84,7 @@ class ZMPageCache extends ZMCache {
      * <p>Depending on whether the user is logged in or not, a user 
      * specifc id will be generated, to avoid session leaks.</p>
      *
-     * @return string A cache id or <code>null</code>.
+     * @return string A cache id.
      */
     function getId() {
     global $zm_runtime, $zm_request;

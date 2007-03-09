@@ -34,11 +34,10 @@
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formatted address.
      */
-    function zm_format_address($address, $html=true, $echo=true) {
+    function zm_format_address(&$address, $html=true, $echo=true) {
     global $zm_countries, $zm_addresses;
 
-        $company = $address->getCompanyName();
-        if (!zm_is_empty($address->getFirstName())) {
+        if (!zm_is_empty($address->getLastName())) {
             $firstname = $address->getFirstName();
             $lastname = $address->getLastName();
         } else {
@@ -85,6 +84,7 @@
         // $format is using all the local variables...
         eval("\$out = \"$format\";");
 
+        $company = $address->getCompanyName();
         if (zm_setting('isAccountCompany') && !zm_is_empty($company) ) {
             $out = $company . $cr . $out;
         }

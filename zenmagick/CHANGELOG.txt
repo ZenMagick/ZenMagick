@@ -3,30 +3,29 @@ Release 0.7.0
 - added optional PHP console; good for debuging, but a possible security issue,
   so it's distributed in the etc directory and needs to be copied manually into
   the zen-cart admin folder
-- removed echo from eval calls
 - theme code refactoring
-- moved getCurrencyId() and getLanguageId() and getLanguageName() from ZMRequest to ZMRuntime
+- moved getCurrencyId(), getLanguageId() and getLanguageName() from ZMRequest to ZMRuntime
 - theme info will inherit default settings
 - added zm_phpinfo() function that strips some of the original formatting
-- fix: removed unneccessary echo from eval(..) calls
+- removed unneccessary echo from eval(..) calls
 - renamed ZMRuntime::getApplicationRoot() to getContext()
 - ZMLoader::getStatic() now guarantees that local.php is the first item if it
   exists
-- language settings are now also inherited from the default theme
+- locale settings are now also inherited from the default theme
 - changed default templates to use ZMDateRule to validate dates - the JS
   validation is now also more strict; this also means UI_DATE_FORMAT_VALIDATION
   is obsolete :)
-- refactored generic date parsing into zm_parse_date(..)
+- refactored generic date parsing code into zm_parse_date(..)
 - excluded account, write and edit pages from page cache - this is a temp.
   solutions until I can come up with some proper config for this
-- fix zm_is_empty for arrays
-- added ZMRequestDispatcher to allow for multiple theme switching
+- fix zm_is_empty for arrays was doing the oppositve of what is expected
+- added better request dispatching code to allow for multiple theme switching
   => all ZenMagick globals are instantiated before, MetaTags and Crumbtrail
   may be overwritten with theme versions; same stays true for controller
   => switching is only supported in extra code, everything else is not defined
   => the switch will be done after *all* extra code has been loaded
-- fix categories code and underline current category in sidebox
-- moved cache check into init.php, thus cutting out more code
+- fixed categories code and underline current category in sidebox
+- performance: moved cache check into init.php, thus cutting out more code
 - fixed broken SQL patch
 - added canUndo() metod to ZMInstallatinPatch
 - added better file permission checks to core.php compressor
@@ -35,7 +34,43 @@ Release 0.7.0
 - fix ZMProduct::getDefaultCategory()
 - fix features SQL for MySQL > 5.0.24
 - fix some dao SQL issues with MySQL > 5.0.24
-
+- fix category filter
+- more phpdoc along the way
+- changed JS validation code so validations skip empty fields; this means
+  if a field is empty you won't get a message about invalid format
+- added zm_htmlencode(..) wrapper to some more fields in product_info view and
+  product images (alt/title)
+- added .htaccess rules to support Ultimate SEO URLs
+- integrated Ultimate SEO mod (based on version 2.103) into ZenMagick; this can
+  be used as an alternative to ZenMagick's pretty links;
+  There is also a new patch to enable/disable SEO - additional benefit,
+  as there are no version specific zen-cart files required!
+  SEO installer SQL has been updated and tested with MySQL 5.0.27
+- added zen_href_link replacement that allows pretty links to work for
+  redirects as well
+- added dependsOn() method to installation patches
+- added still missing product_reviews view
+- the setting 'isEnableThemeDefaults' now controlls all aspects of theme
+  defaults; this includes views, boxes, classes and l10n/i18n
+- all default views now use zm_format_address(..) to format addresses
+- reworked locale (l10n/i18n) handling, so using define(..) isn't a
+  problem; this also means to split the theme loading from the request
+  handling (which is actually good!) to be able to do theme loading during
+  the init phase - otherwise zen-cart will have used up all the good defines :)
+  This slightly changes the syntax in l10n and i18n files and breaks older
+  themes. Advantage is that theme values are stored as variables and only
+  once the final theme is determined are converted into defines thus allowing
+  proper overwriting of values during theme switching and for fallback to
+  default theme settings
+  THIS BREAKS OLDER THEME LOCALE CODE
+- fixed merge option in language tool work and added include default theme
+  option
+- added .htaccess files to restrict access to ZenMagick installation files
+- extracted page caching strategy into separate function (default); THe
+  strategy can be changed by configuring an alternative function by setting
+  'pageCacheStrategyCallback'; signature is bool callback()
+- modified l10n.php and i18n.php in demo theme to illustrate the changes in
+  locale handling;
 
 Release 0.6.4:
 - fix: release 0.6.3 returns wrong version number (0.6.2)

@@ -36,7 +36,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 
 require_once(DIR_FS_CATALOG.'zenmagick/init.php');
 
-    $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET) && 'file' == $_GET['uninstall'];
+    $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
     $installer = new ZMInstallationPatcher();
     if (!$duringUninstall && $installer->isPatchesOpen()) {
         // try to run all patches

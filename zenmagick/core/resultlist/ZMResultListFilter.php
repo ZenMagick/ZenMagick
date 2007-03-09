@@ -52,7 +52,7 @@ class ZMResultListFilter extends ZMObject {
         $this->id_ = $id;
         $this->name_ = $name;
         $value = $zm_request->getRequestParameter($this->id_, '');
-        $this->filterValues_ = $this->isMultiSelection() ? $value : explode(",", $value);
+        $this->filterValues_ = explode(",", $value);
     }
 
     /**
