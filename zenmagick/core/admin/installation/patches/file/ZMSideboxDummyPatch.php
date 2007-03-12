@@ -33,7 +33,7 @@ define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMSideboxDummyPatch extends ZMInstallationPatch {
+class ZMSideboxDummyPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -130,6 +130,42 @@ class ZMSideboxDummyPatch extends ZMInstallationPatch {
         return true;
     }
 
+    /**
+     * Revert the patch.
+     *
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        $dummies = $this->_getDummies();
+        foreach ($dummies as $file) {
+            @unlink($file);
+        }
+
+        return 0 == count($this->_getMissingZCSideboxes());
+    }
+    
+    /**
+     * Find all dummies.
+     *
+     * @return array A list of dummy sidebox files.
+     */
+    function _getDummies() {
+        $dummies = array();
+        if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
+            $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
+            while (false !== ($file = readdir($handle))) {
+                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !zm_starts_with($file, '.')) {
+                    $contents = file_get_contents(_ZM_ZEN_DIR_FS_BOXES.$file);
+                    if (false !== strpos($contents, 'created by ZenMagick')) {
+                        array_push($dummies, _ZM_ZEN_DIR_FS_BOXES.$file);
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        return $dummies;
+    }
 
     /**
      * Builds a list of all ZenMagick theme sideboxes that do not have zen-cart sidebox dummies.
@@ -163,7 +199,7 @@ class ZMSideboxDummyPatch extends ZMInstallationPatch {
                 } 
             }
         }
-        
+
         return $missingBoxes;
     }
 

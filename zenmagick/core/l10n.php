@@ -95,7 +95,7 @@
 
         // get localized text or default to provided default
         $format = isset($l10n[$text]) ? $l10n[$text] : $default;
-        !isset($l10n[$text]) && zm_log("can't resolve l10n: '".$text."'", 3);
+        //!isset($l10n[$text]) && zm_log("can't resolve l10n: '".$text."'", 3);
 
         if (null == $args) {
             // preserve % in strings that do not have anything to replace

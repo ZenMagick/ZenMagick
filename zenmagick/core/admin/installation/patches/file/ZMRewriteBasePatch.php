@@ -128,6 +128,15 @@ class ZMRewriteBasePatch extends ZMInstallationPatch {
 
         return true;
     }
+
+   /**
+     * Check if this patch supports undo.
+     *
+     * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
+     */
+    function canUndo() {
+        return false;
+    }
     
 
     /**

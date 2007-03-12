@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMThemeDummyPatch extends ZMInstallationPatch {
+class ZMThemeDummyPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -68,7 +68,7 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
             if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
             }
-            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath())) {
+            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId())) {
                 return true;
             }
         }
@@ -126,10 +126,10 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
             if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
             }
-            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath())) {
+            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId())) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
-                    mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath());
-                    $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getPath()."/template_info.php", 'ab');
+                    mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId());
+                    $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
                     fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");
                     fwrite($handle, '  $template_name = ' . "'" . addslashes($themeInfo->getName()) . "';\n");
@@ -137,15 +137,54 @@ class ZMThemeDummyPatch extends ZMInstallationPatch {
                     fwrite($handle, '  $template_description = ' . "'" . addslashes($themeInfo->getDescription()) . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
-                    return true;
                 } else {
-                    zm_log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getPath(), 1);
+                    zm_log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), 1);
                     return false;
                 }
             }
         }
 
         return true;
+    }
+
+    /**
+     * Revert the patch.
+     *
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        $dummies = $this->_getDummies();
+        foreach ($dummies as $file) {
+            // avoid recursive delete, just in case
+            @unlink($file."/template_info.php");
+            zm_rmdir($file, false);
+        }
+
+        return true;
+    }
+    
+
+    /**
+     * Find all dummies.
+     *
+     * @return array A list of dummy templates.
+     */
+    function _getDummies() {
+        $dummies = array();
+        if (file_exists(DIR_FS_CATALOG_TEMPLATES)) {
+            $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
+            while (false !== ($file = readdir($handle))) {
+                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !zm_starts_with($file, '.')) {
+                    $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
+                    if (false !== strpos($contents, 'created by ZenMagick')) {
+                        array_push($dummies, DIR_FS_CATALOG_TEMPLATES.$file);
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        return $dummies;
     }
 
 }

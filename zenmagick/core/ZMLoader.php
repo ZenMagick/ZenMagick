@@ -211,7 +211,7 @@ class ZMLoader {
             }
         }
 
-        zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
+        //zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
 
         if (null != $zmclassfile && !class_exists($zmname)) { require($zmclassfile); }
         if (null != $classfile && !class_exists($name)) { require($classfile); }
@@ -251,7 +251,33 @@ class ZMLoader {
      */
     function _create($name, $args) {
         $clazz = $this->load($name);
-        return null != $clazz ? zm_get_instance($clazz, null, $args) : null;
+        if (null != $clazz) {
+            $obj = null;
+            switch (count($args)) {
+            case 0:
+                $obj = new $clazz();
+                break;
+            case 1:
+                $obj = new $clazz($args[0]);
+                break;
+            case 2:
+                $obj = new $clazz($args[0], $args[1]);
+                break;
+            case 3:
+                $obj = new $clazz($args[0], $args[1], $args[2]);
+                break;
+            case 4:
+                $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
+                break;
+            default:
+                zm_log("unsupported number of arguments " . $clazz, 2);
+                zm_backtrace();
+                break;
+            }
+            return $obj;
+
+        }
+        return null;
     }
 
     /**

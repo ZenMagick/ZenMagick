@@ -145,7 +145,7 @@ class ZMInstallationPatch extends ZMObject {
      * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
      */
     function canUndo() {
-        return false;
+        return true;
     }
     
     /**

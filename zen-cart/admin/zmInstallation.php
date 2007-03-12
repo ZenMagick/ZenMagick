@@ -210,7 +210,7 @@ require_once('../zenmagick/init.php');
             <?php } ?>
             <?php if ($hasChecked) { ?>
               <div class="submit">
-                <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> Additionally created files and <code>.htaccess</code> file changes must be reverted manually.
+                <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> <code>.htaccess</code> file changes must be reverted manually.
               </div>
             <?php } ?>
           </fieldset>

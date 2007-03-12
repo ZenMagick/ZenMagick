@@ -226,49 +226,6 @@ if (!class_exists("ZMObject")) {
 
 
     /**
-     * Get an instance for the given class name.
-     *
-     * @package net.radebatz.zenmagick
-     * @param string className The name of the class to instantiate.
-     * @param string isa Optional <em>IS A</em> check.
-     * @param array args Optional constructor arguments.
-     * @return mixed A class instance or <code>null</code>.
-     */
-    function zm_get_instance($className, $isa=null, $args=null) {
-        if (class_exists($className)) {
-            $args = null == $args ? array() : $args;
-            zm_log("creating new " . $className, 4);
-            $obj = null;
-            switch (count($args)) {
-            case 0:
-                $obj = new $className();
-                break;
-            case 1:
-                $obj = new $className($args[0]);
-                break;
-            case 2:
-                $obj = new $className($args[0], $args[1]);
-                break;
-            case 3:
-                $obj = new $className($args[0], $args[1], $args[2]);
-                break;
-            case 4:
-                $obj = new $className($args[0], $args[1], $args[2], $args[3]);
-                break;
-            default:
-                zm_log("unsupported number of arguments " . $className, 2);
-                zm_backtrace();
-                break;
-            }
-            if (null == $isa || is_a($obj, $isa)) {
-                return $obj;
-            }
-        }
-        return null;
-    }
-
-
-    /**
      * stripslashes incl. array support.
      *
      * @package net.radebatz.zenmagick
@@ -639,10 +596,20 @@ if (!class_exists("ZMObject")) {
         // add loader to root loader
         $rootLoader->setParent($themeLoader);
 
+        eval(zm_globals());
+
         // these can be replaced by themes; will be reinitializes during theme switching
-    global $zm_crumbtrail, $zm_meta;
-        $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
-        $zm_meta =& $zm_loader->create('MetaTags');
+        $themeClasses = array(
+            'zm_crumbtrail' => 'Crumbtrail',
+            'zm_meta' => 'MetaTags',
+        );
+        foreach ($themeClasses as $name => $clazz) {
+            $currentClazz = strtolower(get_class($$name));
+            if ($currentClazz != $zm_loader->load($clazz)) {
+                // update only if changed
+                $$name =& $zm_loader->create($clazz);
+            }
+        }
 
         // init l10n/i18n
         zm_load_theme_locale($theme, $zm_runtime->getlanguageName());

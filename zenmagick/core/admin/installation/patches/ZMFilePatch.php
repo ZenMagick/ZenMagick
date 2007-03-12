@@ -40,6 +40,8 @@ class ZMFilePatch extends ZMInstallationPatch {
      */
     function ZMFilePatch($id) {
         parent::__construct($id);
+
+        clearstatcache();
     }
 
     /**
