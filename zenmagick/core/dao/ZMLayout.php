@@ -123,7 +123,7 @@ class ZMLayout extends ZMDao {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
         $results = $this->db_->Execute($sql);
 
         $theme = $zm_runtime->getTheme();
@@ -157,7 +157,7 @@ class ZMLayout extends ZMDao {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'integer');
+        $sql = $this->db_->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
         $results = $this->db_->Execute($sql);
 
         $theme = $zm_runtime->getTheme();
