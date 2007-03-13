@@ -72,6 +72,7 @@ Release 0.7.0
 - modified l10n.php and i18n.php in demo theme to illustrate the changes in
   locale handling;
 - most patches now know how to undo
+- changed patch so no sidebox dummies are created for filenames including '.in.'
 
 Release 0.6.4:
 - fix: release 0.6.3 returns wrong version number (0.6.2)

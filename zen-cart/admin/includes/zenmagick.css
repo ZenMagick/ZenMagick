@@ -84,6 +84,9 @@ input.all {margin-top:8px;}
 #b_about #content div.about {margin:5px 20%;padding:12px;text-align:left;border:1px solid gray;}
 #b_about #about p {margin:0px;}
 
+#b_installation h2 a {float:right;}
+#b_installation fieldset {clear:right;}
+
 #b_console label {display:block;font-weight:bold; margin-bottom:4px;}
 #b_console textarea {margin-bottom=8px;border:4px solid gray;font-size:115%;width:80em;font-family:monospace;padding:4px;}
 #b_console #console {color:white;background-color:black;width:80em;margin:20px 0;padding:4px;height:25em;overflow:scroll;border:4px solid gray;font-size:115%;font-family:monospace;}

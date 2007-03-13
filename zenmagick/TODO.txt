@@ -14,12 +14,13 @@ usablility / quality / performance / etc
 bugs:
 - fix default theme IE bugs; test in IE7
 - popup content should be in define/ez pages or such...
-- do not create sidebox dummies for filenames including '.in.'
 - file permissions for created files???
 - long text like EMAIL_ADVISORY, popup contents needs to be put somewhere...
 - rely less on zen-cart defines as they might not be available during init...
 - make filter/sorter look nicer and easier to configure (autodetect??)
 - make price filter actually work
+- make product comparison work again in category_list/prodct_list
+
 
 admin/install:
 - admin interface for ZM config values

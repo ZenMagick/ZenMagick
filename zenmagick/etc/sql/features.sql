@@ -1,3 +1,9 @@
+#
+# ZenMagick features SQL
+#
+# $Id$
+#
+
 ## upgrade cleanup
 DROP TABLE IF EXISTS feature_types;
 DROP TABLE IF EXISTS zen_feature_types;

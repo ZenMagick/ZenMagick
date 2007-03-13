@@ -40,7 +40,7 @@ require_once('../zenmagick/init.php');
         "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
 
-        "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links)",
+        "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
         "ultimateSeoSupport" => "Enable support for Ultimate SEO",
 
@@ -124,6 +124,52 @@ require_once('../zenmagick/init.php');
         }
     }
 
+    /**
+     * Show patch group.
+     */
+    function _zm_patch_group($groupId, $checkall=true) {
+    global $installer, $patchLabel;
+
+        $hasChecked = false; 
+        foreach ($installer->getPatches($groupId) as $id => $patch) {
+            if ($patch->isOpen() || true) {
+                // check dependencies
+                $unfulfilled = array();
+                foreach ($patch->dependsOn() as $dId) {
+                    $dPatch = $installer->getPatchForId($dId);
+                    if ($dPatch->isOpen()) {
+                        array_push($unfulfilled, $dPatch->getId());
+                    }
+                }
+                foreach ($unfulfilled as $dId) {
+                    ?><p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p><?php
+                }
+                if (!$patch->isReady()) {
+                  ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
+                }
+                ?><input type="checkbox"
+                    id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
+                    value="<?php echo $patch->getId() ?>"
+                    <?php if (!$patch->isOpen()) { $hasChecked = true; ?>disabled="disabled" checked="checked" <?php } ?>>
+                  <label for="<?php echo $patch->getId() ?>">
+                      <?php echo $patchLabel[$patch->getId()] ?>
+                  </label>
+                  <br><?php
+            }
+        }
+        if ($installer->isPatchesOpen($groupId)) {
+            if ($installer->isPatchesOpen($groupId) && $checkall) { ?>
+                <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
+                <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
+            <?php } ?>
+            <div class="submit">
+                <input type="submit" value="<?php zm_l10n("Install") ?>">
+            </div>
+        <?php } else { ?>
+            <h3><?php zm_l10n("Congratulations - Your installation seems to be fully patched!") ?></h3>
+        <?php }
+    }
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -167,131 +213,35 @@ require_once('../zenmagick/init.php');
 
     <div id="main">
       <div id="content">
-      <h2><?php zm_l10n("ZenMagick Installation") ?></h2>
+      <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected items ?');">
           <fieldset class="patches">
-          <legend><?php zm_l10n("Available ZenMagick Patches") ?></legend>
-
-            <?php $hasChecked = false; foreach ($installer->getPatches('file') as $id => $patch) { ?>
-                <?php if ($patch->isOpen() || true) { ?>
-                  <?php // check dependencies
-                    $unfulfilled = array();
-                    foreach ($patch->dependsOn() as $dId) {
-                        $dPatch = $installer->getPatchForId($dId);
-                        if ($dPatch->isOpen()) {
-                            array_push($unfulfilled, $dPatch->getId());
-                        }
-                    }
-                  ?>
-                  <?php foreach ($unfulfilled as $dId) { ?>
-                    <p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p>
-                  <?php } ?>
-                  <?php if (!$patch->isReady()) { ?>
-                    <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
-                  <?php } ?>
-                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_file_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>" <?php if (!$patch->isOpen()) { $hasChecked = true; ?>disabled="disabled" checked="checked" <?php } ?>>
-                  <label for="<?php echo $patch->getId() ?>">
-                      <?php echo $patchLabel[$patch->getId()] ?>
-                  </label>
-                  <br>
-                <?php } ?>
-            <?php } ?>
-            <?php if (!$installer->isPatchesOpen('file')) { ?>
-            <h3><?php zm_l10n("Congratulations - Your installation seems to be fully patched!") ?></h3>
-            <?php } else { ?>
-              <input type="checkbox" class="all" id="fall" name="fall" value="" onclick="sync_all(this, 'patch_file_')">
-              <label for="fall"><?php zm_l10n("Select/Unselect All") ?></label><br>
-
-              <div class="submit">
-                <input type="submit" value="<?php zm_l10n("Install") ?>">
-                <a href=""><?php zm_l10n("Refresh") ?></a>
-              </div>
-            <?php } ?>
-            <?php if ($hasChecked) { ?>
-              <div class="submit">
-                <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> <code>.htaccess</code> file changes must be reverted manually.
-              </div>
-            <?php } ?>
+            <legend><?php zm_l10n("ZenMagick File Patches") ?></legend>
+            <?php _zm_patch_group('file') ?>
+            <div class="submit">
+              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> Additionally created files and <code>.htaccess</code> file changes must be reverted manually.
+            </div>
           </fieldset>
         </form>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected SQL updates?');">
           <fieldset class="patches">
-          <legend><?php zm_l10n("Install ZenMagick SQL Extensions") ?></legend>
-
-            <?php foreach ($installer->getPatches('sql') as $id => $patch) { ?>
-                <?php if ($patch->isOpen()) { ?>
-                  <?php // check dependencies
-                    $unfulfilled = array();
-                    foreach ($patch->dependsOn() as $dId) {
-                        $dPatch = $installer->getPatchForId($dId);
-                        if ($dPatch->isOpen()) {
-                            array_push($unfulfilled, $dPatch->getId());
-                        }
-                    }
-                  ?>
-                  <?php foreach ($unfulfilled as $dId) { ?>
-                    <p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p>
-                  <?php } ?>
-                  <?php if (!$patch->isReady()) { ?>
-                    <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
-                  <?php } ?>
-                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_sql_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>">
-                  <label for="<?php echo $patch->getId() ?>">
-                      <?php echo $patchLabel[$patch->getId()] ?>
-                  </label>
-                  <br>
-                <?php } ?>
-            <?php } ?>
-            <?php if (!$installer->isPatchesOpen('sql')) { ?>
-            <h3><?php zm_l10n("Congratulations - Your database seems to be fully patched!") ?></h3>
-            <?php } else { ?>
-              <input type="checkbox" class="all" id="sall" name="sall" value="" onclick="sync_all(this, 'patch_sql_')">
-              <label for="sall"><?php zm_l10n("Select/Unselect All") ?></label><br>
-
-              <div class="submit">
-              <input type="submit" value="<?php zm_l10n("Install") ?>">
-              </div>
-            <?php } ?>
+            <legend><?php zm_l10n("ZenMagick SQL Extensions") ?></legend>
+            <?php _zm_patch_group('sql') ?>
+            <div class="submit">
+              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=sql" onclick="return zm_user_confirm('Uninstall ZenMagick SQL ?');">Revert all SQL patches</a>
+              <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database refore appying/reverting SQL patches.
+            </div>
           </fieldset>
         </form>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install Ultimate SEO?');">
           <fieldset class="patches">
-          <legend><?php zm_l10n("Ultimate SEO Installation Options") ?></legend>
-          <input type="hidden" name="uninstall" value="ultimateSeo">
-
-            <?php $hasChecked = false; foreach ($installer->getPatches('ultimateSeo') as $id => $patch) { ?>
-                <?php if ($patch->isOpen() || true) { ?>
-                  <?php // check dependencies
-                    $unfulfilled = array();
-                    foreach ($patch->dependsOn() as $dId) {
-                        $dPatch = $installer->getPatchForId($dId);
-                        if ($dPatch->isOpen()) {
-                            array_push($unfulfilled, $dPatch->getId());
-                        }
-                    }
-                  ?>
-                  <?php foreach ($unfulfilled as $dId) { ?>
-                    <p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p>
-                  <?php } ?>
-                  <?php if (!$patch->isReady()) { ?>
-                    <p class="error"><?php echo $patch->getPreconditionsMessage() ?></p>
-                  <?php } ?>
-                  <input type="checkbox" id="<?php echo $patch->getId() ?>" name="patch_ultimateSeo_<?php echo $patch->getId() ?>" value="<?php echo $patch->getId() ?>" <?php if (!$patch->isOpen()) { $hasChecked = true; ?>disabled="disabled" checked="checked" <?php } ?>>
-                  <label for="<?php echo $patch->getId() ?>">
-                      <?php echo $patchLabel[$patch->getId()] ?>
-                  </label>
-                  <br>
-                <?php } ?>
-            <?php } ?>
+            <legend><?php zm_l10n("Ultimate SEO Installation Options") ?></legend>
+            <?php _zm_patch_group('ultimateSeo', false) ?>
             <div class="submit">
-              <?php if ($hasChecked) { ?>
-                <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=ultimateSeo" onclick="return zm_user_confirm('Uninstall Ultimate SEO?');"><?php zm_l10n("Uninstall Ultimate SEO") ?></a>
-              <?php } else { ?>
-                <input type="submit" value="<?php zm_l10n("Update") ?>">
-              <?php } ?>
+              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=ultimateSeo" onclick="return zm_user_confirm('Uninstall Ultimate SEO?');"><?php zm_l10n("Uninstall Ultimate SEO") ?></a>
             </div>
           </fieldset>
         </form>

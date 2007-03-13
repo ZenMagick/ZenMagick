@@ -41,6 +41,10 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(
         "etc/sql/features.sql"
     );
+    var $sqlUndoFiles_ = array(
+        "etc/sql/features_undo.sql"
+    );
+
 
 
     /**
@@ -99,15 +103,26 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     }
     
     /**
-     * Check if this patch supports undo.
+     * Revert the patch.
      *
-     * @return bool <code>true</code> if undo is supported, <code>false</code> if not.
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function canUndo() {
-        return false;
+    function undo() {
+    global $zm_runtime;
+
+        if ($this->isOpen()) {
+            return true;
+        }
+
+        $baseDir = $zm_runtime->getZMRootPath();
+        $status = true;
+        foreach ($this->sqlUndoFiles_ as $file) {
+            $sql = file($baseDir.$file);
+            $status |= $this->_runSQL($sql);
+        }
+        return $status;
     }
     
-
     /**
      * Check for ZenMagick feature tables.
      *
