@@ -54,7 +54,7 @@
         $name = $zm_request->getRequestParameter('name');
         $description = $zm_request->getRequestParameter('description');
         $hidden = $zm_request->getRequestParameter('hidden');
-        $zm_features->updateFeature($id, $zm_request->getLanguageId(), $name, $description, $hidden);
+        $zm_features->updateFeature($id, $zm_runtime->getLanguageId(), $name, $description, $hidden);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
         break;
@@ -75,7 +75,7 @@
         $name = $zm_request->getRequestParameter('name');
         $description = $zm_request->getRequestParameter('description');
         $hidden = null != $zm_request->getRequestParameter('hidden') ? '1' : '0';
-        $zm_features->addFeature($type, $zm_request->getLanguageId(), $name, $description, $hidden);
+        $zm_features->addFeature($type, $zm_runtime->getLanguageId(), $name, $description, $hidden);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
         break;
