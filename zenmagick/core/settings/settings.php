@@ -42,6 +42,7 @@
     $_ZM_SETTINGS['isI18nSupport'] = false;
     $_ZM_SETTINGS['isPatchRewriteBase'] = true;
     $_ZM_SETTINGS['isUltimateSeoPatchSupport'] = false;
+    $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
