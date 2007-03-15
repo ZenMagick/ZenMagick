@@ -165,8 +165,6 @@ require_once('../zenmagick/init.php');
             <div class="submit">
                 <input type="submit" value="<?php zm_l10n("Install") ?>">
             </div>
-        <?php } else { ?>
-            <h3><?php zm_l10n("Congratulations - Your installation seems to be fully patched!") ?></h3>
         <?php }
     }
 

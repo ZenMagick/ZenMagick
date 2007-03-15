@@ -44,12 +44,15 @@
 
   function zm_catalog_dtree($pUrlPrefix='#', $cUrlPrefix='#', $folderLinks=false, $showProducts=true) {
   global $zm_categories, $zm_products, $zm_dtree_catalog_map, $zm_request;
+
       echo '<script type="text/javascript" src="includes/dtree/dtree.js"></script>';
       echo '<script type="text/javascript">';
       echo '  var catalog_state = false;';
       echo '  var catalog = new dTree("catalog");';
       echo '  catalog.add(0,-1,"Catalog");';
       echo '  catalog.config.folderLinks = '.($folderLinks?'true':'false').';';
+
+      $zm_categories->setPath($zm_request->getCategoryPathArray());
 
       $index = zm_catalog_catalog_tree($zm_categories->getCategoryTree(), 1, 0, 0, $cUrlPrefix, $showProducts); 
       $categoryId = $zm_categories->getActiveCategoryId();
