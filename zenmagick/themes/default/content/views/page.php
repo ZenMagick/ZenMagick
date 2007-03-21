@@ -25,7 +25,7 @@
 ?>
 
 <?php $toc = $zm_pages->getPagesForChapterId($zm_request->getRequestParameter("chapter")); ?>
-<?php if (1 < count(toc)) { ?>
+<?php if (1 < count($toc)) { ?>
     <div id="eztoc">
         <h4><?php zm_l10n("Table of Contents") ?></h4>
         <ul>

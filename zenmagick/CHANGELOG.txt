@@ -1,3 +1,12 @@
+Release 0.7.0.1
+- fix file patches that append empty lines to zen-cart files, thus creating
+  leading empty lines in HTML output
+- fix missing TOC in EZ pages
+- added missing CSS for EZ pages TOC in demo theme
+- fixed broken account notification view
+- fixed wrong account notification checkbox names
+- another fix for multi value request parameter in zm_href(..)
+
 Release 0.7.0
 - added about page
 - added optional PHP console; good for debuging, but a possible security issue,

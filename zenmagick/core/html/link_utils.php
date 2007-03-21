@@ -328,8 +328,14 @@
             }
             // remaining query
             $params = '';
-            foreach ($query as $key => $value) {
-                $params .= '&amp;'.$key.'='.$value;
+            foreach ($query as $name => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subValue) {
+                        $params .= '&amp;'.$name.'[]='.$subValue;
+                    }
+                } else {
+                    $params .= '&amp;'.$name.'='.$value;
+                }
             }
             $params = (0 < strlen($params) ? ('?'.substr($params, 5)) : '');
 
@@ -517,6 +523,26 @@
      */
     function zm_ajax_href($controller, $method, $params='', $echo=true) { 
         $url = str_replace('&amp;', '&', _zm_build_href('ajax_'.$controller, $params.'&method='.$method, false, false));
+
+        if ($echo) echo $url;
+        return $url;
+    }
+
+    /**
+     * Convenience function.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string channel The channel.
+     * @param string key Optional key, for example, 'new' for the product channel.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A complete URL.
+     */
+    function zm_rss_feed_href($channel, $key=null, $echo=true) { 
+        $params = 'channel='.$channel;
+        if (null !== $key) {
+            $params .= "&key=".$key;
+        }
+        $url = zm_href(ZM_FILENAME_RSS, $params, false);
 
         if ($echo) echo $url;
         return $url;

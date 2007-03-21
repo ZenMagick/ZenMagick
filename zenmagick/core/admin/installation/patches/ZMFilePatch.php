@@ -103,8 +103,10 @@ class ZMFilePatch extends ZMInstallationPatch {
     function putFileLines($file, $lines) {
         $handle = fopen($file, 'wb');
         if ($handle) {
-            foreach ($lines as $line) {
-                fwrite($handle, $line."\n");
+            $lineCount = count($lines) - 1;
+            foreach ($lines as $ii => $line) {
+                $eol = $ii < $lineCount ? "\n" : '';
+                fwrite($handle, $line.$eol);
             }
             fclose($handle);
             return true;

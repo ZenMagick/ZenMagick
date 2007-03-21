@@ -75,8 +75,8 @@ body#b_address_book_process #content span {color:#f02025;}
 table#smethods tr.smethod:hover td {color:white;background-color:#d32814;}
 body#b_checkout_payment p.paytype:hover {color:white;background-color:#d32814;}
 
-div#eztoc h4 {color:white;background:#578bb8;}
-div#eztoc p a {color:white;background:#467aa7;}
+div#eztoc h4 {background-color:#cbc9cd;color:black;}
+div#eztoc p a {background-color:#cbc9cd;color:black;}
 
 #b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#d32814;background-color:#fff;}
 
