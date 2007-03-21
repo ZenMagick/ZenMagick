@@ -49,7 +49,12 @@ class ZMIdNamePair extends ZMModel {
 		    $this->name_ = $name;
     }
 
-    // create new instance
+    /**
+     * Create new id - name pair.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     */
     function __construct($id, $name) {
         $this->ZMIdNamePair($id, $name);
     }
@@ -62,9 +67,20 @@ class ZMIdNamePair extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the id.
+     *
+     * @return string The id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the name.
+     *
+     * @return string The name.
+     */
     function getName() { return $this->name_; }
+
 }
 
 ?>

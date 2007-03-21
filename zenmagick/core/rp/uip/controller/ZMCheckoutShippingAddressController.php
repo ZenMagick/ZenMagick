@@ -33,12 +33,16 @@
  */
 class ZMCheckoutShippingAddressController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMCheckoutShippingAddressController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCheckoutShippingAddressController();
     }
@@ -51,7 +55,9 @@ class ZMCheckoutShippingAddressController extends ZMController {
     }
 
 
-    // process a GET request
+    /**
+     * Process a GET request.
+     */
     function processGet() {
     global $zm_request, $zm_crumbtrail, $zm_cart;
 

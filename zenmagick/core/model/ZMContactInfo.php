@@ -39,7 +39,11 @@ class ZMContactInfo extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
+     *
+     * @param string name The contact name.
+     * @param string email The contacts email address.
+     * @param string message An optional message.
      */
     function ZMContactInfo($name='', $email='', $message='') {
         parent::__construct();
@@ -50,7 +54,13 @@ class ZMContactInfo extends ZMModel {
 		    $this->message_ = $msg;
     }
 
-    // create new instance
+    /**
+     * Create new instance.
+     *
+     * @param string name The contact name.
+     * @param string email The contacts email address.
+     * @param string message An optional message.
+     */
     function __construct($name='', $email='', $message='') {
         $this->ZMContactInfo($name, $email, $message);
     }
@@ -71,10 +81,32 @@ class ZMContactInfo extends ZMModel {
         $this->message_ = $zm_request->getRequestParameter('enquiry', '');
     }
 
-    // getter/setter
+    /**
+     * Get the contact name.
+     *
+     * @return string The contact name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the contact email address.
+     *
+     * @return string The contact email address.
+     */
     function getEmail() { return $this->email_; }
+
+    /**
+     * Get the recipient.
+     *
+     * @return string The recipient.
+     */
     function getRecipient() { return $this->recipient_; }
+
+    /**
+     * Get the message.
+     *
+     * @return string The message.
+     */
     function getMessage() { return $this->message_; }
 
 }

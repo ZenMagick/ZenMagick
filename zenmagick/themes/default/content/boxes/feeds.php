@@ -24,14 +24,9 @@
  */
 ?>
 
-<?php $zm_rss = new ZMRss('http://www.alistapart.com/rss.xml'); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php zm_htmlencode($channel->getTitle()) ?></h3>
-    <div id="sb_rss" class="box">
-        <dl>
-            <?php foreach ($zm_rss->getItems() as $item) { ?>
-                <dt><?php echo zm_parse_rss_date($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php zm_href_target() ?>><?php zm_htmlencode($item->getTitle()); ?></a></dd>
-            <?php } ?>
-        </dl>
-    </div>
-<?php } ?>
+<h3><?php zm_l10n("RSS Feeds") ?></h3>
+<div id="sb_feeds" class="box">
+    <a href="<?php zm_rss_feed_href('reviews') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Product Reviews") ?></a>
+    <a href="<?php zm_rss_feed_href('products', 'new') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("New Products") ?></a>
+    <a href="<?php zm_rss_feed_href('chapter', '10') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Chapter 10") ?></a>
+</div>

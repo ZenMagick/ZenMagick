@@ -52,7 +52,13 @@ class ZMFeatureValue extends ZMModel {
         $this->value_ = $value;
     }
 
-    // create new instance
+    /**
+     * Create new feature value.
+     *
+     * @param int id The feature id.
+     * @param int index The value index.
+     * @param mixed The actual value.
+     */
     function __construct($id, $index, $value) {
         $this->ZMFeatureValue($id, $index, $value);
     }
@@ -65,9 +71,25 @@ class ZMFeatureValue extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the feature value id.
+     *
+     * @return int The feature value id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the feature value (sort) index.
+     *
+     * @return int The feature value index.
+     */
     function getIndex() { return $this->index_; }
+
+    /**
+     * Get the value.
+     *
+     * @return string The value.
+     */
     function getValue() { return $this->value_; }
 
 }

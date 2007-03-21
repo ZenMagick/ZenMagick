@@ -32,16 +32,23 @@
  */
 class AlphaFilter extends ZMResultListFilter {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function AlphaFilter() {
         parent::__construct('afilter', zm_l10n_get('First character of Name'));
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->AlphaFilter();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 
@@ -53,6 +60,7 @@ class AlphaFilter extends ZMResultListFilter {
      * @return bool <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     function exclude($obj) { return !zm_starts_with(strtolower($obj->getName()), $this->filterValues_[0]); }
+
 
     /**
      * Returns a list of all available filter values.
@@ -78,7 +86,6 @@ class AlphaFilter extends ZMResultListFilter {
 
         return $options;
     }
-
 
 }
 

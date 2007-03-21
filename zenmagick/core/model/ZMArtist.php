@@ -52,7 +52,9 @@ class ZMArtist extends ZMModel {
         $this->recordCompany_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMArtist();
     }
@@ -64,14 +66,60 @@ class ZMArtist extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the artist id.
+     *
+     * @return int The artist id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the artist name.
+     *
+     * @return string The artist name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the name.
+     *
+     * @return string The genre.
+     */
     function getGenre() { return $this->genre_; }
+
+    /**
+     * Check if an image is available.
+     *
+     * @return bool <code>true</code> if an image is available, <code>false</code> if not.
+     */
     function hasImage() { return !zm_is_empty($this->image_); }
+
+    /**
+     * Get the artist image.
+     *
+     * @return string The artist image.
+     */
     function getImage() { return $this->image_; }
+
+    /**
+     * Check if a URL is available.
+     *
+     * @return bool <code>true</code> if a URL is available, <code>false</code> if not.
+     */
     function hasUrl() { return !zm_is_empty($this->url_); }
+
+    /**
+     * Get the artist URL.
+     *
+     * @return string The artist URL.
+     */
     function getUrl() { return $this->url_; }
+
+    /**
+     * Get the record company.
+     *
+     * @return ZMRecordCompany The record company.
+     */
     function getRecordCompany() { return $this->recordCompany_; }
 
 }

@@ -50,7 +50,9 @@ class ZMGVReceiver extends ZMModel {
         $this->message_ = '';
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMGVReceiver();
     }
@@ -73,11 +75,39 @@ class ZMGVReceiver extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the receiver name.
+     *
+     * @return string The receiver name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the receiver email.
+     *
+     * @return string The receiver email.
+     */
     function getEmail() { return $this->email_; }
+
+    /**
+     * Get the amount.
+     *
+     * @return double The amount.
+     */
     function getAmount() { return $this->amount_; }
+
+    /**
+     * Chkec if there is a message.
+     *
+     * @return bool <code>true</code> if there is a message, <code>false</code> if not.
+     */
     function hasMessage() { return !zm_is_empty($this->message_); }
+
+    /**
+     * Get the message.
+     *
+     * @return string The message.
+     */
     function getMessage() { return $this->message_; }
 
 }

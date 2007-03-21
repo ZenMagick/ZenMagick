@@ -1,3 +1,17 @@
+Release 0.7.1
+- ZMCategories/ZMCategory rewrite
+- moved zm_parse_rss_date(..) into net.radebatz.zenmagic.misc package
+- moved setContentType(..) from ZMAjaxController into ZMController
+- new products are now ordered by date_added
+- added new sidebox feeds.php that offers RSS feeds of reviews, new products
+  and custom EZ page chapters
+- fix wrong multi value parameter handling in SEO
+- fix default from/to date strings problem in advanced search and get rid of
+  JS that clears the fields
+- (re-)added the comparable button for product listings
+- tested with PHP 5.2.1
+- tons of phpdoc
+
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating
   leading empty lines in HTML output

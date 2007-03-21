@@ -68,9 +68,20 @@ class ZMCurrencies extends ZMDao {
     }
 
 
-    // getter/setter
+    /**
+     * Get all currencies.
+     *
+     * @return array A list of <code>ZMCurrency</code> objects.
+     */
     function getCurrencies() { return $this->currencies_; }
-    function getCurrencyForId($id) { return $this->currencies_[$id]; }
+
+    /**
+     * Get the currency for the given id.
+     *
+     * @param int id The currency id.
+     * @return ZMCurrency A currency or <code>null</code>.
+     */
+    function getCurrencyForId($id) { return isset($this->currencies_[$id]) ? $this->currencies_[$id] : null; }
 
 }
 

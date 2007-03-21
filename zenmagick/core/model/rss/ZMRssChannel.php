@@ -43,10 +43,10 @@ class ZMRssChannel extends ZMModel {
      *
      * @param array Channel data.
      */
-    function ZMRssChannel($rs) {
+    function ZMRssChannel($rs=null) {
         parent::__construct();
 
-        $this->rs_ = $rs;
+        $this->rs_ = null !== $rs ? $rs : array();
     }
 
     /**
@@ -54,7 +54,7 @@ class ZMRssChannel extends ZMModel {
      *
      * @param array Channel data.
      */
-    function __construct($rs) {
+    function __construct($rs=null) {
         $this->ZMRssChannel($rs);
     }
 

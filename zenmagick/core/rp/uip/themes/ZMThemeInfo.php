@@ -94,50 +94,185 @@ class ZMThemeInfo extends ZMObject {
         $this->js_events_ = array_merge($parent->js_events_, $this->js_events_);
     }
 
-    // getter/setter
+    /**
+     * Set the theme id.
+     *
+     * @param int themeId The new theme id.
+     */
     function setThemeId($themeId) { $this->themeId_ = $themeId; }
-    function getThemeId() { return $this->themeId_; }
-    function getName() { return $this->info_['name']; }
-    function setName($name) { $this->info_['name'] = $name; }
-    function getVersion() { return $this->info_['version']; }
-    function setVersion($version) { $this->info_['version'] = $version; }
-    function getAuthor() { return $this->info_['author']; }
-    function setAuthor($author) { $this->info_['author'] = $author; }
-    function getDescription() { return $this->info_['description']; }
-    function setDescription($text) { $this->info_['description'] = $text; }
-    function getPath() { return $this->info_['path']; }
-    function setPath($text) { $this->info_['path'] = $text; }
 
+    /**
+     * Get the theme id.
+     *
+     * @return int The theme id.
+     */
+    function getThemeId() { return $this->themeId_; }
+
+    /**
+     * Get the theme name.
+     *
+     * @return string The theme name.
+     */
+    function getName() { return $this->info_['name']; }
+
+    /**
+     * Set the theme name.
+     *
+     * @param string name The theme name.
+     */
+    function setName($name) { $this->info_['name'] = $name; }
+
+    /**
+     * Get the theme version.
+     *
+     * @return string The theme version.
+     */
+    function getVersion() { return $this->info_['version']; }
+    /**
+     * Set the theme version.
+     *
+     * @param string version The theme version.
+     */
+    function setVersion($version) { $this->info_['version'] = $version; }
+
+    /**
+     * Get the theme author.
+     *
+     * @return string The theme author.
+     */
+    function getAuthor() { return $this->info_['author']; }
+
+    /**
+     * Set the theme author.
+     *
+     * @param string author The theme author.
+     */
+    function setAuthor($author) { $this->info_['author'] = $author; }
+
+    /**
+     * Get the theme description.
+     *
+     * @return string The theme description.
+     */
+    function getDescription() { return $this->info_['description']; }
+
+    /**
+     * Set the theme description.
+     *
+     * @param string description The theme description.
+     */
+    function setDescription($description) { $this->info_['description'] = $description; }
+
+    /**
+     * Get the theme path.
+     *
+     * @return string The theme path.
+     */
+    function getPath() { return $this->info_['path']; }
+
+    /**
+     * Set the theme path.
+     *
+     * @param string path The theme name.
+     */
+    function setPath($path) { $this->info_['path'] = $path; }
+
+    /**
+     * Get the error page.
+     *
+     * @return string The error page.
+     */
     function getErrorPage() { return $this->config_['errorpage']; }
+
+    /**
+     * Set the error page.
+     *
+     * @param string name The error page.
+     */
     function setErrorPage($name) { $this->config_['errorpage'] = $name; }
+
+    /**
+     * Check if the theme has a default layout.
+     *
+     * @return bool <code>true</code> if a default layout exists, <code>false</code> if not.
+     */
     function hasDefaultLayout() { return null != $this->getDefaultLayout(); }
+
+    /**
+     * Get the default layout.
+     *
+     * @return string The default layout name.
+     */
     function getDefaultLayout() {
         if (array_key_exists('default-template', $this->config_)) {
             return $this->config_['default-template'];
         }
         return null;
     }
+
+    /**
+     * Set the default layout.
+     *
+     * @param string name The default layout name.
+     */
     function setDefaultLayout($name) { $this->config_['default-template'] = $name; }
+
+    /**
+     * Set the layout for the given page.
+     *
+     * @param string page The page name.
+     * @param string name The layout name.
+     */
     function setLayout($page, $name) { $this->layout_[$page] = $name; }
 
+    /**
+     * Set the views directory.
+     *
+     * @param string dir The views directory name.
+     */
     function setViewsDir($dir) { $this->config_['view-dir'] = $dir; }
+
+    /**
+     * Get the views directory.
+     *
+     * @return string The views directory name.
+     */
     function getViewsDir() { return $this->config_['view-dir']; }
 
-    function getTemplateFor($name) {
-        if (array_key_exists($name, $this->layout_)) {
-            $this->layout_[$name];
-            return $this->layout_[$name];
+    /**
+     * Get the template/layout for the given page.
+     *
+     * @param string page The page.
+     * @return string The layout name.
+     */
+    function getTemplateFor($page) {
+        if (array_key_exists($page, $this->layout_)) {
+            $this->layout_[$page];
+            return $this->layout_[$page];
         } else if ($this->hasDefaultLayout()) {
             return $this->getDefaultLayout();
         }
         // default to no layout
-        return $name;
+        return $page;
     }
 
+    /**
+     * Set the default page event handler.
+     *
+     * @param string event The event.
+     * @param string handler The handler name.
+     */
     function setDefaultPageEventHandler($event, $handler) {
         $this->js_default_events_[$event] = $handler;
     }
 
+    /**
+     * Set an event handler for a particular page.
+     *
+     * @param string event The event.
+     * @param string page The page to configure.
+     * @param string handler The event handler.
+     */
     function setPageEventHandler($event, $page, $handler) {
         if (!array_key_exists($event, $this->js_events_)) {
             $this->js_events_[$event] = array();
@@ -145,10 +280,24 @@ class ZMThemeInfo extends ZMObject {
         $this->js_events_[$event][$page] = $handler;
     }
 
+    /**
+     * Check if a event handler exists for the given event and page.
+     *
+     * @param string even The event.
+     * @param string page The page.
+     * @return string The handler name or <code>null</code>.
+     */
     function hasPageEventHandler($event, $page) {
         return null != $this->getPageEventHandler($event, $page);
     }
 
+    /**
+     * Get an event handler for a page.
+     *
+     * @param string event The event.
+     * @param string page The page.
+     * @return string The handler name or <code>null</code>.
+     */
     function getPageEventHandler($event, $page) {
         $default = '';
         if (array_key_exists($event, $this->js_default_events_)) {

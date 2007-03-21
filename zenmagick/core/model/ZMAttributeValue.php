@@ -58,7 +58,9 @@ class ZMAttributeValue extends ZMModel {
         $this->name_ = $name;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($id, $name) {
         $this->ZMAttributeValue($id, $name);
     }
@@ -71,21 +73,109 @@ class ZMAttributeValue extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the attribute value id.
+     *
+     * @return int The attribute value id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the attribute value name.
+     *
+     * @return string The attribute value name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the attribute price.
+     *
+     * @return double The price.
+     */
     function getPrice() { return $this->price_; }
+
+    /**
+     * Get the attributes one time price.
+     *
+     * @return double The attributes one time price.
+     */
     function getOneTimePrice() { return $this->oneTimePrice_; }
+
+    /**
+     * Get the price prefix.
+     *
+     * @return string The price prefix.
+     */
     function getPricePrefix() { return $this->pricePrefix_; }
+
+    /**
+     * Check if the attribute is free.
+     *
+     * @return bool <code>true</code> if the value is free, <code>false</code> if not.
+     */
     function isFree() { return $this->isFree_; }
+
+    /**
+     * Get the attribute weight.
+     *
+     * @return double The attribute weight.
+     */
     function getWeight() { return $this->weight_; }
+
+    /**
+     * Get the weight prefix.
+     *
+     * @return string The weight prefix.
+     */
     function getWeightPrefix() { return $this->weightPrefix_; }
+
+    /**
+     * Check if the attribute is 'display only'.
+     *
+     * @return bool <code>true</code> if the value is display only, <code>false</code> if not.
+     */
     function isDisplayOnly() { return $this->isDisplayOnly_; }
+
+    /**
+     * Check if this is the default value.
+     *
+     * @return bool <code>true</code> if this is the default value, <code>false</code> if not.
+     */
     function isDefault() { return $this->isDefault_; }
+
+    /**
+     * Check if this value is discounted.
+     *
+     * @return bool <code>true</code> if this value is discounted, <code>false</code> if not.
+     */
     function isDiscounted() { return $this->isDiscounted_; }
+
+    /**
+     * Check if this value has an associated image.
+     *
+     * @return bool <code>true</code> if an image is available, <code>false</code> if not.
+     */
     function hasImage() { return null !== $this->image_ && '' != $this->image_; }
+
+    /**
+     * Get the attribute value image (if any).
+     *
+     * @return string The attribute value image name.
+     */
     function getImage() { return $this->image_; }
+
+    /**
+     * Check if this is a one time value.
+     *
+     * @return bool <code>true</code> if this is a one time value, <code>false</code> if not.
+     */
     function isOneTime() { return $this->isOneTime_; }
+
+    /**
+     * Check if the price factor is one time.
+     *
+     * @return bool <code>true</code> if the price factor is one time only, <code>false</code> if not.
+     */
     function isPriceFactorOneTime() { return $this->isPriceFactorOneTime_; }
 
 }

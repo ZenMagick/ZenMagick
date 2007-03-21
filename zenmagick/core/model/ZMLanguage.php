@@ -46,7 +46,9 @@ class ZMLanguage extends ZMModel {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMLanguage();
     }
@@ -59,11 +61,39 @@ class ZMLanguage extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the language id.
+     *
+     * @return int The language id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the language name.
+     *
+     * @return string The language name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the language image.
+     *
+     * @return string The language image.
+     */
     function getImage() { return $this->image_; }
+
+    /**
+     * Get the language code.
+     *
+     * @return string The language code.
+     */
     function getCode() { return $this->code_; }
+
+    /**
+     * Get the language directory name.
+     *
+     * @return string The language directory name.
+     */
     function getDirectory() { return $this->directory_; }
 
 }

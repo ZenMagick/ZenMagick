@@ -56,7 +56,13 @@ class ZMPaymentType extends ZMModel {
         $this->fields_ = array();
     }
 
-    // create new instance
+    /**
+     * Create a new payment type.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     * @param string instructions Optional instructions.
+     */
     function __construct($id, $name, $instructions='') {
         $this->ZMPaymentType($id, $name, $instructions);
     }

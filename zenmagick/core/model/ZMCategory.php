@@ -35,11 +35,10 @@
  */
 class ZMCategory extends ZMModel {
     var $id_;
-    var $parent_;
     var $parentId_;
     var $name_;
     var $active_;
-    var $children_;
+    var $childrenIds_;
     var $description_;
     var $sortOrder_;
     var $image_;
@@ -47,6 +46,10 @@ class ZMCategory extends ZMModel {
 
     /**
      * Default c'tor.
+     *
+     * @param int id The category id.
+     * @param string name The name.
+     * $param bool active The active flag.
      */
     function ZMCategory($id, $parentId, $name, $active = false) {
         parent::__construct();
@@ -56,10 +59,16 @@ class ZMCategory extends ZMModel {
         $this->parentId_ = $parentId;
         $this->name_ = $name;
         $this->active_ = $active;
-        $this->children_ = array();
+        $this->childrenIds_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     *
+     * @param int id The category id.
+     * @param string name The name.
+     * $param bool active The active flag.
+     */
     function __construct($id, $parentId, $name, $active = false) {
         $this->ZMCategory($id, $parentId, $name, $active);
     }
@@ -72,28 +81,95 @@ class ZMCategory extends ZMModel {
     }
 
 
-    // simple getter/setter
+    /**
+     * Get the id.
+     *
+     * @return int The category id.
+     */
     function getId() { return $this->id_; }
-    // PHP5 only function getParent() { return $this->parent_; }
+
+    /**
+     * Get the parent category (if any).
+     *
+     * @return ZMCategory The parent category or <code>null</code>.
+     */
     function getParent() { global $zm_categories; return 0 != $this->parentId_ ? $zm_categories->getCategoryForId($this->parentId_) : null; }
+
+    /**
+     * Get the parent category id (if any).
+     *
+     * @return int The parent category id or <code>0</code>.
+     */
     function getParentId() { return $this->parentId_; }
-    function setParent($parent) { $this->parent_ = $parent; }
-    function hasParent() { return 0 != $this->parentId_ && null != $this->parent_; }
+
+    /**
+     * Checks if the catgory has a parent.
+     *
+     * @return bool <code>true</code> if this category has a parent, <code>false</code> if not.
+     */
+    function hasParent() { return 0 != $this->parentId_; }
+
+    /**
+     * Get the category name.
+     *
+     * @return string The category name.
+     */
     function getName() { return $this->name_; }
-    function setActive($active) { $this->active_ = $active; }
+
+    /**
+     * Checks if this category is active; ie. in the category path.
+     *
+     * @return bool <code>true</code> if this category is in the category path, <code>false</code> if not.
+     */
     function isActive() { return $this->active_; }
-    function hasChildren() { return 0 < count($this->children_); }
-    function addChild($child) { array_push($this->children_, $child); }
-    function getChildren() { return $this->children_; }
+
+    /**
+     * Checks if this category has children.
+     *
+     * @return bool <code>true</code> if this category has children, <code>false</code> if not.
+     */
+    function hasChildren() { return 0 < count($this->childrenIds_); }
+
+    /**
+     * Get the child categories of this category.
+     *
+     * @return array A list of <code>ZMcategory</code> instances.
+     */
+    function getChildren() { global $zm_categories; return $zm_categories->getCategories($this->childrenIds_); }
+
+    /**
+     * Get the category description.
+     *
+     * @return string The description.
+     */
     function getDescription() { return $this->description_; }
+
+    /**
+     * Get the sort order.
+     *
+     * @return int The sort order.
+     */
     function getSortOrder() { return $this->sortOrder_; }
+
+    /**
+     * Get the category image (if any).
+     *
+     * @return string The image name.
+     */
     function getImage() { return $this->image_; }
 
-    // build path
+    /**
+     * Get the category path.
+     *
+     * <p>This method will return a value that can be used as <code>cPath</code> value in a URL
+     * pointing to this category.</p>
+     *
+     * @return string The category path in the form <code>cPath=[PATH]</code>.
+     */
     function getPath() {
         $path = $this->id_;
         $parent = $this->parent_;
-        while (null != $parent) {
+        while (null !== $parent) {
             $path = $parent->getId()."_".$path;
             $parent = $parent->getParent();
         }

@@ -55,7 +55,7 @@
       $zm_categories->setPath($zm_request->getCategoryPathArray());
 
       $index = zm_catalog_catalog_tree($zm_categories->getCategoryTree(), 1, 0, 0, $cUrlPrefix, $showProducts); 
-      $categoryId = $zm_categories->getActiveCategoryId();
+      $categoryId = $zm_request->getCategoryId();
       if (0 != $categoryId && $showProducts) {
          $category = $zm_categories->getCategoryForId($categoryId);
          $products = $zm_products->getProductsForCategoryId($categoryId);

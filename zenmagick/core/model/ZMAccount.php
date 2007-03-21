@@ -72,7 +72,9 @@ class ZMAccount extends ZMModel {
         $this->subscriptions_ = $this->create("Subscriptions", $this);
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAccount();
     }

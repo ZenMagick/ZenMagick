@@ -53,7 +53,12 @@ class ZMShoppingCartItem extends ZMModel {
         $this->attributes_ = null;
     }
 
-    // create new instance
+    /**
+     * Create new shopping cart item
+     *
+     * @param ZMShoppingCart cart The associated shopping cart.
+     * @param array zenItem The zen-cart shopping item infos.
+     */
     function __construct($cart, $zenItem) {
         $this->ZMShoppingCartItem($cart, $zenItem);
     }

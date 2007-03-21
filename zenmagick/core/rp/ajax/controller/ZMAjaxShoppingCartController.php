@@ -33,12 +33,16 @@
  */
 class ZMAjaxShoppingCartController extends ZMAjaxController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function ZMAjaxShoppingCartController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAjaxShoppingCartController();
     }

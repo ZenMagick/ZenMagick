@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006-2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -79,7 +79,6 @@
     // set up main class instances (aka the ZenMagick API)
     $zm_products = new ZMProducts();
     $zm_reviews = new ZMReviews();
-    print_r($cPath_array);
     $zm_categories = new ZMCategories();
     $zm_features = new ZMFeatures();
     $zm_manufacturers = new ZMManufacturers();

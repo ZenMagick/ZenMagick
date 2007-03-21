@@ -43,10 +43,10 @@ class ZMRssItem extends ZMModel {
      *
      * @param array Array of item data.
      */
-    function ZMRssItem($item) {
+    function ZMRssItem($item=null) {
         parent::__construct();
 
-        $this->item_ = $item;
+        $this->item_ = null !== $item ? $item : array();
     }
 
     /**
@@ -54,7 +54,7 @@ class ZMRssItem extends ZMModel {
      *
      * @param array Array of item data.
      */
-    function __construct($item) {
+    function __construct($item=null) {
         $this->ZMRssItem($item);
     }
 

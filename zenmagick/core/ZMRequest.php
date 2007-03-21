@@ -194,10 +194,13 @@ class ZMRequest {
      * @return int The current category id or <code>0</code>.
      */
     function getCategoryId() {
-    global $zm_categories;
+        $cPath = $this->getCategoryPathArray();
 
-        $category = $zm_categories->getActiveCategory();
-        return null != $category ? $category->getId() : 0;
+        if (0 < count($cPath)) {
+            return end($cPath);
+        }
+
+        return 0;
     }
 
     /**

@@ -46,7 +46,9 @@ class ZMMediaCollection extends ZMModel {
         $this->items_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMMediaCollection();
     }
@@ -59,8 +61,18 @@ class ZMMediaCollection extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the media collection name.
+     *
+     * @return string The media collection name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the media items.
+     *
+     * @return array A list of <code>ZMMedia</code> objects.
+     */
     function getItems() { return $this->items_; }
 
 }

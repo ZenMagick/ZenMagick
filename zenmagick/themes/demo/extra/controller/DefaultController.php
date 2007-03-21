@@ -31,23 +31,30 @@
  */
 class DefaultController extends ZMController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function DefaultController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->DefaultController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 
 
-    /** API implementation */
-
-    // process a GET request
+    /**
+     * Process a GET request.
+     */
     function processGet() {
     global $zm_crumbtrail;
 

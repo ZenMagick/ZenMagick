@@ -40,7 +40,9 @@ class ZMSearch extends ZMModel {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMSearch();
     }
@@ -53,17 +55,81 @@ class ZMSearch extends ZMModel {
     }
 
 
+    /**
+     * Conveniece access method to the request.
+     */
     function _get($key, $default='') {global $zm_request; return $zm_request->getRequestParameter($key, $default); }
 
-    // getter/setter
+    /**
+     * Get the keyword.
+     *
+     * @param string default A default value.
+     * @return string The keyword.
+     */
     function getKeyword($default='') { return $this->_get('keyword', $default); }
+
+    /**
+     * Get the include description flag.
+     *
+     * @param string default A default value.
+     * @return bool <code>true</code> if descriptions should be searched too.
+     */
     function getIncludeDescription($default=true) { return $this->_get('search_in_description', $default); }
+
+    /**
+     * Get the category.
+     *
+     * @param string default A default value.
+     * @return string The category.
+     */
     function getCategory($default=0) { return $this->_get('categories_id', $default); }
+
+    /**
+     * Get the include subcategories flag.
+     *
+     * @param string default A default value.
+     * @return bool <code>true</code> if subcategories should be searched too.
+     */
     function getIncludeSubcategories($default=true) { return $this->_get('inc_subcat', $default); }
-    function getManufacturer($default=0) { return $this->_get('manufacturers_id', $default); }
+
+    /**
+     * Get the manufacturer.
+     *
+     * @param string default A default value.
+     * @return string The manufacturer.
+     */
+    function getManufacturer($default='') { return $this->_get('manufacturers_id', $default); }
+
+    /**
+     * Get the from date.
+     *
+     * @param string default A default value.
+     * @return string The from date.
+     */
     function getDateFrom($default='') { return $this->_get('dfrom', $default); }
+
+    /**
+     * Get the to date.
+     *
+     * @param string default A default value.
+     * @return string The to date.
+     */
     function getDateTo($default='') { return $this->_get('dto', $default); }
+
+    /**
+     * Get the price from.
+     *
+     * @param string default A default value.
+     * @return string The price from.
+     */
     function getPriceFrom($default='') { return $this->_get('pfrom', $default); }
+
+    /**
+     * Get the price to.
+     *
+     * @param string default A default value.
+     * @return string The price to.
+     */
     function getPriceTo($default='') { return $this->_get('pto', $default); }
 
 }

@@ -188,6 +188,7 @@ class ZMMetaTags extends ZMObject {
 
         $topCategories = $zm_categories->getCategoryTree();
         $first = true;
+
         foreach ($topCategories as $category) {
             if (!$first) $this->topCategories_ .= $this->keywordDelimiter_;
             $first = false; 

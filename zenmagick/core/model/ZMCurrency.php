@@ -58,7 +58,9 @@ class ZMCurrency extends ZMModel {
         $this->value_ = $arr['value'];
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($id, $arr) {
         $this->ZMCurrency($id, $arr);
     }
@@ -71,14 +73,60 @@ class ZMCurrency extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the currency id.
+     *
+     * @return int The currency id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the currency name.
+     *
+     * @return string The currency name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the currency symbox (left).
+     *
+     * @return string The currency symbol (left).
+     */
     function getSymbolLeft() { return $this->symbolLeft_; }
+
+    /**
+     * Get the currency symbox (right).
+     *
+     * @return string The currency symbol (right).
+     */
     function getSymbolRight() { return $this->symbolRight_; }
+
+    /**
+     * Get the currency decimal point.
+     *
+     * @return string The currency decimal point.
+     */
     function getDecimalPoint() { return $this->decimalPoint_; }
+
+    /**
+     * Get the currency thousands point.
+     *
+     * @return string The currency thousands point.
+     */
     function getThousandsPoint() { return $this->thousandsPoint_; }
-    function getdecimalPlaces() { return $this->decimalPlaces_; }
+
+    /**
+     * Get the currency decimal places.
+     *
+     * @return int The currency decimal places.
+     */
+    function getDecimalPlaces() { return $this->decimalPlaces_; }
+
+    /**
+     * Get the currency value.
+     *
+     * @return double The currency value.
+     */
     function getValue() { return $this->value_; }
 
 }

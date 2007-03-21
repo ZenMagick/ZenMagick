@@ -132,7 +132,7 @@ label {margin:2px 4px 4px 3px;}
 #sb_reviews p#rtext {font-size:95%;}
 #sb_reviews p#rtext a {display:block;}
 
-#sb_information a, #sb_ezpages a {display:block;}
+#sb_information a, #sb_ezpages a, #sb_feeds a {display:block;}
 #sb_search input#keyword {width:7.3em;}
 #sb_search input.btn {float:right;margin-left:0;}
 
@@ -155,6 +155,8 @@ label {margin:2px 4px 4px 3px;}
 
 #sb_rss dt {font-weight:bold;}
 #sb_rss dd {margin-left:12px;}
+
+#sb_feeds img {padding:1px 2px 0 0;}
 
 body#b_login #content label, body#b_time_out #content label {display:block;margin-left:0;}
 body#b_login #content {padding-left:20px;}

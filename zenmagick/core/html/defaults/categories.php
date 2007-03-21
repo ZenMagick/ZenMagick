@@ -38,18 +38,20 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
+     * @param bool showProductCount If true, show the product count per category.
+     * @param bool $useCategoryPage If true, create links for empty categories.
      * @param bool activeParent If true, the parent category is considered in the current category path.
      * @param bool root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
      * @return string The given categories as nested unordered list.
      */
-    function zm_build_category_tree_list($categories, $activeParent=false, $root=true) {
+    function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true) {
     global $zm_products;
 
         if ($root) { ob_start(); }
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
             $active = $category->isActive();
-            $noOfProducts = zm_setting('isShowCategoryProductCount') ? count($zm_products->getProductIdsForCategoryId($category->getId())) : 0;
+            $noOfProducts = $showProductCount ? count($zm_products->getProductIdsForCategoryId($category->getId())) : 0;
             $empty = 0 == $noOfProducts;
             echo '<li>';
             $class = '';
@@ -57,7 +59,7 @@
             $class .= $empty ? ' empty' : '';
             $class .= ($active && !$category->hasChildren()) ? ' curr' : '';
             $class = trim($class);
-            $onclick = $empty ? (zm_setting('isUseCategoryPage') ? '' : ' onclick="return catclick(this);"') : '';
+            $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         zm_href(FILENAME_DEFAULT, '&'.$category->getPath(), '', false, false) .
                         '">'.zm_htmlencode($category->getName(), false).'</a>';
@@ -68,7 +70,7 @@
                 echo '&gt;';
             }
             if ($category->hasChildren()) { // && $active) {
-                zm_build_category_tree_list($category->getChildren(), $active, false);
+                zm_build_category_tree_list($category->getChildren(), $showProductCount, $useCategoryPage, $active, false);
             }
             echo '</li>';
         }

@@ -25,43 +25,50 @@
 
 
 /**
- * Category access; both flat and as a tree.
+ * Category DAO.
  *
  * @author mano
  * @package net.radebatz.zenmagick.dao
  * @version $Id$
  */
 class ZMCategories extends ZMDao {
-    // current path
     var $path_;
-    // category type
     var $type_;
+    var $languageId_;
 
     // flat list
     var $categories_;
-    // tree structure
-    var $tree_;
 
 
     /**
      * Default c'tor.
+     *
+     * @param array path The current category path.
+     * @param string type The category type (not supported yet).
+     * @param int languageId The languageId.
      */
-    function ZMCategories($path = null, $type = null) {
+    function ZMCategories($path=null, $type=null, $languageId=null) {
+    global $zm_runtime;
+
         parent::__construct();
 
-        $this->path_ = (null !== $path ? $path : array());
         $this->type_ = $type;
+        $this->languageId_ = null !== $languageId ? $languageId : $zm_runtime->getLanguageId();
         $this->categories_ = null;
-        $this->tree_ = null;
-        // required to make category->getPath() work
+        $this->_load();
         $this->_buildTree();
+        $this->setPath($path);
     }
 
     /**
      * Default c'tor.
+     *
+     * @param array path The current category path.
+     * @param string type The category type (not supported yet).
+     * @param int languageId The languageId.
      */
-    function __construct($path = null, $type = null) {
-        $this->ZMCategories($path, $type);
+    function __construct($path=null, $type=null, $languageId=null) {
+        $this->ZMCategories($path, $type, $languageId);
     }
 
     /**
@@ -73,39 +80,23 @@ class ZMCategories extends ZMDao {
 
 
     /**
-     * Set the active path.
+     * Set the path.
      *
-     * @param array path The current path array.
+     * @param array path The current path.
      */
     function setPath($path) { 
-        $this->path_ = $path;
+        $this->path_ = (null !== $path ? $path : array());
         
-        $this->categories_ = null;
-        $this->tree_ = null;
-        // required to make category->getPath() work
-        $this->_buildTree();
-    }
+        // reset
+        foreach ($this->categories_ as $id => $category) {
+            $this->categories_[$id]->active_ = false;
+        }
 
-    /**
-     * Return the current category.
-     * <p>This should rather be in <code>ZMRequest</code>.</p>
-     *
-     * @return ZMCategory The current category or <code>null</code>.
-     */
-    function getActiveCategory() {
-        return null !== $this->path_ && 0 < count($this->path_) ?
-                $this->getCategoryForId(end($this->path_)) : null;
-    }
-
-    /**
-     * Return the current category id.
-     * <p>This should rather be in <code>ZMRequest</code>.</p>
-     *
-     * @return int The current category id or <code>0</code>.
-     */
-    function getActiveCategoryId() {
-        return null !== $this->path_ && 0 < count($this->path_) ?
-                end($this->path_) : 0;
+        foreach ($this->path_ as $id) {
+            if (isset($this->categories_[$id])) {
+                $this->categories_[$id]->active_ = true;
+            }
+        }
     }
 
     /**
@@ -130,179 +121,92 @@ class ZMCategories extends ZMDao {
         return $category;
     }
 
-    // returns true if categories have been loaded
-    function loaded() { return null !== $this->categories_; }
+    /**
+     * Get all categories.
+     *
+     * @param array ids Optional list of category ids.
+     * @return array A list of <code>ZMCategory</code> instances.
+     */
+    function getCategories($ids=null) {
+        if (null === $ids) {
+            return $this->categories_;
+        }
 
-    // returns true if active categories are available
-    function hasActive() {
-        // quick check to avoid db access
-        if ($this->loaded()) { return 0 < count($this->categories_); }
+        $categories = array();
+        foreach ($ids as $id) {
+            $categories[$id] =& $this->categories_[$id];
+        }
 
-        $results = $this->db_->Execute("select categories_id from " . TABLE_CATEGORIES . " where categories_status = 1 limit 1");
-        return 0 < $results->RecordCount();
+        return $categories;
     }
 
-    // get all categories
-    function getCategories() {
-        if (!$this->loaded()) { $this->_load(); }
-        return $this->categories_;
-    }
-
-    // get the categorie tree
+    /**
+     * This returns, in fact, not a real tree, but a list of all top level categories.
+     *
+     * @return array A list of all top level categories (<code>parentId == 0</code>).
+     */
     function getCategoryTree() {
-        if (null === $this->tree_) {
-            $this->_buildTree();
-        }
-        return $this->tree_;
-    }
-
-    function getCategoryForId($categoryId, $languageId=null) {
-    global $zm_runtime;
-
-        if (null != $languageId && $languageId != $zm_runtime->getLanguageId()) {
-            // not preloaded
-            $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
-                      from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
-                      where c.categories_id = cd.categories_id
-                      and c.categories_id = :categoryId
-                      and cd.language_id = :languageId
-                      and c.categories_status = '1'
-                      order by sort_order, cd.categories_name";
-            $query = $this->db_->bindVars($query, ":categoryId", $categoryId, 'integer');
-            $query = $this->db_->bindVars($query, ":languageId", $languageId, 'integer');
-
-            $results = $this->db_->Execute($query);
-
-            $category = null;
-            if (!$results->EOF) {
-                $category =& $this->_newCategory($results->fields);
+        $tlc = array();
+        foreach ($this->categories_ as $id => $category) {
+            if (0 == $category->parentId_) {
+                array_push($tlc, $this->categories_[$id]);
             }
-            return $category;
         }
 
-        if (!$this->loaded()) { $this->_load(); }
-        $cat =& $this->categories_[$categoryId];
-        return $cat;
+        return $tlc;
+    }
+
+    /**
+     * Get a category for the given id.
+     *
+     * @param int categoryId The category id.
+     * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
+     */
+    function getCategoryForId($categoryId) {
+        return  $this->categories_[$categoryId];
     }
 
 
-    // load all categories
+    /**
+     * Load all categories.
+     */
     function _load() {
     global $zm_runtime;
 
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
-                  from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd
-                  where c.categories_id = cd.categories_id
-                  and cd.language_id = :languageId
+                  from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd
+                  on c.categories_id = cd.categories_id
+                  where cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $this->db_->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $query = $this->db_->bindVars($query, ":languageId", $this->languageId_, "integer");
         $results = $this->db_->Execute($query, '', true, 150);
 
         $this->categories_ = array();
         while (!$results->EOF) {
             $category =& $this->_newCategory($results->fields);
-
-            // apply path
-            foreach ($this->path_ as $catId) {
-                if ($catId == $category->id_)
-                    $category->active_ = true;
-            }
             $this->categories_[$category->id_] = $category;
-
             $results->MoveNext();
 		    }
     }
 
-    // parse categories into tree structure (alternative for PHP5 only)
-    function _buildTree_v5() {
-        if (!$this->loaded()) { $this->_load(); }
-        $this->tree_ = array();
 
-        // create all children and parents
-        foreach ($this->categories_ as $id => $category) {
-            if (0 == $category->getParentId()) { continue; }
-            $parent = $this->categories_[$category->getParentId()];
-
-            // add links for parent and child
-            $parent->addChild($category);
-            $category->setParent($parent);
-        }
-
-        foreach ($this->categories_ as $id => $category) {
-            if (!$category->hasParent()) {
-                array_push($this->tree_, $category);
-            }
-        }
-    }
-
-
-    // parse categories into tree structure (PHP4 and PHP5)
+    /**
+     * Create tree data.
+     */
     function _buildTree() {
-        if (!$this->loaded()) { $this->_load(); }
-        $this->tree_ = array();
-
-        // create instances using node id as name (suffix)
-        foreach ($this->categories_ as $category) {
-            $nname = "n".$category->id_;
-            $$nname = $category;
-        }
-
-        // keep track of processed nodes
-        $processed = array();
-
-        // find leafs and process
-        $max = count($this->categories_);
-        while (count($processed) != $max) {
-            foreach ($this->categories_ as $category) {
-                $nname = "n".$category->id_;
-                if (array_key_exists($nname, $processed))
-                    continue;
-
-                // find out if node is parent
-                $isParent = false;
-                foreach ($this->categories_ as $node) {
-                    $pnname = "n".$node->parentId_;
-                    $pnnname = "n".$node->id_;
-                    if ($nname == $pnname && !array_key_exists($pnnname, $processed)) {
-                        // is parent
-                        $isParent = true;
-                        break;
-                    }
-                }
-
-                // process if leaf
-                if (!$isParent) {
-                    $pnname = "n".$$nname->parentId_;
-                    // check for valid parent
-                    if ("n0" != $pnname) {
-                        $$nname->parent_ = $$pnname;
-                        $$pnname->addChild($$nname);
-                    } else {
-                      $this->tree_[$$nname->id_] = $$nname;
-                    }
-
-                    // mark as processed
-                    $processed[$nname] = $nname;
-                }
+        foreach ($this->categories_ as $id => $category) {
+            if (0 != $category->parentId_) {
+                $parent =& $this->categories_[$category->parentId_];
+                array_push($parent->childrenIds_, $id);
             }
         }
-        
-        // sort
-        foreach ($this->categories_ as $category) {
-            $nname = "n".$category->id_;
-            usort($$nname->children_, array($this, "_nodeCompare"));
-            $this->categories_[$category->id_] =& $$nname;
-        }
-        usort($this->tree_, array($this, "_nodeCompare"));
     }
 
-    function _nodeCompare($n1, $n2) {
-        return ($n1->id_ == $n2->id_ ? 0 : ($n1->id_ > $n2->id_) ? +1 : -1);
-    }
-
-    // build category
+    /**
+     * Create new <code>ZMCategory</code> instance.
+     */
     function _newCategory($fields) {
         $category =& $this->create("Category", $fields['categories_id'], $fields['parent_id'], $fields['categories_name'], false);
         $category->description_ = $fields['categories_description'];

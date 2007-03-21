@@ -33,23 +33,30 @@
  */
 class IndexController extends ZMIndexController {
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function IndexController() {
         parent::__construct();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->IndexController();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 
 
-    /** API implementation */
-
-    // process a GET request
+    /**
+     * Process a HTTP GET request.
+     */
     function processGet() {
         // normal processing
         $view =& parent::processGet();

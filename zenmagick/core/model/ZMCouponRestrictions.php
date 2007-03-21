@@ -46,7 +46,9 @@ class ZMCouponRestrictions extends ZMModel {
 		    $this->products_ = $products;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($categories, $products) {
         $this->ZMCouponRestrictions($categories, $products);
     }
@@ -59,9 +61,25 @@ class ZMCouponRestrictions extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Checks if there are restrictions.
+     *
+     * @return bool <code>true</code> if restrictions exist, <code>false</code> if not.
+     */
     function hasRestrictions() { return 0 != count($this->categories_) || 0 < count($this->products_); }
+
+    /**
+     * Checks if there are categories.
+     *
+     * @return bool <code>true</code> if categories exist, <code>false</code> if not.
+     */
     function hasCategories() { return 0 != count($this->categories_); }
+
+    /**
+     * Checks if there are products.
+     *
+     * @return bool <code>true</code> if products exist, <code>false</code> if not.
+     */
     function hasProducts() { return 0 < count($this->products_); }
 
     /**

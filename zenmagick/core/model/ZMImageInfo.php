@@ -74,8 +74,11 @@ class ZMImageInfo extends ZMModel {
         }
     }
 
-
-    // create new instance
+    /**
+     * Create new image info.
+     *
+     * @param string image The image name.
+     */
     function __construct($product) {
         $this->ZMImageInfo($product);
     }
@@ -88,12 +91,46 @@ class ZMImageInfo extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Check if there is an image.
+     *
+     * @return bool <code>true</code> if there is an image, <code>false</code> if not.
+     */
     function hasImage() { return '' != $this->imageDefault_; }
+
+    /**
+     * Get the default image.
+     *
+     * @return string The default image.
+     */
     function getDefaultImage() { return $this->imageDefault_; }
+
+    /**
+     * Check if there is a medium image.
+     *
+     * @return bool <code>true</code> if there is a medium image, <code>false</code> if not.
+     */
     function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
+
+    /**
+     * Get the medium image.
+     *
+     * @return string The medium image.
+     */
     function getMediumImage() { return $this->imageMedium_; }
+
+    /**
+     * Check if there is a large image.
+     *
+     * @return bool <code>true</code> if there is a large image, <code>false</code> if not.
+     */
     function getLargeImage() { return $this->imageLarge_; }
+
+    /**
+     * Get the large image.
+     *
+     * @return string The large image.
+     */
     function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
 
 }

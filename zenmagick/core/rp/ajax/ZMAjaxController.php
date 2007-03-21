@@ -103,16 +103,6 @@ class ZMAjaxController extends ZMController {
 
 
     /**
-     * Set the response content type.
-     *
-     * @param string type The content type.
-     * @param string charset Optional charset; default is utf-8.
-     */
-    function setContentType($type, $charset="utf-8") {
-        header("Content-Type: " . $type . "; charset=" . $charset);
-    }
-
-    /**
      * Set JSON response header ('X_JSON').
      *
      * @param string json The JSON data.

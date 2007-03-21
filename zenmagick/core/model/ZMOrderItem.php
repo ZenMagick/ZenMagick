@@ -50,7 +50,9 @@ class ZMOrderItem extends ZMModel {
         $this->attributes_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMOrderItem();
     }

@@ -46,7 +46,11 @@ class ZMCoupon extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance
+     *
+     * @param int id The coupon id.
+     * @param string code The coupon code.
+     * @param string type The coupon type.
      */
     function ZMCoupon($id, $code, $type) {
         parent::__construct();
@@ -56,7 +60,13 @@ class ZMCoupon extends ZMModel {
 		    $this->type_ = $type;
     }
 
-    // create new instance
+    /**
+     * Create new instance
+     *
+     * @param int id The coupon id.
+     * @param string code The coupon code.
+     * @param string type The coupon type.
+     */
     function __construct($id, $code, $type) {
         $this->ZMCoupon($id, $code, $type);
     }

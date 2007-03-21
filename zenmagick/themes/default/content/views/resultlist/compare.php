@@ -24,14 +24,6 @@
  */
 ?>
 
-<?php $zm_rss = new ZMRss('http://www.alistapart.com/rss.xml'); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php zm_htmlencode($channel->getTitle()) ?></h3>
-    <div id="sb_rss" class="box">
-        <dl>
-            <?php foreach ($zm_rss->getItems() as $item) { ?>
-                <dt><?php echo zm_parse_rss_date($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php zm_href_target() ?>><?php zm_htmlencode($item->getTitle()); ?></a></dd>
-            <?php } ?>
-        </dl>
-    </div>
+<?php if (1 < $zm_resultList->getNumberOfResults()) { ?>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Compare Selected") ?>" /></div>
 <?php } ?>

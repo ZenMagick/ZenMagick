@@ -64,7 +64,6 @@ class ZMLanguages extends ZMDao {
     }
 
 
-    // getter/setter
     /**
      * Get all languages.
      *

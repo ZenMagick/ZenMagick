@@ -81,7 +81,13 @@ class ZMProduct extends ZMModel {
         $this->features_ = array();
     }
 
-    // create new instance
+    /**
+     * Create new product.
+     *
+     * @param int id The product id.
+     * @param string name The product name.
+     * @param string description The product description.
+     */
     function __construct($id, $name, $description) {
         $this->ZMProduct($id, $name, $description);
     }

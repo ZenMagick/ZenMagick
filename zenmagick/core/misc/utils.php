@@ -24,6 +24,36 @@
  */
 ?>
 <?php
+if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
+
+
+    /**
+     * Parse RSS date.
+     * 
+     * @package net.radebatz.zenmagick.misc
+     * @param string date The date.
+     * @return array An array with 3 elements in the order [day] [month] [year].
+    */
+    function zm_parse_rss_date($date) {
+        ereg("[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*", $date, $regs);
+        return $regs[1].'/'.$regs[2].'/'.$regs[3];
+    } 
+
+    /**
+     * Convert date to RSS date format.
+     * 
+     * @package net.radebatz.zenmagick.misc
+     * @param string date The date or <code>null</code>.
+     * @return string A date string formatted according to RSS date rules.
+    */
+    function zm_mk_rss_date($date=null) {
+        if (null === $date) {
+            return date(DATE_RSS);
+        }
+
+        $date = strtotime($date);
+        return date(DATE_RSS, $date);
+    } 
 
 
     /**
@@ -87,6 +117,28 @@
         }
 
         return array($dd, $mm, $cc, $yy);
+    }
+
+
+    /**
+     * Encode XML control characters.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string s The input string.
+     * @return string The encoded string.
+     */
+    function zm_xml_encode($s) {
+        $encoding = array();
+        // XML element and entity characters should always be escaped.
+        $encoding['<'] = "&lt;";
+        $encoding['>'] = "&gt;";
+        $encoding['&'] = "&amp;";
+
+        foreach ($encoding as $char => $entity) {
+            $s = str_replace($char, $entity, $s);
+        }
+
+        return $s;
     }
 
 ?>

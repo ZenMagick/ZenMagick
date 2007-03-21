@@ -54,7 +54,9 @@ class ZMBanner extends ZMModel {
         $this->url_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMBanner();
     }
@@ -67,12 +69,46 @@ class ZMBanner extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the bannder id.
+     *
+     * @return int The banner id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the bannder title.
+     *
+     * @return string The banner title.
+     */
     function getTitle() { return $this->title_; }
+
+    /**
+     * Get the bannder image.
+     *
+     * @return string The banner image.
+     */
     function getImage() { return $this->image_; }
+
+    /**
+     * Get the bannder text.
+     *
+     * @return string The banner text.
+     */
     function getText() { return $this->text_; }
+
+    /**
+     * Check if the banner click should open a new window.
+     *
+     * @return bool <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
+     */
     function isNewWin() { return $this->isNewWin_; }
+
+    /**
+     * Get the bannder URL.
+     *
+     * @return string The banner URL.
+     */
     function getUrl() { return $this->url_; }
 
 }

@@ -27,5 +27,5 @@
 <?php $tree = $zm_categories->getCategoryTree(); ?>
 <h3><?php zm_l10n("Categories") ?></h3>
 <div id="sb_categories" class="box">
-    <?php echo zm_build_category_tree_list($tree) ?>
+    <?php echo zm_build_category_tree_list($tree, zm_setting('isShowCategoryProductCount'), zm_setting('isUseCategoryPage')) ?>
 </div>

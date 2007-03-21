@@ -46,7 +46,9 @@ class ZMCrumb extends ZMModel {
         $this->url_ = $url;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($name, $url = null) {
         $this->ZMCrumb($name, $url);
     }
@@ -59,8 +61,18 @@ class ZMCrumb extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the name.
+     *
+     * @return string The crumb's name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the url (if any).
+     *
+     * @return string The crumb's url or <code>null</code>.
+     */
     function getURL() { return $this->url_; }
 
 }

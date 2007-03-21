@@ -55,7 +55,14 @@ class ZMOrderStatus extends ZMModel {
 		    $this->comment_ = $comment;
     }
 
-    // create new instance
+    /**
+     * Create new status.
+     *
+     * @param int id The order status id.
+     * @param string name The status name/text.
+     * @param date dateAdded The date the status was added to the order.
+     * @param string comment An optional comment.
+     */
     function __construct($id, $name, $dateAdded, $comment=null) {
         $this->ZMOrderStatus($id, $name, $dateAdded, $comment);
     }

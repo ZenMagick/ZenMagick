@@ -52,7 +52,13 @@ class ZMOrderTotal extends ZMModel {
         $this->type_ = $type;
     }
 
-    // create new instance
+    /**
+     * Create new total.
+     *
+     * @param string name The total name.
+     * @param float value The total value.
+     * @param string type The total type.
+     */
     function __construct($name, $value, $type) {
         $this->ZMOrderTotal($name, $value, $type);
     }

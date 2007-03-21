@@ -35,15 +35,7 @@
 
 <?php define(KEYWORD_DEFAULT, zm_l10n_get("enter search")); ?>
 
-<script type="text/javascript">
-  function fixasvalues(form) {
-    if (form.askeyword.value == '<?php echo KEYWORD_DEFAULT ?>') form.askeyword.value = '';
-    if (form.dfrom.value == '<?php echo UI_DATE_FORMAT ?>') form.dfrom.value = '';
-    if (form.dto.value == '<?php echo UI_DATE_FORMAT ?>') form.dto.value = '';
-  }
-</script>
-
-<?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', 'advanced_search', "get", "fixasvalues(this); return validate(this);") ?>
+<?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', 'advanced_search', "get", "return validate(this);") ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">

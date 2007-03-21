@@ -215,7 +215,7 @@ class ZMProducts extends ZMDao {
                 $queryLimit = '';
                 break;
             case '1':
-                // global limit og one date
+                // global limit of one date
                 $newDate = date('Ym', time()) . '01';
                 $queryLimit = $this->db_->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
@@ -243,6 +243,7 @@ class ZMProducts extends ZMDao {
                       and p.products_status = 1" . $queryLimit;
             $query = $this->db_->bindVars($query, ":categoryId", $categoryId, "integer");
         }
+        $quert .= " order by products_date_added";
 
         $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds);

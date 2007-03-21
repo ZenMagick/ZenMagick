@@ -49,7 +49,12 @@ class ZMShippingMethod extends ZMModel {
         $this->zenMethod_ = $zenMethod;
     }
 
-    // create new instance
+    /**
+     * Create new shipping method.
+     *
+     * @param ZMShippingProvider provider The shipping provider for this method.
+     * @param array zenMethod The zen-cart method infos.
+     */
     function __construct($provider, $zenMethod) {
         $this->ZMShippingMethod($provider, $zenMethod);
     }

@@ -46,7 +46,9 @@ class ZMCategoryCouponRestriction extends ZMModel {
 		    $this->categoryId_ = $categoryId;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct($allowed, $categoryId) {
         $this->ZMCategoryCouponRestriction($allowed, $categoryId);
     }
@@ -59,7 +61,11 @@ class ZMCategoryCouponRestriction extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Check if allowed.
+     *
+     * @return bool <code>true</code> if allowed, <code>false</code> if not.
+     */
     function isAllowed() { return $this->allowed_; }
 
     /**

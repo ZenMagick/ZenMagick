@@ -64,9 +64,12 @@ class ZMRuleSet {
     }
 
 
-    // getter
+    /**
+     * Get the rule set id.
+     *
+     * @return int The rule set id.
+     */
     function getId() { return $this->id_; }
-
 
     /**
      * Add a new <code>ZMRule</code>.
@@ -76,7 +79,6 @@ class ZMRuleSet {
     function addRule($rule) {
         array_push($this->rules_, $rule);
     }
-
 
     /**
      * Get the validation rules.

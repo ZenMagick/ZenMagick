@@ -115,6 +115,9 @@ class ZMController extends ZMObject {
 
     /**
      * Process a HTTP GET request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
      */
     function processGet() {
     global $zm_crumbtrail;
@@ -127,8 +130,22 @@ class ZMController extends ZMObject {
 
     /**
      * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
      */
     function processPost() { return $this->processGet(); }
+
+
+    /**
+     * Set the response content type.
+     *
+     * @param string type The content type.
+     * @param string charset Optional charset; default is utf-8.
+     */
+    function setContentType($type, $charset="utf-8") {
+        header("Content-Type: " . $type . "; charset=" . $charset);
+    }
 
 
     /**

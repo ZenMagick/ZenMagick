@@ -55,7 +55,9 @@ class ZMAccountEditController extends ZMController {
     }
 
 
-    // process a GET request
+    /**
+     * Process a HTTP GET request.
+     */
     function processGet() {
     global $zm_request, $zm_crumbtrail, $zm_accounts;
 

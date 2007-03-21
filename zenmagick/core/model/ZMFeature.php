@@ -50,7 +50,9 @@ class ZMFeature extends ZMModel {
 		    $this->values_ = array();
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMFeature();
     }
@@ -63,12 +65,46 @@ class ZMFeature extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the feature id.
+     *
+     * @return int The feature id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the feature name.
+     *
+     * @return string The feature name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the feature description.
+     *
+     * @return string The feature description.
+     */
     function getDescription() { return $this->description_; }
+
+    /**
+     * Check if the feature is hidden.
+     *
+     * @return bool <code>true</code> if the feature is hidden, <code>false</code> if not.
+     */
     function isHidden() { return $this->hidden_; }
+
+    /**
+     * Get the feature values.
+     *
+     * @return array The feature values.
+     */
     function getValues() { return $this->values_; }
+
+    /**
+     * Get the feature type.
+     *
+     * @return string The feature type.
+     */
     function getType() { global $zm_features; return $zm_features->getFeatureTypeForId($this->type_); }
 
 }

@@ -41,7 +41,11 @@ class ZMAttribute extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new attribute.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     * @param string type The type.
      */
     function ZMAttribute($id, $name, $type) {
         parent::__construct();
@@ -52,7 +56,13 @@ class ZMAttribute extends ZMModel {
         $this->values_ = array();
     }
 
-    // create new instance
+    /**
+     * Create new attribute.
+     *
+     * @param int id The id.
+     * @param string name The name.
+     * @param string type The type.
+     */
     function __construct($id, $name, $type) {
         $this->ZMAttribute($id, $name, $type);
     }
@@ -65,12 +75,46 @@ class ZMAttribute extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the attribute id.
+     *
+     * @return int The attribute id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the attribute name.
+     *
+     * @return string The attribute name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the attribute type.
+     *
+     * @return string The attribute type.
+     */
     function getType() { return $this->type_; }
+
+    /**
+     * Get the attribute sort order.
+     *
+     * @return int The attribute sort order.
+     */
     function getSortOrder() { return $this->sortOrder_; }
+
+    /**
+     * Get the attribute comment.
+     *
+     * @return string The attribute comment.
+     */
     function getComment() { return $this->comment_; }
+
+    /**
+     * Get the attribute values.
+     *
+     * @return array A list of <code>ZMAttributeValue</code> objects.
+     */
     function getValues() { return $this->values_; }
 
 }

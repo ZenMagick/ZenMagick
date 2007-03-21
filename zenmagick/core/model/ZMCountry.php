@@ -52,7 +52,9 @@ class ZMCountry extends ZMModel {
         $this->addressFormatId_ = 0;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMCountry();
     }
@@ -65,11 +67,39 @@ class ZMCountry extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the country id.
+     *
+     * @return int The country id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the country name.
+     *
+     * @return string The country name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the country ISO code 2.
+     *
+     * @return string The country ISO code 2.
+     */
     function getIsoCode2() { return $this->isoCode2_; }
+
+    /**
+     * Get the country ISO code 3.
+     *
+     * @return string The country ISO code 3.
+     */
     function getIsoCode3() { return $this->isoCode3_; }
+
+    /**
+     * Get the address format id.
+     *
+     * @return int The address format id.
+     */
     function getAddressFormatId() { return $this->addressFormatId_; }
 
 }

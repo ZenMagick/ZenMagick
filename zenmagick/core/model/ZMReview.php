@@ -58,7 +58,9 @@ class ZMReview extends ZMModel {
         $this->author_ = '';
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMReview();
     }

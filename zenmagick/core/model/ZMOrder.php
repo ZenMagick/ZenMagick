@@ -61,7 +61,11 @@ class ZMOrder extends ZMModel {
         $this->zmOrders_ = null;
     }
 
-    // create new instance
+    /**
+     * Create order.
+     *
+     * @param int id The order id.
+     */
     function __construct($id) {
         $this->ZMOrder($id);
     }

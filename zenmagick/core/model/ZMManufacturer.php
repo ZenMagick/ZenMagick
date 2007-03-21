@@ -53,7 +53,12 @@ class ZMManufacturer extends ZMModel {
         $this->url_ = null;
     }
 
-    // create new instance
+    /**
+     * Create new manufacturer
+     *
+     * @param int id The manufacturer id.
+     * @param string name The name.
+     */
     function __construct($id, $name) {
         $this->ZMManufacturer($id, $name);
     }
@@ -66,10 +71,32 @@ class ZMManufacturer extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the manufacturer id.
+     *
+     * @return int The manufacturer id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the manufacturer name.
+     *
+     * @return string The manufacturer name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the manufacturer image.
+     *
+     * @return string The manufacturer image.
+     */
     function getImage() { return $this->image_; }
+
+    /**
+     * Get the manufacturer URL.
+     *
+     * @return string The manufacturer URL.
+     */
     function getURL() { return $this->url_; }
 
 }

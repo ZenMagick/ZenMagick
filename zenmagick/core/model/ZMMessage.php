@@ -49,7 +49,12 @@ class ZMMessage extends ZMModel {
         $this->type_ = $type;
     }
 
-    // create new instance
+    /**
+     * Create new message.
+     *
+     * @param string text The message text.
+     * @param string type The message type.
+     */
     function __construct($text, $type='error') {
         $this->ZMMessage($text, $type);
     }
@@ -62,9 +67,20 @@ class ZMMessage extends ZMModel {
     }
 
 
-	// getter/setter
-	function getText() { return $this->text_; }
-	function getType() { return $this->type_; }
+    /**
+     * Get the message text.
+     *
+     * @return string The message text.
+     */
+    function getText() { return $this->text_; }
+
+    /**
+     * Get the message type.
+     *
+     * @return string The message type.
+     */
+    function getType() { return $this->type_; }
+
 }
 
 ?>

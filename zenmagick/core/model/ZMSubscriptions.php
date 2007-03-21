@@ -53,7 +53,13 @@ class ZMSubscriptions extends ZMModel {
         $this->productIds_ = $productIds;
     }
 
-    // create new instance
+    /**
+     * Create new subscription info.
+     *
+     * @param ZMAccount account The account.
+     * @param bool newsletter Newsletter subscription flag.
+     * @param array productIds List of subscribed product ids.
+     */
     function __construct($account, $newsletter=null, $productIds=null) {
         $this->ZMSubscriptions($account, $newsletter, $productIds);
     }

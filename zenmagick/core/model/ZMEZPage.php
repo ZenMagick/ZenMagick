@@ -76,7 +76,12 @@ class ZMEZPage extends ZMModel {
         $this->tocChapter_ = 0;
     }
 
-    // create new instance
+    /**
+     * Create new page.
+     *
+     * @param int id The page id.
+     * @param string title The page title.
+     */
     function __construct($id, $title) {
         $this->ZMEZPage($id, $title);
     }

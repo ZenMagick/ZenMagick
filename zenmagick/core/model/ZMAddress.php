@@ -70,7 +70,9 @@ class ZMAddress extends ZMModel {
         $this->format_ = 0;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMAddress();
     }

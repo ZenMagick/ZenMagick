@@ -50,7 +50,9 @@ class ZMMedia extends ZMModel {
         $this->type_ = null;
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->ZMMedia();
     }
@@ -63,10 +65,39 @@ class ZMMedia extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the media id.
+     *
+     * @return int The media id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the media filename.
+     *
+     * @return string The media filename.
+     */
+    function getId() { return $this->id_; }
+
+    /**
+     * Get the media filename.
+     *
+     * @return string The media filename.
+     */
     function getFilename() { return $this->filename_; }
+
+    /**
+     * Get the added date.
+     *
+     * @return string The date the media was added.
+     */
     function getDateAdded() { return $this->dateAdded_; }
+
+    /**
+     * Get the media type.
+     *
+     * @return ZMMediaType The media type.
+     */
     function getType() { return $this->type_; }
 
 }

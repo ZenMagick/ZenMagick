@@ -32,6 +32,9 @@
         unset($_POST['action']);
     }
 
+    // zc fails if UI_DATE_FORMAT changes
+    define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
+
     // non image button for gv_send edit; yuk!
     if (isset($_POST) && array_key_exists('edit', $_POST) && 'gv_send' == $zm_request->getPageName()) {
         $_POST['edit_x'] = 2;

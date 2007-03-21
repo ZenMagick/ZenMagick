@@ -35,7 +35,10 @@
 class PriceRangeFilter extends ZMResultListFilter {
     var $ranges_;
 
-    // create new instance
+
+    /**
+     * Default c'tor.
+     */
     function PriceRangeFilter() {
         parent::__construct('prfilter', zm_l10n_get('Price Range'));
 
@@ -51,11 +54,16 @@ class PriceRangeFilter extends ZMResultListFilter {
         }
     }
 
-    // create new instance
+    /**
+     * Default c'tor.
+     */
     function __construct() {
         $this->PriceRangeFilter();
     }
 
+    /**
+     * Default d'tor.
+     */
     function __destruct() {
     }
 
@@ -119,8 +127,9 @@ class PriceRangeFilter extends ZMResultListFilter {
      *
      * @return bool <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
-    function isMultiSelection() { return true; }
-
+    function isMultiSelection() {
+      return true;
+    }
 
 }
 
