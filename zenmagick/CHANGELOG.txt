@@ -6,6 +6,7 @@ Release 0.7.0.1
 - fixed broken account notification view
 - fixed wrong account notification checkbox names
 - another fix for multi value request parameter in zm_href(..)
+- includes zmConsole.php
 
 Release 0.7.0
 - added about page
