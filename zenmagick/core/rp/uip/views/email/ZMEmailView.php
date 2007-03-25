@@ -1,0 +1,90 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+<?php
+
+
+/**
+ * Simple email view.
+ *
+ * <p>Email template are expected in the directory <code>[theme-views-dir]/emails</code>.
+ * Filenames follow the pattern <code>[$template].html.php</code>.<p>
+ *
+ * @author mano
+ * @package net.radebatz.zenmagick.rp.uip.views.email
+ * @version $Id$
+ */
+class ZMEmailView extends ZMThemeView {
+
+    /**
+     * Create new email view.
+     *
+     * @param string template The template name.
+     * @param array args Additional context values.
+     */
+    function ZMEmailView($template, $args=array()) {
+        parent::__construct($template.'.html');
+    }
+
+    /**
+     * Create new email view.
+     *
+     * @param string template The template name.
+     * @param array args Additional context values.
+     */
+    function __construct($template, $args=array()) {
+        $this->ZMEmailView($template, $args);
+    }
+
+    /**
+     * Default d'tor.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Generate email content.
+     *
+     * <p>In contrast to other views, this version will actually not display anything, but rather
+     * return the generated content in order to be captured and passed into the actual mail
+     * code.</p>
+     */
+    function generate() { 
+        $controller = $this->getController();
+        if (null !== $controller) {
+            // *export* globals from controller into view space
+            foreach ($controller->getGlobals() as $name => $instance) {
+                $$name = $instance;
+            }
+        }
+
+        ob_start();
+        include($this->getViewFilename('email'));
+        return ob_get_clean();
+    }
+
+}
+
+?>

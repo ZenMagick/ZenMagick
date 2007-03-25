@@ -42,4 +42,18 @@ if (!function_exists('zen_href_link')) {
 
 }
 
+if (!function_exists('zen_mail')) {
+
+    /**
+     * zen_mail wrapper that delegates to either the Zenmagick implementation or the renamed original
+     * version of it.
+     */
+    function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
+        // uncomment to trace mail calls and figure out module names (ie template names)
+        // zm_backtrace('mail: '.$module);
+        zen_mail_org($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block, $module, $attachments_list);
+    }
+
+}
+
 ?>

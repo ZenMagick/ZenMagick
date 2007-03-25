@@ -33,7 +33,7 @@ define('_ZM_HTACCESS', DIR_FS_CATALOG.".htaccess");
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMRewriteBasePatch extends ZMInstallationPatch {
+class ZMRewriteBasePatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
@@ -63,7 +63,7 @@ class ZMRewriteBasePatch extends ZMInstallationPatch {
      * @return bool <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $lines = $this->_loadFileLines(_ZM_HTACCESS);
+        $lines = $this->getFileLines(_ZM_HTACCESS);
         foreach ($lines as $line) {
             $words = explode(' ', $line);
             if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
@@ -116,13 +116,9 @@ class ZMRewriteBasePatch extends ZMInstallationPatch {
         }
 
         if ((zm_setting('isEnablePatching') && zm_setting('isPatchRewriteBase')) || $force) {
-            $lines = $this->_loadFileLines(_ZM_HTACCESS);
+            $lines = $this->getFileLines(_ZM_HTACCESS);
             $lines = $this->_fixLines($lines);
-            $handle = fopen(_ZM_HTACCESS, 'wb');
-            foreach ($lines as $line) {
-                fwrite($handle, $line."\n");
-            }
-            fclose($handle);
+            $lines = $this->putFileLines(_ZM_HTACCESS, $lines);
             return true;
         }
 
@@ -157,28 +153,6 @@ class ZMRewriteBasePatch extends ZMInstallationPatch {
         return $lines;
     }
 
-    /**
-     * Load the file contents of the given language file.
-     *
-     * @param string name The filename.
-     * @return array File contents as lines or <code>null</code>.
-     */
-    function _loadFileLines($file) {
-        $lines = array();
-        if (file_exists($file)) {
-            $handle = @fopen($file, 'rb');
-            if ($handle) {
-                while (!feof($handle)) {
-                    $line = rtrim(fgets($handle, 4096));
-                    array_push($lines, $line);
-                }
-                fclose($handle);
-            }
-        }
-
-        return $lines;
-    }
-    
 }
 
 ?>

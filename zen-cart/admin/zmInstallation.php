@@ -39,6 +39,7 @@ require_once('../zenmagick/init.php');
         "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme",
         "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
+        "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 

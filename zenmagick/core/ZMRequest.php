@@ -177,9 +177,9 @@ class ZMRequest {
     /**
      * Get the controller for this request.
      *
-     * @return ZMController The current controller or <code>null</code>.
+     * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
-    function getController() { return $this->controller_; }
+    function getController() { if (null === $this->controller_) {$this->controller_ =& new ZMDefaultController(); } return $this->controller_; }
 
     /**
      * Set the current controller.

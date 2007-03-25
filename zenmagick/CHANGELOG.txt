@@ -11,6 +11,13 @@ Release 0.7.1
 - (re-)added the comparable button for product listings
 - tested with PHP 5.2.1
 - tons of phpdoc
+- fix appended blank lines to .htaccess file by rewrite rule patch
+- fix broken dummy sidebox patch
+- added new patch for ZenMagick email support
+- added new ZMEmailView view
+- added zm_mail(..) that uses ZMEmailView to generate email contents
+- ZMRequest::getController() will now always return a controller and not null
+- disabled automatic patching while in the installation screen
 
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating

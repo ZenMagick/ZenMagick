@@ -129,7 +129,6 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
      */
     function zm_xml_encode($s) {
         $encoding = array();
-        // XML element and entity characters should always be escaped.
         $encoding['<'] = "&lt;";
         $encoding['>'] = "&gt;";
         $encoding['&'] = "&amp;";
@@ -139,6 +138,43 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
         }
 
         return $s;
+    }
+
+
+    /**
+     * Send email.
+     *
+     * <p>Contents generation is delegated to a <code>ZMEmailView</code>.</p>
+     *
+     * <p>The environment will be se same as for the actual HTML response view. This is done
+     * by attaching the current controller to the view.</p>
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string subject The subject.
+     * @param string template The email template name.
+     * @param array args Additional stuff to be made available to the template.
+     * @param string toEmail The recipients email address.
+     * @param string toName Optional recipients name; default is <code>$toEmail</code>.
+     * @param string fromEmail Optional sender email address; default is <code>storeEmailFrom</code>.
+     * @param string fromName Optional sender name; default is <code>$fromEmail</code>.
+     */
+    function zm_mail($subject, $template, $args, $toEmail, $toName=null, $fromEmail=null, $fromName=null) {
+    global $zm_request;
+
+        // some argument cleanup
+        $args = null !== $argstoName ? $argstoName : array();
+        $toName = null !== $toName ? $toName : $toEmail;
+        $fromEmail = null !== $fromEmail ? $fromEmail : zm_setting('storeEmailFrom');
+        $fromName = null !== $fromName ? $fromName : $fromEmail;
+
+        // generate text
+        $view = new ZMEmailView('email_'.$template, $args);
+        $view->setController($zm_request->getController());
+        $text = $view->generate();
+
+        // call actual mail function; th name corresponds to the one used in the installation patch
+        $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
+        $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $args, $template);
     }
 
 ?>

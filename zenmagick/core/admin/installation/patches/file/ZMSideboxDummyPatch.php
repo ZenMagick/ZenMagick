@@ -113,7 +113,6 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                             $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
                             fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                             fclose($handle);
-                            return true;
                         }
                     } else {
                         zm_log("** ZenMagick: no permission to create dummy sidebox " . $box, 1);
@@ -141,7 +140,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
             @unlink($file);
         }
 
-        return 0 == count($this->_getMissingZCSideboxes());
+        return true;
     }
     
     /**
@@ -154,9 +153,9 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
             while (false !== ($file = readdir($handle))) {
-                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !zm_starts_with($file, '.')) {
+                if (!is_dir($file) && !zm_starts_with($file, '.')) {
                     $contents = file_get_contents(_ZM_ZEN_DIR_FS_BOXES.$file);
-                    if (false !== strpos($contents, 'created by ZenMagick')) {
+                    if (false !== strpos($contents, '/** dummy file created by ZenMagick installation patcher **/')) {
                         array_push($dummies, _ZM_ZEN_DIR_FS_BOXES.$file);
                     }
                 }
@@ -179,10 +178,13 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         $theme = $zm_runtime->getTheme();
         $boxPath = $theme->getBoxesDir();
         if (file_exists($boxPath) && is_readable($boxPath)) {
+            // make list of all theme boxes
             $handle = opendir($theme->getBoxesDir());
             $zmBoxes = array();
             while (false !== ($file = readdir($handle))) {
-                $zmBoxes[$file] = $file;
+                if (false === strpos('.in.', $file)) {
+                    $zmBoxes[$file] = $file;
+                }
             }
             closedir($handle);
 

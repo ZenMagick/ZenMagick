@@ -28,7 +28,7 @@
     $_ZM_SETTINGS = array();
     // these must be the first five entries
     $_ZM_SETTINGS['isEnableZenMagick'] = true;
-    $_ZM_SETTINGS['ZenMagickVersion'] = '${zenmagick.version}';
+    $_ZM_SETTINGS['ZenMagickVersion'] = '0.7.0';
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = false; //0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
@@ -43,6 +43,7 @@
     $_ZM_SETTINGS['isPatchRewriteBase'] = true;
     $_ZM_SETTINGS['isUltimateSeoPatchSupport'] = false;
     $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
+    $_ZM_SETTINGS['isEmailPatchSupport'] = true;
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
@@ -180,6 +181,7 @@
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
     $_ZM_SETTINGS['storeCountry'] = STORE_COUNTRY;
     $_ZM_SETTINGS['storeEmail'] = STORE_OWNER_EMAIL_ADDRESS;
+    $_ZM_SETTINGS['storeEmailFrom'] = EMAIL_FROM;
 
     // modules/shipping
     $_ZM_SETTINGS['isOrderTotalFreeShipping'] = defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true';
