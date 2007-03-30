@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -46,6 +46,14 @@ class ZMController extends ZMObject {
 
         $this->globals_ = array();
         $this->page_ = $zm_request->getPageName();
+
+        foreach ($GLOBALS as $name => $instance) {
+            if (zm_starts_with($name, "zm_")) {
+                if (is_object($instance)) {
+                    $this->exportGlobal($name, $GLOBALS[$name]);
+                }
+            }
+        }
     }
 
     /**
@@ -85,14 +93,6 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-        foreach ($GLOBALS as $name => $instance) {
-            if (zm_starts_with($name, "zm_")) {
-                if (is_object($instance)) {
-                    $this->exportGlobal($name, $GLOBALS[$name]);
-                }
-            }
-        }
-
         $view = null;
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':

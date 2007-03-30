@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -163,6 +163,33 @@ class ZMOrder extends ZMModel {
      * @return array A list of <code>ZMOrderTotal</code> instances.
      */
     function getOrderTotals() { return $this->zmOrders_->_getOrderTotals($this); }
+
+    /**
+     * Check if the order it pickup.
+     *
+     * @return bool <code>true</code> if the order is store pickup, <code>false</code> if not.
+     */
+    function isStorePickup() {
+        $totals = $this->getOrderTotals();
+        foreach ($totals as $total) {
+            // AAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRHHHHHHHHHHH
+            if ('Store Pickup (Walk In):' == $total->getName()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the payment type.
+     *
+     * @return ZMPaymentType A payment type or <code>null</code> if N/A.
+     */
+    function getPaymentType() {
+        $payments =& $this->create("Payments");
+        return $payments->getSelectedPaymentType();
+    }
 
 }
 

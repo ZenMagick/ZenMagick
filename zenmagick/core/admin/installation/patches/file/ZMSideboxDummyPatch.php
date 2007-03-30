@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -153,7 +153,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
             while (false !== ($file = readdir($handle))) {
-                if (!is_dir($file) && !zm_starts_with($file, '.')) {
+                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !zm_starts_with($file, '.')) {
                     $contents = file_get_contents(_ZM_ZEN_DIR_FS_BOXES.$file);
                     if (false !== strpos($contents, '/** dummy file created by ZenMagick installation patcher **/')) {
                         array_push($dummies, _ZM_ZEN_DIR_FS_BOXES.$file);

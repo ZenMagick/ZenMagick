@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -194,16 +194,17 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string name A theme relative filename.
+     * @param string baseDir An optional base directory; default is <code>ZM_THEME_CONTENT_DIR</code>
      * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A fully qualified filename.
      */
-    function themeFile($name, $echo=false) {
+    function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
     global $zm_runtime;
 
-        $file = $this->getContentDir().$name;
+        $file = $this->getRootDir().$baseDir.$name;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
-            $dfile = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$name;
+            $dfile = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.$baseDir.$name;
             if (file_exists($dfile)) {
                 $file = $dfile;
             }
@@ -217,10 +218,11 @@ class ZMTheme extends ZMObject {
      * Check if the given theme relative file exists.
      *
      * @param string name A theme relative filename.
+     * @param string baseDir An optional base directory; default is <code>ZM_THEME_CONTENT_DIR</code>
      * @return bool <code>true</code> if the file exists, <code>false</code> if not.
      */
-    function themeFileExists($name) {
-		    return file_exists($this->themeFile($name));
+    function themeFileExists($name, $baseDir=ZM_THEME_CONTENT_DIR) {
+		    return file_exists($this->themeFile($name, $baseDir));
     }
 
     /**

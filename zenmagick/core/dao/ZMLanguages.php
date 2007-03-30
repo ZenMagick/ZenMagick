@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 radebatz.net
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -74,9 +74,26 @@ class ZMLanguages extends ZMDao {
     /**
      * Get language for the given code.
      *
+     * @param string code The language code.
      * @return ZMLanguage A language or <code>null</code>.
      */
     function getLanguageForCode($code) { return array_key_exists($code, $this->languages_) ? $this->languages_[$code] : null; }
+
+    /**
+     * Get language for the given id.
+     *
+     * @param int id The language id.
+     * @return ZMLanguage A language or <code>null</code>.
+     */
+    function getLanguageForId($id) {
+        foreach ($this->languages_ as $language) {
+            if ($language->id_ == $id) {
+                return $language;
+            }
+        }
+
+        return null;
+    }
 
 
     /**

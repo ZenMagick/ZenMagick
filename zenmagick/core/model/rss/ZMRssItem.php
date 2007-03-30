@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c)      Vojtech Semecky, webmaster @ webdot . cz
  * Portions Copyright (c) 2003 The zen-cart developers
@@ -100,6 +100,66 @@ class ZMRssItem extends ZMModel {
      * @return string The item publish date.
      */
     function getPubDate() { return $this->item_['pubDate']; }
+
+    /**
+     * Set the item title.
+     *
+     * @param string title The item title.
+     */
+    function setTitle($title) { $this->item_['title'] = $title; }
+
+    /**
+     * Set the item link.
+     *
+     * @param string link The item link.
+     */
+    function setLink($link) { $this->item_['link'] = $link; }
+
+    /**
+     * Set the item description.
+     *
+     * @param string description The item description.
+     */
+    function setDescription($description) { $this->item_['description'] = $description; }
+
+    /**
+     * set the item category.
+     *
+     * @param string category The item category.
+     */
+    function setCategory($category) { $this->item_['category'] = $category; }
+
+    /**
+     * Set the item publish date.
+     *
+     * @param string date The item publish date.
+     */
+    function setPubDate($date) { $this->item_['pubDate'] = $date; }
+
+    /**
+     * Custom set method for properties that do not have a dedicated
+     * access method.
+     *
+     * @param string name The property name.
+     * @param string value The value.
+     */
+    function setProperty($name, $value) { $this->item_[$name] = $value; }
+
+    /**
+     * Custom get method for properties that do not have a dedicated
+     * access method.
+     *
+     * @param string name The property name.
+     * @return string value The value or <code>null</code>.
+     */
+    function getProperty($name) { return isset($this->item_[$name]) ? $this->rs_[$name] : null; }
+
+    /**
+     * Get all properties.
+     *
+     * @return array Name/value map.
+     */
+    function getProperties() { return $this->rs_; }
 
 }
 

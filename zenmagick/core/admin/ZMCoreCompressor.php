@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -132,9 +132,15 @@ class ZMCoreCompressor extends ZMObject {
         $this->clean();
         @unlink($this->coreFilename_);
 
-        $this->_stripPhpDir($this->coreDirname_, $this->strippedDirname_);
+        if (zm_setting('isStripCore')) {
+            $this->_stripPhpDir($this->coreDirname_, $this->strippedDirname_);
+        }
         if (!$this->hasErrors()) {
-            $this->_flattenDirStructure($this->strippedDirname_, $this->flatDirname_);
+            if (zm_setting('isStripCore')) {
+                $this->_flattenDirStructure($this->strippedDirname_, $this->flatDirname_);
+            } else {
+                $this->_flattenDirStructure($this->coreDirname_, $this->flatDirname_);
+            }
             if (!$this->hasErrors()) {
                 $this->_compressToSingleFile($this->flatDirname_, $this->coreFilename_);
             }

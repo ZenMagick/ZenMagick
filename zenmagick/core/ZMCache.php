@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -132,7 +132,7 @@ class ZMCache extends ZMObject {
      *
      * @param string $data data to put in cache (can be another type than strings if automaticSerialization is on)
      * @param string id Optional cache id; if not set, the result of <code>getId()</code> will be used.
-     * @return boolean true if no problem (else : false or a PEAR_Error object)
+     * @return bool true if no problem (else : false or a PEAR_Error object)
      */
     function save($data, $id=null) {
         return $this->cache_->save($data, null !== $id ? $id : $this->getId(), $this->group_);

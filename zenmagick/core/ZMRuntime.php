@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -206,6 +206,18 @@ class ZMRuntime {
         }
 
         return $themeId;
+    }
+
+    /**
+     * Get the language.
+     *
+     * @return ZMLanguage The current language.
+     */
+    function getLanguage() {
+    global $zm_languages;
+      
+        $language =& $zm_languages->getLanguageForId($this->getLanguageId());
+        return $language;
     }
 
     /**

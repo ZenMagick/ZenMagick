@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -50,8 +50,38 @@ if (!function_exists('zen_mail')) {
      */
     function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
         // uncomment to trace mail calls and figure out module names (ie template names)
-        // zm_backtrace('mail: '.$module);
-        zen_mail_org($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block, $module, $attachments_list);
+        //zm_backtrace('mail: '.$module);
+
+        // use zen_mail_org as fallback for emails without ZenMagick template
+        if ('none' != zm_email_formats($module)) {
+            // call ZenMagick implementation
+            zm_mail($subject, $module, $block, $toAddress, $toName, $fromAddress, $fromName);
+        } else {
+            // call renamed original function
+            zen_mail_org($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block, $module, $attachments_list);
+        }
+    }
+
+}
+
+if (!function_exists('zen_build_html_email_from_template')) {
+
+    /**
+     * zen_build_html_email_from_template wrapper that delegates to either the Zenmagick implementation or the renamed original
+     * version of it.
+     */
+    function zen_build_html_email_from_template($template, $args=array()) {
+    global $zm_request;
+
+        // generate html; $zc_args is an array with the original zen-cart values
+        $view = new ZMEmailView($template, true, array('zc_args' => $args));
+        if (!file_exists($view->getViewFilename()) && function_exists('zen_build_html_email_from_template_org')) {
+            // default to zen-cart
+            return zen_build_html_email_from_template_org($template, $args);
+        }
+        $view->setController($zm_request->getController());
+        $html = $view->generate();
+        return $html;
     }
 
 }

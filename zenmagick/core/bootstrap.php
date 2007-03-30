@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -540,7 +540,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Load locale settings (l10n/i18n)for the given theme id.
      *
-     * <p>NOTE: This is only going to load settings. However, since i18n
+     * <p>NOTE: This is only going to load mappings. However, since i18n
      * settings need to be set using <code>define(..)</code>, this is done
      * in a separate function, once loading (and theme switching) is over.</p>
      *
@@ -550,11 +550,13 @@ if (!class_exists("ZMObject")) {
      */
     function zm_load_theme_locale($theme, $languageName) {
         $path = $theme->getLangDir().$languageName."/";
-        $includes = zm_find_includes($path);
-        if (0 < count($includes)) {
-            foreach ($includes as $include) {
-                require_once($include);
-            }
+        $l10n = $path . "l10n.php";
+        if (file_exists($l10n)) {
+            require($l10n);
+        }
+        $i18n = $path . "i18n.php";
+        if (file_exists($i18n)) {
+            require($i18n);
         }
     }
 
@@ -612,7 +614,7 @@ if (!class_exists("ZMObject")) {
         }
 
         // init l10n/i18n
-        zm_load_theme_locale($theme, $zm_runtime->getlanguageName());
+        zm_load_theme_locale($theme, $zm_runtime->getLanguageName());
 
         // use theme loader to load static stuff
         foreach ($themeLoader->getStatic() as $static) {

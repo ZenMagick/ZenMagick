@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -61,6 +61,22 @@ class ZMAccounts extends ZMDao {
                 from " . TABLE_CUSTOMERS . "
                 where customers_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
+        $results = $this->db_->Execute($sql);
+        $account = null;
+        if (0 < $results->RecordCount()) {
+            $account = $this->_newAccount($results->fields);
+            $account->subscriptions_ =& $this->create("Subscriptions", $account);
+        }
+        return $account;
+    }
+
+
+    function getAccountForEmailAddress($emailAddress) {
+        $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
+                  customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral
+                from " . TABLE_CUSTOMERS . "
+                where customers_email_address = :emailAddress";
+        $sql = $this->db_->bindVars($sql, ":emailAddress", $emailAddress, "string");
         $results = $this->db_->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {

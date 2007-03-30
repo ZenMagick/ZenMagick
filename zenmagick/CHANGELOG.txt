@@ -4,20 +4,28 @@ Release 0.7.1
 - moved setContentType(..) from ZMAjaxController into ZMController
 - new products are now ordered by date_added
 - added new sidebox feeds.php that offers RSS feeds of reviews, new products
-  and custom EZ page chapters
+  and EZ page chapters (basically the toc)
 - fix wrong multi value parameter handling in SEO
 - fix default from/to date strings problem in advanced search and get rid of
   JS that clears the fields
 - (re-)added the comparable button for product listings
 - tested with PHP 5.2.1
+- tested with MySQL 5.0.37
 - tons of phpdoc
 - fix appended blank lines to .htaccess file by rewrite rule patch
 - fix broken dummy sidebox patch
 - added new patch for ZenMagick email support
-- added new ZMEmailView view
+- added new ZMEmailView view :)
 - added zm_mail(..) that uses ZMEmailView to generate email contents
 - ZMRequest::getController() will now always return a controller and not null
 - disabled automatic patching while in the installation screen
+- updated the copyright year in all comments (thanks for Ant's replaceregexp!)
+- FWIW there is now an option to skip the strip phase generating core.php
+  which makes reading the file easier (I was curious about the file size
+	difference...)
+- added file changelog (added/modified/removed); this is based on the actual
+  difference between release .zip files rather than CVS, so it should be
+	actually useful
 
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating

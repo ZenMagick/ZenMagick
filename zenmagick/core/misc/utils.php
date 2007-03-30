@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -61,7 +61,7 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
      * 
      * @package net.radebatz.zenmagick.misc
      * @param bool includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
-     * @return <code>true</code> if the current page is a checkout page.
+     * @return bool <code>true</code> if the current page is a checkout page.
      */
     function zm_is_checkout_page($includeCart=true) {
     global $zm_request;
@@ -142,6 +142,28 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
 
 
     /**
+     * Check in which format a given email template exists.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string template The email template name.
+     * @return string Valid return strings are: <code>html</code>, <code>text</code>, <code>both</code> or <code>none</code>.
+     */
+    function zm_email_formats($template) {
+        $htmlView = new ZMEmailView($template, true);
+        $textView = new ZMEmailView($template, false);
+        if (file_exists($htmlView->getViewFilename()) && file_exists($textView->getViewFilename())) {
+            return "both";
+        } else if (!file_exists($htmlView->getViewFilename()) && !file_exists($textView->getViewFilename())) {
+            return "none";
+        } else if (file_exists($htmlView->getViewFilename())) {
+            return "html";
+        } else {
+            return "text";
+        }
+    }
+
+
+    /**
      * Send email.
      *
      * <p>Contents generation is delegated to a <code>ZMEmailView</code>.</p>
@@ -157,24 +179,33 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
      * @param string toName Optional recipients name; default is <code>$toEmail</code>.
      * @param string fromEmail Optional sender email address; default is <code>storeEmailFrom</code>.
      * @param string fromName Optional sender name; default is <code>$fromEmail</code>.
+     * @param string attachment Optional <strong>single</strong> file attachment.
      */
-    function zm_mail($subject, $template, $args, $toEmail, $toName=null, $fromEmail=null, $fromName=null) {
+    function zm_mail($subject, $template, $args, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
     global $zm_request;
 
         // some argument cleanup
-        $args = null !== $argstoName ? $argstoName : array();
+        $args = null !== $args ? $args : array();
         $toName = null !== $toName ? $toName : $toEmail;
         $fromEmail = null !== $fromEmail ? $fromEmail : zm_setting('storeEmailFrom');
         $fromName = null !== $fromName ? $fromName : $fromEmail;
+        // this is sooo weiyrd!
+        $attparam = '';
+        if (null !== $atttachment) {
+            $attparam = array('file' => $attachment);
+        }
 
-        // generate text
-        $view = new ZMEmailView('email_'.$template, $args);
+        $formats = zm_email_formats($template);
+        $hasTextTemplate = 'text' == $formats || 'both' == $formats;
+
+        // generate text; $zc_args is an array with the original zen-cart values
+        $view = new ZMEmailView($template, !$hasTextTemplate, array('zc_args' => $args));
         $view->setController($zm_request->getController());
         $text = $view->generate();
 
-        // call actual mail function; th name corresponds to the one used in the installation patch
+        // call actual mail function; the name corresponds to the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
-        $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $args, $template);
+        $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $args, $template, $attparam);
     }
 
 ?>

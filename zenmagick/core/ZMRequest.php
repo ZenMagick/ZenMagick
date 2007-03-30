@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -31,7 +31,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMRequest {
+class ZMRequest extends ZMObject {
     var $controller_;
 
 
@@ -39,6 +39,8 @@ class ZMRequest {
      * Default c'tor.
      */
     function ZMRequest() {
+        parent::__construct();
+
         $this->controller_ = null;
     }
 
@@ -53,6 +55,7 @@ class ZMRequest {
      * Default d'tor.
      */
     function __destruct() {
+        parent::__destruct();
     }
 
 
@@ -141,6 +144,22 @@ class ZMRequest {
     function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
 
     /**
+     * Get the account.
+     *
+     * @return ZMAccount The account or <code>null</code>.
+     */
+    function getAccount() {
+    global $zm_accounts;
+        
+        $accountId = $this->getAccountId();
+        if (0 == $accountId) {
+            return null;
+        }
+
+        return $zm_accounts->getAccountForId($accountId);
+    }
+
+    /**
      * Get the current review id.
      *
      * @return int The current review id or <code>0</code>.
@@ -179,7 +198,7 @@ class ZMRequest {
      *
      * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
-    function getController() { if (null === $this->controller_) {$this->controller_ =& new ZMDefaultController(); } return $this->controller_; }
+    function getController() { if (null === $this->controller_) {$this->controller_ =& $this->create("DefaultController"); } return $this->controller_; }
 
     /**
      * Set the current controller.

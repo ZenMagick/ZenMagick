@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c)      Vojtech Semecky, webmaster @ webdot . cz
  * Portions Copyright (c) 2003 The zen-cart developers
@@ -135,6 +135,94 @@ class ZMRssChannel extends ZMModel {
      * @return bool <code>true</code> if a channel image is available, <code>false</code> if not.
      */
     function hasImage() { return array_key_exists($this->rs_, 'image_url'); }
+
+    /**
+     * Set the channel title.
+     *
+     * @param string title The channel title.
+     */
+    function setTitle($title) { $this->rs_['title'] = $title; }
+
+    /**
+     * Set the channel link.
+     *
+     * @param string link The channel link.
+     */
+    function setLink($link) { $this->rs_['link'] = $link; }
+
+    /**
+     * Set the channel encoding.
+     *
+     * @param string encoding The channel encoding.
+     */
+    function setEncoding($encoding) { $this->rs_['encoding'] = $encoding; }
+
+    /**
+     * Set the channel description.
+     *
+     * @param string description The channel description.
+     */
+    function setDescription($description) { $this->rs_['description'] = $description; }
+
+    /**
+     * Set the channels last build date.
+     *
+     * @param string date The channels last build date.
+     */
+    function setLastBuildDate($date) { $this->rs_['lastBuildDate'] = date; }
+
+    /**
+     * Set the channels image title.
+     *
+     * @param string title The channels image title.
+     */
+    function setImageTitle($title) { $this->rs_['image_title'] = title; }
+
+    /**
+     * set the channels image link.
+     *
+     * @param string link The channels image link.
+     */
+    function setImageLink($lin) { $this->rs_['image_link'] = $link; }
+
+    /**
+     * set the channels image width.
+     *
+     * @param int width The channels image width.
+     */
+    function setImageWidth($width) { $this->rs_['image_width'] = $width; }
+
+    /**
+     * Set the channels image height.
+     *
+     * @param int height The channels image height.
+     */
+    function setImageHeight($height) { $this->rs_['image_height'] = $height; }
+
+    /**
+     * Custom set method for properties that do not have a dedicated
+     * access method.
+     *
+     * @param string name The property name.
+     * @param string value The value.
+     */
+    function setProperty($name, $value) { $this->rs_[$name] = $value; }
+
+    /**
+     * Custom get method for properties that do not have a dedicated
+     * access method.
+     *
+     * @param string name The property name.
+     * @return string value The value or <code>null</code>.
+     */
+    function getProperty($name) { return isset($this->rs_[$name]) ? $this->rs_[$name] : null; }
+
+    /**
+     * Get all properties.
+     *
+     * @return array Name/value map.
+     */
+    function getProperties() { return $this->rs_; }
 
 }
 

@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -63,16 +63,11 @@
 
         $boln = '';
         if ($html) {
-            $HR = '<hr>';
             $hr = '<hr>';
-            $CR = '<br />';
             $cr = '<br />';
-            $eoln = $cr;
         } else {
-            $CR = $eoln;
-            $cr = $CR;
-            $HR = '----------------------------------------';
             $hr = '----------------------------------------';
+            $cr = "\n";
         }
 
         $statecomma = '';

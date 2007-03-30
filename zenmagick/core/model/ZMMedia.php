@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -69,13 +69,6 @@ class ZMMedia extends ZMModel {
      * Get the media id.
      *
      * @return int The media id.
-     */
-    function getId() { return $this->id_; }
-
-    /**
-     * Get the media filename.
-     *
-     * @return string The media filename.
      */
     function getId() { return $this->id_; }
 

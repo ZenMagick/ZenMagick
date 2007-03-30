@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -28,32 +28,36 @@
  * Simple email view.
  *
  * <p>Email template are expected in the directory <code>[theme-views-dir]/emails</code>.
- * Filenames follow the pattern <code>[$template].html.php</code>.<p>
+ * Filenames follow the pattern <code>[$template].[html|text].php</code>.<p>
  *
  * @author mano
  * @package net.radebatz.zenmagick.rp.uip.views.email
  * @version $Id$
  */
 class ZMEmailView extends ZMThemeView {
+    var $args_ = null;
 
     /**
      * Create new email view.
      *
      * @param string template The template name.
+     * @param bool html Flag to indicate whether to use the HTML or text template; default is <code>true</code>.
      * @param array args Additional context values.
      */
-    function ZMEmailView($template, $args=array()) {
-        parent::__construct($template.'.html');
+    function ZMEmailView($template, $html=true, $args=array()) {
+        parent::__construct('email_'.$template.($html ? '.html' : '.text'));
+        $this->args_ = $args;
     }
 
     /**
      * Create new email view.
      *
      * @param string template The template name.
+     * @param bool html Flag to indicate whether to use the HTML or text template; default is <code>true</code>.
      * @param array args Additional context values.
      */
-    function __construct($template, $args=array()) {
-        $this->ZMEmailView($template, $args);
+    function __construct($template, $html=true, $args=array()) {
+        $this->ZMEmailView($template, $html, $args);
     }
 
     /**
@@ -65,6 +69,17 @@ class ZMEmailView extends ZMThemeView {
 
 
     /**
+     * Returns the full view filename to be includes by a template.
+     *
+     * @param string subdir <strong>Not used</strong>.
+     * @param bool $prefixToDir <strong>Not used</strong>.
+     * @return string The full view filename.
+     */
+    function getViewFilename($subdir='email', $prefixToDir=true) {
+        return parent::getViewFilename('email', true);
+    }
+
+    /**
      * Generate email content.
      *
      * <p>In contrast to other views, this version will actually not display anything, but rather
@@ -72,12 +87,21 @@ class ZMEmailView extends ZMThemeView {
      * code.</p>
      */
     function generate() { 
+        $filename = $this->getViewFilename('email');
+        if (!file_exists($filename)) {
+            return "";
+        }
+
         $controller = $this->getController();
         if (null !== $controller) {
             // *export* globals from controller into view space
             foreach ($controller->getGlobals() as $name => $instance) {
                 $$name = $instance;
             }
+        }
+        // same for custom args
+        foreach ($this->args_ as $name => $instance) {
+            $$name = $instance;
         }
 
         ob_start();

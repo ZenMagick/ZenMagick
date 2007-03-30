@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -150,6 +150,112 @@ class ZMFilePatch extends ZMInstallationPatch {
         return false;
     }
 
+    /**
+     * <code>isOpen()</code> check for function renaming.
+     *
+     * @param array fktFilesCfg The file / function name / function suffix mapping(s).
+     * @return bool <code>true</code> if any patches are open.
+     */
+    function isFilesFktOpen($fktFilesCfg) {
+        foreach ($fktFilesCfg as $file => $fktCfgs) {
+            // for each file...
+            $lines = $this->getFileLines($file);
+            foreach ($fktCfgs as $fktCfg) {
+                // for each function mapping
+                $fktPatched = false;
+                foreach ($lines as $line) {
+                    if (false !== strpos($line, "function ") && false !== strpos($line, $fktCfg[0].$fktCfg[1])) {
+                        $fktPatched = true;
+                        break;
+                    }
+                }
+                if (!$fktPatched) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Execute function renaming patch.
+     *
+     * @param array fktFilesCfg The file / function name / function suffix mapping(s).
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function patchFilesFkt($fktFilesCfg) {
+        $patchOk = true;
+        foreach ($fktFilesCfg as $file => $fktCfgs) {
+            // for each file...
+            $lines = $this->getFileLines($file);
+            $fileNeedsPatch = false;
+            foreach ($fktCfgs as $fktCfg) {
+                // for each function mapping
+                foreach ($lines as $ii => $line) {
+                    if (false !== strpos($line, "function ") 
+                        && false !== strpos($line, $fktCfg[0]."(") 
+                        && false === strpos($line, $fktCfg[1])
+                        && zm_ends_with(trim($line), "{")) {
+                        // modify
+                        $lines[$ii] = str_replace($fktCfg[0], $fktCfg[0].$fktCfg[1], $line);
+                        $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";
+                        $fileNeedsPatch = true;
+                        break;
+                    }
+                }
+            }
+
+            if ($fileNeedsPatch) {
+                if (is_writeable($file)) {
+                    $this->putFileLines($file, $lines);
+                } else {
+                    zm_log("** ZenMagick: no permission to patch ".basename($file), 1);
+                    $patchOk = false;
+                }
+            }
+        }
+
+        return $patchOk;
+    }
+
+    /**
+     * Undo function renaming patch.
+     *
+     * @param array fktFilesCfg The file / function name / function suffix mapping(s).
+     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undoFilesFkt($fktFilesCfg) {
+        $undoOk = true;
+        foreach ($fktFilesCfg as $file => $fktCfgs) {
+            // for each file...
+            $lines = $this->getFileLines($file);
+            $fileNeedsUndo = false;
+            foreach ($fktCfgs as $fktCfg) {
+                // for each function mapping
+                foreach ($lines as $ii => $line) {
+                    if (false !== strpos($line, "function ") && false !== strpos($line, $fktCfg[1])) {
+                        // undo
+                        $lines[$ii] = str_replace($fktCfg[1], '', $lines[$ii]);
+                        $lines[$ii] = str_replace(' /* modified by ZenMagick installation patcher */', '', $lines[$ii]);
+                        $fileNeedsUndo = true;
+                        break;
+                    }
+                }
+            }
+
+            if ($fileNeedsUndo) {
+                if (is_writeable($file)) {
+                    $this->putFileLines($file, $lines);
+                } else {
+                    zm_log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", 1);
+                    $undoOk = false;
+                }
+            }
+        }
+
+        return $undoOk;
+    }
 }
 
 ?>

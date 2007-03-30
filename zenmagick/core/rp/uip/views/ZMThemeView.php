@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -91,7 +91,7 @@ class ZMThemeView extends ZMView {
      * @param string subdir Optional subdirectory name within the views directory.
      * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
      *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
-     * @return string The view filename.
+     * @return string The full view filename.
      */
     function getViewFilename($subdir=null, $prefixToDir=true) {
     global $zm_theme;
@@ -100,7 +100,13 @@ class ZMThemeView extends ZMView {
         if (null != $subdir) {
             $filename .= $subdir.'/';
             if ($prefixToDir) {
-                $filename .= substr($this->page_, strlen($subdir)+1);
+                $off = strpos($this->page_, '_');
+                // if no '_' found, just use the full name
+                if (false !== $off) {
+                    $filename .= substr($this->page_, strlen($subdir)+1);
+                } else {
+                    $filename .= $this->page_;
+                }
             } else {
                 $filename .= $this->page_;
             }

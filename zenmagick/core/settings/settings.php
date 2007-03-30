@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -32,6 +32,8 @@
     $_ZM_SETTINGS['logLevel'] = 2; // 1=error; 2=warn; 3=info
     $_ZM_SETTINGS['isLogEnabled'] = false; //0 != $_ZM_SETTINGS['logLevel'];
     $_ZM_SETTINGS['isDieOnError'] = false;
+    // whether to strip code in core.php
+    $_ZM_SETTINGS['isStripCore'] = true;
 
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
@@ -67,6 +69,12 @@
     $_ZM_SETTINGS['isEnableOB'] = GZIP_LEVEL != '1';
     $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
     $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
+
+    // email
+    $_ZM_SETTING['isEmailEnabled'] = SEND_EMAILS == 'true';
+    $_ZM_SETTING['emailSkipList'] = defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array();
+    $_ZM_SETTING['emailTestReceiver'] = (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null;
+    $_ZM_SETTING['isEmailAdminExtraHtml'] = ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT';
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;
@@ -155,6 +163,7 @@
 
     // default/store currency
     $_ZM_SETTINGS['defaultCurrency'] = DEFAULT_CURRENCY;
+    $_ZM_SETTINGS['textCurrencyMapping'] = CURRENCIES_TRANSLATIONS;
 
     // site map
     $_ZM_SETTINGS['isSiteMapAccountLinks'] = SHOW_ACCOUNT_LINKS_ON_SITE_MAP=='Yes';

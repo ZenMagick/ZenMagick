@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -72,11 +72,11 @@
 <h3><?php zm_l10n("Address Details") ?></h3>
 <div id="addr">
     <div id="daddr">
-        <h4>Shipping Address</h4>
+        <h4><?php zm_l10n("Shipping Address") ?></h4>
         <?php zm_format_address($zm_order->getShippingaddress()) ?>
     </div>
     <div id="baddr">
-        <h4>Billing Address</h4>
+        <h4><?php zm_l10n("Billing Address") ?></h4>
         <?php zm_format_address($zm_order->getBillingAddress()) ?>
     </div>
 </div>

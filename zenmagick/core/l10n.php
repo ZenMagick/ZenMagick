@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -55,6 +55,31 @@
         $args = func_get_args();
         array_shift($args);
         return _zm_l10n_lookup($text, $text, $args);
+    }
+
+    /**
+     * Lookup a language specific chunk.
+     *
+     * <p>Similar to <code>zm_l10n_get(..)</code>, except that the first argument is a chunk (file-)name, rather
+     * than a real localizable string.</p>
+     *
+     * @package net.radebatz.zenmagick
+     * @param string name The chunk name.
+     * @param var args A variable number of arguments that will be used as arguments for
+     *  <code>vsprintf(..)</code> to insert variables into the localized text.
+     * @return string A localized version based on the current language, or <code>null</code>.
+     */
+    function zm_l10n_chunk_get($name) {
+    global $zm_runtime, $zm_theme;
+
+        $file = $zm_runtime->getLanguageName().'/'.$name.'.txt';
+        if ($zm_theme->themeFileExists($file, ZM_THEME_LANG_DIR)) {
+            $args = func_get_args();
+            array_shift($args);
+            return vsprintf(file_get_contents($zm_theme->themeFile($file, ZM_THEME_LANG_DIR)), $args);
+        }
+
+        return null;
     }
 
     /**

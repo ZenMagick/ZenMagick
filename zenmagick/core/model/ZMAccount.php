@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -158,6 +158,8 @@ class ZMAccount extends ZMModel {
     function getPhone() { return $this->phone_; }
     function getFax() { return $this->fax_; }
     function getEmailFormat() { return $this->emailFormat_; }
+    function isHtmlEmail() { return 'HTML' == $this->emailFormat_; }
+    function isEmailDisabled() { return 'NONE' == $this->emailFormat_ || 'OUT' == $this->emailFormat_; }
     function getReferral() { return $this->referral_; }
     function getDefaultAddressId() { return $this->defaultAddressId_; }
     function getPassword() { return $this->password_; }

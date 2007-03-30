@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -33,6 +33,13 @@ define('_ZM_ZEN_FUNCTIONS_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'html_outpu
  * @version $Id$
  */
 class ZMLinkGenerationPatch extends ZMFilePatch {
+    var $fktFilesCfg_ = array(
+        _ZM_ZEN_FUNCTIONS_FILE => array(
+            array('zen_href_link', '_DISABLED')
+        )
+    );
+
+
 
     /**
      * Default c'tor.
@@ -59,19 +66,10 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
     /**
      * Checks if this patch can still be applied.
      *
-     * @param array lines The file contents of <code>index.php</code>.
      * @return bool <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $functionsPatched = false;
-        $lines = $this->getFileLines(_ZM_ZEN_FUNCTIONS_FILE);
-        foreach ($lines as $line) {
-            if (false !== strpos($line, "function ") && false !== strpos($line, "zen_href_link_DISABLED")) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->isFilesFktOpen($this->fktFilesCfg_);
     }
 
     /**
@@ -107,22 +105,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
         }
 
         if ((zm_setting('isEnablePatching') && zm_setting('isUltimateSeoPatchSupport')) || $force) {
-            $lines = $this->getFileLines(_ZM_ZEN_FUNCTIONS_FILE);
-            $needsPatch = false;
-            foreach ($lines as $ii => $line) {
-                if (false !== strpos($line, "function ") && false !== strpos($line, "zen_href_link(") && false === strpos($line, "_DISABLED ")) {
-                    // change already here
-                    $lines[$ii] = str_replace('zen_href_link', 'zen_href_link_DISABLED', $line);
-                    $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";
-                    $needsPatch = true;
-                    break;
-                }
-            }
-            if ($needsPatch) {
-                $this->putFileLines(_ZM_ZEN_FUNCTIONS_FILE, $lines);
-            }
-
-            return true;
+            return $this->patchFilesFkt($this->fktFilesCfg_);
         } else {
             // disabled
             zm_log("** ZenMagick: Ultimate SEO patch support disabled - skipping");
@@ -138,28 +121,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        // functions
-        $lines = $this->getFileLines(_ZM_ZEN_FUNCTIONS_FILE);
-        $needsUndo = false;
-        foreach ($lines as $ii => $line) {
-            if (false !== strpos($line, "function ") && false !== strpos($line, "zen_href_link_DISABLED(")) {
-                $lines[$ii] = str_replace('_DISABLED', '', $lines[$ii]);
-                $lines[$ii] = str_replace(' /* modified by ZenMagick installation patcher */', '', $lines[$ii]);
-                $needsUndo = true;
-                break;
-            }
-        }
-
-        if ($needsUndo) {
-            if (is_writeable(_ZM_ZEN_FUNCTIONS_FILE)) {
-                $this->putFileLines(_ZM_ZEN_FUNCTIONS_FILE, $lines);
-            } else {
-                zm_log("** ZenMagick: no permission to patch output_html.php for uninstall", 1);
-                return false;
-            }
-        }
-
-        return true;
+        return $this->undoFilesFkt($this->fktFilesCfg_);
     }
     
 }
