@@ -575,6 +575,7 @@ if (!class_exists("ZMObject")) {
      * <p>Passing default theme id rather than the current theme id is equivalent to
      * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
      *
+     * @package net.radebatz.zenmagick
      * @param string themeId The themeId to start with.
      * @return ZMTheme The final theme.
      */
@@ -635,6 +636,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Dispatch the current request.
      *
+     * @package net.radebatz.zenmagick
      * @return bool <code>true</code> if the request was dispatched, <code>false</code> if not.
      * @todo Support for internal forwards.
      */
@@ -663,6 +665,22 @@ if (!class_exists("ZMObject")) {
         }
 
         return false;
+    }
+
+    /**
+     * Check if the given value exists in the array or comma separated list.
+     *
+     * @package net.radebatz.zenmagick
+     * @param string value The value to search for.
+     * @param mixed Either an <code>array</code> or a string containing a comma separated list.
+     * @return bool <code>true</code> if the given value exists in the array, <code>false</code> if not.
+     */
+    function zm_is_in_array($value, $array) {
+        if (!is_array($array)) {
+            $array = explode(",", $array);
+        }
+        $array = array_flip($array);
+        return isset($array[$value]);
     }
 
 }

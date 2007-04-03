@@ -145,7 +145,7 @@
 
         $href= null;
         $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : false;
-        if ($seoEnabled && function_exists('zen_href_link_seo')) {
+        if ($seoEnabled && function_exists('zen_href_link_seo') && zm_is_in_array($view, zm_setting('seoEnabledPagesList'))) {
             $href = zen_href_link_seo($view, $params, $secure ? 'SSL' : 'NONSSL');
         } else {
             $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');

@@ -26,6 +26,7 @@ Release 0.7.1
 - added file changelog (added/modified/removed); this is based on the actual
   difference between release .zip files rather than CVS, so it should be
 	actually useful
+- added setting to control which pages get SEO treatment
 
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating

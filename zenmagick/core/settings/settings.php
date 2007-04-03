@@ -47,6 +47,9 @@
     $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
     $_ZM_SETTINGS['isEmailPatchSupport'] = true;
 
+    // list of pages for SEO; null means all
+    $_ZM_SETTINGS['seoEnabledPagesList'] = array("index", "product_info", "product_reviews_info");
+
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // page cache

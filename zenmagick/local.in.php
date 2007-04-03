@@ -37,4 +37,8 @@
     // enable Ultimate SEO patching
     //zm_set_setting('isUltimateSeoPatchSupport', true);
 
+    // enable SEO for all pages
+    //zm_set_setting('seoEnabledPagesList', null);
+
+
 ?>

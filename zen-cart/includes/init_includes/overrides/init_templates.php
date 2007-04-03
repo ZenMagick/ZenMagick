@@ -27,7 +27,7 @@
     // short and sweet
 
     // init ZenMagick
-    require("zenmagick/init.php");
+    require(DIR_FS_CATALOG."zenmagick/init.php");
 
     // load original init script
     require(dirname(dirname(__FILE__)) . "/init_templates.php");
