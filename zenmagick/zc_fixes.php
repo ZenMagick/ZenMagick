@@ -25,6 +25,34 @@
 ?>
 <?php
 
+    // register magic observer to fix a few things
+    $zm_loader->create("ZcoObserver");
+
+    /*****temp fixes for email generation.... ********/
+    // set up order for order_status email
+    if (null !== $zm_request->getRequestParameter("oID") && 'update_order' == $zm_request->getRequestParameter("action")) {
+        $orderId = $zm_request->getRequestParameter("oID");
+        $zm_order = $zm_orders->getOrderForId($orderId);
+        $zm_account = $zm_accounts->getAccountForId($zm_order->getAccountId());
+    }
+    // create zm_receiver for tell_a_friend email
+    if ("tell_a_friend" == $zm_request->getPageName()) {
+        $zm_receiver =& $zm_loader->create("Receiver");
+        $zm_receiver->populateFromRequest();
+        $zm_product = null;
+        if ($zm_request->getProductId()) {
+            $zm_product = $zm_products->getProductForId($zm_request->getProductId());
+        } else if ($zm_request->getModel()) {
+            $zm_product = $zm_products->getProductForModel($zm_request->getModel());
+        }
+    }
+    // create context for gv_send email
+    if ("gv_send" == $zm_request->getPageName() && 'process' == $zm_request->getRequestParameter('action')) {
+        $zm_gvreceiver =& $zm_loader->create("GVReceiver");
+        $zm_gvreceiver->populateFromRequest();
+    }
+    /*****temp fixes for email generation.... ********/
+
     // security fix to allow post for login
     if ("login" == $zm_request->getPageName()) {
         // *disable* zc account create code

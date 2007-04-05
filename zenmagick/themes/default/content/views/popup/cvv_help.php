@@ -27,19 +27,13 @@
 <h1><?php zm_l10n("What is CVV?") ?></h1>
 
 <div>
-  <p><strong>Visa, Mastercard, Discover</strong> 3 Digit Card Verification Number:</p>
-  <p>For your safety and security, we require that you enter your card's verification number.</p>
-  <p>The verification number is a 3-digit number printed on the back of your card. It appears after and
-   to the right of your card number.</p>
-  <img src="<?php $zm_theme->themeURL("images/icons/cvv2visa.gif") ?>" alt="cvv sample 1" />
+  <?php echo zm_l10n_chunk_get('popup_cvv_visa_master') ?>
+  <img src="<?php $zm_theme->themeURL("images/icons/cvv2visa.gif") ?>" alt="<?php zm_l10n("cvv sample 1") ?>" />
 </div>
 
 <div>
-  <p><strong>American Express</strong> 4 Digit Card Verification Number:</p>
-  <p>For your safety and security, we require that you enter your card's verification number.</p>
-  <p>The American Express verification number is a 4-digit number printed on the front of your card.  It appears after and
-   to the right of your card number.</p>
-  <img src="<?php $zm_theme->themeURL("images/icons/cvv2amex.gif") ?>" alt="cvv sample 2" />
+  <?php echo zm_l10n_chunk_get('popup_cvv_amex') ?>
+  <img src="<?php $zm_theme->themeURL("images/icons/cvv2amex.gif") ?>" alt="<?php zm_l10n("cvv sample 2") ?>" />
 </div>
 
 <div id="close"><a href="#" onclick="javascript:window.close()"><?php zm_l10n("Close Window [x]") ?></a></div>

@@ -57,12 +57,12 @@ class ZMGvSendController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_accounts, $zm_messages;
+    global $zm_request, $zm_crumbtrail, $zm_messages;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
         $view =& $this->create("ThemeView", 'gv_send');
@@ -76,14 +76,14 @@ class ZMGvSendController extends ZMController {
 
     // process a POST request
     function processPost() {
-    global $zm_request, $zm_crumbtrail, $zm_accounts, $zm_messages;
+    global $zm_request, $zm_crumbtrail, $zm_messages;
     // zen header stuff
     global $error_amount, $error_email;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
         $receiver = $this->create("GVReceiver");
         $receiver->populateFromRequest();
         $this->exportGlobal("zm_gvreceiver", $receiver);

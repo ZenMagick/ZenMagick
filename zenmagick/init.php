@@ -96,6 +96,8 @@
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();
 
+    $zm_account = $zm_request->getAccount();
+
     // these can be replaced by themes; will be reinitializes durin theme switching
     $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
     $zm_meta =& $zm_loader->create('MetaTags');

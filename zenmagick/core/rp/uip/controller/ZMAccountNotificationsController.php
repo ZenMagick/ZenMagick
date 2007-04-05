@@ -57,12 +57,12 @@ class ZMAccountNotificationsController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_accounts;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $account = $zm_accounts->getAccountForId($zm_request->getAccountId());
+        $account = $zm_request->getAccount();
         $this->exportGlobal("zm_subscriptions", $account->getSubscriptions());
 
         return $this->findView('account_notifications');

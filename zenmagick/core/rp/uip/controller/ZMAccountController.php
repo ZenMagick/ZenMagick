@@ -57,7 +57,7 @@ class ZMAccountController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_orders, $zm_accounts;
+    global $zm_request, $zm_crumbtrail, $zm_orders;
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
@@ -65,7 +65,7 @@ class ZMAccountController extends ZMController {
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
         $resultList = new ZMResultList($orders, zm_setting('accountOrderHistoryLimit'));
         $this->exportGlobal("zm_resultList", $resultList);
-        $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
 
         return $this->findView('account');
     }

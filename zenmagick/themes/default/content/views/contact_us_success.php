@@ -24,8 +24,4 @@
  */
 ?>
 
-<?php if (zm_setting('isContactUsStoreAddress')) { ?>
-    <address><?php echo nl2br(STORE_NAME_ADDRESS); ?></address>
-<?php } ?>
-
 <h2><?php zm_l10n("Your message has been successfully sent.") ?></h2>

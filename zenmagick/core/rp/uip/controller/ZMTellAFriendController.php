@@ -57,7 +57,7 @@ class ZMTellAFriendController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_products, $zm_accounts;
+    global $zm_request, $zm_crumbtrail, $zm_products;
 
         $product = null;
         if ($zm_request->getProductId()) {
@@ -71,7 +71,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         $this->exportGlobal("zm_product", $product);
-        $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
 
         // crumbtrail handling
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());

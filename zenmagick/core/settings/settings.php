@@ -176,8 +176,6 @@
 
     // GV 
     $_ZM_SETTINGS['isEnabledGV'] = MODULE_ORDER_TOTAL_GV_STATUS == 'true';
-    $_ZM_SETTINGS['gvSendMainMessage'] = 'Dear %s,<br /><br />You have been sent a Gift Certificate worth %s by %s';
-    $_ZM_SETTINGS['gvSendPersonalMessage'] = '%s says:';
 
     // coupons
     $_ZM_SETTINGS['isEnabledCoupons'] = MODULE_ORDER_TOTAL_COUPON_STATUS == 'true';

@@ -41,14 +41,7 @@
 
         <fieldset>
             <legend><?php zm_l10n("Your message") ?></legend>
-            <p>
-              <?php zm_l10n(zm_setting('gvSendMainMessage'), $zm_gvreceiver->getName(), zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_account->getFullName()) ?>
-              <?php if ($zm_gvreceiver->hasMessage()) { ?>
-                <br/>
-                <?php zm_l10n(zm_setting('gvSendPersonalMessage'), $zm_account->getFirstName()); ?>
-                <?php echo $zm_gvreceiver->getMessage() ?>
-              <?php } ?>
-            </p>
+            <?php echo zm_get_email_contents('gv_send', true, array('isSupressDisclaimer' => false)) ?>
         </fieldset>
 
         <p class="note"><?php zm_l10n("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>

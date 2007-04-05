@@ -61,7 +61,7 @@ class ZMContactUsController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $viewname = "contact_us";
+        $viewName = "contact_us";
         $this->exportGlobal("zm_contact", $this->create("ContactInfo"));
         if ('success' == $zm_request->getRequestParameter('action')) {
             $viewName = "contact_us_success";

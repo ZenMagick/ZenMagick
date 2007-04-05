@@ -75,7 +75,8 @@ class ZMOrders extends ZMDao {
                 o.billing_state, o.billing_country, o.billing_address_format_id,
                 o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
                 o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
-                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address
+                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
+                s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 where o.orders_id = :orderId
                 and o.orders_id = ot.orders_id
@@ -119,7 +120,8 @@ class ZMOrders extends ZMDao {
                 o.billing_state, o.billing_country, o.billing_address_format_id,
                 o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
                 o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
-                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address
+                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
+                s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 where o.customers_id = :accountId
                 and o.orders_id = ot.orders_id

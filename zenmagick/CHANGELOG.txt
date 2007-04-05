@@ -27,6 +27,23 @@ Release 0.7.1
   difference between release .zip files rather than CVS, so it should be
 	actually useful
 - added setting to control which pages get SEO treatment
+- removed unused rewrite rules from .htaccess file
+- added new ZMZcoObserver as global observer of some zen-cart events where
+  nothing else works
+- fixed wrong variable name in contact us controller
+- added welcome, checkout, password_forgotten and tell_a_friend email
+  views
+- added template init override and extra functions in admin area for email
+  handling
+- removed GV send settings 'gvSendMainMessage' and 'gvSendPersonalMessage';
+  NOTE: the gv_send_confirmation template changed as well
+- created text chunks for cvv_help and search_help popup text
+- moved l10n and i18n stuff into locale package
+- split model package into sub-packages
+- always load order status
+- added gv_send and order_status email views; NOTE: some code might change as
+  the data is not all ready to use yet (need to pull it out of zen-cart code)
+- removed the store address from contact_us_success view
 
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating

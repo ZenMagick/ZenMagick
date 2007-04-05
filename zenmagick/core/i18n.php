@@ -38,7 +38,7 @@ if (!function_exists('zen_date_raw')) {
      *
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.locale
      * @param string date A date (usually part of a form submit by the user).
      * @param bool reverse If <code>true</code>, the returned data will be reversed.
      * @return string The provided date converted into the format <code>YYYYDDMM</code>
@@ -57,7 +57,7 @@ if (!function_exists('zen_date_raw')) {
     /**
      * Lookup and echo a i18n specific setting.
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.locale
      * @param string name The setting name.
      * @return string A value or null.
      */
@@ -73,7 +73,7 @@ if (!function_exists('zen_date_raw')) {
     /**
      * Add i18n setting.
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.locale
      * @param mixed name The setting name or an array of settings.
      * @param string value The value (will be ignored if <code>name</code> is of type array).
      */
@@ -96,7 +96,7 @@ if (!function_exists('zen_date_raw')) {
      * <p>This function will convert all i18n settings into corresponding <code>defines</code> and
      * do all additional stuff that should be done just once.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package net.radebatz.zenmagick.locale
      */
     function zm_i18n_finalise() {
         if (!isset($GLOBALS['_zm_i18n_text'])) {

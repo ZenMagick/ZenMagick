@@ -57,14 +57,14 @@ class ZMCheckoutSuccessController extends ZMController {
 
     // process a GET request
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_orders, $zm_accounts;
+    global $zm_request, $zm_crumbtrail, $zm_orders;
 
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId(), 1);
         $this->exportGlobal("zm_order", $orders[0]);
-        $this->exportGlobal("zm_account", $zm_accounts->getAccountForId($zm_request->getAccountId()));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
 
         return $this->findView('checkout_success');
     }
