@@ -305,6 +305,15 @@
                 case 'time_out':
                     $path .= "timeout/";
                     break;
+                case 'rss':
+                    $path .= $query['channel'];
+                    array_push($removeNames, 'channel');
+                    if (isset($query['key'])) {
+                        $path .= "/".$query['key'];
+                        array_push($removeNames, 'key');
+                    }
+                    $path .= "/rss.xml";
+                    break;
                 case 'redirect':
                     $path .= "redirect/".$query['action']."/".$query['goto'];
                     array_push($removeNames, 'goto');

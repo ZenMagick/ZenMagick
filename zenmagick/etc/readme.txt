@@ -3,6 +3,9 @@ This directory contains all the stuff that didn't find a place anywhere else.
 * sql
   The sql directory contains all the SQL that ZenMagick needs for it's unique featres.
 
+* docs
+  Relase documentation
+
 * zmConsole.php
   This is a simple form based console that you can drop into the zen-cart admin directory.
   Once there, it will show up as item under the ZenMagick menu.

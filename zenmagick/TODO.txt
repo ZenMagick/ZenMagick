@@ -2,7 +2,6 @@ missing zen-cart stuff
 ======================
 
 - implement missing weight and onetime prices for attributes
-- support more zen-cart options/features - do we?
 - product_free_shipping_info and a couple more are still missing
 - can't checkout rope product
 - file attribute
@@ -53,6 +52,7 @@ general:
 - look into using/supporting gettext
 - more documentation
 - more phpdoc
+- get rid of wrapped zen-cart data (like orders, shopping cart, etc)
 
 performance:
 - improve :)
