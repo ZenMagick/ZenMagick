@@ -44,6 +44,7 @@ Release 0.7.1
 - added gv_send and order_status email views; NOTE: some code might change as
   the data is not all ready to use yet (need to pull it out of zen-cart code)
 - removed the store address from contact_us_success view
+- added getCategoryPath() method to ZMCategory
 
 Release 0.7.0.1
 - fix file patches that append empty lines to zen-cart files, thus creating

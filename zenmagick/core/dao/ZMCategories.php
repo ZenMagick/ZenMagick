@@ -163,7 +163,8 @@ class ZMCategories extends ZMDao {
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
     function getCategoryForId($categoryId) {
-        return  $this->categories_[$categoryId];
+        $category =& $this->categories_[$categoryId];
+        return $category;
     }
 
 

@@ -51,7 +51,7 @@ class ZMCategory extends ZMModel {
      * @param string name The name.
      * $param bool active The active flag.
      */
-    function ZMCategory($id, $parentId, $name, $active = false) {
+    function ZMCategory($id, $parentId, $name, $active=false) {
         parent::__construct();
 
         $this->id_ = $id;
@@ -69,7 +69,7 @@ class ZMCategory extends ZMModel {
      * @param string name The name.
      * $param bool active The active flag.
      */
-    function __construct($id, $parentId, $name, $active = false) {
+    function __construct($id, $parentId, $name, $active=false) {
         $this->ZMCategory($id, $parentId, $name, $active);
     }
 
@@ -159,6 +159,22 @@ class ZMCategory extends ZMModel {
     function getImage() { return $this->image_; }
 
     /**
+     * Get the category path array.
+     *
+     * @return array The category path as array of categories with the last element being the products category.
+     */
+    function getPathArray() {
+        $path = array();
+        array_push($path, $this->id_);
+        $parent = $this->getParent();
+        while (null !== $parent) {
+            array_push($path, $parent->id_);
+            $parent = $parent->getParent();
+        }
+        return array_reverse($path);
+    }
+
+    /**
      * Get the category path.
      *
      * <p>This method will return a value that can be used as <code>cPath</code> value in a URL
@@ -167,11 +183,12 @@ class ZMCategory extends ZMModel {
      * @return string The category path in the form <code>cPath=[PATH]</code>.
      */
     function getPath() {
-        $path = $this->id_;
-        $parent = $this->parent_;
-        while (null !== $parent) {
-            $path = $parent->getId()."_".$path;
-            $parent = $parent->getParent();
+        $path = '';
+        $first = true;
+        foreach ($this->getPathArray() as $categoryId) {
+            if (!$first) { $path .= "_"; }
+            $path .= $categoryId;
+            $first = false;
         }
         return "cPath=".$path;
     }
