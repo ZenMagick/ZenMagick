@@ -148,7 +148,7 @@ class ZMCategories extends ZMDao {
     function getCategoryTree() {
         $tlc = array();
         foreach ($this->categories_ as $id => $category) {
-            if (0 == $category->parentId_) {
+            if (0 == $category->parentId_ && 0 < $id) {
                 array_push($tlc, $this->categories_[$id]);
             }
         }
