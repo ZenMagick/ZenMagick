@@ -23,6 +23,7 @@ Release 0.7.2
 - fix server side validation code (has not been used until now)
 - added new ZMSession class that acts as wrapper around $_SESSION in order to
   keep access to $_SESSION central
+- default and demo theme version now follows the main ZenMagick version number
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite
