@@ -29,12 +29,11 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-/*
- * Check for any patches that need be applied. If they are disabled or can't be applied, 
- * display installation menu item for manual installation.
- */
-
-require_once(DIR_FS_CATALOG.'zenmagick/init.php');
+if (class_exists('ZMInstallationPatcher')) {
+    /*
+     * Check for any patches that need be applied. If they are disabled or can't be applied, 
+     * display installation menu item for manual installation.
+     */
 
     $isInstallation = null !== strpos($_SERVER[SCRIPT_FILENAME], ZM_ADMINFN_INSTALLATION);
     $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
@@ -49,5 +48,6 @@ require_once(DIR_FS_CATALOG.'zenmagick/init.php');
         // only if no ZenMagick menu item
         $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
     }
+}
     
 ?>

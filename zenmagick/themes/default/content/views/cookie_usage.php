@@ -23,12 +23,5 @@
  * $Id$
  */
 ?>
-<?php
-    // short and sweet
 
-    // init ZenMagick
-    include(DIR_FS_CATALOG."zenmagick/init.php");
-
-    // load original init script
-    require(dirname(dirname(__FILE__)) . "/init_templates.php");
-?>
+<h2><?php zm_l10n("You need to enable Cookies in order to use the requested feature") ?></h2>

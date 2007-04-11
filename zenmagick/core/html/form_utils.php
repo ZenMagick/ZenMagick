@@ -71,7 +71,13 @@
     }
 
     function _zm_build_form($page, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $echo=true) {
-    global $zm_request;
+    global $zm_request, $zm_validator;
+
+        if ($zm_validator->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
+            // create JS validation code
+            $zm_validator->insertJSValidation($id);
+        }
+
         $html = '';
         if (zm_starts_with($page, "http")) {
             $action = $page;

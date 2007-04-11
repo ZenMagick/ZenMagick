@@ -1,3 +1,29 @@
+Release 0.7.2
+- added cookie_usage view
+- added ZMLoginController for POST handling of logins
+- added code to allow ZenMagick to actually process POST requests
+- added new setting 'postRequestEnabledList' to allow POST request handling
+  for configured pages
+- added new method isValidSession() to ZMRequest
+- add password and aothorization to ZMAccount and actually populate them
+- added new global $zm_validator instance for central validation config (this
+  will be used for server side validation, too)
+- added new all-in-one ZMValidator::insertJSValidation($id) method
+- added extra/valdation.php to default theme which now contains all
+  validations
+- modified all views that use JS validation to use the new validation code
+- added new setting 'isAutoJSValidation' which is on by default; zm_form and
+  zm_secure_form will automatically add JS validation code if it exists;
+	this means all required is to set up validation rules and create the form
+	using zm_form or zm_secure_form!
+- make ZenMagick code fail gracefully *if* all patches are reverted *and* the
+  zenmagick folder gets removed (I know this leaves a trail fo unused files,
+	but still better than what we have now)
+- added a meta tag generator = ZenMagick [version] to the default_layout
+- fix server side validation code (has not been used until now)
+- added new ZMSession class that acts as wrapper around $_SESSION in order to
+  keep access to $_SESSION central
+
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite
 - moved zm_parse_rss_date(..) into net.radebatz.zenmagic.misc package

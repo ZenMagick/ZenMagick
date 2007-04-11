@@ -71,17 +71,25 @@ class ZMValidator extends ZMObject {
         $this->sets_[$set->getId()] = $set;
     }
 
-
     /**
      * Get a <code>ZMRuleSet</code> for the given id/name.
      *
      * @param string id The id/name of the set.
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance or <code>null</code>.
      */
-    function getRulSet($id) {
+    function getRuleSet($id) {
         return array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
     }
 
+    /**
+     * Check if a <code>ZMRuleSet</code> exists for the given id.
+     *
+     * @param string id The id/name of the set.
+     * @return bool <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
+     */
+    function hasRuleSet($id) {
+        return array_key_exists($id, $this->sets_);
+    }
 
     /**
      * If a validation was not successful, corresponding error messages
@@ -119,19 +127,16 @@ class ZMValidator extends ZMObject {
                 }
                 array_push($msgList, $rule->getErrorMsg());
                 $this->messages_[$rule->getName()] = $msgList;
-                if ($rule->skipFieldOnError())
-                    continue;
             }
         }
 
         return $status;
     }
 
-
     /**
-     * Create JS validation call.
+     * Create JS validation rules for the given rule set.
      *
-     * @param string id The id of the form to validate.
+     * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
      * @param bool echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
      * @return string Formatted JavaScript .
      */
@@ -157,6 +162,19 @@ class ZMValidator extends ZMObject {
 
         if ($echo) echo $js;
         return $js;
+    }
+
+    /**
+     * Convenience method that will generate the JavaScript validation rules and
+     * include the generic validation code.
+     *
+     * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
+     */
+    function insertJSValidation($id) {
+    global $zm_theme;
+
+        $this->toJSString($id);
+        include_once $zm_theme->themeFile("validation.js");
     }
 
 }

@@ -52,6 +52,9 @@
 
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
+    // enable POST request processing for listed pages
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login";
+
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
     $_ZM_SETTINGS['pageCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/pages/";
@@ -66,12 +69,15 @@
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;
+    $_ZM_SETTINGS['isAutoJSValidation'] = true;
 
     // system
     $_ZM_SETTINGS['isAdmin'] = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG;
     $_ZM_SETTINGS['isEnableOB'] = GZIP_LEVEL != '1';
     $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
     $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
+    $_ZM_SETTINGS['isSessionRecreate'] = SESSION_RECREATE == 'True';
+
 
     // email
     $_ZM_SETTING['isEmailEnabled'] = SEND_EMAILS == 'true';

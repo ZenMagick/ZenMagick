@@ -36,6 +36,7 @@
     <title><?php $zm_meta->getTitle()?></title>
     <base href="<?php echo $zm_request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta name="generator" content="ZenMagick <?php echo zm_setting('ZenMagickVersion') ?>" />
     <meta name="keywords" content="<?php $zm_meta->getKeywords()?>" />
     <meta name="description" content="<?php $zm_meta->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />

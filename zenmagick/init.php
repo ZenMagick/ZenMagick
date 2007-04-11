@@ -95,6 +95,7 @@
     $zm_languages = new ZMLanguages();
     $zm_music = new ZMMusic();
     $zm_mediaManager = new ZMMediaManager();
+    $zm_validator = new ZMValidator();
 
     $zm_account = $zm_request->getAccount();
 
@@ -134,5 +135,11 @@
     }
 
     if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
+
+    // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
+    if ('GET' == $_SERVER['REQUEST_METHOD'] ||
+        ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList')))) {
+        $code_page_directory = 'zenmagick';
+    }
 
 ?>

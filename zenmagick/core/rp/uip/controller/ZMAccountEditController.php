@@ -57,6 +57,9 @@ class ZMAccountEditController extends ZMController {
 
     /**
      * Process a HTTP GET request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
      */
     function processGet() {
     global $zm_request, $zm_crumbtrail;

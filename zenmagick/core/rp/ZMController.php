@@ -74,6 +74,9 @@ class ZMController extends ZMObject {
     /**
      * Checks if the current request can be handled by the controller or not.
      *
+     * <p>This is a temp. method that wil be obsolete once all views are implemented
+     * in the default theme (is that now??).</p>
+     *
      * @return bool <code>true</code> if the controller can handle the request, <code>false</code> if not.
      */
     function validateRequest() {
@@ -187,7 +190,7 @@ class ZMController extends ZMObject {
      * Lookup the appropriate view for the given name.
      *
      * <p>This implementation might be changed later on to allow for view mapping to make the page
-     * flow configurable amd extract that knowlege from the controller into some sort of config
+     * flow configurable and extract that knowlege from the controller into some sort of config
      * file or other piece of logic.</p>
      *
      * @param string page The page (view) name.
@@ -195,6 +198,36 @@ class ZMController extends ZMObject {
     function findView($page) {
         $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $page);
         return $view;
+    }
+
+    /**
+     * Validate the current request using the given rule id.
+     *
+     * @param string id The <code>ZMRuleSet</code> id.
+     * @param array req Optional request; if not set, <code>$_POST</code> will be used.
+     * @return bool <code>true</code> if the validation was successful, <code>false</code> if not.
+     */
+    function validate($id, $req=null) {
+    global $zm_validator, $zm_messages;
+
+        if (null === $req) {
+            $req = $_POST;
+        }
+
+        if (!$zm_validator->hasRuleSet($id)) {
+            return true;
+        }
+
+        $valid = $zm_validator->validate($req, $id);
+        if (!$valid) {
+            foreach ($zm_validator->getMessages() as $fieldMessages) {
+                foreach ($fieldMessages as $msg) {
+                    $zm_messages->add($msg);
+                }
+            }
+        }
+
+        return $valid;
     }
 
 }

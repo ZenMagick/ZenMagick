@@ -30,19 +30,7 @@
 
 <?php $zm_theme->staticPageContent("contact_us") ?>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('contactus', array(
-        new ZMRequiredRule('contactname', 'Please enter your name.'),
-        new ZMRequiredRule('email', 'Please enter your email address.'),
-        new ZMEmailRule('email', 'Please enter a valid email address.'),
-        new ZMRequiredRule('enquiry', 'Please enter your message.')
-    )));
-    $validator->toJSString('contactus');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
-<?php zm_form(FILENAME_CONTACT_US, 'action=send', 'contactus', "post", "return validate(this);") ?>
+<?php zm_form(FILENAME_CONTACT_US, 'action=send', 'contact_us', "post", "return validate(this);") ?>
     <fieldset>
         <legend><?php zm_l10n("Contact us") ?></legend>
         <label for="contactname"><?php zm_l10n("Full Name") ?><span>*</span></label>

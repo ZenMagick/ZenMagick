@@ -37,16 +37,6 @@
   </div>
 </form>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('review', array(
-        new ZMRequiredRule('rating', 'Please choose a rating.'),
-        new ZMMinRule('review_text', REVIEW_TEXT_MIN_LENGTH, vsprintf("Please add a few more words to your comments. The review needs to have at least %s characters.", REVIEW_TEXT_MIN_LENGTH))
-    )));
-    $validator->toJSString('review');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
 <?php zm_secure_form(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $zm_product->getId(), 'review', 'post', 'return validate(this)'); ?>
     <fieldset>
         <legend><?php zm_l10n("New Review") ?></legend>

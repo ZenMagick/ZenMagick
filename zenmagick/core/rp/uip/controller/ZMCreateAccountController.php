@@ -55,7 +55,12 @@ class ZMCreateAccountController extends ZMController {
     }
 
 
-    // process a GET request
+    /**
+     * Process a HTTP GET request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
     function processGet() {
     global $zm_request, $zm_crumbtrail;
 
@@ -73,7 +78,12 @@ class ZMCreateAccountController extends ZMController {
         return $this->findView('create_account');
     }
 
-    // process a POST request
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
     function XprocessPost() {
     global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
 

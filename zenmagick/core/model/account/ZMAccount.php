@@ -47,6 +47,7 @@ class ZMAccount extends ZMModel {
     var $defaultAddressId_;
     var $password_;
     var $subscriptions_;
+    var $authorization_;
 
 
     /**
@@ -69,6 +70,7 @@ class ZMAccount extends ZMModel {
         $this->referrals_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = '';
+        $this->authorization_ = 0;
         $this->subscriptions_ = $this->create("Subscriptions", $this);
     }
 
@@ -164,6 +166,7 @@ class ZMAccount extends ZMModel {
     function getDefaultAddressId() { return $this->defaultAddressId_; }
     function getPassword() { return $this->password_; }
     function getSubscriptions() { return $this->subscriptions_; }
+    function getAuthorization() { return $this->authorization_; }
     function getVoucherBalance() {
     global $zm_accounts;
         return $zm_accounts->getVoucherBalanceForId($this->id_);

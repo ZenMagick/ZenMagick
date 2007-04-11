@@ -26,7 +26,6 @@
 <?php
 
 require_once('includes/application_top.php');
-require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

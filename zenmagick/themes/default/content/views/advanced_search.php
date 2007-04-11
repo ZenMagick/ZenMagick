@@ -24,17 +24,7 @@
  */
 ?>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('advanced_search', array(
-        new ZMRequiredRule('keyword', 'Search cannot be empty.')
-    )));
-    $validator->toJSString('advanced_search');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
 <?php define(KEYWORD_DEFAULT, zm_l10n_get("enter search")); ?>
-
 <?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', 'advanced_search', "get", "return validate(this);") ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>

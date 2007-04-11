@@ -55,7 +55,12 @@ class ZMDiscountCouponController extends ZMController {
     }
 
 
-    // process a GET request
+    /**
+     * Process a HTTP GET request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
     function processGet() {
     global $zm_crumbtrail;
 
@@ -64,7 +69,12 @@ class ZMDiscountCouponController extends ZMController {
         return true;
     }
 
-    // process a POST request
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
     function processPost() {
     global $zm_request, $zm_crumbtrail, $zm_coupons, $zm_messages;
 

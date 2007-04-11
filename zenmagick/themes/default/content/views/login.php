@@ -24,17 +24,6 @@
  */
 ?>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('login', array(
-        new ZMRequiredRule('email_address', 'Please enter your email address.'),
-        new ZMEmailRule('email_address', 'Please enter a valid email address.'),
-        new ZMRequiredRule('password', "Please enter your password.")
-    )));
-    $validator->toJSString('login');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
 <?php zm_secure_form(FILENAME_LOGIN, "action=process", 'login', 'post', 'return validate(this);') ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>

@@ -76,7 +76,7 @@ class ZMDateRule extends ZMRule {
     function validate($req) {
         $da = zm_parse_date($date, $this->format_);
 
-        return @checkdate($da[1], $da[0], $da[2].$da[3]);
+        return zm_is_empty($req[$this->name_]) || @checkdate($da[1], $da[0], $da[2].$da[3]);
     }
 
 

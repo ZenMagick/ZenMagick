@@ -55,7 +55,12 @@ class ZMUnsubscribeController extends ZMController {
     }
 
 
-    // process a GET request
+    /**
+     * Process a HTTP GET request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
     function processGet() {
         return new ZMRedirectView(zm_secure_href(FILENAME_ACCOUNT_NEWSLETTERS, null, false));
     }

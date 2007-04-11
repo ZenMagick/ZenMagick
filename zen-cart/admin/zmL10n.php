@@ -26,7 +26,6 @@
 <?php  
 require_once('includes/application_top.php');
 require_once('includes/zmCatalogDtree.php');
-require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
 
   $themePath = '';
   $defaults = isset($_POST['defaults']) || isset($_GET['defaults']);

@@ -24,28 +24,7 @@
  */
 ?>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('account', array(
-        new ZMRequiredRule('gender', 'Please choose a gender.'),
-        new ZMRequiredRule('firstname', 'Please enter your first name.'),
-        new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
-        new ZMDateRule('dob', UI_DATE_FORMAT),
-        new ZMRequiredRule('email_address', 'Please enter your email address.'),
-        new ZMEmailRule('email_address', 'Please enter a valid email address.'),
-        new ZMRequiredRule('street_address', 'Please enter your address.'),
-        new ZMRequiredRule('city', 'Please enter a City.'),
-        new ZMRequiredRule('state', 'Please enter a state.'),
-        new ZMRequiredRule('postcode', 'Please enter a postcode.'),
-        new ZMRequiredRule('zone_country_id', 'Please select a country.'),
-        new ZMRequiredRule('telephone', "Please enter your telephone details.")
-    )));
-    $validator->toJSString('account');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
-<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'account', "post", "return validate(this);") ?>
+<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'create_account', "post", "return validate(this);") ?>
     <?php if (zm_setting('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>

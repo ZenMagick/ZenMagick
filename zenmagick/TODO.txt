@@ -12,7 +12,6 @@ usablility / quality / performance / etc
 
 bugs:
 - fix default theme IE bugs; test in IE7
-- file permissions for created files???
 - rely less on zen-cart defines as they might not be available during init...
 - make filter/sorter look nicer and easier to configure (autodetect??)
 - make price filter actually work
@@ -22,9 +21,9 @@ admin/install:
 - admin interface for ZM config values
 - generic interface to manage theme settings
 - features: error handling, form validation
-- language support for ZenMagick admin area
-- implement merge option for language mapping tool
+- language support for ZenMagick admin area (ongoing)
 - framework?
+- better descriptions for patches (should be more text less technical details)
 
 structure:
 - store settings somewhere?
@@ -42,13 +41,15 @@ structure:
 - get proper random query (mostly products)
 - db: recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
 - not sure about the product specials SQL...
+- configure views for controller, so findView actually makes sense!
+  => we'd need mapping from symbolic name (eg success, error, null) to page, redirect[y,n], secure[y,n]
 
 general:
 - get a logo and favicon
 - clean up zen-bridge
 - val rules:min -> minlength, also maxlength, range
 - zm_create() as shortcut for $zm_loader->create()...
-- get rid of core/misc/validations.php
+- get rid of core/misc/validations.php (need to centralise validations for this)
 - look into using/supporting gettext
 - more documentation
 - more phpdoc
@@ -56,7 +57,6 @@ general:
 
 performance:
 - improve :)
-- redo zm_find_includes, _zm_build_href, zm_get_instance, 
 
 
 

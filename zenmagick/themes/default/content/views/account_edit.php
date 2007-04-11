@@ -24,24 +24,7 @@
  */
 ?>
 
-<?php
-    $validator = new ZMValidator();
-    $validator->addRuleSet(new ZMRuleSet('account', array(
-        new ZMRequiredRule('gender', 'Please choose a gender.'),
-        new ZMRequiredRule('firstname', 'Please enter your first name.'),
-        new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
-        new ZMDateRule('dob', UI_DATE_FORMAT),
-        new ZMRequiredRule('email_address', 'Please enter your email address.'),
-        new ZMEmailRule('email_address', 'Please enter a valid email address.'),
-        new ZMRequiredRule('telephone', "Please enter your telephone details."),
-        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, vsprintf('Your Telephone Number must contain a minimum of %s characters.', ENTRY_TELEPHONE_MIN_LENGTH))
-    )));
-    $validator->toJSString('account');
-?>
-<?php include_once $zm_theme->themeFile("validation.js"); ?>
-
-<?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", 'account', "post", "return validate(this);") ?>
+<?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", 'edit_account', "post", "return validate(this);") ?>
     <fieldset>
         <legend><?php zm_l10n("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">

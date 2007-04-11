@@ -33,6 +33,7 @@
  */
 class ZMRequest extends ZMObject {
     var $controller_;
+    var $session_;
 
 
     /**
@@ -42,6 +43,7 @@ class ZMRequest extends ZMObject {
         parent::__construct();
 
         $this->controller_ = null;
+        $this->session_ =& new ZMSession();
     }
 
     /**
@@ -60,6 +62,15 @@ class ZMRequest extends ZMObject {
 
 
     /**
+     * Check for a valid session.
+     *
+     * @return bool <code>true</code> if a valid session exists, <code>false</code> if not.
+     */
+    function isValidSession() {
+        return $this->session_->isValid();
+    }
+
+    /**
      * Get the full query string.
      *
      * @return string The full query string for this request.
@@ -71,7 +82,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    function getShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
+    function getShoppingCart() { return $this->session_->getShoppingCart(); }
 
     /**
      * Get the current page name; ie the <code>main_page</code> value.
@@ -141,7 +152,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
+    function getAccountId() { return $this->session_->getAccountId(); }
 
     /**
      * Get the account.
@@ -178,7 +189,7 @@ class ZMRequest extends ZMObject {
      *
      * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
+    function isGuest() { return $this->session_->isGuest(); }
 
     /**
      * Generic access method for request parameter.

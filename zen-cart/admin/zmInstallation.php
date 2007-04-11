@@ -29,7 +29,6 @@
 define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
-require_once('../zenmagick/init.php');
 
     // locale
     $patchLabel = array(

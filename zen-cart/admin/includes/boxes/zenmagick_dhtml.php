@@ -13,8 +13,6 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-require_once(DIR_FS_CATALOG.'zenmagick/init.php');
-
     $za_heading = array();
     $za_heading = array('text' => "ZenMagick", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
 

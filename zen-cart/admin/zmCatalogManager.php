@@ -26,7 +26,6 @@
 <?php  
 require('includes/application_top.php');
 require('includes/zmCatalogDtree.php');
-require_once(DIR_FS_CATALOG.'zenmagick/init.php'); 
 
     // capture output as CMPs might redirect...
     ob_start();
