@@ -409,7 +409,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param mixed value The value or array to check.
-     * @return bool <code>true> if the value is empty or <code>null</code>, <code>false</code> if not.
+     * @return bool <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
     function zm_is_empty($value) { 
         // support for arrays
@@ -555,7 +555,7 @@ if (!class_exists("ZMObject")) {
     }
 
     /**
-     * Load locale settings (l10n/i18n)for the given theme id.
+     * Load locale settings (l10n/i18n)for the given theme.
      *
      * <p>NOTE: This is only going to load mappings. However, since i18n
      * settings need to be set using <code>define(..)</code>, this is done
@@ -689,7 +689,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string value The value to search for.
-     * @param mixed Either an <code>array</code> or a string containing a comma separated list.
+     * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
      * @return bool <code>true</code> if the given value exists in the array, <code>false</code> if not.
      */
     function zm_is_in_array($value, $array) {
