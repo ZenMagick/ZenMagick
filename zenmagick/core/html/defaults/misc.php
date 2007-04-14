@@ -30,7 +30,7 @@
      * Create a id/name pair based select box.
      *
      * <p>Helper function that can create a HTML <code>&lt;select&gt;</code> tag from 
-     * any array that contains class instances that provide <code>getid()</code> and
+     * any array that contains class instances that provide <code>getId()</code> and
      * <code>getName()</code> getter methods.</p>
      *
      * @package net.radebatz.zenmagick.html.defaults
@@ -87,6 +87,7 @@
      * compatible with <code>zen-card</code>.</p>
      *
      * @package net.radebatz.zenmagick.html.defaults
+     * @param string page The page name or <code>null<code> for the current page.
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
      */

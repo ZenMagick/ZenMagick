@@ -41,8 +41,7 @@ if (!function_exists('zen_date_raw')) {
      * @package net.radebatz.zenmagick.locale
      * @param string date A date (usually part of a form submit by the user).
      * @param bool reverse If <code>true</code>, the returned data will be reversed.
-     * @return string The provided date converted into the format <code>YYYYDDMM</code>
-     *  or <code>MMDDYYYY</code>, respectivley.
+     * @return string The provided date converted into the format <code>YYYYDDMM</code> or <code>MMDDYYYY</code>, respectivley.
      */
     function zen_date_raw($date, $reverse=false) {
         $da = zm_parse_date($date, UI_DATE_FORMAT);

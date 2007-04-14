@@ -80,10 +80,10 @@
     $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH;
 
     // email
-    $_ZM_SETTING['isEmailEnabled'] = SEND_EMAILS == 'true';
-    $_ZM_SETTING['emailSkipList'] = defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array();
-    $_ZM_SETTING['emailTestReceiver'] = (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null;
-    $_ZM_SETTING['isEmailAdminExtraHtml'] = ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT';
+    $_ZM_SETTINGS['isEmailEnabled'] = SEND_EMAILS == 'true';
+    $_ZM_SETTINGS['emailSkipList'] = defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array();
+    $_ZM_SETTINGS['emailTestReceiver'] = (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null;
+    $_ZM_SETTINGS['isEmailAdminExtraHtml'] = ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT';
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;

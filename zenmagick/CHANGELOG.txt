@@ -46,6 +46,7 @@ Release 0.8.0
 - really fix dummy sidebox patch so no sidebox dummies are created for
   filenames including '.in.'
 - renamed ZMModel::populateFromRequest() to populate($req)
+- fixed some invalid settings
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite
