@@ -92,7 +92,7 @@
                     <td></td>
                     <td>
                         <input type="checkbox" id="primary" name="primary" value="on" />
-                        <label for="primary"><?php zm_l10n("Set as Primary Address") ?></label>
+                        <label for="primary"><?php zm_l10n("Use as primary address") ?></label>
                     </td>
                 </tr>
             <?php } ?>

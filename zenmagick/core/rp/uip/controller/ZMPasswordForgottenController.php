@@ -25,18 +25,18 @@
 
 
 /**
- * Request controller for account newsletter subscription page.
+ * Request controller for forgotten passwords.
  *
  * @author mano
  * @package net.radebatz.zenmagick.rp.uip.controller
  * @version $Id$
  */
-class ZMAccountNotificationsController extends ZMController {
+class ZMPasswordForgottenController extends ZMController {
 
     /**
      * Default c'tor.
      */
-    function ZMAccountNotificationsController() {
+    function ZMPasswordForgottenController() {
         parent::__construct();
     }
 
@@ -44,7 +44,7 @@ class ZMAccountNotificationsController extends ZMController {
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMAccountNotificationsController();
+        $this->ZMPasswordForgottenController();
     }
 
     /**
@@ -56,18 +56,35 @@ class ZMAccountNotificationsController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
+     * Process a HTTP POST request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    function processPost() {
+    global $zm_request, $zm_accounts, $zm_messages;
 
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        $emailAddress = $zm_request->getRequestParameter('email_address');
+        $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
+        if (null === $account) {
+            $zm_messages->add(vsprintf('Sorry, there is no account with the email address \'%s\'.', $emailAddress));
+            return $this->findView();
+        }
 
-        return $this->findView('account_notifications');
+        $newPassword = zm_new_password();
+        $newEncrpytedPassword = zm_encrypt_password($newPassword);
+
+        // update account password (encrypted)
+        $zm_accounts->_setAccountPassword($account->getId(), $newEncrpytedPassword);
+
+        // send email (clear text)
+        $context = array('newPassword' => $newPassword);
+        zm_mail(zm_l10n_get("Forgotten Password - %s", zm_setting('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
+
+        // report success
+        $zm_messages->add('A new password has been sent to your email address.', 'success');
+
+        return $this->create("RedirectView", 'login');
     }
 
 }

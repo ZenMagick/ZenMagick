@@ -106,7 +106,7 @@ class ZMZcoObserver extends ZMObject {
     global $zm_receiver;
 
         $zm_receiver = $this->create("GVReceiver");
-        $zm_receiver->populateFromRequest();
+        $zm_receiver->populate();
     }
 
 }

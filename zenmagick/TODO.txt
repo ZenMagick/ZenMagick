@@ -48,7 +48,6 @@ general:
 - get a logo and favicon
 - clean up zen-bridge
 - val rules:min -> minlength, also maxlength, range
-- zm_create() as shortcut for $zm_loader->create()...
 - get rid of core/misc/validations.php (need to centralise validations for this)
 - look into using/supporting gettext
 - more documentation

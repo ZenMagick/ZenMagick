@@ -23,8 +23,8 @@
  * $Id$
  */
 ?><?php
-$newOrderStatus = $zc_args['EMAIL_TEXT_NEW_STATUS'];
-preg_match('/[^:]*:(.*)/ms', $zc_args['EMAIL_TEXT_STATUS_COMMENTS'], $matches);
+$newOrderStatus = $EMAIL_TEXT_NEW_STATUS;
+preg_match('/[^:]*:(.*)/ms', $EMAIL_TEXT_STATUS_COMMENTS, $matches);
 $comment = trim($matches[1]);
 ?>
 <?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>

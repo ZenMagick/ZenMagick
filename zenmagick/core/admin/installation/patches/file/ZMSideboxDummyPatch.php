@@ -182,7 +182,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
             $handle = opendir($theme->getBoxesDir());
             $zmBoxes = array();
             while (false !== ($file = readdir($handle))) {
-                if (false === strpos('.in.', $file)) {
+                if (false === strpos($file, '.in.')) {
                     $zmBoxes[$file] = $file;
                 }
             }

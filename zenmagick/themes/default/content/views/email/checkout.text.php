@@ -25,15 +25,15 @@
 ?><?php
   /**
    * ZenMagick implementation of the order confirmation email.
-   * The original zen-cart template values are in $zc_args under
-   * their respective names; eg. $zc_args['INTRO_ORDER_NUMBER'] contains
+   * The original zen-cart template values are available under their
+   * respective names; eg. $INTRO_ORDER_NUMBER contains
    * the order number.
    *
    * This version uses only INTRO_ORDER_NUMBER and PAYMENT_METHOD_FOOTER as
    * there is currently no way to accessing this information otherwise.
    */
 
-$order = $zm_orders->getOrderForId($zc_args['INTRO_ORDER_NUMBER']);
+$order = $zm_orders->getOrderForId($INTRO_ORDER_NUMBER);
 $shippingAddress = $order->getShippingAddress();
 $billingAddress = $order->getBillingAddress();
 $paymentType = $order->getPaymentType();
@@ -76,10 +76,10 @@ $language = $zm_runtime->getLanguage();
 -----------------------------------------------
 <?php $paymentType = $order->getPaymentType(); ?>
 <?php echo $paymentType->getName() ?>
-<?php if (!zm_is_empty($zc_args['PAYMENT_METHOD_FOOTER'])) { ?>
+<?php if (!zm_is_empty($PAYMENT_METHOD_FOOTER)) { ?>
 
 
-<?php echo $zc_args['PAYMENT_METHOD_FOOTER'] ?>
+<?php echo $PAYMENT_METHOD_FOOTER ?>
 <?php } ?>
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>

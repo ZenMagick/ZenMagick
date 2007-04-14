@@ -85,9 +85,14 @@ class ZMAddress extends ZMModel {
     }
 
 
-    // populate from request
-    function populateFromRequest() {
+    /**
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     */
+    function populate($req=null) {
     global $zm_request, $zm_countries;
+
         $this->addressId_ = 0;
         $this->firstName_ = $zm_request->getRequestParameter('firstname', '');
         $this->lastName_ = $zm_request->getRequestParameter('lastname', '');

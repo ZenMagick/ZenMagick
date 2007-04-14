@@ -191,8 +191,6 @@ class ZMAjaxController extends ZMController {
     /**
      * <strong>Experimental:</strong> Call zen-cart page controller code.
      *
-     * TODO: avoid <code>zco_notifier</code> <code>notify()</code> calls.
-     *
      * @param string page The page name (main_page).
      */
     function callZCPageController($page) {

@@ -23,8 +23,8 @@
  * $Id$
  */
 ?><?php
-$newOrderStatus = $zc_args['EMAIL_TEXT_NEW_STATUS'];
-preg_match('/[^:]*:(.*)/ms', $zc_args['EMAIL_TEXT_STATUS_COMMENTS'], $matches);
+$newOrderStatus = $EMAIL_TEXT_NEW_STATUS;
+preg_match('/[^:]*:(.*)/ms', $EMAIL_TEXT_STATUS_COMMENTS, $matches);
 $comment = strip_tags(trim($matches[1]));
 $language = $zm_runtime->getlanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">

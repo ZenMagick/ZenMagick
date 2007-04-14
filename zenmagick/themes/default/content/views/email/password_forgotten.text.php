@@ -23,8 +23,9 @@
  * $Id$
  */
 ?><?php
-preg_match('/$$\s+\w+$$/m', $zc_args['EMAIL_MESSAGE_HTML'], $matches);
+preg_match('/$$\s+\w+$$/m', $EMAIL_MESSAGE_HTML, $matches);
 $password = trim($matches[0]);
+if (!zm_is_empty($newPassword)) { $password = $newPassword; }
 $language = $zm_runtime->getlanguage();
 ?><?php zm_l10n("New Password Request\n") ?>
 

@@ -22,9 +22,7 @@
  *
  * $Id$
  */
-?>
-
-<?php
+?><?php
     /*
      * The central place for all form validation. The validations configured here
      * will be used by both the client (JavaScript) and the server (controller).
@@ -45,8 +43,7 @@
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details."),
-        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH,
-              vsprintf('Your Telephone Number must contain a minimum of %s characters.', ENTRY_TELEPHONE_MIN_LENGTH))
+        new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     )));
 
 
@@ -54,7 +51,9 @@
     $zm_validator->addRuleSet(new ZMRuleSet('account_password', array(
         new ZMRequiredRule('password_current', 'Please enter you current password.'),
         new ZMRequiredRule('password_new', 'Please enter the new password.'),
-        new ZMRequiredRule('password_confirmation', 'Please confirm the new password.')
+        new ZMMinRule('password_new', zm_setting('minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        new ZMRequiredRule('password_confirmation', 'Please confirm the new password.'),
+        new ZMFieldMatchRule('password_new', 'password_confirmation', 'The new password and confirm password must match.')
     )));
 
 
@@ -115,7 +114,7 @@
     /* review */
     $zm_validator->addRuleSet(new ZMRuleSet('review', array(
         new ZMRequiredRule('rating', 'Please choose a rating.'),
-        new ZMMinRule('review_text', REVIEW_TEXT_MIN_LENGTH, vsprintf("Please add a few more words to your comments. The review needs to have at least %s characters.", REVIEW_TEXT_MIN_LENGTH))
+        new ZMMinRule('review_text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     )));
 
 
@@ -130,4 +129,3 @@
     )));
 
 ?>
-

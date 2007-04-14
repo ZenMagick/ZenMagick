@@ -37,7 +37,6 @@ class ZMAccount extends ZMModel {
     var $lastName_;
     var $dob_;
     var $nickName_;
-    var $companyName_;
     var $gender_;
     var $email_;
     var $phone_;
@@ -46,8 +45,10 @@ class ZMAccount extends ZMModel {
     var $referral_;
     var $defaultAddressId_;
     var $password_;
-    var $subscriptions_;
     var $authorization_;
+    var $newsletter_;
+    var $globalSubscriber_;
+    var $subscribedProducts_;
 
 
     /**
@@ -61,7 +62,6 @@ class ZMAccount extends ZMModel {
         $this->lastName_ = '';
         $this->dob_ = '';
         $this->nickName_ = '';
-        $this->companyName_ = '';
         $this->gender_ = '';
         $this->email_ = '';
         $this->phone_ = '';
@@ -71,7 +71,9 @@ class ZMAccount extends ZMModel {
         $this->defaultAddressId_ = 0;
         $this->password_ = '';
         $this->authorization_ = 0;
-        $this->subscriptions_ = $this->create("Subscriptions", $this);
+        $this->newsletter_ = false;
+        $this->globalSubscriber_ = false;
+        $this->subscribedProducts_ = array();
     }
 
     /**
@@ -89,8 +91,12 @@ class ZMAccount extends ZMModel {
     }
 
 
-    // populate from request
-    function populateFromRequest() {
+    /**
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     */
+    function populate($req=null) {
     global $zm_request;
 
         $this->id_ = 0;
@@ -98,7 +104,6 @@ class ZMAccount extends ZMModel {
         $this->lastName_ = $zm_request->getRequestParameter('lastname', '');
         $this->dob_ = $zm_request->getRequestParameter('dob', '');
         $this->nickName_ = $zm_request->getRequestParameter('nick', '');
-        $this->companyName_ = $zm_request->getRequestParameter('company', '');
         $this->gender_ = $zm_request->getRequestParameter('gender', '');
         $this->email_ = $zm_request->getRequestParameter('email_address', '');
         $this->phone_ = $zm_request->getRequestParameter('telephone', '');
@@ -106,7 +111,7 @@ class ZMAccount extends ZMModel {
         $this->emailFormat_ = $zm_request->getRequestParameter('email_format', 'TEXT');
         $this->referral_ = $zm_request->getRequestParameter('referral', '');
         $this->password_ = $zm_request->getRequestParameter('password', '');
-        $this->subscriptions_ = $this->create("Subscriptions", null, $zm_request->getRequestParameter('newsletter', false), null);
+        $this->newsletter_ = $zm_request->getRequestParameter('newsletter', false);
     }
 
 
@@ -154,7 +159,6 @@ class ZMAccount extends ZMModel {
     function getLastName() { return $this->lastName_; }
     function getDob() { return $this->dob_; }
     function getNickName() { return $this->nickname_; }
-    function getCompanyName() { return $this->companyName_; }
     function getGender() { return $this->gender_; }
     function getEmail() { return $this->email_; }
     function getPhone() { return $this->phone_; }
@@ -165,13 +169,40 @@ class ZMAccount extends ZMModel {
     function getReferral() { return $this->referral_; }
     function getDefaultAddressId() { return $this->defaultAddressId_; }
     function getPassword() { return $this->password_; }
-    function getSubscriptions() { return $this->subscriptions_; }
     function getAuthorization() { return $this->authorization_; }
+    function isNewsletterSubscriber() { return $this->newsletter_; }
     function getVoucherBalance() {
     global $zm_accounts;
         return $zm_accounts->getVoucherBalanceForId($this->id_);
     }
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
+
+    /**
+     * Checks if the user is a global product subscriber.
+     *
+     * @return bool <code>true</code> if the user is subscribed, <code>false</code> if not.
+     */
+    function isGlobalProductSubscriber() { 
+        return $this->globalSubscriber_;
+    }
+
+    /**
+     * Checks if the user has product subscriptions.
+     *
+     * @return bool <code>true</code> if the user has product subscriptions, <code>false</code> if not.
+     */
+    function hasProductSubscriptions() {
+        return 0 != count($this->subscribedProducts_); 
+    }
+
+    /**
+     * Get the subscribed product ids.
+     *
+     * @return array A list of product ids.
+     */
+    function getSubscribedProducts() {
+        return $this->subscribedProducts_;
+    }
 
 }
 

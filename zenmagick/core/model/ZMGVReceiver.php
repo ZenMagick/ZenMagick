@@ -65,9 +65,14 @@ class ZMGVReceiver extends ZMModel {
     }
 
 
-    // populate from request
-    function populateFromRequest() {
+    /**
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     */
+    function populate($req=null) {
     global $zm_request;
+
         $this->name_ = $zm_request->getRequestParameter('to_name', '');
         $this->email_ = $zm_request->getRequestParameter('email', '');
         $this->amount_ = $zm_request->getRequestParameter('amount', 0);

@@ -193,9 +193,10 @@ class ZMController extends ZMObject {
      * flow configurable and extract that knowlege from the controller into some sort of config
      * file or other piece of logic.</p>
      *
-     * @param string page The page (view) name.
+     * @param string page The page (view) name (or <code>null</code> to return to the current page).
      */
-    function findView($page) {
+    function findView($page=null) {
+        $page = null !== $page ? $page : $this->page_;
         $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $page);
         return $view;
     }
@@ -211,7 +212,7 @@ class ZMController extends ZMObject {
     global $zm_validator, $zm_messages;
 
         if (null === $req) {
-            $req = $_POST;
+            $req = zm_sanitize($_POST);
         }
 
         if (!$zm_validator->hasRuleSet($id)) {

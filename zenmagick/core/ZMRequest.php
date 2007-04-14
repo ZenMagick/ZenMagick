@@ -89,28 +89,28 @@ class ZMRequest extends ZMObject {
      *
      * @return string The value of the <code>main_page</code> query parameter.
      */
-    function getPageName() { return $_GET['main_page']; }
+    function getPageName() { return zm_sanitize($_GET['main_page']); }
 
     /**
      * Get the current page index (if available).
      *
      * @return int The current page index (default is 1).
      */
-    function getPageIndex() {  return isset($_GET['page']) ? $_GET['page'] : 1; }
+    function getPageIndex() {  return isset($_GET['page']) ? (int)$_GET['page'] : 1; }
 
     /**
      * Get the current sort id.
      *
      * @return string The current sort id.
      */
-    function getSortId() {  return isset($_GET['sort_id']) ? $_GET['sort_id'] : null; }
+    function getSortId() {  return isset($_GET['sort_id']) ? zm_sanitize($_GET['sort_id']) : null; }
 
     /** 
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
      */
-    function getSubPageName() { return isset($_GET['cat']) ? $_GET['cat'] : null; }
+    function getSubPageName() { return isset($_GET['cat']) ? zm_sanitize($_GET['cat']) : null; }
 
     /**
      * Get the product id.
@@ -124,7 +124,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The model numner or <code>null</code>.
      */
-    function getModel() { return isset($_GET['model']) ? $_GET['model'] : null; }
+    function getModel() { return isset($_GET['model']) ? zm_sanitize($_GET['model']) : null; }
 
     /**
      * Get the current category path.
@@ -201,7 +201,7 @@ class ZMRequest extends ZMObject {
      * @return string The parameter value or the default value or <code>null</code>.
      */
     function getRequestParameter($name, $default=null) { 
-        return isset($_GET[$name]) ? zm_stripslashes($_GET[$name]) : (isset($_POST[$name]) ? zm_stripslashes($_POST[$name]) : $default);
+        return isset($_GET[$name]) ? zm_sanitize($_GET[$name]) : (isset($_POST[$name]) ? zm_sanitize($_POST[$name]) : $default);
     }
 
     /**

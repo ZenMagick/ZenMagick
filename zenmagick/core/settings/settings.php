@@ -53,7 +53,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
@@ -77,7 +77,7 @@
     $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
     $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
     $_ZM_SETTINGS['isSessionRecreate'] = SESSION_RECREATE == 'True';
-
+    $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH;
 
     // email
     $_ZM_SETTING['isEmailEnabled'] = SEND_EMAILS == 'true';

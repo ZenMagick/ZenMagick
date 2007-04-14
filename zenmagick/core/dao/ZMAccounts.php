@@ -64,7 +64,7 @@ class ZMAccounts extends ZMDao {
     function getAccountForId($accountId) {
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
-                customers_authorization
+                customers_authorization, customers_newsletter
                 from " . TABLE_CUSTOMERS . "
                 where customers_id = :accountId";
         $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
@@ -72,7 +72,6 @@ class ZMAccounts extends ZMDao {
         $account = null;
         if (0 < $results->RecordCount()) {
             $account = $this->_newAccount($results->fields);
-            $account->subscriptions_ =& $this->create("Subscriptions", $account);
         }
         return $account;
     }
@@ -86,7 +85,7 @@ class ZMAccounts extends ZMDao {
     function getAccountForEmailAddress($emailAddress) {
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
-                customers_authorization
+                customers_authorization, customers_newsletter
                 from " . TABLE_CUSTOMERS . "
                 where customers_email_address = :emailAddress";
         $sql = $this->db_->bindVars($sql, ":emailAddress", $emailAddress, "string");
@@ -94,7 +93,6 @@ class ZMAccounts extends ZMDao {
         $account = null;
         if (0 < $results->RecordCount()) {
             $account = $this->_newAccount($results->fields);
-            $account->subscriptions_ =& $this->create("Subscriptions", $account);
         }
         return $account;
     }
@@ -136,30 +134,37 @@ class ZMAccounts extends ZMDao {
      * @return ZMAccount The created account incl. the new account id.
      */
     function createAccount($account) {
-        $subscriptions = $account->getSubscriptions();
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
                  customers_default_address_id, customers_password, customers_authorization, 
-                 customers_gender, customers_dob
-                ) values (:firstName, :lastName, :email, :nickName, :phone, :fax, :subscriptions,
-                          :emailFormat, 0, :password, :customerApproval, :gender, :dob)";
-        $sql = $this->db_->bindVars($sql, ":firstName", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":lastName", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":email", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":nickName", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":phone", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":fax", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":subscriptions", $accountId, "integer");
-        $sql = $this->db_->bindVars($sql, ":emailFormat", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":password", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":customerApproval", $accountId, "integer");
-        $sql = $this->db_->bindVars($sql, ":gender", $accountId, "string");
-        $sql = $this->db_->bindVars($sql, ":dob", $accountId, "date");
-
-        //echo $sql;
+                 customers_gender, customers_dob, customers_password, customers_referral
+                ) values (:firstName;string, :lastName;string, :email;string, :nickName;string, :phone;string, :fax;string, :newsletterSubscriber;integer,
+                          :emailFormat;string, 0, :password;string, :authorization;integer, :gender;string, :dob;date, :password;string, :referral;string)";
+        $sql = $dao->bindObject($sql, $account);
         $this->db_->Execute($sql);
         $account->id_ = $this->db_->Insert_ID();
+        return $account;
+    }
+
+    /**
+     * Update an existing account.
+     *
+     * @param ZMAccount The account.
+     * @return ZMAccount The updated account.
+     */
+    function updateAccount($account) {
+        $sql = "update " . TABLE_CUSTOMERS . "(
+                 customers_firstname, customers_lastname, customers_email_address, customers_nick, 
+                 customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
+                 customers_default_address_id, customers_password, customers_authorization, 
+                 customers_gender, customers_dob, customers_password, customers_referral
+                ) values (:firstName;string, :lastName;string, :email;string, :nickName;string, :phone;string, :fax;string, :newsletterSubscriber;integer,
+                  :emailFormat;string, 0, :password;string, :authorization;integer, :gender;string, :dob;date, :password;string, :referral;string)
+                where customers_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $dao->bindObject($sql, $account);
+        $this->db_->Execute($sql);
         return $account;
     }
 
@@ -192,6 +197,7 @@ class ZMAccounts extends ZMDao {
         $account->password_ = $fields['customers_password'];
         $account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_lastname'];
+        $account->nickName_ = $fields['customers_nick'];
         $account->dob_ = $fields['customers_dob'];
         $account->gender_ = $fields['customers_gender'];
         $account->email_ = $fields['customers_email_address'];
@@ -201,30 +207,34 @@ class ZMAccounts extends ZMDao {
         $account->referrals_ = $fields['customers_referral'];
         $account->defaultAddressId_ = $fields['customers_default_address_id'];
         $account->authorization_ = $fields['customers_authorization'];
+        $account->newsletter_ = 1 == $fields['customers_newsletter'];
+        $account->globalSubscriber_ = $this->_isGlobalProductSubscriber($account->getId());
+        $account->subscribedProducts_ = $this->_getSubscribedProductIds($account->getId());
         return $account;
     }
 
-    /**
-     * Check for newsletter subscription.
-     */
-    function _isNewsletterSubscriber($account) {
-        $sql = "select customers_newsletter
-                from " . TABLE_CUSTOMERS . "
-                where customers_id = :accountId";
-        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
 
+    /**
+     * Set password for account
+     */
+    function _setAccountPassword($accountId, $password) {
+        $sql = "UPDATE " . TABLE_CUSTOMERS . "
+                SET customers_password = :password
+                WHERE customers_id = :accountId";
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $this->db_->bindVars($sql, ":password", $password, "string");
         $results = $this->db_->Execute($sql);
-        return $results->fields['customers_newsletter'] == '1';
     }
 
+
     /**
-     * Check for global product subscription.
+     * Check for global product subscriber.
      */
-    function _isGlobalProductSubscriber($account) {
+    function _isGlobalProductSubscriber($accountId) {
         $sql = "select global_product_notifications
                 from " . TABLE_CUSTOMERS_INFO . "
                 where  customers_info_id = :accountId";
-        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
 
         $results = $this->db_->Execute($sql);
         return $results->fields['global_product_notifications'] == '1';
@@ -233,11 +243,11 @@ class ZMAccounts extends ZMDao {
     /**
      * Get subscribed product ids.
      */
-    function _getSubscribedProductIds($account) {
+    function _getSubscribedProductIds($accountId) {
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 where  customers_id = :accountId";
-        $sql = $this->db_->bindVars($sql, ":accountId", $account->getId(), "integer");
+        $sql = $this->db_->bindVars($sql, ":accountId", $accountId, "integer");
 
         $productIds = array();
         $results = $this->db_->Execute($sql);

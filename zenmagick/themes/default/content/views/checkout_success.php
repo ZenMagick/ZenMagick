@@ -32,8 +32,8 @@
     <?php $customercare = '<a href="' . zm_href(FILENAME_CONTACT_US, '', false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
-    <?php if (zm_setting('isCustomerProductNotifications')) { $subscriptions = $zm_account->getSubscriptions(); ?>
-        <?php if (!$subscriptions->isGlobalProductSubscriber()) { ?>
+    <?php if (zm_setting('isCustomerProductNotifications')) { ?>
+        <?php if (!$zm_account->isGlobalProductSubscriber()) { ?>
             <fieldset>
                 <legend><?php zm_l10n("Product Notifications") ?></legend>
                 <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>

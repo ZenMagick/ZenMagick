@@ -33,7 +33,6 @@
  */
 class ZMModel extends ZMObject {
 
-
     /**
      * Default c'tor.
      */
@@ -57,10 +56,12 @@ class ZMModel extends ZMObject {
 
 
     /**
-     * Populate all available fields from the current request.
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
-    function populateFromRequest() {
-        return true;
+    function populate($req=null) {
+        return;
     }
 
 }

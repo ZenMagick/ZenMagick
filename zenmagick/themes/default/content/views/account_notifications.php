@@ -29,14 +29,14 @@
 <?php zm_secure_form(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process") ?>
     <fieldset>
         <legend><?php zm_l10n("Global Product Notifications") ?></legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php zm_checkbox_state($zm_subscriptions->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php zm_checkbox_state($zm_account->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>
     </fieldset>
 
-    <?php if (!$zm_subscriptions->isGlobalProductSubscriber() && $zm_subscriptions->hasProductSubscriptions()) { ?>
+    <?php if (!$zm_account->isGlobalProductSubscriber() && $zm_account->hasProductSubscriptions()) { ?>
         <fieldset>
             <legend><?php zm_l10n("Product Notifications") ?></legend>
             <?php $ii=0; 
-            foreach ($zm_subscriptions->getSubscribedProductIds() as $productId) { $product = $zm_products->getProductForId($productId); ?>
+            foreach ($zm_account->getSubscribedProducts() as $productId) { $product = $zm_products->getProductForId($productId); ?>
                 <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $product->getName() : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>

@@ -73,8 +73,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
     function zen_build_html_email_from_template($template, $args=array()) {
     global $zm_request;
 
-        // generate html; $zc_args is an array with the original zen-cart values
-        $view = new ZMEmailView($template, true, array('zc_args' => $args));
+        $view = new ZMEmailView($template, true, $args);
         if (!file_exists($view->getViewFilename()) && function_exists('zen_build_html_email_from_template_org')) {
             // default to zen-cart
             return zen_build_html_email_from_template_org($template, $args);

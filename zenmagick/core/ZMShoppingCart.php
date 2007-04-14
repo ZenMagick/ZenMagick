@@ -275,6 +275,7 @@ class ZMShoppingCart extends ZMDao {
      */
     function getShippingAddress() {
     global $zm_addresses;
+
         return $zm_addresses->getAddressForId($_SESSION['sendto']);
     }
 
@@ -285,6 +286,7 @@ class ZMShoppingCart extends ZMDao {
      */
     function getBillingAddress() {
     global $zm_addresses;
+
         return $zm_addresses->getAddressForId($_SESSION['billto']);
     }
 

@@ -38,7 +38,7 @@
     // create zm_receiver for tell_a_friend email
     if ("tell_a_friend" == $zm_request->getPageName()) {
         $zm_receiver =& $zm_loader->create("Receiver");
-        $zm_receiver->populateFromRequest();
+        $zm_receiver->populate();
         $zm_product = null;
         if ($zm_request->getProductId()) {
             $zm_product = $zm_products->getProductForId($zm_request->getProductId());
@@ -49,7 +49,7 @@
     // create context for gv_send email
     if ("gv_send" == $zm_request->getPageName() && 'process' == $zm_request->getRequestParameter('action')) {
         $zm_gvreceiver =& $zm_loader->create("GVReceiver");
-        $zm_gvreceiver->populateFromRequest();
+        $zm_gvreceiver->populate();
     }
     /*****temp fixes for email generation.... ********/
 

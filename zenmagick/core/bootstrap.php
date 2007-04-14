@@ -364,6 +364,26 @@ if (!class_exists("ZMObject")) {
 
 
     /**
+     * Simple helper to strip unwanted stuff from a stack trace.
+     */
+    function _zm_clean_backtrace($stack) {
+        foreach (array('db_', 'loader_') as $ignore) {
+            if (isset($stack[$ignore])) {
+                unset($stack[$ignore]);
+            }
+        }
+        foreach ($stack as $key => $value) {
+            if (is_array($value)) {
+                $stack[$key] = _zm_clean_backtrace($value);
+            } else if (is_object($value)) {
+                $stack[$key] = get_class($value);
+            }
+        }
+
+        return $stack;
+    }
+
+    /**
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
      * @package net.radebatz.zenmagick
@@ -371,9 +391,16 @@ if (!class_exists("ZMObject")) {
      */
     function zm_backtrace($msg=null) {
         echo "<pre>";
-        print_r(debug_backtrace());
+        print_r(_zm_clean_backtrace(debug_backtrace()));
         echo "</pre>";
-        if (null !== $msg) die($msg);
+        if (null !== $msg) {
+            if (is_array($msg)) {
+                print_r($msg);
+            } else {
+                echo $msg;
+            }
+            die();
+        }
     }
 
 
@@ -426,16 +453,6 @@ if (!class_exists("ZMObject")) {
             require_once(DIR_WS_CLASSES . $clazz. '.php');
         }
     }
-
-
-    /**
-     * Encrypt the given password.
-     *
-     * @package net.radebatz.zenmagick
-     * @param string password The password to encrypt.
-     * @return string The encrypted password.
-     */
-    function zm_encrypt_password($password) { return zen_encrypt_password($password); }
 
 
     /**

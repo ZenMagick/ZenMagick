@@ -77,14 +77,14 @@
      * @package net.radebatz.zenmagick.email
      * @param string subject The subject.
      * @param string template The email template name.
-     * @param array args Additional stuff to be made available to the template.
+     * @param array context Additional stuff to be made available to the template.
      * @param string toEmail The recipients email address.
      * @param string toName Optional recipients name; default is <code>$toEmail</code>.
      * @param string fromEmail Optional sender email address; default is <code>storeEmailFrom</code>.
      * @param string fromName Optional sender name; default is <code>$fromEmail</code>.
      * @param string attachment Optional <strong>single</strong> file attachment.
      */
-    function zm_mail($subject, $template, $args, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
+    function zm_mail($subject, $template, $context, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
     global $zm_request;
 
         // some argument cleanup
@@ -101,14 +101,13 @@
         $formats = zm_email_formats($template);
         $hasTextTemplate = 'text' == $formats || 'both' == $formats;
 
-        // generate text; $zc_args is an array with the original zen-cart values
-        $view = new ZMEmailView($template, !$hasTextTemplate, array('zc_args' => $args));
+        $view = new ZMEmailView($template, !$hasTextTemplate, $context);
         $view->setController($zm_request->getController());
         $text = $view->generate();
 
         // call actual mail function; the name corresponds to the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
-        $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $args, $template, $attparam);
+        $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $context, $template, $attparam);
     }
 
 ?>

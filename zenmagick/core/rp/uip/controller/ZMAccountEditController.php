@@ -67,9 +67,6 @@ class ZMAccountEditController extends ZMController {
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $account = $zm_request->getAccount();
-        $this->exportGlobal("zm_account", $account);
-
         return $this->findView('account_edit');
     }
 

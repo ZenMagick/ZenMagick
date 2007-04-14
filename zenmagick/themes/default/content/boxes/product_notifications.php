@@ -29,8 +29,7 @@
       $isSubscribed = false;
       if (!$zm_request->isGuest()) {
           $account = $zm_request->getAccount();
-          $subscriptions = $account->getSubscriptions();
-          $subscribedProducts = $subscriptions->getSubscribedProductIds();
+          $subscribedProducts = $zm_account->getSubscribedProducts();
           $isSubscribed = array_key_exists($zm_request->getProductId(), array_flip($subscribedProducts));
       }
     ?>

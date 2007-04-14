@@ -1,4 +1,4 @@
-Release 0.7.2
+Release 0.8.0
 - added cookie_usage view
 - added ZMLoginController for POST handling of logins
 - added code to allow ZenMagick to actually process POST requests
@@ -24,6 +24,28 @@ Release 0.7.2
 - added new ZMSession class that acts as wrapper around $_SESSION in order to
   keep access to $_SESSION central
 - default and demo theme version now follows the main ZenMagick version number
+- added ZMFieldMatchRule validation rule to validate new password and confirm
+  password
+- simplified the ZMMinRule setup as name and min length are passed as
+  parameter already (since we only use the min value, the format needed to be
+	changed to %2$s to access the second format parameter rather than just using
+	%s; please see http://www.php.net/manual/en/function.sprintf.php for more
+	details)
+- all regular access to $_GET and $_POST is now wrapped in zm_sanitize(..) calls
+- refactored zm_db_value_list() into ZMDao::bindValueList(..)
+- account subscriptions changed a bit to make the DAO more consistent - this
+  requires minor changes to a couple account views and controllers;
+	basically ZMSubscriptions got dumped and all information moved into ZMAccount
+- removed companyName from ZMAccount
+- had to change email parameter handling - sorry! zen-cart values are now
+  directly available under their respective names, for example 
+	$INTRO_ORDER_NUMBER; zc_args does not exist any more.
+- added code to handle forgotten password submits
+- fix: getCompanyName() in create_account view needs to be called on
+  zm_address rather than zm_account
+- really fix dummy sidebox patch so no sidebox dummies are created for
+  filenames including '.in.'
+- renamed ZMModel::populateFromRequest() to populate($req)
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite

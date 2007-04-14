@@ -68,9 +68,9 @@ class ZMCreateAccountController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $account =& $this->create("Account");
-        $account->populateFromRequest();
+        $account->populate();
         $address =& $this->create("Address");
-        $address->populateFromRequest();
+        $address->populate();
 
         $this->exportGlobal("zm_account", $account);
         $this->exportGlobal("zm_address", $address);
@@ -88,9 +88,9 @@ class ZMCreateAccountController extends ZMController {
     global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
 
         $account =& $this->create("Account");
-        $account->populateFromRequest();
+        $account->populate();
         $address =& $this->create("Address");
-        $address->populateFromRequest();
+        $address->populate();
 
         $valid = true;
         if ($zm_request->getRequestParameter('action') != 'process') {

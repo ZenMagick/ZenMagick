@@ -86,7 +86,7 @@ class ZMContactUsController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_nice_page_name());
         $contactInfo =& $this->create("ContactInfo");
-        $contactInfo->populateFromRequest();
+        $contactInfo->populate();
         $this->exportGlobal("zm_contact", $contactInfo);
 
         return $this->findView('contact_us');

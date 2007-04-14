@@ -68,7 +68,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $address =& $this->create("Address");
-        $address->populateFromRequest();
+        $address->populate();
         $this->exportGlobal("zm_address", $address);
 
         return $this->findView('checkout_shipping_address');

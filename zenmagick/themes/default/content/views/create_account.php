@@ -89,7 +89,7 @@
                 <?php if (zm_setting('isAccountCompany')) { ?>
                     <tr>
                         <td><?php zm_l10n("Company Name") ?></td>
-                        <td><input type="text" name="company" value="<?php echo $zm_account->getCompanyName() ?>" /></td>
+                        <td><input type="text" name="company" value="<?php echo $zm_address->getCompanyName() ?>" /></td>
                     </tr>
                 <?php } ?>
 
@@ -149,8 +149,7 @@
                 <?php if (zm_setting('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
-                        <?php $subscriptions = $zm_account->getSubscriptions(); ?>
-                        <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php zm_checkbox_state($subscriptions->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
+                        <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php zm_checkbox_state($zm_account->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
                     </tr>
                 <?php } ?>
 

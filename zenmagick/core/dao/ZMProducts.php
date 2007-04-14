@@ -371,7 +371,7 @@ class ZMProducts extends ZMDao {
                  where p.products_id in (:productIdList)
                  and pd.products_id = p.products_id
                  and pd.language_id = :languageId";
-        $sql = zm_db_value_list($sql, ":productIdList", $productIds, "integer");
+        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $this->db_->Execute($sql);

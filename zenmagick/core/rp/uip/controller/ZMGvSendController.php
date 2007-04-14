@@ -95,7 +95,7 @@ class ZMGvSendController extends ZMController {
 
         $this->exportGlobal("zm_account", $zm_request->getAccount());
         $receiver = $this->create("GVReceiver");
-        $receiver->populateFromRequest();
+        $receiver->populate();
         $this->exportGlobal("zm_gvreceiver", $receiver);
 
         // error handling

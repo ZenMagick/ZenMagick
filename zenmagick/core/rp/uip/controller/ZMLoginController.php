@@ -77,20 +77,20 @@ class ZMLoginController extends ZMController {
         }
 
         if (!$this->validate('login')) {
-            return $this->findView("login");
+            return $this->findView();
         }
 
         $emailAddress = $zm_request->getRequestParameter('email_address');
         $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
             $zm_messages->add('Sorry, there is no match for that email address and/or password.');
-            return $this->findView("login");
+            return $this->findView();
         }
 
         $password = $zm_request->getRequestParameter('password');
-        if (!zen_validate_password($password, $account->getPassword())) {
+        if (!zm_validate_password($password, $account->getPassword())) {
             $zm_messages->add('Sorry, there is no match for that email address and/or password.');
-            return $this->findView("login");
+            return $this->findView();
         }
 
         // update session with valid account
