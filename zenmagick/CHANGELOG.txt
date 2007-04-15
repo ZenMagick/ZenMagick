@@ -26,7 +26,7 @@ Release 0.8.0
 - default and demo theme version now follows the main ZenMagick version number
 - added ZMFieldMatchRule validation rule to validate new password and confirm
   password
-- simplified the ZMMinRule setup as name and min length are passed as
+- simplified the ZMMinRule setup, as name and min length are passed as
   parameter already (since we only use the min value, the format needed to be
 	changed to %2$s to access the second format parameter rather than just using
 	%s; please see http://www.php.net/manual/en/function.sprintf.php for more
