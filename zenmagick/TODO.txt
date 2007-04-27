@@ -24,6 +24,7 @@ admin/install:
 - language support for ZenMagick admin area (ongoing)
 - framework?
 - better descriptions for patches (should be more text less technical details)
+- sidebox patches and plugins work relative to the current theme only - should they update all themes?
 
 structure:
 - store settings somewhere?
@@ -43,6 +44,7 @@ structure:
 - not sure about the product specials SQL...
 - configure views for controller, so findView actually makes sense!
   => we'd need mapping from symbolic name (eg success, error, null) to page, redirect[y,n], secure[y,n]
+- centralise list of secure pages (zm_is_secure()), so no need to use zm_secure_href and more...
 
 general:
 - get a logo and favicon
@@ -65,3 +67,11 @@ Module notes
 => ZMModule => ZMPaymentModule, ZMShippingModule, ZMOrderTotalModule
 => shared attr. like enabled/disabled, zone for shipping modules, etc + getter setter for order, etc...
 => could be distributed as extra functions/classes to work with zc
+
+features notes
+==============
+feature_group: group_id, desc, bla
+feature_group_mapping: group_id, feature_id
+product_feature_group: map groups to features
+
+default values for features

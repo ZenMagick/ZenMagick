@@ -48,9 +48,12 @@ span.strike {text-decoration:line-through;}
 /* layout stuff */
 #content ul#messages {margin-left:0;padding-left:0;}
 #content ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}
-#content ul#messages .msg {background:#6f6;color:#000;}
+#content ul#messages .msg, #content ul#messages .success {background:#6f6;color:#000;}
 #content ul#messages .warn {background:#ff0;color:#000;}
 #content ul#messages .error {background:#e55;color:#fff;}
+
+#content .fieldMsg {list-style:none;display:inline;}
+#content .fieldMsg li {display:inline;color:#e55;padding-right:5px;}
 
 #container {width:96%;margin:10px auto;background-color:#fff;background:#fff;border:2px solid #a0a0a0;line-height:130%;text-align:left;}
 

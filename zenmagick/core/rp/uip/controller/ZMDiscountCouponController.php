@@ -83,11 +83,11 @@ class ZMDiscountCouponController extends ZMController {
         $viewName = 'discount_coupon';
         $code = $zm_request->getRequestParameter('lookup_discount_coupon');
         if (null == $code) {
-            $zm_messages->add(zm_l10n_get("Please enter a coupon code."), "warn");
+            $zm_messages->warn(zm_l10n_get("Please enter a coupon code."));
         } else {
             $coupon = $zm_coupons->getCouponForCode($code);
             if (null == $coupon) {
-                $zm_messages->add(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
+                $zm_messages->error(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
                 $this->exportGlobal("zm_coupon_code", $code);
             } else {
                 $this->exportGlobal("zm_coupon", $coupon);

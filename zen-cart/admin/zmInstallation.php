@@ -39,6 +39,7 @@ require_once('includes/application_top.php');
         "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
         "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
+        "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails)",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
@@ -60,9 +61,9 @@ require_once('includes/application_top.php');
                     $status = $patch->patch(true);
                     $zm_messages->addAll($patch->getMessages());
                     if ($status) {
-                        $zm_messages->add("'".$patchLabel[$patch->getId()]."' installed successfully", 'msg');
+                        $zm_messages->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                     } else {
-                        $zm_messages->add("Could not install '".$patchLabel[$patch->getId()]."'");
+                        $zm_messages->error("Could not install '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }
@@ -77,9 +78,9 @@ require_once('includes/application_top.php');
                 $status = $patch->undo();
                 $zm_messages->addAll($patch->getMessages());
                 if ($status) {
-                    $zm_messages->add("Uninstalled '".$patchLabel[$patch->getId()]."' successfully", 'msg');
+                    $zm_messages->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                 } else {
-                    $zm_messages->add("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                    $zm_messages->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                 }
             }
         }
@@ -112,15 +113,15 @@ require_once('includes/application_top.php');
 
         if ($coreCompressor->hasErrors()) {
             foreach ($coreCompressor->getErrors() as $msg) {
-                $zm_messages->add($msg, 'error');
+                $zm_messages->error($msg);
             }
         } else if ($didGenerate) {
-            $zm_messages->add("Succsesfully (re-)generated core.php", 'msg');
+            $zm_messages->success("Succsesfully (re-)generated core.php");
         }
 
         if (array_key_exists('optimize', $_POST) && !array_key_exists('singleCore', $_POST)) {
             $coreCompressor->disable();
-            $zm_messages->add("DIsabled usage of core.php", 'msg');
+            $zm_messages->msg("Disabled usage of core.php");
         }
     }
 

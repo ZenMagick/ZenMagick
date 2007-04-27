@@ -168,7 +168,7 @@ if (!class_exists("ZMObject")) {
     function zm_find_includes($dir, $recursive=false, $root=true) {
     global $_zm_includes_buffer;
 
-        if ($root) $_zm_includes_buffer = array();
+        if ($root) { $_zm_includes_buffer = array(); }
 
         $includes = array();
         if (!file_exists($dir) || !is_dir($dir)) {
@@ -424,10 +424,22 @@ if (!class_exists("ZMObject")) {
     /**
      * Redirect to the given url.
      *
+     * <p>This function wil also persist existing messages in the session in order to be
+     * able to display them after the redirect.</p>
+     *
      * @package net.radebatz.zenmagick
      * @param string url A fully qualified url.
      */
-    function zm_redirect($url) { zen_redirect($url); }
+    function zm_redirect($url) {
+    global $zm_messages;
+
+        if ($zm_messages->hasMessages()) {
+            $session = new ZMSession();
+            $session->setMessages($zm_messages->getMessages());
+        }
+
+        zen_redirect($url);
+    }
 
 
     /**

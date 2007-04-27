@@ -67,7 +67,7 @@ class ZMPasswordForgottenController extends ZMController {
         $emailAddress = $zm_request->getRequestParameter('email_address');
         $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
-            $zm_messages->add(vsprintf('Sorry, there is no account with the email address \'%s\'.', $emailAddress));
+            $zm_messages->error(vsprintf('Sorry, there is no account with the email address \'%s\'.', $emailAddress));
             return $this->findView();
         }
 
@@ -82,7 +82,7 @@ class ZMPasswordForgottenController extends ZMController {
         zm_mail(zm_l10n_get("Forgotten Password - %s", zm_setting('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
 
         // report success
-        $zm_messages->add('A new password has been sent to your email address.', 'success');
+        $zm_messages->success('A new password has been sent to your email address.');
 
         return $this->create("RedirectView", 'login');
     }

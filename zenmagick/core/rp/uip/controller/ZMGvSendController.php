@@ -72,7 +72,7 @@ class ZMGvSendController extends ZMController {
 
         $view =& $this->create("ThemeView", 'gv_send');
         if ('doneprocess' == $zm_request->getRequestParameter('action')) {
-            $zm_messages->add(zm_l10n_get("Gift Certificate successfully send."), 'msg');
+            $zm_messages->success(zm_l10n_get("Gift Certificate successfully send."));
             //$view =& new ZMRedirectView('account');
         }
 
@@ -100,10 +100,10 @@ class ZMGvSendController extends ZMController {
 
         // error handling
         if (!zm_is_empty($error_amount)) {
-            $zm_messages->add(zm_l10n_get("Please enter a valid amount."));
+            $zm_messages->error(zm_l10n_get("Please enter a valid amount."));
         }
         if (!zm_is_empty($error_email)) {
-            $zm_messages->add(zm_l10n_get("Please enter a valid email address."));
+            $zm_messages->error(zm_l10n_get("Please enter a valid email address."));
         }
 
         $viewName = 'account';

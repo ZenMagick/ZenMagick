@@ -28,7 +28,8 @@
     // ZenMagick setup
     define('ZM_ROOT', 'zenmagick/');
     define('ZM_DEFAULT_THEME', 'default');
-    define('ZM_THEMES_DIR', 'zenmagick/themes/');
+    define('ZM_THEMES_DIR', ZM_ROOT.'themes/');
+    define('ZM_PLUGINS_DIR', ZM_ROOT.'plugins/');
     define('ZM_THEME_CONTENT_DIR', 'content/');
     define('ZM_THEME_EXTRA_DIR', 'extra/');
     define('ZM_THEME_BOXES_DIR', 'content/boxes/');
@@ -53,5 +54,11 @@
     define('ZM_ADMINFN_CACHE', 'zmCacheManager.php');
     define('ZM_ADMINFN_ABOUT', 'zmAbout.php');
     define('ZM_ADMINFN_CONSOLE', 'zmConsole.php');
+    define('ZM_ADMINFN_PLUGINS', 'zmPlugins.php');
+
+    // plugins/modules
+    define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
+    define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
+    define('ZM_PLUGIN_SORT_ORDER_SUFFIX', 'SORT_ORDER');
 
 ?>

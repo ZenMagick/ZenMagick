@@ -124,6 +124,32 @@ class ZMSession extends ZMObject {
         $_SESSION['cart']->restore_contents();
     }
 
+    /**
+     * Save the given messages in the session.
+     *
+     * @param array messages A list of <code>ZMMessage</code> objects.
+     */
+    function setMessages($messages) {
+        if (!is_array($_SESSION['messageToStack'])) {
+            $sessionMessages = array();
+        } else {
+            $sessionMessages = $_SESSION['messageToStack'];
+        }
+
+        foreach ($messages as $msg) {
+            array_push($sessionMessages, array('class' => $msg->getRef(), 'text' => $msg->getText(), 'type' => $msg->getType()));
+        }
+
+        $_SESSION['messageToStack'] = $sessionMessages;
+    }
+
+    /**
+     * Clear all session messages.
+     */
+    function clearMessages() {
+        $_SESSION['messageToStack'] = '';
+    }
+
 }
 
 ?>

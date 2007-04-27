@@ -76,7 +76,7 @@ class ZMProductComparisonController extends ZMController {
                 break;
         }
         if (3 < count($productIds)) {
-            $zm_messages->add(zm_l10n_get("You can't compare more that 3 products - displaying first three."), "warn");
+            $zm_messages->warn(zm_l10n_get("You can't compare more that 3 products - displaying first three."));
         }
 
         $this->exportGlobal("zm_productList", $productList);

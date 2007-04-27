@@ -32,7 +32,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMShoppingCart extends ZMDao {
+class ZMShoppingCart extends ZMService {
     var $cart_;
     var $zenTotals_;
     var $payments_;
@@ -178,12 +178,12 @@ class ZMShoppingCart extends ZMDao {
                     and pa.options_values_id = poval.products_options_values_id
                     and popt.language_id = :languageId
                     and poval.language_id = :languageId";
-            $sql = $this->db_->bindVars($sql, ":type", $type, "integer");
-            $sql = $this->db_->bindVars($sql, ":productId", $item->getId(), "integer");
-            $sql = $this->db_->bindVars($sql, ":option", $option, "integer");
-            $sql = $this->db_->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+            $sql = $this->getDB()->bindVars($sql, ":type", $type, "integer");
+            $sql = $this->getDB()->bindVars($sql, ":productId", $item->getId(), "integer");
+            $sql = $this->getDB()->bindVars($sql, ":option", $option, "integer");
+            $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
-            $results = $this->db_->Execute($sql);
+            $results = $this->getDB()->Execute($sql);
 
             $name = $results->fields['products_options_name'];
             if (array_key_exists($name, $attributesLookup)) {
@@ -333,6 +333,7 @@ class ZMShoppingCart extends ZMDao {
      */
     function _getZenTotals() {
     global $order_total_modules;
+
         if (null == $this->zenTotals_) {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {

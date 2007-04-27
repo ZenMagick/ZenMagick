@@ -39,10 +39,10 @@ class ZMDateRule extends ZMRule {
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string format The date format (eg: DD/MM/YYYY)
+     * @param string format The date format (eg: DD/MM/YYYY); if <code>null</code>, <em>UI_DATE_FORMAT</em> will be used.
      * @param string msg Optional message.
      */
-    function ZMDateRule($name, $format, $msg=null) {
+    function ZMDateRule($name, $format=null, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
 
         $this->format_ = $format;
@@ -52,10 +52,10 @@ class ZMDateRule extends ZMRule {
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string format The date format (eg: DD/MM/YYYY)
+     * @param string format The date format (eg: DD/MM/YYYY); if <code>null</code>, <em>UI_DATE_FORMAT</em> will be used.
      * @param string msg Optional message.
      */
-    function __construct($name, $format, $msg=null) {
+    function __construct($name, $format=null, $msg=null) {
         $this->ZMDateRule($name, $format, $msg);
     }
 
@@ -68,13 +68,24 @@ class ZMDateRule extends ZMRule {
 
 
     /**
+     * Get the format string.
+     */
+    function getFormat() {
+        if (null == $this->format_) {
+            return constant('UI_DATE_FORMAT');
+        } else {
+            return $this->format_;
+        }
+    }
+
+    /**
      * Validate the given request data.
      *
      * @param array req The request data.
      * @return bool <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        $da = zm_parse_date($date, $this->format_);
+        $da = zm_parse_date($req[$this->name_], $this->getFormat());
 
         return zm_is_empty($req[$this->name_]) || @checkdate($da[1], $da[0], $da[2].$da[3]);
     }
@@ -86,7 +97,7 @@ class ZMDateRule extends ZMRule {
      * @return string Localized error message.
      */
     function getErrorMsg() {
-        return zm_l10n_get((null != $this->msg_ ? $this->msg_ : $this->defaultMsg_), $this->name_, $this->format_);
+        return zm_l10n_get((null != $this->msg_ ? $this->msg_ : $this->defaultMsg_), $this->name_, $this->getFormat());
     }
 
 
@@ -99,7 +110,7 @@ class ZMDateRule extends ZMRule {
         $js = "    new Array('date'";
         $js .= ",'".$this->name_."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".'"'.$this->format_.'"';
+        $js .= ",".'"'.$this->getFormat().'"';
         $js .= ")";
         return $js;
     }

@@ -27,14 +27,16 @@
 <?php zm_secure_form(FILENAME_LOGIN, "action=process", 'login', 'post', 'return validate(this);') ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>
-    <p>
+    <div>
       <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
       <input type="text" id="email_address" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-    </p>
-    <p>
+      <?php zm_field_messages('email_address') ?>
+    </div>
+    <div>
       <label for="password"><?php zm_l10n("Password") ?></label>
       <input type="password" id="password" name="password" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
-    </p>
+      <?php zm_field_messages('password') ?>
+    </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
   <p><a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a></p>

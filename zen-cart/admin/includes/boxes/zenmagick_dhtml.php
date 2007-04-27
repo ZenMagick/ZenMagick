@@ -20,6 +20,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 
     $installer = new ZMInstallationPatcher();
     $za_contents[] = array('text' => zm_l10n_get("Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
+    $za_contents[] = array('text' => zm_l10n_get("Plugins"), 'link' => zen_href_link(ZM_ADMINFN_PLUGINS, '', 'NONSSL'));
 
     $za_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
     $za_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));

@@ -23,6 +23,7 @@
  * $Id$
  */
 ?><?php
+echo $key; 
 $language = $zm_runtime->getlanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
@@ -34,7 +35,7 @@ $language = $zm_runtime->getlanguage();
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner')) ?>
+<div><?php echo zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner')) ?></div>
 
 <?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
 </div>

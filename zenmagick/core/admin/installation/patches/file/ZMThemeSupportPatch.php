@@ -147,15 +147,15 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         }
 
         if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
-            // rewrite index.php
-            $handle = fopen(_ZM_ZEN_INDEX_PHP, 'wb');
+            $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "require") && false !== strpos($line, "zenmagick/store.php")) {
                     continue;
                 }
-                fwrite($handle, $line."\n");
+                array_push($unpatchedLines, $line);
             }
-            fclose($handle);
+
+            return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $unpatchedLines);
         } else {
             zm_log("** ZenMagick: no permission to patch index.php for uninstall", 1);
             return false;

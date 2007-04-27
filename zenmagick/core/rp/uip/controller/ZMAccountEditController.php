@@ -70,6 +70,58 @@ class ZMAccountEditController extends ZMController {
         return $this->findView('account_edit');
     }
 
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request, $zm_accounts, $zm_messages;
+
+        // our session
+        $session = new ZMSession();
+
+        if (!$session->isValid()) {
+            return $this->create("RedirectView", 'login');
+        }
+
+        if ($session->isGuest()) {
+            // not logged in
+            return $this->create("RedirectView", 'login');
+        }
+
+        if (!$this->validate('edit_account')) {
+            return $this->findView();
+        }
+
+        $currentAccount = $zm_request->getAccount();
+
+        $reqAccount = $zm_request->getAccount();
+        $reqAccount->populate();
+
+        if ($reqAccount->getEmail() != $currentAccount->getEmail()) {
+            // email changed, so make sure it doesn't exist
+            $tmpAccount = $zm_accounts->getAccountForEmailAddress($reqAccount->getEmail());
+            if (null !== $tmpAccount) {
+                $zm_messages->error('Sorry, the entered email address already exists.');
+                return $this->findView();
+            }
+
+            if (zm_bb_email_exists($reqAccount->getEmail())) {
+                $zm_messages->error('Sorry, the entered email address already exists.');
+                return $this->findView();
+            }
+        }
+
+        $zm_accounts->updateAccount($reqAccount);
+        zm_bb_change_email($currentAccount->getEmail(), $reqAccount->getEmail());
+
+        $zm_messages->success('Your account has been updated.');
+
+        return $this->create("RedirectView", 'account');
+    }
+
 }
 
 ?>

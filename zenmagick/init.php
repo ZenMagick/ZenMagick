@@ -43,9 +43,8 @@
         require($_zm_bin_dir."settings/settings.php");
         require($_zm_bin_dir."settings/zenmagick.php");
         require($_zm_bin_dir."ZMLoader.php");
-        require($_zm_bin_dir."ZMDao.php");
-        require($_zm_bin_dir."dao/ZMThemes.php");
-        //require($_zm_bin_dir."rp/uip/themes/ZMTheme.php");
+        require($_zm_bin_dir."ZMService.php");
+        require($_zm_bin_dir."service/ZMThemes.php");
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
@@ -99,6 +98,9 @@
 
     $zm_account = $zm_request->getAccount();
 
+    // event proxy to simplify event subscription
+    $zm_events = $zm_loader->create("ZMEvents");
+
     // these can be replaced by themes; will be reinitializes durin theme switching
     $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
     $zm_meta =& $zm_loader->create('MetaTags');
@@ -136,8 +138,18 @@
 
     if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
+    // setup plugins
+    $zm_plugins =& new ZMPlugins();
+    foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
+        if ($plugin->isInstalled() && $plugin->isEnabled()) {
+            $plugin->init();
+            $pluginId = $plugin->getId();
+            $$pluginId =& $plugin;
+        }
+    }
+
     // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
-    if ('xxGET' == $_SERVER['REQUEST_METHOD'] ||
+    if (/*'GET' == $_SERVER['REQUEST_METHOD'] || **/
         ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList')))) {
         $code_page_directory = 'zenmagick';
     }

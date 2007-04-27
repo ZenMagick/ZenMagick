@@ -99,7 +99,6 @@ class ZMAccount extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->id_ = 0;
         $this->firstName_ = $zm_request->getRequestParameter('firstname', '');
         $this->lastName_ = $zm_request->getRequestParameter('lastname', '');
         $this->dob_ = $zm_request->getRequestParameter('dob', '');
@@ -110,7 +109,6 @@ class ZMAccount extends ZMModel {
         $this->fax_ = $zm_request->getRequestParameter('fax', '');
         $this->emailFormat_ = $zm_request->getRequestParameter('email_format', 'TEXT');
         $this->referral_ = $zm_request->getRequestParameter('referral', '');
-        $this->password_ = $zm_request->getRequestParameter('password', '');
         $this->newsletter_ = $zm_request->getRequestParameter('newsletter', false);
     }
 
@@ -121,32 +119,32 @@ class ZMAccount extends ZMModel {
         $msgCount = count($zm_messages->getMessages());
 
         if ($this->gender_ != 'm' && $this->gender_ != 'f') {
-            $zm_messages->add(zm_l10n_get("Please choose a title."));
+            $zm_messages->error(zm_l10n_get("Please choose a title."));
         }
 
         if (strlen($this->firstName_) < zm_setting('firstNameMinLength')) {
-            $zm_messages->add(zm_l10n_get("Your First Name must contain a minimum of %s characters.", zm_setting('firstNameMinLength')));
+            $zm_messages->error(zm_l10n_get("Your First Name must contain a minimum of %s characters.", zm_setting('firstNameMinLength')));
         }
 
         if (strlen($this->lastName_) < zm_setting('lastNameMinLength')) {
-            $zm_messages->add(zm_l10n_get("Your Last Name must contain a minimum of %s characters.", zm_setting('lastNameMinLength')));
+            $zm_messages->error(zm_l10n_get("Your Last Name must contain a minimum of %s characters.", zm_setting('lastNameMinLength')));
         }
 
         if (!zm_checkdate($this->dob_)) {
-            $zm_messages->add(zm_l10n_get("Your Date of Birth must be in this format: DD/MM/YYYY (eg 21/05/1970)"));
+            $zm_messages->error(zm_l10n_get("Your Date of Birth must be in this format: DD/MM/YYYY (eg 21/05/1970)"));
         }
 
         if (!zm_valid_email($this->email_)) {
-            $zm_messages->add(zm_l10n_get("Your E-Mail Address does not appear to be valid - please make any necessary corrections."));
+            $zm_messages->error(zm_l10n_get("Your E-Mail Address does not appear to be valid - please make any necessary corrections."));
         } else if($zm_accounts->emailExists($this->email_)) {
-            $zm_messages->add(zm_l10n_get("Your E-Mail Address already exists in our database."));
+            $zm_messages->error(zm_l10n_get("Your E-Mail Address already exists in our database."));
         }
 
         if (strlen($this->phone_) < zm_setting('phoneMinLength')) {
-            $zm_messages->add(zm_l10n_get("Your Telephone Number must contain a minimum of %s characters.", zm_setting('phoneMinLength')));
+            $zm_messages->error(zm_l10n_get("Your Telephone Number must contain a minimum of %s characters.", zm_setting('phoneMinLength')));
         }
         if (strlen($this->password_) < zm_setting('passwordMinLength')) {
-            $zm_messages->add(zm_l10n_get("Your Password must contain a minimum of %s characters.", zm_setting('passwordMinLength')));
+            $zm_messages->error(zm_l10n_get("Your Password must contain a minimum of %s characters.", zm_setting('passwordMinLength')));
         }
 
         return count($zm_messages->getMessages()) == $msgCount;

@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    $zm_messages->loadMessageStack();
+    $zm_messages->_loadMessageStack();
     $zm_categories->setPath($cPath_array);
 
     // main request processor

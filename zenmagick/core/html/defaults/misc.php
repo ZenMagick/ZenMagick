@@ -165,4 +165,33 @@
         return $html;
     }
 
+    /**
+     * Get form field errors.
+     *
+     * <p>The generated <code>ul</code> tag will have the value <em>[$name]Info</em> as id, and
+     * a class of <em>fieldMsg</em>.
+     * Each <code>li</code> will have the type as class assigned.</p>
+     *
+     * @package net.radebatz.zenmagick.html.defaults
+     * @param string name The field name.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string HTML unordered list of messages or <code>null</code>.
+     */
+    function zm_field_messages($name, $echo=true) {
+    global $zm_messages;
+
+        if (!$zm_messages->hasMessages($name)) {
+            return null;
+        }
+
+        $html = '<ul id="'.$name.'Info" class="fieldMsg">';
+        foreach ($zm_messages->getMessages($name) as $msg) {
+            $html .= '<li class="'.$msg->getType().'">'.$msg->getText().'</li>';
+        }
+        $html .= '</ul>';
+
+        if ($echo) echo $html;
+        return $html;
+    }
+
 ?>

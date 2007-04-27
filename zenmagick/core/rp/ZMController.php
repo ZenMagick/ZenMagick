@@ -221,9 +221,9 @@ class ZMController extends ZMObject {
 
         $valid = $zm_validator->validate($req, $id);
         if (!$valid) {
-            foreach ($zm_validator->getMessages() as $fieldMessages) {
+            foreach ($zm_validator->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {
-                    $zm_messages->add($msg);
+                    $zm_messages->error($msg, $field);
                 }
             }
         }

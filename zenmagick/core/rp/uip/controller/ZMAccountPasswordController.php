@@ -70,6 +70,57 @@ class ZMAccountPasswordController extends ZMController {
         return $this->findView('account_password');
     }
 
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request, $zm_accounts, $zm_messages;
+
+        // our session
+        $session = new ZMSession();
+
+        if (!$session->isValid()) {
+            return $this->create("RedirectView", 'login');
+        }
+
+        if ($session->isGuest()) {
+            // not logged in
+            return $this->create("RedirectView", 'login');
+        }
+
+        if (!$this->validate('account_password')) {
+            return $this->findView();
+        }
+
+        $account = $zm_request->getAccount();
+        if (null == $account) {
+            // TODO:
+            die('could not access session account');
+        }
+
+        $oldPassword = $zm_request->getRequestParameter('password_current');
+        $newPassword = $zm_request->getRequestParameter('password_new');
+        $confirmPassword = $zm_request->getRequestParameter('password_confirmation');
+
+        if (!zm_validate_password($oldPassword, $account->getPassword())) {
+            $zm_messages->error('Your current password did not match the password in our records. Please try again.');
+            return $this->findView();
+        }
+
+        // update password
+        $newEncrpytedPassword = zm_encrypt_password($newPassword);
+        $zm_accounts->_setAccountPassword($account->getId(), $newEncrpytedPassword);
+
+        zm_bb_change_password($account->getNickname(), $newPassword);
+
+        $zm_messages->success('Your password has been updated.');
+
+        return $this->create("RedirectView", 'account');
+    }
+
 }
 
 ?>

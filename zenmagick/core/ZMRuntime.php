@@ -94,6 +94,13 @@ class ZMRuntime {
     function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
 
     /**
+     * Return the directory containing all plugins.
+     *
+     * @return string The base directory for plugins.
+     */
+    function getPluginsDir() { return DIR_FS_CATALOG.ZM_PLUGINS_DIR; }
+
+    /**
      * Return the base path for theme URIs.
      *
      * @return string The URL path prefix for all themes.

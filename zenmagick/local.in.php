@@ -11,6 +11,12 @@
     // disable output buffering in case gzip is disabled
     //zm_set_setting('isEnableOB', false);
 
+    // enable SEO for all pages
+    //zm_set_setting('seoEnabledPagesList', null);
+
+    // disable ZenMagick POST request handling
+    //zm_set_setting('postRequestEnabledList', null);
+
 
     /*===============================================================================
      * The following settings are to disable automatic patching of zen-cart files.
@@ -37,8 +43,8 @@
     // enable Ultimate SEO patching
     //zm_set_setting('isUltimateSeoPatchSupport', true);
 
-    // enable SEO for all pages
-    //zm_set_setting('seoEnabledPagesList', null);
+    // disable global zen-cart event handling in ZenMagick
+    //zm_set_setting('isEventProxySupport', false);
 
 
 ?>

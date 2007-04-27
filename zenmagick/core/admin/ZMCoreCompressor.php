@@ -310,7 +310,7 @@ class ZMCoreCompressor extends ZMObject {
             $source = file_get_contents($infile);
 
             if (!$handle = fopen($outfile, 'ab')) {
-                array_push($this->errors_, 'could not open file for writing ' . $outfile);
+                rray_push($this->errors_, 'could not open file for writing ' . $outfile);
                 return;
             }
 
@@ -339,11 +339,12 @@ class ZMCoreCompressor extends ZMObject {
             $off = strpos($file, $in);
             $tmp[substr($file, $off+strlen($in)+1)] = $file;
         }
+        // some need to be in order :/
+        $loadFirst = array('bootstrap.php', '1/settings.php', '1/zenmagick.php', 'ZMLoader.php', 'ZMService.php');
         $tmp2 = array();
-        array_push($tmp2, $tmp['bootstrap.php']); unset($tmp['bootstrap.php']);
-        array_push($tmp2, $tmp['1/settings.php']); unset($tmp['1/settings.php']);
-        array_push($tmp2, $tmp['1/zenmagick.php']); unset($tmp['1/zenmagick.php']);
-        array_push($tmp2, $tmp['ZMLoader.php']); unset($tmp['ZMLoader.php']);
+        foreach ($loadFirst as $first) {
+            array_push($tmp2, $tmp[$first]); unset($tmp[$first]);
+        }
         foreach ($tmp as $file) {
             array_push($tmp2, $file);
         }

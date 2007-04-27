@@ -25,8 +25,7 @@
 ?>
 <?php
 
-    // register magic observer to fix a few things
-    $zm_loader->create("ZcoObserver");
+    $zm_events->attach(new ZMEventFixes());
 
     /*****temp fixes for email generation.... ********/
     // set up order for order_status email

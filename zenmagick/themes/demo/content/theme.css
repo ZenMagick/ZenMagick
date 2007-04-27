@@ -30,7 +30,7 @@ p.man span {color:#f02025;}
 label span, .legend span {color:#f02025;}
 #content h3 {color:#d32814;}
 
-#content ul#messages .msg {background:#6f6;color:#000;}
+#content ul#messages .msg, #content ul#messages .msg {background:#6f6;color:#000;}
 #content ul#messages .warn {background:#ff0;color:#000;}
 #content ul#messages .error {background:#e55;color:#fff;}
 

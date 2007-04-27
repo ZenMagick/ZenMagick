@@ -34,6 +34,7 @@
      */
     function zm_get_bb_db() {
     global $sniffer;
+
         $db = new queryFactory();
         $db->connect($sniffer->phpBB['dbhost'], $sniffer->phpBB['dbuser'], $sniffer->phpBB['dbpasswd'], $sniffer->phpBB['dbname'], USE_PCONNECT, false);
         return $db;
@@ -49,8 +50,10 @@
      */
     function zm_bb_nickname_exists($nick) {
     global $zm_runtime, $sniffer;
-        if (!$zm_runtime->isBBActive())
+
+        if (!$zm_runtime->isBBActive()) {
             return false;
+        }
 
         $db = zm_get_bb_db();
         $sql = "select * from " . $sniffer->phpBB['users_table'] . " where username = '" . zm_db_prepare_input($nick) . "'";
@@ -74,8 +77,10 @@
      */
     function zm_bb_create_account($nick, $email, $password) {
     global $zm_runtime, $sniffer;
-        if (!$zm_runtime->isBBActive())
+
+        if (!$zm_runtime->isBBActive()) {
             return false;
+        }
 
         $db = zm_get_bb_db();
         $sql = "select max(user_id) as total from " . $sniffer->phpBB['users_table'];
@@ -111,7 +116,61 @@
      */
     function zm_get_phpBB_href() {
     global $phpBB;
+
         return zm_href($phpBB->phpBB['phpbb_url'] . FILENAME_BB_INDEX);
+    }
+
+    /**
+     * Update password.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string nickname The nickname.
+     * @param string password The new password.
+     */
+    function zm_bb_change_password($nickname, $password) {
+    global $zm_runtime, $phpBB;
+
+        if (!$zm_runtime->isBBActive()) {
+            return false;
+        }
+
+        if (!zm_is_empty($nickname)) {
+            $phpBB->phpbb_change_password($nickname, $password);
+        }
+    }
+
+    /**
+     * Update email.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string oldEmailAddress The old address.
+     * @param string newEmailAddress The new email address.
+     */
+    function zm_bb_change_email($oldEmailAddress, $newEmailAddress) {
+    global $zm_runtime, $phpBB;
+
+        if (!$zm_runtime->isBBActive()) {
+            return false;
+        }
+
+        $phpBB->phpbb_change_email(zen_db_input($oldEmailAddress), zen_db_input($newEmailAddress));
+    }
+
+    /**
+     * Check for duplicate email address.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string email The email address.
+     * @param bool <code>true<code> if the given email address exists, <code>false</code> if not.
+     */
+    function zm_bb_email_exists($email) {
+    global $zm_runtime, $phpBB;
+
+        if (!$zm_runtime->isBBActive()) {
+            return false;
+        }
+
+        return $phpBB->phpbb_check_for_duplicate_email(zen_db_input($email)) == 'already_exists';
     }
 
 ?>

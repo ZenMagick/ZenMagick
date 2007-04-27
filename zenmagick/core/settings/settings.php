@@ -46,6 +46,7 @@
     $_ZM_SETTINGS['isUltimateSeoPatchSupport'] = false;
     $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
     $_ZM_SETTINGS['isEmailPatchSupport'] = true;
+    $_ZM_SETTINGS['isEventProxySupport'] = true;
 
     // list of pages for SEO; null means all
     $_ZM_SETTINGS['seoEnabledPagesList'] = array("index", "product_info", "product_reviews_info");
@@ -53,7 +54,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;

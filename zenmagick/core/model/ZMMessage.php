@@ -27,6 +27,11 @@
 /**
  * A single message.
  *
+ * <p>References can be anything, but usually would be a field number if it
+ * is a validation message. Everything else typically would be <code>null</code>.</p>
+ *
+ * <p><strong>Note:</strong> The message text needs ot be localised.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.model
  * @version $Id$
@@ -34,29 +39,33 @@
 class ZMMessage extends ZMModel {
     var $text_;
     var $type_;
+    var $ref_;
 
 
     /**
      * Create new message.
      *
      * @param string text The message text.
-     * @param string type The message type.
+     * @param string type The message type; default is <em>msg</em>.
+     * @param string ref The referencing resource; default is <code>global</code>.
      */
-    function ZMMessage($text, $type='error') {
+    function ZMMessage($text, $type='msg', $ref='global') {
         parent::__construct();
 
         $this->text_ = $text;
         $this->type_ = $type;
+        $this->ref_ = $ref;
     }
 
     /**
      * Create new message.
      *
      * @param string text The message text.
-     * @param string type The message type.
+     * @param string type The message type; default is <em>msg</em>.
+     * @param string ref The referencing resource; default is <code>global</code>.
      */
-    function __construct($text, $type='error') {
-        $this->ZMMessage($text, $type);
+    function __construct($text, $type='msg', $ref='global') {
+        $this->ZMMessage($text, $type, $ref);
     }
 
     /**
@@ -80,6 +89,13 @@ class ZMMessage extends ZMModel {
      * @return string The message type.
      */
     function getType() { return $this->type_; }
+
+    /**
+     * Get the message reference.
+     *
+     * @return string The message reference.
+     */
+    function getRef() { return $this->ref_; }
 
 }
 
