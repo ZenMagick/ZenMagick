@@ -78,7 +78,7 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
 
         for ($ii=1; $ii <= _ZM_GOOGLE_ADSENSE_BOXES_COUNT; ++$ii) {
             $this->addConfigValue('Google AdSense JavaScript #'.$ii, _ZM_GOOGLE_ADSENSE_BOX_PREFIX.$ii, '',
-              'The JavaScript provided by Google to display your ads for box #'.$ii);
+              'The JavaScript provided by Google to display your ads for box #'.$ii, 'zen_cfg_textarea(');
         }
     }
 

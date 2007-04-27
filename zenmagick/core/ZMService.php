@@ -29,8 +29,8 @@
  *
  * <p>A service can be something like a <code>DAO</code>, providing access
  * to database data or any other sort of service that a controller or request handler
- * might want to use. Examples for services that are not <code>DAO</code> are <code>ZMMessages</code>
- * or <code>ZMPlugins</code>.</p>
+ * might want to use. Examples for services that are not <code>DAO</code> are {@link net.radebatz.zenmagick.service.ZMMessages ZMMessages}
+ * or {@link net.radebatz.zenmagick.service.ZMPlugins ZMPlugins}.</p>
  *
  * @author mano
  * @package net.radebatz.zenmagick

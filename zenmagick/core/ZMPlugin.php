@@ -292,11 +292,11 @@ class ZMPlugin extends ZMService {
      * @param string key The configuration key (with or without the common prefix).
      * @param string value The value.
      * @param string description The description; defaults to <code>''</code>.
-     * @param int sortOrder The sort order; defaults to <code>0</code>.
      * @param string setFunction The set function; defaults to <code>null</code>.
      * @param string useFunction The use function; defaults to <code>null</code>.
+     * @param int sortOrder The sort order; defaults to <code>0</code>.
      */
-    function addConfigValue($title, $key, $value, $description='', $sortOrder=0, $setFunction=null, $useFunction=null) {
+    function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
         $groupId = 6;
         if (!zm_starts_with($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
