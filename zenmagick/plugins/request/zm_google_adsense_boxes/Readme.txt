@@ -20,3 +20,24 @@ INSTALLAION
 * Configure the Google JavaScript that will generate the actual ads in the boxes
 
 * Copy/Create individual boxes implementations for your theme (optional)
+
+
+Plugin Customization
+====================
+It is possible to customize some of the plugin aspects. More specific the following
+settings may be changed:
+
+* _ZM_GOOGLE_ADSENSE_BOXES_COUNT
+  The number of sideboxes that may be managed via the plugin
+
+* _ZM_GOOGLE_ADSENSE_BOX_PREFIX
+  The box prefix; this controlls the box filename
+
+* _ZM_GOOGLE_ADSENSE_BOX_TEMPLATE
+  Perhaps the most interesting options. Changing this setting allows to use a custom 
+  template that will be used to generate the boxes.
+
+Settings must be stored in a file called config.php. config-sample.php is provided as
+starting point using the default values.
+
+DO NOT EDIT config-sample.php or the actual plugin class, as updates will overwrite those files!
