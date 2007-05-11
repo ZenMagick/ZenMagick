@@ -45,6 +45,7 @@ structure:
 - configure views for controller, so findView actually makes sense!
   => we'd need mapping from symbolic name (eg success, error, null) to page, redirect[y,n], secure[y,n]
 - centralise list of secure pages (zm_is_secure()), so no need to use zm_secure_href and more...
+- review handling of global exports (too many places and not consistent...)
 
 general:
 - get a logo and favicon

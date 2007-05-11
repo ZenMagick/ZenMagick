@@ -19,31 +19,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
-
 <?php
-    $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
-    $products = array();
+
+
+/**
+ * Plugin filter.
+ *
+ * <p>Plugin filter may be used to manipulate contents before it is returned
+ * to the client.</p>
+ *
+ * @author mano
+ * @package net.radebatz.zenmagick.plugins
+ * @version $Id$
+ */
+class ZMPluginFilter extends ZMObject {
+
+    /**
+     * Default c'tor.
+     */
+    function ZMPluginFilter() {
+        parent::__construct();
+    }
+
+    /**
+     * Default c'tor.
+     */
+    function __construct() {
+        $this->ZMPluginFilter();
+    }
+
+    /**
+     * Default d'tor.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Apply this filter to the given contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function applyFilter($contents) {
+        return $contents;
+    }
+
+}
+
 ?>
-<?php if (0 < count($orders)) { ?>
-    <h3><?php zm_l10n("Previous Purchases") ?></h3>
-    <div id="sb_order_history" class="box">
-      <ul>
-      <?php foreach ($orders as $order) {
-          foreach ($order->getOrderItems() as $orderItem) {
-              if (array_key_exists($orderItem->getName(), $products))
-                  continue;
-              $products[$orderItem->getName()] = $orderItem->getProductId();
-              ?><li><a href="<?php zm_product_href($orderItem->getProductId()) ?>"><?php echo $orderItem->getName(); ?></a></li><?php
-              if (7 == count($products))
-                  break;
-          }
-          if (7 == count($products))
-              break;
-      } ?>
-      </ul>
-    </div>
-<?php } ?>

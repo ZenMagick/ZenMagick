@@ -79,6 +79,7 @@ fieldset hr {margin:8px 0;}
 #main fieldset.patches p.error {margin:15px 0 0 5px;padding:3px 18px;background:url(../images/icons/error.gif) no-repeat 3px 4px;background-color:#c00000;color:#fff;}
 input.all {margin-top:8px;}
 .submit {margin-top:12px;}
+tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 
 #b_about #content {text-align:center;}
 #b_about #content div.about {margin:5px 20%;padding:12px;text-align:left;border:1px solid gray;}

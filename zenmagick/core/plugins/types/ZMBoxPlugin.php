@@ -30,7 +30,7 @@ define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
  * (Side-)box plugin.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package net.radebatz.zenmagick.plugins.types
  * @version $Id$
  */
 class ZMBoxPlugin extends ZMPlugin {
@@ -73,6 +73,22 @@ class ZMBoxPlugin extends ZMPlugin {
     function install() {
         parent::install();
 
+        $this->createBoxes();
+    }
+
+    /**
+     * Remove this plugin.
+     */
+    function remove() {
+        parent::remove();
+
+        $this->removeBoxes();
+    }
+
+    /**
+     * Create zen-cart dummy sideboxes plus default boxes for the default theme.
+     */
+    function createBoxes() {
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';
@@ -97,11 +113,9 @@ class ZMBoxPlugin extends ZMPlugin {
     }
 
     /**
-     * Remove this plugin.
+     * Remove zen-cart dummy sideboxes plus default boxes for the default theme.
      */
-    function remove() {
-        parent::remove();
-
+    function removeBoxes() {
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';

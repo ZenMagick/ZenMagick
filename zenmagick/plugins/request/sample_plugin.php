@@ -69,7 +69,9 @@ class sample_plugin extends ZMPlugin {
     function init() {
         parent::init();
 
-        // this is the place to do init stuff other than just setting up the infrastructure
+        /*
+         * this is the place to do init stuff other than just setting up the infrastructure
+         */
       
         // set up as event subscriber
         $this->zcoSubscribe();
@@ -80,8 +82,64 @@ class sample_plugin extends ZMPlugin {
      * As zco subscriber all methods that match a zen-cart zco event (see <code>ZMEvents</code> for more details)
      * will be called (back) automatically when subscribed...
      */
-    function onHeaderStartIndex($args) {
+    function onNotifyHeaderStartIndex($args) {
         echo "Start of index page event callback in " . $this->getName() . " ...<br>";
+    }
+
+    /**
+     * Get an optional page contents filter from this plugin.
+     *
+     * <p><strong>NOTE:</strong> Page filter are affected by the setting
+     * <em>isEnableOB</em>, as without output buffering this functionallity can't
+     * be realised.</p>
+     *
+     * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
+     *  not supported.
+     */
+    function getPageFilter() {
+    global $zm_request;
+
+        return 'login' == $zm_request->getPageName() ? new sample_plugin_page_filter() : null;
+    }
+
+}
+
+
+/**
+ * Simple page filter.
+ */
+class sample_plugin_page_filter extends ZMPluginFilter {
+
+    /**
+     * Default c'tor.
+     */
+    function sample_plugin() {
+        parent::__construct();
+    }
+
+    /**
+     * Default c'tor.
+     */
+    function __construct() {
+        $this->sample_plugin();
+    }
+
+    /**
+     * Default d'tor.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Apply this filter to the given contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function applyFilter($contents) {
+        return preg_replace('/<\/h1>/', ' (modified by sample plugin)</h1>', $contents, 1);
     }
 
 }

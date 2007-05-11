@@ -132,7 +132,6 @@ class ZMPlugins extends ZMService {
     global $zm_runtime;
 
         $typeDir = $zm_runtime->getPluginsDir() . $type . '/';
-//echo $typeDir."<br>";
         $files = array();
         $handle = opendir($typeDir);
         while (false !== ($file = readdir($handle))) { 
@@ -140,7 +139,6 @@ class ZMPlugins extends ZMService {
                 continue;
 
             $name = $typeDir.$file;
-//echo $name."<br>";
             if (is_dir($name)) {
                 // expect plugin file in the directory with the same name and '.php' extension
                 $name = $name . '/' . $file . '.php';
@@ -152,22 +150,21 @@ class ZMPlugins extends ZMService {
         @closedir($handle);
 
         // make sure we can extend from ZMPlugin
-        $this->create("ZMPlugin");
         $plugins = array();
         foreach ($files as $file) {
             $plugin = str_replace('.php', '', basename($file));
-//echo $plugin."<br>";
             if (!file_exists($file)) {
                 continue;
             }
             require_once($file);
             $obj = new $plugin();
             $obj->setType($type);
-            //if (null == $type || $obj->getType() == $type) {
-                $plugins[] = $obj;
-            //}
+            $pluginDir = dirname($file) . '/';
+            if ($pluginDir != $typeDir) {
+                $obj->setPluginDir($pluginDir);
+            }
+            $plugins[] = $obj;
         }
-//echo $type . ': '.count($plugins);
 
         return $plugins;
     }
@@ -197,6 +194,32 @@ class ZMPlugins extends ZMService {
         }
 
         return null;
+    }
+
+    /**
+     * Apply configured filter to the final page contents.
+     *
+     * @param string contents The page contents.
+     * @return string The really final contents :0
+     */
+    function applyPageFilter($contents) {
+    global $zm_request;
+
+        $controller = $zm_request->getController();
+        foreach ($controller->getGlobals() as $name => $instance) {
+            global $$name;
+            $$name = $instance;
+        }
+
+        foreach ($this->getPluginsForType('request') as $plugin) {
+            if ($plugin->isInstalled() && $plugin->isEnabled()) {
+                $pageFilter = $plugin->getPageFilter();
+                if (null !== $pageFilter && is_subclass_of($pageFilter, 'ZMPluginFilter')) {
+                    $contents = $pageFilter->applyFilter($contents);
+                }
+            }
+        }
+        return $contents;
     }
 
 }

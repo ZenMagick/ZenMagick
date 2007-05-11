@@ -28,30 +28,28 @@
 // check for local defaults
 if (file_exists(dirname(__FILE__)."/config.php")) { include("config.php"); }
 
-// required code
-require("zm_google_adsense_code.php");
-
 
 // some default defaults ;)
-define (_ZM_GOOGLE_ADSENSE_BOXES_COUNT, 4);
+define (_ZM_GOOGLE_ADSENSE_COUNT, 4);
 define (_ZM_GOOGLE_ADSENSE_BOX_PREFIX, 'adsense_box_');
 define (_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE, 'box-template.php');
 
 /**
- * Box plugin providing functionallity for one or more Google AdSense sidebar box(es).
+ * Plugin providing functionallity for one or more Google AdSense ads and box(es).
  *
- * Example of a box plugin managing multiple sideboxes.
+ * <p>Example of a box plugin managing multiple sideboxes.</p>
  *
  * @author mano
+ * @package net.radebatz.zenmagick.plugins.zm_google_adsense
  * @version $Id$
  */
-class zm_google_adsense_boxes extends ZMBoxPlugin {
+class zm_google_adsense extends ZMBoxPlugin {
 
     /**
      * Default c'tor.
      */
-    function zm_google_adsense_boxes() {
-        parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_BOXES_COUNT.' Google AdSense sideboxes.');
+    function zm_google_adsense() {
+        parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_COUNT.' Google AdSense sideboxes.');
         $this->setKeys($this->getBoxNames());
     }
 
@@ -59,7 +57,7 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
      * Default c'tor.
      */
     function __construct() {
-        $this->zm_google_adsense_boxes();
+        $this->zm_google_adsense();
     }
 
     /**
@@ -76,7 +74,7 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
     function install() {
         parent::install();
 
-        for ($ii=1; $ii <= _ZM_GOOGLE_ADSENSE_BOXES_COUNT; ++$ii) {
+        for ($ii=1; $ii <= _ZM_GOOGLE_ADSENSE_COUNT; ++$ii) {
             $this->addConfigValue('Google AdSense JavaScript #'.$ii, _ZM_GOOGLE_ADSENSE_BOX_PREFIX.$ii, '',
               'The JavaScript provided by Google to display your ads for box #'.$ii, 'zen_cfg_textarea(');
         }
@@ -89,7 +87,7 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
      */
     function getBoxNames() {
         $keys = array();
-        for ($ii=1; $ii <= _ZM_GOOGLE_ADSENSE_BOXES_COUNT; ++$ii) {
+        for ($ii=1; $ii <= _ZM_GOOGLE_ADSENSE_COUNT; ++$ii) {
             array_push($keys, _ZM_GOOGLE_ADSENSE_BOX_PREFIX.$ii);
         }
         return $keys;
@@ -101,7 +99,7 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
      * @return string Contents for the box implementation.
      */
     function getBoxContents($id) {
-        $contents = file_get_contents(dirname(__FILE__)."/"._ZM_GOOGLE_ADSENSE_BOX_TEMPLATE);
+        $contents = file_get_contents($this->getPluginDir()._ZM_GOOGLE_ADSENSE_BOX_TEMPLATE);
 
         // make them unique
         $contents = str_replace('BOX_ID', $id, $contents);
@@ -109,5 +107,36 @@ class zm_google_adsense_boxes extends ZMBoxPlugin {
     }
 
 }
+
+
+    /**
+     * Get Google AdSense (JavaScript) code for the given id.
+     *
+     * <p>If the id is <code>null</code>, the id will be determined by analyzing the
+     * current (box) filename.</p>
+     *
+     * @package net.radebatz.zenmagick.plugins.zm_google_adsense
+     * @param int id The box id; default is <code>null</code>.
+     * @param bool echo If <code>true</code>, the code will be echo'ed as well as returned.
+     * @return string The JavaScript or <code>null</code>.
+     */
+    function zm_google_adsense($id=null, $echo=true) {
+    global $zm_google_adsense;
+
+        if (!isset($zm_google_adsense)) {
+            return null;
+
+        }
+        if (null === $id) {
+            $boxName = str_replace('.php', '', basename(__FILE__));
+            $id = str_replace(_ZM_GOOGLE_ADSENSE_BOX_PREFIX, '', $boxName);
+        }
+
+        $js = $zm_google_adsense->get($id);
+
+        if ($echo) echo $js;
+        return $js;
+    }
+
 
 ?>

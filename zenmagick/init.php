@@ -45,6 +45,7 @@
         require($_zm_bin_dir."ZMLoader.php");
         require($_zm_bin_dir."ZMService.php");
         require($_zm_bin_dir."service/ZMThemes.php");
+        require($_zm_bin_dir."rp/ZMUrlMapper.php");
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
@@ -99,7 +100,9 @@
     $zm_account = $zm_request->getAccount();
 
     // event proxy to simplify event subscription
-    $zm_events = $zm_loader->create("ZMEvents");
+    $zm_events = new ZMEvents();
+
+    $zm_urlMapper = new ZMUrlMapper();
 
     // these can be replaced by themes; will be reinitializes durin theme switching
     $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
@@ -144,7 +147,7 @@
         if ($plugin->isInstalled() && $plugin->isEnabled()) {
             $plugin->init();
             $pluginId = $plugin->getId();
-            $$pluginId =& $plugin;
+            $$pluginId = $plugin;
         }
     }
 

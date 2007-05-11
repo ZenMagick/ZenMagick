@@ -5,7 +5,7 @@
 ##
 
 ## Allow GET for all
-<LimitExcept GET>
-  Order Allow,Deny
-  Allow from all
-</LimitExcept>
+#<LimitExcept GET>
+#  Order Allow,Deny
+#  Allow from all
+#</LimitExcept>

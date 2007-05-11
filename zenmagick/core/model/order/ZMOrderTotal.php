@@ -34,6 +34,7 @@
 class ZMOrderTotal extends ZMModel {
     var $name_;
     var $value_;
+    var $amount_;
     var $type_;
 
 
@@ -41,14 +42,16 @@ class ZMOrderTotal extends ZMModel {
      * Create new total.
      *
      * @param string name The total name.
-     * @param float value The total value.
+     * @param string value The total value.
+     * @param float amount The total amount.
      * @param string type The total type.
      */
-    function ZMOrderTotal($name, $value, $type) {
+    function ZMOrderTotal($name, $value, $amount, $type) {
         parent::__construct();
 
         $this->name_ = $name;
         $this->value_ = $value;
+        $this->amount_ = $amount;
         $this->type_ = $type;
     }
 
@@ -56,11 +59,12 @@ class ZMOrderTotal extends ZMModel {
      * Create new total.
      *
      * @param string name The total name.
-     * @param float value The total value.
+     * @param string value The total value.
+     * @param float amount The total amount.
      * @param string type The total type.
      */
-    function __construct($name, $value, $type) {
-        $this->ZMOrderTotal($name, $value, $type);
+    function __construct($name, $value, $amount, $type) {
+        $this->ZMOrderTotal($name, $value, $amount, $type);
     }
 
     /**
@@ -81,9 +85,16 @@ class ZMOrderTotal extends ZMModel {
     /**
      * Get the order total value.
      *
-     * @return float The order total name.
+     * @return string The formatted order total value.
      */
     function getValue() { return $this->value_; }
+
+    /**
+     * Get the order total amount.
+     *
+     * @return float The order total amount.
+     */
+    function getAmount() { return $this->amount_; }
 
     /**
      * Get the order total type.

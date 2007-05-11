@@ -35,6 +35,9 @@
     define('ZM_THEME_BOXES_DIR', 'content/boxes/');
     define('ZM_THEME_LANG_DIR', 'lang/');
 
+    // events
+    define('ZM_EVENT_PREFIX', 'zm_');
+
     // db
     define('ZM_DB_PREFIX', DB_PREFIX);
     define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');

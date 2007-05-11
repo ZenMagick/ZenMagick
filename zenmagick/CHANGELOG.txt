@@ -1,11 +1,11 @@
 Release 0.8.0
 - added cookie_usage view
-- added ZMLoginController for POST handling of logins
 - added code to allow ZenMagick to actually process POST requests
+- added ZMLoginController for POST handling of logins
 - added new setting 'postRequestEnabledList' to allow POST request handling
-  for configured pages
+  for configured pages only
 - added new method isValidSession() to ZMRequest
-- add password and aothorization to ZMAccount and actually populate them
+- add password and authorization to ZMAccount and actually populate them
 - added new global $zm_validator instance for central validation config (this
   will be used for server side validation, too)
 - added new all-in-one ZMValidator::insertJSValidation($id) method
@@ -17,13 +17,13 @@ Release 0.8.0
 	this means all required is to set up validation rules and create the form
 	using zm_form or zm_secure_form!
 - make ZenMagick code fail gracefully *if* all patches are reverted *and* the
-  zenmagick folder gets removed (I know this leaves a trail fo unused files,
-	but still better than what we have now)
-- added a meta tag generator = ZenMagick [version] to the default_layout
-- fix server side validation code (has not been used until now)
+  zenmagick folder gets removed (I know this still leaves a trail fo unused
+	files, but still better than what we have now)
+- added a meta tag: generator = ZenMagick [version] to the default_layout
+- fixed server side validation code (has not been used until now)
 - added new ZMSession class that acts as wrapper around $_SESSION in order to
-  keep access to $_SESSION central
-- default and demo theme version now follows the main ZenMagick version number
+  keep access to $_SESSION central and simple
+- default and demo theme version now follow the main ZenMagick version number
 - added ZMFieldMatchRule validation rule to validate new password and confirm
   password
 - simplified the ZMMinRule setup, as name and min length are passed as
@@ -34,7 +34,7 @@ Release 0.8.0
 - all regular access to $_GET and $_POST is now wrapped in zm_sanitize(..) calls
 - refactored zm_db_value_list() into ZMDao::bindValueList(..)
 - account subscriptions changed a bit to make the DAO more consistent - this
-  requires minor changes to a couple account views and controllers;
+  required minor changes to a couple account views and controllers;
 	basically ZMSubscriptions got dumped and all information moved into ZMAccount
 - removed companyName from ZMAccount
 - had to change email parameter handling - sorry! zen-cart values are now
@@ -48,28 +48,44 @@ Release 0.8.0
 - renamed ZMModel::populateFromRequest() to populate($req)
 - fixed some invalid settings
 - changed the default message type from 'error' to 'msg'
-- added forth supported message type 'success'
+- added forth inbuild message type 'success'
 - messages now support references (ie; field names) like zen-cart does
 - 'msg' and 'success' messages default to the same style in default and demo
   theme
 - added zm_field_messages(..) and corresponding CSS rules to display field
-  specific error messages - the login view is changed to illustrate thhis
+  specific error messages - the demo theme login view is changed to illustrate
+	thhis
 - added code to ZMSession (and zm_redirect(..)) to save messages in the
   session if redirecting - this way it is transparent to the caller
 - added submit handling for change account password
 - fixed issue with ZMDateRule; format now defaults to UI_DATE_FORMAT if not
   set (null); this is related to the fact that i18n defines are set only
-	*after* the validation rules and therefore UI_DATE_FORMAT is not yet
-	available!
+	*after* the validation rules are loaded and therefore UI_DATE_FORMAT is not
+	yet available!
 - added product_notification email template
-- fix DAO method bindValueList() for data types other than integer
+- fixed DAO method bindValueList() for data types other than integer
 - added a module base class ZMPlugin ('course it has to be named differently!)
 - changed all code to use getDB() rather than $db_ directly
-- renamed ZMDao and the dao package to ZMService and service, respectively to
-  accomodate the fact that ZMDao was used in a braoder sense than just DAO
+- renamed ZMDao and the dao package to ZMService and services, respectively to
+  accomodate the fact that ZMDao was used in a broader sense than just DAO
 - rewrite of the zco-notifier code to allow even easier subscriptions to
   zen-cart events (includes a new patch)
 - added a (admittelty very basic) plugin admin page
+- added ZMPluginFilter to allow plugins to modify the generated page contents
+  before returning it to the client; NOTE: requires isEnableOB to be true!
+- fixed/added getAmount() method to ZMOrderTotal and updated phpdoc -
+  getValue() does actually return the string, not the (float) amount!
+- renamed ZMOrderItem:getId() to ZMOrderItem:getProductId() as this is what it
+  is; needs some changes to templates..
+- renamed all desctructor methods ___desctructor, thus disabling them as they
+  are currently all empty; this might break existing code as older versions do
+	call parent::__desctruct()
+- removed obsolete include of init.php in external.php
+- added ZMUrlMapper to make response views configurable (via
+  ZMController::findView(...))
+- removed some .htaccess rules that do not seem to work too well with
+  comemrcially hosted sites (missing images and CSS) ... I'll think about
+	replacements once I am not so tired any more
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite

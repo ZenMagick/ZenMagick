@@ -11,10 +11,10 @@
 Options -Indexes
 
 ## disable all access methods
-<LimitExcept>
-  Order Allow,Deny
-  Deny from all
-</LimitExcept>
+#<LimitExcept>
+#  Order Allow,Deny
+#  Deny from all
+#</LimitExcept>
 
 ## generally deny access to PHP files
 <Files *.php>

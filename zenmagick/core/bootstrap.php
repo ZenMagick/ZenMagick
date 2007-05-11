@@ -674,7 +674,7 @@ if (!class_exists("ZMObject")) {
 
         $controller =& $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
-            $controller = $zm_loader->create("DefaultController");
+            $controller =& $zm_loader->create("DefaultController");
         }
 
         if ($controller->validateRequest()) {
@@ -710,6 +710,20 @@ if (!class_exists("ZMObject")) {
         }
         $array = array_flip($array);
         return isset($array[$value]);
+    }
+
+
+    /**
+     * Fire an event.
+     *
+     * @param mixed source The event source.
+     * @param string eventId The event id.
+     * @param array args Optional additional parameter; default is <code>null</code>.
+     */
+    function zm_fire_event(&$source, $eventId, $args=null) {
+    global $zm_events;
+
+        $zm_events->update($source, ZM_EVENT_PREFIX.$eventId, $args);
     }
 
 }

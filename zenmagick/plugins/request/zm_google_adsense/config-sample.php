@@ -38,7 +38,7 @@
      * database!
      *
      */
-    define (_ZM_GOOGLE_ADSENSE_BOXES_COUNT, 5);
+    define (_ZM_GOOGLE_ADSENSE_COUNT, 5);
     define (_ZM_GOOGLE_ADSENSE_BOX_PREFIX, 'adsense_box_');
     define (_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE, 'box-template.php');
 

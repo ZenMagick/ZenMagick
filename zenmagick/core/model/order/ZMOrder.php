@@ -162,7 +162,27 @@ class ZMOrder extends ZMModel {
      *
      * @return array A list of <code>ZMOrderTotal</code> instances.
      */
-    function getOrderTotals() { return $this->zmOrders_->_getOrderTotals($this); }
+    function getOrderTotals() { return $this->zmOrders_->getOrderTotals($this->id_); }
+
+    /**
+     * Get order total for the given name.
+     *
+     * @param string name The total name (without the <em>ot_</em> prefix).
+     * @param bool force If set, a new order total will be created in case the order
+     *  does not contain the one requested.
+     * @return ZMOrderTotal A <code>ZMOrderTotal</code> or <code>null</code>.
+     */
+    function getOrderTotal($name, $force=false) { 
+        $totals = $this->getOrderTotals();
+        $type = 'ot_'.$name;
+        foreach ($totals as $total) {
+            if ($type == $total->getType()) {
+                return $total;
+            }
+        }
+
+        return $force ? $this->create("ZMOrderTotal", ucwords($name), 0, 0, $type) : null;
+    }
 
     /**
      * Check if the order it pickup.

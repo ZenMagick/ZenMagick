@@ -58,7 +58,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * Provide <code>$zm_account</code> right after an account is created...
      */
-    function onLoginSuccessViaCreateAccount() {
+    function onNotifyLoginSuccessViaCreateAccount() {
     global $zm_account, $zm_request;
 
         $zm_account =& $zm_request->getAccount();
@@ -67,7 +67,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * Provide <code>$zm_receiver</code> for gv_send email.
      */
-    function onHeaderStartGvSend() {
+    function onNotifyHeaderStartGvSend() {
     global $zm_receiver;
 
         $zm_receiver = $this->create("GVReceiver");

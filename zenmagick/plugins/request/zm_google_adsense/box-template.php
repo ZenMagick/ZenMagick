@@ -25,30 +25,17 @@
 ?>
 <?php
 
-
     /**
-     * Get the Google AdSense JavaScript for the box with the given id.
+     * Box contents for Google AdSense.
      *
-     * <p>If the id is <code>null</code>, the id will be determined by analyzing the
-     * current box filename.</p>
-     *
-     * @package net.radebatz.zenmagick.plugins
-     * @param int id The box id; default is <code>null</code>.
-     * @param bool echo If <code>true</code>, the code will be echo'ed as well as returned.
-     * @return string The JavaScript or <code>null</code>.
+     * The box id is replaced with a *real* one during code generation.
      */
-    function zm_google_adsense_get_js_for_box($id=null, $echo=true) {
-    global $zm_google_adsense_boxes;
 
-        if (null === $id) {
-            $boxName = str_replace('.php', '', basename(__FILE__));
-            $id = str_replace(_ZM_GOOGLE_ADSENSE_BOX_PREFIX, '', $boxName);
-        }
-
-        $js = $zm_google_adsense_boxes->get($id);
-
-        if ($echo) echo $js;
-        return $js;
-    }
+    $gjs = zm_google_adsense('BOX_ID', false);
 
 ?>
+<?php if (!zm_is_empty($gjs) && !$zm_request->isSecure()) { ?>
+    <div class="box google">
+        <?php echo $gjs ?>
+    </div>
+<?php } ?>

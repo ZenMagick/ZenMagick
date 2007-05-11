@@ -23,6 +23,7 @@
  * $Id$
  */
 ?><?php
+
     /*
      * The central place for all form validation. The validations configured here
      * will be used by both the client (JavaScript) and the server (controller).

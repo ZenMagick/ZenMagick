@@ -31,8 +31,8 @@
  * have to implement the same <code>update(..)</code> as for registering with zen-cart
  * directly.</p>
  *
- * <p>Any class can subscribe. Any method of the subscriber that matches a method name derived from
- * a zen-cartr event will be called automatically.</p.
+ * <p>Any class can subscribe. Any method of the subscriber class that matches a method
+ * name derived from a zen-cart event will be called automatically.</p.
  *
  * @author mano
  * @package net.radebatz.zenmagick.service
@@ -93,12 +93,11 @@ class ZMEvents extends ZMObject {
      * <p>Callback method names must follow the following conventions:</p>
      * <ul>
      *  <li>all methods start with the prefix <em>on</em></li>
-     *  <li>all prefix <em>NOTIFY</em> is ignored</li>
      *  <li>the reminder of the method name is based on capitalized words of the original event name</li>
      * </ul>
      *
      * <p>For example, to handle the event <em>NOTIFY_MODULE_END_CREATE_ACCOUNT</em>, the method name would be
-     * <code>onLoginSuccessViaCreateAccount(..)</code>.</p>
+     * <code>onNotifyLoginSuccessViaCreateAccount(..)</code>.</p>
      *
      * @param string eventId The event id.
      * @return string The corresponding method name.
@@ -106,8 +105,6 @@ class ZMEvents extends ZMObject {
     function event2method($eventId) {
         // id is upper case
         $method = strtolower($eventId);
-        // remove 
-        $method = str_replace('notify', ' ', $method);
         // '_' == word boundary
         $method = str_replace('_', ' ', $method);
         // capitalise words
@@ -125,11 +122,11 @@ class ZMEvents extends ZMObject {
      *
      * <p>The actual method called is generated based on the event id.</p>
      *
-     * @param mixed notifier.
+     * @param mixed notifier The event source.
      * @param string eventId The event id.
-     * @param array args Optional parameter.
+     * @param array args Optional parameter; default is <code>null</code>.
      */
-    function update(&$notifier, $eventId, $args) {
+    function update(&$notifier, $eventId, $args=null) {
         $method = $this->event2method($eventId);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
@@ -137,6 +134,7 @@ class ZMEvents extends ZMObject {
             }
         }
     }
+
 
 }
 

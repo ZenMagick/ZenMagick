@@ -27,13 +27,10 @@
 /**
  * Plugin base class.
  *
- * <p>Plugins are compatible with zen-cart modules, so extending from here will also
- * give you a valid zen-cart module.<br>
- * Note, however, that accessing class variables and a few of the original zen-cart
- * methods are deprecated in ZenMagick...</p>
+ * <p>Plugins are <strong>NOT</strong> compatible with zen-cart modules. If you need that,
+ * please have a look at <code>ZMModule</code>.</p>
  *
- * <p>The plugin code is based on the plugin class and/or file name as zen-cart expects those
- * to be the same.</p>
+ * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
  * <p>When using the default install method to generate common plugin settings, make sure that
  * additional configuration settings do not use a sortOrder <em>&lt; 2</em>, as <em>0</em>
@@ -44,16 +41,9 @@
  * @version $Id$
  */
 class ZMPlugin extends ZMService {
-    /** @deprecated use <code>getId()</code> instead. */
-    var $code;
-    /** @deprecated use <code>getName()</code> instead. */
-    var $title;
-    /** @deprecated use <code>getDescription()</code> instead. */
-    var $description;
-    /** @deprecated use <code>isEnabled()</code> instead. */
-    var $enabled;
-    /** @deprecated use <code>getSortOrder()</code> instead. */
-    var $sort_order;
+    var $id_;
+    var $title_;
+    var $description_;
     var $installed_;
     var $enabled_;
     var $configPrefix_;
@@ -61,6 +51,7 @@ class ZMPlugin extends ZMService {
     var $keys_;
     var $type_;
     var $messages_ = null;
+    var $pluginDir_ = null;
 
 
     /**
@@ -75,25 +66,24 @@ class ZMPlugin extends ZMService {
         parent::__construct();
 
         $this->type_ = "request";
-        $this->code = get_class($this);
-        $this->title = $title;
-        $this->description = $description;
-        $this->enabled = false;
+        $this->id_ = get_class($this);
+        $this->title_ = $title;
+        $this->description_ = $description;
         $this->enabledValue_ = zm_l10n_get('Enabled');
         $this->sort_order = $sortOrder;
         $this->installed_ = null;
         $this->enabled_ = null;
         $this->configPrefix_ = $configPrefix;
         if (null === $this->configPrefix_) {
-            $this->configPrefix_ = ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->code . '_';
+            $this->configPrefix_ = ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_';
         }
         $this->configPrefix_ = strtoupper($this->configPrefix_);
         $this->keys_ = array();
         if (defined($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX)) {
             $this->sort_order = constant($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX);
         }
-        $this->enabled = $this->isEnabled();
         $this->messages_ = array();
+        $this->pluginDir_ = null;
     }
 
     /**
@@ -157,7 +147,7 @@ class ZMPlugin extends ZMService {
      * @return string A unique id.
      */
     function getId() {
-        return $this->code;
+        return $this->id_;
     }
 
     /**
@@ -166,7 +156,7 @@ class ZMPlugin extends ZMService {
      * @return string The name.
      */
     function getName() {
-        return $this->title;
+        return $this->title_;
     }
 
     /**
@@ -175,7 +165,7 @@ class ZMPlugin extends ZMService {
      * @return string The description.
      */
     function getDescription() {
-        return $this->description;
+        return $this->description_;
     }
 
     /**
@@ -185,16 +175,6 @@ class ZMPlugin extends ZMService {
      */
     function getSortOrder() {
         return $this->sort_order;
-    }
-
-    /**
-     * Check if the plugin is installed.
-     *
-     * @return int If this plugin is installed (code>1</code>).
-     * @deperecated Use <code>isInstalled()</code> instead.
-     */
-    function check() {
-        return $this->isInstalled() ? 1 : 0;
     }
 
     /**
@@ -214,16 +194,6 @@ class ZMPlugin extends ZMService {
             $this->installed_ = 0 < $results->RecordCount();
         }
         return $this->installed_;
-    }
-
-    /**
-     * The list of configuration keys used by this plugin.
-     *
-     * @return array List of configuration keys.
-     * @deperecated Use <code>isInstalled()</code> instead.
-     */
-    function keys() {
-        return $this->getKeys();
     }
 
     /**
@@ -280,6 +250,20 @@ class ZMPlugin extends ZMService {
      * @return string The type.
      */
     function getType() { return $this->type_; }
+
+    /**
+     * Set the plugin directory.
+     *
+     * @param string pluginDir The directory.
+     */
+    function setPluginDir($pluginDir) { $this->pluginDir_ = $pluginDir; }
+
+    /**
+     * Get the plugin directory.
+     *
+     * @return string The directory or <code>null</code> if this plugin is single file only.
+     */
+    function getPluginDir() { return $this->pluginDir_; }
 
     /**
      * Add a configuration value.
@@ -342,12 +326,12 @@ class ZMPlugin extends ZMService {
         $this->addConfigValue('Plugin Status', $enabledName, $this->enabledValue_, 6, 'Enable/Disable this plugin.', 0,
           'zen_cfg_select_drop_down('.$enabledValues.', ');
          */
-        $this->addConfigValue('Plugin Status', $enabledName, $this->enabledValue_, 'Change the plugin status.', 0,
+        $this->addConfigValue('Plugin Status', $enabledName, $this->enabledValue_, 'Change the plugin status.',
           'zen_cfg_select_option(array(\''.$this->enabledValue_.'\', \''.'Disabled'.'\'), ');
 
         // plugin sort order
-        $sortOrderName = $this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX;
-        $this->addConfigValue('Sort Order', $sortOrderName, $this->sort_order, 'Display sort order.', 1);
+        //$sortOrderName = $this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX;
+        //$this->addConfigValue('Sort Order', $sortOrderName, $this->sort_order, 'Display sort order.');
     }
 
     /**
@@ -418,6 +402,20 @@ class ZMPlugin extends ZMService {
     global $zm_events;
 
         $zm_events->detach($this);
+    }
+
+    /**
+     * Get an optional page contents filter from this plugin.
+     *
+     * <p><strong>NOTE:</strong> Page filter are affected by the setting
+     * <em>isEnableOB</em>, as without output buffering this functionallity can't
+     * be realised.</p>
+     *
+     * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
+     *  not supported.
+     */
+    function getPageFilter() {
+        return null;
     }
 
     /**

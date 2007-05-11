@@ -367,7 +367,8 @@ class ZMShoppingCart extends ZMService {
             foreach ($output as $zenTotal) {
                 //print_r($zenTotal);
                 //echo "t:".$zenTotal."<br>";
-                array_push($totals, $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $type));
+                //TODO: amount!
+                array_push($totals, $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['text'], $type));
             }
         }
         return $totals;

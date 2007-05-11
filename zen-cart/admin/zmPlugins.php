@@ -88,7 +88,7 @@ require_once('includes/application_top.php');
         <?php foreach ($zm_plugins->getAllPlugins() as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo ZM_ADMINFN_PLUGINS ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
-          <table> 
+          <table cellpadding="5" cellspacing="0"> 
             <thead>
               <tr>
               <th><?php zm_l10n("Name") ?></th>
@@ -98,7 +98,7 @@ require_once('includes/application_top.php');
             </thead>
             <tbody>
               <?php foreach ($plugins as $plugin) { $isEdit = (null != $edit && $plugin->getId() == $editPlugin->getId()); ?>
-                <tr>
+                <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                   <td><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
                   <td>
@@ -118,7 +118,7 @@ require_once('includes/application_top.php');
                 </tr>
                 <?php if ($isEdit) { ?>
                   <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <tr>
+                    <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                       <td><?php echo $value->getName() ?></td>
                       <td><?php echo $value->getDescription() ?></td>
                       <td>

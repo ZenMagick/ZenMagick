@@ -32,7 +32,11 @@
     if (zm_setting('isEnableZenMagick')) {
         if (zm_dispatch()) {
             require('includes/application_bottom.php');
-            if (zm_setting('isEnableOB')) { ob_end_flush(); }
+            if (zm_setting('isEnableOB')) { 
+                $contents = ob_get_clean();
+                $contents = $zm_plugins->applyPageFilter($contents);
+                echo $contents;
+            }
             exit;
         }
     }

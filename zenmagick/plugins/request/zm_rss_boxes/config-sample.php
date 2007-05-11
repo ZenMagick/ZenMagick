@@ -23,27 +23,23 @@
  * $Id$
  */
 ?>
-
 <?php
-    $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
-    $products = array();
+
+    /**
+     * Sample config file for RSS Boxes plugin.
+     *
+     * To change plugin defaults, take a copy of this file and rename
+     * to config.php.
+     *
+     * If the configuration is changed *after* the plugin is installed, you will need
+     * to uninstall and install again.
+     *
+     * NOTE: Uninstalling a plugin will remove all admin configuration settings from the 
+     * database!
+     *
+     */
+    define (_ZM_RSS_BOXES_COUNT, 5);
+    define (_ZM_RSS_BOXES_PREFIX, 'rss_box_');
+    define (_ZM_RSS_BOXES_TEMPLATE, 'box-template.php');
+
 ?>
-<?php if (0 < count($orders)) { ?>
-    <h3><?php zm_l10n("Previous Purchases") ?></h3>
-    <div id="sb_order_history" class="box">
-      <ul>
-      <?php foreach ($orders as $order) {
-          foreach ($order->getOrderItems() as $orderItem) {
-              if (array_key_exists($orderItem->getName(), $products))
-                  continue;
-              $products[$orderItem->getName()] = $orderItem->getProductId();
-              ?><li><a href="<?php zm_product_href($orderItem->getProductId()) ?>"><?php echo $orderItem->getName(); ?></a></li><?php
-              if (7 == count($products))
-                  break;
-          }
-          if (7 == count($products))
-              break;
-      } ?>
-      </ul>
-    </div>
-<?php } ?>

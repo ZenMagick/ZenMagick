@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMOrderItem extends ZMModel {
-    var $id_;
+    var $productId_;
     var $qty_;
     var $name_;
     var $model_;
@@ -70,7 +70,7 @@ class ZMOrderItem extends ZMModel {
      *
      * @return int The order item id.
      */
-    function getId() { return $this->id_; }
+    function getProductId() { return $this->productId_; }
 
     /**
      * Get the quantity.

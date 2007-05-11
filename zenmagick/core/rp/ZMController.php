@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMController extends ZMObject {
-    var $page_;
+    var $id_;
     var $globals_;
 
 
@@ -45,7 +45,8 @@ class ZMController extends ZMObject {
         parent::__construct();
 
         $this->globals_ = array();
-        $this->page_ = $zm_request->getPageName();
+        // use as controller id
+        $this->id_ = $zm_request->getPageName();
 
         foreach ($GLOBALS as $name => $instance) {
             if (zm_starts_with($name, "zm_")) {
@@ -127,7 +128,7 @@ class ZMController extends ZMObject {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView($this->page_);
+        return $this->findView($this->id_, 'page');
     }
 
 
@@ -193,11 +194,12 @@ class ZMController extends ZMObject {
      * flow configurable and extract that knowlege from the controller into some sort of config
      * file or other piece of logic.</p>
      *
-     * @param string page The page (view) name (or <code>null</code> to return to the current page).
+     * @param string id The controller id or <code>null</code> to return to the current page.
+     * @return ZMView The actual view to be used to render the response.
      */
-    function findView($page=null) {
-        $page = null !== $page ? $page : $this->page_;
-        $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $page);
+    function findView($id=null) {
+        $id = null !== $id ? $id : $this->id_;
+        $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $id);
         return $view;
     }
 

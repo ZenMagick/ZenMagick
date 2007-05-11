@@ -26,17 +26,20 @@
 <?php
 
     /**
-     * Box contents for Google AdSense.
+     * Box contents for RSS box.
      *
-     * The box id is replaced with a *real* one during code generation.
+     * 'RSS_ID' is replaced with a *real* one during code generation.
      */
 
-    $gjs = zm_google_adsense_get_js_for_box('BOX_ID', false);
-
 ?>
-<?php if (!zm_is_empty($gjs) && !$zm_request->isSecure()) { ?>
-    <h3></a><?php zm_l10n("Ads by Goooooogle") ?></h3>
-    <div class="box google">
-        <?php echo $gjs ?>
+<?php $zm_rss = $this->create("ZMRss", zm_rss_box('RSS_URL', false)); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
+    <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php zm_htmlencode($channel->getTitle()) ?></h3>
+    <div id="sb_rss" class="box">
+        <dl>
+            <?php foreach ($zm_rss->getItems() as $item) { ?>
+                <dt><?php echo zm_parse_rss_date($item->getPubDate()) ?></dt>
+                <dd><a href="<?php echo $item->getLink() ?>"<?php zm_href_target() ?>><?php zm_htmlencode($item->getTitle()); ?></a></dd>
+            <?php } ?>
+        </dl>
     </div>
 <?php } ?>

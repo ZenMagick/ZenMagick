@@ -238,7 +238,7 @@ class ZMOrders extends ZMService {
      */
     function _newOrderItem_v5($zenItem) {
         $orderItem =& $this->create("OrderItem");
-        $orderItem->id_ = $zenItem['id'];
+        $orderItem->productId_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
         $orderItem->taxRate_ = $zenItem['tax'];
@@ -288,7 +288,7 @@ class ZMOrders extends ZMService {
         }
 
         $orderItem =& $this->create("OrderItem");
-        $orderItem->id_ = $zenItem['id'];
+        $orderItem->productId_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
         $orderItem->model_ = $zenItem['model'];
@@ -346,24 +346,29 @@ class ZMOrders extends ZMService {
 
     /**
      * Get order totals.
+     *
+     * @param int orderId The order id.
+     * @return array List of <code>ZMOrderItem</code> instances.
      */
-    function _getOrderTotals($order) {
-        $zenOrder = $order->zenOrder_;
-        if (null == $zenOrder) {
-            zm_resolve_zc_class("order");
-            $zenOrder = new order($order->getId());
-            // keep ref for further use
-            $order->zenOrder_ = $zenOrder;
-        }
+    function getOrderTotals($orderId) {
+        $sql = "select * from " . TABLE_ORDERS_TOTAL . "
+                where orders_id = :orderId
+                order by sort_order";
+        $sql = $this->getDB()->bindVars($sql, ":orderId", $orderId, "integer");
+
+        $results = $this->getDB()->Execute($sql);
+
         $totals = array();
-        foreach ($zenOrder->totals as $zenTotal) {
-            $total =& $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['class']);
-            if (array_key_exists($total->getType(), $totals)) die('duplicate order total type!');
+        while (!$results->EOF) {
+            $fields = $results->fields;
+            $total =& $this->create("OrderTotal", $fields['title'], $fields['text'], $fields['value'], $fields['class']);
             $totals[$total->getType()] = $total;
+            $results->MoveNext();
         }
 
         return $totals;
     }
+
 }
 
 ?>
