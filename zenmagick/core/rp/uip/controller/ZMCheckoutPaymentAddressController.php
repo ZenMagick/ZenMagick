@@ -71,7 +71,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         $address->populate();
         $this->exportGlobal("zm_address", $address);
 
-        return $this->findView('checkout_payment_address');
+        return $this->findView();
     }
 
 }

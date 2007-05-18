@@ -131,7 +131,7 @@ class ZMFeatures extends ZMService {
     }
 
     // get feature type for id
-    function getFeatureTypeForId($id) {
+    function &getFeatureTypeForId($id) {
         $this->_loadFeatureTypes();
 
         $type = null;
@@ -143,7 +143,7 @@ class ZMFeatures extends ZMService {
     }
 
     // get feature for id
-    function getFeatureForId($id) {
+    function &getFeatureForId($id) {
         $this->_loadFeatures();
 
         $feature = null;

@@ -113,7 +113,7 @@ class ZMPayments extends ZMService {
      *
      * @return ZMPaymentType The payment type.
      */
-    function getSelectedPaymentType() {
+    function &getSelectedPaymentType() {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) return null;
         $confirmation = $zenModule->confirmation();

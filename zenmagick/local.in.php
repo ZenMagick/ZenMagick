@@ -8,9 +8,6 @@
     // disable ZenMagick page caching
     //zm_set_setting('isPageCacheEnabled', false);
 
-    // disable output buffering in case gzip is disabled
-    //zm_set_setting('isEnableOB', false);
-
     // enable SEO for all pages
     //zm_set_setting('seoEnabledPagesList', null);
 

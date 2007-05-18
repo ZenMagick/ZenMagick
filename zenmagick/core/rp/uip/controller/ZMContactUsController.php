@@ -66,13 +66,16 @@ class ZMContactUsController extends ZMController {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $viewName = "contact_us";
-        $this->exportGlobal("zm_contact", $this->create("ContactInfo"));
-        if ('success' == $zm_request->getRequestParameter('action')) {
-            $viewName = "contact_us_success";
-        }
+        $contactInfo =& $this->create("ContactInfo");
+        if (!$zm_request->isGuest()) {
+            $account = $zm_request->getAccount();
+            $contactInfo->setName($account->getFullName());
+            $contactInfo->setEmail($account->getEmail());
 
-        return $this->findView($viewName);
+        }
+        $this->exportGlobal("zm_contact", $contactInfo);
+
+        return $this->findView();
     }
 
     /**
@@ -84,12 +87,23 @@ class ZMContactUsController extends ZMController {
     function processPost() {
     global $zm_request, $zm_crumbtrail;
 
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+        $zm_crumbtrail->addCrumb(zm_title(false));
         $contactInfo =& $this->create("ContactInfo");
         $contactInfo->populate();
+        // not available in case of success redirect!
         $this->exportGlobal("zm_contact", $contactInfo);
 
-        return $this->findView('contact_us');
+        if (!$this->validate('contact_us')) {
+            return $this->findView();
+        }
+
+        // send email
+        $context = array();
+        $context['contactInfo'] =& $contactInfo;
+
+        zm_mail(zm_l10n_get("Message from %s", zm_setting('storeName')), 'contact_us', $context, zm_setting('storeEmail'));
+
+        return $this->findView('success');
     }
 
 }

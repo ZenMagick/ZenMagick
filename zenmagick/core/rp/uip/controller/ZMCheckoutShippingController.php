@@ -69,7 +69,7 @@ class ZMCheckoutShippingController extends ZMController {
 
         $this->exportGlobal("zm_shipping", $this->create("Shipping"));
 
-        return $this->findView('checkout_shipping');
+        return $this->findView();
     }
 
 }

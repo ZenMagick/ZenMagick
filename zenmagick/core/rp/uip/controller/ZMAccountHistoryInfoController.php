@@ -71,7 +71,7 @@ class ZMAccountHistoryInfoController extends ZMController {
         $order = $zm_orders->getOrderForId($zm_request->getOrderId());
         $this->exportGlobal("zm_order", $order);
 
-        return $this->findView('account_history_info');
+        return $this->findView();
     }
 
 }

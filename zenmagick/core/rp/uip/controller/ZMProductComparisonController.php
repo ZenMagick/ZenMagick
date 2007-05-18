@@ -81,7 +81,7 @@ class ZMProductComparisonController extends ZMController {
 
         $this->exportGlobal("zm_productList", $productList);
 
-        return $this->findView('product_comparison');
+        return $this->findView();
     }
 
 }

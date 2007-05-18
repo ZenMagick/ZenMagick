@@ -71,7 +71,7 @@ class ZMCheckoutSuccessController extends ZMController {
         $this->exportGlobal("zm_order", $orders[0]);
         $this->exportGlobal("zm_account", $zm_request->getAccount());
 
-        return $this->findView('checkout_success');
+        return $this->findView();
     }
 
 }

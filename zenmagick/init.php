@@ -102,8 +102,6 @@
     // event proxy to simplify event subscription
     $zm_events = new ZMEvents();
 
-    $zm_urlMapper = new ZMUrlMapper();
-
     // these can be replaced by themes; will be reinitializes durin theme switching
     $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
     $zm_meta =& $zm_loader->create('MetaTags');
@@ -113,6 +111,9 @@
     if (file_exists($_zm_local)) {
         include($_zm_local);
     }
+
+    // set up *before* theme is resolved...
+    $zm_urlMapper = new ZMUrlMapper();
 
     // load 
     if (zm_setting('isEnableZenMagick')) {
@@ -139,9 +140,9 @@
         }
     }
 
-    if (zm_setting('isEnableOB') && zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
+    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
-    // setup plugins
+    // upset plugins :)
     $zm_plugins =& new ZMPlugins();
     foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
         if ($plugin->isInstalled() && $plugin->isEnabled()) {

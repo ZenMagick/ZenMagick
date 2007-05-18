@@ -61,7 +61,7 @@ class ZMOrders extends ZMService {
      * @param int id The order id.
      * @return ZMOrder A order or <code>null</code>.
      */
-    function getOrderForId($orderId) {
+    function &getOrderForId($orderId) {
     global $zm_runtime;
 
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -91,7 +91,7 @@ class ZMOrders extends ZMService {
 
         $order = null;
         if (!$results->EOF) {
-            $order = $this->_newOrder($results->fields);
+            $order =& $this->_newOrder($results->fields);
         }
 
         return $order;
@@ -135,7 +135,7 @@ class ZMOrders extends ZMService {
 
         $orders = array();
         while (!$results->EOF) {
-            $order = $this->_newOrder($results->fields);
+            $order =& $this->_newOrder($results->fields);
             array_push($orders, $order);
             $results->MoveNext();
         }
@@ -173,7 +173,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order status instance.
      */
-    function _newOrderStatus($fields) {
+    function &_newOrderStatus($fields) {
         $status =& $this->create("OrderStatus", $fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
         $status->comment_ = $fields['comments'];
         return $status;
@@ -182,7 +182,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order instance.
      */
-    function _newOrder($fields) {
+    function &_newOrder($fields) {
         $order =& $this->create("Order", $fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
@@ -236,7 +236,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order item instance (PHP5 only)
      */
-    function _newOrderItem_v5($zenItem) {
+    function &_newOrderItem_v5($zenItem) {
         $orderItem =& $this->create("OrderItem");
         $orderItem->productId_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
@@ -266,7 +266,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order item instance.
      */
-    function _newOrderItem($zenItem) {
+    function &_newOrderItem($zenItem) {
         // keep reference of used variables
         $attributesLookup = array();
 
@@ -304,7 +304,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new account instance.
      */
-    function _newAccount($fields) {
+    function &_newAccount($fields) {
         $account =& $this->create("Account");
         $account->accountId_ = $fields['customers_id'];
         //$account->firstName_ = $fields['customers_firstname'];
@@ -325,7 +325,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new address instance.
      */
-    function _newAddress($fields, $prefix) {
+    function &_newAddress($fields, $prefix) {
     global $zm_countries;
         $address =& $this->create("Address");
         $address->addressId_ = 0;

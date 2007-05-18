@@ -63,7 +63,7 @@ class ZMManufacturers extends ZMService {
      * @param int id The manufacturer id.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    function getManufacturerForId($id) {
+    function &getManufacturerForId($id) {
     global $zm_runtime;
 
         $manufacturer = null;
@@ -78,8 +78,9 @@ class ZMManufacturers extends ZMService {
 
         $results = $this->getDB()->Execute($sql);
         if (0 < $results->RecordCount()) {
-            $manufacturer = $this->_newManufacturer($results->fields);
+            $manufacturer =& $this->_newManufacturer($results->fields);
         }
+
         return $manufacturer;
     }
 
@@ -89,7 +90,7 @@ class ZMManufacturers extends ZMService {
      * @param ZMProduct product The product.
      * @return ZMManufacturer The manufacturer or </code>null</code>.
      */
-    function getManufacturerForProduct($product) {
+    function &getManufacturerForProduct($product) {
 		    return $this->getManufacturerForId($product->manufacturerId_);
     }
 
@@ -122,7 +123,7 @@ class ZMManufacturers extends ZMService {
     /**
      * Create new manufacturer instance.
      */
-    function _newManufacturer($fields) {
+    function &_newManufacturer($fields) {
         $manufacturer =& $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];
         $manufacturer->url_ = $fields['manufacturers_url'];

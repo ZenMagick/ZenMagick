@@ -67,7 +67,7 @@ class ZMAccountEditController extends ZMController {
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView('account_edit');
+        return $this->findView();
     }
 
     /**
@@ -83,12 +83,12 @@ class ZMAccountEditController extends ZMController {
         $session = new ZMSession();
 
         if (!$session->isValid()) {
-            return $this->create("RedirectView", 'login');
+            return $this->findView('login');
         }
 
         if ($session->isGuest()) {
             // not logged in
-            return $this->create("RedirectView", 'login');
+            return $this->findView('login');
         }
 
         if (!$this->validate('edit_account')) {
@@ -119,7 +119,7 @@ class ZMAccountEditController extends ZMController {
 
         $zm_messages->success('Your account has been updated.');
 
-        return $this->create("RedirectView", 'account');
+        return $this->findView('success');
     }
 
 }

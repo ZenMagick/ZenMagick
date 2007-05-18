@@ -75,7 +75,7 @@ class ZMCreateAccountController extends ZMController {
         $this->exportGlobal("zm_account", $account);
         $this->exportGlobal("zm_address", $address);
 
-        return $this->findView('create_account');
+        return $this->findView();
     }
 
     /**

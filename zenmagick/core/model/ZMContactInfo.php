@@ -101,6 +101,20 @@ class ZMContactInfo extends ZMModel {
     function getEmail() { return $this->email_; }
 
     /**
+     * Set the contact name.
+     *
+     * @param string name The contact name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the contact email address.
+     *
+     * @param string email The contact email address.
+     */
+    function setEmail($email) { $this->email_ = $email; }
+
+    /**
      * Get the recipient.
      *
      * @return string The recipient.

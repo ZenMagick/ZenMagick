@@ -71,7 +71,7 @@ class ZMAccountHistoryController extends ZMController {
         $resultList = new ZMResultList($orders, 10);
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('account_history');
+        return $this->findView();
     }
 
 }

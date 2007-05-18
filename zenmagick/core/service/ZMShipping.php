@@ -103,7 +103,7 @@ class ZMShipping extends ZMService {
     function hasShippingProvider() { return 0 < count($this->provider_); }
 
     // number of shipping providers
-    function getShippingProvider() { return $this->provider_; }
+    function &getShippingProvider() { return $this->provider_; }
 
     function getShippingMethodCount() {
         $count = 0;

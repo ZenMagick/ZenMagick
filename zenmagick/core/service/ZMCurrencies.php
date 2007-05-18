@@ -39,18 +39,10 @@ class ZMCurrencies extends ZMService {
      * Default c'tor.
      */
     function ZMCurrencies() {
-    global $currencies;
-
         parent::__construct();
 
         $this->currencies_ = array();
-
-        if (isset($currencies) && is_object($currencies)) {
-            reset($currencies->currencies);
-            while (list($id, $arr) = each($currencies->currencies)) {
-                $this->currencies_[$id] =& $this->create("Currency", $id, $arr);
-            }
-        }
+        $this->_load();
     }
 
     /**
@@ -69,6 +61,23 @@ class ZMCurrencies extends ZMService {
 
 
     /**
+     * Load all currencies.
+     */
+    function _load() {
+        $sql = "select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
+                from " . TABLE_CURRENCIES;
+
+        $results = $this->getDB()->Execute($sql);
+
+        while (!$results->EOF) {
+            $currency =& $this->_newCurrency($results->fields);
+            $this->currencies_[$currency->getId()] = $currency;
+            $results->MoveNext();
+        }
+
+    }
+
+    /**
      * Get all currencies.
      *
      * @return array A list of <code>ZMCurrency</code> objects.
@@ -81,7 +90,25 @@ class ZMCurrencies extends ZMService {
      * @param int id The currency id.
      * @return ZMCurrency A currency or <code>null</code>.
      */
-    function getCurrencyForId($id) { return isset($this->currencies_[$id]) ? $this->currencies_[$id] : null; }
+    function &getCurrencyForId($id) { return isset($this->currencies_[$id]) ? $this->currencies_[$id] : null; }
+
+    /**
+     * Checks if a currency exists for the given id.
+     *
+     * @param int id The currency id.
+     * @return bool <code>true</code> if a currency exists for the given id, <code>false</code> if not.
+     */
+    function isValid($id) {
+        return null !== $this->getCurrencyForId($id);
+    }
+
+    /**
+     * Create new currency instance.
+     */
+    function &_newCurrency($fields) {
+        $currency =& $this->create("Currency", $fields['code'], $fields);
+        return $currency;
+    }
 
 }
 

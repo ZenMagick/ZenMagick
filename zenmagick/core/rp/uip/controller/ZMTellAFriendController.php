@@ -84,7 +84,7 @@ class ZMTellAFriendController extends ZMController {
         $zm_crumbtrail->addProduct($product->getId());
         $zm_crumbtrail->addCrumb("Tell A Friend");
 
-        return $this->findView('tell_a_friend');
+        return $this->findView();
     }
 
 }

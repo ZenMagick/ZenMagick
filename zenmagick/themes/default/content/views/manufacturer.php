@@ -38,6 +38,7 @@
         </tbody></table>
     </div>
     <div class="rnblk">
+        <?php include('resultlist/compare.php') ?>
         <?php include('resultlist/nav.php') ?>
     </div>
 <?php } else { ?>

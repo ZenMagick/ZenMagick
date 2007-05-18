@@ -60,7 +60,7 @@ class ZMCountries extends ZMService {
     }
 
 
-    function getCountryForName($name) {
+    function &getCountryForName($name) {
         $this->getCountries();
         foreach ($this->countries_ as $country) {
             if ($name == $country->name_) {
@@ -96,7 +96,7 @@ class ZMCountries extends ZMService {
     }
 
 
-    function getCountryForId($id) {
+    function &getCountryForId($id) {
         $this->getCountries();
         foreach ($this->countries_ as $country) {
             if ($id == $country->id_) {

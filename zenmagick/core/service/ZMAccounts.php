@@ -61,7 +61,7 @@ class ZMAccounts extends ZMService {
      * @param int accountId The account id.
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
-    function getAccountForId($accountId) {
+    function &getAccountForId($accountId) {
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
                 customers_authorization, customers_newsletter
@@ -71,7 +71,7 @@ class ZMAccounts extends ZMService {
         $results = $this->getDB()->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {
-            $account = $this->_newAccount($results->fields);
+            $account =& $this->_newAccount($results->fields);
         }
         return $account;
     }
@@ -82,7 +82,7 @@ class ZMAccounts extends ZMService {
      * @param string emailAddress The email address.
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
-    function getAccountForEmailAddress($emailAddress) {
+    function &getAccountForEmailAddress($emailAddress) {
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
                 customers_authorization, customers_newsletter
@@ -92,7 +92,7 @@ class ZMAccounts extends ZMService {
         $results = $this->getDB()->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {
-            $account = $this->_newAccount($results->fields);
+            $account =& $this->_newAccount($results->fields);
         }
         return $account;
     }
@@ -133,7 +133,7 @@ class ZMAccounts extends ZMService {
      * @param ZMAccount The new account.
      * @return ZMAccount The created account incl. the new account id.
      */
-    function createAccount($account) {
+    function &createAccount(&$account) {
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
@@ -154,7 +154,7 @@ class ZMAccounts extends ZMService {
      * @param ZMAccount The account.
      * @return ZMAccount The updated account.
      */
-    function updateAccount(&$account) {
+    function &updateAccount(&$account) {
         $sql = "update " . TABLE_CUSTOMERS . " set
                     customers_firstname = :firstName;string,
                     customers_lastname = :lastName;string,
@@ -200,7 +200,7 @@ class ZMAccounts extends ZMService {
     /**
      * Create new account instance.
      */
-    function _newAccount($fields) {
+    function &_newAccount($fields) {
         $account =& $this->create("Account");
         $account->id_ = $fields['customers_id'];
         $account->password_ = $fields['customers_password'];

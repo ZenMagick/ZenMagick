@@ -42,10 +42,10 @@ class ZMAttributes extends ZMService {
      *
      * @param ZMProduct product The product whose attributes we want to load.
      */
-    function ZMAttributes($product) {
+    function ZMAttributes(&$product) {
         parent::__construct();
 
-        $this->product_ = $product;
+        $this->product_ =& $product;
         $this->attributes_ = array();
         $this->hasAttributes_ = $this->_checkForAttributes();
     }
@@ -55,7 +55,7 @@ class ZMAttributes extends ZMService {
      *
      * @param ZMProduct product The product whose attributes we want to load.
      */
-    function __construct($product) {
+    function __construct(&$product) {
         $this->ZMAttributes($product);
     }
 
@@ -85,7 +85,7 @@ class ZMAttributes extends ZMService {
 
 
     // create new attribute
-    function _newAttribute($fields) {
+    function &_newAttribute($fields) {
         $attribute =& $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
@@ -94,8 +94,9 @@ class ZMAttributes extends ZMService {
 
 
     // create new attribute value
-    function _newAttributeValue($fields) {
+    function &_newAttributeValue($fields) {
     global $zm_runtime;
+
         $value =& $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
@@ -198,6 +199,7 @@ class ZMAttributes extends ZMService {
      *  <code>false</code> if not.
      */
     function hasAttributes() { return $this->hasAttributes_; }
+
     /**
      * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} values.
      * @see net.radebatz.zenmagick.model.ZMAttribute ZMAttribute

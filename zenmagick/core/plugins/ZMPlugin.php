@@ -37,7 +37,7 @@
  * and <em>1</em> are used for those.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package net.radebatz.zenmagick.plugins
  * @version $Id$
  */
 class ZMPlugin extends ZMService {
@@ -406,10 +406,6 @@ class ZMPlugin extends ZMService {
 
     /**
      * Get an optional page contents filter from this plugin.
-     *
-     * <p><strong>NOTE:</strong> Page filter are affected by the setting
-     * <em>isEnableOB</em>, as without output buffering this functionallity can't
-     * be realised.</p>
      *
      * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
      *  not supported.

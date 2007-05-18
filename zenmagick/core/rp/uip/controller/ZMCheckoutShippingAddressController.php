@@ -71,7 +71,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
         $address->populate();
         $this->exportGlobal("zm_address", $address);
 
-        return $this->findView('checkout_shipping_address');
+        return $this->findView();
     }
 
 }

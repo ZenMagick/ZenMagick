@@ -84,7 +84,7 @@ class ZMPasswordForgottenController extends ZMController {
         // report success
         $zm_messages->success('A new password has been sent to your email address.');
 
-        return $this->create("RedirectView", 'login');
+        return $this->findView('success');
     }
 
 }

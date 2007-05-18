@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2007 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -22,34 +22,22 @@
  *
  * $Id$
  */
-?>
-<?php
+?><?php
+$language = $zm_runtime->getLanguage();
+?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="<?php echo $language->getCode() ?>">
+<head>
+<title><?php zm_l10n("Store Enquiry %s,", zm_setting('storeName')) ?></title>
+</head>
+<body>
+<body>
+<div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+<p><?php zm_l10n("Store Enquiry %s,", zm_setting('storeName')) ?></p>
 
-    $zm_messages->_loadMessageStack();
-    $zm_categories->setPath($cPath_array);
 
-    // main request processor
-    if (zm_setting('isEnableZenMagick')) {
-        if (zm_dispatch()) {
-            require('includes/application_bottom.php');
-            $contents = ob_get_clean();
-            $contents = $zm_plugins->applyPageFilter($contents);
-            echo $contents;
+<p><?php zm_l10n("From: %s", $contactInfo->getName()) ?></p>
+<p><?php zm_l10n("Email: %s", $contactInfo->getEmail()) ?></p>
 
-            // page cache
-            $_zm_pageCache = $zm_runtime->getPageCache();
-            if (zm_setting('isPageCacheEnabled') && $_zm_pageCache->isCacheable()) {
-                $_zm_pageCache->save($contents);
-            }
-
-            // clear messages if not redirect...
-            $_zm_session = new ZMSession();
-            $_zm_session->clearMessages();
-
-            exit;
-        }
-    }
-
-    // default to zen-cart
-
-?>
+<hr>
+<div><?php echo zm_text2html($contactInfo->getMessage()) ?></div>
+<hr>

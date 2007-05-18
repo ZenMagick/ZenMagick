@@ -23,46 +23,34 @@
 ?>
 <?php
 
+
 /**
- * Theme view that supports caching.
+ * Simple theme view.
  *
- * <p>Uses PEAR:Cache_Lite as underlying cache mechanism.</p>
- *
- * <p>The <em>private</em> method <code>_isCacheable()</code> controls whether to
- * cache a request or not. Currently, all guest requests are deemed good for caching.</p>
- *
- * <p>Caching can be controlled using the following ZenMagick settings:</p>
- * <dl>
- *  <dt>isPageCacheEnabled</dt>
- *  <dd>Boolean to enable/disable caching</dd>
- *  <dt>pageCacheDir</dt>
- *  <dd>The directory for cache files.</dd>
- *  <dt>pageCacheTTL</dt>
- *  <dd>Time to live for cache files in seconds</dd>
- * </dl>
+ * <p>The content is either a full page or a layout using the page specified in the request.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views.cache
+ * @package net.radebatz.zenmagick.rp.uip.views
  * @version $Id$
  */
-class ZMCachedThemeView extends ZMThemeView {
+class ZMPageView extends ZMView {
 
     /**
-     * Create new view.
+     * Create new theme view view.
      *
      * @param string page The page (view) name.
      */
-    function ZMCachedThemeView($page) {
+    function ZMPageView($page) {
         parent::__construct($page);
     }
 
     /**
-     * Create new view.
+     * Create new theme view view.
      *
      * @param string page The page (view) name.
      */
     function __construct($page) {
-        $this->ZMCachedThemeView($page);
+        $this->ZMPageView($page);
     }
 
     /**
@@ -72,24 +60,40 @@ class ZMCachedThemeView extends ZMThemeView {
         parent::__destruct();
     }
 
+
+    /**
+     * Return the template name.
+     *
+     * @return string The template name or <code>null</code>.
+     */
+    function getTemplate() {
+    global $zm_theme;
+
+        $themeInfo = $zm_theme->getThemeInfo();
+        return $themeInfo->getTemplateFor($this->getName());
+    }
+
+
     /**
      * Generate view response.
      */
     function generate() { 
-    global $zm_runtime;
+    global $zm_theme;
 
-        $pageCache = $zm_runtime->getPageCache();
-        if (!$pageCache->isCacheable()) {
-            parent::generate();
-            return;
-        } else {
-            // not in cache
-            ob_start();
-            parent::generate();
-            $contents = ob_get_flush();
-            $pageCache->save($contents);
+        $controller = $this->getController();
+        // *export* globals from controller into view space
+        foreach ($controller->getGlobals() as $name => $instance) {
+            $$name = $instance;
         }
+        $zm_view = $this;
 
+        $template = $this->getTemplate();
+        if (null != $template) {
+            $zm_content_include = $this->getName();
+            include($zm_theme->themeFile($template.'.php'));
+        } else {
+            include($zm_theme->themeFile($this->getName().'.php'));
+        }
     }
 
 }

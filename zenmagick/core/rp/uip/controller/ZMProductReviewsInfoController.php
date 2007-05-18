@@ -78,7 +78,7 @@ class ZMProductReviewsInfoController extends ZMController {
 
         //$zm_reviews->updateViewCount($zm_request->getReviewId());
 
-        return $this->findView('product_reviews_info');
+        return $this->findView();
     }
 
 }

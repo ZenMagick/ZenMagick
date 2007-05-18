@@ -25,7 +25,7 @@
 ?>
 <?php
     // allow for custom layout settings without having to copy the whole file every time...
-    $pageLayout = "layout/".$zm_view->getPage().".php";
+    $pageLayout = "layout/".$zm_view->getName().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
         include $zm_theme->themeFile($pageLayout);
     }
@@ -41,14 +41,14 @@
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL("theme.css") ?>" type="text/css" media="screen,projection" />
     <?php } ?>
-    <?php $pageCSS = "css/".$zm_view->getPage().".css"; ?>
+    <?php $pageCSS = "css/".$zm_view->getName().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL($pageCSS) ?>" type="text/css" media="screen,projection" />
     <?php } ?>
   </head>
 
-  <body id="pb_<?php echo $zm_view->getPage() ?>"<?php zm_onload() ?>>
+  <body id="pb_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
     <?php include($zm_view->getViewFilename('popup')) ?>
   </body>
 </html>

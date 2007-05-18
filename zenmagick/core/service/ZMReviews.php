@@ -136,7 +136,7 @@ class ZMReviews extends ZMService {
         $reviews = array();
         $results = $this->getDB()->Execute($query);
         while (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
+            $review =& $this->_newReview($results->fields);
             array_push($reviews, $review);
             $results->MoveNext();
         }
@@ -164,7 +164,7 @@ class ZMReviews extends ZMService {
         $reviews = array();
         $results = $this->getDB()->Execute($query);
         while (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
+            $review =& $this->_newReview($results->fields);
             array_push($reviews, $review);
             $results->MoveNext();
         }
@@ -173,7 +173,7 @@ class ZMReviews extends ZMService {
 
 
     // get a specific review
-    function getReviewForId($reviewId) {
+    function &getReviewForId($reviewId) {
     global $zm_runtime;
 
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
@@ -194,7 +194,7 @@ class ZMReviews extends ZMService {
         $results = $this->getDB()->Execute($query);
         $review = null;
         if (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
+            $review =& $this->_newReview($results->fields);
         }
         return $review;
     }
@@ -210,7 +210,7 @@ class ZMReviews extends ZMService {
     }
 
 
-    function _newReview($fields) {
+    function &_newReview($fields) {
         $review =& $this->create("Review");
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];

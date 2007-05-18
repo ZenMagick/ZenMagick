@@ -72,7 +72,7 @@ class ZMAccountController extends ZMController {
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", $zm_request->getAccount());
 
-        return $this->findView('account');
+        return $this->findView();
     }
 
 }

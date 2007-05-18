@@ -55,7 +55,7 @@ class ZMAddresses extends ZMService {
     }
 
 
-    function getAddressForId($addressId) {
+    function &getAddressForId($addressId) {
         $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
                   customers_id
@@ -67,7 +67,7 @@ class ZMAddresses extends ZMService {
         $address = null;
         if (0 < $results->RecordCount()) {
             $defaultAddressId = $this->_getDefaultAddressId($results->fields['customers_id']);
-            $address = $this->_newAddress($results->fields);
+            $address =& $this->_newAddress($results->fields);
             $address->isPrimary_ = $address->addressId_ == $defaultAddressId;
         }
 
@@ -75,7 +75,7 @@ class ZMAddresses extends ZMService {
     }
 
 
-    function getAddressesForAccountId($accountId) {
+    function &getAddressesForAccountId($accountId) {
         $defaultAddressId = $this->_getDefaultAddressId($accountId);
 
         $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
@@ -87,7 +87,7 @@ class ZMAddresses extends ZMService {
 
         $addresses = array();
         while (!$results->EOF) {
-            $address = $this->_newAddress($results->fields);
+            $address =& $this->_newAddress($results->fields);
             $address->isPrimary_ = $address->addressId_ == $defaultAddressId;
             array_push($addresses, $address);
             $results->MoveNext();
@@ -97,7 +97,7 @@ class ZMAddresses extends ZMService {
     }
 
 
-    function _newAddress($fields) {
+    function &_newAddress($fields) {
     global $zm_countries;
         $address =& $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];

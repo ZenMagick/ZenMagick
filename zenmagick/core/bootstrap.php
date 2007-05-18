@@ -69,7 +69,7 @@ if (!class_exists("ZMObject")) {
          * @param var args A variable number of arguments that will be used as arguments for
          * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
          */
-        function create($name) {
+        function &create($name) {
             $args = func_get_args();
             array_shift($args);
             return $this->loader_->createWithArgs($name, $args);
@@ -608,7 +608,7 @@ if (!class_exists("ZMObject")) {
      * @param string themeId The themeId to start with.
      * @return ZMTheme The final theme.
      */
-    function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
+    function &zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
     global $zm_runtime, $zm_request, $zm_loader;
 
         // get root loader
@@ -618,8 +618,8 @@ if (!class_exists("ZMObject")) {
         }
 
         // set up theme
-        $theme = $zm_runtime->getThemeForId($themeId);
-        $themeInfo = $theme->getThemeInfo();
+        $theme =& $zm_runtime->getThemeForId($themeId);
+        $themeInfo =& $theme->getThemeInfo();
 
         // configure theme loader
         $themeLoader =& new ZMLoader("themeLoader");

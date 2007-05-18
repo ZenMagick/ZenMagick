@@ -56,7 +56,7 @@ class ZMEZPages extends ZMService {
 
 
     // get page for id
-    function getPageForId($pageId) {
+    function &getPageForId($pageId) {
     global $zm_runtime;
 
         $sql = "select * from " . TABLE_EZPAGES . "
@@ -69,7 +69,7 @@ class ZMEZPages extends ZMService {
 
         $page = null;
         if (0 < $results->RecordCount()) {
-            $page = $this->_newPage($results->fields);
+            $page =& $this->_newPage($results->fields);
         }
         return $page;
     }
@@ -173,7 +173,7 @@ class ZMEZPages extends ZMService {
     }
 
 
-    function _newPage($fields) {
+    function &_newPage($fields) {
         $page =& $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];

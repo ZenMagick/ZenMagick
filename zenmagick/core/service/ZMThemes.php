@@ -60,7 +60,7 @@ class ZMThemes extends ZMService {
      * @param string themeId The theme id or <code>null</code> for the current theme id.
      * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
      */
-    function getThemeInfoForId($themeId=null) {
+    function &getThemeInfoForId($themeId=null) {
     global $zm_runtime;
 
         // theme id

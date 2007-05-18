@@ -76,7 +76,7 @@ class ZMProductReviewsController extends ZMController {
         $resultList = new ZMResultList($zm_reviews->getReviewsForProductId($product->getId()));
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('product_reviews');
+        return $this->findView();
     }
 
 }

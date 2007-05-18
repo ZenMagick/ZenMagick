@@ -414,6 +414,11 @@
      * @return string A complete URL for the given ez-page.
      */
     function zm_ezpage_href($page, $echo=true) {
+        if (null === $page) {
+            $href = zm_l10n_get('ezpage not found');
+            if ($echo) echo $href;
+            return $href;
+        }
         $params = '&id='.$page->getId();
         if (0 != $page->getTocChapter()) {
             $params .= '&chapter='.$page->getTocChapter();
@@ -495,7 +500,7 @@
 
 
     /**
-     * Convert a given relative href/URL into a absolute one based on teh current context.
+     * Convert a given relative href/URL into a absolute one based on the current context.
      *
      * @package net.radebatz.zenmagick.html
      * @param string href The URL to convert..
@@ -503,7 +508,20 @@
      * @return string The absolute href.
      */
     function zm_absolute_href($href, $echo=true) {
-        $href = dirname(zm_href(null, null, false)) . "/" . $href;
+    global $zm_request;
+
+        $base = zm_href(null, null, false);
+        $context = ($zm_request->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+        $off = strpos($url, $context);
+        if (null !== $off) {
+            $off = strpos($url, DIR_WS_HTTPS_CATALOG);
+            $base = substr($base, 0, $off);
+        }
+        if (!zm_starts_with($href, '/')) {
+            $base .= $context;
+        }
+
+        $href = $base . $href;
 
         if ($echo) echo $href;
         return $href;

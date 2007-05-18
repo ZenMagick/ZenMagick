@@ -197,9 +197,17 @@ class ZMController extends ZMObject {
      * @param string id The controller id or <code>null</code> to return to the current page.
      * @return ZMView The actual view to be used to render the response.
      */
-    function findView($id=null) {
-        $id = null !== $id ? $id : $this->id_;
-        $view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $id);
+    function &findView($id=null) {
+    global $zm_urlMapper;
+
+        // same page and controller name *must* be the same as the logic to build the controller name
+        // in the first place is based on that fact!
+        //$id = null !== $id ? $id : $this->id_;
+        $view =& $zm_urlMapper->getView($this->id_, $id);
+        return $zm_urlMapper->getView($this->id_, $id);
+
+        //$view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $id);
+        $view =& $this->create("PageView", $id);
         return $view;
     }
 

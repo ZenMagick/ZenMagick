@@ -63,7 +63,7 @@ class ZMCoupons extends ZMService {
      * @param string code The coupons code.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function getCouponForCode($code) {
+    function &getCouponForCode($code) {
     global $zm_runtime;
 
         $sql = "select * from " . TABLE_COUPONS . " c
@@ -76,14 +76,14 @@ class ZMCoupons extends ZMService {
 
         $coupon = null;
         if (0 < $results->RecordCount()) {
-            $coupon = $this->_newCoupon($results->fields);
+            $coupon =& $this->_newCoupon($results->fields);
         }
 
         return $coupon;
     }
 
     // create coupon from map
-    function _newCoupon($fields) {
+    function &_newCoupon($fields) {
         $coupon =& $this->create("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
         $coupon->name_ = $fields['coupon_name'];
@@ -97,7 +97,7 @@ class ZMCoupons extends ZMService {
     }
 
     // get coupon restrictions
-    function _getRestrictionsForId($id) {
+    function &_getRestrictionsForId($id) {
         $sql = "select * from " . TABLE_COUPON_RESTRICT . "
                 where coupon_id = :id";
         $sql = $this->getDB()->bindVars($sql, ':id', $id, 'string');

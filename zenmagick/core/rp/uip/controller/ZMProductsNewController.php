@@ -78,7 +78,7 @@ class ZMProductsNewController extends ZMController {
         }
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('products_new');
+        return $this->findView();
     }
 
 }

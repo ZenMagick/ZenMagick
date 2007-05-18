@@ -150,6 +150,22 @@ class ZMSession extends ZMObject {
         $_SESSION['messageToStack'] = '';
     }
 
+    /**
+     * Get all session messages.
+     *
+     * @param array Messages.
+     */
+    function getMessages() {
+        $messages = array();
+        if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
+            foreach ($_SESSION['messageToStack'] as $arr) {
+                array_push($messages, $this->create("Message", $arr['text'], $arr['type'], $arr['class']));
+            }
+        }
+
+        return $messages;
+    }
+
 }
 
 ?>

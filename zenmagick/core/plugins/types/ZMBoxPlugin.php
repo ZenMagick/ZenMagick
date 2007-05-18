@@ -153,6 +153,22 @@ class ZMBoxPlugin extends ZMPlugin {
         return "<?php /* ZenMagick box created by " . $this->getName() . " */ ?>\n\n<h3>" . $id . ",/h3\n";
     }
 
+    /**
+     * Get the index from the given box id.
+     *
+     * <p>This is assuming that the index is the suffix, separated by '_'.</p>
+     *
+     * @return int The index or <code>0</code>.
+     */
+    function getBoxIndex($id) {
+        $off = strrpos($id, '_');
+        if (null !== $off) {
+            return (int)substr($id, $off+1);
+        }
+
+        return 0;
+    }
+
 }
 
 ?>

@@ -61,7 +61,7 @@ class ZMMusic extends ZMService {
      * @param int productId The product id.
      * @return Artist Artist information.
      */
-    function getArtistForProductId($productId) {
+    function &getArtistForProductId($productId) {
     global $zm_runtime;
 
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "

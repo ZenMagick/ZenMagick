@@ -301,7 +301,7 @@ class ZMProducts extends ZMService {
     }
 
 
-    function getProductForModel($model) {
+    function &getProductForModel($model) {
     global $zm_runtime;
 
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
@@ -329,7 +329,7 @@ class ZMProducts extends ZMService {
 
 
     // will load product with any status
-    function getProductForId($productId) {
+    function &getProductForId($productId) {
     global $zm_runtime;
 
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
@@ -464,8 +464,9 @@ class ZMProducts extends ZMService {
     }
 
 
-    function _newProduct($fields) {
+    function &_newProduct($fields) {
     global $zm_features;
+
         $product =& $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status = $fields['products_status'];
         $product->model_ = $fields['products_model'];

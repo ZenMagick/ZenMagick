@@ -82,7 +82,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    function getShoppingCart() { return $this->session_->getShoppingCart(); }
+    function &getShoppingCart() { return $this->session_->getShoppingCart(); }
 
     /**
      * Get the current page name; ie the <code>main_page</code> value.
@@ -159,7 +159,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMAccount The account or <code>null</code>.
      */
-    function getAccount() {
+    function &getAccount() {
     global $zm_accounts;
         
         $accountId = $this->getAccountId();
@@ -209,7 +209,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
-    function getController() { if (null === $this->controller_) {$this->controller_ =& $this->create("DefaultController"); } return $this->controller_; }
+    function &getController() { if (null === $this->controller_) {$this->controller_ =& $this->create("DefaultController"); } return $this->controller_; }
 
     /**
      * Set the current controller.

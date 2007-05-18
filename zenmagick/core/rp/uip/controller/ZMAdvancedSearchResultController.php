@@ -78,7 +78,7 @@ class ZMAdvancedSearchResultController extends ZMController {
         }
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('advanced_search_result');
+        return $this->findView();
     }
 
 }

@@ -69,7 +69,7 @@ class ZMAdvancedSearchController extends ZMController {
         $search =& $this->create("Search");
         $this->exportGlobal("zm_search", $search);
 
-        return $this->findView('advanced_search');
+        return $this->findView();
     }
 
 }

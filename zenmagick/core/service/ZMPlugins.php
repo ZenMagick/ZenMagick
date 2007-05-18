@@ -176,7 +176,7 @@ class ZMPlugins extends ZMService {
      * @param string type Optional type to make the lookup easier; default is <code>null</code>.
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
-    function getPluginForIdAndType($id, $type=null) {
+    function &getPluginForIdAndType($id, $type=null) {
         if (null != $type) {
             foreach ($this->getPluginsForType($type) as $plugin) {
                 if ($id == $plugin->getId()) {

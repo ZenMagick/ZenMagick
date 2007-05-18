@@ -97,6 +97,7 @@ class ZMBanners extends ZMService {
      */
     function _getBannerForName($identifiers, $all=false) { 
     global $zm_request;
+
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
@@ -138,8 +139,9 @@ class ZMBanners extends ZMService {
      * @param integer id The banner id.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    function getBannerForId($id) { 
+    function &getBannerForId($id) { 
     global $zm_request;
+
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
@@ -155,7 +157,7 @@ class ZMBanners extends ZMService {
 
         $banner = null;
         if (0 < $results->RecordCount()) {
-            $banner = $this->_newBanner($results->fields);
+            $banner =& $this->_newBanner($results->fields);
         }
 
         return $banner;
@@ -164,7 +166,7 @@ class ZMBanners extends ZMService {
 
 
     // build banner
-    function _newBanner($fields) {
+    function &_newBanner($fields) {
         $banner =& $this->create("ZMBanner");
         $banner->id_ = $fields['banners_id'];
         $banner->title_ = $fields['banners_title'];

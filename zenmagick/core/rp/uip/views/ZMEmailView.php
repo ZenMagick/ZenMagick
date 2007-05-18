@@ -31,11 +31,12 @@
  * Filenames follow the pattern <code>[$template].[html|text].php</code>.<p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views.email
+ * @package net.radebatz.zenmagick.rp.uip.views
  * @version $Id$
  */
-class ZMEmailView extends ZMThemeView {
+class ZMEmailView extends ZMView {
     var $args_ = null;
+
 
     /**
      * Create new email view.
@@ -46,6 +47,7 @@ class ZMEmailView extends ZMThemeView {
      */
     function ZMEmailView($template, $html=true, $args=array()) {
         parent::__construct('email_'.$template.($html ? '.html' : '.text'));
+
         $this->args_ = $args;
     }
 

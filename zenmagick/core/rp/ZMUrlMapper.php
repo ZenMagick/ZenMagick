@@ -69,38 +69,48 @@ class ZMUrlMapper extends ZMObject {
      * Add new mapping.
      *
      * @param string controller The controller; <code>null</code> may be used for shared mappings.
-     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>).
-     * @param string view The actual view name.
+     * @param string view The actual view name; default is <code>null</code> to default to the controller name.
+     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>); default is
+     *  <code>null</code> to default to the controller name.
      * @param bool redirect Optional flag for redirect views; default is <code>false</code>.
      * @param bool secure Optional flag for secure views; default is <code>false</code>.
-     * @param bool cacheable Optional flag for views that support caching.; default is <code>true</code>.
      */
-    function addMapping($controller, $id, $view, $redirect=false, $secure=false, $cacheable=true) {
+    function addMapping($controller, $view=null, $id=null, $redirect=false, $secure=false) {
         if (null === $controller) {
             $controller = _ZM_DEFAULT_MAPPING_ID;
+        }
+        if (null === $view) {
+            $view = $controller;
+        }
+        if (null === $id) {
+            $id = _ZM_DEFAULT_MAPPING_ID;
         }
         if (isset($this->mappings_[$controller])) {
             $map = $this->mappings_[$controller];
         } else {
             $map = array();
         }
-        $map[$id] = array('view' => $view, 'redirect' => $redirect, 'secure' => $secure, 'cacheable' => $cacheable);
+        $map[$id] = array('view' => $view, 'redirect' => $redirect, 'secure' => $secure);
+        $this->mappings_[$controller] = $map;
     }
 
     /**
      * Find mapping for the given controller and id.
      *
      * @param string controller The controller; <code>null</code> may be used for shared mappings.
-     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>).
+     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>); default is
+     *  <code>null</code> to default to the controller name.
      * @return ZMView The actual view to be used to render the response.
      */
-    function getView($controller, $id) {
-        
+    function &getView($controller, $id=null) {
         if (isset($this->mappings_[$controller])) {
             $map = $this->mappings_[$controller];
         } else {
             // try defaults right away...
             $map = $this->mappings_[_ZM_DEFAULT_MAPPING_ID];
+        }
+        if (null === $id) {
+            $id = _ZM_DEFAULT_MAPPING_ID;
         }
 
         if (isset($map[$id])) {
@@ -116,7 +126,16 @@ class ZMUrlMapper extends ZMObject {
                 }
             }
         }
+      
+        // make id===controller behave the same as id===nul
+        if ($controller == $id && isset($this->mappings_[$controller])) {
+            $map = $this->mappings_[$controller];
+            if (isset($map[_ZM_DEFAULT_MAPPING_ID])) {
+                return $this->_mkView($map[_ZM_DEFAULT_MAPPING_ID]);
+            }
+        }
 
+        zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, 1);
         return null;
     }
 
@@ -126,7 +145,12 @@ class ZMUrlMapper extends ZMObject {
      * @param array mapping A mapping.
      * @return ZMView A view.
      */
-    function _mkView($mapping) {
+    function &_mkView($mapping) {
+        if ($mapping['redirect']) {
+            return $this->create("RedirectView", $mapping['view'], $mapping['secure']);
+        } else {
+            return $this->create("PageView", $mapping['view']);
+        }
     }
 
 }

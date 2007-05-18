@@ -70,7 +70,7 @@ class ZMStaticController extends ZMController {
         $sub = ucwords($sub);
         $zm_crumbtrail->addCrumb($sub);
 
-        return $this->findView('static');
+        return $this->findView();
     }
 
 }

@@ -28,7 +28,7 @@
  * Image information.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package net.radebatz.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMImageInfo extends ZMModel {
@@ -55,22 +55,20 @@ class ZMImageInfo extends ZMModel {
 
         // evaluate optional medium image
         $medium = $imageBase.zm_setting('imgSuffixMedium').$ext;
-        $medium = zm_image_href('medium/'.$medium, false);
-        if (!file_exists($medium)) {
+        if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'medium/'.$medium)) {
             // default to next smaller version
             $this->imageMedium_ = $this->imageDefault_;
         } else {
-            $this->imageMedium_ = $medium;
+            $this->imageMedium_ = zm_image_href('medium/'.$medium, false);
         }
 
         // evaluate optional large image
         $large = $imageBase.zm_setting('imgSuffixLarge').$ext;
-        $large = zm_image_href('large/'.$large, false);
-        if (!file_exists($large)) {
+        if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'large/'.$large)) {
             // default to next smaller version
             $this->imageLarge_ = $this->imageMedium_;
         } else {
-            $this->imageLarge_ = $large;
+            $this->imageLarge_ = zm_image_href('large/'.$large, false);
         }
     }
 

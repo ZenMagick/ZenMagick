@@ -86,6 +86,24 @@ Release 0.8.0
 - removed some .htaccess rules that do not seem to work too well with
   comemrcially hosted sites (missing images and CSS) ... I'll think about
 	replacements once I am not so tired any more
+- added console permanently to admin (rather than having it sitting in etc);
+  you can always delete the file in admin if you do not want it...
+- made 'isEnableOB' setting obsolete as we need that in order for plugins to
+  be able to access the page content
+- removed ZMCachedThemeView as this does not work with plugin page filters
+- moved ZMView from the rp.uip to the rp package, ZMEmailView from 
+  rp.uip.views.email to rp.uip.views;
+- change ZMView::getPage() to ZMView::getName(); this requires changes to a
+  couple theme files
+- added new check to page cache check to disable caching of pages that contain
+  messages
+- ZMCurrencies does not rely on zen-carts global $currencies instance any more
+- renamed ZMThemeView to ZMPageView
+- make product comparison formk use GET rather than POST
+- added contact_us POST handling; there is no support for the recipient
+  dropdown; also, the email template will not work when using zen-cart request
+	handling
+- fixed ZMImageInfo and zm_absolute_href (thanks, Matt)
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite

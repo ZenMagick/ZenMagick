@@ -103,7 +103,7 @@ class ZMLoginController extends ZMController {
         // restore cart contents
         $session->restoreCart();
 
-        return $this->create("RedirectView", 'account');
+        return $this->findView('success');
     }
 
 }

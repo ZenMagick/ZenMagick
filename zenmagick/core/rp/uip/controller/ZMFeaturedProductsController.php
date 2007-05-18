@@ -78,7 +78,7 @@ class ZMFeaturedProductsController extends ZMController {
         }
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('featured_products');
+        return $this->findView();
     }
 
 }

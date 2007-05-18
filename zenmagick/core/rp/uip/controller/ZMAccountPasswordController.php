@@ -67,7 +67,7 @@ class ZMAccountPasswordController extends ZMController {
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView('account_password');
+        return $this->findView();
     }
 
     /**
@@ -118,7 +118,7 @@ class ZMAccountPasswordController extends ZMController {
 
         $zm_messages->success('Your password has been updated.');
 
-        return $this->create("RedirectView", 'account');
+        return $this->findView('success');
     }
 
 }

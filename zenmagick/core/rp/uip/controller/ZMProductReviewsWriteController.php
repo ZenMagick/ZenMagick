@@ -84,7 +84,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $zm_crumbtrail->addProduct($product->getId());
         $zm_crumbtrail->addCrumb("Reviews");
 
-        return $this->findView('product_reviews_write');
+        return $this->findView();
     }
 
 }

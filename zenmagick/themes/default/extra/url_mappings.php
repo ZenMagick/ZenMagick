@@ -26,138 +26,149 @@
 
     /*
      * The central place for mapping views to controller.
-     *
-     * Default id is 'page' for normal processing.
      */
 
     // global
     $zm_urlMapper->addMapping(null, 'error', 'error');
-    $zm_urlMapper->addMapping(null, 'home', 'index');
+    $zm_urlMapper->addMapping(null, 'index', 'index');
+    $zm_urlMapper->addMapping(null, 'login', 'login');
 
 
     // address_book_process
-    $zm_urlMapper->addMapping('address_book_process', 'create', 'address_book_create');
-    $zm_urlMapper->addMapping('address_book_process', 'edit', 'address_book_edit');
-    $zm_urlMapper->addMapping('address_book_process', 'delete', 'address_book_delete');
+    $zm_urlMapper->addMapping('address_book_process', 'address_book_create', 'address_book_create');
+    $zm_urlMapper->addMapping('address_book_process', 'address_book_edit', 'address_book_edit');
+    $zm_urlMapper->addMapping('address_book_process', 'address_book_delete', 'address_book_delete');
 
     // advanced_search
-    $zm_urlMapper->addMapping('advanced_search', 'page', 'advanced_search');
+    $zm_urlMapper->addMapping('advanced_search');
 
     // advanced_search_result
-    $zm_urlMapper->addMapping('advanced_search_result', 'page', 'advanced_search_result');
+    $zm_urlMapper->addMapping('advanced_search_result');
 
     // checkout_confirmation
-    $zm_urlMapper->addMapping('checkout_confirmation', 'page', 'checkout_confirmation');
+    $zm_urlMapper->addMapping('checkout_confirmation');
 
     // checkout_payment_address
-    $zm_urlMapper->addMapping('checkout_payment_address', 'page', 'checkout_payment_address');
+    $zm_urlMapper->addMapping('checkout_payment_address');
 
     // checkout_payment
-    $zm_urlMapper->addMapping('checkout_payment', 'page', 'checkout_payment');
+    $zm_urlMapper->addMapping('checkout_payment');
 
     // checkout_shipping_address
-    $zm_urlMapper->addMapping('checkout_shipping_address', 'page', 'checkout_shipping_address');
+    $zm_urlMapper->addMapping('checkout_shipping_address');
 
     // checkout_shipping
-    $zm_urlMapper->addMapping('checkout_shipping', 'page', 'checkout_shipping');
+    $zm_urlMapper->addMapping('checkout_shipping');
 
     // checkout_success
-    $zm_urlMapper->addMapping('checkout_success', 'page', 'checkout_success');
+    $zm_urlMapper->addMapping('checkout_success');
 
     // contact_us
-    $zm_urlMapper->addMapping('contact_us', 'page', 'contact_us');
-    $zm_urlMapper->addMapping('contact_us', 'success', 'contact_us_success', true);
+    $zm_urlMapper->addMapping('contact_us');
+    //TODO: the redirect is in still in zen-cart code
+    $zm_urlMapper->addMapping('contact_us_success');
+    $zm_urlMapper->addMapping('contact_us', 'contact_us_success', 'success', true, true);
 
     // create_account
-    $zm_urlMapper->addMapping('create_account', 'page', 'create_account');
+    $zm_urlMapper->addMapping('create_account');
 
     // discount_coupon
-    $zm_urlMapper->addMapping('discount_coupon', 'page', 'discount_coupon');
-    $zm_urlMapper->addMapping('discount_coupon', 'info', 'discount_coupon_info');
+    $zm_urlMapper->addMapping('discount_coupon');
+    $zm_urlMapper->addMapping('discount_coupon', 'discount_coupon_info', 'info');
 
     // featured_products
-    $zm_urlMapper->addMapping('featured_products', 'page', 'featured_products');
+    $zm_urlMapper->addMapping('featured_products');
 
     // gv_send
-    $zm_urlMapper->addMapping('gv_send', 'page', 'gv_send');
-    $zm_urlMapper->addMapping('gv_send', 'confirm', 'gv_send_confirm');
+    $zm_urlMapper->addMapping('gv_send');
+    $zm_urlMapper->addMapping('gv_send', 'gv_send_confirm', 'confirm', true, true);
+    $zm_urlMapper->addMapping('gv_send', 'account', 'success', true, true);
 
     // index
     $zm_urlMapper->addMapping('index', 'category', 'category');
     $zm_urlMapper->addMapping('index', 'category_list', 'category_list');
     $zm_urlMapper->addMapping('index', 'manufacturer', 'manufacturer');
-    // home is configured global
+    // index is configured global
 
     // login
-    $zm_urlMapper->addMapping('login', 'page', 'login');
-    $zm_urlMapper->addMapping('login', 'success', 'account', true);
+    $zm_urlMapper->addMapping('login', 'login', null, false, true);
+    $zm_urlMapper->addMapping('login', 'account', 'success', true, true);
 
     // logoff
-    $zm_urlMapper->addMapping('logoff', 'success', 'logoff', true);
+    $zm_urlMapper->addMapping('logoff', 'logoff', 'success', false, true);
+
+    // site_map
+    $zm_urlMapper->addMapping('site_map');
 
     // page
-    $zm_urlMapper->addMapping('page', 'page', 'page');
+    $zm_urlMapper->addMapping('page');
 
     // password_forgotten
-    $zm_urlMapper->addMapping('password_forgotten', 'success', 'login', true);
+    $zm_urlMapper->addMapping('password_forgotten');
+    $zm_urlMapper->addMapping('password_forgotten', 'login', 'success', true, true);
 
     // product_comparison
-    $zm_urlMapper->addMapping('product_comparison', 'page', 'product_comparison');
+    $zm_urlMapper->addMapping('product_comparison');
 
     // product_info
-    $zm_urlMapper->addMapping('product_info', 'page', 'product_info');
-    //TODO: product types
+    $zm_urlMapper->addMapping('product_info');
+    $zm_urlMapper->addMapping('product_info', 'product_music_info', 'product_music_info');
+    $zm_urlMapper->addMapping('product_info', 'document_general_info', 'document_general_info');
+    $zm_urlMapper->addMapping('product_info', 'document_product_info', 'document_product_info');
+    $zm_urlMapper->addMapping('product_info', 'product_free_shipping_info', 'product_free_shipping_info');
 
     // product_reviews
-    $zm_urlMapper->addMapping('product_reviews', 'page', 'product_reviews');
+    $zm_urlMapper->addMapping('product_reviews');
 
     // product_reviews_info
-    $zm_urlMapper->addMapping('product_reviews_info', 'page', 'product_reviews_info');
+    $zm_urlMapper->addMapping('product_reviews_info');
 
     // product_reviews_write
-    $zm_urlMapper->addMapping('product_reviews_write', 'page', 'product_reviews_write');
+    $zm_urlMapper->addMapping('product_reviews_write');
 
     // products_new
-    $zm_urlMapper->addMapping('products_new', 'page', 'products_new');
+    $zm_urlMapper->addMapping('products_new');
 
     // products_new
-    $zm_urlMapper->addMapping('specials', 'page', 'specials');
+    $zm_urlMapper->addMapping('specials');
 
     // reviews
-    $zm_urlMapper->addMapping('reviews', 'page', 'reviews');
+    $zm_urlMapper->addMapping('reviews');
 
     // static
-    $zm_urlMapper->addMapping('static', 'page', 'static');
+    $zm_urlMapper->addMapping('static');
 
     // tell_a_friend
-    $zm_urlMapper->addMapping('tell_a_friend', 'page', 'tell_a_friend');
+    $zm_urlMapper->addMapping('tell_a_friend');
 
     // account
-    $zm_urlMapper->addMapping('account', 'page', 'account');
+    $zm_urlMapper->addMapping('account');
 
     // account_edit
-    $zm_urlMapper->addMapping('account_edit', 'page', 'account_edit');
+    $zm_urlMapper->addMapping('account_edit');
+    $zm_urlMapper->addMapping('account_edit', 'account', 'success', true, true);
 
     // account_history
-    $zm_urlMapper->addMapping('account_history', 'page', 'account_history');
+    $zm_urlMapper->addMapping('account_history');
 
     // account_history_info
-    $zm_urlMapper->addMapping('account_history_info', 'page', 'account_history_info');
+    $zm_urlMapper->addMapping('account_history_info');
 
     // account_newsletters
-    $zm_urlMapper->addMapping('account_newsletters', 'page', 'account_newsletters');
+    $zm_urlMapper->addMapping('account_newsletters');
 
     // account_notifications
-    $zm_urlMapper->addMapping('account_notifications', 'page', 'account_notifications');
+    $zm_urlMapper->addMapping('account_notifications');
 
     // account_password
-    $zm_urlMapper->addMapping('account_password', 'page', 'account_password');
+    $zm_urlMapper->addMapping('account_password');
+    $zm_urlMapper->addMapping('account_password', 'account', 'success', true, true);
 
     // address_book
-    $zm_urlMapper->addMapping('address_book', 'page', 'address_book');
+    $zm_urlMapper->addMapping('address_book');
 
     // shopping_cart
-    $zm_urlMapper->addMapping('shopping_cart', 'page', 'shopping_cart');
-    $zm_urlMapper->addMapping('shopping_cart', 'empty', 'empty_cart');
+    $zm_urlMapper->addMapping('shopping_cart');
+    $zm_urlMapper->addMapping('shopping_cart', 'empty_cart', 'empty_cart');
 
 ?>

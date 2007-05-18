@@ -78,7 +78,7 @@ class ZMSpecialsController extends ZMController {
         }
         $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView('specials');
+        return $this->findView();
     }
 
 }

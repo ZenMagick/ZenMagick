@@ -106,12 +106,12 @@ class ZMGvSendController extends ZMController {
             $zm_messages->error(zm_l10n_get("Please enter a valid email address."));
         }
 
-        $viewName = 'account';
+        $viewName = 'success';
         if ('send' == $zm_request->getRequestParameter('action') && !$zm_messages->hasMessages()) {
             if (null != $zm_request->getRequestParameter('edit_x', null)) {
-                $viewName = 'gv_send';
+                $viewName = null;
             } else {
-                $viewName = 'gv_send_confirm';
+                $viewName = 'confirm';
             }
         }
 

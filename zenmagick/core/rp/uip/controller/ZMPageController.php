@@ -74,7 +74,7 @@ class ZMPageController extends ZMController {
         $zm_crumbtrail->addCrumb($page->getTitle());
         $this->exportGlobal("zm_page", $page);
 
-        return $this->findView('page');
+        return $this->findView();
     }
 
 }

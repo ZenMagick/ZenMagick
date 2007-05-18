@@ -34,17 +34,19 @@
      *  <li>The request is not a secure request</li>
      *  <li>The page is not a checkout page</li>
      *  <li>The shoppingcart is empty</li>
+     *  <li>There are no messages that need to be  displayed</li>
      * </ol>
      *
      * @package net.radebatz.zenmagick.cache
      * @return bool <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_is_page_cacheable() {
-    global $zm_request, $zm_cart;
+    global $zm_request, $zm_cart, $zm_messages;
         
         return !$zm_request->isSecure() 
           && !zm_is_checkout_page(true) 
           && $zm_cart->isEmpty() 
+          && !$zm_messages->hasMessages()
           && false === strpos($zm_request->getPageName(), 'account');
     }
 
