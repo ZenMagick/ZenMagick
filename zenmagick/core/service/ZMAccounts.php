@@ -62,16 +62,17 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
     function &getAccountForId($accountId) {
+        $db = $this->getDB();
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
                 customers_authorization, customers_newsletter
                 from " . TABLE_CUSTOMERS . "
                 where customers_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+        $results = $db->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {
-            $account =& $this->_newAccount($results->fields);
+            $account = $this->_newAccount($results->fields);
         }
         return $account;
     }
@@ -83,16 +84,17 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
     function &getAccountForEmailAddress($emailAddress) {
+        $db = $this->getDB();
         $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
                 customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
                 customers_authorization, customers_newsletter
                 from " . TABLE_CUSTOMERS . "
                 where customers_email_address = :emailAddress";
-        $sql = $this->getDB()->bindVars($sql, ":emailAddress", $emailAddress, "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
+        $results = $db->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {
-            $account =& $this->_newAccount($results->fields);
+            $account = $this->_newAccount($results->fields);
         }
         return $account;
     }
@@ -103,12 +105,13 @@ class ZMAccounts extends ZMService {
      * @param int accountId The account id.
      */
     function updateAccountLoginStats($accountId) {
+        $db = $this->getDB();
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
                 WHERE customers_info_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ':accountId',  $accountId, 'integer');
-        $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ':accountId',  $accountId, 'integer');
+        $db->Execute($sql);
     }
 
     /**
@@ -118,12 +121,13 @@ class ZMAccounts extends ZMService {
      * @return bool <code>true</code> if the email address exists, <code>false</code> if not.
      */
     function emailExists($email) {
+        $db = $this->getDB();
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . "
                 where customers_email_address = :email";
-        $sql = $this->getDB()->bindVars($sql, ":email", $email, "string");
+        $sql = $db->bindVars($sql, ":email", $email, "string");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         return $results->fields['total'] > 0;
     }
 
@@ -134,6 +138,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount The created account incl. the new account id.
      */
     function &createAccount(&$account) {
+        $db = $this->getDB();
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
@@ -143,8 +148,8 @@ class ZMAccounts extends ZMService {
                   :emailFormat;string, :defaultAddressId;integer, :authorization;integer,
                   :gender;string, :dob;date, :password;string, :referral;string)";
         $sql = $this->bindObject($sql, $account);
-        $this->getDB()->Execute($sql);
-        $account->id_ = $this->getDB()->Insert_ID();
+        $db->Execute($sql);
+        $account->id_ = $db->Insert_ID();
         return $account;
     }
 
@@ -155,6 +160,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount The updated account.
      */
     function &updateAccount(&$account) {
+        $db = $this->getDB();
         $sql = "update " . TABLE_CUSTOMERS . " set
                     customers_firstname = :firstName;string,
                     customers_lastname = :lastName;string,
@@ -171,9 +177,9 @@ class ZMAccounts extends ZMService {
                     customers_dob = :dob;date,
                     customers_referral = :referral;string
                 where customers_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $account->getId(), "integer");
+        $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
         $sql = $this->bindObject($sql, $account);
-        $this->getDB()->Execute($sql);
+        $db->Execute($sql);
         return $account;
     }
 
@@ -184,11 +190,12 @@ class ZMAccounts extends ZMService {
      * @return float The available balance or <code>0</code>.
      */
     function getVoucherBalanceForId($accountId) {
+        $db = $this->getDB();
         $sql = "select amount from " . TABLE_COUPON_GV_CUSTOMER . "
                 where customer_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         if (!$results->EOF) {
             return $results->fields['amount'];
         }
@@ -201,7 +208,7 @@ class ZMAccounts extends ZMService {
      * Create new account instance.
      */
     function &_newAccount($fields) {
-        $account =& $this->create("Account");
+        $account = $this->create("Account");
         $account->id_ = $fields['customers_id'];
         $account->password_ = $fields['customers_password'];
         $account->firstName_ = $fields['customers_firstname'];
@@ -227,12 +234,13 @@ class ZMAccounts extends ZMService {
      * Set password for account
      */
     function _setAccountPassword($accountId, $password) {
+        $db = $this->getDB();
         $sql = "UPDATE " . TABLE_CUSTOMERS . "
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":password", $password, "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":password", $password, "string");
+        $results = $db->Execute($sql);
     }
 
 
@@ -240,12 +248,13 @@ class ZMAccounts extends ZMService {
      * Check for global product subscriber.
      */
     function _isGlobalProductSubscriber($accountId) {
+        $db = $this->getDB();
         $sql = "select global_product_notifications
                 from " . TABLE_CUSTOMERS_INFO . "
                 where  customers_info_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         return $results->fields['global_product_notifications'] == '1';
     }
 
@@ -253,13 +262,14 @@ class ZMAccounts extends ZMService {
      * Get subscribed product ids.
      */
     function _getSubscribedProductIds($accountId) {
+        $db = $this->getDB();
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 where  customers_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
 
         $productIds = array();
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         while (!$results->EOF) {
             array_push($productIds, $results->fields['products_id']);
             $results->MoveNext();

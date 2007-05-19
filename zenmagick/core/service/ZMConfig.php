@@ -62,12 +62,13 @@ class ZMConfig extends ZMService {
      * @param string value The new value.
      */
     function updateConfigValue($name, $value) {
+        $db = $this->getDB();
         $sql = "update " . TABLE_CONFIGURATION . "
                 set configuration_value = :configValue
                 where configuration_key = :configKey";
-        $sql = $this->getDB()->bindVars($sql, ":configKey", $name, "string");
-        $sql = $this->getDB()->bindVars($sql, ":configValue", $value, "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":configKey", $name, "string");
+        $sql = $db->bindVars($sql, ":configValue", $value, "string");
+        $results = $db->Execute($sql);
     }
 
 }

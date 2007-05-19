@@ -98,10 +98,11 @@ class ZMBanners extends ZMService {
     function _getBannerForName($identifiers, $all=false) { 
     global $zm_request;
 
+        $db = $this->getDB();
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
-            $filter = $this->getDB()->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
+            $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
         }
 
         // handle multiple identifiers
@@ -111,7 +112,7 @@ class ZMBanners extends ZMService {
             $first = true;
             foreach ($identifierList as $identifier) {
                 if (!$first) $filter .= " or ";
-                $filter .= $this->getDB()->bindVars("banners_group = :identifier", ":identifier", $identifier, "string");
+                $filter .= $db->bindVars("banners_group = :identifier", ":identifier", $identifier, "string");
                 $first = false;
             }
             $filter .= ")";
@@ -121,7 +122,7 @@ class ZMBanners extends ZMService {
                   from " . TABLE_BANNERS . "
                   where status = 1 " .
                   $filter . $orderBy;
-        $results = $this->getDB()->Execute($query);
+        $results = $db->Execute($query);
 
         $banners = array();
         while (!$results->EOF) {
@@ -142,22 +143,23 @@ class ZMBanners extends ZMService {
     function &getBannerForId($id) { 
     global $zm_request;
 
+        $db = $this->getDB();
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
-            $filter = $this->getDB()->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
+            $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
         }
 
         $query = "select banners_id, banners_title, banners_image, banners_html_text, banners_open_new_windows, banners_url
                   from " . TABLE_BANNERS . "
                   where status = 1 and banners_id = :id " .
                   $filter;
-        $query = $this->getDB()->bindVars($query, ":id", $id, "integer");
-        $results = $this->getDB()->Execute($query);
+        $query = $db->bindVars($query, ":id", $id, "integer");
+        $results = $db->Execute($query);
 
         $banner = null;
         if (0 < $results->RecordCount()) {
-            $banner =& $this->_newBanner($results->fields);
+            $banner = $this->_newBanner($results->fields);
         }
 
         return $banner;
@@ -167,7 +169,7 @@ class ZMBanners extends ZMService {
 
     // build banner
     function &_newBanner($fields) {
-        $banner =& $this->create("ZMBanner");
+        $banner = $this->create("ZMBanner");
         $banner->id_ = $fields['banners_id'];
         $banner->title_ = $fields['banners_title'];
         $banner->image_ = $fields['banners_image'];

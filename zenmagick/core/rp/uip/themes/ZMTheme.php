@@ -268,7 +268,7 @@ class ZMTheme extends ZMObject {
     global $zm_runtime;
 
         if (null == $this->themeInfo_) {
-            $this->themeInfo_ =& $zm_runtime->getThemeInfoForId($this->themeId_);
+            $this->themeInfo_ = $zm_runtime->getThemeInfoForId($this->themeId_);
         }
 
         return $this->themeInfo_;

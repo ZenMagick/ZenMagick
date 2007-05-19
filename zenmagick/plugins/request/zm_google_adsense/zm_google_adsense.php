@@ -132,7 +132,7 @@ class zm_google_adsense extends ZMBoxPlugin {
             $id = str_replace(_ZM_GOOGLE_ADSENSE_BOX_PREFIX, '', $boxName);
         }
 
-        $js = $zm_google_adsense->get($id);
+        $js = stripslashes($zm_google_adsense->get($id));
 
         if ($echo) echo $js;
         return $js;

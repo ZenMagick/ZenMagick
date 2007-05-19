@@ -133,21 +133,23 @@ class ZMPlugins extends ZMService {
 
         $typeDir = $zm_runtime->getPluginsDir() . $type . '/';
         $files = array();
-        $handle = opendir($typeDir);
-        while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file)
-                continue;
+        $handle = @opendir($typeDir);
+        if (false !== $handle) {
+            while (false !== ($file = readdir($handle))) { 
+                if ("." == $file || ".." == $file)
+                    continue;
 
-            $name = $typeDir.$file;
-            if (is_dir($name)) {
-                // expect plugin file in the directory with the same name and '.php' extension
-                $name = $name . '/' . $file . '.php';
-                array_push($files, $name);
-            } else if (zm_ends_with($name, ".php")) {
-                array_push($files, $name);
+                $name = $typeDir.$file;
+                if (is_dir($name)) {
+                    // expect plugin file in the directory with the same name and '.php' extension
+                    $name = $name . '/' . $file . '.php';
+                    array_push($files, $name);
+                } else if (zm_ends_with($name, ".php")) {
+                    array_push($files, $name);
+                }
             }
+            @closedir($handle);
         }
-        @closedir($handle);
 
         // make sure we can extend from ZMPlugin
         $plugins = array();

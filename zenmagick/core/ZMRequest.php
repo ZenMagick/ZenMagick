@@ -43,7 +43,7 @@ class ZMRequest extends ZMObject {
         parent::__construct();
 
         $this->controller_ = null;
-        $this->session_ =& new ZMSession();
+        $this->session_ = new ZMSession();
     }
 
     /**

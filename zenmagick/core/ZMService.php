@@ -48,7 +48,7 @@ class ZMService extends ZMObject {
 
         parent::__construct();
 
-        $this->_db_ =& $zm_runtime->getDB();
+        $this->_db_ = $zm_runtime->getDB();
     }
 
     /**
@@ -85,13 +85,14 @@ class ZMService extends ZMObject {
      * @return string The sql with <code>$bindName</code> replaced with a properly formatted value list.
      */
     function bindValueList($sql, $bindName, $values, $type='string') {
+        $db = $this->getDB();
         $fragment = '';
         foreach ($values as $value) {
             if ('' != $fragment) $fragment .= ', ';
-            $fragment .= $this->getDB()->bindVars(":value", ":value", $value, $type);
+            $fragment .= $db->bindVars(":value", ":value", $value, $type);
         }
 
-        return $this->getDB()->bindVars($sql, $bindName, $fragment, 'passthru');
+        return $db->bindVars($sql, $bindName, $fragment, 'passthru');
     }
 
     /**
@@ -141,6 +142,7 @@ class ZMService extends ZMObject {
             }
         }
 
+        $db = $this->getDB();
         foreach ($getter as $lcproperty => $method) {
             if (isset($labels[$lcproperty])) {
                 $label = $labels[$lcproperty];
@@ -152,7 +154,7 @@ class ZMService extends ZMObject {
                 if ('date' == $label[1]) {
                     $value = zen_date_raw($value);
                 }
-                $sql = $this->getDB()->bindVars($sql, $label[0], $value, $label[1]);
+                $sql = $db->bindVars($sql, $label[0], $value, $label[1]);
 
                 // unset so we end up with unmapped properties and/or labels ...
                 unset($labels[$lcproperty]);

@@ -64,13 +64,15 @@ class ZMCurrencies extends ZMService {
      * Load all currencies.
      */
     function _load() {
+        $db = $this->getDB();
         $sql = "select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
                 from " . TABLE_CURRENCIES;
 
-        $results = $this->getDB()->Execute($sql);
+        $db = $this->getDB();
+        $results = $db->Execute($sql);
 
         while (!$results->EOF) {
-            $currency =& $this->_newCurrency($results->fields);
+            $currency = $this->_newCurrency($results->fields);
             $this->currencies_[$currency->getId()] = $currency;
             $results->MoveNext();
         }
@@ -106,7 +108,7 @@ class ZMCurrencies extends ZMService {
      * Create new currency instance.
      */
     function &_newCurrency($fields) {
-        $currency =& $this->create("Currency", $fields['code'], $fields);
+        $currency = $this->create("Currency", $fields['code'], $fields);
         return $currency;
     }
 

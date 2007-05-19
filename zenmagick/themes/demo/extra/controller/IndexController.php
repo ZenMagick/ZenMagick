@@ -59,9 +59,9 @@ class IndexController extends ZMIndexController {
      */
     function processGet() {
         // normal processing
-        $view =& parent::processGet();
+        $view = parent::processGet();
 
-        $resultList =& $this->getGlobal("zm_resultList");
+        $resultList = $this->getGlobal("zm_resultList");
         if (null != $resultList) {
             // set refresh flag to true
             $resultList->addFilter($this->create("AlphaFilter"), true);

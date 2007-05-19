@@ -56,18 +56,19 @@ class ZMAddresses extends ZMService {
 
 
     function &getAddressForId($addressId) {
+        $db = $this->getDB();
         $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
                   customers_id
                 from " . TABLE_ADDRESS_BOOK . "
                 where address_book_id = :addressId";
-        $sql = $this->getDB()->bindVars($sql, ":addressId", $addressId, "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":addressId", $addressId, "integer");
+        $results = $db->Execute($sql);
 
         $address = null;
         if (0 < $results->RecordCount()) {
             $defaultAddressId = $this->_getDefaultAddressId($results->fields['customers_id']);
-            $address =& $this->_newAddress($results->fields);
+            $address = $this->_newAddress($results->fields);
             $address->isPrimary_ = $address->addressId_ == $defaultAddressId;
         }
 
@@ -78,16 +79,17 @@ class ZMAddresses extends ZMService {
     function &getAddressesForAccountId($accountId) {
         $defaultAddressId = $this->_getDefaultAddressId($accountId);
 
+        $db = $this->getDB();
         $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id
                 from " . TABLE_ADDRESS_BOOK . "
                 where customers_id = :accountId";
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+        $results = $db->Execute($sql);
 
         $addresses = array();
         while (!$results->EOF) {
-            $address =& $this->_newAddress($results->fields);
+            $address = $this->_newAddress($results->fields);
             $address->isPrimary_ = $address->addressId_ == $defaultAddressId;
             array_push($addresses, $address);
             $results->MoveNext();
@@ -99,7 +101,7 @@ class ZMAddresses extends ZMService {
 
     function &_newAddress($fields) {
     global $zm_countries;
-        $address =& $this->create("Address");
+        $address = $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];
         $address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields['entry_lastname'];
@@ -124,11 +126,12 @@ class ZMAddresses extends ZMService {
 
 
     function getAddressFormatForId($id) {
+        $db = $this->getDB();
         $sql = "select address_format as format
                 from " . TABLE_ADDRESS_FORMAT . "
                 where address_format_id = :id";
-        $sql = $this->getDB()->bindVars($sql, ":id", $id, "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":id", $id, "integer");
+        $results = $db->Execute($sql);
         return $results->fields['format'];
     }
 

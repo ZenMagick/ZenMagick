@@ -71,22 +71,23 @@ class ZMAttributes extends ZMService {
     function _checkForAttributes() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select count(*) as total
                 from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
                 where patrib.products_id = :productId
                 and patrib.options_id = popt.products_options_id
                 and popt.language_id = :languageId
                 limit 1";
-        $sql = $this->getDB()->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $results = $db->Execute($sql);
         return 0 < $results->fields['total'];
     }
 
 
     // create new attribute
     function &_newAttribute($fields) {
-        $attribute =& $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
+        $attribute = $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
         return $attribute;
@@ -97,7 +98,7 @@ class ZMAttributes extends ZMService {
     function &_newAttributeValue($fields) {
     global $zm_runtime;
 
-        $value =& $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
+        $value = $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
         $value->isFree_ = ('1' == $fields['product_attribute_is_free']);
@@ -151,6 +152,7 @@ class ZMAttributes extends ZMService {
             $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pov.products_options_values_name';
         }
 
+        $db = $this->getDB();
         $sql = "select distinct popt.products_options_id, popt.products_options_name, popt.products_options_sort_order,
                 popt.products_options_type, popt.products_options_length, popt.products_options_comment, popt.products_options_size,
                 popt.products_options_images_per_row, popt.products_options_images_style
@@ -159,9 +161,9 @@ class ZMAttributes extends ZMService {
                 and patrib.options_id = popt.products_options_id
                 and popt.language_id = :languageId" .
                 $attributesOrderBy;
-        $sql = $this->getDB()->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-        $attributeResults = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $attributeResults = $db->Execute($sql);
 
         // iterate over all attributes
         while (!$attributeResults->EOF) {
@@ -174,10 +176,10 @@ class ZMAttributes extends ZMService {
                     and pa.options_values_id = pov.products_options_values_id
                     and pov.language_id = :languageId " .
                     $valuesOrderBy;
-            $sql = $this->getDB()->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
-            $sql = $this->getDB()->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-            $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-            $valueResults = $this->getDB()->Execute($sql);
+            $sql = $db->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
+            $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+            $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+            $valueResults = $db->Execute($sql);
 
             // get all values for the current attribute
             while (!$valueResults->EOF) {

@@ -249,7 +249,7 @@ class ZMLoader {
      * @param array args Optional list of constructor arguments.
      * @return mixed A class instance or <code>null</code>.
      */
-    function _create($name, $args) {
+    function &_create($name, $args) {
         $clazz = $this->load($name);
         if (null != $clazz) {
             $obj = null;

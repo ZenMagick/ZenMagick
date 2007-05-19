@@ -165,6 +165,7 @@ class ZMShoppingCart extends ZMService {
         if (!isset($item->zenItem_['attributes']) || !is_array($item->zenItem_['attributes']))
             return $attributesLookup;
 
+        $db = $this->getDB();
         // load attributes
         foreach ($item->zenItem_['attributes'] as $option => $type) {
             $sql = "select popt.products_options_name, poval.products_options_values_name,
@@ -178,12 +179,12 @@ class ZMShoppingCart extends ZMService {
                     and pa.options_values_id = poval.products_options_values_id
                     and popt.language_id = :languageId
                     and poval.language_id = :languageId";
-            $sql = $this->getDB()->bindVars($sql, ":type", $type, "integer");
-            $sql = $this->getDB()->bindVars($sql, ":productId", $item->getId(), "integer");
-            $sql = $this->getDB()->bindVars($sql, ":option", $option, "integer");
-            $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+            $sql = $db->bindVars($sql, ":type", $type, "integer");
+            $sql = $db->bindVars($sql, ":productId", $item->getId(), "integer");
+            $sql = $db->bindVars($sql, ":option", $option, "integer");
+            $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
-            $results = $this->getDB()->Execute($sql);
+            $results = $db->Execute($sql);
 
             $name = $results->fields['products_options_name'];
             if (array_key_exists($name, $attributesLookup)) {
@@ -240,7 +241,7 @@ class ZMShoppingCart extends ZMService {
      * @return mixed The zen-cart shipping method.
      */
     function getShippingMethod() {
-        $order =& new order();
+        $order = new order();
         return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
     }
 
@@ -338,10 +339,11 @@ class ZMShoppingCart extends ZMService {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
                 zm_resolve_zc_class('order_total');
-                $zenTotals =& new order_total();
+                //TODO:?????
+                $zenTotals = new order_total();
             }
             zm_resolve_zc_class('order');
-            $GLOBALS['order'] =& new order;
+            $GLOBALS['order'] = new order();
             $this->zenTotals_->process();
         }
 

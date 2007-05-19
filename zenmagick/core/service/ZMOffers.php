@@ -111,14 +111,15 @@ class ZMOffers extends ZMService {
         if (!$this->product_->pricedByAttributes_)
             return $this->product_->price_;
 
+        $db = $this->getDB();
         // **non** display_only **but** attributes_price_base_included
         $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
                 from " . TABLE_PRODUCTS_ATTRIBUTES . "
                 where products_id = :productId
                 and attributes_display_only != '1' and attributes_price_base_included='1'". "
                 order by options_id, price_prefix, options_values_price";
-        $sql = $this->getDB()->bindVars($sql, ':productId', $this->product_->id_, 'integer');
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ':productId', $this->product_->id_, 'integer');
+        $results = $db->Execute($sql);
 
         // add attributes price to price
         $basePrice = $this->product_->price_;
@@ -151,11 +152,12 @@ class ZMOffers extends ZMService {
      * Calculate the special price.
      */
     function _getSpecialPrice() {
+        $db = $this->getDB();
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
                 where products_id = :productId and status='1'";
-        $sql = $this->getDB()->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $results = $db->Execute($sql);
         $specialPrice = null;
         if (0 < $results->RecordCount()) {
     	      $specialPrice = $results->fields['specials_new_products_price'];
@@ -183,6 +185,7 @@ class ZMOffers extends ZMService {
   	    $basePrice = $this->getBasePrice();
   	    $specialPrice = $this->getSpecialPrice();
 
+        $db = $this->getDB();
         // get available sales
         $sql = "select sale_specials_condition, sale_deduction_value, sale_deduction_type
                 from " . TABLE_SALEMAKER_SALES . "
@@ -191,8 +194,8 @@ class ZMOffers extends ZMService {
                 and (sale_date_end >= now() or sale_date_end = '0001-01-01')
                 and (sale_pricerange_from <= :basePrice  or sale_pricerange_from = '0')
                 and (sale_pricerange_to >= :basePrice or sale_pricerange_to = '0')";
-        $sql = $this->getDB()->bindVars($sql, ":basePrice", $basePrice, "currency");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":basePrice", $basePrice, "currency");
+        $results = $db->Execute($sql);
 
         if ($results->RecordCount() < 1) {
            return 0;

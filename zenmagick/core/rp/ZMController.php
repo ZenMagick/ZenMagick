@@ -100,10 +100,10 @@ class ZMController extends ZMObject {
         $view = null;
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                $view =& $this->processGet();
+                $view = $this->processGet();
                 break;
             case 'POST':
-                $view =& $this->processPost();
+                $view = $this->processPost();
                 break;
             default:
                 die('Unsupported request method: ' . $_SERVER['REQUEST_METHOD']);
@@ -183,7 +183,7 @@ class ZMController extends ZMObject {
      * @param string name The object name.
      * @param mixed instance An object instance or <code>null</code>.
      */
-    function getGlobal($name) {
+    function &getGlobal($name) {
         return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
     }
 

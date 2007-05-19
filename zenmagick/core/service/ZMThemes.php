@@ -75,7 +75,7 @@ class ZMThemes extends ZMService {
         // load
         require_once($infoFile);
         // create instance
-        $obj =& new $infoClass($parent);
+        $obj = new $infoClass($parent);
         $obj->setThemeId($themeId);
         if ($themeId != ZM_DEFAULT_THEME) {
             $obj->setParent($this->getThemeInfoForId(ZM_DEFAULT_THEME));
@@ -136,17 +136,18 @@ class ZMThemes extends ZMService {
             $languageId = $zm_runtime->getLanguageId();
         }
 
+        $db = $this->getDB();
         $sql = "select template_dir
                 from " . TABLE_TEMPLATE_SELECT . "
                 where template_language = 0";
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         $themeId = $results->fields['template_dir'];
 
         $sql = "select template_dir
                 from " . TABLE_TEMPLATE_SELECT . "
                 where template_language = :languageId";
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $languageId, 'integer');
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+        $results = $db->Execute($sql);
         if ($results->RecordCount() > 0) {
             $themeId = $results->fields['template_dir'];
         }

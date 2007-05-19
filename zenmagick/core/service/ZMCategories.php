@@ -107,15 +107,16 @@ class ZMCategories extends ZMService {
      * @return ZMCategory The default category (or <code>null</code>).
      */
     function getDefaultCategoryForProductId($productId) {
+        $db = $this->getDB();
         $sql = "SELECT categories_id
                 FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
                 WHERE products_id = :productId";
-        $sql = $this->getDB()->bindVars($sql, ":productId", $productId, 'integer');
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $productId, 'integer');
+        $results = $db->Execute($sql);
 
         $category = null;
         if (!$results->EOF) {
-            $category =& $this->getCategoryForId($results->fields['categories_id']);
+            $category = $this->getCategoryForId($results->fields['categories_id']);
         }
         
         return $category;
@@ -134,7 +135,7 @@ class ZMCategories extends ZMService {
 
         $categories = array();
         foreach ($ids as $id) {
-            $categories[$id] =& $this->categories_[$id];
+            $categories[$id] = $this->categories_[$id];
         }
 
         return $categories;
@@ -163,7 +164,7 @@ class ZMCategories extends ZMService {
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
     function getCategoryForId($categoryId) {
-        $category =& $this->categories_[$categoryId];
+        $category = $this->categories_[$categoryId];
         return $category;
     }
 
@@ -174,6 +175,7 @@ class ZMCategories extends ZMService {
     function _load() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
                   from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd
@@ -181,15 +183,15 @@ class ZMCategories extends ZMService {
                   where cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $this->getDB()->bindVars($query, ":languageId", $this->languageId_, "integer");
-        $results = $this->getDB()->Execute($query, '', true, 150);
+        $query = $db->bindVars($query, ":languageId", $this->languageId_, "integer");
+        $results = $db->Execute($query, '', true, 150);
 
         $this->categories_ = array();
         while (!$results->EOF) {
-            $category =& $this->_newCategory($results->fields);
+            $category = $this->_newCategory($results->fields);
             $this->categories_[$category->id_] = $category;
             $results->MoveNext();
-		    }
+		}
     }
 
 
@@ -199,7 +201,7 @@ class ZMCategories extends ZMService {
     function _buildTree() {
         foreach ($this->categories_ as $id => $category) {
             if (0 != $category->parentId_) {
-                $parent =& $this->categories_[$category->parentId_];
+                $parent = $this->categories_[$category->parentId_];
                 array_push($parent->childrenIds_, $id);
             }
         }
@@ -208,8 +210,8 @@ class ZMCategories extends ZMService {
     /**
      * Create new <code>ZMCategory</code> instance.
      */
-    function _newCategory($fields) {
-        $category =& $this->create("Category", $fields['categories_id'], $fields['parent_id'], $fields['categories_name'], false);
+    function &_newCategory($fields) {
+        $category = $this->create("Category", $fields['categories_id'], $fields['parent_id'], $fields['categories_name'], false);
         $category->description_ = $fields['categories_description'];
         $category->sortOrder_ = $fields['sort_order'];
         $category->image_ = $fields['categories_image'];

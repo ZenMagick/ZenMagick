@@ -187,9 +187,10 @@ class ZMPlugin extends ZMService {
             if (null === $this->configPrefix_) {
                 zm_backtrace('plugin without configuration prefix');
             }
+            $db = $this->getDB();
             $sql = "select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key like :key";
-            $sql = $this->getDB()->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-            $results = $this->getDB()->Execute($sql);
+            $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
+            $results = $db->Execute($sql);
 
             $this->installed_ = 0 < $results->RecordCount();
         }
@@ -228,9 +229,10 @@ class ZMPlugin extends ZMService {
      */
     function isEnabled() {
         if (null === $this->enabled_) {
+            $db = $this->getDB();
             $sql = "select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = :key";
-            $sql = $this->getDB()->bindVars($sql, ":key", $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX, "string");
-            $results = $this->getDB()->Execute($sql);
+            $sql = $db->bindVars($sql, ":key", $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX, "string");
+            $results = $db->Execute($sql);
             $lcvalue = strtolower($results->fields['configuration_value']);
             $this->enabled_ = zm_is_in_array($lcvalue, "1,true,yes,".strtolower($this->enabledValue_));
         }
@@ -288,6 +290,7 @@ class ZMPlugin extends ZMService {
         // keys are always upper case
         $key = strtoupper($key);
 
+        $db = $this->getDB();
         $sql = "insert into " . TABLE_CONFIGURATION . " (
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
                   configuration_description, sort_order, 
@@ -295,16 +298,16 @@ class ZMPlugin extends ZMService {
                 values (:title, :key, :value, :groupId,
                   :description, :sortOrder,
                   :dateAdded, :useFunction, :setFunction)";
-        $sql = $this->getDB()->bindVars($sql, ":title", $title, "string");
-        $sql = $this->getDB()->bindVars($sql, ":key", $key, "string");
-        $sql = $this->getDB()->bindVars($sql, ":value", $value, "string");
-        $sql = $this->getDB()->bindVars($sql, ":groupId", $groupId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":description", $description, "string");
-        $sql = $this->getDB()->bindVars($sql, ":sortOrder", $sortOrder, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":dateAdded", 'now()', "passthru");
-        $sql = $this->getDB()->bindVars($sql, ":useFunction", $useFunction, "string");
-        $sql = $this->getDB()->bindVars($sql, ":setFunction", $setFunction, "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":title", $title, "string");
+        $sql = $db->bindVars($sql, ":key", $key, "string");
+        $sql = $db->bindVars($sql, ":value", $value, "string");
+        $sql = $db->bindVars($sql, ":groupId", $groupId, "integer");
+        $sql = $db->bindVars($sql, ":description", $description, "string");
+        $sql = $db->bindVars($sql, ":sortOrder", $sortOrder, "integer");
+        $sql = $db->bindVars($sql, ":dateAdded", 'now()', "passthru");
+        $sql = $db->bindVars($sql, ":useFunction", $useFunction, "string");
+        $sql = $db->bindVars($sql, ":setFunction", $setFunction, "string");
+        $results = $db->Execute($sql);
     }
 
     /**
@@ -338,9 +341,10 @@ class ZMPlugin extends ZMService {
      * Remove this plugin.
      */
     function remove() {
+        $db = $this->getDB();
         $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like (:keys)";
-        $sql = $this->getDB()->bindVars($sql, ":keys", $this->configPrefix_.'%', "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":keys", $this->configPrefix_.'%', "string");
+        $results = $db->Execute($sql);
     }
 
     /**
@@ -352,11 +356,12 @@ class ZMPlugin extends ZMService {
      * <p>This default implementation will load all plugin configuration values and create constants (<code>defines</code>).</p>
      */
     function init() {
+        $db = $this->getDB();
         $sql = "select configuration_key, configuration_value
                 from " . TABLE_CONFIGURATION . "
                 where configuration_key like :key";
-        $sql = $this->getDB()->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
+        $results = $db->Execute($sql);
         while (!$results->EOF) {
             define($results->fields['configuration_key'], $results->fields['configuration_value']);
             $results->MoveNext();
@@ -369,13 +374,14 @@ class ZMPlugin extends ZMService {
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
     function getConfigValues() {
+        $db = $this->getDB();
         $sql = "select configuration_id, configuration_title, configuration_key, configuration_value,
                 configuration_description,
                 use_function, set_function
                 from " . TABLE_CONFIGURATION . " where configuration_key like :key
                 order by configuration_id";
-        $sql = $this->getDB()->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
+        $results = $db->Execute($sql);
 
         $values = array();
         while (!$results->EOF) {

@@ -59,17 +59,18 @@ class ZMEZPages extends ZMService {
     function &getPageForId($pageId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where pages_id = :pageId";
-        $sql = $this->getDB()->bindVars($sql, ':pageId', $pageId, 'integer');
+        $sql = $db->bindVars($sql, ':pageId', $pageId, 'integer');
         if (zm_setting('isEZPagesLangSupport')) {
-            $sql = $this->getDB()->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
+            $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
         }
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $page = null;
         if (0 < $results->RecordCount()) {
-            $page =& $this->_newPage($results->fields);
+            $page = $this->_newPage($results->fields);
         }
         return $page;
     }
@@ -79,16 +80,17 @@ class ZMEZPages extends ZMService {
     function getPagesForChapterId($chapterId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . " 
                 WHERE ((status_toc = 1 and toc_sort_order <> 0) and toc_chapter= :chapterID)
                 AND alt_url_external = '' and alt_url = ''";
         if (zm_setting('isEZPagesLangSupport')) {
-            $sql = $this->getDB()->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
+            $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        $sql = $this->getDB()->bindVars($sql, ':chapterID', $chapterId, 'integer');
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ':chapterID', $chapterId, 'integer');
+        $results = $db->Execute($sql);
 
         $pages = array();
         while (!$results->EOF) {
@@ -105,14 +107,15 @@ class ZMEZPages extends ZMService {
     function getPagesForHeader() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_header = 1
                 and header_sort_order > 0";
         if (zm_setting('isEZPagesLangSupport')) {
-            $sql = $this->getDB()->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
+            $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
         }
         $sql .= " order by header_sort_order, pages_title";
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $pages = array();
         while (!$results->EOF) {
@@ -129,14 +132,15 @@ class ZMEZPages extends ZMService {
     function getPagesForSidebar() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_sidebox = 1
                 and sidebox_sort_order > 0";
         if (zm_setting('isEZPagesLangSupport')) {
-            $sql = $this->getDB()->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
+            $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
         }
         $sql .= " order by sidebox_sort_order, pages_title";
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $pages = array();
         while (!$results->EOF) {
@@ -153,14 +157,15 @@ class ZMEZPages extends ZMService {
     function getPagesForFooter() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_footer = 1
                 and footer_sort_order > 0";
         if (zm_setting('isEZPagesLangSupport')) {
-            $sql = $this->getDB()->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
+            $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $zm_runtime->getLanguageId(), 'integer');
         }
         $sql .= " order by footer_sort_order, pages_title";
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $pages = array();
         while (!$results->EOF) {
@@ -174,7 +179,7 @@ class ZMEZPages extends ZMService {
 
 
     function &_newPage($fields) {
-        $page =& $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
+        $page = $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];
         $page->htmlText_ = $fields['pages_html_text'];

@@ -64,18 +64,19 @@ class ZMMediaManager extends ZMService {
      */
     function getMediaCollectionsForProductId($productId) {
         // media for product
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_MEDIA_TO_PRODUCTS . "
                 where product_id = :productId";
-        $sql = $this->getDB()->bindVars($sql, ":productId", $productId, "integer");
-        $productMedia = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
+        $productMedia = $db->Execute($sql);
 
         $collections = array();
         while (!$productMedia->EOF) {
             // all media collections
             $sql = "select * from " . TABLE_MEDIA_MANAGER . "
                     where media_id = :mediaId";
-            $sql = $this->getDB()->bindVars($sql, ":mediaId", $productMedia->fields['media_id'], "integer");
-            $mediaManager = $this->getDB()->Execute($sql);
+            $sql = $db->bindVars($sql, ":mediaId", $productMedia->fields['media_id'], "integer");
+            $mediaManager = $db->Execute($sql);
 
             while (!$mediaManager->EOF) {
                 $collection = $this->_newMediaCollection($mediaManager->fields);
@@ -83,15 +84,15 @@ class ZMMediaManager extends ZMService {
                 // all clips per collection
                 $sql = "select * from " . TABLE_MEDIA_CLIPS . "
                         where media_id = :mediaId";
-                $sql = $this->getDB()->bindVars($sql, ":mediaId", $mediaManager->fields['media_id'], "integer");
-                $clip = $this->getDB()->Execute($sql);
+                $sql = $db->bindVars($sql, ":mediaId", $mediaManager->fields['media_id'], "integer");
+                $clip = $db->Execute($sql);
 
                 while (!$clip->EOF) {
                     // plus clip types
                     $sql = "select * from " . TABLE_MEDIA_TYPES . "
                             where type_id = :typeId";
-                    $sql = $this->getDB()->bindVars($sql, ":typeId", $clip->fields['clip_type'], "integer");
-                    $clipType = $this->getDB()->Execute($sql);
+                    $sql = $db->bindVars($sql, ":typeId", $clip->fields['clip_type'], "integer");
+                    $clipType = $db->Execute($sql);
 
                     $media = $this->_newMedia($clip->fields, $clipType->fields);
                     Array_push($collection->items_, $media);
@@ -112,7 +113,7 @@ class ZMMediaManager extends ZMService {
      * Create new media collection instance.
      */
     function &_newMediaCollection($fields) {
-        $collection =& $this->create("MediaCollection");
+        $collection = $this->create("MediaCollection");
         $collection->name_ = $fields['media_name'];
 
         return $collection;
@@ -122,7 +123,7 @@ class ZMMediaManager extends ZMService {
      * Create new media instance.
      */
     function &_newMedia($clip, $type) {
-        $media =& $this->create("Media");
+        $media = $this->create("Media");
         $media->id_ = $clip['clip_id'];
         $media->filename_ = $clip['clip_filename'];
         $media->dateAdded_ = $clip['date_added'];

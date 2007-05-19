@@ -75,14 +75,15 @@ class ZMCountries extends ZMService {
         if (null != $this->countries_)
             return $this->countries_;
 
+        $db = $this->getDB();
         $sql = "select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id
                 from " . TABLE_COUNTRIES . "
                 order by countries_name";
 
         $this->countries_ = array();
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         while (!$results->EOF) {
-            $country =& $this->create("Country");
+            $country = $this->create("Country");
             $country->id_ = $results->fields['countries_id'];
             $country->name_ = $results->fields['countries_name'];
             $country->isoCode2_ = $results->fields['countries_iso_code_2'];
@@ -108,14 +109,15 @@ class ZMCountries extends ZMService {
 
 
     function getZoneCode($countryId, $zoneId, $defaultZone='') {
+        $db = $this->getDB();
         $sql = "select zone_code
                 from " . TABLE_ZONES . "
                 where zone_country_id = :countryId
                 and zone_id = :zoneId";
-        $sql = $this->getDB()->bindVars($sql, ":countryId", $countryId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":zoneId", $zoneId, "integer");
+        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
+        $sql = $db->bindVars($sql, ":zoneId", $zoneId, "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         if ($results->RecordCount() > 0) {
             return $results->fields['zone_code'];
         } else {
@@ -128,16 +130,18 @@ class ZMCountries extends ZMService {
         if (null == $countryId || '' == $countryId) {
             return array();
         }
+
+        $db = $this->getDB();
         $sql = "select distinct zone_code, zone_name
                   from " . TABLE_ZONES . "
                   where zone_country_id = :countryId
                   order by zone_name";
-        $sql = $this->getDB()->bindVars($sql, ":countryId", $countryId, "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
+        $results = $db->Execute($sql);
 
         $zones = array();
         while (!$results->EOF) {
-            $zone =& $this->create("IdNamePair", $results->fields['zone_code'], $results->fields['zone_name']);
+            $zone = $this->create("IdNamePair", $results->fields['zone_code'], $results->fields['zone_name']);
             $zones[$zone->getId()] = $zone;
             $results->MoveNext();
         }

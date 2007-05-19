@@ -112,9 +112,9 @@ class ZMRuntime {
      *
      * @return ZMTheme The current theme.
      */
-    function getTheme() {
+    function &getTheme() {
         if (null == $this->theme_) {
-            $this->theme_ =& new ZMTheme($this->getThemeId());
+            $this->theme_ = new ZMTheme($this->getThemeId());
         }
 
         return $this->theme_;
@@ -125,9 +125,9 @@ class ZMRuntime {
      *
      * @return ZMThemes A <code>ZMThemes</code> object.
      */
-    function getThemes() {
+    function &getThemes() {
         if (null == $this->themes_) {
-            $this->themes_ =& new ZMThemes();
+            $this->themes_ = new ZMThemes();
         }
 
         return $this->themes_;
@@ -139,12 +139,11 @@ class ZMRuntime {
      * @param string themeId The theme id or <code>null</code> for the current theme id.
      * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
      */
-    function getThemeForId($themeId=null) {
+    function &getThemeForId($themeId=null) {
         if (null == $themeId) {
             return $this->getTheme();
         }
-        $theme =& new ZMTheme($themeId);
-
+        $theme = new ZMTheme($themeId);
         return $theme;
     }
 

@@ -80,7 +80,7 @@ class ZMPayments extends ZMService {
         $zenTypes = $this->zenModules_->selection();
         $paymentTypes = array();
         foreach ($zenTypes as $zenType) {
-            $paymentType =& $this->create("PaymentType", $zenType['id'], $zenType['module']);
+            $paymentType = $this->create("PaymentType", $zenType['id'], $zenType['module']);
             if (isset($zenType['error'])) {
                 $paymentType->error_ = $zenType['error'];
             }

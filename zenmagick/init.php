@@ -26,9 +26,14 @@
 <?php
 
     error_reporting(E_ALL^E_NOTICE);
-    ini_set("display_errors",false);
-    ini_set("log_errors",true); 
+    ini_set("display_errors", true);
+    ini_set("log_errors", true); 
     @ini_set("register_globals", 0);
+
+    $_zm_1und1_error_logfile = dirname(__FILE__)."/error_log_1und1.php";
+    if (file_exists($_zm_1und1_error_logfile)) {
+        //include($_zm_1und1_error_logfile);
+    }
 
     // ZenMagick bootstrap
     $_zm_bin_file = dirname(__FILE__)."/core.php";
@@ -57,7 +62,7 @@
     }
 
     // use loader for all class loading from here?
-    $zm_runtime =& $zm_loader->create("ZMRuntime");
+    $zm_runtime = $zm_loader->create("ZMRuntime");
 
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {
@@ -103,8 +108,8 @@
     $zm_events = new ZMEvents();
 
     // these can be replaced by themes; will be reinitializes durin theme switching
-    $zm_crumbtrail =& $zm_loader->create('Crumbtrail');
-    $zm_meta =& $zm_loader->create('MetaTags');
+    $zm_crumbtrail = $zm_loader->create('Crumbtrail');
+    $zm_meta = $zm_loader->create('MetaTags');
 
     // global settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
@@ -117,9 +122,9 @@
 
     // load 
     if (zm_setting('isEnableZenMagick')) {
-        $zm_theme =& zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
+        $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
     } else {
-        $zm_theme =& $zm_runtime->getTheme();
+        $zm_theme = $zm_runtime->getTheme();
     }
     $zm_themeInfo = $zm_theme->getThemeInfo();
 

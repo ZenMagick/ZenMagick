@@ -67,18 +67,19 @@ class ZMManufacturers extends ZMService {
     global $zm_runtime;
 
         $manufacturer = null;
+        $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id
                 and mi.languages_id = :languageId)
                 where m.manufacturers_id = :manufacturerId";
-        $sql = $this->getDB()->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
-        $sql = $this->getDB()->bindVars($sql, ':manufacturerId', $id, 'integer');
+        $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
+        $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
         if (0 < $results->RecordCount()) {
-            $manufacturer =& $this->_newManufacturer($results->fields);
+            $manufacturer = $this->_newManufacturer($results->fields);
         }
 
         return $manufacturer;
@@ -102,13 +103,14 @@ class ZMManufacturers extends ZMService {
     function getManufacturers() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id
                 and mi.languages_id = :languageId)";
-        $sql = $this->getDB()->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
+        $results = $db->Execute($sql);
 
         $manufacturers = array();
         while (!$results->EOF) {
@@ -124,7 +126,7 @@ class ZMManufacturers extends ZMService {
      * Create new manufacturer instance.
      */
     function &_newManufacturer($fields) {
-        $manufacturer =& $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
+        $manufacturer = $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];
         $manufacturer->url_ = $fields['manufacturers_url'];
         return $manufacturer;

@@ -64,6 +64,7 @@ class ZMOrders extends ZMService {
     function &getOrderForId($orderId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
                 o.customers_street_address, o.customers_suburb, o.customers_city,
                 o.customers_postcode, o.customers_state, o.customers_country,
@@ -84,14 +85,14 @@ class ZMOrders extends ZMService {
                 and o.orders_status = s.orders_status_id
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
-        $sql = $this->getDB()->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $order = null;
         if (!$results->EOF) {
-            $order =& $this->_newOrder($results->fields);
+            $order = $this->_newOrder($results->fields);
         }
 
         return $order;
@@ -107,6 +108,7 @@ class ZMOrders extends ZMService {
     function getOrdersForAccountId($accountId, $limit=0) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -129,9 +131,9 @@ class ZMOrders extends ZMService {
                 and o.orders_status = s.orders_status_id
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
-        $sql = $this->getDB()->bindVars($sql, ":accountId", $accountId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-        $results = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $results = $db->Execute($sql);
 
         $orders = array();
         while (!$results->EOF) {
@@ -149,16 +151,17 @@ class ZMOrders extends ZMService {
     function _getOrderStatiForId($orderId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
                   from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                   where osh.orders_id = :orderId
                   and osh.orders_status_id = os.orders_status_id
                   and os.language_id = :languageId
                   order by osh.date_added";
-        $sql = $this->getDB()->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $stati = array();
         while (!$results->EOF) {
@@ -351,12 +354,13 @@ class ZMOrders extends ZMService {
      * @return array List of <code>ZMOrderItem</code> instances.
      */
     function getOrderTotals($orderId) {
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_ORDERS_TOTAL . "
                 where orders_id = :orderId
                 order by sort_order";
-        $sql = $this->getDB()->bindVars($sql, ":orderId", $orderId, "integer");
+        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
 
-        $results = $this->getDB()->Execute($sql);
+        $results = $db->Execute($sql);
 
         $totals = array();
         while (!$results->EOF) {

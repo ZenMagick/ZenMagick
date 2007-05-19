@@ -44,7 +44,7 @@ class ZMShipping extends ZMService {
         $this->provider_ = array();
         if (!class_exists('shipping')) {
             zm_resolve_zc_class('shipping');
-            $zenShipping =& new shipping();
+            $zenShipping = new shipping();
         } else {
             $zenShipping =& $shipping_modules;
         }

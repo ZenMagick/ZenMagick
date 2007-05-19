@@ -64,48 +64,49 @@ class ZMMusic extends ZMService {
     function &getArtistForProductId($productId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "
                 where products_id = :productId";
-        $sql = $this->getDB()->bindVars($sql, ":productId", $productId, "integer");
-        $extra = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
+        $extra = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_ARTISTS . "
                 where artists_id = :artistId";
-        $sql = $this->getDB()->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
-        $artist = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
+        $artist = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_ARTISTS_INFO . "
                 where artists_id = :artistId
                 and languages_id = :languageId";
-        $sql = $this->getDB()->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-        $artistInfo = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $artistInfo = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_COMPANY . "
                 where record_company_id = :recordCompanyId";
-        $sql = $this->getDB()->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
-        $recordCompany = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
+        $recordCompany = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_COMPANY_INFO . "
                 where record_company_id = :recordCompanyId
                 and languages_id = :languageId";
-        $sql = $this->getDB()->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
-        $sql = $this->getDB()->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
-        $recordCompanyInfo = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
+        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $recordCompanyInfo = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_MUSIC_GENRE . "
                 where music_genre_id = :genreId";
-        $sql = $this->getDB()->bindVars($sql, ":genreId", $extra->fields['music_genre_id'], "integer");
-        $musicGenre = $this->getDB()->Execute($sql);
+        $sql = $db->bindVars($sql, ":genreId", $extra->fields['music_genre_id'], "integer");
+        $musicGenre = $db->Execute($sql);
 
-        $theArtist =& $this->create("Artist");
+        $theArtist = $this->create("Artist");
         $theArtist->id_ = $artist->fields['artists_id'];
         $theArtist->name_ = $artist->fields['artists_name'];
         $theArtist->genre_ = $musicGenre->fields['music_genre_name'];
         $theArtist->image_ = $artist->fields['artists_image'];
         $theArtist->url_ = $artistInfo->fields['artists_url'];
 
-        $theRecordCompany =& $this->create("RecordCompany");
+        $theRecordCompany = $this->create("RecordCompany");
         $theRecordCompany->id_ = $extra->fields['record_company_id'];
         $theRecordCompany->name_ = $recordCompanyInfo->fields['record_company_name'];
         $theRecordCompany->url_ = $recordCompanyInfo->fields['record_company_url'];

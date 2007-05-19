@@ -104,6 +104,7 @@ Release 0.8.0
   dropdown; also, the email template will not work when using zen-cart request
 	handling
 - fixed ZMImageInfo and zm_absolute_href (thanks, Matt)
+- went over all =& assignements to get rid of most PHP5 deprecated messages
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite

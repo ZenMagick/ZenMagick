@@ -69,7 +69,7 @@ if (!class_exists("ZMObject")) {
          * @param var args A variable number of arguments that will be used as arguments for
          * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
          */
-        function &create($name) {
+        function create($name) {
             $args = func_get_args();
             array_shift($args);
             return $this->loader_->createWithArgs($name, $args);
@@ -622,7 +622,7 @@ if (!class_exists("ZMObject")) {
         $themeInfo =& $theme->getThemeInfo();
 
         // configure theme loader
-        $themeLoader =& new ZMLoader("themeLoader");
+        $themeLoader = new ZMLoader("themeLoader");
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader
@@ -639,7 +639,7 @@ if (!class_exists("ZMObject")) {
             $currentClazz = strtolower(get_class($$name));
             if ($currentClazz != $zm_loader->load($clazz)) {
                 // update only if changed
-                $$name =& $zm_loader->create($clazz);
+                $$name = $zm_loader->create($clazz);
             }
         }
 
@@ -672,7 +672,7 @@ if (!class_exists("ZMObject")) {
     function zm_dispatch() {
     global $zm_runtime, $zm_request, $zm_loader;
 
-        $controller =& $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
             $controller =& $zm_loader->create("DefaultController");
         }

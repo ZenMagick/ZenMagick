@@ -59,16 +59,17 @@ class ZMReviews extends ZMService {
     function getReviewCount($product) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $query = "select count(*) as count
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                 where r.products_id = :productId
                   and r.reviews_id = rd.reviews_id
                   and rd.languages_id = :languageId
                   and r.status = '1'";
-        $query = $this->getDB()->bindVars($query, ":productId", $product->getId(), 'integer');
-        $query = $this->getDB()->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":productId", $product->getId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
-        $results = $this->getDB()->Execute($query);
+        $results = $db->Execute($query);
         return $results->fields['count'];
     }
 
@@ -76,6 +77,7 @@ class ZMReviews extends ZMService {
     function getRandomReviews($productId=null, $max=1) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -87,16 +89,16 @@ class ZMReviews extends ZMService {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $this->getDB()->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         if (null != $productId) {
-            $query .= $this->getDB()->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
+            $query .= $db->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
         }
         $query .= " limit " . MAX_RANDOM_SELECT_REVIEWS;
 
         $reviews = array();
         while ($max > count($reviews)) {
-            $results = $this->getDB()->ExecuteRandomMulti($query, $max);
+            $results = $db->ExecuteRandomMulti($query, $max);
             while (!$results->EOF) {
                 $review = $this->_newReview($results->fields);
                 array_push($reviews, $review);
@@ -118,6 +120,7 @@ class ZMReviews extends ZMService {
     function getReviewsForProductId($productId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -130,13 +133,13 @@ class ZMReviews extends ZMService {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and p.products_id = :productId";
-        $query = $this->getDB()->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
-        $query = $this->getDB()->bindVars($query, ":productId", $productId, 'integer');
+        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":productId", $productId, 'integer');
 
         $reviews = array();
-        $results = $this->getDB()->Execute($query);
+        $results = $db->Execute($query);
         while (!$results->EOF) {
-            $review =& $this->_newReview($results->fields);
+            $review = $this->_newReview($results->fields);
             array_push($reviews, $review);
             $results->MoveNext();
         }
@@ -148,6 +151,7 @@ class ZMReviews extends ZMService {
     function getAllReviews() {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -159,12 +163,12 @@ class ZMReviews extends ZMService {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $this->getDB()->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         $reviews = array();
-        $results = $this->getDB()->Execute($query);
+        $results = $db->Execute($query);
         while (!$results->EOF) {
-            $review =& $this->_newReview($results->fields);
+            $review = $this->_newReview($results->fields);
             array_push($reviews, $review);
             $results->MoveNext();
         }
@@ -176,6 +180,7 @@ class ZMReviews extends ZMService {
     function &getReviewForId($reviewId) {
     global $zm_runtime;
 
+        $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -188,30 +193,31 @@ class ZMReviews extends ZMService {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and r.reviews_id = :reviewId";
-        $query = $this->getDB()->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
-        $query = $this->getDB()->bindVars($query, ":reviewId", $reviewId, 'integer');
+        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
 
-        $results = $this->getDB()->Execute($query);
+        $results = $db->Execute($query);
         $review = null;
         if (!$results->EOF) {
-            $review =& $this->_newReview($results->fields);
+            $review = $this->_newReview($results->fields);
         }
         return $review;
     }
 
 
     function updateViewCount($reviewId) {
+        $db = $this->getDB();
         $query = "update " . TABLE_REVIEWS . "
                   set reviews_read = reviews_read+1
                   where reviews_id = :reviewId";
-        $query = $this->getDB()->bindVars($query, ":reviewId", $reviewId, 'integer');
+        $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
 
-        $result = $this->getDB()->Execute($sql);
+        $result = $db->Execute($sql);
     }
 
 
     function &_newReview($fields) {
-        $review =& $this->create("Review");
+        $review = $this->create("Review");
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];
         $review->text_ = $fields['reviews_text'];
