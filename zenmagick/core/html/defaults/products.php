@@ -174,7 +174,7 @@
         if ($value->isFree() && $product->isFree()) {
             $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), false));
         } else if (0 != $value->getPrice()) {
-            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency($value->getPrice(), false));
+            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency(abs($value->getPrice()), false));
         }
         //TODO: onetime and weight
 

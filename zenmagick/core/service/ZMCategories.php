@@ -201,7 +201,7 @@ class ZMCategories extends ZMService {
     function _buildTree() {
         foreach ($this->categories_ as $id => $category) {
             if (0 != $category->parentId_) {
-                $parent = $this->categories_[$category->parentId_];
+                $parent =& $this->categories_[$category->parentId_];
                 array_push($parent->childrenIds_, $id);
             }
         }

@@ -17,7 +17,7 @@ Release 0.8.0
 	this means all required is to set up validation rules and create the form
 	using zm_form or zm_secure_form!
 - make ZenMagick code fail gracefully *if* all patches are reverted *and* the
-  zenmagick folder gets removed (I know this still leaves a trail fo unused
+  zenmagick folder gets removed (I know this still leaves a trail of unused
 	files, but still better than what we have now)
 - added a meta tag: generator = ZenMagick [version] to the default_layout
 - fixed server side validation code (has not been used until now)
@@ -84,7 +84,7 @@ Release 0.8.0
 - added ZMUrlMapper to make response views configurable (via
   ZMController::findView(...))
 - removed some .htaccess rules that do not seem to work too well with
-  comemrcially hosted sites (missing images and CSS) ... I'll think about
+  commercially hosted sites (missing images and CSS) ... I'll think about
 	replacements once I am not so tired any more
 - added console permanently to admin (rather than having it sitting in etc);
   you can always delete the file in admin if you do not want it...
@@ -105,6 +105,9 @@ Release 0.8.0
 	handling
 - fixed ZMImageInfo and zm_absolute_href (thanks, Matt)
 - went over all =& assignements to get rid of most PHP5 deprecated messages
+- fixed wrong lookup of additional images (thanks again, Matt)
+- fixed negative product price in dropdown for attribute controlled discounts
+  (when setting the price prefix to '-') - and again, thanks Matt!
 
 Release 0.7.1
 - ZMCategories/ZMCategory rewrite

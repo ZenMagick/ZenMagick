@@ -30,7 +30,7 @@
     ini_set("log_errors", true); 
     @ini_set("register_globals", 0);
 
-    $_zm_1und1_error_logfile = dirname(__FILE__)."/error_log_1und1.php";
+    $_zm_1und1_error_logfile = dirname(__FILE__)."/error_log_1and1.php";
     if (file_exists($_zm_1und1_error_logfile)) {
         //include($_zm_1und1_error_logfile);
     }

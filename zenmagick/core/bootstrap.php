@@ -332,7 +332,8 @@ if (!class_exists("ZMObject")) {
         $realImageBase = basename($comp[2]);
 
         // directory to scan
-        $dirname = zm_image_href($sizedir.$subdir, false);
+        $dirname = DIR_FS_CATALOG.DIR_WS_IMAGES.$subdir;
+        //$dirname = zm_image_href($sizedir.$subdir, false);
 
         $imageList = array();
         if ($dir = @dir($dirname)) {
