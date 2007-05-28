@@ -613,10 +613,7 @@ if (!class_exists("ZMObject")) {
     global $zm_runtime, $zm_request, $zm_loader;
 
         // get root loader
-        $rootLoader =& $zm_loader;
-        while (null != $rootLoader->parent_) {
-            $rootLoader =& $rootLoader->parent_;
-        }
+        $rootLoader = zm_get_root_loader();
 
         // set up theme
         $theme =& $zm_runtime->getThemeForId($themeId);
@@ -661,6 +658,22 @@ if (!class_exists("ZMObject")) {
         zm_i18n_finalise();
 
         return $theme;
+    }
+
+    /**
+     * Get the root loader.
+     *
+     * @return ZMLoader The root loader.
+     */
+    function &zm_get_root_loader() {
+    global $zm_loader;
+
+        // get root loader
+        $rootLoader =& $zm_loader;
+        while (null != $rootLoader->parent_) {
+            $rootLoader =& $rootLoader->parent_;
+        }
+        return $rootLoader;
     }
 
     /**

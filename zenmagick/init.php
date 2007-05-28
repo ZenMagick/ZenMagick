@@ -149,18 +149,52 @@
 
     // upset plugins :)
     $zm_plugins =& new ZMPlugins();
+    $pluginLoader =& new ZMLoader("pluginLoader");
     foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
         if ($plugin->isInstalled() && $plugin->isEnabled()) {
             $plugin->init();
+            $pluginLoader->addPath($plugin->getPluginDir());
             $pluginId = $plugin->getId();
             $$pluginId = $plugin;
         }
     }
+    // plugins prevail over defaults, but not themes
+    $rootLoader = zm_get_root_loader();
+    $rootLoader->setParent($pluginLoader);
 
     // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
     if (/*'GET' == $_SERVER['REQUEST_METHOD'] || **/
         ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList')))) {
         $code_page_directory = 'zenmagick';
     }
+
+    $text = "
+* abc
+** xx1
+### zzzz
+### aahh
+** xx2
+* def
+
+# foo
+# bar
+
+; foo : bar
+; foo : bar
+";
+echo _replaceList($text);
+	function _replaceList( &$text ) {
+		//create <######>..</######> pseudo tags for string replacement, level 3 down to 1
+		$text = preg_replace( '/\n([\*#;]{3,3})(.*?)\n(?![#\*;]{3,3})/si', "\n<\\1\\1l>\\1\\2</\\1\\1l>\n", $text );
+		$text = preg_replace( '/\n([\*#;]{2,2})(?![\*#];)(.*?)\n(?!([#\*;]{2,3}|<[#\*;]{6,6}l>))/si', "\n<\\1\\1\\1l>\\1\\2</\\1\\1\\1l>\n", $text );
+		$text = preg_replace( '/\n([\*#;])(?![\*#;])(.*?)\n(?!([#\*;]{1,3}|<[#\*;]{6,6}l>))/si', "\n<\\1\\1\\1\\1\\1\\1l>\\1\\2</\\1\\1\\1\\1\\1\\1l>\n", $text );
+		//convert pseudo tags into HTML list tags
+		$text = str_replace( array('######l>', '******l>', ';;;;;;l>'), array('ol>', 'ul>', 'dl>'), $text );
+		//create list item tags <li> and <dt>,<dd>
+		//$text = preg_replace( '/(\n<[uo]l>|\n)[\*#]{1,3} /si', '\1<li>', $text );
+		$text = preg_replace( '/(\n<[uo]l>|\n)[\*#]{1,3}\s*([^\n<]*)/si', '\1<li>\2</li>', $text );
+		$text = preg_replace( '/(\n<dl>|\n)[;]{1,3}\s*(\[{0,2})(.+?)(\]{0,2})\s*:\s*([^\n<]*)/si', '\1<dt><a name="\3">\2\3\4</a></dt><dd>\5</dd>', $text );
+        return $text;
+	}
 
 ?>

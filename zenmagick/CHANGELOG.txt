@@ -1,3 +1,7 @@
+Release 0.8.1
+- add active plugins to loader path; that means effectively, plugins may
+  override any *default* class or controller
+
 Release 0.8.0
 - added cookie_usage view
 - added code to allow ZenMagick to actually process POST requests
