@@ -33,7 +33,8 @@
     // global
     $zm_urlMapper->addMapping(null, 'error', 'error');
     $zm_urlMapper->addMapping(null, 'index', 'index');
-    $zm_urlMapper->addMapping(null, 'login', 'login');
+    $zm_urlMapper->addMapping(null, 'login', 'login', false, true);
+    $zm_urlMapper->addMapping(null, 'cookie_usage', 'cookie_usage', true, false);
 
 
     // address_book_process
@@ -63,6 +64,7 @@
     // login
     $zm_urlMapper->addMapping('login', 'login', null, false, true);
     $zm_urlMapper->addMapping('login', 'account', 'success', true, true);
+    $zm_urlMapper->addMapping('login', 'account', 'account', true, true);
 
     // password_forgotten
     $zm_urlMapper->addMapping('password_forgotten');

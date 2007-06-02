@@ -188,30 +188,6 @@ class ZMAjaxController extends ZMController {
         return $this->json_->encode($obj);
     }
 
-    /**
-     * <strong>Experimental:</strong> Call zen-cart page controller code.
-     *
-     * @param string page The page name (main_page).
-     */
-    function callZCPageController($page) {
-        // fake global
-        foreach ($GLOBALS as $name => $instance) {
-            if (!zm_starts_with($name, "_")) {
-                $$name = $instance;
-            }
-        }
-
-        $code_page_directory = DIR_WS_MODULES . 'pages/' . $page;
-
-        // from index.php
-        $language_page_directory = DIR_WS_LANGUAGES . $_SESSION['language'] . '/';
-        $directory_array = $template->get_template_part($code_page_directory, '/^header_php/');
-        foreach ($directory_array as $value) {
-            require($code_page_directory . '/' . $value);
-        }
-        require($template->get_template_dir('main_template_vars.php', DIR_WS_TEMPLATE, $current_page_base,'common'). '/main_template_vars.php');
-    }
-
 }
 
 ?>

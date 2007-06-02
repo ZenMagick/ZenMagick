@@ -34,6 +34,7 @@
 class ZMController extends ZMObject {
     var $id_;
     var $globals_;
+    var $view_;
 
 
     /**
@@ -111,6 +112,7 @@ class ZMController extends ZMObject {
 
         if (null != $view) {
             $view->setController($this);
+            $this->view_ =& $view;
         }
 
         return $view;
@@ -200,15 +202,10 @@ class ZMController extends ZMObject {
     function &findView($id=null) {
     global $zm_urlMapper;
 
-        // same page and controller name *must* be the same as the logic to build the controller name
-        // in the first place is based on that fact!
-        //$id = null !== $id ? $id : $this->id_;
+        // page and controller name *must* be the same as the logic to 
+        // build the controller name is based on that fact!
         $view =& $zm_urlMapper->getView($this->id_, $id);
         return $zm_urlMapper->getView($this->id_, $id);
-
-        //$view =& $this->create((zm_setting('isPageCacheEnabled') ? "CachedThemeView" : "ThemeView"), $id);
-        $view =& $this->create("PageView", $id);
-        return $view;
     }
 
     /**
@@ -239,6 +236,15 @@ class ZMController extends ZMObject {
         }
 
         return $valid;
+    }
+
+    /**
+     * Get the current view.
+     *
+     * @return ZMView The view or <code>null</code>.
+     */
+    function &getView() {
+        return $this->view_;
     }
 
 }

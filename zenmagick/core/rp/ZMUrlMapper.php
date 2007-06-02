@@ -115,42 +115,48 @@ class ZMUrlMapper extends ZMObject {
 
         if (isset($map[$id])) {
             // return mapping
-            return $this->_mkView($map[$id]);
+            return $this->_mkView($map[$id], $id);
         } else {
             if (isset($this->mappings_[$controller])) {
                 // try defaults
                 $map = $this->mappings_[_ZM_DEFAULT_MAPPING_ID];
                 if (isset($map[$id])) {
                     // return default
-                    return $this->_mkView($map[$id]);
+                    return $this->_mkView($map[$id], $id);
                 }
             }
         }
       
-        // make id===controller behave the same as id===nul
+        // make id===controller behave the same as id===null
         if ($controller == $id && isset($this->mappings_[$controller])) {
             $map = $this->mappings_[$controller];
             if (isset($map[_ZM_DEFAULT_MAPPING_ID])) {
-                return $this->_mkView($map[_ZM_DEFAULT_MAPPING_ID]);
+                return $this->_mkView($map[_ZM_DEFAULT_MAPPING_ID], $id);
             }
         }
 
         //zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, 1);
-        return $this->create("PageView", $controller);
+        $view = $this->create("PageView", $controller);
+        $view->setMappingId($id);
+        return $view;
     }
 
     /**
      * Create new view based on the given parameter.
      *
      * @param array mapping A mapping.
+     * @param string id The mapping id.
      * @return ZMView A view.
      */
-    function &_mkView($mapping) {
+    function &_mkView($mapping, $id) {
+        $view = null;
         if ($mapping['redirect']) {
-            return $this->create("RedirectView", $mapping['view'], $mapping['secure']);
+            $view = $this->create("RedirectView", $mapping['view'], $mapping['secure']);
         } else {
-            return $this->create("PageView", $mapping['view']);
+            $view = $this->create("PageView", $mapping['view']);
         }
+        $view->setMappingId($id);
+        return $view;
     }
 
 }

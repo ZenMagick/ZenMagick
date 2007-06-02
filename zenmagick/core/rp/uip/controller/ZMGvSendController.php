@@ -70,13 +70,13 @@ class ZMGvSendController extends ZMController {
         $this->exportGlobal("zm_account", $zm_request->getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
-        $view =& $this->create("ThemeView", 'gv_send');
+        $viewName = null;
         if ('doneprocess' == $zm_request->getRequestParameter('action')) {
             $zm_messages->success(zm_l10n_get("Gift Certificate successfully send."));
-            //$view =& new ZMRedirectView('account');
+            $viewName = 'success';
         }
 
-        return $view;
+        return $this->findView($viewName);
     }
 
     /**

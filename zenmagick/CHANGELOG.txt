@@ -1,6 +1,19 @@
-Release 0.8.1
+Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may
   override any *default* class or controller
+- fixed title for homepage, category, category_list, manufacturer and ezpages
+  (ZMMetaTags)
+- made view accessible from controller
+- fixed a few leftover hardcoded response views from controllers
+- added mapping id to ZMView
+- moved ZMAjaxController::callZCPageController(..) as zm_call_zc_page into the
+  misc package
+- moved ZMPageView a bit, removed oboslete ZMThemeView
+- added ZMPluginView to allow controller added by a plugin to serve custom
+  content views from within the plugin folder
+- added setting to enable/disable adding the store name to the page title
+- fixed broken create account (email template was missin $zm_account)
+- fixed source_view view
 
 Release 0.8.0
 - added cookie_usage view

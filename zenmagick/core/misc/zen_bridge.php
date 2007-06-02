@@ -26,6 +26,62 @@
 <?php
 
     /**
+     * <strong>Experimental:</strong> Call zen-cart page controller code.
+     *
+     * <p>All variables created by zen-cart code that the caller wants to
+     * access need to be included in the globals list in order to declare
+     * the global...</p>
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string page The page name (main_page).
+     * @param mixed globals Either an array or comma separated list of names to be treated as globals.
+     */
+    function zm_call_zc_page($page, $globals=null) {
+        // fake global
+        foreach ($GLOBALS as $name => $instance) {
+            if (!zm_starts_with($name, "_")) {
+                $$name = $instance;
+            }
+        }
+        if (null != $globals) {
+            if (!is_array($globals)) {
+                $globals = explode(':', $globals);
+            }
+            $cmd = 'global ';
+            $first = true;
+            foreach ($globals as $global) {
+                if (!$first) { $cmd .= ', '; }
+                $cmd .= '$'.$global;
+            }
+            $cmd .= ';';
+            eval($cmd);
+        }
+
+
+        if (defined('ZM_EXTERNAL_CALL')) {
+            // make sure we are in the right working directory...
+            chdir($zm_ext_zenroot);
+        }
+
+        $code_page_directory = DIR_WS_MODULES . 'pages/' . $page;
+
+        // from index.php
+        $language_page_directory = DIR_WS_LANGUAGES . $_SESSION['language'] . '/';
+        $directory_array = $template->get_template_part($code_page_directory, '/^header_php/');
+        foreach ($directory_array as $value) {
+            require($code_page_directory . '/' . $value);
+        }
+        require($template->get_template_dir('main_template_vars.php', DIR_WS_TEMPLATE, $current_page_base,'common'). '/main_template_vars.php');
+
+        // and back...
+        if (defined('ZM_EXTERNAL_CALL')) {
+            // make sure we are in the right working directory...
+            chdir($zm__ext_cwd);
+        }
+    }
+
+
+    /**
      * A few wrapper around common zen methods and other stuff.
      * This is not to claim functionallity, but to keep track of zen-cart
      * dependencies.

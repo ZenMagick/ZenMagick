@@ -366,6 +366,8 @@ if (!class_exists("ZMObject")) {
 
     /**
      * Simple helper to strip unwanted stuff from a stack trace.
+     *
+     * @package net.radebatz.zenmagick
      */
     function _zm_clean_backtrace($stack) {
         foreach (array('db_', 'loader_') as $ignore) {
@@ -485,6 +487,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Remove a directory (tree).
      *
+     * @package net.radebatz.zenmagick
      * @param string dir The directory name.
      * @param bool recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
      */
@@ -511,6 +514,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get class hierachy for the given class/object.
      *
+     * @package net.radebatz.zenmagick
      * @param mixed object The object or class name.
      * @return array The class hierachy.
      */
@@ -663,6 +667,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get the root loader.
      *
+     * @package net.radebatz.zenmagick
      * @return ZMLoader The root loader.
      */
     function &zm_get_root_loader() {
@@ -698,6 +703,7 @@ if (!class_exists("ZMObject")) {
 
             // execute controller
             $view = $controller->process();
+            $controller->exportGlobal("zm_view", $view);
 
             // generate response
             if (null != $view) {
@@ -730,6 +736,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Fire an event.
      *
+     * @package net.radebatz.zenmagick
      * @param mixed source The event source.
      * @param string eventId The event id.
      * @param array args Optional additional parameter; default is <code>null</code>.

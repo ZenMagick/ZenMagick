@@ -44,6 +44,7 @@ class ZMMetaTags extends ZMObject {
     var $topCategories_ = null;
     var $crumbtrail_ = null;
     var $product_ = null;
+    var $category_ = null;
     var $keywordDelimiter_;
 
 
@@ -84,7 +85,7 @@ class ZMMetaTags extends ZMObject {
      * @return string The page title.
      */
     function getTitle($echo=true) {
-    global $zm_request, $zm_page;
+    global $zm_request;
 
         $this->_initMetaTags();
 
@@ -99,16 +100,26 @@ class ZMMetaTags extends ZMObject {
         }
 
         // special handling for categories, manufacturers
-        if ('index' == $zm_request->getPageName()) {
-            $title = $this->_formatCrumbtrail();
-        } else if (zm_starts_with($zm_request->getPageName(), 'product_')) {
+        $controller = $zm_request->getController();
+        $view = $controller->getView();
+        $name = $view->getName();
+        if ('index' == $name) {
+            $title = zm_setting('storeName');
+        } else if (zm_starts_with($name, 'product_')) {
             $title = $this->product_;
-        } else if ('page' == $zm_request->getPageName() && isset($zm_page)) {
-            $title = $zm_page->getTitle();
+        } else if ('category' == $name || 'category_list' == $name || 'manufacturer' == $name) {
+            $title = $this->category_;
+        } else if ('page' == $name) {
+            $ezpage = $controller->getGlobal("zm_page");
+            if (null != $ezpage) {
+                $title = $ezpage->getTitle();
+            }
         }
 
-        if (0 < strlen($title)) $title .= zm_setting('metaTitleDelimiter');
-        $title .= zm_setting('storeName');
+        if (zm_setting('isStoreNameInTitle')) {
+            if (0 < strlen($title)) $title .= zm_setting('metaTitleDelimiter');
+            $title .= zm_setting('storeName');
+        }
 
         $title = zm_htmlencode($title, false);
 
@@ -174,6 +185,7 @@ class ZMMetaTags extends ZMObject {
         $this->_loadTopCategories();
         $this->_loadCrumbtrail();
         $this->_loadProduct();
+        $this->_loadCategory();
     }
 
 
@@ -244,6 +256,25 @@ class ZMMetaTags extends ZMObject {
 
         $product = $zm_products->getProductForId($zm_request->getProductId());
         $this->product_ = $product->getName() . ' [' . $product->getModel() . ']';
+    }
+
+    /**
+     * Load category info.
+     */
+    function _loadCategory() {
+    global $zm_request, $zm_categories, $zm_manufacturers;
+
+        if (null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId()) {
+            return;
+        }
+
+        if (null != $zm_request->getCategoryPath()) {
+            $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+            $this->category_ = $category->getName();
+        } else if (null != $zm_request->getManufacturerId()) {
+            $manufacturer = $zm_manufacturers->getManufacturerForId($zm_request->getManufacturerId());
+            $this->category_ = $manufacturer->getName();
+        }
     }
 
 }

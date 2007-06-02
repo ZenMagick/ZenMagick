@@ -34,27 +34,30 @@
 class ZMView extends ZMObject {
     var $controller_;
     var $name_;
-
+    var $mappingId_;
 
 
     /**
      * Create new view for the given name.
      *
      * @param string name The view name.
+     * @param string mapping The mapping id.
      */
-    function ZMView($name) {
+    function ZMView($name, $mappingId=null) {
         parent::__construct();
 
         $this->name_ = $name;
+        $this->mapping_ = $mappingId;
     }
 
     /**
      * Create new view for the given name.
      *
      * @param string name The view name.
+     * @param string mappingId The mapping id.
      */
-    function __construct($name) {
-        $this->ZMView($name);
+    function __construct($name, $mappingId=null) {
+        $this->ZMView($name, $mappingId);
     }
 
     /**
@@ -123,6 +126,24 @@ class ZMView extends ZMObject {
      * @return ZMController The corresponding controller.
      */
     function getController() { return $this->controller_; }
+
+    /**
+     * Get the mapping id for this view.
+     *
+     * @return string The mapping id.
+     */
+    function getMappingId() {
+        return $this->mappingId_;
+    }
+
+    /**
+     * Set the mapping id for this view.
+     *
+     * @param string mapping The mapping id.
+     */
+    function setMappingId($mappingId) {
+        $this->mappingId_ = $mappingId;
+    }
 
 }
 

@@ -88,7 +88,7 @@ class ZMBanners extends ZMService {
      * Get one (random) or more banner based on the given banner group(s).
      *
      * <p>If <code>$all</code> is set to <code>true, all matching banners will be returned.</p>
-     * <p>Thus, <code>getAllBanner()</code> translates into <code>getbannerForName(SHOW_BANNERS_GROUP_SET_ALL, true)</code>.</p>
+     * <p>Thus, <code>getAllBanner()</code> translates into <code>getBannerForName(SHOW_BANNERS_GROUP_SET_ALL, true)</code>.</p>
      *
      * @param string identifiers One ore more identifiers, separated by ':'.
      * @param bool all If set to <code>true</code>, all banners will be returned, ordered in 

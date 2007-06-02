@@ -83,12 +83,12 @@ class ZMAccountPasswordController extends ZMController {
         $session = new ZMSession();
 
         if (!$session->isValid()) {
-            return $this->create("RedirectView", 'login');
+            return $this->findView('login');
         }
 
         if ($session->isGuest()) {
             // not logged in
-            return $this->create("RedirectView", 'login');
+            return $this->findView('login');
         }
 
         if (!$this->validate('account_password')) {

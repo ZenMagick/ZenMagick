@@ -68,12 +68,12 @@ class ZMLoginController extends ZMController {
         $session = new ZMSession();
 
         if (!$session->isValid()) {
-            return $this->create("RedirectView", 'cookie_usage');
+            return $this->findView('cookie_usage');
         }
 
         if (!$session->isGuest()) {
             // already logged in
-            return $this->create("RedirectView", 'account');
+            return $this->findView('account');
         }
 
         if (!$this->validate('login')) {

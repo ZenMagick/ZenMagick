@@ -127,6 +127,7 @@ class ZMEvents extends ZMObject {
      * @param array args Optional parameter; default is <code>null</code>.
      */
     function update(&$notifier, $eventId, $args=null) {
+        zm_log('fire zen-cart event: ' . $eventId, 3);
         $method = $this->event2method($eventId);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {

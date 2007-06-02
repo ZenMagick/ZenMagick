@@ -224,6 +224,7 @@
     $_ZM_SETTINGS['metaTagCrumbtrailDelimiter'] = ' - ';
     $_ZM_SETTINGS['metaTitleDelimiter'] = ' :: ';
     $_ZM_SETTINGS['metaTitlePrefix'] = 'title_';
+    $_ZM_SETTINGS['isStoreNameInTitle'] = true;
 
     // flags :)
     $_ZM_SETTINGS['flagMaxColumns'] = MAX_LANGUAGE_FLAGS_COLUMNS;
