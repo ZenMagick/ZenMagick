@@ -14,6 +14,7 @@ Release 0.8.0.1
 - added setting to enable/disable adding the store name to the page title
 - fixed broken create account (email template was missin $zm_account)
 - fixed source_view view
+- added example of using ZenMagick from external PHP files
 
 Release 0.8.0
 - added cookie_usage view
