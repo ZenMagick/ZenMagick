@@ -1,3 +1,15 @@
+Release 0.8.1
+- added replacement method for ZMRequest::getRequestParameter() called
+  ZMRequest::getParameter(...)
+- added ZMConfigGroup and a few more methods to ZMConfig
+- added ZMRequest::isAdmin() to check for admin context
+- allow the page value of a view to be a function rather than a view filename;
+  requires change to layout files
+- allow themes to override plugin view files
+- added ZMCrumbtrail::clear() method
+- renamed ZMPluginFilter ZMPluginHandler, renamed
+  ZMPluginHandler::applyFilter(..) to ZMPluginHandler::filterResponse(..)
+
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may
   override any *default* class or controller

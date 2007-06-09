@@ -25,29 +25,28 @@
 
 
 /**
- * Plugin filter.
+ * Plugin adding a simple wiki.
  *
- * <p>Plugin filter may be used to manipulate contents before it is returned
- * to the client.</p>
+ * <p>This plugin is based on pawfaliki (http://www.pawfal.org/pawfaliki).</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins
+ * @package net.radebatz.zenmagick.plugins.zm_wiki
  * @version $Id$
  */
-class ZMPluginFilter extends ZMObject {
+class zm_wiki extends ZMPlugin {
 
     /**
      * Default c'tor.
      */
-    function ZMPluginFilter() {
-        parent::__construct();
+    function zm_wiki() {
+        parent::__construct('Pawfaliki Wiki', 'Adds a Wiki.');
     }
 
     /**
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMPluginFilter();
+        $this->zm_wiki();
     }
 
     /**
@@ -57,15 +56,14 @@ class ZMPluginFilter extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
-     * Apply this filter to the given contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * Install this plugin.
      */
-    function applyFilter($contents) {
-        return $contents;
+    function install() {
+        parent::install();
+
+        zm_mkdir(str_replace('/', DIRECTORY_SEPARATOR, DIR_FS_CATALOG."wiki/files/"));
+        zm_mkdir(str_replace('/', DIRECTORY_SEPARATOR, DIR_FS_CATALOG."wiki/tmp/"));
     }
 
 }

@@ -117,7 +117,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The request product id or <code>0</code>.
      */
-    function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getRequestParameter("productId", 0); }
+    function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getParameter("productId", 0); }
 
     /**
      * Get the request model number.
@@ -131,7 +131,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.
      */
-    function getCategoryPath() { return $this->getRequestParameter('cPath', null); }
+    function getCategoryPath() { return $this->getParameter('cPath', null); }
 
     /**
      * Get the category path arry.
@@ -199,9 +199,38 @@ class ZMRequest extends ZMObject {
      * @param string name The paramenter name.
      * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
      * @return string The parameter value or the default value or <code>null</code>.
+     * @deprecated use getParameter() instead
      */
     function getRequestParameter($name, $default=null) { 
         return isset($_GET[$name]) ? zm_sanitize($_GET[$name]) : (isset($_POST[$name]) ? zm_sanitize($_POST[$name]) : $default);
+    }
+
+    /**
+     * Generic access method for request parameter.
+     *
+     * <p>This method is evaluating both <code>GET</code> and <code>POST</code> parameter.</p>
+     *
+     * @param string name The paramenter name.
+     * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
+     * @param bool sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
+     * @return string The parameter value or the default value or <code>null</code>.
+     */
+    function getParameter($name, $default=null, $sanitize=true) { 
+        $value = $default;
+        $isDefault = true;
+        if (isset($_GET[$name])) {
+            $value = $_GET[$name];
+            $isDefault = false;
+        } else if (isset($_POST[$name])) {
+            $value = $_POST[$name];
+            $isDefault = false;
+        }
+
+        if ($isDefault && $sanitize) {
+            $value = zm_sanitize($value);
+        }
+
+        return $value;
     }
 
     /**
@@ -255,6 +284,16 @@ class ZMRequest extends ZMObject {
             $base = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
         }
          return $base;
+    }
+
+    /**
+     * Check if we are running as admin.
+     *
+     * @return bool <code>true</code> if code execution is in the context of an admin page,
+     *  <code>false</code> if not.
+     */
+    function isAdmin() {
+        return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
     }
 
 }

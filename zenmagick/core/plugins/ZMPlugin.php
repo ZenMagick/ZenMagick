@@ -411,12 +411,12 @@ class ZMPlugin extends ZMService {
     }
 
     /**
-     * Get an optional page contents filter from this plugin.
+     * Get the plugin handler.
      *
-     * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
+     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPageFilter() {
+    function getPluginHandler() {
         return null;
     }
 

@@ -106,7 +106,7 @@
             </ul>
         <?php } ?>
 
-        <?php include($zm_view->getViewFilename()) ?>
+        <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
 
         <?php $bannerBox = $zm_banners->getBannerForIndex(4); if (null != $bannerBox) { ?>
             <div id="bannerFour"><?php zm_display_banner($bannerBox); ?></div>

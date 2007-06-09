@@ -85,21 +85,21 @@ class zm_google_analytics extends ZMPlugin {
     }
 
     /**
-     * Get an optional page contents filter from this plugin.
+     * Get the plugin handler.
      *
-     * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
+     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPageFilter() {
-        return new zm_google_analytics_page_filter($this);
+    function getPluginHandler() {
+        return new zm_google_analytics_plugin_handler($this);
     }
 
 }
 
 /**
- * Page filter that adds Google analytics code to all pages.
+ * Contents filter that adds Google analytics code to all pages.
  */
-class zm_google_analytics_page_filter extends ZMPluginFilter {
+class zm_google_analytics_plugin_handler extends ZMPluginHandler {
     var $plugin_;
     var $eol_;
 
@@ -109,7 +109,7 @@ class zm_google_analytics_page_filter extends ZMPluginFilter {
      *
      * @param zm_google_analytics plugin The google analytics instance.
      */
-    function zm_google_analytics_page_filter(&$plugin) {
+    function zm_google_analytics_plugin_handler(&$plugin) {
         parent::__construct();
 
         $this->plugin_ =& $plugin;
@@ -122,7 +122,7 @@ class zm_google_analytics_page_filter extends ZMPluginFilter {
      * @param zm_google_analytics plugin The google analytics instance.
      */
     function __construct(&$plugin) {
-        $this->zm_google_analytics_page_filter($plugin);
+        $this->zm_google_analytics_plugin_handler($plugin);
     }
 
     /**
@@ -134,12 +134,12 @@ class zm_google_analytics_page_filter extends ZMPluginFilter {
 
 
     /**
-     * Apply this filter to the given contents.
+     * Filter the response contents.
      *
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function applyFilter($contents) {
+    function filterResponse($contents) {
         $trackerCode = $this->getTrackerCode();
         $checkoutCode = $this->getCheckoutCode();
         return preg_replace('/<\/body>/', $trackerCode . $checkoutCode. ' </body>', $contents, 1);

@@ -29,23 +29,34 @@
   function zm_add_menu_item(&$item) {
   global $_zm_menu;
 
-      $_zm_menu[$item->getId()] = $item;
+      $_zm_menu[] =& $item;
   }
 
   function zm_build_menu($parent=null) {
   global $_zm_menu;
 
       $first = true;
-      foreach ($_zm_menu as $item) { 
+      $size = count ($_zm_menu);
+      for ($ii=0; $ii < $size; ++$ii) { 
+          $item =& $_zm_menu[$ii];
           if (null == $item) {
               continue;
           }
           if ($parent == $item->getParent()) {
               if ($first) {
                   $first = false;
-                  echo "<ul>";
+                  echo "<ul";
+                  if (null == $parent) {
+                      echo ' class="submenu"';
+                  }
+                  echo '>';
               }
-              echo "<li>".$item->getTitle();
+              echo '<li>';
+              if (null == $parent) {
+                  echo $item->getTitle();
+              } else {
+                  echo '<a href="#">'.$item->getTitle().'</a>';
+              }
               zm_build_menu($item->getId());
               echo "</li>";
           }
@@ -55,6 +66,7 @@
           echo "</ul>";
       }
   }
+/*
 
   // admin
   zm_add_menu_item(new ZMMenuItem(null, 'admin', zm_l10n_get('Administration')));
@@ -75,6 +87,7 @@
   zm_add_menu_item(new ZMMenuItem(null, 'help', zm_l10n_get('Help')));
   zm_add_menu_item(new ZMMenuItem('help', 'help', zm_l10n_get('Online Help')));
   zm_add_menu_item(new ZMMenuItem('help', 'about', zm_l10n_get('About')));
+*/
 
   $path = $zm_request->getRequestParameter('path');
 
@@ -90,24 +103,91 @@
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
-    <script type="text/javascript">
-      function init() {
-        cssjsmenu('navbar');
-        if (document.getElementById) {
-          var kill = document.getElementById('hoverJS');
-          kill.disabled = true;
+    <style type="text/css">
+      body {behavior:url(includes/csshover.htc);}
+      a {text-decoration:none;}
+      a:link {color:#080;}
+      a:visited {color:#790;}
+      a:active {color:red;}
+      a:hover {text-decoration:underline;}
+
+      #secnav ul {list-style:none;padding:0;margin:0;}
+      #secnav a {font-weight:bold;color:green;text-decoration: none;}
+      #secnav li li a {display:block;font-weight:normal;color:#060;padding:0.2em 4px;}
+      #secnav li li a:hover {text-decoration:underline;}
+      #secnav li {float:left;position:relative;x-width:10em;padding:4px 5px;text-align:left;cursor:default;background-color:#f7f7f7;border:solid gray;border-width:0 1px 1px;}
+      #secnav li li {width:12em;padding:1px 5px;}
+      #secnav li ul {display:none;position:absolute;top:100%;left:0;font-weight:normal;border:solid 1px #7d6340;margin-top:3px;}
+      #secnav li>ul {top:auto;left:auto;}
+      #secnav li li {display:block;float:none;xbackground-color:transparent;border:none;}
+      #secnav li:hover ul, #secnav li.over ul {display:block;z-index:1;}
+    </style>
+    <script type="text/javascript"><!--//--><![CDATA[//><!--
+    startList = function() {
+      if (document.all && document.getElementById) {
+        navRoot = document.getElementById("secnav");
+        for (ii=0; ii<navRoot.childNodes.length; ++ii) {
+          node = navRoot.childNodes[ii];
+          if (node.nodeName=="LI") {
+            node.onmouseover=function() {
+              this.className+=" over";
+            }
+            node.onmouseout=function() {
+              this.className=this.className.replace(" over", "");
+            }
+          }
         }
       }
-    </script>
+    }
+    window.onload=startList;
+    //--><!]]></script>
   </head>
-  <body id="b_admin" onload="init()">
+  <body id="b_admin">
+
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php
+
+      zm_add_menu_item(new ZMMenuItem(null, 'config', zm_l10n_get('Configuration')));
+      $zm_config = new ZMConfig();
+      $configGroups = $zm_config->getConfigGroups();
+      foreach ($configGroups as $group) {
+          $id = strtolower($group->getName());
+          $id = str_replace(' ', '', $id);
+          $id = str_replace('/', '-', $id);
+          zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName())));
+      }
+
+      ob_start();
+      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras', 'zenmagick');
+      foreach ($zc_menus as $zm_menu) {
+          require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
+          zm_add_menu_item(new ZMMenuItem(null, $zm_menu, zm_l10n_get($za_heading['text'])));
+          foreach ($za_contents as $item) {
+              $id = strtolower($item['text']);
+              $id = str_replace(' ', '', $id);
+              $id = str_replace('/', '-', $id);
+              zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text'])));
+          }
+      }
+      ob_end_clean();
+
+    ?>
 
     <div id="container" style="border:1px solid gray;">
-
-      <?php zm_build_menu(); ?>
-
+      <div id="secnav">
+        <?php zm_build_menu(); ?>
+      </div>
     </div>
+
+<div style="clear:both;">
+<?php
+
+    $controller = $zm_loader->create("WikiController");
+      $view = $controller->process();
+if ($view->isViewFunction()) { $view->callView(); } else { include($view->getViewFilename()); }
+
+?>
+</div>
 
   </body>
 </html>

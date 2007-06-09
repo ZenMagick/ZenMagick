@@ -43,5 +43,7 @@
     // disable global zen-cart event handling in ZenMagick
     //zm_set_setting('isEventProxySupport', false);
 
+    // disable dynamic admin menu support
+    //zm_set_setting('isDynamicAdminMenuPatchSupport', false);
 
 ?>

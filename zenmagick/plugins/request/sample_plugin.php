@@ -35,7 +35,7 @@ class sample_plugin extends ZMPlugin {
      * Default c'tor.
      */
     function sample_plugin() {
-        parent::__construct('Sample plugin', 'This is a ZenMagick sample plugin', 3);
+        parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin', 3);
         $this->setKeys(array('rq1key1', 'rq1key2'));
     }
 
@@ -87,15 +87,15 @@ class sample_plugin extends ZMPlugin {
     }
 
     /**
-     * Get an optional page contents filter from this plugin.
+     * Get the plugin handler.
      *
-     * @return ZMPluginFilter A <code>ZMPluginFilter</code> instance or <code>null</code> if
+     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPageFilter() {
+    function getPluginHandler() {
     global $zm_request;
 
-        return 'login' == $zm_request->getPageName() ? new sample_plugin_page_filter() : null;
+        return 'login' == $zm_request->getPageName() ? new sample_plugin_handler() : null;
     }
 
 }
@@ -104,12 +104,12 @@ class sample_plugin extends ZMPlugin {
 /**
  * Simple page filter.
  */
-class sample_plugin_page_filter extends ZMPluginFilter {
+class sample_plugin_handler extends ZMPluginHandler {
 
     /**
      * Default c'tor.
      */
-    function sample_plugin() {
+    function sample_plugin_handler() {
         parent::__construct();
     }
 
@@ -117,7 +117,7 @@ class sample_plugin_page_filter extends ZMPluginFilter {
      * Default c'tor.
      */
     function __construct() {
-        $this->sample_plugin();
+        $this->sample_plugin_handler();
     }
 
     /**
@@ -129,13 +129,14 @@ class sample_plugin_page_filter extends ZMPluginFilter {
 
 
     /**
-     * Apply this filter to the given contents.
+     * Filter the response contents.
      *
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function applyFilter($contents) {
-        return preg_replace('/<\/h1>/', ' (modified by sample plugin)</h1>', $contents, 1);
+    function filterResponse($contents) {
+        $plugin = $this->getPlugin();
+        return preg_replace('/<\/h1>/', ' (modified by ' . $plugin->getName() . ')</h1>', $contents, 1);
     }
 
 }

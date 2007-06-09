@@ -199,12 +199,12 @@ class ZMPlugins extends ZMService {
     }
 
     /**
-     * Apply configured filter to the final page contents.
+     * Call <code>filterContents(string)</code> on all available plugin handler.
      *
      * @param string contents The page contents.
      * @return string The really final contents :0
      */
-    function applyPageFilter($contents) {
+    function filterResponse($contents) {
     global $zm_request;
 
         $controller = $zm_request->getController();
@@ -215,9 +215,10 @@ class ZMPlugins extends ZMService {
 
         foreach ($this->getPluginsForType('request') as $plugin) {
             if ($plugin->isInstalled() && $plugin->isEnabled()) {
-                $pageFilter = $plugin->getPageFilter();
-                if (null !== $pageFilter && is_subclass_of($pageFilter, 'ZMPluginFilter')) {
-                    $contents = $pageFilter->applyFilter($contents);
+                $pluginHandler = $plugin->getPluginHandler();
+                if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
+                    $pluginHandler->setPlugin($plugin);
+                    $contents = $pluginHandler->filterResponse($contents);
                 }
             }
         }

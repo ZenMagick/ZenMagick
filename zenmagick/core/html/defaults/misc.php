@@ -60,7 +60,7 @@
     }
 
     /**
-     * Simple title genrator based on the page name.
+     * Simple title generator based on the page name.
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -71,12 +71,24 @@
 
         $title = $zm_request->getPageName();
         $title = 'static' != $title ? $title : $zm_request->getSubPageName();
-        $title = str_replace('_', ' ', $title);
+        $title = zm_format_title($title);
+
+        if ($echo) echo $title;
+        return $title;
+    }
+
+    /**
+     * Format title based on the given page value.
+     *
+     * @package net.radebatz.zenmagick.html.defaults
+     * @param string page The page name.
+     * @return string A reasonable page title.
+     */
+    function zm_format_title($page=null) {
+        $title = str_replace('_', ' ', $page);
         // capitalise words
         $title = ucwords($title);
         $title = zm_l10n_get($title);
-
-        if ($echo) echo $title;
         return $title;
     }
 

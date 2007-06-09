@@ -44,6 +44,7 @@ require_once('includes/application_top.php');
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
         "ultimateSeoSupport" => "Enable support for Ultimate SEO",
+        "dynamicAdminMenu" => "Enable dynamic admin menu support",
 
         "sqlFeatures" => "Install Features database tables"
     );

@@ -63,6 +63,13 @@ class ZMCrumbtrail extends ZMObject {
 
 
     /**
+     * Clear all crumbs.
+     */
+    function clear() {
+        $this->crumbs_ = array();
+    }
+
+    /**
      * Get the last crumbs name.
      *
      * @return string The name of the last crumbtrail element.

@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2007 ZenMagick
+ * Copyright (C) 2006,2007 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -25,31 +25,6 @@
 ?>
 <?php
 
-    $zm_messages->_loadMessageStack();
-    $zm_categories->setPath($cPath_array);
-
-    // main request processor
-    if (zm_setting('isEnableZenMagick')) {
-        if (zm_dispatch()) {
-            require('includes/application_bottom.php');
-            $contents = ob_get_clean();
-            $contents = $zm_plugins->filterResponse($contents);
-            echo $contents;
-
-            // page cache
-            $_zm_pageCache = $zm_runtime->getPageCache();
-            if (zm_setting('isPageCacheEnabled') && $_zm_pageCache->isCacheable()) {
-                $_zm_pageCache->save($contents);
-            }
-
-            // clear messages if not redirect...
-            $_zm_session = new ZMSession();
-            $_zm_session->clearMessages();
-
-            exit;
-        }
-    }
-
-    // default to zen-cart
+  echo 'wiki!';
 
 ?>

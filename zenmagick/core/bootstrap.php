@@ -534,6 +534,9 @@ if (!class_exists("ZMObject")) {
      * @return bool <code>true</code> on success.
      */
     function zm_mkdir($dir, $perms=755, $recursive=true) {
+        if (null == $dir || zm_is_empty($dir)) {
+            return false;
+        }
         if (file_exists($dir) && is_dir($dir))
             return true;
 

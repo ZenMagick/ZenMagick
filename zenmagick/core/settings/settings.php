@@ -47,6 +47,7 @@
     $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
     $_ZM_SETTINGS['isEmailPatchSupport'] = true;
     $_ZM_SETTINGS['isEventProxySupport'] = true;
+    $_ZM_SETTINGS['isDynamicAdminMenuPatchSupport'] = true;
 
     // list of pages for SEO; null means all
     $_ZM_SETTINGS['seoEnabledPagesList'] = array("index", "product_info", "product_reviews_info");

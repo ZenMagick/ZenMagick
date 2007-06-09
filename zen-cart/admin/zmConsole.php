@@ -34,7 +34,7 @@ if ('true' == $zm_request->getRequestParameter('remove', 'false')) {
   	zen_redirect(zen_href_link(FILENAME_DEFAULT));
 }
 
-$code = $zm_request->getRequestParameter('code', '');
+$code = stripslashes($zm_request->getParameter('code', '', false));
 $zm_result = null;
 if ('' != $code) {
     ob_start();
