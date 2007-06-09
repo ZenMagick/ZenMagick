@@ -30,22 +30,18 @@
  * <p>The content is either a full page or a layout using the page specified in the request.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views
+ * @package net.radebatz.zenmagick.rp.uip
  * @version $Id$
  */
-class ZMThemeView extends ZMView {
-    var $page_;
-
+class ZMPageView extends ZMView {
 
     /**
      * Create new theme view view.
      *
      * @param string page The page (view) name.
      */
-    function ZMThemeView($page) {
-        parent::__construct();
-
-        $this->page_ = $page;
+    function ZMPageView($page) {
+        parent::__construct($page);
     }
 
     /**
@@ -54,7 +50,7 @@ class ZMThemeView extends ZMView {
      * @param string page The page (view) name.
      */
     function __construct($page) {
-        $this->ZMThemeView($page);
+        $this->ZMPageView($page);
     }
 
     /**
@@ -66,13 +62,6 @@ class ZMThemeView extends ZMView {
 
 
     /**
-     * Return the page name.
-     *
-     * @return string The page name.
-     */
-    function getPage() { return $this->page_; }
-
-    /**
      * Return the template name.
      *
      * @return string The template name or <code>null</code>.
@@ -81,41 +70,7 @@ class ZMThemeView extends ZMView {
     global $zm_theme;
 
         $themeInfo = $zm_theme->getThemeInfo();
-        return $themeInfo->getTemplateFor($this->page_);
-    }
-
-
-    /**
-     * Returns the full view filename to be includes by a template.
-     *
-     * @param string subdir Optional subdirectory name within the views directory.
-     * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
-     *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
-     * @return string The full view filename.
-     */
-    function getViewFilename($subdir=null, $prefixToDir=true) {
-    global $zm_theme;
-
-        $filename = $zm_theme->getViewsDir();
-        if (null != $subdir) {
-            $filename .= $subdir.'/';
-            if ($prefixToDir) {
-                $off = strpos($this->page_, '_');
-                // if no '_' found, just use the full name
-                if (false !== $off) {
-                    $filename .= substr($this->page_, strlen($subdir)+1);
-                } else {
-                    $filename .= $this->page_;
-                }
-            } else {
-                $filename .= $this->page_;
-            }
-        } else {
-            $filename .= $this->page_;
-        }
-        $filename .= '.php';
-
-        return $zm_theme->themeFile($filename);
+        return $themeInfo->getTemplateFor($this->getName());
     }
 
 
@@ -134,10 +89,9 @@ class ZMThemeView extends ZMView {
 
         $template = $this->getTemplate();
         if (null != $template) {
-            $zm_content_include = $this->page_;
             include($zm_theme->themeFile($template.'.php'));
         } else {
-            include($zm_theme->themeFile($this->page_.'.php'));
+            include($zm_theme->themeFile($this->getName().'.php'));
         }
     }
 

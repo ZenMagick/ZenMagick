@@ -20,7 +20,7 @@ Release 0.8.0.1
 - added mapping id to ZMView
 - moved ZMAjaxController::callZCPageController(..) as zm_call_zc_page into the
   misc package
-- moved ZMPageView a bit, removed oboslete ZMThemeView
+- moved ZMPageView a bit, removed obsolete ZMThemeView
 - added ZMPluginView to allow controller added by a plugin to serve custom
   content views from within the plugin folder
 - added setting to enable/disable adding the store name to the page title
