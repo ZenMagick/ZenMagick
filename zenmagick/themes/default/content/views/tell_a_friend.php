@@ -35,13 +35,13 @@
         <input type="text" id="from_email_address" name="from_email_address" size="40" value="<?php echo $zm_account->getEmail() ?>" /><br />
 
         <label for="to_name"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
-        <input type="text" id="to_name" name="to_name" size="40" value="<?php echo $zm_request->getRequestParameter("to_name") ?>" /><br />
+        <input type="text" id="to_name" name="to_name" size="40" value="<?php echo $zm_request->getParameter("to_name") ?>" /><br />
 
         <label for="to_email_address"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
-        <input type="text" id="to_email_address" name="to_email_address" size="40" value="<?php echo $zm_request->getRequestParameter("to_email_address") ?>" /><br />
+        <input type="text" id="to_email_address" name="to_email_address" size="40" value="<?php echo $zm_request->getParameter("to_email_address") ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php echo $zm_request->getRequestParameter("message") ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $zm_request->getParameter("message") ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>

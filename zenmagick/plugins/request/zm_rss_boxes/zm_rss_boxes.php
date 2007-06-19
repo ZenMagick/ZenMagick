@@ -25,14 +25,11 @@
 ?>
 <?php
 
-// check for local defaults
-if (file_exists(dirname(__FILE__)."/config.php")) { include("config.php"); }
-
-
 // some default defaults ;)
 define (_ZM_RSS_BOXES_COUNT, 2);
 define (_ZM_RSS_BOXES_PREFIX, 'rss_box_');
 define (_ZM_RSS_BOXES_TEMPLATE, 'box-template.php');
+
 
 /**
  * Plugin providing functionallity for one or more RSS sideboxes.

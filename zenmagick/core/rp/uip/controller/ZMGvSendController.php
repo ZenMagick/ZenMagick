@@ -71,7 +71,7 @@ class ZMGvSendController extends ZMController {
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
         $viewName = null;
-        if ('doneprocess' == $zm_request->getRequestParameter('action')) {
+        if ('doneprocess' == $zm_request->getParameter('action')) {
             $zm_messages->success(zm_l10n_get("Gift Certificate successfully send."));
             $viewName = 'success';
         }
@@ -107,8 +107,8 @@ class ZMGvSendController extends ZMController {
         }
 
         $viewName = 'success';
-        if ('send' == $zm_request->getRequestParameter('action') && !$zm_messages->hasMessages()) {
-            if (null != $zm_request->getRequestParameter('edit_x', null)) {
+        if ('send' == $zm_request->getParameter('action') && !$zm_messages->hasMessages()) {
+            if (null != $zm_request->getParameter('edit_x', null)) {
                 $viewName = null;
             } else {
                 $viewName = 'confirm';

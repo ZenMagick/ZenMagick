@@ -138,6 +138,15 @@ class ZMCache extends ZMObject {
         return $this->cache_->save($data, null !== $id ? $id : $this->getId(), $this->group_);
     }
 
+    /**
+     * Return the cache last modification time
+     *
+     * @return int last modification time
+     */
+    function lastModified() {
+        return $this->cache_->lastModified();
+    }
+    
 
     /**
      * Ensure the given dir exists and is writeable.

@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-
+define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
 ?>

@@ -89,6 +89,13 @@ class ZMMenuItem extends ZMModel {
     function getParent() { return $this->parent_; }
 
     /**
+     * Set the parent.
+     *
+     * @param, string parent The parent id.
+     */
+    function setParent($parent) { $this->parent_ = $parent; }
+
+    /**
      * Get the id.
      *
      * @return string The id.
@@ -109,6 +116,20 @@ class ZMMenuItem extends ZMModel {
      */
     function hasPage() {
         return null !== $this->file_ || null !== $this->function_;
+    }
+
+    /**
+     * Get the url.
+     *
+     * @return string The URL.
+     */
+    function getURL() {
+        if (null !== $this->file_) {
+            return $this->file_;
+        } else if (null !== $this->function_) {
+            return 'fkt:'.$this->function_;
+        }
+        return null;
     }
 
     /**

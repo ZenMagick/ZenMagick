@@ -27,7 +27,7 @@
 <?php
 
     // default to english
-    $lang = $zm_request->getRequestParameter('lang', 'english');
+    $lang = $zm_request->getParameter('lang', 'english');
     $languageId = $zm_runtime->getLanguageId();
 
     $langNav = array();

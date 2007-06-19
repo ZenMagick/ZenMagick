@@ -63,6 +63,23 @@
             chdir($zm_ext_zenroot);
         }
 
+        foreach ($autoLoadConfig as $actionPoint => $row) {
+            foreach($row as $key => $entry) {
+                // re-run init scripts
+                if (!zm_is_in_array($entry['autoType'], 'init_script')) {
+                    unset($autoLoadConfig[$actionPoint][$key]);
+                    continue;
+                }
+                // but not all of them...
+                if (!zm_is_in_array($entry['loadFile'], 'init_cart_handler.php')) {
+                    unset($autoLoadConfig[$actionPoint][$key]);
+                    continue;
+                }
+            }
+        }
+
+        // call cart handler
+        require('includes/autoload_func.php');
         $code_page_directory = DIR_WS_MODULES . 'pages/' . $page;
 
         // from index.php

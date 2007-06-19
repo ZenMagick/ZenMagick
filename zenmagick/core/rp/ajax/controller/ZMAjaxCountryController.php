@@ -75,7 +75,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
     function getZonesForCountryIdJSON() {
     global $zm_request, $zm_countries;
 
-        $countryId = $zm_request->getRequestParameter('countryId', null);
+        $countryId = $zm_request->getParameter('countryId', null);
 
         // NOTE: each zone is stored as named member in the resulting JS object
         $flatObj = $this->flattenObject($zm_countries->getZonesForCountryId($countryId), array('id', 'name'));

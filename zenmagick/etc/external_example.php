@@ -124,6 +124,37 @@ require("../zen-cart/zenmagick/external.php");
         } else {
             echo '<h2>Could not login - did you edit this sample to provide valid login information?</h2>';
         }
+
+        $zen_redirect_url = null;
+
+        // clean cart if not empty
+        if (!$zm_cart->isEmpty()) {
+            echo "<h3>Cleaning up Shopping Cart ... </h3>";
+            $_GET['action'] = 'update_product';
+            $_POST['action'] = 'update_product';
+            $_POST['main_page'] = 'shopping_cart';
+            $_POST['products_id'] = array();
+            $_POST['cart_quantity'] = array();
+            foreach ($zm_cart->getItems() as $item) {
+                $_POST['products_id'][] = $item->getId();
+                $_POST['cart_quantity'][] = 0;
+            }
+            zm_call_zc_page('product_info');
+        }
+
+        // fake add to cart
+        $_GET['action'] = 'add_product';
+        $_POST['action'] = 'add_product';
+        $_POST['products_id'] = $zm_request->getParameter('pid', 8);;
+        $_POST['cart_quantity'] = 1;
+        zm_call_zc_page('product_info');
+
+        echo "<h3>Shopping Cart after add</h3>";
+        foreach ($zm_cart->getItems() as $item) {
+          ?><?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br /><?php
+        }
+        echo $zen_redirect_url;
+
      ?>
     </div>
 

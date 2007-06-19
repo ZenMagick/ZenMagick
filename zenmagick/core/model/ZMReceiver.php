@@ -71,9 +71,9 @@ class ZMReceiver extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->name_ = $zm_request->getRequestParameter('to_name', '');
-        $this->email_ = $zm_request->getRequestParameter('email', '');
-        $this->message_ = $zm_request->getRequestParameter('message', '');
+        $this->name_ = $zm_request->getParameter('to_name', '');
+        $this->email_ = $zm_request->getParameter('email', '');
+        $this->message_ = $zm_request->getParameter('message', '');
     }
 
 

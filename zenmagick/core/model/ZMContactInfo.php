@@ -81,9 +81,9 @@ class ZMContactInfo extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->name_ = $zm_request->getRequestParameter('contactname', '');
-        $this->email_ = $zm_request->getRequestParameter('email', '');
-        $this->message_ = $zm_request->getRequestParameter('enquiry', '');
+        $this->name_ = $zm_request->getParameter('contactname', '');
+        $this->email_ = $zm_request->getParameter('email', '');
+        $this->message_ = $zm_request->getParameter('enquiry', '');
     }
 
     /**

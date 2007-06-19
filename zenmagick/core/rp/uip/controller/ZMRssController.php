@@ -74,8 +74,8 @@ class ZMRssController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $channel = ucwords($zm_request->getRequestParameter('channel', null));
-        $key = $zm_request->getRequestParameter('key', null);
+        $channel = ucwords($zm_request->getParameter('channel', null));
+        $key = $zm_request->getParameter('key', null);
 
         // delegate items to channel method
         $method = "get".$channel."Feed";
@@ -220,7 +220,7 @@ class ZMRssController extends ZMController {
         } else {
             $channel->setDescription(zm_l10n_get("Product Reviews at %s", zm_setting('storeName')));
         }
-        $channel->setlastBuildDate(zm_mk_rss_date($lastPubDate));
+        $channel->setLastBuildDate(zm_mk_rss_date($lastPubDate));
 
         $feed =& $this->create("RssFeed");
         $feed->setChannel($channel);
@@ -252,7 +252,7 @@ class ZMRssController extends ZMController {
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
-        $channel->setlastBuildDate(zm_mk_rss_date());
+        $channel->setLastBuildDate(zm_mk_rss_date());
 
         $feed =& $this->create("RssFeed");
         $feed->setChannel($channel);
@@ -294,7 +294,7 @@ class ZMRssController extends ZMController {
         $channel->setTitle(zm_l10n_get("New Products at %s", zm_setting('storeName')));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", zm_setting('storeName')));
-        $channel->setlastBuildDate($lastPubDate);
+        $channel->setLastBuildDate($lastPubDate);
 
         $feed =& $this->create("RssFeed");
         $feed->setChannel($channel);

@@ -1,8 +1,10 @@
 ZenMagick Wiki Plugin
 =====================
-
 This plugin adds a simple wiki to ZenMagick. The wiki itself is driven by
 pawfaliki (http://www.pawfal.org/pawfaliki).
+
+NOTE: pawfaliki.php is a patched version to work in this context. Updating
+this file with a newer version without modifications will *not* work.
 
 
 INSTALLAION
@@ -10,14 +12,26 @@ INSTALLAION
 * Download (obvious ;)
   Download the latest version from http://zenmagick.radebatz.net
 
-* Extract into the ZenMagick request plugins directory
+* Extract into the ZenMagick plugins directory
 
 * Install the plugin via the ZenMagick plugins admin page
 
 * After that you should be able to browse to the zen-cart main_page 'wiki';
   Example: http://your.host/index.php?main_page=wiki
 
+* If using ZenMagick's pretty links feature, you will have to add the following two
+  lines to your main .htaccess file:
+
+  RewriteRule ^wiki/([^/]+)/?$ index.php?main_page=wiki&page=$1 [QSA,L]
+  RewriteRule ^wiki/?$ index.php?main_page=wiki&page=WikiRoot [QSA,L]
+
 * Enjoy!
+
+
+NOTE: The plugin will create some directories to store the data and temp files. Those
+directories will not be deleted on uninstall:
+* wiki/files
+* wiki/tmp
 
 
 CONFIGURATION

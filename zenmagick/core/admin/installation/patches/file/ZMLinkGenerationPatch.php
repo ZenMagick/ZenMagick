@@ -104,11 +104,11 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((zm_setting('isEnablePatching') && zm_setting('isUltimateSeoPatchSupport')) || $force) {
+        if ((zm_setting('isEnablePatching') && zm_setting('isPrettyLinkPatchSupport')) || $force) {
             return $this->patchFilesFkt($this->fktFilesCfg_);
         } else {
             // disabled
-            zm_log("** ZenMagick: Ultimate SEO patch support disabled - skipping");
+            zm_log("** ZenMagick: Pretty Link patch support disabled - skipping");
             return false;
         }
 

@@ -41,19 +41,19 @@
     $value_index = 1;
     $value_text = '';
 
-    switch ($zm_request->getRequestParameter('action')) {
+    switch ($zm_request->getParameter('action')) {
       case 'remove_feature':
-        $id = (int)$zm_request->getRequestParameter('featureId');
+        $id = (int)$zm_request->getParameter('featureId');
         $zm_features->removeFeatureForId($id);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
         break;
 
       case 'update_feature':
-        $id = (int)$zm_request->getRequestParameter('featureId');
-        $name = $zm_request->getRequestParameter('name');
-        $description = $zm_request->getRequestParameter('description');
-        $hidden = $zm_request->getRequestParameter('hidden');
+        $id = (int)$zm_request->getParameter('featureId');
+        $name = $zm_request->getParameter('name');
+        $description = $zm_request->getParameter('description');
+        $hidden = $zm_request->getParameter('hidden');
         $zm_features->updateFeature($id, $zm_runtime->getLanguageId(), $name, $description, $hidden);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
@@ -61,7 +61,7 @@
 
       case 'edit_feature':
         $edit_feature = true;
-        $update_id = (int)$zm_request->getRequestParameter('featureId');
+        $update_id = (int)$zm_request->getParameter('featureId');
         $feature = $zm_features->getFeatureForId($update_id);
         $type = $feature->getType();
         $editType = $type->getName();
@@ -71,20 +71,20 @@
         break;
 
       case 'add_feature':
-        $type = $zm_request->getRequestParameter('type');
-        $name = $zm_request->getRequestParameter('name');
-        $description = $zm_request->getRequestParameter('description');
-        $hidden = null != $zm_request->getRequestParameter('hidden') ? '1' : '0';
+        $type = $zm_request->getParameter('type');
+        $name = $zm_request->getParameter('name');
+        $description = $zm_request->getParameter('description');
+        $hidden = null != $zm_request->getParameter('hidden') ? '1' : '0';
         $zm_features->addFeature($type, $zm_runtime->getLanguageId(), $name, $description, $hidden);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
         break;
 
       case 'update_feature_value':
-        $featureId = (int)$zm_request->getRequestParameter('featureId');
-        $value = $zm_request->getRequestParameter('value');
-        $oldIndex = $zm_request->getRequestParameter('oldIndex');
-        $index = $zm_request->getRequestParameter('index');
+        $featureId = (int)$zm_request->getParameter('featureId');
+        $value = $zm_request->getParameter('value');
+        $oldIndex = $zm_request->getParameter('oldIndex');
+        $index = $zm_request->getParameter('index');
         $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
         // reload
         zm_adm_cmp_redirect('features', $navParams);
@@ -92,8 +92,8 @@
 
       case 'edit_feature_value':
         $edit_product_feature = true;
-        $update_id = (int)$zm_request->getRequestParameter('featureId');
-        $value_index = (int)$zm_request->getRequestParameter('index');
+        $update_id = (int)$zm_request->getParameter('featureId');
+        $value_index = (int)$zm_request->getParameter('index');
         $pFeatures = $zm_features->getFeaturesForProductId($productId);
         foreach ($pFeatures as $feature) {
           if ($feature->getId() == $update_id) {
@@ -106,9 +106,9 @@
         break;
 
       case 'add_feature_value':
-        $featureId = $zm_request->getRequestParameter('featureId');
-        $value = $zm_request->getRequestParameter('value');
-        $index = $zm_request->getRequestParameter('index');
+        $featureId = $zm_request->getParameter('featureId');
+        $value = $zm_request->getParameter('value');
+        $index = $zm_request->getParameter('index');
 
         // stop duplicate index
         $invalid = false;
@@ -132,8 +132,8 @@
         break;
 
       case 'remove_feature_value':
-        $featureId = $zm_request->getRequestParameter('featureId');
-        $index = $zm_request->getRequestParameter('index');
+        $featureId = $zm_request->getParameter('featureId');
+        $index = $zm_request->getParameter('index');
         $zm_features->removeFeatureForProduct($productId, $featureId, $index);
         // reload
         zm_adm_cmp_redirect('features', $navParams);

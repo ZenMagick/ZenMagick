@@ -169,14 +169,14 @@ class ZMRssChannel extends ZMModel {
      *
      * @param string date The channels last build date.
      */
-    function setLastBuildDate($date) { $this->rs_['lastBuildDate'] = date; }
+    function setLastBuildDate($date) { $this->rs_['lastBuildDate'] = $date; }
 
     /**
      * Set the channels image title.
      *
      * @param string title The channels image title.
      */
-    function setImageTitle($title) { $this->rs_['image_title'] = title; }
+    function setImageTitle($title) { $this->rs_['image_title'] = $title; }
 
     /**
      * set the channels image link.

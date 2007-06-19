@@ -58,7 +58,7 @@ class ZMSearch extends ZMModel {
     /**
      * Conveniece access method to the request.
      */
-    function _get($key, $default='') {global $zm_request; return $zm_request->getRequestParameter($key, $default); }
+    function _get($key, $default='') {global $zm_request; return $zm_request->getParameter($key, $default); }
 
     /**
      * Get the keyword.

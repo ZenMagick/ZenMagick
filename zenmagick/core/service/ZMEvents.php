@@ -32,7 +32,7 @@
  * directly.</p>
  *
  * <p>Any class can subscribe. Any method of the subscriber class that matches a method
- * name derived from a zen-cart event will be called automatically.</p.
+ * name derived from a zen-cart event will be called automatically.</p>.
  *
  * @author mano
  * @package net.radebatz.zenmagick.service
@@ -67,23 +67,23 @@ class ZMEvents extends ZMObject {
 
     /**
      * Attach an observer to this event source.
-     * 
-     * @param object observer Reference to the observer class.
+     *
+     * @param mixed observer Reference to the observer class or method.
      */
     function attach(&$observer) {
-        $eventID = 'all';
-        $nameHash = md5(get_class($observer).$eventID);
-        $this->subscriber_[$nameHash] = array('obs'=> &$observer, 'eventID'=>$eventID);
+        $eventId = 'all';
+        $nameHash = md5(get_class($observer).$eventId);
+        $this->subscriber_[$nameHash] = array('obs'=> &$observer, 'eventID'=>$eventId);
     }
 
     /**
      * Detach an observer from the notifier object
      *
-     * @param object observer Reference to the observer class.
+     * @param mixed observer Reference to the observer class or method.
      */
     function detach($observer) {
-        $eventID = 'all';
-        $nameHash = md5(get_class($observer).$eventID);
+        $eventId = 'all';
+        $nameHash = md5(get_class($observer).$eventId);
         unset($this->subscriber_[$nameHash]);
     }
 
@@ -92,7 +92,7 @@ class ZMEvents extends ZMObject {
      *
      * <p>Callback method names must follow the following conventions:</p>
      * <ul>
-     *  <li>all methods start with the prefix <em>on</em></li>
+     *  <li>all methods start with the prefix <em>onZM</em></li>
      *  <li>the reminder of the method name is based on capitalized words of the original event name</li>
      * </ul>
      *
@@ -100,9 +100,10 @@ class ZMEvents extends ZMObject {
      * <code>onNotifyLoginSuccessViaCreateAccount(..)</code>.</p>
      *
      * @param string eventId The event id.
+     * @param string prefix Optional prefix; default is '<code>on</code>'.
      * @return string The corresponding method name.
      */
-    function event2method($eventId) {
+    function event2method($eventId, $prefix='onZM') {
         // id is upper case
         $method = strtolower($eventId);
         // '_' == word boundary
@@ -112,10 +113,9 @@ class ZMEvents extends ZMObject {
         // cuddle together :)
         $method = str_replace(' ', '', $method);
         // ad 'on' prefix
-        $method = 'on'.$method;
+        $method = $prefix.$method;
         return $method;
     }
-
 
     /**
      * Generic observer callback that delegates to internal methods...
@@ -127,8 +127,8 @@ class ZMEvents extends ZMObject {
      * @param array args Optional parameter; default is <code>null</code>.
      */
     function update(&$notifier, $eventId, $args=null) {
-        zm_log('fire zen-cart event: ' . $eventId, 3);
-        $method = $this->event2method($eventId);
+        $method = $this->event2method($eventId, 'on');
+        zm_log('fire zen-cart event: ' . $eventId . '/'.$method, 3);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
                 call_user_func(array($obs['obs'], $method), $args);
@@ -136,6 +136,24 @@ class ZMEvents extends ZMObject {
         }
     }
 
+    /**
+     * Fire ZenMagick event.
+     *
+     * <p>ZenMagick event methods start with <em>onZM</em>.</p>
+     *
+     * @param mixed notifier The event source.
+     * @param string eventId The event id.
+     * @param array args Optional parameter; default is <code>null</code>.
+     */
+    function fireEvent(&$notifier, $eventId, $args=null) {
+        $method = $this->event2method($eventId);
+        zm_log('fire ZenMagick event: ' . $eventId . '/'.$method, 3);
+        foreach($this->subscriber_ as $obs) {
+            if (method_exists($obs['obs'], $method)) {
+                call_user_func(array($obs['obs'], $method), $args);
+            }
+        }
+    }
 
 }
 

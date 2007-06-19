@@ -81,7 +81,7 @@ class ZMDiscountCouponController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_nice_page_name());
 
         $viewName = null;
-        $code = $zm_request->getRequestParameter('lookup_discount_coupon');
+        $code = $zm_request->getParameter('lookup_discount_coupon');
         if (null == $code) {
             $zm_messages->warn(zm_l10n_get("Please enter a coupon code."));
         } else {

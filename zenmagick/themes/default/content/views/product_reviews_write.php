@@ -57,7 +57,7 @@
         </div>
 
         <label for="review_text"><?php zm_l10n("Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.") ?></label>
-        <textarea id="review_text" name="review_text" cols="60" rows="5"><?php echo $zm_request->getRequestParameter("review_text") ?></textarea>
+        <textarea id="review_text" name="review_text" cols="60" rows="5"><?php echo $zm_request->getParameter("review_text") ?></textarea>
         <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
         <div>
             <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("HTML tags are not allowed.") ?><br />

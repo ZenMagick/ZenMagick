@@ -38,6 +38,15 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/lang/english/other.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/admin_init.php");
 
+    // Ultimate SEO
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/reset_seo_cache.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.install.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.url.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/admin/installation/patches/file/ZMUltimateSeoSupportPatch.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "includes/functions/extra_functions/zenmagick_ultimate_seo.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/seo.php");
+
 
     // check for existance of all obsolete files
     function zm_get_obsolete_files() {

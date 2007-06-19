@@ -29,8 +29,8 @@
 
     /*****temp fixes for email generation.... ********/
     // set up order for order_status email
-    if (null !== $zm_request->getRequestParameter("oID") && 'update_order' == $zm_request->getRequestParameter("action")) {
-        $orderId = $zm_request->getRequestParameter("oID");
+    if (null !== $zm_request->getParameter("oID") && 'update_order' == $zm_request->getParameter("action")) {
+        $orderId = $zm_request->getParameter("oID");
         $zm_order = $zm_orders->getOrderForId($orderId);
         $zm_account = $zm_accounts->getAccountForId($zm_order->getAccountId());
     }
@@ -46,7 +46,7 @@
         }
     }
     // create context for gv_send email
-    if ("gv_send" == $zm_request->getPageName() && 'process' == $zm_request->getRequestParameter('action')) {
+    if ("gv_send" == $zm_request->getPageName() && 'process' == $zm_request->getParameter('action')) {
         $zm_gvreceiver =& $zm_loader->create("GVReceiver");
         $zm_gvreceiver->populate();
     }

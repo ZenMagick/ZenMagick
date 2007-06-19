@@ -61,6 +61,7 @@ class ZMCoreCompressor extends ZMObject {
         parent::__construct();
 
         $this->coreDirname_ = $zm_runtime->getZMRootPath().'core';
+        $this->pluginsPreparedDirname_ = $zm_runtime->getZMRootPath().'plugins.prepared';
         $this->strippedDirname_ = $zm_runtime->getZMRootPath().'core.stripped';
         $this->flatDirname_ = $zm_runtime->getZMRootPath().'core.flat';
         $this->coreFilename_ = $zm_runtime->getZMRootPath().'core.php';
@@ -121,6 +122,7 @@ class ZMCoreCompressor extends ZMObject {
      * Clean up all temp. files.
      */
     function clean() {
+        zm_rmdir($this->pluginsPreparedDirname_);
         zm_rmdir($this->strippedDirname_);
         zm_rmdir($this->flatDirname_);
     }
@@ -132,14 +134,19 @@ class ZMCoreCompressor extends ZMObject {
         $this->clean();
         @unlink($this->coreFilename_);
 
+        // add some levels to make plugins load last
+        $this->_preparePlugins($this->pluginsPreparedDirname_.'/1/2/3/4');
+
         if (zm_setting('isStripCore')) {
             $this->_stripPhpDir($this->coreDirname_, $this->strippedDirname_);
+            $this->_stripPhpDir($this->pluginsPreparedDirname_, $this->strippedDirname_);
         }
         if (!$this->hasErrors()) {
             if (zm_setting('isStripCore')) {
                 $this->_flattenDirStructure($this->strippedDirname_, $this->flatDirname_);
             } else {
                 $this->_flattenDirStructure($this->coreDirname_, $this->flatDirname_);
+                $this->_flattenDirStructure($this->pluginsPreparedDirname_, $this->flatDirname_);
             }
             if (!$this->hasErrors()) {
                 $this->_compressToSingleFile($this->flatDirname_, $this->coreFilename_);
@@ -225,9 +232,68 @@ class ZMCoreCompressor extends ZMObject {
     }
 
     /**
+     * Prepare plugin files.
+     *
+     * <p>Prepare those plugin files that can be compressed.</p>
+     *
+     * @param string out The output directory.
+     */
+    function _preparePlugins($out) {
+    global $zm_runtime;
+
+        if (!zm_ends_with($out, '/')) $out .= '/';
+
+        $zm_plugins =& new ZMPlugins();
+        foreach ($zm_plugins->getAllPlugins() as $type => $plugins) {
+            foreach ($plugins as $plugin) {
+                if (!$plugin->isInstalled()) {
+                    continue;
+                }
+                $flag = $plugin->getLoaderSupport();
+                $pluginBase = $out.$type.'/'.$plugin->getId().'/';
+                zm_mkdir($pluginBase, 755);
+                if ('NONE' != $flag) {
+                    $pluginDir = $plugin->getPluginDir();
+                    $noDir = false;
+                    if (zm_is_empty($pluginDir)) {
+                        $pluginDir = $zm_runtime->getPluginsDir() . $type . '/';
+                        $noDir = true;
+                    }
+                    if ($noDir || 'PLUGIN' == $flag) {
+                        $files = array($pluginDir.$plugin->getId().'.php');
+                    } else {
+                        $files = zm_find_includes($pluginDir, true);
+                    }
+                    foreach ($files as $file) {
+                        $fileBase = str_replace($pluginDir, '', $file);
+                        $relDir = dirname($fileBase).'/';
+                        if ('./' == $relDir) {
+                            $relDir = '';
+                        }
+                        $source = file_get_contents($file);
+                        $outfile = $pluginBase . $relDir . basename($file);
+
+                        if (!$handle = fopen($outfile, 'ab')) {
+                            rray_push($this->errors_, 'could not open file for writing ' . $outfile);
+                            return;
+                        }
+
+                        if (false === fwrite($handle, $source)) {
+                            array_push($this->errors_, 'could not write to file ' . $outfile);
+                            return;
+                        }
+                  
+                        fclose($handle);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Recursivley strip a directory.
      *
-     * <p>uses <code>zm_find_includes()</code> to find files to process.</p>
+     * <p>Uses <code>zm_find_includes()</code> to find files to process.</p>
      *
      * @param string in The input directory.
      * @param string out The output directory.
@@ -247,13 +313,13 @@ class ZMCoreCompressor extends ZMObject {
             $outfile = $outdir.$name;
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    mkdir(dirname($outdir), 0755);
+                    zm_mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                mkdir($outdir, 0755);
+                zm_mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -275,7 +341,7 @@ class ZMCoreCompressor extends ZMObject {
         $files = zm_find_includes($in.'/', true);
 
         if (!file_exists($out)) {
-            mkdir($out, 0755);
+            zm_mkdir($out, 0755);
         }
 
         $inpath = explode('/', $in);
@@ -288,13 +354,13 @@ class ZMCoreCompressor extends ZMObject {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    mkdir(dirname($outdir), 0755);
+                    zm_mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                mkdir($outdir, 0755);
+                zm_mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;

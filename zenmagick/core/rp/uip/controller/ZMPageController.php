@@ -65,7 +65,7 @@ class ZMPageController extends ZMController {
     global $zm_request, $zm_crumbtrail, $zm_pages;
 
         // prepare page name for crumbtrail
-        $page = $zm_pages->getPageForId($zm_request->getRequestParameter("id"));
+        $page = $zm_pages->getPageForId($zm_request->getParameter("id"));
         
         if (null == $page) {
             return $this->findView('error'); 

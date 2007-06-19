@@ -24,19 +24,30 @@
  */
 ?>
 <?php
-
+define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
     $zm_plugins = new ZMPlugins();
     $zm_config = new ZMConfig();
 
-    $install = $zm_request->getRequestParameter('install');
-    $remove = $zm_request->getRequestParameter('remove');
-    $edit = $zm_request->getRequestParameter('edit');
-    $type = $zm_request->getRequestParameter('type');
+    $pluginLoader =& new ZMLoader("pluginLoader");
+
+    $install = $zm_request->getParameter('install');
+    $remove = $zm_request->getParameter('remove');
+    $edit = $zm_request->getParameter('edit');
+    $type = $zm_request->getParameter('type');
     if (null != $install) {
         $plugin = $zm_plugins->getPluginForIdAndType($install, $type);
         if (!$plugin->isInstalled()) {
+            if ('ALL' == $plugin->getLoaderSupport()) {
+                $pluginLoader->addPath($plugin->getPluginDir());
+                foreach ($pluginLoader->getStatic() as $static) {
+                    require_once($static);
+                }
+                // plugins prevail over defaults, but not themes
+                $rootLoader =& zm_get_root_loader();
+                $rootLoader->setParent($pluginLoader);
+            }
             $plugin->install();
         }
         $edit = $install;
@@ -44,6 +55,15 @@ require_once('includes/application_top.php');
     } else if (null != $remove) {
         $plugin = $zm_plugins->getPluginForIdAndType($remove, $type);
         if ($plugin->isInstalled()) {
+            if ('ALL' == $plugin->getLoaderSupport()) {
+                $pluginLoader->addPath($plugin->getPluginDir());
+                foreach ($pluginLoader->getStatic() as $static) {
+                    require_once($static);
+                }
+                // plugins prevail over defaults, but not themes
+                $rootLoader =& zm_get_root_loader();
+                $rootLoader->setParent($pluginLoader);
+            }
             $plugin->remove();
         }
     } else if (null != $edit) {
@@ -103,7 +123,7 @@ require_once('includes/application_top.php');
                   <td><?php echo $plugin->getDescription() ?></td>
                   <td>
                     <?php if ($plugin->isInstalled()) { ?>
-                        <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
+                        <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
                         <?php if ($isEdit) { ?>
                           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
                           <input type="hidden" name="type" value="<?php echo $plugin->getType() ?>">

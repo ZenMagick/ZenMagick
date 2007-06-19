@@ -22,50 +22,12 @@
  *
  * $Id$
  */
-?><?php require_once('includes/application_top.php');
+?><?php 
+define('_ZM_ADMIN_PAGE', true);
+require_once('includes/application_top.php');
 
-  $_zm_menu = array();
 
-  function zm_add_menu_item(&$item) {
-  global $_zm_menu;
 
-      $_zm_menu[] =& $item;
-  }
-
-  function zm_build_menu($parent=null) {
-  global $_zm_menu;
-
-      $first = true;
-      $size = count ($_zm_menu);
-      for ($ii=0; $ii < $size; ++$ii) { 
-          $item =& $_zm_menu[$ii];
-          if (null == $item) {
-              continue;
-          }
-          if ($parent == $item->getParent()) {
-              if ($first) {
-                  $first = false;
-                  echo "<ul";
-                  if (null == $parent) {
-                      echo ' class="submenu"';
-                  }
-                  echo '>';
-              }
-              echo '<li>';
-              if (null == $parent) {
-                  echo $item->getTitle();
-              } else {
-                  echo '<a href="#">'.$item->getTitle().'</a>';
-              }
-              zm_build_menu($item->getId());
-              echo "</li>";
-          }
-      }
-
-      if (!$first) {
-          echo "</ul>";
-      }
-  }
 /*
 
   // admin
@@ -145,38 +107,8 @@
   <body id="b_admin">
 
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-    <?php
-
-      zm_add_menu_item(new ZMMenuItem(null, 'config', zm_l10n_get('Configuration')));
-      $zm_config = new ZMConfig();
-      $configGroups = $zm_config->getConfigGroups();
-      foreach ($configGroups as $group) {
-          $id = strtolower($group->getName());
-          $id = str_replace(' ', '', $id);
-          $id = str_replace('/', '-', $id);
-          zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName())));
-      }
-
-      ob_start();
-      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras', 'zenmagick');
-      foreach ($zc_menus as $zm_menu) {
-          require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
-          zm_add_menu_item(new ZMMenuItem(null, $zm_menu, zm_l10n_get($za_heading['text'])));
-          foreach ($za_contents as $item) {
-              $id = strtolower($item['text']);
-              $id = str_replace(' ', '', $id);
-              $id = str_replace('/', '-', $id);
-              zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text'])));
-          }
-      }
-      ob_end_clean();
-
-    ?>
 
     <div id="container" style="border:1px solid gray;">
-      <div id="secnav">
-        <?php zm_build_menu(); ?>
-      </div>
     </div>
 
 <div style="clear:both;">

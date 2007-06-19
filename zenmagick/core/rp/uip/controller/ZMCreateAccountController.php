@@ -93,7 +93,7 @@ class ZMCreateAccountController extends ZMController {
         $address->populate();
 
         $valid = true;
-        if ($zm_request->getRequestParameter('action') != 'process') {
+        if ($zm_request->getParameter('action') != 'process') {
             $zm_messages->warn(zm_l10n_get("Incomplete request."));
             $valid = false;
         }
@@ -103,12 +103,12 @@ class ZMCreateAccountController extends ZMController {
             $valid = false;
         }
 
-        if (zm_setting('isPrivacyMessage') && null == $zm_request->getRequestParameter('privacy_conditions')) {
+        if (zm_setting('isPrivacyMessage') && null == $zm_request->getParameter('privacy_conditions')) {
             $zm_messages->error(zm_l10n_get("You must confirm the privacy statement in order to register."));
             $valid = false;
         }
 
-        if ($account->getPassword() != $zm_request->getRequestParameter('confirmation')) {
+        if ($account->getPassword() != $zm_request->getParameter('confirmation')) {
             $zm_messages->error(zm_l10n_get("The Password Confirmation must match your Password."));
             $valid = false;
         }

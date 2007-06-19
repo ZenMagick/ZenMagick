@@ -52,7 +52,6 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
             return date(DATE_RSS);
         }
 
-        $date = strtotime($date);
         return date(DATE_RSS, $date);
     } 
 
@@ -146,6 +145,7 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
     /**
      * Convert text based user input into HTML.
      *
+     * @package net.radebatz.zenmagick.misc
      * @param string s The input string.
      * @return string HTML formatted text.
      */
@@ -155,5 +155,57 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
         $html = str_replace("\r", '', $html);
         return $html;
     }
+
+
+    /**
+     * Helper for conditional get support.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string timestamp The last change date of whatever resource this is about.
+     * @param bool <code>true<code> if <strong>no</strong> body should be returned, 
+     *  <code>false</code> if the resource changed.
+     */
+    function zm_eval_if_modified_since($timestamp) {
+        // A PHP implementation of conditional get, see 
+        // http://fishbowl.pastiche.org/archives/001132.html
+        $last_modified = substr(date('r', $timestamp), 0, -5).'GMT';
+        $etag = '"'.md5($last_modified).'"';
+        // Send the headers
+        header("Last-Modified: $last_modified");
+        header("ETag: $etag");
+        // See if the client has provided the required headers
+        $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
+            stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
+            false;
+        $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
+            stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) : 
+            false;
+        if (!$if_modified_since && !$if_none_match) {
+            return false;
+        }
+        // At least one of the headers is there - check them
+        if ($if_none_match && $if_none_match != $etag) {
+            return false; // etag is there but doesn't match
+        }
+        if ($if_modified_since && $if_modified_since != $last_modified) {
+            return false; // if-modified-since is there but doesn't match
+        }
+        // Nothing has changed since their last request - serve a 304 and exit
+        header('HTTP/1.0 304 Not Modified');
+        return true;
+    }
+
+
+    /**
+     * Little helper to implement abstract Ultimate SEO <strong>Plugin</code> support.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param bool <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
+     */
+    function zm_useo_enabled() {
+        $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : (defined('SEO_URLS_STATUS') ? 'On' == SEO_URLS_STATUS : false);
+        return $seoEnabled && function_exists('zen_href_link_seo');
+    }
+ 
 
 ?>

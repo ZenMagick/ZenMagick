@@ -19,27 +19,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
+/**
+ * Plugin for Ultimate SEO 3.x support.
+ *
+ * <p><strong>NOTE:</strong> Loader support is set to <em>ALL</em> to hide the
+ * function <code>zen_href_link_seo</code> if not installed/enabled.</p>
+ *
+ * @package net.radebatz.zenmagick.plugins.zm_useo3
+ * @author mano
+ * @version $Id$
+ */
+class zm_useo3 extends ZMPlugin {
+
     /**
-     * Sample config file for RSS Boxes plugin.
-     *
-     * To change plugin defaults, take a copy of this file and rename
-     * to config.php.
-     *
-     * If the configuration is changed *after* the plugin is installed, you will need
-     * to uninstall and install again.
-     *
-     * NOTE: Uninstalling a plugin will remove all admin configuration settings from the 
-     * database!
-     *
+     * Default c'tor.
      */
-    define (_ZM_RSS_BOXES_COUNT, 5);
-    define (_ZM_RSS_BOXES_PREFIX, 'rss_box_');
-    define (_ZM_RSS_BOXES_TEMPLATE, 'box-template.php');
+    function zm_useo3() {
+        parent::__construct('ZenMagick Ultimate SEO3', 'Ultimate SEO 3.x for ZenMagick');
+        $this->setLoaderSupport('ALL');
+    }
+
+    /**
+     * Default c'tor.
+     */
+    function __construct() {
+        $this->zm_useo3();
+    }
+
+    /**
+     * Default d'tor.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+}
 
 ?>

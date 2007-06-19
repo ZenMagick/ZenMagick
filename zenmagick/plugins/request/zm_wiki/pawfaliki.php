@@ -243,7 +243,7 @@ function pawfalikiReadDir($path)
 // init the wiki if no pages exist
 function initWiki( $title )
 {
-	$contents = "Hello and welcome to Pawfaliki!";	
+	$contents = "Hello and welcome to the Wiki!";	
 	writeFile( $title, $contents );
 }
 
@@ -397,7 +397,7 @@ function htmlHeader( $title, $pawfaliki_config )
 	if ( getMode()=="restore" )
 	{
 		if (!isset($pawfaliki_config['INTERNAL']['DATA']['RESTORED']))
-			echo( "\t<form enctype=\"multipart/form-data\"  action=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\" method=\"post\">\n" );
+			echo( "\t<form enctype=\"multipart/form-data\"  action=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\" method=\"post\">\n" );
 	}	
 	  
 	echo("\t<table width=\"100%\">\n");
@@ -461,9 +461,9 @@ function wikilink( $title )
 {
 	global $pawfaliki_config;
 	if ( pageExists( $title ) )
-		return ("<a href=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\">".$title."</a>");
+		return ("<a href=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\">".$title."</a>");
 	elseif ( $pawfaliki_config['SYNTAX']['AUTOCREATE'] )
-		return ($title."<a href=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\">?</a>");
+		return ($title."<a href=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\">?</a>");
 	else
 		return ($title);
 }
@@ -508,7 +508,7 @@ function webpagelink( $text )
 	{
 		if (pageExists($src)) // is it a wiki page
 		{
-			$src = $_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$src;
+			$src = zm_plugin_url('wiki;zm_wiki_admin', 'page='.$src, false);
 			$window = "_self";
 			$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\">".$desc."</a>";
 		}
@@ -521,7 +521,7 @@ function webpagelink( $text )
 		{
 			$search_for_dot = strrchr( $src, "." ); // don't support names with dots in - prevents creating executable scripts
 			if( !$search_for_dot )		
-				$resultstr = ($src."<a href=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$src."\" onclick=\"target='$window';\">?</A>");
+				$resultstr = ($src."<a href=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$src, false)."\" onclick=\"target='$window';\">?</a>");
 			else
 				$resultstr = $src;
 		}
@@ -625,8 +625,6 @@ function wikiparse( $contents )
 	$replacements = array();
 	$contents = htmlspecialchars($contents, ENT_COMPAT, "UTF-8");
 
-  $contents = zm_wiki_parse($contents);
-
 	// verbatim text
 	$patterns[0] = "/~~~(.*)~~~/";
 	$replacements[0] = "\".verbatim( \"$1\" ).\"";
@@ -682,6 +680,9 @@ function wikiparse( $contents )
 
 	// substitute simple expressions & final expansion
 	$contents = wikiEval( preg_replace( $patterns, $replacements, $contents ) );
+
+  $contents = zm_wiki_parse($contents);
+
 	$patterns = array();
 	$replacements = array();
 
@@ -846,7 +847,7 @@ function rssFeed()
 			echo( "\t\t\t<title>$description</title>\n" );
         else
             echo( "\t\t\t<title>$title</title>\n" );
-		echo( "\t\t\t<link>$url?main_page=wiki&amp;page=$title</link>\n" );	
+		echo( "\t\t\t<link>".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."</link>\n" );	
 		echo( "\t\t\t<description>$description</description>\n" );
 		echo( "\t\t</item>\n" );	
 		$item++;
@@ -1181,7 +1182,7 @@ function displayPage( $title, &$mode, $contents="" )
 			echo("</span>\n");
 			break;			
 		case "edit": case "editnew":
-		  echo( "<form action=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\" method=\"post\">\n" );
+		  echo( "<form action=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\" method=\"post\">\n" );
 		  echo( "<textarea name=\"contents\" cols=\"80\" rows=\"24\">".$contents."</textarea>\n" );	
 		  break;
 	}    	
@@ -1202,7 +1203,7 @@ function displayControls( $title, &$mode )
 			case "display":
 				if (!(isSpecial($title)))
 				{
-					echo( "\t\t\t\t<form action=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\" method=\"post\">\n" );
+					echo( "\t\t\t\t<form action=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\" method=\"post\">\n" );
 					echo( "\t\t\t\t\t<p>\n" );
 	
 					if( $pawfaliki_config['MISC']['REQ_PASSWORD_TEXT_IN_EDIT_BTN'] )
@@ -1225,7 +1226,7 @@ function displayControls( $title, &$mode )
 				}
 				if ($title=="PageList"&&$pawfaliki_config['BACKUP']['ENABLE'])
 				{				
-					echo( "\t\t\t\t<form action=\"".$_SERVER['PHP_SELF']."?main_page=wiki&amp;page=".$title."\" method=\"post\">\n" );
+					echo( "\t\t\t\t<form action=\"".zm_plugin_url('wiki;zm_wiki_admin', 'page='.$title, false)."\" method=\"post\">\n" );
 					echo( "\t\t\t\t\t<p>\n" );
 					echo( "\t\t\t\t\t\t<input name=\"mode\" value=\"backup\" type=\"submit\" />" );
 					echo( "\t\t\t\t\t\t<input name=\"mode\" value=\"restore\" type=\"submit\" />" );

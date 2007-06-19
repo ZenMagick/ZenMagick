@@ -99,17 +99,17 @@ class ZMAccount extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->firstName_ = $zm_request->getRequestParameter('firstname', '');
-        $this->lastName_ = $zm_request->getRequestParameter('lastname', '');
-        $this->dob_ = $zm_request->getRequestParameter('dob', '');
-        $this->nickName_ = $zm_request->getRequestParameter('nick', '');
-        $this->gender_ = $zm_request->getRequestParameter('gender', '');
-        $this->email_ = $zm_request->getRequestParameter('email_address', '');
-        $this->phone_ = $zm_request->getRequestParameter('telephone', '');
-        $this->fax_ = $zm_request->getRequestParameter('fax', '');
-        $this->emailFormat_ = $zm_request->getRequestParameter('email_format', 'TEXT');
-        $this->referral_ = $zm_request->getRequestParameter('referral', '');
-        $this->newsletter_ = $zm_request->getRequestParameter('newsletter', false);
+        $this->firstName_ = $zm_request->getParameter('firstname', '');
+        $this->lastName_ = $zm_request->getParameter('lastname', '');
+        $this->dob_ = $zm_request->getParameter('dob', '');
+        $this->nickName_ = $zm_request->getParameter('nick', '');
+        $this->gender_ = $zm_request->getParameter('gender', '');
+        $this->email_ = $zm_request->getParameter('email_address', '');
+        $this->phone_ = $zm_request->getParameter('telephone', '');
+        $this->fax_ = $zm_request->getParameter('fax', '');
+        $this->emailFormat_ = $zm_request->getParameter('email_format', 'TEXT');
+        $this->referral_ = $zm_request->getParameter('referral', '');
+        $this->newsletter_ = $zm_request->getParameter('newsletter', false);
     }
 
 

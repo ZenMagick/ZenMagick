@@ -26,14 +26,9 @@
 <?php
 
     error_reporting(E_ALL^E_NOTICE);
-    ini_set("display_errors", true);
-    ini_set("log_errors", true); 
+    @ini_set("display_errors", false);
+    @ini_set("log_errors", true); 
     @ini_set("register_globals", 0);
-
-    $_zm_1und1_error_logfile = dirname(__FILE__)."/error_log_1and1.php";
-    if (file_exists($_zm_1und1_error_logfile)) {
-        //include($_zm_1und1_error_logfile);
-    }
 
     // ZenMagick bootstrap
     $_zm_bin_file = dirname(__FILE__)."/core.php";
@@ -134,17 +129,21 @@
     if (zm_setting('isEnableZenMagick') && zm_setting('isPageCacheEnabled')) {
         $pageCache = $zm_runtime->getPageCache();
         if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
-            echo $contents;
-            if (zm_setting('isDisplayTimerStats')) {
-                $_zm_db = $zm_runtime->getDB();
-                echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
-                echo 'page: ' . zm_get_elapsed_time() . ' sec. -->';
+            if (!zm_eval_if_modified_since($pageCache->lastModified())) {
+                echo $contents;
+                if (zm_setting('isDisplayTimerStats')) {
+                    $_zm_db = $zm_runtime->getDB();
+                    echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
+                    echo 'page: ' . zm_get_elapsed_time() . ' sec.; ';
+                    echo 'lastModified: ' . $pageCache->lastModified() . ' -->';
+                }
             }
             require('includes/application_bottom.php');
             exit;
         }
     }
 
+    // start output buffering
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
     // upset plugins :)
@@ -153,11 +152,23 @@
     foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
         if ($plugin->isInstalled() && $plugin->isEnabled()) {
             $plugin->init();
-            $pluginLoader->addPath($plugin->getPluginDir());
+            if ('ALL' == $plugin->getLoaderSupport()) {
+                $pluginLoader->addPath($plugin->getPluginDir());
+            }
             $pluginId = $plugin->getId();
             $$pluginId = $plugin;
         }
     }
+
+    // this means that in some cases core.php *must* be regenerated if plugins are
+    // installed while using core.php
+    if (!defined('ZM_SINGLE_CORE')) {
+        // use plugin loader to load static stuff
+        foreach ($pluginLoader->getStatic() as $static) {
+            require_once($static);
+        }
+    }
+
     // plugins prevail over defaults, but not themes
     $rootLoader =& zm_get_root_loader();
     $rootLoader->setParent($pluginLoader);
@@ -167,5 +178,7 @@
         ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList')))) {
         $code_page_directory = 'zenmagick';
     }
+
+    $zm_events->fireEvent($zm_runtime, ZM_EVENT_INIT_DONE);
 
 ?>

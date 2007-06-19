@@ -1,5 +1,5 @@
 Release 0.8.1
-- added replacement method for ZMRequest::getRequestParameter() called
+- added replacement method for ZMRequest::getParameter() called
   ZMRequest::getParameter(...)
 - added ZMConfigGroup and a few more methods to ZMConfig
 - added ZMRequest::isAdmin() to check for admin context
@@ -9,6 +9,51 @@ Release 0.8.1
 - added ZMCrumbtrail::clear() method
 - renamed ZMPluginFilter ZMPluginHandler, renamed
   ZMPluginHandler::applyFilter(..) to ZMPluginHandler::filterResponse(..)
+- fixed build process for update packages
+- fixed loader isse that stopped theme classes being found; for example,
+  custom MetaTags class, etc.
+- fix online demo store meta tags
+- added ZenMagick event 'init_done'; ZenMagick events all use 'onZM' as
+  prefix, so the event resolves to a callback metod name of onZMInitDone(..)
+- added if-modified-since and etag header for cache hits
+- added support for plugin admin pages added dynamically to the menu system;
+  see ZMPlugin::addMenuItem(...) for details
+- added admin support for faster header (less code but also less
+  functionallity)
+- added code to allow plugins add links to the admin menu dynamically; this
+  will allow plugins to have custom admin pages
+- fixed a few typos in RSS classes
+- added support to include plugins into core.php; plugins control this via
+  ZMPlugin::getLoaderSupport()
+- changed handler generation so plugins implement
+  ZMPlugin::createPluginHandler() if they require a handler; this allows the
+	handler to be reused by internally caching it
+- add support for cart actions to zm_call_zc_page(..)
+- make ZMShoppingCart use a reference of zen-cart's cart object rather than
+  taking a copy; removed ZMShoppingCart::refresh()
+- changed fopen call in lastRSS.php to @fopen to avoid ugly error stacks if
+  behind a firewall...
+- level of loader support for plugins is now depending on the configured
+  loader support flag for each plugin. The flag also controlls core.php
+	inclusion. Valid flags are:
+	NONE   = no loader support; no core.php support
+	PLUGIN = no additional loader support; plugin class will be added to
+	         core.php
+	ALL    = full loader support; all .php files will be included in core.php
+- added basic support to add pretty link rules for custom URLs
+- allow plugin admin pages to be generated as either simple contents or as
+  part or a ZMPluginPage instance
+	In other words, the function passed into ZMPlugin::addMenuIten(..) either
+	generates simple HTML output, or no output at all but returns a ZMPluginPage
+	instance containing the contents
+- extract Ultimate SEO 2.x code into separate plugin
+- Existing Ultimate SEO files may be removed using the install cleanup option;
+  this needs to be done *before* installing the new zm_useo2 plugin
+- created new plugin for Ultimate SEO 3.x support
+- fixed broken attribute dropdowns on product page
+- changed attribute code to ignore unsupported/unknown attribyte types rather
+  than playing dead
+- fixed #1739163: invalid attribute form field for text input fields
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

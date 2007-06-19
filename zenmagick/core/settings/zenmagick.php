@@ -36,7 +36,7 @@
     define('ZM_THEME_LANG_DIR', 'lang/');
 
     // events
-    define('ZM_EVENT_PREFIX', 'zm_');
+    define('ZM_EVENT_INIT_DONE', 'init_done');
 
     // db
     define('ZM_DB_PREFIX', DB_PREFIX);
@@ -63,5 +63,8 @@
     define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
     define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
     define('ZM_PLUGIN_SORT_ORDER_SUFFIX', 'SORT_ORDER');
+
+    // others
+    define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
 ?>

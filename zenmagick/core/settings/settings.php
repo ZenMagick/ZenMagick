@@ -43,8 +43,7 @@
     $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
     $_ZM_SETTINGS['isI18nSupport'] = false;
     $_ZM_SETTINGS['isPatchRewriteBase'] = true;
-    $_ZM_SETTINGS['isUltimateSeoPatchSupport'] = false;
-    $_ZM_SETTINGS['ultimateSeoPatchSupportUseZMCode'] = true;
+    $_ZM_SETTINGS['isPrettyLinkPatchSupport'] = true;
     $_ZM_SETTINGS['isEmailPatchSupport'] = true;
     $_ZM_SETTINGS['isEventProxySupport'] = true;
     $_ZM_SETTINGS['isDynamicAdminMenuPatchSupport'] = true;
@@ -230,4 +229,7 @@
     // flags :)
     $_ZM_SETTINGS['flagMaxColumns'] = MAX_LANGUAGE_FLAGS_COLUMNS;
 
+    // others
+    $_ZM_SETTINGS['textOptionPrefix'] = TEXT_PREFIX;
+    //
 ?>

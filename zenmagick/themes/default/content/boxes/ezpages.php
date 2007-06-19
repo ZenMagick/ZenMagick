@@ -25,7 +25,7 @@
 ?>
 
 <?php if (zm_setting('isShowEZBoxesNav')) { ?>
-    <?php $sbchapter = isset($sbchapter) ? $sbchapter : $zm_request->getRequestParameter("sbchapter", null); ?>
+    <?php $sbchapter = isset($sbchapter) ? $sbchapter : $zm_request->getParameter("sbchapter", null); ?>
     <?php $pages = null != $sbchapter ? $zm_pages->getPagesForChapterId($sbchapter) : $zm_pages->getPagesForSidebar(); ?>
     <?php if (0 < count($pages)) { ?>
         <h3><?php zm_l10n("Important Links") ?></h3>

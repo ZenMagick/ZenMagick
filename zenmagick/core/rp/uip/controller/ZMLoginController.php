@@ -80,14 +80,14 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $emailAddress = $zm_request->getRequestParameter('email_address');
+        $emailAddress = $zm_request->getParameter('email_address');
         $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
             $zm_messages->error('Sorry, there is no match for that email address and/or password.');
             return $this->findView();
         }
 
-        $password = $zm_request->getRequestParameter('password');
+        $password = $zm_request->getParameter('password');
         if (!zm_validate_password($password, $account->getPassword())) {
             $zm_messages->error('Sorry, there is no match for that email address and/or password.');
             return $this->findView();

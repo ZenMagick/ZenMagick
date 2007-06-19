@@ -67,9 +67,6 @@ class ZMLogoffController extends ZMController {
         zm_clear_session();
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        // also refresh the cart
-        $zm_cart->refresh();
-
         return $this->findView();
     }
 

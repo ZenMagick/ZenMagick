@@ -78,6 +78,7 @@ class ZMMetaTags extends ZMObject {
         parent::__destruct();
     }
 
+
     /**
      * Returns/echo'es the page title.
      *

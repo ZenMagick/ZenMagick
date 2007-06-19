@@ -35,7 +35,7 @@
       <?php } else { ?>
           <?php zm_product_image($zm_product) ?>
       <?php } ?>
-      <div id="desc"><?php echo $zm_product->getDescription() ?></div>
+      <div id="desc"><?php echo zm_htmlencode($zm_product->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php zm_htmlencode($manufacturer->getName()); ?><br />
       <?php } ?>

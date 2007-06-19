@@ -620,7 +620,7 @@ if (!class_exists("ZMObject")) {
     global $zm_runtime, $zm_request, $zm_loader;
 
         // get root loader
-        $rootLoader = zm_get_root_loader();
+        $rootLoader =& zm_get_root_loader();
 
         // set up theme
         $theme =& $zm_runtime->getThemeForId($themeId);
@@ -642,7 +642,7 @@ if (!class_exists("ZMObject")) {
         );
         foreach ($themeClasses as $name => $clazz) {
             $currentClazz = strtolower(get_class($$name));
-            if ($currentClazz != $zm_loader->load($clazz)) {
+            if ($currentClazz != strtolower($zm_loader->load($clazz))) {
                 // update only if changed
                 $$name = $zm_loader->create($clazz);
             }
@@ -747,7 +747,7 @@ if (!class_exists("ZMObject")) {
     function zm_fire_event(&$source, $eventId, $args=null) {
     global $zm_events;
 
-        $zm_events->update($source, ZM_EVENT_PREFIX.$eventId, $args);
+        $zm_events->fireEvent($source, $eventId, $args);
     }
 
 }

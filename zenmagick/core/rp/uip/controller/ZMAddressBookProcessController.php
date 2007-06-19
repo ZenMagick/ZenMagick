@@ -68,14 +68,14 @@ class ZMAddressBookProcessController extends ZMController {
         $zm_crumbtrail->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
 
         $viewName = null;
-        if ($zm_request->getRequestParameter('edit')) {
+        if ($zm_request->getParameter('edit')) {
             $zm_crumbtrail->addCrumb("Edit");
-            $address = $zm_addresses->getAddressForId($zm_request->getRequestParameter('edit'));
+            $address = $zm_addresses->getAddressForId($zm_request->getParameter('edit'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_edit';
-        } else if ($zm_request->getRequestParameter('delete')) {
+        } else if ($zm_request->getParameter('delete')) {
             $zm_crumbtrail->addCrumb("Delete");
-            $address = $zm_addresses->getAddressForId($zm_request->getRequestParameter('delete'));
+            $address = $zm_addresses->getAddressForId($zm_request->getParameter('delete'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_delete';
         } else {

@@ -65,13 +65,13 @@
                     array_push($elements, _zm_buildTextElement($product, $attribute));
                     break;
                 case PRODUCTS_OPTIONS_TYPE_FILE:
-                    die('Unsupported attribute type: file');
+                    zm_log('Unsupported attribute type: file for productId: '.$product->getId());
                     break;
                 case PRODUCTS_OPTIONS_TYPE_SELECT:
                     array_push($elements, _zm_buildSelectElement($product, $attribute));
                     break;
                 default:
-                    die('unsupported $attribute type: '.$attribute->getType());
+                    zm_log('unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
             }
         }
         return $elements;
@@ -124,7 +124,8 @@
         $index = 1;
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
-            $name = 'id['.$attribute->getId().']['.$value->getId().']';
+            //$name = 'id['.$attribute->getId().']['.$value->getId().']';
+            $name = 'id['.zm_setting('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'._zm_buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""/>';
             array_push($elements, $text);

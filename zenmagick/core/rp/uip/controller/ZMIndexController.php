@@ -80,8 +80,8 @@ class ZMIndexController extends ZMController {
         } else if (null != $zm_request->getManufacturerId()) {
             $resultList = new ZMResultList($zm_products->getProductsForManufacturerId($zm_request->getManufacturerId()), $max);
             $viewName = 'manufacturer';
-        } else if (null != $zm_request->getRequestParameter('compareId')) {
-            $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getRequestParameter('compareId')), $max);
+        } else if (null != $zm_request->getParameter('compareId')) {
+            $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getParameter('compareId')), $max);
             $viewName = 'category_list';
         }
         if (null != $resultList) {

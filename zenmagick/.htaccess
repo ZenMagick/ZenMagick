@@ -16,7 +16,7 @@ Options -Indexes
 #  Deny from all
 #</LimitExcept>
 
-## generally deny access to PHP files
+# generally deny access to PHP files
 <Files *.php>
   Order Deny,Allow
   Deny from all

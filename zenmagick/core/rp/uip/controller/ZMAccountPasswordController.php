@@ -101,9 +101,9 @@ class ZMAccountPasswordController extends ZMController {
             die('could not access session account');
         }
 
-        $oldPassword = $zm_request->getRequestParameter('password_current');
-        $newPassword = $zm_request->getRequestParameter('password_new');
-        $confirmPassword = $zm_request->getRequestParameter('password_confirmation');
+        $oldPassword = $zm_request->getParameter('password_current');
+        $newPassword = $zm_request->getParameter('password_new');
+        $confirmPassword = $zm_request->getParameter('password_confirmation');
 
         if (!zm_validate_password($oldPassword, $account->getPassword())) {
             $zm_messages->error('Your current password did not match the password in our records. Please try again.');

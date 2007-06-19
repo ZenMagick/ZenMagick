@@ -23,7 +23,7 @@
 ?>
 <?php
 
-define('_ZM_ZEN_GENERAL_FILE', DIR_FS_ADMIN . DIR_WS_FUNCTIONS . 'general.php');
+define('_ZM_ZEN_HEADER_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'header.php');
 
 /**
  * Patch to enable a dynamic admin menu structure.
@@ -33,13 +33,6 @@ define('_ZM_ZEN_GENERAL_FILE', DIR_FS_ADMIN . DIR_WS_FUNCTIONS . 'general.php');
  * @version $Id$
  */
 class ZMDynamicAdminMenuPatch extends ZMFilePatch {
-    var $fktFilesCfg_ = array(
-        _ZM_ZEN_GENERAL_FILE => array(
-            array('zen_draw_admin_box', '_DISABLED')
-        )
-    );
-
-
 
     /**
      * Default c'tor.
@@ -69,8 +62,8 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
      * @return bool <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-return false;
-        return $this->isFilesFktOpen($this->fktFilesCfg_);
+        $contents = file_get_contents(_ZM_ZEN_HEADER_FILE);
+        return false === strpos($contents, "zenmagick_header.php");
     }
 
     /**
@@ -79,7 +72,7 @@ return false;
      * @return bool <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_GENERAL_FILE);
+        return is_writeable(_ZM_ZEN_HEADER_FILE);
     }
 
     /**
@@ -90,7 +83,7 @@ return false;
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_GENERAL_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_HEADER_FILE;
     }
 
     /**
@@ -101,13 +94,21 @@ return false;
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-return true;
         if (!$this->isOpen()) {
             return true;
         }
 
         if ((zm_setting('isEnablePatching') && zm_setting('isDynamicAdminMenuPatchSupport')) || $force) {
-            return $this->patchFilesFkt($this->fktFilesCfg_);
+            if (is_writeable(_ZM_ZEN_HEADER_FILE)) {
+                $lines = $this->getFileLines(_ZM_ZEN_HEADER_FILE);
+                $patchedLines = array();
+                array_push($patchedLines, "<?php if (defined('_ZM_ADMIN_PAGE')) {require('zenmagick_header.php'); return; } /* added by ZenMagick installation patcher */ ?>");
+                $finalLines = array_merge($patchedLines, $lines);
+                return $this->putFileLines(_ZM_ZEN_HEADER_FILE, $finalLines);
+            } else {
+                zm_log("** ZenMagick: no permission to patch dynamic admin menu support into header.php", 1);
+                return false;
+            }
         } else {
             // disabled
             zm_log("** ZenMagick: Dynamic Admin Menu support disabled - skipping");
@@ -123,8 +124,12 @@ return true;
      * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-return true;
-        return $this->undoFilesFkt($this->fktFilesCfg_);
+        if (!$this->isOpen()) {
+            $lines = $this->getFileLines(_ZM_ZEN_HEADER_FILE);
+            if (false !== strpos($lines[0], "zenmagick_header.php")) {
+                return $this->putFileLines(_ZM_ZEN_HEADER_FILE, array_slice($lines, 1));
+            }
+        }
     }
     
 }

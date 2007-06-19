@@ -111,6 +111,15 @@ class ZMLoader {
     }
 
     /**
+     * Add a given file to the loaders path.
+     *
+     * @param string file The file to add.
+     */
+    function addFile($file) {
+        $this->path_[$classname] = $file;
+    }
+
+    /**
      * Set the parent loader.
      *
      * @param ZMLoader parent The new parent.

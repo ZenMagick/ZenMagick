@@ -52,6 +52,7 @@ class ZMPlugin extends ZMService {
     var $type_;
     var $messages_ = null;
     var $pluginDir_ = null;
+    var $loaderSupport_;
 
 
     /**
@@ -65,7 +66,7 @@ class ZMPlugin extends ZMService {
     function ZMPlugin($title='', $description='', $sortOrder=0, $configPrefix=null) {
         parent::__construct();
 
-        $this->type_ = "request";
+        $this->type_ = 'request';
         $this->id_ = get_class($this);
         $this->title_ = $title;
         $this->description_ = $description;
@@ -84,6 +85,7 @@ class ZMPlugin extends ZMService {
         }
         $this->messages_ = array();
         $this->pluginDir_ = null;
+        $this->loaderSupport_ = 'PLUGIN';
     }
 
     /**
@@ -411,14 +413,86 @@ class ZMPlugin extends ZMService {
     }
 
     /**
+     * Create the plugin handler.
+     *
+     * <p>This is the method to be implemented by plugins that require a handler.</p>
+     *
+     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
+     *  not supported.
+     */
+    function &createPluginHandler() {
+        return null;
+    }
+
+    /**
      * Get the plugin handler.
      *
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPluginHandler() {
-        return null;
+    function &getPluginHandler() {
+        if (null == $this->handler_) {
+            $this->handler_ =& $this->createPluginHandler();
+        }
+        return $this->handler_;
     }
+
+    /**
+     * Set the plugin handler.
+     *
+     * @param ZMPluginHandler handler A <code>ZMPluginHandler</code> instance.
+     */
+    function setPluginHandler(&$handler) {
+        return $this->handler_ =& $handler;
+    }
+
+    /**
+     * Add plugin maintenance screen to navigation.
+     *
+     * <p>The provided function is free to implement content generation in one of two different
+     * ways:</p>
+     * <ol>
+     *   <li>BASIC:<br>
+     *     The page contents is generated as-is. No output buffering or similar. Expected return value
+     *     is <code>null</code>.</li>
+     *   <lI>ADVANCED:<br>
+     *     Content is not generated directly, but included as part of the returned <code>ZMPluginPage</code>
+     *     instance.</li>
+     * </ol> 
+     *
+     * @param string id The page id.
+     * @param string title The page title.
+     * @param string function The function to render the contents.
+     */
+    function addMenuItem($id, $title, $function) {
+    global $zm_request;
+
+        if ($zm_request->isAdmin()) {
+            zm_add_menu_item(new ZMMenuItem('plugins', $id, $title, null, $function));
+        }
+    }
+
+    /**
+     * Get the loader support flag for this plugin.
+     *
+     * <p>This flag tells the core compresser the extend of support for adding this plugin
+     * to a compressed version of <code>core.php</code>. Valid values are:</p>
+     * <dl>
+     *   <dt>NONE</dt><dd>Not supported.</dd>
+     *   <dt>PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
+     *   <dt>ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
+     * </dl>
+     *
+     * @return string The loader support flag.
+     */
+    function getLoaderSupport() { return $this->loaderSupport_; }
+
+    /**
+     * Set the loader support flag for this plugin.
+     *
+     * @param string loaderSupport The loader support flag.
+     */
+    function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
 
     /**
      * Create new config value instance.

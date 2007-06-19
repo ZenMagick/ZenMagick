@@ -27,6 +27,26 @@
 
 
     /**
+     * Add a custom mapping for pretty link generation.
+     *
+     * @package net.radebatz.zenmagick.html
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
+     * @param string regexp Regular expression converting the view name to a pretty link.
+     * @param array params List of query parameters to append as part of the pretty link.
+     * @param array exclude List of query parameters to exclude from the generated parameter list.
+     */
+    function zm_set_pretty_link_mapping($view, $regexp=null, $params=array(), $exclude=array()) { 
+    global $_zm_pretty_link_map;
+
+        if (!isset($_zm_pretty_link_map)) {
+            $_zm_pretty_link_map = array();
+        }
+
+        $_zm_pretty_link_map[$view] = array('regexp' => $regexp, 'params' => $params, 'exclude' => $exclude);
+    }
+    
+
+    /**
      * Create a URL for a href.
      *
      * <p>If the <code>view</code> argument is <code>null</code>, the current view will be
@@ -116,7 +136,7 @@
      * Build a href / url.
      */
     function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
-    global $zm_request;
+    global $zm_request, $_zm_pretty_link_map;
 
         if (null === $view || null === $params) {
             $query = array();
@@ -144,8 +164,7 @@
         $view = $view == null ? $zm_request->getPageName() : $view;
 
         $href= null;
-        $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : false;
-        if ($seoEnabled && function_exists('zen_href_link_seo') && zm_is_in_array($view, zm_setting('seoEnabledPagesList'))) {
+        if (zm_useo_enabled() && (null == zm_setting('seoEnabledPagesList') || zm_is_in_array($view, zm_setting('seoEnabledPagesList')))) {
             $href = zen_href_link_seo($view, $params, $secure ? 'SSL' : 'NONSSL');
         } else {
             $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
@@ -323,9 +342,26 @@
                     if (zm_starts_with($page, 'popup_')) {
                         $path .= "popup/".substr($page, 6);
                     } else {
-                        $translate = false;
-                        if (!zm_is_empty($page)) {
-                            zm_log("no pretty link mapping for: ".$page);
+                        if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {
+                            $mapping = $_zm_pretty_link_map[$page];
+                            if (null == $mapping['regexp']) {
+                                $path .= $page;
+                                foreach ($mapping['params'] as $mp) {
+                                    if (isset($query[$mp])) {
+                                        $path .= '/'.$query[$mp];
+                                        array_push($removeNames, $mp);
+                                    }
+                                }
+                                $path .= '/';
+                                $removeNames = array_merge($removeNames, $mapping['exclude']);
+                            } else {
+                                // todo; what about callback functions?
+                            }
+                        } else {
+                            $translate = false;
+                            if (!zm_is_empty($page)) {
+                                zm_log("no pretty link mapping for: ".$page);
+                            }
                         }
                     }
                     break;

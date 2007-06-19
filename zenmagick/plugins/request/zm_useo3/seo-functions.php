@@ -19,27 +19,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
-    /**
-     * Sample config file for Google AdSense Boxes plugin.
-     *
-     * To change plugin defaults, take a copy of this file and rename
-     * to config.php.
-     *
-     * If the configuration is changed *after* the plugin is installed, you will need
-     * to uninstall and install again.
-     *
-     * NOTE: Uninstalling a plugin will remove all admin configuration settings from the 
-     * database!
-     *
-     */
-    define (_ZM_GOOGLE_ADSENSE_COUNT, 5);
-    define (_ZM_GOOGLE_ADSENSE_BOX_PREFIX, 'adsense_box_');
-    define (_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE, 'box-template.php');
+
+/**
+ * Seo Urls zen_href_link replacement
+ */
+function zen_href_link_seo($page='', $parameters='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
+    //zm_set_setting('seoEnabledPagesList', null);
+    return $GLOBALS['SeoUrl']->buildHrefLink($page, $parameters, $connection, $add_session_id, $static, $use_dir_ws_catalog);
+}
+
+/**
+ * 'redirect' zen_href_link_stock to the disabled original function.
+ * This has to correspond with the function name implemented in ZMLinkGenerationPatch.php
+ */
+function zen_href_link_stock($page='', $parameters='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
+    return zen_href_link_DISABLED($page, $parameters, $connection, $add_session_id, $seo_safe, $static, $use_dir_ws_catalog);
+}
 
 ?>

@@ -25,14 +25,11 @@
 ?>
 <?php
 
-// check for local defaults
-if (file_exists(dirname(__FILE__)."/config.php")) { include("config.php"); }
-
-
 // some default defaults ;)
 define (_ZM_GOOGLE_ADSENSE_COUNT, 4);
 define (_ZM_GOOGLE_ADSENSE_BOX_PREFIX, 'adsense_box_');
 define (_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE, 'box-template.php');
+
 
 /**
  * Plugin providing functionallity for one or more Google AdSense ads and box(es).

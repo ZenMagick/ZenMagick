@@ -85,13 +85,15 @@ class zm_google_analytics extends ZMPlugin {
     }
 
     /**
-     * Get the plugin handler.
+     * Create the plugin handler.
+     *
+     * <p>This is the method to be implemented by plugins that require a handler.</p>
      *
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPluginHandler() {
-        return new zm_google_analytics_plugin_handler($this);
+    function &createPluginHandler() {
+        return new zm_google_analytics_plugin_handler();
     }
 
 }
@@ -100,29 +102,23 @@ class zm_google_analytics extends ZMPlugin {
  * Contents filter that adds Google analytics code to all pages.
  */
 class zm_google_analytics_plugin_handler extends ZMPluginHandler {
-    var $plugin_;
     var $eol_;
 
 
     /**
      * Create new instance.
-     *
-     * @param zm_google_analytics plugin The google analytics instance.
      */
-    function zm_google_analytics_plugin_handler(&$plugin) {
+    function zm_google_analytics_plugin_handler() {
         parent::__construct();
 
-        $this->plugin_ =& $plugin;
         $this->eol_ = "\n";
     }
 
     /**
      * Create new instance.
-     *
-     * @param zm_google_analytics plugin The google analytics instance.
      */
-    function __construct(&$plugin) {
-        $this->zm_google_analytics_plugin_handler($plugin);
+    function __construct() {
+        $this->zm_google_analytics_plugin_handler();
     }
 
     /**
@@ -147,10 +143,21 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
 
 
     /**
+     * Get plugin config value.
+     *
+     * @param string name The name.
+     * @return mixed The value.
+     */
+    function get($name) {
+        $plugin =& $this->getPlugin();
+        return $plugin->get($name);
+    }
+
+    /**
      * Check for debug flag.
      */
     function isDebug() {
-        return 'Enabled' == $this->plugin_->get('debug');
+        return 'Enabled' == $this->get('debug');
     }
 
     /**
@@ -169,7 +176,7 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
 
         $code = '<script src="' . $url . '" type="text/javascript"></script>' . $this->eol_;
         $code .= '<script type="text/javascript">';
-        $code .= '_uacct = "' . $this->plugin_->get('uacct') . '";';
+        $code .= '_uacct = "' . $this->get('uacct') . '";';
         if ($this->isDebug()) {
             $code .= '//';
         }
@@ -202,12 +209,12 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
 
         $code = '<form style="display:none;" name="utmform"><textarea id="utmtrans">' . $this->eol_;
         // UTM:T|[order-id]|[affiliation]|[total]|[tax]|[shipping]|[city]|[state]|[country]
-        $code .= 'UTM:T|'.$zm_order->getId().'|'.$this->plugin_->get('affiliation').'|'.$totalValue.'|'.$taxValue.'|'.
+        $code .= 'UTM:T|'.$zm_order->getId().'|'.$this->get('affiliation').'|'.$totalValue.'|'.$taxValue.'|'.
             $shippingValue.'|'.$address->getCity().'|'.$address->getState().'|'.$country->getIsoCode3() . $this->eol_;
 
         //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
         foreach ($zm_order->getOrderItems() as $orderItem) {
-            $identifier = 'Model' == $this->plugin_->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
+            $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $category = $zm_categories->getDefaultCategoryForProductId($orderItem->getProductId());
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $code .= 'UTM:I|'.$zm_order->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;

@@ -26,6 +26,7 @@
 /**
  * Sample plugin to illustrate a few key points of the ZenMagick plugin architecture.
  *
+ * @package net.radebatz.zenmagick.plugins
  * @author mano
  * @version $Id$
  */
@@ -35,7 +36,7 @@ class sample_plugin extends ZMPlugin {
      * Default c'tor.
      */
     function sample_plugin() {
-        parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin', 3);
+        parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin');
         $this->setKeys(array('rq1key1', 'rq1key2'));
     }
 
@@ -75,6 +76,9 @@ class sample_plugin extends ZMPlugin {
       
         // set up as event subscriber
         $this->zcoSubscribe();
+
+        // add admin page
+        $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), zm_sample_plugin_admin);
     }
 
 
@@ -87,12 +91,14 @@ class sample_plugin extends ZMPlugin {
     }
 
     /**
-     * Get the plugin handler.
+     * Create the plugin handler.
+     *
+     * <p>This is the method to be implemented by plugins that require a handler.</p>
      *
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function getPluginHandler() {
+    function &createPluginHandler() {
     global $zm_request;
 
         return 'login' == $zm_request->getPageName() ? new sample_plugin_handler() : null;
@@ -103,6 +109,7 @@ class sample_plugin extends ZMPlugin {
 
 /**
  * Simple page filter.
+ * @package net.radebatz.zenmagick.plugins
  */
 class sample_plugin_handler extends ZMPluginHandler {
 
@@ -139,6 +146,15 @@ class sample_plugin_handler extends ZMPluginHandler {
         return preg_replace('/<\/h1>/', ' (modified by ' . $plugin->getName() . ')</h1>', $contents, 1);
     }
 
+}
+
+/**
+ * Sample admin page.
+ *
+ * @package net.radebatz.zenmagick.plugins
+ */
+function zm_sample_plugin_admin() {
+    echo 'Sample Plugin Admin Page';
 }
 
 ?>

@@ -48,8 +48,8 @@
                     <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>" />
                 <?php } else if ($zm_request->getManufacturerId()) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo $zm_request->getManufacturerId() ?>" />
-                <?php } else if (null != $zm_request->getRequestParameter("compareId")) { ?>
-                    <?php zm_hidden_list('compareId[]', $zm_request->getRequestParameter("compareId")) ?>
+                <?php } else if (null != $zm_request->getParameter("compareId")) { ?>
+                    <?php zm_hidden_list('compareId[]', $zm_request->getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

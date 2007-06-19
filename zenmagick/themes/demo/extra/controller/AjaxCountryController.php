@@ -81,7 +81,7 @@ class AjaxCountryController extends ZMAjaxCountryController {
         $this->setContentType('text/xml');
 
         // create XML
-        $countryId = $zm_request->getRequestParameter('countryId', null);
+        $countryId = $zm_request->getParameter('countryId', null);
 
         echo '<zones>';
         foreach ($zm_countries->getZonesForCountryId($countryId) as $zone) {

@@ -34,16 +34,25 @@
 class ZMRequest extends ZMObject {
     var $controller_;
     var $session_;
+    var $request_;
 
 
     /**
      * Default c'tor.
+     *
+     * @param array The request; optional, if <code>null</code>,
+     *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function ZMRequest() {
+    function ZMRequest($request=null) {
         parent::__construct();
 
         $this->controller_ = null;
         $this->session_ = new ZMSession();
+        if (null != $request) {
+            $this->request_ = $request;
+        } else {
+            $this->request_ = array_merge($_POST, $_GET);
+        }
     }
 
     /**
@@ -89,42 +98,42 @@ class ZMRequest extends ZMObject {
      *
      * @return string The value of the <code>main_page</code> query parameter.
      */
-    function getPageName() { return zm_sanitize($_GET['main_page']); }
+    function getPageName() { return $this->getParameter('main_page'); }
 
     /**
      * Get the current page index (if available).
      *
      * @return int The current page index (default is 1).
      */
-    function getPageIndex() {  return isset($_GET['page']) ? (int)$_GET['page'] : 1; }
+    function getPageIndex() {  return $this->getParameter('page', 1); }
 
     /**
      * Get the current sort id.
      *
      * @return string The current sort id.
      */
-    function getSortId() {  return isset($_GET['sort_id']) ? zm_sanitize($_GET['sort_id']) : null; }
+    function getSortId() {  return $this->getParameter('sort_id'); }
 
     /** 
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
      */
-    function getSubPageName() { return isset($_GET['cat']) ? zm_sanitize($_GET['cat']) : null; }
+    function getSubPageName() { return $this->getParameter('cat'); }
 
     /**
      * Get the product id.
      *
      * @return int The request product id or <code>0</code>.
      */
-    function getProductId() { return isset($_GET['products_id']) ? (int)$_GET['products_id'] : (int)$this->getParameter("productId", 0); }
+    function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
      * Get the request model number.
      *
      * @return string The model numner or <code>null</code>.
      */
-    function getModel() { return isset($_GET['model']) ? zm_sanitize($_GET['model']) : null; }
+    function getModel() { return $this->getParameter('model'); }
 
     /**
      * Get the current category path.
@@ -145,7 +154,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    function getManufacturerId() { return isset($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : null; }
+    function getManufacturerId() { return $this->getParameter('manufacturers_id'); }
 
     /**
      * Get the account id.
@@ -175,14 +184,14 @@ class ZMRequest extends ZMObject {
      *
      * @return int The current review id or <code>0</code>.
      */
-    function getReviewId() { return isset($_GET['reviews_id']) ? (int)$_GET['reviews_id'] : 0; }
+    function getReviewId() { return $this->getParameter('reviews_id', 0); }
 
     /**
      * Get the current order id.
      *
      * @return int The current order id or <code>0</code>.
      */
-    function getOrderId() { return isset($_GET['order_id']) ? (int)$_GET['order_id'] : 0; }
+    function getOrderId() { return $this->getParameter('order_id', 0); }
 
     /**
      * Returns <code>true</code> if the user is not logged in.
@@ -202,7 +211,7 @@ class ZMRequest extends ZMObject {
      * @deprecated use getParameter() instead
      */
     function getRequestParameter($name, $default=null) { 
-        return isset($_GET[$name]) ? zm_sanitize($_GET[$name]) : (isset($_POST[$name]) ? zm_sanitize($_POST[$name]) : $default);
+        return $this->getParameter($name, $default, true);
     }
 
     /**
@@ -216,21 +225,11 @@ class ZMRequest extends ZMObject {
      * @return string The parameter value or the default value or <code>null</code>.
      */
     function getParameter($name, $default=null, $sanitize=true) { 
-        $value = $default;
-        $isDefault = true;
-        if (isset($_GET[$name])) {
-            $value = $_GET[$name];
-            $isDefault = false;
-        } else if (isset($_POST[$name])) {
-            $value = $_POST[$name];
-            $isDefault = false;
+        if (isset($this->request_[$name])) {
+            return $sanitize ? zm_sanitize($this->request_[$name]) : $this->request_[$name];
+        } else {
+            return $default;
         }
-
-        if ($isDefault && $sanitize) {
-            $value = zm_sanitize($value);
-        }
-
-        return $value;
     }
 
     /**

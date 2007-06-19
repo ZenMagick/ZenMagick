@@ -28,6 +28,7 @@
 // dismiss sqlpatch output as we do only want to use the code...
 define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
+define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
     // locale
@@ -43,7 +44,6 @@ require_once('includes/application_top.php');
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
-        "ultimateSeoSupport" => "Enable support for Ultimate SEO",
         "dynamicAdminMenu" => "Enable dynamic admin menu support",
 
         "sqlFeatures" => "Install Features database tables"
@@ -183,13 +183,7 @@ require_once('includes/application_top.php');
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
     <script type="text/javascript">
-      function init() {
-        cssjsmenu('navbar');
-        if (document.getElementById) {
-          var kill = document.getElementById('hoverJS');
-          kill.disabled = true;
-        }
-      }
+      // select/unselect all
       function sync_all(box, name) {
         var boxes = document.getElementsByTagName('input');
         for (var ii=0; ii<boxes.length; ++ii) {
@@ -200,7 +194,7 @@ require_once('includes/application_top.php');
       }
     </script>
   </head>
-  <body id="b_installation" onload="init()">
+  <body id="b_installation">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
     <?php if ($zm_messages->hasMessages()) { ?>
@@ -236,16 +230,6 @@ require_once('includes/application_top.php');
           </fieldset>
         </form>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install Ultimate SEO?');">
-          <fieldset class="patches">
-            <legend><?php zm_l10n("Ultimate SEO Installation Options") ?></legend>
-            <?php _zm_patch_group('ultimateSeo', false) ?>
-            <div class="submit">
-              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=ultimateSeo" onclick="return zm_user_confirm('Uninstall Ultimate SEO?');"><?php zm_l10n("Uninstall Ultimate SEO") ?></a>
-            </div>
-          </fieldset>
-        </form>
-
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take a while...)');">
           <fieldset id="optimisation">
           <legend><?php zm_l10n("Optimising ZenMagick") ?></legend>
@@ -275,7 +259,7 @@ require_once('includes/application_top.php');
                 <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
               <?php ++$ii; } ?>
               <input type="checkbox" class="all" id="oall" name="oall" value="" onclick="sync_all(this, 'obsolete')">
-              <label for="fall"><?php zm_l10n("Select/Unselect All") ?></label><br>
+              <label for="oall"><?php zm_l10n("Select/Unselect All") ?></label><br>
               <div class="submit"><input type="submit" value="<?php zm_l10n("Remove") ?>"></div>
             <?php } ?>
           </fieldset>

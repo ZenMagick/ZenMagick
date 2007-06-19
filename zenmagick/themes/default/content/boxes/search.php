@@ -33,7 +33,7 @@
                 <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
                 <?php define(KEYWORD_DEFAULT, zm_l10n_get("enter search")); ?>
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-                <input type="text" id="keyword" name="keyword" value="<?php echo $zm_request->getRequestParameter('keyword', KEYWORD_DEFAULT) ?>" onfocus="<?php echo $onfocus ?>" />
+                <input type="text" id="keyword" name="keyword" value="<?php echo $zm_request->getParameter('keyword', KEYWORD_DEFAULT) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>
         <a class="clear" href="<?php zm_href(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>

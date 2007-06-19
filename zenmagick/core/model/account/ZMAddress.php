@@ -94,17 +94,17 @@ class ZMAddress extends ZMModel {
     global $zm_request, $zm_countries;
 
         $this->addressId_ = 0;
-        $this->firstName_ = $zm_request->getRequestParameter('firstname', '');
-        $this->lastName_ = $zm_request->getRequestParameter('lastname', '');
-        $this->companyName_ = $zm_request->getRequestParameter('company', '');
-        $this->gender_ = $zm_request->getRequestParameter('gender', '');
-        $this->address_ = $zm_request->getRequestParameter('street_address', '');
-        $this->suburb_ = $zm_request->getRequestParameter('suburb', '');
-        $this->postcode_ = $zm_request->getRequestParameter('postcode', '');
-        $this->city_ = $zm_request->getRequestParameter('city', '');
-        $this->state_ = $zm_request->getRequestParameter('state', '');
+        $this->firstName_ = $zm_request->getParameter('firstname', '');
+        $this->lastName_ = $zm_request->getParameter('lastname', '');
+        $this->companyName_ = $zm_request->getParameter('company', '');
+        $this->gender_ = $zm_request->getParameter('gender', '');
+        $this->address_ = $zm_request->getParameter('street_address', '');
+        $this->suburb_ = $zm_request->getParameter('suburb', '');
+        $this->postcode_ = $zm_request->getParameter('postcode', '');
+        $this->city_ = $zm_request->getParameter('city', '');
+        $this->state_ = $zm_request->getParameter('state', '');
         $this->zoneId_ = 0;
-        $this->country_ = $zm_countries->getCountryForId($zm_request->getRequestParameter('country', 0));
+        $this->country_ = $zm_countries->getCountryForId($zm_request->getParameter('country', 0));
         if (null == $this->country_) {
             $this->country_ = $this->create("Country");
         }

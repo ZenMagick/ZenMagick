@@ -37,9 +37,6 @@
     // disable .htaccess Rewritebase patching
     //zm_set_setting('isPatchRewriteBase', false);
 
-    // enable Ultimate SEO patching
-    //zm_set_setting('isUltimateSeoPatchSupport', true);
-
     // disable global zen-cart event handling in ZenMagick
     //zm_set_setting('isEventProxySupport', false);
 

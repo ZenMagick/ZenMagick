@@ -99,7 +99,6 @@ class ZMPlugins extends ZMService {
                 continue;
 
             $name = $zm_runtime->getPluginsDir().$file;
-//echo $name."<br>";
             if (is_dir($name)) {
                 $types[$file] = $name;
             }
@@ -154,11 +153,13 @@ class ZMPlugins extends ZMService {
         // make sure we can extend from ZMPlugin
         $plugins = array();
         foreach ($files as $file) {
-            $plugin = str_replace('.php', '', basename($file));
             if (!file_exists($file)) {
                 continue;
             }
-            require_once($file);
+            $plugin = str_replace('.php', '', basename($file));
+            if (!class_exists($plugin)) {
+                require_once($file);
+            }
             $obj = new $plugin();
             $obj->setType($type);
             $pluginDir = dirname($file) . '/';

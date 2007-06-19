@@ -44,7 +44,7 @@ class ZMShoppingCart extends ZMService {
     function ZMShoppingCart() {
         parent::__construct();
 
-        $this->refresh();
+        $this->cart_ =& $_SESSION['cart'];
         $this->zenTotals_ = null;
         $this->payments_ = null;
     }
@@ -62,12 +62,6 @@ class ZMShoppingCart extends ZMService {
     function __destruct() {
         parent::__destruct();
     }
-
-
-    /**
-     * Refresh the cart.
-     */
-    function refresh() { $this->cart_ = $_SESSION['cart']; }
 
 
     /**

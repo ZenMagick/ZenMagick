@@ -24,6 +24,7 @@
  */
 ?>
 <?php  
+define('_ZM_ADMIN_PAGE', true);
 require('includes/application_top.php');
 require('includes/zmCatalogDtree.php');
 
@@ -33,7 +34,7 @@ require('includes/zmCatalogDtree.php');
     $productId = $zm_request->getProductId();
     $productId = 0 == $productId ? '' : $productId;
     $cPath = $zm_request->getCategoryPath();
-    $view = $zm_request->getRequestParameter('view');
+    $view = $zm_request->getParameter('view');
 
     // default for new selection
     if ('' != $productId && null == $view) {

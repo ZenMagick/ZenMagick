@@ -87,6 +87,7 @@ class ZMAttributes extends ZMService {
 
     // create new attribute
     function &_newAttribute($fields) {
+//echo "<pre>";print_r($fields);echo "</pre>";
         $attribute = $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
@@ -98,6 +99,7 @@ class ZMAttributes extends ZMService {
     function &_newAttributeValue($fields) {
     global $zm_runtime;
 
+//echo "<pre>";print_r($fields);echo "</pre>";
         $value = $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
