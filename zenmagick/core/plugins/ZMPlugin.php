@@ -432,7 +432,7 @@ class ZMPlugin extends ZMService {
      */
     function &getPluginHandler() {
         if (null == $this->handler_) {
-            $this->handler_ =& $this->createPluginHandler();
+            $this->handler_ = $this->createPluginHandler();
         }
         return $this->handler_;
     }
