@@ -70,7 +70,7 @@ class ZMMenuItem extends ZMModel {
      * @param string function A function implementing the page contents.
      */
     function __construct($parent, $id, $title, $file=null, $function=null) {
-        $this->ZMMenuItem($parent, $id, $title, $file=null, $function=null);
+        $this->ZMMenuItem($parent, $id, $title, $file, $function);
     }
 
     /**
