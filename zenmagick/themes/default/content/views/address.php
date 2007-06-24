@@ -85,7 +85,7 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array(new ZMIdNamePair("", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $country ? $country->getId() : zm_setting('storeCountry')) ?></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $country ? $country->getId() : zm_setting('storeCountry')) ?></td>
             </tr>
             <?php if (!$address->isPrimary()) { ?>
                  <tr>

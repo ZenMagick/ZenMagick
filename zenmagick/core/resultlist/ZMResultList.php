@@ -52,6 +52,9 @@ class ZMResultList extends ZMObject {
         parent::__construct();
 
         $this->results_ = $results;
+        if (null == $results) {
+            $this->results_ = array();
+        }
         $this->filters_ = array();
         $this->sorters_ = array();
         $this->pagination_ = $pagination;

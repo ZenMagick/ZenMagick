@@ -167,6 +167,8 @@
      */
     function zm_wiki_lists($text, $maxLevel=2) {
         while ($text != ($next = preg_replace('/(\n?[\*#]{1,2}\s+.*)\n>\s+(.*)/', '\1<br>\2', $text))) { $text = $next; }
+        // when called after converting HTML chars like '>'...
+        while ($text != ($next = preg_replace('/(\n?[\*#]{1,2}\s+.*)\n&gt;\s+(.*)/', '\1<br>\2', $text))) { $text = $next; }
 
         for ($ii=$maxLevel; $ii > 0; --$ii) {
             $text = preg_replace('/\n?([\*#]{'.$ii.'})\s+(.*)/', '<li\1>\2</li\1>', $text);
@@ -191,7 +193,6 @@
     function zm_wiki_parse($contents) {
         $contents = preg_replace('/\r/', "\n", $contents);
         $contents = preg_replace('/\n\n/', "\n", $contents);
-        $contents = zm_wiki_lists($contents);
 
         $patterns = array();
         $replacements = array();
@@ -210,6 +211,8 @@
 
         // substitute simple expressions & final expansion
         $contents = preg_replace( $patterns, $replacements, $contents );
+
+        $contents = zm_wiki_lists($contents);
 
         return $contents;
     }

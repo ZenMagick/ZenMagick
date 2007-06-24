@@ -25,7 +25,21 @@
 ?>
 <?php
 
-    // ZenMagick setup
+
+    // ** ZenMagick setup **//
+
+    /**
+     * If changing ZM_ROOT, make sure to update 
+     * ..\zen-cart\includes\init_includes\overrides\init_templates.php
+     * and
+     * ..\zen-cart\admin\includes\init_includes\overrides\init_templates.php
+     *
+     * The full order of action is:
+     * 1) Uninstall all ZenMagick patches as some use this value
+     * 2) Rename directory
+     * 3) Update ZM_ROOT
+     * 4) Update the files mentioned above
+     */
     define('ZM_ROOT', 'zenmagick/');
     define('ZM_DEFAULT_THEME', 'default');
     define('ZM_THEMES_DIR', ZM_ROOT.'themes/');
@@ -35,21 +49,29 @@
     define('ZM_THEME_BOXES_DIR', 'content/boxes/');
     define('ZM_THEME_LANG_DIR', 'lang/');
 
-    // events
+
+    //** events **//
+
     define('ZM_EVENT_INIT_DONE', 'init_done');
 
-    // db
+
+    //** db **//
+
     define('ZM_DB_PREFIX', DB_PREFIX);
     define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');
     define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'zm_product_features');
     define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
 
-    // files
+
+    //** files **//
+
     define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
     define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
     define ('ZM_FILENAME_RSS', 'rss');
 
-    // admin
+
+    //** admin **//
+
     define('ZM_ADMINFN_INSTALLATION', 'zmInstallation.php');
     define('ZM_ADMINFN_CATALOG_MANAGER', 'zmCatalogManager.php');
     define('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
@@ -59,12 +81,16 @@
     define('ZM_ADMINFN_CONSOLE', 'zmConsole.php');
     define('ZM_ADMINFN_PLUGINS', 'zmPlugins.php');
 
-    // plugins/modules
+
+    //** plugins/modules **//
+
     define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
     define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
     define('ZM_PLUGIN_SORT_ORDER_SUFFIX', 'SORT_ORDER');
 
-    // others
+
+    //** others **//
+
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
 ?>

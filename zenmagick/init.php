@@ -123,7 +123,9 @@
     }
     $zm_themeInfo = $zm_theme->getThemeInfo();
 
-    require(DIR_FS_CATALOG.'zenmagick/zc_fixes.php');
+    if (zm_setting('isEnableZenMagick')) {
+        require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
+    }
 
     // handle page caching
     if (zm_setting('isEnableZenMagick') && zm_setting('isPageCacheEnabled')) {
@@ -174,8 +176,9 @@
     $rootLoader->setParent($pluginLoader);
 
     // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
-    if (/*'GET' == $_SERVER['REQUEST_METHOD'] || **/
-        ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList')))) {
+    if (zm_setting('isEnableZenMagick') 
+        && (/*'GET' == $_SERVER['REQUEST_METHOD']
+            || */ ('POST' == $_SERVER['REQUEST_METHOD'] && zm_is_in_array($zm_request->getPageName(), zm_setting('postRequestEnabledList'))))) {
         $code_page_directory = 'zenmagick';
     }
 

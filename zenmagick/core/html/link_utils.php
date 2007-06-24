@@ -29,23 +29,25 @@
     /**
      * Add a custom mapping for pretty link generation.
      *
+     * <p>The converter function will be called with two parameters; the current page name
+     * and as second parameter a complete map of query parameters.</p>
+     *
      * @package net.radebatz.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
-     * @param string regexp Regular expression converting the view name to a pretty link.
+     * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
+     *  which will be interpreted as using the view name.
      * @param array params List of query parameters to append as part of the pretty link.
-     * @param array exclude List of query parameters to exclude from the generated parameter list.
      */
-    function zm_set_pretty_link_mapping($view, $regexp=null, $params=array(), $exclude=array()) { 
+    function zm_set_pretty_link_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
     global $_zm_pretty_link_map;
 
         if (!isset($_zm_pretty_link_map)) {
             $_zm_pretty_link_map = array();
         }
 
-        $_zm_pretty_link_map[$view] = array('regexp' => $regexp, 'params' => $params, 'exclude' => $exclude);
+        $_zm_pretty_link_map[$view] = array('convert' => $convert, 'params' => $params, 'exclude' => $exclude);
     }
     
-
     /**
      * Create a URL for a href.
      *
@@ -344,19 +346,22 @@
                     } else {
                         if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {
                             $mapping = $_zm_pretty_link_map[$page];
-                            if (null == $mapping['regexp']) {
+                            if (null == $mapping['convert']) {
                                 $path .= $page;
-                                foreach ($mapping['params'] as $mp) {
-                                    if (isset($query[$mp])) {
-                                        $path .= '/'.$query[$mp];
-                                        array_push($removeNames, $mp);
-                                    }
-                                }
                                 $path .= '/';
-                                $removeNames = array_merge($removeNames, $mapping['exclude']);
                             } else {
-                                // todo; what about callback functions?
+                                if (function_exists($mapping['convert'])) {
+                                    $path .= call_user_func($mapping['convert'], $page, $query);
+                                }
                             }
+
+                            foreach ($mapping['params'] as $mp) {
+                                if (isset($query[$mp])) {
+                                    $path .= '/'.$query[$mp];
+                                    array_push($removeNames, $mp);
+                                }
+                            }
+                            $removeNames = array_merge($removeNames, $mapping['exclude']);
                         } else {
                             $translate = false;
                             if (!zm_is_empty($page)) {

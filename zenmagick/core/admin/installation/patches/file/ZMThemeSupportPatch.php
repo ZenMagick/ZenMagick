@@ -69,7 +69,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
         // look for ZenMagick code...
         foreach ($lines as $line) {
-            if (false !== strpos($line, "zenmagick/store.php")) {
+            if (false !== strpos($line, ZM_ROOT."store.php")) {
                 return false;
             }
         }
@@ -116,7 +116,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
                 // need to insert before the zen-cart html_header...
                 foreach ($lines as $line) {
                     if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                        array_push($patchedLines, "  require('zenmagick/store.php'); /* added by ZenMagick installation patcher */");
+                        array_push($patchedLines, "  require('".ZM_ROOT."store.php'); /* added by ZenMagick installation patcher */");
                     }
                     array_push($patchedLines, $line);
                 }
@@ -149,7 +149,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, "require") && false !== strpos($line, "zenmagick/store.php")) {
+                if (false !== strpos($line, "require") && false !== strpos($line, ZM_ROOT."store.php")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);

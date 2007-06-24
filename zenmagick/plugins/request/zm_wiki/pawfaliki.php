@@ -623,6 +623,7 @@ function wikiparse( $contents )
 	global $pawfaliki_config;
 	$patterns = array();
 	$replacements = array();
+
 	$contents = htmlspecialchars($contents, ENT_COMPAT, "UTF-8");
 
 	// verbatim text

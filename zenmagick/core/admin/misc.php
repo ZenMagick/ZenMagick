@@ -29,21 +29,21 @@
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmFeatures.php");
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCleanup.php");
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/boxes/extra_boxes/zmFeatures_catalog_dhtml.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/controller/DefaultController.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/controller");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/extra/categories.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/phpBB.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/content/views/popup/popup_cvv_help.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/default/content/views/popup/popup_search_help.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/themes/lang/english/other.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/admin_init.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller/DefaultController.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/extra/categories.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/phpBB.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_cvv_help.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_search_help.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/lang/english/other.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "admin_init.php");
 
     // Ultimate SEO
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/reset_seo_cache.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.install.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.url.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/core/ext/seo.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "zenmagick/admin/installation/patches/file/ZMUltimateSeoSupportPatch.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/reset_seo_cache.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.install.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.url.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "admin/installation/patches/file/ZMUltimateSeoSupportPatch.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "includes/functions/extra_functions/zenmagick_ultimate_seo.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/seo.php");
 

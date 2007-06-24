@@ -54,6 +54,14 @@ Release 0.8.1
 - changed attribute code to ignore unsupported/unknown attribyte types rather
   than playing dead
 - fixed #1739163: invalid attribute form field for text input fields
+- fixed #1740306: php warning when empty search result
+- fixed #1740312: advanced search - fatal php error
+- use ZM_ROOT where appropriate; changing this will still require to change
+  the init_templates.php override files as ZM_ROOT is not yet defined at that
+  point
+- disable POST handling when 'isEnableZenMagick' is false
+- do not run zen-cart fixes (zc_fixes.php) if not using themes
+  ('isEnableZenMagick'); this will break POST handling for some zen-cart pages
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may
