@@ -49,3 +49,10 @@ give edit rights to registered users only, add the following line:
 
 
     zm_set_setting('plugin.zm_wiki.restriction', 'REGISTERED');
+
+
+SIDEBOX
+=======
+The plugin also creates a sidebox 'zm_wiki' that will display the contents of
+'WikiNav'. This cona be configured like any other sidebox. The template is
+generated in the default theme.

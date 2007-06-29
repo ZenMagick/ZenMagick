@@ -23,8 +23,6 @@
 ?>
 <?php
 
-define ('ZM_FILENAME_WIKI', 'wiki');
-
 
 /**
  * Request controller for wiki pages.
@@ -42,36 +40,6 @@ class WikiController extends ZMController {
     global $zm_request, $zm_wiki, $pawfaliki_config;
 
         parent::__construct();
-
-        $pawfaliki_config['GENERAL']['TITLE'] = zm_setting('storeName');
-        $pawfaliki_config['GENERAL']['HOMEPAGE'] = zm_l10n_get("WikiRoot");
-        $pawfaliki_config['LOCALE']['HOMEPAGE_LINK'] = "[[WikiRoot]]"; // link to the homepage
-        $pawfaliki_config['GENERAL']['ADMIN'] = zm_setting('storeEmail');
-        $pawfaliki_config['GENERAL']['CSS'] = '';
-        if ($zm_request->isAdmin()) {
-            $pawfaliki_config['GENERAL']['PAGES_DIRECTORY'] = "../wiki/files/";
-            $pawfaliki_config['GENERAL']['TEMP_DIRECTORY'] = "../wiki/tmp/";
-        } else {
-            $pawfaliki_config['GENERAL']['PAGES_DIRECTORY'] = "wiki/files/";
-            $pawfaliki_config['GENERAL']['TEMP_DIRECTORY'] = "wiki/tmp/";
-        }
-
-        // SYNTAX: Wiki editing syntax
-        $pawfaliki_config['SYNTAX']['WIKIWORDS'] = false; // Auto-generation of links from WikiWords
-        $pawfaliki_config['SYNTAX']['AUTOCREATE'] = true; // Display ? next to wiki pages that don't exist yet.
-        $pawfaliki_config['SYNTAX']['HTMLCODE'] = true; // Allows raw html using %% tags
-
-        // BACKUP: Backup & Restore settings
-        $pawfaliki_config['BACKUP']['ENABLE'] = $zm_request->isAdmin(); // Enable backup & restore
-
-        // RSS: RSS feed
-        $pawfaliki_config['RSS']['ENABLE'] = false; // Enable rss support (http://mywiki.example?format=rss)
-
-        // CHANGES: email page changes
-        $pawfaliki_config['EMAIL']['ENABLE'] = false; // do we email page changes?
-
-        // LICENSES: pages with special licenses
-        $pawfaliki_config['LICENSE']['DEFAULT'] = "noLicense";
     }
 
     /**

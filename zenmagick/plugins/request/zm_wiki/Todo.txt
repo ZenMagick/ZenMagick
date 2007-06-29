@@ -1,3 +1,2 @@
-- navigation sidebox
 - convert access setting to config parameter incl. update form on admin page
 - fix lists, definition lists and '>' (indent)

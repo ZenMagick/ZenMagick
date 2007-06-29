@@ -26,6 +26,18 @@
 <?php
 
     /**
+     * Display the contents of a wiki page.
+     *
+     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @param string page The page name.
+     */
+    function zm_wiki_display_page($page) {
+        $display = 'display';
+        displayPage($page, $display);
+    }
+
+
+    /**
      * Wiki admin page.
      *
      * @package net.radebatz.zenmagick.plugins.zm_wiki
