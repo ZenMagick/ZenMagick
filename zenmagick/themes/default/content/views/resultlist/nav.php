@@ -28,12 +28,12 @@
     <div class="rnav">
         <span class="pno"><?php zm_l10n("Page %s/%s", $zm_resultList->getCurrentPageNumber(), $zm_resultList->getNumberOfPages()) ?></span>
         <?php if ($zm_resultList->hasPreviousPage()) { ?>
-            <a href="<?php $zm_resultList->getPreviousURL() ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+            <a href="<?php $zm_resultList->getPreviousURL($zm_request->isSecure()) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
         <?php } ?>
         <?php if ($zm_resultList->hasNextPage()) { ?>
-            <a href="<?php $zm_resultList->getNextURL() ?>"><?php zm_l10n("Next") ?></a>
+            <a href="<?php $zm_resultList->getNextURL($zm_request->isSecure()) ?>"><?php zm_l10n("Next") ?></a>
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Next") ?></span>
         <?php } ?>

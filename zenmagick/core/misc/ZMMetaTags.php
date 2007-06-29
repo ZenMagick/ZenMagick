@@ -236,6 +236,7 @@ class ZMMetaTags extends ZMObject {
         $crumbs = $this->crumbtrail_->getCrumbs();
         array_shift($crumbs);
         $first = true;
+        $value = '';
         foreach ($crumbs as $crumb) {
             if (!$first) $value .= zm_setting('metaTagCrumbtrailDelimiter');
             $first = false;

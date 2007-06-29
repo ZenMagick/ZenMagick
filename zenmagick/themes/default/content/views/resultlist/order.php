@@ -25,7 +25,7 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><a href="<?php zm_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId()) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
+    <td><a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId()) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
     <td><?php zm_date_short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php echo $address->getFullName()  ?></td>

@@ -78,7 +78,7 @@ class sample_plugin extends ZMPlugin {
         $this->zcoSubscribe();
 
         // add admin page
-        $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), zm_sample_plugin_admin);
+        $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), 'zm_sample_plugin_admin');
     }
 
 

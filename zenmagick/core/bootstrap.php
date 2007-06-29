@@ -750,6 +750,55 @@ if (!class_exists("ZMObject")) {
         $zm_events->fireEvent($source, $eventId, $args);
     }
 
+
+    /**
+     * Custom error handler.
+     *
+     * @package net.radebatz.zenmagick
+     * @param int errno The error level.
+     * @param string errstr The error message.
+     * @param string errfile The source filename.
+     * @param int errline The line number.
+     * @param array errcontext All variables of scope when error triggered.
+     */
+    function zm_error_handler($errno, $errstr, $errfile, $errline, $errcontext) { 
+        // get current level
+        $level = error_reporting(E_ALL);
+        error_reporting($level);
+        // disabled or not configured?
+        if (0 == $level || $errno != ($errno&$level)) {
+            return;
+        }
+
+        $time = date("d M Y H:i:s"); 
+        // Get the error type from the error number 
+        $errtypes = array (1    => "Error",
+                           2    => "Warning",
+                           4    => "Parsing Error",
+                           8    => "Notice",
+                           16   => "Core Error",
+                           32   => "Core Warning",
+                           64   => "Compile Error",
+                           128  => "Compile Warning",
+                           256  => "User Error",
+                           512  => "User Warning",
+                           1024 => "User Notice",
+                           2048 => "Strict",
+                           4096 => "Recoverable Error"
+        ); 
+
+
+        if (isset($errtypes[$errno])) {
+            $errlevel = $errtypes[$errno]; 
+        } else {
+            $errlevel = "Unknown";
+        }
+
+        $handle = fopen(zm_setting('zmLogFilename'), "a"); 
+        fputs($handle, "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"); 
+        fclose($handle); 
+    } 
+
 }
 
 ?>

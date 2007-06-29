@@ -26,9 +26,9 @@
 <?php
 
 // some default defaults ;)
-define (_ZM_RSS_BOXES_COUNT, 2);
-define (_ZM_RSS_BOXES_PREFIX, 'rss_box_');
-define (_ZM_RSS_BOXES_TEMPLATE, 'box-template.php');
+define ('_ZM_RSS_BOXES_COUNT', 2);
+define ('_ZM_RSS_BOXES_PREFIX', 'rss_box_');
+define ('_ZM_RSS_BOXES_TEMPLATE', 'box-template.php');
 
 
 /**

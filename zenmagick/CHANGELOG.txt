@@ -62,6 +62,19 @@ Release 0.8.1
 - disable POST handling when 'isEnableZenMagick' is false
 - do not run zen-cart fixes (zc_fixes.php) if not using themes
   ('isEnableZenMagick'); this will break POST handling for some zen-cart pages
+- allow category prev/next links to be secure if the page is secure
+- fixed #1741055: nonssl links in order history
+- added setting 'zmLogFilename', which, if set will be used to log ZenMagick log
+  entries; default is null to use the default log file (usually the httpd
+	error log)
+- also added 'isZMErrorHandler'; if set to true and 'zmLogFilename' is set, a
+  custom error handler will be used to log **all** PHP messages in the custom
+  logfile
+- fixed invalid variable name in whos_online.php
+- fixed missing order by SQL for new products (ZMProducts)
+- fixed a few cases where define(..) calls didn't quote the first parameter
+- fixed invalid variable name in zm_absolute_href(..)
+- fixed most PH notice issues (that logfile thingy comes quite handy here..)
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

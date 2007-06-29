@@ -112,6 +112,12 @@
         include($_zm_local);
     }
 
+    if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
+        // register custom error handler
+        //error_reporting(E_ALL);
+        set_error_handler("zm_error_handler");
+    }
+
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
 

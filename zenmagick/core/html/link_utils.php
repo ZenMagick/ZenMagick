@@ -390,7 +390,7 @@
             $params = (0 < strlen($params) ? ('?'.substr($params, 5)) : '');
 
             if ($translate) {
-                $href = $url['scheme']."://".$url['host'].$path.(zm_is_empty($url['fragment']) ? '' : '#'.$url['fragment']).$params;
+                $href = $url['scheme']."://".$url['host'].$path.(isset($url['fragment']) ? '#'.$url['fragment'] : '').$params;
             }
         }
 
@@ -553,9 +553,8 @@
 
         $base = zm_href(null, null, false);
         $context = ($zm_request->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
-        $off = strpos($url, $context);
+        $off = strpos($href, $context);
         if (null !== $off) {
-            $off = strpos($url, DIR_WS_HTTPS_CATALOG);
             $base = substr($base, 0, $off);
         }
         if (!zm_starts_with($href, '/')) {

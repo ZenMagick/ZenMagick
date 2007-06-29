@@ -287,10 +287,16 @@ class ZMResultList extends ZMObject {
     /**
      * Build a URL pointing to the previous page.
      *
+     * @param bool secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the previous page.
      */
-    function getPreviousURL($echo=true) {
-        $url = zm_href(null, "&page=".$this->getPreviousPageNumber(), false);
+    function getPreviousURL($secure, $echo=true) {
+        if ($secure) {
+            $url = zm_secure_href(null, "&page=".$this->getPreviousPageNumber(), false);
+        } else {
+            $url = zm_href(null, "&page=".$this->getPreviousPageNumber(), false);
+        }
 
         if ($echo) echo $url;
         return $url;
@@ -299,10 +305,16 @@ class ZMResultList extends ZMObject {
     /**
      * Build a URL pointing to the next page.
      *
+     * @param bool secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
+     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the next page.
      */
-    function getNextURL($echo=true) {
-        $url = zm_href(null, "&page=".$this->getNextPageNumber(), false);
+    function getNextURL($secure=false, $echo=true) {
+        if ($secure) {
+            $url = zm_secure_href(null, "&page=".$this->getNextPageNumber(), false);
+        } else {
+            $url = zm_href(null, "&page=".$this->getNextPageNumber(), false);
+        }
 
         if ($echo) echo $url;
         return $url;

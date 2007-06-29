@@ -86,7 +86,7 @@ class zm_wiki extends ZMPlugin {
         zm_set_setting('plugin.zm_wiki.last-page-caching-strategy', zm_setting('pageCacheStrategyCallback'));
         // replace with own implementation
         zm_set_setting('pageCacheStrategyCallback', 'zm_wiki_is_page_cacheable');
-        $this->addMenuItem('wiki', zm_l10n_get('Manage Wiki'), zm_wiki_admin);
+        $this->addMenuItem('wiki', zm_l10n_get('Manage Wiki'), 'zm_wiki_admin');
         zm_set_pretty_link_mapping('wiki', null, array('page'), array('page'));
     }
 }

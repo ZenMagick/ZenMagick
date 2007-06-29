@@ -249,7 +249,7 @@ class ZMProducts extends ZMService {
                       and p.products_status = 1" . $queryLimit;
             $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
         }
-        $quert .= " order by products_date_added";
+        $query .= " order by products_date_added";
 
         $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds);

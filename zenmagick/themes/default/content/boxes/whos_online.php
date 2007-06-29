@@ -39,11 +39,17 @@
             <?php $out .= zm_l10n_get(" one guest") ?>
         <?php } else if (1 < $count[1]) { /* many guests */ ?>
             <?php $out .= zm_l10n_get(" %s guests", $counts[1]) ?>
+        <?php } else { ?>
+            <?php if (1 == $counts[0]) { /* one session */ ?>
+                <?php $out .= zm_l10n_get(" no guest") ?>
+            <?php } else { ?>
+                <?php $out .= zm_l10n_get(" no guests") ?>
+            <?php } ?>
         <?php } ?>
 
         <?php if (1 == $counts[2]) { ?>
             <?php $out .= zm_l10n_get(" and one member online.") ?>
-        <?php } else if (1 < $count[2]) { ?>
+        <?php } else if (1 < $counts[2]) { ?>
             <?php $out .= zm_l10n_get(" and % members online.", $counts[2]) ?>
         <?php } else { ?>
             <?php $out .= zm_l10n_get(" online.", $counts[2]) ?>

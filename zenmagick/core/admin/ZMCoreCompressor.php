@@ -421,7 +421,7 @@ class ZMCoreCompressor extends ZMObject {
             array_push($this->errors_, 'could not open file for writing ' . $outfile);
             return;
         }
-        if (false === fwrite($handle, "<?php define(ZM_SINGLE_CORE, true); ?>\n")) {
+        if (false === fwrite($handle, "<?php define('ZM_SINGLE_CORE', true); ?>\n")) {
             array_push($this->errors_, 'could not write to file ' . $outfile);
             return;
         }

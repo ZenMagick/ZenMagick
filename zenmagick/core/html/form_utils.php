@@ -88,7 +88,7 @@
         // parse all params 
         parse_str($params, $query);
         $aurl = parse_url($action);
-        $aparams = zm_htmlurldecode($aurl['query']);
+        $aparams = isset($aurl['query']) ? zm_htmlurldecode($aurl['query']) : '';
         parse_str($aparams, $aquery);
         $query = array_merge($aquery, $query);
 

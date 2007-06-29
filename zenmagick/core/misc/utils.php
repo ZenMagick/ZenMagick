@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
+if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 
 
     /**
@@ -67,7 +67,7 @@ if (!defined('DATE_RSS')) { define(DATE_RSS, "D, d M Y H:i:s T"); }
     global $zm_request;
 
         $page = $zm_request->getPageName();
-        return ($includeCard && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
+        return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
     }
 
 

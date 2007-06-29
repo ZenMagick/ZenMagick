@@ -26,9 +26,9 @@
 <?php
 
 // some default defaults ;)
-define (_ZM_GOOGLE_ADSENSE_COUNT, 4);
-define (_ZM_GOOGLE_ADSENSE_BOX_PREFIX, 'adsense_box_');
-define (_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE, 'box-template.php');
+define ('_ZM_GOOGLE_ADSENSE_COUNT', 4);
+define ('_ZM_GOOGLE_ADSENSE_BOX_PREFIX', 'adsense_box_');
+define ('_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE', 'box-template.php');
 
 
 /**

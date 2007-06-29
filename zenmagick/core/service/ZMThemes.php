@@ -75,7 +75,7 @@ class ZMThemes extends ZMService {
         // load
         require_once($infoFile);
         // create instance
-        $obj = new $infoClass($parent);
+        $obj = new $infoClass();
         $obj->setThemeId($themeId);
         if ($themeId != ZM_DEFAULT_THEME) {
             $obj->setParent($this->getThemeInfoForId(ZM_DEFAULT_THEME));

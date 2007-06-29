@@ -53,6 +53,7 @@ class ZMPlugin extends ZMService {
     var $messages_ = null;
     var $pluginDir_ = null;
     var $loaderSupport_;
+    var $handler_;
 
 
     /**
@@ -86,6 +87,7 @@ class ZMPlugin extends ZMService {
         $this->messages_ = array();
         $this->pluginDir_ = null;
         $this->loaderSupport_ = 'PLUGIN';
+        $this->handler_ = null;
     }
 
     /**
