@@ -101,7 +101,7 @@ class ZMAccount extends ZMModel {
 
         $this->firstName_ = $zm_request->getParameter('firstname', '');
         $this->lastName_ = $zm_request->getParameter('lastname', '');
-        $this->dob_ = $zm_request->getParameter('dob', '');
+        $this->dob_ = $zm_request->getParameter('dob', '01/01/1970');
         $this->nickName_ = $zm_request->getParameter('nick', '');
         $this->gender_ = $zm_request->getParameter('gender', '');
         $this->email_ = $zm_request->getParameter('email_address', '');

@@ -75,6 +75,10 @@ Release 0.8.1
 - fixed a few cases where define(..) calls didn't quote the first parameter
 - fixed invalid variable name in zm_absolute_href(..)
 - fixed most PH notice issues (that logfile thingy comes quite handy here..)
+- fix wrong privacy policy checkbox name in create_account.php
+- make enable/disable gender/company/dob/state options work in views (create,
+  update and address) and also adjust validation accordingly
+- make update account work without dob
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

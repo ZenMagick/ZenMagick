@@ -142,15 +142,12 @@
     // show privacy message
     $_ZM_SETTINGS['isPrivacyMessage'] = DISPLAY_PRIVACY_CONDITIONS == 'true';
 
-    // ask DOB
+    // optional account data
+    $_ZM_SETTINGS['isAccountGender'] = ACCOUNT_GENDER == 'true';
     $_ZM_SETTINGS['isAccountDOB'] = ACCOUNT_DOB == 'true';
-    // ask company
     $_ZM_SETTINGS['isAccountCompany'] = ACCOUNT_COMPANY == 'true';
-    // ask state
     $_ZM_SETTINGS['isAccountState'] = ACCOUNT_STATE == 'true';
-    // ask newsletter
     $_ZM_SETTINGS['isAccountNewsletter'] = ACCOUNT_NEWSLETTER_STATUS != 0;
-    // ask referral
     $_ZM_SETTINGS['isAccountReferral'] = CUSTOMERS_REFERRAL_STATUS == 2;
 
     // account

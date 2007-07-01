@@ -35,15 +35,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><?php zm_l10n("Title") ?><span>*</span></td>
-                    <td>
-                        <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
-                        <label for="male"><?php zm_l10n("Mr.") ?></label>
-                        <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f', $zm_account->getGender()) ?> />
-                        <label for="female"><?php zm_l10n("Ms.") ?></label>
-                    </td>
-                </tr>
+                <?php if (zm_setting('isAccountGender')) { ?>
+                    <tr>
+                        <td><?php zm_l10n("Title") ?><span>*</span></td>
+                        <td>
+                            <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
+                            <label for="male"><?php zm_l10n("Mr.") ?></label>
+                            <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f', $zm_account->getGender()) ?> />
+                            <label for="female"><?php zm_l10n("Ms.") ?></label>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <td><?php zm_l10n("First Name") ?><span>*</span></td>
                     <td><input type="text" name="firstname" value="<?php echo $zm_account->getFirstName() ?>" /></td>
@@ -52,10 +54,12 @@
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
                     <td><input type="text" name="lastname" value="<?php echo $zm_account->getLastName() ?>" /></td>
                 </tr>
-                <tr>
-                    <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                    <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
-                </tr>
+                <?php if (zm_setting('isAccountDOB')) { ?>
+                    <tr>
+                        <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
+                        <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>

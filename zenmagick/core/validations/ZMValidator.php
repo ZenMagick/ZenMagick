@@ -67,8 +67,21 @@ class ZMValidator extends ZMObject {
      *
      * @param ZMRuleSet set A new rule set.
      */
-    function addRuleSet($set) {
-        $this->sets_[$set->getId()] = $set;
+    function addRuleSet(&$set) {
+        $this->sets_[$set->getId()] =& $set;
+    }
+
+    /**
+     * Add a new <code>ZMRule</code>.
+     *
+     * @param string id The rule set id.
+     * @param ZMRule rule A new rule.
+     */
+    function addRule($id, &$rule) {
+        $ruleSet = $this->getRuleSet($id);
+        if (null != $rule) {
+            $ruleSet->addRule($rule);
+        }
     }
 
     /**
@@ -77,7 +90,7 @@ class ZMValidator extends ZMObject {
      * @param string id The id/name of the set.
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance or <code>null</code>.
      */
-    function getRuleSet($id) {
+    function &getRuleSet($id) {
         return array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
     }
 

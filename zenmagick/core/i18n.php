@@ -45,8 +45,6 @@ if (!function_exists('zen_date_raw')) {
      */
     function zen_date_raw($date, $reverse=false) {
         $da = zm_parse_date($date, UI_DATE_FORMAT);
-
-        //$raw = $reverse ? $mm.$dd.$cc.$yy : $cc.$yy.$mm.$dd;
         $raw = $reverse ? $da[1].$da[0].$da[2].$da[3] : $da[2].$da[3].$da[1].$da[0];
         return $raw;
     }

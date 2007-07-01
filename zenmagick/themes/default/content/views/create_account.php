@@ -32,7 +32,7 @@
                 <?php zm_l10n("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
                 <?php $href = '<a href="' . zm_static_href('privacy') . '">' . zm_l10n("here") . '</a>'; ?>
                 <?php zm_l10n("The privacy statement can be read %s.", $href) ?><p>
-            <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
+            <p><input type="checkbox" id="privacy" name="privacy_conditions" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
         </fieldset>
     <?php } ?>
     <fieldset>
@@ -45,15 +45,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><?php zm_l10n("Title") ?><span>*</span></td>
-                    <td>
-                        <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
-                        <label for="male"><?php zm_l10n("Mr.") ?></label>
-                        <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f' == $zm_account->getGender()) ?> />
-                        <label for="female"><?php zm_l10n("Ms.") ?></label>
-                    </td>
-                </tr>
+                <?php if (zm_setting('isAccountGender')) { ?>
+                    <tr>
+                        <td><?php zm_l10n("Title") ?><span>*</span></td>
+                        <td>
+                            <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
+                            <label for="male"><?php zm_l10n("Mr.") ?></label>
+                            <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f' == $zm_account->getGender()) ?> />
+                            <label for="female"><?php zm_l10n("Ms.") ?></label>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <td><?php zm_l10n("First Name") ?><span>*</span></td>
                     <td><input type="text" name="firstname" value="<?php echo $zm_account->getFirstName() ?>" /></td>

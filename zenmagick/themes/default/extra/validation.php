@@ -36,16 +36,20 @@
 
     /* edit account */
     $zm_validator->addRuleSet(new ZMRuleSet('edit_account', array(
-        new ZMRequiredRule('gender', 'Please choose a gender.'),
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
-        new ZMDateRule('dob', null, 'Please enter a valid date of birth.'),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details."),
         new ZMMinRule('telephone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     )));
+    if (zm_setting('isAccountGender')) {
+        $zm_validator->addRule('edit_account', new ZMRequiredRule('gender', 'Please choose a gender.'));
+    }
+    if (zm_setting('isAccountDOB')) {
+        $zm_validator->addRule('edit_account', new ZMRequiredRule('dob', 'Please enter your date of birth.'));
+        $zm_validator->addRule('edit_account', new ZMDateRule('dob', null, 'Please enter a valid date of birth.'));
+    }
 
 
     /* account password */
@@ -60,15 +64,19 @@
 
     /* address */
     $zm_validator->addRuleSet(new ZMRuleSet('address', array(
-        new ZMRequiredRule('gender', 'Please choose a gender.'),
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),
         new ZMRequiredRule('city', 'Please enter a City.'),
-        new ZMRequiredRule('state', 'Please enter a state.'),
         new ZMRequiredRule('postcode', 'Please enter a postcode.'),
         new ZMRequiredRule('zone_country_id', 'Please select a country.')
     )));
+    if (zm_setting('isAccountGender')) {
+        $zm_validator->addRule('address', new ZMRequiredRule('gender', 'Please choose a gender.'));
+    }
+    if (zm_setting('isAccountState')) {
+        $zm_validator->addRule('address', new ZMRequiredRule('state', 'Please enter a state.'));
+    }
 
 
     /* advanced search */
@@ -88,20 +96,29 @@
 
     /* create account */
     $zm_validator->addRuleSet(new ZMRuleSet('create_account', array(
-        new ZMRequiredRule('gender', 'Please choose a gender.'),
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMRequiredRule('dob', 'Please enter your date of birth.'),
-        new ZMDateRule('dob', null, 'Please enter a valid date of birth.'),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),
         new ZMRequiredRule('city', 'Please enter a City.'),
-        new ZMRequiredRule('state', 'Please enter a state.'),
         new ZMRequiredRule('postcode', 'Please enter a postcode.'),
         new ZMRequiredRule('zone_country_id', 'Please select a country.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details.")
     )));
+    if (zm_setting('isPrivacyMessage')) {
+        $zm_validator->addRule('create_account', new ZMRequiredRule('privacy_conditions', 'You must agree to the privacy policy.'));
+    }
+    if (zm_setting('isAccountGender')) {
+        $zm_validator->addRule('create_account', new ZMRequiredRule('gender', 'Please choose a gender.'));
+    }
+    if (zm_setting('isAccountDOB')) {
+        $zm_validator->addRule('create_account', new ZMRequiredRule('dob', 'Please enter your date of birth.'));
+        $zm_validator->addRule('create_account', new ZMDateRule('dob', null, 'Please enter a valid date of birth.'));
+    }
+    if (zm_setting('isAccountState')) {
+        $zm_validator->addRule('create_account', new ZMRequiredRule('state', 'Please enter a state.'));
+    }
 
 
     /* login */
