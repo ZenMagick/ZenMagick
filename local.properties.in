@@ -1,0 +1,5 @@
+## sample of custom local properties
+## copy this file and rename to local.properties
+
+## change to the name of your admin folder, if different
+zencart.admin.dir = admin

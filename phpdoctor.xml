@@ -1,0 +1,31 @@
+<project name="zenmagick-phpdoctor" default="phpdoctor" basedir=".">
+
+    <!-- properties -->
+    <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />
+    <property name="phpdoctor.source.path" location="${basedir}/${zenmagick.src.dir}/core" />
+    <property name="phpdoctor.apidocs.path" location="${basedir}/docs/apidocs/${zenmagick.version}" />
+
+
+    <!-- Generate phpdoctor ini file -->
+    <target name="phpdoctor" depends="clean,init,patch-phpdoctor-ini" description="Generate phpdoctor ini file.">
+        <mkdir dir="${phpdoctor.apidocs.path}" />
+    </target>
+
+
+    <!-- Patch phpdoctor.ini -->
+    <target name="patch-phpdoctor-ini" description="Ant property style substitutions.">
+        <!-- create apidocs directory -->
+        <mkdir dir="${phpdoctor.source.path}" />
+
+        <!-- copy template file -->
+        <copy file="${phpdoctor.ini.dir}/phpdoctor.ini.in" tofile="${phpdoctor.ini.dir}/phpdoctor.ini" overwrite="true" />
+
+        <!-- patch file -->
+        <echo message="Patching phpdoctor.ini... " />
+        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${phpdoctor.source.path}" value="${phpdoctor.source.path}"/>
+        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${phpdoctor.apidocs.path}" value="${phpdoctor.apidocs.path}"/>
+        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${zenmagick.version}" value="${zenmagick.version}"/>
+
+    </target>
+
+</project>

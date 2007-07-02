@@ -6,8 +6,10 @@
 
     <!-- The ZenMagick source dir -->
     <property name="zenmagick.src.dir" value="zenmagick" />
-    <!-- The zen-cart source dir -->
+    <!-- The ZenMagick sources that go into zen-cart folder -->
     <property name="zencart.src.dir" value="zen-cart" />
+    <!-- The zen-cart admin folder -->
+    <property name="zencart.admin.dir" value="admin" />
     <!-- Work dir -->
     <property name="build.dir" value="tmp" />
     <!-- Place for release files -->
@@ -17,8 +19,9 @@
     <property file="build.properties" />
 
 
-    <!-- plugin targets -->
+    <!-- additional targets -->
     <import file="plugins.xml"/>
+    <import file="phpdoctor.xml"/>
 
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
@@ -118,8 +121,6 @@
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
             <!-- source control files -->
-            <fileset dir="${build.dir}" includes="**/.cvs*" />
-            <fileset dir="${build.dir}" includes="**/CVS" />
             <fileset dir="${build.dir}" includes="**/.svn*" />
             <!-- generated files and phpdoc -->
             <fileset dir="${build.dir}" includes="zenmagick/core.php" />
@@ -164,6 +165,29 @@
             </fileset>
         </zip>
         <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5"/>
+    </target>
+
+
+    <!-- Update zen-cart installation -->
+    <target name="update-zencart" description="Update zen-cart installation.">
+      <copy todir="${basedir}">
+          <fileset dir="${zencart.src.dir}">
+                <exclude name="**/.svn*" />
+            </fileset>
+        </copy>
+
+        <!-- files duplicated in admin area -->
+        <copy todir="admin">
+            <fileset dir="${zencart.src.dir}">
+                <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
+                <include name="includes/init_includes/overrides/init_templates.php" />
+            </fileset>
+        </copy>
+
+        <!-- if different admin folder name, move all admin stuff we just created... -->
+        <move todir="${zencart.admin.dir}">
+            <fileset dir="admin" />
+        </move>
     </target>
 
 </project>
