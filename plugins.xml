@@ -1,0 +1,60 @@
+<project name="zenmagick-plugins" default="plugin-releases" basedir=".">
+
+    <!-- Plugins properties -->
+    <property file="plugins.properties" />
+
+    <!-- Build plugin releases -->
+    <target name="plugin-releases" depends="clean,init" description="Build plugin releases.">
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_google_adsense" />
+            <param name="plugin.version" value="${plugins.zm_google_adsense.version}" />
+        </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_google_analytics" />
+            <param name="plugin.version" value="${plugins.zm_google_analytics.version}" />
+        </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_rss_boxes" />
+            <param name="plugin.version" value="${plugins.zm_rss_boxes.version}" />
+        </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_wiki" />
+            <param name="plugin.version" value="${plugins.zm_wiki.version}" />
+        </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_useo2" />
+            <param name="plugin.version" value="${plugins.zm_useo2.version}" />
+        </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_useo3" />
+            <param name="plugin.version" value="${plugins.zm_useo3.version}" />
+        </antcall>
+    </target>
+
+    
+    <!-- Create release for a single plugin -->
+    <target name="plugin-release" description="Create release for a single plugin.">
+        <mkdir dir="${build.dir}/plugins" />
+
+        <copy todir="${build.dir}/plugins">
+          <fileset dir="${zenmagick.src.dir}/plugins">
+                <include name="request/${plugin.name}.php" />
+                <include name="request/${plugin.name}/**" />
+            </fileset>
+        </copy>
+
+        <zip zipfile="${dist.dir}/plugin-${plugin.name}-${plugin.version}.zip">
+            <fileset dir="${build.dir}/plugins">
+                <include name="request/${plugin.name}.php" />
+                <include name="request/${plugin.name}/**" />
+            </fileset>
+        </zip>
+        <checksum file="${dist.dir}/plugin-${plugin.name}-${plugin.version}.zip" fileext=".md5"/>
+    </target>
+
+</project>

@@ -1,0 +1,169 @@
+<project name="zenmagick" default="release" basedir=".">
+
+    <!-- Local properties 'win' over defaults... -->
+    <property file="local.properties" />
+
+
+    <!-- The ZenMagick source dir -->
+    <property name="zenmagick.src.dir" value="zenmagick" />
+    <!-- The zen-cart source dir -->
+    <property name="zencart.src.dir" value="zen-cart" />
+    <!-- Work dir -->
+    <property name="build.dir" value="tmp" />
+    <!-- Place for release files -->
+    <property name="dist.dir" value="releases" />
+
+    <!-- Default properties -->
+    <property file="build.properties" />
+
+
+    <!-- plugin targets -->
+    <import file="plugins.xml"/>
+
+    <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
+    <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
+
+
+
+    <!-- Init -->
+    <target name="init" description="Initialize project.">
+        <tstamp />
+
+        <!-- create required directories -->
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+
+    <!-- Clean -->
+    <target name="clean" description="Clean up created files.">
+        <delete dir="${build.dir}" />
+        <delete>
+            <fileset dir="." includes="**/*~" />
+        </delete>
+    </target>
+
+
+    <!-- Ask for version numbers if not set -->
+    <target name="ask-versions" depends="ask-current-version,ask-last-version" description="Ask for ZenMagick versions.">
+        <input addproperty="zenmagick.version" message="Enter the version number " /> 
+    </target>
+
+
+    <!-- Ask for current version number if not set -->
+    <target name="ask-current-version" unless="zenmagick.version" description="Ask for current ZenMagick version.">
+        <input addproperty="zenmagick.version" message="Enter the CURRENT version number: " /> 
+    </target>
+
+
+    <!-- Ask for last version number if not set -->
+    <target name="ask-last-version" unless="zenmagick.last.version" description="Ask for last ZenMagick version.">
+        <input addproperty="zenmagick.last.version" message="Enter the LAST version number: " /> 
+    </target>
+
+
+    <!-- Build reielase update files, add to release zip and create incr. release zip -->
+    <target name="incr-release" unless="skip.incr" description="Build reielase update files, add to release zip and create incr. release zip.">
+        <zipdiff filename1="${version.dir}/${version.prefix}-${version.from}.zip" 
+              filename2="${version.dir}/${version.prefix}-${version.to}.zip"
+              ignoreTimestamps="true"
+              compareCRCValues="true"
+              destfile="${diff.xml.filename}">
+        </zipdiff>
+
+        <!-- file changelog -->
+        <delete file="${diff.html.filename}" />
+        <style in="${diff.xml.filename}" out="${diff.html.filename}" style="etc/build/zipdiff2html.xsl">
+            <param name="title" expression="File changes in ZenMagick from ${version.from} to ${version.to}"/>
+        </style>
+
+        <!-- incremental update -->
+        <delete file="${diff.incr.filename}" />
+        <style in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
+
+        <zip destfile="${version.incr.filename}">
+            <zipfileset src="${version.dir}/${version.file}.zip" includesfile="${diff.incr.filename}" />
+            <fileset dir="${build.dir}">
+                <include name="${zenmagick.src.dir}/etc/docs/*.html" />
+            </fileset>
+        </zip>
+        <checksum file="${version.incr.filename}" fileext=".md5"/>
+        <delete file="${diff.incr.filename}" />
+        <delete file="${diff.xml.filename}" />
+    </target>
+
+
+    <!-- Prepare build -->
+    <target name="prepare" depends="init,ask-versions" description="Prepare files.">
+        <!-- copy all files that go into zen-cart directories -->
+        <copy todir="${build.dir}">
+            <fileset file=".htaccess" />
+            <fileset dir="${zencart.src.dir}" />
+        </copy>
+
+        <!-- copy all ZenMagick files -->
+        <copy todir="${build.dir}/zenmagick">
+            <!-- plugins are build separately; however, include the sample plugin -->
+            <fileset dir="${zenmagick.src.dir}" excludes="plugins/request/**" />
+        </copy>
+
+        <!-- zen-cart overrides are used in both admin and storfront -->
+        <copy todir="${build.dir}/admin">
+            <fileset dir="${zencart.src.dir}">
+                <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
+                <include name="includes/init_includes/overrides/init_templates.php" />
+            </fileset>
+        </copy>
+
+        <!-- remove various files we do not want included -->
+        <delete includeemptydirs="true">
+            <!-- source control files -->
+            <fileset dir="${build.dir}" includes="**/.cvs*" />
+            <fileset dir="${build.dir}" includes="**/CVS" />
+            <fileset dir="${build.dir}" includes="**/.svn*" />
+            <!-- generated files and phpdoc -->
+            <fileset dir="${build.dir}" includes="zenmagick/core.php" />
+            <fileset dir="${build.dir}" includes="zenmagick/local.php" />
+            <fileset dir="${build.dir}" includes="zenmagick/core/*.html" />
+            <fileset dir="${build.dir}" includes="zenmagick/core/**/*.html" />
+            <!-- editor / tmp files -->
+            <fileset dir="${build.dir}" includes="**/*~" />
+            <fileset dir="${build.dir}" includes="**/*swp" />
+        </delete>
+    </target>
+
+
+    <!-- Patch all files in ${patch.dir} -->
+    <target name="patch" description="Ant property style substitutions.">
+        <echo message="Versioning ${patch.dir}/** ..." />
+        <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
+        <replaceregexp match="\$$\{zenmagick.version\}" replace="${zenmagick.version}" flags="g"><fileset dir="${patch.dir}" /></replaceregexp>
+    </target>
+
+
+    <!-- Patch release files -->
+    <target name="patch-release" description="Patch release files.">
+        <antcall target="patch">
+            <param name="patch.dir" value="${build.dir}" />
+        </antcall>
+    </target>
+
+
+    <!-- Build release zip -->
+    <target name="build-release" depends="clean,prepare,patch-release" description="Build release .zip file.">
+        <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" basedir="${build.dir}" />
+    </target>
+
+
+    <!-- Do release build -->
+    <target name="release" depends="clean,prepare,patch-release,build-release,incr-release" description="Full release build.">
+        <!-- add diff file -->
+        <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" update="true">
+            <fileset dir="${build.dir}">
+                <include name="$zenmagick.{src.dir}/etc/docs/*.html" />
+            </fileset>
+        </zip>
+        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5"/>
+    </target>
+
+</project>
