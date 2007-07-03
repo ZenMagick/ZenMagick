@@ -67,8 +67,8 @@ class ZMAddressBookController extends ZMController {
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $addresses = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
-        $this->exportGlobal("zm_addresses", $addresses);
+        $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+        $this->exportGlobal("zm_addressList", $addressList);
 
         return $this->findView();
     }

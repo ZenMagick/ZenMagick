@@ -62,10 +62,13 @@ class ZMCheckoutShippingAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_cart;
+    global $zm_request, $zm_crumbtrail, $zm_cart, $zm_addresses;
 
         $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
+
+        $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+        $this->exportGlobal("zm_addressList", $addressList);
 
         $address =& $this->create("Address");
         $address->populate();

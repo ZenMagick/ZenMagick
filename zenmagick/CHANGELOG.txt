@@ -79,6 +79,9 @@ Release 0.8.1
 - make enable/disable gender/company/dob/state options work in views (create,
   update and address) and also adjust validation accordingly
 - make update account work without dob
+- renamed the variable that contains the address list from $zm_addresses to
+  $zm_addressList, as the name clashes with the ZMAddresses service instance;
+	this requires to update address_book.php
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may
@@ -97,6 +100,10 @@ Release 0.8.0.1
 - fixed broken create account (email template was missin $zm_account)
 - fixed source_view view
 - added example of using ZenMagick from external PHP files
+- changed the id of the maine table in address.php from address to newaddress;
+  there are corresponding changes to the CSS; the name clashes with the id of
+	the address form element
+- added list of selectable addresses for change shipping/biling address
 
 Release 0.8.0
 - added cookie_usage view

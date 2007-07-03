@@ -219,10 +219,10 @@ div.btn {float:right;}
 #address_book_process .btn {margin-left:20px;}
 
 /* address */
-#content table#address {padding-left:20px;}
-#content table#address #label {width:12em;}
-#content table#address td {padding:2px;}
-#content #address span {padding-left:2px;color:#f02025;font-size:80%;}
+#content table#newaddress {padding-left:20px;}
+#content table#newaddress #label {width:12em;}
+#content table#newaddress td {padding:2px;}
+#content #newaddress span {padding-left:2px;color:#f02025;font-size:80%;}
 #checkout_shipping_address .btn, #checkout_payment_address .btn {margin-left:20px;}
 
 /* shipping */

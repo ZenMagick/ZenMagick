@@ -28,7 +28,7 @@
 <?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>
 <fieldset>
     <legend><?php zm_l10n("Address") ?></legend>
-    <table cellspacing="0" cellpadding="0" id="address">
+    <table cellspacing="0" cellpadding="0" id="newaddress">
         <thead>
             <tr>
                <th id="label"></th>

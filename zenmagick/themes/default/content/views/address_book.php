@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php foreach ($zm_addresses as $address) { ?>
+<?php foreach ($zm_addressList as $address) { ?>
     <fieldset>
         <legend><?php echo ($address->getFirstName() . ' ' . $address->getLastName()) ?>
         <?php echo ($address->isPrimary() ? zm_l10n("(primary)") : ''); ?></legend>
