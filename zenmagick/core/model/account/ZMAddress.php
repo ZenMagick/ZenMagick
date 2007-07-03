@@ -175,6 +175,7 @@ class ZMAddress extends ZMModel {
     function getState() { return $this->state_; }
     function getZoneId() { return $this->zoneId_; }
     function getCountry() { return $this->country_; }
+    function getCountryId() { return $this->country_->id_; }
     function isPrimary() { return $this->isPrimary_; }
     function getFormat() { return $this->format_; }
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }

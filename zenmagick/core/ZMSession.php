@@ -113,7 +113,7 @@ class ZMSession extends ZMObject {
         $_SESSION['customers_authorization'] = $account->getAuthorization();
         $_SESSION['customer_first_name'] = $account->getFirstName();
         $address = $zm_addresses->getAddressForId($account->getDefaultAddressId());
-        $_SESSION['customer_country_id'] = $address->getCountry();
+        $_SESSION['customer_country_id'] = $address->getCountryId();
         $_SESSION['customer_zone_id'] = $address->getZoneId();
     }
 
