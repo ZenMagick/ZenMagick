@@ -67,7 +67,7 @@
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),
-        new ZMRequiredRule('city', 'Please enter a City.'),
+        new ZMRequiredRule('city', 'Please enter a city.'),
         new ZMRequiredRule('postcode', 'Please enter a postcode.'),
         new ZMRequiredRule('zone_country_id', 'Please select a country.')
     )));
@@ -101,7 +101,7 @@
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),
-        new ZMRequiredRule('city', 'Please enter a City.'),
+        new ZMRequiredRule('city', 'Please enter a city.'),
         new ZMRequiredRule('postcode', 'Please enter a postcode.'),
         new ZMRequiredRule('zone_country_id', 'Please select a country.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details.")
