@@ -62,15 +62,15 @@ class ZMPageView extends ZMView {
 
 
     /**
-     * Return the template name.
+     * Return the layout name.
      *
-     * @return string The template name or <code>null</code>.
+     * @return string The layout name or <code>null</code>.
      */
-    function getTemplate() {
+    function getLayout() {
     global $zm_theme;
 
         $themeInfo = $zm_theme->getThemeInfo();
-        return $themeInfo->getTemplateFor($this->getName());
+        return $themeInfo->getLayoutFor($this->getName());
     }
 
 
@@ -87,7 +87,7 @@ class ZMPageView extends ZMView {
         }
         $zm_view = $this;
 
-        $template = $this->getTemplate();
+        $template = $this->getLayout();
         if (null != $template) {
             include($zm_theme->themeFile($template.'.php'));
         } else {

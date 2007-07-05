@@ -88,6 +88,8 @@ Release 0.8.1
 - added list of selectable addresses for change shipping/biling address
 - fix in ZMSession where the country was stored in the session rather than the
   countryId
+- renamed ZMPageView::getTemplate() and ZMThemeInfo::getTemplateFor(..) to
+  getLayout() and getLayoutFor(..), respectively
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

@@ -240,12 +240,12 @@ class ZMThemeInfo extends ZMObject {
     function getViewsDir() { return $this->config_['view-dir']; }
 
     /**
-     * Get the template/layout for the given page.
+     * Get the layout filename for the given page.
      *
      * @param string page The page.
      * @return string The layout name.
      */
-    function getTemplateFor($page) {
+    function getLayoutFor($page) {
         if (array_key_exists($page, $this->layout_)) {
             $this->layout_[$page];
             return $this->layout_[$page];
