@@ -103,6 +103,11 @@ class ZMLoginController extends ZMController {
         // restore cart contents
         $session->restoreCart();
 
+        $followUpUrl = $session->getLoginFollowUp();
+        if (null != $followUpUrl) {
+            zm_redirect($followUpUrl);
+        }
+
         return $this->findView('success');
     }
 

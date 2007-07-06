@@ -90,6 +90,7 @@ Release 0.8.1
   countryId
 - renamed ZMPageView::getTemplate() and ZMThemeInfo::getTemplateFor(..) to
   getLayout() and getLayoutFor(..), respectively
+- fixed #1748421 redirect after login
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

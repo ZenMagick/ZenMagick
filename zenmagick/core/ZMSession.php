@@ -166,6 +166,22 @@ class ZMSession extends ZMObject {
         return $messages;
     }
 
+    /**
+     * Check if a follow up url exists that should be loaded after a login.
+     *
+     * @return string The url to go to or <code>null</code>.
+     */
+    function getLoginFollowUp() {
+        $url = null;
+        if (sizeof($_SESSION['navigation']->snapshot) > 0) {
+            $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
+                zen_array_to_string($_SESSION['navigation']->snapshot['get'],
+                array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
+            $_SESSION['navigation']->clear_snapshot();
+        }
+        return $url;
+    }
+
 }
 
 ?>
