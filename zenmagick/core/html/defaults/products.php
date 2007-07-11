@@ -71,7 +71,7 @@
                     array_push($elements, _zm_buildSelectElement($product, $attribute));
                     break;
                 default:
-                    zm_log('unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
+                    zm_log('Unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
             }
         }
         return $elements;

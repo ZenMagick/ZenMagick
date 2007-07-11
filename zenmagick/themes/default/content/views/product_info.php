@@ -64,7 +64,8 @@
 
   <fieldset>
       <legend><?php zm_l10n("Shopping Options") ?></legend>
-      <label for="cart_quantity"><?php zm_l10n("Quantity") ?></label>
+      <?php $minMsg = ""; if (1 < $zm_product->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $zm_product->getMinOrderQty()); } ?>
+      <label for="cart_quantity"><?php zm_l10n("Quantity") ?><?php echo $minMsg; ?></label>
       <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
       <input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" />
   </fieldset>

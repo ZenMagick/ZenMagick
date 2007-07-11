@@ -74,7 +74,7 @@ Release 0.8.1
 - fixed missing order by SQL for new products (ZMProducts)
 - fixed a few cases where define(..) calls didn't quote the first parameter
 - fixed invalid variable name in zm_absolute_href(..)
-- fixed most PH notice issues (that logfile thingy comes quite handy here..)
+- fixed most PHP notice issues (that logfile thingy comes quite handy here..)
 - fix wrong privacy policy checkbox name in create_account.php
 - make enable/disable gender/company/dob/state options work in views (create,
   update and address) and also adjust validation accordingly
@@ -92,6 +92,7 @@ Release 0.8.1
   getLayout() and getLayoutFor(..), respectively
 - fixed #1748421 redirect after login
 - fixed #1748910 address book pages should not be cached
+- added support for min order quantity (request #1751599)
 
 Release 0.8.0.1
 - add active plugins to loader path; that means effectively, plugins may

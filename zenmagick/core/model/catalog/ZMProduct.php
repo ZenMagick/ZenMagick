@@ -45,6 +45,7 @@ class ZMProduct extends ZMModel {
     var $weight_;
     var $quantity_;
     var $qtyBoxStatus_;
+    var $qtyOrderMin_;
     var $qtyOrderMax_;
     var $isFree_;
     var $isCall_;
@@ -206,11 +207,18 @@ class ZMProduct extends ZMModel {
     function getQtyBoxStatus() { return $this->qtyBoxStatus_; }
 
     /**
-     * Get the max qunatity per order.
+     * Get the max quantity per order.
      *
      * @return int The max quantity per order.
      */
-    function getQtyOrderMax() { return $this->qtyOrderMax_; }
+    function getMaxOrderQty() { return $this->qtyOrderMax_; }
+
+    /**
+     * Get the min quantity per order.
+     *
+     * @return int The min quantity per order.
+     */
+    function getMinOrderQty() { return $this->qtyOrderMin_; }
 
     /**
      * Checks if the product is free.
