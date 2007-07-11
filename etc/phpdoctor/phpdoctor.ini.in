@@ -95,7 +95,7 @@ d = "${phpdoctor.apidocs.path}"
 
 ; Specifies the title to be placed in the HTML <title> tag.
 
-windowtitle = "ZenMagick ${zenmagick.version}"
+windowtitle = "ZenMagick"
 
 ; Specifies the title to be placed near the top of the overview summary file.
 
