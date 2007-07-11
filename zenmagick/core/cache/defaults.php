@@ -47,6 +47,7 @@
           && !zm_is_checkout_page(true) 
           && $zm_cart->isEmpty() 
           && !$zm_messages->hasMessages()
+          && false === strpos($zm_request->getPageName(), 'address_book')
           && false === strpos($zm_request->getPageName(), 'account');
     }
 
