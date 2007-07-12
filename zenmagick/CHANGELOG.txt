@@ -1,3 +1,6 @@
+Release 0.8.2
+- product_notifications.php should not use $zm_account
+
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
   ZMRequest::getParameter(...)
