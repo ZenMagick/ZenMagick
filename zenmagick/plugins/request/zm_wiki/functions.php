@@ -167,6 +167,7 @@
     // wikiparse: add line:   $contents = zm_wiki_parse($contents);
     // printWikiSyntax: add line:  zm_wiki_syntax();
     // change <span class=\"wiki_body\" to div
+    // rename error( paw_error(
 
 
     /**

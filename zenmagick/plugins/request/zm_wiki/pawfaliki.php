@@ -191,13 +191,13 @@ function writeFile( $title, $contents )
 {
 	if (!$fd = @fopen( pagePath( $title ), "w" ))
 	{ 
-		error("Cannot open server's file for writing: ".pagePath( $title ));
+		paw_error("Cannot open server's file for writing: ".pagePath( $title ));
 		return 1;
 	}
 	
 	if (@fwrite( $fd, $contents ) === FALSE)
 	{
-		error("Cannot write to server's file: ".pagePath( $title ));
+		paw_error("Cannot write to server's file: ".pagePath( $title ));
 		return 2;
 	}
 	
@@ -315,7 +315,7 @@ function updateWiki( &$mode, $title, $pawfaliki_config )
 		}
 		else
 		{
-			error( "Backups have been disabled." );
+			paw_error( "Backups have been disabled." );
 		}
 		
 	// restore from backup
@@ -329,7 +329,7 @@ function updateWiki( &$mode, $title, $pawfaliki_config )
 		}
 		else		
 		{
-			error( "Restore has been disabled." );
+			paw_error( "Restore has been disabled." );
 			$mode = "restorewiki";
 		}
 
@@ -347,7 +347,7 @@ function updateWiki( &$mode, $title, $pawfaliki_config )
 				// check if the password is correct
 				$restricted=!authPassword($title, $_POST['password']);
 				if ($restricted)
-					error("Wrong password. Try again.");
+					paw_error("Wrong password. Try again.");
 			}
 
 			// write file    
@@ -758,7 +758,7 @@ function printLicense( $title )
 }
 
 // add an error to our error buffer
-function error( $string )
+function paw_error( $string )
 {
 	global $pawfaliki_config;
 	$pawfaliki_config['INTERNAL']['ERRORS'][] = $string;
@@ -784,7 +784,7 @@ function isIpBlocked( )
 	{
 		if (preg_match( "/".$ip."/", $ipaddress ))
 		{
-			error( "Your ip address has been blocked from making changes!" );
+			paw_error( "Your ip address has been blocked from making changes!" );
 			$result = true;
 			break;
 		}	
@@ -881,7 +881,7 @@ function backupPages( &$filename )
 	$numpages = count($pages);
 	if ($numpages==0) // must have at least 1 page for a backup
 	{
-		error("No pages to backup yet!");
+		paw_error("No pages to backup yet!");
 		return;
 	}
 	if ( extension_loaded('zlib')&&$pawfaliki_config['BACKUP']['USE_ZLIB'] ) // write a gzipped backup file
@@ -933,14 +933,14 @@ function restorePages()
 	unset($pawfaliki_config['INTERNAL']['DATA']['RESTORED']);
 	if (!authPassword("RestoreWiki", $_POST['password']))
 	{
-		error("Wrong password. Try again.");
+		paw_error("Wrong password. Try again.");
 		return;
 	}
 	
 	$filename = $_FILES['userfile']['tmp_name'];
 	if ($filename=="none"||$_FILES['userfile']['size']==0||!is_uploaded_file($filename))
 	{
-		error( "No file was uploaded!<BR>Maybe the filesize exceeded the maximum upload size of ".$pawfaliki_config['BACKUP']['MAX_SIZE']."bytes." );
+		paw_error( "No file was uploaded!<BR>Maybe the filesize exceeded the maximum upload size of ".$pawfaliki_config['BACKUP']['MAX_SIZE']."bytes." );
 		return;
 	}
 	
@@ -955,7 +955,7 @@ function restorePages()
 		$fd = fopen($filename, "rb");
 	if (!$fd)
 	{
-		error("Could not read temporary upload file: $filename!");
+		paw_error("Could not read temporary upload file: $filename!");
 		return;
 	}				
 	$fileerror = "NO ERROR";
@@ -1014,7 +1014,7 @@ function restorePages()
 		$str = "This does not appear to be a valid backup file!";
 		if(!$zlib)
 			$str .= "<br />NOTE: Zlib is not enabled so restoring a compressed file will not work.";
-		error($str);
+		paw_error($str);
 		return;
 	}		
 	
@@ -1053,7 +1053,7 @@ function restorePages()
 		{
 			if (@touch(pagePath( $title ), $modtime, $modtime)==false)
 			{
-				error("Could not modify filetimes for $title - ensure php owns the file!");
+				paw_error("Could not modify filetimes for $title - ensure php owns the file!");
 			}
 			$restored[] = $title;
 		}
@@ -1341,7 +1341,7 @@ if (isset($pawfaliki_config['RESTRICTED']['HTTP']))
 		}	
 	}
 	else
-		error( "HTTP authentication is only available when PHP interface is via apache module!");
+		paw_error( "HTTP authentication is only available when PHP interface is via apache module!");
 }
 
 
