@@ -1,5 +1,10 @@
 Release 0.8.2
 - product_notifications.php should not use $zm_account
+- ZMProductSorter:sort(..) - check that the given lsit is an array
+- added ZMView::isValid(..)
+- add defines for log level
+- implemented missing view check in ZMController; the view key for missing
+pages can be configured with 'missingPageId'; default is 'error'
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

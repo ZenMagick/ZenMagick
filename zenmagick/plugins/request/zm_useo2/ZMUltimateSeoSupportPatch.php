@@ -142,7 +142,7 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    zm_log("** ZenMagick: no permission to patch Ultimate SEO support into ".$file, 1);
+                    zm_log("** ZenMagick: no permission to patch Ultimate SEO support into ".$file, ZM_LOG_ERROR);
                     return false;
                 }
             }

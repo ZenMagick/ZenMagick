@@ -77,6 +77,30 @@ class ZMView extends ZMObject {
      * @return string The full view filename.
      */
     function getViewFilename($subdir=null, $prefixToDir=true) {
+        return $this->_getViewFilename($subdir, $prefixToDir);
+    }
+
+    /**
+     * Check if this view is valid.
+     *
+     * @param string subdir Optional subdirectory name within the views directory.
+     * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
+     *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
+     * @return bool <code>true</code> if the view is valid, <code>false</code> if not.
+     */
+    function isValid($subdir=null, $prefixToDir=true) {
+        return file_exists($this->_getViewFilename($subdir, $prefixToDir));
+    }
+
+    /**
+     * Returns the full view filename to be included by a template.
+     *
+     * @param string subdir Optional subdirectory name within the views directory.
+     * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
+     *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
+     * @return string The full view filename.
+     */
+    function _getViewFilename($subdir=null, $prefixToDir=true) {
     global $zm_theme;
 
         $filename = $zm_theme->getViewsDir();

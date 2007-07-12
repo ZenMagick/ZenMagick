@@ -89,6 +89,13 @@
     define('ZM_PLUGIN_SORT_ORDER_SUFFIX', 'SORT_ORDER');
 
 
+    //** loglevel **//
+
+    define('ZM_LOG_ERROR', 1);
+    define('ZM_LOG_INFO', 2);
+    define('ZM_LOG_DEBUG', 3);
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

@@ -34,6 +34,7 @@
     $_ZM_SETTINGS['zmLogFilename'] = null; // custom logfile
     $_ZM_SETTINGS['isZMErrorHandler'] = false; // custom error handler
     $_ZM_SETTINGS['isDieOnError'] = false;
+    $_ZM_SETTINGS['missingPageId'] = 'error';
     // whether to strip code in core.php
     $_ZM_SETTINGS['isStripCore'] = true;
 

@@ -40,9 +40,10 @@
     } else {
         $_zm_bin_dir = dirname(__FILE__)."/core/";
         require($_zm_bin_dir."bootstrap.php");
-        require($_zm_bin_dir."settings/settings.php");
         require($_zm_bin_dir."settings/zenmagick.php");
+        require($_zm_bin_dir."settings/settings.php");
         require($_zm_bin_dir."ZMLoader.php");
+        require($_zm_bin_dir."ZMRuntime.php");
         require($_zm_bin_dir."ZMService.php");
         require($_zm_bin_dir."service/ZMThemes.php");
         require($_zm_bin_dir."rp/ZMUrlMapper.php");
@@ -57,7 +58,7 @@
     }
 
     // use loader for all class loading from here?
-    $zm_runtime = $zm_loader->create("ZMRuntime");
+    $zm_runtime = new ZMRuntime();
 
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {

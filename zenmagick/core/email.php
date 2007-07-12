@@ -54,7 +54,7 @@
     function zm_email_formats($template) {
         $htmlView = new ZMEmailView($template, true);
         $textView = new ZMEmailView($template, false);
-        if (file_exists($htmlView->getViewFilename()) && file_exists($textView->getViewFilename())) {
+        if ($htmlView->isValid() && $textView->isValid()) {
             return "both";
         } else if (!file_exists($htmlView->getViewFilename()) && !file_exists($textView->getViewFilename())) {
             return "none";

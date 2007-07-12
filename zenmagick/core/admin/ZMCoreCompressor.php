@@ -149,11 +149,12 @@ class ZMCoreCompressor extends ZMObject {
                 $this->_flattenDirStructure($this->pluginsPreparedDirname_, $this->flatDirname_);
             }
             if (!$this->hasErrors()) {
+                $this->_createInitBootstrap($this->flatDirname_);
                 $this->_compressToSingleFile($this->flatDirname_, $this->coreFilename_);
             }
         }
 
-        $this->clean();
+        //$this->clean();
     }
 
     /**
@@ -390,6 +391,38 @@ class ZMCoreCompressor extends ZMObject {
     }
 
     /**
+     * Create init_bootstrap.php
+     *
+     * @param string out The output directory.
+     */
+    function _createInitBootstrap($out) {
+        $outfile = $out.'/init_bootstrap.php';
+        if (!$handle = fopen($outfile, 'ab')) {
+            array_push($this->errors_, 'could not open file for writing ' . $outfile);
+            return;
+        }
+        if (false === fwrite($handle, "<?php \n")) {
+            array_push($this->errors_, 'could not write to file ' . $outfile);
+            return;
+        }
+        $lines = array(
+            '$zm_runtime = new ZMRuntime();',
+            '$zm_request = new ZMRequest();',
+        );
+        foreach ($lines as $line) {
+            if (false === fwrite($handle, $line."\n")) {
+                array_push($this->errors_, 'could not write to file ' . $outfile);
+                return;
+            }
+        }
+        if (false === fwrite($handle, "?>\n")) {
+            array_push($this->errors_, 'could not write to file ' . $outfile);
+            return;
+        }
+        fclose($handle);
+    }
+
+    /**
      * Compress all files into a single file
      *
      * @param string in The input directory.
@@ -406,7 +439,16 @@ class ZMCoreCompressor extends ZMObject {
             $tmp[substr($file, $off+strlen($in)+1)] = $file;
         }
         // some need to be in order :/
-        $loadFirst = array('bootstrap.php', '1/settings.php', '1/zenmagick.php', 'ZMLoader.php', 'ZMService.php');
+        $loadFirst = array(
+            'bootstrap.php',
+            '1/zenmagick.php',
+            '1/settings.php',
+            'ZMLoader.php',
+            'ZMService.php',
+            'ZMSession.php',
+            'ZMRequest.php',
+            'int_bootstrap.php'
+        );
         $tmp2 = array();
         foreach ($loadFirst as $first) {
             array_push($tmp2, $tmp[$first]); unset($tmp[$first]);

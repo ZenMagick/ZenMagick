@@ -32,8 +32,6 @@
 		<link rel="stylesheet" type="text/css" href="<?php $zm_theme->themeURL("site.css") ?>"/>
 	</head>
   <body>
-    <h2><?php zm_title() ?></h2>
-
 		<?php $zm_theme->staticPageContent('error') ?>
   </body>
 </html>

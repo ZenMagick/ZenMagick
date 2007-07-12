@@ -103,7 +103,7 @@ class ZMProductSorter extends ZMResultListSorter {
      * @return array The sorted list.
      */
     function sort($list) {
-        if (!$this->isActive()) {
+        if (!$this->isActive() || !is_array($list)) {
             return $list;
         }
 

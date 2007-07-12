@@ -220,7 +220,7 @@ class ZMLoader {
             }
         }
 
-        //zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, 4);
+        //zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, ZM_LOG_DEBUG);
 
         if (null != $zmclassfile && !class_exists($zmname)) { require($zmclassfile); }
         if (null != $classfile && !class_exists($name)) { require($classfile); }
@@ -279,7 +279,7 @@ class ZMLoader {
                 $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
                 break;
             default:
-                zm_log("unsupported number of arguments " . $clazz, 2);
+                zm_log("unsupported number of arguments " . $clazz);
                 zm_backtrace();
                 break;
             }

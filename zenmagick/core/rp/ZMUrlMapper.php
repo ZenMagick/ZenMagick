@@ -135,7 +135,7 @@ class ZMUrlMapper extends ZMObject {
             }
         }
 
-        //zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, 1);
+        //zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, ZM_LOG_ERROR);
         $view = $this->create("PageView", $controller);
         $view->setMappingId($id);
         return $view;

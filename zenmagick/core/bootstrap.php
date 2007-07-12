@@ -82,7 +82,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string msg The message to log.
-     * @param int level Optional level (default: 2).
+     * @param int level Optional level (default: ZM_LOG_INFO).
      */
     function zm_log($msg, $level=2) { if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) error_log($msg); }
 

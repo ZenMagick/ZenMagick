@@ -435,7 +435,7 @@ class ZMProducts extends ZMService {
 
 
     function _getRandomProductIds($sql, $max=0) {
-        0 == $max && zm_log("invalid max value: ".$max, 3);
+        0 == $max && zm_log("invalid max value: ".$max, ZM_LOG_DEBUG);
 
         $db = $this->getDB();
         $productIds = array();

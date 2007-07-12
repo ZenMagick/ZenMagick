@@ -106,7 +106,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
                 $finalLines = array_merge($patchedLines, $lines);
                 return $this->putFileLines(_ZM_ZEN_HEADER_FILE, $finalLines);
             } else {
-                zm_log("** ZenMagick: no permission to patch dynamic admin menu support into header.php", 1);
+                zm_log("** ZenMagick: no permission to patch dynamic admin menu support into header.php", ZM_LOG_ERROR);
                 return false;
             }
         } else {

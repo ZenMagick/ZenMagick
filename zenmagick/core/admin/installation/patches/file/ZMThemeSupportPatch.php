@@ -123,7 +123,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
                 return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
             } else {
-                zm_log("** ZenMagick: no permission to patch theme support into index.php", 1);
+                zm_log("** ZenMagick: no permission to patch theme support into index.php", ZM_LOG_ERROR);
                 return false;
             }
         } else {
@@ -157,7 +157,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $unpatchedLines);
         } else {
-            zm_log("** ZenMagick: no permission to patch index.php for uninstall", 1);
+            zm_log("** ZenMagick: no permission to patch index.php for uninstall", ZM_LOG_ERROR);
             return false;
         }
 

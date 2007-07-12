@@ -32,6 +32,7 @@
 
     // global
     $zm_urlMapper->addMapping(null, 'error', 'error');
+    $zm_urlMapper->addMapping(null, 'error', 'missing_page');
     $zm_urlMapper->addMapping(null, 'index', 'index');
     $zm_urlMapper->addMapping(null, 'login', 'login', false, true);
     $zm_urlMapper->addMapping(null, 'cookie_usage', 'cookie_usage', true, false);
