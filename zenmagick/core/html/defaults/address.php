@@ -37,6 +37,11 @@
     function zm_format_address(&$address, $html=true, $echo=true) {
     global $zm_countries, $zm_addresses;
 
+        if (null == $address) {
+            $out = zm_l10n_get("N/A");    
+            if ($echo) echo $out;
+            return $out;
+        }
         if (!zm_is_empty($address->getLastName())) {
             $firstname = $address->getFirstName();
             $lastname = $address->getLastName();

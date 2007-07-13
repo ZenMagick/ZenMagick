@@ -32,7 +32,7 @@
             <legend><?php zm_l10n("Address Book") ?></legend>
             <?php foreach ($zm_addressList as $address) { ?>
                 <p>
-                    <?php $checked = $currentAddress->getId() == $address->getId() ? ' checked="checked"' : ""; ?>
+                    <?php $checked = (null != $currentAddress && $currentAddress->getId()) == $address->getId() ? ' checked="checked"' : ""; ?>
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="address" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
                     <label for="address_<?php echo $address->getId() ?>"><?php echo $address->getFullName() ?></label>
                     <br/>
