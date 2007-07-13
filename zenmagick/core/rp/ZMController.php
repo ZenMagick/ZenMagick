@@ -112,7 +112,7 @@ class ZMController extends ZMObject {
 
         if (null != $view) {
             if (!$view->isValid()) {
-                zm_log('Invalid view: '.$view->getName());
+                zm_log('Invalid view: '.$view->getName(), ZM_LOG_WARN);
                 $view = $this->findView(zm_setting('missingPageId'));
             }
             $view->setController($this);
@@ -134,7 +134,7 @@ class ZMController extends ZMObject {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView('success');
+        return $this->findView('page');
     }
 
 

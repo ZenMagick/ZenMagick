@@ -92,8 +92,10 @@
     //** loglevel **//
 
     define('ZM_LOG_ERROR', 1);
-    define('ZM_LOG_INFO', 2);
-    define('ZM_LOG_DEBUG', 3);
+    define('ZM_LOG_ERROR', 2);
+    define('ZM_LOG_INFO', 3);
+    define('ZM_LOG_DEBUG', 4);
+    define('ZM_LOG_DEBUG', 5);
 
 
     //** others **//

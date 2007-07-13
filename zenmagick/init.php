@@ -39,9 +39,9 @@
         $zm_loader =& new ZMLoader('coreLoader');
     } else {
         $_zm_bin_dir = dirname(__FILE__)."/core/";
-        require($_zm_bin_dir."bootstrap.php");
         require($_zm_bin_dir."settings/zenmagick.php");
         require($_zm_bin_dir."settings/settings.php");
+        require($_zm_bin_dir."bootstrap.php");
         require($_zm_bin_dir."ZMLoader.php");
         require($_zm_bin_dir."ZMRuntime.php");
         require($_zm_bin_dir."ZMService.php");

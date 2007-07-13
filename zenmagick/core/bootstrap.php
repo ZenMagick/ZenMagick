@@ -84,7 +84,7 @@ if (!class_exists("ZMObject")) {
      * @param string msg The message to log.
      * @param int level Optional level (default: ZM_LOG_INFO).
      */
-    function zm_log($msg, $level=2) { if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) error_log($msg); }
+    function zm_log($msg, $level=ZM_LOG_INFO) { if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) error_log($msg); }
 
 
     /**

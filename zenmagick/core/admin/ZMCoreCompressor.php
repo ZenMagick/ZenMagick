@@ -440,9 +440,9 @@ class ZMCoreCompressor extends ZMObject {
         }
         // some need to be in order :/
         $loadFirst = array(
-            'bootstrap.php',
             '1/zenmagick.php',
             '1/settings.php',
+            'bootstrap.php',
             'ZMLoader.php',
             'ZMService.php',
             'ZMSession.php',
