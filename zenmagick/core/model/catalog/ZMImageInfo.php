@@ -36,6 +36,7 @@ class ZMImageInfo extends ZMModel {
     var $imageMedium_;
     var $imageLarge_;
     var $altText_;
+    var $parameter_;
 
 
     /**
@@ -46,6 +47,9 @@ class ZMImageInfo extends ZMModel {
      */
     function ZMImageInfo($image, $alt='') {
         parent::__construct();
+
+        $this->altText_ = $alt;
+        $this->parameter_ = array();
 
         $comp = _zm_split_image_name($image);
         $subdir = $comp[0];
@@ -84,8 +88,8 @@ class ZMImageInfo extends ZMModel {
      * @param string image The image name.
      * @param string alt The alt text.
      */
-    function __construct($product, $alt='') {
-        $this->ZMImageInfo($product, $alt);
+    function __construct($image, $alt='') {
+        $this->ZMImageInfo($image, $alt);
     }
 
     /**
@@ -144,6 +148,43 @@ class ZMImageInfo extends ZMModel {
      * @return string The alt text.
      */
     function getAltText() { return $this->altText_; }
+
+    /**
+     * Set the parameter.
+     *
+     * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
+     *  a query string style list of name/value pairs or a map.
+     */
+    function setParameter($parameter) {
+        if (is_array($parameter)) {
+            $this->parameter_ = $parameter;
+        } else if (!zm_is_empty($parameter)) {
+            parse_str($parameter, $this->parameter_);
+        } else {
+            zm_log('invalid image parameter '.$parameter, ZM_LOG_WARN);
+        }
+    }
+
+    /**
+     * Get the parameter.
+     *
+     * @return array Map of key/value pairs.
+     */
+    function getParameter() { return $this->parameter_; }
+
+    /**
+     * Get the parameter formatted as <code>key="value" </code>.
+     *
+     * @return string HTML formatted parameter.
+     */
+    function getFormattedParameter() { 
+        $html = '';
+        foreach ($this->parameter_ as $attr => $value) {
+            $html .= ' '.$attr.'="'.$value.'"';
+        }
+
+        return $html;
+    }
 
 }
 
