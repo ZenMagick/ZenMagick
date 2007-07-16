@@ -34,6 +34,11 @@
             <param name="plugin.name" value="zm_useo3" />
             <param name="plugin.version" value="${plugins.zm_useo3.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_imagehandler2" />
+            <param name="plugin.version" value="${plugins.zm_imagehandler2.version}" />
+        </antcall>
     </target>
 
     
@@ -47,6 +52,10 @@
                 <include name="request/${plugin.name}/**" />
             </fileset>
         </copy>
+
+        <echo message="Versioning ${build.dir}/plugins/** ..." />
+        <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
+        <replaceregexp match="\$$\{plugin.version\}" replace="${plugin.version}" flags="g"><fileset dir="${build.dir}/plugins" /></replaceregexp>
 
         <zip zipfile="${dist.dir}/plugin-${plugin.name}-${plugin.version}.zip">
             <fileset dir="${build.dir}/plugins">
