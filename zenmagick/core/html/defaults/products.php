@@ -168,7 +168,7 @@
     function _zm_buildAttributeValueLabel($product, $value, $enableImage=true) {
         $label = '';
         if ($value->hasImage() && $enableImage) {
-            $label = '<img src="' . zm_image_href($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'" />';
+            $label = '<img src="' . zm_image_uri($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'" />';
         }
         $label .= zm_l10n_get($value->getName());
 

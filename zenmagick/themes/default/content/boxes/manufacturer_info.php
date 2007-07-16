@@ -31,14 +31,14 @@
         <h3><?php zm_l10n("Manufacturer Info") ?></h3>
         <div id="sb_manufacturer_info" class="box">
             <?php 
-            if (!zm_is_empty($manufacturer->getImage())) {
+            if ($manufacturer->hasImage()) {
                 $url = zm_href(FILENAME_DEFAULT, 'manufacturers_id='.$manufacturer->getId(), false);
                 $target = '';
                 if (!zm_is_empty($manufacturer->getURL())) {
                     $url = zm_redirect_href('manufacturer', $manufacturer->getId(), false);
                     $target = zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                 }
-                ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo zm_pimage($manufacturer->getImage()) ?></a><?php
+                ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_image($manufacturer->getImageInfo()) ?></a><?php
                 if (!zm_is_empty($manufacturer->getURL())) {
                     $url = zm_href(FILENAME_DEFAULT, 'manufacturers_id='.$manufacturer->getId(), false);
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php

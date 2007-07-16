@@ -102,6 +102,13 @@ class ZMArtist extends ZMModel {
     function getImage() { return $this->image_; }
 
     /**
+     * Get the image info.
+     *
+     * @return ZMImageInfo The image info.
+     */
+    function getImageInfo() { return $this->create("ImageInfo", $this->image_, $this->name_); }
+
+    /**
      * Check if a URL is available.
      *
      * @return bool <code>true</code> if a URL is available, <code>false</code> if not.

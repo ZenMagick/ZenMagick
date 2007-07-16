@@ -93,6 +93,20 @@ class ZMManufacturer extends ZMModel {
     function getImage() { return $this->image_; }
 
     /**
+     * Check if a manufacturer image exists.
+     *
+     * @return bool <code>true</code> if an image exists, <code>false</code> if not.
+     */
+    function hasImage() { return !zm_is_empty($this->image_); }
+
+    /**
+     * Get the manufacturer image info.
+     *
+     * @return ZMImageInfo The image info.
+     */
+    function getImageInfo() { return $this->create("ImageInfo", $this->image_, $this->name_); }
+
+    /**
      * Get the manufacturer URL.
      *
      * @return string The manufacturer URL.

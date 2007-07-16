@@ -30,7 +30,7 @@
         <?php $odd = true; $first = true; foreach ($zm_cart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td class="img">
-                    <a href="<?php zm_product_href($item->getId()) ?>"><?php echo zm_pimage($item->getImage(), $item->getName(), '', '', 'class="product"') ?></a>
+                    <?php zm_product_image_link($item) ?>
                     <?php zm_sc_product_hidden($item) ?>
                 </td>
                 <td class="itm">

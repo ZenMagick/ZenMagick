@@ -45,7 +45,7 @@
             // use text if not empty
             $html = $banner->getText();
         } else {
-            $img = '<img src="'.zm_image_href($banner->getImage(), false).'" alt="'.$banner->getTitle().'" />';
+            $img = '<img src="'.zm_image_uri($banner->getImage(), false).'" alt="'.$banner->getTitle().'" />';
             if (zm_is_empty($banner->getUrl())) {
                 // if we do not have a url try our luck with the image...
                 $html = $img;

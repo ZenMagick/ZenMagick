@@ -109,6 +109,13 @@ class ZMReview extends ZMModel {
     function getProductImage() { return $this->productImage_; }
 
     /**
+     * Get the review product image info.
+     *
+     * @return ZMProductInfo The product image info.
+     */
+    function getProductImageInfo() { return $this->create("ImageInfo", $this->productImage_, $this->productname_); }
+
+    /**
      * Get the review text.
      *
      * @return string The review text.

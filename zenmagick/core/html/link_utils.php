@@ -504,14 +504,14 @@
 
 
     /**
-     * Create an image href with <code>DIR_WS_IMAGES</code> as base.
+     * Create an absolute image path for the given image.
      *
      * @package net.radebatz.zenmagick.html
-     * @param string src The relative source name.
+     * @param string src The relative image name (relative to zen-cart's image folder).
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string A full URL.
+     * @return string The image URI.
      */
-    function zm_image_href($src, $echo=true) {
+    function zm_image_uri($src, $echo=true) {
         $href = DIR_WS_CATALOG.DIR_WS_IMAGES . $src;
 
         if ($echo) echo $href;

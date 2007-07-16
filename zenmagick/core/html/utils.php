@@ -27,22 +27,32 @@
 
 
     /**
-     * Create a HTML <code>&lt;a&gt;</code> tag with a small product image for the given product.
+     * Creates a HTML <code>&lt;mg&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
-     * <p>In constrast to the <code>..._href</code> functions, this one will
-     * return a full HTML <code>&lt;img&gt;</code> tag.</p>
-     *
-     * @package net.radebatz.zenmagick.html
-     * @param ZMProduct product A product.
+     * @package net.radebatz.zenmagick.html.defaults
+     * @param ZMImageInfo imageInfo The image info.
+     * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
+     *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
      * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
+     * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    function zm_product_image($product, $echo=true) {
-        $img = zen_image(DIR_WS_IMAGES . $product->getDefaultImage(), zm_htmlencode($product->getName(), false), 
-            '', '', 'class="product"');
+    function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $echo=true) {
+        switch ($format) {
+        case PRODUCT_IMAGE_LARGE:
+            $imgSrc = $imageInfo->getLargeImage();
+            break;
+        case PRODUCT_IMAGE_MEDIUM:
+            $imgSrc = $imageInfo->getMediumImage();
+            break;
+            break;
+        case PRODUCT_IMAGE_SMALL:
+            $imgSrc = $imageInfo->getDefaultImage();
+            break;
+        }
+        $html = '<img src="'.$imgSrc.'" alt="'.$imageInfo->getAltText().'" />';
 
-        if ($echo) echo $img;
-        return $img;
+        if ($echo) echo $html;
+        return $html;
     }
 
 

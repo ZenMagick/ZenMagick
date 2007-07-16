@@ -45,7 +45,7 @@
             <?php foreach ($zm_productList as $product) { ?>
                 <th class="pl">
                   <a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a>
-                  <a href="<?php zm_product_href($product->getId()) ?>"><?php zm_product_image($product) ?></a>
+                  <?php zm_product_image_link($product) ?>
                 </th>
             <?php } ?>
         </tr>

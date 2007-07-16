@@ -98,6 +98,13 @@
     define('ZM_LOG_DEBUG', 5);
 
 
+    //** fixed product images sizes **//
+
+    define('PRODUCT_IMAGE_SMALL', 'small');
+    define('PRODUCT_IMAGE_MEDIUM', 'medium');
+    define('PRODUCT_IMAGE_LARGE', 'large');
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

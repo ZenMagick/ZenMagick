@@ -216,6 +216,7 @@
     $_ZM_SETTINGS['bannerGroupAll'] = SHOW_BANNERS_GROUP_SET_ALL;
 
     // images
+    $_ZM_SETTINGS['imgNotFound'] = PRODUCTS_IMAGE_NO_IMAGE;
     $_ZM_SETTINGS['imgSuffixMedium'] = IMAGE_SUFFIX_MEDIUM;
     $_ZM_SETTINGS['imgSuffixLarge'] = IMAGE_SUFFIX_LARGE;
 

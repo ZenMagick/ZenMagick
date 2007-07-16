@@ -31,9 +31,9 @@
   <?php $imageInfo = $zm_product->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php zm_product_image($zm_product) ?></a>
+          <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
-          <?php zm_product_image($zm_product) ?>
+          <?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?>
       <?php } ?>
       <div id="desc"><?php echo $zm_product->getDescription(); ?></div>
       <?php if (null != $manufacturer) { ?>

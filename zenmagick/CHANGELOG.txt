@@ -6,6 +6,9 @@ Release 0.8.2
 - implemented missing view check in ZMController; the view key for missing
   pages can be configured with 'missingPageId'; default is 'error'
 - resorted the boostrap order to allow bootstrap.php to use zenmagick defines
+- convert all access to shared images (zen-cart/images) to using ZMImageInfo
+- refactor all image related functions into three: zm_image(..),
+  zm_image_uri(..) and zm_product_image_link(..)
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

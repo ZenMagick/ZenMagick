@@ -38,7 +38,7 @@
       <?php zm_l10n("Review by: %s", $zm_review->getAuthor()) ?>
       <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()) ?>
       <span id="stars">
-        <?php echo zm_image('stars_'.$review->getRating().'.gif', $rtext) ?>
+        <img src="<?php $zm_theme->themeURL('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
         <?php echo $rtext ?>
       </span>
     </p>

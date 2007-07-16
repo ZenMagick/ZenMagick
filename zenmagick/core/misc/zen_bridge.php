@@ -111,6 +111,7 @@
     $zen_currencies = $currencies;
     function zm_format_currency($amount, $echo=true) {
     global $zen_currencies;
+
         $price = $zen_currencies->format($amount);
 
         if ($echo) echo $price;
@@ -138,12 +139,6 @@
     function zm_get_info_page($value) { return zen_get_info_page($value); }
     function zm_check_stock($id, $qty) { return zen_check_stock($id, $qty); }
     function zm_date_short($date, $echo=true) { if($echo) echo zen_date_short($date); return zen_date_short($date); }
-    function zm_image($src, $alt='', $width='', $height='', $parameters='') {
-        return zen_image(DIR_WS_TEMPLATE_IMAGES.$src, $alt, $width, $height, $parameters);
-    }
-    function zm_pimage($src, $alt='', $width='', $height='', $parameters='') {
-        return zen_image(DIR_WS_IMAGES.$src, $alt, $width, $height, $parameters);
-    }
 
     function zm_clear_session() {
         @zen_session_destroy();

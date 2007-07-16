@@ -35,14 +35,16 @@ class ZMImageInfo extends ZMModel {
     var $imageDefault_;
     var $imageMedium_;
     var $imageLarge_;
+    var $altText_;
 
 
     /**
      * Create new image info.
      *
      * @param string image The image name.
+     * @param string alt The alt text.
      */
-    function ZMImageInfo($image) {
+    function ZMImageInfo($image, $alt='') {
         parent::__construct();
 
         $comp = _zm_split_image_name($image);
@@ -51,7 +53,11 @@ class ZMImageInfo extends ZMModel {
         $imageBase = $comp[2];
 
         // set default image
-        $this->imageDefault_ = zm_image_href($image, false);
+        if (zm_is_empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
+            $this->imageDefault_ = zm_image_uri(zm_setting('imgNotFound'), false);
+        } else {
+            $this->imageDefault_ = zm_image_uri($image, false);
+        }
 
         // evaluate optional medium image
         $medium = $imageBase.zm_setting('imgSuffixMedium').$ext;
@@ -59,7 +65,7 @@ class ZMImageInfo extends ZMModel {
             // default to next smaller version
             $this->imageMedium_ = $this->imageDefault_;
         } else {
-            $this->imageMedium_ = zm_image_href('medium/'.$medium, false);
+            $this->imageMedium_ = zm_image_uri('medium/'.$medium, false);
         }
 
         // evaluate optional large image
@@ -68,7 +74,7 @@ class ZMImageInfo extends ZMModel {
             // default to next smaller version
             $this->imageLarge_ = $this->imageMedium_;
         } else {
-            $this->imageLarge_ = zm_image_href('large/'.$large, false);
+            $this->imageLarge_ = zm_image_uri('large/'.$large, false);
         }
     }
 
@@ -76,9 +82,10 @@ class ZMImageInfo extends ZMModel {
      * Create new image info.
      *
      * @param string image The image name.
+     * @param string alt The alt text.
      */
-    function __construct($product) {
-        $this->ZMImageInfo($product);
+    function __construct($product, $alt='') {
+        $this->ZMImageInfo($product, $alt);
     }
 
     /**
@@ -118,18 +125,25 @@ class ZMImageInfo extends ZMModel {
     function getMediumImage() { return $this->imageMedium_; }
 
     /**
-     * Check if there is a large image.
-     *
-     * @return bool <code>true</code> if there is a large image, <code>false</code> if not.
-     */
-    function getLargeImage() { return $this->imageLarge_; }
-
-    /**
      * Get the large image.
      *
      * @return string The large image.
      */
+    function getLargeImage() { return $this->imageLarge_; }
+
+    /**
+     * Check if there is a large image.
+     *
+     * @return bool <code>true</code> if there is a large image, <code>false</code> if not.
+     */
     function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
+
+    /**
+     * Get the alt text.
+     *
+     * @return string The alt text.
+     */
+    function getAltText() { return $this->altText_; }
 
 }
 

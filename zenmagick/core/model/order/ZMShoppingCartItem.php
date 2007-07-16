@@ -75,6 +75,7 @@ class ZMShoppingCartItem extends ZMModel {
     function getId() { return $this->zenItem_['id']; }
     function getName() { return $this->zenItem_['name']; }
     function getImage() { return $this->zenItem_['image']; }
+    function getImageInfo() { return $this->create("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
     function isStockAvailable() { return !zm_not_null(zm_check_stock($this->getId(), $this->zenItem_['quantity'])); }
     function getItemPrice() { return zm_add_tax($this->zenItem_['final_price'], $this->getTaxRate()); }

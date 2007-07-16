@@ -323,7 +323,7 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMImageInfo The product image info.
      */
-    function getImageInfo() { return $this->create("ImageInfo", $this->image_); }
+    function getImageInfo() { return $this->create("ImageInfo", $this->image_, $this->name_); }
 
     /**
      * Get additional product images.
