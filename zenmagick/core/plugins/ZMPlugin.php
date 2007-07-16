@@ -44,6 +44,7 @@ class ZMPlugin extends ZMService {
     var $id_;
     var $title_;
     var $description_;
+    var $version_;
     var $installed_;
     var $enabled_;
     var $configPrefix_;
@@ -62,24 +63,22 @@ class ZMPlugin extends ZMService {
      * @param string title The title.
      * @param string description The description.
      * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
-     * @param string configPrefix The configuration key prefix; defaults to [PLUGIN]_[PLUGIN-CODE]_.
+     * @param string version The version.
      */
-    function ZMPlugin($title='', $description='', $sortOrder=0, $configPrefix=null) {
+    function ZMPlugin($title='', $description='', $version='0.0') {
         parent::__construct();
 
         $this->type_ = 'request';
         $this->id_ = get_class($this);
         $this->title_ = $title;
         $this->description_ = $description;
+        $this->version_ = $version;
         $this->enabledValue_ = zm_l10n_get('Enabled');
-        $this->sort_order = $sortOrder;
+        $this->sort_order = 0;
         $this->installed_ = null;
         $this->enabled_ = null;
         $this->configPrefix_ = $configPrefix;
-        if (null === $this->configPrefix_) {
-            $this->configPrefix_ = ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_';
-        }
-        $this->configPrefix_ = strtoupper($this->configPrefix_);
+        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
         $this->keys_ = array();
         if (defined($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX)) {
             $this->sort_order = constant($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX);
@@ -96,7 +95,7 @@ class ZMPlugin extends ZMService {
      * @param string title The title.
      * @param string description The description.
      * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
-     * @param string configPrefix The configuration key prefix; defaults to [PLUGIN]_[PLUGIN-CODE]_.
+     * @param string version The version.
      */
     function __construct($title='', $description='', $sortOrder=0, $configPrefix=null) {
         $this->ZMPlugin($title, $description, $sortOrder, $configPrefix);
@@ -170,6 +169,15 @@ class ZMPlugin extends ZMService {
      */
     function getDescription() {
         return $this->description_;
+    }
+
+    /**
+     * Get version.
+     *
+     * @return string The version.
+     */
+    function getVersion() {
+        return $this->version_;
     }
 
     /**

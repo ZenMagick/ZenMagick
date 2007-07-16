@@ -46,7 +46,7 @@ class zm_google_adsense extends ZMBoxPlugin {
      * Default c'tor.
      */
     function zm_google_adsense() {
-        parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_COUNT.' Google AdSense sideboxes.');
+        parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_COUNT.' Google AdSense sideboxes.', '${plugin.version}');
         $this->setKeys($this->getBoxNames());
     }
 

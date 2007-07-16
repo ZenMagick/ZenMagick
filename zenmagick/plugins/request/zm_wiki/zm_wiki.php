@@ -53,7 +53,7 @@ class zm_wiki extends ZMBoxPlugin {
      * Default c'tor.
      */
     function zm_wiki() {
-        parent::__construct('Pawfaliki Wiki', 'Adds a Wiki.');
+        parent::__construct('Pawfaliki Wiki', 'Adds a Wiki.', '${plugin.version}');
         $this->setLoaderSupport('ALL');
     }
 

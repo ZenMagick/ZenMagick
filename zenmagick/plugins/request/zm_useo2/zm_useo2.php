@@ -36,7 +36,7 @@ class zm_useo2 extends ZMPlugin {
      * Default c'tor.
      */
     function zm_useo2() {
-        parent::__construct('ZenMagick Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick');
+        parent::__construct('ZenMagick Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
     }
 
