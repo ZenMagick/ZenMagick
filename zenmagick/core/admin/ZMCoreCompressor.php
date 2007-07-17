@@ -186,6 +186,9 @@ class ZMCoreCompressor extends ZMObject {
                    case T_WHITESPACE:
                        echo ' ';
                        break;
+                   case T_END_HEREDOC:
+                       echo $text."\n";
+                       break;
                    case T_OPEN_TAG:
                        echo '<?php ';
                        break;
@@ -447,7 +450,7 @@ class ZMCoreCompressor extends ZMObject {
             'ZMService.php',
             'ZMSession.php',
             'ZMRequest.php',
-            'int_bootstrap.php'
+            'init_bootstrap.php'
         );
         $tmp2 = array();
         foreach ($loadFirst as $first) {
