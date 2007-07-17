@@ -9,6 +9,11 @@ Release 0.8.2
 - convert all access to shared images (zen-cart/images) to using ZMImageInfo
 - refactor all image related functions into three: zm_image(..),
   zm_image_uri(..) and zm_product_image_link(..)
+- add new zm_imagehandler2 plugin
+- fix invalid php in create_account_success
+- add missing welcome_email.txt (#1752483) and make welcome email look nices
+- add 'storeOwner' setting
+- fix wrong title of welcome HTML email
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

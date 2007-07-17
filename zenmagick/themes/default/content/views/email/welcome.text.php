@@ -25,6 +25,13 @@
 ?>
 <?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
 
+
+<?php zm_l10n("We wish to welcome you to %s.", zm_setting('storeName')) ?>
+
+
 <?php echo strip_tags(zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner'))) ?>
+
+<?php zm_l10n("Sincerely, %s", zm_setting('storeOwner')) ?>
+
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>

@@ -193,6 +193,7 @@
     $_ZM_SETTINGS['isContactUsStoreAddress'] = CONTACT_US_STORE_NAME_ADDRESS == '1';
 
     // store
+    $_ZM_SETTINGS['storeOwner'] = STORE_OWNER;
     $_ZM_SETTINGS['storeName'] = STORE_NAME;
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
     $_ZM_SETTINGS['storeCountry'] = STORE_COUNTRY;
