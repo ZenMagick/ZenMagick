@@ -67,6 +67,15 @@ class ZMPluginView extends ZMPageView {
 
 
     /**
+     * Check if this view is valid.
+     *
+     * @return bool <code>true</code> if the view is valid, <code>false</code> if not.
+     */
+    function isValid() {
+        return true;
+    }
+
+    /**
      * Returns the full view filename to be included by a template.
      *
      * @param string subdir Optional subdirectory name within the views directory.
