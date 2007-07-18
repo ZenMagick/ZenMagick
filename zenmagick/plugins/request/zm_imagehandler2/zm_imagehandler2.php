@@ -24,7 +24,7 @@
 <?php
 
 /**
- * Sample plugin to illustrate a few key points of the ZenMagick plugin architecture.
+ * Plugin to enable support for ImageHandler2 in ZenMagick.
  *
  * @package net.radebatz.zenmagick.plugins.zm_imagehandler2
  * @author mano

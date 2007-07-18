@@ -14,7 +14,7 @@ Release 0.8.2
 - add missing welcome_email.txt (#1752483) and make welcome email look nices
 - add 'storeOwner' setting
 - fix wrong title of welcome HTML email
-- make ZMCoreCompressor handle heredoc syntax correctly
+- make ZMCoreCompressor handle heredoc syntax correctly (#1752404)
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
