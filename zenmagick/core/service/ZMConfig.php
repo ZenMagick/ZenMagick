@@ -64,8 +64,10 @@ class ZMConfig extends ZMService {
      * @param int groupId The config group id.
      * @param string description The description; defaults to <code>''</code>.
      * @param int sortOrder optional sort order; defaults to <code>0</code>.
+     * @param string setFunction The set function; defaults to <code>null</code>.
+     * @param string useFunction The use function; defaults to <code>null</code>.
      */
-    function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0) {
+    function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0, $setFunction=null, $useFunction=null) {
         // keys are always upper case
         $key = strtoupper($key);
 
@@ -84,6 +86,8 @@ class ZMConfig extends ZMService {
         $sql = $db->bindVars($sql, ":description", $description, "string");
         $sql = $db->bindVars($sql, ":sortOrder", $sortOrder, "integer");
         $sql = $db->bindVars($sql, ":dateAdded", 'now()', "passthru");
+        $sql = $db->bindVars($sql, ":useFunction", $useFunction, "string");
+        $sql = $db->bindVars($sql, ":setFunction", $setFunction, "string");
         $results = $db->Execute($sql);
     }
 
@@ -96,11 +100,37 @@ class ZMConfig extends ZMService {
     function updateConfigValue($key, $value) {
         $db = $this->getDB();
         $sql = "update " . TABLE_CONFIGURATION . "
-                set configuration_value = :configValue
-                where configuration_key = :configKey";
-        $sql = $db->bindVars($sql, ":configKey", $key, "string");
-        $sql = $db->bindVars($sql, ":configValue", $value, "string");
+                set configuration_value = :value
+                where configuration_key = :key";
+        $sql = $db->bindVars($sql, ":key", $key, "string");
+        $sql = $db->bindVars($sql, ":value", $value, "string");
         $results = $db->Execute($sql);
+    }
+
+    /**
+     * Get all config values for a given key pattern.
+     *
+     * @param string pattern The key pattern; for example 'foo_%'.
+     * @return array A list of <code>ZMConfigValue</code> instances.
+     */
+    function getConfigValues($pattern) {
+        $db = $this->getDB();
+        $sql = "select configuration_id, configuration_title, configuration_key, configuration_value,
+                configuration_description,
+                use_function, set_function
+                from " . TABLE_CONFIGURATION . " where configuration_key like :key
+                order by configuration_id";
+        $sql = $db->bindVars($sql, ":key", $pattern, "string");
+        $results = $db->Execute($sql);
+
+        $values = array();
+        while (!$results->EOF) {
+            $value = $this->_newConfigValue($results->fields);
+            array_push($values, $value);
+            $results->MoveNext();
+        }
+
+        return $values;
     }
 
     /**
@@ -110,8 +140,20 @@ class ZMConfig extends ZMService {
      */
     function removeConfigValue($key) {
         $db = $this->getDB();
-        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :configKey";
-        $sql = $db->bindVars($sql, ":configKey", $key, "string");
+        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :key";
+        $sql = $db->bindVars($sql, ":key", $key, "string");
+        $results = $db->Execute($sql);
+    }
+
+    /**
+     * Remove config value for the given key pattern.
+     *
+     * @param string pattern The key pattern; for example 'foo_%'.
+     */
+    function removeConfigValues($pattern) {
+        $db = $this->getDB();
+        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like :key";
+        $sql = $db->bindVars($sql, ":key", $pattern, "string");
         $results = $db->Execute($sql);
     }
 
@@ -146,6 +188,21 @@ class ZMConfig extends ZMService {
         $group->setId($fields['configuration_group_id']);
         $group->setName($fields['configuration_group_title']);
         return $group;
+    }
+
+    /**
+     * Create new config value instance.
+     */
+    function _newConfigValue($fields) {
+        $value =& $this->create("ConfigValue");
+        $value->id_ = $fields['configuration_id'];
+        $value->name_ = $fields['configuration_title'];
+        $value->key_ = $fields['configuration_key'];
+        $value->value_ = $fields['configuration_value'];
+        $value->description_ = $fields['configuration_description'];
+        $value->useFunction_ = $fields['use_function'];
+        $value->setFunction_ = $fields['set_function'];
+        return $value;
     }
 
 }

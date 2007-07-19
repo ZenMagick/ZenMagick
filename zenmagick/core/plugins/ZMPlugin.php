@@ -68,7 +68,7 @@ class ZMPlugin extends ZMService {
         $this->title_ = $title;
         $this->description_ = $description;
         $this->version_ = $version;
-        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_);
+        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
         $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
         $this->keys_ = array();
         $this->messages_ = array();
@@ -186,16 +186,13 @@ class ZMPlugin extends ZMService {
      * @param bool keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     function remove($keepSettings=false) {
+        $config = new ZMConfig();
+
         // always remove enable/disable key
-        $db = $this->getDB();
-        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :key";
-        $sql = $db->bindVars($sql, ":key", $this->enabledKey_, "string");
-        $results = $db->Execute($sql);
+        $config->removeConfigValue($this->enabledKey_);
 
         if (!$keepSettings) {
-            $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like (:keys)";
-            $sql = $db->bindVars($sql, ":keys", $this->configPrefix_.'%', "string");
-            $results = $db->Execute($sql);
+            $config->removeConfigValues($this->configPrefix_.'%');
         }
     }
 
@@ -301,24 +298,8 @@ class ZMPlugin extends ZMService {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $db = $this->getDB();
-        $sql = "insert into " . TABLE_CONFIGURATION . " (
-                  configuration_title, configuration_key, configuration_value, configuration_group_id,
-                  configuration_description, sort_order, 
-                  date_added, use_function, set_function)
-                values (:title, :key, :value, :groupId,
-                  :description, :sortOrder,
-                  :dateAdded, :useFunction, :setFunction)";
-        $sql = $db->bindVars($sql, ":title", $title, "string");
-        $sql = $db->bindVars($sql, ":key", $key, "string");
-        $sql = $db->bindVars($sql, ":value", $value, "string");
-        $sql = $db->bindVars($sql, ":groupId", $groupId, "integer");
-        $sql = $db->bindVars($sql, ":description", $description, "string");
-        $sql = $db->bindVars($sql, ":sortOrder", $sortOrder, "integer");
-        $sql = $db->bindVars($sql, ":dateAdded", 'now()', "passthru");
-        $sql = $db->bindVars($sql, ":useFunction", $useFunction, "string");
-        $sql = $db->bindVars($sql, ":setFunction", $setFunction, "string");
-        $results = $db->Execute($sql);
+        $config = new ZMConfig();
+        $config->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
     }
 
     /**
@@ -327,23 +308,8 @@ class ZMPlugin extends ZMService {
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
     function getConfigValues() {
-        $db = $this->getDB();
-        $sql = "select configuration_id, configuration_title, configuration_key, configuration_value,
-                configuration_description,
-                use_function, set_function
-                from " . TABLE_CONFIGURATION . " where configuration_key like :key
-                order by configuration_id";
-        $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-        $results = $db->Execute($sql);
-
-        $values = array();
-        while (!$results->EOF) {
-            $value = $this->_newConfigValue($results->fields);
-            array_push($values, $value);
-            $results->MoveNext();
-        }
-
-        return $values;
+        $config = new ZMConfig();
+        return $config->getConfigValues($this->configPrefix_.'%');
     }
 
     /**
@@ -445,21 +411,6 @@ class ZMPlugin extends ZMService {
      * @param string loaderSupport The loader support flag.
      */
     function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
-
-    /**
-     * Create new config value instance.
-     */
-    function _newConfigValue($fields) {
-        $value =& $this->create("ConfigValue");
-        $value->id_ = $fields['configuration_id'];
-        $value->name_ = $fields['configuration_title'];
-        $value->key_ = $fields['configuration_key'];
-        $value->value_ = $fields['configuration_value'];
-        $value->description_ = $fields['configuration_description'];
-        $value->useFunction_ = $fields['use_function'];
-        $value->setFunction_ = $fields['set_function'];
-        return $value;
-    }
 
 }
 
