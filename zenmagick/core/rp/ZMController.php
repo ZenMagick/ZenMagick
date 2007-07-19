@@ -151,10 +151,14 @@ class ZMController extends ZMObject {
      * Set the response content type.
      *
      * @param string type The content type.
-     * @param string charset Optional charset; default is utf-8.
+     * @param string charset Optional charset; default is utf-8; <code>null</code> will omit the charset part.
      */
     function setContentType($type, $charset="utf-8") {
-        header("Content-Type: " . $type . "; charset=" . $charset);
+        $text = "Content-Type: " . $type;
+        if (null != $charset) {
+            $text .= "; charset=" . $charset;
+        }
+        header($text);
     }
 
 

@@ -37,8 +37,6 @@ class WikiController extends ZMController {
      * Default c'tor.
      */
     function WikiController() {
-    global $zm_request, $zm_wiki, $pawfaliki_config;
-
         parent::__construct();
     }
 

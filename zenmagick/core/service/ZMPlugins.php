@@ -165,7 +165,7 @@ class ZMPlugins extends ZMService {
      * @param bool useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function getPluginsForType($type, $installed=true, $useCache=true) {
+    function getPluginsForType($type, $useCache=true) {
         $idList = array();
         if ($useCache) {
             // use plugin status to select plugins

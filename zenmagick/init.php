@@ -160,7 +160,6 @@
     $pluginLoader =& new ZMLoader("pluginLoader");
     foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
         if ($plugin->isEnabled()) {
-            $plugin->init();
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
             }
@@ -181,6 +180,13 @@
     // plugins prevail over defaults, but not themes
     $rootLoader =& zm_get_root_loader();
     $rootLoader->setParent($pluginLoader);
+
+    // call init only after everything set up
+    foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
+        if ($plugin->isEnabled()) {
+            $plugin->init();
+        }
+    }
 
     // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
     if (zm_setting('isEnableZenMagick') 

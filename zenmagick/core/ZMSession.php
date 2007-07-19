@@ -69,6 +69,30 @@ class ZMSession extends ZMObject {
     }
 
     /**
+     * Create a session value.
+     *
+     * @param string name The field name.
+     * @param mixed value The value.
+     */
+    function setValue($name, $value) {
+        $_SESSION[$name] = $value;
+    }
+
+    /**
+     * Get a session value.
+     *
+     * @param string name The field name.
+     * @return mixed The value or <code>null</code>.
+     */
+    function getValue($name) {
+        if (isset($_SESSION[$name])) {
+            return $_SESSION[$name];
+        }
+
+        return null;
+    }
+
+    /**
      * Recreate session.
      *
      * @param bool force If <code>true</code>, force recreation of the session, even if this is disabled.
