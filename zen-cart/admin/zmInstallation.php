@@ -31,6 +31,8 @@ ob_start(); require('sqlpatch.php'); ob_end_clean();
 define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
+    $needRefresh = false;
+
     // locale
     $patchLabel = array(
         "adminMenu" => "Install ZenMagick admin menu",
@@ -46,6 +48,7 @@ require_once('includes/application_top.php');
 
         "dynamicAdminMenu" => "Enable dynamic admin menu support",
 
+        "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlFeatures" => "Install Features database tables"
     );
 
@@ -59,6 +62,7 @@ require_once('includes/application_top.php');
             if (zm_starts_with($name, 'patch_')) {
                 $patch = $installer->getPatchForId($value);
                 if (null != $patch && $patch->isOpen()) {
+                    $needRefresh = true;
                     $status = $patch->patch(true);
                     $zm_messages->addAll($patch->getMessages());
                     if ($status) {
@@ -76,6 +80,7 @@ require_once('includes/application_top.php');
         $group = $_GET['uninstall'];
         foreach ($installer->getPatches($group) as $id => $patch) {
             if (!$patch->isOpen() && $patch->canUndo()) {
+                $needRefresh = true;
                 $status = $patch->undo();
                 $zm_messages->addAll($patch->getMessages());
                 if ($status) {
@@ -168,6 +173,11 @@ require_once('includes/application_top.php');
                 <input type="submit" value="<?php zm_l10n("Install") ?>">
             </div>
         <?php }
+    }
+
+    if ($needRefresh) {
+        zm_redirect(ZM_ADMINFN_INSTALLATION);
+        zm_exit();
     }
 
 ?>
