@@ -24,6 +24,9 @@
  */
 ?>
 <?php
+// dismiss sqlpatch output as we do only want to use the code...
+define('GZIP_LEVEL', 0);
+ob_start(); require('sqlpatch.php'); ob_end_clean();
 define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
@@ -48,6 +51,7 @@ require_once('includes/application_top.php');
                 $rootLoader->setParent($pluginLoader);
             }
             $plugin->install();
+            $zm_messages->addAll($plugin->getMessages());
         }
         $edit = $install;
         $editPlugin = $plugin;
@@ -65,6 +69,7 @@ require_once('includes/application_top.php');
                 $rootLoader->setParent($pluginLoader);
             }
             $plugin->remove();
+            $zm_messages->addAll($plugin->getMessages());
         }
         $needRefresh = true;
     } else if (null != $edit) {
@@ -122,6 +127,14 @@ require_once('includes/application_top.php');
   </head>
   <body id="b_plugins" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+
+    <?php if ($zm_messages->hasMessages()) { ?>
+        <ul id="messages">
+        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+        <?php } ?>
+        </ul>
+    <?php } ?>
 
     <div id="main">
       <div id="content">

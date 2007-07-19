@@ -36,7 +36,7 @@
  * @package net.radebatz.zenmagick.plugins
  * @version $Id$
  */
-class ZMPlugin extends ZMService {
+class ZMPlugin extends ZMObject {
     var $id_;
     var $title_;
     var $description_;

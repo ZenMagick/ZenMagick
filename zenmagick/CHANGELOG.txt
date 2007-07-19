@@ -20,6 +20,7 @@ Release 0.8.2
   plugins every time
 - cache plugin instances per request
 - clean up ZMPlugin to make config and status handling simpler
+- make ZMPlugin extend ZMObject rather than ZMService
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
