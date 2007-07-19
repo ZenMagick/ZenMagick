@@ -596,7 +596,9 @@
      * @return string A complete Ajax URL.
      */
     function zm_ajax_href($controller, $method, $params='', $echo=true) { 
-        $url = str_replace('&amp;', '&', _zm_build_href('ajax_'.$controller, $params.'&method='.$method, false, false));
+    global $zm_request;
+
+        $url = str_replace('&amp;', '&', _zm_build_href('ajax_'.$controller, $params.'&method='.$method, $zm_request->isSecure(), false));
 
         if ($echo) echo $url;
         return $url;

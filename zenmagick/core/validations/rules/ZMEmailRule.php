@@ -69,8 +69,8 @@ class ZMEmailRule extends ZMRule {
      * @return string regexp for email matching.
      */
     function _emailRegexp() {
-        $atom = '[-a-z0-9!#$%&\'*+/=?^_`{|}~]';
-        $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)';
+        $atom = '[-a-zA-Z0-9!#$%&\'*+/=?^_`{|}~]';
+        $domain = '([a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9]+)?)';
 
         $regexp = '^' . $atom . '+' .              // One or more atom characters.
                   '(\.' . $atom . '+)*'.           // Followed by zero or more dot separated sets of one or more atom characters.
