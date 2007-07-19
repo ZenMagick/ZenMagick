@@ -39,6 +39,11 @@
             <param name="plugin.name" value="zm_imagehandler2" />
             <param name="plugin.version" value="${plugins.zm_imagehandler2.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_captcha_ttf" />
+            <param name="plugin.version" value="${plugins.zm_captcha_ttf.version}" />
+        </antcall>
     </target>
 
     
