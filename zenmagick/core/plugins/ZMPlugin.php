@@ -32,10 +32,6 @@
  *
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
- * <p>When using the default install method to generate common plugin settings, make sure that
- * additional configuration settings do not use a sortOrder <em>&lt; 2</em>, as <em>0</em>
- * and <em>1</em> are used for those.</p>
- *
  * @author mano
  * @package net.radebatz.zenmagick.plugins
  * @version $Id$
@@ -48,7 +44,7 @@ class ZMPlugin extends ZMService {
     var $installed_;
     var $enabled_;
     var $configPrefix_;
-    var $enabledValue_;
+    var $enabledKey_;
     var $keys_;
     var $type_;
     var $messages_ = null;
@@ -62,7 +58,6 @@ class ZMPlugin extends ZMService {
      *
      * @param string title The title.
      * @param string description The description.
-     * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
      * @param string version The version.
      */
     function ZMPlugin($title='', $description='', $version='0.0') {
@@ -73,16 +68,9 @@ class ZMPlugin extends ZMService {
         $this->title_ = $title;
         $this->description_ = $description;
         $this->version_ = $version;
-        $this->enabledValue_ = zm_l10n_get('Enabled');
-        $this->sort_order = 0;
-        $this->installed_ = null;
-        $this->enabled_ = null;
-        $this->configPrefix_ = $configPrefix;
-        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
+        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_);
+        $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
         $this->keys_ = array();
-        if (defined($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX)) {
-            $this->sort_order = constant($this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX);
-        }
         $this->messages_ = array();
         $this->pluginDir_ = null;
         $this->loaderSupport_ = 'PLUGIN';
@@ -94,11 +82,10 @@ class ZMPlugin extends ZMService {
      *
      * @param string title The title.
      * @param string description The description.
-     * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
      * @param string version The version.
      */
-    function __construct($title='', $description='', $sortOrder=0, $configPrefix=null) {
-        $this->ZMPlugin($title, $description, $sortOrder, $configPrefix);
+    function __construct($title='', $description='', $version='0.0') {
+        $this->ZMPlugin($title, $description, $version);
     }
 
     /**
@@ -181,12 +168,44 @@ class ZMPlugin extends ZMService {
     }
 
     /**
-     * Get the sort order of this plugin.
+     * Install this plugin.
      *
-     * @return int The sort order.
+     * <p>This default implementation will automatically create the following settings:</p>
+     * <ul>
+     *  <li>Enable/disable plugin</li>
+     *  <li>Sort Order</li>
+     * </ul>
      */
-    function getSortOrder() {
-        return $this->sort_order;
+    function install() {
+        $this->addConfigValue('Plugin Status', $this->enabledKey_, true);
+    }
+
+    /**
+     * Remove this plugin.
+     *
+     * @param bool keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     */
+    function remove($keepSettings=false) {
+        // always remove enable/disable key
+        $db = $this->getDB();
+        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :key";
+        $sql = $db->bindVars($sql, ":key", $this->enabledKey_, "string");
+        $results = $db->Execute($sql);
+
+        if (!$keepSettings) {
+            $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like (:keys)";
+            $sql = $db->bindVars($sql, ":keys", $this->configPrefix_.'%', "string");
+            $results = $db->Execute($sql);
+        }
+    }
+
+    /**
+     * Init this plugin.
+     *
+     * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
+     * <p>Code to set up internal resources should be placed here, rather than in the * constructor.</p>
+     */
+    function init() {
     }
 
     /**
@@ -195,29 +214,26 @@ class ZMPlugin extends ZMService {
      * @return bool <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
     function isInstalled() {
-        if (null === $this->installed_) {
-            if (null === $this->configPrefix_) {
-                zm_backtrace('plugin without configuration prefix');
-            }
-            $db = $this->getDB();
-            $sql = "select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key like :key";
-            $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-            $results = $db->Execute($sql);
+        return null !== $this->__get(ZM_PLUGIN_ENABLED_SUFFIX);
+    }
 
-            $this->installed_ = 0 < $results->RecordCount();
-        }
-        return $this->installed_;
+    /**
+     * Check if the plugin is enabled.
+     *
+     * @return bool <code>true</code> if the plugin is enabled, <code>false</code> if not.
+     */
+    function isEnabled() {
+        $enabled = $this->get(ZM_PLUGIN_ENABLED_SUFFIX);
+        return null !== $enabled && 0 != $enabled;
     }
 
     /**
      * Get a list of configuration keys used by this plugin.
      *
-     * <p>This default implementation will return the keys of automatically generated settings.</p.
-     *
      * @return array List of configuration keys.
      */
     function getKeys() {
-        return array_merge(array($this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX, $this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX), $this->keys_);
+        return $this->keys_;
     }
 
     /**
@@ -232,23 +248,6 @@ class ZMPlugin extends ZMService {
             }
             array_push($this->keys_, $key);
         }
-    }
-
-    /**
-     * Check if the plugin is enabled or not.
-     *
-     * @return bool <code>true</code> if the plugin is enabled, <code>false</code> if not.
-     */
-    function isEnabled() {
-        if (null === $this->enabled_) {
-            $db = $this->getDB();
-            $sql = "select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = :key";
-            $sql = $db->bindVars($sql, ":key", $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX, "string");
-            $results = $db->Execute($sql);
-            $lcvalue = strtolower($results->fields['configuration_value']);
-            $this->enabled_ = zm_is_in_array($lcvalue, "1,true,yes,".strtolower($this->enabledValue_));
-        }
-        return $this->enabled_;
     }
 
     /**
@@ -295,7 +294,7 @@ class ZMPlugin extends ZMService {
      * @param int sortOrder The sort order; defaults to <code>0</code>.
      */
     function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
-        $groupId = 6;
+        $groupId = ZENMAGICK_PLUGIN_GROUP_ID;
         if (!zm_starts_with($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
@@ -323,64 +322,6 @@ class ZMPlugin extends ZMService {
     }
 
     /**
-     * Install this plugin.
-     *
-     * <p>This default implementation will automatically create the following settings:</p>
-     * <ul>
-     *  <li>Enable/disable plugin</li>
-     *  <li>Sort Order</li>
-     * </ul>
-     */
-    function install() {
-        // enable/disable drop down
-        $enabledName = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
-        // zen-cart casts drop_down values to int!!
-        /*
-        $enabledValues = "array(array(\'id\' => \'".$this->enabledValue_."\', \'text\' => \'".$this->enabledValue_."\'),
-          array(\'id\' => \'".$disabled."\', \'text\' => \'".$disabled."\'))";
-        $this->addConfigValue('Plugin Status', $enabledName, $this->enabledValue_, 6, 'Enable/Disable this plugin.', 0,
-          'zen_cfg_select_drop_down('.$enabledValues.', ');
-         */
-        $this->addConfigValue('Plugin Status', $enabledName, $this->enabledValue_, 'Change the plugin status.',
-          'zen_cfg_select_option(array(\''.$this->enabledValue_.'\', \''.'Disabled'.'\'), ');
-
-        // plugin sort order
-        //$sortOrderName = $this->configPrefix_.ZM_PLUGIN_SORT_ORDER_SUFFIX;
-        //$this->addConfigValue('Sort Order', $sortOrderName, $this->sort_order, 'Display sort order.');
-    }
-
-    /**
-     * Remove this plugin.
-     */
-    function remove() {
-        $db = $this->getDB();
-        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like (:keys)";
-        $sql = $db->bindVars($sql, ":keys", $this->configPrefix_.'%', "string");
-        $results = $db->Execute($sql);
-    }
-
-    /**
-     * Init this plugin.
-     *
-     * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
-     * <p>Code to set up internal resources should be placed here, rather than in the * constructor.</p>
-     *
-     * <p>This default implementation will load all plugin configuration values and create constants (<code>defines</code>).</p>
-     */
-    function init() {
-        $db = $this->getDB();
-        $sql = "select configuration_key, configuration_value
-                from " . TABLE_CONFIGURATION . "
-                where configuration_key like :key";
-        $sql = $db->bindVars($sql, ":key", $this->configPrefix_.'%', "string");
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            define($results->fields['configuration_key'], $results->fields['configuration_value']);
-            $results->MoveNext();
-        }
-    }
-
-    /**
      * Get all the config values.
      *
      * @return array A list of <code>ZMConfigValue</code> instances.
@@ -401,6 +342,7 @@ class ZMPlugin extends ZMService {
             array_push($values, $value);
             $results->MoveNext();
         }
+
         return $values;
     }
 

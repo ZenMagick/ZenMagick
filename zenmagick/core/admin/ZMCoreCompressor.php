@@ -250,7 +250,7 @@ class ZMCoreCompressor extends ZMObject {
         $zm_plugins =& new ZMPlugins();
         foreach ($zm_plugins->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
-                if (!$plugin->isInstalled()) {
+                if (!$plugin->isEnabled()) {
                     continue;
                 }
                 $flag = $plugin->getLoaderSupport();

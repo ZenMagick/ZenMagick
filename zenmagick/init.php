@@ -159,7 +159,7 @@
     $zm_plugins =& new ZMPlugins();
     $pluginLoader =& new ZMLoader("pluginLoader");
     foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
-        if ($plugin->isInstalled() && $plugin->isEnabled()) {
+        if ($plugin->isEnabled()) {
             $plugin->init();
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());

@@ -61,12 +61,25 @@
  * @version $Id$
  */
 class ZMPlugins extends ZMService {
+    var $pluginStatus_;
+    var $plugins_;
+    var $pluginsDir_;
+
 
     /**
      * Default c'tor.
      */
     function ZMPlugins() {
+    global $zm_runtime;
+
         parent::__construct();
+
+        $this->pluginStatus_ = unserialize(ZENMAGICK_PLUGIN_STATUS);
+        if (!is_array($this->pluginStatus_)) {
+            $this->pluginStatus_ = array();
+        }
+        $this->plugins_ = array();
+        $this->pluginsDir_ = $zm_runtime->getPluginsDir();
     }
 
     /**
@@ -90,15 +103,14 @@ class ZMPlugins extends ZMService {
      * @return array A list of types and their associated directories.
      */
     function getPluginTypes() {
-    global $zm_runtime;
-
         $types = array();
-        $handle = opendir($zm_runtime->getPluginsDir());
+        $handle = opendir($this->pluginsDir_);
         while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file)
+            if (zm_starts_with($file, '.')) {
                 continue;
+            }
 
-            $name = $zm_runtime->getPluginsDir().$file;
+            $name = $this->pluginsDir_.$file;
             if (is_dir($name)) {
                 $types[$file] = $name;
             }
@@ -109,64 +121,70 @@ class ZMPlugins extends ZMService {
     }
 
     /**
-     * Get *all* plugins.
+     * Get all plugins.
      *
+     * @param bool useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
-    function getAllPlugins() {
+    function getAllPlugins($useCache=true) {
         $plugins = array();
         foreach ($this->getPluginTypes() as $type => $typeDir) {
-            $plugins[$type] = $this->getPluginsForType($type);
+            $plugins[$type] = $this->getPluginsForType($type, $useCache);
         }
         return $plugins;
+    }
+
+    /**
+     * Load list of plugins for the given type.
+     *
+     * @param string type The plugin type.
+     * @return array List of plugin ids.
+     */
+    function _getPluginIdsForType($type) {
+        $typeDir = $this->pluginsDir_ . $type . '/';
+        $idList = array();
+        $handle = @opendir($typeDir);
+        if (false !== $handle) {
+            while (false !== ($file = readdir($handle))) { 
+                if (zm_starts_with($file, '.')) {
+                    continue;
+                }
+
+                $idList[] = str_replace('.php', '', $file);
+            }
+            @closedir($handle);
+        }
+
+        return $idList;
     }
 
     /**
      * Get all plugins for the given type.
      *
      * @param string type The plugin type.
+     * @param bool useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function getPluginsForType($type) {
-    global $zm_runtime;
-
-        $typeDir = $zm_runtime->getPluginsDir() . $type . '/';
-        $files = array();
-        $handle = @opendir($typeDir);
-        if (false !== $handle) {
-            while (false !== ($file = readdir($handle))) { 
-                if ("." == $file || ".." == $file)
-                    continue;
-
-                $name = $typeDir.$file;
-                if (is_dir($name)) {
-                    // expect plugin file in the directory with the same name and '.php' extension
-                    $name = $name . '/' . $file . '.php';
-                    array_push($files, $name);
-                } else if (zm_ends_with($name, ".php")) {
-                    array_push($files, $name);
+    function getPluginsForType($type, $installed=true, $useCache=true) {
+        $idList = array();
+        if ($useCache) {
+            // use plugin status to select plugins
+            foreach ($this->pluginStatus_ as $id => $status) {
+                if ($status['type'] == $type) {
+                    $idList[] = $id;
                 }
             }
-            @closedir($handle);
+        } else {
+            // do it the long way...
+            $idList = $this->_getPluginIdsForType($type);
         }
 
-        // make sure we can extend from ZMPlugin
         $plugins = array();
-        foreach ($files as $file) {
-            if (!file_exists($file)) {
-                continue;
+        foreach ($idList as $id) {
+            $plugin =& $this->getPluginForId($id, $type);
+            if (null != $plugin) {
+                $plugins[] = $plugin;
             }
-            $plugin = str_replace('.php', '', basename($file));
-            if (!class_exists($plugin)) {
-                require_once($file);
-            }
-            $obj = new $plugin();
-            $obj->setType($type);
-            $pluginDir = dirname($file) . '/';
-            if ($pluginDir != $typeDir) {
-                $obj->setPluginDir($pluginDir);
-            }
-            $plugins[] = $obj;
         }
 
         return $plugins;
@@ -176,27 +194,48 @@ class ZMPlugins extends ZMService {
      * Get plugin for the given id.
      *
      * @param string id The plugin id.
-     * @param string type Optional type to make the lookup easier; default is <code>null</code>.
+     * @param string type Optional type.
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
-    function &getPluginForIdAndType($id, $type=null) {
-        if (null != $type) {
-            foreach ($this->getPluginsForType($type) as $plugin) {
-                if ($id == $plugin->getId()) {
-                    return $plugin;
-                }
-            }
-        } else {
-            foreach ($this->getAllPlugins() as $types) {
-                foreach ($types as $plugin) {
-                    if ($id == $plugin->getId()) {
-                        return $plugin;
-                    }
-                }
-            }
+    function &getPluginForId($id, $type=null) {
+        if (array_key_exists($id, $this->plugins_)) {
+            return $this->plugins_[$id];
         }
 
-        return null;
+        $status = $this->pluginStatus_[$id];
+        $type = null != $type ? $type : $status['type'];
+        $typeDir = $this->pluginsDir_ . $type . '/';
+        $file = $typeDir.$id;
+        if (is_dir($file)) {
+            // expect plugin file in the directory with the same name and '.php' extension
+            $file .= '/' . $id . '.php';
+            if (!file_exists($file)) {
+                return null;
+            }
+        } else if (is_file($file.'.php')) {
+            $file .= '.php';
+        } else {
+            return null;
+        }
+
+        // load
+        if (!file_exists($file)) {
+            return null;
+        }
+
+        if (!class_exists($id)) {
+            require_once($file);
+        }
+
+        $plugin = new $id();
+        $plugin->setType($type);
+        $pluginDir = dirname($file) . '/';
+        if ($pluginDir != $typeDir) {
+            $plugin->setPluginDir($pluginDir);
+        }
+
+        $this->plugins_[$id] =& $plugin;
+        return $plugin;
     }
 
     /**
@@ -215,7 +254,7 @@ class ZMPlugins extends ZMService {
         }
 
         foreach ($this->getPluginsForType('request') as $plugin) {
-            if ($plugin->isInstalled() && $plugin->isEnabled()) {
+            if ($plugin->isEnabled()) {
                 $pluginHandler = $plugin->getPluginHandler();
                 if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
                     $pluginHandler->setPlugin($plugin);

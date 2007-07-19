@@ -15,6 +15,11 @@ Release 0.8.2
 - add 'storeOwner' setting
 - fix wrong title of welcome HTML email
 - make ZMCoreCompressor handle heredoc syntax correctly (#1752404)
+- added new SQL patch to set up config groups for general and plugin settings
+- make storefront use db persisted plugin status rather than loading all
+  plugins every time
+- cache plugin instances per request
+- clean up ZMPlugin to make config and status handling simpler
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

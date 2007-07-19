@@ -85,8 +85,7 @@
     //** plugins/modules **//
 
     define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
-    define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
-    define('ZM_PLUGIN_SORT_ORDER_SUFFIX', 'SORT_ORDER');
+    define('ZM_PLUGIN_ENABLED_SUFFIX', '_ENABLED');
 
 
     //** loglevel **//

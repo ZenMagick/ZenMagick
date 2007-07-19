@@ -71,11 +71,13 @@ class zm_useo2 extends ZMPlugin {
 
     /**
      * Remove this plugin.
+     *
+     * @param bool keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>true</code>.
      */
-    function remove() {
+    function remove($keepSettings=true) {
     global $zm_messages;
 
-        parent::remove();
+        parent::remove($keepSettings);
 
         $patch = $this->create('ZMUltimateSeoSupportPatch');
         if (!$patch->isOpen() && $patch->canUndo()) {

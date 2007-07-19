@@ -27,17 +27,16 @@
 define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
-    $zm_plugins = new ZMPlugins();
     $zm_config = new ZMConfig();
-
     $pluginLoader =& new ZMLoader("pluginLoader");
 
     $install = $zm_request->getParameter('install');
     $remove = $zm_request->getParameter('remove');
     $edit = $zm_request->getParameter('edit');
     $type = $zm_request->getParameter('type');
+    $needRefresh = false;
     if (null != $install) {
-        $plugin = $zm_plugins->getPluginForIdAndType($install, $type);
+        $plugin = $zm_plugins->getPluginForId($install);
         if (!$plugin->isInstalled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
@@ -52,8 +51,9 @@ require_once('includes/application_top.php');
         }
         $edit = $install;
         $editPlugin = $plugin;
+        $needRefresh = true;
     } else if (null != $remove) {
-        $plugin = $zm_plugins->getPluginForIdAndType($remove, $type);
+        $plugin = $zm_plugins->getPluginForId($remove);
         if ($plugin->isInstalled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
@@ -66,8 +66,9 @@ require_once('includes/application_top.php');
             }
             $plugin->remove();
         }
+        $needRefresh = true;
     } else if (null != $edit) {
-        $editPlugin = $zm_plugins->getPluginForIdAndType($edit, $type);
+        $editPlugin = $zm_plugins->getPluginForId($edit);
     }
 
     // update
@@ -76,6 +77,26 @@ require_once('includes/application_top.php');
           $zm_config->updateConfigValue($key, $value);
         }
     }
+
+    if ($needRefresh) {
+        zm_redirect(ZM_ADMINFN_PLUGINS);
+        zm_exit();
+    }
+
+    // build/update plugin status for all plugins
+    $pluginStatus = array();
+    foreach ($zm_plugins->getAllPlugins(false) as $type => $plugins) {
+        foreach ($plugins as $plugin) {
+            $pluginStatus[$plugin->getId()] = array(
+              'type' => $plugin->getType(),
+              'installed' => $plugin->isInstalled(),
+              'enabled' => $plugin->isEnabled()
+            );
+            //echo $plugin->getId().":".$plugin->isInstalled().'/'.$plugin->isEnabled()."<BR>";
+        }
+    }
+    // update in db
+    $zm_config->updateConfigValue('ZENMAGICK_PLUGIN_STATUS', serialize($pluginStatus));
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -105,7 +126,7 @@ require_once('includes/application_top.php');
     <div id="main">
       <div id="content">
 
-        <?php foreach ($zm_plugins->getAllPlugins() as $type => $plugins) { ?>
+        <?php foreach ($zm_plugins->getAllPlugins(false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo ZM_ADMINFN_PLUGINS ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0"> 
