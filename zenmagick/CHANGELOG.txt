@@ -27,6 +27,7 @@ Release 0.8.2
 - make zm_ajax_href use whatever protocol is used for the current request
   (effectively, this will make it switch to SSL for HTTPS requests and vice
   versa) (#1756689)
+- added Lightbox JS example to the demo theme (works with ImageHandler2 too!)
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
