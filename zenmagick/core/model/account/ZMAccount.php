@@ -104,7 +104,7 @@ class ZMAccount extends ZMModel {
         $this->dob_ = $zm_request->getParameter('dob', '01/01/1970');
         $this->nickName_ = $zm_request->getParameter('nick', '');
         $this->gender_ = $zm_request->getParameter('gender', '');
-        $this->email_ = $zm_request->getParameter('email_address', '');
+        $this->email_ = trim($zm_request->getParameter('email_address', ''));
         $this->phone_ = $zm_request->getParameter('telephone', '');
         $this->fax_ = $zm_request->getParameter('fax', '');
         $this->emailFormat_ = $zm_request->getParameter('email_format', 'TEXT');
