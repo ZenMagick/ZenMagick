@@ -32,6 +32,9 @@
   <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it</li>
   <li>Custom alpha and price-range filter</li>
   <li>Custom colour schema using custom site wide CSS (theme.css) that builds on the default CSS (this is a feature of default_layout.php)</li>
+  <li>Theme switching (implemented for the contact us page)</li>
+  <li>Field specific error messages (login page)</li>
+  <li><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a> integration</li>
 </ul>
 
 <?php $zm_theme->staticPageContent("main_page") ?>

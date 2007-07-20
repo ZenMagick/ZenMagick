@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    if ('product_info' == $zm_request->getPageName()) {
+    if ('contact_us' == $zm_request->getPageName()) {
         $zm_runtime->setThemeId('default');
     }
 
