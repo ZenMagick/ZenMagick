@@ -44,12 +44,16 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * Convert date to RSS date format.
      * 
      * @package net.radebatz.zenmagick.misc
-     * @param string date The date or <code>null</code>.
+     * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
      * @return string A date string formatted according to RSS date rules.
     */
     function zm_mk_rss_date($date=null) {
         if (null === $date) {
             return date(DATE_RSS);
+        }
+
+        if (is_string($date)) {
+            $date = strtotime($date);
         }
 
         return date(DATE_RSS, $date);

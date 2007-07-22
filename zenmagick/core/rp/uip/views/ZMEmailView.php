@@ -34,7 +34,7 @@
  * @package net.radebatz.zenmagick.rp.uip.views
  * @version $Id$
  */
-class ZMEmailView extends ZMView {
+class ZMEmailView extends ZMPageView {
     var $args_ = null;
 
 
@@ -73,12 +73,19 @@ class ZMEmailView extends ZMView {
     /**
      * Returns the full view filename to be includes by a template.
      *
-     * @param string subdir <strong>Not used</strong>.
-     * @param bool $prefixToDir <strong>Not used</strong>.
      * @return string The full view filename.
      */
-    function getViewFilename($subdir='email', $prefixToDir=true) {
-        return parent::getViewFilename('email', true);
+    function getViewFilename() {
+        return $this->_getViewFilename('email');
+    }
+
+    /**
+     * Check if this view is valid.
+     *
+     * @return bool <code>true</code> if the view is valid, <code>false</code> if not.
+     */
+    function isValid() {
+        return file_exists($this->_getViewFilename('email'));
     }
 
     /**
@@ -89,7 +96,7 @@ class ZMEmailView extends ZMView {
      * code.</p>
      */
     function generate() { 
-        $filename = $this->getViewFilename('email');
+        $filename = $this->getViewFilename();
         if (!file_exists($filename)) {
             return "";
         }
@@ -107,7 +114,7 @@ class ZMEmailView extends ZMView {
         }
 
         ob_start();
-        include($this->getViewFilename('email'));
+        include($this->getViewFilename());
         return ob_get_clean();
     }
 

@@ -136,8 +136,7 @@ class ZMUrlMapper extends ZMObject {
         }
 
         //zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, ZM_LOG_ERROR);
-        $view = $this->create("PageView", $controller);
-        $view->setMappingId($id);
+        $view = $this->_mkView(array('view' => $controller), $id);
         return $view;
     }
 
@@ -152,6 +151,9 @@ class ZMUrlMapper extends ZMObject {
         $view = null;
         if ($mapping['redirect']) {
             $view = $this->create("RedirectView", $mapping['view'], $mapping['secure']);
+        } else if (zm_starts_with($mapping['view'], 'popup')) {
+            // TODO: add to mapping table
+            $view = $this->create("PopupView", $mapping['view']);
         } else {
             $view = $this->create("PageView", $mapping['view']);
         }

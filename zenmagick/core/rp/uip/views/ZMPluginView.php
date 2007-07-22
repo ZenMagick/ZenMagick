@@ -78,13 +78,10 @@ class ZMPluginView extends ZMPageView {
     /**
      * Returns the full view filename to be included by a template.
      *
-     * @param string subdir Optional subdirectory name within the views directory.
-     * @param bool $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
-     *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
      * @return string The full view filename.
      */
-    function getViewFilename($subdir=null, $prefixToDir=true) {
-        $filename = parent::getViewFilename($subdir, $prefixToDir);
+    function getViewFilename() {
+        $filename = $this->getViewFilename();
         if (file_exists($filename)) {
             return $filename;
         }

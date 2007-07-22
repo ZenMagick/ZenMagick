@@ -49,6 +49,6 @@
   </head>
 
   <body id="pb_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
-    <?php include($zm_view->getViewFilename('popup')) ?>
+    <?php include($zm_view->getViewFilename()) ?>
   </body>
 </html>
