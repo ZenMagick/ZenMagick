@@ -86,7 +86,11 @@ if (!class_exists("ZMObject")) {
      */
     function zm_log($msg, $level=ZM_LOG_INFO) {
         if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) {
-            trigger_error($msg, E_USER_NOTICE);
+            if (zm_setting('isZMErrorHandler')) {
+                trigger_error($msg, E_USER_NOTICE);
+            } else {
+                error_log($msg);
+            }
         }
     }
 
