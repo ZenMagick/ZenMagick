@@ -78,7 +78,7 @@
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                     <td>
                         <?php if (0 < count($zones)) { ?>
-                            <?php zm_idp_select('state', $zones, 1, $address->getState()) ?>
+                            <?php zm_idp_select('state', $zones, 1, $address->getZoneId()) ?>
                         <?php } else { ?>
                             <input type="text" name="state" value="<?php echo $address->getState() ?>" />
                         <?php } ?>
@@ -91,7 +91,7 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $country ? $country->getId() : zm_setting('storeCountry')) ?></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry')) ?></td>
             </tr>
             <?php if (!$address->isPrimary()) { ?>
                  <tr>

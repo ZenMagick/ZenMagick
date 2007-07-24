@@ -49,6 +49,7 @@ class ZMAccount extends ZMModel {
     var $newsletter_;
     var $globalSubscriber_;
     var $subscribedProducts_;
+    var $type_;
 
 
     /**
@@ -74,6 +75,7 @@ class ZMAccount extends ZMModel {
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = array();
+        $this->type_ = ZM_ACCOUNT_TYPE_REGULAR;
     }
 
     /**
@@ -151,24 +153,130 @@ class ZMAccount extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the account id.
+     *
+     * @return int The account id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the first name.
+     *
+     * @return string The first name.
+     */
     function getFirstName() { return $this->firstName_; }
+
+    /**
+     * Get the last name.
+     *
+     * @return string The last name.
+     */
     function getLastName() { return $this->lastName_; }
+
+    /**
+     * Get the date of birth.
+     *
+     * @return string The date of birth.
+     */
     function getDob() { return $this->dob_; }
+
+    /**
+     * Get the nick name.
+     *
+     * @return string The nick name.
+     */
     function getNickName() { return $this->nickname_; }
+
+    /**
+     * Get the gender.
+     *
+     * @return string The gender ('f' or 'm').
+     */
     function getGender() { return $this->gender_; }
+
+    /**
+     * Get the email address.
+     *
+     * @return string The email address.
+     */
     function getEmail() { return $this->email_; }
+
+    /**
+     * Get the phone number.
+     *
+     * @return string The phone number.
+     */
     function getPhone() { return $this->phone_; }
+
+    /**
+     * Get the fax number.
+     *
+     * @return string The fax number.
+     */
     function getFax() { return $this->fax_; }
+
+    /**
+     * Get the preferred email format.
+     *
+     * @return string The selected email format.
+     */
     function getEmailFormat() { return $this->emailFormat_; }
+
+    /**
+     * Check if the account is set up to receive HTML formatted emails.
+     *
+     * @return bool <code>true</code> if HTML is selected as email format, <code>false</code> if not.
+     */
     function isHtmlEmail() { return 'HTML' == $this->emailFormat_; }
+
+    /**
+     * Check if email notification is disabled.
+     *
+     * @return bool <code>true</code> if email notification is disabled, <code>false</code> if not.
+     */
     function isEmailDisabled() { return 'NONE' == $this->emailFormat_ || 'OUT' == $this->emailFormat_; }
+
+    /**
+     * Get the referral.
+     *
+     * @return string The referral.
+     */
     function getReferral() { return $this->referral_; }
+
+    /**
+     * Get the default address id (primary address).
+     *
+     * @return int The primary address id.
+     */
     function getDefaultAddressId() { return $this->defaultAddressId_; }
+
+    /**
+     * Get the password.
+     *
+     * @return string The password.
+     */
     function getPassword() { return $this->password_; }
+
+    /**
+     * Get the authorization.
+     *
+     * @return string The authorization.
+     */
     function getAuthorization() { return $this->authorization_; }
+
+    /**
+     * Returns <code>true</code> if the account has subscribed to newsletter.
+     *
+     * @return bool <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
+     */
     function isNewsletterSubscriber() { return $this->newsletter_; }
+
+    /**
+     * Get the voucher balance.
+     *
+     * @return float The voucher balance.
+     */
     function getVoucherBalance() {
     global $zm_accounts;
         return $zm_accounts->getVoucherBalanceForId($this->id_);
@@ -201,6 +309,22 @@ class ZMAccount extends ZMModel {
     function getSubscribedProducts() {
         return $this->subscribedProducts_;
     }
+
+    /**
+     * Get the account type.
+     *
+     * @return char The account type.
+     */
+    function getType() {
+        return $this->type_;
+    }
+
+    /**
+     * Set the default address id (primary address).
+     *
+     * @param int addressId The primary address id.
+     */
+    function setDefaultAddressId($addressId) { $this->defaultAddressId_ = $addressId; }
 
 }
 

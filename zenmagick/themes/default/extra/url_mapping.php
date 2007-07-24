@@ -42,6 +42,7 @@
     $zm_urlMapper->addMapping('address_book_process', 'address_book_create', 'address_book_create');
     $zm_urlMapper->addMapping('address_book_process', 'address_book_edit', 'address_book_edit');
     $zm_urlMapper->addMapping('address_book_process', 'address_book_delete', 'address_book_delete');
+    $zm_urlMapper->addMapping('address_book_process', 'address_book', 'success', true, true);
 
     // contact_us
     $zm_urlMapper->addMapping('contact_us');
@@ -89,5 +90,9 @@
     // shopping_cart
     $zm_urlMapper->addMapping('shopping_cart');
     $zm_urlMapper->addMapping('shopping_cart', 'empty_cart', 'empty_cart');
+
+    // create_account
+    $zm_urlMapper->addMapping('create_account');
+    $zm_urlMapper->addMapping('create_account', 'account', 'success', true, true);
 
 ?>

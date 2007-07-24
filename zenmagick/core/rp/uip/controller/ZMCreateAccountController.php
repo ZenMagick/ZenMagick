@@ -84,47 +84,36 @@ class ZMCreateAccountController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function XprocessPost() {
+    function processPost() {
     global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
+
+        if (!$this->validate('create_account')) {
+            return $this->findView();
+        }
+
+
+        if ($zm_request->getParameter('action') != 'process') {
+            $zm_messages->warn(zm_l10n_get("Incomplete request."));
+            return $this->findView();
+        }
 
         $account =& $this->create("Account");
         $account->populate();
+
+        if (zm_bb_nickname_exists($account->getNickName()) {
+            $zm_messages->warn(zm_l10n_get("Nickname already taken."));
+            return $this->findView();
+        }
+
         $address =& $this->create("Address");
         $address->populate();
 
-        $valid = true;
-        if ($zm_request->getParameter('action') != 'process') {
-            $zm_messages->warn(zm_l10n_get("Incomplete request."));
-            $valid = false;
-        }
-
-        // validate; *always* execute both to create all error messages
-        if (!$account->isValid() | !$address->isValid()) {
-            $valid = false;
-        }
-
-        if (zm_setting('isPrivacyMessage') && null == $zm_request->getParameter('privacy_conditions')) {
-            $zm_messages->error(zm_l10n_get("You must confirm the privacy statement in order to register."));
-            $valid = false;
-        }
-
-        if ($account->getPassword() != $zm_request->getParameter('confirmation')) {
-            $zm_messages->error(zm_l10n_get("The Password Confirmation must match your Password."));
-            $valid = false;
-        }
-
-        if ($valid) {
-            // process
-            $account = $zm_accounts->createAccount($account);
-            echo $account->getId();
-            // TODO: the rest :)
-        }
+        $account = $zm_accounts->createAccount($account);
+        //$address = $zm_accounts->createAddress($address);
 
         $this->exportGlobal("zm_account", $account);
-        $this->exportGlobal("zm_address", $address);
 
-        // TODO
-        return true;
+        return $this->findView('success');
     }
 
 }

@@ -55,9 +55,15 @@ class ZMAddresses extends ZMService {
     }
 
 
+    /**
+     * Get the address for the given id.
+     *
+     * @param int addressId The address id.
+     * @return ZMAddress The address or <code>null</code>.
+     */
     function &getAddressForId($addressId) {
         $db = $this->getDB();
-        $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
+        $sql = "select address_book_id, customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
                   customers_id
                 from " . TABLE_ADDRESS_BOOK . "
@@ -76,11 +82,17 @@ class ZMAddresses extends ZMService {
     }
 
 
+    /**
+     * Get all addresses for the given account id.
+     *
+     * @param int accountId The account id.
+     * @return array A list of <code>ZMAddress</code> instances.
+     */
     function &getAddressesForAccountId($accountId) {
         $defaultAddressId = $this->_getDefaultAddressId($accountId);
 
         $db = $this->getDB();
-        $sql = "select address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
+        $sql = "select address_book_id, customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id
                 from " . TABLE_ADDRESS_BOOK . "
                 where customers_id = :accountId";
@@ -99,10 +111,85 @@ class ZMAddresses extends ZMService {
     }
 
 
+    /**
+     * Update the given address.
+     *
+     * @param ZMAddress account The address.
+     * @return ZMAddress The updated address.
+     */
+    function &updateAddress(&$address) {
+        $db = $this->getDB();
+        $sql = "update " . TABLE_ADDRESS_BOOK . " set
+                    entry_firstname = :firstName;string,
+                    entry_lastname = :lastName;string,
+                    entry_company = :companyName;string,
+                    entry_gender = :gender;string,
+                    entry_street_address = :address;string, 
+                    entry_suburb = :suburb;string,
+                    entry_postcode = :postcode;string,
+                    entry_city = :city;string,
+                    entry_state = :state;string, 
+                    entry_zone_id = :zoneId;integer, 
+                    entry_country_id = :countryId;integer
+                where address_book_id = :addressId";
+        $sql = $db->bindVars($sql, ":addressId", $address->getId(), "integer");
+        $sql = $this->bindObject($sql, $address);
+//echo $sql;die();
+        $db->Execute($sql);
+        return $address;
+    }
+
+
+    /**
+     * Create a new address.
+     *
+     * @param ZMAddress The new address.
+     * @return ZMAddress The created address incl. the new address id.
+     */
+    function &createAddress(&$address) {
+        $db = $this->getDB();
+        $sql = "insert into " . TABLE_ADDRESS_BOOK . "(
+                 customers_id,
+                 entry_firstname, entry_lastname, entry_company, entry_gender, 
+                 entry_street_address, entry_suburb, entry_postcode, entry_city, 
+                 entry_state, entry_zone_id, entry_country_id
+               ) values (
+                  :accountId;integer,
+                  :firstName;string, :lastName;string, :companyName;string, :gender;string,
+                  :address;string, :suburb;string, :postcode;string, :city;string,
+                  :state;string, :zoneId;integer, :countryId;integer)";
+        $sql = $this->bindObject($sql, $address);
+        $db->Execute($sql);
+        $address->addressId_ = $db->Insert_ID();
+
+        return $address;
+    }
+
+
+    /**
+     * Delte an address.
+     *
+     * @param int The address id.
+     * @param bool <code>true</code>.
+     */
+    function deleteAddressForId($addressId) {
+        $db = $this->getDB();
+        $sql = "delete from " . TABLE_ADDRESS_BOOK . "
+                where  address_book_id = :addressId"; 
+        $sql = $db->bindVars($sql, ':addressId', $addressId, 'integer');
+        $db->Execute($sql);
+        return true;
+    }
+
+
+    /**
+     * Create new address instance.
+     */
     function &_newAddress($fields) {
     global $zm_countries;
         $address = $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];
+        $address->accountId_ = $fields['customers_id'];
         $address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields['entry_lastname'];
         $address->companyName_ = $fields['entry_company'];
@@ -118,19 +205,31 @@ class ZMAddresses extends ZMService {
     }
 
 
+    /**
+     * Get the default address id for the given account.
+     *
+     * @param int accountId The account id.
+     */
     function _getDefaultAddressId($accountId) {
     global $zm_accounts;
+
         $account = $zm_accounts->getAccountForId($accountId);
         return null != $account ? $account->getDefaultAddressId() : 0;
     }
 
 
-    function getAddressFormatForId($id) {
+    /**
+     * Get the address format for the given address format id.
+     *
+     * @param int addressFormatId The address format id.
+     * @return string The address format.
+     */
+    function getAddressFormatForId($addressFormatId) {
         $db = $this->getDB();
         $sql = "select address_format as format
                 from " . TABLE_ADDRESS_FORMAT . "
-                where address_format_id = :id";
-        $sql = $db->bindVars($sql, ":id", $id, "integer");
+                where address_format_id = :addressFormatId";
+        $sql = $db->bindVars($sql, ":addressFormatId", $addressFormatId, "integer");
         $results = $db->Execute($sql);
         return $results->fields['format'];
     }

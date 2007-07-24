@@ -27,12 +27,16 @@
 /**
  * A single address.
  *
+ * <p>An address can have either a zoneId or a state; state is the manually entered
+ * value and zoneId is the state selected from a dropdown.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.model.account
  * @version $Id$
  */
 class ZMAddress extends ZMModel {
     var $addressId_;
+    var $accountId_;
     var $firstName_;
     var $lastName_;
     var $companyName_;
@@ -93,7 +97,7 @@ class ZMAddress extends ZMModel {
     function populate($req=null) {
     global $zm_request, $zm_countries;
 
-        $this->addressId_ = 0;
+        $this->addressId_ = $zm_request->getParameter('addressId', 0);
         $this->firstName_ = $zm_request->getParameter('firstname', '');
         $this->lastName_ = $zm_request->getParameter('lastname', '');
         $this->companyName_ = $zm_request->getParameter('company', '');
@@ -102,13 +106,35 @@ class ZMAddress extends ZMModel {
         $this->suburb_ = $zm_request->getParameter('suburb', '');
         $this->postcode_ = $zm_request->getParameter('postcode', '');
         $this->city_ = $zm_request->getParameter('city', '');
-        $this->state_ = $zm_request->getParameter('state', '');
+        $this->state_ = '';
         $this->zoneId_ = 0;
-        $this->country_ = $zm_countries->getCountryForId($zm_request->getParameter('country', 0));
+        $this->country_ = $zm_countries->getCountryForId($zm_request->getParameter('zone_country_id', 0));
         if (null == $this->country_) {
             $this->country_ = $this->create("Country");
         }
-        $this->isPrimary_ = false;
+
+        // free text or zone id
+        $state = $zm_request->getParameter('state', '');
+        $zones = $zm_countries->getZonesForCountryId($this->country_->getId());
+        if (0 < count ($zones)) {
+            // need $state to match either an id or name
+            foreach ($zones as $zone) {
+                if ($zone->getName() == $state || $zone->getId() == $state) {
+                    $this->zoneId_ = $zone->getId();
+                    break;
+                }
+            }
+        } else {
+            // need some free text that is not an integer (pretty safe to assume!)
+            if (!zm_is_empty($state)) {
+                if (!is_integer($state)) {
+                    $this->state_ = $state;
+                }
+            }
+
+        }
+
+        $this->isPrimary_ = zm_boolean($zm_request->getParameter('primary', false));
         $this->format_ = 0;
     }
 
@@ -162,23 +188,62 @@ class ZMAddress extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the address id.
+     *
+     * @return int The account id.
+     */
     function getId() { return $this->addressId_; }
+
+    /**
+     * Get the account id.
+     *
+     * @return int The account id.
+     */
+    function getAccountId() { return $this->accountId_; }
+
+    /**
+     * Get the first name.
+     *
+     * @return string The first name.
+     */
     function getFirstName() { return $this->firstName_; }
+
+    /**
+     * Get the last name.
+     *
+     * @return string The last name.
+     */
     function getLastName() { return $this->lastName_; }
-    function getCompanyName() { return $this->companyName_; }
+
+    /**
+     * Get the gender.
+     *
+     * @return string The gender ('f' or 'm').
+     */
     function getGender() { return $this->gender_; }
+
+    function getCompanyName() { return $this->companyName_; }
     function getAddress() { return $this->address_; }
     function getSuburb() { return $this->suburb_; }
     function getPostcode() { return $this->postcode_; }
     function getCity() { return $this->city_; }
     function getState() { return $this->state_; }
+    function setState($state) { $this->state_= $state; }
     function getZoneId() { return $this->zoneId_; }
+    function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
     function getCountry() { return $this->country_; }
     function getCountryId() { return $this->country_->id_; }
     function isPrimary() { return $this->isPrimary_; }
     function getFormat() { return $this->format_; }
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
+
+    /**
+     * Set the account id.
+     *
+     * @param int accountId The account id.
+     */
+    function setAccountId($accountId) { $this->accountId_ = $accountId; }
 
 }
 

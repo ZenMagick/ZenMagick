@@ -67,7 +67,7 @@
 
 
     /**
-     * Createsa phpBB account.
+     * Creates a phpBB account.
      *
      * @package net.radebatz.zenmagick.misc
      * @param string nick The nickname.
@@ -79,7 +79,7 @@
     global $zm_runtime, $sniffer;
 
         if (!$zm_runtime->isBBActive()) {
-            return false;
+            return true;
         }
 
         $db = zm_get_bb_db();
@@ -150,7 +150,7 @@
     global $zm_runtime, $phpBB;
 
         if (!$zm_runtime->isBBActive()) {
-            return false;
+            return true;
         }
 
         $phpBB->phpbb_change_email(zen_db_input($oldEmailAddress), zen_db_input($newEmailAddress));
@@ -167,7 +167,7 @@
     global $zm_runtime, $phpBB;
 
         if (!$zm_runtime->isBBActive()) {
-            return false;
+            return true;
         }
 
         return $phpBB->phpbb_check_for_duplicate_email(zen_db_input($email)) == 'already_exists';

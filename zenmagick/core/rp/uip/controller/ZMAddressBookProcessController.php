@@ -87,6 +87,133 @@ class ZMAddressBookProcessController extends ZMController {
         return $this->findView($viewName);
     }
 
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request;
+        
+        // TODO: centralize
+        if ($zm_request->isGuest()) {
+            return $this->findView('login');
+        }
+
+        $action = $zm_request->getParameter('action');
+        $view = null;
+        if ('update' == $action) {
+            $view = $this->updateAddress();
+        } else if ('deleteconfirm' == $action) {
+            $view = $this->deleteAddress();
+        } else if ('process' == $action) {
+            $view = $this->createAddress();
+        }
+
+        return $view;
+    }
+
+    /**
+     * Validate zone.
+     *
+     * @param ZMAddress address The address.
+     * @return bool <code>true</code> if the zone is valid, <code>false</code> if not.
+     */
+    function validateZone(&$address) {
+    global $zm_countries, $zm_messages;
+
+        if (!zm_setting('isAccountState')) {
+            return true;
+        }
+
+        return !zm_is_empty($address->getState()) || 0 != $address->getZoneId();
+    }
+
+    /**
+     * Update address.
+     *
+     * @return ZMView The result view.
+     */
+    function updateAddress() {
+    global $zm_request, $zm_addresses, $zm_accounts, $zm_messages;
+
+        $address = $this->create("Address");
+        $address->populate();
+
+        // TODO: make sure that zone is actually required!
+        if (!$this->validate('address') || !$this->validateZone($address)) {
+            $this->exportGlobal("zm_address", $address);
+            return $this->findView('address_book_edit');
+        }
+
+        $address = $zm_addresses->updateAddress($address);
+
+        // process primary setting
+        if ($address->isPrimary()) {
+            $account = $zm_request->getAccount();
+            $account->setDefaultAddressId($address->getId());
+            $zm_accounts->updateAccount($account);
+
+            $session = new ZMSession();
+            $session->setAccount($account);
+        }
+
+        $zm_messages->success('The selected address has been successfully updated.');
+        return $this->findView('success');
+    }
+
+    /**
+     * Delete address.
+     *
+     * @return ZMView The result view.
+     */
+    function deleteAddress() {
+    global $zm_addresses, $zm_request, $zm_messages;
+
+        $account = $zm_request->getAccount();
+        $addressId = $zm_request->getParameter('addressId', 0);
+        if (0 < $addressid) {
+            $zm_addresses->deleteAddressForId($addressId);
+            $zm_messages->success('The selected address has been successfully removed from your address book.');
+        }
+        return $this->findView('success');
+    }
+
+    /**
+     * Create address.
+     *
+     * @return ZMView The result view.
+     */
+    function createAddress() {
+    global $zm_addresses, $zm_accounts, $zm_request, $zm_messages;
+
+        $address = $this->create("Address");
+        $address->populate();
+        $address->setAccountId($zm_request->getAccountId());
+
+        // TODO: make sure that zone is actually required!
+        if (!$this->validate('address') || !$this->validateZone($address)) {
+            $this->exportGlobal("zm_address", $address);
+            return $this->findView('address_book_create');
+        }
+
+        $address = $zm_addresses->createAddress($address);
+
+        // process primary setting
+        if ($address->isPrimary()) {
+            $account = $zm_request->getAccount();
+            $account->setDefaultAddressId($address->getId());
+            $zm_accounts->updateAccount($account);
+
+            $session = new ZMSession();
+            $session->setAccount($account);
+        }
+
+        $zm_messages->success('Address added to your address book.');
+        return $this->findView('success');
+    }
+
 }
 
 ?>

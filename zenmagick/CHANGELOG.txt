@@ -33,6 +33,11 @@ Release 0.8.2
 - allow zm_mk_rss_date to accept a date string or timestamp (long)
 - fix broken popups; this requires a little change to the popup_layout as
   ZMView::getViewFilename(..) got stripped of it's parameters
+- make address create dialog default to store country (same as create account)
+- add post request handling for address book
+- fix state/zoneId issues
+- some more phpdoc
+- added ZMZone model class
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

@@ -63,11 +63,13 @@ class ZMAccounts extends ZMService {
      */
     function &getAccountForId($accountId) {
         $db = $this->getDB();
-        $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
-                customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
-                customers_authorization, customers_newsletter
-                from " . TABLE_CUSTOMERS . "
-                where customers_id = :accountId";
+        $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
+                c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
+                c.customers_authorization, c.customers_newsletter, at.account_type
+                from " . TABLE_CUSTOMERS . " c
+                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
+                on (c.customers_id = at.account_id)
+                where c.customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
         $results = $db->Execute($sql);
         $account = null;
@@ -85,10 +87,12 @@ class ZMAccounts extends ZMService {
      */
     function &getAccountForEmailAddress($emailAddress) {
         $db = $this->getDB();
-        $sql = "select customers_id, customers_gender, customers_firstname, customers_lastname, customers_dob, customers_default_address_id,
-                customers_email_address, customers_telephone, customers_fax, customers_email_format, customers_referral, customers_password,
-                customers_authorization, customers_newsletter
-                from " . TABLE_CUSTOMERS . "
+        $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
+                c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
+                c.customers_authorization, c.customers_newsletter, at.account_type
+                from " . TABLE_CUSTOMERS . " c
+                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
+                on (c.customers_id = at.account_id)
                 where customers_email_address = :emailAddress";
         $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
         $results = $db->Execute($sql);
@@ -123,8 +127,11 @@ class ZMAccounts extends ZMService {
     function emailExists($email) {
         $db = $this->getDB();
         $sql = "select count(*) as total
-                from " . TABLE_CUSTOMERS . "
-                where customers_email_address = :email";
+                from " . TABLE_CUSTOMERS . " c
+                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
+                on (c.customers_id = at.account_id)
+                where customers_email_address = :email
+                and at.account_type = 'r'";
         $sql = $db->bindVars($sql, ":email", $email, "string");
 
         $results = $db->Execute($sql);
@@ -150,6 +157,13 @@ class ZMAccounts extends ZMService {
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
+
+        // set type
+        $sql = "insert into " . ZM_TABLE_ACCOUNT_TYPE . "(account_id, account_type) values (:accountId, :accountType)";
+        $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
+        $sql = $db->bindVars($sql, ":accountType", $account->getType(), "string");
+        $db->Execute($sql);
+
         return $account;
     }
 
@@ -226,6 +240,9 @@ class ZMAccounts extends ZMService {
         $account->newsletter_ = 1 == $fields['customers_newsletter'];
         $account->globalSubscriber_ = $this->_isGlobalProductSubscriber($account->getId());
         $account->subscribedProducts_ = $this->_getSubscribedProductIds($account->getId());
+        if (isset($fields['account_type'])) {
+            $account->type_ = $fields['account_type'];
+        }
         return $account;
     }
 

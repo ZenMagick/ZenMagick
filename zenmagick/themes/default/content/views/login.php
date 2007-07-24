@@ -37,6 +37,17 @@
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
-  <p><a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a></p>
-  <p><a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a></p>
 </form>
+
+<p><a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a></p>
+<p><a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a></p>
+<?php if (zm_setting('isAnonymousCheckout')) { ?>
+  <?php zm_secure_form(ZM_FILENAME_CHECKOUT_ANONYMOUS, "action=process", 'checkout_anonymous', 'post', 'return validate(this);') ?>
+      <h3><?php zm_l10n("Checkout without registering") ?></h3>
+      <div>
+        <label for="email_address_anonym"><?php zm_l10n("E-Mail Address") ?></label>
+        <input type="text" id="email_address_anonym" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+        <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
+      </div>
+  </form>
+<?php } ?>

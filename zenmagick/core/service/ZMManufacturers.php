@@ -71,8 +71,7 @@ class ZMManufacturers extends ZMService {
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
-                on (m.manufacturers_id = mi.manufacturers_id
-                and mi.languages_id = :languageId)
+                on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
                 where m.manufacturers_id = :manufacturerId";
         $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
         $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
@@ -107,8 +106,7 @@ class ZMManufacturers extends ZMService {
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
-                on (m.manufacturers_id = mi.manufacturers_id
-                and mi.languages_id = :languageId)";
+                on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
         $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
         $results = $db->Execute($sql);
 

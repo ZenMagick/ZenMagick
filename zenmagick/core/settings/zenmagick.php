@@ -58,9 +58,12 @@
     //** db **//
 
     define('ZM_DB_PREFIX', DB_PREFIX);
+    // features
     define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');
     define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'zm_product_features');
     define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
+    // account type
+    define('ZM_TABLE_ACCOUNT_TYPE', ZM_DB_PREFIX . 'zm_account_type');
 
 
     //** files **//
@@ -68,6 +71,7 @@
     define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
     define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
     define ('ZM_FILENAME_RSS', 'rss');
+    define ('ZM_FILENAME_CHECKOUT_ANONYMOUS', 'checkout_anonymous');
 
 
     //** admin **//
@@ -102,6 +106,12 @@
     define('PRODUCT_IMAGE_SMALL', 'small');
     define('PRODUCT_IMAGE_MEDIUM', 'medium');
     define('PRODUCT_IMAGE_LARGE', 'large');
+
+
+    //** accounts **//
+
+    define('ZM_ACCOUNT_TYPE_REGULAR', 'r');
+    define('ZM_ACCOUNT_TYPE_ANONYMOUS', 'a');
 
 
     //** others **//

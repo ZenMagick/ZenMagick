@@ -60,6 +60,12 @@ class ZMCountries extends ZMService {
     }
 
 
+    /**
+     * Get country for the given name.
+     *
+     * @param string name The country name.
+     * @return ZMCountry The country or <code>null</code>.
+     */
     function &getCountryForName($name) {
         $this->getCountries();
         foreach ($this->countries_ as $country) {
@@ -71,6 +77,11 @@ class ZMCountries extends ZMService {
     }
 
 
+    /**
+     * Get a list of all countries.
+     *
+     * @return array A list of <code>ZMCountry</code> objects.
+     */
     function getCountries() {
         if (null != $this->countries_)
             return $this->countries_;
@@ -97,6 +108,12 @@ class ZMCountries extends ZMService {
     }
 
 
+    /**
+     * Get country for the given id.
+     *
+     * @param int id The country id.
+     * @return ZMCountry The country or <code>null</code>.
+     */
     function &getCountryForId($id) {
         $this->getCountries();
         foreach ($this->countries_ as $country) {
@@ -108,6 +125,14 @@ class ZMCountries extends ZMService {
     }
 
 
+    /**
+     * Get the zone code for the given country and zone id.
+     * 
+     * @param int countryId The country id.
+     * @param int zoneId The zone id.
+     * @param string defaultZone Optional default value; default is <code>''</code>.
+     * @return string The zone code or the provided default value.
+     */
     function getZoneCode($countryId, $zoneId, $defaultZone='') {
         $db = $this->getDB();
         $sql = "select zone_code
@@ -126,13 +151,19 @@ class ZMCountries extends ZMService {
     }
 
 
+    /**
+     * Get all zones for the given country id.
+     *
+     * @param int countryId The country id.
+     * @return array List of <code>ZMZone</code> objects.
+     */
     function getZonesForCountryId($countryId) {
         if (null == $countryId || '' == $countryId) {
             return array();
         }
 
         $db = $this->getDB();
-        $sql = "select distinct zone_code, zone_name
+        $sql = "select distinct zone_id, zone_code, zone_name
                   from " . TABLE_ZONES . "
                   where zone_country_id = :countryId
                   order by zone_name";
@@ -141,8 +172,11 @@ class ZMCountries extends ZMService {
 
         $zones = array();
         while (!$results->EOF) {
-            $zone = $this->create("IdNamePair", $results->fields['zone_code'], $results->fields['zone_name']);
-            $zones[$zone->getId()] = $zone;
+            $zone = $this->create("Zone");
+            $zone->setId($results->fields['zone_id']);
+            $zone->setCode($results->fields['zone_code']);
+            $zone->setName($results->fields['zone_name']);
+            $zones[$zone->getCode()] = $zone;
             $results->MoveNext();
         }
 

@@ -204,7 +204,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * Little helper to implement abstract Ultimate SEO <strong>Plugin</code> support.
      *
      * @package net.radebatz.zenmagick.misc
-     * @param bool <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
+     * @return bool <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
      */
     function zm_useo_enabled() {
         $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : (defined('SEO_URLS_STATUS') ? 'On' == SEO_URLS_STATUS : false);
@@ -212,4 +212,18 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     }
  
 
+    /**
+     * Evaluate a string value as boolean.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param mixed value The value.
+     * @return bool The boolean value.
+     */
+    function zm_boolean($value) {
+        if (is_integer($value)) {
+            return $value;
+        }
+        return zm_is_in_array(strtolower($value), "on,true,yes");
+    }
+ 
 ?>
