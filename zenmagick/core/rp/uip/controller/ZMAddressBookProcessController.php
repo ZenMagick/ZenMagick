@@ -127,7 +127,11 @@ class ZMAddressBookProcessController extends ZMController {
             return true;
         }
 
-        return !zm_is_empty($address->getState()) || 0 != $address->getZoneId();
+        $valid = !zm_is_empty($address->getState()) || 0 != $address->getZoneId();
+        if (!$valid) {
+            $zm_messages->error('Please enter a state.');
+        }
+        return $valid;
     }
 
     /**

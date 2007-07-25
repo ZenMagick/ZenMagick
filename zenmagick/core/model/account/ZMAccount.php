@@ -115,44 +115,6 @@ class ZMAccount extends ZMModel {
     }
 
 
-    // validate this account
-    function isValid() {
-    global $zm_messages, $zm_accounts;
-        $msgCount = count($zm_messages->getMessages());
-
-        if ($this->gender_ != 'm' && $this->gender_ != 'f') {
-            $zm_messages->error(zm_l10n_get("Please choose a title."));
-        }
-
-        if (strlen($this->firstName_) < zm_setting('firstNameMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your First Name must contain a minimum of %s characters.", zm_setting('firstNameMinLength')));
-        }
-
-        if (strlen($this->lastName_) < zm_setting('lastNameMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Last Name must contain a minimum of %s characters.", zm_setting('lastNameMinLength')));
-        }
-
-        if (!zm_checkdate($this->dob_)) {
-            $zm_messages->error(zm_l10n_get("Your Date of Birth must be in this format: DD/MM/YYYY (eg 21/05/1970)"));
-        }
-
-        if (!zm_valid_email($this->email_)) {
-            $zm_messages->error(zm_l10n_get("Your E-Mail Address does not appear to be valid - please make any necessary corrections."));
-        } else if($zm_accounts->emailExists($this->email_)) {
-            $zm_messages->error(zm_l10n_get("Your E-Mail Address already exists in our database."));
-        }
-
-        if (strlen($this->phone_) < zm_setting('phoneMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Telephone Number must contain a minimum of %s characters.", zm_setting('phoneMinLength')));
-        }
-        if (strlen($this->password_) < zm_setting('passwordMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Password must contain a minimum of %s characters.", zm_setting('passwordMinLength')));
-        }
-
-        return count($zm_messages->getMessages()) == $msgCount;
-    }
-
-
     /**
      * Get the account id.
      *

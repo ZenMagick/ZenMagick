@@ -106,13 +106,13 @@ class ZMAddress extends ZMModel {
         $this->suburb_ = $zm_request->getParameter('suburb', '');
         $this->postcode_ = $zm_request->getParameter('postcode', '');
         $this->city_ = $zm_request->getParameter('city', '');
-        $this->state_ = '';
-        $this->zoneId_ = 0;
         $this->country_ = $zm_countries->getCountryForId($zm_request->getParameter('zone_country_id', 0));
         if (null == $this->country_) {
             $this->country_ = $this->create("Country");
         }
 
+        $this->state_ = '';
+        $this->zoneId_ = 0;
         // free text or zone id
         $state = $zm_request->getParameter('state', '');
         $zones = $zm_countries->getZonesForCountryId($this->country_->getId());
@@ -125,9 +125,9 @@ class ZMAddress extends ZMModel {
                 }
             }
         } else {
-            // need some free text that is not an integer (pretty safe to assume!)
+            // need some free text that is not numeric (pretty safe to assume!)
             if (!zm_is_empty($state)) {
-                if (!is_integer($state)) {
+                if (!is_numeric($state)) {
                     $this->state_ = $state;
                 }
             }
@@ -136,55 +136,6 @@ class ZMAddress extends ZMModel {
 
         $this->isPrimary_ = zm_boolean($zm_request->getParameter('primary', false));
         $this->format_ = 0;
-    }
-
-
-    // validate this account
-    function isValid() {
-    global $zm_messages, $zm_countries;
-        $msgCount = count($zm_messages->getMessages());
-        if ($this->gender_ != 'm' && $this->gender_ != 'f') {
-            $zm_messages->error(zm_l10n_get("Please choose a title."));
-        }
-
-        if (strlen($this->firstName_) < zm_setting('firstNameMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your First Name must contain a minimum of %s characters.", zm_setting('firstNameMinLength')));
-        }
-
-        if (strlen($this->lastName_) < zm_setting('lastNameMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Last Name must contain a minimum of %s characters.", zm_setting('lastNameMinLength')));
-        }
-
-        if (strlen($this->address_) < zm_setting('addressMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Street Address must contain a minimum of %s characters.", zm_setting('addressMinLength')));
-        }
-
-        if (strlen($this->postcode_) < zm_setting('postcodeMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your Post Code must contain a minimum of %s characters.", zm_setting('postcodeMinLength')));
-        }
-
-        if (strlen($this->city_) < zm_setting('cityMinLength')) {
-            $zm_messages->error(zm_l10n_get("Your City must contain a minimum of %s characters.", zm_setting('cityMinLength')));
-        }
-
-        if (zm_setting('isAccountState')) {
-            $zones = $zm_countries->getZonesForCountryId($this->country_ ? $this->country_->getId() : null);
-            if (0 < count($zones)) {
-                if (!array_key_exists($this->state_, $zones)) {
-                    $zm_messages->error(zm_l10n_get("Please select a State."));
-                }
-            } else {
-                if (strlen($this->state_) < zm_setting('stateMinLength')) {
-                    $zm_messages->error(zm_l10n_get("Your State must contain a minimum of %s characters.", zm_setting('stateMinLength')));
-                }
-            }
-        }
-
-        if (!$this->country_) {
-            $zm_messages->error(zm_l10n_get("Please select a Country."));
-        }
-
-        return count($zm_messages->getMessages()) == $msgCount;
     }
 
 
