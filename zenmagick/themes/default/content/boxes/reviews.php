@@ -30,7 +30,7 @@
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
     $href = zm_href(FILENAME_PRODUCT_REVIEWS_INFO, $params, false);
     $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating());
-    $rimg = '<img src="'.$zm_theme->themeURL('images/stars_'.$review->getRating().'.gif', false).'" alt="'.$rtext.'" />';
+    $rimg = '<img src="'.$zm_theme->themeURL('images/stars_'.$review->getRating().'.gif', false).'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
     <h3><a href="<?php zm_href(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h3>
     <div id="sb_reviews" class="box">

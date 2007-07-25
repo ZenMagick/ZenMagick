@@ -178,6 +178,7 @@ class ZMPlugin extends ZMObject {
      */
     function install() {
         $this->addConfigValue('Plugin Status', $this->enabledKey_, true);
+              //'true', '', 'zen_cfg_select_option(array(\'true\', \''.'false'.'\'), ');
     }
 
     /**

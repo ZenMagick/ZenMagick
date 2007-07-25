@@ -100,7 +100,7 @@ class ZMCreateAccountController extends ZMController {
         $account =& $this->create("Account");
         $account->populate();
 
-        if (zm_bb_nickname_exists($account->getNickName()) {
+        if (zm_bb_nickname_exists($account->getNickName())) {
             $zm_messages->warn(zm_l10n_get("Nickname already taken."));
             return $this->findView();
         }
