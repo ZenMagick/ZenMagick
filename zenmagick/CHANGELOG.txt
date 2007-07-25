@@ -38,6 +38,8 @@ Release 0.8.2
 - fix state/zoneId issues
 - some more phpdoc
 - added ZMZone model class
+- added convenience methods getAddressFormatId() and getAddressFormat() to
+  ZMAddress
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

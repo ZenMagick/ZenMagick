@@ -196,6 +196,26 @@ class ZMAddress extends ZMModel {
      */
     function setAccountId($accountId) { $this->accountId_ = $accountId; }
 
+    /**
+     * Get the address format id.
+     *
+     * @return int The address format id.
+     */
+    function getAddressFormatId() {
+        return $this->country_->getAddressFormatId();
+    }
+
+    /**
+     * Get the address format.
+     *
+     * @return string The address format id.
+     */
+    function getAddressFormat() {
+    global $zm_addresses;
+
+        return $zm_addresses->getAddressFormatForId($this->country_->getAddressFormatId())
+    }
+
 }
 
 ?>
