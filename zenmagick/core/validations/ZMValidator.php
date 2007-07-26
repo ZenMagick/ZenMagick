@@ -166,9 +166,13 @@ class ZMValidator extends ZMObject {
         $js .= '  var ' . $id . '_rules = new Array('.$n;
         $first = true;
         foreach ($set->getRules() as $rule) {
+            $ruleJS = $rule->toJSString();
+            if (zm_is_empty($ruleJS)) {
+                continue;
+            }
             if (!$first) $js .= ','.$n;
             $first = false;
-            $js .= $rule->toJSString();
+            $js .= $ruleJS;
         }
         $js .= $n.'  );'.$n;
         $js .= '</script>'.$n;
