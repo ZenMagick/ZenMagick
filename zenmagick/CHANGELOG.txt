@@ -40,6 +40,13 @@ Release 0.8.2
 - added ZMZone model class
 - added convenience methods getAddressFormatId() and getAddressFormat() to
   ZMAddress
+- created new package net.radebatz.zenmagick.validation.rules.custom for
+  custom rules like nickname validation
+- added nickname field to account_edit
+- added new validation rules for nickname to account edit and create account
+- allow validation rules with empty JavaScript
+- create $zm_account instance after unsuccsessful registration
+- enforce minimum password length of 6 chars
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

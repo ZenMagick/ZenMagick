@@ -57,7 +57,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
@@ -80,13 +80,17 @@
     $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
     $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
     $_ZM_SETTINGS['isSessionRecreate'] = SESSION_RECREATE == 'True';
-    $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH;
+    $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH;
+    $_ZM_SETTINGS['isResolveClientIP'] = SESSION_IP_TO_HOST_ADDRESS == 'true';
 
     // email
     $_ZM_SETTINGS['isEmailEnabled'] = SEND_EMAILS == 'true';
     $_ZM_SETTINGS['emailSkipList'] = defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array();
     $_ZM_SETTINGS['emailTestReceiver'] = (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null;
     $_ZM_SETTINGS['isEmailAdminExtraHtml'] = ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT';
+    $_ZM_SETTINGS['isEmailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO !='';
+    $_ZM_SETTINGS['emailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO;
+
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;

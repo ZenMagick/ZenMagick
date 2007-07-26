@@ -64,6 +64,12 @@
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>
                 </tr>
+                <?php if ($zm_runtime->isBBActive()) { ?>
+                    <tr>
+                        <td><?php zm_l10n("Nickname") ?></td>
+                        <td><input type="text" name="nick" value="<?php echo $zm_account->getNickName() ?>" /></td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <td><?php zm_l10n("Telephone Number") ?><span>*</span></td>
                     <td><input type="text" name="telephone" value="<?php echo $zm_account->getPhone() ?>" /></td>

@@ -206,6 +206,24 @@ class ZMSession extends ZMObject {
         return $url;
     }
 
+    /**
+     * Get the client ip address.
+     *
+     * @return string The client IP address or <code>null</code>.
+     */
+    function getClientAddress() {
+        return $_SESSION['REMOTE_ADDR'];
+    }
+
+    /**
+     * Get the client host name.
+     *
+     * @return string The client host name or <code>null</code>.
+     */
+    function getClientHostname() {
+        return isset($_SESSION['customers_host_address']) ? $_SESSION['customers_host_address'] : null;
+    }
+
 }
 
 ?>

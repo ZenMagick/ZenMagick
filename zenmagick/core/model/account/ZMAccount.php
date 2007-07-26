@@ -214,11 +214,25 @@ class ZMAccount extends ZMModel {
     function getDefaultAddressId() { return $this->defaultAddressId_; }
 
     /**
+     * Set the default address id (primary address).
+     *
+     * @param int addressId The primary address id.
+     */
+    function setDefaultAddressId($addressId) { $this->defaultAddressId_ = $addressId; }
+
+    /**
      * Get the password.
      *
      * @return string The password.
      */
     function getPassword() { return $this->password_; }
+
+    /**
+     * Set the password.
+     *
+     * @param string password The (encrypted) password.
+     */
+    function setPassword($password) { $this->password_ = $password; }
 
     /**
      * Get the authorization.
@@ -280,13 +294,6 @@ class ZMAccount extends ZMModel {
     function getType() {
         return $this->type_;
     }
-
-    /**
-     * Set the default address id (primary address).
-     *
-     * @param int addressId The primary address id.
-     */
-    function setDefaultAddressId($addressId) { $this->defaultAddressId_ = $addressId; }
 
 }
 

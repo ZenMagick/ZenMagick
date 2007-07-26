@@ -213,7 +213,7 @@ class ZMAddress extends ZMModel {
     function getAddressFormat() {
     global $zm_addresses;
 
-        return $zm_addresses->getAddressFormatForId($this->country_->getAddressFormatId())
+        return $zm_addresses->getAddressFormatForId($this->country_->getAddressFormatId());
     }
 
 }

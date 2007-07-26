@@ -87,29 +87,43 @@ class ZMCreateAccountController extends ZMController {
     function processPost() {
     global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
 
-        if (!$this->validate('create_account')) {
-            return $this->findView();
-        }
-
-
-        if ($zm_request->getParameter('action') != 'process') {
-            $zm_messages->warn(zm_l10n_get("Incomplete request."));
-            return $this->findView();
-        }
-
         $account =& $this->create("Account");
         $account->populate();
-
-        if (zm_bb_nickname_exists($account->getNickName())) {
-            $zm_messages->warn(zm_l10n_get("Nickname already taken."));
-            return $this->findView();
-        }
 
         $address =& $this->create("Address");
         $address->populate();
 
+        if (!$this->validate('create_account')) {
+            $this->exportGlobal("zm_account", $account);
+            $this->exportGlobal("zm_address", $address);
+            return $this->findView();
+        }
+
+        // hen and egg...
+        $account->setPassword(zm_encrypt_password($account->getPassword()));
         $account = $zm_accounts->createAccount($account);
-        //$address = $zm_accounts->createAddress($address);
+
+        $address->setAccountId($account->getId());
+        $address = $zm_addresses->createAddress($address);
+
+        $account->setDefaultAddressId($address->getId());
+        $zm_accounts->updateAccount($account);
+
+        zm_bb_create_account($account->getNickName(), $account->getEmail(), $account->getPassword());
+
+        $session = new ZMSession();
+        $session->recreate();
+        $session->setAccount($account);
+        $session->restoreCart();
+
+        // account email
+        $context = array('zm_account' => $account);
+        zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
+        if (zm_setting('isEmailAdminCreateAccount')) {
+            // store copy
+            $context = array_merge($context, zm_email_copy_context($account, $session));
+            zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
+        }
 
         $this->exportGlobal("zm_account", $account);
 

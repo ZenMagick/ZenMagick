@@ -149,10 +149,11 @@ class ZMAccounts extends ZMService {
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
-                 customers_default_address_id, customers_password, customers_authorization, 
+                 customers_default_address_id, customers_authorization, 
                  customers_gender, customers_dob, customers_password, customers_referral
-                ) values (:firstName;string, :lastName;string, :email;string, :nickName;string, :phone;string, :fax;string, :newsletterSubscriber;integer,
-                  :emailFormat;string, :defaultAddressId;integer, :authorization;integer,
+                ) values (:firstName;string, :lastName;string, :email;string, :nickName;string,
+                  :phone;string, :fax;string, :newsletterSubscriber;integer, :emailFormat;string,
+                  :defaultAddressId;integer, :authorization;integer,
                   :gender;string, :dob;date, :password;string, :referral;string)";
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
