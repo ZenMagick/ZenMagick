@@ -62,8 +62,16 @@ class ZMEventFixes extends ZMObject {
     global $zm_account, $zm_request;
 
         $zm_account =& $zm_request->getAccount();
-        $controller = $zm_request->getController();
-        $controller->exportGlobal("zm_account", $zm_account);
+    }
+
+    /**
+     * Provide <code>$zm_account</code> right failed validation.
+     */
+    function onNotifyFailureDuringCreateAccount() {
+    global $zm_account;
+
+        $zm_account = $this->create("Account");
+        $zm_account->populate();
     }
 
     /**
