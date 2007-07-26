@@ -47,6 +47,7 @@ Release 0.8.2
 - allow validation rules with empty JavaScript
 - create $zm_account instance after unsuccsessful registration
 - enforce minimum password length of 6 chars
+- ZMOrderItem::getCalculatedPrice() needs to include tax (#1760124)
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

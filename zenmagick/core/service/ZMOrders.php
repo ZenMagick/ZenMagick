@@ -237,36 +237,6 @@ class ZMOrders extends ZMService {
     }
 
     /**
-     * Create new order item instance (PHP5 only)
-     */
-    function &_newOrderItem_v5($zenItem) {
-        $orderItem =& $this->create("OrderItem");
-        $orderItem->productId_ = $zenItem['id'];
-        $orderItem->qty_ = $zenItem['qty'];
-        $orderItem->name_ = $zenItem['name'];
-        $orderItem->taxRate_ = $zenItem['tax'];
-
-        if (isset($zenItem['attributes']) && 0 < sizeof($zenItem['attributes'])) {
-            $attributesLookup = array();
-            foreach ($zenItem['attributes'] as $zenAttribute) {
-                $name = $zenAttribute['option'];
-                if (array_key_exists($name, $attributesLookup)) {
-                    $attribute = $attributesLookup[$name];
-                } else {
-                    $attribute =& $this->create("Attribute", 0, $name, null);
-                    $attributesLookup[$name] = $attribute;
-                }
-                $attributeValue =& $this->create("AttributeValue", 0, $zenAttribute['value']);
-                $attributeValue->pricePrefix_ = $zenAttribute['prefix'];
-                $attributeValue->price_ = $zenAttribute['price'];
-                array_push($attribute->values_, $attributeValue);
-            }
-            $orderItem->attributes_ = $attributesLookup;
-        }
-        return $orderItem;
-    }
-
-    /**
      * Create new order item instance.
      */
     function &_newOrderItem($zenItem) {
@@ -296,7 +266,7 @@ class ZMOrders extends ZMService {
         $orderItem->name_ = $zenItem['name'];
         $orderItem->model_ = $zenItem['model'];
         $orderItem->taxRate_ = $zenItem['tax'];
-        $orderItem->calculatedPrice_ = $zenItem['final_price'];
+        $orderItem->calculatedPrice_ = zm_add_tax($zenItem['final_price'], $zenItem['tax']);
         foreach ($attributesLookup as $name => $atname) {
             array_push($orderItem->attributes_, $$atname);
         }
