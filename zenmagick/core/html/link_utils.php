@@ -551,7 +551,7 @@
     function zm_absolute_href($href, $echo=true) {
     global $zm_request;
 
-        $host = ($zm_request->isSecure() ? HTTP_SERVER : HTTPS_SERVER);
+        $host = ($zm_request->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
         $context = ($zm_request->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
         if (!zm_starts_with($href, '/')) {
