@@ -53,8 +53,8 @@
         $suburb = $address->getSuburb();
         $city = $address->getCity();
         $state = $address->getState();
-        $zmcountry = $address->getCountry();
-        if (0 != $zmcountry->getId()) {
+        if (0 != $address->getCountryId()) {
+            $zmcountry = $address->getCountry();
             $country = $zmcountry->getName();
             if (0 != $address->getZoneId()) {
                 $state = $zm_countries->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);

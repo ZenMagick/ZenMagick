@@ -72,6 +72,11 @@
     $zm_urlMapper->addMapping('password_forgotten');
     $zm_urlMapper->addMapping('password_forgotten', 'login', 'success', true, true);
 
+    // anonymous checkout
+    $zm_urlMapper->addMapping('checkout_anonymous', 'login');
+    $zm_urlMapper->addMapping('checkout_anonymous', 'checkout_shipping', 'success', true, true);
+
+
     // product_info
     $zm_urlMapper->addMapping('product_info');
     $zm_urlMapper->addMapping('product_info', 'product_music_info', 'product_music_info');

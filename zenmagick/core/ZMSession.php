@@ -120,9 +120,29 @@ class ZMSession extends ZMObject {
     /**
      * Returns <code>true</code> if the user is not logged in.
      *
+     * <p>This is the lowest level of identity.</p>
+     *
      * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
      */
     function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
+
+    /**
+     * Returns <code>true</code> if the user is an anonymous user.
+     *
+     * <p>This status level is in the middle between <em>registered</em> and <em>guest</em>.</p>
+     *
+     * @return bool <code>true</code> if the current user is anonymous, <code>false</code> if not.
+     */
+    function isAnonymous() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
+
+    /**
+     * Returns <code>true</code> if the user is a registered user.
+     *
+     * <p>This si the highest status level.</p>
+     *
+     * @return bool <code>true</code> if the current user is registered, <code>false</code> if not.
+     */
+    function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_REGISTERED == $_SESSION['account_type']; }
 
     /**
      * Set the account for the current session.
@@ -139,6 +159,7 @@ class ZMSession extends ZMObject {
         $address = $zm_addresses->getAddressForId($account->getDefaultAddressId());
         $_SESSION['customer_country_id'] = $address->getCountryId();
         $_SESSION['customer_zone_id'] = $address->getZoneId();
+        $_SESSION['account_type'] = $account->getType();
     }
 
     /**

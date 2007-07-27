@@ -287,6 +287,15 @@ class ZMAccount extends ZMModel {
     }
 
     /**
+     * Set the account type.
+     *
+     * @param char type The account type.
+     */
+    function setType($type) {
+        $this->type_ = $type;
+    }
+
+    /**
      * Get the account type.
      *
      * @return char The account type.

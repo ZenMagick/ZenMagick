@@ -67,33 +67,25 @@ class ZMCheckoutAnonymousController extends ZMController {
         // our session
         $session = new ZMSession();
 
+        //TODO centralize
         if (!$session->isValid()) {
             return $this->findView('cookie_usage');
         }
 
-        // create anonymous account
-        $account = $this->create("Account");
         if (!$session->isGuest()) {
             // already logged in
-            return $this->findView('account');
+            return $this->findView('success');
         }
 
-        if (!$this->validate('login')) {
+        if (!$this->validate('checkout_anonymous')) {
             return $this->findView();
         }
 
-        $emailAddress = $zm_request->getParameter('email_address');
-        $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
-        if (null === $account) {
-            $zm_messages->error('Sorry, there is no match for that email address and/or password.');
-            return $this->findView();
-        }
-
-        $password = $zm_request->getParameter('password');
-        if (!zm_validate_password($password, $account->getPassword())) {
-            $zm_messages->error('Sorry, there is no match for that email address and/or password.');
-            return $this->findView();
-        }
+        // create anonymous account
+        $account = $this->create("Account");
+        $account->setPassword(zm_encrypt_password(md5(date())));
+        $account->setType(ZM_ACCOUNT_TYPE_ANONYMOUS);
+        $account = $zm_accounts->createAccount($account);
 
         // update session with valid account
         $session->recreate();

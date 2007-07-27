@@ -184,7 +184,7 @@ class ZMAddress extends ZMModel {
     function getZoneId() { return $this->zoneId_; }
     function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
     function getCountry() { return $this->country_; }
-    function getCountryId() { return $this->country_->id_; }
+    function getCountryId() { return null != $this->country_ ? $this->country_->id_ : 0; }
     function isPrimary() { return $this->isPrimary_; }
     function getFormat() { return $this->format_; }
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
