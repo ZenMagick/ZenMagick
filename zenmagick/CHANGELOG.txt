@@ -48,6 +48,7 @@ Release 0.8.2
 - create $zm_account instance after unsuccsessful registration
 - enforce minimum password length of 6 chars
 - ZMOrderItem::getCalculatedPrice() needs to include tax (#1760124)
+- move state field below country for address and registration
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

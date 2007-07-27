@@ -40,6 +40,7 @@ $language = $zm_runtime->getlanguage();
 <p><?php zm_l10n("Sincerely, %s", zm_setting('storeOwner')) ?></p>
 
 <?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo $office_only_html; ?>
 </div>
 </body>
 </html>

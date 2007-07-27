@@ -117,14 +117,16 @@ class ZMCreateAccountController extends ZMController {
         $session->restoreCart();
 
         // account email
-        $context = array('zm_account' => $account);
+        $context = array('zm_account' => $account, 'office_only_html' => '', 'office_only_text' => '');
         zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
         if (zm_setting('isEmailAdminCreateAccount')) {
             // store copy
-            $context = array_merge($context, zm_email_copy_context($account, $session));
-            zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
+            $context = zm_email_copy_context($account, $session);
+            $context['zm_account'] = $account;
+            zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
         }
 
+        $zm_messages->success("Thank you for signing up");
         $this->exportGlobal("zm_account", $account);
 
         return $this->findView('success');

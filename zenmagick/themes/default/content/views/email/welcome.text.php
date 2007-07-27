@@ -35,3 +35,4 @@
 
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo $office_only_text; ?>

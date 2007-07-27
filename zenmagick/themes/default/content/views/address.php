@@ -73,6 +73,14 @@
                 <td><?php zm_l10n("City") ?><span>*</span></td>
                 <td><input type="text" id="city" name="city" value="<?php echo $address->getCity() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
             </tr>
+            <tr>
+                <td><?php zm_l10n("Post Code") ?><span>*</span></td>
+                <td><input type="text" id="postcode" name="postcode" value="<?php echo $address->getPostcode() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+            </tr>
+             <tr>
+                <td><?php zm_l10n("Country") ?><span>*</span></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry')) ?></td>
+            </tr>
             <?php if (zm_setting('isAccountState')) { ?>
                 <tr>
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
@@ -85,14 +93,6 @@
                     </td>
                 </tr>
             <?php } ?>
-            <tr>
-                <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="<?php echo $address->getPostcode() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
-            </tr>
-             <tr>
-                <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry')) ?></td>
-            </tr>
             <?php if (!$address->isPrimary()) { ?>
                  <tr>
                     <td></td>
