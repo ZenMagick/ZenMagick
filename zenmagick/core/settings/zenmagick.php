@@ -112,6 +112,7 @@
 
     define('ZM_ACCOUNT_TYPE_REGISTERED', 'r');
     define('ZM_ACCOUNT_TYPE_ANONYMOUS', 'a');
+    define('ZM_ACCOUNT_TYPE_GUEST', 'g');
 
 
     //** others **//

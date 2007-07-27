@@ -28,7 +28,7 @@
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo zm_build_category_tree_list($zm_categories->getCategoryTree(), "catalog"); ?>
 <ul>
-    <?php if (zm_setting('isSiteMapAccountLinks') && !$zm_request->isGuest()) { ?>
+    <?php if (zm_setting('isSiteMapAccountLinks') && $zm_request->isRegistered()) { ?>
       <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_EDIT); ?>"><?php zm_l10n("Change Account") ?></a></li>

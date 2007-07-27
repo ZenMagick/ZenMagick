@@ -27,7 +27,7 @@
 <?php if (0 != $zm_request->getProductId() && isset($zm_product)) { ?>
      <?php 
       $isSubscribed = false;
-      if (!$zm_request->isGuest()) {
+      if ($zm_request->isRegistered()) {
           $account = $zm_request->getAccount();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();

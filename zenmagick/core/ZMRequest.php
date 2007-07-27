@@ -194,11 +194,18 @@ class ZMRequest extends ZMObject {
     function getOrderId() { return $this->getParameter('order_id', 0); }
 
     /**
-     * Returns <code>true</code> if the user is not logged in.
+     * Returns <code>true</code> if the user is not logged in at all.
      *
      * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
      */
     function isGuest() { return $this->session_->isGuest(); }
+
+    /**
+     * Returns <code>true</code> if the user is fully registered and logged in.
+     *
+     * @return bool <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
+     */
+    function isRegistered() { return $this->session_->isRegistered(); }
 
     /**
      * Generic access method for request parameter.

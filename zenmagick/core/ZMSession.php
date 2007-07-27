@@ -118,6 +118,15 @@ class ZMSession extends ZMObject {
     function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
 
     /**
+     * Returns the current session type.
+     *
+     * <p>This type corresponds with the account type.</p>
+     *
+     * @return char The session type.
+     */
+    function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_GUEST; }
+
+    /**
      * Returns <code>true</code> if the user is not logged in.
      *
      * <p>This is the lowest level of identity.</p>

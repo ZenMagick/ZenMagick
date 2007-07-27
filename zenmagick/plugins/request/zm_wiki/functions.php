@@ -109,7 +109,7 @@
             $canEdit = true;
             break;
         case 'REGISTERED':
-            if (!$zm_request->isGuest()) {
+            if ($zm_request->isRegistered()) {
                 $canEdit = true;
             }
             break;

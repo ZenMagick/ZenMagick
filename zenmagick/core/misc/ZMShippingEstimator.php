@@ -169,7 +169,7 @@ class ZMShippingEstimator extends ZMObject {
 
         // Only do when something is in the cart
         if (!$zm_cart->isEmpty()) {
-          if (!$zm_request->isGuest()) {
+          if ($zm_request->isRegistered()) {
               $sendto = $this->_getAddressId();
               $_SESSION['sendto'] = $sendto;
               // set session now

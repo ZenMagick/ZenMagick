@@ -71,7 +71,7 @@ class ZMLoginController extends ZMController {
             return $this->findView('cookie_usage');
         }
 
-        if (!$session->isGuest()) {
+        if ($session->isRegistered()) {
             // already logged in
             return $this->findView('account');
         }

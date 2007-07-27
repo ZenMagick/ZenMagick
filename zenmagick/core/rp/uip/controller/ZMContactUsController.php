@@ -67,7 +67,7 @@ class ZMContactUsController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $contactInfo =& $this->create("ContactInfo");
-        if (!$zm_request->isGuest()) {
+        if ($zm_request->isRegistered()) {
             $account = $zm_request->getAccount();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());

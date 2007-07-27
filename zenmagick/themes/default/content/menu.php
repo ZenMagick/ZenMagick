@@ -30,7 +30,7 @@
 
     <?php if ($zm_request->isGuest()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGIN); ?>"><?php zm_l10n("LOGIN") ?></a></li>
-    <?php } else { ?>
+    <?php } else if ($zm_request->isRegistered()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_LOGOFF); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
