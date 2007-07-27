@@ -1,6 +1,5 @@
 missing zen-cart stuff
 ======================
-
 - implement missing weight and onetime prices for attributes
 - product_free_shipping_info and a couple more are still missing
 - can't checkout rope product
@@ -9,49 +8,30 @@ missing zen-cart stuff
 
 usablility / quality / performance / etc
 ========================================
-
 bugs:
-- fix default theme IE bugs; test in IE7
-- rely less on zen-cart defines as they might not be available during init...
 - make filter/sorter look nicer and easier to configure (autodetect??)
 - make price filter actually work
 
-
-admin/install:
+.admin/install:
 - admin interface for ZM config values
 - generic interface to manage theme settings
-- features: error handling, form validation
 - language support for ZenMagick admin area (ongoing)
-- framework?
 - better descriptions for patches (should be more text less technical details)
 - sidebox patches and plugins work relative to the current theme only - should they update all themes?
 
 structure:
 - store settings somewhere?
 - have separate wrapper around store settings (eg. name, etc)
-- zmboxconfig; admin/theme support? get it working at all
 - restructure to have zenmagick outside htdocs?
 - use reflection to populate model classes from request?
-- APIs for other apps; for example WordPress, etc...
-- add global extra folder; move local.php to there; themes can actually have local.php too!
-- l10n for module (eg payments) messages...
 - improve ZMClassLoader to resolve dependencies (use get_parent_class(..) or better 
   get_class_hierachy(..) for PHP4 comp.)
-- db: config values, sidebox config
-- random query in ZMProducts = more generic db interface ? how to integrate with zen-cart?
-- get proper random query (mostly products)
-- db: recovery when integrating external code (wordpress, etc) that change the db! (x-ref to APIs for other apps)
-- not sure about the product specials SQL...
-- configure views for controller, so findView actually makes sense!
-  => we'd need mapping from symbolic name (eg success, error, null) to page, redirect[y,n], secure[y,n]
 - centralise list of secure pages (zm_is_secure()), so no need to use zm_secure_href and more...
 - review handling of global exports (too many places and not consistent...)
 
 general:
 - get a logo and favicon
 - clean up zen-bridge
-- val rules:min -> minlength, also maxlength, range
-- get rid of core/misc/validations.php (need to centralise validations for this)
 - look into using/supporting gettext
 - more documentation
 - more phpdoc
@@ -59,7 +39,6 @@ general:
 
 performance:
 - improve :)
-
 
 
 Module notes
