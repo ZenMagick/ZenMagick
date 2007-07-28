@@ -49,7 +49,8 @@ require_once('includes/application_top.php');
         "dynamicAdminMenu" => "Enable dynamic admin menu support",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
-        "sqlFeatures" => "Install Features database tables"
+        "sqlFeatures" => "Install Features database tables",
+        "sqlAccountType" => "Install account type extensions"
     );
 
     $coreCompressor = new ZMCoreCompressor();
