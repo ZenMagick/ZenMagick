@@ -1,6 +1,6 @@
 Release 0.8.2
 - product_notifications.php should not use $zm_account
-- ZMProductSorter:sort(..) - check that the given lsit is an array
+- ZMProductSorter:sort(..) - check that the given list is an array
 - added ZMView::isValid(..)
 - add defines for 5 log level
 - implemented missing view check in ZMController; the view key for missing
@@ -11,7 +11,7 @@ Release 0.8.2
   zm_image_uri(..) and zm_product_image_link(..)
 - add new zm_imagehandler2 plugin
 - fix invalid php in create_account_success
-- add missing welcome_email.txt (#1752483) and make welcome email look nices
+- add missing welcome_email.txt (#1752483) and make welcome email look nicer
 - add 'storeOwner' setting
 - fix wrong title of welcome HTML email
 - make ZMCoreCompressor handle heredoc syntax correctly (#1752404)
