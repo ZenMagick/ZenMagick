@@ -50,7 +50,7 @@ require_once('includes/application_top.php');
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlFeatures" => "Install Features database tables",
-        "sqlAccountType" => "Install account type extensions"
+        "sqlAccountType" => "Install account type data"
     );
 
     $coreCompressor = new ZMCoreCompressor();
