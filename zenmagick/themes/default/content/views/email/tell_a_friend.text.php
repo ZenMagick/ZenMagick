@@ -22,20 +22,17 @@
  *
  * $Id$
  */
-?><?php
-$account = $zm_request->getAccount();
 ?>
-<?php zm_l10n("Hi %s,", $zm_receiver->getName()) ?>
+<?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?>
 
 
-<?php zm_l10n("Your friend, %s %s, thought that you would be interested in %s from %s.", $account->getFirstName(), $account->getLastName(),
-   $zm_product->getName(), zm_setting('storeName')) ?>
+<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), zm_setting('storeName')) ?>
 
-<?php if ($zm_receiver->hasMessage()) { ?>
+<?php if ($zm_emailMessage->hasMessage()) { ?>
 
-<?php zm_l10n("%s also sent a note saying:", $account->getFirstName()) ?>
+<?php zm_l10n("%s also sent a note saying:", $zm_emailMessage->getFromName()) ?>
 
-<?php echo $zm_receiver->getMessage() ?>
+<?php echo $zm_emailMessage->getMessage() ?>
 
 <?php } ?>
 

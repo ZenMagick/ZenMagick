@@ -51,7 +51,7 @@
     <div><input type="submit" class="btn" name="edit" value="<?php zm_l10n("Edit") ?>" /></div>
 </form>
 
-<p>
+<p class="rclear">
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo str_replace('-', '', EMAIL_ADVISORY) ?>
+    <?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
 </p>

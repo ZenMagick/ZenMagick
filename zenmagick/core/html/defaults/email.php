@@ -30,11 +30,12 @@
      * Format additional email content for internal copies.
      *
      * @package net.radebatz.zenmagick.html.defaults
-     * @param ZMAccount account The current account.
+     * @param string name The sender name.
+     * @param string email The sender email.
      * @param ZMSession session The current session.
      * @return array Hash of extra information.
      */
-    function zm_email_copy_context($account, $session) {
+    function zm_email_copy_context($name, $email, $session) {
         $context = array();
 
         // try hostname
@@ -49,8 +50,8 @@
 
         $context['office_only_text'] = "\n\n" .
           zm_l10n_get("Office Use Only:") . "\n" .
-          zm_l10n_get("From: ") . $account->getFullname() . "\n" .
-          zm_l10n_get("Email: ") . $account->getEmail() . "\n" .
+          zm_l10n_get("From: ") . $name . "\n" .
+          zm_l10n_get("Email: ") . $email . "\n" .
           zm_l10n_get("Remote: ") . $session->getClientAddress() . " - " . $hostname . "\n" .
           zm_l10n_get("Date: ") . date("D M j Y G:i:s T") . "\n\n";
         $context['office_only_html'] = nl2br($context['office_only_text']);

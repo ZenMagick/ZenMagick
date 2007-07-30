@@ -24,29 +24,29 @@
  */
 ?>
 
-<?php zm_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $zm_request->getProductId(), 'tell_a_friend', 'post', 'return validate(this)'); ?>
+<?php zm_secure_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $zm_request->getProductId(), 'tell_a_friend', 'post', 'return validate(this)'); ?>
    <fieldset>
       <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 
         <label for="from_name"><?php zm_l10n("Your Name") ?><span>*</span></label>
-        <input type="text" id="from_name" name="from_name" size="40" value="<?php echo $zm_account->getFullName() ?>" /><br />
+        <input type="text" id="from_name" name="from_name" size="40" value="<?php echo $zm_emailMessage->getFromName() ?>" /><br />
 
         <label for="from_email_address"><?php zm_l10n("Your Email") ?><span>*</span></label>
-        <input type="text" id="from_email_address" name="from_email_address" size="40" value="<?php echo $zm_account->getEmail() ?>" /><br />
+        <input type="text" id="from_email_address" name="from_email_address" size="40" value="<?php echo $zm_emailMessage->getFromEmail() ?>" /><br />
 
         <label for="to_name"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
-        <input type="text" id="to_name" name="to_name" size="40" value="<?php echo $zm_request->getParameter("to_name") ?>" /><br />
+        <input type="text" id="to_name" name="to_name" size="40" value="<?php echo $zm_emailMessage->getToName() ?>" /><br />
 
         <label for="to_email_address"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
-        <input type="text" id="to_email_address" name="to_email_address" size="40" value="<?php echo $zm_request->getParameter("to_email_address") ?>" /><br />
+        <input type="text" id="to_email_address" name="to_email_address" size="40" value="<?php echo $zm_emailMessage->getToEmail() ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php echo $zm_request->getParameter("message") ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $zm_emailMessage->getMessage() ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
 </form>
 <div class="advisory">
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo str_replace('-----', '', EMAIL_ADVISORY) ?>
+    <?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
 </div>

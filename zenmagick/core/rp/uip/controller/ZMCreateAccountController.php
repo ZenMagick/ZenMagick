@@ -121,7 +121,7 @@ class ZMCreateAccountController extends ZMController {
         zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
         if (zm_setting('isEmailAdminCreateAccount')) {
             // store copy
-            $context = zm_email_copy_context($account, $session);
+            $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
         }

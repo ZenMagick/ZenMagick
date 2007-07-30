@@ -57,7 +57,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
@@ -88,9 +88,10 @@
     $_ZM_SETTINGS['emailSkipList'] = defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array();
     $_ZM_SETTINGS['emailTestReceiver'] = (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null;
     $_ZM_SETTINGS['isEmailAdminExtraHtml'] = ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT';
-    $_ZM_SETTINGS['isEmailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO !='';
+    $_ZM_SETTINGS['isEmailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO != '';
     $_ZM_SETTINGS['emailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO;
-
+    $_ZM_SETTINGS['isEmailAdminTellAFriend'] = SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS == '1' and SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO != '';
+    $_ZM_SETTINGS['emailAdminTellAFriend'] = SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO;
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;
@@ -135,6 +136,9 @@
 
     // page not found
     $_ZM_SETTINGS['isPageNotFoundDefinePage'] = DEFINE_PAGE_NOT_FOUND_STATUS == '1';
+
+    // tell a friend
+    $_ZM_SETTINGS['isTellAFriendGuestAllow'] = ALLOW_GUEST_TO_TELL_A_FRIEND == 'true';
 
     // max result list
     $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;

@@ -221,6 +221,13 @@ class ZMSession extends ZMObject {
     }
 
     /**
+     * Mark current request for return after login.
+     */
+    function markRequestAsLoginFollowUp() {
+        $_SESSION['navigation']->set_snapshot();
+    }
+
+    /**
      * Check if a follow up url exists that should be loaded after a login.
      *
      * @return string The url to go to or <code>null</code>.

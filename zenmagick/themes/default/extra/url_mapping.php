@@ -100,4 +100,7 @@
     $zm_urlMapper->addMapping('create_account');
     $zm_urlMapper->addMapping('create_account', 'account', 'success', true, true);
 
+    // tell_a_friend
+    $zm_urlMapper->addMapping('tell_a_friend');
+    $zm_urlMapper->addMapping('tell_a_friend', 'index', 'success', true, false);
 ?>

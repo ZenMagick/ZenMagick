@@ -49,6 +49,11 @@ Release 0.8.2
 - enforce minimum password length of 6 chars
 - ZMOrderItem::getCalculatedPrice() needs to include tax (#1760124)
 - move state field below country for address and registration
+- use fieldset for password_forgotten view
+- make tell a friend use zm_secure_form(..)
+- make required JavaScript rule handle non existing form fields
+- use email_advisory text chunk where appropriate
+- added tell_a_friend POST handling
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
