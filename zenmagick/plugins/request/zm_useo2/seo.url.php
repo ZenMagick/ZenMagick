@@ -23,10 +23,7 @@
 	+----------------------------------------------------------------------+
 */
 
-if (!class_exists('SEO_URL')) {
-  if (!defined('ZM_SINGLE_CORE')) { 
-	  require_once(dirname(__FILE__) . '/seo.install.php');
-  }
+	require_once(dirname(__FILE__) . '/seo.install.php');
 
 	class SEO_URL{
 		var $cache;
@@ -148,11 +145,6 @@ if (!class_exists('SEO_URL')) {
       if ($page == 'ipn_main_handler.php') {
        return $this->stock_href_link($page, $parameters, $connection, $add_session_id, true, $static, $use_dir_ws_catalog);
       }
-
-      /*
-       * Fix up $page
-       */
-      $page = preg_replace('/(index\.php)?\??main_page=/', '', $page);  
 
 			if ((!in_array($page, $this->attributes['SEO_PAGES'])) || (($page == FILENAME_DEFAULT) && (!preg_match('/(cpath|manufacturers_id)/i', $parameters)))) {
 				if ($page == FILENAME_DEFAULT) {
@@ -448,17 +440,7 @@ if (!class_exists('SEO_URL')) {
 					} # end switch
 					break;
 				default:
-          if (isset($container[$p2[0]])) {
-              // value exists
-              $value = $container[$p2[0]];
-              if (!is_array($value)) {
-                  $value = array($value);
-              }
-              array_push($value, $p2[1]);
-					    $container[$p2[0]] = $value;
-          } else {
-					    $container[$p2[0]] = $p2[1]; 
-          }
+					$container[$p2[0]] = $p2[1]; 
 					break;
 			} # end switch
 		} # end foreach $p
@@ -601,8 +583,7 @@ if (!class_exists('SEO_URL')) {
 				switch(true){
 					case ($this->attributes['SEO_ADD_CAT_PARENT'] == 'true'):
 						$sql = "SELECT c.categories_id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName  
-								FROM ".TABLE_CATEGORIES." c, 
-								".TABLE_CATEGORIES_DESCRIPTION." cd 
+								FROM ".TABLE_CATEGORIES_DESCRIPTION." cd, ".TABLE_CATEGORIES." c 
 								LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2 
 								ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."' 
 								WHERE c.categories_id='".(int)$single_cID."' 
@@ -815,13 +796,7 @@ if (!class_exists('SEO_URL')) {
 		$output = array();
 		foreach( $array as $key => $item ){
 			if ( $this->not_null($key) && $this->not_null($item) ){
-        if (is_array($item)) {
-            foreach ($item as $sub) {
-				        $output[] = $key . $inner_glue . $sub;
-            }
-        } else {
-				    $output[] = $key . $inner_glue . $item;
-        }
+				$output[] = $key . $inner_glue . $item;
 			}
 		} # end foreach	
 		return @implode($outer_glue, $output);
@@ -928,11 +903,13 @@ if (!class_exists('SEO_URL')) {
 			switch(true){
 				case ($this->attributes['SEO_ADD_CAT_PARENT'] == 'true'):
 					$sql = "SELECT c.categories_id as id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName  
-							FROM ".TABLE_CATEGORIES." c LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd 
-                            ON c.categories_id=cd.categories_id 
+							FROM ".TABLE_CATEGORIES." c 
 							LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2 
-							ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."' 
-							WHERE cd.language_id='".(int)$this->languages_id."'";
+							ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."', 
+							".TABLE_CATEGORIES_DESCRIPTION." cd 
+							WHERE c.categories_id=cd.categories_id 
+							AND cd.language_id='".(int)$this->languages_id."'";
+					//IMAGINADW.COM;
 					break;
 				default:
 					$sql = "SELECT categories_id as id, categories_name as cName 
@@ -1209,6 +1186,10 @@ if (!class_exists('SEO_URL')) {
  */	
 	function need_redirect() {
 		$this->need_redirect = ((preg_match('/main_page=/i', $this->uri)) ? true : false);
+		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM 
+		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
+		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET['main_page'],$sefu) ) $this->need_redirect = false;
+		// IMAGINADW.COM
 
 		$this->attributes['SEO_REDIRECT']['NEED_REDIRECT'] = $this->need_redirect ? 'true' : 'false';
 	}
@@ -1272,5 +1253,4 @@ if (!class_exists('SEO_URL')) {
 	} # end function do_redirect
 
 } # end class
-}
 ?>

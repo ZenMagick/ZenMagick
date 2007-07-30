@@ -54,6 +54,9 @@ Release 0.8.2
 - make required JavaScript rule handle non existing form fields
 - use email_advisory text chunk where appropriate
 - added tell_a_friend POST handling
+- changed ZMReviews::getReviewCount(..) to accept productId rather than
+  product instance
+- updates zm_seo2 plugin to Ultimate SEO 2.105
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

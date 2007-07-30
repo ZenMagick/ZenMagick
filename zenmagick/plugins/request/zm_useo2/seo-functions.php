@@ -56,7 +56,7 @@
 || ###################################################################### ||
 \*========================================================================*/
 function reset_seo_cache() {
-	global $db; $db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
+	$db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
 }
 ?>
 <?php
@@ -105,11 +105,17 @@ function zen_reset_cache_data_seo_urls($action) {
  // Ultimate SEO URLs v2.100
  // The HTML href link wrapper function
   function zen_href_link_seo($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $static = false, $use_dir_ws_catalog = true) {
+		/* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
+		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
+		if((SEO_URLS_ONLY_IN!="") && !in_array($page,$sefu)) {
+			return _zm_zen_href_link($page, $parameters, $connection, $add_session_id, $search_engine_safe, $static, $use_dir_ws_catalog);
+		}
+		
 		if (!isset($GLOBALS['seo_urls']) && !is_object($GLOBALS['seo_urls'])) {
 			//include_once(DIR_WS_CLASSES . 'seo.url.php');
-
 			$GLOBALS['seo_urls'] = &new SEO_URL($_SESSION['languages_id']);
 		}
+
 		return $GLOBALS['seo_urls']->href_link($page, $parameters, $connection, $add_session_id, $static, $use_dir_ws_catalog);
   }
 
