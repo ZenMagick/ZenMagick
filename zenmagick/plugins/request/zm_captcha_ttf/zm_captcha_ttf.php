@@ -41,7 +41,7 @@ class zm_captcha_ttf extends ZMPlugin {
         'contact_us' => array(CAPTCHA_CONTACT_US, 'contact_us'),
         'tell_a_friend' => array(CAPTCHA_TELL_A_FRIEND, 'tell_a_friend'),
         'links_submit' => array(CAPTCHA_LINKS_SUBMIT, 'links_submit'),
-        'product_reviews_write' => array(CAPTCHA_REVIEWS_WRITE, 'products_reviews_write')
+        'product_reviews_write' => array(CAPTCHA_REVIEWS_WRITE, 'review')
     );
     var $captchaEnabled_;
 
@@ -137,10 +137,20 @@ class zm_captcha_ttf extends ZMPlugin {
     /**
      * Create the captcha image.
      *
-     * <p>This is a copnvenience method around <code>$captcha->img()</code>.</p>
+     * <p>This is a convenience method around <code>$captcha->img()</code>.</p>
+     *
+     * <p>This method will automatically generate an <code>onclick</code> attribute to 
+     * regenerate the image on click.</p>
+     *
+     * @param string width Optional width.
+     * @param string height Optional height.
+     * @param string parameter Optional additional parameter (name="value" name2="value2"...).
      */
-    function showImage() {
-        echo $this->captcha_->img();
+    function showImage($width='', $height='', $parameters='') {
+        $alt = zm_l10n_get("Click image to re-generate");
+        $parameters .= ' onclick="document.getElementById(\'captcha-img\').src=\''.$this->captcha_->img_href.'&amp;rand=\'+Math.random();return false;"';
+        $parameters .= ' style="cursor:pointer;cursor:hand;"';
+        echo $this->captcha_->img($alt, $width, $height, $parameters);
     }
 
 }
