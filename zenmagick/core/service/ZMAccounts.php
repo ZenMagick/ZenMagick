@@ -65,10 +65,8 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, at.account_type
+                c.customers_authorization, c.customers_newsletter
                 from " . TABLE_CUSTOMERS . " c
-                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
-                on (c.customers_id = at.account_id)
                 where c.customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
         $results = $db->Execute($sql);
@@ -89,10 +87,8 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, at.account_type
+                c.customers_authorization, c.customers_newsletter
                 from " . TABLE_CUSTOMERS . " c
-                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
-                on (c.customers_id = at.account_id)
                 where customers_email_address = :emailAddress";
         $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
         $results = $db->Execute($sql);
@@ -128,11 +124,10 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . " c
-                left join " . ZM_TABLE_ACCOUNT_TYPE . " at
-                on (c.customers_id = at.account_id)
                 where customers_email_address = :email
-                and at.account_type = 'r'";
+                and customers_password = :emptyPassword";
         $sql = $db->bindVars($sql, ":email", $email, "string");
+        $sql = $db->bindVars($sql, ":emptyPassword", '', "string");
 
         $results = $db->Execute($sql);
         return $results->fields['total'] > 0;
@@ -158,12 +153,6 @@ class ZMAccounts extends ZMService {
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
-
-        // set type
-        $sql = "insert into " . ZM_TABLE_ACCOUNT_TYPE . "(account_id, account_type) values (:accountId, :accountType)";
-        $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-        $sql = $db->bindVars($sql, ":accountType", $account->getType(), "string");
-        $db->Execute($sql);
 
         return $account;
     }
@@ -241,9 +230,7 @@ class ZMAccounts extends ZMService {
         $account->newsletter_ = 1 == $fields['customers_newsletter'];
         $account->globalSubscriber_ = $this->_isGlobalProductSubscriber($account->getId());
         $account->subscribedProducts_ = $this->_getSubscribedProductIds($account->getId());
-        if (isset($fields['account_type'])) {
-            $account->type_ = $fields['account_type'];
-        }
+        $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_ANONYMOUS);
         return $account;
     }
 

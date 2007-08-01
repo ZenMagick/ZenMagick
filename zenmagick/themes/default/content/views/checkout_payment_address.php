@@ -26,13 +26,14 @@
 
 <?php $currentAddress = $zm_cart->getBillingAddress(); ?>
 <?php if (0 < count($zm_addressList)) { ?>
-    <?php zm_secure_form(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=submit', 'address', "post", "return validate(this);") ?>
+    <?php zm_secure_form(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=submit', 'address', "post") ?>
         <h3><?php zm_l10n("Select an existing address") ?></h3>
         <fieldset>
             <legend><?php zm_l10n("Address Book") ?></legend>
             <?php foreach ($zm_addressList as $address) { ?>
                 <p>
                     <?php $checked = (null != $currentAddress && $currentAddress->getId()) == $address->getId() ? ' checked="checked"' : ""; ?>
+                    <?php if (1 == count($zm_addressList)) { $checked = ' checked="checked"'; } ?>
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="address" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
                     <label for="address_<?php echo $address->getId() ?>"><?php echo $address->getFullName() ?></label>
                     <br/>

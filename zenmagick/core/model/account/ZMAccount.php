@@ -75,7 +75,7 @@ class ZMAccount extends ZMModel {
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = array();
-        $this->type_ = ZM_ACCOUNT_TYPE_REGULAR;
+        $this->type_ = ZM_ACCOUNT_TYPE_REGISTERED;
     }
 
     /**
@@ -163,6 +163,13 @@ class ZMAccount extends ZMModel {
      * @return string The email address.
      */
     function getEmail() { return $this->email_; }
+
+    /**
+     * Set the email address.
+     *
+     * @parm string email The email address.
+     */
+    function setEmail($email) { $this->email_ = $email; }
 
     /**
      * Get the phone number.

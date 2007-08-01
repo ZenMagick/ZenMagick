@@ -165,10 +165,12 @@ class ZMSession extends ZMObject {
         $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
         $_SESSION['customers_authorization'] = $account->getAuthorization();
         $_SESSION['customer_first_name'] = $account->getFirstName();
-        $address = $zm_addresses->getAddressForId($account->getDefaultAddressId());
-        $_SESSION['customer_country_id'] = $address->getCountryId();
-        $_SESSION['customer_zone_id'] = $address->getZoneId();
         $_SESSION['account_type'] = $account->getType();
+        $address = $zm_addresses->getAddressForId($account->getDefaultAddressId());
+        if (null != $address) {
+            $_SESSION['customer_country_id'] = $address->getCountryId();
+            $_SESSION['customer_zone_id'] = $address->getZoneId();
+        }
     }
 
     /**

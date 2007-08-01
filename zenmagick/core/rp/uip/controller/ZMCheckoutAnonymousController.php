@@ -73,7 +73,7 @@ class ZMCheckoutAnonymousController extends ZMController {
         }
 
         if (!$session->isGuest()) {
-            // already logged in
+            // already logged in either way
             return $this->findView('success');
         }
 
@@ -83,19 +83,14 @@ class ZMCheckoutAnonymousController extends ZMController {
 
         // create anonymous account
         $account = $this->create("Account");
-        $account->setPassword(zm_encrypt_password(md5(date())));
+        $account->setEmail($zm_request->getParameter('email_address'));
+        $account->setPassword('');
         $account->setType(ZM_ACCOUNT_TYPE_ANONYMOUS);
         $account = $zm_accounts->createAccount($account);
 
         // update session with valid account
         $session->recreate();
         $session->setAccount($account);
-
-        // update login stats
-        $zm_accounts->updateAccountLoginStats($account->getId());
-
-        // restore cart contents
-        $session->restoreCart();
 
         $followUpUrl = $session->getLoginFollowUp();
         if (null != $followUpUrl) {

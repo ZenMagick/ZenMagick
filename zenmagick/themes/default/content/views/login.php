@@ -39,8 +39,11 @@
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
 </form>
 
-<p><a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a></p>
-<p><a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a></p>
+<p>
+  <a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
+  <a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+</p>
+
 <?php if (zm_setting('isAnonymousCheckout') && !$zm_cart->isEmpty()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
   <?php zm_secure_form(ZM_FILENAME_CHECKOUT_ANONYMOUS, "action=process", 'checkout_anonymous', 'post', 'return validate(this);') ?>
