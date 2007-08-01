@@ -32,7 +32,9 @@
  * @version $Id$
  */
 class ZMRedirectView extends ZMView {
-    var $url_;
+    var $page_;
+    var $secure_;
+    var $parameter_;
 
 
     /**
@@ -44,11 +46,9 @@ class ZMRedirectView extends ZMView {
     function ZMRedirectView($page, $secure=false) {
         parent::__construct($page);
 
-        if ($secure) {
-            $this->url_ = zm_secure_href($page, '', false);
-        } else {
-            $this->url_ = zm_href($page, '', false);
-        }
+        $this->page_ = $page;
+        $this->secure_ = $secure;
+        $this->parameter_ = '';
     }
 
     /**
@@ -75,15 +75,31 @@ class ZMRedirectView extends ZMView {
      * @return bool <code>true</code> if the redirect url is not empty.
      */
     function isValid() {
-        return !zm_is_empty($this->url_);
+        return !zm_is_empty($this->page_);
     }
 
     /**
      * Generate view response.
      */
     function generate() { 
-        zm_redirect($this->url_);
+        $url = null;
+        if ($secure) {
+            $url = zm_secure_href($this->page_, $this->parameter_, false);
+        } else {
+            $url = zm_href($this->page_, $this->parameter_, false);
+        }
+
+        zm_redirect($url);
         zm_exit();
+    }
+
+    /**
+     * Set additional parameter.
+     *
+     * @param string parameter Parameter string in URL query format.
+     */
+    function setParameter($parameter) {
+        $this->parameter_ = $parameter;
     }
 
 }

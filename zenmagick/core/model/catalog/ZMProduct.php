@@ -346,7 +346,7 @@ class ZMProduct extends ZMModel {
      *
      * @return bool <code>true</code> if reviews exist, <code>false</code> if not.
      */
-    function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this); }
+    function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this->id_); }
 
     /**
      * Get the number of reviews for this product.

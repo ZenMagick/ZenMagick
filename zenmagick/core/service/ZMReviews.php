@@ -55,8 +55,13 @@ class ZMReviews extends ZMService {
     }
 
 
-    // get the number of reviews for a product
-    function getReviewCount($product) {
+    /**
+     * Get the number of reviews for the given product (id).
+     *
+     * @param int productId The product id.
+     * @return int The number of published reviews for the product.
+     */
+    function getReviewCount($productId) {
     global $zm_runtime;
 
         $db = $this->getDB();
@@ -66,14 +71,20 @@ class ZMReviews extends ZMService {
                   and r.reviews_id = rd.reviews_id
                   and rd.languages_id = :languageId
                   and r.status = '1'";
-        $query = $db->bindVars($query, ":productId", $product->getId(), 'integer');
+        $query = $db->bindVars($query, ":productId", $productId, 'integer');
         $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
 
         $results = $db->Execute($query);
         return $results->fields['count'];
     }
 
-    // get a random review
+    /**
+     * Get a random review.
+     *
+     * @param int productId Optional productId to limit reviews to one product.
+     * @param int max Optional result limit; default is <code>1</code>.
+     * @return array List of <code>ZMReview</code> instances.
+     */
     function getRandomReviews($productId=null, $max=1) {
     global $zm_runtime;
 
@@ -115,8 +126,12 @@ class ZMReviews extends ZMService {
         return $reviews;
     }
 
-
-    // get all reviews for the given productId
+    /**
+     * Get all reviews for the given product id.
+     *
+     * @param int productId The product id.
+     * @return array List of <code>ZMReview</code> instances.
+     */
     function getReviewsForProductId($productId) {
     global $zm_runtime;
 
@@ -146,8 +161,11 @@ class ZMReviews extends ZMService {
         return $reviews;
     }
 
-
-    // get all reviews
+    /**
+     * Get all published reviews.
+     *
+     * @return array List of <code>ZMReview</code> instances.
+     */
     function getAllReviews() {
     global $zm_runtime;
 
@@ -175,8 +193,12 @@ class ZMReviews extends ZMService {
         return $reviews;
     }
 
-
-    // get a specific review
+    /**
+     * Get the review for the given review id.
+     *
+     * @param int reviewId The id of the review to load.
+     * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
+     */
     function &getReviewForId($reviewId) {
     global $zm_runtime;
 
@@ -204,7 +226,11 @@ class ZMReviews extends ZMService {
         return $review;
     }
 
-
+    /**
+     * Update the view count for the given review id.
+     *
+     * @param int reviewId The id of the review.
+     */
     function updateViewCount($reviewId) {
         $db = $this->getDB();
         $query = "update " . TABLE_REVIEWS . "
@@ -215,7 +241,41 @@ class ZMReviews extends ZMService {
         $result = $db->Execute($sql);
     }
 
+    /**
+     * Create a new review.
+     *
+     * @param ZMReview review The new review.
+     * @param ZMAccount author The review author.
+     * @param int languageId The language for this review.
+     * @return ZMReview The inserted review (incl. the new id).
+     */
+    function &createReview(&$review, &$account, $languageId) {
+        $db = $this->getDB();
+        $sql = "INSERT INTO " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added, status)
+                VALUES (:productsId, :customersId, :customersName, :rating, now(), :status)";
+        $sql = $db->bindVars($sql, ':productsId', $review->getProductId(), 'integer');
+        $sql = $db->bindVars($sql, ':customersId', $account->getId(), 'integer');
+        $sql = $db->bindVars($sql, ':customersName', $account->getFullName(), 'string');
+        $sql = $db->bindVars($sql, ':rating', $review->getRating(), 'string');
+        $status = zm_setting('isApproveReviews') ? '0' : '1';
+        $sql = $db->bindVars($sql, ':status', $status, 'integer');
+        $db->Execute($sql);
 
+        $review->id_ = $db->Insert_ID();
+
+        $sql = "INSERT INTO " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text)
+                VALUES (:insertId, :languagesId, :reviewText)";
+        $sql = $db->bindVars($sql, ':insertId', $review->getId(), 'integer');
+        $sql = $db->bindVars($sql, ':languagesId', $languageId, 'integer');
+        $sql = $db->bindVars($sql, ':reviewText', $review->getText(), 'string');
+        $db->Execute($sql);
+
+        return $review;
+    }
+
+    /**
+     * Create new review.
+     */
     function &_newReview($fields) {
         $review = $this->create("Review");
         $review->id_ = $fields['reviews_id'];

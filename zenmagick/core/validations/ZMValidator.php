@@ -78,8 +78,8 @@ class ZMValidator extends ZMObject {
      * @param ZMRule rule A new rule.
      */
     function addRule($id, &$rule) {
-        $ruleSet = $this->getRuleSet($id);
-        if (null != $rule) {
+        $ruleSet =& $this->getRuleSet($id);
+        if (null != $rule && null != $ruleSet) {
             $ruleSet->addRule($rule);
         }
     }
@@ -91,7 +91,11 @@ class ZMValidator extends ZMObject {
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance or <code>null</code>.
      */
     function &getRuleSet($id) {
-        return array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
+        $ruleSet = null;
+        if (array_key_exists($id, $this->sets_)) {
+            $ruleSet =& $this->sets_[$id];
+        }
+        return $ruleSet;
     }
 
     /**

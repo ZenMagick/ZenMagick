@@ -158,7 +158,7 @@
     // upset plugins :)
     $zm_plugins =& new ZMPlugins();
     $pluginLoader =& new ZMLoader("pluginLoader");
-    foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
+    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
         if ($plugin->isEnabled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
@@ -182,9 +182,10 @@
     $rootLoader->setParent($pluginLoader);
 
     // call init only after everything set up
-    foreach ($zm_plugins->getPluginsForType('request') as $plugin) {
-        if ($plugin->isEnabled()) {
-            $plugin->init();
+    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
+        // PHP4 hack; use $$id rather than $plugin
+        if ($$id->isEnabled()) {
+            $$id->init();
         }
     }
 

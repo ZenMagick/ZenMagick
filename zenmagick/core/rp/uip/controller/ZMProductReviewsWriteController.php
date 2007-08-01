@@ -62,15 +62,9 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_products;
+    global $zm_request;
 
-        $product = null;
-        if ($zm_request->getProductId()) {
-            $product = $zm_products->getProductForId($zm_request->getProductId());
-        } else if ($zm_request->getModel()) {
-            $product = $zm_products->getProductForModel($zm_request->getModel());
-        }
-
+        $product = $this->_getProduct();
         if (null == $product) {
             return $this->findView('error');
         }
@@ -78,13 +72,82 @@ class ZMProductReviewsWriteController extends ZMController {
         $this->exportGlobal("zm_product", $product);
         $this->exportGlobal("zm_account", $zm_request->getAccount());
 
-        // crumbtrail handling
+        $this->_handleCrumbtrail($product);
+
+        return $this->findView();
+    }
+
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_runtime, $zm_request, $zm_messages, $zm_accounts, $zm_reviews;
+
+        $review =& $this->create("Review");
+        $review->populate();
+
+        $product = $this->_getProduct();
+        if (null == $product) {
+            return $this->findView('error');
+        }
+
+        if (!$this->validate('review')) {
+            $this->_handleCrumbtrail($product);
+            $this->exportGlobal("zm_product", $product);
+            $this->exportGlobal("zm_account", $zm_request->getAccount());
+            $this->exportGlobal("zm_review", $review);
+            return $this->findView();
+        }
+
+        $account = $zm_request->getAccount();
+        $zm_reviews->createReview($review, $account, $zm_runtime->getLanguageId());
+
+        // account email
+        if (zm_setting('isApproveReviews') && zm_setting('isEmailAdminReview')) {
+            $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
+            $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), new ZMSession());
+            $context['zm_account'] = $account;
+            $context['zm_review'] = $review;
+            $context['zm_product'] = $product;
+            zm_mail($subject, 'review', $context, zm_setting('emailAdminReview'));
+        }
+
+        $zm_messages->success("Thank you for your submission");
+        return $this->findView('success', 'products_id='.$product->getId());
+    }
+
+    /**
+     * Get the product.
+     *
+     * @return ZMProduct The product or <code>null</code>.
+     */
+    function _getProduct() {
+    global $zm_request, $zm_products;
+
+        $product = null;
+        if ($zm_request->getProductId()) {
+            $product = $zm_products->getProductForId($zm_request->getProductId());
+        } else if ($zm_request->getModel()) {
+            $product = $zm_products->getProductForModel($zm_request->getModel());
+        }
+        return $product;
+    }
+
+    /**
+     * Handle crumbtrail.
+     *
+     * @param ZMProduct product The current product.
+     */
+    function _handleCrumbtrail($product) {
+    global $zm_request, $zm_crumbtrail;
+
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
         $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
         $zm_crumbtrail->addProduct($product->getId());
         $zm_crumbtrail->addCrumb("Reviews");
-
-        return $this->findView();
     }
 
 }

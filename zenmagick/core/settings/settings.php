@@ -57,7 +57,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;
@@ -92,6 +92,8 @@
     $_ZM_SETTINGS['emailAdminCreateAccount'] = SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO;
     $_ZM_SETTINGS['isEmailAdminTellAFriend'] = SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS == '1' and SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO != '';
     $_ZM_SETTINGS['emailAdminTellAFriend'] = SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO;
+    $_ZM_SETTINGS['isEmailAdminReview'] = SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO_STATUS == '1' && SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO != '';
+    $_ZM_SETTINGS['emailAdminReview'] = SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO;
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;
@@ -114,6 +116,9 @@
     // use category page
     $_ZM_SETTINGS['isUseCategoryPage'] = false;
     $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
+
+    // reviews
+    $_ZM_SETTINGS['isApproveReviews'] = REVIEWS_APPROVAL == '1';
 
     // anonymous checkout
     $_ZM_SETTINGS['isAnonymousCheckout'] = true;

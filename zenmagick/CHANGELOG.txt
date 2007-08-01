@@ -57,6 +57,13 @@ Release 0.8.2
 - changed ZMReviews::getReviewCount(..) to accept productId rather than
   product instance
 - updates zm_seo2 plugin to Ultimate SEO 2.105
+- allow parameters to be passed into views when calling
+  ZMController:getView(..)
+- add suport for enabling/disabling review approval
+- make ZMValidator::getRuleSet(..) work properly in PHP4 (references!)
+- added template for review notification
+- added review write POST handling
+- fix rating values for radiobuttons in product review form
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

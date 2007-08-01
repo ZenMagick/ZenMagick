@@ -165,12 +165,12 @@ class ZMPlugins extends ZMService {
      * @param bool useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function getPluginsForType($type, $useCache=true) {
+    function &getPluginsForType($type, $useCache=true) {
         $idList = array();
         if ($useCache) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
-                if ($status['type'] == $type) {
+                if ($status['type'] == $type && $status['enabled']) {
                     $idList[] = $id;
                 }
             }
@@ -183,7 +183,7 @@ class ZMPlugins extends ZMService {
         foreach ($idList as $id) {
             $plugin =& $this->getPluginForId($id, $type);
             if (null != $plugin) {
-                $plugins[] = $plugin;
+                $plugins[$id] =& $plugin;
             }
         }
 
@@ -227,7 +227,7 @@ class ZMPlugins extends ZMService {
             require_once($file);
         }
 
-        $plugin = new $id();
+        $plugin =& new $id();
         $plugin->setType($type);
         $pluginDir = dirname($file) . '/';
         if ($pluginDir != $typeDir) {
@@ -253,11 +253,12 @@ class ZMPlugins extends ZMService {
             $$name = $instance;
         }
 
-        foreach ($this->getPluginsForType('request') as $plugin) {
-            if ($plugin->isEnabled()) {
-                $pluginHandler = $plugin->getPluginHandler();
+        foreach ($this->getPluginsForType('request') as $id => $plugin) {
+            // PHP4 hack; use $$id rather than $plugin
+            if ($$id->isEnabled()) {
+                $pluginHandler = $$id->getPluginHandler();
                 if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
-                    $pluginHandler->setPlugin($plugin);
+                    $pluginHandler->setPlugin($$id);
                     $contents = $pluginHandler->filterResponse($contents);
                 }
             }

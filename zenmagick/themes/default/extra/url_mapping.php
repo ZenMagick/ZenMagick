@@ -103,4 +103,9 @@
     // tell_a_friend
     $zm_urlMapper->addMapping('tell_a_friend');
     $zm_urlMapper->addMapping('tell_a_friend', 'index', 'success', true, false);
+
+    // product_reviews_write
+    $zm_urlMapper->addMapping('product_reviews_write');
+    $zm_urlMapper->addMapping('product_reviews_write', 'product_reviews', 'success', true, false);
+
 ?>

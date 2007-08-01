@@ -44,13 +44,13 @@
         <div id="stars">
             <input type="radio" id="rating-1" name="rating" value="1" />
             <label for="rating-1"><img src="<?php $zm_theme->themeURL("images/stars_1_small.gif") ?>" alt="<?php zm_l10n("One Star") ?>" title=" <?php zm_l10n("One Star") ?> " /></label>
-            <input type="radio" id="rating-2" name="rating" value="1" />
+            <input type="radio" id="rating-2" name="rating" value="2" />
             <label for="rating-2"><img src="<?php $zm_theme->themeURL("images/stars_2_small.gif") ?>" alt="<?php zm_l10n("Two Stars") ?>" title=" <?php zm_l10n("Two Stars") ?> " /></label>
-            <input type="radio" id="rating-3" name="rating" value="1" />
+            <input type="radio" id="rating-3" name="rating" value="3" />
             <label for="rating-3"><img src="<?php $zm_theme->themeURL("images/stars_3_small.gif") ?>" alt="<?php zm_l10n("Three Stars") ?>" title=" <?php zm_l10n("Three Stars") ?> " /></label>
-            <input type="radio" id="rating-4" name="rating" value="1" />
+            <input type="radio" id="rating-4" name="rating" value="4" />
             <label for="rating-4"><img src="<?php $zm_theme->themeURL("images/stars_4_small.gif") ?>" alt="<?php zm_l10n("Four Stars") ?>" title=" <?php zm_l10n("Four Stars") ?> " /></label>
-            <input type="radio" id="rating-5" name="rating" value="1" />
+            <input type="radio" id="rating-5" name="rating" value="5" />
             <label for="rating-5"><img src="<?php $zm_theme->themeURL("images/stars_5_small.gif") ?>" alt="<?php zm_l10n("Five Stars") ?>" title=" <?php zm_l10n("Five Stars") ?> " /></label>
 
         </div>
@@ -60,7 +60,9 @@
         <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
         <div>
             <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("HTML tags are not allowed.") ?><br />
-            <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("Reviews require prior approval before they will be displayed.") ?>
+            <?php if (zm_setting('isApproveReviews')) { ?>
+               <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("Reviews require prior approval before they will be displayed.") ?>
+            <?php } ?>
         </div>
     </fieldset>
 </form>

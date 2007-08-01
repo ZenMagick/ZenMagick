@@ -52,7 +52,7 @@ class ZMReview extends ZMModel {
         $this->rating_ = 0;
         $this->productId_ = 0;
         $this->productName_ = '';
-        $this->productImage_ = '';
+        $this->productImage_ = null;
         $this->text_ = '';
         $this->dateAdded_ = '';
         $this->author_ = '';
@@ -72,6 +72,20 @@ class ZMReview extends ZMModel {
         parent::__destruct();
     }
 
+
+    /**
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     */
+    function populate($req=null) {
+    global $zm_request;
+
+        $this->rating_ = $zm_request->getParameter('rating', 0);
+        $this->productId_ = $zm_request->getParameter('products_id', 0);
+        $this->text_ = $zm_request->getParameter('review_text', '');
+        return;
+    }
 
     /**
      * Get the review id.

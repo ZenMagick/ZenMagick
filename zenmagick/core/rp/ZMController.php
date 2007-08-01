@@ -205,15 +205,19 @@ class ZMController extends ZMObject {
      * file or other piece of logic.</p>
      *
      * @param string id The controller id or <code>null</code> to return to the current page.
+     * @param string parameter Optional view parameter in URL query format; default is empty string.
      * @return ZMView The actual view to be used to render the response.
      */
-    function &findView($id=null) {
+    function &findView($id=null, $parameter='') {
     global $zm_urlMapper;
 
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
         $view =& $zm_urlMapper->getView($this->id_, $id);
-        return $zm_urlMapper->getView($this->id_, $id);
+        if (!zm_is_empty($parameter) && method_exists($view, 'setParameter')) {
+            $view->setParameter($parameter);
+        }
+        return $view;
     }
 
     /**
