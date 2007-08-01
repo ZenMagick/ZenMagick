@@ -141,6 +141,7 @@
     /* review */
     $zm_validator->addRuleSet(new ZMRuleSet('review', array(
         new ZMRequiredRule('rating', 'Please choose a rating.'),
+        new ZMRequiredRule('review_text', 'Please enter your review.'),
         new ZMMinRule('review_text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     )));
 

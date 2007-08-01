@@ -64,6 +64,7 @@ Release 0.8.2
 - added template for review notification
 - added review write POST handling
 - fix rating values for radiobuttons in product review form
+- make review text mandatory
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
