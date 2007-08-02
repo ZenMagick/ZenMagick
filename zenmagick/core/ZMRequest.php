@@ -229,7 +229,7 @@ class ZMRequest extends ZMObject {
      * @param string name The paramenter name.
      * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
      * @param bool sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
-     * @return string The parameter value or the default value or <code>null</code>.
+     * @return mixed The parameter value or the default value or <code>null</code>.
      */
     function getParameter($name, $default=null, $sanitize=true) { 
         if (isset($this->request_[$name])) {

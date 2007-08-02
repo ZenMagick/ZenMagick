@@ -256,6 +256,13 @@ class ZMAccount extends ZMModel {
     function isNewsletterSubscriber() { return $this->newsletter_; }
 
     /**
+     * Set the newsletter subscription status.
+     *
+     * @param bool newsletterSubscriber <code>true</code> if newsletter subsricption is selected, <code>false</code> if not.
+     */
+    function setNewsletterSubscriber($newsletterSubscriber) { $this->newsletter_ = $newsletterSubscriber; }
+
+    /**
      * Get the voucher balance.
      *
      * @return float The voucher balance.
@@ -276,6 +283,13 @@ class ZMAccount extends ZMModel {
     }
 
     /**
+     * Set the global product subscriber status.
+     *
+     * @param bool globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
+     */
+    function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = $globalProductSubscriber; }
+
+    /**
      * Checks if the user has product subscriptions.
      *
      * @return bool <code>true</code> if the user has product subscriptions, <code>false</code> if not.
@@ -291,6 +305,15 @@ class ZMAccount extends ZMModel {
      */
     function getSubscribedProducts() {
         return $this->subscribedProducts_;
+    }
+
+    /**
+     * Set the subscribed product ids.
+     *
+     * @param array products A list of product ids.
+     */
+    function setSubscribedProducts($products) {
+        $this->subscribedProducts_ = $products;
     }
 
     /**

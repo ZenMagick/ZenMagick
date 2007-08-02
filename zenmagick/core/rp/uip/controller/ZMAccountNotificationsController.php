@@ -70,6 +70,36 @@ class ZMAccountNotificationsController extends ZMController {
         return $this->findView();
     }
 
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request, $zm_accounts, $zm_messages;
+
+        $globalProductSubscriber = zm_boolean($zm_request->getParameter('product_global', 0));
+
+        $account = $zm_request->getAccount();
+        $isGlobalUpdate = false;
+        if ($globalProductSubscriber != $account->isGlobalProductSubscriber()) {
+            $account->setGlobalProductSubscriber($globalProductSubscriber);
+            $zm_accounts->setGlobalProductSubscriber($account->getId(), $globalProductSubscriber);
+            $isGlobalUpdate = true;
+        }
+
+        if (!$isGlobalUpdate) {
+            // if global update is on, products are not listed in the form,
+            // therefore, they would all be removed if updated!
+            $subscribedProducts = $zm_request->getParameter('notify', array());
+            $account = $zm_accounts->setSubscribedProductIds($account, $subscribedProducts);
+        }
+
+        $zm_messages->success('Your product subscriptions have been updated.');
+        return $this->findView('success');
+    }
+
 }
 
 ?>

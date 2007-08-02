@@ -57,7 +57,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications";
 
     // page cache
     $_ZM_SETTINGS['isPageCacheEnabled'] = true;

@@ -108,4 +108,12 @@
     $zm_urlMapper->addMapping('product_reviews_write');
     $zm_urlMapper->addMapping('product_reviews_write', 'product_reviews', 'success', true, false);
 
+    // account_newsletters
+    $zm_urlMapper->addMapping('account_newsletters');
+    $zm_urlMapper->addMapping('account_newsletters', 'account', 'success', true, true);
+
+    // account_notifications
+    $zm_urlMapper->addMapping('account_notifications');
+    $zm_urlMapper->addMapping('account_notifications', 'account', 'success', true, true);
+
 ?>

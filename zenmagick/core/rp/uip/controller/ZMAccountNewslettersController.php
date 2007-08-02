@@ -70,6 +70,27 @@ class ZMAccountNewslettersController extends ZMController {
         return $this->findView();
     }
 
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request, $zm_accounts, $zm_messages;
+
+        $newsletterSubscriber = zm_boolean($zm_request->getParameter('newsletter_general', 0));
+
+        $account = $zm_request->getAccount();
+        if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
+            $account->setNewsletterSubscriber($newsletterSubscriber);
+            $zm_accounts->updateAccount($account);
+        }
+
+        $zm_messages->success('Your newsletter subscription has been updated.');
+        return $this->findView('success');
+    }
+
 }
 
 ?>

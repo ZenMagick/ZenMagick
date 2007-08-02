@@ -223,7 +223,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
         if (is_integer($value)) {
             return $value;
         }
-        return zm_is_in_array(strtolower($value), "on,true,yes");
+        return zm_is_in_array(strtolower($value), "on,true,yes,1");
     }
  
 ?>

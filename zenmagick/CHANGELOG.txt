@@ -72,6 +72,7 @@ Release 0.8.2
   (plus any number of code implementing all that)
 - disable validation of billing address list selection during checkout
 - auto select shipping/billing address in list if only one address
+- implement product and newsletter subscription updates
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

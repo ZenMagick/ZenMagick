@@ -160,6 +160,12 @@ class ZMAccounts extends ZMService {
     /**
      * Update an existing account.
      *
+     * <p><strong>NOTE:</strong> This will not update product notification
+     * changes!</p>
+     * <p>Use <code>setGlobalProductSubscriber(..)</code> and 
+     * <code>setSubscribedProductIds(..)</code> * to update product
+     * subscriptions.</p>
+     *
      * @param ZMAccount The account.
      * @return ZMAccount The updated account.
      */
@@ -184,6 +190,7 @@ class ZMAccounts extends ZMService {
         $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
+
         return $account;
     }
 
@@ -228,8 +235,8 @@ class ZMAccounts extends ZMService {
         $account->defaultAddressId_ = $fields['customers_default_address_id'];
         $account->authorization_ = $fields['customers_authorization'];
         $account->newsletter_ = 1 == $fields['customers_newsletter'];
-        $account->globalSubscriber_ = $this->_isGlobalProductSubscriber($account->getId());
-        $account->subscribedProducts_ = $this->_getSubscribedProductIds($account->getId());
+        $account->globalSubscriber_ = $this->isGlobalProductSubscriber($account->getId());
+        $account->subscribedProducts_ = $this->getSubscribedProductIds($account->getId());
         $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_ANONYMOUS);
         return $account;
     }
@@ -251,8 +258,11 @@ class ZMAccounts extends ZMService {
 
     /**
      * Check for global product subscriber.
+     *
+     * @param int accountId The account id.
+     * @return bool <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
      */
-    function _isGlobalProductSubscriber($accountId) {
+    function isGlobalProductSubscriber($accountId) {
         $db = $this->getDB();
         $sql = "select global_product_notifications
                 from " . TABLE_CUSTOMERS_INFO . "
@@ -260,13 +270,34 @@ class ZMAccounts extends ZMService {
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
 
         $results = $db->Execute($sql);
+
         return $results->fields['global_product_notifications'] == '1';
     }
 
     /**
-     * Get subscribed product ids.
+     * Set the global product subscriber flag
+     *
+     * @param int accountId The account id.
+     * @param bool globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    function _getSubscribedProductIds($accountId) {
+    function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
+        $db = $this->getDB();
+        $sql = "update " . TABLE_CUSTOMERS_INFO . "
+                set global_product_notifications = :globalProductSubscriber
+                where  customers_info_id = :accountId";
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+        $sql = $db->bindVars($sql, ":globalProductSubscriber", $globalProductSubscriber, "integer");
+
+        $results = $db->Execute($sql);
+    }
+
+    /**
+     * Get subscribed product ids.
+     *
+     * @param int accountId The account id.
+     * @return array A list of subscribed product ids.
+     */
+    function getSubscribedProductIds($accountId) {
         $db = $this->getDB();
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
@@ -279,7 +310,55 @@ class ZMAccounts extends ZMService {
             array_push($productIds, $results->fields['products_id']);
             $results->MoveNext();
         }
+
         return $productIds;
+    }
+
+    /**
+     * Set subscribed product ids.
+     *
+     * @param ZMAccount account The account.
+     * @param array productIds The new list of subscribed product ids.
+     * @return ZMAccount The aupdated account.
+     */
+    function &setSubscribedProductIds(&$account, $productIds) {
+        $currentList = array_flip($account->getSubscribedProducts());
+        $newList = array_flip($productIds);
+        $remove = array();
+        $add = array();
+        foreach ($newList as $id => $index) {
+            if (!array_key_exists($id, $currentList)) {
+                $add[] = $id;
+            }
+        }
+        foreach ($currentList as $id => $index) {
+            if (!array_key_exists($id, $newList)) {
+                $remove[] = $id;
+            }
+        }
+
+        $db = $this->getDB();
+        if (0 < count($remove)) {
+            $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    where  customers_id = :accountId
+                    and products_id in (:productIdList)";
+            $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
+            $sql = $this->bindValueList($sql, ":productIdList", $remove, "integer");
+            $results = $db->Execute($sql);
+        }
+
+        if (0 < count($add)) {
+            foreach ($add as $id) {
+                $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                        (products_id, customers_id) values (:productId, :accountId)";
+                $sql = $db->bindVars($sql, ":productId", $id, "integer");
+                $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
+                $results = $db->Execute($sql);
+            }
+        }
+
+        $account->setSubscribedProducts($productIds);
+        return $account;
     }
 
 }
