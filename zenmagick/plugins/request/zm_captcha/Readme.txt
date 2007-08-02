@@ -24,7 +24,7 @@ class you'll need to reapply those changes.
 2) added a new line in the c'tor to set the fonts directory. That line needs
    to be placed after the original code that initialises dir_fs_fonts:
 
-		$this->dir_fs_fonts = $zm_captcha_ttf->getPluginDir() . 'fonts/';
+		$this->dir_fs_fonts = $zm_captcha->getPluginDir() . 'fonts/';
 
 3) At the end of the c'tor, the img_href gets set. I removed the '.php' sufix
    from captcha_img.php to make it point to the new controller included in this
@@ -40,15 +40,15 @@ to replace backslash-single quote:  \'  with two single quotes:  ''
 Usage
 =====
 The captcha fieldname is 'captcha'. If you need to change that, please modify
-the 'ZM_CAPTCHA_TTF_FIELD' define at the top of zm_captcha_ttf.php.
+the 'ZM_CAPTCHA_TTF_FIELD' define at the top of zm_captcha.php.
 
 To use the captcha, you'll need to configure the pages you want to protect and then
 add something like the following to your templates.
 Please note that the only page specific bit is the filename for the reload. This is
 an example for the contact_us page:
 
-    <?php if (is_object($zm_captcha_ttf) && $zm_captcha_ttf->isCaptchaEnabled()) { ?>
-        <?php $zm_captcha_ttf->showImage(); ?>
+    <?php if (is_object($zm_captcha) && $zm_captcha->isCaptchaEnabled()) { ?>
+        <?php $zm_captcha->showImage(); ?>
         <a href="<?php zm_href(null) ?>"><?php zm_l10n("Click to refresh page")?></a><br />
         <label for="captcha"><?php zm_l10n("Captcha") ?><span>*</span></label>
         <input type="text" id="captcha" name="captcha" value="" /><br />

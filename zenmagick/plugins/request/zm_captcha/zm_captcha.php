@@ -29,11 +29,11 @@ define('ZM_CAPTCHA_TTF_FIELD', 'captcha');
 /**
  * Plugin to enable support for CAPTCHA TTF in ZenMagick.
  *
- * @package net.radebatz.zenmagick.plugins.zm_patcha_ttf
+ * @package net.radebatz.zenmagick.plugins.zm_patcha
  * @author mano
  * @version $Id$
  */
-class zm_captcha_ttf extends ZMPlugin {
+class zm_captcha extends ZMPlugin {
     var $captcha_;
     // page => (status, form_name)
     var $pageConfig_ = array(
@@ -49,8 +49,8 @@ class zm_captcha_ttf extends ZMPlugin {
     /**
      * Default c'tor.
      */
-    function zm_captcha_ttf() {
-        parent::__construct('ZenMagick CAPTCHA TTF Plugin', 'CAPTCHA TTF support for ZenMagick');
+    function zm_captcha() {
+        parent::__construct('ZenMagick CAPTCHA Plugin', 'CAPTCHA for ZenMagick');
         $this->setLoaderSupport('ALL');
         $this->captchaEnabled_ = false;
     }
@@ -59,7 +59,7 @@ class zm_captcha_ttf extends ZMPlugin {
      * Default c'tor.
      */
     function __construct() {
-        $this->zm_captcha_ttf();
+        $this->zm_captcha();
     }
 
     /**
@@ -109,7 +109,7 @@ class zm_captcha_ttf extends ZMPlugin {
                 $this->captchaEnabled_ = true;
                 $zm_validator->addRule($config[1], new ZMRequiredRule(ZM_CAPTCHA_TTF_FIELD, 'Please enter the captcha.'));
                 $captchaRule = $this->create("WrapperRule", ZM_CAPTCHA_TTF_FIELD, 'The entered captcha is not correct.');
-                $captchaRule->setFunction('zm_captcha_ttf_validate');
+                $captchaRule->setFunction('zm_captcha_validate');
                 $zm_validator->addRule($config[1], $captchaRule);
             }
         }
@@ -159,17 +159,17 @@ class zm_captcha_ttf extends ZMPlugin {
 /**
  * Validate the captcha value.
  *
- * @package net.radebatz.zenmagick.plugins.zm_patcha_ttf
+ * @package net.radebatz.zenmagick.plugins.zm_patcha
  * @param string page The page name.
  */
-function zm_captcha_ttf_validate($req) {
-global $zm_request, $zm_captcha_ttf;
+function zm_captcha_validate($req) {
+global $zm_request, $zm_captcha;
 
     if (zm_is_empty($zm_request->getParameter(ZM_CAPTCHA_TTF_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }
-    $captcha = $zm_captcha_ttf->getCaptcha();
+    $captcha = $zm_captcha->getCaptcha();
     return $captcha->validateCaptchaCode();
 }
 

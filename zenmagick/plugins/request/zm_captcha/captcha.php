@@ -41,7 +41,7 @@ class pcaptcha {
 	var $debug = false;
 
 	function pcaptcha() {
-		global $session_started, $zm_captcha_ttf;
+		global $session_started, $zm_captcha;
 
 		if(defined('CAPTCHA_CODE_LENGTH')) $this->captchaCode_length = CAPTCHA_CODE_LENGTH;
 		if(defined('CAPTCHA_IMG_WIDTH')) $this->img_width = CAPTCHA_IMG_WIDTH;
@@ -52,7 +52,7 @@ class pcaptcha {
 		if(defined('CAPTCHA_CHARS_MAX_SIZE')) $this->chars_max_size = CAPTCHA_CHARS_MAX_SIZE;
 		if(defined('CAPTCHA_CHARS_ROTATION')) $this->chars_rotation = CAPTCHA_CHARS_ROTATION;
 		if(defined('DIR_FS_CATALOG')) $this->dir_fs_fonts = DIR_FS_CATALOG . 'fonts/';
-		$this->dir_fs_fonts = $zm_captcha_ttf->getPluginDir() . 'fonts/';
+		$this->dir_fs_fonts = $zm_captcha->getPluginDir() . 'fonts/';
 		if(defined('CAPTCHA_MAX_TRY')) $this->max_try = CAPTCHA_MAX_TRY;
 		if(defined('CAPTCHA_FAILURE_PROC')) $this->failure_proc = CAPTCHA_FAILURE_PROC;
 

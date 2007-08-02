@@ -30,7 +30,7 @@
  * <p>This controller will generate the actual captcha image.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_captcha_ttf
+ * @package net.radebatz.zenmagick.plugins.zm_captcha
  * @version $Id$
  */
 class CaptchaImgController extends ZMController {
