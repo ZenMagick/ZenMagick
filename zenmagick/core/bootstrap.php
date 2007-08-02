@@ -448,7 +448,8 @@ if (!class_exists("ZMObject")) {
             $session->setMessages($zm_messages->getMessages());
         }
 
-        zen_redirect($url);
+        header('Location: ' . $url);
+        zen_exit();
     }
 
 

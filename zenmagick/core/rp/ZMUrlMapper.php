@@ -38,6 +38,10 @@ define('_ZM_DEFAULT_MAPPING_ID', '_zm_default_mapping_key');
  * @version $Id$
  */
 class ZMUrlMapper extends ZMObject {
+    // global views; key is viewId
+    var $globalViews_;
+    // controller specific views; key is controller
+    var $controllerViews_;
     var $mapping_;
 
 
@@ -48,6 +52,8 @@ class ZMUrlMapper extends ZMObject {
         parent::__construct();
 
         $this->mapping_ = array();
+        $this->globalViews_ = array();
+        $this->controllerViews_ = array();
     }
 
     /**
@@ -66,99 +72,98 @@ class ZMUrlMapper extends ZMObject {
 
 
     /**
-     * Add new mapping.
+     * Set a mapping.
      *
-     * @param string controller The controller; <code>null</code> may be used for shared mappings.
-     * @param string view The actual view name; default is <code>null</code> to default to the controller name.
-     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>); default is
-     *  <code>null</code> to default to the controller name.
-     * @param bool redirect Optional flag for redirect views; default is <code>false</code>.
-     * @param bool secure Optional flag for secure views; default is <code>false</code>.
+     * @param string controller The controller; <code>null</code> may be used to lookup shared mappings.
+     * @param string viewId The view id; this is the key the controller is using to lookup the view; default is <code>null</code>.
+     * @param string view The mapped view name; default is <code>null</code> to default to the controller name.
+     * @param string viewClass The class to be used; default is <code>PageView</code>
+     * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      */
-    function addMapping($controller, $view=null, $id=null, $redirect=false, $secure=false) {
+    function setMapping($controller, $viewId=null, $view=null, $viewClass='PageView', $parameter=null) {
+        if (null == $controller && (null == $view || null == $viewId)) {
+            zm_backtrace("invalid url mapping");
+        }
+        $viewId = null != $viewId ? $viewId : $controller;
+
+        // first, build the view info
+        $viewInfo = array();
+        $viewInfo['view'] = (null != $view ? $view : $controller);
+        $viewInfo['class'] = $viewClass;
+        $viewInfo['parameter'] = $parameter;
+
         if (null === $controller) {
-            $controller = _ZM_DEFAULT_MAPPING_ID;
-        }
-        if (null === $view) {
-            $view = $controller;
-        }
-        if (null === $id) {
-            $id = _ZM_DEFAULT_MAPPING_ID;
-        }
-        if (isset($this->mappings_[$controller])) {
-            $map = $this->mappings_[$controller];
+            // global mapping
+            $this->globalViews_[$viewId] = $viewInfo;
         } else {
-            $map = array();
+            if (!isset($this->controllerViews_[$controller])) {
+                $this->controllerViews_[$controller] = array();
+            }
+            $this->controllerViews_[$controller][$viewId] = $viewInfo;
         }
-        $map[$id] = array('view' => $view, 'redirect' => $redirect, 'secure' => $secure);
-        $this->mappings_[$controller] = $map;
     }
 
     /**
-     * Find mapping for the given controller and id.
+     * Find a URL mapping for the given controller and viewId.
      *
-     * @param string controller The controller; <code>null</code> may be used for shared mappings.
-     * @param string id The mapping id (this will be used as parameter for <code>findView(..)</code>); default is
-     *  <code>null</code> to default to the controller name.
+     * @param string controller The controller.
+     * @param string viewId The viewId; defaults to <code>null</code> to use the controller.
+     * @param array parameter Optional map of name/value pairs (or URL query format string) 
+     *  to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    function &getView($controller, $id=null) {
-        if (isset($this->mappings_[$controller])) {
-            $map = $this->mappings_[$controller];
-        } else {
-            // try defaults right away...
-            $map = $this->mappings_[_ZM_DEFAULT_MAPPING_ID];
-        }
-        if (null === $id) {
-            $id = _ZM_DEFAULT_MAPPING_ID;
+    function &findView($controller, $viewId=null, $parameter=null) {
+        $viewInfo = null;
+
+        $viewId = null != $viewId ? $viewId : $controller;
+
+        // check controller
+        if (isset($this->controllerViews_[$controller])) {
+            $controllerViews = $this->controllerViews_[$controller];
+            $viewInfo = (isset($controllerViews[$viewId]) ? $controllerViews[$viewId] : null);
         }
 
-        if (isset($map[$id])) {
-            // return mapping
-            return $this->_mkView($map[$id], $id);
-        } else {
-            if (isset($this->mappings_[$controller])) {
-                // try defaults
-                $map = $this->mappings_[_ZM_DEFAULT_MAPPING_ID];
-                if (isset($map[$id])) {
-                    // return default
-                    return $this->_mkView($map[$id], $id);
+        if (null == $viewInfo) {
+            // try global mappings
+            $viewInfo = (isset($this->globalViews_[$viewId]) ? $this->globalViews_[$viewId] : null);
+        }
+
+        if (null == $viewInfo) {
+            // set some sensible defaults
+            $viewInfo = array('view' => $controller, 'class' => 'PageView', 'parameter' => null);
+        }
+
+        $view = $this->create($viewInfo['class'], $viewInfo['view']);
+        $view->setMappingId($id);
+        $parameterMap = $this->_toArray($viewInfo['parameter']);
+        $parameterMap = array_merge($parameterMap, $this->_toArray($parameter));
+        if (0 < count($parameterMap)) {
+            foreach ($parameterMap as $name => $value) {
+                $method = 'set'.ucwords($name);
+                if (method_exists($view, $method)) {
+                    $view->$method($value);
                 }
             }
         }
-      
-        // make id===controller behave the same as id===null
-        if ($controller == $id && isset($this->mappings_[$controller])) {
-            $map = $this->mappings_[$controller];
-            if (isset($map[_ZM_DEFAULT_MAPPING_ID])) {
-                return $this->_mkView($map[_ZM_DEFAULT_MAPPING_ID], $id);
-            }
-        }
 
-        //zm_log('no URL mapping found for: controller: '.$controller.'; id: '.$id, ZM_LOG_ERROR);
-        $view = $this->_mkView(array('view' => $controller), $id);
         return $view;
     }
 
     /**
-     * Create new view based on the given parameter.
+     * Little helper to handle either string or array.
      *
-     * @param array mapping A mapping.
-     * @param string id The mapping id.
-     * @return ZMView A view.
+     * @param mixed value The value to convert; either already an array or a URL query form string.
+     * @return array The value as array.
      */
-    function &_mkView($mapping, $id) {
-        $view = null;
-        if ($mapping['redirect']) {
-            $view = $this->create("RedirectView", $mapping['view'], $mapping['secure']);
-        } else if (zm_starts_with($mapping['view'], 'popup')) {
-            // TODO: add to mapping table
-            $view = $this->create("PopupView", $mapping['view']);
-        } else {
-            $view = $this->create("PageView", $mapping['view']);
+    function _toArray($value) {
+        if (null == $value) {
+            return array();
         }
-        $view->setMappingId($id);
-        return $view;
+        if (is_array($value)) {
+            return $value;
+        }
+        parse_str($value, $map);
+        return $map;
     }
 
 }

@@ -41,7 +41,7 @@ class ZMRedirectView extends ZMView {
      * Create a new redirect view.
      *
      * @param string page The page (view) name.
-     * @param bool secure Flag whether to redirect using a secure URL or not.
+     * @param bool secure Flag whether to redirect using a secure URL or not; default is <code>false</code>.
      */
     function ZMRedirectView($page, $secure=false) {
         parent::__construct($page);
@@ -55,7 +55,7 @@ class ZMRedirectView extends ZMView {
      * Create a new redirect view.
      *
      * @param string page The page (view) name.
-     * @param bool secure Flag whether to redirect using a secure URL or not.
+     * @param bool secure Flag whether to redirect using a secure URL or not; default is <code>false</code>.
      */
     function __construct($page, $secure=false) {
         $this->ZMRedirectView($page, $secure);
@@ -83,14 +83,13 @@ class ZMRedirectView extends ZMView {
      */
     function generate() { 
         $url = null;
-        if ($secure) {
+        if ($this->secure_) {
             $url = zm_secure_href($this->page_, $this->parameter_, false);
         } else {
             $url = zm_href($this->page_, $this->parameter_, false);
         }
 
         zm_redirect($url);
-        zm_exit();
     }
 
     /**
@@ -100,6 +99,15 @@ class ZMRedirectView extends ZMView {
      */
     function setParameter($parameter) {
         $this->parameter_ = $parameter;
+    }
+
+    /**
+     * Set secure flag.
+     *
+     * @param bool secure <code>true</code> to create a secure redirect.
+     */
+    function setSecure($secure) {
+        $this->secure_ = $secure;
     }
 
 }

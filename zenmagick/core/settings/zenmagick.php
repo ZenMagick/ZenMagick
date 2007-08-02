@@ -93,10 +93,10 @@
     //** loglevel **//
 
     define('ZM_LOG_ERROR', 1);
-    define('ZM_LOG_ERROR', 2);
+    define('ZM_LOG_WARN', 2);
     define('ZM_LOG_INFO', 3);
     define('ZM_LOG_DEBUG', 4);
-    define('ZM_LOG_DEBUG', 5);
+    define('ZM_LOG_TRACE', 5);
 
 
     //** fixed product images sizes **//

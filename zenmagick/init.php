@@ -121,6 +121,7 @@
 
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
+    zm_set_default_url_mappings();
 
     // load 
     if (zm_setting('isEnableZenMagick')) {

@@ -134,7 +134,7 @@ class ZMController extends ZMObject {
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView('page');
+        return $this->findView();
     }
 
 
@@ -205,18 +205,15 @@ class ZMController extends ZMObject {
      * file or other piece of logic.</p>
      *
      * @param string id The controller id or <code>null</code> to return to the current page.
-     * @param string parameter Optional view parameter in URL query format; default is empty string.
+     * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    function &findView($id=null, $parameter='') {
+    function &findView($id=null, $parameter=null) {
     global $zm_urlMapper;
 
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
-        $view =& $zm_urlMapper->getView($this->id_, $id);
-        if (!zm_is_empty($parameter) && method_exists($view, 'setParameter')) {
-            $view->setParameter($parameter);
-        }
+        $view =& $zm_urlMapper->findView($this->id_, $id, $parameter);
         return $view;
     }
 

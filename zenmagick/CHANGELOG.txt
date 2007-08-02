@@ -73,6 +73,11 @@ Release 0.8.2
 - disable validation of billing address list selection during checkout
 - auto select shipping/billing address in list if only one address
 - implement product and newsletter subscription updates
+- do not use zen_redirect(..) any more as it will convert non SSL urls to SSL 
+  if current request is SSL - we want to control that with url mappings,
+	though!
+- reworked url mappings and moved to core/settings as they are not really
+  theme specific
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
