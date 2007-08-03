@@ -23,11 +23,11 @@
 ?>
 <?php
 
-define('ZM_CAPTCHA_TTF_FIELD', 'captcha');
+define('ZM_CAPTCHA_FIELD', 'captcha');
 
 
 /**
- * Plugin to enable support for CAPTCHA TTF in ZenMagick.
+ * Plugin to enable support for CAPTCHA in ZenMagick.
  *
  * @package net.radebatz.zenmagick.plugins.zm_patcha
  * @author mano
@@ -102,13 +102,13 @@ class zm_captcha extends ZMPlugin {
         if (array_key_exists($page, $this->pageConfig_)) {
             $this->captcha_ = new pcaptcha();
             $session = new ZMSession();
-            $session->setValue('captcha_field', ZM_CAPTCHA_TTF_FIELD);
+            $session->setValue('captcha_field', ZM_CAPTCHA_FIELD);
             $config = $this->pageConfig_[$page];
             if ('false' != $config[0]) {
                 // active for this page
                 $this->captchaEnabled_ = true;
-                $zm_validator->addRule($config[1], new ZMRequiredRule(ZM_CAPTCHA_TTF_FIELD, 'Please enter the captcha.'));
-                $captchaRule = $this->create("WrapperRule", ZM_CAPTCHA_TTF_FIELD, 'The entered captcha is not correct.');
+                $zm_validator->addRule($config[1], new ZMRequiredRule(ZM_CAPTCHA_FIELD, 'Please enter the captcha.'));
+                $captchaRule = $this->create("WrapperRule", ZM_CAPTCHA_FIELD, 'The entered captcha is not correct.');
                 $captchaRule->setFunction('zm_captcha_validate');
                 $zm_validator->addRule($config[1], $captchaRule);
             }
@@ -165,7 +165,7 @@ class zm_captcha extends ZMPlugin {
 function zm_captcha_validate($req) {
 global $zm_request, $zm_captcha;
 
-    if (zm_is_empty($zm_request->getParameter(ZM_CAPTCHA_TTF_FIELD))) {
+    if (zm_is_empty($zm_request->getParameter(ZM_CAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

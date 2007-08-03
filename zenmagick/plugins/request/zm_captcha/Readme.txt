@@ -1,14 +1,17 @@
-This is the ZenMagick plugin for CAPTCHA TTF support.
+This is the ZenMagick plugin for CAPTCHA support,
+based on the CAPTCH zen-cart contribution by Andrew Berezin.
+See the file readme.captcha.txt for more details about the included
+code.
 
 
 Installation
 ============
 1) Unzip the plugin package into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
-3) Configure CAPTCH TTF as required - if CAPTCHA TTF was already installed,
+3) Configure CAPTCH as required - if CAPTCHA was already installed,
    you are already done!
 
-After the plugin has been installed you should have the CAPTCHA TTF
+After the plugin has been installed you should have the CAPTCHA
 configuration options available in the admin interface.
 
 
@@ -40,7 +43,7 @@ to replace backslash-single quote:  \'  with two single quotes:  ''
 Usage
 =====
 The captcha fieldname is 'captcha'. If you need to change that, please modify
-the 'ZM_CAPTCHA_TTF_FIELD' define at the top of zm_captcha.php.
+the 'ZM_CAPTCHA_FIELD' define at the top of zm_captcha.php.
 
 To use the captcha, you'll need to configure the pages you want to protect and then
 add something like the following to your templates.
@@ -54,3 +57,6 @@ an example for the contact_us page:
         <input type="text" id="captcha" name="captcha" value="" /><br />
     <?php } ?>
 
+The image will be clickable to reload (JavaScript). Alternatively, the sample code will
+create a text link that reloads the page and thus a new image.
+NOTE: CLicking the text link will *NOT* preserve the form field data.
