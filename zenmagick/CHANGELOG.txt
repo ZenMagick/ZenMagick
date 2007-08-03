@@ -78,6 +78,8 @@ Release 0.8.2
 	though!
 - reworked url mappings and moved to core/settings as they are not really
   theme specific
+- removed Ultimate SEO2.x rewrite rules from the release .htaccess file; the
+  htaccess_sample (rewrite rules only) is now included in the plugin
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called

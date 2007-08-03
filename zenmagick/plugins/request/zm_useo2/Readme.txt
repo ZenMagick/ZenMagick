@@ -6,7 +6,10 @@ http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&pro
 NEW Installation
 ================
 1) Unzip the plugin package into the zenmagick/plugins directory.
-2) Install plugin using the ZenMagick Plugin Manager.
+2) Add the Apache webserver redirect rules from the file htaccess_sample
+   to your .htaccess file (the ZenMagick version has a comment to indicate where
+   to paste them)
+3) Install plugin using the ZenMagick Plugin Manager.
 
 After the plugin has been installed you should have the Ultimate SEO
 configuration options available in the admin interface.

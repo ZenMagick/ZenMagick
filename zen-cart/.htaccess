@@ -8,21 +8,7 @@ RewriteBase /zen-cart/
 RewriteRule ^([^/]+)/([^/]+)/rss.xml index.php?main_page=rss&channel=$1&key=$2 [QSA,L]
 RewriteRule ^([^/]+)/rss.xml index.php?main_page=rss&channel=$1 [QSA,L]
 
-## START: Ultimate SEO 2.x
-# From Ultimate SEO URLs
-RewriteRule ^(.*)-p-(.*).html$ index\.php?main_page=product_info&products_id=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-c-(.*).html$ index\.php?main_page=index&cPath=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-m-([0-9]+).html$ index\.php?main_page=index&manufacturers_id=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-pi-([0-9]+).html$ index\.php?main_page=popup_image&pID=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-pr-([0-9]+).html$ index\.php?main_page=product_reviews&products_id=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-pri-([0-9]+).html$ index\.php?main_page=product_reviews_info&products_id=$2&%{QUERY_STRING} [L]
-
-# All other pages
-# Don't rewrite real files or directories
-RewriteCond %{REQUEST_FILENAME} !-f [NC]
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*).html$ index\.php?main_page=$1&%{QUERY_STRING} [L]
-## END: Ultimate SEO
+##  Ultimate SEO2.x rules would go here:
 
 ## NOTE: Remember to update _zm_build_href if making changes here
 RewriteRule ^static/([^/]+)/([^/]+)/?$ index.php?main_page=static&cat=$1#$2 [QSA,L]
