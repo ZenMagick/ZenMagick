@@ -114,7 +114,7 @@
 
         // tell_a_friend
         $zm_urlMapper->setMapping('tell_a_friend');
-        $zm_urlMapper->setMapping('tell_a_friend', 'success', 'index', 'RedirectView');
+        $zm_urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
 
         // product_reviews_write
         $zm_urlMapper->setMapping('product_reviews_write');
