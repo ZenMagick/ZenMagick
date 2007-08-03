@@ -184,8 +184,8 @@
 
     // call init only after everything set up
     foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
-        // PHP4 hack; use $$id rather than $plugin
-        if ($$id->isEnabled()) {
+        if ($plugin->isEnabled()) {
+            // PHP4 hack; use $$id rather than $plugin
             $$id->init();
         }
     }
