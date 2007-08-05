@@ -37,6 +37,8 @@ require_once('includes/application_top.php');
     $remove = $zm_request->getParameter('remove');
     $edit = $zm_request->getParameter('edit');
     $type = $zm_request->getParameter('type');
+    $select = $zm_request->getParameter('select');
+    $refresh = '';
     $needRefresh = false;
     if (null != $install) {
         $plugin = $zm_plugins->getPluginForId($install);
@@ -56,6 +58,7 @@ require_once('includes/application_top.php');
         $edit = $install;
         $editPlugin = $plugin;
         $needRefresh = true;
+        $refresh = $edit;
     } else if (null != $remove) {
         $plugin = $zm_plugins->getPluginForId($remove);
         if ($plugin->isInstalled()) {
@@ -74,6 +77,9 @@ require_once('includes/application_top.php');
         $needRefresh = true;
     } else if (null != $edit) {
         $editPlugin = $zm_plugins->getPluginForId($edit);
+    } else if (null != $select) {
+        $edit = $select;
+        $editPlugin = $zm_plugins->getPluginForId($select);
     }
 
     // update
@@ -84,8 +90,7 @@ require_once('includes/application_top.php');
     }
 
     if ($needRefresh) {
-        zm_redirect(ZM_ADMINFN_PLUGINS);
-        zm_exit();
+        zm_redirect(ZM_ADMINFN_PLUGINS.'?select='.$refresh);
     }
 
     // build/update plugin status for all plugins
