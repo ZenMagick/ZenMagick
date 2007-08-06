@@ -449,7 +449,7 @@ if (!class_exists("ZMObject")) {
         }
 
         header('Location: ' . $url);
-        zen_exit();
+        zm_exit();
     }
 
 
@@ -460,7 +460,10 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      */
-    function zm_exit() { zen_exit(); }
+    function zm_exit() {
+        zen_session_close();
+        exit();
+    }
 
 
     /**
