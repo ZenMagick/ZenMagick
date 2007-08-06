@@ -255,6 +255,7 @@ class ZMPlugins extends ZMService {
 
         foreach ($this->getPluginsForType('request') as $id => $plugin) {
             // PHP4 hack; use $$id rather than $plugin
+            global $id;
             if ($$id->isEnabled()) {
                 $pluginHandler = $$id->getPluginHandler();
                 if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
