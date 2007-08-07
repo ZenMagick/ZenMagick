@@ -35,6 +35,7 @@ Release 0.8.2
   ZMView::getViewFilename(..) got stripped of it's parameters
 - make address create dialog default to store country (same as create account)
 - add post request handling for address book
+- add post request handling for create account; this includes fixing #1760129
 - fix state/zoneId issues
 - some more phpdoc
 - added ZMZone model class
