@@ -185,8 +185,8 @@
 
         for ($ii=$maxLevel; $ii > 0; --$ii) {
             $text = preg_replace('/\n?([\*#]{'.$ii.'})\s+(.*)/', '<li\1>\2</li\1>', $text);
-            $text = preg_replace('/(<li\*{1,'.$ii.'}>.*<\/li\*{1,'.$ii.'}>)/', '<ul>\1</ul>', $text);
-            $text = preg_replace('/(<li\#{1,'.$ii.'}>.*<\/li\#{1,'.$ii.'}>)/', '<ol>\1</ol>', $text);
+            $text = preg_replace('/(<li\*{1,'.$ii.'}>.*<\/li\*{1,'.$ii.'}>)\n?/', '<ul>\1</ul>', $text);
+            $text = preg_replace('/(<li\#{1,'.$ii.'}>.*<\/li\#{1,'.$ii.'}>)\n?/', '<ol>\1</ol>', $text);
         }
 
         for ($ii=$maxLevel; $ii > 0; --$ii) {

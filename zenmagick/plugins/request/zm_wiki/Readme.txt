@@ -56,3 +56,13 @@ SIDEBOX
 The plugin also creates a sidebox 'zm_wiki' that will display the contents of
 'WikiNav'. This cona be configured like any other sidebox. The template is
 generated in the default theme.
+
+
+LAYOUT
+======
+If you would like to use a different layout for the wiki pages, add the following
+layout settings to your theme's ThemeInfo class (contructor method):
+
+        $this->setLayout('zm_view_wiki', 'wiki_layout');
+        $this->setLayout('zm_view_wiki_edit', 'wiki_layout');
+

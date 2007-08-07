@@ -494,13 +494,14 @@ function webpagelink( $text )
 
 	// link target	
 	$window="";                
-	if ($size>2)
+	if ($size>2) {
 		$window = $results[2];
-	else
+  } else {
 	if ( $pawfaliki_config['MISC']['EXTERNALLINKS_NEWWINDOW'] )
 		$window = "_blank";
 	else
 		$window = "_self";
+  }
 		
 	// see whether it is a Wiki Link or not
 	$prefix = explode( "/", $src );
@@ -510,7 +511,7 @@ function webpagelink( $text )
 		{
 			$src = zm_plugin_url('wiki;zm_wiki_admin', 'page='.$src, false);
 			$window = "_self";
-			$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\">".$desc."</a>";
+			$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\"".$clazz.">".$desc."</a>";
 		}
 		elseif ($src[0]=="#") // maybe its an anchor link
 		{
@@ -530,7 +531,7 @@ function webpagelink( $text )
 	}
 	else
 	{		
-		$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\">".$desc."</a>";			
+		$resultstr = "<a class=\"external\" href=\"".$src."\" onclick=\"target='$window';\">".$desc."</a>";			
 	}
 	return verbatim( $resultstr );
 }
