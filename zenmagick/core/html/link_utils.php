@@ -348,7 +348,6 @@
                             $mapping = $_zm_pretty_link_map[$page];
                             if (null == $mapping['convert']) {
                                 $path .= $page;
-                                $path .= '/';
                             } else {
                                 if (function_exists($mapping['convert'])) {
                                     $path .= call_user_func($mapping['convert'], $page, $query);

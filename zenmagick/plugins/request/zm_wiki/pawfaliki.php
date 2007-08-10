@@ -510,13 +510,12 @@ function webpagelink( $text )
 		if (pageExists($src)) // is it a wiki page
 		{
 			$src = zm_plugin_url('wiki;zm_wiki_admin', 'page='.$src, false);
-			$window = "_self";
-			$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\"".$clazz.">".$desc."</a>";
+			$resultstr = "<a href=\"".$src."\" ".$clazz.">".$desc."</a>";
 		}
 		elseif ($src[0]=="#") // maybe its an anchor link
 		{
-			$window = "_self";
-			$resultstr = "<a href=\"".$src."\" onclick=\"target='$window';\">".$desc."</a>";
+			$href = zm_plugin_url('wiki;zm_wiki_admin', 'page='.getTitle(), false);
+			$resultstr = "<a href=\"".$href.$src."\">".$desc."</a>";
 		}
 		elseif ($pawfaliki_config['SYNTAX']['AUTOCREATE']) // maybe autolink
 		{
@@ -671,7 +670,7 @@ function wikiparse( $contents )
 
 	// html shortcuts
 	$patterns[3] = "/@@([^@]*)@@/";
-	$replacements[3] = "<a name=\\\"$1\\\"></a>";
+	$replacements[3] = "<a name=\\\"$1\\\" id=\\\"$1\\\"></a>";
 	
 	// wiki words	
 	if ( $pawfaliki_config['SYNTAX']['WIKIWORDS'] )

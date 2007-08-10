@@ -168,6 +168,7 @@
     // printWikiSyntax: add line:  zm_wiki_syntax();
     // change <span class=\"wiki_body\" to div
     // rename error( paw_error(
+    // plus a few I forgot...
 
 
     /**
@@ -214,6 +215,10 @@
         $patterns[] = "/\/\/([^\/]*)\/\//U";
         $replacements[] = "<i>$1</i>";
 
+        // line breaks
+        $patterns[] = "/%%%/";
+        $replacements[] = "<br/>";
+
         // headings
         $patterns[] = '/^===(.*)===$\n?/m';
         $replacements[] = '<h3>$1</h3>';
@@ -221,6 +226,10 @@
         $replacements[] = '<h2>$1</h2>';
         $patterns[] = '/^=(.*)=$\n?/m';
         $replacements[] = '<h1>$1</h1>';
+        $patterns[] = '/\+\+\+(.*)\+\+\+/sU';
+        $replacements[] = '<code class="block">$1</code>';
+        $patterns[] = '/\+\+(.*)\+\+/sU';
+        $replacements[] = '<code>$1</code>';
 
         // substitute simple expressions & final expansion
         $contents = preg_replace( $patterns, $replacements, $contents );
@@ -250,6 +259,9 @@
         echo( "lists (unordered, ordered, definition list): <BR>" );
         echo( "indenting: <BR>" );
         echo( "italic text: <BR>" );
+        echo( "code: <BR>" );
+        echo( "code class='block': <BR>" );
+        echo( "line break: <BR>" );
         echo("\t\t\t</td>\n");
         echo("\t\t\t<td>");
         echo( "=abc=<BR>" );
@@ -258,6 +270,9 @@
         echo( "* list or # numbered or ; term : definition<BR>" );
         echo( "> abc<BR>" );
         echo( "//abc//<BR>" );
+        echo( "++abc++<BR>" );
+        echo( "+++abc+++<BR>" );
+        echo( "%%%<BR>" );
         echo("\t\t\t</td>\n");
         echo("\t\t</tr>\n");
         echo("\t</table>\n");
