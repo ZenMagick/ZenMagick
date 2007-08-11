@@ -154,7 +154,7 @@ class ZMCoreCompressor extends ZMObject {
             }
         }
 
-        $this->clean();
+        //$this->clean();
     }
 
     /**
@@ -313,17 +313,17 @@ class ZMCoreCompressor extends ZMObject {
         foreach ($files as $name => $infile) {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
-            $outdir = $out.$dirbase.'/';
+            $outdir = $out.$dirbase;
             $outfile = $outdir.$name;
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    zm_mkdir(dirname($outdir), 0755);
+                    zm_mkdir(dirname($outdir), 755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                zm_mkdir($outdir, 0755);
+                zm_mkdir($outdir, 755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -345,7 +345,7 @@ class ZMCoreCompressor extends ZMObject {
         $files = zm_find_includes($in.'/', true);
 
         if (!file_exists($out)) {
-            zm_mkdir($out, 0755);
+            zm_mkdir($out, 755);
         }
 
         $inpath = explode('/', $in);
@@ -358,13 +358,13 @@ class ZMCoreCompressor extends ZMObject {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    zm_mkdir(dirname($outdir), 0755);
+                    zm_mkdir(dirname($outdir), 755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                zm_mkdir($outdir, 0755);
+                zm_mkdir($outdir, 755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;

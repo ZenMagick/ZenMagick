@@ -81,6 +81,7 @@ Release 0.8.2
   theme specific
 - removed Ultimate SEO2.x rewrite rules from the release .htaccess file; the
   htaccess_sample (rewrite rules only) is now included in the plugin
+- fix invalid directory permissions in ZMCoreCompressor
 
 Release 0.8.1
 - added replacement method for ZMRequest::getParameter() called
