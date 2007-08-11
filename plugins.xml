@@ -41,8 +41,8 @@
         </antcall>
 
         <antcall target="plugin-release">
-            <param name="plugin.name" value="zm_captcha_ttf" />
-            <param name="plugin.version" value="${plugins.zm_captcha_ttf.version}" />
+            <param name="plugin.name" value="zm_captcha" />
+            <param name="plugin.version" value="${plugins.zm_captcha.version}" />
         </antcall>
     </target>
 
