@@ -237,7 +237,7 @@ class ZMAccounts extends ZMService {
         $account->newsletter_ = 1 == $fields['customers_newsletter'];
         $account->globalSubscriber_ = $this->isGlobalProductSubscriber($account->getId());
         $account->subscribedProducts_ = $this->getSubscribedProductIds($account->getId());
-        $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_ANONYMOUS);
+        $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_GUEST);
         return $account;
     }
 
