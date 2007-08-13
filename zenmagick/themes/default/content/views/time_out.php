@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php if ($zm_request->isGuest()) { ?>
+<?php if ($zm_request->isAnonymous()) { ?>
     <h2><?php zm_l10n("Whoops! Your session has expired.") ?></h2>
 <?php } else { ?>
     <h2><?php zm_l10n("Whoops! Sorry, but you are not allowed to perform the action requested.") ?></h2>

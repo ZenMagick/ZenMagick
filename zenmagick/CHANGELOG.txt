@@ -1,3 +1,11 @@
+Release 0.8.3
+- swap meaning of isGuest() and isAnonymous(); the three account/customer
+  states are:
+  ANONYMOUS - lowest level
+	GUEST - email address only; this is the level for checkout without
+	registration
+	REGISTERED - fully registered user
+
 Release 0.8.2
 - product_notifications.php should not use $zm_account
 - ZMProductSorter:sort(..) - check that the given list is an array

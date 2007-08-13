@@ -97,7 +97,7 @@ class ZMAddressBookProcessController extends ZMController {
     global $zm_request;
         
         // TODO: centralize
-        if ($zm_request->isGuest()) {
+        if ($zm_request->isAnonymous()) {
             return $this->findView('login');
         }
 

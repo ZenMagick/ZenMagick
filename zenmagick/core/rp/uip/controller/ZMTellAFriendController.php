@@ -65,7 +65,7 @@ class ZMTellAFriendController extends ZMController {
     global $zm_request, $zm_crumbtrail, $zm_products;
 
         // TODO: global check,filter?
-        if (!zm_setting('isTellAFriendGuestAllow') && $zm_request->isGuest()) {
+        if (!zm_setting('isTellAFriendGuestAllow') && $zm_request->isAnonymous()) {
             $session = new ZMSession();
             $session->markRequestAsLoginFollowUp();
             return $this->findView('login');

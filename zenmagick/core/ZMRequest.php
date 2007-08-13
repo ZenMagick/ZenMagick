@@ -198,7 +198,7 @@ class ZMRequest extends ZMObject {
      *
      * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isGuest() { return $this->session_->isGuest(); }
+    function isAnonymous() { return $this->session_->isAnonymous(); }
 
     /**
      * Returns <code>true</code> if the user is fully registered and logged in.

@@ -86,7 +86,7 @@ class ZMAccountPasswordController extends ZMController {
             return $this->findView('login');
         }
 
-        if ($session->isGuest()) {
+        if ($session->isAnonymous()) {
             // not logged in
             return $this->findView('login');
         }

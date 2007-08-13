@@ -131,18 +131,18 @@ class ZMSession extends ZMObject {
      *
      * <p>This is the lowest level of identity.</p>
      *
-     * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
-     */
-    function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
-
-    /**
-     * Returns <code>true</code> if the user is an anonymous user.
-     *
-     * <p>This status level is in the middle between <em>registered</em> and <em>guest</em>.</p>
-     *
      * @return bool <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
     function isAnonymous() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
+
+    /**
+     * Returns <code>true</code> if the user is a guest user.
+     *
+     * <p>This status level is in the middle between <em>registered</em> and <em>anonymous</em>.</p>
+     *
+     * @return bool <code>true</code> if the current user is an guest, <code>false</code> if not.
+     */
+    function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
