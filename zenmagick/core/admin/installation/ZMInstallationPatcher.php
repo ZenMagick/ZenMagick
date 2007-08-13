@@ -77,7 +77,7 @@ class ZMInstallationPatcher extends ZMObject {
      * Returns <code>true</code> if any patches left to run.
      *
      * @param string groupId Optional group id.
-     * @return bool <code>true</code> if there are any patches left that could be run.
+     * @return boolean <code>true</code> if there are any patches left that could be run.
      */
     function isPatchesOpen($groupId=null) {
         foreach ($this->patches_ as $id => $patch) {
@@ -95,9 +95,9 @@ class ZMInstallationPatcher extends ZMObject {
     /**
      * Execute all open patches.
      *
-     * @param bool force If set to <code>true</code> it will force patching even if
+     * @param boolean force If set to <code>true</code> it will force patching even if
      *  it is disabled as per settings.
-     * @return bool <code>true</code> if <strong>all</strong> patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if <strong>all</strong> patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
         $result = true;

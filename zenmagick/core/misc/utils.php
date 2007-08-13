@@ -64,8 +64,8 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * Checks, if the current page is a checkout page.
      * 
      * @package net.radebatz.zenmagick.misc
-     * @param bool includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
-     * @return bool <code>true</code> if the current page is a checkout page.
+     * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
+     * @return boolean <code>true</code> if the current page is a checkout page.
      */
     function zm_is_checkout_page($includeCart=true) {
     global $zm_request;
@@ -86,7 +86,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * @package net.radebatz.zenmagick.misc
      * @param string date A date (usually provided by the user).
      * @param string format The date format
-     * @param bool reverse If <code>true</code>, the returned data will be reversed.
+     * @param boolean reverse If <code>true</code>, the returned data will be reversed.
      * @return array The individual date components in the order dd, mm, cc, yy.
      */
     function zm_parse_date($date, $format) {
@@ -166,7 +166,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      *
      * @package net.radebatz.zenmagick.misc
      * @param string timestamp The last change date of whatever resource this is about.
-     * @param bool <code>true<code> if <strong>no</strong> body should be returned, 
+     * @param boolean <code>true<code> if <strong>no</strong> body should be returned, 
      *  <code>false</code> if the resource changed.
      */
     function zm_eval_if_modified_since($timestamp) {
@@ -204,7 +204,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * Little helper to implement abstract Ultimate SEO <strong>Plugin</code> support.
      *
      * @package net.radebatz.zenmagick.misc
-     * @return bool <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
+     * @return boolean <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
      */
     function zm_useo_enabled() {
         $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : (defined('SEO_URLS_STATUS') ? 'On' == SEO_URLS_STATUS : false);
@@ -217,7 +217,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      *
      * @package net.radebatz.zenmagick.misc
      * @param mixed value The value.
-     * @return bool The boolean value.
+     * @return boolean The boolean value.
      */
     function zm_boolean($value) {
         if (is_integer($value)) {

@@ -89,7 +89,7 @@ class ZMFeature extends ZMModel {
     /**
      * Check if the feature is hidden.
      *
-     * @return bool <code>true</code> if the feature is hidden, <code>false</code> if not.
+     * @return boolean <code>true</code> if the feature is hidden, <code>false</code> if not.
      */
     function isHidden() { return $this->hidden_; }
 

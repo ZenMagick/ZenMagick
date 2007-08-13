@@ -150,7 +150,7 @@ class ZMResultList extends ZMObject {
      * Add a filter to this result list.
      *
      * @param ZMResultListFilter filter The new filter.
-     * @param bool refresh If <code>true</code>, the result list is automatically refreshed.
+     * @param boolean refresh If <code>true</code>, the result list is automatically refreshed.
      */
     function addFilter($filter, $refresh=false) {
         $this->filters_[$filter->getId()] =& $filter;
@@ -162,7 +162,7 @@ class ZMResultList extends ZMObject {
      * Add a sorter to this result list.
      *
      * @param ZMResultListSorter sorter The new sorter.
-     * @param bool refresh If <code>true</code>, the result list is automatically refreshed.
+     * @param boolean refresh If <code>true</code>, the result list is automatically refreshed.
      */
     function addSorter($sorter, $refresh=false) {
         $this->sorters_[$sorter->getId()] =& $sorter;
@@ -172,7 +172,7 @@ class ZMResultList extends ZMObject {
     /**
      * Check if any sorter are active.
      *
-     * @return bool <code>true</code> if sorter are active, <code>false</code> if not.
+     * @return boolean <code>true</code> if sorter are active, <code>false</code> if not.
      */
     function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
 
@@ -186,7 +186,7 @@ class ZMResultList extends ZMObject {
     /**
      * Check if any filter are active.
      *
-     * @return bool <code>true</code> if filter are active, <code>false</code> if not.
+     * @return boolean <code>true</code> if filter are active, <code>false</code> if not.
      */
     function hasFilters() {
         foreach ($this->filters_ as $filter) {
@@ -206,7 +206,7 @@ class ZMResultList extends ZMObject {
     /**
      * Checks if there are results available.
      *
-     * @return bool <code>true</code> if results are available, <code>false</code> if not.
+     * @return boolean <code>true</code> if results are available, <code>false</code> if not.
      */
     function hasResults() { return 0 != count($this->results_); }
 
@@ -248,14 +248,14 @@ class ZMResultList extends ZMObject {
     /**
      * Check if a previous page is available.
      *
-     * @return bool <code>true</code> if a previous page is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if a previous page is available, <code>false</code> if not.
      */
     function hasPreviousPage() { return 1 < $this->page_; }
 
     /**
      * Check if a next page is available.
      *
-     * @return bool <code>true</code> if a next page is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if a next page is available, <code>false</code> if not.
      */
     function hasNextPage() { return $this->page_ < $this->getNumberOfPages(); }
 
@@ -287,8 +287,8 @@ class ZMResultList extends ZMObject {
     /**
      * Build a URL pointing to the previous page.
      *
-     * @param bool secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the previous page.
      */
     function getPreviousURL($secure, $echo=true) {
@@ -305,8 +305,8 @@ class ZMResultList extends ZMObject {
     /**
      * Build a URL pointing to the next page.
      *
-     * @param bool secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>false</code>.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the next page.
      */
     function getNextURL($secure=false, $echo=true) {

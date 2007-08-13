@@ -49,7 +49,7 @@ class ZMCategory extends ZMModel {
      *
      * @param int id The category id.
      * @param string name The name.
-     * $param bool active The active flag.
+     * $param boolean active The active flag.
      */
     function ZMCategory($id, $parentId, $name, $active=false) {
         parent::__construct();
@@ -67,7 +67,7 @@ class ZMCategory extends ZMModel {
      *
      * @param int id The category id.
      * @param string name The name.
-     * $param bool active The active flag.
+     * $param boolean active The active flag.
      */
     function __construct($id, $parentId, $name, $active=false) {
         $this->ZMCategory($id, $parentId, $name, $active);
@@ -105,7 +105,7 @@ class ZMCategory extends ZMModel {
     /**
      * Checks if the catgory has a parent.
      *
-     * @return bool <code>true</code> if this category has a parent, <code>false</code> if not.
+     * @return boolean <code>true</code> if this category has a parent, <code>false</code> if not.
      */
     function hasParent() { return 0 != $this->parentId_; }
 
@@ -119,14 +119,14 @@ class ZMCategory extends ZMModel {
     /**
      * Checks if this category is active; ie. in the category path.
      *
-     * @return bool <code>true</code> if this category is in the category path, <code>false</code> if not.
+     * @return boolean <code>true</code> if this category is in the category path, <code>false</code> if not.
      */
     function isActive() { return $this->active_; }
 
     /**
      * Checks if this category has children.
      *
-     * @return bool <code>true</code> if this category has children, <code>false</code> if not.
+     * @return boolean <code>true</code> if this category has children, <code>false</code> if not.
      */
     function hasChildren() { return 0 < count($this->childrenIds_); }
 

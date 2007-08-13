@@ -104,14 +104,14 @@ class ZMResultListFilter extends ZMObject {
      * Return <code>true</code> if the given object is to be excluded.
      *
      * @param mixed obj The obecjt to examine.
-     * @return bool <code>true</code> if the object is to be excluded, <code>false</code> if not.
+     * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     function exclude($obj) { return false; }
 
     /**
      * Returns <code>true</code> if this filter is currently active.
      *
-     * @return bool <code>true</code> if the filter is active, <code>false</code> if not.
+     * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
     function isActive() {
     global $zm_request;
@@ -122,7 +122,7 @@ class ZMResultListFilter extends ZMObject {
     /**
      * Returns <code>true</code> if this filter supports multiple values as filter value.
      *
-     * @return bool <code>true</code> if multiple filter values are supported, <code>false</code> if not.
+     * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
     function isMultiSelection() { return false; }
 
@@ -148,7 +148,7 @@ class ZMResultListFilter extends ZMObject {
      * <p>Filter might be configured but not be useful if there is for example only
      * one category or manufacturer to choose from.</p>
      *
-     * @return bool <code>true</code> if available, <code>false</code> if not.
+     * @return boolean <code>true</code> if available, <code>false</code> if not.
      */
     function isAvailable() { return 1 < count($this->getOptions()); }
 

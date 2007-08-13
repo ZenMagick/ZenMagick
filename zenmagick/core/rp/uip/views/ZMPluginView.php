@@ -69,7 +69,7 @@ class ZMPluginView extends ZMPageView {
     /**
      * Check if this view is valid.
      *
-     * @return bool <code>true</code> if the view is valid, <code>false</code> if not.
+     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
     function isValid() {
         return true;

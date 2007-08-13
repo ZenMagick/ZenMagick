@@ -138,7 +138,7 @@ if (!class_exists("ZMObject")) {
      * @package net.radebatz.zenmagick
      * @param string s The haystack.
      * @param string start The needle.
-     * @return bool <code>true</code> if <code>$s</code> starts with <code>$start</code>,
+     * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
      *  <code>false</code> if not.
      */
     function zm_starts_with($s, $start) {
@@ -152,7 +152,7 @@ if (!class_exists("ZMObject")) {
      * @package net.radebatz.zenmagick
      * @param string s The haystack.
      * @param string end The needle.
-     * @return bool <code>true</code> if <code>$s</code> ends with <code>$start</code>,
+     * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
      *  <code>false</code> if not.
      */
     function zm_ends_with($s, $end) {
@@ -169,7 +169,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string dir The name of the root directory to scan.
-     * @param bool recursive If <code>true</code>, scan recursively.
+     * @param boolean recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
     $_zm_includes_buffer = array();
@@ -419,7 +419,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param mixed value The value or array to check.
-     * @return bool <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
+     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
     function zm_is_empty($value) { 
         // support for arrays
@@ -500,7 +500,7 @@ if (!class_exists("ZMObject")) {
      *
      * @package net.radebatz.zenmagick
      * @param string dir The directory name.
-     * @param bool recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
+     * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
      */
     function zm_rmdir($dir, $recursive=true) {
         if (is_dir($dir)) {
@@ -541,8 +541,8 @@ if (!class_exists("ZMObject")) {
      * @package net.radebatz.zenmagick
      * @param string dir The folder name.
      * @param int perms The file permisssions; (default: 755)
-     * @param bool recursive Optional recursive flag; (default: <code>true</code>)
-     * @return bool <code>true</code> on success.
+     * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
+     * @return boolean <code>true</code> on success.
      */
     function zm_mkdir($dir, $perms=755, $recursive=true) {
         if (null == $dir || zm_is_empty($dir)) {
@@ -699,7 +699,7 @@ if (!class_exists("ZMObject")) {
      * Dispatch the current request.
      *
      * @package net.radebatz.zenmagick
-     * @return bool <code>true</code> if the request was dispatched, <code>false</code> if not.
+     * @return boolean <code>true</code> if the request was dispatched, <code>false</code> if not.
      * @todo Support for internal forwards.
      */
     function zm_dispatch() {
@@ -736,7 +736,7 @@ if (!class_exists("ZMObject")) {
      * @package net.radebatz.zenmagick
      * @param string value The value to search for.
      * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
-     * @return bool <code>true</code> if the given value exists in the array, <code>false</code> if not.
+     * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
      */
     function zm_is_in_array($value, $array) {
         if (!is_array($array)) {

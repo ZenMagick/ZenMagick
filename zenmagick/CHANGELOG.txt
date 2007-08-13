@@ -5,6 +5,7 @@ Release 0.8.3
 	GUEST - email address only; this is the level for checkout without
 	registration
 	REGISTERED - fully registered user
+- update phgpdoc to use boolean rather than just bool
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
@@ -444,7 +445,7 @@ Release 0.7.0
 - added .htaccess files to restrict access to ZenMagick installation files
 - extracted page caching strategy into separate function (default); THe
   strategy can be changed by configuring an alternative function by setting
-  'pageCacheStrategyCallback'; signature is bool callback()
+  'pageCacheStrategyCallback'; signature is boolean callback()
 - modified l10n.php and i18n.php in demo theme to illustrate the changes in
   locale handling;
 - most patches now know how to undo

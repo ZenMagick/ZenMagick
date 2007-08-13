@@ -33,7 +33,7 @@
      * @param ZMImageInfo imageInfo The image info.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
@@ -66,7 +66,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string s The string to decode.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The encoded HTML.
      */
     function zm_htmlencode($s, $echo=true) {
@@ -82,7 +82,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string text The text to clean up.
-     * @param bool echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
      * @return string The stripped text.
      */
     function zm_strip_html($text, $echo=true) {
@@ -101,8 +101,8 @@
      * <p>Behaviour is controlled with the <em>ZenMagick</em> setting <code>isJSTarget</code>.</p>
      *
      * @package net.radebatz.zenmagick.html
-     * @param bool newWin If <code>true</code>, HTML for opening in a new window will be created.
-     * @param bool echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
+     * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
+     * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return string A preformatted attribute in the form ' name="value"'
      */
     function zm_href_target($newWin=true, $echo=true) {
@@ -149,7 +149,7 @@
      * @package net.radebatz.zenmagick.html
      * @param string s The text.
      * @param int max The number of allowed characters.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
      */
     function zm_more($s, $max=0, $echo=true) {
@@ -164,7 +164,7 @@
      * @param string s The text.
      * @param int max The number of allowed characters.
      * @param string more Optional string that will be appended to indicate that the text was truncated.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
      */
     function zm_build_more($s, $max=0, $more=" ...", $echo=true) {
@@ -187,7 +187,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param what What to display (see phpinfo manual for more)
-     * @return bool <code>true</code> on success.
+     * @return boolean <code>true</code> on success.
      */
     function zm_phpinfo($what, $echo=true) {
         ob_start();                                                                                                       

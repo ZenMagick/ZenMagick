@@ -94,7 +94,7 @@ class ZMResultListSorter extends ZMObject {
     /**
      * Returns true if the current sort order is descending.
      *
-     * @return bool <code>true</code> if the current sort order is decending.
+     * @return boolean <code>true</code> if the current sort order is decending.
      */
     function isDecending() { return $this->decending_; }
 
@@ -118,7 +118,7 @@ class ZMResultListSorter extends ZMObject {
      *
      * <p>This translates into: one of the supported sort options is active.</p>
      *
-     * @return bool <code>true</code> if the sorter is active, <code>false</code> if not.
+     * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
     function isActive() { return false; }
 

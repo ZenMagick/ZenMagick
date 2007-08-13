@@ -72,7 +72,7 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     /**
      * Checks if this patch can still be applied.
      *
-     * @return bool <code>true</code> if this patch can still be applied.
+     * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
         return !$this->_isFeatureTablesExist();
@@ -81,9 +81,9 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     /**
      * Execute this patch.
      *
-     * @param bool force If set to <code>true</code> it will force patching even if
+     * @param boolean force If set to <code>true</code> it will force patching even if
      *  disabled as per settings.
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
     global $zm_runtime;
@@ -105,7 +105,7 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     /**
      * Revert the patch.
      *
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
     global $zm_runtime;
@@ -126,7 +126,7 @@ class ZMFeaturesPatch extends ZMSQLPatch {
     /**
      * Check for ZenMagick feature tables.
      *
-     * @return bool <code>true</code> if the database contains all ZenMagick tables.
+     * @return boolean <code>true</code> if the database contains all ZenMagick tables.
      */
     function _isFeatureTablesExist() {
     global $zm_runtime;

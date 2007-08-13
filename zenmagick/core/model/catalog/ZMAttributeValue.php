@@ -111,7 +111,7 @@ class ZMAttributeValue extends ZMModel {
     /**
      * Check if the attribute is free.
      *
-     * @return bool <code>true</code> if the value is free, <code>false</code> if not.
+     * @return boolean <code>true</code> if the value is free, <code>false</code> if not.
      */
     function isFree() { return $this->isFree_; }
 
@@ -132,28 +132,28 @@ class ZMAttributeValue extends ZMModel {
     /**
      * Check if the attribute is 'display only'.
      *
-     * @return bool <code>true</code> if the value is display only, <code>false</code> if not.
+     * @return boolean <code>true</code> if the value is display only, <code>false</code> if not.
      */
     function isDisplayOnly() { return $this->isDisplayOnly_; }
 
     /**
      * Check if this is the default value.
      *
-     * @return bool <code>true</code> if this is the default value, <code>false</code> if not.
+     * @return boolean <code>true</code> if this is the default value, <code>false</code> if not.
      */
     function isDefault() { return $this->isDefault_; }
 
     /**
      * Check if this value is discounted.
      *
-     * @return bool <code>true</code> if this value is discounted, <code>false</code> if not.
+     * @return boolean <code>true</code> if this value is discounted, <code>false</code> if not.
      */
     function isDiscounted() { return $this->isDiscounted_; }
 
     /**
      * Check if this value has an associated image.
      *
-     * @return bool <code>true</code> if an image is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
     function hasImage() { return null !== $this->image_ && '' != $this->image_; }
 
@@ -167,14 +167,14 @@ class ZMAttributeValue extends ZMModel {
     /**
      * Check if this is a one time value.
      *
-     * @return bool <code>true</code> if this is a one time value, <code>false</code> if not.
+     * @return boolean <code>true</code> if this is a one time value, <code>false</code> if not.
      */
     function isOneTime() { return $this->isOneTime_; }
 
     /**
      * Check if the price factor is one time.
      *
-     * @return bool <code>true</code> if the price factor is one time only, <code>false</code> if not.
+     * @return boolean <code>true</code> if the price factor is one time only, <code>false</code> if not.
      */
     function isPriceFactorOneTime() { return $this->isPriceFactorOneTime_; }
 

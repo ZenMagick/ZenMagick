@@ -68,14 +68,14 @@ class ZMLayout extends ZMService {
     /**
      * Enable/disable the left column.
      *
-     * @param bool bool If <code>true</code> the left column will be displayed.
+     * @param boolean bool If <code>true</code> the left column will be displayed.
      */
     function setLeftColEnabled($bool) { $this->leftColEnabled_ = $bool; }
 
     /**
      * Enable/disable the right column.
      *
-     * @param bool bool If <code>true</code> the right column will be displayed.
+     * @param boolean bool If <code>true</code> the right column will be displayed.
      */
     function setRightColEnabled($bool) { $this->rightColEnabled_ = $bool; }
 
@@ -96,14 +96,14 @@ class ZMLayout extends ZMService {
     /**
      * Checks if the left column is active.
      *
-     * @return bool <code>true</code> if the column is active, <code>false</code> if not.
+     * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
     function isLeftColEnabled() { return zm_setting('isEnableLeftColumn') && $this->leftColEnabled_; }
 
     /**
      * Checks if the right column is active.
      *
-     * @return bool <code>true</code> if the column is active, <code>false</code> if not.
+     * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
     function isRightColEnabled() { return zm_setting('isEnableRightColumn') && $this->rightColEnabled_; }
 

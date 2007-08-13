@@ -132,7 +132,7 @@ class ZMRssChannel extends ZMModel {
     /**
      * Checks if the channel has an image.
      *
-     * @return bool <code>true</code> if a channel image is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if a channel image is available, <code>false</code> if not.
      */
     function hasImage() { return array_key_exists($this->rs_, 'image_url'); }
 

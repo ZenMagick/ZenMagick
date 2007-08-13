@@ -77,7 +77,7 @@ class ZMOffers extends ZMService {
     /**
      * Checks if there are attribute prices that will affect the final price.
      *
-     * @return bool <code>true</code> if attribute prices exist.
+     * @return boolean <code>true</code> if attribute prices exist.
      */
     function isAttributePrice() { return zm_has_product_attributes_values($this->product_->getId()); }
 
@@ -288,14 +288,14 @@ class ZMOffers extends ZMService {
     /**
      * Checks if a special price is available.
      *
-     * @return bool <code>true</code> if a special price is available.
+     * @return boolean <code>true</code> if a special price is available.
      */
     function isSpecial() { return 0 != $this->specialPrice_ && $this->specialPrice_ != $this->basePrice_ && !$this->isSale(); }
 
     /**
      * Checks if a sale price is available.
      *
-     * @return bool <code>true</code> if a sale price is available.
+     * @return boolean <code>true</code> if a sale price is available.
      */
     function isSale() { return 0 != $this->salePrice_; }
 

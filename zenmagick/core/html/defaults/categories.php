@@ -38,10 +38,10 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
-     * @param bool showProductCount If true, show the product count per category.
-     * @param bool $useCategoryPage If true, create links for empty categories.
-     * @param bool activeParent If true, the parent category is considered in the current category path.
-     * @param bool root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
+     * @param boolean showProductCount If true, show the product count per category.
+     * @param boolean $useCategoryPage If true, create links for empty categories.
+     * @param boolean activeParent If true, the parent category is considered in the current category path.
+     * @param boolean root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
      * @return string The given categories as nested unordered list.
      */
     function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true) {

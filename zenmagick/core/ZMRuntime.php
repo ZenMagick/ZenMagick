@@ -250,7 +250,7 @@ class ZMRuntime {
     /**
      * Checks if <em>phpBB</em> is installed or not.
      *
-     * @return bool <code>true</code> if <em>phpBB</em> has been configured.
+     * @return boolean <code>true</code> if <em>phpBB</em> has been configured.
      */
     function isBBActive() {
     global $phpBB;

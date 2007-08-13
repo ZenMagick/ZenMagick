@@ -76,7 +76,7 @@ class ZMCache extends ZMObject {
     /**
      * Evalute if this cache is available.
      *
-     * @return bool <code>true</code> if this cache is ready to be used.
+     * @return boolean <code>true</code> if this cache is ready to be used.
      */
     function isAvailable() { return $this->available_; }
 
@@ -92,7 +92,7 @@ class ZMCache extends ZMObject {
     /**
      * Clear the cache.
      *
-     * @return bool <code>true</code> if cache cleared, <code>false</code> if the call failed.
+     * @return boolean <code>true</code> if cache cleared, <code>false</code> if the call failed.
      */
     function clear() {
         return $this->cache_->clean($this->group_);
@@ -132,7 +132,7 @@ class ZMCache extends ZMObject {
      *
      * @param string $data data to put in cache (can be another type than strings if automaticSerialization is on)
      * @param string id Optional cache id; if not set, the result of <code>getId()</code> will be used.
-     * @return bool true if no problem (else : false or a PEAR_Error object)
+     * @return boolean true if no problem (else : false or a PEAR_Error object)
      */
     function save($data, $id=null) {
         return $this->cache_->save($data, null !== $id ? $id : $this->getId(), $this->group_);

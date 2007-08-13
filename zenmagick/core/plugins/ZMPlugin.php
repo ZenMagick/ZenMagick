@@ -185,7 +185,7 @@ class ZMPlugin extends ZMObject {
     /**
      * Remove this plugin.
      *
-     * @param bool keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     function remove($keepSettings=false) {
         $config = new ZMConfig();
@@ -210,7 +210,7 @@ class ZMPlugin extends ZMObject {
     /**
      * Check if the plugin is installed.
      *
-     * @return bool <code>true</code> if the plugin is installed, <code>false</code> if not.
+     * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
     function isInstalled() {
         return null !== $this->__get(ZM_PLUGIN_ENABLED_SUFFIX);
@@ -219,7 +219,7 @@ class ZMPlugin extends ZMObject {
     /**
      * Check if the plugin is enabled.
      *
-     * @return bool <code>true</code> if the plugin is enabled, <code>false</code> if not.
+     * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     function isEnabled() {
         $enabled = $this->get(ZM_PLUGIN_ENABLED_SUFFIX);

@@ -67,7 +67,7 @@ class ZMPageCache extends ZMCache {
      *
      * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
      *
-     * @return bool <code>true</code> if the current request is cacheable, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function isCacheable() {
         $callback = zm_setting('pageCacheStrategyCallback');

@@ -110,7 +110,7 @@ class ZMOrderItem extends ZMModel {
     /**
      * Checks if the item has associated attributes.
      *
-     * @return bool </code>true</code> if attributes exist, <code>false</code> if not.
+     * @return boolean </code>true</code> if attributes exist, <code>false</code> if not.
      */
     function hasAttributes() { return 0 < count($this->attributes_); }
 

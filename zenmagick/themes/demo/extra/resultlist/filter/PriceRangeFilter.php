@@ -72,7 +72,7 @@ class PriceRangeFilter extends ZMResultListFilter {
      * Return <code>true</code> if the given object is to be excluded.
      *
      * @param mixed obj The obecjt to examine.
-     * @return bool <code>true</code> if the object is to be excluded, <code>false</code> if not.
+     * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     function exclude($obj) {
         if (0 == count($this->ranges_)) return false;
@@ -125,7 +125,7 @@ class PriceRangeFilter extends ZMResultListFilter {
     /**
      * Returns <code>true</code> if this filter supports multiple values as filter value.
      *
-     * @return bool <code>true</code> if multiple filter values are supported, <code>false</code> if not.
+     * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
     function isMultiSelection() {
       return true;

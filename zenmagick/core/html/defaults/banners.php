@@ -31,8 +31,8 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param ZMBanner banner A <code>ZMBanner</code> instance.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @param bool updateCount If <code>true</code>, the banner counter will get incremented.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean updateCount If <code>true</code>, the banner counter will get incremented.
      * @return string The HTML formatted banner.
      */
     function zm_display_banner($banner, $echo=true, $updateCount=true) {

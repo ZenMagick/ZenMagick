@@ -42,7 +42,7 @@ class ZMFilterOption extends ZMModel {
      *
      * @param string name The option name.
      * @param int id The option id.
-     * @param bool active Optional active flag if this option is currently active.
+     * @param boolean active Optional active flag if this option is currently active.
      */
     function ZMFilterOption($name, $id, $active=false) {
         parent::__construct();
@@ -57,7 +57,7 @@ class ZMFilterOption extends ZMModel {
      *
      * @param string name The option name.
      * @param int id The option id.
-     * @param bool active Optional active flag if this option is currently active.
+     * @param boolean active Optional active flag if this option is currently active.
      */
     function __construct($name, $id, $active=false) {
         $this->ZMFilterOption($name, $id, $active);
@@ -88,7 +88,7 @@ class ZMFilterOption extends ZMModel {
     /**
      * Check if this option is active.
      *
-     * @return bool <code>true</code> if this option is active, <code>false</code>, if not.
+     * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
     function isActive() { return $this->active_; }
 

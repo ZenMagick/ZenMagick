@@ -76,7 +76,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
      * Return <code>true</code> if the given object is to be excluded.
      *
      * @param mixed obj The obecjt to examine.
-     * @return bool <code>true</code> if the object is to be excluded, <code>false</code> if not.
+     * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     function exclude($obj) {
         $productIds = $this->_getProductIds();

@@ -82,7 +82,7 @@ class ZMMetaTags extends ZMObject {
     /**
      * Returns/echo'es the page title.
      *
-     * @param bool echo If <code>true</code>, the title will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the title will be echo'ed as well as returned.
      * @return string The page title.
      */
     function getTitle($echo=true) {
@@ -131,7 +131,7 @@ class ZMMetaTags extends ZMObject {
     /**
      * Returns/echo'es the keywords meta tag value for the current request.
      *
-     * @param bool echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
     function getKeywords($echo=true) {
@@ -153,7 +153,7 @@ class ZMMetaTags extends ZMObject {
     /**
      * Returns/echo'es the description meta tag value value for the current request.
      *
-     * @param bool echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
     function getDescription($echo=true) {

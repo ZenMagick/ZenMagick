@@ -41,7 +41,7 @@
      * @package net.radebatz.zenmagick.security
      * @param string clear The clear text password to encrypt.
      * @param string encrypted The encrypted password.
-     * @return bool <code>true</code> if the passwords match, <code>false</code> if not.
+     * @return boolean <code>true</code> if the passwords match, <code>false</code> if not.
      */
     function zm_validate_password($clear, $encrypted) { return zen_validate_password($clear, $encrypted); }
 

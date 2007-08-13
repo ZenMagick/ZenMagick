@@ -31,7 +31,7 @@
      *
      * @package net.radebatz.zenmagick.email
      * @param string template The template.
-     * @param bool asHTML Flag whether HTML or text version should be generated.
+     * @param boolean asHTML Flag whether HTML or text version should be generated.
      * @param array context The context data to be made available for the email template.
      * @return string The email contents.
      */

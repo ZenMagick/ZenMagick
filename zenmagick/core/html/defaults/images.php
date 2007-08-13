@@ -36,7 +36,7 @@
      * @param ZMProduct product A product.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
     function zm_product_image_link($product, $format=PRODUCT_IMAGE_SMALL, $echo=true) {

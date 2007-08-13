@@ -67,7 +67,7 @@ class ZMShoppingCart extends ZMService {
     /**
      * Check if the cart is empty.
      *
-     * @return bool <code>true</code> if the cart is empty, <code>false</code> if the cart is not empty.
+     * @return boolean <code>true</code> if the cart is empty, <code>false</code> if the cart is not empty.
      */
     function isEmpty() { return 0 == $this->getSize(); }
 
@@ -90,7 +90,7 @@ class ZMShoppingCart extends ZMService {
     /**
      * Checks if there are only gift vouchers in the cart.
      *
-     * @return bool <code>true</code> if only vouchers are in the cart.
+     * @return boolean <code>true</code> if only vouchers are in the cart.
      */
     function isGVOnly() { return $this->cart_->gv_only(); }
 
@@ -111,14 +111,14 @@ class ZMShoppingCart extends ZMService {
     /**
      * Checks for free shipping.
      *
-     * @return bool <code>true</code> if the cart is free of shipping.
+     * @return boolean <code>true</code> if the cart is free of shipping.
      */
     function freeShippingCount() { return $this->cart_->in_cart_check('product_is_always_free_shipping','1'); }
 
     /**
      * Check for virtual cart.
      * 
-     * @return bool <code>true</code> if the cart is purely virtual.
+     * @return boolean <code>true</code> if the cart is purely virtual.
      */
     function isVirtual() { return $_SESSION['sendto'] == false; }
 
@@ -252,14 +252,14 @@ class ZMShoppingCart extends ZMService {
     /**
      * Checks if the cart has a shipping address.
      *
-     * @return bool <code>true</code> if there is a shipping address, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
     function hasShippingAddress() { return !zm_is_empty($_SESSION['sendto']); }
 
     /**
      * Checks if the cart has a billing address.
      *
-     * @return bool <code>true</code> if there is a billing address, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
     function hasBillingAddress() { return !zm_is_empty($_SESSION['billto']); }
 
@@ -310,7 +310,7 @@ class ZMShoppingCart extends ZMService {
     /**
      * Returns the order form elements.
      *
-     * @param bool echo If <code>true</code>, echo the code.
+     * @param boolean echo If <code>true</code>, echo the code.
      * @return mixed The form content for the actual order process.
      * @see net.radebatz.zenmagick.ZMShoppingCart#getOrderFormURL
      */
@@ -383,7 +383,7 @@ class ZMShoppingCart extends ZMService {
     /**
      * Generate the JavaScript for the payment form validation.
      *
-     * @param bool echo If <code>true</code>, echo the code.
+     * @param boolean echo If <code>true</code>, echo the code.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     function getPaymentsJavaScript($echo=true) {

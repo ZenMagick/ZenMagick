@@ -104,7 +104,7 @@ class ZMLoader {
      * Add a given path to the loaders path.
      *
      * @param string path The path to add.
-     * @param bool recursive Flag to indicate if the path should be scanned recursively.
+     * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      */
     function addPath($path, $recursive=true) {
         $this->path_ = array_merge($this->path_, $this->_scan($path, $recursive));
@@ -293,7 +293,7 @@ class ZMLoader {
      * Build a path map for the given path.
      *
      * @param string path The path to scan.
-     * @param bool recursive Flag to indicate if the path should be scanned recursively.
+     * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      * @return array A path map for the given path.
      */
     function _scan($path, $recursive=true) {

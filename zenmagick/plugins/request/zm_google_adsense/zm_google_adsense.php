@@ -114,7 +114,7 @@ class zm_google_adsense extends ZMBoxPlugin {
      *
      * @package net.radebatz.zenmagick.plugins.zm_google_adsense
      * @param int id The box id; default is <code>null</code>.
-     * @param bool echo If <code>true</code>, the code will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the code will be echo'ed as well as returned.
      * @return string The JavaScript or <code>null</code>.
      */
     function zm_google_adsense($id=null, $echo=true) {

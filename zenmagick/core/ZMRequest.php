@@ -73,7 +73,7 @@ class ZMRequest extends ZMObject {
     /**
      * Check for a valid session.
      *
-     * @return bool <code>true</code> if a valid session exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
     function isValidSession() {
         return $this->session_->isValid();
@@ -196,14 +196,14 @@ class ZMRequest extends ZMObject {
     /**
      * Returns <code>true</code> if the user is not logged in at all.
      *
-     * @return bool <code>true</code> if the current user is guest, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
     function isAnonymous() { return $this->session_->isAnonymous(); }
 
     /**
      * Returns <code>true</code> if the user is fully registered and logged in.
      *
-     * @return bool <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
      */
     function isRegistered() { return $this->session_->isRegistered(); }
 
@@ -228,7 +228,7 @@ class ZMRequest extends ZMObject {
      *
      * @param string name The paramenter name.
      * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
-     * @param bool sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
+     * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
     function getParameter($name, $default=null, $sanitize=true) { 
@@ -271,7 +271,7 @@ class ZMRequest extends ZMObject {
     /**
      * Checks if the current request is secure or note.
      *
-     * @return bool <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
      */
     function isSecure() {
         return 443 == $_SERVER['SERVER_PORT'] || (isset($_SERVER['HTTPS']) && 'on' == strtolower($_SERVER['HTTPS']));
@@ -295,7 +295,7 @@ class ZMRequest extends ZMObject {
     /**
      * Check if we are running as admin.
      *
-     * @return bool <code>true</code> if code execution is in the context of an admin page,
+     * @return boolean <code>true</code> if code execution is in the context of an admin page,
      *  <code>false</code> if not.
      */
     function isAdmin() {

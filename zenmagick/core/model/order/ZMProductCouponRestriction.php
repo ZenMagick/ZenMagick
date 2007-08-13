@@ -39,7 +39,7 @@ class ZMProductCouponRestriction extends ZMModel {
     /**
      * Create new coupon restriction.
      *
-     * @param bool allowed The allowed flag.
+     * @param boolean allowed The allowed flag.
      * @param int productId The product id this restriction applies to.
      */
     function ZMProductCouponRestriction($allowed, $productId) {
@@ -52,7 +52,7 @@ class ZMProductCouponRestriction extends ZMModel {
     /**
      * Create new coupon restriction.
      *
-     * @param bool allowed The allowed flag.
+     * @param boolean allowed The allowed flag.
      * @param int productId The product id this restriction applies to.
      */
     function __construct($allowed, $productId) {
@@ -70,7 +70,7 @@ class ZMProductCouponRestriction extends ZMModel {
     /**
      * Checks if this coupon restriction is allowed.
      *
-     * @return bool <code>true</code> if this coupon restriction is allowed, <code>false</code> if not.
+     * @return boolean <code>true</code> if this coupon restriction is allowed, <code>false</code> if not.
      */
     function isAllowed() { return $this->allowed_; }
 

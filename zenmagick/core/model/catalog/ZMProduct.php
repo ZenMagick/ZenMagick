@@ -195,7 +195,7 @@ class ZMProduct extends ZMModel {
     /**
      * Checks if the product is sold out.
      *
-     * @return bool <code>true</code> if the product is sold out, <code>false</code> if not.
+     * @return boolean <code>true</code> if the product is sold out, <code>false</code> if not.
      */
     function isSoldOut() { return 0 >= $this->quantity_; }
 
@@ -223,14 +223,14 @@ class ZMProduct extends ZMModel {
     /**
      * Checks if the product is free.
      *
-     * @return bool <code>true</code> if the product is free, <code>false</code> if not.
+     * @return boolean <code>true</code> if the product is free, <code>false</code> if not.
      */
     function isFree() { return $this->isFree_; }
 
     /**
      * Checks if the user needs to call for this product.
      *
-     * @return bool <code>true</code> if the user must call, <code>false</code> if not.
+     * @return boolean <code>true</code> if the user must call, <code>false</code> if not.
      */
     function isCall() { return $this->isCall_; }
 
@@ -300,7 +300,7 @@ class ZMProduct extends ZMModel {
     /**
      * Get the product features.
      *
-     * @param bool hidden If <code>true</code>, hidden features will be included in the returned list.
+     * @param boolean hidden If <code>true</code>, hidden features will be included in the returned list.
      * @return array List of product features.
      */
     function getFeatures($hidden=false) {
@@ -336,7 +336,7 @@ class ZMProduct extends ZMModel {
     /**
      * Checks if the price is affected by attribute prices.
      *
-     * @return bool <code>true</code> if the price is affected by attributes, <code>false</code> if not.
+     * @return boolean <code>true</code> if the price is affected by attributes, <code>false</code> if not.
      */
     function isAttributePrice() { return zm_has_product_attributes_values($this->id_); }
 
@@ -344,7 +344,7 @@ class ZMProduct extends ZMModel {
     /**
      * Checks if reviews exist for this product.
      *
-     * @return bool <code>true</code> if reviews exist, <code>false</code> if not.
+     * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
     function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this->id_); }
 

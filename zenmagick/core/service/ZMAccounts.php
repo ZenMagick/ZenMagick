@@ -118,7 +118,7 @@ class ZMAccounts extends ZMService {
      * Checks if a given email address exists.
      *
      * @param string email The email address.
-     * @return bool <code>true</code> if the email address exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if the email address exists, <code>false</code> if not.
      */
     function emailExists($email) {
         $db = $this->getDB();
@@ -260,7 +260,7 @@ class ZMAccounts extends ZMService {
      * Check for global product subscriber.
      *
      * @param int accountId The account id.
-     * @return bool <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
+     * @return boolean <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
      */
     function isGlobalProductSubscriber($accountId) {
         $db = $this->getDB();
@@ -278,7 +278,7 @@ class ZMAccounts extends ZMService {
      * Set the global product subscriber flag
      *
      * @param int accountId The account id.
-     * @param bool globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
+     * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
     function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
         $db = $this->getDB();

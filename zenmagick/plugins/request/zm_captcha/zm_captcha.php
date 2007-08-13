@@ -81,7 +81,7 @@ class zm_captcha extends ZMPlugin {
     /**
      * Remove this plugin.
      *
-     * @param bool keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
@@ -128,7 +128,7 @@ class zm_captcha extends ZMPlugin {
     /**
      * Check if captcha is enabled for this request.
      *
-     * @return bool <code>true</code> if the captcha is enabled, <code>false</code> if not.
+     * @return boolean <code>true</code> if the captcha is enabled, <code>false</code> if not.
      */
     function isCaptchaEnabled() {
         return $this->captchaEnabled_;

@@ -130,7 +130,7 @@ class ZMOrder extends ZMModel {
     /**
      * Checks if the order has a shipping address.
      *
-     * @return bool <code>true</code> if a shipping address exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a shipping address exists, <code>false</code> if not.
      */
     function hasShippingAddress() {
         return !(empty($this->shippingAddress_->lastName_) && empty($this->shippingAddress_->address_));
@@ -168,7 +168,7 @@ class ZMOrder extends ZMModel {
      * Get order total for the given name.
      *
      * @param string name The total name (without the <em>ot_</em> prefix).
-     * @param bool force If set, a new order total will be created in case the order
+     * @param boolean force If set, a new order total will be created in case the order
      *  does not contain the one requested.
      * @return ZMOrderTotal A <code>ZMOrderTotal</code> or <code>null</code>.
      */
@@ -187,7 +187,7 @@ class ZMOrder extends ZMModel {
     /**
      * Check if the order it pickup.
      *
-     * @return bool <code>true</code> if the order is store pickup, <code>false</code> if not.
+     * @return boolean <code>true</code> if the order is store pickup, <code>false</code> if not.
      */
     function isStorePickup() {
         $totals = $this->getOrderTotals();

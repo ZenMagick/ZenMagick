@@ -92,7 +92,7 @@ class ZMProductSorter extends ZMResultListSorter {
      *
      * <p>This translates into: one of the supported sort options is active.</p>
      *
-     * @return bool <code>true</code> if the sorter is active, <code>false</code> if not.
+     * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
     function isActive() { return array_key_exists($this->sortId_, $this->methods_); }
 

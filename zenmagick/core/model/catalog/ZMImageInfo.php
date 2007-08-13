@@ -103,7 +103,7 @@ class ZMImageInfo extends ZMModel {
     /**
      * Check if there is an image.
      *
-     * @return bool <code>true</code> if there is an image, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is an image, <code>false</code> if not.
      */
     function hasImage() { return '' != $this->imageDefault_; }
 
@@ -117,7 +117,7 @@ class ZMImageInfo extends ZMModel {
     /**
      * Check if there is a medium image.
      *
-     * @return bool <code>true</code> if there is a medium image, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
     function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
 
@@ -138,7 +138,7 @@ class ZMImageInfo extends ZMModel {
     /**
      * Check if there is a large image.
      *
-     * @return bool <code>true</code> if there is a large image, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
     function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
 

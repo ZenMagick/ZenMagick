@@ -98,7 +98,7 @@ class ZMPayments extends ZMService {
     /**
      * Generate the JavaScript for the payment form validation.
      *
-     * @param bool echo If <code>true</code>, echo the code.
+     * @param boolean echo If <code>true</code>, echo the code.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     function getPaymentsJavaScript($echo=true) {

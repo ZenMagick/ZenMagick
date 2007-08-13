@@ -155,7 +155,7 @@ class ZMEmailMessage extends ZMModel {
     /**
      * Check if there is a message.
      *
-     * @return bool <code>true</code> if there is a message, <code>false</code> if not.
+     * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
     function hasMessage() { return !zm_is_empty($this->message_); }
 

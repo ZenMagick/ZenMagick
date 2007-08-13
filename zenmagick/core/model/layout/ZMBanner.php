@@ -100,7 +100,7 @@ class ZMBanner extends ZMModel {
     /**
      * Check if the banner click should open a new window.
      *
-     * @return bool <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
+     * @return boolean <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
     function isNewWin() { return $this->isNewWin_; }
 

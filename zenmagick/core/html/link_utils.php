@@ -57,7 +57,7 @@
      * @package net.radebatz.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
     function zm_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, false, $echo); }
@@ -68,7 +68,7 @@
      * @package net.radebatz.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full, secure URL.
      */
     function zm_secure_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, true, $echo); }
@@ -406,7 +406,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param int productId The product id
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      * @return string A complete product URL.
      */
@@ -419,7 +419,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string catName The static page name.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given static page.
      */
     function zm_static_href($catName, $echo=true) { 
@@ -434,7 +434,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string text The link text (can be plain text or HTML).
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
     function zm_back_link($text, $echo=true) {
@@ -450,7 +450,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param ZMEZPage page A <code>ZMEZPage</code> instance.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given ez-page.
      */
     function zm_ezpage_href($page, $echo=true) {
@@ -489,7 +489,7 @@
      * @package net.radebatz.zenmagick.html
      * @param integer id The EZ page id.
      * @param string text Optional link text.
-     * @param bool echo If <code>true</code>, the link will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
      * @return string A full HTML link.
      */
     function zm_ezpage_link($id, $text=null, $echo=true) {
@@ -507,7 +507,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string src The relative image name (relative to zen-cart's image folder).
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The image URI.
      */
     function zm_image_uri($src, $echo=true) {
@@ -524,7 +524,7 @@
      * @package net.radebatz.zenmagick.html
      * @param string action The redirect action.
      * @param string id The redirect id.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
     function zm_redirect_href($action, $id, $echo=true) {
@@ -544,7 +544,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string href The URL to convert..
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
      */
     function zm_absolute_href($href, $echo=true) {
@@ -571,7 +571,7 @@
      *
      * @package net.radebatz.zenmagick.html
      * @param string filename The media filename.
-     * @param bool echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return A URL.
      */
     function zm_media_href($filename, $echo=true) {
@@ -590,7 +590,7 @@
      * @param string controller The controller name without the leading <em>ajax_</em>.
      * @param string method The name of the method to call.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete Ajax URL.
      */
     function zm_ajax_href($controller, $method, $params='', $echo=true) { 
@@ -608,7 +608,7 @@
      * @package net.radebatz.zenmagick.html
      * @param string channel The channel.
      * @param string key Optional key, for example, 'new' for the product channel.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL.
      */
     function zm_rss_feed_href($channel, $key=null, $echo=true) { 

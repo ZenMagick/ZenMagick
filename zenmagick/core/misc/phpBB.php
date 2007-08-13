@@ -46,7 +46,7 @@
      *
      * @package net.radebatz.zenmagick.misc
      * @param string nick The nickname to validate.
-     * @return bool <code>true</code> if the nickname exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if the nickname exists, <code>false</code> if not.
      */
     function zm_bb_nickname_exists($nick) {
     global $zm_runtime, $sniffer;
@@ -73,7 +73,7 @@
      * @param string nick The nickname.
      * @param string email The email address.
      * @param string password The password.
-     * @return bool <code>true</code> if the account was created, <code>false</code> if the account creation failed.
+     * @return boolean <code>true</code> if the account was created, <code>false</code> if the account creation failed.
      */
     function zm_bb_create_account($nick, $email, $password) {
     global $zm_runtime, $sniffer;
@@ -161,7 +161,7 @@
      *
      * @package net.radebatz.zenmagick.misc
      * @param string email The email address.
-     * @param bool <code>true<code> if the given email address exists, <code>false</code> if not.
+     * @param boolean <code>true<code> if the given email address exists, <code>false</code> if not.
      */
     function zm_bb_email_exists($email) {
     global $zm_runtime, $phpBB;

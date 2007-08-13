@@ -90,7 +90,7 @@ class ZMArtist extends ZMModel {
     /**
      * Check if an image is available.
      *
-     * @return bool <code>true</code> if an image is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
     function hasImage() { return !zm_is_empty($this->image_); }
 
@@ -111,7 +111,7 @@ class ZMArtist extends ZMModel {
     /**
      * Check if a URL is available.
      *
-     * @return bool <code>true</code> if a URL is available, <code>false</code> if not.
+     * @return boolean <code>true</code> if a URL is available, <code>false</code> if not.
      */
     function hasUrl() { return !zm_is_empty($this->url_); }
 

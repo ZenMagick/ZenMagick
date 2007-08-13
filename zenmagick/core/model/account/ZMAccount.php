@@ -195,14 +195,14 @@ class ZMAccount extends ZMModel {
     /**
      * Check if the account is set up to receive HTML formatted emails.
      *
-     * @return bool <code>true</code> if HTML is selected as email format, <code>false</code> if not.
+     * @return boolean <code>true</code> if HTML is selected as email format, <code>false</code> if not.
      */
     function isHtmlEmail() { return 'HTML' == $this->emailFormat_; }
 
     /**
      * Check if email notification is disabled.
      *
-     * @return bool <code>true</code> if email notification is disabled, <code>false</code> if not.
+     * @return boolean <code>true</code> if email notification is disabled, <code>false</code> if not.
      */
     function isEmailDisabled() { return 'NONE' == $this->emailFormat_ || 'OUT' == $this->emailFormat_; }
 
@@ -251,14 +251,14 @@ class ZMAccount extends ZMModel {
     /**
      * Returns <code>true</code> if the account has subscribed to newsletter.
      *
-     * @return bool <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
+     * @return boolean <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
      */
     function isNewsletterSubscriber() { return $this->newsletter_; }
 
     /**
      * Set the newsletter subscription status.
      *
-     * @param bool newsletterSubscriber <code>true</code> if newsletter subsricption is selected, <code>false</code> if not.
+     * @param boolean newsletterSubscriber <code>true</code> if newsletter subsricption is selected, <code>false</code> if not.
      */
     function setNewsletterSubscriber($newsletterSubscriber) { $this->newsletter_ = $newsletterSubscriber; }
 
@@ -276,7 +276,7 @@ class ZMAccount extends ZMModel {
     /**
      * Checks if the user is a global product subscriber.
      *
-     * @return bool <code>true</code> if the user is subscribed, <code>false</code> if not.
+     * @return boolean <code>true</code> if the user is subscribed, <code>false</code> if not.
      */
     function isGlobalProductSubscriber() { 
         return $this->globalSubscriber_;
@@ -285,14 +285,14 @@ class ZMAccount extends ZMModel {
     /**
      * Set the global product subscriber status.
      *
-     * @param bool globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
+     * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
     function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = $globalProductSubscriber; }
 
     /**
      * Checks if the user has product subscriptions.
      *
-     * @return bool <code>true</code> if the user has product subscriptions, <code>false</code> if not.
+     * @return boolean <code>true</code> if the user has product subscriptions, <code>false</code> if not.
      */
     function hasProductSubscriptions() {
         return 0 != count($this->subscribedProducts_); 

@@ -199,7 +199,7 @@ class ZMAttributes extends ZMService {
 
 
     /**
-     * @return bool <code>true</code> if there are attributes (values) available,
+     * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
     function hasAttributes() { return $this->hasAttributes_; }

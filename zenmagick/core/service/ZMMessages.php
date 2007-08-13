@@ -169,7 +169,7 @@ class ZMMessages extends ZMService {
      * Checks if there are any messages available.
      *
      * @param string ref The referencing resource; default is <code>null</code> for all.
-     * @return bool <code>true</code> if messages are available, <code>false</code> if not.
+     * @return boolean <code>true</code> if messages are available, <code>false</code> if not.
      */
     function hasMessages($ref=null) {
         if (null === $ref) {

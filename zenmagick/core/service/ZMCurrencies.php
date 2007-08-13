@@ -98,7 +98,7 @@ class ZMCurrencies extends ZMService {
      * Checks if a currency exists for the given id.
      *
      * @param int id The currency id.
-     * @return bool <code>true</code> if a currency exists for the given id, <code>false</code> if not.
+     * @return boolean <code>true</code> if a currency exists for the given id, <code>false</code> if not.
      */
     function isValid($id) {
         return null !== $this->getCurrencyForId($id);

@@ -80,7 +80,7 @@ class ZMRecordCompany extends ZMModel {
     /**
      * Checks if a URL exists for this company.
      *
-     * @return bool <code>true</code> if a URL exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a URL exists, <code>false</code> if not.
      */
     function hasUrl() { return !zm_is_empty($this->url_); }
 

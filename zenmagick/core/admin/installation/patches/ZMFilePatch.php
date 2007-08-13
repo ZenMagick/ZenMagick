@@ -98,7 +98,7 @@ class ZMFilePatch extends ZMInstallationPatch {
      *
      * @param string file The filename.
      * @param array lines The  lines to write.
-     * @return bool <code>true</code> if successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     function putFileLines($file, $lines) {
         $handle = fopen($file, 'wb');
@@ -137,7 +137,7 @@ class ZMFilePatch extends ZMInstallationPatch {
      *
      * @param string file The filename.
      * @param string contents The file contents.
-     * @return bool <code>true</code> if successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     function writeFile($file, $contents) {
         $handle = @fopen($file, 'wb');
@@ -154,7 +154,7 @@ class ZMFilePatch extends ZMInstallationPatch {
      * <code>isOpen()</code> check for function renaming.
      *
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
-     * @return bool <code>true</code> if any patches are open.
+     * @return boolean <code>true</code> if any patches are open.
      */
     function isFilesFktOpen($fktFilesCfg) {
         foreach ($fktFilesCfg as $file => $fktCfgs) {
@@ -182,7 +182,7 @@ class ZMFilePatch extends ZMInstallationPatch {
      * Execute function renaming patch.
      *
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patchFilesFkt($fktFilesCfg) {
         $patchOk = true;
@@ -223,7 +223,7 @@ class ZMFilePatch extends ZMInstallationPatch {
      * Undo function renaming patch.
      *
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undoFilesFkt($fktFilesCfg) {
         $undoOk = true;

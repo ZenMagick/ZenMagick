@@ -46,8 +46,8 @@ class ZMSortOption extends ZMModel {
      *
      * @param string name The option name.
      * @param int id The option id.
-     * @param bool active Optional active flag if this option is currently active.
-     * @param bool decending Ascending/decending flag (default is ascending.
+     * @param boolean active Optional active flag if this option is currently active.
+     * @param boolean decending Ascending/decending flag (default is ascending.
      */
     function ZMSortOption($name, $id, $active=false, $decending=false) {
         parent::__construct();
@@ -63,8 +63,8 @@ class ZMSortOption extends ZMModel {
      *
      * @param string name The option name.
      * @param int id The option id.
-     * @param bool active Optional active flag if this option is currently active.
-     * @param bool decending Ascending/decending flag (default is ascending.
+     * @param boolean active Optional active flag if this option is currently active.
+     * @param boolean decending Ascending/decending flag (default is ascending.
      */
     function __construct($name, $id, $active=false, $decending=false) {
         $this->ZMSortOption($name, $id, $active, $decending);
@@ -95,14 +95,14 @@ class ZMSortOption extends ZMModel {
     /**
      * Check if this option is active.
      *
-     * @return bool <code>true</code> if this option is active, <code>false</code>, if not.
+     * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
     function isActive() { return $this->active_; }
 
     /**
      * Check if the sorting is ascending or decending.
      *
-     * @return bool <code>true</code> if sorting is decending, <code>false</code> if sorting
+     * @return boolean <code>true</code> if sorting is decending, <code>false</code> if sorting
      *  is ascending.
      */
     function isDecending() { return $this->decending_; }

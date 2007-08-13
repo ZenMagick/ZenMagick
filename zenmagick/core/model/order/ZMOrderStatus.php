@@ -99,7 +99,7 @@ class ZMOrderStatus extends ZMModel {
     /**
      * Checks if a comment exists for this status.
      *
-     * @return bool </code>true</code> if a comment exist, <code>false</code> if not.
+     * @return boolean </code>true</code> if a comment exist, <code>false</code> if not.
      */
     function hasComment() { return zm_not_null($this->comment_); }
 

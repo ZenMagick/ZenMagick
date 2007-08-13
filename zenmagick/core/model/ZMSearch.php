@@ -72,7 +72,7 @@ class ZMSearch extends ZMModel {
      * Get the include description flag.
      *
      * @param string default A default value.
-     * @return bool <code>true</code> if descriptions should be searched too.
+     * @return boolean <code>true</code> if descriptions should be searched too.
      */
     function getIncludeDescription($default=true) { return $this->_get('search_in_description', $default); }
 
@@ -88,7 +88,7 @@ class ZMSearch extends ZMModel {
      * Get the include subcategories flag.
      *
      * @param string default A default value.
-     * @return bool <code>true</code> if subcategories should be searched too.
+     * @return boolean <code>true</code> if subcategories should be searched too.
      */
     function getIncludeSubcategories($default=true) { return $this->_get('inc_subcat', $default); }
 

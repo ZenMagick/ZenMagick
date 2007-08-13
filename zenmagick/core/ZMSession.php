@@ -60,7 +60,7 @@ class ZMSession extends ZMObject {
     /**
      * Check if the current session is valid.
      *
-     * @return bool <code>true</code> if a valid session exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
     function isValid() {
     global $session_started;
@@ -95,7 +95,7 @@ class ZMSession extends ZMObject {
     /**
      * Recreate session.
      *
-     * @param bool force If <code>true</code>, force recreation of the session, even if this is disabled.
+     * @param boolean force If <code>true</code>, force recreation of the session, even if this is disabled.
      */
     function recreate($force=false) {
         if ($force || zm_setting('isSessionRecreate')) {
@@ -131,7 +131,7 @@ class ZMSession extends ZMObject {
      *
      * <p>This is the lowest level of identity.</p>
      *
-     * @return bool <code>true</code> if the current user is anonymous, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
     function isAnonymous() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
 
@@ -140,7 +140,7 @@ class ZMSession extends ZMObject {
      *
      * <p>This status level is in the middle between <em>registered</em> and <em>anonymous</em>.</p>
      *
-     * @return bool <code>true</code> if the current user is an guest, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
     function isGuest() { return !array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']; }
 
@@ -149,7 +149,7 @@ class ZMSession extends ZMObject {
      *
      * <p>This si the highest status level.</p>
      *
-     * @return bool <code>true</code> if the current user is registered, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
     function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_REGISTERED == $_SESSION['account_type']; }
 

@@ -123,7 +123,7 @@ class ZMPlugins extends ZMService {
     /**
      * Get all plugins.
      *
-     * @param bool useCache If <code>true</code>, use the cached plugin status info.
+     * @param boolean useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
     function getAllPlugins($useCache=true) {
@@ -162,7 +162,7 @@ class ZMPlugins extends ZMService {
      * Get all plugins for the given type.
      *
      * @param string type The plugin type.
-     * @param bool useCache If <code>true</code>, use the cached plugin status info.
+     * @param boolean useCache If <code>true</code>, use the cached plugin status info.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
     function &getPluginsForType($type, $useCache=true) {

@@ -102,7 +102,7 @@ class ZMValidator extends ZMObject {
      * Check if a <code>ZMRuleSet</code> exists for the given id.
      *
      * @param string id The id/name of the set.
-     * @return bool <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
      */
     function hasRuleSet($id) {
         return array_key_exists($id, $this->sets_);
@@ -123,7 +123,7 @@ class ZMValidator extends ZMObject {
      *
      * @param array req The request.
      * @param string id The ruls set id.
-     * @return bool <code>true</code> if the validation was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     function validate($req, $id) {
         $this->messages_ = array();
@@ -154,7 +154,7 @@ class ZMValidator extends ZMObject {
      * Create JS validation rules for the given rule set.
      *
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
-     * @param bool echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
      * @return string Formatted JavaScript .
      */
     function toJSString($id, $echo=true) {

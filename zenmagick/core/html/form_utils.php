@@ -40,7 +40,7 @@
      * @param string id Optional HTML id; defaults to <code>null</code>
      * @param string method Should be either <code>get</code> or <code>post</code>. Defaults to <code>get</code>.
      * @param string onsubmit Optional submit handler for form validation; defaults to <code>null</code>
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
     function zm_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
@@ -63,7 +63,7 @@
      * @param string id Optional HTML id; defaults to <code>null</code>
      * @param string method Should be either <code>get</code> or <code>post</code>. Defaults to <code>get</code>.
      * @param string onsubmit Optional submit handler for form validation; defaults to <code>null</code>
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
     function zm_secure_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
@@ -127,7 +127,7 @@
      * @package net.radebatz.zenmagick.html
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form to add a given productId to the shopping cart.
      */
     function zm_add_product_form($productId, $quantity=0, $echo=true) {

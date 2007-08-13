@@ -117,7 +117,7 @@ class ZMRss extends ZMObject {
     /**
      * Returns <code>true</code> if contents is available.
      *
-     * @return bool <code>true</code> if feed items are available, <code>false</code>, if not.
+     * @return boolean <code>true</code> if feed items are available, <code>false</code>, if not.
      */
     function hasContents() {
         return 0 != count($this->items_);

@@ -71,7 +71,7 @@ class ZMPopupView extends ZMPageView {
     /**
      * Check if this view is valid.
      *
-     * @return bool <code>true</code> if the view is valid, <code>false</code> if not.
+     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
     function isValid() {
         return file_exists($this->_getViewFilename('popup'));

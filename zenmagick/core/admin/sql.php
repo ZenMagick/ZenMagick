@@ -34,8 +34,8 @@
      * @package net.radebatz.zenmagick.admin
      * @param string sql The sql.
      * @param array Result message list.
-     * @param bool Debug flag.
-     * @return bool <code>true</code> for success, <code>false</code> if the execution fails.
+     * @param boolean Debug flag.
+     * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
     function zm_sql_patch($sql, &$messages, $debug=false) {
         if ($debug) {

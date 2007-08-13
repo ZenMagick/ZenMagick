@@ -31,7 +31,7 @@
      * @package net.radebatz.zenmagick.plugins
      * @param string function The view function name.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
     function zm_plugin_admin_url($function, $params='', $echo=true) {
@@ -60,7 +60,7 @@
      * @package net.radebatz.zenmagick.plugins
      * @param string target The target.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
     function zm_plugin_url($target, $params='', $echo=true) {

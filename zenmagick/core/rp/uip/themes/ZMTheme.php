@@ -82,7 +82,7 @@ class ZMTheme extends ZMObject {
      * </ol>
      *
      * @param string page The page name.
-     * @return bool <code>true</code> if this theme can handle the given page.
+     * @return boolean <code>true</code> if this theme can handle the given page.
      */
     function isValidRequest($page) {
         $themeInfo = $this->getThemeInfo();
@@ -94,7 +94,7 @@ class ZMTheme extends ZMObject {
      * Check if a layout is configured for the given page.
      *
      * @param string page The page name.
-     * @return bool <code>true</code> if a layout file is configured for the given page.
+     * @return boolean <code>true</code> if a layout file is configured for the given page.
      */
     function hasLayout($page) {
         // layouts reside in the content directory
@@ -110,7 +110,7 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string uri The relative URI.
-     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string An absolute URL.
      */
     function themeURL($uri, $echo=true) {
@@ -195,7 +195,7 @@ class ZMTheme extends ZMObject {
      *
      * @param string name A theme relative filename.
      * @param string baseDir An optional base directory; default is <code>ZM_THEME_CONTENT_DIR</code>
-     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A fully qualified filename.
      */
     function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
@@ -219,7 +219,7 @@ class ZMTheme extends ZMObject {
      *
      * @param string name A theme relative filename.
      * @param string baseDir An optional base directory; default is <code>ZM_THEME_CONTENT_DIR</code>
-     * @return bool <code>true</code> if the file exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     function themeFileExists($name, $baseDir=ZM_THEME_CONTENT_DIR) {
 		    return file_exists($this->themeFile($name, $baseDir));
@@ -232,7 +232,7 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
-     * @param bool echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content.
      */
     function staticPageContent($page, $echo=true) {

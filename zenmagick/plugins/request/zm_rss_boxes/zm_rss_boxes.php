@@ -114,7 +114,7 @@ class zm_rss_boxes extends ZMBoxPlugin {
      *
      * @package net.radebatz.zenmagick.plugins.zm_rss_boxes
      * @param int id The box id; default is <code>null</code>.
-     * @param bool echo If <code>true</code>, the code will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the code will be echo'ed as well as returned.
      * @return string The URL or <code>null</code>.
      */
     function zm_rss_box($id=null, $echo=true) {

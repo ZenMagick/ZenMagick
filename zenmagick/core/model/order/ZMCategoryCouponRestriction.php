@@ -64,7 +64,7 @@ class ZMCategoryCouponRestriction extends ZMModel {
     /**
      * Check if allowed.
      *
-     * @return bool <code>true</code> if allowed, <code>false</code> if not.
+     * @return boolean <code>true</code> if allowed, <code>false</code> if not.
      */
     function isAllowed() { return $this->allowed_; }
 

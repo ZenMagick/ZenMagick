@@ -96,7 +96,7 @@ class ZMCoreCompressor extends ZMObject {
      * Check for errors.
         $themes = $zm_runtime->getThemes();
      *
-     * @return bool <code>true</code> if errors exist.
+     * @return boolean <code>true</code> if errors exist.
      */
     function hasErrors() {
         return 0 != count($this->errors_);
@@ -112,7 +112,7 @@ class ZMCoreCompressor extends ZMObject {
     /**
      * check if enabled.
      *
-     * @return bool <code>true</code> if core.php exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if core.php exists, <code>false</code> if not.
      */
     function isEnabled() {
         return file_exists($this->coreFilename_);
@@ -301,7 +301,7 @@ class ZMCoreCompressor extends ZMObject {
      *
      * @param string in The input directory.
      * @param string out The output directory.
-     * @param bool recursive If true, strip recursivley.
+     * @param boolean recursive If true, strip recursivley.
      */
     function _stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";

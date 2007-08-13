@@ -38,7 +38,7 @@
      * </ol>
      *
      * @package net.radebatz.zenmagick.cache
-     * @return bool <code>true</code> if the current request is cacheable, <code>false</code> if not.
+     * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_is_page_cacheable() {
     global $zm_request, $zm_cart, $zm_messages;

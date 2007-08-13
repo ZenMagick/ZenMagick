@@ -98,7 +98,7 @@ class ZMShippingProvider extends ZMModel {
     /**
      * Checks if an icon exists for this provider.
      *
-     * @return bool <code>true</code> if an icon, <code>false</code> if not.
+     * @return boolean <code>true</code> if an icon, <code>false</code> if not.
      */
     function hasIcon() { return isset($this->zenQuote_['icon']); }
 
@@ -112,7 +112,7 @@ class ZMShippingProvider extends ZMModel {
     /**
      * Checks if errors are logged for this provider.
      *
-     * @return bool <code>true</code> if errors exist, <code>false</code> if not.
+     * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
      */
     function hasError() { return isset($this->zenQuote_['error']); }
 
@@ -126,7 +126,7 @@ class ZMShippingProvider extends ZMModel {
     /**
      * Checks if shipping methods are available from this provider.
      *
-     * @return bool <code>true</code> if shipping methods exist, <code>false</code> if not.
+     * @return boolean <code>true</code> if shipping methods exist, <code>false</code> if not.
      */
     function hasShippingMethods() { return 0 < count ($this->methods_); }
 

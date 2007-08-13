@@ -79,7 +79,7 @@ class ZMController extends ZMObject {
      * <p>This is a temp. method that wil be obsolete once all views are implemented
      * in the default theme (is that now??).</p>
      *
-     * @return bool <code>true</code> if the controller can handle the request, <code>false</code> if not.
+     * @return boolean <code>true</code> if the controller can handle the request, <code>false</code> if not.
      */
     function validateRequest() {
     global $zm_runtime;
@@ -222,7 +222,7 @@ class ZMController extends ZMObject {
      *
      * @param string id The <code>ZMRuleSet</code> id.
      * @param array req Optional request; if not set, <code>$_POST</code> will be used.
-     * @return bool <code>true</code> if the validation was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     function validate($id, $req=null) {
     global $zm_validator, $zm_messages;

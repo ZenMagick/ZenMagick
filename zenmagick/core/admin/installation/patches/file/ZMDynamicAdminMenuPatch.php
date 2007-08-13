@@ -59,7 +59,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
     /**
      * Checks if this patch can still be applied.
      *
-     * @return bool <code>true</code> if this patch can still be applied.
+     * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
         $contents = file_get_contents(_ZM_ZEN_HEADER_FILE);
@@ -69,7 +69,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
     /**
      * Checks if this patch is ready to be applied.
      *
-     * @return bool <code>true</code> if this patch is ready and all preconditions are met.
+     * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
         return is_writeable(_ZM_ZEN_HEADER_FILE);
@@ -89,9 +89,9 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
     /**
      * Execute this patch.
      *
-     * @param bool force If set to <code>true</code> it will force patching even if
+     * @param boolean force If set to <code>true</code> it will force patching even if
      *  disabled as per settings.
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
         if (!$this->isOpen()) {
@@ -121,7 +121,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
     /**
      * Revert the patch.
      *
-     * @return bool <code>true</code> if patching was successful, <code>false</code> if not.
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
         if (!$this->isOpen()) {

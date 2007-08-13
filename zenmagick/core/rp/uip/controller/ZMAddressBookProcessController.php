@@ -118,7 +118,7 @@ class ZMAddressBookProcessController extends ZMController {
      * Validate zone.
      *
      * @param ZMAddress address The address.
-     * @return bool <code>true</code> if the zone is valid, <code>false</code> if not.
+     * @return boolean <code>true</code> if the zone is valid, <code>false</code> if not.
      */
     function validateZone(&$address) {
     global $zm_countries, $zm_messages;

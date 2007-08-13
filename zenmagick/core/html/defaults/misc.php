@@ -39,7 +39,7 @@
      * @param int size Size of the select tag.
      * @param string selectedId Value of option to select.
      * @param string onchange Optional onchange handler.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=true) {
@@ -63,7 +63,7 @@
      * Simple title generator based on the page name.
      *
      * @package net.radebatz.zenmagick.html.defaults
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
      */
     function zm_title($echo=true) {
@@ -100,7 +100,7 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param string page The page name or <code>null<code> for the current page.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
      */
     function zm_onload($page=null, $echo=true) {
@@ -124,7 +124,7 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param string text The text to escape.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The escaped text.
      */
     function zm_quote($text, $echo=true) {
@@ -142,7 +142,7 @@
      * @package net.radebatz.zenmagick.html.defaults
      * @param array list Array of values.
      * @param string sep Separator string; default: ', '.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A list of values.
      */
     function zm_list_values($list, $sep=', ', $echo=true) {
@@ -164,7 +164,7 @@
      * @package net.radebatz.zenmagick.html.defaults
      * @param string name The common name.
      * @param array values List of values.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
     function zm_hidden_list($name, $values, $echo=true) {
@@ -186,7 +186,7 @@
      *
      * @package net.radebatz.zenmagick.html.defaults
      * @param string name The field name.
-     * @param bool echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
      */
     function zm_field_messages($name, $echo=true) {

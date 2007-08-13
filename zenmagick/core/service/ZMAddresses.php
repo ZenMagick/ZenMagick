@@ -170,7 +170,7 @@ class ZMAddresses extends ZMService {
      * Delte an address.
      *
      * @param int The address id.
-     * @param bool <code>true</code>.
+     * @param boolean <code>true</code>.
      */
     function deleteAddressForId($addressId) {
         $db = $this->getDB();

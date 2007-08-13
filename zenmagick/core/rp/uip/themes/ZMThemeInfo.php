@@ -194,7 +194,7 @@ class ZMThemeInfo extends ZMObject {
     /**
      * Check if the theme has a default layout.
      *
-     * @return bool <code>true</code> if a default layout exists, <code>false</code> if not.
+     * @return boolean <code>true</code> if a default layout exists, <code>false</code> if not.
      */
     function hasDefaultLayout() { return null != $this->getDefaultLayout(); }
 
