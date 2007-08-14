@@ -154,7 +154,7 @@ class ZMCoreCompressor extends ZMObject {
             }
         }
 
-        //$this->clean();
+        $this->clean();
     }
 
     /**
