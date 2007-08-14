@@ -54,6 +54,7 @@
         $zm_sacsMapper->setMapping('gv_send');
         $zm_sacsMapper->setMapping('password_forgotten');
         $zm_sacsMapper->setMapping('product_reviews_write');
+        $zm_sacsMapper->setMapping('login', ZM_ACCOUNT_TYPE_ANONYMOUS);
 
         if (!zm_setting('isTellAFriendGuestAllow')) {
             $zm_sacsMapper->setMapping('tell_a_friend');
