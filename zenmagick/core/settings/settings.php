@@ -78,6 +78,7 @@
     // system
     $_ZM_SETTINGS['isAdmin'] = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG;
     $_ZM_SETTINGS['isEnableSSL'] = ENABLE_SSL == 'true';
+    $_ZM_SETTINGS['isEnforceSSL'] = true;
     $_ZM_SETTINGS['isForceCookieUse'] = SESSION_FORCE_COOKIE_USE == 'True';
     $_ZM_SETTINGS['isSessionRecreate'] = SESSION_RECREATE == 'True';
     $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH;

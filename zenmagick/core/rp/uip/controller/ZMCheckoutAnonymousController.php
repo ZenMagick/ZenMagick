@@ -67,11 +67,6 @@ class ZMCheckoutAnonymousController extends ZMController {
         // our session
         $session = new ZMSession();
 
-        //TODO centralize
-        if (!$session->isValid()) {
-            return $this->findView('cookie_usage');
-        }
-
         if (!$session->isGuest()) {
             // already logged in either way
             return $this->findView('success');

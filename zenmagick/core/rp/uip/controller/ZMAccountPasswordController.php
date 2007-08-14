@@ -79,18 +79,6 @@ class ZMAccountPasswordController extends ZMController {
     function processPost() {
     global $zm_request, $zm_accounts, $zm_messages;
 
-        // our session
-        $session = new ZMSession();
-
-        if (!$session->isValid()) {
-            return $this->findView('login');
-        }
-
-        if ($session->isAnonymous()) {
-            // not logged in
-            return $this->findView('login');
-        }
-
         if (!$this->validate('account_password')) {
             return $this->findView();
         }

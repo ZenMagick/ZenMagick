@@ -122,6 +122,11 @@
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
     zm_set_default_url_mappings();
+    $zm_sacsMapper = new ZMSacsMapper();
+    zm_set_default_sacs_mappings();
+
+    // make sure to use SSL if required
+    $zm_sacsMapper->ensureAccessMethod();
 
     // load 
     if (zm_setting('isEnableZenMagick')) {
@@ -152,9 +157,6 @@
             exit;
         }
     }
-
-    // start output buffering
-    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
     // upset plugins :)
     $zm_plugins =& new ZMPlugins();
@@ -189,6 +191,9 @@
             $$id->init();
         }
     }
+
+    // start output buffering
+    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
     // if GET or enabled && POST request set, fake directory to allow ZenMagick to handle the request and save time
     if (zm_setting('isEnableZenMagick') 

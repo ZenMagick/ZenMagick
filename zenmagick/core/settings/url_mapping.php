@@ -25,7 +25,7 @@
 ?><?php
 
     /**
-     * Set up default ULR mappings.
+     * Set up default URL mappings.
      *
      * <p>The reason for this being wrapped in a function is to make it possible
      * to include in <code>core.php</code>. Also, this leaves the option of

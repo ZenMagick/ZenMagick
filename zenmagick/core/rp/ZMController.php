@@ -98,6 +98,10 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
+    global $zm_sacsMapper;
+
+        $zm_sacsMapper->ensureAuthorization($this->id_);
+
         $view = null;
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':

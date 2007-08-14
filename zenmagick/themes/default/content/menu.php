@@ -27,7 +27,6 @@
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php zm_href(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
-
     <?php if ($zm_request->isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGIN); ?>"><?php zm_l10n("LOGIN") ?></a></li>
     <?php } else if ($zm_request->isRegistered()) { ?>

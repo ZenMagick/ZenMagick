@@ -96,11 +96,6 @@ class ZMAddressBookProcessController extends ZMController {
     function processPost() {
     global $zm_request;
         
-        // TODO: centralize
-        if ($zm_request->isAnonymous()) {
-            return $this->findView('login');
-        }
-
         $action = $zm_request->getParameter('action');
         $view = null;
         if ('update' == $action) {

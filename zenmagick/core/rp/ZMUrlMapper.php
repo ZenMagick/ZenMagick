@@ -24,8 +24,6 @@
 <?php
 
 
-define('_ZM_DEFAULT_MAPPING_ID', '_zm_default_mapping_key');
-
 /**
  * Handle URL mappings.
  *
