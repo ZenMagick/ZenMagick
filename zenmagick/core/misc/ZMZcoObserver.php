@@ -89,26 +89,6 @@ class ZMZcoObserver extends ZMObject {
         }
     }
  
-
-    /**
-     * Provide <code>$zm_account</code> right after an account is created...
-     */
-    function onLoginSuccessViaCreateAccount() {
-    global $zm_account, $zm_request;
-
-        $zm_account =& $zm_request->getAccount();
-    }
-
-    /**
-     * Provide <code>$zm_receiver</code> for gv_send email.
-     */
-    function onHeaderStartGvSend() {
-    global $zm_receiver;
-
-        $zm_receiver = $this->create("GVReceiver");
-        $zm_receiver->populate();
-    }
-
 }
 
 ?>

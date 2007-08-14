@@ -10,6 +10,7 @@ Release 0.8.3
   than page flow - manages which pages are SSL (and enforces this if
 	configured) and validates authorization (anonymous, guest, registered)
 - added new setting 'isEnforceSSL'
+- remove code from ZMZcoObserver that actually should be in ZMEventFixes...
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
