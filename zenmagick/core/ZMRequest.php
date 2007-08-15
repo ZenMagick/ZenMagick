@@ -87,6 +87,13 @@ class ZMRequest extends ZMObject {
     function getQueryString() { return $_SERVER['QUERY_STRING']; }
 
     /**
+     * Get the complete parameter map.
+     *
+     * @return array Map of all request parameters
+     */
+    function getParameterMap() { return $this->request_; }
+
+    /**
      * Get the current shopping cart.
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).

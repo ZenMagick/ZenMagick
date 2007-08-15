@@ -50,6 +50,7 @@
         // not sure how this could happen!
         $attributes = $product->getAttributes();
         $attributes = $attributes->getAttributes();
+        $uploadIndex = 1;
         foreach ($attributes as $attribute) {
             switch ($attribute->getType()) {
                 case PRODUCTS_OPTIONS_TYPE_RADIO:
@@ -65,7 +66,8 @@
                     array_push($elements, _zm_buildTextElement($product, $attribute));
                     break;
                 case PRODUCTS_OPTIONS_TYPE_FILE:
-                    zm_log('Unsupported attribute type: file for productId: '.$product->getId());
+                    array_push($elements, _zm_buildUploadElement($product, $attribute, $uploadIndex));
+                    ++$uploadIndex;
                     break;
                 case PRODUCTS_OPTIONS_TYPE_SELECT:
                     array_push($elements, _zm_buildSelectElement($product, $attribute));
@@ -124,10 +126,29 @@
         $index = 1;
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
-            //$name = 'id['.$attribute->getId().']['.$value->getId().']';
             $name = 'id['.zm_setting('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'._zm_buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""/>';
+            array_push($elements, $text);
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+
+    function _zm_buildUploadElement($product, $attribute, $uploadIndex) {
+        $element = array();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'upload';
+        $elements = array();
+        $index = 1;
+        foreach ($attribute->getValues() as $value) {
+            $id = 'id_'.$attribute->getId().'_'.$index;
+            $name = 'id['.zm_setting('textOptionPrefix').$attribute->getId().']';
+            $text = '<label for="'.$id.'">'._zm_buildAttributeValueLabel($product, $value).'</label>';
+            $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""/>';
+            $text .= '<input type="hidden" name="'.zm_setting('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"/>';
+            $text .= '<input type="hidden" name="'.zm_setting('textOptionPrefix').zm_setting('uploadOptionPrefix').$uploadIndex.'" value=""/>';
             array_push($elements, $text);
         }
         $element['html'] = $elements;

@@ -52,6 +52,17 @@
     }
     /*****temp fixes for email generation.... ********/
 
+    // simulate the number of uploads parameter for add to cart
+    if ('add_product' == $zm_request->getParameter('action')) {
+        $uploads = 0;
+        foreach ($zm_request->getParameterMap() as $name => $value) {
+            if (zm_starts_with($name, zm_setting('uploadOptionPrefix'))) {
+                ++$uploads;
+            }
+        }
+        $_GET['number_of_uploads'] = $uploads;
+    }
+
     // security fix to allow post for login
     if ("login" == $zm_request->getPageName()) {
         // *disable* zc account create code

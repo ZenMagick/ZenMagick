@@ -11,6 +11,7 @@ Release 0.8.3
 	configured) and validates authorization (anonymous, guest, registered)
 - added new setting 'isEnforceSSL'
 - remove code from ZMZcoObserver that actually should be in ZMEventFixes...
+- implement support for file upload (so far one file only)
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

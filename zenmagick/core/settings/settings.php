@@ -250,5 +250,6 @@
 
     // others
     $_ZM_SETTINGS['textOptionPrefix'] = TEXT_PREFIX;
-    //
+    $_ZM_SETTINGS['uploadOptionPrefix'] = UPLOAD_PREFIX;
+
 ?>
