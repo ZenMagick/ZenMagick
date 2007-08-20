@@ -225,7 +225,7 @@ class ZMController extends ZMObject {
      * Validate the current request using the given rule id.
      *
      * @param string id The <code>ZMRuleSet</code> id.
-     * @param array req Optional request; if not set, <code>$_POST</code> will be used.
+     * @param mixed req A (request) map, an object or <code>null</code> to default to <code>$_POST</code>.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     function validate($id, $req=null) {

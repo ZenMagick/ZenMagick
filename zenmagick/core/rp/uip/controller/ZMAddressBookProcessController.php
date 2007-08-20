@@ -110,26 +110,6 @@ class ZMAddressBookProcessController extends ZMController {
     }
 
     /**
-     * Validate zone.
-     *
-     * @param ZMAddress address The address.
-     * @return boolean <code>true</code> if the zone is valid, <code>false</code> if not.
-     */
-    function validateZone(&$address) {
-    global $zm_countries, $zm_messages;
-
-        if (!zm_setting('isAccountState')) {
-            return true;
-        }
-
-        $valid = !zm_is_empty($address->getState()) || 0 != $address->getZoneId();
-        if (!$valid) {
-            $zm_messages->error('Please enter a state.');
-        }
-        return $valid;
-    }
-
-    /**
      * Update address.
      *
      * @return ZMView The result view.
@@ -140,8 +120,7 @@ class ZMAddressBookProcessController extends ZMController {
         $address = $this->create("Address");
         $address->populate();
 
-        // TODO: make sure that zone is actually required!
-        if (!$this->validate('address') || !$this->validateZone($address)) {
+        if (!$this->validate('addressObject', $address)) {
             $this->exportGlobal("zm_address", $address);
             return $this->findView('address_book_edit');
         }
@@ -191,8 +170,7 @@ class ZMAddressBookProcessController extends ZMController {
         $address->populate();
         $address->setAccountId($zm_request->getAccountId());
 
-        // TODO: make sure that zone is actually required!
-        if (!$this->validate('address') || !$this->validateZone($address)) {
+        if (!$this->validate('addressObject', $address)) {
             $this->exportGlobal("zm_address", $address);
             return $this->findView('address_book_create');
         }

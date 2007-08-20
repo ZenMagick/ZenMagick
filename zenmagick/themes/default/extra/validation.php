@@ -80,6 +80,23 @@
     }
 
 
+    /* address object */
+    $zm_validator->addRuleSet(new ZMRuleSet('addressObject', array(
+        new ZMRequiredRule('firstName', 'Please enter your first name.'),
+        new ZMRequiredRule('lastName', 'Please enter your last name.'),
+        new ZMRequiredRule('address', 'Please enter your address.'),
+        new ZMRequiredRule('city', 'Please enter a city.'),
+        new ZMRequiredRule('postcode', 'Please enter a postcode.'),
+        new ZMRequiredRule('countryId', 'Please select a country.')
+    )));
+    if (zm_setting('isAccountGender')) {
+        $zm_validator->addRule('addressObject', new ZMRequiredRule('gender', 'Please choose a gender.'));
+    }
+    if (zm_setting('isAccountState')) {
+        $zm_validator->addRule('addressObject', new ZMStateOrZoneIdRule('state', 'Please enter a state.'));
+    }
+
+
     /* advanced search */
     $zm_validator->addRuleSet(new ZMRuleSet('advanced_search', array(
         new ZMRequiredRule('keyword', 'Search cannot be empty.')

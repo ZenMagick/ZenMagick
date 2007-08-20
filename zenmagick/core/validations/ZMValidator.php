@@ -119,10 +119,39 @@ class ZMValidator extends ZMObject {
     }
 
     /**
+     * Convert an object to map.
+     *
+     * @param mixed obj An object.
+     * @param ZMRuleSet set The rule set.
+     * @return array A name/value map.
+     */
+    function obj2map($obj, $set) {
+        $prefixList = array('get', 'is', 'has');
+
+        $map = array();
+        foreach ($set->getRules() as $rule) {
+            $name = $rule->getName();
+            $ucName = ucwords($name);
+            foreach ($prefixList as $prefix) {
+                $getter = $prefix . $ucName;
+                if (method_exists($obj, $getter)) {
+                    $map[$name] = $obj->$getter();
+                    break;
+                }
+            }
+        }
+
+        return $map;
+    }
+
+    /**
      * Validate the given request/object using the named (id) rule set.
      *
-     * @param array req A (request) map or an object.
-     * @param string id The ruls set id.
+     * <p>If the request parameter is an object, it will be added to the field map using the
+     * magic key <code>__obj</code>.</p>
+     *
+     * @param mixed req A (request) map or an object.
+     * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     function validate($req, $id) {
@@ -133,10 +162,15 @@ class ZMValidator extends ZMObject {
             return true;
         }
 
+        if (is_object($req)) {
+            $map = $this->obj2map($req, $set);
+            $map['__obj'] =& $req;
+        }
+
         // iterate over rules
         $status = true;
         foreach ($set->getRules() as $rule) {
-            if (!$rule->validate($req)) {
+            if (!$rule->validate($map)) {
                 $status = false;
                 $msgList = array();
                 if (array_key_exists($rule->getName(), $this->messages_)) {
