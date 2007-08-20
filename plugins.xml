@@ -44,6 +44,11 @@
             <param name="plugin.name" value="zm_captcha" />
             <param name="plugin.version" value="${plugins.zm_captcha.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_product_music_info" />
+            <param name="plugin.version" value="${plugins.zm_product_music_info.version}" />
+        </antcall>
     </target>
 
     

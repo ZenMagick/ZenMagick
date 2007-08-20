@@ -108,7 +108,12 @@
         <!-- copy all ZenMagick files -->
         <copy todir="${build.dir}/zenmagick">
             <!-- plugins are build separately; however, include the sample plugin -->
-            <fileset dir="${zenmagick.src.dir}" excludes="plugins/request/**" />
+            <fileset dir="${zenmagick.src.dir}" excludes="plugins/request/*/**" />
+        </copy>
+
+        <!-- copy sample plugin -->
+        <copy todir="${build.dir}/zenmagick/plugins/request/">
+            <fileset dir="${zenmagick.src.dir}/plugins/request/" includes="sample_plugin.php" />
         </copy>
 
         <!-- zen-cart overrides are used in both admin and storfront -->

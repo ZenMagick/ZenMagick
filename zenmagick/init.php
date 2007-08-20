@@ -94,8 +94,6 @@
     $zm_coupons = new ZMCoupons();
     $zm_banners = new ZMBanners();
     $zm_languages = new ZMLanguages();
-    $zm_music = new ZMMusic();
-    $zm_mediaManager = new ZMMediaManager();
     $zm_validator = new ZMValidator();
 
     $zm_account = $zm_request->getAccount();

@@ -21,6 +21,8 @@ Release 0.8.3
 - move state/zone validation into custom validation rule
 - use new ZMStateOrZoneIdRule instead of required rule for state
 - fix missing '/' in core compressor (this randomly breaks core.php)
+- move music extra code into plugin
+- fix build to include sample plugin
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
