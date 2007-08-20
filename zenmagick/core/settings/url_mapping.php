@@ -47,6 +47,12 @@
         $zm_urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
         $zm_urlMapper->setMapping(null, 'cookie_usage', 'cookie_usage', 'RedirectView');
 
+        // checkout states
+        $zm_urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');
+        $zm_urlMapper->setMapping(null, 'cart_not_ready', 'shopping_cart', 'RedirectView', 'secure=true');
+        $zm_urlMapper->setMapping(null, 'cart_is_virtual', 'checkout_billing', 'RedirectView', 'secure=true');
+
+
         // popups
         $zm_urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PopupView');
 
@@ -127,6 +133,10 @@
         // account_notifications
         $zm_urlMapper->setMapping('account_notifications');
         $zm_urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView', 'secure=true');
+
+        // shipping address
+        $zm_urlMapper->setMapping('checkout_shipping_address');
+        $zm_urlMapper->setMapping('checkout_shipping_address', 'success', 'checkout_shipping', 'RedirectView', 'secure=true');
     }
 
 ?>

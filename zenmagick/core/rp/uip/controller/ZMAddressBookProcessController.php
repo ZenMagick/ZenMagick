@@ -209,6 +209,7 @@ class ZMAddressBookProcessController extends ZMController {
             $session->setAccount($account);
         }
 
+        $this->exportGlobal("zm_address", $address);
         $zm_messages->success('Address added to your address book.');
         return $this->findView('success');
     }

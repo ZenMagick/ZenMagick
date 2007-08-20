@@ -14,6 +14,8 @@ Release 0.8.3
 - implement support for file upload (so far one file only)
 - rename 'isAnonymousCheckout' to 'isGuestCheckout'
 - more changes to make checkout without registering 'guest checkout'
+- fix worngly preselected checkout address in address list
+- implement shipping address POST handling
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

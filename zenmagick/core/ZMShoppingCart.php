@@ -120,7 +120,12 @@ class ZMShoppingCart extends ZMService {
      * 
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
-    function isVirtual() { return $_SESSION['sendto'] == false; }
+    function isVirtual() {
+        zm_resolve_zc_class('order');
+        $order = new order();
+
+        return $order->content_type == 'virtual';
+    }
 
     /**
      * Get the items in the cart.
@@ -272,6 +277,15 @@ class ZMShoppingCart extends ZMService {
     global $zm_addresses;
 
         return $zm_addresses->getAddressForId($_SESSION['sendto']);
+    }
+
+    /**
+     * Set the current shipping address id.
+     *
+     * @param int addressId The new shipping address id.
+     */
+    function setShippingAddressId($addressId) {
+        $_SESSION['sendto'] = $addressId;
     }
 
     /**
@@ -452,6 +466,18 @@ class ZMShoppingCart extends ZMService {
         return $creditTypes;
     }
     
+
+    /**
+     * Check whether the cart is ready for checkout or not.
+     *
+     * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
+     */
+    function readyForCheckout() {
+        $_SESSION['valid_to_checkout'] = true;
+        $this->cart_->get_products(true);
+        return $_SESSION['valid_to_checkout'];
+    }
+
 }
 
 ?>

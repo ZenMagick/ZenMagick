@@ -119,9 +119,9 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Validate the given request using the named (id) rule set.
+     * Validate the given request/object using the named (id) rule set.
      *
-     * @param array req The request.
+     * @param array req A (request) map or an object.
      * @param string id The ruls set id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
