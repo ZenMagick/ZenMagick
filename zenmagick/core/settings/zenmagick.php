@@ -69,7 +69,7 @@
     define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
     define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
     define ('ZM_FILENAME_RSS', 'rss');
-    define ('ZM_FILENAME_CHECKOUT_ANONYMOUS', 'checkout_anonymous');
+    define ('ZM_FILENAME_CHECKOUT_GUEST', 'checkout_guest');
 
 
     //** admin **//

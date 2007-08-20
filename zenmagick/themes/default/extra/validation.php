@@ -131,8 +131,8 @@
     )));
 
 
-    /* checkout_anonymous */
-    $zm_validator->addRuleSet(new ZMRuleSet('checkout_anonymous', array(
+    /* checkout_guest */
+    $zm_validator->addRuleSet(new ZMRuleSet('checkout_guest', array(
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.')
     )));

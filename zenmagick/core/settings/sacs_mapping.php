@@ -44,12 +44,12 @@
         $zm_sacsMapper->setMapping('account_password');
         $zm_sacsMapper->setMapping('address_book');
         $zm_sacsMapper->setMapping('address_book_process');
-        $zm_sacsMapper->setMapping('checkout_process');
-        $zm_sacsMapper->setMapping('checkout_confirmation');
-        $zm_sacsMapper->setMapping('checkout_payment');
-        $zm_sacsMapper->setMapping('checkout_payment_address');
-        $zm_sacsMapper->setMapping('checkout_shipping');
-        $zm_sacsMapper->setMapping('checkout_shipping_address');
+        $zm_sacsMapper->setMapping('checkout_process', ZM_ACCOUNT_TYPE_GUEST);
+        $zm_sacsMapper->setMapping('checkout_confirmation', ZM_ACCOUNT_TYPE_GUEST);
+        $zm_sacsMapper->setMapping('checkout_payment', ZM_ACCOUNT_TYPE_GUEST);
+        $zm_sacsMapper->setMapping('checkout_payment_address', ZM_ACCOUNT_TYPE_GUEST);
+        $zm_sacsMapper->setMapping('checkout_shipping', ZM_ACCOUNT_TYPE_GUEST);
+        $zm_sacsMapper->setMapping('checkout_shipping_address', ZM_ACCOUNT_TYPE_GUEST);
         $zm_sacsMapper->setMapping('gv_redeem');
         $zm_sacsMapper->setMapping('gv_send');
         $zm_sacsMapper->setMapping('password_forgotten');

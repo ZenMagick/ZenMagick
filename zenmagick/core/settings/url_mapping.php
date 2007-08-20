@@ -84,9 +84,9 @@
         $zm_urlMapper->setMapping('password_forgotten');
         $zm_urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView', 'secure=true');
 
-        // anonymous checkout
-        $zm_urlMapper->setMapping('checkout_anonymous', 'login');
-        $zm_urlMapper->setMapping('checkout_anonymous', 'success', 'checkout_shipping', 'RedirectView', 'secure=true');
+        // guest checkout
+        $zm_urlMapper->setMapping('checkout_guest', 'login');
+        $zm_urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView', 'secure=true');
 
 
         // product_info

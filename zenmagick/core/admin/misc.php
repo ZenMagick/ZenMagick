@@ -47,6 +47,7 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "includes/functions/extra_functions/zenmagick_ultimate_seo.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/seo.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/extra/url_mapping.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/rp/upi/controller/ZMCheckoutAnonymousController.php");
 
 
     // check for existance of all obsolete files

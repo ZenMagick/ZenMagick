@@ -44,14 +44,14 @@
   <a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
-<?php if (zm_setting('isAnonymousCheckout') && !$zm_cart->isEmpty()) { ?>
+<?php if (zm_setting('isGuestCheckout') && !$zm_cart->isEmpty()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
-  <?php zm_secure_form(ZM_FILENAME_CHECKOUT_ANONYMOUS, "action=process", 'checkout_anonymous', 'post', 'return validate(this);') ?>
+  <?php zm_secure_form(ZM_FILENAME_CHECKOUT_GUEST, "action=process", 'checkout_guest', 'post', 'return validate(this);') ?>
     <fieldset>
       <legend><?php zm_l10n("Checkout without registering") ?></legend>
       <div>
-        <label for="email_address_anonym"><?php zm_l10n("E-Mail Address") ?></label>
-        <input type="text" id="email_address_anonym" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+        <label for="email_address_guest"><?php zm_l10n("E-Mail Address") ?></label>
+        <input type="text" id="email_address_guest" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
         <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
       </div>
     </fieldset>

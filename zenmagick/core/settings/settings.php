@@ -121,8 +121,8 @@
     // reviews
     $_ZM_SETTINGS['isApproveReviews'] = REVIEWS_APPROVAL == '1';
 
-    // anonymous checkout
-    $_ZM_SETTINGS['isAnonymousCheckout'] = false;
+    // guest checkout
+    $_ZM_SETTINGS['isGuestCheckout'] = false;
 
     // language support for ez-pages
     $_ZM_SETTINGS['isEZPagesLangSupport'] = false;

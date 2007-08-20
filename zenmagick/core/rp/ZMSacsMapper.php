@@ -51,9 +51,9 @@ class ZMSacsMapper extends ZMObject {
         $this->mapping_ = array();
         // which level allows what
         $this->levelMap_ = array(
-            ZM_ACCOUNT_TYPE_ANONYMOUS => array(ZM_ACCOUNT_TYPE_ANONYMOUS),
-            ZM_ACCOUNT_TYPE_GUEST => array(ZM_ACCOUNT_TYPE_GUEST),
-            ZM_ACCOUNT_TYPE_REGISTERED => array(ZM_ACCOUNT_TYPE_GUEST, ZM_ACCOUNT_TYPE_REGISTERED)
+            ZM_ACCOUNT_TYPE_ANONYMOUS => array(ZM_ACCOUNT_TYPE_ANONYMOUS, ZM_ACCOUNT_TYPE_GUEST, ZM_ACCOUNT_TYPE_REGISTERED),
+            ZM_ACCOUNT_TYPE_GUEST => array(ZM_ACCOUNT_TYPE_GUEST, ZM_ACCOUNT_TYPE_REGISTERED),
+            ZM_ACCOUNT_TYPE_REGISTERED => array(ZM_ACCOUNT_TYPE_REGISTERED)
         );
     }
 

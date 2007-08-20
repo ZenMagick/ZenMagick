@@ -29,8 +29,11 @@
     <li class="first"><a href="<?php zm_href(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
     <?php if ($zm_request->isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGIN); ?>"><?php zm_l10n("LOGIN") ?></a></li>
-    <?php } else if ($zm_request->isRegistered()) { ?>
+    <?php } ?>
+    <?php if ($zm_request->isRegistered()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
+    <?php } ?>
+    <?php if (!$zm_request->isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGOFF); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!$zm_cart->isEmpty() && !zm_is_checkout_page()) { ?>
