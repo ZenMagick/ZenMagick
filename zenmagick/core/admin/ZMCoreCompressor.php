@@ -314,7 +314,9 @@ class ZMCoreCompressor extends ZMObject {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
+            if (!zm_ends_with($outdir, '/')) $outdir .= '/';
             $outfile = $outdir.$name;
+            //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
                     zm_mkdir(dirname($outdir), 755);

@@ -20,6 +20,7 @@ Release 0.8.3
   will allow to facilitate model logic (populate) during validation
 - move state/zone validation into custom validation rule
 - use new ZMStateOrZoneIdRule instead of required rule for state
+- fix missing '/' in core compressor (this randomly breaks core.php)
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
