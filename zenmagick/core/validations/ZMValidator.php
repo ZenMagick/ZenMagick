@@ -165,6 +165,8 @@ class ZMValidator extends ZMObject {
         if (is_object($req)) {
             $map = $this->obj2map($req, $set);
             $map['__obj'] =& $req;
+        } else {
+            $map = $req;
         }
 
         // iterate over rules
