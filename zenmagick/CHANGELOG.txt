@@ -26,6 +26,16 @@ Release 0.8.3
 - implement logoff (not actually executed as zen-cart kicks in first...)
 - added new 'isLogoffGuestAfterOrder' setting
 - added event based check for shipping/billing addres for guest checkout
+- renamed ZMAjaxShoppingCartController::getItemsJSON() to
+  ZMAjaxShoppingCartController::getContentsJSON()
+- added addProductJSON() and removeCartItemJSON() to ZMAjaxShoppingCartController
+- add (limited) addProduct(..), removeProduct(..) and updateProduct(..) methods
+  to shopping cart
+- update Ajax demo page to add/remove/update products
+- converted all Ajax demos to use jQuery and json.js;
+- removed XML based Ajax controller from demo theme
+- changed ZMCountries::getZonesForCountryId(..) to return a list, not a map
+- reworked ajax_demo page to reflect all the changes
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

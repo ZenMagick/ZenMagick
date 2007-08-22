@@ -99,7 +99,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     /**
      * Get cart content.
      */
-    function getItemsJSON() {
+    function getContentsJSON() {
     global $zm_cart;
 
         $cart = array();
@@ -114,6 +114,75 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         $flatObj = $this->flattenObject($cart);
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
+    }
+
+    /**
+     * Add product to cart.
+     *
+     * <p><strong>Doesn't support attributes yet</strong>.</p>
+     *
+     * <p>URL parameter:</p>
+     * <dl>
+     *  <dt>productId</dt><dd>The product id</dd>
+     *  <dt>quantity</dt><dd>The product quantity</dd>
+     * </dl>
+     *
+     * <p>Will return the new cart contents.</p>
+     */
+    function addProductJSON() {
+    global $zm_request, $zm_cart;
+
+        $productId = $zm_request->getParameter('productId', null);
+        $quantity = $zm_request->getParameter('quantity', 0);
+
+        if (null !== $productId && 0 != $quantity) {
+            $zm_cart->addProduct($productId, $quantity);
+        }
+
+        $this->getContentsJSON();
+    }
+
+    /**
+     * Remove from cart.
+     *
+     * <p>Will return the new cart contents.</p>
+     */
+    function removeProductJSON() {
+    global $zm_request, $zm_cart;
+
+        $productId = $zm_request->getParameter('productId', null);
+
+        if (null !== $productId) {
+            $zm_cart->removeProduct($productId);
+        }
+
+        $this->getContentsJSON();
+    }
+
+    /**
+     * Update cart product.
+     *
+     * <p><strong>Doesn't support attributes yet</strong>.</p>
+     *
+     * <p>URL parameter:</p>
+     * <dl>
+     *  <dt>productId</dt><dd>The product id</dd>
+     *  <dt>quantity</dt><dd>The product quantity</dd>
+     * </dl>
+     *
+     * <p>Will return the new cart contents.</p>
+     */
+    function updateProductJSON() {
+    global $zm_request, $zm_cart;
+
+        $productId = $zm_request->getParameter('productId', null);
+        $quantity = $zm_request->getParameter('quantity', 0);
+
+        if (null !== $productId && 0 != $quantity) {
+            $zm_cart->updateProduct($productId, $quantity);
+        }
+
+        $this->getContentsJSON();
     }
 
 }

@@ -478,6 +478,100 @@ class ZMShoppingCart extends ZMService {
         return $_SESSION['valid_to_checkout'];
     }
 
+    /**
+     * Add a product in the given quantity.
+     *
+     * <p><strong>Doesn't support attributes or upload (yet)</strong>.</p>
+     *
+     * @param int productId The product.
+     * @param int quantity The quantity; default is <code>1</code>.
+     * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
+     */
+    function addProduct($productId, $quantity=1) {
+        $adjust_max = false;
+        $add_max = zen_get_products_quantity_order_max($productId);
+        $cart_qty = $this->cart_->in_cart_mixed($productId);
+        $new_qty = $quantity;
+        $new_qty = $this->cart_->adjust_quantity($new_qty, $productId, 'shopping_cart');
+
+        if ($add_max == 1 && $cart_qty == 1) {
+            // TODO: error message/status
+            return false;
+        } else {
+            // adjust quantity if needed
+            if (($new_qty + $cart_qty > $add_max) && $add_max != 0) {
+                $adjust_max = true;
+                $new_qty = $add_max - $cart_qty;
+            }
+        }
+
+        if (zen_get_products_quantity_order_max($productId) != 1 || $this->in_cart_mixed($productId) != 1) {
+            $this->cart_->add_cart($productId, $this->cart_->get_quantity(zen_get_uprid($productId, '')) + $new_qty, '');
+        }
+
+        if ($adjust_max == true) {
+            // TODO: error message/status
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove item from cart.
+     *
+     * @param mixed productId The (full) product id (incl. attribute suffix).
+     * @return boolean <code>true</code> if the product was removed, <code>false</code> if not.
+     */
+    function removeProduct($productId) {
+        if (null !== $productId) {
+            $this->cart_->remove($productId);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Update item.
+     *
+     * <p><strong>Doesn't support attributes (yet)</strong>.</p>
+     *
+     * @param int productId The product.
+     * @param int quantity The quantity.
+     * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
+     */
+    function updateProduct($productId, $quantity) {
+        if (null !== $productId && null !== $quantity) {
+            if (0 == $quantity) {
+                return $this->removeProduct($productId);
+            }
+
+            $adjust_max= false;
+            $add_max = zen_get_products_quantity_order_max($productId);
+            $cart_qty = $this->cart_->in_cart_mixed($productId);
+            $new_qty = $quantity;
+            $new_qty = $this->cart_->adjust_quantity($new_qty, $productId, 'shopping_cart');
+
+            if ($add_max == 1 && $cart_qty == 1) {
+                $adjust_max = true;
+            } else {
+                // adjust quantity if needed
+                if (($new_qty + $cart_qty > $add_max) && $add_max != 0) {
+                    $adjust_max = true;
+                    $new_qty = $add_max - $cart_qty;
+                }
+                $this->cart_->add_cart($productId, $new_qty, '', false);
+            }
+
+            if ($adjust_max == 'true') {
+                // TODO: error message/status
+            } 
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 ?>

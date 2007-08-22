@@ -176,7 +176,8 @@ class ZMCountries extends ZMService {
             $zone->setId($results->fields['zone_id']);
             $zone->setCode($results->fields['zone_code']);
             $zone->setName($results->fields['zone_name']);
-            $zones[$zone->getCode()] = $zone;
+            //$zones[$zone->getCode()] = $zone;
+            $zones[] = $zone;
             $results->MoveNext();
         }
 
