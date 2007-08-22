@@ -47,10 +47,12 @@ Depending on your server configuration you might be better of using something di
 
 <label for="msgbox"><strong>Messages</strong></label>
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
-<form action="#">
+
+<form action="#" style="margin:32px 0;">
     <fieldset>
         <legend>Shopping Cart</legend>
-        <div id="cart" style="margin:4px 0;">
+        <p>Simple display of the cart contents. This area is also being updated by the Ajax Cart demo further down the page.</p>
+        <div id="cart" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
             Cart is empty.
         </div>
         <input type="button" value="Refresh cart" onclick="refreshCart();" />
@@ -89,9 +91,11 @@ Depending on your server configuration you might be better of using something di
 </script>
 
 
-<form action="#">
+<form action="#" style="margin:32px 0;">
     <fieldset>
         <legend>Simple Ajax Shopping Cart</legend>
+        <p>Allows to add/update/remove items to/from the shopping cart. The updated cart contents is
+        displayed.</p>
         <p>
             <label for="productId">ProductId</label>
             <input type="text" id="productId" name="productId" value="3" /><br />
@@ -167,10 +171,12 @@ Depending on your server configuration you might be better of using something di
 </script>
 
 
-<form action="#">
+<form action="#" style="margin:32px 0;">
     <fieldset>
         <legend>Simple Shipping Estimator</legend>
-        <div id="methodList" style="margin:4px 0;">
+        <p>Calculates and displays available shipping options based on the current cart contents and
+        shipping address.</p>
+        <div id="methodList" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
         </div>
         <div id="address" style="margin:4px 0;">
         </div>
@@ -226,9 +232,10 @@ Depending on your server configuration you might be better of using something di
 </script>
 
 
-<form action="#">
+<form action="#" style="margin:32px 0;">
     <fieldset>
         <legend>Country / Zone demo</legend>
+        <p>Load the list of available countries and zones on demand.</p>
         <p>
             <label for="countries">Countries</label>
             <select id="countries" name="countries" onchange="loadZones()">
