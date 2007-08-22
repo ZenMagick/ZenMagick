@@ -41,8 +41,7 @@ Depending on your server configuration you might be better of using something di
 </ul>
 
 
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery/jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery/interface.js") ?>"></script>
+<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
 <script type="text/javascript" src="<?php $zm_theme->themeURL("json.js") ?>"></script>
 
 
