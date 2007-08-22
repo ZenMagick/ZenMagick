@@ -80,6 +80,13 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Get the current session.
+     *
+     * @return ZMSession The session.
+     */
+    function &getSession() { return $this->session_; }
+
+    /**
      * Get the full query string.
      *
      * @return string The full query string for this request.

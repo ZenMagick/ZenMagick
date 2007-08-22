@@ -23,6 +23,8 @@ Release 0.8.3
 - fix missing '/' in core compressor (this randomly breaks core.php)
 - move music extra code into plugin
 - fix build to include sample plugin
+- implement logoff (not actually executed as zen-cart kicks in first...)
+- added new 'isLogoffGuestAfterOrder' setting
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

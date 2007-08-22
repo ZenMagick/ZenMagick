@@ -51,6 +51,9 @@
     $_ZM_SETTINGS['isEventProxySupport'] = true;
     $_ZM_SETTINGS['isDynamicAdminMenuPatchSupport'] = true;
 
+    // guest account behaviour
+    $_ZM_SETTINGS['isLogoffGuestAfterOrder'] = true;
+
     // list of pages for SEO; null means all
     $_ZM_SETTINGS['seoEnabledPagesList'] = array("index", "product_info", "product_reviews_info");
 

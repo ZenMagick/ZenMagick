@@ -64,9 +64,16 @@ class ZMLogoffController extends ZMController {
     function processGet() {
     global $zm_crumbtrail, $zm_cart;
 
-        zm_clear_session();
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        $session = new ZMSession();
+        if (!$session->isAnonymous()) {
+            // logged in
+            $session->clear();
+            // redisplay to allow update of state
+            return $this->findView('success');
+        }
 
+        // display page
+        $zm_crumbtrail->addCrumb(zm_title(false));
         return $this->findView();
     }
 

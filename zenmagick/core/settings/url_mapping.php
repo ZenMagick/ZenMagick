@@ -86,6 +86,10 @@
         $zm_urlMapper->setMapping('login', 'success', 'account', 'RedirectView', 'secure=true');
         $zm_urlMapper->setMapping('login', 'account', 'account', 'RedirectView', 'secure=true');
 
+        // logoff
+        $zm_urlMapper->setMapping('logoff');
+        $zm_urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');
+
         // password_forgotten
         $zm_urlMapper->setMapping('password_forgotten');
         $zm_urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView', 'secure=true');

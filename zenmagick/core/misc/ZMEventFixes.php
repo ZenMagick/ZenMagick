@@ -84,6 +84,27 @@ class ZMEventFixes extends ZMObject {
         $zm_receiver->populate();
     }
 
+    /**
+     * Validate addresses for guest checkout.
+     */
+    function onNotifyHeaderEndCheckoutConfirmation() {
+    global $zm_request, $zm_cart, $zm_messages;
+
+        $session = $zm_request->getSession();
+        if ($session->isGuest()) {
+            // check for address
+            if (!$zm_cart->hasShippingAddress() && !$zm_cart->isVirtual()) {
+                $zm_messages->error('Please provide a shipping address');
+                zm_redirect(zm_secure_href(FILENAME_CHECKOUT_SHIPPING));
+            }
+
+            if (null == $zm_cart->getBillingAddress()) {
+                $zm_messages->error('Please provide a billing address');
+                zm_redirect(zm_secure_href(FILENAME_CHECKOUT_PAYMENT));
+            }
+        }
+    }
+
 }
 
 ?>

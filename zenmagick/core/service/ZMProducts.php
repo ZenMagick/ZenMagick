@@ -181,7 +181,7 @@ class ZMProducts extends ZMService {
     global $zm_runtime;
 
         $db = $this->getDB();
-		$query = null;
+		    $query = null;
         if (null == $categoryId || 0 == $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p 

@@ -142,7 +142,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    function isGuest() { return !$this->isAnonymous() && (!array_key_exists('customer_id', $_SESSION) || '' == $_SESSION['customer_id']); }
+    function isGuest() { return !array_key_exists('account_type', $_SESSION) || ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
@@ -171,6 +171,17 @@ class ZMSession extends ZMObject {
             $_SESSION['customer_country_id'] = $address->getCountryId();
             $_SESSION['customer_zone_id'] = $address->getZoneId();
         }
+    }
+
+    /**
+     * Clear the session.
+     *
+     * <p>This will effectively logoff the curent account.
+     */
+    function clear() {
+        session_destroy();
+        unset($_SESSION['account_type']);
+        $_SESSION['customers_id'] = '';
     }
 
     /**
