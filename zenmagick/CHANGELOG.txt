@@ -25,6 +25,7 @@ Release 0.8.3
 - fix build to include sample plugin
 - implement logoff (not actually executed as zen-cart kicks in first...)
 - added new 'isLogoffGuestAfterOrder' setting
+- added event based check for shipping/billing addres for guest checkout
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
