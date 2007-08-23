@@ -1,0 +1,17 @@
+.activeCart
+{
+	background-color: #DAFF9F;
+}
+.hoverCart
+{
+	background-color:#FFFFCC;
+}
+#b_category_list .rlist .product img
+{
+	cursor: move;
+}
+.transferProduct
+{
+	border: 1px solid #6CAF00;
+}
+
