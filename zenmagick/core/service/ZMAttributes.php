@@ -25,7 +25,9 @@
 
 
 /**
- * Attributes.
+ * Attributes service.
+ *
+ * <p>This one is actually only used internally by the product service.</p>
  *
  * @author mano
  * @package net.radebatz.zenmagick.service
@@ -205,7 +207,7 @@ class ZMAttributes extends ZMService {
     function hasAttributes() { return $this->hasAttributes_; }
 
     /**
-     * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} values.
+     * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} instances.
      * @see net.radebatz.zenmagick.model.ZMAttribute ZMAttribute
      */
     function getAttributes() { $this->_loadAttributes(); return $this->attributes_; }

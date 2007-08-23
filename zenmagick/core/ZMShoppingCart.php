@@ -485,9 +485,11 @@ class ZMShoppingCart extends ZMService {
      *
      * @param int productId The product.
      * @param int quantity The quantity; default is <code>1</code>.
+     * @param array attributes Optional list of attributes; key is the attribute id, the value can 
+     *  contain be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
-    function addProduct($productId, $quantity=1) {
+    function addProduct($productId, $quantity=1, $attributes=array()) {
         $adjust_max = false;
         $add_max = zen_get_products_quantity_order_max($productId);
         $cart_qty = $this->cart_->in_cart_mixed($productId);

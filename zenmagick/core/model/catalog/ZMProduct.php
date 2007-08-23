@@ -291,11 +291,19 @@ class ZMProduct extends ZMModel {
     function getOffers() { return $this->offers_; }
 
     /**
+     * Check if this product has attributes or not.
+     *
+     * @return boolean <code>true</code> if there are attributes (values) available,
+     *  <code>false</code> if not.
+     */
+    function hasAttributes() { return $this->attributes_->hasAttributes_; }
+
+    /**
      * Get the product attributes.
      *
-     * @return array A list of <code>ZMAttribute</code> instances.
+     * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} instances.
      */
-    function getAttributes() { return $this->attributes_; }
+    function getAttributes() { return $this->attributes_->getAttributes(); }
 
     /**
      * Get the product features.

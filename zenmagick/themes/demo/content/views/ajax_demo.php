@@ -64,6 +64,10 @@ Depending on your server configuration you might be better of using something di
 
     // update cart content
     function updateCartContent(msg) {
+        if (!msg) {
+            cartElem.innerHTML += 'Cart (still) empty!';
+            return;
+        }
         var json = eval('(' + msg + ')');
         for (var ii=0; ii < json.items.length; ++ii) {
             var item = json.items[ii];
@@ -98,9 +102,13 @@ Depending on your server configuration you might be better of using something di
         displayed.</p>
         <p>
             <label for="productId">ProductId</label>
-            <input type="text" id="productId" name="productId" value="3" /><br />
+            <input type="text" id="productId" name="productId" value="34" /><br />
             <label for="quantity">Quantity</label>
             <input type="text" id="quantity" name="quantity" value="1" /> (add/update)<br />
+            <div id="productDetails" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
+            </div>
+            <input type="button" value="Load product details" onclick="loadProduct();" />
+            <br />
             <input type="button" value="Add to cart" onclick="sc_add();" />
             <input type="button" value="Remove from cart" onclick="sc_remove();" />
             <input type="button" value="Update quantity" onclick="sc_update();" />
@@ -111,7 +119,41 @@ Depending on your server configuration you might be better of using something di
 
 <script type="text/javascript">
     var productIdElem = document.getElementById('productId');
+    var productDetailsElem = document.getElementById('productDetails');
     var quantityElem = document.getElementById('quantity');
+
+    function loadProduct() {
+        var productId = productIdElem.value;
+
+        msgboxElem.innerHTML = "Loading product " + productId + " ... ";
+        productDetailsElem.innerHTML = '';
+
+        $.ajax({
+            type: "GET",
+            url: "<?php zm_ajax_href('product', 'getProductForId') ?>",
+            data: "productId="+productId,
+            success: function(msg) {
+                msgboxElem.innerHTML += "got response ... ";
+
+                var product = eval('(' + msg + ')');
+                productDetailsElem.innerHTML += 'id: ' + product.id + "<br>";
+                productDetailsElem.innerHTML += 'name: ' + product.name + "<br>";
+                productDetailsElem.innerHTML += 'model: ' + product.model + "<br>";
+                //productDetailsElem.innerHTML += 'description: ' + product.description + "<br>";
+
+                for (var ii=0; ii < product.attributes.length; ++ii) {
+                    var attribute = product.attributes[ii];
+                    productDetailsElem.innerHTML += '<b>attribute:</b> id: '+ attribute.id + " - " + attribute.name + ' (type: ' + attribute.type + ')<br>';
+                    for (var jj=0; jj < attribute.values.length; ++jj) {
+                        var value = attribute.values[jj];
+                        productDetailsElem.innerHTML += '&nbsp;&nbsp;id: '+ value.id + " - " + value.name + '<br>';
+                    }
+                }
+
+                msgboxElem.innerHTML += "done!";
+            }
+        });
+    }
 
     function sc_add() {
         var productId = productIdElem.value;

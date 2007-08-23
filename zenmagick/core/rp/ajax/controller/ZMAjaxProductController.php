@@ -25,18 +25,18 @@
 
 
 /**
- * Ajax controller for JSON country data.
+ * Ajax controller for JSON product data.
  *
  * @author mano
  * @package net.radebatz.zenmagick.rp.ajax.controller
  * @version $Id$
  */
-class ZMAjaxCountryController extends ZMAjaxController {
+class ZMAjaxProductController extends ZMAjaxController {
 
     /**
      * Default c'tor.
      */
-    function ZMAjaxCountryController() {
+    function ZMAjaxProductController() {
         parent::__construct();
     }
 
@@ -44,7 +44,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMAjaxCountryController();
+        $this->ZMAjaxProductController();
     }
 
     /**
@@ -55,33 +55,40 @@ class ZMAjaxCountryController extends ZMAjaxController {
     }
 
     /**
-     * Generates a JSON list of all countries.
+     * Get product information for the given product id.
      *
+     * @param int productd The product id.
      * @return void
      */
-    function getCountryListJSON() {
-    global $zm_countries;
+    function getProductForIdJSON() {
+    global $zm_request, $zm_products;
 
-        $flatObj = $this->flattenObject($zm_countries->getCountries(), array('id', 'name'));
+        $productId = $zm_request->getParameter('productId', 0);
+
+        $flatObj = $this->flattenObject($zm_products->getProductForId($productId), array('id', 'name', 'description', 'model', 
+          'attributes' => array('id', 'type', 'name',
+            'values' => array('id', 'name')
+        )));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
 
     /**
-     * Generates a JSON list of all zones for the requested country id.
+     * Get product attributes for the given product id.
      *
-     * @param int countryId The country id.
+     * @param int productd The product id.
      * @return void
      */
-    function getZonesForCountryIdJSON() {
-    global $zm_request, $zm_countries;
+    function getAttributesForProductIdJSON() {
+    global $zm_request, $zm_attributes;
 
-        $countryId = $zm_request->getParameter('countryId', null);
+        $productId = $zm_request->getParameter('productId', 0);
 
-        $flatObj = $this->flattenObject($zm_countries->getZonesForCountryId($countryId), array('id', 'name'));
+        $flatObj = $this->flattenObject($zm_products->getProductForId($productId), array('id', 'name', 'description', 'model'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
+
 
 }
 

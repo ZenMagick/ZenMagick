@@ -55,6 +55,9 @@
 <?php if (!zm_is_checkout_page()) { ?>
 <h3><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:right;" alt="progress"><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
+        <?php if ($zm_cart->isEmpty()) { ?>
+            <?php zm_l10n("Cart is Empty") ?>
+        <?php } ?>
         <?php foreach ($zm_cart->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br />
         <?php } ?>

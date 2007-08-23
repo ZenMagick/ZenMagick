@@ -117,10 +117,13 @@ class ZMAjaxController extends ZMController {
      * Flattens any given object.
      *
      * <p>Criteria for the included data is the ZenMagick naming convention that access methods start with
-     * either <code>get</code> or <code>isi/has</code>.</p>
+     * either <code>get</code> or <code>is/has</code>.</p>
      *
      * <p>If the given object is an array, all elements will be converted, too. Generally speaking, this method works
-     * recursively. Arrays are preserved, array values will be converted, however.</p>
+     * recursively. Arrays are preserved, array values, in turn, will be flattened.</p>
+     *
+     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is 
+     * a good example for this.</p>
      *
      * @param mixed obj The object.
      * @param array methods Optional list of methods to include as properties.
@@ -158,12 +161,20 @@ class ZMAjaxController extends ZMController {
         }
 
         $props = array();
-        foreach ($methods as $method) {
+        foreach ($methods as $key => $value) {
+            $method = $value;
+            $sub = null;
+            if (is_array($method)) {
+                // use key to allow for recursive mappings
+                $method = $key;
+                // use value array for recursive mappings
+                $sub = $value;
+            }
             $getter = 'get'.ucfirst($method);
             if (method_exists($obj, $getter)) {
                 $prop = $obj->$getter();
-                if (is_object($prop)) {
-                    $prop = $this->flattenObject($prop, null, $formatter);
+                if (is_object($prop) || is_array($prop)) {
+                    $prop = $this->flattenObject($prop, $sub, $formatter);
                 }
                 $props[$method] = null != $formatter ? $formatter($obj, $method, $prop) : $prop;
             } else {

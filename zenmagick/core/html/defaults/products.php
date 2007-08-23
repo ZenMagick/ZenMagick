@@ -49,7 +49,6 @@
         $elements = array();
         // not sure how this could happen!
         $attributes = $product->getAttributes();
-        $attributes = $attributes->getAttributes();
         $uploadIndex = 1;
         foreach ($attributes as $attribute) {
             switch ($attribute->getType()) {

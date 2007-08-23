@@ -36,6 +36,14 @@ Release 0.8.3
 - removed XML based Ajax controller from demo theme
 - changed ZMCountries::getZonesForCountryId(..) to return a list, not a map
 - reworked ajax_demo page to reflect all the changes
+- changed ZMProduct::getAttributes() to return the list of attributes rather
+  than a ZMAttributes instance; this requires a change in
+  core/html/default/products.php
+- added ZMProduct::hasAttributes() method
+- added Ajax product controller and updated ajax demo
+- changed ZMAjaxController::flattenObject(..) to accept nested arrays for
+  method mappings; this allows to map methods for recursively processed
+	arrays and objects
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
