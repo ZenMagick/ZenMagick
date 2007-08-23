@@ -52,6 +52,7 @@
       var loff = url.lastIndexOf('/');
       var productId = parseInt(url.substring(loff+1));
       if ('NaN' != productId) {
+          $('#cart_progress').show();
           $.ajax({
               type: "POST",
               url: "<?php zm_ajax_href('shopping_cart', 'addProduct') ?>",
