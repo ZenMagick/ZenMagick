@@ -107,11 +107,9 @@ Depending on your server configuration you might be better of using something di
         <p>
             <label for="productId">ProductId</label>
             <input type="text" id="productId" name="productId" value="34" size="6" />
-            <label for="quantity">Qty</label><input type="text" id="quantity" name="quantity" value="1" size="4" /><br />
+            <label for="quantity">Qty</label><input type="text" id="quantity" name="quantity" value="1" size="4" /> <input type="button" value="Load product details" onclick="loadProduct();" /><br />
             <div id="productDetails" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
             </div>
-            <input type="button" value="Load product details" onclick="loadProduct();" />
-            <br />
             <input type="button" value="Add to cart" onclick="sc_add();" />
             <input type="button" value="Remove from cart" onclick="sc_remove();" />
             <input type="button" value="Update quantity" onclick="sc_update();" />
