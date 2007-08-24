@@ -67,7 +67,7 @@
     };
 </script>
 
-
+<h2>Drag products into your shopping cart</h2>
 <?php if ($zm_resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php include($zm_theme->themeFile('views/resultlist/nav.php')) ?>
