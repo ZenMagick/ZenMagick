@@ -35,7 +35,9 @@
   <li>Theme switching (implemented for the contact us page)</li>
   <li>Field specific error messages (login page)</li>
   <li><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a> integration</li>
-  <li>Drag/Drop Ajax cart demo for category listing (drag listing image onto shopping cart sidebox)</li>
+  <li>Drag/Drop Ajax cart demo for category listing (drag listing image onto shopping cart sidebox)<br/>
+    <strong>Note1:</strong> This demo does not use <code>json.js</code> as this is not compatible with the used <a href="http://interface.eyecon.ro">effects library</a>!<br/>
+  </li>
 </ul>
 
 <?php $zm_theme->staticPageContent("main_page") ?>

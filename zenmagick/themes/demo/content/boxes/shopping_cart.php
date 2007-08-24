@@ -26,13 +26,12 @@
 
 <script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
 <script type="text/javascript" src="<?php $zm_theme->themeURL("interface.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("json.js") ?>"></script>
 
 <script type="text/javascript">
     // callback used by drop handler to update cart contents
     var updateSBCartContent = function(msg) {
         var href_template = '<?php zm_product_href('{productId}') ?>';
-
+        // NOTE: using json.js here will break IE and create ugly JS erros in FF
         var cart = eval('(' + msg + ')');
         // clear
         $('#sb_cart').empty();
@@ -53,7 +52,7 @@
 </script>
 
 <?php if (!zm_is_checkout_page()) { ?>
-<h3><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:right;" alt="progress"><?php zm_l10n("Shopping Cart") ?></h3>
+<h3><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:right;" alt="progress" /><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if ($zm_cart->isEmpty()) { ?>
             <?php zm_l10n("Cart is Empty") ?>

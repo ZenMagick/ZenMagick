@@ -48,9 +48,10 @@
 
     // add to cart action
     var addProductToCart = function(dragged) {
-      var url = new String(dragged);
-      var loff = url.lastIndexOf('/');
-      var productId = parseInt(url.substring(loff+1));
+      // product_[id]
+      var productId = $(dragged).attr('id');
+      var loff = productId.lastIndexOf('_');
+      var productId = parseInt(productId.substring(loff+1));
       if ('NaN' != productId) {
           $('#cart_progress').show();
           $.ajax({
