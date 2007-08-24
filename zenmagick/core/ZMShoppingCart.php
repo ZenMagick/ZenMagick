@@ -508,7 +508,11 @@ class ZMShoppingCart extends ZMService {
         }
 
         if (zen_get_products_quantity_order_max($productId) != 1 || $this->in_cart_mixed($productId) != 1) {
-            $this->cart_->add_cart($productId, $this->cart_->get_quantity(zen_get_uprid($productId, '')) + $new_qty, '');
+            $attr = '';
+            if (0 < count($attributes)) {
+                $attr = $attributes;
+            }
+            $this->cart_->add_cart($productId, $this->cart_->get_quantity(zen_get_uprid($productId, '')) + $new_qty, $attr);
         }
 
         if ($adjust_max == true) {

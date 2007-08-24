@@ -67,7 +67,7 @@ class ZMAjaxProductController extends ZMAjaxController {
 
         $flatObj = $this->flattenObject($zm_products->getProductForId($productId), array('id', 'name', 'description', 'model', 
           'attributes' => array('id', 'type', 'name',
-            'values' => array('id', 'name')
+            'values' => array('id', 'name', 'default')
         )));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);

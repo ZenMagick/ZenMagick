@@ -134,10 +134,10 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $productId = $zm_request->getParameter('productId', null);
         $quantity = $zm_request->getParameter('quantity', 0);
-
+        $id = $zm_request->getParameter('id', array());
 
         if (null !== $productId && 0 != $quantity) {
-            $zm_cart->addProduct($productId, $quantity);
+            $zm_cart->addProduct($productId, $quantity, $id);
         }
 
         $this->getContentsJSON();

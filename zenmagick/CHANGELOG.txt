@@ -44,6 +44,8 @@ Release 0.8.3
 - changed ZMAjaxController::flattenObject(..) to accept nested arrays for
   method mappings; this allows to map methods for recursively processed
 	arrays and objects
+- add attribute support to ZMShoppingCart::addProduct(..) except for uploads
+- add attribute support to ajax demo
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

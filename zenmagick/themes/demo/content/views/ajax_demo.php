@@ -42,6 +42,7 @@ Depending on your server configuration you might be better of using something di
 
 
 <script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
+<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.form.js") ?>"></script>
 <script type="text/javascript" src="<?php $zm_theme->themeURL("json.js") ?>"></script>
 
 
@@ -92,19 +93,21 @@ Depending on your server configuration you might be better of using something di
             }
         });
     }
+
+    // load on document ready
+    $(document).ready(function() { refreshCart(); });
 </script>
 
 
-<form action="#" style="margin:32px 0;">
+<form action="#" id="productForm" style="margin:32px 0;">
     <fieldset>
         <legend>Simple Ajax Shopping Cart</legend>
         <p>Allows to add/update/remove items to/from the shopping cart. The updated cart contents is
         displayed.</p>
         <p>
             <label for="productId">ProductId</label>
-            <input type="text" id="productId" name="productId" value="34" /><br />
-            <label for="quantity">Quantity</label>
-            <input type="text" id="quantity" name="quantity" value="1" /> (add/update)<br />
+            <input type="text" id="productId" name="productId" value="34" size="6" />
+            <label for="quantity">Qty</label><input type="text" id="quantity" name="quantity" value="1" size="4" /><br />
             <div id="productDetails" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
             </div>
             <input type="button" value="Load product details" onclick="loadProduct();" />
@@ -122,6 +125,86 @@ Depending on your server configuration you might be better of using something di
     var productDetailsElem = document.getElementById('productDetails');
     var quantityElem = document.getElementById('quantity');
 
+    // show attributes
+    function showAttributesValues(attributes) {
+        for (var ii=0; ii < attributes.length; ++ii) {
+            var attribute = attributes[ii];
+            productDetailsElem.innerHTML += '<b>attribute:</b> id: '+ attribute.id + " - " + attribute.name + ' (type: ' + attribute.type + ')<br>';
+            for (var jj=0; jj < attribute.values.length; ++jj) {
+                var value = attribute.values[jj];
+                productDetailsElem.innerHTML += '&nbsp;&nbsp;id: '+ value.id + " - " + value.name + '<br>';
+            }
+        }
+    }
+
+    // show attributes
+    function showAttributesForm(attributes) {
+        for (var ii=0; ii < attributes.length; ++ii) {
+            var attribute = attributes[ii];
+            switch (attribute.type) {
+            case '<?php echo PRODUCTS_OPTIONS_TYPE_SELECT ?>':
+                productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
+                var html = '';
+                html += '<select name="id['+attribute.id+']">';
+                for (var jj=0; jj < attribute.values.length; ++jj) {
+                    var value = attribute.values[jj];
+                    html += '<option value="'+value.id+'">'+value.name+'</option>';
+                }
+                html += '</select>';
+                html += '<br>';
+                productDetailsElem.innerHTML += html;
+                break;
+            case '<?php echo PRODUCTS_OPTIONS_TYPE_RADIO ?>':
+                productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
+                var html = '';
+                var name = 'id['+attribute.id+']';
+                for (var jj=0; jj < attribute.values.length; ++jj) {
+                    var value = attribute.values[jj];
+                    var id = 'id_'+attribute.id+'_'+jj;
+                    var checked = value.default ? ' checked="checked"' : '';
+                    html += '<input type="radio" id="'+id+'" name="'+name+'" value="'+value.id+'"'+checked+'>';
+                    html += '<label for="'+id+'">'+value.name+'</label>';
+                }
+                html += '<br>';
+                productDetailsElem.innerHTML += html;
+                break;
+            case '<?php echo PRODUCTS_OPTIONS_TYPE_CHECKBOX ?>':
+                var html = '';
+                var name = 'id['+attribute.id+']';
+                for (var jj=0; jj < attribute.values.length; ++jj) {
+                    var value = attribute.values[jj];
+                    var id = 'id_'+attribute.id+'_'+jj;
+                    var checked = value.default ? ' checked="checked"' : '';
+                    html += '<input type="checkbox" id="'+id+'" name="'+id+'" value="'+value.id+'"'+checked+'>';
+                    html += '<label for="'+id+'">'+value.name+'</label>';
+                }
+                html += '<br>';
+                productDetailsElem.innerHTML += html;
+                break;
+            case '<?php echo PRODUCTS_OPTIONS_TYPE_TEXT ?>':
+                productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
+                var html = '';
+                for (var jj=0; jj < attribute.values.length; ++jj) {
+                    var value = attribute.values[jj];
+                    var id = 'id_'+attribute.id+'_'+jj;
+                    var name = 'id[<?php echo zm_setting('textOptionPrefix') ?>'+attribute.id+']';
+                    html += '<label for="'+id+'">'+value.name+'</label>';
+                    html += '<input type="text" id="'+id+'" name="'+name+'" value=""/>';
+                }
+                html += '<br>';
+                productDetailsElem.innerHTML += html;
+                break;
+            default:
+                productDetailsElem.innerHTML += '<b>'+attribute.name+'</b>(not supported)<br>';
+                for (var jj=0; jj < attribute.values.length; ++jj) {
+                    var value = attribute.values[jj];
+                    productDetailsElem.innerHTML += '&nbsp;&nbsp;id: '+ value.id + " - " + value.name + '<br>';
+                }
+            }
+        }
+    }
+
+    // load product information
     function loadProduct() {
         var productId = productIdElem.value;
 
@@ -136,19 +219,13 @@ Depending on your server configuration you might be better of using something di
                 msgboxElem.innerHTML += "got response ... ";
 
                 var product = eval('(' + msg + ')');
-                productDetailsElem.innerHTML += 'id: ' + product.id + "<br>";
+                //productDetailsElem.innerHTML += 'id: ' + product.id + "<br>";
                 productDetailsElem.innerHTML += 'name: ' + product.name + "<br>";
                 productDetailsElem.innerHTML += 'model: ' + product.model + "<br>";
                 //productDetailsElem.innerHTML += 'description: ' + product.description + "<br>";
 
-                for (var ii=0; ii < product.attributes.length; ++ii) {
-                    var attribute = product.attributes[ii];
-                    productDetailsElem.innerHTML += '<b>attribute:</b> id: '+ attribute.id + " - " + attribute.name + ' (type: ' + attribute.type + ')<br>';
-                    for (var jj=0; jj < attribute.values.length; ++jj) {
-                        var value = attribute.values[jj];
-                        productDetailsElem.innerHTML += '&nbsp;&nbsp;id: '+ value.id + " - " + value.name + '<br>';
-                    }
-                }
+                //showAttributesValues(product.attributes);
+                showAttributesForm(product.attributes);
 
                 msgboxElem.innerHTML += "done!";
             }
@@ -157,7 +234,7 @@ Depending on your server configuration you might be better of using something di
 
     function sc_add() {
         var productId = productIdElem.value;
-        var quantity = quantityElem.value;
+        var queryString = $('#productForm').formSerialize(); 
 
         msgboxElem.innerHTML = "Adding product " + productId + " ... ";
         cartElem.innerHTML = '';
@@ -165,7 +242,7 @@ Depending on your server configuration you might be better of using something di
         $.ajax({
             type: "POST",
             url: "<?php zm_ajax_href('shopping_cart', 'addProduct') ?>",
-            data: "productId="+productId+"&quantity="+quantity,
+            data: queryString,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
                 updateCartContent(msg);

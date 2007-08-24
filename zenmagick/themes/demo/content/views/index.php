@@ -27,7 +27,7 @@
 <h1>Demo Theme Homepage</h1>
 <p>This demo theme illustrates some of the many ZenMagick features. In particular there are:</p>
 <ul>
-  <li><a href="<?php zm_href('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses and extends the ZenMagick Ajax controller</li>
+  <li><a href="<?php zm_href('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses the ZenMagick Ajax controllers</li>
   <li>Custom CSS per page; for example, this page has some custom CSS that is located under <code>content/css</code></li>
   <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it</li>
   <li>Custom alpha and price-range filter</li>
@@ -35,6 +35,7 @@
   <li>Theme switching (implemented for the contact us page)</li>
   <li>Field specific error messages (login page)</li>
   <li><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a> integration</li>
+  <li>Drag/Drop Ajax cart demo for category listing (drag listing image onto shopping cart sidebox)</li>
 </ul>
 
 <?php $zm_theme->staticPageContent("main_page") ?>
