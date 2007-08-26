@@ -204,6 +204,7 @@ body#b_shopping_cart td.img {text-align:center;}
 body#b_shopping_cart td.qty {text-align:right;width:2.2em;}
 body#b_shopping_cart td.price {text-align:right;font-weight:bold;}
 body#b_shopping_cart td.total {text-align:right;font-weight:bold;}
+body#b_shopping_cart td.remove {vertical-align:middle;}
 body#b_shopping_cart td.itm p {margin:0;padding:0 5px;}
 body#b_shopping_cart td.itm p span {font-style:italic;}
 body#b_shopping_cart td.itm p span.atval {font-size:92%;}

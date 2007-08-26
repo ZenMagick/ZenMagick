@@ -29,6 +29,7 @@
         <tbody>
         <?php $odd = true; $first = true; foreach ($zm_cart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+            <td class="remove"><a href="<?php zm_href(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php $zm_theme->themeUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
                     <?php zm_product_image_link($item) ?>
                     <?php zm_sc_product_hidden($item) ?>
