@@ -62,8 +62,8 @@
     // enable POST request processing for listed pages
     $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications,checkout_shipping_address";
 
-    // sanitize attributes when adding products to cart
-    $_ZM_SETTINGS['isSanitizeCartAttributes'] = true;
+    // sanitize attributes when handling products
+    $_ZM_SETTINGS['isSanitizeAttributes'] = true;
 
     // decimal places for quantity
     $_ZM_SETTINGS['qtyDecimals'] = QUANTITY_DECIMALS;

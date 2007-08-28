@@ -479,104 +479,6 @@ class ZMShoppingCart extends ZMService {
     }
 
     /**
-     * Sanitize the given attributes and add default values if attributes/values invalid/missing.
-     *
-     * @param ZMProduct product The product.
-     * @param array attributes The given attributes.
-     * @return array A set of valid attribute values for the given product.
-     * @todo return note of changes made
-     */
-    function sanitizeAttributes(&$product, $attributes=array()) {
-
-        //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!zm_setting('isSanitizeCartAttributes')) {
-            return $attributes;
-        }
-
-        if (!$product->hasAttributes()) {
-            return array();
-        }
-
-        $defaultAttributes = $product->getAttributes();
-
-        // check for valid values
-        $validAttributeIds = array();
-        foreach ($defaultAttributes as $attribute) {
-            $attributeId = $attribute->getId();
-            if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                $attributeId = zm_setting('textOptionPrefix') . $attributeId;
-            }
-            $validAttributeIds[$attributeId] = $attributeId;
-            if (!array_key_exists($attributeId, $attributes)) {
-                // missing attribute
-                $defaultId = null;
-                // try to find the default value
-                foreach ($attribute->getValues() as $value) {
-                    if (null === $defaultId) {
-                        // use first as default if default is not configured
-                        $defaultId = $value->getId();
-                    }
-                    if ($value->isDefault()) {
-                        $defaultId = $value->getId();
-                        break;
-                    }
-                }
-
-                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
-                    // use default id for radio and select
-                    $attributes[$attributeId] = $defaultId;
-                } else if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                    // use emtpy string for text input attributes
-                    $attributes[$attributeId] = '';
-                }
-            } else {
-                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
-                    // validate single non input attributes
-                    $defaultId = null;
-                    $isValid = false;
-                    foreach ($attribute->getValues() as $value) {
-                        if ($value->isDefault()) {
-                            $defaultId = $value->getId();
-                        }
-                        if ($attributes[$attributeId] == $value->getId()) {
-                            $isValid = true;
-                            break;
-                        }
-                    }
-                    if (!$isValid) {
-                        // use default
-                        $attributes[$attributeId] = $defaultId;
-                    }
-                } else if (PRODUCTS_OPTIONS_TYPE_CHECKBOX == $attribute->getType()) {
-                    // validate multi non input attributes
-                    foreach ($attributes[$attributeId] as $avid => $attrValue) {
-                        $isValid = false;
-                        foreach ($attribute->getValues() as $value) {
-                            if ($attrValue == $value->getId()) {
-                                $isValid = true;
-                                break;
-                            }
-                        }
-                        if (!$isValid) {
-                            unset($attributes[$attributeId][$avid]);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        // strip invalid attributes
-        foreach ($attributes as $id => $value) {
-            if (!array_key_exists($id, $validAttributeIds)) {
-                unset($attributes[$id]);
-            }
-        }
-
-        return $attributes;
-    }
-
-    /**
      * Adjust the quantity based on the quantity settings.
      *
      * @param mixed quantity The quantity.
@@ -645,7 +547,8 @@ class ZMShoppingCart extends ZMService {
     global $zm_products;
 
         $product = $zm_products->getProductForId($productId);
-        $attributes = $this->sanitizeAttributes($product, $attributes);
+        $attributes = zm_sanitize_attributes($product, $attributes);
+        $attributes = zm_prepare_uploads($product, $attributes);
 
         $cartProductId = zm_product_variation_id($productId, $attributes);
 
