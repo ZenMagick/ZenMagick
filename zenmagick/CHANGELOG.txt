@@ -46,10 +46,12 @@ Release 0.8.3
 	arrays and objects
 - add attribute support to ZMShoppingCart::addProduct(..) except for uploads
 - add attribute support to ajax demo
-- added new setting 'isDefaultAttributesOnAddToCart' that controls whether to
+- added new setting 'isSanitizeCartAttributes' that controls whether to
   add default attribute values when adding to cart or not; this allows to add
 	to cart even when just no attributes are provided in the request
 - added remove item to shopping cart
+- added isQtyMixed() method to ZMProduct
+- added getQty(..) and adjustQty(..) to ZMShoppingCart
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

@@ -479,45 +479,192 @@ class ZMShoppingCart extends ZMService {
     }
 
     /**
+     * Sanitize the given attributes and add default values if attributes/values invalid/missing.
+     *
+     * @param ZMProduct product The product.
+     * @param array attributes The given attributes.
+     * @return array A set of valid attribute values for the given product.
+     * @todo return note of changes made
+     */
+    function sanitizeAttributes(&$product, $attributes=array()) {
+
+        //TODO: where should this actually be? attributes, rules, cart, products?
+        if (!zm_setting('isSanitizeCartAttributes')) {
+            return $attributes;
+        }
+
+        if (!$product->hasAttributes()) {
+            return array();
+        }
+
+        $defaultAttributes = $product->getAttributes();
+
+        // check for valid values
+        $validAttributeIds = array();
+        foreach ($defaultAttributes as $attribute) {
+            $attributeId = $attribute->getId();
+            if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                $attributeId = zm_setting('textOptionPrefix') . $attributeId;
+            }
+            $validAttributeIds[$attributeId] = $attributeId;
+            if (!array_key_exists($attributeId, $attributes)) {
+                // missing attribute
+                $defaultId = null;
+                // try to find the default value
+                foreach ($attribute->getValues() as $value) {
+                    if (null === $defaultId) {
+                        // use first as default if default is not configured
+                        $defaultId = $value->getId();
+                    }
+                    if ($value->isDefault()) {
+                        $defaultId = $value->getId();
+                        break;
+                    }
+                }
+
+                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                    // use default id for radio and select
+                    $attributes[$attributeId] = $defaultId;
+                } else if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                    // use emtpy string for text input attributes
+                    $attributes[$attributeId] = '';
+                }
+            } else {
+                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                    // validate single non input attributes
+                    $defaultId = null;
+                    $isValid = false;
+                    foreach ($attribute->getValues() as $value) {
+                        if ($value->isDefault()) {
+                            $defaultId = $value->getId();
+                        }
+                        if ($attributes[$attributeId] == $value->getId()) {
+                            $isValid = true;
+                            break;
+                        }
+                    }
+                    if (!$isValid) {
+                        // use default
+                        $attributes[$attributeId] = $defaultId;
+                    }
+                } else if (PRODUCTS_OPTIONS_TYPE_CHECKBOX == $attribute->getType()) {
+                    // validate multi non input attributes
+                    foreach ($attributes[$attributeId] as $avid => $attrValue) {
+                        $isValid = false;
+                        foreach ($attribute->getValues() as $value) {
+                            if ($attrValue == $value->getId()) {
+                                $isValid = true;
+                                break;
+                            }
+                        }
+                        if (!$isValid) {
+                            unset($attributes[$attributeId][$avid]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // strip invalid attributes
+        foreach ($attributes as $id => $value) {
+            if (!array_key_exists($id, $validAttributeIds)) {
+                unset($attributes[$id]);
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Adjust the quantity based on the quantity settings.
+     *
+     * @param mixed quantity The quantity.
+     * @return The adjusted quantity.
+     */
+    function adjustQty($quantity) {
+        $digits = zm_setting('qtyDecimals');
+        if (0 != $digits) {
+            if (strstr($quantity, '.')) {
+                // remove leading '0'
+                $quantity = preg_replace('/[0]+$/','', $quantity);
+            }
+        } else {
+            if ($quantity != round($quantity, 0)) {
+                $quantity = round($quantity, 0);
+            }
+        }
+
+        return $quantity;
+    }
+
+    /**
+     * Get the cart quantity for the given product.
+     *
+     * @param string productId The product id.
+     * @param boolean qtyMixed Indicates whether to return just the specified product variation quantity, or
+     *  the quantity across all variations; default is <code>false</code>.
+     * @return int The number of products in the cart.
+     */
+    function getQty($productId, $isQtyMixed=false) {
+        $contents = $this->cart_->contents;
+
+        if (!is_array($contents)) {
+            return 0;
+        }
+
+        if (!$isQtyMixed) {
+            return $this->cart_->get_quantity($productId);
+        }
+
+        $baseProductId = zm_base_product_id($productId);
+
+        $qty = 0;
+        foreach ($contents as $pid) {
+            $bpid = zm_base_product_id($pid);
+            if ($bpid == $baseProductId) {
+                $qty += $contents[$pid]['qty'];
+            }
+        }
+
+        return $qty;
+    }
+
+    /**
      * Add a product in the given quantity.
      *
      * <p><strong>Doesn't support attributes or upload (yet)</strong>.</p>
      *
-     * @param int productId The product.
+     * @param int productId The product id.
      * @param int quantity The quantity; default is <code>1</code>.
      * @param array attributes Optional list of attributes; key is the attribute id, the value can 
      *  contain be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     function addProduct($productId, $quantity=1, $attributes=array()) {
-        $adjust_max = false;
-        $add_max = zen_get_products_quantity_order_max($productId);
-        $cart_qty = $this->cart_->in_cart_mixed($productId);
-        $new_qty = $quantity;
-        $new_qty = $this->cart_->adjust_quantity($new_qty, $productId, 'shopping_cart');
+    global $zm_products;
 
-        if ($add_max == 1 && $cart_qty == 1) {
+        $product = $zm_products->getProductForId($productId);
+        $attributes = $this->sanitizeAttributes($product, $attributes);
+
+        $cartProductId = zm_product_variation_id($productId, $attributes);
+
+        $maxOrderQty = $product->getMaxOrderQty();
+        $cartQty = $this->getQty($cartProductId, $product->isQtyMixed());
+        $adjustedQty = $this->adjustQty($quantity);
+
+        if (0 != $maxOrderQty && $cartQty >= $maxOrderQty) {
             // TODO: error message/status
             return false;
-        } else {
-            // adjust quantity if needed
-            if (($new_qty + $cart_qty > $add_max) && $add_max != 0) {
-                $adjust_max = true;
-                $new_qty = $add_max - $cart_qty;
-            }
         }
 
-        if (zen_get_products_quantity_order_max($productId) != 1 || $this->in_cart_mixed($productId) != 1) {
-            $attr = '';
-            if (0 < count($attributes)) {
-                $attr = $attributes;
-            }
-            $this->cart_->add_cart($productId, $this->cart_->get_quantity(zen_get_uprid($productId, '')) + $new_qty, $attr);
+        // adjust quantity if needed
+        if (($adjustedQty + $cartQty > $maxOrderQty) && 0 != $maxOrderQty) {
+            // TODO: message
+            $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        if ($adjust_max == true) {
-            // TODO: error message/status
-        }
+        $this->cart_->add_cart($productId, $cartQty + $adjustedQty, $attributes);
 
         return true;
     }
@@ -525,7 +672,7 @@ class ZMShoppingCart extends ZMService {
     /**
      * Remove item from cart.
      *
-     * @param mixed productId The (full) product id (incl. attribute suffix).
+     * @param string productId The product id.
      * @return boolean <code>true</code> if the product was removed, <code>false</code> if not.
      */
     function removeProduct($productId) {
@@ -540,38 +687,38 @@ class ZMShoppingCart extends ZMService {
     /**
      * Update item.
      *
-     * <p><strong>Doesn't support attributes (yet)</strong>.</p>
-     *
-     * @param int productId The product.
+     * @param string cartProductId The product id as used in the shopping cart (incl. the attributes suffix).
      * @param int quantity The quantity.
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    function updateProduct($productId, $quantity) {
-        if (null !== $productId && null !== $quantity) {
+    function updateProduct($cartProductId, $quantity) {
+    global $zm_products;
+
+        if (null !== $cartProductId && null !== $quantity) {
             if (0 == $quantity) {
-                return $this->removeProduct($productId);
+                return $this->removeProduct($cartProductId);
             }
 
-            $adjust_max= false;
-            $add_max = zen_get_products_quantity_order_max($productId);
-            $cart_qty = $this->cart_->in_cart_mixed($productId);
-            $new_qty = $quantity;
-            $new_qty = $this->cart_->adjust_quantity($new_qty, $productId, 'shopping_cart');
 
-            if ($add_max == 1 && $cart_qty == 1) {
-                $adjust_max = true;
-            } else {
-                // adjust quantity if needed
-                if (($new_qty + $cart_qty > $add_max) && $add_max != 0) {
-                    $adjust_max = true;
-                    $new_qty = $add_max - $cart_qty;
-                }
-                $this->cart_->add_cart($productId, $new_qty, '', false);
-            }
+            $productId = zm_base_product_id($cartProductId);
+            $product = $zm_products->getProductForId($productId);
 
-            if ($adjust_max == 'true') {
+            $maxOrderQty = $product->getMaxOrderQty();
+            $adjustedQty = $this->adjustQty($quantity);
+
+            if (0 != $maxOrderQty && $adjustedQty >= $maxOrderQty) {
                 // TODO: error message/status
-            } 
+                return false;
+            }
+
+            // adjust quantity if needed
+            if (($adjustedQty > $maxOrderQty) && 0 != $maxOrderQty) {
+                // TODO: message
+                $adjustedQty = $maxOrderQty;
+            }
+
+            $this->cart_->add_cart($cartProductId, $adjustedQty, $attributes);
+
             return true;
         }
 

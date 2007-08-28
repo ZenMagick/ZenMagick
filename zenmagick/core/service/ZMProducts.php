@@ -65,7 +65,7 @@ class ZMProducts extends ZMService {
                 p.products_tax_class_id, pd.products_description,
                 IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
                 IF(s.status =1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
-                p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status
+                p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_mixed
                 from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .
                 TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
                 TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p2c.products_id = s.products_id
@@ -100,7 +100,7 @@ class ZMProducts extends ZMService {
                     p.products_tax_class_id, pd.products_description,
                     IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
                     IF(s.status = 1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
-                    p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status
+                    p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_mixed
                     from " . TABLE_PRODUCTS . " p left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " .
                     TABLE_PRODUCTS_DESCRIPTION . " pd, " .
                     TABLE_MANUFACTURERS . " m
@@ -318,7 +318,7 @@ class ZMProducts extends ZMService {
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min,
+                    p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_status = '1'
@@ -348,7 +348,7 @@ class ZMProducts extends ZMService {
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min,
+                    p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id = :productId
@@ -379,7 +379,7 @@ class ZMProducts extends ZMService {
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min,
+                    p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (:productIdList)
@@ -495,6 +495,7 @@ class ZMProducts extends ZMService {
         $product->manufacturerId_ = $fields['manufacturers_id'];
         $product->weight_ = $fields['products_weight'];
         $product->quantity_ = $fields['products_quantity'];
+        $product->qtyMixed_ = $fields['products_quantity_mixed'] == '1';
         $product->qtyBoxStatus_ = $fields['products_qty_box_status'];
         $product->qtyOrderMin_ = $fields['products_quantity_order_min'];
         $product->qtyOrderMax_ = $fields['products_quantity_order_max'];

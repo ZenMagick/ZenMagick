@@ -44,6 +44,7 @@ class ZMProduct extends ZMModel {
     var $manufacturerId_;
     var $weight_;
     var $quantity_;
+    var $isQtyMixed_;
     var $qtyBoxStatus_;
     var $qtyOrderMin_;
     var $qtyOrderMax_;
@@ -191,6 +192,13 @@ class ZMProduct extends ZMModel {
      * @return int The quantity.
      */
     function getQuantity() { return $this->quantity_; }
+
+    /**
+     * Checks if the product quantity is calculated across product variations or not.
+     *
+     * @return boolean <code>true</code> if the quantity is calculated across variations, <code>false</code> if not.
+     */
+    function isQtyMixed() { return $this->isQtyMixed_; }
 
     /**
      * Checks if the product is sold out.

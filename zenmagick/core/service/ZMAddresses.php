@@ -134,7 +134,6 @@ class ZMAddresses extends ZMService {
                 where address_book_id = :addressId";
         $sql = $db->bindVars($sql, ":addressId", $address->getId(), "integer");
         $sql = $this->bindObject($sql, $address);
-//echo $sql;die();
         $db->Execute($sql);
         return $address;
     }

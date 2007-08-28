@@ -173,7 +173,7 @@ Depending on your server configuration you might be better of using something di
                     var value = attribute.values[jj];
                     var id = 'id_'+attribute.id+'_'+jj;
                     var checked = value.default ? ' checked="checked"' : '';
-                    html += '<input type="checkbox" id="'+id+'" name="'+id+'" value="'+value.id+'"'+checked+'>';
+                    html += '<input type="checkbox" id="'+id+'" name="'+name+'['+value.id+']" value="'+value.id+'"'+checked+'>';
                     html += '<label for="'+id+'">'+value.name+'</label>';
                 }
                 html += '<br>';
