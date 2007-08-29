@@ -96,8 +96,12 @@
 
         // guest checkout
         $zm_urlMapper->setMapping('checkout_guest', 'login');
+        $zm_urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView', 'secure=true');
         $zm_urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView', 'secure=true');
 
+        // guest history
+        $zm_urlMapper->setMapping('guest_history');
+        $zm_urlMapper->setMapping('guest_history', 'success', 'account_history_info');
 
         // product_info
         $zm_urlMapper->setMapping('product_info');

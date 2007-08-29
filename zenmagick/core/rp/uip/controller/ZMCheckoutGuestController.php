@@ -64,6 +64,11 @@ class ZMCheckoutGuestController extends ZMController {
     function processPost() {
     global $zm_request, $zm_accounts, $zm_messages;
 
+        if (!zm_setting('isGuestCheckout')) {
+            $zm_messages->warn('Guest checkout not allowed at this time');
+            return $this->findView('guest_checkout_disabled');
+        }
+
         // our session
         $session = new ZMSession();
 

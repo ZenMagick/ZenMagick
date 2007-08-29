@@ -59,5 +59,16 @@
             </p>
         </fieldset>
     <?php } ?>
+
+    <?php if ($zm_request->isGuest()) { ?>
+        <fieldset>
+            <legend><?php zm_l10n("Order Status Check") ?></legend>
+            <p>
+                <?php $lookupLink = '<a href="' . zm_href(ZM_FILENAME_GUEST_HISTORY, '', false) . '">' . zm_l10n_get("order status check") . '</a>'; ?>
+                <?php zm_l10n("You can check the status of your order using the %s.", $lookupLink) ?>
+            </p>
+        </fieldset>
+    <?php } ?>
+
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>

@@ -173,4 +173,12 @@
         new ZMEmailRule('to_email_address', "Please enter a valid friend's email address.")
     )));
 
+
+    /* guest_history */
+    $zm_validator->addRuleSet(new ZMRuleSet('guest_history', array(
+        new ZMRequiredRule('email', 'Please enter your email address.'),
+        new ZMRequiredRule('orderId', 'Please enter your order number.')
+    )));
+
+
 ?>

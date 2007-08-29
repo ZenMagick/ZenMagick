@@ -161,8 +161,8 @@ label {margin:2px 4px 4px 3px;}
 
 #sb_feeds img {padding:1px 2px 0 0;}
 
-body#b_login #content label, body#b_time_out #content label {display:block;margin-left:0;}
-body#b_login #content {padding-left:20px;}
+body#b_login #content label, body#b_time_out #content label, body#b_guest_history #content label {display:block;margin-left:0;}
+body#b_login #content, body#b_guest_history #content {padding-left:20px;}
 body#b_account_password #content label {display:block;margin-left:0;}
 body#b_account_password #content {padding-left:20px;}
 

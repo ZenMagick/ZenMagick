@@ -216,6 +216,12 @@ class ZMAddress extends ZMModel {
         return $zm_addresses->getAddressFormatForId($this->country_->getAddressFormatId());
     }
 
+    /**
+     * Set the primary address flag.
+     *
+     * @param boolean isPrimary The new status.
+     */
+    function setPrimary($isPrimary) { $this->isPrimary_ = $isPrimary; }
 }
 
 ?>

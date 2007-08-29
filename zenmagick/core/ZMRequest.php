@@ -222,6 +222,13 @@ class ZMRequest extends ZMObject {
     function isRegistered() { return $this->session_->isRegistered(); }
 
     /**
+     * Returns <code>true</code> if the user is a guest user.
+     *
+     * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
+     */
+    function isGuest() { return $this->session_->isGuest(); }
+
+    /**
      * Generic access method for request parameter.
      *
      * <p>This method is evaluating both <code>GET</code> and <code>POST</code> parameter.</p>

@@ -52,6 +52,9 @@ Release 0.8.3
 - added remove item to shopping cart
 - added isQtyMixed() method to ZMProduct
 - added getQty(..) and adjustQty(..) to ZMShoppingCart
+- if no address in address list, mark first checkout address as primary
+- add guest_history to allow guest users to check order status by providing
+  email address and orderId
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
