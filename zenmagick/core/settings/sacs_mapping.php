@@ -56,7 +56,7 @@
         $zm_sacsMapper->setMapping('product_reviews_write');
         $zm_sacsMapper->setMapping('login', ZM_ACCOUNT_TYPE_ANONYMOUS);
 
-        if (!zm_setting('isTellAFriendGuestAllow')) {
+        if (!zm_setting('isTellAFriendAnonymousAllow')) {
             $zm_sacsMapper->setMapping('tell_a_friend');
         }
     }

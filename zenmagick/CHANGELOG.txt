@@ -1,10 +1,10 @@
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
   states are:
-  ANONYMOUS - lowest level
-	GUEST - email address only; this is the level for checkout without
+  ANONYMOUS: lowest level
+	GUEST: email address only; this is the level for checkout without
 	registration
-	REGISTERED - fully registered user
+	REGISTERED: fully registered user
 - update phgpdoc to use boolean rather than just bool
 - added ZMSacsMapper; similar to ZMUrlMapper, but related to security rather
   than page flow - manages which pages are SSL (and enforces this if
@@ -55,6 +55,8 @@ Release 0.8.3
 - if no address in address list, mark first checkout address as primary
 - add guest_history to allow guest users to check order status by providing
   email address and orderId
+- rename 'isTellAFriendGuestAllow' to 'isTellAFriendAnonymousAllow' to be in
+  line with the new account types
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

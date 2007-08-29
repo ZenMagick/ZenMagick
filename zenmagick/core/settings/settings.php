@@ -153,7 +153,7 @@
     $_ZM_SETTINGS['isPageNotFoundDefinePage'] = DEFINE_PAGE_NOT_FOUND_STATUS == '1';
 
     // tell a friend
-    $_ZM_SETTINGS['isTellAFriendGuestAllow'] = ALLOW_GUEST_TO_TELL_A_FRIEND == 'true';
+    $_ZM_SETTINGS['isTellAFriendAnonymousAllow'] = ALLOW_GUEST_TO_TELL_A_FRIEND == 'true';
 
     // max result list
     $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;
