@@ -241,11 +241,11 @@ class ZMRuntime {
     function getLanguageName() { return $_SESSION['language']; }
 
     /**
-     * Get the current currency id.
+     * Get the current currency code.
      *
-     * @return int The current currency id.
+     * @return string The current currency code.
      */
-    function getCurrencyId() { return $_SESSION['currency']; }
+    function getCurrencyCode() { return $_SESSION['currency']; }
 
     /**
      * Checks if <em>phpBB</em> is installed or not.

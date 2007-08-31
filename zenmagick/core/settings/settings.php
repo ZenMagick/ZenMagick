@@ -200,6 +200,12 @@
     $_ZM_SETTINGS['defaultCurrency'] = DEFAULT_CURRENCY;
     $_ZM_SETTINGS['textCurrencyMapping'] = CURRENCIES_TRANSLATIONS;
 
+    // tax
+    $_ZM_SETTINGS['taxDecimalPlaces'] = TAX_DECIMAL_PLACES;
+    $_ZM_SETTINGS['isTaxInclusive'] = DISPLAY_PRICE_WITH_TAX == 'true';
+    $_ZM_SETTINGS['productTaxBase'] = STORE_PRODUCT_TAX_BASIS; //shipping,billing,store
+    $_ZM_SETTINGS['shippingTaxBase'] = STORE_SHIPPING_TAX_BASIS; //shipping,billing,store
+
     // site map
     $_ZM_SETTINGS['isSiteMapAccountLinks'] = SHOW_ACCOUNT_LINKS_ON_SITE_MAP=='Yes';
 

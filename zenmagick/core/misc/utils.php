@@ -277,4 +277,21 @@ return zen_get_uprid($productId, $attributes);
     }
 
 
+    /**
+     * Format the given amount according to the current currency.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param float amount The amount.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string The formatted amount.
+     */
+    function zm_format_currency($amount, $echo=true) {
+    global $zm_runtime, $zm_currencies;
+        $currency = $zm_currencies->getCurrencyForCode($zm_runtime->getCurrencyCode());
+        $money = $currency->format($amount);
+
+        if ($echo) echo $money;
+        return $money;
+    }
+
 ?>

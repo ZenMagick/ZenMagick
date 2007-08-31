@@ -32,37 +32,34 @@
  * @version $Id$
  */
 class ZMCurrency extends ZMModel {
-    var $id_;
+    var $code_;
     var $name_;
     var $symbolLeft_;
     var $symbolRight_;
     var $decimalPoint_;
     var $thousandsPoint_;
     var $decimalPlaces_;
-    var $value_;
+    var $rate_;
 
 
     /**
      * Default c'tor.
      */
-    function ZMCurrency($id, $arr) {
+    function ZMCurrency() {
         parent::__construct();
 
-        $this->id_ = $id;
-        $this->name_ = $arr['title'];
-        $this->symbolLeft_ = $arr['symbol_left'];
-        $this->symbolRight_ = $arr['symbol_right'];
-        $this->decimalPoint_ = $arr['decimal_point'];
-        $this->thousandsPoint_ = $arr['thousands_point'];
-        $this->decimalPlaces_ = $arr['decimal_places'];
-        $this->value_ = $arr['value'];
+        $this->code_ = '';
+        $this->name_ = '';
+        $this->decimalPlaces_ = 2;
+        $this->thousandsPoint_ = '';
+        $this->rate_ = 1;
     }
 
     /**
      * Default c'tor.
      */
-    function __construct($id, $arr) {
-        $this->ZMCurrency($id, $arr);
+    function __construct() {
+        $this->ZMCurrency();
     }
 
     /**
@@ -74,11 +71,11 @@ class ZMCurrency extends ZMModel {
 
 
     /**
-     * Get the currency id.
+     * Get the currency code.
      *
-     * @return int The currency id.
+     * @return string The currency code.
      */
-    function getId() { return $this->id_; }
+    function getId() { return $this->code_; }
 
     /**
      * Get the currency name.
@@ -123,11 +120,25 @@ class ZMCurrency extends ZMModel {
     function getDecimalPlaces() { return $this->decimalPlaces_; }
 
     /**
-     * Get the currency value.
+     * Get the currency rate.
      *
-     * @return double The currency value.
+     * <p>This is the rate in relation to the default currency.</p>
+     *
+     * @return double The currency rate.
      */
-    function getValue() { return $this->value_; }
+    function getRate() { return $this->rate_; }
+
+    /**
+     * Format the given value according to this currency's rate(value) and formatting rules.
+     *
+     * @param float value The value.
+     * @return string The formatted value.
+     */
+    function format($value) {
+        $ratedValue = zen_round($value * $this->rate_, $this->decimalPlaces_);
+        $formattedValue = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
+        return $this->symbolLeft_ .  $formattedValue . $this->symbolRight_;
+    }
 
 }
 

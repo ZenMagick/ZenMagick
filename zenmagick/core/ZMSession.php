@@ -274,6 +274,24 @@ class ZMSession extends ZMObject {
         return isset($_SESSION['customers_host_address']) ? $_SESSION['customers_host_address'] : null;
     }
 
+    /**
+     * Get currency id.
+     *
+     * @return int The session currency id.
+     */
+    function getCurrencyId() {
+        return isset($_SESSION['currency']) ? $_SESSION['currency'] : 0;
+    }
+
+    /**
+     * Set currency id.
+     *
+     * @param int currencyId The session currency id.
+     */
+    function setCurrencyId($currencyId) {
+        $_SESSION['currency'] = $currencyId;
+    }
+
 }
 
 ?>

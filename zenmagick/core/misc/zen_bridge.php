@@ -106,17 +106,6 @@
      *
      * TODO: convert/integrate db related stuff into model/DAO architecture
      */
-
-    // $currencies might be used by the templates further down the track
-    $zen_currencies = $currencies;
-    function zm_format_currency($amount, $echo=true) {
-    global $zen_currencies;
-
-        $price = $zen_currencies->format($amount);
-
-        if ($echo) echo $price;
-        return $price;
-    }
     function zm_add_tax($value, $rate) { return zen_add_tax($value, $rate); }
 
     // simple request scope cache
@@ -139,14 +128,6 @@
     function zm_get_info_page($value) { return zen_get_info_page($value); }
     function zm_check_stock($id, $qty) { return zen_check_stock($id, $qty); }
     function zm_date_short($date, $echo=true) { if($echo) echo zen_date_short($date); return zen_date_short($date); }
-
-    function zm_clear_session() {
-        @zen_session_destroy();
-        // clear session
-        unset($_SESSION['customer_id']);
-        // clear cart
-        unset($_SESSION['cart']);
-    }
 
     function zm_field_length($context, $field, $max=40, $echo=true) {
         $length = zen_field_length($context, $field);

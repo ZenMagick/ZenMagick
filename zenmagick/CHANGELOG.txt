@@ -5,7 +5,7 @@ Release 0.8.3
 	GUEST: email address only; this is the level for checkout without
 	registration
 	REGISTERED: fully registered user
-- update phgpdoc to use boolean rather than just bool
+- update phppdoc to use boolean rather than just bool
 - added ZMSacsMapper; similar to ZMUrlMapper, but related to security rather
   than page flow - manages which pages are SSL (and enforces this if
 	configured) and validates authorization (anonymous, guest, registered)
@@ -57,6 +57,13 @@ Release 0.8.3
   email address and orderId
 - rename 'isTellAFriendGuestAllow' to 'isTellAFriendAnonymousAllow' to be in
   line with the new account types
+- removed obsolete function zm_clear_session()
+- added some more currency handling code
+- change ZMRuntime::getCurrencyId to getCurrencyCode; needs change in
+  boxes/currencies.php
+- change id to code on ZMCurrency
+- reimplemented zm_format_currency(..) to use the changed currency code
+- added tax related settings (not used yet)
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

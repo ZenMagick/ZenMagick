@@ -87,28 +87,36 @@ class ZMCurrencies extends ZMService {
     function getCurrencies() { return $this->currencies_; }
 
     /**
-     * Get the currency for the given id.
+     * Get the currency for the given code.
      *
-     * @param int id The currency id.
+     * @param string code The currency code.
      * @return ZMCurrency A currency or <code>null</code>.
      */
-    function &getCurrencyForId($id) { return isset($this->currencies_[$id]) ? $this->currencies_[$id] : null; }
+    function &getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
 
     /**
-     * Checks if a currency exists for the given id.
+     * Checks if a currency exists for the given code.
      *
-     * @param int id The currency id.
-     * @return boolean <code>true</code> if a currency exists for the given id, <code>false</code> if not.
+     * @param string code The currency code.
+     * @return boolean <code>true</code> if a currency exists for the given code, <code>false</code> if not.
      */
-    function isValid($id) {
-        return null !== $this->getCurrencyForId($id);
+    function isValid($code) {
+        return null !== $this->getCurrencyForId($code);
     }
 
     /**
      * Create new currency instance.
      */
     function &_newCurrency($fields) {
-        $currency = $this->create("Currency", $fields['code'], $fields);
+        $currency = $this->create("Currency");
+        $currency->code_ = $fields['code'];
+        $currency->name_ = $fields['title'];
+        $currency->symbolLeft_ = $fields['symbol_left'];
+        $currency->symbolRight_ = $fields['symbol_right'];
+        $currency->decimalPoint_ = $fields['decimal_point'];
+        $currency->thousandsPoint_ = $fields['thousands_point'];
+        $currency->decimalPlaces_ = $fields['decimal_places'];
+        $currency->rate_ = $fields['value'];
         return $currency;
     }
 
