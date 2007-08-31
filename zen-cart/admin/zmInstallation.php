@@ -235,7 +235,7 @@ require_once('includes/application_top.php');
             <?php _zm_patch_group('sql') ?>
             <div class="submit">
               <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=sql" onclick="return zm_user_confirm('Uninstall ZenMagick SQL ?');">Revert all SQL patches</a>
-              <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database refore appying/reverting SQL patches.
+              <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
             </div>
           </fieldset>
         </form>
@@ -252,6 +252,9 @@ require_once('includes/application_top.php');
                   <label for="singleCoreGenerate"><?php zm_l10n("Regenerate core.php"); ?></label>
               <?php } ?>
               <br>
+              <p><?php zm_l10n("This option will compress all files under core and all installed plugins into a single file <code>core.php</code>.
+              If you install/uninstall plugins or make any other changes to the core directory you'll need to regenerate <code>core.php</code> in
+              order to make this changes become active.") ?></p>
               <div class="submit"><input type="submit" value="<?php zm_l10n("Update") ?>"></div>
           </fieldset>
         </form>
