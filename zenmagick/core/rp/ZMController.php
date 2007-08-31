@@ -98,9 +98,11 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_sacsMapper;
+    global $zm_sacsMapper, $zm_events;
 
         $zm_sacsMapper->ensureAuthorization($this->id_);
+
+        $zm_events->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START);
 
         $view = null;
         switch ($_SERVER['REQUEST_METHOD']) {
@@ -259,6 +261,13 @@ class ZMController extends ZMObject {
     function &getView() {
         return $this->view_;
     }
+
+    /**
+     * Get the controller id.
+     *
+     * @return string The id (page name).
+     */
+    function getId() { return $this->id_; }
 
 }
 

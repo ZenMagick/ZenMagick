@@ -127,6 +127,13 @@ class ZMView extends ZMObject {
     function getName() { return $this->page_; }
 
     /**
+     * Set the view name.
+     *
+     * @param string name The view name.
+     */
+    function setName($name) { $this->page_ = $name; }
+
+    /**
      * Generate view response.
      */
     function generate() { die('not implemented'); }

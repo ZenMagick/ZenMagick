@@ -64,6 +64,10 @@ Release 0.8.3
 - change id to code on ZMCurrency
 - reimplemented zm_format_currency(..) to use the changed currency code
 - added tax related settings (not used yet)
+- added new ZenMagick events dispatch_done
+- add the event source of ZenMagick events to the array passed into the event
+  handler method using 'source' as key; this is a reference and for functions
+  fireing events the passed obect is $zm_runtime
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

@@ -703,7 +703,7 @@ if (!class_exists("ZMObject")) {
      * @todo Support for internal forwards.
      */
     function zm_dispatch() {
-    global $zm_runtime, $zm_request, $zm_loader;
+    global $zm_runtime, $zm_request, $zm_loader, $zm_events;
 
         $controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
@@ -721,7 +721,9 @@ if (!class_exists("ZMObject")) {
 
             // generate response
             if (null != $view) {
+                $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_START, array('view' =>& $view));
                 $view->generate();
+                $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_DONE);
             }
 
             return true;

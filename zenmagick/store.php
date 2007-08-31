@@ -30,7 +30,9 @@
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
+        $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_START);
         if (zm_dispatch()) {
+            $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_DONE);
             require('includes/application_bottom.php');
             $contents = ob_get_clean();
             $contents = $zm_plugins->filterResponse($contents);

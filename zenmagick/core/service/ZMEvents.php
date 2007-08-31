@@ -141,12 +141,16 @@ class ZMEvents extends ZMObject {
      *
      * <p>ZenMagick event methods start with <em>onZM</em>.</p>
      *
-     * @param mixed notifier The event source.
+     * <p>A reference of the event source is added to the optional arguments map with the key
+     * <em>source</em>.</p>
+     *
+     * @param mixed source The event source.
      * @param string eventId The event id.
-     * @param array args Optional parameter; default is <code>null</code>.
+     * @param array args Optional parameter; default is <code>array()</code>.
      */
-    function fireEvent(&$notifier, $eventId, $args=null) {
+    function fireEvent(&$source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
+        $args['source'] =& $source;
         zm_log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {

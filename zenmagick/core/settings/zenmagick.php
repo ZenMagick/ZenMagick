@@ -53,6 +53,11 @@
     //** events **//
 
     define('ZM_EVENT_INIT_DONE', 'init_done');
+    define('ZM_EVENT_DISPATCH_START', 'dispatch_start');
+    define('ZM_EVENT_DISPATCH_DONE', 'dispatch_done');
+    define('ZM_EVENT_VIEW_START', 'view_start');
+    define('ZM_EVENT_VIEW_DONE', 'view_done');
+    define('ZM_EVENT_CONTROLLER_PROCESS_START', 'controller_process_start');
 
 
     //** db **//
