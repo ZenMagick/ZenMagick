@@ -116,6 +116,8 @@ class ZMCreateAccountController extends ZMController {
         $session->setAccount($account);
         $session->restoreCart();
 
+        $this->exportGlobal("zm_account", $account);
+
         // account email
         $context = array('zm_account' => $account, 'office_only_html' => '', 'office_only_text' => '');
         zm_mail(zm_l10n_get("Welcome to %s", zm_setting('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
@@ -127,7 +129,6 @@ class ZMCreateAccountController extends ZMController {
         }
 
         $zm_messages->success("Thank you for signing up");
-        $this->exportGlobal("zm_account", $account);
 
         return $this->findView('success');
     }
