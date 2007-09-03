@@ -68,6 +68,7 @@ Release 0.8.3
 - add the event source of ZenMagick events to the array passed into the event
   handler method using 'source' as key; this is a reference and for functions
   fireing events the passed obect is $zm_runtime
+- add social bookmark sidebox to demo theme
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

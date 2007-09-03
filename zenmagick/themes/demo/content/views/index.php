@@ -38,6 +38,7 @@
   <li>Drag/Drop Ajax cart demo for category listing (drag listing image onto shopping cart sidebox)<br/>
     <strong>Note1:</strong> This demo does not use <code>json.js</code> as this is not compatible with the used <a href="http://interface.eyecon.ro">effects library</a>!<br/>
   </li>
+  <li>A social bookmarking sidebox that lets you bookmark any page (based on the <a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_60&products_id=315">Social Bookmarking</a> mod).</li>
 </ul>
 
 <?php $zm_theme->staticPageContent("main_page") ?>
