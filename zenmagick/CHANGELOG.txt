@@ -14,7 +14,7 @@ Release 0.8.3
 - implement support for file upload (so far one file only)
 - rename 'isAnonymousCheckout' to 'isGuestCheckout'
 - more changes to make checkout without registering 'guest checkout'
-- fix worngly preselected checkout address in address list
+- fix wrongly preselected checkout address in address list
 - implement shipping address POST handling
 - add support to validate model objects rather than just maps (arrays); this
   will allow to facilitate model logic (populate) during validation
