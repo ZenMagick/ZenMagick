@@ -81,11 +81,6 @@ class ZMPluginView extends ZMPageView {
      * @return string The full view filename.
      */
     function getViewFilename() {
-        $filename = $this->getViewFilename();
-        if (file_exists($filename)) {
-            return $filename;
-        }
-
         $plugin = $this->plugin_;
         return $plugin->getPluginDir() . $this->getName() . ".php";
     }
