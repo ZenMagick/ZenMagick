@@ -125,6 +125,13 @@ class ZMConfigValue extends ZMModel {
         return !zm_is_empty($this->setFunction_);
     }
 
+    /**
+     * Set the key.
+     *
+     * @param string key The key.
+     */
+    function setKey($key) { $this->key_ = $key; }
+
 }
 
 ?>

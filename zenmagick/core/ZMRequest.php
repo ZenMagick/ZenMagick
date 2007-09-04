@@ -71,6 +71,13 @@ class ZMRequest extends ZMObject {
 
 
     /**
+     * Get the request method.
+     *
+     * @return string The upper case request method.
+     */
+    function getMethod() { return strtoupper($_SERVER['REQUEST_METHOD']); }
+
+    /**
      * Check for a valid session.
      *
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.

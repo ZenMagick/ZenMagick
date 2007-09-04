@@ -105,6 +105,7 @@
      */
     function zm_onload($page=null, $echo=true) {
     global $zm_request, $zm_themeInfo;
+
         $page = null == $page ? $zm_request->getPageName() : $page;
 
         $onload = '';

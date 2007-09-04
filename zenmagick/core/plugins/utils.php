@@ -29,12 +29,17 @@
      * Create a plugin admin page URL.
      *
      * @package net.radebatz.zenmagick.plugins
-     * @param string function The view function name.
+     * @param string function The view function name; default is <code>null</code>.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    function zm_plugin_admin_url($function, $params='', $echo=true) {
+    function zm_plugin_admin_url($function=null, $params='', $echo=true) {
+    global $zm_request;
+
+        if (null == $function) {
+            $function = $zm_request->getParameter('fkt');
+        }
         $url = zen_href_link('zmPluginPage', 'fkt='.$function.'&'.$params, 'SSL');
 
         if ($echo) echo $url;
@@ -71,6 +76,23 @@
             return zm_plugin_admin_url($target[1], $params, $echo);
         } else {
             return zm_href($target[0], $params, $echo);
+        }
+    }
+
+    /**
+     * Generate form element for the given config value.
+     *
+     * @package net.radebatz.zenmagick.plugins
+     * @param ZMConfigValue value The value.
+     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
+     * @return string HTML code.
+     */
+    function zm_plugin_value_element($value, $echo=true) {
+        if ($value->hasSetFunction()) {
+            eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');");
+            echo str_replace('<br>', '', $set);
+        } else {
+            echo zen_draw_input_field('configuration[' . $value->getKey() . ']', $value->getValue());
         }
     }
 

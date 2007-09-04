@@ -132,6 +132,32 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
+     * Support generic setter method for plugin config values.
+     *
+     * <p>Supports <code>setXXX()</code> methods for all keys returned by <code>getKeys()</code>.</p>
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    function __set($name, $value) {
+        $dname = strtoupper($this->configPrefix_ . $name);
+        if (defined($dname)) {
+            $config = new ZMConfig();
+            $config->updateConfigValue($dname, $value);
+        }
+    }
+
+    /**
+     * Support to set plugin config values by name.
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    function set($name, $value) {
+        $this->__set($name, $value);
+    }
+
+    /**
      * Get Id.
      *
      * @return string A unique id.
@@ -307,11 +333,20 @@ class ZMPlugin extends ZMObject {
     /**
      * Get all the config values.
      *
+     * @param boolean prefix If <code>true</code>, the plugin prefix will be kept, otherwise it will be stripped.
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
-    function getConfigValues() {
+    function getConfigValues($prefix=true) {
         $config = new ZMConfig();
-        return $config->getConfigValues($this->configPrefix_.'%');
+        $values = $config->getConfigValues($this->configPrefix_.'%');
+        if (!$prefix) {
+            foreach ($values as $name => $value) {
+                $key = $value->getKey();
+                $values[$name]->setKey(str_replace($this->configPrefix_, '', $key));
+            }
+        }
+
+        return $values;
     }
 
     /**

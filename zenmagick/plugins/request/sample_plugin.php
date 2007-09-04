@@ -78,7 +78,7 @@ class sample_plugin extends ZMPlugin {
         $this->zcoSubscribe();
 
         // add admin page
-        $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), 'zm_sample_plugin_admin');
+        $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), 'sample_plugin_admin');
     }
 
 
@@ -149,12 +149,51 @@ class sample_plugin_handler extends ZMPluginHandler {
 }
 
 /**
- * Sample admin page.
+ * Handle sample admin page.
  *
  * @package net.radebatz.zenmagick.plugins
+ * @return ZMPluginPage The plugin page.
  */
-function zm_sample_plugin_admin() {
-    echo 'Sample Plugin Admin Page';
+function sample_plugin_admin() {
+global $zm_request, $sample_plugin;
+
+    if ('POST' == $zm_request->getMethod()) {
+        $values = $zm_request->getParameter('configuration', array());
+        foreach ($values as $name => $value) {
+            $sample_plugin->set($name, $value);
+        }
+        zm_redirect(zm_plugin_admin_url());
+    }
+
+    return _sample_plugin_admin_view();
+}
+
+/**
+ * Create admin page.
+ *
+ * @package net.radebatz.zenmagick.plugins
+ * @return ZMPluginPage The plugin page.
+ */
+function _sample_plugin_admin_view() {
+global $sample_plugin;
+
+    $contents = <<<EOT
+<h2>Sample Plugin Admin Page</h2>
+<form action="<?php zm_plugin_admin_url() ?>" method="POST">
+    <table>
+        <?php foreach (\$sample_plugin->getConfigValues(false) as \$value) { ?>
+            <tr>
+                <td><?php echo \$value->getName() ?></td>
+                <td><?php zm_plugin_value_element(\$value) ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+    <input type="submit" value="<?php zm_l10n("Update") ?>">
+</form>
+EOT;
+
+    // use eval for PHP4 compatibility
+    return new ZMPluginPage('sample_plugin_admin', zm_l10n_get('Sample Plugin Admin Page'), eval('?>'.$contents));
 }
 
 ?>

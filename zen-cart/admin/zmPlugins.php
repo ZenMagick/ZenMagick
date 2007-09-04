@@ -87,6 +87,8 @@ require_once('includes/application_top.php');
         while (list($key, $value) = each($_POST['configuration'])) {
           $zm_config->updateConfigValue($key, $value);
         }
+        $refresh = $_POST['pluginId'];
+        $needRefresh = true;
     }
 
     if ($needRefresh) {
