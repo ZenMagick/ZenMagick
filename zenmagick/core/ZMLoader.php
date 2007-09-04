@@ -151,7 +151,7 @@ class ZMLoader {
         $static = array();
         // get full list
         foreach ($this->path_ as $name => $file) {
-            if ($name != ucfirst($name)) {
+            if ($name == $file) {
                 $static[$name] = $file;
             }
         }
@@ -290,21 +290,25 @@ class ZMLoader {
     }
 
     /**
-     * Build a path map for the given path.
+     * Build a file map for the given path.
      *
      * @param string path The path to scan.
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
-     * @return array A path map for the given path.
+     * @return array A file map for the given path.
      */
     function _scan($path, $recursive=true) {
         $files = zm_find_includes($path, $recursive);
-        $classMap = array();
+        $map = array();
         foreach ($files as $file) {
-            $classname = str_replace('.php', '', basename($file));
-            $classMap[$classname] = $file;
+            $name = str_replace('.php', '', basename($file));
+            if ($name == strtolower($name)) {
+                // static, so make it unique
+                $name = $file;
+            }
+            $map[$name] = $file;
         }
 
-        return $classMap;
+        return $map;
     }
 
 }

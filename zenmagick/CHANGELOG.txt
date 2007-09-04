@@ -69,6 +69,8 @@ Release 0.8.3
   handler method using 'source' as key; this is a reference and for functions
   fireing events the passed obect is $zm_runtime
 - add social bookmark sidebox to demo theme
+- make static pages (all lower case) load properly in case of duplicate
+  filenames
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
