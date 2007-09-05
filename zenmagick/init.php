@@ -126,6 +126,40 @@
     // make sure to use SSL if required
     $zm_sacsMapper->ensureAccessMethod();
 
+    // upset plugins :)
+    $zm_plugins =& new ZMPlugins();
+    $pluginLoader =& new ZMLoader("pluginLoader");
+    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
+        if ($plugin->isEnabled()) {
+            if ('ALL' == $plugin->getLoaderSupport()) {
+                $pluginLoader->addPath($plugin->getPluginDir());
+            }
+            $pluginId = $plugin->getId();
+            $$pluginId = $plugin;
+        }
+    }
+
+    // this means that in some cases core.php *must* be regenerated if plugins are
+    // installed while using core.php
+    if (!defined('ZM_SINGLE_CORE')) {
+        // use plugin loader to load static stuff
+        foreach ($pluginLoader->getStatic() as $static) {
+            require_once($static);
+        }
+    }
+
+    // plugins prevail over defaults, *and* themes
+    $rootLoader =& zm_get_root_loader();
+    $rootLoader->setParent($pluginLoader);
+
+    // call init only after everything set up
+    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
+        if ($plugin->isEnabled()) {
+            // PHP4 hack; use $$id rather than $plugin
+            $$id->init();
+        }
+    }
+
     // load 
     if (zm_setting('isEnableZenMagick')) {
         $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
@@ -153,40 +187,6 @@
             }
             require('includes/application_bottom.php');
             exit;
-        }
-    }
-
-    // upset plugins :)
-    $zm_plugins =& new ZMPlugins();
-    $pluginLoader =& new ZMLoader("pluginLoader");
-    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
-        if ($plugin->isEnabled()) {
-            if ('ALL' == $plugin->getLoaderSupport()) {
-                $pluginLoader->addPath($plugin->getPluginDir());
-            }
-            $pluginId = $plugin->getId();
-            $$pluginId = $plugin;
-        }
-    }
-
-    // this means that in some cases core.php *must* be regenerated if plugins are
-    // installed while using core.php
-    if (!defined('ZM_SINGLE_CORE')) {
-        // use plugin loader to load static stuff
-        foreach ($pluginLoader->getStatic() as $static) {
-            require_once($static);
-        }
-    }
-
-    // plugins prevail over defaults, but not themes
-    $rootLoader =& zm_get_root_loader();
-    $rootLoader->setParent($pluginLoader);
-
-    // call init only after everything set up
-    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
-        if ($plugin->isEnabled()) {
-            // PHP4 hack; use $$id rather than $plugin
-            $$id->init();
         }
     }
 

@@ -34,7 +34,7 @@
  * @package net.radebatz.zenmagick
  * @version $Id$
  */
-class ZMRuntime {
+class ZMRuntime extends ZMObject {
     var $themeId_;
     var $pageCache_;
     var $theme_;
@@ -45,6 +45,8 @@ class ZMRuntime {
      * Default c'tor.
      */
     function ZMRuntime() {
+        parent::__construct();
+
         // init with defaults
         $this->themeId_ = null;
         $this->pageCache_ = null;
@@ -81,7 +83,7 @@ class ZMRuntime {
     global $zm_loader;
 
         if (null === $this->pageCache_) {
-            $this->pageCache_ = $zm_loader->create('PageCache');
+            $this->pageCache_ =& $zm_loader->create('PageCache');
         }
         return $this->pageCache_;
     }
@@ -114,7 +116,7 @@ class ZMRuntime {
      */
     function &getTheme() {
         if (null == $this->theme_) {
-            $this->theme_ = new ZMTheme($this->getThemeId());
+            $this->theme_ =& $this->create("Theme", $this->getThemeId());
         }
 
         return $this->theme_;
@@ -127,7 +129,7 @@ class ZMRuntime {
      */
     function &getThemes() {
         if (null == $this->themes_) {
-            $this->themes_ = new ZMThemes();
+            $this->themes_ =& $this->create("Themes");
         }
 
         return $this->themes_;
@@ -143,7 +145,7 @@ class ZMRuntime {
         if (null == $themeId) {
             return $this->getTheme();
         }
-        $theme = new ZMTheme($themeId);
+        $theme =& $this->create("Theme", $themeId);
         return $theme;
     }
 
@@ -191,7 +193,8 @@ class ZMRuntime {
      */
     function getZCThemeId() {
         $themes =& $this->getThemes();
-        return $themes->getZCThemeId();
+        $id = $themes->getZCThemeId();
+        return zm_is_empty($id) ? ZM_DEFAULT_THEME : $id;
     }
 
     /**

@@ -97,6 +97,17 @@ class ZMPlugin extends ZMObject {
 
 
     /**
+     * Get a <code>db</code> instance.
+     *
+     * @return queryFactory A <code>queryFactory</code> instance.
+     */
+    function getDB() {
+    global $zm_runtime;
+
+        return $zm_runtime->getDB();
+    }
+
+    /**
      * Get optional installation messages.
      *
      * @return array List of <code>ZMMessage</code> instances.

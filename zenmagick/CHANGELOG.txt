@@ -74,6 +74,11 @@ Release 0.8.3
 - fix recursion in ZMPluginView
 - update sample_plugin with form based admin page that allows to change values
 - add ZMRequest:getMethod()
+- make ZMRuntime inherit from ZMObject in order to use create(..) rather than
+  new
+- reverted init sequence in that plugins are loaded *before* the theme is
+  resolved; this gived plugins more power to influence the final theme
+- allow plugins to access database (new method getDB())
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
