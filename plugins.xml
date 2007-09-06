@@ -54,6 +54,11 @@
             <param name="plugin.name" value="zm_crossell" />
             <param name="plugin.version" value="${plugins.zm_crossell.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_google_store_locator" />
+            <param name="plugin.version" value="${plugins.zm_google_store_locator.version}" />
+        </antcall>
     </target>
 
     
