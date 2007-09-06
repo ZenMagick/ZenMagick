@@ -717,10 +717,10 @@ if (!class_exists("ZMObject")) {
 
             // execute controller
             $view = $controller->process();
-            $controller->exportGlobal("zm_view", $view);
 
             // generate response
             if (null != $view) {
+                $controller->exportGlobal("zm_view", $view);
                 $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_START, array('view' =>& $view));
                 $view->generate();
                 $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_DONE);

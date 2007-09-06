@@ -62,7 +62,7 @@
     // enable POST request processing for listed pages
     $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications,checkout_shipping_address";
 
-    // sanitize attributes when handling products
+    // sanitize attributes when handling product submissions (add to cart, etc)
     $_ZM_SETTINGS['isSanitizeAttributes'] = true;
 
     // decimal places for quantity
@@ -126,6 +126,7 @@
     // use category page
     $_ZM_SETTINGS['isUseCategoryPage'] = false;
     $_ZM_SETTINGS['isShowCategoryProductCount'] = 'true' == SHOW_COUNTS;
+    $_ZM_SETTINGS['isSkipSingleProductCategory'] = SKIP_SINGLE_PRODUCT_CATEGORIES == 'True';
 
     // reviews
     $_ZM_SETTINGS['isApproveReviews'] = REVIEWS_APPROVAL == '1';

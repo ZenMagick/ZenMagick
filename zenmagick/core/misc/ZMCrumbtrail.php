@@ -41,10 +41,7 @@ class ZMCrumbtrail extends ZMObject {
     function ZMCrumbtrail() {
         parent::__construct();
 
-        $this->crumbs_ = array();
-
-        // always add home
-        $this->addCrumb("Home", zm_href(FILENAME_DEFAULT, '', false));
+        $this->reset();
     }
 
     /**
@@ -61,6 +58,15 @@ class ZMCrumbtrail extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Reset.
+     */
+    function reset() {
+        $this->crumbs_ = array();
+        // always add home
+        $this->addCrumb("Home", zm_href(FILENAME_DEFAULT, '', false));
+    }
 
     /**
      * Clear all crumbs.

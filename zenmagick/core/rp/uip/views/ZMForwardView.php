@@ -25,40 +25,32 @@
 
 
 /**
- * Redirect view.
+ * Forward view.
+ *
+ * <p>This will forward the request to the given controller without a redirect.</p>
  *
  * @author mano
  * @package net.radebatz.zenmagick.rp.uip.views
  * @version $Id$
  */
-class ZMRedirectView extends ZMView {
-    var $page_;
-    var $secure_;
-    var $parameter_;
-
+class ZMForwardView extends ZMView {
 
     /**
-     * Create a new redirect view.
+     * Create a new forward view.
      *
      * @param string page The page (view) name.
-     * @param boolean secure Flag whether to redirect using a secure URL or not; default is <code>false</code>.
      */
-    function ZMRedirectView($page, $secure=false) {
+    function ZMForwardView($page) {
         parent::__construct($page);
-
-        $this->page_ = $page;
-        $this->secure_ = $secure;
-        $this->parameter_ = '';
     }
 
     /**
      * Create a new redirect view.
      *
      * @param string page The page (view) name.
-     * @param boolean secure Flag whether to redirect using a secure URL or not; default is <code>false</code>.
      */
-    function __construct($page, $secure=false) {
-        $this->ZMRedirectView($page, $secure);
+    function __construct($page) {
+        $this->ZMForwardView($page);
     }
 
     /**
@@ -80,34 +72,22 @@ class ZMRedirectView extends ZMView {
 
     /**
      * Generate view response.
+     *
+     * <p>Will do the following:</p>
+     * <ul>
+     *  <li>Reset the crumbtrail</li>
+     *  <li>add the forward page as <em>main_page</em> to the request</li>
+     *  <li>call <code>zm_dispatch()</code></li>
+     * </ul>
      */
     function generate() { 
-        $url = null;
-        if ($this->secure_) {
-            $url = zm_secure_href($this->page_, $this->parameter_, false);
-        } else {
-            $url = zm_href($this->page_, $this->parameter_, false);
-        }
+    global $zm_request, $zm_crumbtrail;
 
-        zm_redirect($url);
-    }
-
-    /**
-     * Set additional parameter.
-     *
-     * @param string parameter Parameter string in URL query format.
-     */
-    function setParameter($parameter) {
-        $this->parameter_ = $parameter;
-    }
-
-    /**
-     * Set secure flag.
-     *
-     * @param boolean secure <code>true</code> to create a secure redirect.
-     */
-    function setSecure($secure) {
-        $this->secure_ = zm_boolean($secure);
+        $zm_crumbtrail->reset();
+        // TODO: do not use name directly!
+        $zm_request->setParameter('main_page', $this->page_);
+        zm_dispatch();
+        return null;
     }
 
 }

@@ -108,6 +108,13 @@ class ZMRequest extends ZMObject {
     function getParameterMap() { return $this->request_; }
 
     /**
+     * Set the parameter map.
+     *
+     * @param array map Map of all request parameters
+     */
+    function setParameterMap($map) { $this->request_ = $map; }
+
+    /**
      * Get the current shopping cart.
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
@@ -265,6 +272,22 @@ class ZMRequest extends ZMObject {
         } else {
             return $default;
         }
+    }
+
+    /**
+     * Allow programmatic manipulation of request parameters.
+     *
+     * @param string name The paramenter name.
+     * @param mixed value The value.
+     * @return mixed The previous value or <code>null</code>.
+     */
+    function setParameter($name, $value) { 
+        $old = null;
+        if (isset($this->request_[$name])) {
+            $old = $this->request_[$name];
+        }
+        $this->request_[$name] = $value;
+        return null;
     }
 
     /**

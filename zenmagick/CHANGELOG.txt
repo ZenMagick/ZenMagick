@@ -20,7 +20,7 @@ Release 0.8.3
   will allow to facilitate model logic (populate) during validation
 - move state/zone validation into custom validation rule
 - use new ZMStateOrZoneIdRule instead of required rule for state
-- fix missing '/' in core compressor (this randomly breaks core.php)
+- fix missing '/' in core compressor (this randomly breaks core.php; #1777420)
 - move music extra code into plugin
 - fix build to include sample plugin
 - implement logoff (not actually executed as zen-cart kicks in first...)
@@ -70,7 +70,7 @@ Release 0.8.3
   fireing events the passed obect is $zm_runtime
 - add social bookmark sidebox to demo theme
 - make static pages (all lower case) load properly in case of duplicate
-  filenames
+  filenames; #1787388
 - fix recursion in ZMPluginView
 - update sample_plugin with form based admin page that allows to change values
 - add ZMRequest:getMethod()
@@ -79,6 +79,9 @@ Release 0.8.3
 - reverted init sequence in that plugins are loaded *before* the theme is
   resolved; this gived plugins more power to influence the final theme
 - allow plugins to access database (new method getDB())
+- add ZMForwardView
+- implement new setting 'isSkipSingleProductCategory'; Note: this is not
+  active yet, as zen-cart's header.php will do the redirect...
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

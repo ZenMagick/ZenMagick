@@ -89,6 +89,7 @@ class ZMIndexController extends ZMController {
             $resultList->addFilter(new ZMCategoryFilter());
             $resultList->addSorter(new ZMProductSorter());
             $resultList->refresh();
+            $this->exportGlobal("zm_resultList", $resultList);
         }
 
         $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
@@ -97,7 +98,13 @@ class ZMIndexController extends ZMController {
         }
 
         $this->exportGlobal("zm_category", $category);
-        $this->exportGlobal("zm_resultList", $resultList);
+
+        if (null != $resultList && 1 == $resultList->getNumberOfResults() && zm_setting('isSkipSingleProductCategory')) {
+            $product = array_pop($resultList->getResults());
+            // TODO: do not use name directly!
+            $zm_request->setParameterMap(array('products_id' => $product->getId()));
+            $viewName = 'product_info';
+        }
 
         return $this->findView($viewName);
     }
