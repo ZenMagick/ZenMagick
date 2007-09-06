@@ -69,7 +69,7 @@ Release 0.8.3
   handler method using 'source' as key; this is a reference and for functions
   fireing events the passed obect is $zm_runtime
 - add social bookmark sidebox to demo theme
-- make static pages (all lower case) load properly in case of duplicate
+- make static pages (all lower case filenames) load properly in case of duplicate
   filenames; #1787388
 - fix recursion in ZMPluginView
 - update sample_plugin with form based admin page that allows to change values
