@@ -40,24 +40,23 @@
         $controls = zm_boolean($zm_google_store_locator->get('controls'));
 
         $script = '
-<script type="text/javascript" src="http://www.google.com/jsapi?key='.$key.'"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$key.'" type="text/javascript"></script>
 <script type="text/javascript">
-  google.load("maps", "2");
-  function load_map() {
-    if (GBrowserIsCompatible()) {
-      var map = new google.maps.Map2(document.getElementById("locator_map"));
-      '.($controls ? 'map.addControl(new google.maps.LargeMapControl());/*map.addControl(new google.maps.MapTypeControl());*/' : '').'
-      map.setCenter(new google.maps.LatLng('.$location.'), '.$zoom.');
-      var marker = new google.maps.Marker(map.getCenter());
-      map.addOverlay(marker);
-      '.(!zm_is_empty($markerText) ? 'marker.openInfoWindowHtml("'.$markerText.'")' : '').'
-    }
+  function load_locator_map() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("locator_map"));
+        '.($controls ? 'map.addControl(new GLargeMapControl());/*map.addControl(new GMapTypeControl());*/' : '').'
+        map.setCenter(new GLatLng('.$location.'), '.$zoom.');
+        var marker = new GMarker(map.getCenter());
+        map.addOverlay(marker);
+        '.(!zm_is_empty($markerText) ? 'marker.openInfoWindowHtml("'.$markerText.'")' : '').'
+      }
   }
-  google.setOnLoadCallback(load_map);
+  //google.setOnLoadCallback(load_locator_map);
 </script>
 ';
         $map = <<<EOT
-<div id="locator_map" style="width:400px;height:400px;"></div>
+<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;"><?php zm_l10n("Loading map...") ?></div>
 <div id="stores">
   <a href="#">Store1</a>
   <a href="#">Store2</a>

@@ -76,14 +76,21 @@ class zm_google_store_locator extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_themeInfo;
-
         parent::init();
 
         $this->addMenuItem('store_locator', zm_l10n_get('Store Locator'), 'zm_store_locator_admin');
         zm_set_pretty_link_mapping(ZM_FILENAME_STORE_LOCATOR);
+        // subscribe to events to set the JS onload event
+        $this->zcoSubscribe();
+    }
 
-        //$zm_themeInfo->setPageEventHandler('onload', ZM_FILENAME_STORE_LOCATOR, "load_locator()");
+    /**
+     * Update theme once init is done.
+     */
+    function onZMInitDone($args) {
+    global $zm_themeInfo;
+
+        $zm_themeInfo->setPageEventHandler('onload', ZM_FILENAME_STORE_LOCATOR, "load_locator_map()");
     }
 
 }
