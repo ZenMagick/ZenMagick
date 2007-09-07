@@ -25,7 +25,6 @@
 ?>
 <?php
 
-define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 require_once(DIR_FS_CATALOG.ZM_ROOT.'init.php'); 
 

@@ -27,7 +27,6 @@
 // dismiss sqlpatch output as we do only want to use the code...
 define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
-define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
     $zm_config = new ZMConfig();

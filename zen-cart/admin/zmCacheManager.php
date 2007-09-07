@@ -24,9 +24,7 @@
  */
 ?>
 <?php
-define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
-
 
     // clear
     if (isset($_POST) && array_key_exists('pageCache', $_POST)) {

@@ -23,7 +23,6 @@
  * $Id$
  */
 ?><?php
-define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
   $fkt = $zm_request->getParameter('fkt');

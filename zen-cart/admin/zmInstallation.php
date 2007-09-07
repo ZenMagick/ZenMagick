@@ -28,7 +28,6 @@
 // dismiss sqlpatch output as we do only want to use the code...
 define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
-define('_ZM_ADMIN_PAGE', true);
 require_once('includes/application_top.php');
 
     $needRefresh = false;
@@ -46,7 +45,7 @@ require_once('includes/application_top.php');
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
-        "dynamicAdminMenu" => "Enable dynamic admin menu support",
+        "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlFeatures" => "Install Features database tables"

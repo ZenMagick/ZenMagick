@@ -64,14 +64,14 @@
             }
             if ($parent == $item->getParent()) {
                 if ($first) {
-                    $first = false;
                     echo "<ul";
                     if (null == $parent) {
                         echo ' class="submenu"';
                     }
                     echo '>';
                 }
-                echo '<li>';
+                echo '<li '.($first ? '" class="first"' : '').'>';
+                $first = false;
                 if (null == $parent) {
                     echo $item->getTitle();
                 } else {

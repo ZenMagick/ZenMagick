@@ -49,7 +49,7 @@
     $_ZM_SETTINGS['isPrettyLinkPatchSupport'] = true;
     $_ZM_SETTINGS['isEmailPatchSupport'] = true;
     $_ZM_SETTINGS['isEventProxySupport'] = true;
-    $_ZM_SETTINGS['isDynamicAdminMenuPatchSupport'] = true;
+    $_ZM_SETTINGS['isDynamicAdminPatchSupport'] = false;
 
     // guest account behaviour
     $_ZM_SETTINGS['isLogoffGuestAfterOrder'] = true;

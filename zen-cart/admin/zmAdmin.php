@@ -22,104 +22,43 @@
  *
  * $Id$
  */
-?><?php 
-define('_ZM_ADMIN_PAGE', true);
-require_once('includes/application_top.php');
-
-
-
-/*
-
-  // admin
-  zm_add_menu_item(new ZMMenuItem(null, 'admin', zm_l10n_get('Administration')));
-  zm_add_menu_item(new ZMMenuItem('admin', 'install', zm_l10n_get('Installation')));
-  zm_add_menu_item(new ZMMenuItem('admin', 'plugins', zm_l10n_get('Plugins')));
-  zm_add_menu_item(new ZMMenuItem('admin', 'cache', zm_l10n_get('Cache')));
-
-  // catalog
-  zm_add_menu_item(new ZMMenuItem(null, 'catalog', zm_l10n_get('Catalog')));
-  zm_add_menu_item(new ZMMenuItem('catalog', 'features', zm_l10n_get('Features')));
-
-  // tools
-  zm_add_menu_item(new ZMMenuItem(null, 'tools', zm_l10n_get('Tools')));
-  zm_add_menu_item(new ZMMenuItem('tools', 'lang', zm_l10n_get('Locale Tool')));
-  zm_add_menu_item(new ZMMenuItem('tools', 'console', zm_l10n_get('Console')));
-
-  // help
-  zm_add_menu_item(new ZMMenuItem(null, 'help', zm_l10n_get('Help')));
-  zm_add_menu_item(new ZMMenuItem('help', 'help', zm_l10n_get('Online Help')));
-  zm_add_menu_item(new ZMMenuItem('help', 'about', zm_l10n_get('About')));
-*/
-
-  $path = $zm_request->getRequestParameter('path');
-
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<?php
+    define('ZM_ADMIN_PAGE', true);
+    require_once('includes/application_top.php');
+    $zmPage = $zm_request->getParameter('zmPage', 'index.php');
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
 <html <?php echo HTML_PARAMS; ?>>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
     <title><?php zm_l10n("ZenMagick Admin") ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
-    <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-    <script type="text/javascript" src="includes/menu.js"></script>
-    <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
     <style type="text/css">
-      body {behavior:url(includes/csshover.htc);}
-      a {text-decoration:none;}
-      a:link {color:#080;}
-      a:visited {color:#790;}
-      a:active {color:red;}
-      a:hover {text-decoration:underline;}
-
-      #secnav ul {list-style:none;padding:0;margin:0;}
-      #secnav a {font-weight:bold;color:green;text-decoration: none;}
-      #secnav li li a {display:block;font-weight:normal;color:#060;padding:0.2em 4px;}
-      #secnav li li a:hover {text-decoration:underline;}
-      #secnav li {float:left;position:relative;x-width:10em;padding:4px 5px;text-align:left;cursor:default;background-color:#f7f7f7;border:solid gray;border-width:0 1px 1px;}
-      #secnav li li {width:12em;padding:1px 5px;}
-      #secnav li ul {display:none;position:absolute;top:100%;left:0;font-weight:normal;border:solid 1px #7d6340;margin-top:3px;}
-      #secnav li>ul {top:auto;left:auto;}
-      #secnav li li {display:block;float:none;xbackground-color:transparent;border:none;}
-      #secnav li:hover ul, #secnav li.over ul {display:block;z-index:1;}
+      body {margin:15px auto;width:97%;text-align:center;}
+      #wrapper {text-align:left;border:1px solid #ccc;}
+      #content {width:100%;height:600px;border:none;margin:12px 0 0 0;}
     </style>
-    <script type="text/javascript"><!--//--><![CDATA[//><!--
-    startList = function() {
-      if (document.all && document.getElementById) {
-        navRoot = document.getElementById("secnav");
-        for (ii=0; ii<navRoot.childNodes.length; ++ii) {
-          node = navRoot.childNodes[ii];
-          if (node.nodeName=="LI") {
-            node.onmouseover=function() {
-              this.className+=" over";
+    <script type="text/javascript">
+        function resizeIframe(name) { 
+            var iframe = document.getElementById(name);
+            var height = 0;
+            if (iframe.contentDocument) {
+                height = iframe.contentDocument.body.scrollHeight;
             }
-            node.onmouseout=function() {
-              this.className=this.className.replace(" over", "");
+            if (0 != height) {
+                iframe.style.height = (height+10) + 'px'
             }
-          }
-        }
-      }
-    }
-    window.onload=startList;
-    //--><!]]></script>
+        } 
+    </script>
   </head>
-  <body id="b_admin">
-
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
-    <div id="container" style="border:1px solid gray;">
+  <body onload="resizeIframe('content')">
+    <div id="wrapper">
+      <?php require(DIR_WS_INCLUDES . 'zenmagick_header.php'); ?>
+      <iframe id="content" src="<?php echo $zmPage ?>">
     </div>
-
-<div style="clear:both;">
-<?php
-
-    $controller = $zm_loader->create("WikiController");
-      $view = $controller->process();
-if ($view->isViewFunction()) { $view->callView(); } else { include($view->getViewFilename()); }
-
-?>
-</div>
-
   </body>
 </html>

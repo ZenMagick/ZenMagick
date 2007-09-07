@@ -24,28 +24,29 @@
 <?php
 
 define('_ZM_ZEN_HEADER_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'header.php');
+define('_ZM_ZEN_FOOTER_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'footer.php');
 
 /**
- * Patch to enable a dynamic admin menu structure.
+ * Patch to enable a dynamic admin structure.
  *
  * @author mano
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMDynamicAdminMenuPatch extends ZMFilePatch {
+class ZMDynamicAdminPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
      */
-    function ZMDynamicAdminMenuPatch() {
-        parent::__construct('dynamicAdminMenu');
+    function ZMDynamicAdminPatch() {
+        parent::__construct('dynamicAdmin');
     }
 
     /**
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMDynamicAdminMenuPatch();
+        $this->ZMDynamicAdminPatch();
     }
 
     /**
@@ -62,8 +63,9 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $contents = file_get_contents(_ZM_ZEN_HEADER_FILE);
-        return false === strpos($contents, "zenmagick_header.php");
+        $header = file_get_contents(_ZM_ZEN_HEADER_FILE);
+        $footer = file_get_contents(_ZM_ZEN_FOOTER_FILE);
+        return false === strpos($header, "ZenMagick") || false === strpos($footer, "ZenMagick");
     }
 
     /**
@@ -72,7 +74,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_HEADER_FILE);
+        return is_writeable(_ZM_ZEN_HEADER_FILE) && is_writeable(_ZM_ZEN_FOOTER_FILE);
     }
 
     /**
@@ -83,7 +85,7 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_HEADER_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_HEADER_FILE . " and " . _ZM_ZEN_FOOTER_FILE;
     }
 
     /**
@@ -98,15 +100,22 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((zm_setting('isEnablePatching') && zm_setting('isDynamicAdminMenuPatchSupport')) || $force) {
-            if (is_writeable(_ZM_ZEN_HEADER_FILE)) {
+        if ((zm_setting('isEnablePatching') && zm_setting('isDynamicAdminPatchSupport')) || $force) {
+            if (is_writeable(_ZM_ZEN_HEADER_FILE) && is_writeable(_ZM_ZEN_FOOTER_FILE)) {
                 $lines = $this->getFileLines(_ZM_ZEN_HEADER_FILE);
                 $patchedLines = array();
-                array_push($patchedLines, "<?php if (defined('_ZM_ADMIN_PAGE')) {require('zenmagick_header.php'); return; } /* added by ZenMagick installation patcher */ ?>");
+                array_push($patchedLines, "<?php return; /* added by ZenMagick installation patcher */ ?>");
                 $finalLines = array_merge($patchedLines, $lines);
-                return $this->putFileLines(_ZM_ZEN_HEADER_FILE, $finalLines);
+                $status = $this->putFileLines(_ZM_ZEN_HEADER_FILE, $finalLines);
+
+                $lines = $this->getFileLines(_ZM_ZEN_FOOTER_FILE);
+                $patchedLines = array();
+                array_push($patchedLines, "<?php return; /* added by ZenMagick installation patcher */ ?>");
+                $finalLines = array_merge($patchedLines, $lines);
+                $status &= $this->putFileLines(_ZM_ZEN_FOOTER_FILE, $finalLines);
+                return $status;
             } else {
-                zm_log("** ZenMagick: no permission to patch dynamic admin menu support into header.php", ZM_LOG_ERROR);
+                zm_log("** ZenMagick: no permission to patch dynamic admin support", ZM_LOG_ERROR);
                 return false;
             }
         } else {
@@ -125,11 +134,21 @@ class ZMDynamicAdminMenuPatch extends ZMFilePatch {
      */
     function undo() {
         if (!$this->isOpen()) {
+            $status = true;
             $lines = $this->getFileLines(_ZM_ZEN_HEADER_FILE);
-            if (false !== strpos($lines[0], "zenmagick_header.php")) {
-                return $this->putFileLines(_ZM_ZEN_HEADER_FILE, array_slice($lines, 1));
+            if (false !== strpos($lines[0], "ZenMagick")) {
+                $status = $this->putFileLines(_ZM_ZEN_HEADER_FILE, array_slice($lines, 1));
             }
+
+            $lines = $this->getFileLines(_ZM_ZEN_FOOTER_FILE);
+            if (false !== strpos($lines[0], "ZenMagick")) {
+                $status &= $this->putFileLines(_ZM_ZEN_FOOTER_FILE, array_slice($lines, 1));
+            }
+
+            return $status;
         }
+
+        return true;
     }
     
 }

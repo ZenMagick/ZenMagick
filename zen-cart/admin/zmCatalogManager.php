@@ -24,7 +24,6 @@
  */
 ?>
 <?php  
-define('_ZM_ADMIN_PAGE', true);
 require('includes/application_top.php');
 require('includes/zmCatalogDtree.php');
 

@@ -24,6 +24,10 @@
  */
 ?><?php
     
+    $isZMAdmin = defined('ZM_ADMIN_PAGE');
+
+    if (!$isZMAdmin) { return; }
+
     // build full zen-cart menu
     zm_add_menu_item(new ZMMenuItem(null, 'config', zm_l10n_get('Configuration')));
     $zm_config = new ZMConfig();
@@ -32,7 +36,7 @@
         $id = strtolower($group->getName());
         $id = str_replace(' ', '', $id);
         $id = str_replace('/', '-', $id);
-        zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName()), 'configuration.php?gID='.$group->getId()));
+        zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName()), 'zmAdmin.php?zmPage=configuration.php&gID='.$group->getId()));
     }
 
     ob_start();
@@ -48,7 +52,12 @@
             $id = strtolower($item['text']);
             $id = str_replace(' ', '', $id);
             $id = str_replace('/', '-', $id);
-            zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text']), $item['link']));
+            $link = $item['link'];
+            if ($isZMAdmin) {
+                $url = parse_url($link);
+                $link = 'zmAdmin.php?zmPage='.basename($url['path']).'&'.$url['query'];
+            }
+            zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text']), $link));
         }
     }
     zm_add_menu_item(new ZMMenuItem(null, 'plugins', zm_l10n_get('Plugins')));
@@ -57,6 +66,9 @@
 ?>
 
 <div id="header">
+  <div id="info">
+  logo and such | <a href="zmAdmin.php">Admin Home</a> | <a href="<? echo zen_catalog_href_link() ?>">Store Home</a> | <a href="<?php echo zen_href_link(FILENAME_LOGOFF) ?>">Logoff</a>
+  </div>
   <div id="secnav">
     <?php zm_build_menu(); ?>
   </div>
