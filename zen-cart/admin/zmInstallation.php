@@ -45,7 +45,7 @@ require_once('includes/application_top.php');
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
-        "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
+        "dynamicAdmin" => "EXPERIMENTAL: Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlFeatures" => "Install Features database tables"
@@ -56,55 +56,49 @@ require_once('includes/application_top.php');
     $obsolete = zm_get_obsolete_files();
 
     // install
-    if (isset($_POST)) {
-        foreach ($_POST as $name => $value) {
-            if (zm_starts_with($name, 'patch_')) {
-                $patch = $installer->getPatchForId($value);
-                if (null != $patch && $patch->isOpen()) {
+    if (null != $zm_request->getParameter('update')) {
+        $group = $zm_request->getParameter('update');
+        foreach ($installer->getPatches($group) as $id => $patch) {
+            $formId = 'patch_'.$group.'_'.$patch->getId();
+            if ($patch->isOpen() && $patch->getId() == $zm_request->getParameter($formId)) {
+                // open and selected
+                $needRefresh = true;
+                $status = $patch->patch(true);
+                $zm_messages->addAll($patch->getMessages());
+                if ($status) {
+                    $zm_messages->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                } else {
+                    $zm_messages->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                }
+            } else if (!$patch->isOpen() && null == $zm_request->getParameter($formId)) {
+                // installed and not selected
+                if ($patch->canUndo()) {
                     $needRefresh = true;
-                    $status = $patch->patch(true);
+                    $status = $patch->undo();
                     $zm_messages->addAll($patch->getMessages());
                     if ($status) {
-                        $zm_messages->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                        $zm_messages->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        $zm_messages->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                        $zm_messages->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }
         }
     }
 
-    // uninstall
-    if (isset($_GET) && array_key_exists('uninstall', $_GET)) {
-        $group = $_GET['uninstall'];
-        foreach ($installer->getPatches($group) as $id => $patch) {
-            if (!$patch->isOpen() && $patch->canUndo()) {
-                $needRefresh = true;
-                $status = $patch->undo();
-                $zm_messages->addAll($patch->getMessages());
-                if ($status) {
-                    $zm_messages->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
-                } else {
-                    $zm_messages->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
-                }
-            }
-        }
-    }
-
     // delete
-    if (isset($_POST) && array_key_exists('obsolete', $_POST)) {
-        foreach ($_POST['obsolete'] as $file) {
+    if (null != $zm_request->getParameter('obsolete')) {
+        foreach ($zm_request->getParameter('obsolete') as $file) {
             if (is_file($file)) {
                 unlink($file);
             } else if (is_dir($file)) {
                 rmdir($file);
             }
         }
-        // refresh
-        $obsolete = zm_get_obsolete_files();
+        $needRefresh = true;
     }
 
-    // update
+    // update core.php
     if (isset($_POST)) {
         $didGenerate = false;
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
@@ -136,7 +130,6 @@ require_once('includes/application_top.php');
     function _zm_patch_group($groupId, $checkall=true) {
     global $installer, $patchLabel;
 
-        $hasChecked = false; 
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             if ($patch->isOpen() || true) {
                 // check dependencies
@@ -156,20 +149,21 @@ require_once('includes/application_top.php');
                 ?><input type="checkbox"
                     id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
                     value="<?php echo $patch->getId() ?>"
-                    <?php if (!$patch->isOpen()) { $hasChecked = true; ?>disabled="disabled" checked="checked" <?php } ?>>
+                    <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
+                    <?php if (!$patch->canUndo()) { ?>disabled="disabled" <?php } ?>>
                   <label for="<?php echo $patch->getId() ?>">
                       <?php echo $patchLabel[$patch->getId()] ?>
                   </label>
                   <br><?php
             }
         }
-        if ($installer->isPatchesOpen($groupId)) {
+        if (true || $installer->isPatchesOpen($groupId)) {
             if ($installer->isPatchesOpen($groupId) && $checkall) { ?>
                 <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
                 <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
             <?php } ?>
             <div class="submit">
-                <input type="submit" value="<?php zm_l10n("Install") ?>">
+                <input type="submit" value="<?php zm_l10n("Update") ?>">
             </div>
         <?php }
     }
@@ -218,22 +212,20 @@ require_once('includes/application_top.php');
       <div id="content">
       <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected items ?');">
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update file patches?');">
           <fieldset class="patches">
             <legend><?php zm_l10n("ZenMagick File Patches") ?></legend>
+            <input type="hidden" name="update" value="file">
             <?php _zm_patch_group('file') ?>
-            <div class="submit">
-              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=file" onclick="return zm_user_confirm('Uninstall all patches ?');">Revert all file patches</a> <strong>NOTE:</strong> Additionally created files and <code>.htaccess</code> file changes must be reverted manually.
-            </div>
           </fieldset>
         </form>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Install selected SQL updates?');">
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update SQL updates?');">
           <fieldset class="patches">
             <legend><?php zm_l10n("ZenMagick SQL Extensions") ?></legend>
+            <input type="hidden" name="update" value="sql">
             <?php _zm_patch_group('sql') ?>
             <div class="submit">
-              <a href="<?php echo ZM_ADMINFN_INSTALLATION ?>?uninstall=sql" onclick="return zm_user_confirm('Uninstall ZenMagick SQL ?');">Revert all SQL patches</a>
               <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
             </div>
           </fieldset>

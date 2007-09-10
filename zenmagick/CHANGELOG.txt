@@ -83,6 +83,8 @@ Release 0.8.3
 - implement new setting 'isSkipSingleProductCategory'; Note: this is not
   active yet, as zen-cart's header.php will do the redirect...
 - reworked the dynamic admin patch and code
+- rework installation admin to allow undo of single patch rather than undo all
+  and redo the ones desired
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
