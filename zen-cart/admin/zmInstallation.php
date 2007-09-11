@@ -41,7 +41,7 @@ require_once('includes/application_top.php');
         "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
         "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
-        "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails)",
+        "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
