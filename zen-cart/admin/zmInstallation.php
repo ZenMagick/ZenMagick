@@ -45,7 +45,7 @@ require_once('includes/application_top.php');
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
-        "dynamicAdmin" => "EXPERIMENTAL: Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
+        "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlFeatures" => "Install Features database tables"
@@ -156,17 +156,13 @@ require_once('includes/application_top.php');
                   </label>
                   <br><?php
             }
-        }
-        if (true || $installer->isPatchesOpen($groupId)) {
-            if ($installer->isPatchesOpen($groupId) && $checkall) { ?>
-                <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
-                <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
-            <?php } ?>
-            <div class="submit">
-                <input type="submit" value="<?php zm_l10n("Update") ?>">
-            </div>
-        <?php }
-    }
+        } ?>
+        <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
+        <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
+        <div class="submit">
+            <input type="submit" value="<?php zm_l10n("Update") ?>">
+        </div>
+    <?php }
 
     if ($needRefresh) {
         zm_redirect(ZM_ADMINFN_INSTALLATION);
@@ -190,7 +186,7 @@ require_once('includes/application_top.php');
       function sync_all(box, name) {
         var boxes = document.getElementsByTagName('input');
         for (var ii=0; ii<boxes.length; ++ii) {
-          if (0 == boxes[ii].name.indexOf(name)) {
+          if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled) {
             boxes[ii].checked = box.checked;
           }
         }
@@ -212,7 +208,7 @@ require_once('includes/application_top.php');
       <div id="content">
       <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update file patches?');">
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update File Patches?');">
           <fieldset class="patches">
             <legend><?php zm_l10n("ZenMagick File Patches") ?></legend>
             <input type="hidden" name="update" value="file">
@@ -220,7 +216,7 @@ require_once('includes/application_top.php');
           </fieldset>
         </form>
 
-        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update SQL updates?');">
+        <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update SQL Patches?');">
           <fieldset class="patches">
             <legend><?php zm_l10n("ZenMagick SQL Extensions") ?></legend>
             <input type="hidden" name="update" value="sql">
