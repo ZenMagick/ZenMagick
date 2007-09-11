@@ -85,6 +85,8 @@ Release 0.8.3
 - reworked the dynamic admin patch and code
 - rework installation admin to allow undo of single patch rather than undo all
   and redo the ones desired
+- set the first created address of an account as default address even if it is
+  not marked as primary
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

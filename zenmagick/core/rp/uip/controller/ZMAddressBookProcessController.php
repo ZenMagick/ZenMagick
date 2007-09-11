@@ -178,7 +178,7 @@ class ZMAddressBookProcessController extends ZMController {
         $address = $zm_addresses->createAddress($address);
 
         // process primary setting
-        if ($address->isPrimary()) {
+        if ($address->isPrimary() || 1 == count($zm_addresses->getAddressesForAccountId($zm_request->getAccountId()))) {
             $account = $zm_request->getAccount();
             $account->setDefaultAddressId($address->getId());
             $zm_accounts->updateAccount($account);

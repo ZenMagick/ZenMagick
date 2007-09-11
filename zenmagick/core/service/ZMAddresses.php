@@ -88,7 +88,7 @@ class ZMAddresses extends ZMService {
      * @param int accountId The account id.
      * @return array A list of <code>ZMAddress</code> instances.
      */
-    function &getAddressesForAccountId($accountId) {
+    function getAddressesForAccountId($accountId) {
         $defaultAddressId = $this->_getDefaultAddressId($accountId);
 
         $db = $this->getDB();
