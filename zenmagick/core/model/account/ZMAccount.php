@@ -123,11 +123,25 @@ class ZMAccount extends ZMModel {
     function getId() { return $this->id_; }
 
     /**
+     * Set the account id.
+     *
+     * @param int id The account id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
      * Get the first name.
      *
      * @return string The first name.
      */
     function getFirstName() { return $this->firstName_; }
+
+    /**
+     * Set the first name.
+     *
+     * @param string firstName The first name.
+     */
+    function setFirstName($firstName) { $this->firstName_ = $firstName; }
 
     /**
      * Get the last name.
@@ -137,11 +151,25 @@ class ZMAccount extends ZMModel {
     function getLastName() { return $this->lastName_; }
 
     /**
+     * Set the last name.
+     *
+     * @param string lastName The last name.
+     */
+    function setLastName($lastName) { $this->lastName_ = $lastName; }
+
+    /**
      * Get the date of birth.
      *
      * @return string The date of birth.
      */
     function getDob() { return $this->dob_; }
+
+    /**
+     * Set the date of birth.
+     *
+     * @param string dob The date of birth.
+     */
+    function setDob($dob) { $this->dob_ = $dob; }
 
     /**
      * Get the nick name.
@@ -151,11 +179,25 @@ class ZMAccount extends ZMModel {
     function getNickName() { return $this->nickname_; }
 
     /**
+     * Set the nick name.
+     *
+     * @param string nickName The nick name.
+     */
+    function setNickName($nickName) { $this->nickname_ = $nickName; }
+
+    /**
      * Get the gender.
      *
      * @return string The gender ('f' or 'm').
      */
     function getGender() { return $this->gender_; }
+
+    /**
+     * Set the gender.
+     *
+     * @param string gender The gender ('f' or 'm').
+     */
+    function setGender($gender) { $this->gender_ = $gender; }
 
     /**
      * Get the email address.
@@ -179,11 +221,32 @@ class ZMAccount extends ZMModel {
     function getPhone() { return $this->phone_; }
 
     /**
+     * Set the phone number.
+     *
+     * @param string phone The phone number.
+     */
+    function setPhone($phone) { $this->phone_ = $phone; }
+
+    /**
      * Get the fax number.
      *
      * @return string The fax number.
      */
     function getFax() { return $this->fax_; }
+
+    /**
+     * Set the fax number.
+     *
+     * @param string fax The fax number.
+     */
+    function setFax($fax) { $this->fax_ = $fax; }
+
+    /**
+     * Set the preferred email format.
+     *
+     * @param string emailFormat The selected email format.
+     */
+    function setEmailFormat($emailFormat) { $this->emailFormat_ = $emailFormat; }
 
     /**
      * Get the preferred email format.
@@ -214,6 +277,13 @@ class ZMAccount extends ZMModel {
     function getReferral() { return $this->referral_; }
 
     /**
+     * Set the referral.
+     *
+     * @param string referral The referral.
+     */
+    function setReferral($referral) { $this->referral_ = $referral; }
+
+    /**
      * Get the default address id (primary address).
      *
      * @return int The primary address id.
@@ -242,11 +312,18 @@ class ZMAccount extends ZMModel {
     function setPassword($password) { $this->password_ = $password; }
 
     /**
-     * Get the authorization.
+     * Get authorization.
      *
      * @return string The authorization.
      */
     function getAuthorization() { return $this->authorization_; }
+
+    /**
+     * Set authorization.
+     *
+     * @param string authorization The authorization.
+     */
+    function setAuthorization($authorization) { $this->authorization_ = $authorization; }
 
     /**
      * Returns <code>true</code> if the account has subscribed to newsletter.
@@ -269,8 +346,15 @@ class ZMAccount extends ZMModel {
      */
     function getVoucherBalance() {
     global $zm_accounts;
+
         return $zm_accounts->getVoucherBalanceForId($this->id_);
     }
+
+    /**
+     * Get the formatted full name.
+     *
+     * @return string The full name.
+     */
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
 
     /**
