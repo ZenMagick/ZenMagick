@@ -87,6 +87,8 @@ Release 0.8.3
   and redo the ones desired
 - set the first created address of an account as default address even if it is
   not marked as primary
+- add password validation rules for create account; #1793554
+- add fix for USEO2 plugin; #1793551
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account
