@@ -56,6 +56,7 @@
 || ###################################################################### ||
 \*========================================================================*/
 function reset_seo_cache() {
+global $db;
 	$db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
 }
 ?>
