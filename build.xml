@@ -108,7 +108,10 @@
         <!-- copy all ZenMagick files -->
         <copy todir="${build.dir}/zenmagick">
             <!-- plugins are build separately; however, include the sample plugin -->
-            <fileset dir="${zenmagick.src.dir}" excludes="plugins/request/*/**" />
+            <fileset dir="${zenmagick.src.dir}">
+                <exclude name="plugins/request/*/**" />
+                <exclude name="*.log" />
+           </fileset>
         </copy>
 
         <!-- copy sample plugin -->
