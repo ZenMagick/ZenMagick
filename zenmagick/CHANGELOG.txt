@@ -89,6 +89,8 @@ Release 0.8.3
   not marked as primary
 - add password validation rules for create account; #1793554
 - add fix for USEO2 plugin; #1793551
+- add simple plugin helper method to create a plugin config form:
+  zm_simple_config_form(..)
 
 Release 0.8.2
 - product_notifications.php should not use $zm_account

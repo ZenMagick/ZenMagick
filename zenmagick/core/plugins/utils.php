@@ -96,4 +96,44 @@
         }
     }
 
+
+    /**
+     * Create a simple plugin config form.
+     *
+     * @package net.radebatz.zenmagick.plugins
+     * @param ZMPlugin plugin The plugin.
+     * @param string fkt The view function.
+     * @param string title Optional title; default is <code>null</code> to use the plugin name.
+     * @return ZMPluginPage The plugin page instance.
+     */
+    function &zm_simple_config_form($plugin, $fkt, $title=null) {
+        // more reference stuff
+        $id = $plugin->getId();
+        global $id;
+
+        $title = null == $title ? $plugin->getName() : $title;
+        $title = zm_l10n_get($title);
+        $contents = <<<EOT
+<h2><? echo \$title ?></h2>
+<form action="<?php zm_plugin_admin_url() ?>" method="POST">
+    <table cellspacing="0" cellpadding="0" id="plugin-config">
+        <?php foreach (\$plugin->getConfigValues(false) as \$value) { ?>
+            <tr>
+                <td><?php echo \$value->getName() ?></td>
+                <td><?php zm_plugin_value_element(\$value) ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+    <input type="submit" value="<?php zm_l10n("Update") ?>">
+</form>
+EOT;
+
+        // use eval for PHP4 compatibility
+        ob_start();
+        eval('?>'.$contents);
+        $contents = ob_get_clean();
+
+        return new ZMPluginPage($fkts, $title, $contents);
+    }
+
 ?>

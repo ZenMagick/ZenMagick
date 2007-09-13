@@ -165,35 +165,7 @@ global $zm_request, $sample_plugin;
         zm_redirect(zm_plugin_admin_url());
     }
 
-    return _sample_plugin_admin_view();
-}
-
-/**
- * Create admin page.
- *
- * @package net.radebatz.zenmagick.plugins
- * @return ZMPluginPage The plugin page.
- */
-function _sample_plugin_admin_view() {
-global $sample_plugin;
-
-    $contents = <<<EOT
-<h2>Sample Plugin Admin Page</h2>
-<form action="<?php zm_plugin_admin_url() ?>" method="POST">
-    <table>
-        <?php foreach (\$sample_plugin->getConfigValues(false) as \$value) { ?>
-            <tr>
-                <td><?php echo \$value->getName() ?></td>
-                <td><?php zm_plugin_value_element(\$value) ?></td>
-            </tr>
-        <?php } ?>
-    </table>
-    <input type="submit" value="<?php zm_l10n("Update") ?>">
-</form>
-EOT;
-
-    // use eval for PHP4 compatibility
-    return new ZMPluginPage('sample_plugin_admin', zm_l10n_get('Sample Plugin Admin Page'), eval('?>'.$contents));
+    return zm_simple_config_form($sample_plugin, 'sample_plugin_admin', 'Sample Plugin Admin Page');
 }
 
 ?>
