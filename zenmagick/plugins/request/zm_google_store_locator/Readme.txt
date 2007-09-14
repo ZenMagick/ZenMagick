@@ -27,6 +27,7 @@ CONFIGURATION
 The plugin requires a Google account and a Google Maps access key for your store URL.
 If you want to use the admin page to find out the store location, you'll need a 
 second key for the admin URL.
+Keys can be requested here: http://www.google.com/apis/maps/signup.html
 
 The store URL is everything before index.php?main_page=index,
 the admin URL is the store URL + the admin directory name.
