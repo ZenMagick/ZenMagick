@@ -24,7 +24,20 @@ INSTALLAION
 
 CONFIGURATION
 =============
-The plugin requires a Google account and a Google Maps access key.
+The plugin requires a Google account and a Google Maps access key for your store URL.
+If you want to use the admin page to find out the store location, you'll need a 
+second key for the admin URL.
+
+The store URL is everything before index.php?main_page=index,
+the admin URL is the store URL + the admin directory name.
+
+Example:
+Hostname: www.mystore.com
+Zen-Cart installed in document root
+
+Store URL: http://www.mystore.com/
+Admin URL: http://www.mystore.com/admin/
+
 
 The other values are:
 - store location (lonitude, latitude)
