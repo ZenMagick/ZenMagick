@@ -35,8 +35,7 @@ class ZMPluginPage extends ZMObject {
     var $id_;
     var $title_;
     var $contents_;
-    var $css_;
-    var $javascript_;
+    var $header_;
 
 
     /**
@@ -44,18 +43,16 @@ class ZMPluginPage extends ZMObject {
      *
      * @param string id The id.
      * @param string title The title.
-     * @param string configtens The page contents.
-     * @param string css Optional CSS; default is <code>null</code>.
-     * @param string javascript Optional JavaScript; default is <code>null</code>.
+     * @param string contents The page contents.
+     * @param string header Optional code to be injected into the header; default is <code>null</code>.
      */
-    function ZMPluginPage($Id, $title, $contents, $css=null, $javascript=null) {
+    function ZMPluginPage($Id, $title, $contents=null, $header='') {
         parent::__construct();
 
         $this->id_ = $id;
         $this->title_ = $title;
         $this->contents_ = $contents;
-        $this->css_ = $css;
-        $this->javascript_ = $javascript;
+        $this->header_ = $header;
     }
 
     /**
@@ -63,12 +60,11 @@ class ZMPluginPage extends ZMObject {
      *
      * @param string id The id.
      * @param string title The title.
-     * @param string configtens The page contents.
-     * @param string css Optional CSS; default is <code>null</code>.
-     * @param string javascript Optional JavaScript; default is <code>null</code>.
+     * @param string contents The page contents.
+     * @param string header Optional code to be injected into the header; default is <code>null</code>.
      */
-    function __construct($id, $title, $contents, $css=null, $javascript=null) {
-        $this->ZMPluginPage($id, $title, $contents, $css, $javascript);
+    function __construct($id, $title, $contents=null, $header='') {
+        $this->ZMPluginPage($id, $title, $contents, $header);
     }
 
     /**
@@ -101,18 +97,39 @@ class ZMPluginPage extends ZMObject {
     function getContents() { return $this->contents_; }
 
     /**
-     * Get the CSS.
+     * Get the header code.
      *
-     * @return string The page css.
+     * @return string The header code.
      */
-    function getCSS() { return $this->css_; }
+    function getHeader() { return $this->header_; }
 
     /**
-     * Get the javascript.
+     * Set the id.
      *
-     * @return string The page javascript.
+     * @param string id The page id.
      */
-    function getJavaScript() { return $this->javascript_; }
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the title.
+     *
+     * @param string title The page title.
+     */
+    function setTitle($title) { $this->title_ = $title; }
+
+    /**
+     * Set the contents.
+     *
+     * @param string contents The page contents.
+     */
+    function setContents($contents) { $this->contents_ = $contents; }
+
+    /**
+     * Set the header code.
+     *
+     * @param string header The header code.
+     */
+    function setHeader($header) { $this->header_ = $header; }
 
 }
 
