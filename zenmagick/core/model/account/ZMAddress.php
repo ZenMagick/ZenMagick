@@ -174,19 +174,102 @@ class ZMAddress extends ZMModel {
      */
     function getGender() { return $this->gender_; }
 
+    /**
+     * Get the company name.
+     *
+     * @return string The company name.
+     */
     function getCompanyName() { return $this->companyName_; }
+
+    /**
+     * Get the address line.
+     *
+     * @return string The address line.
+     */
     function getAddress() { return $this->address_; }
+
+    /**
+     * Get the suburb.
+     *
+     * @return string The suburb.
+     */
     function getSuburb() { return $this->suburb_; }
+
+    /**
+     * Get the postcode.
+     *
+     * @return string The postcode.
+     */
     function getPostcode() { return $this->postcode_; }
+
+    /**
+     * Get the city.
+     *
+     * @return string The city.
+     */
     function getCity() { return $this->city_; }
+
+    /**
+     * Get the state.
+     *
+     * @return string The state.
+     */
     function getState() { return $this->state_; }
+
+    /**
+     * Set the state.
+     *
+     * @param string state The state.
+     */
     function setState($state) { $this->state_= $state; }
+
+    /**
+     * Get the zone id.
+     *
+     * @return int The zone id.
+     */
     function getZoneId() { return $this->zoneId_; }
+
+    /**
+     * Set the zone id.
+     *
+     * @param int zoneId The zone id.
+     */
     function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
+
+    /**
+     * Get the country.
+     *
+     * @return ZMCountry The country.
+     */
     function getCountry() { return $this->country_; }
+
+    /**
+     * Get the suburb.
+     *
+     * @return string The suburb.
+     */
     function getCountryId() { return null != $this->country_ ? $this->country_->id_ : 0; }
+
+    /**
+     * Check if the address is the primary address.
+     *
+     * @return boolean <code>true</code> if the address is the primary adddress, <code>false</code> if not.
+     */
     function isPrimary() { return $this->isPrimary_; }
+
+    /**
+     * Get the format.
+     *
+     * @return string The format.
+     */
     function getFormat() { return $this->format_; }
+
+    /**
+     * Get the full name.
+     *
+     * @return string The formatted full name.
+     */
     function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
 
     /**
@@ -222,6 +305,105 @@ class ZMAddress extends ZMModel {
      * @param boolean isPrimary The new status.
      */
     function setPrimary($isPrimary) { $this->isPrimary_ = $isPrimary; }
+
+    /**
+     * Set the address id.
+     *
+     * @param int id The account id.
+     */
+    function setId($id) { $this->addressId_ = $id; }
+
+    /**
+     * Set the account id.
+     *
+     * @param int accountId The account id.
+     */
+    function getAccountId($accountId) { $this->accountId_ = $accountId; }
+
+    /**
+     * Set the first name.
+     *
+     * @param string firstName The first name.
+     */
+    function getFirstName($firstName) { $this->firstName_ = $firstName; }
+
+    /**
+     * Set the last name.
+     *
+     * @param string lastName The last name.
+     */
+    function setLastName($lastName) { $this->lastName_ = $lastName; }
+
+    /**
+     * Set the gender.
+     *
+     * @param string gender The gender ('f' or 'm').
+     */
+    function setGender($gender) { $this->gender_ = $gender; }
+
+    /**
+     * Set the company name.
+     *
+     * @param string companyName The company name.
+     */
+    function getCompanyName($companyName) { return $this->companyName_ = $companyName; }
+
+    /**
+     * Set the address line.
+     *
+     * @param string address The address line.
+     */
+    function setAddress($address) { $this->address_ = $address; }
+
+    /**
+     * Set the suburb.
+     *
+     * @param string suburbThe suburb.
+     */
+    function setSuburb($suburb) { $this->suburb_ = $suburb; }
+
+    /**
+     * Set the postcode.
+     *
+     * @param string postcode The postcode.
+     */
+    function setPostcode($postcode) { $this->postcode_ = $postcode; }
+
+    /**
+     * Set the city.
+     *
+     * @param string city The city.
+     */
+    function setCity($city) { $this->city_ = $city; }
+
+    /**
+     * Set the state.
+     *
+     * @param string state The state.
+     */
+    function setState($state) { $this->state_= $state; }
+
+    /**
+     * Get the zone id.
+     *
+     * @return int The zone id.
+     */
+    function getZoneId() { return $this->zoneId_; }
+
+    /**
+     * Set the zone id.
+     *
+     * @param int zoneId The zone id.
+     */
+    function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
+
+    /**
+     * Set the country.
+     *
+     * @param ZMCountry country The country.
+     */
+    function setCountry(&$country) { $this->country_ = $country; }
+
 }
 
 ?>
