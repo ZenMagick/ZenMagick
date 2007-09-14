@@ -45,6 +45,7 @@ require_once('includes/application_top.php');
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
+    <?php if (null!= $page) { echo $page->getHeader(); } ?>
   </head>
   <body id="b_plugin_page">
 
