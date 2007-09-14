@@ -217,25 +217,11 @@ class ZMAddress extends ZMModel {
     function getState() { return $this->state_; }
 
     /**
-     * Set the state.
-     *
-     * @param string state The state.
-     */
-    function setState($state) { $this->state_= $state; }
-
-    /**
      * Get the zone id.
      *
      * @return int The zone id.
      */
     function getZoneId() { return $this->zoneId_; }
-
-    /**
-     * Set the zone id.
-     *
-     * @param int zoneId The zone id.
-     */
-    function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
 
     /**
      * Get the country.
@@ -314,20 +300,6 @@ class ZMAddress extends ZMModel {
     function setId($id) { $this->addressId_ = $id; }
 
     /**
-     * Set the account id.
-     *
-     * @param int accountId The account id.
-     */
-    function getAccountId($accountId) { $this->accountId_ = $accountId; }
-
-    /**
-     * Set the first name.
-     *
-     * @param string firstName The first name.
-     */
-    function getFirstName($firstName) { $this->firstName_ = $firstName; }
-
-    /**
      * Set the last name.
      *
      * @param string lastName The last name.
@@ -340,13 +312,6 @@ class ZMAddress extends ZMModel {
      * @param string gender The gender ('f' or 'm').
      */
     function setGender($gender) { $this->gender_ = $gender; }
-
-    /**
-     * Set the company name.
-     *
-     * @param string companyName The company name.
-     */
-    function getCompanyName($companyName) { return $this->companyName_ = $companyName; }
 
     /**
      * Set the address line.
@@ -382,13 +347,6 @@ class ZMAddress extends ZMModel {
      * @param string state The state.
      */
     function setState($state) { $this->state_= $state; }
-
-    /**
-     * Get the zone id.
-     *
-     * @return int The zone id.
-     */
-    function getZoneId() { return $this->zoneId_; }
 
     /**
      * Set the zone id.

@@ -154,7 +154,9 @@ class ZMCoreCompressor extends ZMObject {
             }
         }
 
-        $this->clean();
+        if (zm_setting('isStripCore')) {
+            $this->clean();
+        }
     }
 
     /**
@@ -386,6 +388,13 @@ class ZMCoreCompressor extends ZMObject {
                 return;
             }
 
+            if (!zm_setting('isStripCore')) {
+                if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
+                    array_push($this->errors_, 'could not write to file ' . $outfile);
+                    return;
+                }
+            }
+
             if (false === fwrite($handle, $source)) {
                 array_push($this->errors_, 'could not write to file ' . $outfile);
                 return;
@@ -452,6 +461,7 @@ class ZMCoreCompressor extends ZMObject {
             'ZMService.php',
             'ZMSession.php',
             'ZMRequest.php',
+            'ZMRuntime.php',
             'init_bootstrap.php'
         );
         $tmp2 = array();
@@ -478,16 +488,14 @@ class ZMCoreCompressor extends ZMObject {
         while (0 < count($files)) {
             $processed = 0;
             foreach ($files as $key => $infile) {
-                //echo $key.' '.$infile."<br>";
                 $path = explode('/', $infile);
                 $level = count($path)-count($inpath)-1;
                 if ($level == $currLevel || $key < 4) {
                     ++$processed;
-                    //echo $infile . " >> " . $outfile . "\n";
                     unset($files[$key]);
                     $source = file_get_contents($infile);
 
-                    if (false) {
+                    if (!zm_setting('isStripCore')) {
                         if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
                             array_push($this->errors_, 'could not write to file ' . $outfile);
                             return;
