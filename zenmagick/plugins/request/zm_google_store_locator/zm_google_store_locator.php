@@ -64,8 +64,8 @@ class zm_google_store_locator extends ZMPlugin {
     function install() {
         parent::install();
 
-        $this->addConfigValue('Google Maps key', 'storeKey', '', 'Your Google Maps key for the storefront');
-        $this->addConfigValue('Google Maps key', 'adminKey', '', 'Your Google Maps key for the admin page');
+        $this->addConfigValue('Google Maps storefront key', 'storeKey', '', 'Your Google Maps key for the storefront');
+        $this->addConfigValue('Google Maps admin key', 'adminKey', '', 'Your Google Maps key for the admin page');
         $this->addConfigValue('Store Location', 'location', '37.4419, -122.1419', 'The store location (Lat,Lng)');
         $this->addConfigValue('Zoom Level', 'zoom', '13', 'The initial zoom level');
         $this->addConfigValue('Marker Text', 'marker_text', zm_setting('storeName'), 
