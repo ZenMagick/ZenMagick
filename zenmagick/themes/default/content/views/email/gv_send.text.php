@@ -26,7 +26,7 @@
 <?php zm_l10n("Dear %s,", $zm_gvreceiver->getName()) ?>
 
 
-<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_account->getFullName()) ?>
+<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', zm_format_currency($zm_gvreceiver->getAmount(), false, false), $zm_account->getFullName()) ?>
 
 <?php if ($zm_gvreceiver->hasMessage()) { ?>
 <?php zm_l10n("%s says:", $zm_account->getFirstName()); ?>
@@ -35,7 +35,8 @@
 
 <?php } ?>
 
-<p><?php zm_l10n("To redeem your gift, visit %s.", zm_href(FILENAME_DEFAULT, '', false)) ?></p>
+<p><?php zm_l10n("To redeem your gift, visit %s.", zm_href(FILENAME_GV_REDEEM, 'gv_no='.$zm_coupon->getCode(), false)) ?></p>
 
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo $office_only_text; ?>

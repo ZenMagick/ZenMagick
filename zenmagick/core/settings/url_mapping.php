@@ -72,15 +72,15 @@
 
         // gv_send
         $zm_urlMapper->setMapping('gv_send');
-        $zm_urlMapper->setMapping('gv_send', 'confirm', 'gv_send_confirm', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping('gv_send', 'success', 'account', 'RedirectView', 'secure=true');
+        $zm_urlMapper->setMapping('gv_send', 'success', 'gv_send_confirm');
+        $zm_urlMapper->setMapping('gv_send_confirm', 'edit', 'gv_send', 'ForwardView');
+        $zm_urlMapper->setMapping('gv_send_confirm', 'success', 'account', 'RedirectView', 'secure=true');
 
         // index
         $zm_urlMapper->setMapping('index', 'category', 'category');
         $zm_urlMapper->setMapping('index', 'category_list', 'category_list');
         $zm_urlMapper->setMapping('index', 'manufacturer', 'manufacturer');
         $zm_urlMapper->setMapping('index', 'product_info', 'product_info', 'ForwardView');
-        // index is configured global
 
         // login
         $zm_urlMapper->setMapping('login');

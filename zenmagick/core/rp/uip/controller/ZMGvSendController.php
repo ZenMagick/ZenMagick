@@ -62,7 +62,7 @@ class ZMGvSendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_messages;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
@@ -70,13 +70,7 @@ class ZMGvSendController extends ZMController {
         $this->exportGlobal("zm_account", $zm_request->getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
-        $viewName = null;
-        if ('doneprocess' == $zm_request->getParameter('action')) {
-            $zm_messages->success(zm_l10n_get("Gift Certificate successfully send."));
-            $viewName = 'success';
-        }
-
-        return $this->findView($viewName);
+        return $this->findView();
     }
 
     /**
@@ -86,36 +80,25 @@ class ZMGvSendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail, $zm_messages;
-    // zen header stuff
-    global $error_amount, $error_email;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $this->exportGlobal("zm_account", $zm_request->getAccount());
-        $receiver = $this->create("GVReceiver");
-        $receiver->populate();
-        $this->exportGlobal("zm_gvreceiver", $receiver);
+        $gvreceiver = $this->create("GVReceiver");
+        $gvreceiver->populate();
+        $this->exportGlobal("zm_gvreceiver", $gvreceiver);
 
-        // error handling
-        if (!zm_is_empty($error_amount)) {
-            $zm_messages->error(zm_l10n_get("Please enter a valid amount."));
-        }
-        if (!zm_is_empty($error_email)) {
-            $zm_messages->error(zm_l10n_get("Please enter a valid email address."));
+        // back from confirmation to edit or not valid
+        if (null != $zm_request->getParameter('edit') || !$this->validate('gvreceiverObject', $gvreceiver)) {
+            return $this->findView();
         }
 
-        $viewName = 'success';
-        if ('send' == $zm_request->getParameter('action') && !$zm_messages->hasMessages()) {
-            if (null != $zm_request->getParameter('edit_x', null)) {
-                $viewName = null;
-            } else {
-                $viewName = 'confirm';
-            }
-        }
+        // to fakce the email content display
+        $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, ''));
 
-        return $this->findView($viewName);
+        return $this->findView('success');
     }
 
 }

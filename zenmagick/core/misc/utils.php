@@ -282,16 +282,36 @@ return zen_get_uprid($productId, $attributes);
      *
      * @package net.radebatz.zenmagick.misc
      * @param float amount The amount.
+     * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
+     *  convert before formatting.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The formatted amount.
      */
-    function zm_format_currency($amount, $echo=true) {
+    function zm_format_currency($amount, $convert=true, $echo=true) {
     global $zm_runtime, $zm_currencies;
+
         $currency = $zm_currencies->getCurrencyForCode($zm_runtime->getCurrencyCode());
-        $money = $currency->format($amount);
+        $money = $currency->format($amount, $convert);
 
         if ($echo) echo $money;
         return $money;
+    }
+
+
+    /**
+     * Parse a money amount.
+     *
+     * @package net.radebatz.zenmagick.misc
+     * @param string amount The amount probably formatted according to the sessions currency setting.
+     * @return float The amount.
+     */
+    function zm_parse_money($money) {
+    global $zm_runtime, $zm_currencies;
+
+        $currency = $zm_currencies->getCurrencyForCode($zm_runtime->getCurrencyCode());
+        $amount = $currency->parse($money, false);
+
+        return $amount;
     }
 
 ?>

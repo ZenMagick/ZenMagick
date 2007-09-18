@@ -53,7 +53,7 @@
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
             <div class="btn"><a href="<?php zm_href(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
             <p>
-                <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", zm_format_currency($voucherBalance, false)) ?><br />
+                <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", zm_format_currency($voucherBalance, true, false)) ?><br />
                 <?php $email = '<a href="' . zm_href(FILENAME_GV_SEND, '', false) . '">' . zm_l10n_get("email") . '</a>'; ?>
                 <?php zm_l10n("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>

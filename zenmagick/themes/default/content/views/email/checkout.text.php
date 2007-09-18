@@ -51,7 +51,7 @@ $language = $zm_runtime->getLanguage();
 <?php zm_l10n("Ordered Items\n") ?>
 -----------------------------------------------
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
-<?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), zm_format_currency($orderItem->getCalculatedPrice(), false)) ?>
+<?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), zm_format_currency($orderItem->getCalculatedPrice(), true, false)) ?>
 <?php } ?>
 <?php printf("%30s  %s\n", "", "-----------") ?>
 <?php foreach ($order->getOrderTotals() as $orderTotal) { ?>

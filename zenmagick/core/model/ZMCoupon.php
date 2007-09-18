@@ -27,6 +27,10 @@
 /**
  * A single coupon.
  *
+ * <p><strong>NOTE:</strong> Depending on the coupon type, not all values might
+ * be set.</p>
+ * <p>For example, gift vouchers do only have a <em>code</em> and <em>amount</em>.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.model
  * @version $Id$
@@ -50,9 +54,9 @@ class ZMCoupon extends ZMModel {
      *
      * @param int id The coupon id.
      * @param string code The coupon code.
-     * @param string type The coupon type.
+     * @param string type The coupon type; default is blank.
      */
-    function ZMCoupon($id, $code, $type) {
+    function ZMCoupon($id, $code, $type='') {
         parent::__construct();
 
 		    $this->id_ = $id;
@@ -65,9 +69,9 @@ class ZMCoupon extends ZMModel {
      *
      * @param int id The coupon id.
      * @param string code The coupon code.
-     * @param string type The coupon type.
+     * @param string type The coupon type; default is blank.
      */
-    function __construct($id, $code, $type) {
+    function __construct($id, $code, $type='') {
         $this->ZMCoupon($id, $code, $type);
     }
 
@@ -79,20 +83,102 @@ class ZMCoupon extends ZMModel {
     }
 
 
-    // getter/setter
+    /**
+     * Get the coupon id.
+     *
+     * @return int The coupon id.
+     */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the coupon code.
+     *
+     * @return string The coupon code.
+     */
     function getCode() { return $this->code_; }
+
+    /**
+     * Get the coupon type.
+     *
+     * @return string The coupon type.
+     */
     function getType() { return $this->type_; }
+
+    /**
+     * Get the amount.
+     *
+     * @return float The coupon amount.
+     */
     function getAmount() { return $this->amount_; }
+
+    /**
+     * Get the coupon name.
+     *
+     * @return string The coupon name.
+     */
     function getName() { return $this->name_; }
+
+    /**
+     * Get the coupon description.
+     *
+     * @return string The coupon description.
+     */
     function getDescription() { return $this->description_; }
+
+    /**
+     * Get the minimum order value.
+     *
+     * @return float The minimum order value.
+     */
     function getMinimumOrder() { return $this->minimumOrder_; }
+
+    /**
+     * Get the coupon start date.
+     *
+     * @return string The coupon start date.
+     */
     function getStartDate() { return $this->startDate_; }
+
+    /**
+     * Get the coupon expiry date.
+     *
+     * @return string The coupon expiry date.
+     */
     function getExpiryDate() { return $this->expiryDate_; }
+
+    /**
+     * Get the uses per coupon.
+     *
+     * @return int The uses per coupon.
+     */
     function getUsesPerCoupon() { return $this->usesPerCoupon_; }
+
+    /**
+     * Get the uses per coupon.
+     *
+     * @return int The uses per coupon.
+     */
     function getUsesPerUser() { return $this->usesPerUser_; }
+
+    /**
+     * Check if this coupon qualifies for free shipping.
+     *
+     * @return boolean <code>true</code> if this coupon qualifies for free shipping, <code>false</code> if not.
+     */
     function isFreeShipping() { return 'S' == $this->type_; }
+
+    /**
+     * Check if this a fixed amount coupon.
+     *
+     * @return boolean <code>true</code> if this coupon has a fixed amount assigned, <code>false</code> if not.
+     */
     function isFixedAmount() { return 'F' == $this->type_; }
+
+    /**
+     * Check if this a percentage amount coupon.
+     *
+     * @return boolean <code>true</code> if this coupon has a percentage amount assigned, <code>false</code> if not.
+     */
     function isPercentage() { return 'P' == $this->type_; }
 
     /**
@@ -102,6 +188,7 @@ class ZMCoupon extends ZMModel {
      */
     function getRestrictions() {
     global $zm_coupons;
+
         return $zm_coupons->_getRestrictionsForId($this->id_);
     }
 

@@ -83,7 +83,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
                         $ma = array();
                         $ma['id'] = $id;
                         $ma['name'] = $provider->getName() . " " . $method->getName();
-                        $ma['cost'] = zm_format_currency($method->getCost(), false);
+                        $ma['cost'] = zm_format_currency($method->getCost(), true, false);
                         array_push($methods, $ma);
                     }
                 }
@@ -104,12 +104,12 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $cart = array();
         $items = array();
-        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zm_format_currency($value, false) : $value;');
+        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zm_format_currency($value, true, false) : $value;');
         foreach ($zm_cart->getItems() as $item) {
             array_push($items, $this->flattenObject($item, array('id', 'name', 'qty', 'itemTotal'), $formatter));
         }
         $cart['items'] = $items;
-        $cart['total'] = zm_format_currency($zm_cart->getTotal(), false);
+        $cart['total'] = zm_format_currency($zm_cart->getTotal(), true, false);
 
         $flatObj = $this->flattenObject($cart);
         $json = $this->toJSON($flatObj);

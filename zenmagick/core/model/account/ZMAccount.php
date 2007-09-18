@@ -345,9 +345,9 @@ class ZMAccount extends ZMModel {
      * @return float The voucher balance.
      */
     function getVoucherBalance() {
-    global $zm_accounts;
+    global $zm_coupons;
 
-        return $zm_accounts->getVoucherBalanceForId($this->id_);
+        return $zm_coupons->getVoucherBalanceForAccountId($this->id_);
     }
 
     /**

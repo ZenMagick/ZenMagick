@@ -27,6 +27,8 @@
 /**
  * A gift voucher receiver.
  *
+ * <p><strong>NOTE:</strong> The amount is always in the sessions current currency.</p>
+ *
  * @author mano
  * @package net.radebatz.zenmagick.model
  * @version $Id$
@@ -76,6 +78,7 @@ class ZMGVReceiver extends ZMModel {
         $this->name_ = $zm_request->getParameter('to_name', '');
         $this->email_ = $zm_request->getParameter('email', '');
         $this->amount_ = $zm_request->getParameter('amount', 0);
+        $this->amount_ = zm_parse_money($this->amount_);
         $this->message_ = $zm_request->getParameter('message', '');
     }
 
@@ -97,7 +100,7 @@ class ZMGVReceiver extends ZMModel {
     /**
      * Get the amount.
      *
-     * @return double The amount.
+     * @return string The (formatted) amount.
      */
     function getAmount() { return $this->amount_; }
 
@@ -114,6 +117,34 @@ class ZMGVReceiver extends ZMModel {
      * @return string The message.
      */
     function getMessage() { return $this->message_; }
+
+    /**
+     * Set the receiver name.
+     *
+     * @param string name The receiver name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the receiver email.
+     *
+     * @param string email The receiver email.
+     */
+    function setEmail($email) { $this->email_ = $email; }
+
+    /**
+     * Set the amount.
+     *
+     * @param string amount The (formatted) amount.
+     */
+    function setAmount($amount) { $this->amount_ = $amount; }
+
+    /**
+     * Set the message.
+     *
+     * @param string message The message.
+     */
+    function setMessage($message) { $this->message_ = $message; }
 
 }
 

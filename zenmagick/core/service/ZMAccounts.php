@@ -195,27 +195,6 @@ class ZMAccounts extends ZMService {
     }
 
     /**
-     * Get the voucher balance for the given account.
-     *
-     * @param int accountId The account id.
-     * @return float The available balance or <code>0</code>.
-     */
-    function getVoucherBalanceForId($accountId) {
-        $db = $this->getDB();
-        $sql = "select amount from " . TABLE_COUPON_GV_CUSTOMER . "
-                where customer_id = :accountId";
-        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
-
-        $results = $db->Execute($sql);
-        if (!$results->EOF) {
-            return $results->fields['amount'];
-        }
-
-        return 0;
-    }
-
-
-    /**
      * Create new account instance.
      */
     function &_newAccount($fields) {

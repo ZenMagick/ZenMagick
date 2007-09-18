@@ -1,3 +1,18 @@
+Release 0.8.4
+- make gv_send form secure
+- add validation to gv_send form
+- add another parameter to zm_format_currency to be able to format only
+  without converting (sorry, needs updated to a few templates again...)
+- added new custom rule to validate a given amount against the current
+  account's voucher balance
+- added ZMCurrency::parse(..) to allow for reasonable currency parsing.
+- added zm_parse_money(..) to allow simple money parsing based on the sessions
+  currency
+- added ZMGVSendConfirmController to make GV handling simpler
+- fix zm_htmlencode(..) for other languages (for example, Chinese); #1796776
+- move getVoucherBalanceForId(..) from ZMAccounts to ZMCoupons
+- reimplemented GV send as ZenMagick controller and services
+
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
   states are:

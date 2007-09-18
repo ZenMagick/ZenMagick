@@ -83,7 +83,88 @@ class ZMCoupons extends ZMService {
         return $coupon;
     }
 
-    // create coupon from map
+    /**
+     * Get the coupon/voucher balance for the given account.
+     *
+     * @param int accountId The account id.
+     * @return float The available balance or <code>0</code>.
+     */
+    function getVoucherBalanceForAccountId($accountId) {
+        $db = $this->getDB();
+        $sql = "select amount from " . TABLE_COUPON_GV_CUSTOMER . "
+                where customer_id = :accountId";
+        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
+
+        $results = $db->Execute($sql);
+        if (!$results->EOF) {
+            return $results->fields['amount'];
+        }
+
+        return 0;
+    }
+
+    /**
+     * Update the coupon/coucher balance for the given account id.
+     *
+     * @param int accountId The account id.
+     * @param float amount The new amount.
+     */
+    function setVoucherBalanceForAccountId($accountId, $amount) {
+        $db = $this->getDB();
+        $sql = "update " . TABLE_COUPON_GV_CUSTOMER . "
+                set amount = :amount
+                where customer_id = :accountId";
+        $sql = $db->bindVars($sql, ':amount', $amount, 'currency');
+        $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
+        $db->Execute($sql);
+    }
+
+    /**
+     * Create a new coupon.
+     *
+     * @param int accountId The account id.
+     * @param float amount The new amount.
+     * @param string type The coupon type; default is 'G'.
+     * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
+     */
+    function &createCoupon($couponCode, $amount, $type='G') {
+        $db = $this->getDB();
+        $sql = "insert into " . TABLE_COUPONS . " (coupon_type, coupon_code, date_created, coupon_amount)
+                values (:type, :couponCode, now(), :amount)";
+        $sql = $db->bindVars($sql, ':type', $type, 'string');
+        $sql = $db->bindVars($sql, ':couponCode', $couponCode, 'string');
+        $sql = $db->bindVars($sql, ':amount', $amount, 'currency');
+        $results = $db->Execute($sql);
+
+        $id = $db->Insert_ID();
+        $coupon = $this->create("Coupon", $id, $couponCode, $type);
+        $coupon->amount_ = $fields['coupon_amount'];
+
+        return $coupon;
+    }
+
+    /**
+     * Create a new coupon tracker record.
+     *
+     * @param ZMCoupon coupon The coupon.
+     * @param ZMAccount account The sender account.
+     * @param ZMGVReceiver gvreceiver The receiver.
+     */
+    function createCouponTracker(&$coupon, &$account, &$gvreceiver) {
+        $db = $this->getDB();
+        $sql = "insert into " . TABLE_COUPON_EMAIL_TRACK . "(coupon_id, customer_id_sent, sent_firstname, sent_lastname, emailed_to, date_sent)
+                 values (:couponId, :accountId, :firstName, :lastName, :email, now())";
+        $sql = $db->bindVars($sql, ':couponId', $coupon->getId(), 'integer');
+        $sql = $db->bindVars($sql, ':accountId', $account->getId(), 'integer');
+        $sql = $db->bindVars($sql, ':firstName', $account->getFirstName(), 'string');
+        $sql = $db->bindVars($sql, ':lastName', $account->getLastName(), 'string');
+        $sql = $db->bindVars($sql, ':email', $gvreceiver->getEmail(), 'string');
+        $db->Execute($sql);
+    }
+
+    /**
+     * Create new coupon instance.
+     */
     function &_newCoupon($fields) {
         $coupon = $this->create("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
@@ -97,7 +178,9 @@ class ZMCoupons extends ZMService {
         return $coupon;
     }
 
-    // get coupon restrictions
+    /**
+     * Load coupon restrictions for the given coupon id.
+     */
     function &_getRestrictionsForId($id) {
         $db = $this->getDB();
         $sql = "select * from " . TABLE_COUPON_RESTRICT . "

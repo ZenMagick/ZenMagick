@@ -60,7 +60,7 @@
     $_ZM_SETTINGS['isDisplayTimerStats'] = DISPLAY_PAGE_PARSE_TIME == 'true';
 
     // enable POST request processing for listed pages
-    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications,checkout_shipping_address";
+    $_ZM_SETTINGS['postRequestEnabledList'] = "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications,checkout_shipping_address,gv_send,gv_send_confirm";
 
     // sanitize attributes when handling product submissions (add to cart, etc)
     $_ZM_SETTINGS['isSanitizeAttributes'] = true;
@@ -104,6 +104,8 @@
     $_ZM_SETTINGS['emailAdminTellAFriend'] = SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO;
     $_ZM_SETTINGS['isEmailAdminReview'] = SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO_STATUS == '1' && SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO != '';
     $_ZM_SETTINGS['emailAdminReview'] = SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO;
+    $_ZM_SETTINGS['isEmailAdminGvSend'] = SEND_EXTRA_GV_CUSTOMER_EMAILS_TO_STATUS == '1' && SEND_EXTRA_GV_CUSTOMER_EMAILS_TO != '';
+    $_ZM_SETTINGS['emailAdminGvSend'] = SEND_EXTRA_GV_CUSTOMER_EMAILS_TO;
 
     // Ajax
     $_ZM_SETTINGS['isEchoJSON'] = false;

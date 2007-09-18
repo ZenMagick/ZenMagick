@@ -34,17 +34,18 @@ $language = $zm_runtime->getlanguage();
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s,", $zm_gvreceiver->getName()) ?></p>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_account->getFullName()) ?></p>
+<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', zm_format_currency($zm_gvreceiver->getAmount(), false, false), $zm_account->getFullName()) ?></p>
 <?php if ($zm_gvreceiver->hasMessage()) { ?>
 <p>
 <?php zm_l10n("%s says:", $zm_account->getFirstName()); ?><br>
 <?php echo zm_text2html($zm_gvreceiver->getMessage()) ?>
 </p>
 <?php } ?>
-<?php $href = '<a href="'.zm_href(FILENAME_DEFAULT, '', false).'">'.zm_setting('storeName').'</a>'; ?>
+<?php $href = '<a href="'.zm_href(FILENAME_GV_REDEEM, 'gv_no='.$zm_coupon->getCode(), false).'">'.zm_setting('storeName').'</a>'; ?>
 <p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')); } ?>
+<?php echo $office_only_html; ?>
 </div>
 </body>
 </html>

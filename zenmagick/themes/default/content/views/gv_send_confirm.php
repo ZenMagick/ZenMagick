@@ -24,19 +24,18 @@
  */
 ?>
 
-<?php zm_form(FILENAME_GV_SEND, 'action=process') ?>
+<?php zm_secure_form(ZM_FILENAME_GV_SEND_CONFIRM, null, null, "post") ?>
     <div>
-        <input type="hidden" name="send_name" value="<?php echo $zm_account->getFullName() ?>" />
-        <input type="hidden" name="to_name" value="<?php echo $zm_gvreceiver->getName() ?>" />
-        <input type="hidden" name="email" value="<?php echo $zm_gvreceiver->getEmail() ?>" />
-        <input type="hidden" name="amount" value="<?php echo $zm_gvreceiver->getAmount() ?>" />
-        <input type="hidden" name="message" value="<?php echo $zm_gvreceiver->getMessage() ?>" />
+        <input type="hidden" name="to_name" value="<?php zm_htmlencode($zm_gvreceiver->getName()) ?>" />
+        <input type="hidden" name="email" value="<?php zm_htmlencode($zm_gvreceiver->getEmail()) ?>" />
+        <input type="hidden" name="amount" value="<?php zm_htmlencode($zm_gvreceiver->getAmount()) ?>" />
+        <input type="hidden" name="message" value="<?php zm_htmlencode($zm_gvreceiver->getMessage()) ?>" />
     </div>
     <fieldset>
         <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
 
         <p class="note"><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
-          zm_format_currency($zm_gvreceiver->getAmount(), false), $zm_gvreceiver->getName(), $zm_gvreceiver->getEmail()) ?>
+          zm_format_currency($zm_gvreceiver->getAmount(), false, false), $zm_gvreceiver->getName(), $zm_gvreceiver->getEmail()) ?>
         </p>
 
         <fieldset>

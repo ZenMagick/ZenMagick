@@ -129,15 +129,54 @@ class ZMCurrency extends ZMModel {
     function getRate() { return $this->rate_; }
 
     /**
-     * Format the given value according to this currency's rate(value) and formatting rules.
+     * Format the given amount according to this currency's rate and formatting rules.
      *
-     * @param float value The value.
-     * @return string The formatted value.
+     * @param float amount The amount.
+     * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
+     *  convert before formatting.
+     * @return string The formatted amount.
      */
-    function format($value) {
-        $ratedValue = zen_round($value * $this->rate_, $this->decimalPlaces_);
-        $formattedValue = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
-        return $this->symbolLeft_ .  $formattedValue . $this->symbolRight_;
+    function format($amount, $convert=true) {
+        $ratedValue = $convert ? $this->convertTo($amount) : $amount;
+        $formattedAmount = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
+        return $this->symbolLeft_ .  $formattedAmount . $this->symbolRight_;
+    }
+
+    /**
+     * Convert from default currency into this currency.
+     *
+     * @param float amount The amount in the default currency.
+     * @return float The converted amount.
+     */
+    function convertTo($amount) {
+        return zen_round($amount * $this->rate_, $this->decimalPlaces_);
+    }
+
+    /**
+     * Convert from this currency into default currency.
+     *
+     * @param float amount The amount in this currency.
+     * @return float The converted amount.
+     */
+    function convertFrom($amount) {
+        return zen_round($amount * (1/$this->rate_), $this->decimalPlaces_);
+    }
+
+    /**
+     * Parse a formatted currency amount.
+     *
+     * @param string value The formatted currency value.
+     * @return float The amount.
+     */
+    function parse($value) {
+        $value = preg_replace('/[^0-9\\'.$this->decimalPoint_.']/', '', $value);
+        $value = str_replace($this->decimalPoint_, '.', $value);
+
+        if (0 != preg_match('[^0-9\.]', $value)) {
+            return null;
+        }
+
+        return (float)$value;
     }
 
 }

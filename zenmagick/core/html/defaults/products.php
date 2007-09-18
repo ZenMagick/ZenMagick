@@ -193,9 +193,9 @@
         $label .= zm_l10n_get($value->getName());
 
         if ($value->isFree() && $product->isFree()) {
-            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), false));
+            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), true, false));
         } else if (0 != $value->getPrice()) {
-            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency(abs($value->getPrice()), false));
+            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency(abs($value->getPrice()), true, false));
         }
         //TODO: onetime and weight
 
@@ -212,19 +212,19 @@
           $html .= zm_l10n_get("Starting at: ");
       }
       if ($offers->isSpecial() || $offers->isSale()) {
-          $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), false) . '</span> ';
+          $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), true, false) . '</span> ';
           if ($offers->isSpecial())  {
               if ($offers->isSale()) {
-                 $html .= '<span class="strike special">' . zm_format_currency($offers->getSpecialPrice(), false) . '</span>';
+                 $html .= '<span class="strike special">' . zm_format_currency($offers->getSpecialPrice(), true, false) . '</span>';
               } else {
-                 $html .= zm_format_currency($offers->getSpecialPrice(), false);
+                 $html .= zm_format_currency($offers->getSpecialPrice(), true, false);
               }
           }
           if ($offers->isSale()) {
-             $html .= zm_format_currency($offers->getSalePrice(), false);
+             $html .= zm_format_currency($offers->getSalePrice(), true, false);
           }
       } else {
-          $html .= zm_format_currency($offers->getCalculatedPrice(), false);
+          $html .= zm_format_currency($offers->getCalculatedPrice(), true, false);
       }
       $html .= '</span>';
 

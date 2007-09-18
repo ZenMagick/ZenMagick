@@ -70,7 +70,7 @@
      * @return string The encoded HTML.
      */
     function zm_htmlencode($s, $echo=true) {
-        $s = htmlentities($s);
+        $s = htmlspecialchars($s);
 
         if ($echo) echo $s;
         return $s;

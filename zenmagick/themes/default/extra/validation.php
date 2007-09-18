@@ -185,4 +185,13 @@
     )));
 
 
+    /* gvreceiver object */
+    $zm_validator->addRuleSet(new ZMRuleSet('gvreceiverObject', array(
+        new ZMRequiredRule('name', 'Please enter a receiver name.'),
+        new ZMRequiredRule('email', 'Please enter the receivers email address.'),
+        new ZMEmailRule('email', "Please enter a valid receiver email address."),
+        new ZMRequiredRule('amount', 'Please enter the amount.'),
+        new ZMGVAmountRule('amount')
+    )));
+
 ?>
