@@ -71,7 +71,7 @@ class ZMCheckoutSuccessController extends ZMController {
         $this->exportGlobal("zm_order", $orders[0]);
         $this->exportGlobal("zm_account", $zm_request->getAccount());
 
-        if (zm_setting('isLogoffGuestAfterOrder')) {
+        if (zm_setting('isLogoffGuestAfterOrder') && $zm_request->isGuest()) {
             $session = new ZMSession();
             $session->clear();
         }
