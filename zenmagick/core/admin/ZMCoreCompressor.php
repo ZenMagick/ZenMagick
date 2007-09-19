@@ -277,6 +277,9 @@ class ZMCoreCompressor extends ZMObject {
                             $relDir = '';
                         }
                         $source = file_get_contents($file);
+                        if (!zm_is_empty($relDir)) {
+                            zm_mkdir($pluginBase . $relDir, 755);
+                        }
                         $outfile = $pluginBase . $relDir . basename($file);
 
                         if (!$handle = fopen($outfile, 'ab')) {
