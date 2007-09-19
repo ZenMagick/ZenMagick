@@ -68,13 +68,20 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         }
 
         // look for ZenMagick code...
+        $storeInclude = false;
+        $headerDisabled = false;
         foreach ($lines as $line) {
             if (false !== strpos($line, ZM_ROOT."store.php")) {
-                return false;
+                $storeInclude = true;
             }
+
+            if (false !== strpos($line, "zm_is_checkout_page()")) {
+                $headerDisabled = true;
+            }
+
         }
 
-        return true;
+        return !($storeInclude && $headerDisabled);
     }
 
     /**
@@ -113,12 +120,18 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         if ((zm_setting('isEnablePatching') && zm_setting('isAdminPatchThemeSupport')) || $force) {
             if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
                 $patchedLines = array();
-                // need to insert before the zen-cart html_header...
                 foreach ($lines as $line) {
+                    // need to insert before the zen-cart html_header...
                     if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
                         array_push($patchedLines, "  require('".ZM_ROOT."store.php'); /* added by ZenMagick installation patcher */");
                     }
+
                     array_push($patchedLines, $line);
+
+                    // insert *after* header_php processing
+                    if (false !== strpos($line, '$directory_array') && false !== strpos($line, "header_php")) {
+                        array_push($patchedLines, '  if (zm_setting(\'isEnableZenMagick\') && !zm_is_checkout_page()) { $directory_array = array(); } /* added by ZenMagick installation patcher */');
+                    }
                 }
 
                 return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
@@ -150,6 +163,9 @@ class ZMThemeSupportPatch extends ZMFilePatch {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "require") && false !== strpos($line, ZM_ROOT."store.php")) {
+                    continue;
+                }
+                if (false !== strpos($line, "isEnableZenMagick") && false !== strpos($line, "zm_is_checkout_page()")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
