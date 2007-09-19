@@ -61,18 +61,25 @@ class ZMCoupons extends ZMService {
      * Coupon lookup for the given code.
      *
      * @param string code The coupons code.
+     * @param int languageId The languageId.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function &getCouponForCode($code) {
+    function &getCouponForCode($code, $languageId=null) {
     global $zm_runtime;
 
+        $languageId = null === $languageId ? $zm_runtime->getLanguageId() : $languageId;
+
         $db = $this->getDB();
-        $sql = "select * from " . TABLE_COUPONS . " c
+        $sql = "select c.coupon_id, c.coupon_code, c.coupon_type, c.coupon_amount, c.coupon_minimum_order, c.coupon_start_date,
+                c.coupon_expire_date, c.uses_per_coupon, c.uses_per_user,
+                cd.coupon_name, cd.coupon_description
+                from " . TABLE_COUPONS . " c
                 left join " . TABLE_COUPONS_DESCRIPTION . " cd
                 on (c.coupon_id = cd.coupon_id
-                and cd.language_id = '" . $zm_runtime->getLanguageId() . "')
+                and cd.language_id = :languageId)
                 where c.coupon_code = :code";
         $sql = $db->bindVars($sql, ':code', $code, 'string');
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
         $results = $db->Execute($sql);
 
         $coupon = null;
@@ -124,10 +131,10 @@ class ZMCoupons extends ZMService {
      *
      * @param int accountId The account id.
      * @param float amount The new amount.
-     * @param string type The coupon type; default is 'G'.
+     * @param string type The coupon type.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function &createCoupon($couponCode, $amount, $type='G') {
+    function &createCoupon($couponCode, $amount, $type) {
         $db = $this->getDB();
         $sql = "insert into " . TABLE_COUPONS . " (coupon_type, coupon_code, date_created, coupon_amount)
                 values (:type, :couponCode, now(), :amount)";
@@ -159,6 +166,43 @@ class ZMCoupons extends ZMService {
         $sql = $db->bindVars($sql, ':firstName', $account->getFirstName(), 'string');
         $sql = $db->bindVars($sql, ':lastName', $account->getLastName(), 'string');
         $sql = $db->bindVars($sql, ':email', $gvreceiver->getEmail(), 'string');
+        $db->Execute($sql);
+    }
+
+    /**
+     * Check if a given coupon code can be redeemed.
+     *
+     * @param string couponId The coupon id to verify.
+     * @return boolean <code>true</code> if the coupon can be redeemed, <code>false</code> if not.
+     */
+    function isCouponRedeemable($couponId) {
+        $db = $this->getDB();
+        $sql = "select coupon_id from ". TABLE_COUPON_REDEEM_TRACK . " where coupon_id = :couponId";
+        $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
+        $results = $db->Execute($sql);
+
+        return 0 == $results->RecordCount();
+    }
+
+    /**
+     * Redeem a coupon.
+     *
+     * @param int couponId The coupon id.
+     * @param int accountId The redeeming account id.
+     * @param string remoteIp The redeeming IP addres; default is an empty string.
+     */
+    function redeemCoupon($couponId, $accountId, $remoteIp='') {
+        $db = $this->getDB();
+        $sql = "insert into  " . TABLE_COUPON_REDEEM_TRACK . "(coupon_id, customer_id, redeem_date, redeem_ip)
+                values (:couponId, :accountId, now(), :remoteADDR)";
+
+        $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
+        $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
+        $sql = $db->bindVars($sql, ':remoteADDR', $remoteIp, 'string');
+        $db->Execute($sql);
+
+        $sql = "update " . TABLE_COUPONS . " set coupon_active = 'N' where coupon_id = :couponId";
+        $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
         $db->Execute($sql);
     }
 

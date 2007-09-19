@@ -105,7 +105,7 @@ class ZMGVReceiver extends ZMModel {
     function getAmount() { return $this->amount_; }
 
     /**
-     * Chkec if there is a message.
+     * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */

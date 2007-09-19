@@ -23,20 +23,20 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s,", $zm_gvreceiver->getName()) ?>
 
-
-<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', zm_format_currency($zm_gvreceiver->getAmount(), false, false), $zm_account->getFullName()) ?>
-
-<?php if ($zm_gvreceiver->hasMessage()) { ?>
-<?php zm_l10n("%s says:", $zm_account->getFirstName()); ?>
-
-<?php echo $zm_gvreceiver->getMessage() ?>
-
+<h2><?php zm_l10n("Redeem A Gift Certificate") ?></h2>
+<?php if ($zm_gvredeem->isRedeemed()) { ?>
+  <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", zm_format_currency($zm_gvredeem->getAmount(), true, false)) ?></p>
+<?php } else { ?>
+  <?php zm_secure_form(FILENAME_GV_REDEEM, '', 'gv_redeem', 'post', 'return validate(this);') ?>
+    <fieldset>
+      <legend><?php zm_l10n("Coupon details") ?></legend>
+      <div>
+        <label for="couponCode"><?php zm_l10n("Coupon Code") ?></label>
+        <input type="text" id="couponCode" name="couponCode" value="<?php echo $zm_gvredeem->getCode() ?>" /> 
+      </div>
+    </fieldset>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+  </form>
 <?php } ?>
-
-<p><?php zm_l10n("To redeem your gift, visit %s.", zm_secure_href(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), false)) ?></p>
-
-
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
-<?php echo $office_only_text; ?>
+<p><?php zm_l10n("For more information regarding Gift Certificate, please see the Gift Certificate FAQ.") ?></p>

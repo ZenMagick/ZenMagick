@@ -41,7 +41,7 @@ $language = $zm_runtime->getlanguage();
 <?php echo zm_text2html($zm_gvreceiver->getMessage()) ?>
 </p>
 <?php } ?>
-<?php $href = '<a href="'.zm_href(FILENAME_GV_REDEEM, 'gv_no='.$zm_coupon->getCode(), false).'">'.zm_setting('storeName').'</a>'; ?>
+<?php $href = '<a href="'.zm_secure_href(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), false).'">'.zm_setting('storeName').'</a>'; ?>
 <p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')); } ?>

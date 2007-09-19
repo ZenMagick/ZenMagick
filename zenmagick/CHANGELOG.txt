@@ -12,6 +12,8 @@ Release 0.8.4
 - fix zm_htmlencode(..) for other languages (for example, Chinese); #1796776
 - move getVoucherBalanceForId(..) from ZMAccounts to ZMCoupons
 - reimplemented GV send as ZenMagick controller and services
+- logout only guest users if isLogoffGuestAfterOrder is set to true; #1796979
+- add gv_redeem code!
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

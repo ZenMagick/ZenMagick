@@ -42,7 +42,8 @@
         'Checkout Payment Address' => 'Change Billing Address',
         'Change Payment Address' => 'Change Billing Address',
         'Checkout Confirmation' => 'Confirmation',
-        'Gv Send' => 'Send Gift Certificate'
+        'Gv Send' => 'Send Gift Certificate',
+        'Gv Redeem' => 'Redeem Gift Certificate'
       ));
 
 ?>

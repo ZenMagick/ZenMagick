@@ -120,6 +120,11 @@
     define('ZM_ACCOUNT_TYPE_ANONYMOUS', 'anonymous');
 
 
+    //** coupons **//
+
+    define('ZM_COUPON_TYPPE_GV', 'G');
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

@@ -317,6 +317,13 @@
                 case 'checkout_confirmation':
                     $path .= "checkout/confirm/";
                     break;
+                case 'gv_redeem':
+                    $path .= "account/giftcard/redeem/";
+                    if (array_key_exists('couponCode', $query)) {
+                        $path .= $query['couponCode'];
+                        array_push($removeNames, 'couponCode');
+                    }
+                    break;
                 case 'gv_send':
                     $path .= "account/giftcard/send/";
                     break;

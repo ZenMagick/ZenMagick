@@ -40,6 +40,8 @@ RewriteRule ^addressbook/process/?$ index.php?main_page=address_book_process [QS
 RewriteRule ^account/history/order/([0-9]+)/?$ index.php?main_page=account_history_info&order_id=$1 [QSA,L]
 RewriteRule ^account/history/?$ index.php?main_page=account_history [QSA,L]
 RewriteRule ^account/giftcard/send/?$ index.php?main_page=gv_send [QSA,L]
+RewriteRule ^account/giftcard/redeem/?$ index.php?main_page=gv_redeem [QSA,L]
+RewriteRule ^account/giftcard/redeem/([0-9:a-f]+)/?$ index.php?main_page=gv_redeem&couponCode=$1 [QSA,L]
 RewriteRule ^account/giftcard/faq/?$ index.php?main_page=gv_faq [QSA,L]
 RewriteRule ^account/notifications/?$ index.php?main_page=account_notifications [QSA,L]
 RewriteRule ^account/newsletters/?$ index.php?main_page=account_newsletters [QSA,L]
