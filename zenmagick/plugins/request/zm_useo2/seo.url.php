@@ -23,7 +23,7 @@
 	+----------------------------------------------------------------------+
 */
 
-	require_once(dirname(__FILE__) . '/seo.install.php');
+	//require_once(dirname(__FILE__) . '/seo.install.php');
 
 	class SEO_URL{
 		var $cache;
