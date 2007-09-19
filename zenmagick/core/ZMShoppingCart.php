@@ -535,7 +535,10 @@ class ZMShoppingCart extends ZMService {
     /**
      * Add a product in the given quantity.
      *
-     * <p><strong>Doesn't support attributes or upload (yet)</strong>.</p>
+     * <p><strong>Doesn't support uploads (yet)</strong>.</p>
+     *
+     * <p>If <em>isSanitizeAttributes</em> is set to <code>true</code>, missing
+     * attributes will be added automatically and set to defaults.</p>
      *
      * @param int productId The product id.
      * @param int quantity The quantity; default is <code>1</code>.
