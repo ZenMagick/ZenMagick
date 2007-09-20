@@ -56,35 +56,6 @@ class ZMEventFixes extends ZMObject {
 
 
     /**
-     * Provide <code>$zm_account</code> right after an account is created...
-     */
-    function onNotifyLoginSuccessViaCreateAccount() {
-    global $zm_account, $zm_request;
-
-        $zm_account =& $zm_request->getAccount();
-    }
-
-    /**
-     * Provide <code>$zm_account</code> right failed validation.
-     */
-    function onNotifyFailureDuringCreateAccount() {
-    global $zm_account;
-
-        $zm_account = $this->create("Account");
-        $zm_account->populate();
-    }
-
-    /**
-     * Provide <code>$zm_receiver</code> for gv_send email.
-     */
-    function onNotifyHeaderStartGvSend() {
-    global $zm_receiver;
-
-        $zm_receiver = $this->create("GVReceiver");
-        $zm_receiver->populate();
-    }
-
-    /**
      * Validate addresses for guest checkout.
      */
     function onNotifyHeaderEndCheckoutConfirmation() {

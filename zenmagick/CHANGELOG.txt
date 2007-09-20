@@ -13,7 +13,11 @@ Release 0.8.4
 - move getVoucherBalanceForId(..) from ZMAccounts to ZMCoupons
 - reimplemented GV send as ZenMagick controller and services
 - logout only guest users if isLogoffGuestAfterOrder is set to true; #1796979
-- add gv_redeem code!
+- add gv_redeem code! #1796794
+- update ZMThemeSupportPatch to disable zen-cart header.php processing except
+  for checkout
+- fix incompatibility of zm_useo2 and core.php; #1798448
+- fix ZMCoreCompressor for plugins that contain subdirectories; #1798440
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
