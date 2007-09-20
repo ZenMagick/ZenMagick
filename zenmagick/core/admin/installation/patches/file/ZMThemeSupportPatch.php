@@ -130,7 +130,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
                     // insert *after* header_php processing
                     if (false !== strpos($line, '$directory_array') && false !== strpos($line, "header_php")) {
-                        array_push($patchedLines, '  if (zm_setting(\'isEnableZenMagick\') && !zm_is_checkout_page()) { $directory_array = array(); } /* added by ZenMagick installation patcher */');
+                        array_push($patchedLines, '  if (zm_setting(\'isEnableZenMagick\') && !zm_needs_zc_page()) { $directory_array = array(); } /* added by ZenMagick installation patcher */');
                     }
                 }
 
