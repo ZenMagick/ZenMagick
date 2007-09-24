@@ -37,9 +37,12 @@ class ZMCrumb extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create a new crumbtrail crumb.
+     *
+     * @param string name The name.
+     * @param string url Optional url; default is <code>null</code>.
      */
-    function ZMCrumb($name, $url = null) {
+    function ZMCrumb($name, $url=null) {
         parent::__construct();
 
         $this->name_ = $name;
@@ -47,9 +50,12 @@ class ZMCrumb extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create a new crumbtrail crumb.
+     *
+     * @param string name The name.
+     * @param string url Optional url; default is <code>null</code>.
      */
-    function __construct($name, $url = null) {
+    function __construct($name, $url=null) {
         $this->ZMCrumb($name, $url);
     }
 
@@ -74,6 +80,20 @@ class ZMCrumb extends ZMModel {
      * @return string The crumb's url or <code>null</code>.
      */
     function getURL() { return $this->url_; }
+
+    /**
+     * Set the name.
+     *
+     * @param string name The crumb's name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the url.
+     *
+     * @param string url The crumb's url.
+     */
+    function setURL($url) { $this->url_ = $url; }
 
 }
 

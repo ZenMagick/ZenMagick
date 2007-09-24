@@ -70,28 +70,28 @@ class ZMBanner extends ZMModel {
 
 
     /**
-     * Get the bannder id.
+     * Get the banner id.
      *
      * @return int The banner id.
      */
     function getId() { return $this->id_; }
 
     /**
-     * Get the bannder title.
+     * Get the banner title.
      *
      * @return string The banner title.
      */
     function getTitle() { return $this->title_; }
 
     /**
-     * Get the bannder image.
+     * Get the banner image.
      *
      * @return string The banner image.
      */
     function getImage() { return $this->image_; }
 
     /**
-     * Get the bannder text.
+     * Get the banner text.
      *
      * @return string The banner text.
      */
@@ -105,11 +105,53 @@ class ZMBanner extends ZMModel {
     function isNewWin() { return $this->isNewWin_; }
 
     /**
-     * Get the bannder URL.
+     * Get the banner URL.
      *
      * @return string The banner URL.
      */
     function getUrl() { return $this->url_; }
+
+    /**
+     * Set the banner id.
+     *
+     * @param int id The banner id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the banner title.
+     *
+     * @param string title The banner title.
+     */
+    function setTitle($title) { $this->title_ = $title; }
+
+    /**
+     * Set the banner image.
+     *
+     * @param string image The banner image.
+     */
+    function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Set the banner text.
+     *
+     * @param string text The banner text.
+     */
+    function setText($text) { $this->text_ = $text; }
+
+    /**
+     * Set if the banner click should open a new window.
+     *
+     * @param boolean newWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
+     */
+    function setNewWin($newWin) { $this->isNewWin_ = $newWin; }
+
+    /**
+     * Set the banner URL.
+     *
+     * @param string url The banner URL.
+     */
+    function setUrl($url) { $this->url_ = $url; }
 
 }
 
