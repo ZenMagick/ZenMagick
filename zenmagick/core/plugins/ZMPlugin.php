@@ -42,9 +42,9 @@ class ZMPlugin extends ZMObject {
     var $description_;
     var $version_;
     var $installed_;
-    var $enabled_;
     var $configPrefix_;
     var $enabledKey_;
+    var $orderKey_;
     var $keys_;
     var $type_;
     var $messages_ = null;
@@ -59,17 +59,16 @@ class ZMPlugin extends ZMObject {
      * @param string title The title.
      * @param string description The description.
      * @param string version The version.
+     * @param string type The plugin type; default is <em>request</em>.
      */
-    function ZMPlugin($title='', $description='', $version='0.0') {
+    function ZMPlugin($title='', $description='', $version='0.0', $type='request') {
         parent::__construct();
 
-        $this->type_ = 'request';
         $this->id_ = get_class($this);
         $this->title_ = $title;
         $this->description_ = $description;
         $this->version_ = $version;
-        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
-        $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
+        $this->type_ = $this->setType($type);
         $this->keys_ = array();
         $this->messages_ = array();
         $this->pluginDir_ = null;
@@ -83,9 +82,10 @@ class ZMPlugin extends ZMObject {
      * @param string title The title.
      * @param string description The description.
      * @param string version The version.
+     * @param string type The plugin type; default is <em>request</em>.
      */
-    function __construct($title='', $description='', $version='0.0') {
-        $this->ZMPlugin($title, $description, $version);
+    function __construct($title='', $description='', $version='0.0', $type='request') {
+        $this->ZMPlugin($title, $description, $version, $type);
     }
 
     /**
@@ -217,6 +217,8 @@ class ZMPlugin extends ZMObject {
         $this->addConfigValue('Plugin Status', $this->enabledKey_, true,
             zm_l10n_get('Enable/disable this plugin.'),
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
+        $this->addConfigValue('Plugin sort order', $this->orderKey_, 0,
+            zm_l10n_get('Controls the execution order of plugins.'));
     }
 
     /**
@@ -229,6 +231,7 @@ class ZMPlugin extends ZMObject {
 
         // always remove enable/disable key
         $config->removeConfigValue($this->enabledKey_);
+        $config->removeConfigValue($this->orderKey_);
 
         if (!$keepSettings) {
             $config->removeConfigValues($this->configPrefix_.'%');
@@ -264,6 +267,13 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
+     * Get the order index.
+     *
+     * @return int The order index.
+     */
+    function getOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
+
+    /**
      * Get a list of configuration keys used by this plugin.
      *
      * @return array List of configuration keys.
@@ -287,18 +297,23 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Set the plugin type.
-     *
-     * @param string type The type.
-     */
-    function setType($type) { $this->type_ = $type; }
-
-    /**
      * Get the plugin type.
      *
      * @return string The type.
      */
     function getType() { return $this->type_; }
+
+    /**
+     * Set the plugin type.
+     *
+     * @param string type The type.
+     */
+    function setType($type) { 
+        $this->type_ = $type; 
+        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
+        $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
+        $this->orderKey_ = $this->configPrefix_.ZM_PLUGIN_ORDER_SUFFIX;
+    }
 
     /**
      * Set the plugin directory.

@@ -34,6 +34,12 @@
         return zm_is_checkout_page() || zm_is_in_array($zm_request->getPageName(), 'advanced_search_result');
     }
 
+    // skip more zc request handling
+    if (zm_setting('isEnableZenMagick') && !zm_needs_zc_page()) {
+        $code_page_directory = 'zenmagick';
+    }
+
+
     $zm_events->attach(new ZMEventFixes());
 
     /*****temp fixes for email generation.... ********/

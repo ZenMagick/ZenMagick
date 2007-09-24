@@ -101,9 +101,9 @@ require_once('includes/application_top.php');
             $pluginStatus[$plugin->getId()] = array(
               'type' => $plugin->getType(),
               'installed' => $plugin->isInstalled(),
-              'enabled' => $plugin->isEnabled()
+              'enabled' => $plugin->isEnabled(),
+              'order' => $plugin->getOrder()
             );
-            //echo $plugin->getId().":".$plugin->isInstalled().'/'.$plugin->isEnabled()."<BR>";
         }
     }
     // update in db

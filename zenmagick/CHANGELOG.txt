@@ -19,6 +19,7 @@ Release 0.8.4
 - fix incompatibility of zm_useo2 and core.php; #1798448
 - fix ZMCoreCompressor for plugins that contain subdirectories; #1798440
 - fix plugin filterResponse handling; #1799509
+- add sort order config value to plugins
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

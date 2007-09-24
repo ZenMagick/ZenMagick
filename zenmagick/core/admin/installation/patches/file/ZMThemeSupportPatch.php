@@ -69,19 +69,13 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
         // look for ZenMagick code...
         $storeInclude = false;
-        $headerDisabled = false;
         foreach ($lines as $line) {
             if (false !== strpos($line, ZM_ROOT."store.php")) {
                 $storeInclude = true;
             }
-
-            if (false !== strpos($line, "zm_is_checkout_page()")) {
-                $headerDisabled = true;
-            }
-
         }
 
-        return !($storeInclude && $headerDisabled);
+        return !($storeInclude);
     }
 
     /**
@@ -127,11 +121,6 @@ class ZMThemeSupportPatch extends ZMFilePatch {
                     }
 
                     array_push($patchedLines, $line);
-
-                    // insert *after* header_php processing
-                    if (false !== strpos($line, '$directory_array') && false !== strpos($line, "header_php")) {
-                        array_push($patchedLines, '  if (zm_setting(\'isEnableZenMagick\') && !zm_needs_zc_page()) { $directory_array = array(); } /* added by ZenMagick installation patcher */');
-                    }
                 }
 
                 return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
@@ -163,9 +152,6 @@ class ZMThemeSupportPatch extends ZMFilePatch {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "require") && false !== strpos($line, ZM_ROOT."store.php")) {
-                    continue;
-                }
-                if (false !== strpos($line, "isEnableZenMagick") && false !== strpos($line, "zm_is_checkout_page()")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
