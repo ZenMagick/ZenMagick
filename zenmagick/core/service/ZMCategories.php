@@ -191,7 +191,7 @@ class ZMCategories extends ZMService {
             $category = $this->_newCategory($results->fields);
             $this->categories_[$category->id_] = $category;
             $results->MoveNext();
-		}
+    		}
     }
 
 
