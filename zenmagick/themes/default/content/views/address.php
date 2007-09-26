@@ -24,8 +24,10 @@
  */
 ?>
 
-<?php $country = $address->getCountry(); ?>
-<?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>
+<?php 
+    $country = $address->getCountry();
+    $countryId = 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry');
+?>
 <fieldset>
     <legend><?php zm_l10n("Address") ?></legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
@@ -79,9 +81,10 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry')) ?></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $countryId) ?></td>
             </tr>
             <?php if (zm_setting('isAccountState')) { ?>
+                <?php $zones = $zm_countries->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                     <td>

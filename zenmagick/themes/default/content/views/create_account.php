@@ -107,17 +107,20 @@
                     <td><?php zm_l10n("City") ?><span>*</span></td>
                     <td><input type="text" name="city" value="<?php echo $zm_address->getCity() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
-                <?php $country = $zm_address->getCountry(); ?>
+                <?php 
+                    $country = $zm_address->getCountry(); 
+                    $countryId = 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry');
+                ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
                     <td><input type="text" name="postcode" value="<?php echo $zm_address->getPostcode() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $country->getId() != 0 ? $country->getId() : zm_setting('storeCountry')) ?></td>
+                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $countryId) ?></td>
                 </tr>
                 <?php if (zm_setting('isAccountState')) { ?>
-                    <?php $zones = $zm_countries->getZonesForCountryId($country->getId()); ?>
+                    <?php $zones = $zm_countries->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
