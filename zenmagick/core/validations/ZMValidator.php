@@ -178,7 +178,9 @@ class ZMValidator extends ZMObject {
                 if (array_key_exists($rule->getName(), $this->messages_)) {
                     $msgList = $this->messages_[$rule->getName()];
                 }
-                array_push($msgList, $rule->getErrorMsg());
+                if (null != $rule->getErrorMsg()) {
+                    array_push($msgList, $rule->getErrorMsg());
+                }
                 $this->messages_[$rule->getName()] = $msgList;
             }
         }
