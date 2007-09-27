@@ -24,6 +24,8 @@ Release 0.8.4
   forms
 - allow validation rules to fail without an error message (this can be useful
   if the rule needs to generate multiple messages using zm_messages directly)
+- added dynamic state reloading to the demo store for create_account using
+  jQuery
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
