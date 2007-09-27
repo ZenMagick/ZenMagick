@@ -26,6 +26,7 @@ Release 0.8.4
   if the rule needs to generate multiple messages using zm_messages directly)
 - added dynamic state reloading to the demo store for create_account using
   jQuery
+- fixed privacy statement in create_account
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
