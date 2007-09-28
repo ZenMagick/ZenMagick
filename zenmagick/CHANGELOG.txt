@@ -15,7 +15,7 @@ Release 0.8.4
 - logout only guest users if isLogoffGuestAfterOrder is set to true; #1796979
 - add gv_redeem code! #1796794
 - update ZMThemeSupportPatch to disable zen-cart header.php processing except
-  for checkout
+  for checkout; #1778150 and performance
 - fix incompatibility of zm_useo2 and core.php; #1798448
 - fix ZMCoreCompressor for plugins that contain subdirectories; #1798440
 - fix plugin filterResponse handling; #1799509
