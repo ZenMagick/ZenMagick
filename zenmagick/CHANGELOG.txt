@@ -27,6 +27,7 @@ Release 0.8.4
 - added dynamic state reloading to the demo store for create_account using
   jQuery
 - fixed privacy statement in create_account
+- re-added external.php (lost since 0.8.1)
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
