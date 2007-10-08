@@ -29,6 +29,8 @@ Release 0.8.4
 - fixed privacy statement in create_account
 - re-added external.php (lost since 0.8.1)
 - added ZM_EVENT_CONTROLLER_PROCESS_END event (with the view as parameter)
+- make code more robust when using brute force disabling ZenMagick (ie
+  removing/renaming the zenmagick folder) without disabling any patches
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

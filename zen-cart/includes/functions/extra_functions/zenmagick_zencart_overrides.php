@@ -32,10 +32,14 @@ if (!function_exists('zen_href_link')) {
      * version of it.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (zm_useo_enabled()) {
+        if (function_exists('zm_useo_enabled') && zm_useo_enabled()) {
             return zen_href_link_seo($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-        } else {
+        } else if (function_exists('_zm_build_href')) {
             return _zm_build_href($page, $params, $transport == 'SSL', false);
+        } else if (function_exists('zen_href_link_DISABLED')) {
+            return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+        } else {
+            die("can't find zen_href_link implementation");
         }
     }
 

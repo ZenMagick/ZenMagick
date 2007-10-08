@@ -117,7 +117,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
                 foreach ($lines as $line) {
                     // need to insert before the zen-cart html_header...
                     if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                        array_push($patchedLines, "  require('".ZM_ROOT."store.php'); /* added by ZenMagick installation patcher */");
+                        array_push($patchedLines, "  include('".ZM_ROOT."store.php'); /* added by ZenMagick installation patcher */");
                     }
 
                     array_push($patchedLines, $line);
@@ -151,7 +151,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, "require") && false !== strpos($line, ZM_ROOT."store.php")) {
+                if (false !== strpos($line, "include") && false !== strpos($line, ZM_ROOT."store.php")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
