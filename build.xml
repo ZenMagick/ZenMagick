@@ -111,6 +111,7 @@
             <fileset dir="${zenmagick.src.dir}">
                 <exclude name="plugins/request/*/**" />
                 <exclude name="*.log" />
+                <exclude name="themes/zenmagick/**" />
            </fileset>
         </copy>
 
