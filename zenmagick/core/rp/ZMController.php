@@ -125,6 +125,8 @@ class ZMController extends ZMObject {
             $this->view_ =& $view;
         }
 
+        $zm_events->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_END, array('view' => $this->view_));
+
         return $view;
     }
 

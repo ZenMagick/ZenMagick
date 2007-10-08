@@ -58,6 +58,7 @@
     define('ZM_EVENT_VIEW_START', 'view_start');
     define('ZM_EVENT_VIEW_DONE', 'view_done');
     define('ZM_EVENT_CONTROLLER_PROCESS_START', 'controller_process_start');
+    define('ZM_EVENT_CONTROLLER_PROCESS_END', 'controller_process_end');
 
 
     //** db **//
