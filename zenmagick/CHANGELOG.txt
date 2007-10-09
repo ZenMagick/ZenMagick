@@ -31,6 +31,7 @@ Release 0.8.4
 - added ZM_EVENT_CONTROLLER_PROCESS_END event (with the view as parameter)
 - make code more robust when using brute force disabling ZenMagick (ie
   removing/renaming the zenmagick folder) without disabling any patches
+- fix inaccessible password_forgotten page
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
