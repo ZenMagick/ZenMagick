@@ -283,7 +283,7 @@ class ZMCoreCompressor extends ZMObject {
                         $outfile = $pluginBase . $relDir . basename($file);
 
                         if (!$handle = fopen($outfile, 'ab')) {
-                            rray_push($this->errors_, 'could not open file for writing ' . $outfile);
+                            array_push($this->errors_, 'could not open file for writing ' . $outfile);
                             return;
                         }
 
