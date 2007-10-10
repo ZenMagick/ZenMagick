@@ -94,6 +94,13 @@ class ZMRequest extends ZMObject {
     function &getSession() { return $this->session_; }
 
     /**
+     * Get the hostname for this request.
+     *
+     * @return strng The hostname.
+     */
+    function getHostname() { return $_SERVER['HTTP_HOST']; }
+
+    /**
      * Get the full query string.
      *
      * @return string The full query string for this request.
