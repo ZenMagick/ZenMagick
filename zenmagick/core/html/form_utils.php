@@ -44,7 +44,7 @@
      * @return A HTML form tag plus optional hidden form fields.
      */
     function zm_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
-        return _zm_build_form($page, $params, $id, $method, false, $onsubmit, $echo);
+        return _zm_build_form($page, $params, $id, $method, false, $onsubmit, '', $echo);
     }
 
     /**
@@ -63,16 +63,18 @@
      * @param string id Optional HTML id; defaults to <code>null</code>
      * @param string method Should be either <code>get</code> or <code>post</code>. Defaults to <code>get</code>.
      * @param string onsubmit Optional submit handler for form validation; defaults to <code>null</code>
+     * @param string excludes Optional array/list of query parameters to be excluded from URL/hidden parameters.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
     function zm_secure_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
-        return _zm_build_form($page, $params, $id, $method, true, $onsubmit, $echo);
+        return _zm_build_form($page, $params, $id, $method, true, $onsubmit, '', $echo);
     }
 
-    function _zm_build_form($page, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $echo=true) {
+    function _zm_build_form($page, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=true) {
     global $zm_request, $zm_validator;
 
+        $excludes = explode(',', $excludes);
         if ($zm_validator->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
             // create JS validation code
             $zm_validator->insertJSValidation($id);
@@ -91,6 +93,12 @@
         $aparams = isset($aurl['query']) ? zm_htmlurldecode($aurl['query']) : '';
         parse_str($aparams, $aquery);
         $query = array_merge($aquery, $query);
+        // exclude excludes
+        foreach ($excludes as $exclude) {
+            if (isset($query[$exclude])) {
+                unset($query[$exclude]);
+            }
+        }
 
         $html .= '<form action="' . $action . '"';
         if (null != $onsubmit) {
@@ -146,6 +154,21 @@
 
         echo $html;
         return $html;
+    }
+
+
+    /**
+     * Convenience function to create a result list options form.
+     *
+     * <p>The calling page is responsible for adding a submit buttona and a closing <code>&lt;form&gt;</code>
+     * tag.</p>
+     * 
+     * @package net.radebatz.zenmagick.html
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return A HTML form to handle result list options.
+     */
+    function zm_result_list_form($echo=true) {
+        return _zm_build_form(null, null, null, 'get', false, null, 'sort_id', $echo);
     }
 
 

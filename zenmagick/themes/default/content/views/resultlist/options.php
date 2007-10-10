@@ -25,7 +25,7 @@
 ?>
 
 <?php if ($zm_resultList->hasFilters() || $zm_resultList->hasSorters()) { ?>
-    <?php zm_form(null, '', null, "get") ?>
+    <?php zm_result_list_form() ?>
         <?php if ($zm_resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
@@ -57,7 +57,9 @@
                     <?php foreach($zm_resultList->getSorters() as $sorter) { ?>
                         <?php foreach($sorter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
-                            <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
+                            <?php $indicator = $option->isActive() ? ($option->isDecending() ? ' (-)' : ' (+)') : ''; ?>
+                            <?php $id = $option->isActive() ? $option->getReverseId() : $option->getId(); ?>
+                            <option value="<?php echo $id ?>"<?php echo $selected ?>><?php echo $option->getName().$indicator ?></option>
                         <?php } ?>
                     <?php } ?>
                 </select>

@@ -81,9 +81,16 @@ class ZMSortOption extends ZMModel {
     /**
      * Get the option id.
      *
-     * @return int The option id.
+     * @return string The option id.
      */
     function getId() { return $this->id_; }
+
+    /**
+     * Get the reverse option id.
+     *
+     * @return string The reverse option id.
+     */
+    function getReverseId() { return $this->id_ . ($this->decending_ ? '_a' : '_d'); }
 
     /**
      * Get the option name.

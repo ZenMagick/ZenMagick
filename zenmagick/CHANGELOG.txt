@@ -32,6 +32,8 @@ Release 0.8.4
 - make code more robust when using brute force disabling ZenMagick (ie
   removing/renaming the zenmagick folder) without disabling any patches
 - fix inaccessible password_forgotten page; #1810390
+- make sort option reverse when selcting again (actually, it's a different id
+  underneath in the form)
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

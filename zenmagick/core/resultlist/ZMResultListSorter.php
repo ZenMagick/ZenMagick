@@ -57,7 +57,6 @@ class ZMResultListSorter extends ZMObject {
         if (zm_ends_with($this->sortId_, '_a') || $this->decending_) {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
-
     }
 
     /**
