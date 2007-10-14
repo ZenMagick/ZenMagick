@@ -39,7 +39,7 @@
             <?php if ($zm_shipping->isFreeShipping()) { ?>
                 <p class="inst"><?php zm_l10n("Shipping is free!") ?></p>
                 <input type="hidden" name="shipping" value="free_free" />
-            <?php } else {?>
+            <?php } else { ?>
                 <p class="inst"><?php zm_l10n("Please select the preferred shipping method to use on this order.") ?></p>
                 <table cellpadding="0" cellspacing="0" id="smethods">
                     <thead>
