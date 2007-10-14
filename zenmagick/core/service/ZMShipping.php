@@ -32,6 +32,8 @@
  * @version $Id$
  */
 class ZMShipping extends ZMService {
+    var $provider_;
+
 
     /**
      * Default c'tor.
@@ -107,8 +109,9 @@ class ZMShipping extends ZMService {
 
     function getShippingMethodCount() {
         $count = 0;
-        foreach ($this->provider_ as $provider) {
-            $count += count($provider->getShippingMethods());
+        // PHP4 hack - god know why!
+        foreach (array_keys($this->provider_) as $key) {
+            $count += count($this->provider_[$key]->getShippingMethods());
         }
 
         return $count;
