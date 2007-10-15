@@ -34,6 +34,7 @@ Release 0.8.4
 - fix inaccessible password_forgotten page; #1810390
 - make sort option reverse when selcting again (actually, it's a different id
   underneath in the form)
+- make create_account pre-select the last selected zone if validation fails
 - fix missing shipping options using PHP4; #1813353
 - add theme builder to easily create an empty theme
 

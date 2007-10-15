@@ -125,7 +125,7 @@
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
-                                <?php zm_idp_select('state', $zones, 1, $zm_address->getState()) ?>
+                                <?php zm_idp_select('state', $zones, 1, $zm_address->getZoneId()) ?>
                             <?php } else { ?>
                                 <input type="text" name="state" value="<?php echo $zm_address->getState() ?>" />
                             <?php } ?>
