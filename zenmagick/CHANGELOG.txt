@@ -35,6 +35,7 @@ Release 0.8.4
 - make sort option reverse when selcting again (actually, it's a different id
   underneath in the form)
 - fix missing shipping options using PHP4; #1813353
+- add theme builder to easily create an empty theme
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

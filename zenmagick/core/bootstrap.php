@@ -600,11 +600,11 @@ if (!class_exists("ZMObject")) {
         $path = $theme->getLangDir().$languageName."/";
         $l10n = $path . "l10n.php";
         if (file_exists($l10n)) {
-            require($l10n);
+            require_once($l10n);
         }
         $i18n = $path . "i18n.php";
         if (file_exists($i18n)) {
-            require($i18n);
+            require_once($i18n);
         }
     }
 

@@ -90,6 +90,7 @@
     define('ZM_ADMINFN_ABOUT', 'zmAbout.php');
     define('ZM_ADMINFN_CONSOLE', 'zmConsole.php');
     define('ZM_ADMINFN_PLUGINS', 'zmPlugins.php');
+    define('ZM_ADMINFN_THEME_BUILDER', 'zmThemeBuilder.php');
 
 
     //** plugins/modules **//

@@ -73,7 +73,9 @@ class ZMThemes extends ZMService {
         // theme info file name
         $infoFile = $basePath.$themeId."/".$infoClass.".php";
         // load
-        require_once($infoFile);
+        if (!class_exists($infoClass)) {
+            require_once($infoFile);
+        }
         // create instance
         $obj = new $infoClass();
         $obj->setThemeId($themeId);

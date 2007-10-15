@@ -28,6 +28,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     if (file_exists(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE)) {
         $zm_contents[] = array('text' => zm_l10n_get("Console"), 'link' => zen_href_link(ZM_ADMINFN_CONSOLE, '', 'SSL'));
     }
+    $zm_contents[] = array('text' => zm_l10n_get("Theme Builder"), 'link' => zen_href_link(ZM_ADMINFN_THEME_BUILDER, '', 'SSL'));
     $zm_contents[] = array('text' => zm_l10n_get("About"), 'link' => zen_href_link(ZM_ADMINFN_ABOUT, '', 'NONSSL'));
     echo zen_draw_admin_box($zm_heading, $zm_contents);
 
