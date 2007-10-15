@@ -37,6 +37,8 @@ Release 0.8.4
 - make create_account pre-select the last selected zone if validation fails
 - fix missing shipping options using PHP4; #1813353
 - add theme builder to easily create an empty theme
+- check for duplicate email addres durin create_account; #1813656
+- update customer_info table when updating/creating account; #1813654
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

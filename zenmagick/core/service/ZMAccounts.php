@@ -125,7 +125,7 @@ class ZMAccounts extends ZMService {
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . " c
                 where customers_email_address = :email
-                and customers_password = :emptyPassword";
+                and NOT customers_password = :emptyPassword";
         $sql = $db->bindVars($sql, ":email", $email, "string");
         $sql = $db->bindVars($sql, ":emptyPassword", '', "string");
 
@@ -154,6 +154,12 @@ class ZMAccounts extends ZMService {
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
 
+        $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
+                customers_info_id, customers_info_date_account_created
+                ) values (:accountId, now())";
+        $sql = $db->bindVars($sql, ':accountId',  $account->getId(), 'integer');
+        $db->Execute($sql);
+
         return $account;
     }
 
@@ -172,23 +178,42 @@ class ZMAccounts extends ZMService {
     function &updateAccount(&$account) {
         $db = $this->getDB();
         $sql = "update " . TABLE_CUSTOMERS . " set
-                    customers_firstname = :firstName;string,
-                    customers_lastname = :lastName;string,
-                    customers_email_address = :email;string,
-                    customers_nick = :nickName;string, 
-                    customers_telephone = :phone;string,
-                    customers_fax = :fax;string,
-                    customers_newsletter = :newsletterSubscriber;integer,
-                    customers_email_format = :emailFormat;string, 
-                    customers_default_address_id = :defaultAddressId;integer,
-                    customers_password = :password;string,
-                    customers_authorization = :authorization;integer, 
-                    customers_gender = :gender;string,
-                    customers_dob = :dob;date,
-                    customers_referral = :referral;string
+                customers_firstname = :firstName;string,
+                customers_lastname = :lastName;string,
+                customers_email_address = :email;string,
+                customers_nick = :nickName;string, 
+                customers_telephone = :phone;string,
+                customers_fax = :fax;string,
+                customers_newsletter = :newsletterSubscriber;integer,
+                customers_email_format = :emailFormat;string, 
+                customers_default_address_id = :defaultAddressId;integer,
+                customers_password = :password;string,
+                customers_authorization = :authorization;integer, 
+                customers_gender = :gender;string,
+                customers_dob = :dob;date,
+                customers_referral = :referral;string
                 where customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
         $sql = $this->bindObject($sql, $account);
+        $db->Execute($sql);
+
+        // check for existence in case record does not exist...
+        $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO ."
+                where customers_info_id = :accountId";
+        $sql = $db->bindVars($sql, ':accountId',  $account->getId(), 'integer');
+        $db->Execute($sql);
+        $results = $db->Execute($sql);
+
+        if ($results->fields['total'] > 0) {
+            $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
+                    set customers_info_date_account_last_modified = now()
+                    where customers_info_id = :accountId";
+        } else {
+            $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
+                    customers_info_id, customers_info_date_account_created, customers_info_date_account_last_modified
+                    ) values (:accountId, now(), now())";
+        }
+        $sql = $db->bindVars($sql, ':accountId',  $account->getId(), 'integer');
         $db->Execute($sql);
 
         return $account;

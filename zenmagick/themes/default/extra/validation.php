@@ -119,6 +119,7 @@
         new ZMNickNameRule('nick'),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
+        new ZMUniqueEmailRule('email_address', 'The entered email address is already in use.'),
         new ZMRequiredRule('password', 'Please enter you password.'),
         new ZMMinRule('password', zm_setting('minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         new ZMRequiredRule('confirmation', 'Please confirm the password.'),
