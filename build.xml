@@ -111,13 +111,21 @@
             <fileset dir="${zenmagick.src.dir}">
                 <exclude name="plugins/request/*/**" />
                 <exclude name="*.log" />
-                <exclude name="themes/zenmagick/**" />
+                <exclude name="themes/**" />
            </fileset>
         </copy>
 
         <!-- copy sample plugin -->
         <copy todir="${build.dir}/zenmagick/plugins/request/">
             <fileset dir="${zenmagick.src.dir}/plugins/request/" includes="sample_plugin.php" />
+        </copy>
+
+        <!-- copy default and demo theme -->
+        <copy todir="${build.dir}/zenmagick/">
+            <fileset dir="${zenmagick.src.dir}">
+                <include name="themes/default/**" />
+                <include name="themes/demo/**" />
+            </fileset>
         </copy>
 
         <!-- zen-cart overrides are used in both admin and storfront -->
