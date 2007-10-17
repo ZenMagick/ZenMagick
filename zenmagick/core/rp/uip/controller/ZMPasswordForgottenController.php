@@ -66,7 +66,7 @@ class ZMPasswordForgottenController extends ZMController {
 
         $emailAddress = $zm_request->getParameter('email_address');
         $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
-        if (null === $account) {
+        if (null === $account || ZM_ACCOUNT_TYPE_REGISTERED != $account->getType()) {
             $zm_messages->error(vsprintf('Sorry, there is no account with the email address \'%s\'.', $emailAddress));
             return $this->findView();
         }
