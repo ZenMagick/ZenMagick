@@ -39,6 +39,7 @@ Release 0.8.4
 - add theme builder to easily create an empty theme
 - check for duplicate email addres durin create_account; #1813656
 - update customer_info table when updating/creating account; #1813654
+- fix empty password written to database when creating new account
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

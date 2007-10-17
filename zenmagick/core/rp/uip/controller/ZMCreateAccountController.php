@@ -100,7 +100,7 @@ class ZMCreateAccountController extends ZMController {
         }
 
         // hen and egg...
-        $account->setPassword(zm_encrypt_password($account->getPassword()));
+        $account->setPassword(zm_encrypt_password($zm_request->getParameter('password')));
         $account = $zm_accounts->createAccount($account);
 
         $address->setAccountId($account->getId());
