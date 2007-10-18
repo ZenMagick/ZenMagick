@@ -59,10 +59,15 @@ class ZMReviews extends ZMService {
      * Get the number of reviews for the given product (id).
      *
      * @param int productId The product id.
+     * @param int languageId Optional language id; default is <code>null</code>
      * @return int The number of published reviews for the product.
      */
-    function getReviewCount($productId) {
+    function getReviewCount($productId, $languageId=null) {
     global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
 
         $db = $this->getDB();
         $query = "select count(*) as count
@@ -72,7 +77,7 @@ class ZMReviews extends ZMService {
                   and rd.languages_id = :languageId
                   and r.status = '1'";
         $query = $db->bindVars($query, ":productId", $productId, 'integer');
-        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
 
         $results = $db->Execute($query);
         return $results->fields['count'];
@@ -83,10 +88,15 @@ class ZMReviews extends ZMService {
      *
      * @param int productId Optional productId to limit reviews to one product.
      * @param int max Optional result limit; default is <code>1</code>.
+     * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getRandomReviews($productId=null, $max=1) {
+    function getRandomReviews($productId=null, $max=1, $languageId=null) {
     global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
 
         $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
@@ -100,7 +110,7 @@ class ZMReviews extends ZMService {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
 
         if (null != $productId) {
             $query .= $db->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
@@ -127,13 +137,46 @@ class ZMReviews extends ZMService {
     }
 
     /**
+     * Get the average rating for the given product id.
+     *
+     * @param int productId The product id.
+     * @param int languageId Optional language id; default is <code>null</code>
+     * @return float The average rating.
+     */
+    function getAverageRatingForProductId($productId, $languageId=null) {
+    global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
+
+        $db = $this->getDB();
+        $query = "select avg(reviews_rating) as average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+                  where r.products_id = :productId
+                  and r.reviews_id = rd.reviews_id
+                  and rd.languages_id = :languageId
+                  and r.status = '1'";
+        $query = $db->bindVars($query, ":productId", $productId, 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
+
+        $results = $db->Execute($query);
+
+        return $results->fields['average_rating'];
+    }
+
+    /**
      * Get all reviews for the given product id.
      *
      * @param int productId The product id.
+     * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getReviewsForProductId($productId) {
+    function getReviewsForProductId($productId, $languageId=null) {
     global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
 
         $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
@@ -148,7 +191,7 @@ class ZMReviews extends ZMService {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and p.products_id = :productId";
-        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
         $query = $db->bindVars($query, ":productId", $productId, 'integer');
 
         $reviews = array();
@@ -164,10 +207,15 @@ class ZMReviews extends ZMService {
     /**
      * Get all published reviews.
      *
+     * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getAllReviews() {
+    function getAllReviews($languageId=null) {
     global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
 
         $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
@@ -181,7 +229,7 @@ class ZMReviews extends ZMService {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'";
-        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
 
         $reviews = array();
         $results = $db->Execute($query);
@@ -197,10 +245,15 @@ class ZMReviews extends ZMService {
      * Get the review for the given review id.
      *
      * @param int reviewId The id of the review to load.
+     * @param int languageId Optional language id; default is <code>null</code>
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
-    function &getReviewForId($reviewId) {
+    function &getReviewForId($reviewId, $languageId=null) {
     global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
 
         $db = $this->getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
@@ -215,7 +268,7 @@ class ZMReviews extends ZMService {
                 and pd.language_id = :languageId
                 and r.status = '1'
                 and r.reviews_id = :reviewId";
-        $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
         $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
 
         $results = $db->Execute($query);
@@ -246,10 +299,16 @@ class ZMReviews extends ZMService {
      *
      * @param ZMReview review The new review.
      * @param ZMAccount author The review author.
-     * @param int languageId The language for this review.
+     * @param int languageId The language for this review; default is <code>null</code>.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    function &createReview(&$review, &$account, $languageId) {
+    function &createReview(&$review, &$account, $languageId=null) {
+    global $zm_runtime;
+
+        if (null === $languageId) {
+            $languageId = $zm_runtime->getLanguageId();
+        }
+
         $db = $this->getDB();
         $sql = "INSERT INTO " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added, status)
                 VALUES (:productsId, :customersId, :customersName, :rating, now(), :status)";

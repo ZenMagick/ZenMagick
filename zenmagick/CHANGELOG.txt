@@ -44,6 +44,8 @@ Release 0.8.4
 - removed individual patch enable/disable flags
 - add new patch to allow editing of customers if email also exists as guest
   account
+- added ZMReviews::getAverageRatingForProductId(..) method
+- added languageId support to ZMReviews methods
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer
