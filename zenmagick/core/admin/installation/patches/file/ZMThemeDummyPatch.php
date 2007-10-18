@@ -116,7 +116,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
     global $zm_runtime;
 
         $themes = $zm_runtime->getThemes();
-        if (!(zm_setting('isEnablePatching') && zm_setting('isAutoCreateZCThemeDummies')) && !$force && $this->isOpen()) {
+        if (!(zm_setting('isEnablePatching')) && !$force && $this->isOpen()) {
             // disabled
             zm_log("** ZenMagick: create theme dummies disabled - skipping");
             return false;

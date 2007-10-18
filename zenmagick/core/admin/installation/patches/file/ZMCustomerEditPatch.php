@@ -23,29 +23,29 @@
 ?>
 <?php
 
-define('_ZM_ZEN_BASE_PHP', DIR_FS_CATALOG.DIR_WS_CLASSES."class.base.php");
+define('_ZM_ZEN_CUSTOMERS_PHP', DIR_FS_ADMIN . 'customers.php');
 
 /**
- * Patch to register <code>ZMEvents</code> as global event handler.
+ * Patch to enable editing customers if the same email exists as guest checkout.
  *
  * @author mano
  * @package net.radebatz.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
-class ZMEventProxyPatch extends ZMFilePatch {
+class ZMCustomerEditPatch extends ZMFilePatch {
 
     /**
      * Default c'tor.
      */
-    function ZMEventProxyPatch() {
-        parent::__construct('eventProxy');
+    function ZMCustomerEditPatch() {
+        parent::__construct('customerEdit');
     }
 
     /**
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMEventProxyPatch();
+        $this->ZMCustomerEditPatch();
     }
 
     /**
@@ -64,17 +64,19 @@ class ZMEventProxyPatch extends ZMFilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
+            $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
         }
 
         // look for ZenMagick code...
+        $patched = false;
         foreach ($lines as $line) {
-            if (false !== strpos($line, '$zm_events')) {
-                return false;
+            if (false !== strpos($line, "and NOT customers_password = ''")) {
+                $patched = true;
+                break;
             }
         }
 
-        return true;
+        return !($patched);
     }
 
     /**
@@ -83,7 +85,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_BASE_PHP);
+        return is_writeable(_ZM_ZEN_CUSTOMERS_PHP);
     }
 
     /**
@@ -94,7 +96,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_BASE_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_CUSTOMERS_PHP;
     }
 
     /**
@@ -105,30 +107,30 @@ class ZMEventProxyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
+        $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
         if (!$this->isOpen($lines)) {
             return true;
         }
 
         if ((zm_setting('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_BASE_PHP)) {
+            if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
                 $patchedLines = array();
                 foreach ($lines as $line) {
                     array_push($patchedLines, $line);
-                    if (false !== strpos($line, "function notify(")) {
-                        // need to insert after the matched line
-                        array_push($patchedLines, '    global $zm_events; if(isset($zm_events)) { $zm_events->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
+                    // need to insert after the match
+                    if (false !== strpos($line, "where customers_email_address = '")) {
+                        array_push($patchedLines, "  and NOT customers_password = ''");
                     }
                 }
 
-                return $this->putFileLines(_ZM_ZEN_BASE_PHP, $patchedLines);
+                return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
             } else {
-                zm_log("** ZenMagick: no permission to patch event proxy support into class.base.php", ZM_LOG_ERROR);
+                zm_log("** ZenMagick: no permission to patch edit fix into customers.php", ZM_LOG_ERROR);
                 return false;
             }
         } else {
             // disabled
-            zm_log("** ZenMagick: patch event proxy support disabled - skipping");
+            zm_log("** ZenMagick: patch customer edit support disabled - skipping");
             return false;
         }
 
@@ -141,23 +143,23 @@ class ZMEventProxyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
+        $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_BASE_PHP)) {
+        if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, 'global $zm_events;')) {
+                if (false !== strpos($line, "  and NOT customers_password = ''")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_BASE_PHP, $unpatchedLines);
+            return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $unpatchedLines);
         } else {
-            zm_log("** ZenMagick: no permission to patch class.base.php for uninstall", ZM_LOG_ERROR);
+            zm_log("** ZenMagick: no permission to patch customers.php for uninstall", ZM_LOG_ERROR);
             return false;
         }
 

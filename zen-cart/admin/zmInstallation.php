@@ -42,6 +42,7 @@ require_once('includes/application_top.php');
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
         "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
         "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
+        "customerEdit" => "Patch zen-cart to allow editing customers where email also exists as guest account",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 

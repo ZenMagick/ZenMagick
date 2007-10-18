@@ -41,6 +41,9 @@ Release 0.8.4
 - update customer_info table when updating/creating account; #1813654
 - fix empty password written to database when creating new account
 - reject forgotten password requests for guest accounts
+- removed individual patch enable/disable flags
+- add new patch to allow editing of customers if email also exists as guest
+  account
 
 Release 0.8.3
 - swap meaning of isGuest() and isAnonymous(); the three account/customer

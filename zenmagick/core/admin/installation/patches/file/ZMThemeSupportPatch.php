@@ -111,7 +111,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((zm_setting('isEnablePatching') && zm_setting('isAdminPatchThemeSupport')) || $force) {
+        if ((zm_setting('isEnablePatching')) || $force) {
             if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
                 $patchedLines = array();
                 foreach ($lines as $line) {

@@ -104,7 +104,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((zm_setting('isEnablePatching') && zm_setting('isPrettyLinkPatchSupport')) || $force) {
+        if ((zm_setting('isEnablePatching')) || $force) {
             return $this->patchFilesFkt($this->fktFilesCfg_);
         } else {
             // disabled

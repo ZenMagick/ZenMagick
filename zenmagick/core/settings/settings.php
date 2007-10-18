@@ -40,16 +40,6 @@
 
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
-    $_ZM_SETTINGS['isAdminPatchThemeSupport'] = true;
-    $_ZM_SETTINGS['isAdminAutoRebuild'] = true;
-    $_ZM_SETTINGS['isAutoCreateZCSideboxes'] = true;
-    $_ZM_SETTINGS['isAutoCreateZCThemeDummies'] = true;
-    $_ZM_SETTINGS['isI18nSupport'] = false;
-    $_ZM_SETTINGS['isPatchRewriteBase'] = true;
-    $_ZM_SETTINGS['isPrettyLinkPatchSupport'] = true;
-    $_ZM_SETTINGS['isEmailPatchSupport'] = true;
-    $_ZM_SETTINGS['isEventProxySupport'] = true;
-    $_ZM_SETTINGS['isDynamicAdminPatchSupport'] = false;
 
     // guest account behaviour
     $_ZM_SETTINGS['isLogoffGuestAfterOrder'] = true;
