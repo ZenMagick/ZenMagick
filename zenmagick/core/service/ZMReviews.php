@@ -151,6 +151,7 @@ class ZMReviews extends ZMService {
         }
 
         $db = $this->getDB();
+        // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
         $query = "select avg(reviews_rating) as average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                   where r.products_id = :productId
                   and r.reviews_id = rd.reviews_id
