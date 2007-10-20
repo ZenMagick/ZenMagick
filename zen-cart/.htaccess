@@ -1,3 +1,6 @@
+## override php.ini, if possible
+php_flag register_globals off
+
 Options +FollowSymLinks
 RewriteEngine on
 RewriteBase /zen-cart/
