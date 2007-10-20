@@ -55,6 +55,8 @@
 
         // popups
         $zm_urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PopupView');
+        $zm_urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PopupView');
+        $zm_urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PopupView');
 
         // address_book_process
         $zm_urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
