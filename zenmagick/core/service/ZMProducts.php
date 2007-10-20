@@ -60,33 +60,24 @@ class ZMProducts extends ZMService {
     global $zm_runtime;
 
         $db = $this->getDB();
-        $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
-                p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
-                p.products_tax_class_id, pd.products_description,
-                IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
-                IF(s.status =1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
-                p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_mixed
-                from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .
-                TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " .
-                TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p2c.products_id = s.products_id
+        $query = "select p.products_id
+                from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                 where p.products_status = 1
-                and p.products_id = p2c.products_id
-                and pd.products_id = p2c.products_id
-                and pd.language_id = :languageId
-                and p2c.categories_id = :categoryId
+                and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
+                and pd.language_id = :languageId and p2c.categories_id = :categoryId
                 order by p.products_sort_order, pd.products_name";
         $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
         $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
 
         $results = $db->Execute($query);
 
-        $products = array();
+        $productIds = array();
         while (!$results->EOF) {
             $product = $this->_newProduct($results->fields);
-            $products[$product->getId()] = $product;
+            $productIds[] = $results->fields['products_id'];
             $results->MoveNext();
         }
-        return $products;
+        return $this->getProductsForIds($productIds);
     }
 
 
@@ -95,32 +86,24 @@ class ZMProducts extends ZMService {
     global $zm_runtime;
 
         $db = $this->getDB();
-        $query = "select p.products_image, pd.products_name, p.products_id, p.manufacturers_id, p.products_model,
-                    p.products_price, p.products_priced_by_attribute, p.product_is_free, p.product_is_call,
-                    p.products_tax_class_id, pd.products_description,
-                    IF(s.status = 1, s.specials_new_products_price, NULL) as specials_new_products_price, 
-                    IF(s.status = 1, s.specials_new_products_price, p.products_price) as final_price, p.products_sort_order, 
-                    p.product_is_call, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_mixed
-                    from " . TABLE_PRODUCTS . " p left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " .
-                    TABLE_PRODUCTS_DESCRIPTION . " pd, " .
-                    TABLE_MANUFACTURERS . " m
+        $query = "select p.products_id
+                    from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
                     where p.products_status = 1
                     and pd.products_id = p.products_id
                     and pd.language_id = :languageId
-                    and p.manufacturers_id = m.manufacturers_id
-                    and p.manufacturers_id = :manufacturerId
+                    and p.manufacturers_id = m.manufacturers_id and p.manufacturers_id = :manufacturerId
                     order by p.products_sort_order, pd.products_name";
         $query = $db->bindVars($query, ":manufacturerId", $manufacturerId, 'integer');
         $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), 'integer');
         $results = $db->Execute($query);
 
-        $products = array();
+        $productIds = array();
         while (!$results->EOF) {
             $product = $this->_newProduct($results->fields);
-            $products[$product->getId()] = $product;
+            $productIds[] = $results->fields['products_id'];
             $results->MoveNext();
         }
-        return $products;
+        return $this->getProductsForIds($productIds);
     }
 
 

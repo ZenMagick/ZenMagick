@@ -211,7 +211,7 @@
       if ($offers->isAttributePrice()) {
           $html .= zm_l10n_get("Starting at: ");
       }
-      if ($offers->isSpecial() || $offers->isSale()) {
+      if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
           $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), true, false) . '</span> ';
           if ($offers->isSpecial())  {
               if ($offers->isSale()) {

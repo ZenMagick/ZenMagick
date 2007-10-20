@@ -141,7 +141,7 @@ class ZMReviews extends ZMService {
      *
      * @param int productId The product id.
      * @param int languageId Optional language id; default is <code>null</code>
-     * @return float The average rating.
+     * @return float The average rating or <code>null</code> if no ratnig exists.
      */
     function getAverageRatingForProductId($productId, $languageId=null) {
     global $zm_runtime;
@@ -162,7 +162,7 @@ class ZMReviews extends ZMService {
 
         $results = $db->Execute($query);
 
-        return $results->fields['average_rating'];
+        return $results->EOF ? null : $results->fields['average_rating'];
     }
 
     /**

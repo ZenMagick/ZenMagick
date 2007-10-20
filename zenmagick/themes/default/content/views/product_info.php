@@ -42,6 +42,7 @@
       <p id="price"><?php zm_htmlencode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
   </div>
 
+  <h3><?php $offers =  $product->getOffers(); echo "special: ".$offers->getSpecialPrice() . ", sale: ".$offers->getSalePrice().", base: ".$offers->getBasePrice().", calculated: ".$offers->getCalculatedPrice() ?></h3>
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>

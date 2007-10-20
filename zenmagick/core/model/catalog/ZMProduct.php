@@ -296,7 +296,7 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    function getOffers() { return $this->offers_; }
+    function getOffers() { $this->offers_->setProduct(&$this); return $this->offers_; }
 
     /**
      * Check if this product has attributes or not.
@@ -394,6 +394,19 @@ class ZMProduct extends ZMModel {
 
         return null != $this->masterCategoryId_ ? $zm_categories->getCategoryForId($this->masterCategoryId_) :
             $zm_categories->getDefaultCategoryForProductId($this->id_);
+    }
+
+    /**
+     * Get the average rating.
+     *
+     * <p>Convenience method for <code>$zm_reviews->getAverageRatingForProductId($product->getId())</code>.</p>
+     *
+     * @return float The average rating.
+     */
+    function getAverageRating() {
+    global $zm_reviews;
+
+        return $zm_reviews->getAverageRatingForProductId($this->id_);
     }
 
 }

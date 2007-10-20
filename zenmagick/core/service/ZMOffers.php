@@ -82,6 +82,13 @@ class ZMOffers extends ZMService {
     function isAttributePrice() { return zm_has_product_attributes_values($this->product_->getId()); }
 
     /**
+     * Set the product.
+     *
+     * @param ZMProduct product The product.
+     */
+    function setProduct(&$product) { $this->product_ = $product; }
+
+    /**
      * Get the product price.
      *
      * @return float The product price.
@@ -306,8 +313,17 @@ class ZMOffers extends ZMService {
      *
      * @return float The calculated price.
      */
-    function getCalculatedPrice() { return (0 != $this->salePrice_ ? $this->salePrice_ : 
-                                                      (0 != $this->specialPrice_ ? $this->specialPrice_ : $this->basePrice_)); }
+    function getCalculatedPrice() { 
+        if ($this->product_->isFree()) {
+            return 0;
+        } else if (0 != $this->salePrice_) {
+            return  $this->salePrice_;
+        } else if (0 != $this->specialPrice_) {
+            return  $this->specialPrice_;
+        } else {
+            return $this->basePrice_; 
+        }
+    }
 
 }
 

@@ -1,5 +1,9 @@
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
+- fix wrong price when product is free and sale/special set
+- streamlined some ZMProducts SQL to make the results more uniform (different
+  lookups would result in different product attributes populated)
+- added ZMProduct::getAverageRating() convenience method
 
 Release 0.8.4
 - make gv_send form secure
