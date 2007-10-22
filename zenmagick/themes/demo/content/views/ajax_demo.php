@@ -84,7 +84,7 @@ Depending on your server configuration you might be better of using something di
         cartElem.innerHTML = '';
 
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "<?php zm_ajax_href('shopping_cart', 'getContents') ?>",
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
