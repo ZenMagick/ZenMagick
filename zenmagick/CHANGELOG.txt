@@ -5,6 +5,9 @@ Release 0.8.5
   lookups would result in different product attributes populated)
 - added ZMProduct::getAverageRating() convenience method
 - add missing URL mappings for popups
+- rename setting isEchoJSON to isJSONEcho and add isJSONHeader setting to
+  allow to return onr or the other or both; default is now to echo
+- set crumbtrail in POST processing for create_account
 
 Release 0.8.4
 - make gv_send form secure

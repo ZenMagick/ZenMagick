@@ -103,14 +103,14 @@ class ZMAjaxController extends ZMController {
 
 
     /**
-     * Set JSON response header ('X_JSON').
+     * Set JSON response header ('X-JSON').
      *
      * @param string json The JSON data.
      */
     function setJSONHeader($json) {
         $this->setContentType('text/plain');
-        header("X-JSON: ".$json);
-        if (zm_setting('isEchoJSON')) echo $json;
+        if (zm_setting('isJSONHeader')) { header("X-JSON: ".$json); }
+        if (zm_setting('isJSONEcho')) { echo $json; }
     }
 
     /**

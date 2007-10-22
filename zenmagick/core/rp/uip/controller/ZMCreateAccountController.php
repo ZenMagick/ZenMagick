@@ -85,7 +85,10 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
+    global $zm_request, $zm_messages, $zm_accounts, $zm_addresses, $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $account =& $this->create("Account");
         $account->populate();

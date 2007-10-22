@@ -98,7 +98,8 @@
     $_ZM_SETTINGS['emailAdminGvSend'] = SEND_EXTRA_GV_CUSTOMER_EMAILS_TO;
 
     // Ajax
-    $_ZM_SETTINGS['isEchoJSON'] = false;
+    $_ZM_SETTINGS['isJSONEcho'] = true;
+    $_ZM_SETTINGS['isJSONHeader'] = false;
     $_ZM_SETTINGS['ajaxFormat'] = 'JSON';
 
     // ZM pretty URLs
