@@ -8,6 +8,9 @@ Release 0.8.5
 - rename setting isEchoJSON to isJSONEcho and add isJSONHeader setting to
   allow to return onr or the other or both; default is now to echo
 - set crumbtrail in POST processing for create_account
+- added new plugin loader support mode 'FOLDER'; this is similar to 'ALL',
+  just not recursive which is handy if you want to include PHP files that can't
+  be added to core.php
 
 Release 0.8.4
 - make gv_send form secure

@@ -124,7 +124,7 @@ class ZMSession extends ZMObject {
      *
      * @return char The session type.
      */
-    function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_GUEST; }
+    function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_ANONYMOUS; }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
@@ -142,7 +142,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    function isGuest() { return !array_key_exists('account_type', $_SESSION) || ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
+    function isGuest() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
