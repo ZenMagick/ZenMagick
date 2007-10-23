@@ -26,43 +26,44 @@
 <?php
 
     error_reporting(E_ALL^E_NOTICE);
+    // hide as to avoid filenames that contain account names, etc.
     @ini_set("display_errors", false);
     @ini_set("log_errors", true); 
     @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_bin_file = dirname(__FILE__)."/core.php";
-    if (!IS_ADMIN_FLAG && file_exists($_zm_bin_file)) {
-        require($_zm_bin_file);
+    $_zm_core_file = dirname(__FILE__)."/core.php";
+    if (!IS_ADMIN_FLAG && file_exists($_zm_core_file)) {
+        require($_zm_core_file);
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
     } else {
-        $_zm_bin_dir = dirname(__FILE__)."/core/";
-        require($_zm_bin_dir."settings/zenmagick.php");
-        require($_zm_bin_dir."settings/settings.php");
-        require($_zm_bin_dir."bootstrap.php");
-        require($_zm_bin_dir."ZMLoader.php");
-        require($_zm_bin_dir."ZMRuntime.php");
-        require($_zm_bin_dir."ZMService.php");
-        require($_zm_bin_dir."service/ZMThemes.php");
-        require($_zm_bin_dir."rp/ZMUrlMapper.php");
+        $_zm_core_dir = dirname(__FILE__)."/core/";
+        require($_zm_core_dir."settings/zenmagick.php");
+        require($_zm_core_dir."settings/settings.php");
+        require($_zm_core_dir."bootstrap.php");
+        require($_zm_core_dir."ZMLoader.php");
+        require($_zm_core_dir."ZMRuntime.php");
+        require($_zm_core_dir."ZMService.php");
+        require($_zm_core_dir."service/ZMThemes.php");
+        require($_zm_core_dir."rp/ZMUrlMapper.php");
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
-        $zm_loader->addPath($_zm_bin_dir);
+        $zm_loader->addPath($_zm_core_dir);
         // need to do this in global namespace
         foreach ($zm_loader->getStatic() as $static) {
             require_once($static);
         }
     }
 
-    // use loader for all class loading from here?
+    // classes might depend on runtime being available in their c'tor
     $zm_runtime = new ZMRuntime();
 
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {
-        $includes = zm_find_includes($_zm_bin_dir, true);
+        $includes = zm_find_includes($_zm_core_dir, true);
         foreach ($includes as $include) {
             // exclude some stuff that gets loaded by the loader
             if ((false === strpos($include, '/controller/')
@@ -74,10 +75,11 @@
             }
         }
     }
+
     $zm_request = new ZMRequest();
-    $zm_layout = new ZMLayout();
 
     // set up main class instances (aka the ZenMagick API)
+    $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
     $zm_reviews = new ZMReviews();
     $zm_categories = new ZMCategories();
@@ -95,17 +97,16 @@
     $zm_banners = new ZMBanners();
     $zm_languages = new ZMLanguages();
     $zm_validator = new ZMValidator();
-
+    // share instance
     $zm_account = $zm_request->getAccount();
-
     // event proxy to simplify event subscription
     $zm_events = new ZMEvents();
 
-    // these can be replaced by themes; will be reinitializes durin theme switching
+    // these can be replaced by themes; will be reinitializes during theme switching
     $zm_crumbtrail = $zm_loader->create('Crumbtrail');
     $zm_meta = $zm_loader->create('MetaTags');
 
-    // global settings
+    // load global settings
     $_zm_local = $zm_runtime->getZMRootPath()."local.php";
     if (file_exists($_zm_local)) {
         include($_zm_local);
@@ -160,7 +161,7 @@
         }
     }
 
-    // load 
+    // resolve theme to be used 
     if (zm_setting('isEnableZenMagick')) {
         $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
     } else {
