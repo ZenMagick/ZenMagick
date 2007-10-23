@@ -134,6 +134,8 @@
         if ($plugin->isEnabled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
+            } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                $pluginLoader->addPath($plugin->getPluginDir(), false);
             }
             $pluginId = $plugin->getId();
             $$pluginId = $plugin;
