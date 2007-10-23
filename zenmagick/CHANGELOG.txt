@@ -11,6 +11,8 @@ Release 0.8.5
 - added new plugin loader support mode 'FOLDER'; this is similar to 'ALL',
   just not recursive which is handy if you want to include PHP files that can't
   be added to core.php
+- enable session handling in external.php to be able to read the account type
+  from the session data
 
 Release 0.8.4
 - make gv_send form secure

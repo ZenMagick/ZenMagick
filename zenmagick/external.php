@@ -36,10 +36,9 @@
     if (false === $zm_ext_zenroot) {
         $zm_ext_zenroot = str_replace($_SERVER['SCRIPT_NAME'],'', $_SERVER['SCRIPT_FILENAME']);
     }
-
     // change to zenroot
     chdir($zm_ext_zenroot);
-    define('STORE_SESSIONS', ''); // leave empty to avoid session handling errors using $db
+    // need session to get account type... define('STORE_SESSIONS', ''); // leave empty to avoid session handling errors using $db
     require('includes/application_top.php');
 
     // change back
