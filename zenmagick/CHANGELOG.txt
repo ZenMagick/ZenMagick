@@ -15,6 +15,7 @@ Release 0.8.5
   from the session data
 - added new setting 'templateSuffix' with default of '.php'
 - refactor ZenMagick's .htaccess files using Limt rather than LimitExcept
+- added ZMTheme::themeFileContents(..)
 
 Release 0.8.4
 - make gv_send form secure

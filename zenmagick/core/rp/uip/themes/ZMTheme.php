@@ -210,7 +210,7 @@ class ZMTheme extends ZMObject {
             }
         }
 
-		    if ($echo) echo $file;
+	    if ($echo) echo $file;
         return $file;
     }
 
@@ -257,6 +257,20 @@ class ZMTheme extends ZMObject {
     function includeStaticPageContent($page, $echo=true) {
         zm_backtrace('this method is deprecated; please use staticPageContent(..) instead.');
         return $this->staticPageContent($page, $echo);
+    }
+
+    /**
+     * Load and <code>eval</code> a theme file.
+     *
+     * <p>This allows to use <em>PHP</em> code in, for example, JavaScript files. One side-effect is
+     * that the evaluated content is inline'ed rather than loaded from a separate file. That
+     * means it's more usefule for small snippets rather than large files</p>
+     *
+     * @param string file The filename.
+     * @return string The eval'ed content.
+     */
+    function themeFileContents($file) {
+        return eval('?>'.file_get_contents($this->themeFile($file)));
     }
 
     /**
