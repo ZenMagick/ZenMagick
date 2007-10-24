@@ -14,6 +14,7 @@ Release 0.8.5
 - enable session handling in external.php to be able to read the account type
   from the session data
 - added new setting 'templateSuffix' with default of '.php'
+- refactor ZenMagick's .htaccess files using Limt rather than LimitExcept
 
 Release 0.8.4
 - make gv_send form secure

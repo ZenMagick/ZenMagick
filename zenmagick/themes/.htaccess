@@ -6,6 +6,16 @@
 
 ## Allow GET for all
 #<LimitExcept GET>
-#  Order Allow,Deny
-#  Allow from all
+#  order allow,deny
+#  allow from all
 #</LimitExcept>
+<Limit GET>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit POST PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+

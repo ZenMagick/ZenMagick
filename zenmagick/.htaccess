@@ -12,12 +12,17 @@ Options -Indexes
 
 ## disable all access methods
 #<LimitExcept>
-#  Order Allow,Deny
-#  Deny from all
+#  order allow,deny
+#  deny from all
 #</LimitExcept>
+<Limit GET POST PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+
 
 # generally deny access to PHP files
 <Files *.php>
-  Order Deny,Allow
-  Deny from all
+  order deny,allow
+  deny from all
 </Files>
