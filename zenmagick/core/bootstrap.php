@@ -133,6 +133,19 @@ if (!class_exists("ZMObject")) {
 
 
     /**
+     * Get all settings.
+     *
+     * @package net.radebatz.zenmagick
+     * @return array Map of all settings.
+     */
+    function zm_settings() {
+    global $_ZM_SETTINGS;
+
+        return $_ZM_SETTINGS;
+    }
+
+
+    /**
      * Check if the given string starts with the provided string.
      *
      * @package net.radebatz.zenmagick

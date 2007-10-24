@@ -86,7 +86,7 @@ class ZMTheme extends ZMObject {
      */
     function isValidRequest($page) {
         $themeInfo = $this->getThemeInfo();
-        $view = $this->themeFile($themeInfo->getViewDir().$page.".php");
+        $view = $this->themeFile($themeInfo->getViewDir().$page.zm_setting('templateSuffix'));
         return file_exists($view) || $this->hasLayout($page);
     }
 
@@ -98,7 +98,7 @@ class ZMTheme extends ZMObject {
      */
     function hasLayout($page) {
         // layouts reside in the content directory
-        return file_exists($this->getThemePath($page.'.php'));
+        return file_exists($this->getThemePath($page.zm_setting('templateSuffix')));
     }
 
     /**

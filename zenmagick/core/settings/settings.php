@@ -106,6 +106,7 @@
     $_ZM_SETTINGS['isZMPrettyLinks'] = false;
     // default to default in ZM themes
     $_ZM_SETTINGS['isEnableThemeDefaults'] = true;
+    $_ZM_SETTINGS['templateSuffix'] = '.php';
 
     // main layout
     $_ZM_SETTINGS['isEnableLeftColumn'] = COLUMN_LEFT_STATUS != 0;

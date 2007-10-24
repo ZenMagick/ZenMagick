@@ -13,6 +13,7 @@ Release 0.8.5
   be added to core.php
 - enable session handling in external.php to be able to read the account type
   from the session data
+- added new setting 'templateSuffix' with default of '.php'
 
 Release 0.8.4
 - make gv_send form secure

@@ -114,7 +114,7 @@ class ZMView extends ZMObject {
         } else {
             $filename .= $this->page_;
         }
-        $filename .= '.php';
+        $filename .= zm_setting('templateSuffix');
 
         return $zm_theme->themeFile($filename);
     }

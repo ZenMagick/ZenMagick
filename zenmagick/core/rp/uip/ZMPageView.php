@@ -89,9 +89,9 @@ class ZMPageView extends ZMView {
 
         $template = $this->getLayout();
         if (null != $template) {
-            include($zm_theme->themeFile($template.'.php'));
+            include($zm_theme->themeFile($template.zm_setting('templateSuffix')));
         } else {
-            include($zm_theme->themeFile($this->getName().'.php'));
+            include($zm_theme->themeFile($this->getName().zm_setting('templateSuffix')));
         }
     }
 
