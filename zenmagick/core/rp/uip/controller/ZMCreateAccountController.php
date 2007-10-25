@@ -133,6 +133,11 @@ class ZMCreateAccountController extends ZMController {
 
         $zm_messages->success("Thank you for signing up");
 
+        $followUpUrl = $session->getLoginFollowUp();
+        if (null != $followUpUrl) {
+            zm_redirect($followUpUrl);
+        }
+
         return $this->findView('success');
     }
 

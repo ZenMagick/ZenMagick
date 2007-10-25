@@ -18,6 +18,8 @@ Release 0.8.5
 - added ZMTheme::themeFileContents(..)
 - added experimental plugin that allows to use the Smarty templating engine
   for themes
+- after a successful registration, redirect to the protected page requested
+  before (if any), same as login
 
 Release 0.8.4
 - make gv_send form secure
