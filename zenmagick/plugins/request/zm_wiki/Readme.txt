@@ -10,7 +10,7 @@ this file with a newer version without modifications will *not* work.
 INSTALLAION
 ===========
 * Download (obvious ;)
-  Download the latest version from http://zenmagick.radebatz.net
+  Download the latest version from http://www.zenmagick.org
 
 * Extract into the ZenMagick plugins directory
 

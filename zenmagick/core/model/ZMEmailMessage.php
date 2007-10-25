@@ -28,7 +28,7 @@
  * A generic email message container.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMEmailMessage extends ZMModel {

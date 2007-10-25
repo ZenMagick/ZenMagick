@@ -30,7 +30,7 @@
  * A single attribute value.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.catalog
+ * @package org.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMAttributeValue extends ZMModel {

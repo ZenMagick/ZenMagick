@@ -34,7 +34,7 @@
  * non secure HTTP is used to access them.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp
+ * @package org.zenmagick.rp
  * @version $Id$
  */
 class ZMSacsMapper extends ZMObject {

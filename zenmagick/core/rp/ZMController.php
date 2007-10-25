@@ -28,7 +28,7 @@
  * Request controller base class.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp
+ * @package org.zenmagick.rp
  * @version $Id$
  */
 class ZMController extends ZMObject {

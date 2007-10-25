@@ -31,7 +31,7 @@
  * address, etc.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.order
+ * @package org.zenmagick.model.order
  * @version $Id$
  */
 class ZMShippingProvider extends ZMModel {

@@ -28,7 +28,7 @@
  * A product.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.catalog
+ * @package org.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMProduct extends ZMModel {
@@ -309,7 +309,7 @@ class ZMProduct extends ZMModel {
     /**
      * Get the product attributes.
      *
-     * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} instances.
+     * @return array A list of {@link org.zenmagick.model.ZMAttribute ZMAttribute} instances.
      */
     function getAttributes() { return $this->attributes_->getAttributes(); }
 

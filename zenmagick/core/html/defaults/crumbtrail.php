@@ -28,7 +28,7 @@
     /**
      * Helper to format a given <code>ZMCrumbtrail</code>.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param ZMCrumbtrail crumbtrail A <code>ZMCrumbtrail</code> instance.
      * @param string sep A separator string.
      * @return string A fully HTML formatted crumbtrail.

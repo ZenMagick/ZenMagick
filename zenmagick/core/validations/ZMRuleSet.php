@@ -28,7 +28,7 @@
  * A set of validation rules.
  *
  * @author mano
- * @package net.radebatz.zenmagick.validations
+ * @package org.zenmagick.validations
  * @version $Id$
  */
 class ZMRuleSet {

@@ -28,7 +28,7 @@
  * Generic file patch.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches
+ * @package org.zenmagick.admin.installation.patches
  * @version $Id$
  */
 class ZMFilePatch extends ZMInstallationPatch {

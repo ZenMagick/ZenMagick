@@ -30,7 +30,7 @@
  * <p><strong>NOTE:</strong> The amount is always in the sessions current currency.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMGVReceiver extends ZMModel {

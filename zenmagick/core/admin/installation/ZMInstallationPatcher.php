@@ -28,7 +28,7 @@
  * Provides support for all file patching of zen-cart files ZenMagick might need.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation
+ * @package org.zenmagick.admin.installation
  * @version $Id$
  */
 class ZMInstallationPatcher extends ZMObject {

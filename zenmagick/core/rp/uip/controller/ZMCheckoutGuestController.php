@@ -28,7 +28,7 @@
  * Request controller for guest checkout.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMCheckoutGuestController extends ZMController {

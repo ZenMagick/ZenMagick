@@ -30,7 +30,7 @@
  * <p>This will forward the request to the given controller without a redirect.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views
+ * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */
 class ZMForwardView extends ZMView {

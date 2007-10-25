@@ -28,7 +28,7 @@
  * A crumbtrail crumb.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.layout
+ * @package org.zenmagick.model.layout
  * @version $Id$
  */
 class ZMCrumb extends ZMModel {

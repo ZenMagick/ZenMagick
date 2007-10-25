@@ -29,7 +29,7 @@
  * A RSS feed.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.rss
+ * @package org.zenmagick.model.rss
  * @version $Id$
  */
 class ZMRssFeed extends ZMModel {

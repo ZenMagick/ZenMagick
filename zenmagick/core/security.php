@@ -28,7 +28,7 @@
     /**
      * Encrypt the given password.
      *
-     * @package net.radebatz.zenmagick.security
+     * @package org.zenmagick.security
      * @param string clear The clear text password to encrypt.
      * @return string The encrypted password.
      */
@@ -38,7 +38,7 @@
     /**
      * Validate the given clear text password against the encrypted one.
      *
-     * @package net.radebatz.zenmagick.security
+     * @package org.zenmagick.security
      * @param string clear The clear text password to encrypt.
      * @param string encrypted The encrypted password.
      * @return boolean <code>true</code> if the passwords match, <code>false</code> if not.
@@ -49,7 +49,7 @@
     /**
      * Generate a random value.
      *
-     * @package net.radebatz.zenmagick.security
+     * @package org.zenmagick.security
      * @param int length The length of the random value.
      * @param string type Optional type; valid values are: 'mixed', 'chars' and 'digits'.
      * @return string The random string.
@@ -60,7 +60,7 @@
     /**
      * Generate a new random password.
      *
-     * @package net.radebatz.zenmagick.security
+     * @package org.zenmagick.security
      * @return string The new password.
      */
     function zm_new_password() { return zen_create_random_value(zm_setting('minPasswordLength'), 'mixed'); }
@@ -69,7 +69,7 @@
     /**
      * Sanitize the given value.
      *
-     * @package net.radebatz.zenmagick.security
+     * @package org.zenmagick.security
      * @param mixed value A string or array.
      * @return mixed A sanitixed version.
      */

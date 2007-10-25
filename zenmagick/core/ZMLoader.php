@@ -52,7 +52,7 @@
  * level of inheritance.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMLoader {

@@ -28,7 +28,7 @@
  * Simple id/name container.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMIdNamePair extends ZMModel {

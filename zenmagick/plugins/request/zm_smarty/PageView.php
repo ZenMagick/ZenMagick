@@ -28,7 +28,7 @@
  * Theme view using the Smarty templating engine.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_smarty
+ * @package org.zenmagick.plugins.zm_smarty
  * @version $Id$
  */
 class PageView extends ZMPageView {

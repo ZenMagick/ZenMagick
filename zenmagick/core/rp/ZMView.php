@@ -28,7 +28,7 @@
  * A view.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp
+ * @package org.zenmagick.rp
  * @version $Id$
  */
 class ZMView extends ZMObject {

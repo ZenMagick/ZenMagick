@@ -28,7 +28,7 @@
  * Image information.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.catalog
+ * @package org.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMImageInfo extends ZMModel {

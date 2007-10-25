@@ -28,7 +28,7 @@
  * Base result list filter.
  *
  * @author mano
- * @package net.radebatz.zenmagick.resultlist
+ * @package org.zenmagick.resultlist
  * @version $Id$
  */
 class ZMResultListFilter extends ZMObject {

@@ -37,7 +37,7 @@ define ('_ZM_RSS_BOXES_TEMPLATE', 'box-template.php');
  * <p>Example of a box plugin managing multiple sideboxes.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_rss_boxes
+ * @package org.zenmagick.plugins.zm_rss_boxes
  * @version $Id$
  */
 class zm_rss_boxes extends ZMBoxPlugin {
@@ -112,7 +112,7 @@ class zm_rss_boxes extends ZMBoxPlugin {
      * <p>If the id is <code>null</code>, the id will be determined by analyzing the
      * current (box) filename.</p>
      *
-     * @package net.radebatz.zenmagick.plugins.zm_rss_boxes
+     * @package org.zenmagick.plugins.zm_rss_boxes
      * @param int id The box id; default is <code>null</code>.
      * @param boolean echo If <code>true</code>, the code will be echo'ed as well as returned.
      * @return string The URL or <code>null</code>.

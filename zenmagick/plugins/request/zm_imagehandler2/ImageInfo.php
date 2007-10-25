@@ -28,7 +28,7 @@
  * Image information implementation for ImageHandler2 support.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_imagehandler2
+ * @package org.zenmagick.plugins.zm_imagehandler2
  * @version $Id$
  */
 class ImageInfo extends ZMImageInfo {

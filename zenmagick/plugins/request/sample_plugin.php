@@ -26,7 +26,7 @@
 /**
  * Sample plugin to illustrate a few key points of the ZenMagick plugin architecture.
  *
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  * @author mano
  * @version $Id$
  */
@@ -109,7 +109,7 @@ class sample_plugin extends ZMPlugin {
 
 /**
  * Simple page filter.
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  */
 class sample_plugin_handler extends ZMPluginHandler {
 
@@ -151,7 +151,7 @@ class sample_plugin_handler extends ZMPluginHandler {
 /**
  * Handle sample admin page.
  *
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  * @return ZMPluginPage The plugin page.
  */
 function sample_plugin_admin() {

@@ -28,7 +28,7 @@
     /**
      * Lookup and echo a language specific text.
      *
-     * @package net.radebatz.zenmagick.locale
+     * @package org.zenmagick.locale
      * @param string text The text.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
@@ -44,7 +44,7 @@
     /**
      * Lookup a language specific text.
      *
-     * @package net.radebatz.zenmagick.locale
+     * @package org.zenmagick.locale
      * @param string text The text.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
@@ -63,7 +63,7 @@
      * <p>Similar to <code>zm_l10n_get(..)</code>, except that the first argument is a chunk (file-)name, rather
      * than a real localizable string.</p>
      *
-     * @package net.radebatz.zenmagick.locale
+     * @package org.zenmagick.locale
      * @param string name The chunk name.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
@@ -85,7 +85,7 @@
     /**
      * Add language mappings.
      *
-     * @package net.radebatz.zenmagick.locale
+     * @package org.zenmagick.locale
      * @param array map The new/additional mappings.
      */
     function zm_l10n_add($map) {
@@ -105,7 +105,7 @@
     /**
      * The actual <code>l10n</code> workhorse.
      *
-     * @package net.radebatz.zenmagick.locale
+     * @package org.zenmagick.locale
      * @param string text The text.
      * @param string default A default text in case there is no localized version of the given text.
      * @param var args A variable number of arguments that will be used as arguments for

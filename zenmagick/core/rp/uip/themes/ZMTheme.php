@@ -28,7 +28,7 @@
  * A theme.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.themes
+ * @package org.zenmagick.rp.uip.themes
  * @version $Id$
  */
 class ZMTheme extends ZMObject {

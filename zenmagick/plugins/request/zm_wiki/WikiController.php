@@ -28,7 +28,7 @@
  * Request controller for wiki pages.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_wiki
+ * @package org.zenmagick.plugins.zm_wiki
  * @version $Id$
  */
 class WikiController extends ZMController {

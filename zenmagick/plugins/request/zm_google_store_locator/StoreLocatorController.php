@@ -28,7 +28,7 @@
  * Request controller for store locator.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_google_store_locator
+ * @package org.zenmagick.plugins.zm_google_store_locator
  * @version $Id$
  */
 class StoreLocatorController extends ZMController {

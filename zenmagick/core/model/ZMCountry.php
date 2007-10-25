@@ -28,7 +28,7 @@
  * A single country.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMCountry extends ZMModel {

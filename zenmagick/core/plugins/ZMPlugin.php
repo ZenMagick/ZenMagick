@@ -33,7 +33,7 @@
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  * @version $Id$
  */
 class ZMPlugin extends ZMObject {

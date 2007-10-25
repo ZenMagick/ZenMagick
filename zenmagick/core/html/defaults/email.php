@@ -29,7 +29,7 @@
     /**
      * Format additional email content for internal copies.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string name The sender name.
      * @param string email The sender email.
      * @param ZMSession session The current session.

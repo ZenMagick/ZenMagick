@@ -6,7 +6,7 @@ This plugin adds a Google Maps based store locator page to the store.
 INSTALLAION
 ===========
 * Download (obvious ;)
-  Download the latest version from http://zenmagick.radebatz.net
+  Download the latest version from http://www.zenmagick.org
 
 * Extract into the ZenMagick plugins directory
 

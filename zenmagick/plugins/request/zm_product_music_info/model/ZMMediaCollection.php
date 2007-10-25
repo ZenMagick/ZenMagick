@@ -28,8 +28,8 @@
  * A collection of media items.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_product_music_info.model
- * @version $Id: ZMMediaCollection.php 158 2007-04-05 07:35:49Z radebatz $
+ * @package org.zenmagick.plugins.zm_product_music_info.model
+ * @version $Id: ZMMediaCollection.php 158 2007-04-05 07:35:49Z DerManoMann $
  */
 class ZMMediaCollection extends ZMModel {
     var $name_;

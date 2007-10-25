@@ -28,7 +28,7 @@
  * Container for all data/information related to a plugin admin page.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  * @version $Id$
  */
 class ZMPluginPage extends ZMObject {

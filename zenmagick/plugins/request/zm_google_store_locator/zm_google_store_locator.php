@@ -30,7 +30,7 @@ define ('ZM_FILENAME_STORE_LOCATOR', 'store_locator');
  * Plugin adding a Google Maps based store locator.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_google_store_locator
+ * @package org.zenmagick.plugins.zm_google_store_locator
  * @version $Id$
  */
 class zm_google_store_locator extends ZMPlugin {

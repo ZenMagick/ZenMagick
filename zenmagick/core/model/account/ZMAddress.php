@@ -31,7 +31,7 @@
  * value and zoneId is the state selected from a dropdown.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.account
+ * @package org.zenmagick.model.account
  * @version $Id$
  */
 class ZMAddress extends ZMModel {

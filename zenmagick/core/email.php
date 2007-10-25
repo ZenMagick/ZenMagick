@@ -29,7 +29,7 @@
     /**
      * Create email contents based on the given parameter.
      *
-     * @package net.radebatz.zenmagick.email
+     * @package org.zenmagick.email
      * @param string template The template.
      * @param boolean asHTML Flag whether HTML or text version should be generated.
      * @param array context The context data to be made available for the email template.
@@ -47,7 +47,7 @@
     /**
      * Check in which format a given email template exists.
      *
-     * @package net.radebatz.zenmagick.email
+     * @package org.zenmagick.email
      * @param string template The email template name.
      * @return string Valid return strings are: <code>html</code>, <code>text</code>, <code>both</code> or <code>none</code>.
      */
@@ -74,7 +74,7 @@
      * <p>The environment will be se same as for the actual HTML response view. This is done
      * by attaching the current controller to the view.</p>
      *
-     * @package net.radebatz.zenmagick.email
+     * @package org.zenmagick.email
      * @param string subject The subject.
      * @param string template The email template name.
      * @param array context Additional stuff to be made available to the template.

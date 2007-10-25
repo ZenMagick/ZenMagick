@@ -26,7 +26,7 @@
 /**
  * Plugin to enable support for ImageHandler2 in ZenMagick.
  *
- * @package net.radebatz.zenmagick.plugins.zm_imagehandler2
+ * @package org.zenmagick.plugins.zm_imagehandler2
  * @author mano
  * @version $Id$
  */

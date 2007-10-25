@@ -29,7 +29,7 @@
     /**
      * Return the value or default of the map.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_smarty
+     * @package org.zenmagick.plugins.zm_smarty
      * @param array arr The array.
      * @param string key The key.
      * @param mixed default The default value.
@@ -44,7 +44,7 @@
      *
      * <p>This will allow template editors to use define variables in some places.</p>
      *
-     * @package net.radebatz.zenmagick.plugins.zm_smarty
+     * @package org.zenmagick.plugins.zm_smarty
      * @param string value The value.
      * @param string The content of the define or the value.
      */

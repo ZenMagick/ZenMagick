@@ -56,7 +56,7 @@ require_once('includes/application_top.php');
           <div class="about" id="about">
           <h2><?php zm_l10n("About ZenMagick") ?></h2>
               <p><span class="label">Version:</span> <?php echo zm_setting('ZenMagickVersion'); ?></p>
-              <p><span class="label">Homepage:</span> <a href="http://zenmagick.radebatz.net">zenmagick.radebatz.net</a></p>
+              <p><span class="label">Homepage:</span> <a href="http://www.zenmagick.org">www.zenmagick.org</a></p>
               <p><span class="label">Author:</span> Martin Rademacher</p>
           </div>
           <div class="about">

@@ -30,7 +30,7 @@ define('_ZM_ZEN_DIR_FS_LANGUAGES', DIR_FS_CATALOG_LANGUAGES);
  * Patch to enable ZenMagick's i18n support.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.file
+ * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
 class ZMI18nPatch extends ZMFilePatch {

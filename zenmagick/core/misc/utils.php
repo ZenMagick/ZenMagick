@@ -30,7 +30,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Parse RSS date.
      * 
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
     */
@@ -43,7 +43,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Convert date to RSS date format.
      * 
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
      * @return string A date string formatted according to RSS date rules.
     */
@@ -63,7 +63,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Checks, if the current page is a checkout page.
      * 
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
      * @return boolean <code>true</code> if the current page is a checkout page.
      */
@@ -83,7 +83,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      *
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string date A date (usually provided by the user).
      * @param string format The date format
      * @param boolean reverse If <code>true</code>, the returned data will be reversed.
@@ -128,7 +128,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Encode XML control characters.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string s The input string.
      * @return string The encoded string.
      */
@@ -149,7 +149,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Convert text based user input into HTML.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string s The input string.
      * @return string HTML formatted text.
      */
@@ -164,7 +164,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Helper for conditional get support.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string timestamp The last change date of whatever resource this is about.
      * @param boolean <code>true<code> if <strong>no</strong> body should be returned, 
      *  <code>false</code> if the resource changed.
@@ -203,7 +203,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Little helper to implement abstract Ultimate SEO <strong>Plugin</code> support.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @return boolean <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
      */
     function zm_useo_enabled() {
@@ -215,7 +215,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Evaluate a string value as boolean.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param mixed value The value.
      * @return boolean The boolean value.
      */
@@ -230,7 +230,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     /**
      * Extract the base product id from a given string.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string productId The full product id incl. attribute suffix.
      * @return int The product id.
      */
@@ -248,7 +248,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * <p>Attributes are sorted using <code>krsort(..)</code> so to be compatible
      * for different attribute orders.</p>
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string productId The full product id incl. attribute suffix.
      * @param array attrbutes Additional product attributes.
      * @return string The product id.
@@ -280,7 +280,7 @@ return zen_get_uprid($productId, $attributes);
     /**
      * Format the given amount according to the current currency.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param float amount The amount.
      * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
      *  convert before formatting.
@@ -301,7 +301,7 @@ return zen_get_uprid($productId, $attributes);
     /**
      * Parse a money amount.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string amount The amount probably formatted according to the sessions currency setting.
      * @return float The amount.
      */

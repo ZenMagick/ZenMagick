@@ -28,7 +28,7 @@
  * A single language.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMLanguage extends ZMModel {

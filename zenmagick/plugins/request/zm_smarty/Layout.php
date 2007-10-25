@@ -28,7 +28,7 @@
  * Layout stuff.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_smarty
+ * @package org.zenmagick.plugins.zm_smarty
  * @version $Id$
  */
 class Layout extends ZMLayout {

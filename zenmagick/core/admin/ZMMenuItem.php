@@ -30,7 +30,7 @@
  * <p>This may be either a ZenMagick system page or a plugin options page or other.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin
+ * @package org.zenmagick.admin
  * @version $Id$
  */
 class ZMMenuItem extends ZMModel {

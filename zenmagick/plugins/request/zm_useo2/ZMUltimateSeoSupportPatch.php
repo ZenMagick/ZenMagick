@@ -31,7 +31,7 @@
  * <p>Patched to work inside a plugin.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.file
+ * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
 class ZMUltimateSeoSupportPatch extends ZMFilePatch {

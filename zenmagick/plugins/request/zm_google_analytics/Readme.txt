@@ -7,7 +7,7 @@ This plugin allows to configure Goggle Analytics for use with the store.
 INSTALLAION
 ===========
 * Download (obvious ;)
-  Download the latest version from http://zenmagick.radebatz.net
+  Download the latest version from http://www.zenmagick.org
 
 * Extract into the ZenMagick plugins directory
   After that you should have a zm_google_adsence sub-directory in the plugins/request folder.

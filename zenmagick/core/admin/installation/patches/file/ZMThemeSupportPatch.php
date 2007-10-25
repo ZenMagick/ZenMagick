@@ -29,7 +29,7 @@ define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
  * Patch to enable ZenMagick themes.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.file
+ * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
 class ZMThemeSupportPatch extends ZMFilePatch {

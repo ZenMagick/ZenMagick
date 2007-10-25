@@ -34,7 +34,7 @@
      * The reason for adding to the action is the weiryd way zen-card is looking at
      * <code>$_GET</code> and <code>$_POST</code>.</p>
      * 
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string page The action page name.
      * @param string params Query string style parameter.
      * @param string id Optional HTML id; defaults to <code>null</code>
@@ -57,7 +57,7 @@
      *
      * <p>Query parameters in the <code>$page</code> url will be added (merged) too.</p>
      * 
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string page The action page name.
      * @param string params Query string style parameter.
      * @param string id Optional HTML id; defaults to <code>null</code>
@@ -132,7 +132,7 @@
      * <p>The calling page is responsible for adding a submit buttona and a closing <code>&lt;form&gt;</code>
      * tag.</p>
      * 
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -163,7 +163,7 @@
      * <p>The calling page is responsible for adding a submit buttona and a closing <code>&lt;form&gt;</code>
      * tag.</p>
      * 
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form to handle result list options.
      */

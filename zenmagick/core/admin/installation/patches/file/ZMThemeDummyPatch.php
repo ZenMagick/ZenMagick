@@ -28,7 +28,7 @@
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.file
+ * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
 class ZMThemeDummyPatch extends ZMFilePatch {

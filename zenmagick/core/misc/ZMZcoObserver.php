@@ -28,7 +28,7 @@
  * Container class for all zen-cart observations we'll hopefully never need.
  *
  * @author mano
- * @package net.radebatz.zenmagick.misc
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMZcoObserver extends ZMObject {

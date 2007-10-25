@@ -32,7 +32,7 @@
      * access need to be included in the globals list in order to declare
      * the global...</p>
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string page The page name (main_page).
      * @param mixed globals Either an array or comma separated list of names to be treated as globals.
      */

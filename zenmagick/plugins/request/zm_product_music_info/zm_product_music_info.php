@@ -33,7 +33,7 @@
  * included classes and code.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_product_music_info
+ * @package org.zenmagick.plugins.zm_product_music_info
  * @version $Id$
  */
 class zm_product_music_info extends ZMPlugin {

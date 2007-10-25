@@ -32,7 +32,7 @@
  * by the controller method <code>findView(...)</code>.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp
+ * @package org.zenmagick.rp
  * @version $Id$
  */
 class ZMUrlMapper extends ZMObject {

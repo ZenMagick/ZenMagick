@@ -28,7 +28,7 @@
  * Base DAO class.
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMDao extends ZMObject {

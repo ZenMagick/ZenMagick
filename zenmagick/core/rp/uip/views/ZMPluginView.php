@@ -30,7 +30,7 @@
  * <p>The content is either a full page or a layout using the page specified in the request.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views
+ * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */
 class ZMPluginView extends ZMPageView {

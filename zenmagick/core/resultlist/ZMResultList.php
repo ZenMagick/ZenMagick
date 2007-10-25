@@ -28,7 +28,7 @@
  * A list that might span multiple pages.
  *
  * @author mano
- * @package net.radebatz.zenmagick.resultlist
+ * @package org.zenmagick.resultlist
  * @version $Id$
  */
 class ZMResultList extends ZMObject {

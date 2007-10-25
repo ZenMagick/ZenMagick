@@ -28,7 +28,7 @@
     /**
      * Display the contents of a wiki page.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      * @param string page The page name.
      */
     function zm_wiki_display_page($page) {
@@ -40,7 +40,7 @@
     /**
      * Wiki admin page.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_wiki_admin() {
@@ -69,7 +69,7 @@
     /**
      * Page caching strategy that excludes wiki pages.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_wiki_is_page_cacheable() {
         global $zm_request;
@@ -82,7 +82,7 @@
     /**
      * View generator for 'wiki' view.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_view_wiki() {
     global $zm_request;
@@ -128,7 +128,7 @@
     /**
      * View generator for 'wiki_edit' view.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_view_wiki_edit() {
     global $zm_request, $pawfaliki_config;
@@ -174,7 +174,7 @@
     /**
      * Wiki parser extension for nested lists.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      * @param string text The wiki text.
      * @param int maxLevel The maximum level of nesting supported; default is <code>2</code>.
      * @return string The converted HTML.
@@ -200,7 +200,7 @@
     /**
      * Wiki parser extension.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      * @param string text The wiki text.
      * @return string The converted HTML.
      */
@@ -242,7 +242,7 @@
     /**
      * Wiki parser extension.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_wiki
+     * @package org.zenmagick.plugins.zm_wiki
      * @param string text The wiki text.
      * @return string The converted HTML.
      */

@@ -33,7 +33,7 @@
  * class itself is just the glue between the runtime and the handler.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins
+ * @package org.zenmagick.plugins
  * @version $Id$
  */
 class ZMPluginHandler extends ZMObject {

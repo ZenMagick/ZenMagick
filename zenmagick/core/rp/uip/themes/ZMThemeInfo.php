@@ -30,7 +30,7 @@
  * will be merged.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.themes
+ * @package org.zenmagick.rp.uip.themes
  * @version $Id$
  */
 class ZMThemeInfo extends ZMObject {

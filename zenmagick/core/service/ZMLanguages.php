@@ -28,7 +28,7 @@
  * Languages.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMLanguages extends ZMService {

@@ -28,7 +28,7 @@
  * Order status.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.order
+ * @package org.zenmagick.model.order
  * @version $Id$
  */
 class ZMOrderStatus extends ZMModel {

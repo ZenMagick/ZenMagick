@@ -28,7 +28,7 @@
  * EZ-pages.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMEZPages extends ZMService {

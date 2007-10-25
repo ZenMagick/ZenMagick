@@ -29,7 +29,7 @@
  * <p>This is assuming a properly configured zen cart.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMShoppingCart extends ZMService {
@@ -326,7 +326,7 @@ class ZMShoppingCart extends ZMService {
      *
      * @param boolean echo If <code>true</code>, echo the code.
      * @return mixed The form content for the actual order process.
-     * @see net.radebatz.zenmagick.ZMShoppingCart#getOrderFormURL
+     * @see org.zenmagick.ZMShoppingCart#getOrderFormURL
      */
     function getOrderFormContent($echo=true) {
         $payments = $this->_getPayments();

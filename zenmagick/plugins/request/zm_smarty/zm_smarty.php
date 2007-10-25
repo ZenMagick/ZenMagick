@@ -27,7 +27,7 @@
 /**
  * Plugin for smarty support.
  *
- * @package net.radebatz.zenmagick.plugins.zm_smarty
+ * @package org.zenmagick.plugins.zm_smarty
  * @author DerManoMann
  * @version $Id$
  */

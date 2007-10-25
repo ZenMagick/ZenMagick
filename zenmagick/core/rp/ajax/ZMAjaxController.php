@@ -30,7 +30,7 @@
  * <p>Requires PEAR Json for JSON support.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.ajax
+ * @package org.zenmagick.rp.ajax
  * @version $Id$
  */
 class ZMAjaxController extends ZMController {

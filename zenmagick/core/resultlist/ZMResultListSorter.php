@@ -28,7 +28,7 @@
  * Base result list sorter.
  *
  * @author mano
- * @package net.radebatz.zenmagick.resultlist
+ * @package org.zenmagick.resultlist
  * @version $Id$
  */
 class ZMResultListSorter extends ZMObject {

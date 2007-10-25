@@ -28,8 +28,8 @@
  * Media manager.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_product_music_info.service
- * @version $Id: ZMMediaManager.php 177 2007-05-19 12:01:32Z radebatz $
+ * @package org.zenmagick.plugins.zm_product_music_info.service
+ * @version $Id: ZMMediaManager.php 177 2007-05-19 12:01:32Z DerManoMann $
  */
 class ZMMediaManager extends ZMService {
 

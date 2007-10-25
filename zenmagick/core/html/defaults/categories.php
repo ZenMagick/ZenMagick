@@ -36,7 +36,7 @@
      *
      * <p>Uses output buffering for increased performance.</p>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
      * @param boolean showProductCount If true, show the product count per category.
      * @param boolean $useCategoryPage If true, create links for empty categories.

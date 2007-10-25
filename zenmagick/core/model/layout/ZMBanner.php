@@ -28,7 +28,7 @@
  * A single banner.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.layout
+ * @package org.zenmagick.model.layout
  * @version $Id$
  */
 class ZMBanner extends ZMModel {

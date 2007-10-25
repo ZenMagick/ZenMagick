@@ -28,7 +28,7 @@
  * Request controller for account newsletter subscription page.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMAccountNewslettersController extends ZMController {

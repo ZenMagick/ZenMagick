@@ -31,7 +31,7 @@
  * underlying <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMCache extends ZMObject {

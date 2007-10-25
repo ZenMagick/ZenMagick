@@ -26,7 +26,7 @@
 /**
  * Plugin for Ultimate SEO 2.x support.
  *
- * @package net.radebatz.zenmagick.plugins.zm_useo2
+ * @package org.zenmagick.plugins.zm_useo2
  * @author mano
  * @version $Id$
  */

@@ -29,7 +29,7 @@ define('_ZM_ZEN_EMAIL_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'functions_emai
  * Patch to replace zen_mail for supported email types.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.file
+ * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */
 class ZMEmailPatch extends ZMFilePatch {

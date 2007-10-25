@@ -28,7 +28,7 @@
  * Model base class.
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMModel extends ZMObject {

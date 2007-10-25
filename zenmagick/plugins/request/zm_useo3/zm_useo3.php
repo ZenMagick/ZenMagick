@@ -29,7 +29,7 @@
  * <p><strong>NOTE:</strong> Loader support is set to <em>ALL</em> to hide the
  * function <code>zen_href_link_seo</code> if not installed/enabled.</p>
  *
- * @package net.radebatz.zenmagick.plugins.zm_useo3
+ * @package org.zenmagick.plugins.zm_useo3
  * @author mano
  * @version $Id: zm_useo3.php 216 2007-07-16 22:07:44Z DerManoMann $
  */

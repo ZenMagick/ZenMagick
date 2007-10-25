@@ -28,7 +28,7 @@
  * A single order item
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.order
+ * @package org.zenmagick.model.order
  * @version $Id$
  */
 class ZMOrderItem extends ZMModel {

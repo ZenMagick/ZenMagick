@@ -29,7 +29,7 @@
     /**
      * Display the given banner.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param ZMBanner banner A <code>ZMBanner</code> instance.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @param boolean updateCount If <code>true</code>, the banner counter will get incremented.

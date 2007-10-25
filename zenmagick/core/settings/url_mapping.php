@@ -31,7 +31,7 @@
      * to include in <code>core.php</code>. Also, this leaves the option of
      * alternative storage to improve loading time.</p>
      *
-     * @package net.radebatz.zenmagick.settings
+     * @package org.zenmagick.settings
      */
     function zm_set_default_url_mappings() {
     global $zm_urlMapper;

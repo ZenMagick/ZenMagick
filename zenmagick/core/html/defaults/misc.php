@@ -33,7 +33,7 @@
      * any array that contains class instances that provide <code>getId()</code> and
      * <code>getName()</code> getter methods.</p>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string name The tag name.
      * @param array list A list of options.
      * @param int size Size of the select tag.
@@ -62,7 +62,7 @@
     /**
      * Simple title generator based on the page name.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
      */
@@ -80,7 +80,7 @@
     /**
      * Format title based on the given page value.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string page The page name.
      * @return string A reasonable page title.
      */
@@ -98,7 +98,7 @@
      * <p>This is based on the <em>ZenMagick</em> theme architecture and not
      * compatible with <code>zen-card</code>.</p>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string page The page name or <code>null<code> for the current page.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
@@ -123,7 +123,7 @@
      * <p>Useful when creating dynamic JavaScript based on database content that might
      * include single quotes; e.f. ZenMagick<strong>'</strong>s bla bla...</p>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string text The text to escape.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The escaped text.
@@ -140,7 +140,7 @@
     /**
      * Create a list of values separated by the given separator string.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param array list Array of values.
      * @param string sep Separator string; default: ', '.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -162,7 +162,7 @@
     /**
      * Create  group of hidden form field with a common name (ie. <code>someId[]</code>).
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string name The common name.
      * @param array values List of values.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -185,7 +185,7 @@
      * a class of <em>fieldMsg</em>.
      * Each <code>li</code> will have the type as class assigned.</p>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param string name The field name.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.

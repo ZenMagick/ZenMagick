@@ -33,7 +33,7 @@
  * <p><strong>Note:</strong> The message text needs ot be localised.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMMessage extends ZMModel {

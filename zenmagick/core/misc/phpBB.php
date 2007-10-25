@@ -29,7 +29,7 @@
     /**
      * Get a phpBB database connection.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @return queryFactory A <code>zen-cart</code><code>queryFactor</code> instance.
      */
     function zm_get_bb_db() {
@@ -44,7 +44,7 @@
     /**
      * Checks whether a given phpBB nickname exists or not.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string nick The nickname to validate.
      * @return boolean <code>true</code> if the nickname exists, <code>false</code> if not.
      */
@@ -69,7 +69,7 @@
     /**
      * Creates a phpBB account.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string nick The nickname.
      * @param string email The email address.
      * @param string password The password.
@@ -111,7 +111,7 @@
     /**
      * Createsa phpBB href.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @return string A href to the phpBB main page.
      */
     function zm_get_phpBB_href() {
@@ -123,7 +123,7 @@
     /**
      * Update password.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string nickname The nickname.
      * @param string password The new password.
      */
@@ -142,7 +142,7 @@
     /**
      * Update email.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string oldEmailAddress The old address.
      * @param string newEmailAddress The new email address.
      */
@@ -159,7 +159,7 @@
     /**
      * Check for duplicate email address.
      *
-     * @package net.radebatz.zenmagick.misc
+     * @package org.zenmagick.misc
      * @param string email The email address.
      * @param boolean <code>true<code> if the given email address exists, <code>false</code> if not.
      */

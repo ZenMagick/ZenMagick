@@ -41,7 +41,7 @@ if (!defined('T_ML_COMMENT')) {
  * Compress core into a single file 'core.php'.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin
+ * @package org.zenmagick.admin
  * @version $Id$
  */
 class ZMCoreCompressor extends ZMObject {

@@ -28,7 +28,7 @@
  * Request controller for tell a friend form.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMTellAFriendController extends ZMController {

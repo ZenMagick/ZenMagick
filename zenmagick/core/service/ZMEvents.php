@@ -35,7 +35,7 @@
  * name derived from a zen-cart event will be called automatically.</p>.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMEvents extends ZMObject {

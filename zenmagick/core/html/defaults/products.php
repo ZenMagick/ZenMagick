@@ -39,7 +39,7 @@
      *  &lt;?php } ?&gt;
      * </pre></code>
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param ZMProduct product A <code>ZMProduct</code> instance.
      * @return array An array containing HTML formatted attributes.
      */

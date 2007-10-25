@@ -28,7 +28,7 @@
  * Shipping estimator.
  *
  * @author mano
- * @package net.radebatz.zenmagick.misc
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMShippingEstimator extends ZMObject {

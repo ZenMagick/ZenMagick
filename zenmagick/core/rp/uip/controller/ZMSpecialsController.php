@@ -28,7 +28,7 @@
  * Request controller for specials.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMSpecialsController extends ZMController {

@@ -28,7 +28,7 @@
  * Page cache.
  *
  * @author mano
- * @package net.radebatz.zenmagick.cache
+ * @package org.zenmagick.cache
  * @version $Id$
  */
 class ZMPageCache extends ZMCache {

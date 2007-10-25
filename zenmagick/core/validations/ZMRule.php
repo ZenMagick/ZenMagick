@@ -28,7 +28,7 @@
  * Base class for validation rules.
  *
  * @author mano
- * @package net.radebatz.zenmagick.validations
+ * @package org.zenmagick.validations
  * @version $Id$
  */
 class ZMRule {

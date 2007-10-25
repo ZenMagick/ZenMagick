@@ -28,7 +28,7 @@
  * Single installation patch.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation
+ * @package org.zenmagick.admin.installation
  * @version $Id$
  */
 class ZMInstallationPatch extends ZMObject {

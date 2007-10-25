@@ -34,7 +34,7 @@ if (!class_exists("ZMObject")) {
      * stuff that might be usefull for most/all classes.</p>
      *
      * @author mano
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      */
     class ZMObject {
         var $loader_;
@@ -80,7 +80,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Simple <em>ZenMagick</em> logging function.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string msg The message to log.
      * @param int level Optional level (default: ZM_LOG_INFO).
      */
@@ -98,7 +98,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Configuration lookup.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string name The setting to check.
      * @return mixed The setting value or <code>null</code>.
      */
@@ -117,7 +117,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Set configuration value.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string name The setting to check.
      * @param mixed value (New) value.
      * @return mixed The old setting value or <code>null</code>.
@@ -135,7 +135,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get all settings.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @return array Map of all settings.
      */
     function zm_settings() {
@@ -148,7 +148,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Check if the given string starts with the provided string.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string s The haystack.
      * @param string start The needle.
      * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
@@ -162,7 +162,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Check if the given string ends with the provided string.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string s The haystack.
      * @param string end The needle.
      * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
@@ -180,7 +180,7 @@ if (!class_exists("ZMObject")) {
      * <p>It is worth mentioning that directories will always be processed only after
      * all plain files in a directory are done.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string dir The name of the root directory to scan.
      * @param boolean recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
@@ -229,7 +229,7 @@ if (!class_exists("ZMObject")) {
      *
      * <p>This is pretty much following Java conventions.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string filename The filename.
      * @return string A corresponding class name.
      */
@@ -249,7 +249,7 @@ if (!class_exists("ZMObject")) {
     /**
      * stripslashes incl. array support.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param mixed value A value to strip.
      * @return mixed The stripped value.
      */
@@ -264,7 +264,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Helper function to dump the ZenMagick environment.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      */
     function zm_env() {
     global $zm_loader, $_ZM_SETTINGS;
@@ -315,7 +315,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Split image name into components that we need to process it.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string image The image.
      * @return array An array consisting of [optional subdirectory], [file extension], [basename]
      */
@@ -340,7 +340,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Look up additional product images.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string image The image to look up.
      * @return array An array of <code>ZMImageInfo</code> instances.
      */
@@ -387,7 +387,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Simple helper to strip unwanted stuff from a stack trace.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      */
     function _zm_clean_backtrace($stack) {
         foreach (array('db_', 'loader_') as $ignore) {
@@ -409,7 +409,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string msg If set, die with the provided message.
      */
     function zm_backtrace($msg=null) {
@@ -430,7 +430,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Check if a given value or array is empty.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
@@ -450,7 +450,7 @@ if (!class_exists("ZMObject")) {
      * <p>This function wil also persist existing messages in the session in order to be
      * able to display them after the redirect.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string url A fully qualified url.
      */
     function zm_redirect($url) {
@@ -471,7 +471,7 @@ if (!class_exists("ZMObject")) {
      *
      * <p>Calling this function will end all request handling in an ordered manner.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      */
     function zm_exit() {
         zen_session_close();
@@ -484,7 +484,7 @@ if (!class_exists("ZMObject")) {
      *
      * <p>This functuon ensures that the given class is loaded.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string clazz The class name.
      */
     function zm_resolve_zc_class($clazz) {
@@ -497,7 +497,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get the currently elapsed page execution time.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @return long The execution time in milliseconds.
      */
     function zm_get_elapsed_time() {
@@ -511,7 +511,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Remove a directory (tree).
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string dir The directory name.
      * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
      */
@@ -538,7 +538,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get class hierachy for the given class/object.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param mixed object The object or class name.
      * @return array The class hierachy.
      */
@@ -551,7 +551,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Make dir.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string dir The folder name.
      * @param int perms The file permisssions; (default: 755)
      * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
@@ -579,7 +579,7 @@ if (!class_exists("ZMObject")) {
      * <p>This can be used as argument for <code>eval(..)</code> to make all
      * ZenMagick globals available. Example: <code>eval(zm_globals());</code>.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @return string A valid PHP global directive including all ZenMagick globals.
      */
     function zm_globals() {
@@ -605,7 +605,7 @@ if (!class_exists("ZMObject")) {
      * settings need to be set using <code>define(..)</code>, this is done
      * in a separate function, once loading (and theme switching) is over.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param ZMTheme theme The theme.
      * @param string languageName The language name.
      */
@@ -636,7 +636,7 @@ if (!class_exists("ZMObject")) {
      * <p>Passing default theme id rather than the current theme id is equivalent to
      * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string themeId The themeId to start with.
      * @return ZMTheme The final theme.
      */
@@ -694,7 +694,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Get the root loader.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @return ZMLoader The root loader.
      */
     function &zm_get_root_loader() {
@@ -711,7 +711,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Dispatch the current request.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @return boolean <code>true</code> if the request was dispatched, <code>false</code> if not.
      * @todo Support for internal forwards.
      */
@@ -748,7 +748,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Check if the given value exists in the array or comma separated list.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param string value The value to search for.
      * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
      * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
@@ -765,7 +765,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Fire an event.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param mixed source The event source.
      * @param string eventId The event id.
      * @param array args Optional additional parameter; default is <code>null</code>.
@@ -780,7 +780,7 @@ if (!class_exists("ZMObject")) {
     /**
      * Custom error handler.
      *
-     * @package net.radebatz.zenmagick
+     * @package org.zenmagick
      * @param int errno The error level.
      * @param string errstr The error message.
      * @param string errfile The source filename.

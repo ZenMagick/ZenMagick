@@ -29,7 +29,7 @@
  * Product sorter.
  *
  * @author mano
- * @package net.radebatz.zenmagick.resultlist.sorter
+ * @package org.zenmagick.resultlist.sorter
  * @version $Id$
  */
 class ZMProductSorter extends ZMResultListSorter {

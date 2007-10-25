@@ -28,7 +28,7 @@
  * All stuff related to product prices and offers.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMOffers extends ZMService {

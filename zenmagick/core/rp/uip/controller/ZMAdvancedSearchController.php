@@ -28,7 +28,7 @@
  * Advanced search controller.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMAdvancedSearchController extends ZMController {

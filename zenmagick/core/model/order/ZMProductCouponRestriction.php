@@ -28,7 +28,7 @@
  * Single coupon restriction.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.order
+ * @package org.zenmagick.model.order
  * @version $Id$
  */
 class ZMProductCouponRestriction extends ZMModel {

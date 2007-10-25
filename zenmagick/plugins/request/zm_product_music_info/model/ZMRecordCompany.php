@@ -28,7 +28,7 @@
  * A record company.
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_product_music_info.model
+ * @package org.zenmagick.plugins.zm_product_music_info.model
  * @version $Id: ZMRecordCompany.php 292 2007-08-13 03:18:35Z DerManoMann $
  */
 class ZMRecordCompany extends ZMModel {

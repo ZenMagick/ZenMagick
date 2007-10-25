@@ -30,7 +30,7 @@
  * <p>This one is actually only used internally by the product service.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMAttributes extends ZMService {
@@ -207,8 +207,8 @@ class ZMAttributes extends ZMService {
     function hasAttributes() { return $this->hasAttributes_; }
 
     /**
-     * @return array A list of {@link net.radebatz.zenmagick.model.ZMAttribute ZMAttribute} instances.
-     * @see net.radebatz.zenmagick.model.ZMAttribute ZMAttribute
+     * @return array A list of {@link org.zenmagick.model.ZMAttribute ZMAttribute} instances.
+     * @see org.zenmagick.model.ZMAttribute ZMAttribute
      */
     function getAttributes() { $this->_loadAttributes(); return $this->attributes_; }
 

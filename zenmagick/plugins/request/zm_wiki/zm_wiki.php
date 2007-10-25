@@ -44,7 +44,7 @@ define ('ZM_FILENAME_WIKI', 'wiki');
  * </dl>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_wiki
+ * @package org.zenmagick.plugins.zm_wiki
  * @version $Id$
  */
 class zm_wiki extends ZMBoxPlugin {

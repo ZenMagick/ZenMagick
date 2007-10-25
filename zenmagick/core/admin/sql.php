@@ -31,7 +31,7 @@
      * <p><strong>NOTE:</strong> This functionallity is only available in the context
      * of the ZenMagick installation or plugins page.</p>
      *
-     * @package net.radebatz.zenmagick.admin
+     * @package org.zenmagick.admin
      * @param string sql The sql.
      * @param array Result message list.
      * @param boolean Debug flag.

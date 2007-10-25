@@ -20,6 +20,8 @@ Release 0.8.5
   for themes
 - after a successful registration, redirect to the protected page requested
   before (if any), same as login
+- change all packages to org.zenmagick, update all references to homepage, etc
+  to zenmagick.org
 
 Release 0.8.4
 - make gv_send form secure

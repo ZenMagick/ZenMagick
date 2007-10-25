@@ -28,7 +28,7 @@
  * Popup view.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.views
+ * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */
 class ZMPopupView extends ZMPageView {

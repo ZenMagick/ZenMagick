@@ -45,6 +45,6 @@
       <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
   <?php } ?>
 
-  <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://zenmagick.radebatz.net">ZenMagick</a></p>
-  <p>&copy; 2006,2007  <a href="http://zenmagick.radebatz.net">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
+  <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
+  <p>&copy; 2006,2007  <a href="http://www.zenmagick.org">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
 </div>

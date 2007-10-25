@@ -28,7 +28,7 @@
  * Gift voucher redeem info.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model
+ * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMGVRedeem extends ZMModel {

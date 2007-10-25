@@ -28,7 +28,7 @@
  * A single user account.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.account
+ * @package org.zenmagick.model.account
  * @version $Id$
  */
 class ZMAccount extends ZMModel {

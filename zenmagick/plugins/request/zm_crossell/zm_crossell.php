@@ -33,7 +33,7 @@ if (!defined('SHOW_PRODUCT_INFO_COLUMNS_XSELL_PRODUCTS')) define('SHOW_PRODUCT_I
 /**
  * Plugin for crossell support.
  *
- * @package net.radebatz.zenmagick.plugins.zm_crossell
+ * @package org.zenmagick.plugins.zm_crossell
  * @author DerManoMann
  * @version $Id: zm_crossell.php 337 2007-09-05 23:47:54Z DerManoMann $
  */

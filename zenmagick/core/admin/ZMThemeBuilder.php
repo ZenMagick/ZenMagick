@@ -28,7 +28,7 @@
  * Build the skelton of a new theme.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin
+ * @package org.zenmagick.admin
  * @version $Id$
  */
 class ZMThemeBuilder extends ZMObject {

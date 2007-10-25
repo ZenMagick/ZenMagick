@@ -34,7 +34,7 @@
  *
  * @todo Support for custom/additional channel/item properties.
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMRssController extends ZMController {

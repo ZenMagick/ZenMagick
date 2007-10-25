@@ -28,7 +28,7 @@
  * Orders.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMOrders extends ZMService {

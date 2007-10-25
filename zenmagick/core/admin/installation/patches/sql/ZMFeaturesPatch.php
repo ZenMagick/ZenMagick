@@ -28,7 +28,7 @@
  * Patch to create ZenMagick features database tables.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.sql
+ * @package org.zenmagick.admin.installation.patches.sql
  * @version $Id$
  */
 class ZMFeaturesPatch extends ZMSQLPatch {

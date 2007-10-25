@@ -31,7 +31,7 @@
      *
      * <p>Check for uploaded files and prepare attributes accordingly.</p>
      *
-     * @package net.radebatz.zenmagick.cart
+     * @package org.zenmagick.cart
      * @param ZMProduct product The product.
      * @param array attributes The given attributes.
      * @return array A set of valid attribute values for the given product.
@@ -55,7 +55,7 @@
     /**
      * Sanitize the given attributes and add default values if attributes/values invalid/missing.
      *
-     * @package net.radebatz.zenmagick.cart
+     * @package org.zenmagick.cart
      * @param ZMProduct product The product.
      * @param array attributes The given attributes.
      * @return array A set of valid attribute values for the given product.

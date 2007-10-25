@@ -28,7 +28,7 @@
  * Ajax controller for JSON product data.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.ajax.controller
+ * @package org.zenmagick.rp.ajax.controller
  * @version $Id$
  */
 class ZMAjaxProductController extends ZMAjaxController {

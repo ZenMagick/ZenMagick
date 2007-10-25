@@ -28,7 +28,7 @@
  * Banner.
  *
  * @author mano
- * @package net.radebatz.zenmagick.service
+ * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMBanners extends ZMService {

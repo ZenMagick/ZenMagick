@@ -28,7 +28,7 @@
  * Fixes that are event driven.
  *
  * @author mano
- * @package net.radebatz.zenmagick.misc
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMEventFixes extends ZMObject {

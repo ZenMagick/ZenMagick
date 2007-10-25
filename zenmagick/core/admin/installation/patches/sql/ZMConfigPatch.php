@@ -28,7 +28,7 @@
  * Patch to create ZenMagick config basics.
  *
  * @author mano
- * @package net.radebatz.zenmagick.admin.installation.patches.sql
+ * @package org.zenmagick.admin.installation.patches.sql
  * @version $Id$
  */
 class ZMConfigPatch extends ZMSQLPatch {

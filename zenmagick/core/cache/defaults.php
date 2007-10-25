@@ -37,7 +37,7 @@
      *  <li>There are no messages that need to be  displayed</li>
      * </ol>
      *
-     * @package net.radebatz.zenmagick.cache
+     * @package org.zenmagick.cache
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_is_page_cacheable() {

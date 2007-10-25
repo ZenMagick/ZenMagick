@@ -28,7 +28,7 @@
  * Simple wrapper around <code>$_SESSION</code> to centralise access.
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMSession extends ZMObject {

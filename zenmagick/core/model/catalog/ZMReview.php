@@ -28,7 +28,7 @@
  * A single review.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.catalog
+ * @package org.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMReview extends ZMModel {

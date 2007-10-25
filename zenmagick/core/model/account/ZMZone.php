@@ -28,7 +28,7 @@
  * A address zone.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.account
+ * @package org.zenmagick.model.account
  * @version $Id$
  */
 class ZMZone extends ZMModel {

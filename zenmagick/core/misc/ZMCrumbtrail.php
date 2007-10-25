@@ -28,7 +28,7 @@
  * Crumbtrail.
  *
  * @author mano
- * @package net.radebatz.zenmagick.misc
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMCrumbtrail extends ZMObject {

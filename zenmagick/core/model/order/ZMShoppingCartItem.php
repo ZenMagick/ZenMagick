@@ -28,7 +28,7 @@
  * A single shopping cart item.
  *
  * @author mano
- * @package net.radebatz.zenmagick.model.order
+ * @package org.zenmagick.model.order
  * @version $Id$
  */
 class ZMShoppingCartItem extends ZMModel {

@@ -31,7 +31,7 @@
  * to be required you will have to set up a required rule for the nickname field.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.validations.rules.custom
+ * @package org.zenmagick.validations.rules.custom
  * @version $Id$
  */
 class ZMNickNameRule extends ZMRule {

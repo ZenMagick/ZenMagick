@@ -28,7 +28,7 @@
  * Request controller for product reviews pages.
  *
  * @author mano
- * @package net.radebatz.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMProductReviewsController extends ZMController {

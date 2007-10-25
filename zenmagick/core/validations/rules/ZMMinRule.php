@@ -28,7 +28,7 @@
  * Min max length validation rules.
  *
  * @author mano
- * @package net.radebatz.zenmagick.validations.rules
+ * @package org.zenmagick.validations.rules
  * @version $Id$
  */
 class ZMMinRule extends ZMRule {

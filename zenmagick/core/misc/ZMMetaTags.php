@@ -36,7 +36,7 @@
  * Only exception is the homepage where the keywords will include the top categories.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.misc
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMMetaTags extends ZMObject {

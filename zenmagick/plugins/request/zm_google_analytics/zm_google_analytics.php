@@ -36,7 +36,7 @@
  * <p>For more about Google Analytics see https://www.google.com/support/analytics/bin/answer.py?answer=27203.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick.plugins.zm_google_analytics
+ * @package org.zenmagick.plugins.zm_google_analytics
  * @version $Id$
  */
 class zm_google_analytics extends ZMPlugin {

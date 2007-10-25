@@ -28,7 +28,7 @@
     /**
      * Format an address according to the countries address format.
      *
-     * @package net.radebatz.zenmagick.html.defaults
+     * @package org.zenmagick.html.defaults
      * @param ZMAddress address The address to format.
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.

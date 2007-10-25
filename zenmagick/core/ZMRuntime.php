@@ -31,7 +31,7 @@
  * where I can look up stuff rather than search tons fo files.</p>
  *
  * @author mano
- * @package net.radebatz.zenmagick
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMRuntime extends ZMObject {

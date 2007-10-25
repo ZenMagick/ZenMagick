@@ -28,7 +28,7 @@
     /**
      * Store locator view.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_google_store_locator
+     * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function zm_view_store_locator() {
     global $zm_google_store_locator;
@@ -66,7 +66,7 @@ EOT;
     /**
      * Store locator admin.
      *
-     * @package net.radebatz.zenmagick.plugins.zm_google_store_locator
+     * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function &zm_store_locator_admin() {
     global $zm_request, $zm_google_store_locator;

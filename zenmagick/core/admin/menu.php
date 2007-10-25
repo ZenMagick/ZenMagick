@@ -28,7 +28,7 @@
     /**
      * Add a admin menu item.
      *
-     * @package net.radebatz.zenmagick.admin
+     * @package org.zenmagick.admin
      * @param ZMMenuItem item The new item.
      */
     function zm_add_menu_item(&$item) {
@@ -45,7 +45,7 @@
     /**
      * Display the admin menu.
      *
-     * @package net.radebatz.zenmagick.admin
+     * @package org.zenmagick.admin
      * @param string parent Parent menu id (used for recursive calls).
      */
     function zm_build_menu($parent=null) {

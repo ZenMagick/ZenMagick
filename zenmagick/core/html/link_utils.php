@@ -32,7 +32,7 @@
      * <p>The converter function will be called with two parameters; the current page name
      * and as second parameter a complete map of query parameters.</p>
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
      *  which will be interpreted as using the view name.
@@ -54,7 +54,7 @@
      * <p>If the <code>view</code> argument is <code>null</code>, the current view will be
      * used. The provided parameter will be merged into the current query string.</p>
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -63,9 +63,9 @@
     function zm_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, false, $echo); }
 
     /**
-     * Secure version of {@link net.radebatz.zenmagick.html#zm_href zm_href}.
+     * Secure version of {@link org.zenmagick.html#zm_href zm_href}.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -411,7 +411,7 @@
      * <p>Please note that in <em>ZenMagick</em> all product URLs use the same
      * view name. The actual view name gets resolved only when the href is used.</p>
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param int productId The product id
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
@@ -424,7 +424,7 @@
     /**
      * Convenience function.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string catName The static page name.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given static page.
@@ -439,7 +439,7 @@
      * <p>In constrast to the <code>..._href</code> functions, this one will
      * return a full HTML <code>&lt;a&gt;</code> tag.</p>
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string text The link text (can be plain text or HTML).
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
@@ -455,7 +455,7 @@
     /**
      * Build href for ez-page.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param ZMEZPage page A <code>ZMEZPage</code> instance.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given ez-page.
@@ -493,7 +493,7 @@
     /**
      * Create a full HTML &lt;a&gt; tag.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param integer id The EZ page id.
      * @param string text Optional link text.
      * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
@@ -512,7 +512,7 @@
     /**
      * Create an absolute image path for the given image.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string src The relative image name (relative to zen-cart's image folder).
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The image URI.
@@ -528,7 +528,7 @@
     /**
      * Create an redirect href for the given action and id.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string action The redirect action.
      * @param string id The redirect id.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -549,7 +549,7 @@
     /**
      * Convert a given relative href/URL into a absolute one based on the current context.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string href The URL to convert..
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
@@ -576,7 +576,7 @@
     /**
      * Media href.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string filename The media filename.
      * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return A URL.
@@ -593,7 +593,7 @@
      *
      * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string controller The controller name without the leading <em>ajax_</em>.
      * @param string method The name of the method to call.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
@@ -612,7 +612,7 @@
     /**
      * Convenience function.
      *
-     * @package net.radebatz.zenmagick.html
+     * @package org.zenmagick.html
      * @param string channel The channel.
      * @param string key Optional key, for example, 'new' for the product channel.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
