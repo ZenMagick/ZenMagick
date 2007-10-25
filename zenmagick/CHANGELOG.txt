@@ -16,6 +16,8 @@ Release 0.8.5
 - added new setting 'templateSuffix' with default of '.php'
 - refactor ZenMagick's .htaccess files using Limt rather than LimitExcept
 - added ZMTheme::themeFileContents(..)
+- added experimental plugin that allows to use the Smarty templating engine
+  for themes
 
 Release 0.8.4
 - make gv_send form secure
