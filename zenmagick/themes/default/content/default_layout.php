@@ -42,7 +42,6 @@
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
     <!--[if IE]><link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("ie.css") ?>"  /><![endif]-->
     <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
-    <script type="text/javascript" src="<?php $zm_theme->themeURL("category.js") ?>"></script>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />

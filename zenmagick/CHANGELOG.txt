@@ -22,6 +22,7 @@ Release 0.8.5
   before (if any), same as login
 - change all packages to org.zenmagick, update all references to homepage, etc
   to zenmagick.org
+- cleanup category JS code and move to common.js
 
 Release 0.8.4
 - make gv_send form secure
