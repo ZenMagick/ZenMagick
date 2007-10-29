@@ -25,18 +25,16 @@
 
 
 /**
- * Simple email view.
+ * Simple email view for Smarty templates.
  *
  * <p>Email template are expected in the directory <code>[theme-views-dir]/emails</code>.
  * Filenames follow the pattern <code>[$template].[html|text].php</code>.<p>
  *
  * @author mano
- * @package org.zenmagick.rp.uip.views
+ * @package org.zenmagick.plugins.zm_smarty
  * @version $Id$
  */
-class ZMEmailView extends ZMPageView {
-    var $args_ = null;
-
+class EmailView extends ZMEmailView {
 
     /**
      * Create new email view.
@@ -45,10 +43,8 @@ class ZMEmailView extends ZMPageView {
      * @param boolean html Flag to indicate whether to use the HTML or text template; default is <code>true</code>.
      * @param array args Additional context values.
      */
-    function ZMEmailView($template, $html=true, $args=array()) {
-        parent::__construct('email_'.$template.($html ? '.html' : '.text'));
-
-        $this->args_ = $args;
+    function EmailView($template, $html=true, $args=array()) {
+        parent::__construct($template, $html, $args);
     }
 
     /**
@@ -59,7 +55,7 @@ class ZMEmailView extends ZMPageView {
      * @param array args Additional context values.
      */
     function __construct($template, $html=true, $args=array()) {
-        $this->ZMEmailView($template, $html, $args);
+        $this->EmailView($template, $html, $args);
     }
 
     /**
@@ -71,24 +67,6 @@ class ZMEmailView extends ZMPageView {
 
 
     /**
-     * Returns the full view filename to be includes by a template.
-     *
-     * @return string The full view filename.
-     */
-    function getViewFilename() {
-        return $this->_getViewFilename('email');
-    }
-
-    /**
-     * Check if this view is valid.
-     *
-     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
-     */
-    function isValid() {
-        return file_exists($this->_getViewFilename('email'));
-    }
-
-    /**
      * Generate email content.
      *
      * <p>In contrast to other views, this version will actually not display anything, but rather
@@ -96,25 +74,29 @@ class ZMEmailView extends ZMPageView {
      * code.</p>
      */
     function generate() {
+    global $zm_smarty;
+
+        // first, check for file
         $filename = $this->getViewFilename();
         if (!file_exists($filename)) {
             return "";
         }
 
+        // get smarty instance
+        $smarty = $zm_smarty->getSmarty();
+
+        // *export* globals from controller into template space
         $controller = $this->getController();
-        if (null !== $controller) {
-            // *export* globals from controller into view space
-            foreach ($controller->getGlobals() as $name => $instance) {
-                $$name = $instance;
-            }
+        foreach ($controller->getGlobals() as $name => $instance) {
+            $smarty->assign($name, $instance);
         }
         // same for custom args
         foreach ($this->args_ as $name => $instance) {
-            $$name = $instance;
+            $smarty->assign($name, $instance);
         }
 
         ob_start();
-        include($this->getViewFilename());
+        $smarty->display($filename);
         return ob_get_clean();
     }
 

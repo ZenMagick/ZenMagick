@@ -26,6 +26,8 @@ Release 0.8.5
 - fix broken product_reviewsd_info.php
 - do not append store name to tile for homepage
 - fix cart id compatibility issue with Ajax addProduct
+- use loader to create ZMEmailView instances
+- make email and popup views work with the Smarty plugin
 
 Release 0.8.4
 - make gv_send form secure

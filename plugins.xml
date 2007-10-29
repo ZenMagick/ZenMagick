@@ -59,6 +59,11 @@
             <param name="plugin.name" value="zm_google_store_locator" />
             <param name="plugin.version" value="${plugins.zm_google_store_locator.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_smarty" />
+            <param name="plugin.version" value="${plugins.zm_smarty.version}" />
+        </antcall>
     </target>
 
     

@@ -84,6 +84,11 @@ class zm_smarty extends ZMPlugin {
         zm_set_setting('isEnableThemeDefaults', false);
 
         $zm_layout = $this->create("Layout");
+
+        // make sure PageView is loaded as PopupView extends it
+        if (!class_exists('PageView')) {
+            $this->create('PageView', 'dummy');
+        }
     }
 
 

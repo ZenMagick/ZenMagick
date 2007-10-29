@@ -10,7 +10,7 @@ Template engines, in contrast, use their own syntax and conventions. They are
 a good (better?) way of separating processing from layout, as only restricted
 functionallity is available.
 
-Smarty is such a templating engine and included in this plugin.
+Smarty is such a templating engine.
 
 
 Installation
@@ -25,11 +25,11 @@ appropriate patch from the ZenMagick installation screen (admin)
 4) Select the new theme (smartyDefault)
 5) Install the plugin using the ZenMagick Plugin Manager.
 6) Configure the path to your Smarty installation, for example '/usr/local/lib/php/Smarty'
-If the value is left empty, the plugin will expect Smarty in '[PLUGIN_DIR]/smarty'
+If the path is left empty, the plugin will expect Smarty in '[PLUGIN_DIR]/smarty'
 
-You may either use the included theme for further development or take a copy.
+You may either use the included theme for further development or take a copy and start your own.
 Smarty themes **do not support theme defaults**, so you'll have to include everything
-you need in order to work properly.
+you need in your theme in order to work properly.
 
 
 Configuration
@@ -42,4 +42,4 @@ $config_dir = [THEME_FOLDER]/configs
 $plugins_dir = array( 'plugins', '[PLUGIN_DIR]/zm_plugins');
 
 To customize those and other settings you can provide a callback function zms_smarty_config.
-An example function is included in the demo theme.
+An example function is included in the included theme.

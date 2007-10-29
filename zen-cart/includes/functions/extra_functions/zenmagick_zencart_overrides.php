@@ -74,10 +74,10 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * version of it.
      */
     function zen_build_html_email_from_template($template, $args=array()) {
-    global $zm_request;
+    global $zm_request, $zm_loader;
 
         if (!isset($zm_request) || !class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }
-        $view = new ZMEmailView($template, true, $args);
+        $view = $zm_loader->create("EmailView", $template, true, $args);
         if (!file_exists($view->getViewFilename()) && function_exists('zen_build_html_email_from_template_org')) {
             // default to zen-cart
             return zen_build_html_email_from_template_org($template, $args);

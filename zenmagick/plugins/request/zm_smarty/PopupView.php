@@ -25,30 +25,30 @@
 
 
 /**
- * Theme view using the Smarty templating engine.
+ * Popup view using the Smarty templating engine.
  *
  * @author mano
  * @package org.zenmagick.plugins.zm_smarty
  * @version $Id$
  */
-class PageView extends ZMPageView {
+class PopupView extends PageView {
 
     /**
-     * Create new theme view view.
+     * Create new popup view.
      *
      * @param string page The page (view) name.
      */
-    function PageView($page) {
+    function PopupView($page) {
         parent::__construct($page);
     }
 
     /**
-     * Create new theme view view.
+     * Create new popup view.
      *
      * @param string page The page (view) name.
      */
     function __construct($page) {
-        $this->PageView($page);
+        $this->PopupView($page);
     }
 
     /**
@@ -60,28 +60,21 @@ class PageView extends ZMPageView {
 
 
     /**
-     * Generate view response.
+     * Returns the full view filename to be includes by a template.
+     *
+     * @return string The full view filename.
      */
-    function generate() { 
-    global $zm_smarty;
+    function getViewFilename() {
+        return $this->_getViewFilename('popup');
+    }
 
-        // get smarty instance
-        $smarty = $zm_smarty->getSmarty();
-
-        // *export* globals from controller into template space
-        $controller = $this->getController();
-        foreach ($controller->getGlobals() as $name => $instance) {
-            $smarty->assign($name, $instance);
-        }
-
-        $template = $this->getLayout();
-        if (null != $template) {
-            // layout template will include the view using this variable
-            $smarty->assign('view_name', $this->getViewFilename());
-            $smarty->display($template.zm_setting('templateSuffix'));
-        } else {
-            $smarty->display($this->getName().zm_setting('templateSuffix'));
-        }
+    /**
+     * Check if this view is valid.
+     *
+     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
+     */
+    function isValid() {
+        return file_exists($this->_getViewFilename('popup'));
     }
 
 }
