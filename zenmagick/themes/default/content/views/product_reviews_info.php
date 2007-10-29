@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php $imageInfo = $zm_product->getImageInfo() ?>
-      <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image($zm_product) ?></a>
+      <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image_link($zm_product) ?></a>
       <?php echo $zm_product->getDescription(); ?>
     </div>
     <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
@@ -36,9 +36,9 @@
 
     <p id="author">
       <?php zm_l10n("Review by: %s", $zm_review->getAuthor()) ?>
-      <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()) ?>
+      <?php $rtext = zm_l10n_get("%s of 5 stars!", $zm_review->getRating()) ?>
       <span id="stars">
-        <img src="<?php $zm_theme->themeURL('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
+        <img src="<?php $zm_theme->themeURL('images/stars_'.$zm_review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
         <?php echo $rtext ?>
       </span>
     </p>

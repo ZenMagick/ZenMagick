@@ -117,7 +117,7 @@ class ZMMetaTags extends ZMObject {
             }
         }
 
-        if (zm_setting('isStoreNameInTitle')) {
+        if (zm_setting('isStoreNameInTitle') && 'index' != $page) {
             if (0 < strlen($title)) $title .= zm_setting('metaTitleDelimiter');
             $title .= zm_setting('storeName');
         }

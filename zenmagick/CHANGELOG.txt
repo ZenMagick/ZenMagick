@@ -23,6 +23,9 @@ Release 0.8.5
 - change all packages to org.zenmagick, update all references to homepage, etc
   to zenmagick.org
 - cleanup category JS code and move to common.js
+- fix broken product_reviewsd_info.php
+- do not append store name to tile for homepage
+- fix cart id compatibility issue with Ajax addProduct
 
 Release 0.8.4
 - make gv_send form secure

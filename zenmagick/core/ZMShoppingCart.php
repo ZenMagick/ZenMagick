@@ -553,6 +553,8 @@ class ZMShoppingCart extends ZMService {
         $attributes = zm_sanitize_attributes($product, $attributes);
         $attributes = zm_prepare_uploads($product, $attributes);
 
+        //TODO: zc: comp
+        $attributes = (0 < count($attributes) ? $attributes : '');
         $cartProductId = zm_product_variation_id($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();

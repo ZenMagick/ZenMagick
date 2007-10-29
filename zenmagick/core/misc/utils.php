@@ -258,7 +258,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 return zen_get_uprid($productId, $attributes);
         $fullProductId = $productId;
 
-        if (is_array($attributes) && !strstr($productId, ':')) {
+        if (is_array($attributes) && 0 < count($attributes) && !strstr($productId, ':')) {
             krsort($attributes);
             $s = $productId;
             foreach ($attributes as $id => $value) {
