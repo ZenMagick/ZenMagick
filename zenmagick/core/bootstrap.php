@@ -461,6 +461,8 @@ if (!class_exists("ZMObject")) {
             $session->setMessages($zm_messages->getMessages());
         }
 
+        $url = str_replace('&amp;', '&', $url);
+
         header('Location: ' . $url);
         zm_exit();
     }

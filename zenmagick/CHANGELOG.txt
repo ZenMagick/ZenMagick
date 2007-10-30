@@ -32,6 +32,7 @@ Release 0.8.5
 - fix 'read reviews' link on product page
 - fix invalud URLs when redirecting after login/create account (&amp; in
   query)
+- fix more &amp; issues in zm_redirect(..)
 
 Release 0.8.4
 - make gv_send form secure
