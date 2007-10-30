@@ -28,6 +28,8 @@ Release 0.8.5
 - fix cart id compatibility issue with Ajax addProduct
 - use loader to create ZMEmailView instances
 - make email and popup views work with the Smarty plugin
+- added event fix to get zen_back_link() working
+- fix 'read reviews' link on product page
 
 Release 0.8.4
 - make gv_send form secure

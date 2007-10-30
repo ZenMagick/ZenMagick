@@ -76,6 +76,17 @@ class ZMEventFixes extends ZMObject {
         }
     }
 
+    /**
+     * Remove ajax requests from navigation history.
+     */
+    function onZMDispatchStart() {
+    global $zm_request;
+
+        if (false !== strpos($zm_request->getPageName(), 'ajax')) {
+            $_SESSION['navigation']->remove_current_page();
+        }
+    }
+
 }
 
 ?>

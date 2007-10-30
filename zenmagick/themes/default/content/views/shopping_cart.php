@@ -71,3 +71,5 @@
     </div>
 
 </form>
+
+<?php echo zen_back_link()."Continue Shopping</a>" ?>
