@@ -30,6 +30,8 @@ Release 0.8.5
 - make email and popup views work with the Smarty plugin
 - added event fix to get zen_back_link() working
 - fix 'read reviews' link on product page
+- fix invalud URLs when redirecting after login/create account (&amp; in
+  query)
 
 Release 0.8.4
 - make gv_send form secure

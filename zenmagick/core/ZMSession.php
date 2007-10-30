@@ -253,7 +253,7 @@ class ZMSession extends ZMObject {
                 array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
             $_SESSION['navigation']->clear_snapshot();
         }
-        return $url;
+        return str_replace('&amp;', '&', $url);
     }
 
     /**
