@@ -238,6 +238,37 @@ class ZMTheme extends ZMObject {
     function staticPageContent($page, $echo=true) {
     global $zm_runtime;
 
+        if (!zm_setting('isZMDefinePages')) {
+            return $this->zcStaticPageContent($page, $echo);
+        }
+
+        $language = $zm_runtime->getLanguageName();
+        $path = $this->getLangDir().$language."/".ZM_THEME_STATIC_DIR;
+
+        $filename = $path.$page.'.php';
+        if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
+            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$language."/".ZM_THEME_STATIC_DIR.$page.'.php';
+        }
+
+        $contents = file_get_contents($filename);
+
+        if ($echo) echo $contents;
+        return $contents;
+    }
+
+    /**
+     * Get the content of a static (define) page using the zen-cart location.
+     *
+     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
+     * the method will try to resolve the name in the default theme.</p>
+     *
+     * @param string page The page name.
+     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @return string The content.
+     */
+    function zcStaticPageContent($page, $echo=true) {
+    global $zm_runtime;
+
         $language = $zm_runtime->getLanguageName();
         $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
@@ -248,15 +279,6 @@ class ZMTheme extends ZMObject {
 
         if ($echo) echo $contents;
         return $contents;
-    }
-
-    /**
-     * Old version of <code>staticPageContent(..)</code>.
-     * @deprecated
-     */
-    function includeStaticPageContent($page, $echo=true) {
-        zm_backtrace('this method is deprecated; please use staticPageContent(..) instead.');
-        return $this->staticPageContent($page, $echo);
     }
 
     /**

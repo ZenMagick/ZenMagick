@@ -33,6 +33,9 @@ Release 0.8.5
 - fix invalud URLs when redirecting after login/create account (&amp; in
   query)
 - fix more &amp; issues in zm_redirect(..)
+- removed deprecated method ZMTheme::includeStaticPageContent(..)
+- added new setting 'isZMDefinePages' that will make the code look in the
+  themes folder for define pages (example: lang/english/static/main_page.php)
 
 Release 0.8.4
 - make gv_send form secure

@@ -65,6 +65,9 @@
     // method to determine if page is cacheable or not
     $_ZM_SETTINGS['pageCacheStrategyCallback'] = 'zm_is_page_cacheable';
 
+    // look for define pages in theme folder
+    $_ZM_SETTINGS['isZMDefinePages'] = false;
+
     // rss config
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/rss/";
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
