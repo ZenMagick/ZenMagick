@@ -71,35 +71,35 @@ class ZMRssItem extends ZMModel {
      *
      * @return string The item title.
      */
-    function getTitle() { return $this->item_['title']; }
+    function getTitle() { return $this->getProperty('title'); }
 
     /**
      * Get the item link.
      *
      * @return string The item link.
      */
-    function getLink() { return $this->item_['link']; }
+    function getLink() { return $this->getProperty('link'); }
 
     /**
      * Get the item description.
      *
      * @return string The item description.
      */
-    function getDescription() { return $this->item_['description']; }
+    function getDescription() { return $this->getProperty('description'); }
 
     /**
      * Get the item category.
      *
      * @return string The item category.
      */
-    function getCategory() { return $this->item_['category']; }
+    function getCategory() { return $this->getProperty('category'); }
 
     /**
      * Get the item publish date.
      *
      * @return string The item publish date.
      */
-    function getPubDate() { return $this->item_['pubDate']; }
+    function getPubDate() { return $this->getProperty('pubDate'); }
 
     /**
      * Set the item title.
@@ -152,14 +152,14 @@ class ZMRssItem extends ZMModel {
      * @param string name The property name.
      * @return string value The value or <code>null</code>.
      */
-    function getProperty($name) { return isset($this->item_[$name]) ? $this->rs_[$name] : null; }
+    function getProperty($name) { return isset($this->item_[$name]) ? $this->item_[$name] : null; }
 
     /**
      * Get all properties.
      *
      * @return array Name/value map.
      */
-    function getProperties() { return $this->rs_; }
+    function getProperties() { return $this->item_; }
 
 }
 

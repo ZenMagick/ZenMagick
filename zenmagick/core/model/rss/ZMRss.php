@@ -53,7 +53,6 @@ class ZMRss extends ZMObject {
         parent::__construct();
 
         $this->url_ = $url;
-        $this->channel_ = $channel;
         $this->limit_ = $limit;
         $rss = new lastRSS();
         $rss->cache_dir = zm_setting('rssCacheDir');
