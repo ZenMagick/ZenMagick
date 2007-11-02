@@ -1,4 +1,11 @@
 <?php
+
+    // display errors in browser
+    //@ini_set("display_errors", true);
+
+    // report ALL errors, warnings and info messages (and that might be a lot)
+    //error_reporting(E_ALL);
+
     // disable ZenMagick themes
     //zm_set_setting('isEnableZenMagick', false);
 

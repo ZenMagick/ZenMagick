@@ -37,6 +37,7 @@ Release 0.8.5
 - added new setting 'isZMDefinePages' that will make the code look in the
   themes folder for define pages (example: lang/english/static/main_page.php)
 - fix some typos in ZMRssItem
+- add examples for debug config (error logging) to local.in.php
 
 Release 0.8.4
 - make gv_send form secure
