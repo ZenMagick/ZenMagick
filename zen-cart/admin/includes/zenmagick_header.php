@@ -36,7 +36,7 @@
         $id = strtolower($group->getName());
         $id = str_replace(' ', '', $id);
         $id = str_replace('/', '-', $id);
-        zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName()), 'zmAdmin.php?zmPage=configuration.php&gID='.$group->getId()));
+        zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName()), 'zmAdmin.php?zmPage=configuration.php&amp;gID='.$group->getId()));
     }
 
     ob_start();
@@ -55,7 +55,7 @@
             $link = $item['link'];
             if ($isZMAdmin) {
                 $url = parse_url($link);
-                $link = 'zmAdmin.php?zmPage='.basename($url['path']).'&'.$url['query'];
+                $link = 'zmAdmin.php?zmPage='.basename($url['path']).'&amp;'.$url['query'];
             }
             zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text']), $link));
         }

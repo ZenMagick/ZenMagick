@@ -70,7 +70,7 @@
                     }
                     echo '>';
                 }
-                echo '<li '.($first ? '" class="first"' : '').'>';
+                echo '<li'.($first ? ' class="first"' : '').'>';
                 $first = false;
                 if (null == $parent) {
                     echo $item->getTitle();
