@@ -73,6 +73,7 @@
                 echo '<li'.($first ? ' class="first"' : '').'>';
                 $first = false;
                 if (null == $parent) {
+                    // menu only
                     echo $item->getTitle();
                 } else {
                     $url = $item->getURL();
