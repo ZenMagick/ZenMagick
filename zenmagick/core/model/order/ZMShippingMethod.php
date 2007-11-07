@@ -95,6 +95,16 @@ class ZMShippingMethod extends ZMModel {
      */
     function getProvider() { return $this->provider_; }
 
+    /**
+     * Get the shipping id.
+     *
+     * @return string The shipping id as used by the shopping cart.
+     */
+    function getShippingId() {
+        $id = $this->provider_->getId() . '_' . $this->getId();
+        return $id;
+    }
+
 }
 
 ?>

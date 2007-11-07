@@ -38,6 +38,7 @@ Release 0.8.5
   themes folder for define pages (example: lang/english/static/main_page.php)
 - fix some typos in ZMRssItem
 - add examples for debug config (error logging) to local.in.php
+- added ZMShippingMethod::getShippingId() and made zm_shipping_id(..)
 
 Release 0.8.4
 - make gv_send form secure

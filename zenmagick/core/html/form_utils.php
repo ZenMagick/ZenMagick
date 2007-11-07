@@ -202,7 +202,10 @@
         return $html;
     }
 
-    // create form id for shipping method
+    /**
+     * create form id for shipping method
+     * @deprecated
+     */
     function zm_shipping_id($method, $echo=true) {
         $provider = $method->getProvider();
         $id = $provider->getId() . '_' . $method->getId();

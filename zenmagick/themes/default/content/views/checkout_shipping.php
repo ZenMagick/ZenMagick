@@ -53,11 +53,11 @@
                     <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
                         <tr><td colspan="3"><strong><?php echo $provider->getName() ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
                         <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
-                            <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || (zm_shipping_id($method, false) == $zm_cart->getShippingMethodId()); ?>
+                            <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $zm_cart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php echo $method->getName() ?></td>
                                 <td class="smcost"><?php zm_format_currency($method->getCost()) ?></td>
-                                <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php zm_shipping_id($method) ?>"<?php zm_radio_state(true, $selected) ?> /></td>
+                                <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php zm_radio_state(true, $selected) ?> /></td>
                             </tr>
                         <?php } ?>
                     <?php } ?>
