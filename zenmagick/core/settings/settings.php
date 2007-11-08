@@ -68,6 +68,9 @@
     // look for define pages in theme folder
     $_ZM_SETTINGS['isZMDefinePages'] = false;
 
+    // static homepage
+    $_ZM_SETTINGS['staticHome'] = null;
+
     // rss config
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/rss/";
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;

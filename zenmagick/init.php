@@ -112,6 +112,12 @@
         include($_zm_local);
     }
 
+    // here we can check for a static homepage
+    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $zm_request->getPageName()
+        && null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId() && null == $zm_request->getParameter('compareId')) {
+        require(zm_setting('staticHome')); exit;
+    }
+
     if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
         // register custom error handler
         //error_reporting(E_ALL);

@@ -39,6 +39,9 @@ Release 0.8.5
 - fix some typos in ZMRssItem
 - add examples for debug config (error logging) to local.in.php
 - added ZMShippingMethod::getShippingId() and made zm_shipping_id(..)
+- add new setting 'staticHome' which can be set to any file to be used as
+  homepage; this is not ideal yet, as it needs most of the init code to be
+	able to access the setting.
 
 Release 0.8.4
 - make gv_send form secure
