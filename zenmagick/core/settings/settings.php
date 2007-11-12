@@ -208,7 +208,7 @@
     $_ZM_SETTINGS['shippingTaxBase'] = STORE_SHIPPING_TAX_BASIS; //shipping,billing,store
 
     $_ZM_SETTINGS['discountDecimals'] = SHOW_SALE_DISCOUNT_DECIMALS;
-    $_ZM_SETTINGS['calculationDecimals'] = SHOW_SALE_DISCOUNT_DECIMALS;
+    $_ZM_SETTINGS['calculationDecimals'] = 4;
 
     // site map
     $_ZM_SETTINGS['isSiteMapAccountLinks'] = SHOW_ACCOUNT_LINKS_ON_SITE_MAP=='Yes';
