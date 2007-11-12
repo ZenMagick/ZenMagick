@@ -78,7 +78,7 @@ class ZMMessages extends ZMService {
      * Load messages from zen-cart message stack.
      */
     function _loadMessageStack() {
-    global $messageStack;
+    global $messageStack, $zm_request;
 
         $session = new ZMSession();
 
@@ -94,6 +94,14 @@ class ZMMessages extends ZMService {
         } else {
             // look for session messages
             $this->addAll($session->getMessages());
+        }
+
+        // also check for messages in the request...
+        if (null != ($error = $zm_request->getParameter('error_message'))) {
+            $this->error($error);
+        }
+        if (null != ($info = $zm_request->getParameter('info_message'))) {
+            $this->info($info);
         }
 
         $session->clearMessages();
