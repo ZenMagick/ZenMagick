@@ -91,24 +91,29 @@ class ZMOffers extends ZMService {
     /**
      * Get the product price.
      *
+     * <p>This is the price as configured in the database.</p>
+     *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The product price.
      */
-    function getProductPrice() {
-        return zm_add_tax($this->product_->price_, $this->taxRate_);
+    function getProductPrice($tax=true) {
+        return $tax ? zm_add_tax($this->product_->price_, $this->taxRate_) : $this->product_->price_;
     }
 
     /**
-     * Get the base price; this is the lowest possible price.
+     * Get the base price; this is the lowest possible product price.
      *
      * <p>The base price consists of the product price plus the lowest attribute price (if any).</p>
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The base price.
      */
-    function getBasePrice() {
+    function getBasePrice($tax=true) {
         if (null === $this->basePrice_) {
-            $this->basePrice_ = zm_add_tax($this->_getBasePrice(), $this->taxRate_);
+            $this->basePrice_ = $this->_getBasePrice();
         }
-        return $this->basePrice_;
+
+        return $tax ? zm_add_tax($this->basePrice_, $this->taxRate_) : $this->basePrice_;
     }
 
     /**
@@ -146,13 +151,17 @@ class ZMOffers extends ZMService {
     /**
      * Get the special price.
      *
+     * <p>Special price as configured.</p>
+     *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The special price.
      */
-    function getSpecialPrice() {
+    function getSpecialPrice($tax=true) {
         if (null === $this->specialPrice_) {
-            $this->specialPrice_ = zm_add_tax($this->_getSpecialPrice(), $this->taxRate_);
+            $this->specialPrice_ = $this->_getSpecialPrice();
         }
-        return $this->specialPrice_;
+
+        return $tax ? zm_add_tax($this->specialPrice_, $this->taxRate_) : $this->specialPrice_;
     }
 
     /**
@@ -175,22 +184,25 @@ class ZMOffers extends ZMService {
     /**
      * Get the discount price.
      *
+     * <p>This price is the price as set up with the sales maker in the admin interface.</p>
+     *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The discount price.
      */
-    function getSalePrice() {
+    function getSalePrice($tax=true) {
         if (null === $this->salePrice_) {
-            // no tax here, as sale price is based on base/special price
             $this->salePrice_ = $this->_getSalePrice();
         }
-        return $this->salePrice_;
+
+        return $tax ? zm_add_tax($this->salePrice_, $this->taxRate_) : $this->salePrice_;
     }
 
     /**
      * Calculate the discount price.
      */
     function _getSalePrice() {
-  	    $basePrice = $this->getBasePrice();
-  	    $specialPrice = $this->getSpecialPrice();
+  	    $basePrice = $this->getBasePrice(false);
+  	    $specialPrice = $this->getSpecialPrice(false);
 
         $db = $this->getDB();
         // get available sales
@@ -217,16 +229,15 @@ class ZMOffers extends ZMService {
         $bestSpecialPrice = $specialPrice ? $specialPrice : $basePrice;
 
         switch ($saleType) {
-          case 0:
-            // fixed discount
+          case ZM_SALE_TYPE_AMOUNT:
             $saleBasePrice = $basePrice - $saleValue;
             $saleSpecialPrice = $bestSpecialPrice - $saleValue;
             break;
-          case 1: // %
+          case ZM_SALE_TYPE_PERCENT:
             $saleBasePrice = $basePrice - (($basePrice * $saleValue) / 100);
             $saleSpecialPrice = $bestSpecialPrice - (($bestSpecialPrice * $saleValue) / 100);
             break;
-          case 2: // fixed new price
+          case ZM_SALE_TYPE_PRICE:
             $saleBasePrice = $saleValue;
             $saleSpecialPrice = $saleValue;
             break;
@@ -235,25 +246,27 @@ class ZMOffers extends ZMService {
             return $bestSpecialPrice;
         }
 
+        $calculationDecimals = zm_setting('calculationDecimals');
+
         // sanitize
         $saleBasePrice = $saleBasePrice < 0 ? 0 : $saleBasePrice;
         $saleSpecialPrice = $saleSpecialPrice < 0 ? 0 : $saleSpecialPrice;
 
         if (!$specialPrice) {
-            return number_format($saleBasePrice, 4, '.', '');
+            return number_format($saleBasePrice, $calculationDecimals, '.', '');
         } else {
             switch($saleCondition){
                 case 0:
-                    return number_format($saleBasePrice, 4, '.', '');
+                    return number_format($saleBasePrice, $calculationDecimals, '.', '');
                     break;
                 case 1:
-                    return number_format($specialPrice, 4, '.', '');
+                    return number_format($specialPrice, $calculationDecimals, '.', '');
                     break;
                 case 2:
-                    return number_format($saleSpecialPrice, 4, '.', '');
+                    return number_format($saleSpecialPrice, $calculationDecimals, '.', '');
                     break;
                 default:
-                    return number_format($specialPrice, 4, '.', '');
+                    return number_format($specialPrice, $calculationDecimals, '.', '');
             }
         }
     }
@@ -263,17 +276,17 @@ class ZMOffers extends ZMService {
      * Calculate the (best) price.
      */
     function _calculatePrice() {
-        $basePrice = $this->getBasePrice();
-        $specialPrice = $this->getSpecialPrice();
-        $salePrice = $this->getSalePrice();
+        $basePrice = $this->getBasePrice(false);
+        $specialPrice = $this->getSpecialPrice(false);
+        $salePrice = $this->getSalePrice(false);
 
         // calculate discount
         $this->discountPercent_ = 0;
         if (0 != $specialPrice || 0 != $salePrice) {
             if (0 != $salePrice) {
-                $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), SHOW_SALE_DISCOUNT_DECIMALS);
+                $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), zm_setting('discountDecimals'));
             } else {
-                $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), SHOW_SALE_DISCOUNT_DECIMALS);
+                $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), zm_setting('discountDecimals'));
             }
         }
     }
@@ -311,17 +324,18 @@ class ZMOffers extends ZMService {
      *
      * <p>This is the actual price, taking into account if sale or discount are available.</p>
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    function getCalculatedPrice() { 
+    function getCalculatedPrice($tax=true) { 
         if ($this->product_->isFree()) {
             return 0;
-        } else if (0 != $this->salePrice_) {
-            return  $this->salePrice_;
-        } else if (0 != $this->specialPrice_) {
-            return  $this->specialPrice_;
+        } else if (0 != ($salePrice = $this->getSalePrice($tax))) {
+            return $salePrice;
+        } else if (0 != ($specialPrice = $this->getSpecialPrice($tax))) {
+            return $specialPrice;
         } else {
-            return $this->basePrice_; 
+            return $this->getBasePrice($tax); 
         }
     }
 

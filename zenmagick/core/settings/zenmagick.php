@@ -129,6 +129,13 @@
     define('ZM_COUPON_TYPPE_GV', 'G');
 
 
+    //** sale types **//
+
+    define('ZM_SALE_TYPE_AMOUNT', 0);
+    define('ZM_SALE_TYPE_PERCENT', 1);
+    define('ZM_SALE_TYPE_PRICE', 2);
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

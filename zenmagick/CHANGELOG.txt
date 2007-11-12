@@ -42,6 +42,13 @@ Release 0.8.5
 - add new setting 'staticHome' which can be set to any file to be used as
   homepage; this is not ideal yet, as it needs most of the init code to be
 	able to access the setting.
+- add new setting 'discountDecimals', to set the number of decimals used for
+  discount calculations (eg. Save: 15.3% for one decimal point)
+- add new constants for different sale types
+- add new setting 'calculationDecimals' to set the number of decimal digits
+  used internally (default is 4) (Note: This is hardcoded in zen-cart 1.3.7)
+- fix rounding bug in sales prices; this was a random rounding bug caused by
+  tax applied too early in the calculation
 
 Release 0.8.4
 - make gv_send form secure
