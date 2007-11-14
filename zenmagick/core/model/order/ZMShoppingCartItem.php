@@ -77,7 +77,6 @@ class ZMShoppingCartItem extends ZMModel {
     function getImage() { return $this->zenItem_['image']; }
     function getImageInfo() { return $this->create("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
-    function isStockAvailable() { return !zm_not_null(zm_check_stock($this->getId(), $this->zenItem_['quantity'])); }
     function getItemPrice() { return zm_add_tax($this->zenItem_['final_price'], $this->getTaxRate()); }
     function getItemTotal() { return zm_add_tax($this->zenItem_['final_price'], $this->getTaxRate()) * $this->zenItem_['quantity']; }
     function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
@@ -97,6 +96,16 @@ class ZMShoppingCartItem extends ZMModel {
         }
         return $this->attributes_;
     }
+
+    /**
+     * Check stock availability for the current quantity.
+     *
+     * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
+     */
+    function isStockAvailable() {
+        return !zen_check_stock($this->getId(), $this->getQty());
+    }
+
 }
 
 ?>

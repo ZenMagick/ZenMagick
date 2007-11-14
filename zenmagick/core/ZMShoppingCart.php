@@ -116,6 +116,23 @@ class ZMShoppingCart extends ZMService {
     function freeShippingCount() { return $this->cart_->in_cart_check('product_is_always_free_shipping','1'); }
 
     /**
+     * Check for out of stock items.
+     *
+     * @return boolean <code>true</code> if the cart contains items that are out of stock,
+     *  <code>false</code> if not.
+     */
+    function hasOutOfStockItems() {
+        $zenItems = $this->cart_->get_products();
+        foreach ($zenItems as $zenItem) {
+            if (zen_check_stock($zenItem['id'], $zenItem['quantity'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Check for virtual cart.
      * 
      * @return boolean <code>true</code> if the cart is purely virtual.

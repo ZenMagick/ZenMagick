@@ -51,6 +51,7 @@ Release 0.8.5
   tax applied too early in the calculation
 - check for error/info messages in request (error_message/info_message) as
   used by, for example, payment modules (why the heck??)
+- add new method ZMShoppingCart::hasOutOfStockItems()
 
 Release 0.8.4
 - make gv_send form secure
