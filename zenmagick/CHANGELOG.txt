@@ -52,6 +52,7 @@ Release 0.8.5
 - check for error/info messages in request (error_message/info_message) as
   used by, for example, payment modules (why the heck??)
 - add new method ZMShoppingCart::hasOutOfStockItems()
+- default to gv as payment type if none found (that's what zen-cart does)
 
 Release 0.8.4
 - make gv_send form secure

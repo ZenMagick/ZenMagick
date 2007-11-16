@@ -111,11 +111,15 @@ class ZMPayments extends ZMService {
     /**
      * Get the selected payment type.
      *
-     * @return ZMPaymentType The payment type.
+     * @return ZMPaymentType The payment type or <code>null</code>.
      */
     function &getSelectedPaymentType() {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
-        if (!$zenModule) return null;
+        if (!$zenModule) { 
+            // must be GV, then, so build custom type
+            $paymentType =& $this->create("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
+            return $paymentType;
+        }
         $confirmation = $zenModule->confirmation();
 
         $paymentType =& $this->create("PaymentType", $zenModule->code, $zenModule->title);
