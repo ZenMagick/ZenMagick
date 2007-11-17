@@ -51,6 +51,7 @@ class ZMPlugin extends ZMObject {
     var $pluginDir_ = null;
     var $loaderSupport_;
     var $handler_;
+    var $traditional_;
 
 
     /**
@@ -74,6 +75,7 @@ class ZMPlugin extends ZMObject {
         $this->pluginDir_ = null;
         $this->loaderSupport_ = 'PLUGIN';
         $this->handler_ = null;
+        $this->traditional_ = true;
     }
 
     /**
@@ -202,6 +204,24 @@ class ZMPlugin extends ZMObject {
      */
     function getVersion() {
         return $this->version_;
+    }
+
+    /**
+     * Get the traditional flag.
+     *
+     * @return boolean <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
+     */
+    function isTraditional() {
+        return $this->traditional_;
+    }
+
+    /**
+     * Set the traditional flag.
+     *
+     * @param boolean traditional <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
+     */
+    function setTraditional($traditional) {
+        $this->traditional_ = $traditional;
     }
 
     /**

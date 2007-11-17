@@ -64,6 +64,11 @@
             <param name="plugin.name" value="zm_smarty" />
             <param name="plugin.version" value="${plugins.zm_smarty.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_master_password" />
+            <param name="plugin.version" value="${plugins.zm_master_password.version}" />
+        </antcall>
     </target>
 
     

@@ -43,7 +43,10 @@
      * @param string encrypted The encrypted password.
      * @return boolean <code>true</code> if the passwords match, <code>false</code> if not.
      */
-    function zm_validate_password($clear, $encrypted) { return zen_validate_password($clear, $encrypted); }
+    function zm_validate_password($clear, $encrypted) { 
+        return zen_validate_password($clear, $encrypted) 
+            || (function_exists('zm_custom_validate_password') && zm_custom_validate_password($clear, $encrypted));
+    }
 
 
     /**

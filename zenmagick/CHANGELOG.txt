@@ -53,6 +53,10 @@ Release 0.8.5
   used by, for example, payment modules (why the heck??)
 - add new method ZMShoppingCart::hasOutOfStockItems()
 - default to gv as payment type if none found (that's what zen-cart does)
+- add traditional property to ZMPlugin to allow plugins to declare whether
+  they require traditional configuration handling or not.
+- add support for custom password validation function (for master password
+  support or custom encryption)
 
 Release 0.8.4
 - make gv_send form secure

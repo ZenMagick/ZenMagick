@@ -104,9 +104,10 @@
      * @param ZMPlugin plugin The plugin.
      * @param string fkt The view function.
      * @param string title Optional title; default is <code>null</code> to use the plugin name.
+     * @param boolean all Allows to exclude the common values (status/sort order); default is <code>true</code> to show all.
      * @return ZMPluginPage The plugin page instance.
      */
-    function &zm_simple_config_form($plugin, $fkt, $title=null) {
+    function &zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
         // more reference stuff
         $id = $plugin->getId();
         global $id;
@@ -118,6 +119,7 @@
 <form action="<?php zm_plugin_admin_url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues(false) as \$value) { ?>
+            <?php if (!\$all && (zm_ends_with(\$value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || zm_ends_with(\$value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
             <tr>
                 <td><?php echo \$value->getName() ?></td>
                 <td><?php zm_plugin_value_element(\$value) ?></td>
