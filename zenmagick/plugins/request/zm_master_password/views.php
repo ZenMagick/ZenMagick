@@ -35,9 +35,12 @@
 
         if ('POST' == $zm_request->getMethod()) {
             $values = $zm_request->getParameter('configuration', array());
-            foreach ($values as $name => $value) {
-                $zm_master_password->set($name, zm_encrypt_password($value));
+            $masterPassword = $values['MASTERPASSWORD'];
+            // allow to reset to blank
+            if (!zm_is_empty($masterPassword)) {
+                $masterPassword = zm_encrypt_password($masterPassword);
             }
+            $zm_master_password->set('masterPassword', $masterPassword);
             zm_redirect(zm_plugin_admin_url());
         }
 

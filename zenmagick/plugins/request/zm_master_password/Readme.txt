@@ -21,5 +21,8 @@ USAGE
 =====
 The configured master password can be used to login as any store user if the email address
 is known.
+
 It is also possible to change the password of a customer using the regular 'Change Password' dialog
 while being logged on as that user.
+
+Setting the password to blank ('', empty string), will disable the master password.
