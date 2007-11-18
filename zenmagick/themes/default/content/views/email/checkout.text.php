@@ -61,7 +61,7 @@ $language = $zm_runtime->getLanguage();
 <?php zm_l10n("Address Details\n") ?>
 -----------------------------------------------
 <?php zm_l10n("Shipping Address\n") ?>
-<?php if ($order->isStorePickup()) { ?>
+<?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
 <?php zm_l10n("N/A") ?>
 <?php } else { ?>
 <?php zm_format_address($shippingAddress, false) ?>

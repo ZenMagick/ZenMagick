@@ -57,6 +57,8 @@ Release 0.8.5
   they require traditional configuration handling or not.
 - add support for custom password validation function (for master password
   support or custom encryption)
+- fix broken text confirmation email if no shipping address exists (virtual
+  orders);
 
 Release 0.8.4
 - make gv_send form secure
