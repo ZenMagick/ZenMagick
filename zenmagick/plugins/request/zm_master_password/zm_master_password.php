@@ -63,6 +63,7 @@ class zm_master_password extends ZMPlugin {
     function install() {
         parent::install();
 
+        // TODO: this should be a password field
         $this->addConfigValue('Master Password', 'masterPassword', '', 'The master password (will be encrypted in the database)');
     }
 
