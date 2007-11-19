@@ -118,26 +118,6 @@
     }
 
     /**
-     * Escape single and double quotes.
-     *
-     * <p>Useful when creating dynamic JavaScript based on database content that might
-     * include single quotes; e.f. ZenMagick<strong>'</strong>s bla bla...</p>
-     *
-     * @package org.zenmagick.html.defaults
-     * @param string text The text to escape.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string The escaped text.
-     */
-    function zm_quote($text, $echo=true) {
-        if (get_magic_quotes_gpc()) {
-            $text = addslashes($text);
-        }
-
-        if ($echo) echo $text;
-        return $text;
-    }
-
-    /**
      * Create a list of values separated by the given separator string.
      *
      * @package org.zenmagick.html.defaults

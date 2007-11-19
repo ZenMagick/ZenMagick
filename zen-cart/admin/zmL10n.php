@@ -49,7 +49,9 @@ require_once('includes/zmCatalogDtree.php');
           $nextfile = true;
           foreach ($strings as $key => $value) {
               if ($komma && !$nextfile) echo ",\n";
-              echo "        '" . $key . "' => '" . $value . "'";
+              $quote = '"';
+              if (false !== strpos($key, '\\\'')) { $quote = "'"; }
+              echo '        ' . $quote . $key . $quote . ' => ' . $quote . $value . $quote;
               $komma = true;
               $nextfile = false;
           }
