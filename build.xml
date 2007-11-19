@@ -67,10 +67,11 @@
 
 
     <!-- Build reielase update files, add to release zip and create incr. release zip -->
-    <target name="incr-release" unless="skip.incr" description="Build reielase update files, add to release zip and create incr. release zip.">
+    <target name="incr-release" unless="skip.incr" description="Build release update files, add to release zip and create incr. release zip.">
         <zipdiff filename1="${version.dir}/${version.prefix}-${version.from}.zip" 
               filename2="${version.dir}/${version.prefix}-${version.to}.zip"
               ignoreTimestamps="true"
+              ignoreEmbedded="true"
               compareCRCValues="true"
               destfile="${diff.xml.filename}">
         </zipdiff>
@@ -80,6 +81,10 @@
         <style in="${diff.xml.filename}" out="${diff.html.filename}" style="etc/build/zipdiff2html.xsl">
             <param name="title" expression="File changes in ZenMagick from ${version.from} to ${version.to}"/>
         </style>
+
+        <!-- add to main release, update md5 -->
+        <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" basedir="${build.dir}" update="true" includes="zenmagick/etc/docs/${from.to}.html" />
+        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5"/>
 
         <!-- incremental update -->
         <delete file="${diff.incr.filename}" />
