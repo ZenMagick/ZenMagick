@@ -68,7 +68,12 @@ class ZMValidator extends ZMObject {
      * @param ZMRuleSet set A new rule set.
      */
     function addRuleSet(&$set) {
-        $this->sets_[$set->getId()] =& $set;
+        $ruleSet =& $this->getRuleSet($set->getId());
+        if (null != $ruleSet) {
+            $ruleSet->addRules($set->getRules());
+        } else {
+            $this->sets_[$set->getId()] =& $set;
+        }
     }
 
     /**
@@ -79,8 +84,14 @@ class ZMValidator extends ZMObject {
      */
     function addRule($id, &$rule) {
         $ruleSet =& $this->getRuleSet($id);
+        if (null == $ruleSet) {
+            $ruleSet = new ZMRuleSet($id);
+            $this->addRuleSet($ruleSet);
+        }
         if (null != $rule && null != $ruleSet) {
             $ruleSet->addRule($rule);
+        } else {
+            zm_log("invalid set id ($id) or null rule");
         }
     }
 

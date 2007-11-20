@@ -81,6 +81,15 @@ class ZMRuleSet {
     }
 
     /**
+     * Add a list of <code>ZMRule</code>s.
+     *
+     * @param array rules A list of <code>ZMRule</code> instances.
+     */
+    function addRules($rules) {
+        $this->rules_ = array_merge($this->rules_, $rules);
+    }
+
+    /**
      * Get the validation rules.
      *
      * @return array A list of <code>ZMRule</code> objects.
