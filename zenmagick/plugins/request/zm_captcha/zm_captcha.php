@@ -29,7 +29,7 @@ define('ZM_CAPTCHA_FIELD', 'captcha');
 /**
  * Plugin to enable support for CAPTCHA in ZenMagick.
  *
- * @package org.zenmagick.plugins.zm_patcha
+ * @package org.zenmagick.plugins.zm_captcha
  * @author mano
  * @version $Id$
  */
@@ -159,8 +159,9 @@ class zm_captcha extends ZMPlugin {
 /**
  * Validate the captcha value.
  *
- * @package org.zenmagick.plugins.zm_patcha
- * @param string page The page name.
+ * @package org.zenmagick.plugins.zm_captcha
+ * @param array req The request data.
+ * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_captcha_validate($req) {
 global $zm_request, $zm_captcha;
