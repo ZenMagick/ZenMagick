@@ -68,6 +68,8 @@ Release 0.8.5
 - merge rules when adding a validation ruleSet that does already exist
 - added missing sort by products_sort_order, products_name to category list
 - added sortOrder property to ZMProduct
+- check for 'credit_class_error' error messages (coming from ot_coupon/ot_gv
+  modules!)
 
 Release 0.8.4
 - make gv_send form secure

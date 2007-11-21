@@ -100,6 +100,9 @@ class ZMMessages extends ZMService {
         if (null != ($error = $zm_request->getParameter('error_message'))) {
             $this->error($error);
         }
+        if (null != ($error = $zm_request->getParameter('credit_class_error'))) {
+            $this->error($error);
+        }
         if (null != ($info = $zm_request->getParameter('info_message'))) {
             $this->info($info);
         }
