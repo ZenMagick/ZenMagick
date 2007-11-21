@@ -31,7 +31,7 @@ Release 0.8.5
 - added event fix to get zen_back_link() working
 - fix 'read reviews' link on product page
 - fix invalud URLs when redirecting after login/create account (&amp; in
-  query)
+  query); #1797600
 - fix more &amp; issues in zm_redirect(..)
 - removed deprecated method ZMTheme::includeStaticPageContent(..)
 - added new setting 'isZMDefinePages' that will make the code look in the
