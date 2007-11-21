@@ -292,6 +292,23 @@ class ZMSession extends ZMObject {
         $_SESSION['currency'] = $currencyId;
     }
 
+    /**
+     * Check if a proper session has been started yet.
+     *
+     * @return boolean </code>true</code> if a session is open, <code>false</code> if not.
+     */
+    function isOpen() {
+        $_SESSION['_zm_session_test'] = 'check';
+        @session_start();
+
+        if (isset($_SESSION['_zm_session_test'])) {
+            unset($_SESSION['_zm_session_test']);
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 ?>

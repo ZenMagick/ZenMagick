@@ -70,6 +70,7 @@ Release 0.8.5
 - added sortOrder property to ZMProduct
 - check for 'credit_class_error' error messages (coming from ot_coupon/ot_gv
   modules!)
+- added ZMSession::isOpen() method
 
 Release 0.8.4
 - make gv_send form secure
