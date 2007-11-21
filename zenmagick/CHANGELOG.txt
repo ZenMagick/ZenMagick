@@ -66,6 +66,8 @@ Release 0.8.5
 - create validaiton ruleset if rule added to nonexistent set (rather than
   doing nothing!)
 - merge rules when adding a validation ruleSet that does already exist
+- added missing sort by products_sort_order, products_name to category list
+- added sortOrder property to ZMProduct
 
 Release 0.8.4
 - make gv_send form secure

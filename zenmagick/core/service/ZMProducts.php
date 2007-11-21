@@ -114,7 +114,8 @@ class ZMProducts extends ZMService {
                   from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                   where p.products_status = '1'
                   and p.products_id = p2c.products_id
-                  and p2c.categories_id = :categoryId";
+                  and p2c.categories_id = :categoryId
+                  order by p.products_sort_order";
         $query = $db->bindVars($query, ":categoryId", $categoryId, 'integer');
 
         return $this->_getProductIds($query);
@@ -367,7 +368,8 @@ class ZMProducts extends ZMService {
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (:productIdList)
                  and pd.products_id = p.products_id
-                 and pd.language_id = :languageId";
+                 and pd.language_id = :languageId
+                 order by p.products_sort_order, pd.products_name";
         $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
@@ -491,6 +493,8 @@ class ZMProducts extends ZMService {
         $product->priceSorter_ = $fields['products_price_sorter'];
         $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
         $product->masterCategoryId_ = $fields['master_categories_id'];
+        $product->sortOrder_ = $fields['products_sort_order'];
+        echo $product->sortOrder_."<BR>";
         // raw price
         $product->price_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick

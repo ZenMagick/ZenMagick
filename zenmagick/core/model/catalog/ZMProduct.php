@@ -57,6 +57,7 @@ class ZMProduct extends ZMModel {
     var $priceSorter_;
     var $pricedByAttributes_;
     var $masterCategoryId_;
+    var $sortOrder_;
 
     // raw price
     var $price_;
@@ -81,6 +82,7 @@ class ZMProduct extends ZMModel {
         $this->name_ = $name;
         $this->description_ = $description;
         $this->features_ = array();
+        $this->sortOrder_ = 0;
     }
 
     /**
@@ -408,6 +410,20 @@ class ZMProduct extends ZMModel {
 
         return $zm_reviews->getAverageRatingForProductId($this->id_);
     }
+
+    /**
+     * Get the srt order.
+     *
+     * @return int The sort order.
+     */
+    function getSortOrder() { return $this->sortOrder_; }
+
+    /**
+     * Set the srt order.
+     *
+     * @param int sortOrder The sort order.
+     */
+    function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
 }
 
