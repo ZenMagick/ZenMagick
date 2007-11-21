@@ -494,7 +494,6 @@ class ZMProducts extends ZMService {
         $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
         $product->masterCategoryId_ = $fields['master_categories_id'];
         $product->sortOrder_ = $fields['products_sort_order'];
-        echo $product->sortOrder_."<BR>";
         // raw price
         $product->price_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick
