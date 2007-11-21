@@ -52,6 +52,7 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/yui");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/prototype15.js");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/admin/installation/patches/file/ZMDynamicAdminMenuPatch.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "zenmagick/themes/default/content/category.js");
 
 
     // check for existance of all obsolete files
