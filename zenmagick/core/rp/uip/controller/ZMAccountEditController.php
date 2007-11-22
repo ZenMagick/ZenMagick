@@ -85,7 +85,7 @@ class ZMAccountEditController extends ZMController {
 
         $currentAccount = $zm_request->getAccount();
 
-        $reqAccount = $zm_request->getAccount();
+        $reqAccount = $this->create("Account");
         $reqAccount->populate();
 
         if ($reqAccount->getEmail() != $currentAccount->getEmail()) {
