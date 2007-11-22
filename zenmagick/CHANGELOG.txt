@@ -7,6 +7,8 @@ Release 0.8.6
 - removed all phpBB references (functions, nickname validation, controller
   code) plus the settings 'isEnablePHPBBLinks'
 - fix nickname population in ZMAccount
+- fix broken ZMView::getMappingId()
+- populate nickname when loading accounts from db
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

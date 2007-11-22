@@ -65,7 +65,7 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter
+                c.customers_authorization, c.customers_newsletter, c.customers_nick
                 from " . TABLE_CUSTOMERS . " c
                 where c.customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
@@ -87,7 +87,7 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter
+                c.customers_authorization, c.customers_newsletter, c.customers_nick
                 from " . TABLE_CUSTOMERS . " c
                 where customers_email_address = :emailAddress";
         $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
