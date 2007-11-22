@@ -38,7 +38,6 @@
     $zm_validator->addRuleSet(new ZMRuleSet('edit_account', array(
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMNickNameRule('nick'),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details."),
@@ -116,7 +115,6 @@
     $zm_validator->addRuleSet(new ZMRuleSet('create_account', array(
         new ZMRequiredRule('firstname', 'Please enter your first name.'),
         new ZMRequiredRule('lastname', 'Please enter your last name.'),
-        new ZMNickNameRule('nick'),
         new ZMRequiredRule('email_address', 'Please enter your email address.'),
         new ZMEmailRule('email_address', 'Please enter a valid email address.'),
         new ZMUniqueEmailRule('email_address', 'The entered email address is already in use.'),

@@ -112,8 +112,6 @@ class ZMCreateAccountController extends ZMController {
         $account->setDefaultAddressId($address->getId());
         $zm_accounts->updateAccount($account);
 
-        zm_bb_create_account($account->getNickName(), $account->getEmail(), $account->getPassword());
-
         $session = new ZMSession();
         $session->recreate();
         $session->setAccount($account);

@@ -54,9 +54,6 @@
           <li><a href="<?php zm_href(FILENAME_CONDITIONS); ?>"><?php zm_l10n("Terms &amp; Conditions") ?></a></li>
           <li><a href="<?php zm_href(FILENAME_CONTACT_US); ?>"><?php zm_l10n("Contact Us") ?></a></li>
 
-      <?php if ($zm_runtime->isBBActive() && zm_setting('isEnablePHPBBLinks')) { ?>
-          <li><a href="<?php zm_get_phpBB_href(); ?>"><?php zm_l10n("Bulletin Board") ?></a></li>
-      <?php } ?>
       <?php if (zm_setting('isEnabledGV')) { ?>
           <li><a href="<?php zm_href(FILENAME_GV_FAQ); ?>"><?php zm_l10n("Giftvoucher FAQ") ?></a></li>
       <?php } ?>

@@ -177,6 +177,7 @@
     $_ZM_SETTINGS['isAccountState'] = ACCOUNT_STATE == 'true';
     $_ZM_SETTINGS['isAccountNewsletter'] = ACCOUNT_NEWSLETTER_STATUS != 0;
     $_ZM_SETTINGS['isAccountReferral'] = CUSTOMERS_REFERRAL_STATUS == 2;
+    $_ZM_SETTINGS['isAccountNickname'] = false;
 
     // account
     $_ZM_SETTINGS['firstNameMinLength'] = ENTRY_FIRST_NAME_MIN_LENGTH;
@@ -212,9 +213,6 @@
 
     // site map
     $_ZM_SETTINGS['isSiteMapAccountLinks'] = SHOW_ACCOUNT_LINKS_ON_SITE_MAP=='Yes';
-
-    // phpBB
-    $_ZM_SETTINGS['isEnablePHPBBLinks'] = PHPBB_LINKS_ENABLED == 'true';
 
     // GV 
     $_ZM_SETTINGS['isEnabledGV'] = MODULE_ORDER_TOTAL_GV_STATUS == 'true';

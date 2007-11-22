@@ -250,29 +250,6 @@ class ZMRuntime extends ZMObject {
      */
     function getCurrencyCode() { return $_SESSION['currency']; }
 
-    /**
-     * Checks if <em>phpBB</em> is installed or not.
-     *
-     * @return boolean <code>true</code> if <em>phpBB</em> has been configured.
-     */
-    function isBBActive() {
-    global $phpBB;
-
-        return $phpBB->phpBB['db_installed_config'] && $phpBB->phpBB['files_installed'];
-    }
-
-    /**
-     * Reconnect to the zen-cart database.
-     *
-     * <p>This is not very reliable at the moment.</p>
-     */
-    function reconnectDB() {
-        $db = $this->getDB();
-        $db->selectdb(DB_DATABASE);
-	      $db->close();
-	      $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE, USE_PCONNECT, false);
-    }
-
 }
 
 ?>

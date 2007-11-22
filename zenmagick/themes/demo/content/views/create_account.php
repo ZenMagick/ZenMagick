@@ -116,7 +116,7 @@
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>
                 </tr>
-                <?php if ($zm_runtime->isBBActive()) { ?>
+                <?php if (zm_setting('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
                         <td><input type="text" name="nick" value="<?php echo $zm_account->getNickName() ?>" /></td>

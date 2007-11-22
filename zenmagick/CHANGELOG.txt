@@ -1,3 +1,12 @@
+Release 0.8.6
+- added setting 'isAccountNickname' to control use of nickname in account
+  creation
+- removed ZMRuntime::isBBActive(); this requires a couple template changes;
+  please refer to the default theme changes to see what needs to be done
+- removed ZMRuntime::reconnectDB()
+- removed all phpBB references (functions, nickname validation, controller
+  code) plus the settings 'isEnablePHPBBLinks'
+
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
 - fix wrong price when product is free and sale/special set
