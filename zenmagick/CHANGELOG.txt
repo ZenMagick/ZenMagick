@@ -71,6 +71,7 @@ Release 0.8.5
 - check for 'credit_class_error' error messages (coming from ot_coupon/ot_gv
   modules!)
 - added ZMSession::isOpen() method
+- fix: ZMProducts::getProductForModel(..) broken
 
 Release 0.8.4
 - make gv_send form secure

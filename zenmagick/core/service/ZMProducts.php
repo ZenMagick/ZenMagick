@@ -309,7 +309,7 @@ class ZMProducts extends ZMService {
                  and p.products_model = :model
                  and pd.products_id = p.products_id
                  and pd.language_id = :languageId";
-        $sql = $db->bindVars($sql, ":model", $model, "integer");
+        $sql = $db->bindVars($sql, ":model", $model, "string");
         $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
         $results = $db->Execute($sql);
