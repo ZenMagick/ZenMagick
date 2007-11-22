@@ -176,14 +176,14 @@ class ZMAccount extends ZMModel {
      *
      * @return string The nick name.
      */
-    function getNickName() { return $this->nickname_; }
+    function getNickName() { return $this->nickName_; }
 
     /**
      * Set the nick name.
      *
      * @param string nickName The nick name.
      */
-    function setNickName($nickName) { $this->nickname_ = $nickName; }
+    function setNickName($nickName) { $this->nickName_ = $nickName; }
 
     /**
      * Get the gender.

@@ -6,6 +6,7 @@ Release 0.8.6
 - removed ZMRuntime::reconnectDB()
 - removed all phpBB references (functions, nickname validation, controller
   code) plus the settings 'isEnablePHPBBLinks'
+- fix nickname population in ZMAccount
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
