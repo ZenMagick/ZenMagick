@@ -138,10 +138,6 @@ class ZMController extends ZMObject {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_title(false));
-
         return $this->findView();
     }
 
