@@ -26,16 +26,16 @@
 <?php
 
     /**
-     * Simple function to check if we need zen-cart's header.php files..
+     * Simple function to check if we need zen-cart...
      */
-    function zm_needs_zc_page() {
+    function zm_needs_zc() {
     global $zm_request;
       
         return zm_is_checkout_page() || zm_is_in_array($zm_request->getPageName(), 'advanced_search_result');
     }
 
     // skip more zc request handling
-    if (zm_setting('isEnableZenMagick') && !zm_needs_zc_page()) {
+    if (zm_setting('isEnableZenMagick') && !zm_needs_zc()) {
         $code_page_directory = 'zenmagick';
     }
 
