@@ -101,7 +101,7 @@ class ZMContactUsController extends ZMController {
         $context = array();
         $context['contactInfo'] =& $contactInfo;
 
-        zm_mail(zm_l10n_get("Message from %s", zm_setting('storeName')), 'contact_us', $context, zm_setting('storeEmail'));
+        zm_mail(zm_l10n_get("Message from %s", zm_setting('storeName')), 'contact_us', $context, zm_setting('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
 
         return $this->findView('success');
     }

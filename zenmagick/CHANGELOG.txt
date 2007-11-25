@@ -9,6 +9,8 @@ Release 0.8.6
 - fix nickname population in ZMAccount
 - fix broken ZMView::getMappingId()
 - populate nickname when loading accounts from db
+- use user name/email address for contact us email sender details (so reply to
+  email will reply to user, rather than the store email)
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
