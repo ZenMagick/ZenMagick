@@ -27,24 +27,29 @@
 /**
  * Model base class.
  *
+ * <p>This class provides generic support for properties via <code>get($name)</code>, <code>set($name, $value)</code>
+ * and, for PHP5, via the corresponding methods <code>__get($name)</code> and <code>__set($name,$value)</code>.</p>
+ *
  * @author mano
  * @package org.zenmagick
  * @version $Id$
  */
 class ZMModel extends ZMObject {
-
-    /**
-     * Default c'tor.
-     */
-    function ZMModel() {
-        parent::__construct();
-    }
+    var $properties_;
 
     /**
      * Default c'tor.
      */
     function __construct() {
-        $this->ZMModel();
+        parent::__construct();
+        $this->properties_ = array();
+    }
+
+    /**
+     * Default c'tor.
+     */
+    function ZMModel() {
+        $this->__construct();
     }
 
     /**
@@ -62,6 +67,49 @@ class ZMModel extends ZMObject {
      */
     function populate($req=null) {
         return;
+    }
+
+    /**
+     * Support generic getter method for additional properties.
+     *
+     * @param string name The property name.
+     * @return mixed The value or <code>null</code>.
+     */
+    function __get($name) {
+        if (isset($this->properties_[$name])) {
+            return $this->properties_[$name];
+        }
+        return null;
+    }
+
+    /**
+     * Support to access plugin config values by name.
+     *
+     * @param string name The property name.
+     * @return mixed The value or <code>null</code>.
+     */
+    function get($name) {
+        return $this->__get($name);
+    }
+
+    /**
+     * Support generic setter method for additional properties.
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    function __set($name, $value) {
+        $this->properties_[$name] = $value;
+    }
+
+    /**
+     * Support to set plugin config values by name.
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    function set($name, $value) {
+        $this->__set($name, $value);
     }
 
 }

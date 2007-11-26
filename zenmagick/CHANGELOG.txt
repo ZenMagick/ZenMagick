@@ -14,6 +14,8 @@ Release 0.8.6
 - fix missing crumbtrails when form submission fails 
 - added new settings 'isEnableStock' and 'isAllowLowStockCheckout'
 - do not use printf(..) if no parameters are given to replace '%s' or similar
+- added generic properties support to ZMModel; this means it is is now
+  possible to attach custom properties to all model classes
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
