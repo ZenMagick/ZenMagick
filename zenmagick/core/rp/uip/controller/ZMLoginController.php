@@ -56,6 +56,21 @@ class ZMLoginController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>

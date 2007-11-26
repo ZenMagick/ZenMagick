@@ -62,7 +62,7 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_products;
+    global $zm_request, $zm_products;
 
         $product = null;
         if ($zm_request->getProductId()) {
@@ -85,11 +85,7 @@ class ZMTellAFriendController extends ZMController {
         $this->exportGlobal("zm_emailMessage", $emailMessage);
         $this->exportGlobal("zm_product", $product);
 
-        // crumbtrail handling
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($product->getId());
-        $zm_crumbtrail->addCrumb("Tell A Friend");
+        $this->handleCrumbtrail($product);
 
         return $this->findView();
     }
@@ -101,9 +97,7 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail, $zm_messages, $zm_products;
-
-        $zm_crumbtrail->addCrumb("Tell A Friend");
+    global $zm_request, $zm_messages, $zm_products;
 
         $emailMessage = $this->create("EmailMessage");
         $emailMessage->populate();
@@ -124,6 +118,8 @@ class ZMTellAFriendController extends ZMController {
             return $this->findView('error');
         }
 
+        $this->handleCrumbtrail($product);
+
         $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $product, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), zm_setting('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
@@ -141,6 +137,20 @@ class ZMTellAFriendController extends ZMController {
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 
         return $this->findView('success', array('parameter' => 'products_id='.$product->getId()));
+    }
+
+    /**
+     * Handle crumbtrail.
+     *
+     * @param ZMProduct product The current product.
+     */
+    function _handleCrumbtrail($product) {
+    global $zm_request, $zm_crumbtrail;
+
+        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
+        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
+        $zm_crumbtrail->addProduct($product->getId());
+        $zm_crumbtrail->addCrumb("Tell A Friend");
     }
 
 }

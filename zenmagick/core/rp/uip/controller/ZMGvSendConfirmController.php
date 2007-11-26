@@ -56,16 +56,29 @@ class ZMGvSendConfirmController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+    global $zm_request;
 
         $action = $zm_request->getParameter('action');
         $this->exportGlobal("zm_account", $zm_request->getAccount());
@@ -82,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_runtime, $zm_crumbtrail, $zm_coupons, $zm_messages;
+    global $zm_request, $zm_runtime, $zm_coupons, $zm_messages;
 
         if (null != $zm_request->getParameter('edit')) {
             return $this->findView('edit');

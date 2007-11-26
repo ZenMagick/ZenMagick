@@ -79,20 +79,34 @@ class ZMCheckoutShippingAddressController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_cart, $zm_addresses;
+    global $zm_request, $zm_cart, $zm_addresses;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }
 
-        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
 
         $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);

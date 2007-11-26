@@ -56,15 +56,28 @@ class ZMContactUsController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_title(false));
+    global $zm_request;
 
         $contactInfo =& $this->create("ContactInfo");
         if ($zm_request->isRegistered()) {
@@ -85,9 +98,8 @@ class ZMContactUsController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCrumb(zm_title(false));
         $contactInfo =& $this->create("ContactInfo");
         $contactInfo->populate();
         // not available in case of success redirect!

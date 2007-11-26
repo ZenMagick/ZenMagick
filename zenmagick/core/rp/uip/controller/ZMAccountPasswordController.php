@@ -56,18 +56,19 @@ class ZMAccountPasswordController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function processGet() {
+    function process() { 
     global $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return $this->findView();
+        return parent::process();
     }
 
     /**
@@ -85,8 +86,8 @@ class ZMAccountPasswordController extends ZMController {
 
         $account = $zm_request->getAccount();
         if (null == $account) {
-            // TODO:
-            die('could not access session account');
+            zm_log('could not access session account', ZM_LOG_ERROR);
+            return $this->findView('error');
         }
 
         $oldPassword = $zm_request->getParameter('password_current');

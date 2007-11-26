@@ -56,6 +56,22 @@ class ZMAddressBookProcessController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        $zm_crumbtrail->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
@@ -63,9 +79,6 @@ class ZMAddressBookProcessController extends ZMController {
      */
     function processGet() {
     global $zm_request, $zm_crumbtrail, $zm_addresses;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
 
         $viewName = null;
         if ($zm_request->getParameter('edit')) {
@@ -94,15 +107,18 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
+    global $zm_request, $zm_crumbtrail;
         
         $action = $zm_request->getParameter('action');
         $view = null;
         if ('update' == $action) {
+            $zm_crumbtrail->addCrumb("Edit");
             $view = $this->updateAddress();
         } else if ('deleteconfirm' == $action) {
+            $zm_crumbtrail->addCrumb("Delete");
             $view = $this->deleteAddress();
         } else if ('process' == $action) {
+            $zm_crumbtrail->addCrumb("New Entry");
             $view = $this->createAddress();
         }
 

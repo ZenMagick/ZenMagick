@@ -56,17 +56,18 @@ class ZMGuestHistoryController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function processGet() {
+    function process() { 
     global $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb('Guest Order');
 
-        return $this->findView();
+        return parent::process();
     }
 
     /**
@@ -77,8 +78,6 @@ class ZMGuestHistoryController extends ZMController {
      */
     function processPost() {
     global $zm_request, $zm_accounts, $zm_orders, $zm_messages, $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb('Guest Order');
 
         if (!$this->validate('guest_history')) {
             return $this->findView();

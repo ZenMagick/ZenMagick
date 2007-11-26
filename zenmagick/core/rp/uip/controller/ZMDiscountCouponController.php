@@ -56,17 +56,18 @@ class ZMDiscountCouponController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function processGet() {
+    function process() { 
     global $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        return true;
+        return parent::process();
     }
 
     /**
@@ -76,9 +77,7 @@ class ZMDiscountCouponController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail, $zm_coupons, $zm_messages;
-
-        $zm_crumbtrail->addCrumb(zm_nice_page_name());
+    global $zm_request, $zm_coupons, $zm_messages;
 
         $viewName = null;
         $code = $zm_request->getParameter('lookup_discount_coupon');
