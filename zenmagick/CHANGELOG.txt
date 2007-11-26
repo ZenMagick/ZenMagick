@@ -12,6 +12,8 @@ Release 0.8.6
 - use user name/email address for contact us email sender details (so reply to
   email will reply to user, rather than the store email)
 - fix missing crumbtrails when form submission fails 
+- added new settings 'isEnableStock' and 'isAllowLowStockCheckout'
+- do not use printf(..) if no parameters are given to replace '%s' or similar
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

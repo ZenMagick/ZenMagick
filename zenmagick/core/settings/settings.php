@@ -75,6 +75,10 @@
     $_ZM_SETTINGS['rssCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/rss/";
     $_ZM_SETTINGS['rssCacheTimeout'] = 1200;
 
+    // stock options
+    $_ZM_SETTINGS['isEnableStock'] = STOCK_CHECK == 'true';
+    $_ZM_SETTINGS['isAllowLowStockCheckout'] = STOCK_ALLOW_CHECKOUT == 'true';
+
     // HTML generation / validation
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;

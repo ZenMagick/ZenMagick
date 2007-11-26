@@ -76,7 +76,12 @@
         if ($zm_theme->themeFileExists($file, ZM_THEME_LANG_DIR)) {
             $args = func_get_args();
             array_shift($args);
-            return vsprintf(file_get_contents($zm_theme->themeFile($file, ZM_THEME_LANG_DIR)), $args);
+            $contents = file_get_contents($zm_theme->themeFile($file, ZM_THEME_LANG_DIR));
+            if (null == $args) {
+                // no need for expensive printf!
+                return $contents;
+            }
+            return vsprintf($contents, $args);
         }
 
         return null;
@@ -123,8 +128,10 @@
         //!isset($l10n[$text]) && zm_log("can't resolve l10n: '".$text."'", ZM_LOG_DEBUG);
 
         if (null == $args) {
+            // no need for expensive printf!
+            return $format;
             // preserve % in strings that do not have anything to replace
-            $format = str_replace('%', '%%', $format);
+            //$format = str_replace('%', '%%', $format);
         }
 
         return vsprintf($format, $args);
