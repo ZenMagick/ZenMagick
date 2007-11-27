@@ -56,20 +56,69 @@ class ZMCheckoutShippingController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_request, $zm_addresses, $zm_cart, $zm_messages, $zm_crumbtrail;
+
+        // do a bit of checking first...
+        if ($zm_cart->isEmpty()) {
+            return $this->findView('empty_cart');
+        }
+
+        if (!$zm_cart->readyForCheckout()) {
+            $zm_messages->error('Please update your order ...');
+            return $this->findView('check_cart');
+        }
+
+        // stock handling
+        if (zm_setting('isEnableStock') && !zm_setting('isAllowLowStockCheckout')) {
+            foreach ($zm_cart->getItems() as $item) {
+                if (!$item->isStockAvailable()) {
+                    $zm_messages->error('Some items in your order are out of stock');
+                    return $this->findView('check_cart');
+                }
+            }
+        }
+
+        // set default address if required
+        if (!$zm_cart->hasShippingAddress()) {
+            $account = $zm_request->getAccount();
+            $zm_cart->setShippingAddressId($account->getDefaultAddresssId());
+        }
+
+        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+    global $zm_request;
 
         $this->exportGlobal("zm_shipping", $this->create("Shipping"));
 
         return $this->findView();
+    }
+
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+
     }
 
 }

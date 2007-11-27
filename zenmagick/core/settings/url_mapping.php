@@ -51,6 +51,7 @@
         $zm_urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');
         $zm_urlMapper->setMapping(null, 'cart_not_ready', 'shopping_cart', 'RedirectView', 'secure=true');
         $zm_urlMapper->setMapping(null, 'cart_is_virtual', 'checkout_billing', 'RedirectView', 'secure=true');
+        $zm_urlMapper->setMapping(null, 'check_cart', 'shopping_cart', 'RedirectView', 'secure=true');
 
 
         // popups
@@ -144,6 +145,10 @@
         // account_notifications
         $zm_urlMapper->setMapping('account_notifications');
         $zm_urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView', 'secure=true');
+
+        // shipping 
+        $zm_urlMapper->setMapping('checkout_shipping');
+        $zm_urlMapper->setMapping('checkout_shipping', 'success', 'checkout_billing', 'RedirectView', 'secure=true');
 
         // shipping address
         $zm_urlMapper->setMapping('checkout_shipping_address');
