@@ -120,6 +120,7 @@ class ZMCrumbtrail extends ZMObject {
      */
     function addCategoryPath($path) {
     global $zm_categories;
+
         if (null == $path)
             return;
 
