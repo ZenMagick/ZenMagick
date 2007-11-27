@@ -60,6 +60,7 @@ class ZMCategory extends ZMModel {
         $this->name_ = $name;
         $this->active_ = $active;
         $this->childrenIds_ = array();
+        $this->image_ = null;
     }
 
     /**
@@ -157,6 +158,15 @@ class ZMCategory extends ZMModel {
      * @return string The image name.
      */
     function getImage() { return $this->image_; }
+
+    /**
+     * Get the categories image ino instance (if any).
+     *
+     * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
+     */
+    function getImageInfo() { 
+        return zm_not_empty($this->image_) ? $this->create("ImageInfo", $this->image_, $this->name_) : null;
+    }
 
     /**
      * Get the category path array.

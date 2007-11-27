@@ -19,6 +19,7 @@ Release 0.8.6
 - add code to evaluate cPath directly rather than use zen-cart's code (not
   active yet)
 - add support for init plugins (no loader support, so single file only please)
+- added convenience method ZMCategory::getImageInfo()
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
