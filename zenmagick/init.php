@@ -124,6 +124,16 @@
         set_error_handler("zm_error_handler");
     }
 
+    $zm_plugins =& new ZMPlugins();
+
+    // upset init plugins :)
+    // NOTE: init plugins do not support class loader support, etc in order to be quick!
+    foreach ($zm_plugins->getPluginsForType('init') as $plugin) {
+        if ($plugin->isEnabled()) {
+            $plugin->init();
+        }
+    }
+
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
     zm_set_default_url_mappings();
@@ -133,15 +143,14 @@
     // make sure to use SSL if required
     $zm_sacsMapper->ensureAccessMethod();
 
-    // upset plugins :)
-    $zm_plugins =& new ZMPlugins();
-    $pluginLoader =& new ZMLoader("pluginLoader");
+    // upset request plugins :)
+    $requestPluginLoader =& new ZMLoader("requestPluginLoader");
     foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
         if ($plugin->isEnabled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
-                $pluginLoader->addPath($plugin->getPluginDir());
+                $requestPluginLoader->addPath($plugin->getPluginDir());
             } else if ('FOLDER' == $plugin->getLoaderSupport()) {
-                $pluginLoader->addPath($plugin->getPluginDir(), false);
+                $requestPluginLoader->addPath($plugin->getPluginDir(), false);
             }
             $pluginId = $plugin->getId();
             $$pluginId = $plugin;
@@ -152,14 +161,14 @@
     // installed while using core.php
     if (!defined('ZM_SINGLE_CORE')) {
         // use plugin loader to load static stuff
-        foreach ($pluginLoader->getStatic() as $static) {
+        foreach ($requestPluginLoader->getStatic() as $static) {
             require_once($static);
         }
     }
 
     // plugins prevail over defaults, *and* themes
     $rootLoader =& zm_get_root_loader();
-    $rootLoader->setParent($pluginLoader);
+    $rootLoader->setParent($requestPluginLoader);
 
     // call init only after everything set up
     foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {

@@ -35,6 +35,7 @@ class ZMRequest extends ZMObject {
     var $controller_;
     var $session_;
     var $request_;
+    var $categoryPathArray_;
 
 
     /**
@@ -53,6 +54,7 @@ class ZMRequest extends ZMObject {
         } else {
             $this->request_ = array_merge($_POST, $_GET);
         }
+        $this->categoryPathArray_ = null;
     }
 
     /**
@@ -182,7 +184,49 @@ class ZMRequest extends ZMObject {
      *
      * @return array The current category path broken into an array of category ids.
      */
-    function getCategoryPathArray() { global $cPath_array; return is_array($cPath_array) ? $cPath_array : array(); }
+    function getCategoryPathArray() {
+        if (null === $this->categoryPathArray_) {
+            $this->_parseCategoryPath();
+        }
+
+        return $this->categoryPathArray_;
+    }
+
+    /**
+     * Set the category path arry.
+     *
+     * @param array categoryPathArray The category path as array.
+     */
+    function setCategoryPathArray($categoryPathArray) {
+        if (is_array($categoryPathArray)) {
+            $this->categoryPathArray_ = $categoryPathArray;
+            $cPath = '';
+            $first = true;
+            foreach ($this->categoryPathArray_ as $categoryId) {
+                if (!$first) { $cPath .= '_'; }
+                $cPath .= (int)$categoryId;
+                $first = false;
+            }
+            $this->setParameter('cPath', $cPath);
+        }
+    }
+
+    /**
+     * Parse the category path.
+     */
+    function _parseCategoryPath() {
+        $path = $this->getParameter('cPath');
+        $this->categoryPathArray_ = array();
+        if (null !== $path) {
+            $path = explode('_', $path);
+            foreach ($path as $categoryId) {
+                $categoryId = (int)$categoryId;
+                if (!in_array($categoryId, $this->categoryPathArray_)) {
+                    $this->categoryPathArray_[] = $categoryId;
+                }
+            }
+        }
+    }
 
     /**
      * Get the manufacturer id.

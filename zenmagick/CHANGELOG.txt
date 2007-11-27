@@ -16,6 +16,9 @@ Release 0.8.6
 - do not use printf(..) if no parameters are given to replace '%s' or similar
 - added generic properties support to ZMModel; this means it is is now
   possible to attach custom properties to all model classes
+- add code to evaluate cPath directly rather than use zen-cart's code (not
+  active yet)
+- add support for init plugins (no loader support, so single file only please)
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
