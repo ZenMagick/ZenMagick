@@ -21,6 +21,8 @@ Release 0.8.6
 - add support for init plugins (no loader support, so single file only please)
 - added convenience method ZMCategory::getImageInfo()
 - remove 'Popup ' prefix from popup window titles
+- added coupon help popup
+- fixed some PHP4 related coupon restriction issues
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

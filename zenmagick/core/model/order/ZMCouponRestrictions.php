@@ -39,7 +39,7 @@ class ZMCouponRestrictions extends ZMModel {
     /**
      * Default c'tor.
      */
-    function ZMCouponRestrictions($categories, $products) {
+    function ZMCouponRestrictions($categories=array(), $products=array()) {
         parent::__construct();
 
 		    $this->categories_ = $categories;
@@ -49,7 +49,7 @@ class ZMCouponRestrictions extends ZMModel {
     /**
      * Default c'tor.
      */
-    function __construct($categories, $products) {
+    function __construct($categories=array(), $products=array()) {
         $this->ZMCouponRestrictions($categories, $products);
     }
 

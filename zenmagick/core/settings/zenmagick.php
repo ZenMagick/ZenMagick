@@ -127,6 +127,9 @@
     //** coupons **//
 
     define('ZM_COUPON_TYPPE_GV', 'G');
+    define('ZM_COUPON_TYPPE_FIXED', 'F');
+    define('ZM_COUPON_TYPPE_PERCENT', 'P');
+    define('ZM_COUPON_TYPPE_SHIPPING', 'S');
 
 
     //** sale types **//

@@ -91,6 +91,39 @@ class ZMCoupons extends ZMService {
     }
 
     /**
+     * Coupon lookup for the given id.
+     *
+     * @param int id The coupon id.
+     * @param int languageId The languageId.
+     * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
+     */
+    function &getCouponForId($id, $languageId=null) {
+    global $zm_runtime;
+
+        $languageId = null === $languageId ? $zm_runtime->getLanguageId() : $languageId;
+
+        $db = $this->getDB();
+        $sql = "select c.coupon_id, c.coupon_code, c.coupon_type, c.coupon_amount, c.coupon_minimum_order, c.coupon_start_date,
+                c.coupon_expire_date, c.uses_per_coupon, c.uses_per_user,
+                cd.coupon_name, cd.coupon_description
+                from " . TABLE_COUPONS . " c
+                left join " . TABLE_COUPONS_DESCRIPTION . " cd
+                on (c.coupon_id = cd.coupon_id
+                and cd.language_id = :languageId)
+                where c.coupon_id = :id";
+        $sql = $db->bindVars($sql, ':id', $id, 'integer');
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
+        $results = $db->Execute($sql);
+
+        $coupon = null;
+        if (0 < $results->RecordCount()) {
+            $coupon = $this->_newCoupon($results->fields);
+        }
+
+        return $coupon;
+    }
+
+    /**
      * Get the coupon/voucher balance for the given account.
      *
      * @param int accountId The account id.
@@ -232,18 +265,19 @@ class ZMCoupons extends ZMService {
         $sql = $db->bindVars($sql, ':id', $id, 'string');
         $results = $db->Execute($sql);
 
-        $categories = array();
+        $restrictions = $this->create("CouponRestrictions");
         $products = array();
         while (!$results->EOF) {
             if (0 != $results->fields['category_id']) {
                 $restriction = $this->create("CategoryCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
-                array_push($categories, $restriction);
+                $categories[] =& $restriction;
             } else {
                 $restriction = $this->create("ProductCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
-                array_push($products, $restriction);
+                $products[] =& $restriction;
             }
             $results->MoveNext();
         }
+
         return $this->create("CouponRestrictions", $categories, $products);
     }
 
