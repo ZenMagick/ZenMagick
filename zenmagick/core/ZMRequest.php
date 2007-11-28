@@ -168,6 +168,10 @@ class ZMRequest extends ZMObject {
     /**
      * Get the language id.
      *
+     * <p><strong>NOTE:</strong> This will return only the language id as foound in the request. If you 
+     * want to find out the session language (ie the language for the current request), use <code>ZMRuntime::getLanguageId()</code>
+     * or <code>ZMRuntime::getLanguage()</code>.</p>
+     *
      * @return int The language id or <code>0</code>.
      */
     function getLanguageId() { return (int)$this->getParameter('language', 0); }
