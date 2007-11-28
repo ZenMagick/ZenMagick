@@ -92,6 +92,8 @@ class ZMMetaTags extends ZMObject {
 
         // default to page name
         $title = zm_title(false);
+        // remove popup prefix
+        $title = str_replace('Popup ', '', $title);
 
         // lookup localized page title
         $page = $zm_request->getPageName();
