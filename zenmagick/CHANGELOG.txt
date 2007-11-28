@@ -26,6 +26,7 @@ Release 0.8.6
 - removed dependency of ZMLanguages from zen-cart's languages class;
 - added zm_get_browser_language() as described at: 
   http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html
+- added settings 'isUseBrowserLanguage' and 'defaultLanguageCode'
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

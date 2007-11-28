@@ -309,6 +309,28 @@ class ZMSession extends ZMObject {
         return false;
     }
 
+    /**
+     * Set the language.
+     *
+     * @param ZMLanguage language The language.
+     */
+    function setLanguage(&$language) {
+        $_SESSION['language'] = $language->getDirectory();
+        $_SESSION['languages_id'] = $language->getId();
+        $_SESSION['languages_code'] = $language->getCode();
+    }
+
+    /**
+     * Get the language.
+     *
+     * @return ZMLanguage The language or <code>null</code>.
+     */
+    function &getLanguage() {
+    global $zm_languages;
+
+        return $zm_languages->getLanguageForCode($_SESSION['languages_code']);
+    }
+
 }
 
 ?>

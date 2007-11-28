@@ -166,6 +166,13 @@ class ZMRequest extends ZMObject {
     function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
+     * Get the language id.
+     *
+     * @return int The language id or <code>0</code>.
+     */
+    function getLanguageId() { return (int)$this->getParameter('language', 0); }
+
+    /**
      * Get the request model number.
      *
      * @return string The model numner or <code>null</code>.

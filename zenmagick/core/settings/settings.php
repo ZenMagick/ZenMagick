@@ -68,6 +68,10 @@
     // look for define pages in theme folder
     $_ZM_SETTINGS['isZMDefinePages'] = false;
 
+    // language strategy
+    $_ZM_SETTINGS['isUseBrowserLanguage'] = LANGUAGE_DEFAULT_SELECTOR == 'Browser';
+    $_ZM_SETTINGS['defaultLanguageCode'] = DEFAULT_LANGUAGE;
+
     // static homepage
     $_ZM_SETTINGS['staticHome'] = null;
 

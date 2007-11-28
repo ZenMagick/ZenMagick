@@ -96,6 +96,41 @@ class ZMLanguage extends ZMModel {
      */
     function getDirectory() { return $this->directory_; }
 
+    /**
+     * Set the language id.
+     *
+     * @param int id The language id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the language name.
+     *
+     * @param string name The language name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the language image.
+     *
+     * @param string image The language image.
+     */
+    function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Set the language code.
+     *
+     * @param string code The language code.
+     */
+    function setCode($code) { $this->code_ = $code; }
+
+    /**
+     * Set the language directory name.
+     *
+     * @param string directory The language directory name.
+     */
+    function setDirectory($directory) { $this->directory_ = $directory; }
+
 }
 
 ?>
