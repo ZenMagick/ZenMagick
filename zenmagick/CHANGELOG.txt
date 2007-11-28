@@ -23,6 +23,9 @@ Release 0.8.6
 - remove 'Popup ' prefix from popup window titles
 - added coupon help popup
 - fixed some PHP4 related coupon restriction issues
+- removed dependency of ZMLanguages from zen-cart's languages class;
+- added zm_get_browser_language() as described at: 
+  http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

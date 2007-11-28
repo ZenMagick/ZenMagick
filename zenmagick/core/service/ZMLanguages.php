@@ -25,10 +25,10 @@
 
 
 /**
- * Languages.
+ * Languages service.
  *
- * @author mano
  * @package org.zenmagick.service
+ * @author DerManoMann
  * @version $Id$
  */
 class ZMLanguages extends ZMService {
@@ -38,22 +38,16 @@ class ZMLanguages extends ZMService {
     /**
      * Default c'tor.
      */
-    function ZMLanguages() {
+    function __construct() {
         parent::__construct();
-
-        zm_resolve_zc_class('language');
-        $zcLanguage = new language();
-        foreach ($zcLanguage->catalog_languages as $zccLanguage) {
-            $language = $this->_newLanguage($zccLanguage);
-            $this->languages_[$language->getCode()] = $language;
-        }
+        $this->languages_ = null;
     }
 
     /**
      * Default c'tor.
      */
-    function __construct() {
-        $this->ZMLanguages();
+    function ZMLanguages() {
+        $this->__construct();
     }
 
     /**
@@ -65,11 +59,33 @@ class ZMLanguages extends ZMService {
 
 
     /**
+     * Load languages.
+     */
+    function _load() {
+        $db = $this->getDB();
+        $sql = "select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order";
+        $results = $db->Execute($sql);
+
+        $this->languages_ = array();
+        while (!$results->EOF) {
+            $language = $this->_newLanguage($results->fields);
+            $results->MoveNext();
+            $this->languages_[$language->getCode()] = $language;
+        }
+    }
+
+    /**
      * Get all languages.
      *
      * @return array List of <code>ZMLanguage</code> instances.
      */
-    function getLanguages() { return $this->languages_; }
+    function getLanguages() {
+        if (null === $this->languages_) {
+            $this->_load();
+        } 
+
+        return $this->languages_;
+    }
 
     /**
      * Get language for the given code.
@@ -77,7 +93,13 @@ class ZMLanguages extends ZMService {
      * @param string code The language code.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    function &getLanguageForCode($code) { return array_key_exists($code, $this->languages_) ? $this->languages_[$code] : null; }
+    function &getLanguageForCode($code) {
+        if (null === $this->languages_) {
+            $this->_load();
+        }
+
+        return isset($this->languages_[$code]) ? $this->languages_[$code] : null; 
+    }
 
     /**
      * Get language for the given id.
@@ -86,6 +108,10 @@ class ZMLanguages extends ZMService {
      * @return ZMLanguage A language or <code>null</code>.
      */
     function &getLanguageForId($id) {
+        if (null === $this->languages_) {
+            $this->_load();
+        }
+
         foreach ($this->languages_ as $language) {
             if ($language->id_ == $id) {
                 return $language;
