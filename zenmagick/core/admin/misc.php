@@ -55,6 +55,7 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "zenmagick/themes/default/content/category.js");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/misc/phpBB.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/validation/rules/custom/ZMNickNameRule.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/bootstrap.php");
 
 
     // check for existance of all obsolete files

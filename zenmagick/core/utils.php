@@ -25,57 +25,6 @@
 ?>
 <?php
 
-if (!class_exists("ZMObject")) {
-
-    /**
-     * ZenMagick base class.
-     *
-     * <p>This is the base class for all ZenMagick classes and contains some very basic
-     * stuff that might be usefull for most/all classes.</p>
-     *
-     * @author mano
-     * @package org.zenmagick
-     */
-    class ZMObject {
-        var $loader_;
-
-        /**
-         * Default c'tor.
-         */
-        function ZMObject() {
-        global $zm_loader;
-
-            $this->loader_ =& $zm_loader;
-        }
-
-        /**
-         * Default c'tor.
-         */
-        function __construct() {
-            $this->ZMObject();
-        }
-
-        /**
-         * Default d'tor.
-         */
-        function __destruct() {
-        }
-
-
-        /**
-         * Shortcut to create new class instances.
-         *
-         * @param string name The class name.
-         * @param var args A variable number of arguments that will be used as arguments for
-         * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
-         */
-        function create($name) {
-            $args = func_get_args();
-            array_shift($args);
-            return $this->loader_->createWithArgs($name, $args);
-        }
-    }
-
 
     /**
      * Simple <em>ZenMagick</em> logging function.
@@ -826,7 +775,5 @@ if (!class_exists("ZMObject")) {
         fputs($handle, "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"); 
         fclose($handle); 
     } 
-
-}
 
 ?>

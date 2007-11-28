@@ -459,7 +459,8 @@ class ZMCoreCompressor extends ZMObject {
         $loadFirst = array(
             '1/zenmagick.php',
             '1/settings.php',
-            'bootstrap.php',
+            'utils.php',
+            'ZMObject.php',
             'ZMLoader.php',
             'ZMService.php',
             'ZMSession.php',

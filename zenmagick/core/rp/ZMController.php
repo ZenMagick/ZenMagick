@@ -86,7 +86,7 @@ class ZMController extends ZMObject {
 
         $theme = $zm_runtime->getTheme();
 
-        return is_subclass_of($this, "ZMController") || $theme->isValidRequest();
+        return is_subclass_of($this, "ZMController") || $theme->isValidRequest($this->id_);
     }
 
 

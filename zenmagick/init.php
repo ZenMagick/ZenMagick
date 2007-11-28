@@ -42,12 +42,12 @@
         $_zm_core_dir = dirname(__FILE__)."/core/";
         require($_zm_core_dir."settings/zenmagick.php");
         require($_zm_core_dir."settings/settings.php");
-        require($_zm_core_dir."bootstrap.php");
+        require($_zm_core_dir."utils.php");
+        require($_zm_core_dir."ZMObject.php");
         require($_zm_core_dir."ZMLoader.php");
         require($_zm_core_dir."ZMRuntime.php");
         require($_zm_core_dir."ZMService.php");
         require($_zm_core_dir."service/ZMThemes.php");
-        require($_zm_core_dir."rp/ZMUrlMapper.php");
 
         // configure core loader
         $zm_loader =& new ZMLoader('coreLoader');
@@ -102,6 +102,7 @@
     // event proxy to simplify event subscription
     $zm_events = new ZMEvents();
 
+    // TODO: get rid of this
     // these can be replaced by themes; will be reinitializes during theme switching
     $zm_crumbtrail = $zm_loader->create('Crumbtrail');
     $zm_meta = $zm_loader->create('MetaTags');
