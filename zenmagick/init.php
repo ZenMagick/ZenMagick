@@ -127,11 +127,14 @@
 
     $zm_plugins =& new ZMPlugins();
 
-    // upset init plugins :)
-    // NOTE: init plugins do not support class loader support, etc in order to be quick!
-    foreach ($zm_plugins->getPluginsForType('init') as $plugin) {
-        if ($plugin->isEnabled()) {
-            $plugin->init();
+    if (!zm_setting('isAdmin')) {
+        // no admin support so far...
+        // upset init plugins :)
+        // NOTE: init plugins do not support class loader support, etc in order to be quick!
+        foreach ($zm_plugins->getPluginsForType('init') as $plugin) {
+            if ($plugin->isEnabled()) {
+                $plugin->init();
+            }
         }
     }
 
