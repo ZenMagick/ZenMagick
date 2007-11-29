@@ -61,23 +61,25 @@ class zm_init_zencart extends ZMPlugin {
 
         parent::init();
 
-        // general functions
-        require(DIR_WS_FUNCTIONS . 'functions_general.php');
-        require(DIR_WS_FUNCTIONS . 'html_output.php');
-        require(DIR_WS_FUNCTIONS . 'functions_email.php');
-        require(DIR_WS_FUNCTIONS . 'functions_ezpages.php');
-        include(DIR_WS_MODULES . 'extra_functions.php');
+        if (!function_exists('zen_exit')) {
+            // general functions
+            require(DIR_WS_FUNCTIONS . 'functions_general.php');
+            require(DIR_WS_FUNCTIONS . 'html_output.php');
+            require(DIR_WS_FUNCTIONS . 'functions_email.php');
+            require(DIR_WS_FUNCTIONS . 'functions_ezpages.php');
+            include(DIR_WS_MODULES . 'extra_functions.php');
 
-        // specials
-        require(DIR_WS_FUNCTIONS . 'whos_online.php');
-        require(DIR_WS_FUNCTIONS . 'password_funcs.php');
-        require(DIR_WS_FUNCTIONS . 'banner.php');
-        require(DIR_WS_FUNCTIONS . 'specials.php');
-        require(DIR_WS_FUNCTIONS . 'featured.php');
-        require(DIR_WS_FUNCTIONS . 'salemaker.php');
+            // specials
+            require(DIR_WS_FUNCTIONS . 'whos_online.php');
+            require(DIR_WS_FUNCTIONS . 'password_funcs.php');
+            require(DIR_WS_FUNCTIONS . 'banner.php');
+            require(DIR_WS_FUNCTIONS . 'specials.php');
+            require(DIR_WS_FUNCTIONS . 'featured.php');
+            require(DIR_WS_FUNCTIONS . 'salemaker.php');
 
-        // other
-        require(DIR_WS_FUNCTIONS . 'sessions.php');
+            // other
+            require(DIR_WS_FUNCTIONS . 'sessions.php');
+        }
     }
 
 }
