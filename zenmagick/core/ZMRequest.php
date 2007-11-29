@@ -166,15 +166,15 @@ class ZMRequest extends ZMObject {
     function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
-     * Get the language id.
+     * Get the language code.
      *
-     * <p><strong>NOTE:</strong> This will return only the language id as foound in the request. If you 
+     * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you 
      * want to find out the session language (ie the language for the current request), use <code>ZMRuntime::getLanguageId()</code>
      * or <code>ZMRuntime::getLanguage()</code>.</p>
      *
-     * @return int The language id or <code>0</code>.
+     * @return string The language code or <code>null</code>.
      */
-    function getLanguageId() { return (int)$this->getParameter('language', 0); }
+    function getLanguageCode() { return (int)$this->getParameter('language'); }
 
     /**
      * Get the request model number.
