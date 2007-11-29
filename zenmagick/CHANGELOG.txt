@@ -27,6 +27,10 @@ Release 0.8.6
 - added zm_get_browser_language() as described at: 
   http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html
 - added settings 'isUseBrowserLanguage' and 'defaultLanguageCode'
+- respect plugin sort order
+- use init plugins only for storefront
+- rename getCurrencyId() to getCurrencyCode() where appropriate to reflect the
+  fact that we are dealing with the code rather than the id
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

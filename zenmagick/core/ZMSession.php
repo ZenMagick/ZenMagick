@@ -275,21 +275,21 @@ class ZMSession extends ZMObject {
     }
 
     /**
-     * Get currency id.
+     * Get currency code.
      *
-     * @return int The session currency id.
+     * @return string The session currency code or <code>null</code>.
      */
-    function getCurrencyId() {
-        return isset($_SESSION['currency']) ? $_SESSION['currency'] : 0;
+    function getCurrencyCode() {
+        return isset($_SESSION['currency']) ? $_SESSION['currency'] : null;
     }
 
     /**
-     * Set currency id.
+     * Set currency code.
      *
-     * @param int currencyId The session currency id.
+     * @param string currencyCode The session currency code.
      */
-    function setCurrencyId($currencyId) {
-        $_SESSION['currency'] = $currencyId;
+    function setCurrencyCode($currencyCode) {
+        $_SESSION['currency'] = $currencyCode;
     }
 
     /**

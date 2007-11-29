@@ -187,7 +187,29 @@ class ZMPlugins extends ZMService {
             }
         }
 
+        if (!$useCache) {
+            // sort
+            usort($plugins, array($this, "_cmp_plugins"));
+        }
+
         return $plugins;
+    }
+
+    /**
+     * Compare plugins relative to their sort order and name.
+     *
+     * @param ZMPlugin a First plugin.
+     * @param ZMPlugin b Second plugin.
+     * @return integer Value less than, equal to, or greater than zero if the first argument is
+     *  considered to be respectively less than, equal to, or greater than the second.
+     */
+    function _cmp_plugins(&$a, &$b) {
+        $ao = $a->getOrder();
+        $bo = $b->getOrder();
+        if ($ao == $bo) {
+            return 0;
+        }
+        return ($ao < $bo) ? -1 : 1;
     }
 
     /**

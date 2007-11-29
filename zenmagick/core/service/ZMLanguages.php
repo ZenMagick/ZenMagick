@@ -127,7 +127,7 @@ class ZMLanguages extends ZMService {
      */
     function &_newLanguage($fields) {
         $language = $this->create("Language");
-        $language->id_ = $fields['id'];
+        $language->id_ = $fields['languages_id'];
         $language->name_ = $fields['name'];
         $language->image_ = $fields['image'];
         $language->code_ = $fields['code'];
