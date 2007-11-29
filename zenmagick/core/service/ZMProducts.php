@@ -468,7 +468,7 @@ class ZMProducts extends ZMService {
 
 
     function &_newProduct($fields) {
-    global $zm_features;
+    global $zm_features, $zm_taxes;
 
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status = $fields['products_status'];
@@ -489,7 +489,7 @@ class ZMProducts extends ZMService {
         $product->taxClassId_ = $fields['products_tax_class_id'];
         $product->discountType_ = $fields['products_discount_type'];
         $product->discountTypeFrom_ = $fields['products_discount_type_from'];
-        $product->taxRate_ = zm_get_tax_rate($fields['products_tax_class_id']);
+        $product->taxRate_ = $zm_taxes->getTaxRateForClassId($fields['products_tax_class_id']);
         $product->priceSorter_ = $fields['products_price_sorter'];
         $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
         $product->masterCategoryId_ = $fields['master_categories_id'];

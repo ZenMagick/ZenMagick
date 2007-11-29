@@ -265,8 +265,12 @@ class ZMOrders extends ZMService {
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
         $orderItem->model_ = $zenItem['model'];
-        $orderItem->taxRate_ = $zenItem['tax'];
-        $orderItem->calculatedPrice_ = zm_add_tax($zenItem['final_price'], $zenItem['tax']);
+        $taxRate = $this->create("TaxRate");
+        $taxRate->setRate($zenItem['tax']);
+        $orderItem->taxRate_ =& $taxRate;
+        $taxRate = $this->create("TaxRate");
+        $taxRate->setRate($zenItem['tax']);
+        $orderItem->calculatedPrice_ = $taxRate->addTax($zenItem['final_price']);
         foreach ($attributesLookup as $name => $atname) {
             array_push($orderItem->attributes_, $$atname);
         }

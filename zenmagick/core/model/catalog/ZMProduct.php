@@ -268,7 +268,7 @@ class ZMProduct extends ZMModel {
     /**
      * Get the tax rate.
      *
-     * @return float The tax rate.
+     * @return ZMTaxRate The tax rate.
      */
     function getTaxRate() { return $this->taxRate_; }
 

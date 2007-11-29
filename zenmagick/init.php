@@ -81,6 +81,7 @@
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
+    $zm_taxes = new ZMTaxRates();
     $zm_reviews = new ZMReviews();
     $zm_categories = new ZMCategories();
     $zm_features = new ZMFeatures();

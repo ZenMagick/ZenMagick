@@ -122,11 +122,12 @@ class ZMAttributes extends ZMService {
         } else {
             $value->price_ = $fields['options_values_price'];
         }
-        $value->price_ = zm_add_tax($value->price_, $this->product_->getTaxRate());
+        $taxRate = $this->product_->getTaxRate();
+        $value->price_ = $taxRate->addTax($value->price_);
 
         if ($value->isOneTime_ || $value->isPriceFactorOneTime_) {
             $onetimeCharges = zm_get_attributes_price_final_onetime($fields["products_attributes_id"], 1, '');
-            $value->oneTimePrice_ = zm_add_tax($onetimeCharges, $this->product_->getTaxRate());
+            $value->oneTimePrice_ = $taxRate->addTax($onetimeCharges);
         } else {
             $value->oneTimePrice_ = 0;
         }

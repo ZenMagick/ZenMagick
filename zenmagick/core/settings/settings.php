@@ -239,6 +239,7 @@
     $_ZM_SETTINGS['storeName'] = STORE_NAME;
     $_ZM_SETTINGS['storeNameAddress'] = STORE_NAME_ADDRESS;
     $_ZM_SETTINGS['storeCountry'] = STORE_COUNTRY;
+    $_ZM_SETTINGS['storeZone'] = STORE_ZONE;
     $_ZM_SETTINGS['storeEmail'] = STORE_OWNER_EMAIL_ADDRESS;
     $_ZM_SETTINGS['storeEmailFrom'] = EMAIL_FROM;
 

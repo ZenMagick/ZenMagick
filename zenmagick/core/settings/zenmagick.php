@@ -141,6 +141,13 @@
 
     //** others **//
 
+    define('ZM_PRODUCT_TAX_BASE_STORE', 'Store');
+    define('ZM_PRODUCT_TAX_BASE_SHIPPING', 'Shipping');
+    define('ZM_PRODUCT_TAX_BASE_BILLING', 'Billing');
+
+
+    //** others **//
+
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
 ?>

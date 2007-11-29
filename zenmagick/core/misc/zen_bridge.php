@@ -97,26 +97,6 @@
         }
     }
 
-
-    /**
-     * A few wrapper around common zen methods and other stuff.
-     * This is not to claim functionallity, but to keep track of zen-cart
-     * dependencies.
-     * Also a good reference about dependencies.
-     *
-     * TODO: convert/integrate db related stuff into model/DAO architecture
-     */
-    function zm_add_tax($value, $rate) { return zen_add_tax($value, $rate); }
-
-    // simple request scope cache
-    $_ZM_CACHE_TAX_RATES = array();
-    function zm_get_tax_rate($id) {
-    global $_ZM_CACHE_TAX_RATES;
-        if (!array_key_exists($id, $_ZM_CACHE_TAX_RATES)) {
-            $_ZM_CACHE_TAX_RATES[$id] = zen_get_tax_rate($id);
-        }
-        return $_ZM_CACHE_TAX_RATES[$id];
-    }
     function zm_get_attributes_price_final($arg1, $args2, $arg3, $arg4) {
         return zen_get_attributes_price_final($arg1, $args2, $arg3, $arg4);
     }

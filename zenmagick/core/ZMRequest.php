@@ -180,7 +180,8 @@ class ZMRequest extends ZMObject {
      * Get the currency id.
      *
      * <p><strong>NOTE:</strong> This will return only the currency id as found in the request. If you 
-     * want to find out the session currency (ie the currency for the current request), use <code>ZMRuntime::getCurrencyCode()</code>.
+     * want to find out the session currency (ie the currency for the current request), use <code>ZMRuntime::getCurrencyCode()</code>
+     * or <code>ZMRuntime::getCurrency()</code>.</p>
      *
      * @return string The currency code or <code>null</code>.
      */

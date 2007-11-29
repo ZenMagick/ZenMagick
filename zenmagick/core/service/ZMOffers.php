@@ -45,7 +45,7 @@ class ZMOffers extends ZMService {
      *
      * @param ZMProduct product The product.
      */
-    function ZMOffers($product) {
+    function __construct(&$product) {
         parent::__construct();
 
         $this->product_ = $product;
@@ -53,7 +53,7 @@ class ZMOffers extends ZMService {
         $this->specialPrice_ = null;
         $this->salePrice_ = null;
         $this->discountPercent_ = 0;
-        $this->taxRate_ = zm_get_tax_rate($product->taxClassId_);
+        $this->taxRate_ = $product->getTaxRate();
         $this->_calculatePrice();
     }
 
@@ -62,8 +62,8 @@ class ZMOffers extends ZMService {
      *
      * @param ZMProduct product The product.
      */
-    function __construct($product) {
-        $this->ZMOffers($product);
+    function ZMOffers(&$product) {
+        $this->__construct($product);
     }
 
     /**
@@ -97,7 +97,7 @@ class ZMOffers extends ZMService {
      * @return float The product price.
      */
     function getProductPrice($tax=true) {
-        return $tax ? zm_add_tax($this->product_->price_, $this->taxRate_) : $this->product_->price_;
+        return $tax ? $this->taxRate_->addTax($this->product_->price_) : $this->product_->price_;
     }
 
     /**
@@ -113,7 +113,7 @@ class ZMOffers extends ZMService {
             $this->basePrice_ = $this->_getBasePrice();
         }
 
-        return $tax ? zm_add_tax($this->basePrice_, $this->taxRate_) : $this->basePrice_;
+        return $tax ? $this->taxRate_->addTax($this->basePrice_) : $this->basePrice_;
     }
 
     /**
@@ -161,7 +161,7 @@ class ZMOffers extends ZMService {
             $this->specialPrice_ = $this->_getSpecialPrice();
         }
 
-        return $tax ? zm_add_tax($this->specialPrice_, $this->taxRate_) : $this->specialPrice_;
+        return $tax ? $this->taxRate_->addTax($this->specialPrice_) : $this->specialPrice_;
     }
 
     /**
@@ -194,7 +194,7 @@ class ZMOffers extends ZMService {
             $this->salePrice_ = $this->_getSalePrice();
         }
 
-        return $tax ? zm_add_tax($this->salePrice_, $this->taxRate_) : $this->salePrice_;
+        return $tax ? $this->taxRate_->addTax($this->salePrice_) : $this->salePrice_;
     }
 
     /**

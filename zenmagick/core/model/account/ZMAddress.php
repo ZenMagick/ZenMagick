@@ -231,9 +231,9 @@ class ZMAddress extends ZMModel {
     function getCountry() { return $this->country_; }
 
     /**
-     * Get the suburb.
+     * Get the countryId.
      *
-     * @return string The suburb.
+     * @return int The countryId or <em>0</em>.
      */
     function getCountryId() { return null != $this->country_ ? $this->country_->id_ : 0; }
 

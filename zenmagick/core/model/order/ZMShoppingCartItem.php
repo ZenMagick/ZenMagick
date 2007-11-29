@@ -49,7 +49,6 @@ class ZMShoppingCartItem extends ZMModel {
 
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
-        $this->taxRate_ = null;
         $this->attributes_ = null;
     }
 
@@ -77,17 +76,21 @@ class ZMShoppingCartItem extends ZMModel {
     function getImage() { return $this->zenItem_['image']; }
     function getImageInfo() { return $this->create("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
-    function getItemPrice() { return zm_add_tax($this->zenItem_['final_price'], $this->getTaxRate()); }
-    function getItemTotal() { return zm_add_tax($this->zenItem_['final_price'], $this->getTaxRate()) * $this->zenItem_['quantity']; }
+    function getItemPrice() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']); }
+    function getItemTotal() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }
     function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
+    /**
+     * Get the tax rate for this item.
+     *
+     * @return ZMTaxRate The tax rate or <code>null</code>.
+     */
     function getTaxRate() {
-        if (null == $this->taxRate_) {
-            $this->taxRate_ = zm_get_tax_rate($this->zenItem_['tax_class_id']);
-        }
-        return $this->taxRate_;
+    global $zm_taxes;
+
+        return $zm_taxes->getTaxRateForClassId($this->zenItem_['tax_class_id']);
     }
     function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
-    function getOneTimeCharges() { return zm_add_tax($this->zenItem_['onetime_charges'], $this->getTaxRate()); }
+    function getOneTimeCharges() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['onetime_charges']); }
 
     function hasAttributes() { return 0 != $this->getAttributes(); }
     function getAttributes() { 

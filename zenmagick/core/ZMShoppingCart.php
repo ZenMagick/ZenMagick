@@ -650,6 +650,29 @@ class ZMShoppingCart extends ZMService {
         return false;
     }
 
+    /**
+     * Get the tax address for this cart.
+     *
+     * @return ZMAddress The tax address.
+     */
+    function &getTaxAddress() {
+        switch (zm_setting('productTaxBase')) {
+        case ZM_PRODUCT_TAX_BASE_SHIPPING:
+            return $this->getShippingAddress();
+        case ZM_PRODUCT_TAX_BASE_BILLING:
+            return $this->getBillingAddress();
+        case ZM_PRODUCT_TAX_BASE_STORE:
+            $address = $this->getBillingAddress();
+            if ($address->getZoneId() != zm_setting('storeZone')) {
+                return $this->getShippingAddress();
+            }
+            return $address;
+        }
+
+        zm_log('invalid productTaxBase!', ZM_LOG_ERROR);
+        return null;
+    }
+
 }
 
 ?>

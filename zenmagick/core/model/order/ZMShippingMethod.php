@@ -86,7 +86,7 @@ class ZMShippingMethod extends ZMModel {
      *
      * @return float The shipping cost.
      */
-    function getCost() { return zm_add_tax($this->zenMethod_['cost'], $this->provider_->getTaxRate()); }
+    function getCost() { $taxRate = $this->provider_->getTaxRate(); return $taxRate->addTax($this->zenMethod_['cost']); }
 
     /**
      * Get the shipping provider.

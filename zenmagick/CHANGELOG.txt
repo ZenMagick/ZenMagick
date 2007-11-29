@@ -31,6 +31,10 @@ Release 0.8.6
 - use init plugins only for storefront
 - rename getCurrencyId() to getCurrencyCode() where appropriate to reflect the
   fact that we are dealing with the code rather than the id
+- refactored tax calculation; this includes:
+  * removed zm_add_tax() and zm_get_tax_rate()
+	* added new ZMTaxRates service ($zm_taxes)
+	* taxRate is now of type ZMTaxRate rather than float
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

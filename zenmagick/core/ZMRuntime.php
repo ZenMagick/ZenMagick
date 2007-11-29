@@ -244,6 +244,18 @@ class ZMRuntime extends ZMObject {
     function getLanguageName() { return $_SESSION['language']; }
 
     /**
+     * Get the current currency.
+     *
+     * @return ZMCurrency The current currency.
+     */
+    function &getCurrency() {
+    global $zm_currencies;
+   
+        $currency =& $zm_currencies->getCurrencyForCode($this->getCurrencyCode());
+        return $currency;
+    }
+
+    /**
      * Get the current currency code.
      *
      * @return string The current currency code.
