@@ -105,7 +105,7 @@
         }
 
         if (!zm_is_empty($params)) {
-            $query .= zen_output_string($params);
+            $query .= strtr(trim($params), array('"' => '&quot;'));
         }
 
         // trim trailing '?' and '&' from path
@@ -126,7 +126,7 @@
         }
 
         if (null !== $sid) {
-            $query .= '&' . zen_output_string($sid);
+            $query .= '&' . strtr(trim($sid), array('"' => '&quot;'));
         }
 
         $query = (1 < strlen($query)) ? $query : '';
