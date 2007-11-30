@@ -45,7 +45,7 @@ class ZMForwardView extends ZMView {
     }
 
     /**
-     * Create a new redirect view.
+     * Create a new forward view.
      *
      * @param string page The page (view) name.
      */
@@ -64,7 +64,7 @@ class ZMForwardView extends ZMView {
     /**
      * Check if this view is valid.
      *
-     * @return boolean <code>true</code> if the redirect url is not empty.
+     * @return boolean <code>true</code> if the forward url is not empty.
      */
     function isValid() {
         return !zm_is_empty($this->page_);
