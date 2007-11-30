@@ -38,6 +38,7 @@ Release 0.8.6
 - changed ZMCategories service to lazy loading - this should help requests
   that do not need categories, for example some Ajax calls
 - simplify follow up redirects by accepting a URL property in ZMRedirectView
+- add language support to ZMManufacturers
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

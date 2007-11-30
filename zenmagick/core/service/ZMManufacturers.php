@@ -61,11 +61,13 @@ class ZMManufacturers extends ZMService {
      * Get manufacturer for id.
      *
      * @param int id The manufacturer id.
+     * @param int languageId Optional language id; default is <em>0</em>.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    function &getManufacturerForId($id) {
+    function &getManufacturerForId($id, $languageId=0) {
     global $zm_runtime;
 
+        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
         $manufacturer = null;
         $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
@@ -73,7 +75,7 @@ class ZMManufacturers extends ZMService {
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
                 where m.manufacturers_id = :manufacturerId";
-        $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
         $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
 
         $results = $db->Execute($sql);
@@ -97,17 +99,19 @@ class ZMManufacturers extends ZMService {
     /**
      * Get all manufacturers.
      *
+     * @param int languageId Optional language id; default is <em>0</em>.
      * @return array List of <code>ZMManufacturer</code> instances.
      */
-    function getManufacturers() {
+    function getManufacturers($languageId=0) {
     global $zm_runtime;
 
+        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
         $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
-        $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
         $results = $db->Execute($sql);
 
         $manufacturers = array();
