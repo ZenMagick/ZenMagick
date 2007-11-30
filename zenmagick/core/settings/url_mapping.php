@@ -154,6 +154,10 @@
         // shipping address
         $zm_urlMapper->setMapping('checkout_shipping_address');
         $zm_urlMapper->setMapping('checkout_shipping_address', 'success', 'checkout_shipping', 'RedirectView', 'secure=true');
+
+        // redirect
+        $zm_urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
+        $zm_urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
     }
 
 ?>

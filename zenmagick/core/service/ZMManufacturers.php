@@ -123,6 +123,25 @@ class ZMManufacturers extends ZMService {
         return $manufacturers;
     }
 
+    /**
+     * Update manufacturers click stats.
+     *
+     * @param int id The manufacturer id.
+     * @param int languageId Optional language id; default is <em>0</em>.
+     */
+    function updateManufacturerClickCount($id, $languageId=0) {
+    global $zm_runtime;
+
+        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
+        $db = $this->getDB();
+        $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
+                SET url_clicked = url_clicked+1, date_last_click = now() 
+                WHERE manufacturers_id = :manufacturersId 
+                AND languages_id = :languagesId";
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
+        $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
+        $db->Execute($sql);
+    }
 
     /**
      * Create new manufacturer instance.

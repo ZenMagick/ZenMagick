@@ -255,7 +255,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    function getManufacturerId() { return $this->getParameter('manufacturers_id'); }
+    function getManufacturerId() { return $this->getParameter('manufacturers_id', 0); }
 
     /**
      * Get the account id.
