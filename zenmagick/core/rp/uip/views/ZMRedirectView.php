@@ -34,6 +34,7 @@
 class ZMRedirectView extends ZMView {
     var $page_;
     var $secure_;
+    var $url_;
     var $parameter_;
 
 
@@ -48,6 +49,7 @@ class ZMRedirectView extends ZMView {
 
         $this->page_ = $page;
         $this->secure_ = $secure;
+        $this->url_ = null;
         $this->parameter_ = '';
     }
 
@@ -83,10 +85,14 @@ class ZMRedirectView extends ZMView {
      */
     function generate() { 
         $url = null;
-        if ($this->secure_) {
-            $url = zm_secure_href($this->page_, $this->parameter_, false);
+        if (null != $this->url_) {
+            $url = $this->url_;
         } else {
-            $url = zm_href($this->page_, $this->parameter_, false);
+            if ($this->secure_) {
+                $url = zm_secure_href($this->page_, $this->parameter_, false);
+            } else {
+                $url = zm_href($this->page_, $this->parameter_, false);
+            }
         }
 
         zm_redirect($url);
@@ -108,6 +114,17 @@ class ZMRedirectView extends ZMView {
      */
     function setSecure($secure) {
         $this->secure_ = zm_boolean($secure);
+    }
+
+    /**
+     * Set a url.
+     *
+     * <p>Setting a url will override the page property. The URL will be used <em>as is</em>.</p>
+     *
+     * @param string url A full URL.
+     */
+    function setUrl($url) {
+        $this->url_ = $url;
     }
 
 }
