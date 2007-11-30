@@ -35,6 +35,8 @@ Release 0.8.6
   * removed zm_add_tax() and zm_get_tax_rate()
 	* added new ZMTaxRates service ($zm_taxes)
 	* taxRate is now of type ZMTaxRate rather than float
+- changed ZMCategories service to lazy loading - this should help requests
+  that do not need categories, for example some Ajax calls
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

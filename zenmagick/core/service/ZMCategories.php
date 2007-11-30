@@ -38,26 +38,24 @@ class ZMCategories extends ZMService {
 
     // flat list
     var $categories_;
+    var $treeFlag_;
 
 
     /**
      * Default c'tor.
      *
      * @param array path The current category path.
-     * @param string type The category type (not supported yet).
-     * @param int languageId The languageId.
+     * @param string type The category type (not supported yet); default is <code>null</code>.
+     * @param int languageId The languageId; default is <em>0</em>.
      */
-    function ZMCategories($path=null, $type=null, $languageId=null) {
-    global $zm_runtime;
-
+    function ZMCategories($path=null, $type=null, $languageId=0) {
         parent::__construct();
 
+        $this->path_ = null !== $path ? $path : array();
         $this->type_ = $type;
-        $this->languageId_ = null !== $languageId ? $languageId : $zm_runtime->getLanguageId();
+        $this->languageId_ = 0 != $languageId ? $languageId : 0;
         $this->categories_ = null;
-        $this->_load();
-        $this->_buildTree();
-        $this->setPath($path);
+        $this->treeFlag_ = false;
     }
 
     /**
@@ -85,9 +83,14 @@ class ZMCategories extends ZMService {
      * @param array path The current path.
      */
     function setPath($path) { 
-        $this->path_ = (null !== $path ? $path : array());
-        
-        // reset
+        $this->path_ = null !== $path ? $path : $this->path_;
+        $this->_applyPath();    
+    }
+
+    /**
+     * Apply path to categories.
+     */
+    function _applyPath() {
         foreach ($this->categories_ as $id => $category) {
             $this->categories_[$id]->active_ = false;
         }
@@ -107,6 +110,11 @@ class ZMCategories extends ZMService {
      * @return ZMCategory The default category (or <code>null</code>).
      */
     function getDefaultCategoryForProductId($productId) {
+        if (null === $this->categories_) {
+            $this->_load();
+            $this->_applyPath();
+        }
+
         $db = $this->getDB();
         $sql = "SELECT categories_id
                 FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
@@ -129,6 +137,11 @@ class ZMCategories extends ZMService {
      * @return array A list of <code>ZMCategory</code> instances.
      */
     function getCategories($ids=null) {
+        if (null === $this->categories_) {
+            $this->_load();
+            $this->_applyPath();
+        }
+
         if (null === $ids) {
             return $this->categories_;
         }
@@ -147,6 +160,16 @@ class ZMCategories extends ZMService {
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
     function getCategoryTree() {
+        if (null === $this->categories_) {
+            $this->_load();
+            $this->_applyPath();
+        }
+
+        if (!$this->treeFlag_) {
+            $this->_buildTree();
+            $this->treeFlag_ = true;
+        }
+
         $tlc = array();
         foreach ($this->categories_ as $id => $category) {
             if (0 == $category->parentId_ && 0 < $id) {
@@ -164,6 +187,11 @@ class ZMCategories extends ZMService {
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
     function getCategoryForId($categoryId) {
+        if (null === $this->categories_) {
+            $this->_load();
+            $this->_applyPath();
+        }
+
         $category = $this->categories_[$categoryId];
         return $category;
     }
@@ -175,6 +203,7 @@ class ZMCategories extends ZMService {
     function _load() {
     global $zm_runtime;
 
+        $languageId = 0 != $this->languageId_ ? $this->languageId_ : $zm_runtime->getLanguageId();
         $db = $this->getDB();
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
@@ -183,7 +212,7 @@ class ZMCategories extends ZMService {
                   where cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $db->bindVars($query, ":languageId", $this->languageId_, "integer");
+        $query = $db->bindVars($query, ":languageId", $languageId, "integer");
         $results = $db->Execute($query, '', true, 150);
 
         $this->categories_ = array();
