@@ -77,6 +77,9 @@ class zm_init_zencart extends ZMPlugin {
             require(DIR_WS_FUNCTIONS . 'featured.php');
             require(DIR_WS_FUNCTIONS . 'salemaker.php');
 
+            // classes that might be in session
+            require(DIR_WS_CLASSES . 'navigation_history.php');
+
             // other
             require(DIR_WS_FUNCTIONS . 'sessions.php');
         }
