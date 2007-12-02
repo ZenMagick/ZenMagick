@@ -96,6 +96,7 @@
     $_ZM_SETTINGS['isSessionRecreate'] = SESSION_RECREATE == 'True';
     $_ZM_SETTINGS['minPasswordLength'] = ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH;
     $_ZM_SETTINGS['isResolveClientIP'] = SESSION_IP_TO_HOST_ADDRESS == 'true';
+    $_ZM_SETTINGS['couponCodeLength'] = SECURITY_CODE_LENGTH;
 
     // email
     $_ZM_SETTINGS['isEmailEnabled'] = SEND_EMAILS == 'true';

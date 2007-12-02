@@ -128,7 +128,7 @@ class ZMGvSendConfirmController extends ZMController {
         $zm_coupons->setVoucherBalanceForAccountId($account->getId(), $newBalance);
 
         // create the new voucher
-        $couponCode = zen_create_coupon_code($account->getEmail());
+        $couponCode = $zm_coupons->createCouponCode($account->getEmail());
         $coupon = $zm_coupons->createCoupon($couponCode, $amount, ZM_COUPON_TYPPE_GV);
 
         // create coupon tracker

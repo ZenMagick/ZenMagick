@@ -41,6 +41,10 @@ Release 0.8.6
 - add language support to ZMManufacturers
 - add redirect controller and other related bits + pieces
 - show sort order of plugins in admin
+- add reimplementations for a couple zen-cart functions
+- add coupon balance update to ZMCoupons.php; this was missing redeeming
+  coupons and would result in the coupon value just disappearing rather than
+  being credited
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

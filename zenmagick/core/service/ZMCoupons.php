@@ -220,23 +220,110 @@ class ZMCoupons extends ZMService {
     /**
      * Redeem a coupon.
      *
+     * <p>This will call <code>finalizeCoupon(...)</code> and <code>creditCoupon(...)</code>.</p>
+     *
      * @param int couponId The coupon id.
      * @param int accountId The redeeming account id.
      * @param string remoteIp The redeeming IP addres; default is an empty string.
      */
     function redeemCoupon($couponId, $accountId, $remoteIp='') {
+        $this->finalizeCoupon($couponId, $accountId, $removeIp);
+        $this->creditCoupon($couponId, $accountId);
+    }
+
+    /**
+     * Finalize a coupon.
+     *
+     * @param int couponId The coupon id.
+     * @param int accountId The redeeming account id.
+     * @param string remoteIp The redeeming IP addres; default is an empty string.
+     */
+    function finalizeCoupon($couponId, $accountId, $remoteIp='') {
         $db = $this->getDB();
         $sql = "insert into  " . TABLE_COUPON_REDEEM_TRACK . "(coupon_id, customer_id, redeem_date, redeem_ip)
-                values (:couponId, :accountId, now(), :remoteADDR)";
+                values (:couponId, :accountId, now(), :remoteAddr)";
 
         $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
         $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
-        $sql = $db->bindVars($sql, ':remoteADDR', $remoteIp, 'string');
+        $sql = $db->bindVars($sql, ':remoteAddr', $remoteIp, 'string');
         $db->Execute($sql);
 
         $sql = "update " . TABLE_COUPONS . " set coupon_active = 'N' where coupon_id = :couponId";
         $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
         $db->Execute($sql);
+    }
+
+    /**
+     * Credit coupon for account.
+     *
+     * @param int couponId The coupon id.
+     * @param int accountId The redeeming account id.
+     */
+    function creditCoupon($couponId, $accountId) {
+        $db = $this->getDB();
+
+        // get coupon value
+        $sql = "select coupon_amount
+                from " . TABLE_COUPONS . "
+                where coupon_id = :couponId";
+        $sql = $db->bindVars($sql, ':couponId', $couponId, 'integer');
+        $results = $db->Execute($sql);
+        $couponValue = $results->fields['coupon_amount'];
+
+        // check if customer has already a balance
+        $sql = "select amount
+                from " . TABLE_COUPON_GV_CUSTOMER . "
+                where customer_id = :accountId";
+        $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
+
+        $results = $db->Execute($sql);
+        if ($results->RecordCount() > 0) {
+            $newAmount = $results->fields['amount'] + $couponValue;
+            $sql = "update " . TABLE_COUPON_GV_CUSTOMER . "
+                   set amount = :newAmount where customer_id = :accountId";
+            $sql = $db->bindVars($sql, ':newAmount', $newAmount, 'float');
+            $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
+            $db->Execute($sql);
+        } else {
+            $sql = "insert into " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
+                    values (:accountId, :couponValue)";
+            $sql = $db->bindVars($sql, ':couponValue', $couponValue, 'float');
+            $sql = $db->bindVars($sql, ':accountId', $accountId, 'integer');
+            $db->Execute($sql);
+        }
+    }
+
+    /**
+     * Create a new coupon code.
+     *
+     * @param string salt The salt to be used to generate the unique code.
+     * @param int length The coupon code length; default is <em>0</em> to use the setting <em>couponCodeLength</em>.
+     * @return string A new unique coupon code.
+     */
+    function createCouponCode($salt, $length=0) {
+        $length = 0 == $length ? zm_setting('couponCodeLength') : $length;
+
+        srand((double)microtime()*1000000); 
+        $codes = md5(uniqid(@rand().$salt, true));
+        $codes .= md5(uniqid($salt, true));
+        $codes .= md5(uniqid($salt.@rand(), false));
+        $codes .= md5(uniqid($salt, true));
+
+        $db = $this->getDB();
+        for ($ii=@rand(0, 64); $ii+$length < 128; ++$i) {
+            $code = substr($codes, $ii, $length);
+
+            $sql = "select coupon_code
+                    from " . TABLE_COUPONS . "
+                    where coupon_code = :code";
+            $sql = $db->bindVars($sql, ':code', $code, 'string');
+            $results = $db->Execute($sql);
+            if (0 == $results->RecordCount()) {
+                return $code;
+            }
+        }
+        zm_log('could not create coupon code', ZM_LOG_ERROR);
+        return null;
     }
 
     /**
