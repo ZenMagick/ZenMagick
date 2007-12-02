@@ -128,7 +128,7 @@
 
     $zm_plugins =& new ZMPlugins();
 
-    if (!zm_setting('isAdmin')) {
+    if (!zm_setting('isAdmin') && false) {
         // no admin support so far...
         // upset init plugins :)
         // NOTE: init plugins do not support class loader support, etc in order to be quick!

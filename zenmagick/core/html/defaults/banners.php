@@ -36,6 +36,8 @@
      * @return string The HTML formatted banner.
      */
     function zm_display_banner($banner, $echo=true, $updateCount=true) {
+    global $zm_banners;
+
         $html = '';
 
         if (null == $banner)
@@ -55,7 +57,7 @@
         }
 
         if ($updateCount) {
-            zen_update_banner_display_count($banner->getId());
+            $zm_banners->updateBannerDisplayCount($banner->getId());
         }
 
         if ($echo) echo $html;

@@ -71,7 +71,7 @@ class ZMRedirectController extends ZMController {
         case 'banner':
             $banner = $zm_banners->getbannerForId($goto);
             if (null != $banner) {
-                zen_update_banner_click_count($goto);
+                $zm_banners->updateBannerClickCount($goto);
                 return $this->findView('success', array('url' => $banner->getUrl()));
             }
             break;
