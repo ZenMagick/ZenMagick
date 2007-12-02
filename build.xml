@@ -153,6 +153,11 @@
             <!-- editor / tmp files -->
             <fileset dir="${build.dir}" includes="**/*~" />
             <fileset dir="${build.dir}" includes="**/*swp" />
+
+            <!-- experimental stuff -->
+            <fileset dir="${build.dir}" includes="zenmagick/core/services/ZMShippings.php" />
+            <fileset dir="${build.dir}" includes="zenmagick/bootstrap.php" />
+            <fileset dir="${build.dir}" includes="zenmagick/plugins/init/**" />
         </delete>
     </target>
 
