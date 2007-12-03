@@ -45,6 +45,8 @@ Release 0.8.6
 - add coupon balance update to ZMCoupons.php; this was missing redeeming
   coupons and would result in the coupon value just disappearing rather than
   being credited
+- changed checkout_success to reflect the fact that the 'continue' button is,
+  in fact, just the update button for the product notifications
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

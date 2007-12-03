@@ -43,20 +43,22 @@
                         <label for="<?php echo $id ?>"><?php echo $orderItem->getName() ?></label><br />
                     </p>
                 <?php } ?>
+                <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
             </fieldset>
         <?php } ?>
     <?php } ?>
+
 
     <?php $voucherBalance = $zm_account->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
-            <div class="btn"><a href="<?php zm_href(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
             <p>
                 <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", zm_format_currency($voucherBalance, true, false)) ?><br />
                 <?php $email = '<a href="' . zm_href(FILENAME_GV_SEND, '', false) . '">' . zm_l10n_get("email") . '</a>'; ?>
                 <?php zm_l10n("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>
+            <div class="btn"><a href="<?php zm_href(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
         </fieldset>
     <?php } ?>
 
@@ -69,6 +71,4 @@
             </p>
         </fieldset>
     <?php } ?>
-
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>
