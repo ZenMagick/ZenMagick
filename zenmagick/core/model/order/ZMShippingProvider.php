@@ -93,7 +93,7 @@ class ZMShippingProvider extends ZMModel {
      *
      * @return float The shipping tax rate.
      */
-    function getTaxRate() { $taxRate = $this->create("TaxRate"); $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0); return $taxRate; }
+    function &getTaxRate() { $taxRate = $this->create("TaxRate"); $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0); return $taxRate; }
 
     /**
      * Checks if an icon exists for this provider.
