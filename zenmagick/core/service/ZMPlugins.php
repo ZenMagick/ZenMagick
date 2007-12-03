@@ -123,13 +123,13 @@ class ZMPlugins extends ZMService {
     /**
      * Get all plugins.
      *
-     * @param boolean useCache If <code>true</code>, use the cached plugin status info.
+     * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
-    function getAllPlugins($useCache=true) {
+    function getAllPlugins($configured=true) {
         $plugins = array();
         foreach ($this->getPluginTypes() as $type => $typeDir) {
-            $plugins[$type] = $this->getPluginsForType($type, $useCache);
+            $plugins[$type] = $this->getPluginsForType($type, $configured);
         }
         return $plugins;
     }
@@ -162,12 +162,12 @@ class ZMPlugins extends ZMService {
      * Get all plugins for the given type.
      *
      * @param string type The plugin type.
-     * @param boolean useCache If <code>true</code>, use the cached plugin status info.
+     * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function &getPluginsForType($type, $useCache=true) {
+    function &getPluginsForType($type, $configured=true) {
         $idList = array();
-        if ($useCache) {
+        if ($configured) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
@@ -187,7 +187,7 @@ class ZMPlugins extends ZMService {
             }
         }
 
-        if (!$useCache) {
+        if (!$configured) {
             // sort
             usort($plugins, array($this, "_cmp_plugins"));
         }
