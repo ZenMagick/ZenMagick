@@ -74,23 +74,6 @@ class ZMController extends ZMObject {
 
 
     /**
-     * Checks if the current request can be handled by the controller or not.
-     *
-     * <p>This is a temp. method that wil be obsolete once all views are implemented
-     * in the default theme (is that now??).</p>
-     *
-     * @return boolean <code>true</code> if the controller can handle the request, <code>false</code> if not.
-     */
-    function validateRequest() {
-    global $zm_runtime;
-
-        $theme = $zm_runtime->getTheme();
-
-        return is_subclass_of($this, "ZMController") || $theme->isValidRequest($this->id_);
-    }
-
-
-    /**
      * Process a HTTP request.
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>

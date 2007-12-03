@@ -664,7 +664,6 @@
      *
      * @package org.zenmagick
      * @return boolean <code>true</code> if the request was dispatched, <code>false</code> if not.
-     * @todo Support for internal forwards.
      */
     function zm_dispatch() {
     global $zm_runtime, $zm_request, $zm_loader, $zm_events;
@@ -674,26 +673,22 @@
             $controller =& $zm_loader->create("DefaultController");
         }
 
-        if ($controller->validateRequest()) {
-            $zm_request->setController($controller);
+        $zm_request->setController($controller);
 
-            eval(zm_globals());
+        eval(zm_globals());
 
-            // execute controller
-            $view = $controller->process();
+        // execute controller
+        $view = $controller->process();
 
-            // generate response
-            if (null != $view) {
-                $controller->exportGlobal("zm_view", $view);
-                $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_START, array('view' =>& $view));
-                $view->generate();
-                $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_DONE);
-            }
-
-            return true;
+        // generate response
+        if (null != $view) {
+            $controller->exportGlobal("zm_view", $view);
+            $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_START, array('view' =>& $view));
+            $view->generate();
+            $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_DONE);
         }
 
-        return false;
+        return true;
     }
 
     /**

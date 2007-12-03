@@ -73,24 +73,6 @@ class ZMTheme extends ZMObject {
     function getThemeId() { return $this->themeId_; }
 
     /**
-     * Check if this theme has either a content view or a page template for the current request.
-     *
-     * <p>The applied logic is as follows:</p>
-     * <ol>
-     *  <li>If not, assuming the default layout is used, check if a content view exists</li>
-     *  <li>Check if a layout exists for the given page</li>
-     * </ol>
-     *
-     * @param string page The page name.
-     * @return boolean <code>true</code> if this theme can handle the given page.
-     */
-    function isValidRequest($page) {
-        $themeInfo = $this->getThemeInfo();
-        $view = $this->themeFile($this->getViewsDir().$page.zm_setting('templateSuffix'));
-        return file_exists($view) || $this->hasLayout($page);
-    }
-
-    /**
      * Check if a layout is configured for the given page.
      *
      * @param string page The page name.

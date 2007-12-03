@@ -47,6 +47,8 @@ Release 0.8.6
   being credited
 - changed checkout_success to reflect the fact that the 'continue' button is,
   in fact, just the update button for the product notifications
+- removed defunct ZMTheme::isValidRequest(..) and
+  ZMController::validateRequest()
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
