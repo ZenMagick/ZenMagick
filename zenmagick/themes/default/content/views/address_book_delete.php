@@ -25,8 +25,10 @@
 ?>
 
 <p><?php zm_l10n("Are you sure you would like to delete the selected address from your address book?") ?></p>
-<fieldset>
-    <legend><?php zm_l10n("Selected Address") ?></legend>
-    <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_ADDRESS_BOOK_PROCESS, "action=deleteconfirm&delete=".$zm_address->getId()."&addressId=".$zm_address->getId()) ?>"><?php zm_l10n("Delete") ?></a></div>
-    <?php zm_format_address($zm_address) ?>
-</fieldset>
+<?php zm_secure_form(FILENAME_ADDRESS_BOOK_PROCESS, "action=deleteconfirm&delete=".$zm_address->getId()."&addressId=".$zm_address->getId(), 'address', "post") ?>
+    <fieldset>
+        <legend><?php zm_l10n("Selected Address") ?></legend>
+        <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Delete") ?>" /></div>
+        <?php zm_format_address($zm_address) ?>
+    </fieldset>
+</form>

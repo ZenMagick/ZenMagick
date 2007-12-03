@@ -167,7 +167,7 @@ class ZMAddressBookProcessController extends ZMController {
 
         $account = $zm_request->getAccount();
         $addressId = $zm_request->getParameter('addressId', 0);
-        if (0 < $addressid) {
+        if (0 < $addressId) {
             $zm_addresses->deleteAddressForId($addressId);
             $zm_messages->success('The selected address has been successfully removed from your address book.');
         }

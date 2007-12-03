@@ -49,6 +49,7 @@ Release 0.8.6
   in fact, just the update button for the product notifications
 - removed defunct ZMTheme::isValidRequest(..) and
   ZMController::validateRequest()
+- fix delete address (address book); #1843152
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
