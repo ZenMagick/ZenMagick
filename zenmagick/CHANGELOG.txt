@@ -61,6 +61,7 @@ Release 0.8.6
 - added pretty links plugin
 - removed main .htaccess file as this moves as sample configuration into the
   new plugin
+- add support using the configured default image if product image not set; #1842973
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

@@ -473,7 +473,7 @@ class ZMProducts extends ZMService {
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status = $fields['products_status'];
         $product->model_ = $fields['products_model'];
-        $product->image_ = $fields['products_image'];
+        $product->image_ = (empty($fields['products_image']) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $fields['products_image'];
         $product->url_ = $fields['products_url'];
         $product->dateAvailable_ = $fields['products_date_available'];
         $product->dateAdded_ = $fields['products_date_added'];
