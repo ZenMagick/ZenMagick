@@ -5,23 +5,18 @@ Options +FollowSymLinks
 RewriteEngine on
 RewriteBase /zen-cart/
 
-##RewriteRule ^etc/docs/apidocs/(net.*)$ etc/docs/apidocs/0.8.0/$1 [QSA,L]
-
 ## might use path elements that are used in other places too
 RewriteRule ^([^/]+)/([^/]+)/rss.xml index.php?main_page=rss&channel=$1&key=$2 [QSA,L]
 RewriteRule ^([^/]+)/rss.xml index.php?main_page=rss&channel=$1 [QSA,L]
 
 ##  Ultimate SEO2.x rules would go here:
 
-## NOTE: Remember to update _zm_build_href if making changes here
 RewriteRule ^static/([^/]+)/([^/]+)/?$ index.php?main_page=static&cat=$1#$2 [QSA,L]
 RewriteRule ^static/([^/]+)/?$ index.php?main_page=static&cat=$1 [QSA,L]
 RewriteRule ^page/([^/]+)/([^/]+)/?$ index.php?main_page=page&id=$1&chapter=$2 [QSA,L]
 RewriteRule ^page/([^/]+)/?$ index.php?main_page=page&id=$1 [QSA,L]
 
 ## CUSTOM RULES (custom rules will be added by patches after this line, so please do not remove)
-RewriteRule ^wiki/([^/]+)/?$ index.php?main_page=wiki&page=$1 [QSA,L]
-RewriteRule ^wiki/?$ index.php?main_page=wiki&page=WikiRoot [QSA,L]
 
 RewriteRule ^reviews/new/([0-9:a-f]+)/?$ index.php?main_page=product_reviews_write&products_id=$1 [QSA,L]
 RewriteRule ^reviews/([0-9:a-f]+)/([0-9]+)/?$ index.php?main_page=product_reviews_info&products_id=$1&reviews_id=$2 [QSA,L]
