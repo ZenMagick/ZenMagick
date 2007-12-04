@@ -1,4 +1,8 @@
 <?php
+  /**
+   * The following are all copyright notes from the original USEO2 files...
+   */
+
 //
 // +----------------------------------------------------------------------+
 // |zen-cart Open Source E-commerce                                       |
@@ -22,9 +26,6 @@
 // $Id: seo.php
 //
 
-  define('TABLE_SEO_CACHE', DB_PREFIX . 'seo_cache');
-?>
-<?php
 /*=======================================================================*\
 || #################### //-- SCRIPT INFO --// ########################## ||
 || #	Script name: admin/includes/seo_cache_reset.php
@@ -55,29 +56,7 @@
 || #	Copyright (c) 2003 osCommerce									# ||
 || ###################################################################### ||
 \*========================================================================*/
-function reset_seo_cache() {
-global $db;
-	$db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
-}
-?>
-<?php
-// Function to reset SEO URLs database cache entries 
-// Ultimate SEO URLs v2.1
-function zen_reset_cache_data_seo_urls($action) {
-	switch ($action){
-		case 'reset':
-			$GLOBALS['db']->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
-			$GLOBALS['db']->Execute("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='false' WHERE configuration_key='SEO_URLS_CACHE_RESET'");
-			break;
-		default:
-			break;
-	}
-	# The return value is used to set the value upon viewing
-	# It's NOT returining a false to indicate failure!!
-	return 'false';
-}
-?>
-<?php
+
 /*
 	+----------------------------------------------------------------------+
 	|	Ultimate SEO URLs For Zen Cart, version 2.101                        |
@@ -102,22 +81,55 @@ function zen_reset_cache_data_seo_urls($action) {
 	+----------------------------------------------------------------------+
 */
 
+?>
+<?php
 
- // Ultimate SEO URLs v2.100
- // The HTML href link wrapper function
-  function zen_href_link_seo($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $static = false, $use_dir_ws_catalog = true) {
-		/* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
-		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
-		if((SEO_URLS_ONLY_IN!="") && !in_array($page,$sefu)) {
-			return _zm_zen_href_link($page, $parameters, $connection, $add_session_id, $search_engine_safe, $static, $use_dir_ws_catalog);
-		}
-		
-		if (!isset($GLOBALS['seo_urls']) && !is_object($GLOBALS['seo_urls'])) {
-			//include_once(DIR_WS_CLASSES . 'seo.url.php');
-			$GLOBALS['seo_urls'] = &new SEO_URL($_SESSION['languages_id']);
-		}
+    // SEO database table
+    define('TABLE_SEO_CACHE', DB_PREFIX . 'seo_cache');
 
-		return $GLOBALS['seo_urls']->href_link($page, $parameters, $connection, $add_session_id, $static, $use_dir_ws_catalog);
-  }
+    /**
+     * Reset SEO cache.
+     */
+    function reset_seo_cache() {
+    global $db;
+
+        $db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
+    }
+
+
+    // Function to reset SEO URLs database cache entries 
+    // Ultimate SEO URLs v2.1
+    function zen_reset_cache_data_seo_urls($action) {
+      switch ($action){
+        case 'reset':
+          $GLOBALS['db']->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
+          $GLOBALS['db']->Execute("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='false' WHERE configuration_key='SEO_URLS_CACHE_RESET'");
+          break;
+        default:
+          break;
+      }
+      # The return value is used to set the value upon viewing
+      # It's NOT returining a false to indicate failure!!
+      return 'false';
+    }
+
+
+    /**
+     * ZenMagick SEO API function.
+     */
+    function zm_build_seo_href($page=null, $parameters='', $isSecure=false) {
+        /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
+        $sefu = explode(",", ereg_replace(' +', '', SEO_URLS_ONLY_IN));
+        if ((SEO_URLS_ONLY_IN != "" && !in_array($page, $sefu)) || (null != zm_setting('seoEnabledPagesList') && !zm_is_in_array($page, zm_setting('seoEnabledPagesList')))) {
+            return _zm_zen_href_link($page, $parameters, $isSecure ? 'SSL' : 'NONSSL');
+        }
+        
+        if (!isset($GLOBALS['seo_urls']) && !is_object($GLOBALS['seo_urls'])) {
+            //include_once(DIR_WS_CLASSES . 'seo.url.php');
+            $GLOBALS['seo_urls'] = &new SEO_URL($_SESSION['languages_id']);
+        }
+
+        return $GLOBALS['seo_urls']->href_link($page, $parameters, $isSecure ? 'SSL' : 'NONSSL');
+    }
 
 ?>

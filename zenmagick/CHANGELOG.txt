@@ -50,6 +50,13 @@ Release 0.8.6
 - removed defunct ZMTheme::isValidRequest(..) and
   ZMController::validateRequest()
 - fix delete address (address book); #1843152
+- removed setting 'seoEnabledPagesList' from core; both zm_seo2 and zm_seo3
+  support this as a plugin specific setting, though
+- removed now obsolete function zm_useo_enabled()
+- removed pretty link support from core
+- added support for optional function zm_build_seo_href(..) which will be used
+  for link generation if present
+- modified both zm_seo2 and zm_seo3 plugins to support the new SEO API
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

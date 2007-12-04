@@ -25,19 +25,23 @@
 
 
 /**
- * Seo Urls zen_href_link replacement
+ * ZenMagick SEO API function.
  */
-function zen_href_link_seo($page='', $parameters='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-    //zm_set_setting('seoEnabledPagesList', null);
-    return $GLOBALS['SeoUrl']->buildHrefLink($page, $parameters, $connection, $add_session_id, $static, $use_dir_ws_catalog);
+function zm_build_seo_href($view=null, $params='', $isSecure=false) {
+    if (isset($GLOBALS['SeoUrl']) && (null == zm_setting('seoEnabledPagesList') || zm_is_in_array($view, zm_setting('seoEnabledPagesList')))) {
+        return $GLOBALS['SeoUrl']->buildHrefLink($view, $params, $isSecure ? 'SSL' : 'NONSSL');
+    } else {
+        return _zm_zen_href_link($view, $params, $isSecure ? 'SSL' : 'NONSSL');
+    }
 }
 
-/**
- * 'redirect' zen_href_link_stock to the disabled original function.
- * This has to correspond with the function name implemented in ZMLinkGenerationPatch.php
- */
-function zen_href_link_stock($page='', $parameters='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-    return zen_href_link_DISABLED($page, $parameters, $connection, $add_session_id, $seo_safe, $static, $use_dir_ws_catalog);
+if (!function_exists(zen_href_link_stock)) {
+    /**
+     * This is the name of the renamed zen_href_link function in a vanilla USEO3 installation.
+     */
+    function zen_href_link_stock($page='', $params='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
+        return _zm_zen_href_link($page, $params, $connection, $add_session_id, $seo_safe, $static, $use_dir_ws_catalog);
+    }
 }
 
 ?>

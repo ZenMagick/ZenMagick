@@ -27,28 +27,6 @@
 
 
     /**
-     * Add a custom mapping for pretty link generation.
-     *
-     * <p>The converter function will be called with two parameters; the current page name
-     * and as second parameter a complete map of query parameters.</p>
-     *
-     * @package org.zenmagick.html
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
-     * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
-     *  which will be interpreted as using the view name.
-     * @param array params List of query parameters to append as part of the pretty link.
-     */
-    function zm_set_pretty_link_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
-    global $_zm_pretty_link_map;
-
-        if (!isset($_zm_pretty_link_map)) {
-            $_zm_pretty_link_map = array();
-        }
-
-        $_zm_pretty_link_map[$view] = array('convert' => $convert, 'params' => $params, 'exclude' => $exclude);
-    }
-    
-    /**
      * Create a URL for a href.
      *
      * <p>If the <code>view</code> argument is <code>null</code>, the current view will be
@@ -62,6 +40,7 @@
      */
     function zm_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, false, $echo); }
 
+
     /**
      * Secure version of {@link org.zenmagick.html#zm_href zm_href}.
      *
@@ -73,10 +52,12 @@
      */
     function zm_secure_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, true, $echo); }
 
+
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
     function _zm_zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    //TODO:
     global $request_type, $session_started, $http_domain, $https_domain;
 
         if (zm_is_empty($page)) zm_backtrace('missing page parameter');
@@ -134,12 +115,14 @@
         return zm_htmlurlencode($server.$path.$query);
     }
 
+
     /**
      * Build a href / url.
      */
-    function _zm_build_href($view=null, $params='', $secure=false, $echo=true) {
-    global $zm_request, $_zm_pretty_link_map;
+    function _zm_build_href($view=null, $params='', $isSecure=false, $echo=true) {
+    global $zm_request;
 
+        // custom view and params handling
         if (null === $view || null === $params) {
             $query = array();
             if (null === $view || null === $params) {
@@ -166,238 +149,12 @@
         $view = $view == null ? $zm_request->getPageName() : $view;
 
         $href= null;
-        if (zm_useo_enabled() && (null == zm_setting('seoEnabledPagesList') || zm_is_in_array($view, zm_setting('seoEnabledPagesList')))) {
-            $href = zen_href_link_seo($view, $params, $secure ? 'SSL' : 'NONSSL');
+        if (function_exists('zm_build_seo_href')) {
+            // use custom SEO builder function
+            $href = zm_build_seo_href($view, $params, $isSecure);
         } else {
+            // use default implementation
             $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
-        }
-
-        if (zm_setting('isZMPrettyLinks')) {
-            // adjust to match .htaccess rewrite rules
-            $url = parse_url($href);
-            $queryString = zm_htmlurldecode($url['query']);
-            parse_str($queryString, $query);
-            $path = dirname($url['path']);
-            if (!zm_ends_with($path, '/')) {
-                $path .= '/';
-            }
-            if (zm_starts_with($path, '\\')) {
-                $path = substr($path, 1);
-            }
-            $page = $query['main_page'];
-            $translate = true;
-            $removeNames = array('main_page', 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
-            switch ($page) {
-                case 'index':
-                case 'category':
-                    if (array_key_exists("cPath", $query)) {
-                        $path .= "category/".$query['cPath'];
-                    } else if (array_key_exists("manufacturers_id", $query)) {
-                        $path .= "manufacturer/".$query['manufacturers_id'];
-                    } else {
-                        $path .= "home";
-                    }
-                    break;
-                case 'static':
-                    $path .= "static/".$query['cat'];
-                    break;
-                case 'product_info':
-                    if (array_key_exists("cPath", $query)) {
-                        $path .= "product/".$query['products_id'];
-                        $path .= "/".$query['cPath'];
-                    } else if (array_key_exists("manufacturers_id", $query)) {
-                        $path .= "manufacturer/".$query['products_id'];
-                        $path .= "/".$query['manufacturers_id'];
-                    } else {
-                        $path .= "product/".$query['products_id'];
-                    }
-                    break;
-                case 'login':
-                case 'logoff':
-                case 'account':
-                case 'account_edit':
-                case 'account_password':
-                case 'account_newsletters':
-                case 'account_notifications':
-                case 'reviews':
-                    $page = str_replace('_', '/', $page);
-                    $path .= $page."/";
-                    break;
-                case 'account_history':
-                    $path .= "account/history/";
-                    break;
-                case 'account_history_info':
-                    $path .= "account/history/order/".$query['order_id'];
-                    break;
-                case 'address_book':
-                    $path .= "addressbook/";
-                    break;
-                case 'address_book_process':
-                    $path .= "addressbook/process/";
-                    break;
-                case 'product_reviews':
-                    $path .= "reviews/".$query['products_id'];
-                    break;
-                case 'product_reviews_info':
-                    $path .= "reviews/".$query['products_id']."/".$query['reviews_id'];
-                    break;
-                case 'product_reviews_write':
-                    $path .= "reviews/new/".$query['products_id'];
-                    break;
-                case 'shopping_cart':
-                    $path .= "cart/";
-                    break;
-                case 'account_notifications':
-                    $path .= "account/notifications/";
-                    if (array_key_exists('products_id', $query)) {
-                        $path .= $query['products_id'];
-                    }
-                    break;
-                case 'tell_a_friend':
-                    $path .= "tellafriend/".$query['products_id'];
-                    break;
-                case 'page':
-                    $path .= "page/".$query['id'];
-                    if (array_key_exists('chapter', $query)) {
-                        $path .= "/".$query['chapter'];
-                        array_push($removeNames, 'chapter');
-                    }
-                    break;
-                case 'site_map':
-                    $path .= "sitemap/";
-                    break;
-                case 'specials':
-                    $path .= "specials";
-                    break;
-                case 'privacy':
-                    $path .= "privacy";
-                    break;
-                case 'contact_us':
-                    $path .= "contactus/";
-                    break;
-                case 'products_new':
-                    $path .= "newproducts/";
-                    break;
-                case 'password_forgotten':
-                    $path .= "account/password/forgotten/";
-                    break;
-                case 'create_account':
-                    $path .= "account/create/";
-                    break;
-                case 'create_account':
-                    $path .= "account/create/";
-                    break;
-                case 'advanced_search':
-                    $path .= "search/";
-                    break;
-                case 'advanced_search_result':
-                    $path .= "search/results";
-                    break;
-                case 'featured_products':
-                    $path .= "featured/";
-                    break;
-                case 'checkout_process':
-                    $path .= "checkout/process/";
-                    break;
-                case 'checkout_success':
-                    $path .= "checkout/success/";
-                    break;
-                case 'checkout_shipping':
-                    $path .= "checkout/shipping/";
-                    break;
-                case 'checkout_shipping_address':
-                    $path .= "checkout/shipping/address/";
-                    break;
-                case 'checkout_payment':
-                    $path .= "checkout/payment/";
-                    break;
-                case 'checkout_payment_address':
-                    $path .= "checkout/payment/address/";
-                    break;
-                case 'checkout_confirmation':
-                    $path .= "checkout/confirm/";
-                    break;
-                case 'gv_redeem':
-                    $path .= "account/giftcard/redeem/";
-                    if (array_key_exists('couponCode', $query)) {
-                        $path .= $query['couponCode'];
-                        array_push($removeNames, 'couponCode');
-                    }
-                    break;
-                case 'gv_send':
-                    $path .= "account/giftcard/send/";
-                    break;
-                case 'gv_faq':
-                    $path .= "account/giftcard/faq/";
-                    break;
-                case 'time_out':
-                    $path .= "timeout/";
-                    break;
-                case 'rss':
-                    $path .= $query['channel'];
-                    array_push($removeNames, 'channel');
-                    if (isset($query['key'])) {
-                        $path .= "/".$query['key'];
-                        array_push($removeNames, 'key');
-                    }
-                    $path .= "/rss.xml";
-                    break;
-                case 'redirect':
-                    $path .= "redirect/".$query['action']."/".$query['goto'];
-                    array_push($removeNames, 'goto');
-                    array_push($removeNames, 'action');
-                    break;
-                default:
-                    if (zm_starts_with($page, 'popup_')) {
-                        $path .= "popup/".substr($page, 6);
-                    } else {
-                        if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {
-                            $mapping = $_zm_pretty_link_map[$page];
-                            if (null == $mapping['convert']) {
-                                $path .= $page;
-                            } else {
-                                if (function_exists($mapping['convert'])) {
-                                    $path .= call_user_func($mapping['convert'], $page, $query);
-                                }
-                            }
-
-                            foreach ($mapping['params'] as $mp) {
-                                if (isset($query[$mp])) {
-                                    $path .= '/'.$query[$mp];
-                                    array_push($removeNames, $mp);
-                                }
-                            }
-                            $removeNames = array_merge($removeNames, $mapping['exclude']);
-                        } else {
-                            $translate = false;
-                            if (!zm_is_empty($page)) {
-                                zm_log("no pretty link mapping for: ".$page);
-                            }
-                        }
-                    }
-                    break;
-            }
-            foreach ($removeNames as $rkey) {
-                if (array_key_exists($rkey, $query)) {
-                    unset($query[$rkey]);
-                }
-            }
-            // remaining query
-            $params = '';
-            foreach ($query as $name => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subValue) {
-                        $params .= '&amp;'.$name.'[]='.$subValue;
-                    }
-                } else {
-                    $params .= '&amp;'.$name.'='.$value;
-                }
-            }
-            $params = (0 < strlen($params) ? ('?'.substr($params, 5)) : '');
-
-            if ($translate) {
-                $href = $url['scheme']."://".$url['host'].$path.(isset($url['fragment']) ? '#'.$url['fragment'] : '').$params;
-            }
         }
 
         if ($echo) echo $href;
@@ -445,7 +202,6 @@
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
     function zm_back_link($text, $echo=true) {
-        echo $foo;
         $link = zen_back_link() . $text . '</a>';
 
         if ($echo) echo $link;
@@ -527,6 +283,9 @@
 
     /**
      * Create an redirect href for the given action and id.
+     *
+     * <p>All messages created up to this point during request handling will be saved and
+     * restored with the next request handling cycle.</p>
      *
      * @package org.zenmagick.html
      * @param string action The redirect action.

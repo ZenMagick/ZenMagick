@@ -201,18 +201,6 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 
 
     /**
-     * Little helper to implement abstract Ultimate SEO <strong>Plugin</code> support.
-     *
-     * @package org.zenmagick.misc
-     * @return boolean <code>true<code> if Ultimate SEO is enabled via ZenMagick plugin, <code>false</code> if not.
-     */
-    function zm_useo_enabled() {
-        $seoEnabled = defined('SEO_ENABLED') ? SEO_ENABLED : (defined('SEO_URLS_STATUS') ? 'On' == SEO_URLS_STATUS : false);
-        return $seoEnabled && function_exists('zen_href_link_seo');
-    }
- 
-
-    /**
      * Evaluate a string value as boolean.
      *
      * @package org.zenmagick.misc
