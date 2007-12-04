@@ -114,8 +114,6 @@
     $_ZM_SETTINGS['isJSONHeader'] = false;
     $_ZM_SETTINGS['ajaxFormat'] = 'JSON';
 
-    // ZM pretty URLs
-    $_ZM_SETTINGS['isZMPrettyLinks'] = false;
     // default to default in ZM themes
     $_ZM_SETTINGS['isEnableThemeDefaults'] = true;
     $_ZM_SETTINGS['templateSuffix'] = '.php';

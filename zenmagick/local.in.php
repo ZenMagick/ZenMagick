@@ -9,9 +9,6 @@
     // disable ZenMagick themes
     //zm_set_setting('isEnableZenMagick', false);
 
-    // enable search engine friendly URLs
-    //zm_set_setting('isZMPrettyLinks', true);
-
     // disable ZenMagick page caching
     //zm_set_setting('isPageCacheEnabled', false);
 

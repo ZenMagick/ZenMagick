@@ -57,6 +57,7 @@ Release 0.8.6
 - added support for optional function zm_build_seo_href(..) which will be used
   for link generation if present
 - modified both zm_seo2 and zm_seo3 plugins to support the new SEO API
+- removed not obsolete setting 'isZMPrettyLinks'
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
