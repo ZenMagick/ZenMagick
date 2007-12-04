@@ -58,6 +58,9 @@ Release 0.8.6
   for link generation if present
 - modified both zm_seo2 and zm_seo3 plugins to support the new SEO API
 - removed not obsolete setting 'isZMPrettyLinks'
+- added pretty links plugin
+- removed main .htaccess file as this moves as sample configuration into the
+  new plugin
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
