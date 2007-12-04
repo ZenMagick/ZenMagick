@@ -1,3 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine on
+## for stores installed in the document root
+RewriteBase /
+## if your store is in a subfolder (for example, 'store') use something like this:
+#RewriteBase /store/
+
 
 # From Ultimate SEO URLs
 RewriteRule ^(.*)-p-(.*).html$ index\.php?main_page=product_info&products_id=$2&%{QUERY_STRING} [L]
