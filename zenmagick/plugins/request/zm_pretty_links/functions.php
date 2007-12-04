@@ -36,7 +36,7 @@
      *  which will be interpreted as using the view name.
      * @param array params List of query parameters to append as part of the pretty link.
      */
-    function zm_set_pretty_link_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
+    function zm_pretty_links_set_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
     global $_zm_pretty_link_map;
 
         if (!isset($_zm_pretty_link_map)) {

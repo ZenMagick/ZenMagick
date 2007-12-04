@@ -80,7 +80,9 @@ class zm_google_store_locator extends ZMPlugin {
         parent::init();
 
         $this->addMenuItem('store_locator', zm_l10n_get('Store Locator'), 'zm_store_locator_admin');
-        //zm_set_pretty_link_mapping(ZM_FILENAME_STORE_LOCATOR);
+        if (function_exists('zm_pretty_links_set_mapping')) {
+            zm_pretty_links_set_mapping(ZM_FILENAME_STORE_LOCATOR);
+        }
         // subscribe to events to set the JS onload event
         $this->zcoSubscribe();
     }

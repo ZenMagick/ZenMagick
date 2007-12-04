@@ -102,7 +102,9 @@ class zm_wiki extends ZMBoxPlugin {
         // replace with own implementation
         zm_set_setting('pageCacheStrategyCallback', 'zm_wiki_is_page_cacheable');
         $this->addMenuItem('wiki', zm_l10n_get('Manage Wiki'), 'zm_wiki_admin');
-        zm_set_pretty_link_mapping('wiki', null, array('page'), array('page'));
+        if (function_exists('zm_pretty_links_set_mapping')) {
+            zm_pretty_links_set_mapping('wiki', null, array('page'), array('page'));
+        }
     }
 
     /**
