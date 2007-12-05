@@ -199,7 +199,7 @@ class ZMMessages extends ZMService {
     /**
      * Get all messages.
      *
-     * @param string ref The referencing resource; default is <code>null</code> for all.
+     * @param string ref The referring resource; default is <code>null</code> for all.
      * @return array List of <code>ZMMessage</code> instances.
      */
     function getMessages($ref=null) {
