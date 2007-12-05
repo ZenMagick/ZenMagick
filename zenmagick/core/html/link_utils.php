@@ -294,13 +294,6 @@
      * @return string A full URL.
      */
     function zm_redirect_href($action, $id, $echo=true) {
-    global $zm_messages;
-
-        if ($zm_messages->hasMessages()) {
-            $session = new ZMSession();
-            $session->setMessages($zm_messages->getMessages());
-        }
-
         return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
     }
 
