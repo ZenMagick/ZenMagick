@@ -30,6 +30,9 @@
  * <p>A shipping provider may offer 1-n shipping methods, depending on the
  * address, etc.</p>
  *
+ * <p>This is eventually going to be a replacement for the current <code>ZMShippingProvider</code> class,
+ * in combination with the new <code>ZMShippingProviders</code> service.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.model.order
  * @version $Id$
