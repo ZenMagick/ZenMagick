@@ -154,7 +154,7 @@
             $href = zm_build_seo_href($view, $params, $isSecure);
         } else {
             // use default implementation
-            $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
+            $href = _zm_zen_href_link($view, $params, $isSecure ? 'SSL' : 'NONSSL');
         }
 
         if ($echo) echo $href;
