@@ -25,7 +25,7 @@
 
 
 /**
- * Access class for shipping provider.
+ * General access class for shipping provider.
  *
  * @author mano
  * @package org.zenmagick.service
@@ -103,6 +103,7 @@ class ZMShippingProviders extends ZMService {
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();
+                // either all or enabled (this is different from $module->enabled!)
                 if (!$configured || 0 < $module->check()) {
                     $this->provider_[] = $this->create("ShippingProviderWrapper", $module);
                 }
