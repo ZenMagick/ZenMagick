@@ -91,6 +91,10 @@ class ZMCategories extends ZMService {
      * Apply path to categories.
      */
     function _applyPath() {
+        if (!isset($this->categories_)) {
+            return;
+        }
+
         foreach ($this->categories_ as $id => $category) {
             $this->categories_[$id]->active_ = false;
         }
