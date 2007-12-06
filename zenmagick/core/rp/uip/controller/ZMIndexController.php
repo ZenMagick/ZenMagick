@@ -56,18 +56,30 @@ class ZMIndexController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
+        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
+        $zm_crumbtrail->addProduct($zm_request->getProductId());
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_crumbtrail, $zm_products;
-
-        // crumbtrail handling
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($zm_request->getProductId());
+    global $zm_request, $zm_categories, $zm_products;
 
         // decide which index view to use and prepare index data
         $resultList = null;
