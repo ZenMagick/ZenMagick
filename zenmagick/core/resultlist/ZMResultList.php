@@ -281,7 +281,12 @@ class ZMResultList extends ZMObject {
     function getResults() {
         $start = $this->_getStartIndex();
         $end = $this->_getEndIndex();
-        return array_slice($this->results_, $start, $end-$start);
+        // use this as array_slice might reorder the array if keys are not in order
+        $slice = array();
+        for ($ii=0; $ii <($end-$start); ++$ii) {
+            $slice[] = $this->results_[$start+$ii];
+        }
+        return $slice;
     }
 
     /**
