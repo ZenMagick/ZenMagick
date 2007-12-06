@@ -63,7 +63,7 @@ class ZMIndexController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
         $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
