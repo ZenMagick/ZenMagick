@@ -36,15 +36,15 @@ class ZMProducts extends ZMService {
     /**
      * Default c'tor.
      */
-    function ZMProducts() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
      * Default c'tor.
      */
-    function __construct() {
-        $this->ZMProducts();
+    function ZMProducts() {
+        $this->__construct();
     }
 
     /**
@@ -55,7 +55,12 @@ class ZMProducts extends ZMService {
     }
 
 
-    // get products for category
+    /**
+     * Get all active products for the given category id.
+     *
+     * @param int categoryId The category id.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getProductsForCategoryId($categoryId) {
     global $zm_runtime;
 
@@ -81,7 +86,12 @@ class ZMProducts extends ZMService {
     }
 
 
-    // get products for manufacturer
+    /*
+     * Get all active products for a manufacturer.
+     *
+     * @param int manufacturerId The manufacturers id.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getProductsForManufacturerId($manufacturerId) {
     global $zm_runtime;
 
@@ -107,7 +117,15 @@ class ZMProducts extends ZMService {
     }
 
 
-    // get all products for a given category (for filters)
+    /**
+     * Get  list of all active product ids for a given category.
+     *
+     * <p>This is a faster version of <code>getProductsForCategoryId(int)</code>. In addition,
+     * this will ignore language preferences.
+     *
+     * @param int categoryId The category id.
+     * @return array A list of (int)product ids.
+     */
     function getProductIdsForCategoryId($categoryId) {
         $db = $this->getDB();
         $query = "select p.products_id
@@ -122,7 +140,17 @@ class ZMProducts extends ZMService {
     }
 
 
-    // product type options
+    /**
+     * Test if a given product type option is enabled for a given product.
+     *
+     * @param int productId The product id.
+     * @param string field The option name.
+     * @param string keyPrefix Optional key prefix; default is <em>_INFO</em>.
+     * @param string keySuffix Optional key suffix; default is <em>SHOW_</em>.
+     * @param string fieldPrefix Optional field prefix; default is <em>_</em>.
+     * @param string fieldSuffix Optional field suffix; default is an empty string.
+     * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
+     */
     function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
         $db = $this->getDB();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
@@ -159,8 +187,13 @@ class ZMProducts extends ZMService {
         return false;
     }
 
-
-    // get featured products
+    /**
+     * Get featured products.
+     *
+     * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
+     * @param int max The maximum number of results; default is <code>1</code>.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getFeaturedProducts($categoryId=null, $max=1) {
     global $zm_runtime;
 
@@ -192,8 +225,16 @@ class ZMProducts extends ZMService {
     }
 
 
-    // get new products
-    // optional category limit, max, manual time limit in days (if globalLimit > 2); defaults to 120 days; 0 == use globalLimit
+    /**
+     * Get new products.
+     *
+     * <p>Find products added in the past number of days specified by <code>$timeLimit</code>.</p>
+     *
+     * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
+     * @param int max The maximum number of results; default is <code>1</code>.
+     * @param int timeLimit Optional time limit in days; default is <em>120</em>, use <em>0</em> for no limit.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getNewProducts($categoryId=null, $max=0, $timeLimit=120) {
         $timeLimit = 0 == $timeLimit ? zm_setting('globalNewProductsLimit') : $timeLimit;
 
@@ -240,6 +281,13 @@ class ZMProducts extends ZMService {
     }
 
 
+    /**
+     * Get best seller products.
+     *
+     * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
+     * @param int max The maximum number of results; default is <code>1</code>.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getBestSellers($categoryId=null, $max=0) {
         $max = 0 == $max ? zm_setting('maxBestSellers') : $max;
 
@@ -275,7 +323,12 @@ class ZMProducts extends ZMService {
     }
 
 
-    // get specials
+    /**
+     * Get products marked as specials.
+     *
+     * @param int max The maximum number of results; default is <code>1</code>.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getSpecials($max=0) {
         $max = 0 == $max ? zm_setting('maxSpecialProducts') : $max;
 
@@ -293,6 +346,12 @@ class ZMProducts extends ZMService {
     }
 
 
+    /**
+     * Get a product for the given model name.
+     *
+     * @param string model The model name.
+     * @return ZMProduct The product or <code>null</code>.
+     */
     function &getProductForModel($model) {
     global $zm_runtime;
 
@@ -322,7 +381,12 @@ class ZMProducts extends ZMService {
     }
 
 
-    // will load product with any status
+    /**
+     * Get a product for the given product id.
+     *
+     * @param int productId The product id.
+     * @return ZMProduct The product or <code>null</code>.
+     */
     function &getProductForId($productId) {
     global $zm_runtime;
 
@@ -350,12 +414,20 @@ class ZMProducts extends ZMService {
     }
 
 
-    // will load products with any status
-    function getProductsForIds($productIds) {
+    /**
+     * Load a list of products.
+     *
+     * @param array productIds A list of (int) product ids.
+     * @param boolean preserveOrder Optional flag to return the products in the order of the given id list, rather 
+     *  than using the default product sort order; default is <code>false</code>.
+     * @return ZMProduct The product or <code>null</code>.
+     */
+    function getProductsForIds($productIds, $preserveOrder=false) {
     global $zm_runtime;
 
-        if (0 == count($productIds))
+        if (0 == count($productIds)) {
             return array();
+        }
 
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
@@ -368,8 +440,10 @@ class ZMProducts extends ZMService {
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (:productIdList)
                  and pd.products_id = p.products_id
-                 and pd.language_id = :languageId
-                 order by p.products_sort_order, pd.products_name";
+                 and pd.language_id = :languageId";
+        if (!$preserveOrder) {
+            $sql .= " order by p.products_sort_order, pd.products_name";
+        }
         $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
 
@@ -378,14 +452,30 @@ class ZMProducts extends ZMService {
         $products = array();
         while (!$results->EOF) {
             $product = $this->_newProduct($results->fields);
-            array_push($products, $product);
+            $products[] = $product;
             $results->MoveNext();
+        }
+
+        if ($preserveOrder) {
+            // rearrange to same order as original id list
+            $orderLookup = array_flip($productIds);
+            $reordered = array();
+            foreach ($products as $id => $product) {
+                $reordered[(int)($orderLookup[$products[$id]->getId()])] = $products[$id];
+            }
+            // this is to keep the sort order correct when using array_slice on $products! OMG?!
+            $products = $reordered;
         }
 
         return $products;
     }
 
 
+    /**
+     * Update the view count for a product.
+     *
+     * @param int productId The product id.
+     */
     function updateViewCount($productId) {
     global $zm_runtime;
 
@@ -404,6 +494,12 @@ class ZMProducts extends ZMService {
     }
 
 
+    /**
+     * Execute the given SQL and extract the resulting product ids.
+     *
+     * @param string sql Some SQL.
+     * @return array A list of product ids.
+     */
     function _getProductIds($sql) {
         $db = $this->getDB();
         $results = $db->Execute($sql);
@@ -419,6 +515,13 @@ class ZMProducts extends ZMService {
     }
 
 
+    /**
+     * Get some random product ids.
+     *
+     * @param string sql Some SQL.
+     * @param int max The maximum number of results.
+     * @return array A list of product ids.
+     */
     function _getRandomProductIds($sql, $max=0) {
         0 == $max && zm_log("invalid max value: ".$max, ZM_LOG_DEBUG);
 
@@ -449,7 +552,12 @@ class ZMProducts extends ZMService {
     }
 
 
-    // will load products that are found with teh given SQL
+    /**
+     * Execute the given SQL and return the resulting product.
+     *
+     * @param string sql Some SQL.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
     function getProductsForSQL($sql) {
         $db = $this->getDB();
         $results = $db->Execute($sql);
@@ -467,6 +575,9 @@ class ZMProducts extends ZMService {
     }
 
 
+    /**
+     * Create new product instance.
+     */
     function &_newProduct($fields) {
     global $zm_features, $zm_taxes;
 
