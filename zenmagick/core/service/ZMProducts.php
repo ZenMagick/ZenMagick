@@ -457,14 +457,14 @@ class ZMProducts extends ZMService {
         }
 
         if ($preserveOrder) {
-            // rearrange to same order as original id list
+            // rearrange to same order as original id list; breaks array_slice and foreach order if not done
             $orderLookup = array_flip($productIds);
             $reordered = array();
             foreach ($products as $id => $product) {
                 $reordered[(int)($orderLookup[$products[$id]->getId()])] = $products[$id];
             }
-            // this is to keep the sort order correct when using array_slice on $products! OMG?!
             $products = $reordered;
+            ksort($products);
         }
 
         return $products;
@@ -567,11 +567,10 @@ class ZMProducts extends ZMService {
 
         $productIds = array();
         while (!$results->EOF) {
-            // make sure we do not have duplicates
-            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+            $productIds[] = $results->fields['products_id'];
             $results->MoveNext();
         }
-        return $this->getProductsForIds($productIds);
+        return $this->getProductsForIds($productIds, true);
     }
 
 
