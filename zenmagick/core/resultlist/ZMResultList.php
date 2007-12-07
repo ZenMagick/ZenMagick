@@ -243,35 +243,35 @@ class ZMResultList extends ZMObject {
      *
      * @return int The number of pages.
      */
-    function getNumberOfPages() { return ceil($this->getNumberOfResults()/$this->pagination_); }
+    function getNumberOfPages() { return ceil($this->getNumberOfResults() / $this->pagination_); }
 
     /**
      * Check if a previous page is available.
      *
      * @return boolean <code>true</code> if a previous page is available, <code>false</code> if not.
      */
-    function hasPreviousPage() { return 1 < $this->page_; }
+    function hasPreviousPage() { return 1 < $this->getCurrentPageNumber(); }
 
     /**
      * Check if a next page is available.
      *
      * @return boolean <code>true</code> if a next page is available, <code>false</code> if not.
      */
-    function hasNextPage() { return $this->page_ < $this->getNumberOfPages(); }
+    function hasNextPage() { return $this->getCurrentPageNumber() < $this->getNumberOfPages(); }
 
     /**
      * Get the previous page number.
      *
      * @return int The previous page number; (default: 1)
      */
-    function getPreviousPageNumber() { return $this->hasPreviousPage() ? ($this->page_-1) : 1; }
+    function getPreviousPageNumber() { return $this->hasPreviousPage() ? ($this->getCurrentPageNumber()-1) : 1; }
 
     /**
      * Get the next page number.
      *
      * @return int The next page number.
      */
-    function getNextPageNumber() { return $this->hasNextPage() ? ($this->page_+1) : $this->getNumberOfPages(); }
+    function getNextPageNumber() { return $this->hasNextPage() ? ($this->getCurrentPageNumber()+1) : $this->getNumberOfPages(); }
 
     /**
      * Get the results for the current page.
