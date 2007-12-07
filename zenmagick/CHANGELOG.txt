@@ -65,6 +65,8 @@ Release 0.8.6
 - make gvredeem actually credit the redeemed amount; #1842973
 - added a new plugin that uses zen-cart's SQL based result list handling. This
   should be preferrable for very large categories
+- uncommented code to update view counts for products and reviews which
+  previously were not needed when still using zen-cart's header_php.php
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

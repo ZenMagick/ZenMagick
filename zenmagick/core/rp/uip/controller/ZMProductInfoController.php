@@ -77,7 +77,7 @@ class ZMProductInfoController extends ZMController {
 
         $this->exportGlobal("zm_product", $product);
 
-        //$zm_products->updateViewCount($product);
+        $zm_products->updateViewCount($product);
 
         // crumbtrail handling
         $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());

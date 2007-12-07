@@ -76,7 +76,7 @@ class ZMProductReviewsInfoController extends ZMController {
         $review = $zm_reviews->getReviewForId($zm_request->getReviewId());
         $this->exportGlobal("zm_review", $review);
 
-        //$zm_reviews->updateViewCount($zm_request->getReviewId());
+        $zm_reviews->updateViewCount($zm_request->getReviewId());
 
         return $this->findView();
     }
