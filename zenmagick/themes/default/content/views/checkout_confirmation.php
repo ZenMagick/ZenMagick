@@ -98,6 +98,11 @@
             <h4><?php zm_l10n("Shipping Address") ?></h4>
             <?php zm_format_address($zm_cart->getShippingAddress()) ?>
         </div>
+    <?php } else { ?>
+        <div class="oadr">
+            <h4><?php zm_l10n("Shipping Address") ?></h4>
+            <?php zm_l10n("N/A") ?>
+        </div>
     <?php } ?>
     <div class="oadr snd">
         <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT_ADDRESS) ?>"><?php zm_l10n("Change") ?></a></div>

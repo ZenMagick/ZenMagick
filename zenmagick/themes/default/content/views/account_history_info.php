@@ -73,7 +73,11 @@
 <div id="addr">
     <div id="daddr">
         <h4><?php zm_l10n("Shipping Address") ?></h4>
-        <?php zm_format_address($zm_order->getShippingaddress()) ?>
+        <?php if (!$zm_order->hasShippingAddress()) { ?>
+            <?php zm_l10n("N/A") ?>
+        <?php } else { ?>
+            <?php zm_format_address($zm_order->getShippingaddress()) ?>
+        <?php } ?>
     </div>
     <div id="baddr">
         <h4><?php zm_l10n("Billing Address") ?></h4>

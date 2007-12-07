@@ -67,6 +67,9 @@ Release 0.8.6
   should be preferrable for very large categories
 - uncommented code to update view counts for products and reviews which
   previously were not needed when still using zen-cart's header_php.php
+- make templates more consistent in the way a non existing shipping address is
+  handled; also make address formating default to store country for formatting
+  if no address found (even though this should never happen)
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

@@ -60,6 +60,7 @@
                 $state = $zm_countries->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
             }
         } else {
+            $zmcountry = $zm_countries->getCountryForId(zm_setting('storeCountry'));
             $country = '';
             $state = '';
         }
