@@ -2,7 +2,6 @@ missing zen-cart stuff
 ======================
 - implement missing weight and onetime prices for attributes
 - product_free_shipping_info and a couple more are still missing
-- can't checkout rope product
 - file attribute
 
 
@@ -15,8 +14,6 @@ bugs:
 .admin/install:
 - admin interface for ZM config values
 - generic interface to manage theme settings
-- language support for ZenMagick admin area (ongoing)
-- better descriptions for patches (should be more text less technical details)
 - sidebox patches and plugins work relative to the current theme only - should they update all themes?
 
 structure:
@@ -26,15 +23,11 @@ structure:
 - use reflection to populate model classes from request?
 - improve ZMClassLoader to resolve dependencies (use get_parent_class(..) or better 
   get_class_hierachy(..) for PHP4 comp.)
-- centralise list of secure pages (zm_is_secure()), so no need to use zm_secure_href and more...
 - review handling of global exports (too many places and not consistent...)
 
 general:
 - get a logo and favicon
 - clean up zen-bridge
-- look into using/supporting gettext
-- more documentation
-- more phpdoc
 - get rid of wrapped zen-cart data (like orders, shopping cart, etc)
 
 performance:
