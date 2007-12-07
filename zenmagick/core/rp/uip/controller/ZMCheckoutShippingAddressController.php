@@ -107,7 +107,6 @@ class ZMCheckoutShippingAddressController extends ZMController {
             return $view;
         }
 
-
         $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
