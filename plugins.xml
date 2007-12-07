@@ -84,6 +84,11 @@
             <param name="plugin.name" value="zm_pretty_links" />
             <param name="plugin.version" value="${plugins.zm_pretty_links.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_split_page_result_list" />
+            <param name="plugin.version" value="${plugins.zm_split_page_result_list.version}" />
+        </antcall>
     </target>
 
     
