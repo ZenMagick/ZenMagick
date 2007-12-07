@@ -28,7 +28,8 @@
 	      .entries td {font-weight: bold;text-align:left;background:#a6caf0;}
 	      table {border:none;width:100%;}
 	      table#nav {border-top:2px solid gray;padding-top:.8em;}
-          tr, td {background:#eeeee0;}	  
+          tr, td {background:#eeeee0;}
+          a {color:black;text-decoration:none;}
 	    </style>
       </head>
       <body>
@@ -84,22 +85,24 @@
 	<tr>
 		<td>
 		    <ul>
-				<xsl:apply-templates select="$entries"/>
+				<xsl:apply-templates select="$entries">
+          <xsl:sort/>
+        </xsl:apply-templates>
 			</ul>
 		</td>
 	</tr>
   </xsl:template>  
 
   <xsl:template match="differences/added">
-  	<li><xsl:value-of select="."/></li>
+    <li><a href="http://zenmagick.svn.sourceforge.net/viewvc/zenmagick/trunk/{.}"><xsl:value-of select="."/></a></li>
   </xsl:template>
 
   <xsl:template match="differences/removed">
-  	<li><xsl:value-of select="."/></li>
+    <li><a href="http://zenmagick.svn.sourceforge.net/viewvc/zenmagick/trunk/{.}"><xsl:value-of select="."/></a></li>
   </xsl:template>
 
   <xsl:template match="differences/changed">
-  	<li><xsl:value-of select="."/></li>
+    <li><a href="http://zenmagick.svn.sourceforge.net/viewvc/zenmagick/trunk/{.}"><xsl:value-of select="."/></a></li>
   </xsl:template>
 
 </xsl:stylesheet>

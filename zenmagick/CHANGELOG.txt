@@ -70,6 +70,7 @@ Release 0.8.6
 - make templates more consistent in the way a non existing shipping address is
   handled; also make address formating default to store country for formatting
   if no address found (even though this should never happen)
+- file change list is now sorted and file names link to subversion
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
