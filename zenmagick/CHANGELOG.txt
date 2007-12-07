@@ -63,6 +63,8 @@ Release 0.8.6
   new plugin
 - add support using the configured default image if product image not set; #1844024
 - make gvredeem actually credit the redeemed amount; #1842973
+- added a new plugin that uses zen-cart's SQL based result list handling. This
+  should be preferrable for very large categories
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
