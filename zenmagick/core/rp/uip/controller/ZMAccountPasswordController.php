@@ -95,7 +95,7 @@ class ZMAccountPasswordController extends ZMController {
         $confirmPassword = $zm_request->getParameter('password_confirmation');
 
         if (!zm_validate_password($oldPassword, $account->getPassword())) {
-            $zm_messages->error('Your current password did not match the password in our records. Please try again.');
+            $zm_messages->error(zm_l10n_get('Your current password did not match the password in our records. Please try again.'));
             return $this->findView();
         }
 
@@ -103,7 +103,7 @@ class ZMAccountPasswordController extends ZMController {
         $newEncrpytedPassword = zm_encrypt_password($newPassword);
         $zm_accounts->_setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        $zm_messages->success('Your password has been updated.');
+        $zm_messages->success(zm_l10n_get('Your password has been updated.'));
 
         return $this->findView('success');
     }

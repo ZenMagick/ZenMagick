@@ -148,7 +148,7 @@ class ZMGvSendConfirmController extends ZMController {
             zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, zm_setting('emailAdminGvSend'));
         }
 
-        $zm_messages->success("Gift Certificate successfully send!");
+        $zm_messages->success(zm_l10n_get("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

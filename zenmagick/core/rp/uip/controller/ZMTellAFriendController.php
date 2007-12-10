@@ -132,7 +132,7 @@ class ZMTellAFriendController extends ZMController {
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, zm_setting('emailAdminTellAFriend'));
         }
 
-        $zm_messages->success("Message send successfully");
+        $zm_messages->success(zm_l10n_get("Message send successfully"));
         $emailMessage = $this->create("EmailMessage");
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 

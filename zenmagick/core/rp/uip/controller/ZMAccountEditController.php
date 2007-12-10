@@ -92,14 +92,14 @@ class ZMAccountEditController extends ZMController {
         if ($reqAccount->getEmail() != $currentAccount->getEmail()) {
             // email changed, so make sure it doesn't exist
             if ($zm_accounts->emailExists($reqAccount->getEmail())) {
-                $zm_messages->error('Sorry, the entered email address already exists.');
+                $zm_messages->error(zm_l10n_get('Sorry, the entered email address already exists.'));
                 return $this->findView();
             }
         }
 
         $zm_accounts->updateAccount($reqAccount);
 
-        $zm_messages->success('Your account has been updated.');
+        $zm_messages->success(zm_l10n_get('Your account has been updated.'));
 
         return $this->findView('success');
     }

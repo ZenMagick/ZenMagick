@@ -115,7 +115,7 @@ class ZMProductReviewsWriteController extends ZMController {
             zm_mail($subject, 'review', $context, zm_setting('emailAdminReview'));
         }
 
-        $zm_messages->success("Thank you for your submission");
+        $zm_messages->success(zm_l10n_get("Thank you for your submission"));
         return $this->findView('success', array('parameter' => 'products_id='.$product->getId()));
     }
 

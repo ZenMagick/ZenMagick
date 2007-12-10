@@ -88,7 +88,7 @@ class ZMAccountNewslettersController extends ZMController {
             $zm_accounts->updateAccount($account);
         }
 
-        $zm_messages->success('Your newsletter subscription has been updated.');
+        $zm_messages->success(zm_l10n_get('Your newsletter subscription has been updated.'));
         return $this->findView('success');
     }
 

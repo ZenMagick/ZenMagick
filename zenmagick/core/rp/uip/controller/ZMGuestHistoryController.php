@@ -103,7 +103,7 @@ class ZMGuestHistoryController extends ZMController {
             $this->exportGlobal("zm_order", $order);
             return $this->findView('success');
         } else {
-            $zm_messages->warn('No order information found');
+            $zm_messages->warn(zm_l10n_get('No order information found'));
             return $this->findView();
         }
     }

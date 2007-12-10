@@ -153,7 +153,7 @@ class ZMAddressBookProcessController extends ZMController {
             $session->setAccount($account);
         }
 
-        $zm_messages->success('The selected address has been successfully updated.');
+        $zm_messages->success(zm_l10n_get('The selected address has been successfully updated.'));
         return $this->findView('success');
     }
 
@@ -169,7 +169,7 @@ class ZMAddressBookProcessController extends ZMController {
         $addressId = $zm_request->getParameter('addressId', 0);
         if (0 < $addressId) {
             $zm_addresses->deleteAddressForId($addressId);
-            $zm_messages->success('The selected address has been successfully removed from your address book.');
+            $zm_messages->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
         }
         return $this->findView('success');
     }
@@ -204,7 +204,7 @@ class ZMAddressBookProcessController extends ZMController {
         }
 
         $this->exportGlobal("zm_address", $address);
-        $zm_messages->success('Address added to your address book.');
+        $zm_messages->success(zm_l10n_get('Address added to your address book.'));
         return $this->findView('success');
     }
 

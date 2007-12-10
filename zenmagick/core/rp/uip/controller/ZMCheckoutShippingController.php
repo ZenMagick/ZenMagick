@@ -71,7 +71,7 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         if (!$zm_cart->readyForCheckout()) {
-            $zm_messages->error('Please update your order ...');
+            $zm_messages->error(zm_l10n_get('Please update your order ...'));
             return $this->findView('check_cart');
         }
 
@@ -79,7 +79,7 @@ class ZMCheckoutShippingController extends ZMController {
         if (zm_setting('isEnableStock') && !zm_setting('isAllowLowStockCheckout')) {
             foreach ($zm_cart->getItems() as $item) {
                 if (!$item->isStockAvailable()) {
-                    $zm_messages->error('Some items in your order are out of stock');
+                    $zm_messages->error(zm_l10n_get('Some items in your order are out of stock'));
                     return $this->findView('check_cart');
                 }
             }

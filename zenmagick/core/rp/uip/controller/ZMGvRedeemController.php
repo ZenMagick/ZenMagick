@@ -83,7 +83,7 @@ class ZMGvRedeemController extends ZMController {
                 $this->exportGlobal("zm_gvredeem", $gvredeem);
             } else {
                 // not redeemable
-                $zm_messages->error('The provided gift voucher code seems to be invalid!');
+                $zm_messages->error(zm_l10n_get('The provided gift voucher code seems to be invalid!'));
             }
         }
 

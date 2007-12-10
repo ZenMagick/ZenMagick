@@ -139,7 +139,7 @@ class ZMCreateAccountController extends ZMController {
             zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
         }
 
-        $zm_messages->success("Thank you for signing up");
+        $zm_messages->success(zm_l10n_get("Thank you for signing up"));
 
         $followUpUrl = $session->getLoginFollowUp();
         return $this->findView('success', array('url' => $followUpUrl));
