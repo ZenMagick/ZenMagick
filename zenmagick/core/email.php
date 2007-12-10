@@ -103,6 +103,7 @@
         $formats = zm_email_formats($template);
         $hasTextTemplate = 'text' == $formats || 'both' == $formats;
 
+        // use text format unless only HTML available
         $view = $zm_loader->create("EmailView", $template, !$hasTextTemplate, $context);
         $view->setController($zm_request->getController());
         $text = $view->generate();
