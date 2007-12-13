@@ -280,6 +280,7 @@ class ZMPlugins extends ZMService {
             global $$id; $plugin =& $$id;
             if ($plugin->isEnabled()) {
                 $pluginHandler = $plugin->getPluginHandler();
+                //TODO: PHP5: interface ZMPluginHandler?
                 if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
                     $pluginHandler->setPlugin($plugin);
                     $contents = $pluginHandler->filterResponse($contents);
