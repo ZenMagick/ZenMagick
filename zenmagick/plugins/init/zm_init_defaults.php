@@ -37,6 +37,7 @@ class zm_init_defaults extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Defaults', 'Set request defaults');
+        $this->setPreferredSortOrder(10);
     }
 
     /**

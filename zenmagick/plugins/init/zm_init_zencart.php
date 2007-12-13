@@ -37,6 +37,7 @@ class zm_init_zencart extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('zen-cart', 'Set up zen-cart dependencies');
+        $this->setPreferredSortOrder(0);
     }
 
     /**

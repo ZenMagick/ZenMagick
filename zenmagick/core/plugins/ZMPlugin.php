@@ -45,6 +45,7 @@ class ZMPlugin extends ZMObject {
     var $configPrefix_;
     var $enabledKey_;
     var $orderKey_;
+    var $preferredSortOrder_;
     var $keys_;
     var $type_;
     var $messages_ = null;
@@ -76,6 +77,7 @@ class ZMPlugin extends ZMObject {
         $this->loaderSupport_ = 'PLUGIN';
         $this->handler_ = null;
         $this->traditional_ = true;
+        $this->preferredSortOrder_ = 0;
     }
 
     /**
@@ -225,6 +227,15 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
+     * Set the preferred sort order.
+     *
+     * @param int sortOrder The preferred sort order.
+     */
+    function setPreferredSortOrder($sortOrder) {
+        $this->preferredSortOrder_ = $sortOrder;
+    }
+
+    /**
      * Install this plugin.
      *
      * <p>This default implementation will automatically create the following settings:</p>
@@ -237,7 +248,7 @@ class ZMPlugin extends ZMObject {
         $this->addConfigValue('Plugin Status', $this->enabledKey_, true,
             zm_l10n_get('Enable/disable this plugin.'),
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
-        $this->addConfigValue('Plugin sort order', $this->orderKey_, 0,
+        $this->addConfigValue('Plugin sort order', $this->orderKey_, $this->preferredSortOrder_,
             zm_l10n_get('Controls the execution order of plugins.'));
     }
 

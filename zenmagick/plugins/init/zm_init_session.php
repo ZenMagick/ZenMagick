@@ -37,6 +37,7 @@ class zm_init_session extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Session', 'Set up the session');
+        $this->setPreferredSortOrder(5);
     }
 
     /**

@@ -73,6 +73,9 @@ Release 0.8.6
 - file change list is now sorted and file names link to subversion
 - move default crumbtrail handling back into default controller
 - wrap all messages in zm_l10n_get(..) calls (thanks Markku)
+- added ZMPlugin::setPreferredSortOrder(int); this allows plugins to set their
+  preferred (initial) sort order
+
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file

@@ -37,6 +37,7 @@ class zm_init_category_path extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Category Path', 'Set the default category path if none exists');
+        $this->setPreferredSortOrder(40);
     }
 
     /**

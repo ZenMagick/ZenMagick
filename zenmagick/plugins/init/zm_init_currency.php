@@ -37,6 +37,7 @@ class zm_init_currency extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Currency', 'Set the session currency');
+        $this->setPreferredSortOrder(20);
     }
 
     /**
