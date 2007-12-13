@@ -55,13 +55,6 @@
     // decimal places for quantity
     $_ZM_SETTINGS['qtyDecimals'] = QUANTITY_DECIMALS;
 
-    // page cache
-    $_ZM_SETTINGS['isPageCacheEnabled'] = true;
-    $_ZM_SETTINGS['pageCacheDir'] = DIR_FS_SQL_CACHE."/zenmagick/pages/";
-    $_ZM_SETTINGS['pageCacheTTL'] = 300; // in sec.
-    // method to determine if page is cacheable or not
-    $_ZM_SETTINGS['pageCacheStrategyCallback'] = 'zm_is_page_cacheable';
-
     // look for define pages in theme folder
     $_ZM_SETTINGS['isZMDefinePages'] = false;
 

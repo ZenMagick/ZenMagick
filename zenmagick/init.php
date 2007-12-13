@@ -195,24 +195,6 @@
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
     }
 
-    // handle page caching
-    if (zm_setting('isEnableZenMagick') && zm_setting('isPageCacheEnabled')) {
-        $pageCache = $zm_runtime->getPageCache();
-        if ($pageCache->isCacheable() && $contents = $pageCache->get()) {
-            if (!zm_eval_if_modified_since($pageCache->lastModified())) {
-                echo $contents;
-                if (zm_setting('isDisplayTimerStats')) {
-                    $_zm_db = $zm_runtime->getDB();
-                    echo '<!-- stats: ' . round($_zm_db->queryTime(), 4) . ' sec. for ' . $_zm_db->queryCount() . ' queries; ';
-                    echo 'page: ' . zm_get_elapsed_time() . ' sec.; ';
-                    echo 'lastModified: ' . $pageCache->lastModified() . ' -->';
-                }
-            }
-            require('includes/application_bottom.php');
-            exit;
-        }
-    }
-
     // start output buffering
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 

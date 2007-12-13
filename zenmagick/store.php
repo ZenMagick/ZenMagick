@@ -36,16 +36,13 @@
         $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_START);
         if (zm_dispatch()) {
             $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_DONE);
+
             require('includes/application_bottom.php');
+
+            // allow plugins to filter/modify the final contents
             $contents = ob_get_clean();
             $contents = $zm_plugins->filterResponse($contents);
             echo $contents;
-
-            // page cache
-            $_zm_pageCache = $zm_runtime->getPageCache();
-            if (zm_setting('isPageCacheEnabled') && $_zm_pageCache->isCacheable()) {
-                $_zm_pageCache->save($contents);
-            }
 
             // clear messages if not redirect...
             $_zm_session = new ZMSession();

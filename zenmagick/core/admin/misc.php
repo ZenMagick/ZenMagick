@@ -56,6 +56,10 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/misc/phpBB.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/validation/rules/custom/ZMNickNameRule.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/bootstrap.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/package.html");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/defaults.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/ZMPageCache.php");
+    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache");
 
 
     // check for existance of all obsolete files
