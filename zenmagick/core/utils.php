@@ -639,6 +639,8 @@
         // finalise i18n
         zm_i18n_finalise();
 
+        $zm_events->fireEvent($zm_runtime, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
+
         return $theme;
     }
 
