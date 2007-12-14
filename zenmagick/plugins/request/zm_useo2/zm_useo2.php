@@ -60,13 +60,15 @@ class zm_useo2 extends ZMPlugin {
     function install() {
     global $zm_messages;
 
-        parent::install();
-
+        // this will remove all '%SEO%' configuration settings, so do this first,
+        // before creating SEO plugin settings in parent::install() ...
         $patch = $this->create('ZMUltimateSeoSupportPatch');
         if (null != $patch && $patch->isOpen()) {
             $status = $patch->patch(true);
             $zm_messages->addAll($patch->getMessages());
         }
+
+        parent::install();
     }
 
     /**

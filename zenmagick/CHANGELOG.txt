@@ -81,6 +81,8 @@ Release 0.8.6
   function name changed, so make sure to use the setting
 	'pageCacheStrategyCallback' to pick up the current setting;
 	This also requires to delete a few classes/files to avoid conflicts
+- fix bug in zm_useo2 that will cause the plugin not getting installed due to
+  the USEO code removing all %SEO% configuration settings during install!
 
 
 Release 0.8.5
