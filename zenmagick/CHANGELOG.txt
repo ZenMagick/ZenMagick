@@ -83,6 +83,8 @@ Release 0.8.6
 	This also requires to delete a few classes/files to avoid conflicts
 - fix bug in zm_useo2 that will cause the plugin not getting installed due to
   the USEO code removing all %SEO% configuration settings during install!
+- for a guest order history make sure the givem email address matches the
+  email address of the order to authenticate; #1852133
 
 
 Release 0.8.5

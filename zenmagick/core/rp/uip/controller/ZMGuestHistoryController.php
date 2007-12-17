@@ -98,7 +98,7 @@ class ZMGuestHistoryController extends ZMController {
             }
         }
 
-        if (null != $account && null != $order && ZM_ACCOUNT_TYPE_GUEST == $account->getType() && $account->getEmail()) {
+        if (null != $account && null != $order && ZM_ACCOUNT_TYPE_GUEST == $account->getType() && $account->getEmail() == $email) {
             $zm_crumbtrail->addCrumb("Order # ".$order->getId());
             $this->exportGlobal("zm_order", $order);
             return $this->findView('success');
