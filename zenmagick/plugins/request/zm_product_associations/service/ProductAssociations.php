@@ -117,7 +117,7 @@ class ProductAssociations extends ZMService {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ProductAssociation</code> instances.
      */
-    function getProductAssociations($productId, $type, $all=false) {
+    function getProductAssociationsForProdctId($productId, $type, $all=false) {
     global $zm_products;
 
         $dateLimit = '';
@@ -130,6 +130,78 @@ class ProductAssociations extends ZMService {
                 and association_type =:type" . $dateLimit . "
                 order by sort_order asc";
         $sql = $db->bindVars($sql, ":productId", $productId, "integer");
+        $sql = $db->bindVars($sql, ":type", $type, "integer");
+
+        $associations = array();
+        $results = $db->Execute($sql);
+        while (!$results->EOF) {
+            $associations[] = $this->_newProductAssociation($results->fields);
+            $results->MoveNext();
+        }
+
+        return $associations;
+    }
+
+    /**
+     * Get associated products for the given category.
+     *
+     * @param int categoryId The category.
+     * @param int type The association type.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
+     * return array A list of <code>ProductAssociation</code> instances.
+     */
+    function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
+    global $zm_products;
+
+        $productIds = $zm_products->getProductIdsForCategoryId($categoryId);
+
+        $dateLimit = '';
+        if (!$all) {
+            $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
+        }
+        $db = $this->getDB();
+        $sql = "select distinct * from " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
+                where source_product_id in (:productIdList)
+                and association_type =:type" . $dateLimit . "
+                order by sort_order asc";
+        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
+        $sql = $db->bindVars($sql, ":type", $type, "integer");
+
+        $associations = array();
+        $results = $db->Execute($sql);
+        while (!$results->EOF) {
+            $associations[] = $this->_newProductAssociation($results->fields);
+            $results->MoveNext();
+        }
+
+        return $associations;
+    }
+
+    /**
+     * Get associated products for the given shopping cart.
+     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param int type The association type.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
+     * return array A list of <code>ProductAssociation</code> instances.
+     */
+    function getProductAssociationsForShoppingCart(&$shoppingCart, $type, $all=false) {
+
+        $productIds = array();
+        foreach ($shoppingCart->getItems() as $item) {
+            $productIds[] = $item->getId();
+        }
+
+        $dateLimit = '';
+        if (!$all) {
+            $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
+        }
+        $db = $this->getDB();
+        $sql = "select distinct * from " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
+                where source_product_id in (:productIdList)
+                and association_type =:type" . $dateLimit . "
+                order by sort_order asc";
+        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":type", $type, "integer");
 
         $associations = array();
