@@ -204,11 +204,15 @@
 		$sort = $this->db->Execute($sort_order_query);
 		$next_sort = $sort->fields['max_sort'] + 1;
 		$insert_group = "INSERT INTO `".TABLE_CONFIGURATION_GROUP."` VALUES ('', 'SEO URLs', 'Options for Ultimate SEO URLs by Chemo', '".$next_sort."', '1')";
+        // badly fix MySQL5 issue
+        $insert_group = str_replace(" (''", " (NULL", $insert_group);
 		$this->db->Execute($insert_group);
 		$group_id = $this->db->insert_ID();
 
 		foreach ($this->default_config as $key => $value){
 			$sql = str_replace('GROUP_INSERT_ID', $group_id, $value['QUERY']);
+            // badly fix MySQL5 issue
+			$sql = str_replace(" (''", " (NULL", $sql);
 			$this->db->Execute($sql);
 		}
 
