@@ -87,6 +87,8 @@ class zm_product_associations extends ZMPlugin {
         if ($zm_associations->isInstalled()) {
             $zm_associations->prepareAssociationTypes();
         }
+
+        $this->addMenuItem('zmpa', zm_l10n_get('Product Associations'), 'zm_pa_admin');
     }
 
 
