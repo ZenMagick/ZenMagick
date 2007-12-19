@@ -32,14 +32,16 @@
      *
      * @package net.zenmagick.admin
      * @param array categories List of start categories.
-     * @param string urlBase Base url for category/product hrefs
+     * @param string params Additional parameter; default is ''.
      * @param string id The id of the wrapper div
      * @param boolean root Flag to indicate root level.
+     * @return string The created HTML.
      */
-    function zm_catalog_tree($categories=array(), $urlBase=null, $id='cat-tree', $root=true) {
+    function zm_catalog_tree($categories=array(), $params=null, $id='cat-tree', $root=true) {
     global $zm_request, $zm_categories;
 
         if ($root) { 
+            ob_start(); 
             echo <<<EOT
 <script type="text/javascript" src="includes/jquery/jquery-1.2.1.pack.js"></script>
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
@@ -56,19 +58,18 @@
     });
 </script>
 EOT;
-            $urlBase = (null === $urlBase ? basename($PHP_SELF) : $urlBase);
             $zm_categories->setPath($zm_request->getCategoryPathArray());
             $categories = $zm_categories->getCategoryTree();
-            ob_start(); 
             echo '<div id="'.$id.'">';
         }
         echo '<ul>';
+        $urlBase = basename($PHP_SELF).'?';
         foreach ($categories as $category) {
             echo '<li class="'.($category->isActive() ? 'open' : '').'">';
-            $url = $urlBase."?".$category->getPath();
+            $url = $urlBase.$category->getPath().$params;
             echo '<a href="'.$url.'">'.zm_htmlencode($category->getName(), false).'</a>';
             if ($category->hasChildren()) {
-                zm_catalog_tree($category->getChildren(), $urlBase, $id, false);
+                zm_catalog_tree($category->getChildren(), $params, $id, false);
             }
             echo '</li>';
         }
@@ -76,8 +77,10 @@ EOT;
 
         if ($root) { 
             echo '</div>'; 
-            echo ob_get_clean();
+            return ob_get_clean();
         }
+
+        return '';
     }
 
 ?>
