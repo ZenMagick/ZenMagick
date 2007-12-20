@@ -35,7 +35,7 @@
   <head>
     <title><?php $zm_meta->getTitle()?></title>
     <base href="<?php echo $zm_request->getPageBase() ?>" />
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <link rel="stylesheet" href="<?php $zm_theme->themeURL("popup.css") ?>" type="text/css" media="screen,projection" />
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>

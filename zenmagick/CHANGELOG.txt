@@ -85,6 +85,8 @@ Release 0.8.6
   the USEO code removing all %SEO% configuration settings during install!
 - for a guest order history make sure the givem email address matches the
   email address of the order to authenticate; #1852133
+- change all layout files to use the configured 'HTML_CHARSET' rather the
+  hardcoded 'iso-8859-1'
 
 
 Release 0.8.5
