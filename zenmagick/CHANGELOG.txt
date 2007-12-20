@@ -87,6 +87,8 @@ Release 0.8.6
   email address of the order to authenticate; #1852133
 - change all layout files to use the configured 'HTML_CHARSET' rather the
   hardcoded 'iso-8859-1'
+- use 'HTML_CHARSET' setting for calls of both htmlspecialchars() and
+  htmlentities
 
 
 Release 0.8.5

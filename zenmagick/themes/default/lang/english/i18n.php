@@ -40,10 +40,9 @@
         'DATE_FORMAT_LONG' => '%A %d %B, %Y',
         'DATE_TIME_FORMAT' => '%d/%m/%Y %H:%M:%S',
 
-        // NOTE: These are *NOT* used in ZenMagick, however zen-cart uses them in some places
-        // HTML settings for pages and emails
-        'HTML_PARAMS' => 'dir="ltr" lang="en"',
-        'HTML_CHARSET' => 'iso-8859-1'
+        'HTML_CHARSET' => 'iso-8859-1',
+        // NOTE: This is *NOT* used in ZenMagick, however zen-cart uses it in some places...
+        'HTML_PARAMS' => 'dir="ltr" lang="en"'
     ));
 
 ?>

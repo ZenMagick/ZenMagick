@@ -70,7 +70,7 @@
      * @return string The encoded HTML.
      */
     function zm_htmlencode($s, $echo=true) {
-        $s = htmlspecialchars($s);
+        $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
 
         if ($echo) echo $s;
         return $s;
@@ -121,7 +121,7 @@
      * @return string The URL encoded in valid HTM.
      */
     function zm_htmlurlencode($url) {
-        $url = htmlentities($url);
+        $url = htmlentities($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
         $url = str_replace(' ', '%20', $url);
         return $url;
     }
