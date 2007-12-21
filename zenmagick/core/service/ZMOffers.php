@@ -292,11 +292,28 @@ class ZMOffers extends ZMService {
     }
 
     /**
-     * Get the discount.
+     * Get the discount as percent value.
      *
      * @return float The discount in percent.
      */
-    function getDiscount() { return $this->discountPercent_; }
+    function getDiscountPercent() { return $this->discountPercent_; }
+
+    /**
+     * Get the discount amount.
+     *
+     * @return float The discount amount.
+     */
+    function getDiscountAmount() {
+        $save = 0;
+        if (!$this->product_->isFree() && ($this->isSpecial() || $this->isSale())) {
+          if ($this->isSpecial())  {
+              $save = $this->getBasePrice() - $this->getSpecialPrice();
+          } else if ($this->isSale()) {
+              $save = $this->getBasePrice() - $this->getSalePrice();
+          }
+        }
+        return $save;
+    }
 
     /**
      * Get the tax rate for the product.

@@ -89,6 +89,8 @@ Release 0.8.6
   hardcoded 'iso-8859-1'
 - use 'HTML_CHARSET' setting for calls of both htmlspecialchars() and
   htmlentities
+- renamed ZMOffers::getDiscount() to getDiscountPercent(), added a new
+function getDiscountAmount()
 
 
 Release 0.8.5
