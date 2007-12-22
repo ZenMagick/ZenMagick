@@ -106,7 +106,6 @@
     <target name="prepare" depends="init,ask-versions" description="Prepare files.">
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
-            <fileset file=".htaccess" />
             <fileset dir="${zencart.src.dir}" />
         </copy>
 
