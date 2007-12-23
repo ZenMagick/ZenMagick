@@ -173,13 +173,13 @@ class ZMBanners extends ZMService {
     function updateBannerDisplayCount($bannerId) {
         $db = $this->getDB();
 
-        $sql = "select count(*) as count from zen_banners_history
+        $sql = "select count(*) as count from " . TABLE_BANNERS_HISTORY . "
                 where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
         $results = $db->Execute($sql);
 
         if ($results->fields['count'] > 0) {
-            $sql = "update zen_banners_history set banners_shown = banners_shown +1
+            $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_shown = banners_shown +1
                     where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
             $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
             $db->Execute($sql);
@@ -200,7 +200,7 @@ class ZMBanners extends ZMService {
     function updateBannerClickCount($bannerId) {
         $db = $this->getDB();
 
-        $sql = "update zen_banners_history set banners_clicked = banners_clicked + 1
+        $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1
                 where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
         $db->Execute(sprintf(SQL_BANNER_UPDATE_CLICK_COUNT, (int)$bannerId));
