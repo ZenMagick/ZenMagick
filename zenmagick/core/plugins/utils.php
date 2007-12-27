@@ -115,7 +115,7 @@
         $title = null == $title ? $plugin->getName() : $title;
         $title = zm_l10n_get($title);
         $contents = <<<EOT
-<h2><? echo \$title ?></h2>
+<h2><?php echo \$title ?></h2>
 <form action="<?php zm_plugin_admin_url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues(false) as \$value) { ?>

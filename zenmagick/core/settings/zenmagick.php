@@ -88,7 +88,6 @@
     define('ZM_ADMINFN_CATALOG_MANAGER', 'zmCatalogManager.php');
     define('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
     define('ZM_ADMINFN_L10N', 'zmL10n.php');
-    define('ZM_ADMINFN_CACHE', 'zmCacheManager.php');
     define('ZM_ADMINFN_ABOUT', 'zmAbout.php');
     define('ZM_ADMINFN_CONSOLE', 'zmConsole.php');
     define('ZM_ADMINFN_PLUGINS', 'zmPlugins.php');

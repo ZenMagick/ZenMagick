@@ -81,6 +81,8 @@ class zm_page_cache extends ZMPlugin {
         parent::init();
         $this->pageCacheHandler_ = $this->create('PageCacheHandler');
         $this->pageCacheHandler_->zcoSubscribe();
+
+        $this->addMenuItem('zm_page_cache_admin', zm_l10n_get('Page Cache'), 'zm_page_cache_admin');
     }
 
 

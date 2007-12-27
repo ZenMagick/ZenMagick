@@ -61,6 +61,7 @@
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/ZMPageCache.php");
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache");
 
+    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCacheManager.php");
 
     // check for existance of all obsolete files
     function zm_get_obsolete_files() {

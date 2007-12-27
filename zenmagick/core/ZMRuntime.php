@@ -75,20 +75,6 @@ class ZMRuntime extends ZMObject {
     function getDB() { global $db; return $db; }
 
     /**
-     * Get the page cache.
-     *
-     * @return ZMCache A <code>ZMCache</code> instance or <code>null</code>.
-     */
-    function getPageCache() {
-    global $zm_loader;
-
-        if (null === $this->pageCache_) {
-            $this->pageCache_ =& $zm_loader->create('PageCache');
-        }
-        return $this->pageCache_;
-    }
-
-    /**
      * Return the directory containing all themes.
      *
      * @return string The base directory for themes.

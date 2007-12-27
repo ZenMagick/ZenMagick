@@ -24,7 +24,6 @@ if (!defined('IS_ADMIN_FLAG')) {
 
     $zm_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
     $zm_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
-    $zm_contents[] = array('text' => zm_l10n_get("Cache Manager"), 'link' => zen_href_link(ZM_ADMINFN_CACHE, '', 'NONSSL'));
     if (file_exists(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE)) {
         $zm_contents[] = array('text' => zm_l10n_get("Console"), 'link' => zen_href_link(ZM_ADMINFN_CONSOLE, '', 'SSL'));
     }
