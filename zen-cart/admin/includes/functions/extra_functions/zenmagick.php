@@ -37,8 +37,8 @@
      * @param boolean root Flag to indicate root level.
      * @return string The created HTML.
      */
-    function zm_catalog_tree($categories=array(), $params=null, $id='cat-tree', $root=true) {
-    global $zm_request, $zm_categories;
+    function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $id='cat-tree', $root=true) {
+    global $zm_request, $zm_products, $zm_categories;
 
         if ($root) { 
             ob_start(); 
@@ -60,16 +60,23 @@
 EOT;
             $zm_categories->setPath($zm_request->getCategoryPathArray());
             $categories = $zm_categories->getCategoryTree();
-            echo '<div id="'.$id.'">';
+            echo '<div id="'.$id.'" class="filetree">';
         }
         echo '<ul>';
         $urlBase = basename($PHP_SELF).'?';
         foreach ($categories as $category) {
+            $hasProducts = 0 != count($zm_products->getProductIdsForCategoryId($category->getId()));
             echo '<li class="'.($category->isActive() ? 'open' : '').'">';
             $url = $urlBase.$category->getPath().$params;
-            echo '<a href="'.$url.'">'.zm_htmlencode($category->getName(), false).'</a>';
+            echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).'</span></a>';
             if ($category->hasChildren()) {
-                zm_catalog_tree($category->getChildren(), $params, $id, false);
+                zm_catalog_tree($category->getChildren(), $params, $showProducts, $id, false);
+            } else if ($showProducts && $category->isActive()) {
+                echo '<ul>';
+                foreach ($zm_products->getProductsForCategoryId($category->getId()) as $product) {
+                    echo '<li><a href=""><span class="file">'.$product->getName().'</span></a></li>';
+                }
+                echo '</ul>';
             }
             echo '</li>';
         }
