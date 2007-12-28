@@ -79,6 +79,7 @@ class ZMShoppingCartItem extends ZMModel {
     function getItemPrice() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']); }
     function getItemTotal() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }
     function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
+
     /**
      * Get the tax rate for this item.
      *
@@ -89,6 +90,18 @@ class ZMShoppingCartItem extends ZMModel {
 
         return $zm_taxes->getTaxRateForClassId($this->zenItem_['tax_class_id']);
     }
+
+    /**
+     * Get the product this item is associated to.
+     *
+     * @return ZMProduct The product.
+     */
+    function getProduct() {
+    global $zm_products;
+
+        return $zm_products->getProductForId($this->getId());
+    }
+
     function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
     function getOneTimeCharges() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['onetime_charges']); }
 

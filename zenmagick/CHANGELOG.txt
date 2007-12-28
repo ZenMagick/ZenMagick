@@ -1,5 +1,6 @@
 Release 0.8.7
 - move cache manager page from core to zm_page_cache plugin
+- added ZMShoppingCartItem::getProduct()
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
