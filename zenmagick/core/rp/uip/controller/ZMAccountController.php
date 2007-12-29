@@ -68,7 +68,7 @@ class ZMAccountController extends ZMController {
 
         // last order is first, so displaying the first page is just fine...
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
-        $resultList = new ZMResultList($orders, zm_setting('accountOrderHistoryLimit'));
+        $resultList = $this->create("ResultList", $orders, zm_setting('accountOrderHistoryLimit'));
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", $zm_request->getAccount());
 

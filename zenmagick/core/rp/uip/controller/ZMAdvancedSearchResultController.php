@@ -69,7 +69,7 @@ class ZMAdvancedSearchResultController extends ZMController {
         $zm_crumbtrail->addCrumb("Advanced Search", zm_href(FILENAME_ADVANCED_SEARCH, null, false));
         $zm_crumbtrail->addCrumb("Results");
 
-        $resultList = new ZMResultList($zm_products->getProductsForSQL($listing_sql));
+        $resultList = $this->create("ResultList", $zm_products->getProductsForSQL($listing_sql));
         if (null != $resultList) {
             $sorter =& $this->create("ProductSorter");
             $sorter->setDefaultSortId(zm_setting('defaultProductSortOrder'));

@@ -69,7 +69,7 @@ class ZMSpecialsController extends ZMController {
         $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
         $zm_crumbtrail->addCrumb("Specials");
 
-        $resultList = new ZMResultList($zm_products->getSpecials());
+        $resultList = $this->create("ResultList", $zm_products->getSpecials());
         if (null != $resultList) {
             $resultList->addFilter(new ZMManufacturerFilter());
             $resultList->addFilter(new ZMCategoryFilter());

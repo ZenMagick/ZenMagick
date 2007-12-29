@@ -69,7 +69,8 @@ class ZMProductsNewController extends ZMController {
         $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
         $zm_crumbtrail->addCrumb("New Products");
 
-        $resultList = new ZMResultList($zm_products->getNewProducts($zm_request->getCategoryId()));
+        $newProducts = $zm_products->getNewProducts($zm_request->getCategoryId());
+        $resultList = $this->create("ResultList", $newProducts);
         if (null != $resultList) {
             $resultList->addFilter(new ZMManufacturerFilter());
             $resultList->addFilter(new ZMCategoryFilter());

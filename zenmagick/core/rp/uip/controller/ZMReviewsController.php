@@ -70,7 +70,7 @@ class ZMReviewsController extends ZMController {
         $zm_crumbtrail->addProduct($zm_request->getProductId());
         $zm_crumbtrail->addCrumb("Reviews");
 
-        $resultList = new ZMResultList($zm_reviews->getAllReviews());
+        $resultList = $this->create("ResultList", $zm_reviews->getAllReviews());
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

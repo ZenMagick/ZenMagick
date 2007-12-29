@@ -153,7 +153,12 @@ class ProductAssociations extends ZMService {
     function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
     global $zm_products;
 
+        $associations = array();
+
         $productIds = $zm_products->getProductIdsForCategoryId($categoryId);
+        if (0 == count($productIds)) {
+            return $associations;
+        }
 
         $dateLimit = '';
         if (!$all) {
@@ -167,7 +172,6 @@ class ProductAssociations extends ZMService {
         $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":type", $type, "integer");
 
-        $associations = array();
         $results = $db->Execute($sql);
         while (!$results->EOF) {
             $associations[] = $this->_newProductAssociation($results->fields);
@@ -187,9 +191,14 @@ class ProductAssociations extends ZMService {
      */
     function getProductAssociationsForShoppingCart(&$shoppingCart, $type, $all=false) {
 
+        $associations = array();
         $productIds = array();
         foreach ($shoppingCart->getItems() as $item) {
             $productIds[] = $item->getId();
+        }
+
+        if (0 == count($productIds)) {
+            return $associations;
         }
 
         $dateLimit = '';
@@ -204,7 +213,6 @@ class ProductAssociations extends ZMService {
         $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":type", $type, "integer");
 
-        $associations = array();
         $results = $db->Execute($sql);
         while (!$results->EOF) {
             $associations[] = $this->_newProductAssociation($results->fields);

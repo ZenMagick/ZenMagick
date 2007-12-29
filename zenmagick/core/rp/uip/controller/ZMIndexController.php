@@ -83,20 +83,21 @@ class ZMIndexController extends ZMController {
 
         // decide which index view to use and prepare index data
         $resultList = null;
-        $max = zm_setting('maxProductResultList');
+        $products = null;
         $viewName = 'index';
 
         if (null != $zm_request->getCategoryPath()) {
-            $resultList = new ZMResultList($zm_products->getProductsForCategoryId($zm_request->getCategoryId()), $max);
+            $products = $zm_products->getProductsForCategoryId($zm_request->getCategoryId());
             $viewName = 'category_list';
         } else if (null != $zm_request->getManufacturerId()) {
-            $resultList = new ZMResultList($zm_products->getProductsForManufacturerId($zm_request->getManufacturerId()), $max);
+            $products = $zm_products->getProductsForManufacturerId($zm_request->getManufacturerId());
             $viewName = 'manufacturer';
         } else if (null != $zm_request->getParameter('compareId')) {
-            $resultList = new ZMResultList($zm_products->getProductsForIds($zm_request->getParameter('compareId')), $max);
+            $products = $zm_products->getProductsForIds($zm_request->getParameter('compareId'));
             $viewName = 'category_list';
         }
-        if (null != $resultList) {
+        if (null != $products) {
+            $resultList = $this->create("ResultList", $products, zm_setting('maxProductResultList'));
             $resultList->addFilter(new ZMManufacturerFilter());
             $resultList->addFilter(new ZMCategoryFilter());
             $resultList->addSorter(new ZMProductSorter());

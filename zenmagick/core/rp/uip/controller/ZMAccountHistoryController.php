@@ -68,7 +68,7 @@ class ZMAccountHistoryController extends ZMController {
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
-        $resultList = new ZMResultList($orders, 10);
+        $resultList = $this->create("ResultList", $orders, 10);
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();
