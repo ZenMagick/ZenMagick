@@ -3,6 +3,9 @@ Release 0.8.7
 - added ZMShoppingCartItem::getProduct()
 - make zm_catalog_tree support displaying products
 - use create(..) rather than new to create new ResultList instances
+- add custom result list for products to allow to replace with custom class;
+  this will make the zm_split_page_result_list plugin a lot easier and allow
+  to use the same code also in the admin area
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

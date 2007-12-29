@@ -97,7 +97,7 @@ class ZMIndexController extends ZMController {
             $viewName = 'category_list';
         }
         if (null != $products) {
-            $resultList = $this->create("ResultList", $products, zm_setting('maxProductResultList'));
+            $resultList = $this->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
             $resultList->addFilter(new ZMManufacturerFilter());
             $resultList->addFilter(new ZMCategoryFilter());
             $resultList->addSorter(new ZMProductSorter());
