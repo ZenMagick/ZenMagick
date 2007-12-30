@@ -106,7 +106,7 @@ class ZMIndexController extends ZMController {
         }
 
         $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
-        if ($viewName == "category_list" && ((!$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
+        if ($viewName == "category_list" && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }
 

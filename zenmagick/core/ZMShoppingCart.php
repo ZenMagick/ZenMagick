@@ -150,11 +150,13 @@ class ZMShoppingCart extends ZMService {
      * @return array List of <code>ZMShoppingCartItem</code>s.
      */
     function getItems() {
-        $zenItems = $this->cart_->get_products();
         $items = array();
-        foreach ($zenItems as $zenItem) {
-            $item =& $this->create("ShoppingCartItem", $this, $zenItem);
-            array_push($items, $item);
+        if (null != $this->cart_) {
+            $zenItems = $this->cart_->get_products();
+            foreach ($zenItems as $zenItem) {
+                $item =& $this->create("ShoppingCartItem", $this, $zenItem);
+                array_push($items, $item);
+            }
         }
         return $items;
     }

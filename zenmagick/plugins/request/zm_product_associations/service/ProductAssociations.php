@@ -118,8 +118,6 @@ class ProductAssociations extends ZMService {
      * return array A list of <code>ProductAssociation</code> instances.
      */
     function getProductAssociationsForProdctId($productId, $type, $all=false) {
-    global $zm_products;
-
         $dateLimit = '';
         if (!$all) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
@@ -155,7 +153,7 @@ class ProductAssociations extends ZMService {
 
         $associations = array();
 
-        $productIds = $zm_products->getProductIdsForCategoryId($categoryId);
+        $productIds = $zm_products->getProductIdsForCategoryId($categoryId, !$all);
         if (0 == count($productIds)) {
             return $associations;
         }

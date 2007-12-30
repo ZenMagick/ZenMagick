@@ -59,16 +59,20 @@ class ZMProducts extends ZMService {
      * Get all active products for the given category id.
      *
      * @param int categoryId The category id.
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProductsForCategoryId($categoryId) {
+    function getProductsForCategoryId($categoryId, $active=true) {
     global $zm_runtime;
 
         $db = $this->getDB();
         $query = "select p.products_id
                 from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                where p.products_status = 1
-                and p.products_id = p2c.products_id and pd.products_id = p2c.products_id
+                where ";
+        if ($active) {
+            $query .= " p.products_status = 1 and ";
+        }
+        $query .= " p.products_id = p2c.products_id and pd.products_id = p2c.products_id
                 and pd.language_id = :languageId and p2c.categories_id = :categoryId
                 order by p.products_sort_order, pd.products_name";
         $query = $db->bindVars($query, ":languageId", $zm_runtime->getLanguageId(), "integer");
@@ -90,16 +94,20 @@ class ZMProducts extends ZMService {
      * Get all active products for a manufacturer.
      *
      * @param int manufacturerId The manufacturers id.
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProductsForManufacturerId($manufacturerId) {
+    function getProductsForManufacturerId($manufacturerId, $active=true) {
     global $zm_runtime;
 
         $db = $this->getDB();
         $query = "select p.products_id
                     from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
-                    where p.products_status = 1
-                    and pd.products_id = p.products_id
+                    where ";
+        if ($active) {
+            $query .= " p.products_status = 1 and ";
+        }
+        $query .= " pd.products_id = p.products_id
                     and pd.language_id = :languageId
                     and p.manufacturers_id = m.manufacturers_id and p.manufacturers_id = :manufacturerId
                     order by p.products_sort_order, pd.products_name";
@@ -124,14 +132,18 @@ class ZMProducts extends ZMService {
      * this will ignore language preferences.
      *
      * @param int categoryId The category id.
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @return array A list of (int)product ids.
      */
-    function getProductIdsForCategoryId($categoryId) {
+    function getProductIdsForCategoryId($categoryId, $active=true) {
         $db = $this->getDB();
         $query = "select p.products_id
                   from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                  where p.products_status = '1'
-                  and p.products_id = p2c.products_id
+                  where ";
+        if ($active) {
+            $query .= " p.products_status = 1 and ";
+        }
+        $query .= " p.products_id = p2c.products_id
                   and p2c.categories_id = :categoryId
                   order by p.products_sort_order";
         $query = $db->bindVars($query, ":categoryId", $categoryId, 'integer');
@@ -581,7 +593,7 @@ class ZMProducts extends ZMService {
     global $zm_features, $zm_taxes;
 
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
-        $product->status = $fields['products_status'];
+        $product->status_ = 1 == $fields['products_status'];
         $product->model_ = $fields['products_model'];
         $product->image_ = (empty($fields['products_image']) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $fields['products_image'];
         $product->url_ = $fields['products_url'];

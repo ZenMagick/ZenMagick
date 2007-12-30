@@ -128,7 +128,7 @@ class ZMProduct extends ZMModel {
     /**
      * Get the product status.
      *
-     * @return int The product status.
+     * @return boolean The product status.
      */
     function getStatus() { return $this->status_; }
 
