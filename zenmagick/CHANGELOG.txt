@@ -7,7 +7,7 @@ Release 0.8.7
   this will make the zm_split_page_result_list plugin a lot easier and allow
   to use the same code also in the admin area
 - move admin zm_category_tree function into core/admin/html.php rather than
-  sitting in a zen-cart folder; required deleting the file manually
+  sitting in a zen-cart folder; requires deleting the file manually
 - properly populate a products status (changed to boolean)
 - add parameter to allow to query all products (ignoring the status)
 - make zm_href() and zm_secure_href() work in admin pages
