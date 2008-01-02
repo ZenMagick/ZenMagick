@@ -102,7 +102,7 @@ require_once('includes/application_top.php');
               'type' => $plugin->getType(),
               'installed' => $plugin->isInstalled(),
               'enabled' => $plugin->isEnabled(),
-              'order' => $plugin->getOrder()
+              'order' => $plugin->getSortOrder()
             );
         }
     }
@@ -162,7 +162,7 @@ require_once('includes/application_top.php');
                 <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                   <td><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
-                  <td><?php echo $plugin->getOrder() ?></td>
+                  <td><?php echo $plugin->getSortOrder() ?></td>
                   <td>
                     <?php if ($plugin->isInstalled()) { ?>
                         <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>

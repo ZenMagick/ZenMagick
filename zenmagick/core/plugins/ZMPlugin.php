@@ -298,11 +298,18 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Get the order index.
+     * Get the sort order.
      *
-     * @return int The order index.
+     * @return int The sort order index.
      */
-    function getOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
+    function getSortOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
+
+    /**
+     * Set the sort order.
+     *
+     * @param int sortOrder The sort order index.
+     */
+    function setSortOrder($sortOrder) { $this->set(ZM_PLUGIN_ORDER_SUFFIX, $sortOrder); }
 
     /**
      * Get a list of configuration keys used by this plugin.

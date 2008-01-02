@@ -204,8 +204,8 @@ class ZMPlugins extends ZMService {
      *  considered to be respectively less than, equal to, or greater than the second.
      */
     function _cmp_plugins(&$a, &$b) {
-        $ao = $a->getOrder();
-        $bo = $b->getOrder();
+        $ao = $a->getSortOrder();
+        $bo = $b->getSortOrder();
         if ($ao == $bo) {
             return 0;
         }
