@@ -60,7 +60,20 @@
     //TODO:
     global $request_type, $session_started, $http_domain, $https_domain;
 
-        if (zm_is_empty($page)) zm_backtrace('missing page parameter');
+        $isAdmin = false;
+        if (zm_is_empty($page)) {
+            if (zm_setting('isAdmin')) {
+                // admin links!
+                $isAdmin = true;
+                //TODO: init!
+                if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
+                while (false !== strpos($PHP_SELF, '//')) $PHP_SELF = str_replace('//', '/', $PHP_SELF);
+                $page = $PHP_SELF;
+                $isStatic = true;
+            } else {
+                zm_backtrace('missing page parameter');
+            }
+        }
 
         // default to non ssl
         $server = HTTP_SERVER;
@@ -110,6 +123,7 @@
             $query .= '&' . strtr(trim($sid), array('"' => '&quot;'));
         }
 
+        while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
         $query = (1 < strlen($query)) ? $query : '';
 
         return zm_htmlurlencode($server.$path.$query);

@@ -112,15 +112,36 @@ EOT;
         if (null != $products) {
             $resultList = $zm_loader->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
             ob_start(); 
-            echo '<table cellspacing="0" cellpadding="0" class="presults"><tbody>';
+            echo '<table cellspacing="0" cellpadding="0" class="presults">';
+            echo '<thead><tr>';
+            echo '<th>'.zm_l10n_get('Name').'</th>';
+            echo '<th>'.zm_l10n_get('Active').'</th>';
+            echo '</tr></thead>';
+            echo '<tbody>';
             $first = true; 
             $odd = true; 
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
-                echo '<td>'.$product->getName().'</td>';
+                echo '<td class="name"><a href="'.zm_href('', $zm_request->getQueryString().'&productId='.$product->getId(), false).'">'.$product->getName().'</a></td>';
+                echo '<td class="status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
                 echo '</tr>';
                 $first = false; 
                 $odd = !$odd;
+            }
+            if (1 < $resultList->getNumberOfPages()) {
+                echo '<tr class="rnav"><td colspan="2">';
+                echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getCurrentPageNumber(), $resultList->getNumberOfPages()).'</span>';
+                if ($resultList->hasPreviousPage()) {
+                    echo '<a href="'.$resultList->getPreviousURL($zm_request->isSecure(), false).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
+                } else {
+                    echo '<span class="nin">'.zm_l10n_get("Previous").'</span>&nbsp;';
+                }
+                if ($resultList->hasNextPage()) {
+                    echo '<a href="'.$resultList->getNextURL($zm_request->isSecure(), false).'">'.zm_l10n_get("Next").'</a>';
+                } else {
+                    echo '<span class="nin">'.zm_l10n_get("Next").'</span>';
+                }
+                echo '</td></tr>';
             }
             echo '</tbody></table>';
             return ob_get_clean();

@@ -35,7 +35,7 @@
     global $zm_categories;
 
         $tree = $zm_categories->getCategoryTree();
-        $catTree = zm_catalog_tree($tree, '&fkt=zm_pa_admin', true);
+        $catTree = zm_catalog_tree($tree, '&fkt=zm_pa_admin', false);
         $products = zm_product_resultlist();
         $pp = new ZMPluginPage('zm_pa_admin', zm_l10n_get('Product Associations'), $catTree.$products);
         // so what??
