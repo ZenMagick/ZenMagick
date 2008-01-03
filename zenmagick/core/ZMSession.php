@@ -237,6 +237,9 @@ class ZMSession extends ZMObject {
      * Mark current request for return after login.
      */
     function markRequestAsLoginFollowUp() {
+        if (!isset($_SESSION['navigation'])) {
+            $_SESSION['navigation'] = new navigationHistory();
+        }
         $_SESSION['navigation']->set_snapshot();
     }
 
