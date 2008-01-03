@@ -250,7 +250,7 @@ class ZMSession extends ZMObject {
      */
     function getLoginFollowUp() {
         $url = null;
-        if (sizeof($_SESSION['navigation']->snapshot) > 0) {
+        if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
             $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
                 zen_array_to_string($_SESSION['navigation']->snapshot['get'],
                 array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
