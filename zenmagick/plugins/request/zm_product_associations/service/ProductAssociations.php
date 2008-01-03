@@ -117,7 +117,7 @@ class ProductAssociations extends ZMService {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ProductAssociation</code> instances.
      */
-    function getProductAssociationsForProdctId($productId, $type, $all=false) {
+    function getProductAssociationsForProductId($productId, $type, $all=false) {
         $dateLimit = '';
         if (!$all) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
