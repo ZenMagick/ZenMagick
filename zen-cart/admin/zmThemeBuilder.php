@@ -30,6 +30,7 @@
     if ('POST' == $zm_request->getMethod()) {
         $name = $zm_request->getParameter('name');
         $inherit = $zm_request->getParameter('inherit', false);
+        $switchto = $zm_request->getParameter('switchto', false);
 
         $themeBuilder = new ZMThemeBuilder();
         $themeBuilder->setName($zm_request->getParameter('name'));
@@ -38,6 +39,19 @@
         foreach ($themeBuilder->getMessages() as $msg) {
             $zm_messages->msg($msg);
         }
+
+        if ($switchto) {
+            // create dummy files
+            $dummyPatch = new ZMThemeDummyPatch();
+            $dummyPatch->patch(true);
+            $zm_messages->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
+
+            // select new theme
+            $themes = new ZMThemes();
+            $themes->setZCThemeId($name);
+            $zm_messages->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
+        }
+
     }
 
 ?>
@@ -80,6 +94,10 @@
               <input type="checkbox" id="inherit" name="inherit" value="1" checked>
               <label for="inherit">Inherit theme defaults</label>
               (Recommended, unless <strong>all files are copied</strong>)
+              <br>
+
+              <input type="checkbox" id="switchto" name="switchto" value="1" checked>
+              <label for="switchto">Switch to the new theme when created</label>
               <br>
 
               <div class="submit"><input type="submit" value="<?php zm_l10n("Create") ?>"></div>

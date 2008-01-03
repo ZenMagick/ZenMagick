@@ -141,20 +141,56 @@ class ZMThemes extends ZMService {
         $db = $this->getDB();
         $sql = "select template_dir
                 from " . TABLE_TEMPLATE_SELECT . "
-                where template_language = 0";
-        $results = $db->Execute($sql);
-        $themeId = $results->fields['template_dir'];
-
-        $sql = "select template_dir
-                from " . TABLE_TEMPLATE_SELECT . "
                 where template_language = :languageId";
         $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
         $results = $db->Execute($sql);
-        if ($results->RecordCount() > 0) {
+        if (0 < $results->RecordCount()) {
+            $themeId = $results->fields['template_dir'];
+        } else {
+            $sql = "select template_dir
+                    from " . TABLE_TEMPLATE_SELECT . "
+                    where template_language = 0";
+            $results = $db->Execute($sql);
             $themeId = $results->fields['template_dir'];
         }
 
         return $themeId;
+    }
+
+    /**
+     * Set the configured zen-cart theme id.
+     *
+     * @param string themeId The theme id.
+     * @param int languageId Optional language id; default is <em>0</em> for all.
+     */
+    function setZCThemeId($themeId, $languageId=0) {
+        $db = $this->getDB();
+
+        // update or insert?
+        $sql = "select *
+                from " . TABLE_TEMPLATE_SELECT . "
+                where template_language = :languageId";
+        $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+        $results = $db->Execute($sql);
+
+        $sql = '';
+        if (0 < $results->RecordCount()) {
+            // update
+            $sql = "update " . TABLE_TEMPLATE_SELECT . " set template_dir = :themeId
+                    where template_id = :templateId
+                    and template_language = :languageId";
+            $sql = $db->bindVars($sql, ":themeId", $themeId, 'string');
+            $sql = $db->bindVars($sql, ":templateId", $results->fields['template_id'], 'integer');
+            $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+        } else {
+            // insert
+            $sql = "insert into " . TABLE_TEMPLATE_SELECT . " (template_dir, template_language)
+                    values (:themeId, :languageId)";
+            $sql = $db->bindVars($sql, ":themeId", $themeId, 'string');
+            $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+        }
+
+        $results = $db->Execute($sql);
     }
 
 }
