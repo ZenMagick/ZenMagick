@@ -298,7 +298,7 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    function getOffers() { $this->offers_->setProduct(&$this); return $this->offers_; }
+    function getOffers() { $this->offers_->setProduct($this); return $this->offers_; }
 
     /**
      * Check if this product has attributes or not.
