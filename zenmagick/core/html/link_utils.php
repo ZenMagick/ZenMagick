@@ -70,6 +70,7 @@
                 while (false !== strpos($PHP_SELF, '//')) $PHP_SELF = str_replace('//', '/', $PHP_SELF);
                 $page = $PHP_SELF;
                 $isStatic = true;
+                $useContext = false;
             } else {
                 zm_backtrace('missing page parameter');
             }
