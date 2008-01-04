@@ -34,22 +34,21 @@
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
         $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_START);
-        if (zm_dispatch()) {
-            $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_DONE);
+        zm_dispatch();
+        $zm_events->fireEvent($zm_runtime, ZM_EVENT_DISPATCH_DONE);
 
-            require('includes/application_bottom.php');
+        require('includes/application_bottom.php');
 
-            // allow plugins to filter/modify the final contents
-            $contents = ob_get_clean();
-            $contents = $zm_plugins->filterResponse($contents);
-            echo $contents;
+        // allow plugins to filter/modify the final contents
+        $contents = ob_get_clean();
+        $contents = $zm_plugins->filterResponse($contents);
+        echo $contents;
 
-            // clear messages if not redirect...
-            $_zm_session = new ZMSession();
-            $_zm_session->clearMessages();
+        // clear messages if not redirect...
+        $_zm_session = new ZMSession();
+        $_zm_session->clearMessages();
 
-            exit;
-        }
+        exit;
     }
 
     // default to zen-cart
