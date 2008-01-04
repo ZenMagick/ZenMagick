@@ -75,7 +75,7 @@ EOT;
             } else if ($showProducts && $category->isActive()) {
                 echo '<ul>';
                 foreach ($zm_products->getProductsForCategoryId($category->getId(), false) as $product) {
-                    echo '<li><a href=""><span class="file">'.$product->getName().'</span></a></li>';
+                    echo '<li><a href="'.$url.'&productId='.$product->getId().'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }

@@ -32,16 +32,18 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_pa_admin() {
-    global $zm_categories;
+    global $zm_request, $zm_categories;
 
         $tree = $zm_categories->getCategoryTree();
         $catTree = zm_catalog_tree($tree, '&fkt=zm_pa_admin', false);
-        $products = zm_product_resultlist();
-        $pp = new ZMPluginPage('zm_pa_admin', zm_l10n_get('Product Associations'), $catTree.$products);
-        // so what??
-        $header = '<link rel="stylesheet" type="text/css" href="includes/jquery/jquery.treeview.css">';
-        $pp->setHeader($header);
-        return $pp;
+        $products = '';
+        if (0 < ($productid = $zm_request->getProductId())) {
+            // product view
+        } else {
+            // category product list
+            $products = zm_product_resultlist();
+        }
+        return new ZMPluginPage('zm_pa_admin', zm_l10n_get('Product Associations'), $catTree.$products);
     }
 
 ?>
