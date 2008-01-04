@@ -114,8 +114,8 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 #main #cnav {width:21%;overflow:auto;}
 
 /* jquery filetree */
-#cat-tree {float:left;border:1px solid gray;padding:4px;margin:2px;width:20%;}
-.presults {width:76%;border-bottom:1px solid gray;margin:4px;}
+#cat-tree {float:left;border:1px solid gray;padding:4px;margin:2px;width:24%;}
+.presults {width:74%;border-bottom:1px solid gray;margin:4px;}
 .presults td {border:1px solid gray;border-bottom:none;}
 .presults td.name {border-right:none;}
 .presults tr.odd td {background:#eee;}

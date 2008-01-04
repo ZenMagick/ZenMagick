@@ -41,6 +41,7 @@ require_once('includes/application_top.php');
     <title><?php zm_l10n("ZenMagick Plugin Page :: %s", (null != $page ? $page->getTitle() : '')) ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
+    <link rel="stylesheet" type="text/css" href="includes/jquery/jquery.treeview.css">
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
