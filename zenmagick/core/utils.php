@@ -665,7 +665,7 @@
      * Dispatch the current request.
      *
      * @package org.zenmagick
-     * @return boolean <code>true</code> if the request was dispatched, <code>false</code> if not.
+     * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
     global $zm_runtime, $zm_request, $zm_loader, $zm_events;
