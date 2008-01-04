@@ -45,7 +45,6 @@
         $zm_urlMapper->setMapping(null, 'missing_page', 'error');
         $zm_urlMapper->setMapping(null, 'index', 'index');
         $zm_urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
-        $zm_urlMapper->setMapping(null, 'cookie_usage', 'cookie_usage', 'RedirectView');
 
         // checkout states
         $zm_urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');

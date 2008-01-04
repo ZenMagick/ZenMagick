@@ -105,9 +105,13 @@ class ZMSacsMapper extends ZMObject {
             $level = $account->getType();
         }
 
-        $session = new ZMSession();
-        // either not required level of authentication or no valid session
-        if (!zm_is_in_array($level, $this->levelMap_[$requiredLevel]) || !$session->isValid()) {
+        if (!zm_is_in_array($level, $this->levelMap_[$requiredLevel])) {
+            // not required level of authentication
+            $session = new ZMSession();
+            if (!$session->isValid()) {
+                // no valid session
+                zm_redirect(zm_href(zm_setting('invalidSessionPage'), '', false));
+            }
             $session->markRequestAsLoginFollowUp();
             zm_redirect(zm_secure_href('login', '', false));
         }

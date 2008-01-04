@@ -38,6 +38,9 @@
     // whether to strip code in core.php
     $_ZM_SETTINGS['isStripCore'] = true;
 
+    // redirect page for invalid sessions
+    $_ZM_SETTINGS['invalidSessionPage'] = FILENAME_COOKIE_USAGE;
+
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
 

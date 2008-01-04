@@ -17,6 +17,8 @@ Release 0.8.7
 - add support to set the selected (zen-cart) theme id
 - add (default) option in theme builder to automatically create dummy files
   and select a newly created theme
+- added new setting 'invalidSessionPage' (default is FILENAME_COOKIE_USAGE)
+- fixed bug to show a session/cookie required page if neccessary; #1836136
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

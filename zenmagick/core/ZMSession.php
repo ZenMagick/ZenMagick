@@ -58,14 +58,15 @@ class ZMSession extends ZMObject {
 
 
     /**
-     * Check if the current session is valid.
+     * Check if the current session is valid and open.
      *
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
     function isValid() {
     global $session_started;
 
-        return $session_started;
+        // zen-cart / ZenMagick init plugin
+        return $session_started || $_SERVER['session_started'];
     }
 
     /**
@@ -188,7 +189,9 @@ class ZMSession extends ZMObject {
      * Restore the shopping cart contents.
      */
     function restoreCart() {
-        $_SESSION['cart']->restore_contents();
+        if (isset($_SESSION['cart'])) {
+          $_SESSION['cart']->restore_contents();
+        }
     }
 
     /**
@@ -297,6 +300,9 @@ class ZMSession extends ZMObject {
 
     /**
      * Check if a proper session has been started yet.
+     *
+     * <p><strong>NOTE:</strong> Since this method calls <code>session_start()</code> internally
+     * as part of its logic, right now it can't be called twice...</p>
      *
      * @return boolean </code>true</code> if a session is open, <code>false</code> if not.
      */

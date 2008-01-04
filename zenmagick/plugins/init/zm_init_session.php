@@ -77,26 +77,27 @@ class zm_init_session extends ZMPlugin {
          */
         if (isset($_POST[zen_session_name()])) {
           zen_session_id($_POST[zen_session_name()]);
-        } elseif ( ($request_type == 'SSL') && isset($_GET[zen_session_name()]) ) {
+        } elseif ($zm_request->isSecure() && isset($_GET[zen_session_name()]) ) {
           zen_session_id($_GET[zen_session_name()]);
         }
         /**
-         * need to tidy up $_SERVER['REMOTE_ADDR'] here beofre we use it any where else
+         * need to tidy up $_SERVER['REMOTE_ADDR'] here before we use it any where else
          * one problem we don't address here is if $_SERVER['REMOTE_ADDRESS'] is not set to anything at all
          */
         $ipAddressArray = explode(',', $_SERVER['REMOTE_ADDR']);
         $ipAddress = (sizeof($ipAddressArray) > 0) ? $ipAddressArray[0] : '';
         $_SERVER['REMOTE_ADDR'] = $ipAddress;
+
         /**
          * start the session
          */
-        $session_started = false;
+        $_SERVER['session_started'] = false;
         if (SESSION_FORCE_COOKIE_USE == 'True') {
           zen_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', (zen_not_null($current_domain) ? $current_domain : ''));
 
           if (isset($_COOKIE['cookie_test'])) {
             zen_session_start();
-            $session_started = true;
+            $_SERVER['session_started'] = true;
           }
         } elseif (SESSION_BLOCK_SPIDERS == 'True') {
           $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -114,12 +115,13 @@ class zm_init_session extends ZMPlugin {
           }
           if ($spider_flag == false) {
             zen_session_start();
-            $session_started = true;
+            $_SERVER['session_started'] = true;
           }
         } else {
           zen_session_start();
-          $session_started = true;
+          $_SERVER['session_started'] = true;
         }
+
         /**
          * set host_address once per session to reduce load on server
          */
@@ -133,7 +135,7 @@ class zm_init_session extends ZMPlugin {
         /**
          * verify the ssl_session_id if the feature is enabled
          */
-        if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == 'true') && ($session_started == true) ) {
+        if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == 'true') && ($_SERVER['session_started'] == true) ) {
           $ssl_session_id = $_SERVER['SSL_SESSION_ID'];
           if (!$_SESSION['SSL_SESSION_ID']) {
             $_SESSION['SSL_SESSION_ID'] = $ssl_session_id;
