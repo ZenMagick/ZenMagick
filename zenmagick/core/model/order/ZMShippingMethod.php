@@ -33,6 +33,7 @@
  */
 class ZMShippingMethod extends ZMModel {
     var $provider_;
+    var $taxRate_;
     var $zenMethod_;
 
 
@@ -47,6 +48,7 @@ class ZMShippingMethod extends ZMModel {
 
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
+        $this->taxRate_ = $this->create("TaxRate"); 
     }
 
     /**
@@ -86,7 +88,7 @@ class ZMShippingMethod extends ZMModel {
      *
      * @return float The shipping cost.
      */
-    function getCost() { $taxRate = $this->provider_->getTaxRate(); return $taxRate->addTax($this->zenMethod_['cost']); }
+    function getCost() { return $this->taxRate_->addTax($this->zenMethod_['cost']); }
 
     /**
      * Get the shipping provider.
@@ -94,6 +96,13 @@ class ZMShippingMethod extends ZMModel {
      * @return ZMShippingProvider The shipping provider.
      */
     function getProvider() { return $this->provider_; }
+
+    /**
+     * Set the tax rate.
+     *
+     * @param ZMTaxRate taxRate The tax rate.
+     */
+    function setTaxRate(&$taxRate) { $this->taxRate_ = $taxRate; }
 
     /**
      * Get the shipping id.
