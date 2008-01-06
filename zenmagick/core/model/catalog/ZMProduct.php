@@ -311,7 +311,7 @@ class ZMProduct extends ZMModel {
     /**
      * Get the product attributes.
      *
-     * @return array A list of {@link org.zenmagick.model.ZMAttribute ZMAttribute} instances.
+     * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
     function getAttributes() { return $this->attributes_->getAttributes(); }
 
