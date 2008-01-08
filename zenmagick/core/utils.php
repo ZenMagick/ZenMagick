@@ -440,7 +440,7 @@
      */
     function zm_resolve_zc_class($clazz) {
         if (!class_exists($clazz)) {
-            require_once(DIR_WS_CLASSES . $clazz. '.php');
+            require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php');
         }
     }
 
