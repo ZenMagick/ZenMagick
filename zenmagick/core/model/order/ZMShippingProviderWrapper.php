@@ -39,8 +39,6 @@
  */
 class ZMShippingProviderWrapper extends ZMModel {
     var $zenModule_;
-    var $methods_;
-    var $taxRate_;
     var $errors_;
 
 
@@ -53,8 +51,6 @@ class ZMShippingProviderWrapper extends ZMModel {
         parent::__construct();
 
         $this->zenModule_ = $zenModule;
-        $this->methods_ = null;
-        $this->taxRate_ = null;
         $this->errors_ = array();
     }
 
@@ -90,20 +86,6 @@ class ZMShippingProviderWrapper extends ZMModel {
     function getName() { return $this->zenModule_->title; }
 
     /**
-     * Get the shipping tax rate.
-     *
-     * @return float The shipping tax rate.
-     */
-    function &getTaxRate() {
-        if (null == $this->ratRate_) {
-            $this->taxRate_ = $this->create("TaxRate"); 
-            $this->taxRate_->setRate(0);
-        }
-
-        return $this->taxRate_;
-    }
-
-    /**
      * Checks if an icon exists for this provider.
      *
      * @return boolean <code>true</code> if an icon, <code>false</code> if not.
@@ -118,69 +100,90 @@ class ZMShippingProviderWrapper extends ZMModel {
     function getIcon() { return $this->hasIcon() ? $this->zenModule_->icon : null; }
 
     /**
-     * Flags whether this shipping provider is enabled or not.
+     * Flags whether this shipping provider is installed or not.
      *
-     * @return boolean <code>true</code> if enabled, <code>false</code> if not.
+     * @return boolean <code>true</code> if installed, <code>false</code> if not.
      */
-    function isEnabled() { return $this->zenModule_->enabled; }
+    function isInstalled() { return $this->zenModule_->check(); }
 
     /**
      * Checks if errors are logged for this provider.
      *
      * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
      */
-    function hasError() { return false; }
+    function hasErrors() { return 0 < count($this->errors_); }
 
     /**
      * Get the errors.
      *
      * @return array List of error messages.
      */
-    function getError() { return $this->hasError() ?  $this->zenQuote_['error'] : null; }
+    function getErrors() { return $this->errors_(); }
 
     /**
-     * Checks if shipping methods are available from this provider.
+     * Get available shipping methods for the given address.
      *
-     * @return boolean <code>true</code> if shipping methods exist, <code>false</code> if not.
-     */
-    function hasShippingMethods() { return 0 < count ($this->getShippingMethods()); }
-
-    /**
-     * Get the available shipping methods.
+     * <p><strong>NOTE:</strong> There is currently no way to specify individual items. Basis for calculations
+     * is the current shopping cart.</p>
      *
+     * @param ZMAddress address The shipping address.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    function getShippingMethods() { 
+    function getShippingMethods($address) { 
         $this->errors_ = array();
 
-        if (!$this->isEnabled()) {
+        // TODO: setup globals, etc with address information, similar to shipping estimator...
+        global $order;
+        $order = new _zm_order();
+        $order->delivery['country']['id'] = $address->getCountryId();
+        $order->delivery['zone_id'] = $address->getZoneId();
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = new shoppingCart();
+        }
+
+        // create new instance for each quote!
+        // this is required as most modules do stuff in the c'tor (for example zone checks)
+        $clazzName = get_class($this->zenModule_);
+        $module = new $clazzName();
+
+        if (!$module->enabled) {
             return array();
         }
 
-        if (null === $this->methods_) {
-          $this->methods_ = array();
+        $quotes = $module->quote();
 
-            // uses globals to access cart, order, etc...
-            $quotes = $this->zenModule_->quote();
+        // capture errors
+        $this->errors_ = isset($quotes['errors']) ? $quotes['errors'] : array();
 
-            // capture errors
-            $this->errors_ = isset($quotes['errors']) ? $quotes['errors'] : $this->errors_;
-            if (null == $this->taxRate_) {
-                $this->taxRate_ = $this->create("TaxRate"); 
-            }
+        // capture tax
+        $taxRate = $this->create("TaxRate"); 
+        $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
-            // capture tax
-            $this->taxRate_->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
-
-            foreach ($quotes['methods'] as $method) {
-                $shippingMethod = $this->create("ShippingMethod", $this, $method);
-                $this->methods_[$shippingMethod->getId()] = $shippingMethod;
-            }
+        $methods = array();
+        foreach ($quotes['methods'] as $method) {
+            $shippingMethod = $this->create("ShippingMethod", $this, $method);
+            $shippingMethod->setTaxRate($taxRate);
+            $methods[$shippingMethod->getId()] = $shippingMethod;
         }
 
-        return $this->methods_;
+        return $methods;
     }
 
 }
+
+    /**
+     * Dummie classes used for faking a zen-cart environment where required.
+     */
+
+    class _zm_order {
+        function __construct() {
+            $this->delivery = array();
+            $this->delivery['country'] = array();
+        }
+
+        function zm_order() {
+            $this->__construct();
+        }
+    }
 
 ?>

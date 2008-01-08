@@ -40,7 +40,7 @@ class ZMShippingProviders extends ZMService {
      */
     function __construct() {
         parent::__construct();
-        $this->provider_ = null;
+        $this->provider_ = array();
     }
 
     /**
@@ -59,17 +59,17 @@ class ZMShippingProviders extends ZMService {
 
 
     /**
-     * Get a list of all shipping provider.
+     * Get a list of shipping providers.
      *
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    function getShippingProvider($configured=true) {
-        if (null !== $this->provider_) {
-            return $this->provider_;
+    function getShippingProviders($configured=true) {
+        if (isset($this->provider_[$configured])) {
+            return $this->provider_[$configured];
         }
 
-        $this->provider_ = array();
+        $this->provider_[$configured] = array();
 
         $moduleInfos = array();
         if ($configured) {
@@ -94,23 +94,60 @@ class ZMShippingProviders extends ZMService {
         }
         sort($moduleInfos);
 
+        //TODO:(1): bad, bad hack to make admin's zen_get_shipping_enabled() work for pages other than admin/modules.php
+        global $PHP_SELF;
+        $phpSelf = $PHP_SELF;
+        $PHP_SELF = FILENAME_MODULES;
+
+        // TODO: create fake environment
+        global $template;
+        if (!isset($template)) {
+            zm_resolve_zc_class('template_func');
+            $template = new template_func();
+        }
+
         foreach ($moduleInfos as $moduleInfo) {
-            $lang_file = zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
+            $lang_file = DIR_FS_CATALOG . zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
             if (@file_exists($lang_file)) {
                 include_once($lang_file);
             }
-            include_once(DIR_WS_MODULES . 'shipping/' . $moduleInfo['file']);
+            include_once(DIR_FS_CATALOG . DIR_WS_MODULES . 'shipping/' . $moduleInfo['file']);
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();
-                // either all or enabled (this is different from $module->enabled!)
+                // either all or enabled (installed+enabled as per config option) - (this is different from $module->enabled!)
                 if (!$configured || 0 < $module->check()) {
-                    $this->provider_[] = $this->create("ShippingProviderWrapper", $module);
+                    $this->provider_[$configured][] = $this->create("ShippingProviderWrapper", $module);
                 }
             }
         }
 
-        return $this->provider_;
+        //TODO:(2): revert
+        $PHP_SELF = $phpSelf;
+
+        return $this->provider_[$configured];
+    }
+
+    /**
+     * Get a list of all shipping providers for the given address.
+     *
+     * <p><strong>NOTE:</strong> There is currently no way to specify individual items. Basis for calculations
+     * is the current shopping cart.</p>
+     *
+     * @param ZMAddress address The address.
+     * @return array List of <code>ZMShippingProvider</code> instances.
+     */
+    function getShippingProvidersForAddress($address) {
+        $available = array();
+        foreach ($this->getShippingProviders() as $provider) {
+            // check address
+            $methods = $provider->getShippingMethods($address);
+            if (0 < count($methods)) {
+                $available[] = $provider;
+            }
+        }
+
+        return $available;
     }
 
 }

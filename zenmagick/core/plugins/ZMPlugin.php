@@ -27,8 +27,7 @@
 /**
  * Plugin base class.
  *
- * <p>Plugins are <strong>NOT</strong> compatible with zen-cart modules. If you need that,
- * please have a look at <code>ZMModule</code>.</p>
+ * <p>Plugins are <strong>NOT</strong> compatible with zen-cart modules.</p>
  *
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
