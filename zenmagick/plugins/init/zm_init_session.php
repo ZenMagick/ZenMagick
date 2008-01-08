@@ -71,6 +71,10 @@ class zm_init_session extends ZMPlugin {
         /**
          * set the session cookie parameters
          */
+        $http_domain = zen_get_top_level_domain(HTTP_SERVER);
+        $https_domain = zen_get_top_level_domain(HTTPS_SERVER);
+        $current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+        if (SESSION_USE_FQDN == 'False') $current_domain = '.' . $current_domain;
         session_set_cookie_params(0, '/', (zen_not_null($current_domain) ? $current_domain : ''));
         /**
          * set the session ID if it exists
@@ -172,6 +176,8 @@ class zm_init_session extends ZMPlugin {
           }
         }
 
+        echo 'session_started; '. $_SERVER['session_started']."<BR>";
+        print_r($_SESSION);
     }
 
 }
