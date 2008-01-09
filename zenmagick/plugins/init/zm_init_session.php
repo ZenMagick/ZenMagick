@@ -176,8 +176,6 @@ class zm_init_session extends ZMPlugin {
           }
         }
 
-        echo 'session_started; '. $_SERVER['session_started']."<BR>";
-        print_r($_SESSION);
     }
 
 }
