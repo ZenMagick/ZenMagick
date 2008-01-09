@@ -25,6 +25,7 @@ Release 0.8.7
 - added a static page editor that supports editing static (define) pages in
   the theme's language directories; this will show up only if 'isZMDefinePages'
 	is set to true
+- fix ZMCategory::getImageInfo()
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
