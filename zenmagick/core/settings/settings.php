@@ -59,7 +59,7 @@
     $_ZM_SETTINGS['qtyDecimals'] = QUANTITY_DECIMALS;
 
     // look for define pages in theme folder
-    $_ZM_SETTINGS['isZMDefinePages'] = false;
+    $_ZM_SETTINGS['isZMDefinePages'] = true;
 
     // language strategy
     $_ZM_SETTINGS['isUseBrowserLanguage'] = LANGUAGE_DEFAULT_SELECTOR == 'Browser';

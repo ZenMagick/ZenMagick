@@ -26,6 +26,15 @@ Release 0.8.7
   the theme's language directories; this will show up only if 'isZMDefinePages'
 	is set to true
 - fix ZMCategory::getImageInfo()
+- changed a couple template files as the method getStaticPageContent() changed
+- added default theme static pages
+- enabled usage of theme static pages for the demo theme via it's local.php
+  file
+- set static pages located in the theme's language directory as default; this
+will break sites using traditional define pages, so either revert this by
+setting 'isZMDefinePages' to false, or copy your files from
+includes/languages/english/html_includes/YOUR_THEME/ to
+zenmagick/themes/YOUR_THEME/lang/english/static
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
