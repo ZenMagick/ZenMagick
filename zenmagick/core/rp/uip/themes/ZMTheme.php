@@ -208,33 +208,114 @@ class ZMTheme extends ZMObject {
     }
 
     /**
+     * Get a list of available static pages.
+     *
+     * @param boolean includeDefaults If set to <code>true</code>, default pages will be included; default is <code>false</code>.
+     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @return array List of available static page names.
+     */
+    function getStaticPageList($includeDefaults=false, $languageName=null) {
+    global $zm_runtime;
+
+        if (null == $languageName) {
+            $languageName = $zm_runtime->getLanguageName();
+        }
+        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
+
+        $pages = array();
+        if (is_dir($path)) {
+            $handle = @opendir($path);
+            while (false !== ($file = readdir($handle))) { 
+                if (!zm_ends_with($file, '.php')) {
+                    continue;
+                }
+                $page = str_replace('.php', '', $file);
+                $pages[$page] = $page;
+            }
+            @closedir($handle);
+        }
+
+        if ($includeDefaults) {
+            $path = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageName."/".ZM_THEME_STATIC_DIR;
+            if (is_dir($path)) {
+                $handle = @opendir($path);
+                while (false !== ($file = readdir($handle))) { 
+                    if (!zm_ends_with($file, '.php')) {
+                        continue;
+                    }
+                    $page = str_replace('.php', '', $file);
+                    $pages[$page] = $page;
+                }
+                @closedir($handle);
+            }
+        }
+        return $pages;
+    }
+
+    /**
+     * Write the content of a static (define) page.
+     *
+     * @param string page The page name.
+     * @param string contents The contents.
+     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @return boolean The status.
+     */
+    function saveStaticPageContent($page, $contents, $languageName=null) {
+    global $zm_runtime;
+
+        if (null == $languageName) {
+            $languageName = $zm_runtime->getLanguageName();
+        }
+        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
+        $filename = $path.$page.'.php';
+
+        if (file_exists($filename)) {
+            if (file_exists($filename.'.bak')) {
+                @unlink($filename.'.bak');
+            }
+            @rename($filename, $filename.'.bak');
+        }
+        $handle = fopen($filename, 'w');
+        fwrite($handle, $contents, strlen($contents));
+        fclose($handle);
+
+        return file_exists($filename);
+    }
+
+    /**
      * Get the content of a static (define) page.
      *
      * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
+     * @param string languageName Optional language name; default is <code>null</code> for current language.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
-     * @return string The content.
+     * @return string The content or <code>null</code>.
      */
-    function staticPageContent($page, $echo=true) {
+    function staticPageContent($page, $languageName=null, $echo=true) {
     global $zm_runtime;
 
         if (!zm_setting('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $echo);
         }
 
-        $language = $zm_runtime->getLanguageName();
-        $path = $this->getLangDir().$language."/".ZM_THEME_STATIC_DIR;
+        if (null == $languageName) {
+            $languageName = $zm_runtime->getLanguageName();
+        }
+        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
-            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$language."/".ZM_THEME_STATIC_DIR.$page.'.php';
+            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageName."/".ZM_THEME_STATIC_DIR.$page.'.php';
         }
 
-        $contents = file_get_contents($filename);
+        $contents = null;
+        if (file_exists($filename)) {
+            $contents = file_get_contents($filename);
+        }
 
-        if ($echo) echo $contents;
+        if ($echo && null !== $contents) echo $contents;
         return $contents;
     }
 
@@ -245,21 +326,27 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
+     * @param string languageName Optional language name; default is <code>null</code> for current language.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
-     * @return string The content.
+     * @return string The content or <code>null</code>.
      */
-    function zcStaticPageContent($page, $echo=true) {
+    function zcStaticPageContent($page, $languageName, $echo=true) {
     global $zm_runtime;
 
-        $language = $zm_runtime->getLanguageName();
-        $filename = DIR_WS_LANGUAGES . $language . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
+        if (null == $languageName) {
+            $languageName = $zm_runtime->getLanguageName();
+        }
+        $filename = DIR_WS_LANGUAGES . $languageName . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
-            $filename = DIR_WS_LANGUAGES . $language . '/html_includes/define_' . $page . '.php';
+            $filename = DIR_WS_LANGUAGES . $languageName . '/html_includes/define_' . $page . '.php';
         }
 
-        $contents = file_get_contents($filename);
+        $contents = null;
+        if (file_exists($filename)) {
+            $contents = file_get_contents($filename);
+        }
 
-        if ($echo) echo $contents;
+        if ($echo && null !== $contents) echo $contents;
         return $contents;
     }
 

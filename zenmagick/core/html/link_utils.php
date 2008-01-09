@@ -96,11 +96,11 @@
             $path .= $page;
         } else {
             $path .= 'index.php';
-            $query .= 'main_page=' . $page . '&';
+            $query .= 'main_page=' . $page;
         }
 
         if (!zm_is_empty($params)) {
-            $query .= strtr(trim($params), array('"' => '&quot;'));
+            $query .= '&'.strtr(trim($params), array('"' => '&quot;'));
         }
 
         // trim trailing '?' and '&' from path
@@ -108,7 +108,8 @@
 
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
-        if ($addSessionId && $session_started && !zm_setting('isForceCookieUse')) {
+        //TODO:$session = new ZMSession();
+        if ($addSessionId && ($session_started/* || $session->isValid()*/) && !zm_setting('isForceCookieUse')) {
             if (defined('SID') && !zm_is_empty(SID)) {
                 // defined, so use it
                 $sid = SID;

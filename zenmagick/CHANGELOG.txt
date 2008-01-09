@@ -22,6 +22,9 @@ Release 0.8.7
 - moved tax rate from ZMShippingProvider to ZMShippingMethod
 - add method to ZMShippingProviders that allows to calculate shipping for a
   given address
+- added a static page editor that supports editing static (define) pages in
+  the theme's language directories; this will show up only if 'isZMDefinePages'
+	is set to true
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
