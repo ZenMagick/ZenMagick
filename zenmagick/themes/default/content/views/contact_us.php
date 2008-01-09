@@ -25,7 +25,9 @@
 ?>
 
 <?php if (zm_setting('isContactUsStoreAddress')) { ?>
-    <address><?php echo nl2br(zm_setting('storeNameAddress')); ?></address>
+    <h3><?php zm_l10n("Store Contact Details") ?></h3>
+    <p><address><?php echo nl2br(zm_setting('storeNameAddress')); ?></address></p>
+    <br/>
 <?php } ?>
 
 <?php $zm_theme->staticPageContent("contact_us") ?>

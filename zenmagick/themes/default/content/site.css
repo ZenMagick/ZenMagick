@@ -44,6 +44,7 @@ select {min-width:4.2em;}
 fieldset h4 {margin-bottom:8px;}
 span.strike {text-decoration:line-through;}
 .note {}
+code {font-size:130%;}
 
 /* layout stuff */
 #content ul#messages {margin-left:0;padding-left:0;}
