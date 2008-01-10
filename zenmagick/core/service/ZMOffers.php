@@ -54,7 +54,6 @@ class ZMOffers extends ZMService {
         $this->salePrice_ = null;
         $this->discountPercent_ = 0;
         $this->taxRate_ = $product->getTaxRate();
-        $this->_calculatePrice();
     }
 
     /**
@@ -120,8 +119,9 @@ class ZMOffers extends ZMService {
      * Calculate the base price.
      */
     function _getBasePrice() {
-        if (!$this->product_->pricedByAttributes_)
+        if (!$this->product_->pricedByAttributes_) {
             return $this->product_->price_;
+        }
 
         $db = $this->getDB();
         // **non** display_only **but** attributes_price_base_included

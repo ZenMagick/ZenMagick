@@ -620,6 +620,7 @@ class ZMProducts extends ZMService {
         $product->price_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick
         $product->offers_ = $this->create("Offers", $product);
+        $product->offers_->setProduct(&$product);
         $product->attributes_ = $this->create("Attributes", $product);
         //TODO
         $product->features_ = $zm_features->getFeaturesForProductId($product->getId());
