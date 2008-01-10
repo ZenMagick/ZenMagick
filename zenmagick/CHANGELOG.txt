@@ -35,7 +35,7 @@ Release 0.8.7
 	setting 'isZMDefinePages' to false, or copy your files from
 	includes/languages/english/html_includes/YOUR_THEME/ to
 	zenmagick/themes/YOUR_THEME/lang/english/static
-- ensure that ZMOffers does not divide by 0
+- ensure that ZMOffers does not divide by 0; #1868900
 - fixed ZMReviews::updateViewCount()
 
 Release 0.8.6.1
