@@ -300,6 +300,7 @@ class ZMTheme extends ZMObject {
             return $this->zcStaticPageContent($page, $echo);
         }
 
+
         if (null == $languageName) {
             $languageName = $zm_runtime->getLanguageName();
         }
