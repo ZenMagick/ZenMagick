@@ -292,7 +292,7 @@ class ZMReviews extends ZMService {
                   where reviews_id = :reviewId";
         $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
 
-        $result = $db->Execute($sql);
+        $result = $db->Execute($query);
     }
 
     /**

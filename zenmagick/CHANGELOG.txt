@@ -36,6 +36,7 @@ Release 0.8.7
 	includes/languages/english/html_includes/YOUR_THEME/ to
 	zenmagick/themes/YOUR_THEME/lang/english/static
 - ensure that ZMOffers does not divide by 0
+- fixed ZMReviews::updateViewCount()
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
