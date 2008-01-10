@@ -282,7 +282,7 @@ class ZMOffers extends ZMService {
 
         // calculate discount
         $this->discountPercent_ = 0;
-        if (0 != $specialPrice || 0 != $salePrice) {
+        if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
             if (0 != $salePrice) {
                 $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), zm_setting('discountDecimals'));
             } else {
