@@ -144,6 +144,10 @@ class ZMCategories extends ZMService {
         if (null === $this->categories_) {
             $this->_load();
             $this->_applyPath();
+            if (!$this->treeFlag_) {
+                $this->_buildTree();
+                $this->treeFlag_ = true;
+            }
         }
 
         if (null === $ids) {
@@ -194,6 +198,10 @@ class ZMCategories extends ZMService {
         if (null === $this->categories_) {
             $this->_load();
             $this->_applyPath();
+            if (!$this->treeFlag_) {
+                $this->_buildTree();
+                $this->treeFlag_ = true;
+            }
         }
 
         $category = $this->categories_[$categoryId];

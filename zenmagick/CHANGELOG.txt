@@ -37,6 +37,7 @@ Release 0.8.7
 	zenmagick/themes/YOUR_THEME/lang/english/static
 - ensure that ZMOffers does not divide by 0; #1868900
 - fixed ZMReviews::updateViewCount()
+- build the category tree on first access
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
