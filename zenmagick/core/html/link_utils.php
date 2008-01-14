@@ -61,19 +61,21 @@
     global $request_type, $session_started, $http_domain, $https_domain;
 
         $isAdmin = false;
-        if (zm_is_empty($page)) {
-            if (zm_setting('isAdmin')) {
-                // admin links!
-                $isAdmin = true;
-                //TODO: init!
+        if (zm_setting('isAdmin')) {
+            // admin links!
+            $isAdmin = true;
+            //TODO: init!
+            if (zm_is_empty($page)) {
                 if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
                 while (false !== strpos($PHP_SELF, '//')) $PHP_SELF = str_replace('//', '/', $PHP_SELF);
                 $page = $PHP_SELF;
-                $isStatic = true;
-                $useContext = false;
             } else {
-                zm_backtrace('missing page parameter');
+                $page = DIR_WS_ADMIN . $page;
             }
+            $useContext = false;
+            $isStatic = true;
+        } else if (zm_is_empty($page)) {
+            zm_backtrace('missing page parameter');
         }
 
         // default to non ssl
@@ -371,7 +373,14 @@
     function zm_ajax_href($controller, $method, $params='', $echo=true) { 
     global $zm_request;
 
-        $url = str_replace('&amp;', '&', _zm_build_href('ajax_'.$controller, $params.'&method='.$method, $zm_request->isSecure(), false));
+        if (zm_setting('isAdmin')) {
+            $params .= '&controller=ajax_'.$controller;
+            $controller = 'zmAjaxHandler.php';
+        } else {
+            $controller = 'ajax_'.$controller;
+        }
+
+        $url = str_replace('&amp;', '&', _zm_build_href($controller, $params.'&method='.$method, $zm_request->isSecure(), false));
 
         if ($echo) echo $url;
         return $url;

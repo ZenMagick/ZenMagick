@@ -46,9 +46,11 @@ if (!defined('IS_ADMIN_FLAG')) {
             }
             $url = $item->getURL();
             if (zm_starts_with($url, 'fkt:')) {
-                $url = 'zmPluginPage.php?fkt=' . substr($url, 4);
+                $url = zm_href('zmPluginPage.php', 'fkt=' . substr($url, 4), false);
+            } else {
+                $url = zen_href_link($url);
             }
-            $zp_contents[] = array('text' => $item->getTitle(), 'link' => zen_href_link($url), '', 'NONSSL');
+            $zp_contents[] = array('text' => $item->getTitle(), 'link' => $url, '', 'NONSSL');
         }
         echo zen_draw_admin_box($zp_heading, $zp_contents);
     }

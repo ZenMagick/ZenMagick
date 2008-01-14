@@ -220,7 +220,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "GET",
-            url: "<?php zm_ajax_href('product', 'getProductForId') ?>",
+            url: "<?php zm_ajax_href('catalog', 'getProductForId') ?>",
             data: "productId="+productId,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
