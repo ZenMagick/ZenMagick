@@ -26,7 +26,6 @@
 <?php
 
 require_once('includes/application_top.php');
-require_once(DIR_FS_CATALOG.ZM_ROOT.'init.php'); 
 
 if ('true' == $zm_request->getRequestParameter('remove', 'false')) {
     // destry myself
