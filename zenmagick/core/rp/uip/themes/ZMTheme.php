@@ -107,8 +107,8 @@ class ZMTheme extends ZMObject {
 
         $url = zm_htmlurlencode($url);
 
-		    if ($echo) echo $url;
-		    return $url;
+		if ($echo) echo $url;
+		return $url;
     }
 
 

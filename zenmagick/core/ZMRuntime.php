@@ -193,14 +193,15 @@ class ZMRuntime extends ZMObject {
             return $this->themeId_;
         }
 
-        $themeId = strtolower($this->getZCThemeId($this->getLanguageId()));
-        $path = $this->getThemesDir().$themeId;
+        //$themeId = strtolower($this->getZCThemeId($this->getLanguageId()));
+        $this->themeId_ = $this->getZCThemeId($this->getLanguageId());
+        $path = $this->getThemesDir().$this->themeId_;
         if (!@file_exists($path) || !@is_dir($path)) {
             zm_log("invalid theme id: '".$themeId.'"');
             return ZM_DEFAULT_THEME;
         }
 
-        return $themeId;
+        return $this->themeId_;
     }
 
     /**
