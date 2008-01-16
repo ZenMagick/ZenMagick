@@ -149,7 +149,7 @@ class ZMAddressBookProcessController extends ZMController {
             $account->setDefaultAddressId($address->getId());
             $zm_accounts->updateAccount($account);
 
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             $session->setAccount($account);
         }
 
@@ -199,7 +199,7 @@ class ZMAddressBookProcessController extends ZMController {
             $account->setDefaultAddressId($address->getId());
             $zm_accounts->updateAccount($account);
 
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             $session->setAccount($account);
         }
 

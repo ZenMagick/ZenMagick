@@ -107,7 +107,7 @@ class ZMSacsMapper extends ZMObject {
 
         if (!zm_is_in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             if (!$session->isValid()) {
                 // no valid session
                 zm_redirect(zm_href(zm_setting('invalidSessionPage'), '', false));

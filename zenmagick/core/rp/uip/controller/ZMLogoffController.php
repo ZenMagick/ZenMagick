@@ -62,9 +62,9 @@ class ZMLogoffController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_crumbtrail, $zm_cart;
+    global $zm_request, $zm_crumbtrail, $zm_cart;
 
-        $session = new ZMSession();
+        $session = $zm_request->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();

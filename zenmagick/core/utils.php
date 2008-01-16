@@ -403,10 +403,10 @@
      * @param string url A fully qualified url.
      */
     function zm_redirect($url) {
-    global $zm_messages;
+    global $zm_request, $zm_messages;
 
         if ($zm_messages->hasMessages()) {
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             $session->setMessages($zm_messages->getMessages());
         }
 

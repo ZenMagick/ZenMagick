@@ -45,7 +45,7 @@
         echo $contents;
 
         // clear messages if not redirect...
-        $_zm_session = new ZMSession();
+        $_zm_session = $zm_request->getSession();
         $_zm_session->clearMessages();
 
         exit;

@@ -42,6 +42,7 @@ Release 0.8.7
 - remove obsolete ZMAjaxCatalogController::getAttributesForProductIdJSON()
 - make zm_ajax_href work in admin pages
 - make themeId case sensitive
+- use $zm_request->getSession() rather than new ZMSession()
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

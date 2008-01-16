@@ -101,7 +101,7 @@ class zm_captcha extends ZMPlugin {
         $page = $zm_request->getPageName();
         if (array_key_exists($page, $this->pageConfig_)) {
             $this->captcha_ = new pcaptcha();
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             $session->setValue('captcha_field', ZM_CAPTCHA_FIELD);
             $config = $this->pageConfig_[$page];
             if ('false' != $config[0]) {

@@ -62,7 +62,7 @@ class zm_init_language extends ZMPlugin {
 
         parent::init();
 
-        $session = new ZMSession();
+        $session = $zm_request->getSession();
         if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $zm_request->getLanguageCode())) {
             if (0 != $languageCode) {
                 // URL parameter takes precedence

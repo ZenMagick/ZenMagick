@@ -85,7 +85,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // our session
-        $session = new ZMSession();
+        $session = $zm_request->getSession();
 
         if (!$session->isAnonymous()) {
             // already logged in either way

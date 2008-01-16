@@ -62,7 +62,7 @@ class zm_init_currency extends ZMPlugin {
 
         parent::init();
 
-        $session = new ZMSession();
+        $session = $zm_request->getSession();
         //TODO:? use default language currency? : this should be put into the db against the lang!
         if (null == $session->getCurrencyCode() || null != ($currencyCode = $zm_request->getCurrencyCode())) {
             if (null != $currencyCode) {

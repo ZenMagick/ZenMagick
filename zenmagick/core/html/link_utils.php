@@ -110,7 +110,7 @@
 
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
-        //TODO:$session = new ZMSession();
+        //TODO:$session = $zm_request->getSession();
         if ($addSessionId && ($session_started/* || $session->isValid()*/) && !zm_setting('isForceCookieUse')) {
             if (defined('SID') && !zm_is_empty(SID)) {
                 // defined, so use it

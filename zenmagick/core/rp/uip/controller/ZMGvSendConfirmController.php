@@ -140,7 +140,7 @@ class ZMGvSendConfirmController extends ZMController {
         zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvreceiver->getEmail());
         if (zm_setting('isEmailAdminGvSend')) {
             // store copy
-            $session = new ZMSession();
+            $session = $zm_request->getSession();
             $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['zm_gvreceiver'] = $gvreceiver;

@@ -77,9 +77,9 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        // our session
-        $session = new ZMSession();
+    global $zm_request;
 
+        $session = $zm_request->getSession();
         if (!$session->isAnonymous()) {
             // already logged in
             return $this->findView('index');
@@ -98,9 +98,7 @@ class ZMLoginController extends ZMController {
     function processPost() {
     global $zm_request, $zm_accounts, $zm_messages;
 
-        // our session
-        $session = new ZMSession();
-
+        $session = $zm_request->getSession();
         if (!$session->isValid()) {
             return $this->findView('cookie_usage');
         }
