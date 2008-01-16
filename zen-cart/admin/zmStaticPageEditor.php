@@ -63,6 +63,7 @@ require_once('includes/application_top.php');
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
+    <script type="text/javascript" src="includes/jquery/jquery-1.2.1.pack.js"></script>
     <script type="text/javascript">
       function init() {
         cssjsmenu('navbar');
@@ -71,6 +72,11 @@ require_once('includes/application_top.php');
           kill.disabled = true;
         }
         if (typeof _editor_url == "string") HTMLArea.replaceAll();
+      }
+      function preview() {
+        var editContents = $('#editContents').attr('value').replace(/&lt;/g,"<").replace(/&gt;/g,">");
+        $('#previewContents').html(editContents);
+        $('#preview').css('display', 'block');
       }
     </script>
     <?php if ($editor_handler != '') include ($editor_handler); ?>
@@ -146,8 +152,14 @@ require_once('includes/application_top.php');
             <br><br>
             <input type="submit" name="save" value="Save">
             <a href="<?php echo zen_href_link(ZM_ADMINFN_SP_EDITOR, "themeId=".$selectedThemeId."&languageDirectory=".$selectedLanguageDirecory) ?>">Cancel</a>
+            <a href="#" onclick="preview();return false;">Preview</a>
           </form>
         <?php } ?>
+      </div>
+
+      <div id="preview" style="display:none;border:1px solid gray;margin:10px;padding:10px;">
+        <h2>Preview</h2>
+        <div id="previewContents" style="border:2px solid gray;margin:2px;padding:5px;"></div>
       </div>
     </div>
 
