@@ -222,7 +222,6 @@ class ZMTheme extends ZMObject {
             $language = $session->getLanguage();
             $languageName = $language->getDirectory();
         }
-        }
         $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
 
         $pages = array();
