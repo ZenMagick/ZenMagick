@@ -107,7 +107,7 @@ class zm_init_session extends ZMPlugin {
           $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
           $spider_flag = false;
           if (zen_not_null($user_agent)) {
-            $spiders = file(DIR_WS_INCLUDES . 'spiders.txt');
+            $spiders = file(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'spiders.txt');
             for ($i=0, $n=sizeof($spiders); $i<$n; $i++) {
               if (zen_not_null($spiders[$i])) {
                 if (is_integer(strpos($user_agent, trim($spiders[$i])))) {
