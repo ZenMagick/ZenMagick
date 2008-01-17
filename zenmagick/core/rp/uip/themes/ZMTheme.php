@@ -215,10 +215,13 @@ class ZMTheme extends ZMObject {
      * @return array List of available static page names.
      */
     function getStaticPageList($includeDefaults=false, $languageName=null) {
-    global $zm_runtime;
+    global $zm_runtime, $zm_request;
 
         if (null == $languageName) {
-            $languageName = $zm_runtime->getLanguageName();
+            $session = $zm_request->getSession();
+            $language = $session->getLanguage();
+            $languageName = $language->getDirectory();
+        }
         }
         $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
 
@@ -261,10 +264,12 @@ class ZMTheme extends ZMObject {
      * @return boolean The status.
      */
     function saveStaticPageContent($page, $contents, $languageName=null) {
-    global $zm_runtime;
+    global $zm_runtime, $zm_request;
 
         if (null == $languageName) {
-            $languageName = $zm_runtime->getLanguageName();
+            $session = $zm_request->getSession();
+            $language = $session->getLanguage();
+            $languageName = $language->getDirectory();
         }
         $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
         $filename = $path.$page.'.php';
@@ -294,15 +299,16 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function staticPageContent($page, $languageName=null, $echo=true) {
-    global $zm_runtime;
+    global $zm_runtime, $zm_request;
 
         if (!zm_setting('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $echo);
         }
 
-
         if (null == $languageName) {
-            $languageName = $zm_runtime->getLanguageName();
+            $session = $zm_request->getSession();
+            $language = $session->getLanguage();
+            $languageName = $language->getDirectory();
         }
         $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
 
@@ -331,11 +337,13 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function zcStaticPageContent($page, $languageName, $echo=true) {
-    global $zm_runtime;
+    function zcStaticPageContent($page, $languageName=null, $echo=true) {
+    global $zm_runtime, $zm_request;
 
         if (null == $languageName) {
-            $languageName = $zm_runtime->getLanguageName();
+            $session = $zm_request->getSession();
+            $language = $session->getLanguage();
+            $languageName = $language->getDirectory();
         }
         $filename = DIR_WS_LANGUAGES . $languageName . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {

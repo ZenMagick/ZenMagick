@@ -340,6 +340,13 @@ class ZMSession extends ZMObject {
         return $zm_languages->getLanguageForCode($_SESSION['languages_code']);
     }
 
+    /**
+     * Get the language id.
+     *
+     * @return int The current language id.
+     */
+    function getLanguageId() { return (int)$_SESSION['languages_id']; }
+
 }
 
 ?>

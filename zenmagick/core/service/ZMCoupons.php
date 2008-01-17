@@ -61,13 +61,16 @@ class ZMCoupons extends ZMService {
      * Coupon lookup for the given code.
      *
      * @param string code The coupons code.
-     * @param int languageId The languageId.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     function &getCouponForCode($code, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
-        $languageId = null === $languageId ? $zm_runtime->getLanguageId() : $languageId;
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
 
         $db = $this->getDB();
         $sql = "select c.coupon_id, c.coupon_code, c.coupon_type, c.coupon_amount, c.coupon_minimum_order, c.coupon_start_date,
@@ -94,13 +97,16 @@ class ZMCoupons extends ZMService {
      * Coupon lookup for the given id.
      *
      * @param int id The coupon id.
-     * @param int languageId The languageId.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     function &getCouponForId($id, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
-        $languageId = null === $languageId ? $zm_runtime->getLanguageId() : $languageId;
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
 
         $db = $this->getDB();
         $sql = "select c.coupon_id, c.coupon_code, c.coupon_type, c.coupon_amount, c.coupon_minimum_order, c.coupon_start_date,

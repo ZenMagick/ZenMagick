@@ -276,9 +276,9 @@ return zen_get_uprid($productId, $attributes);
      * @return string The formatted amount.
      */
     function zm_format_currency($amount, $convert=true, $echo=true) {
-    global $zm_runtime, $zm_currencies;
+    global $zm_request, $zm_currencies;
 
-        $currency = $zm_currencies->getCurrencyForCode($zm_runtime->getCurrencyCode());
+        $currency = $zm_currencies->getCurrencyForCode($zm_request->getCurrencyCode());
         $money = $currency->format($amount, $convert);
 
         if ($echo) echo $money;
@@ -294,9 +294,9 @@ return zen_get_uprid($productId, $attributes);
      * @return float The amount.
      */
     function zm_parse_money($money) {
-    global $zm_runtime, $zm_currencies;
+    global $zm_request, $zm_currencies;
 
-        $currency = $zm_currencies->getCurrencyForCode($zm_runtime->getCurrencyCode());
+        $currency = $zm_currencies->getCurrencyForCode($zm_request->getCurrencyCode());
         $amount = $currency->parse($money, false);
 
         return $amount;

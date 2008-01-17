@@ -61,13 +61,17 @@ class ZMManufacturers extends ZMService {
      * Get manufacturer for id.
      *
      * @param int id The manufacturer id.
-     * @param int languageId Optional language id; default is <em>0</em>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    function &getManufacturerForId($id, $languageId=0) {
-    global $zm_runtime;
+    function &getManufacturerForId($id, $languageId=null) {
+    global $zm_request;
 
-        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
         $manufacturer = null;
         $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
@@ -99,13 +103,17 @@ class ZMManufacturers extends ZMService {
     /**
      * Get all manufacturers.
      *
-     * @param int languageId Optional language id; default is <em>0</em>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMManufacturer</code> instances.
      */
-    function getManufacturers($languageId=0) {
-    global $zm_runtime;
+    function getManufacturers($languageId=null) {
+    global $zm_request;
 
-        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
         $db = $this->getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                 from " . TABLE_MANUFACTURERS . " m
@@ -127,12 +135,16 @@ class ZMManufacturers extends ZMService {
      * Update manufacturers click stats.
      *
      * @param int id The manufacturer id.
-     * @param int languageId Optional language id; default is <em>0</em>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
-    function updateManufacturerClickCount($id, $languageId=0) {
-    global $zm_runtime;
+    function updateManufacturerClickCount($id, $languageId=null) {
+    global $zm_request;
 
-        $languageId = 0 != $languageId ? $languageId : $zm_runtime->getLanguageId();
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
         $db = $this->getDB();
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
                 SET url_clicked = url_clicked+1, date_last_click = now() 

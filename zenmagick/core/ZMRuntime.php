@@ -220,6 +220,7 @@ class ZMRuntime extends ZMObject {
      * Get the language id.
      *
      * @return int The current language id.
+     * @deprecated Use <code>$zm_request->getSession()->getLanguageId()</code> instead.
      */
     function getLanguageId() { return (int)$_SESSION['languages_id']; }
 
@@ -227,6 +228,7 @@ class ZMRuntime extends ZMObject {
      * Get the current language name.
      *
      * @return string The current language name.
+     * @deprecated Use <code>$zm_request->getSession()->getLanguage()->getDirectory()</code> instead.
      */
     function getLanguageName() { return $_SESSION['language']; }
 
@@ -246,6 +248,7 @@ class ZMRuntime extends ZMObject {
      * Get the current currency code.
      *
      * @return string The current currency code.
+     * @deprecated Use <code>$zm_request->getCurrencyCode()</code> instead.
      */
     function getCurrencyCode() { return $_SESSION['currency']; }
 

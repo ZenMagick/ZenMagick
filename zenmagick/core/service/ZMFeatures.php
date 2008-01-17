@@ -64,17 +64,20 @@ class ZMFeatures extends ZMService {
 
 
     function _loadFeatures() {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null != $this->features_)
             return;
+
+        $session = $zm_request->getSession();
+        $languageId = $session->getLanguageId();
 
         $db = $this->getDB();
         $sql = "select f.feature_id, f.feature_type_id, f.language_id, f.feature_name, f.feature_description,
                 f.hidden
                 from " .ZM_TABLE_FEATURES . " f
                 where f.language_id = :languageId";
-        $sql = $db->bindVars($sql, ':languageId', $zm_runtime->getLanguageId(), 'integer');
+        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
 
         $results = $db->Execute($sql);
 

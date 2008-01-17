@@ -46,14 +46,20 @@ class ZMCategories extends ZMService {
      *
      * @param array path The current category path.
      * @param string type The category type (not supported yet); default is <code>null</code>.
-     * @param int languageId The languageId; default is <em>0</em>.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
      */
-    function ZMCategories($path=null, $type=null, $languageId=0) {
+    function ZMCategories($path=null, $type=null, $languageId=null) {
+    global $zm_request;
+
         parent::__construct();
 
         $this->path_ = null !== $path ? $path : array();
         $this->type_ = $type;
-        $this->languageId_ = 0 != $languageId ? $languageId : 0;
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+        $this->languageId_ = $languageId;
         $this->categories_ = null;
         $this->treeFlag_ = false;
     }
@@ -63,7 +69,7 @@ class ZMCategories extends ZMService {
      *
      * @param array path The current category path.
      * @param string type The category type (not supported yet).
-     * @param int languageId The languageId.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
      */
     function __construct($path=null, $type=null, $languageId=null) {
         $this->ZMCategories($path, $type, $languageId);
@@ -215,7 +221,6 @@ class ZMCategories extends ZMService {
     function _load() {
     global $zm_runtime;
 
-        $languageId = 0 != $this->languageId_ ? $this->languageId_ : $zm_runtime->getLanguageId();
         $db = $this->getDB();
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
@@ -224,7 +229,7 @@ class ZMCategories extends ZMService {
                   where cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $db->bindVars($query, ":languageId", $languageId, "integer");
+        $query = $db->bindVars($query, ":languageId", $this->languageId_, "integer");
         $results = $db->Execute($query, '', true, 150);
 
         $this->categories_ = array();

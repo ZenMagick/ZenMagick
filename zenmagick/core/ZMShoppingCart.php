@@ -175,13 +175,16 @@ class ZMShoppingCart extends ZMService {
      * @return array List of product attributes.
      */
     function _getItemAttributes($item) {
-    global $zm_runtime;
+    global $zm_request;
 
         // collect attribute values for same attribute
         $attributesLookup = array();
 
         if (!isset($item->zenItem_['attributes']) || !is_array($item->zenItem_['attributes']))
             return $attributesLookup;
+
+        $session = $zm_request->getSession();
+        $languageId = $session->getLanguageId();
 
         $db = $this->getDB();
         // load attributes
@@ -200,7 +203,7 @@ class ZMShoppingCart extends ZMService {
             $sql = $db->bindVars($sql, ":type", $type, "integer");
             $sql = $db->bindVars($sql, ":productId", $item->getId(), "integer");
             $sql = $db->bindVars($sql, ":option", $option, "integer");
-            $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+            $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
 
             $results = $db->Execute($sql);
 

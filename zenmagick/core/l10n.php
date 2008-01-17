@@ -70,9 +70,12 @@
      * @return string A localized version based on the current language, or <code>null</code>.
      */
     function zm_l10n_chunk_get($name) {
-    global $zm_runtime, $zm_theme;
+    global $zm_request, $zm_theme;
 
-        $file = $zm_runtime->getLanguageName().'/'.$name.'.txt';
+        $session = $zm_request->getSession();
+        $language = $session->getLanguage();
+
+        $file = $language->getDirectory().'/'.$name.'.txt';
         if ($zm_theme->themeFileExists($file, ZM_THEME_LANG_DIR)) {
             $args = func_get_args();
             array_shift($args);

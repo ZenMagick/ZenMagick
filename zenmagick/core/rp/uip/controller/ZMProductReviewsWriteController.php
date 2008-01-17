@@ -103,7 +103,8 @@ class ZMProductReviewsWriteController extends ZMController {
         }
 
         $account = $zm_request->getAccount();
-        $zm_reviews->createReview($review, $account, $zm_runtime->getLanguageId());
+        $session = $zm_request->getSession();
+        $zm_reviews->createReview($review, $account, $session->getLanguageId());
 
         // account email
         if (zm_setting('isApproveReviews') && zm_setting('isEmailAdminReview')) {

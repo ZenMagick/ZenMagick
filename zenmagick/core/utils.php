@@ -624,7 +624,9 @@
         }
 
         // init l10n/i18n
-        zm_load_theme_locale($theme, $zm_runtime->getLanguageName());
+        $session = $zm_request->getSession();
+        $language = $session->getLanguage();
+        zm_load_theme_locale($theme, $language->getDirectory());
 
         // use theme loader to load static stuff
         foreach ($themeLoader->getStatic() as $static) {

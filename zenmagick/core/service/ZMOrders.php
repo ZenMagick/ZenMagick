@@ -59,11 +59,17 @@ class ZMOrders extends ZMService {
      * Get order for the given id.
      *
      * @param int id The order id.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMOrder A order or <code>null</code>.
      */
-    function &getOrderForId($orderId) {
-    global $zm_runtime;
+    function &getOrderForId($orderId, $languageId=null) {
+    global $zm_request;
 
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+        
         $db = $this->getDB();
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
                 o.customers_street_address, o.customers_suburb, o.customers_city,
@@ -86,7 +92,7 @@ class ZMOrders extends ZMService {
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
         $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
 
         $results = $db->Execute($sql);
 
@@ -103,11 +109,17 @@ class ZMOrders extends ZMService {
      *
      * @param int accountId The account id.
      * @param int limit Optional result limit.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    function getOrdersForAccountId($accountId, $limit=0) {
-    global $zm_runtime;
+    function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
+    global $zm_request;
 
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+        
         $db = $this->getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
@@ -132,7 +144,7 @@ class ZMOrders extends ZMService {
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $results = $db->Execute($sql);
 
         $orders = array();
@@ -147,9 +159,17 @@ class ZMOrders extends ZMService {
 
     /**
      * Get order stati for order.
+     *
+     * @param int orderId The order id.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
-    function _getOrderStatiForId($orderId) {
-    global $zm_runtime;
+    function _getOrderStatiForId($orderId, $languageId=null) {
+    global $zm_request;
+
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
 
         $db = $this->getDB();
         $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
@@ -159,7 +179,7 @@ class ZMOrders extends ZMService {
                   and os.language_id = :languageId
                   order by osh.date_added";
         $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
 
         $results = $db->Execute($sql);
 

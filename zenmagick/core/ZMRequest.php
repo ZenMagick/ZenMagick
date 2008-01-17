@@ -177,15 +177,15 @@ class ZMRequest extends ZMObject {
     function getLanguageCode() { return (int)$this->getParameter('language'); }
 
     /**
-     * Get the currency id.
+     * Get the currency code.
      *
-     * <p><strong>NOTE:</strong> This will return only the currency id as found in the request. If you 
-     * want to find out the session currency (ie the currency for the current request), use <code>ZMRuntime::getCurrencyCode()</code>
-     * or <code>ZMRuntime::getCurrency()</code>.</p>
+     * <p><strong>NOTE:</strong> This will return the currency code as found in the request. If not set,
+     * the session currency code will be returned instead. To access the session currency code directly, use 
+     * <code>$zm_request->getSession()->getCurrencyCode()</code>.</p>
      *
      * @return string The currency code or <code>null</code>.
      */
-    function getCurrencyCode() { return $this->getParameter('currency', null); }
+    function getCurrencyCode() { return $this->getParameter('currency', $this->session_->getCurrencyCode()); }
 
     /**
      * Get the request model number.

@@ -132,10 +132,11 @@ class ZMThemes extends ZMService {
      * @return string The configured zen-cart theme id.
      */
     function getZCThemeId($languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();

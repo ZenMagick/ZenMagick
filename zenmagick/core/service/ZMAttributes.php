@@ -71,7 +71,10 @@ class ZMAttributes extends ZMService {
 
     // inital (simple sql) check to see whether there are any attributes at all
     function _checkForAttributes() {
-    global $zm_runtime;
+    global $zm_request;
+
+        $session = $zm_request->getSession();
+        $languageId = $session->getLanguageId();
 
         $db = $this->getDB();
         $sql = "select count(*) as total
@@ -81,7 +84,7 @@ class ZMAttributes extends ZMService {
                 and popt.language_id = :languageId
                 limit 1";
         $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $results = $db->Execute($sql);
         return 0 < $results->fields['total'];
     }
@@ -138,10 +141,13 @@ class ZMAttributes extends ZMService {
 
     // load attributes
     function _loadAttributes() {
-    global $zm_runtime;
+    global $zm_request;
 
         if (!$this->hasAttributes_ || 0 < count($this->attributes_))
             return;
+
+        $session = $zm_request->getSession();
+        $languageId = $session->getLanguageId();
 
         $attributesOrderBy= '';
         if (zm_setting('isSortAttributesByName')) {
@@ -167,7 +173,7 @@ class ZMAttributes extends ZMService {
                 and popt.language_id = :languageId" .
                 $attributesOrderBy;
         $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $attributeResults = $db->Execute($sql);
 
         // iterate over all attributes
@@ -183,7 +189,7 @@ class ZMAttributes extends ZMService {
                     $valuesOrderBy;
             $sql = $db->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
             $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-            $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+            $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
             $valueResults = $db->Execute($sql);
 
             // get all values for the current attribute

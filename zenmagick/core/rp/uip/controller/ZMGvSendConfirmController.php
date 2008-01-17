@@ -95,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_runtime, $zm_coupons, $zm_messages;
+    global $zm_request, $zm_coupons, $zm_messages;
 
         if (null != $zm_request->getParameter('edit')) {
             return $this->findView('edit');
@@ -116,7 +116,7 @@ class ZMGvSendConfirmController extends ZMController {
         // coupon amount
         $amount = $gvreceiver->getAmount(); 
 
-        $currentCurrencyCode = $zm_runtime->getCurrencyCode();
+        $currentCurrencyCode = $zm_request->getCurrencyCode();
         if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = $zm_currencies->getCurrencyForCode($currentCurrencyCode);

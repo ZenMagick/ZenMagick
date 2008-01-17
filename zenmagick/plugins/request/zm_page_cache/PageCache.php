@@ -89,7 +89,8 @@ class PageCache extends ZMCache {
     function getId() {
     global $zm_runtime, $zm_request, $zm_theme;
 
-        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $zm_runtime->getLanguageId() . '-' . $zm_theme->getThemeId();
+        $session = $zm_request->getSession();
+        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();
     }
 
 }

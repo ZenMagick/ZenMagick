@@ -62,7 +62,9 @@ class ZMMusic extends ZMService {
      * @return Artist Artist information.
      */
     function &getArtistForProductId($productId) {
-    global $zm_runtime;
+    global $zm_request;
+
+        $session = $zm_request->getSession();
 
         $db = $this->getDB();
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "
@@ -79,7 +81,7 @@ class ZMMusic extends ZMService {
                 where artists_id = :artistId
                 and languages_id = :languageId";
         $sql = $db->bindVars($sql, ":artistId", $extra->fields['artists_id'], "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $session->getLanguageId(), "integer");
         $artistInfo = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_RECORD_COMPANY . "
@@ -91,7 +93,7 @@ class ZMMusic extends ZMService {
                 where record_company_id = :recordCompanyId
                 and languages_id = :languageId";
         $sql = $db->bindVars($sql, ":recordCompanyId", $extra->fields['record_company_id'], "integer");
-        $sql = $db->bindVars($sql, ":languageId", $zm_runtime->getLanguageId(), "integer");
+        $sql = $db->bindVars($sql, ":languageId", $session->getLanguageId(), "integer");
         $recordCompanyInfo = $db->Execute($sql);
 
         $sql = "select * from " . TABLE_MUSIC_GENRE . "

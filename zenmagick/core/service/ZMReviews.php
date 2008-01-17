@@ -63,10 +63,11 @@ class ZMReviews extends ZMService {
      * @return int The number of published reviews for the product.
      */
     function getReviewCount($productId, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -92,10 +93,11 @@ class ZMReviews extends ZMService {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getRandomReviews($productId=null, $max=1, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -144,10 +146,11 @@ class ZMReviews extends ZMService {
      * @return float The average rating or <code>null</code> if no ratnig exists.
      */
     function getAverageRatingForProductId($productId, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -173,10 +176,11 @@ class ZMReviews extends ZMService {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getReviewsForProductId($productId, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -212,10 +216,11 @@ class ZMReviews extends ZMService {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getAllReviews($languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -250,10 +255,11 @@ class ZMReviews extends ZMService {
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
     function &getReviewForId($reviewId, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();
@@ -304,10 +310,11 @@ class ZMReviews extends ZMService {
      * @return ZMReview The inserted review (incl. the new id).
      */
     function &createReview(&$review, &$account, $languageId=null) {
-    global $zm_runtime;
+    global $zm_request;
 
         if (null === $languageId) {
-            $languageId = $zm_runtime->getLanguageId();
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
         }
 
         $db = $this->getDB();

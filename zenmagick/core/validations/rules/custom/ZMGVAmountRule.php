@@ -72,7 +72,7 @@ class ZMGVAmountRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-    global $zm_runtime, $zm_request, $zm_currencies;
+    global $zm_request, $zm_request, $zm_currencies;
 
         if (zm_is_empty($req[$this->name_])) {
             return true;
@@ -83,7 +83,7 @@ class ZMGVAmountRule extends ZMRule {
         $account = $zm_request->getAccount();
         $balance = $account->getVoucherBalance();
 
-        $currentCurrencyCode = $zm_runtime->getCurrencyCode();
+        $currentCurrencyCode = $zm_request->getCurrencyCode();
         if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = $zm_currencies->getCurrencyForCode($currentCurrencyCode);
