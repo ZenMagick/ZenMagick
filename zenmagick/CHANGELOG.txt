@@ -47,6 +47,8 @@ Release 0.8.7
   ZMRuntime::getLanguageName() and ZMRuntime::getCurrencyCode();
 	this change affects a large number of files including the currency sidebox
 	and the plugins zm_page_cache and zm_product_music_info
+- explicitely display the coupon code in gv_send emails
+- populate coupon code for gv_send with dummy text for gv-send_confirm
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

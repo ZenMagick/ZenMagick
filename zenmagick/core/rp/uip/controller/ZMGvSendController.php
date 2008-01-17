@@ -106,7 +106,7 @@ class ZMGvSendController extends ZMController {
         }
 
         // to fakce the email content display
-        $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, ''));
+        $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
 
         return $this->findView('success');
     }
