@@ -32,7 +32,7 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_page_cache_admin() {
-    global $zm_request, $zm_loader, $zm_messages;
+    global $zm_request, $zm_loader, $zm_messages, $zm_page_cache;
 
         if ('x' == $zm_request->getParameter('pageCache')) {
             $pageCache = $zm_loader->create('PageCache');
@@ -40,7 +40,7 @@
             $zm_messages->add(zm_l10n_get('Clear page cache ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');
         }
 
-        $title = zm_l10n_get("Cache Manager - %s", zm_l10n_get(zm_setting('isPageCacheEnabled') ? "ACTIVE" : "DISABLED"));
+        $title = zm_l10n_get("Page Cache Manager");
         $action = zm_plugin_admin_url(false);
         $legend = zm_l10n_get("Clear Cache Options");
         $pageCacheLabel = zm_l10n_get("Clear Page Cache");

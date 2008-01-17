@@ -47,7 +47,6 @@ class zm_page_cache extends ZMPlugin {
 
         // set default cache config
         $defaults = array(
-            'isPageCacheEnabled' => true,
             'pageCacheDir' => DIR_FS_SQL_CACHE."/zenmagick/pages/",
             'pageCacheTTL' => 300, // in sec.
             'pageCacheStrategyCallback' => 'zm_page_cache_request_cacheable'

@@ -68,10 +68,10 @@ class PageCacheHandler extends ZMPluginHandler {
      * @param array args Contains the final theme (key: 'theme').
      */
     function onZMThemeResolved($args) {
-    global $zm_runtime, $zm_theme;
+    global $zm_runtime, $zm_theme, $zm_page_cache;
 
         // handle page caching
-        if (zm_setting('isPageCacheEnabled')) {
+        if ($zm_page_cache->isEnabled()) {
             // need $zm_theme for PageCache::getId()
             $zm_theme = $args['theme'];
             if ($this->pageCache_->isCacheable() && $contents = $this->pageCache_->get()) {
@@ -98,7 +98,9 @@ class PageCacheHandler extends ZMPluginHandler {
      * @return string The modified contents.
      */
     function filterResponse($contents) {
-        if (zm_setting('isPageCacheEnabled') && $this->pageCache_->isCacheable()) {
+    global $zm_page_cache;
+
+        if ($zm_page_cache->isEnabled() && $this->pageCache_->isCacheable()) {
             $this->pageCache_->save($contents);
         }
 

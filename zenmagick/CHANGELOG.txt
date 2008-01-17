@@ -49,6 +49,8 @@ Release 0.8.7
 	and the plugins zm_page_cache and zm_product_music_info
 - explicitely display the coupon code in gv_send emails
 - populate coupon code for gv_send with dummy text for gv-send_confirm
+- remove support for 'isPageCacheEnabled', both in ZenMagick (local.in.php)
+  and in the zm_page_cache plugin
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
