@@ -62,14 +62,14 @@ class ZMPlugin extends ZMObject {
      * @param string version The version.
      * @param string type The plugin type; default is <em>request</em>.
      */
-    function ZMPlugin($title='', $description='', $version='0.0', $type='request') {
+    function __construct($title='', $description='', $version='0.0', $type='request') {
         parent::__construct();
 
         $this->id_ = get_class($this);
         $this->title_ = $title;
         $this->description_ = $description;
         $this->version_ = $version;
-        $this->type_ = $this->setType($type);
+        $this->setType($type);
         $this->keys_ = array();
         $this->messages_ = array();
         $this->pluginDir_ = null;
@@ -87,8 +87,8 @@ class ZMPlugin extends ZMObject {
      * @param string version The version.
      * @param string type The plugin type; default is <em>request</em>.
      */
-    function __construct($title='', $description='', $version='0.0', $type='request') {
-        $this->ZMPlugin($title, $description, $version, $type);
+    function ZMPlugin($title='', $description='', $version='0.0', $type='request') {
+        $this->__construct($title, $description, $version, $type);
     }
 
     /**
@@ -498,6 +498,7 @@ class ZMPlugin extends ZMObject {
      * <dl>
      *   <dt>NONE</dt><dd>Not supported.</dd>
      *   <dt>PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
+     *   <dt>FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
      *   <dt>ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
      * </dl>
      *
