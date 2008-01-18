@@ -27,7 +27,7 @@ a:visited {color:#790;}
 a:active {color:red;}
 a:hover {text-decoration:underline;}
 
-div#main, div#content {padding:8px;}
+div#main, div#content {padding:8px;position:relative;}
 fieldset {padding:12px;margin:12px 0;}
 legend {font-weight:bold;color:#fff;background-color:#599659;padding:3px 5px;}
 legend span {font-size:114%;background:#85C285;padding:3px;color:#000;}
@@ -114,14 +114,16 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 #main #cnav {width:21%;overflow:auto;}
 
 /* jquery filetree */
-#cat-tree {float:left;border:1px solid gray;padding:4px;margin:2px;width:24%;}
-.presults {width:74%;border-bottom:1px solid gray;margin:4px;}
+#cat-tree {border:1px solid gray;padding:4px;margin:2px;width:24%;}
+.presults {position:absolute;left:25%;top:6px;width:71%;border-bottom:1px solid gray;margin:4px 6px;}
 .presults td {border:1px solid gray;border-bottom:none;}
 .presults td.name {border-right:none;}
 .presults tr.odd td {background:#eee;}
 .presults .rnav td {padding-top:6px;text-align:right;}
 .presults .pno {padding-right:3px;}
 .presults .nin {padding:0 2px;}
+#b_catalog_manager #main {position:relative;}
+#b_catalog_manager #content {position:absolute;left:3%;top:0;width:71%;}
 
 /*--------------------------------------------------|
 | dTree 2.05 | www.destroydrop.com/javascript/tree/ |
