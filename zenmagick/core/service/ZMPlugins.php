@@ -250,6 +250,7 @@ class ZMPlugins extends ZMService {
         }
 
         $plugin =& new $id();
+        $plugin->setType($type);
         $pluginDir = dirname($file) . '/';
         if ($pluginDir != $typeDir) {
             $plugin->setPluginDir($pluginDir);
