@@ -38,12 +38,11 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $id='cat-tree', $root=true) {
-    global $zm_request, $zm_products, $zm_categories;
+    global $zm_request, $zm_products, $zm_categories, $zm_loader;
 
         if ($root) { 
             ob_start(); 
             echo <<<EOT
-<script type="text/javascript" src="includes/jquery/jquery-1.2.1.pack.js"></script>
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
 
 <script type="text/javascript">
@@ -59,7 +58,13 @@
 </script>
 EOT;
             $zm_categories->setPath($zm_request->getCategoryPathArray());
-            $categories = $zm_categories->getCategoryTree();
+            $rootCategories = $zm_categories->getCategoryTree();
+            $root = $zm_loader->create("Category", 0, 0, zm_l10n_get('Catalog'), false);
+            foreach ($rootCategories as $rc) {
+                $root->childrenIds_[] = $rc->getId();
+            }
+            $categories = array($root);
+            //$categories = $rootCategories;
             echo '<div id="'.$id.'" class="filetree">';
         }
         echo '<ul>';
@@ -67,7 +72,7 @@ EOT;
         foreach ($categories as $category) {
             $noProducts = count($zm_products->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
-            echo '<li class="'.($category->isActive() ? 'open' : '').'">';
+            echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
             $url = $urlBase.$category->getPath().$params;
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
