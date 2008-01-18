@@ -60,7 +60,7 @@ require_once('includes/application_top.php');
         $refresh = $edit;
     } else if (null != $remove) {
         $plugin = $zm_plugins->getPluginForId($remove);
-        if ($plugin->isInstalled()) {
+        if ($plugin && $plugin->isInstalled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
                 foreach ($pluginLoader->getStatic() as $static) {
@@ -153,6 +153,7 @@ require_once('includes/application_top.php');
               <tr>
               <th><?php zm_l10n("Name") ?></th>
               <th><?php zm_l10n("Description") ?></th>
+              <th><?php zm_l10n("Type") ?></th>
               <th><?php zm_l10n("Order") ?></th>
               <th><?php zm_l10n("Options") ?></th>
               </tr>
@@ -162,6 +163,7 @@ require_once('includes/application_top.php');
                 <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                   <td><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
+                  <td><?php echo $plugin->getType() ?></td>
                   <td><?php echo $plugin->getSortOrder() ?></td>
                   <td>
                     <?php if ($plugin->isInstalled()) { ?>
