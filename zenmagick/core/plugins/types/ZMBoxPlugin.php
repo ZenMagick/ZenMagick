@@ -40,11 +40,10 @@ class ZMBoxPlugin extends ZMPlugin {
      *
      * @param string title The title.
      * @param string description The description.
-     * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
-     * @param string configPrefix The configuration key prefix; defaults to [PLUGIN]_[PLUGIN-CODE]_.
+     * @param string version The version.
      */
-    function ZMBoxPlugin($title='', $description='', $sortOrder=0, $configPrefix=null) {
-        parent::__construct($title, $description, $sortOrder, $configPrefix);
+    function __construct($title='', $description='', $version='0.0') {
+        parent::__construct($title, $description, $version, 'request');
     }
 
     /**
@@ -52,11 +51,10 @@ class ZMBoxPlugin extends ZMPlugin {
      *
      * @param string title The title.
      * @param string description The description.
-     * @param int sortOrder The default sortOrder; defaults to <code>0</code>.
-     * @param string configPrefix The configuration key prefix; defaults to [PLUGIN]_[PLUGIN-CODE]_.
+     * @param string version The version.
      */
-    function __construct($title='', $description='', $sortOrder=0, $configPrefix=null) {
-        $this->ZMBoxPlugin($title, $description, $sortOrder, $configPrefix);
+    function ZMBoxPlugin($title='', $description='', $version='0.0') {
+        $this->__construct($title, $description, $version);
     }
 
     /**
