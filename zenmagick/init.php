@@ -116,8 +116,9 @@
 
     // here we can check for a static homepage
     if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $zm_request->getPageName()
-        && null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId() && null == $zm_request->getParameter('compareId')) {
-        require(zm_setting('staticHome')); exit;
+          && null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId() && null == $zm_request->getParameter('compareId')) {
+        require(zm_setting('staticHome'));
+        exit;
     }
 
     if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
@@ -126,15 +127,48 @@
         set_error_handler("zm_error_handler");
     }
 
-    $zm_plugins =& new ZMPlugins();
+    $zm_plugins = new ZMPlugins();
 
-    if (!zm_setting('isAdmin') && false) {
+    if (!zm_setting('isAdmin')) {
         // no admin support so far...
         // upset init plugins :)
         // NOTE: init plugins do not support class loader support, etc in order to be quick!
         foreach ($zm_plugins->getPluginsForType('init') as $plugin) {
             if ($plugin->isEnabled()) {
                 $plugin->init();
+            }
+        }
+    }
+
+    if (zm_setting('isAdmin')) {
+        // upset catalog plugins
+        $catalogPluginLoader =& new ZMLoader("catalogPluginLoader");
+        foreach ($zm_plugins->getPluginsForType('admin') as $id => $plugin) {
+            if ($plugin->isEnabled()) {
+                if ('ALL' == $plugin->getLoaderSupport()) {
+                    $catalogPluginLoader->addPath($plugin->getPluginDir());
+                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                    $catalogPluginLoader->addPath($plugin->getPluginDir(), false);
+                }
+                $pluginId = $plugin->getId();
+                $$pluginId = $plugin;
+            }
+        }
+
+        // use plugin loader to load static stuff
+        foreach ($catalogPluginLoader->getStatic() as $static) {
+            require_once($static);
+        }
+
+        // plugins prevail over defaults, *and* themes
+        $rootLoader =& zm_get_root_loader();
+        $rootLoader->setParent($catalogPluginLoader);
+
+        // call init only after everything set up
+        foreach ($zm_plugins->getPluginsForType('admin') as $id => $plugin) {
+            if ($plugin->isEnabled()) {
+                // PHP4 hack; use $$id rather than $plugin
+                $$id->init();
             }
         }
     }
