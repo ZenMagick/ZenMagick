@@ -85,7 +85,7 @@ class ZMTellAFriendController extends ZMController {
         $this->exportGlobal("zm_emailMessage", $emailMessage);
         $this->exportGlobal("zm_product", $product);
 
-        $this->handleCrumbtrail($product);
+        $this->_handleCrumbtrail($product);
 
         return $this->findView();
     }
@@ -118,7 +118,7 @@ class ZMTellAFriendController extends ZMController {
             return $this->findView('error');
         }
 
-        $this->handleCrumbtrail($product);
+        $this->_handleCrumbtrail($product);
 
         $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $product, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), zm_setting('storeName'));

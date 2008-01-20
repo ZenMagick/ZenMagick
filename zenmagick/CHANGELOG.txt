@@ -55,6 +55,7 @@ Release 0.8.7
 - make new catalog tree a proper tree
 - remove plugin type change as this breaks a lot of stuff (will revisit)
 - add more jquery stuff
+- fix bad method name in ZMTellAFriendController
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
