@@ -43,7 +43,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
-    function zm_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
+    function zm_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
         return _zm_build_form($page, $params, $id, $method, false, $onsubmit, '', $echo);
     }
 
@@ -67,7 +67,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
-    function zm_secure_form($page, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
+    function zm_secure_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
         return _zm_build_form($page, $params, $id, $method, true, $onsubmit, '', $echo);
     }
 
