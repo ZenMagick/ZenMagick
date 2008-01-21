@@ -155,18 +155,17 @@
             foreach ($query as $name => $value) {
                 if (is_array($value)) {
                     foreach ($value as $subValue) {
-                        $params .= "&".$name."[]=".$subValue;
+                        $params .= $name.'[]='.$subValue.'&';
                     }
                 } else {
-                    $params .= "&".$name."=".$value;
+                    $params .= $name.'='.$value.'&';
                 }
             }
         }
 
         // default to current view
-        $view = $view == null ? $zm_request->getPageName() : $view;
-
-        $href= null;
+        $view = $view === null ? $zm_request->getPageName() : $view;
+        $href = null;
         if (function_exists('zm_build_seo_href')) {
             // use custom SEO builder function
             $href = zm_build_seo_href($view, $params, $isSecure);
