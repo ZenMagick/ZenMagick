@@ -47,7 +47,6 @@ class ZMService extends ZMObject {
     global $zm_runtime;
 
         parent::__construct();
-
         $this->_db_ = $zm_runtime->getDB();
     }
 
@@ -163,6 +162,61 @@ class ZMService extends ZMObject {
         }
 
         return $sql;
+    }
+
+    /**
+     * Get the setting name for custom fields for the given table name.
+     *
+     * @param string table The table name.
+     * @return string The name of the ZenMagick setting to be used to lookup
+     *  custom fields for the table.
+     */
+    function getCustomFieldKey($table) {
+        $table = str_replace(ZM_DB_PREFIX, '', $table);
+        return 'sql.'.$table.'.customFields';
+    }
+
+    /**
+     * Get a SQL field list of custom fields for the given table.
+     *
+     * @param string table The table name.
+     * @param string prefix Optional fieldname prefix; default is blank <em>''</em>.
+     * @return string A field list or empty string.
+     */
+    function getCustomFieldsSQL($table, $prefix='') {
+        $setting = zm_setting($this->getCustomFieldKey($table));
+        if (zm_is_empty($setting)) {
+            return '';
+        }
+
+        $customFields = '';
+        if (!zm_is_empty($prefix) && !zm_ends_with($prefix, '.')) {
+            $prefix .= '.';
+        }
+        foreach (explode(',', $setting) as $field) {
+            $customFields .= ', '.$prefix.trim($field);
+        }
+        return $customFields;
+    }
+
+    /**
+     * Get a field list of custom fields for the given table.
+     *
+     * @param string table The table name.
+     * @return array A list of field lists (may be empty).
+     */
+    function getCustomFields($table) {
+        $setting = zm_setting($this->getCustomFieldKey($table));
+        if (zm_is_empty($setting)) {
+            return array();
+        }
+
+        $customFields = array();
+        foreach (explode(',', $setting) as $field) {
+            $customFields[] = trim($field);
+        }
+
+        return $customFields;
     }
 
 }

@@ -44,9 +44,6 @@
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
 
-    // custom SQL fields
-    $_ZM_SETTINGS['sqlProductFields'] = '';
-
     // guest account behaviour
     $_ZM_SETTINGS['isLogoffGuestAfterOrder'] = true;
 
