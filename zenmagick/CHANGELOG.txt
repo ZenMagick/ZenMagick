@@ -56,6 +56,8 @@ Release 0.8.7
 - remove plugin type change as this breaks a lot of stuff (will revisit)
 - add more jquery stuff
 - fix bad method name in ZMTellAFriendController
+- add new setting 'sqlProductFields that allows to query custom product
+  fields; data can be accessed using the generic get() method: read only ATM
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

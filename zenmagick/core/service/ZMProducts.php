@@ -388,6 +388,12 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
+        // custom fields
+        $customFields = '';
+        foreach (explode(',', zm_setting('sqlProductFields')) as $field) {
+            $customFields .= ', p.'.$field;
+        }
+
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
@@ -396,6 +402,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
+                 ".$customFields."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_status = '1'
                  and p.products_model = :model
@@ -429,6 +436,15 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
+        // custom fields
+        $customFields = '';
+        foreach (explode(',', zm_setting('sqlProductFields')) as $field) {
+            $field = trim($field);
+            if (!zm_is_empty($field)) {
+                $customFields .= ', p.'.$field;
+            }
+        }
+
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
@@ -437,6 +453,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
+                 ".$customFields."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id = :productId
                  and pd.products_id = p.products_id
@@ -474,6 +491,12 @@ class ZMProducts extends ZMService {
             return array();
         }
 
+        // custom fields
+        $customFields = '';
+        foreach (explode(',', zm_setting('sqlProductFields')) as $field) {
+            $customFields .= ', p.'.$field;
+        }
+
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_quantity, p.products_image, pd.products_url, p.products_price,
@@ -482,6 +505,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
+                 ".$customFields."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (:productIdList)
                  and pd.products_id = p.products_id
@@ -665,6 +689,15 @@ class ZMProducts extends ZMService {
         $product->attributes_ = $this->create("Attributes", $product);
         //TODO
         $product->features_ = $zm_features->getFeaturesForProductId($product->getId());
+
+        // custom fields
+        foreach (explode(',', zm_setting('sqlProductFields')) as $field) {
+            $field = trim($field);
+            if (isset($fields[$field])) {
+                $product->set($field, $fields[$field]);
+            }
+        }
+
         return $product;
     }
 
