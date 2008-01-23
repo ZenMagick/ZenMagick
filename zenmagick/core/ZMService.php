@@ -115,9 +115,10 @@ class ZMService extends ZMObject {
      *
      * @param string sql The sql to work on.
      * @param mixed obj The data object instance.
+     * @param boolean isRead Optional flag to indicate read or write; default is <code>true</code> for reads.
      * @return string The updated SQL query.
      */
-    function bindObject($sql, $obj) {
+    function bindObject($sql, $obj, $isRead=true) {
         // prepare label
         preg_match_all('/:\w+;\w+/m', $sql, $matches);
         $labels = array();
@@ -151,7 +152,15 @@ class ZMService extends ZMObject {
 
                 // bind
                 if ('date' == $label[1]) {
-                    $value = zen_date_raw($value);
+                    if ($isRead) {
+                        $value = zen_date_raw($value);
+                    } else {
+                        // if not empty nothing, otherwise assume NULL
+                        if (zm_is_empty($value)) {
+                            $value = 'NULL';
+                            $label[1] = 'passthru';
+                        }
+                    }
                 }
                 $sql = $db->bindVars($sql, $label[0], $value, $label[1]);
 
