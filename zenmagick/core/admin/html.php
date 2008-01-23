@@ -68,19 +68,19 @@ EOT;
             echo '<div id="'.$id.'" class="filetree">';
         }
         echo '<ul>';
-        $urlBase = basename($PHP_SELF).'?';
         foreach ($categories as $category) {
+            $cparams = $params.'&'.$category->getPath();
             $noProducts = count($zm_products->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
             echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
-            $url = $urlBase.$category->getPath().$params;
+            $url = zm_href(null, $cparams, false);
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $id, false);
             } else if ($showProducts && $category->isActive()) {
                 echo '<ul>';
                 foreach ($zm_products->getProductsForCategoryId($category->getId(), false) as $product) {
-                    echo '<li><a href="'.$url.'&productId='.$product->getId().'"><span class="file">'.$product->getName().'</span></a></li>';
+                    echo '<li><a href="'.zm_href(null, $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }
@@ -100,9 +100,10 @@ EOT;
     /**
      * Create a product result list based on the current request.
      *
+     * @param string params Additional parameter; default is ''.
      * @return string The HTML.
      */
-    function zm_product_resultlist() {
+    function zm_product_resultlist($params='') {
     global $zm_request, $zm_products, $zm_loader;
 
         $resultList = null;
@@ -119,15 +120,15 @@ EOT;
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';
             echo '<thead><tr>';
-            echo '<th>'.zm_l10n_get('Name').'</th>';
-            echo '<th>'.zm_l10n_get('Active').'</th>';
+            echo '<th class="name">'.zm_l10n_get('Name').'</th>';
+            echo '<th class="status">'.zm_l10n_get('Active').'</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             $first = true; 
             $odd = true; 
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
-                echo '<td class="name"><a href="'.zm_href('', $zm_request->getQueryString().'&productId='.$product->getId(), false).'">'.$product->getName().'</a></td>';
+                echo '<td class="name"><a href="'.zm_href(null, 'productId='.$product->getId().'&'.$params, false).'">'.$product->getName().'</a></td>';
                 echo '<td class="status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
                 echo '</tr>';
                 $first = false; 

@@ -144,8 +144,9 @@
         if (null === $view || null === $params) {
             $query = array();
             if (null === $view || null === $params) {
-                parse_str($zm_request->getQueryString(), $query);
+                $query = $zm_request->getParameterMap();
                 unset($query['main_page']);
+                unset($query[zen_session_name()]);
             }
             if (null != $params) {
                 parse_str($params, $arr);
