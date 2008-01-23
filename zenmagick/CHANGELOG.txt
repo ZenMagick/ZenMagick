@@ -61,7 +61,8 @@ Release 0.8.7
 - change the new 'sqlProductFields' setting to something more generic; the
   setting format is: 'sql.[table name].customFields', where [table name] is the
   table name without the prefix
-- add (limited) update functionality to ZMProducts
+- add (limited) update functionality to ZMProducts; this changes the format
+  of settings for custom fields to: fieldname;type,fieldname;type,...
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
