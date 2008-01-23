@@ -133,6 +133,13 @@ class ZMProduct extends ZMModel {
     function getStatus() { return $this->status_; }
 
     /**
+     * Set the product status.
+     *
+     * @param boolean status The product status.
+     */
+    function setStatus($status) { $this->status_ = $status; }
+
+    /**
      * Get the model.
      *
      * @return string The model.
@@ -419,7 +426,7 @@ class ZMProduct extends ZMModel {
     function getSortOrder() { return $this->sortOrder_; }
 
     /**
-     * Set the srt order.
+     * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */

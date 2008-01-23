@@ -553,9 +553,8 @@ class ZMProducts extends ZMService {
                 products_price_sorter = :priceSorter;integer
                 where products_id = :productId";
         $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
-        $sql = $this->bindObject($sql, $product);
+        $sql = $this->bindObject($sql, $product, false);
         $sql = $this->bindCustomFields($sql, $product, TABLE_PRODUCTS);
-        echo $sql;
         $db->Execute($sql);
 
         return $product;
