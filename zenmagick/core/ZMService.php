@@ -165,6 +165,31 @@ class ZMService extends ZMObject {
     }
 
     /**
+     * Bind custom fields to a given sql query.
+     * 
+     * @param string sql The sql to work on.
+     * @param mixed obj The data object instance.
+     * @param string table The table name.
+     * @return string The updated SQL query.
+     */
+    function bindCustomFields($sql, $obj, $table) {
+        $fields = $this->getCustomFields($table);
+        if (0 == count($fields)) {
+            return str_replace(':customFields,', '', $sql);
+        }
+
+        $db = $this->getDB();
+        $fragment = '';
+        foreach ($fields as $field) {
+            $name = $field[0];
+            $type = $field[1];
+            $fragment .= $db->bindVars($field[0]." = :value, ", ":value", $obj->get($name), $type);
+        }
+
+        return str_replace(':customFields,', $fragment, $sql);
+    }
+
+    /**
      * Get the setting name for custom fields for the given table name.
      *
      * @param string table The table name.
@@ -184,8 +209,8 @@ class ZMService extends ZMObject {
      * @return string A field list or empty string.
      */
     function getCustomFieldsSQL($table, $prefix='') {
-        $setting = zm_setting($this->getCustomFieldKey($table));
-        if (zm_is_empty($setting)) {
+        $fields = $this->getCustomFields($table);
+        if (0 == count($fields)) {
             return '';
         }
 
@@ -193,14 +218,17 @@ class ZMService extends ZMObject {
         if (!zm_is_empty($prefix) && !zm_ends_with($prefix, '.')) {
             $prefix .= '.';
         }
-        foreach (explode(',', $setting) as $field) {
-            $customFields .= ', '.$prefix.trim($field);
+        foreach ($fields as $field) {
+            $customFields .= ', '.$prefix.$field[0];
         }
         return $customFields;
     }
 
     /**
      * Get a field list of custom fields for the given table.
+     *
+     * <p>The returned list of field information consists of two element arrays. The
+     * first element is the field name and the second the field type.</p>
      *
      * @param string table The table name.
      * @return array A list of field lists (may be empty).
@@ -213,7 +241,7 @@ class ZMService extends ZMObject {
 
         $customFields = array();
         foreach (explode(',', $setting) as $field) {
-            $customFields[] = trim($field);
+            $customFields[] = explode(';', trim($field));
         }
 
         return $customFields;

@@ -390,7 +390,7 @@ class ZMProducts extends ZMService {
 
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_quantity, p.products_image, pd.products_url, p.products_price,
+                    p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
@@ -432,7 +432,7 @@ class ZMProducts extends ZMService {
 
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_quantity, p.products_image, pd.products_url, p.products_price,
+                    p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
@@ -478,7 +478,7 @@ class ZMProducts extends ZMService {
 
         $db = $this->getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_quantity, p.products_image, pd.products_url, p.products_price,
+                    p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
@@ -516,6 +516,49 @@ class ZMProducts extends ZMService {
         }
 
         return $products;
+    }
+
+
+    /**
+     * Update an existing product.
+     *
+     * <p><strong>NOTE: Currently not all properties are supported!</strong></p>
+     *
+     * @param ZMProduct The product.
+     * @return ZMProduct The updated product.
+     */
+    function &updateProduct(&$product) {
+        $db = $this->getDB();
+        $sql = "update " . TABLE_PRODUCTS . " set
+                :customFields,
+                products_status = :status;integer,
+                products_model = :model;string,
+                products_quantity = :quantity;integer,
+                products_price = :price;float,
+                products_tax_class_id = :taxClassId;integer,
+                products_date_added = :dateAdded;date,
+                products_date_available = :dateAvailable;date,
+                master_categories_id = :masterCategoryId;integer,
+                manufacturers_id = :manufacturerId;integer,
+                products_weight = :weight;float,
+                product_is_call = :call;integer,
+                product_is_free = :free;integer,
+                products_qty_box_status = :qtyBoxStatus;integer,
+                products_quantity_order_max = :maxOrderQty;integer,
+                products_quantity_order_min = :minOrderQty;integer,
+                products_quantity_mixed = :qtyMixed;integer,
+                products_discount_type = :discountType;integer,
+                products_discount_type_from = :discountTypeFrom;integer,
+                products_sort_order = :sortOrder;integer,
+                products_price_sorter = :priceSorter;integer
+                where products_id = :productId";
+        $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
+        $sql = $this->bindObject($sql, $product);
+        $sql = $this->bindCustomFields($sql, $product, TABLE_PRODUCTS);
+        echo $sql;
+        $db->Execute($sql);
+
+        return $product;
     }
 
 
@@ -639,6 +682,7 @@ class ZMProducts extends ZMService {
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status_ = 1 == $fields['products_status'];
         $product->model_ = $fields['products_model'];
+        //TODO: do this in ZMProduct rather than here!
         $product->image_ = (empty($fields['products_image']) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $fields['products_image'];
         $product->url_ = $fields['products_url'];
         $product->dateAvailable_ = $fields['products_date_available'];
@@ -671,8 +715,8 @@ class ZMProducts extends ZMService {
 
         // custom fields
         foreach ($this->getCustomFields(TABLE_PRODUCTS) as $field) {
-            if (isset($fields[$field])) {
-                $product->set($field, $fields[$field]);
+            if (isset($fields[$field[0]])) {
+                $product->set($field[0], $fields[$field[0]]);
             }
         }
 
