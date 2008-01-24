@@ -25,48 +25,51 @@
 ?>
 <?php  
 require('includes/application_top.php');
-require('includes/zmCatalogDtree.php');
 
-    // capture output as CMPs might redirect...
-    ob_start();
 
-    $productId = $zm_request->getProductId();
-    $productId = 0 == $productId ? '' : $productId;
-    $cPath = $zm_request->getCategoryPath();
-    $view = $zm_request->getParameter('view');
+  // common nav params
+  $zm_nav_params = 'productId='.$zm_request->getProductId().'&cPath='.$zm_request->getCategoryPath();
 
-    // default for new selection
-    if ('' != $productId && null == $view) {
-        $view = 'product';
-    } else if ('' != $cPath && null == $view) {
-        $view = 'category';
-    }
+  // active fkt
+  $selectedFkt = $zm_request->getParameter('fkt', '');
+  $zm_nav_params .= '&fkt='.$selectedFkt;
 
-    // common nav params
-    $navParams = '&amp;products_id='.$productId.'&amp;cPath='.$cPath;
+  $title = null;
+  if (0 < $zm_request->getProductId()) {
+      $product = $zm_products->getProductForId($zm_request->getProductId());
+      $title = $product->getName();
+  } else if (0 < $zm_request->getCategoryId()) {
+      $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+      $title = $category->getName();
+  }
 
-    // set up navigation defaults
-    $nav = array(
-        'category' => ZM_ADMINFN_CATALOG_MANAGER.'?view=category'.$navParams,
-        'product' => ZM_ADMINFN_CATALOG_MANAGER.'?view=product'.$navParams,
-        'attributes' => ZM_ADMINFN_CATALOG_MANAGER.'?view=attributes'.$navParams,
-        'features' => ZM_ADMINFN_CATALOG_MANAGER.'?view=features'.$navParams
-    );
-    if ('' == $cPath) { $nav['category'] = ''; }
-    if ('' == $productId) { $nav['product'] = ''; $nav['attributes'] = ''; $nav['features'] = ''; }
+  $catalog_menu = array();
+  // show available tabs...
+  foreach ($_zm_menu as $item) {
+      if (null == $item || 'catalog_plugins' != $item->getParent()) {
+          continue;
+      }
+      $catalog_menu[] = $item;
+  }
 
+  // capture output as plugins redirect...
+  ob_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title><?php echo TITLE; ?></title>
+    <title><?php zm_l10n("ZenMagick Catalog Manager :: %s", (null != $title ? $title : '')) ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
+    <link rel="stylesheet" type="text/css" href="includes/jquery/jquery.treeview.css">
+    <link rel="stylesheet" type="text/css" href="includes/jquery/ui.tabs.css">
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
+    <script type="text/javascript" src="includes/jquery/jquery-1.2.1.pack.js"></script>
+    <script type="text/javascript" src="includes/jquery/ui.tabs.js"></script>
     <script type="text/javascript">
       function init() {
         cssjsmenu('navbar');
@@ -80,33 +83,53 @@ require('includes/zmCatalogDtree.php');
   <body id="b_catalog_manager" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <div id="main">
-      <div id="cnav" class="dtree">
-        <?php zm_catalog_dtree(ZM_ADMINFN_CATALOG_MANAGER, ZM_ADMINFN_CATALOG_MANAGER, false) ?>
-      </div>
+    <?php if ($zm_messages->hasMessages()) { ?>
+        <ul id="messages">
+        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+        <?php } ?>
+        </ul>
+    <?php } ?>
 
+    <div id="main">
+      <?php echo zm_catalog_tree($zm_categories->getCategoryTree(), '', zm_setting('admin.isShowCatalogTreeProducts')); ?>
       <div id="content">
-<?php /*
-          <div id="pnav">
-            <ul class="hnav">
-              <?php foreach ($nav as $name => $url) { ?>
-                  <?php if ('' != $url) { $act = $view == $name ? ' class="act"' : ''; ?>
-                      <li><a <?php echo $act ?> href="<?php echo $url ?>"><?php echo $name ?></a></li>
-                  <?php } else { ?>
-                      <li class="dis"><?php echo $name ?></li>
-                  <?php } ?>
+        <?php if (0 < count($catalog_menu)) { ?>
+            <div id="main-tab-container">
+              <ul>
+                <?php $activeTab = 1; ?>
+                <?php foreach ($catalog_menu as $item) { $id = str_replace('fkt:', '', $item->getURL()); ?>
+                  <li><a href="#<? echo $id ?>"><span><?php echo $item->getTitle() ?></span></a></li>
+                <?php } ?>
+              </ul>
+              <?php foreach ($catalog_menu as $index => $item) { 
+                $fkt = str_replace('fkt:', '', $item->getURL()); 
+                if ($fkt == $selectedFkt) { $activeTab = ($index+1); }
+                ?>
+                <div id="<?php echo $fkt ?>" style="position:relative;">
+                  <?php 
+                    if (function_exists($fkt)) {
+                        // fake fkt request param to make URLs open the corresponding tab
+                        $zm_request->setParameter('fkt', $fkt);
+                        ob_start();
+                        $page = $fkt(); 
+                        $contents = ob_get_clean();
+                    } ?>
+                    <?php if (!zm_is_empty($contents)) {
+                        echo $contents;
+                    } else if (null != $page) {
+                        echo $page->getContents();
+                    } else { ?><h2>Invalid Contents Function: <?php echo $fkt ?></h2><?php } ?>
+                </div>
               <?php } ?>
-            </ul>
-          </div>
-          <div id="pcont">
-            <?php if ('' != $view) { include('zmCMP'.$view.'.php'); } else { ?>
-              <h2>Please select a category or product...</h2>
-            <?php } ?>
-        </div>
+            </div>
+        <?php } ?>
+        <script type="text/javascript">
+            $(function() { 
+              $('#main-tab-container ul').tabs(<?php echo $activeTab ?>, { fxSlide: true, fxFade: true, fxSpeed: 'fast' }); 
+            });
+        </script>
       </div>
- */ ?>
-            <?php include('zmCMPfeatures.php'); ?>
-        </div>
     </div>
 
   </body>

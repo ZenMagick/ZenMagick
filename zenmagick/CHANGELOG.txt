@@ -63,6 +63,9 @@ Release 0.8.7
   table name without the prefix
 - add (limited) update functionality to ZMProducts; this changes the format
   of settings for custom fields to: fieldname;type,fieldname;type,...
+- add new setting 'admin.isShowCatalogTreeProducts' for the new catalog
+  manager
+- replace the current catalog manager page with a new, plugin based, version
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

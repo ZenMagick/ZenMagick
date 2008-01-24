@@ -41,6 +41,9 @@
     // redirect page for invalid sessions
     $_ZM_SETTINGS['invalidSessionPage'] = FILENAME_COOKIE_USAGE;
 
+    // admin settings
+    $_ZM_SETTINGS['admin.isShowCatalogTreeProducts'] = true;
+
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
 
