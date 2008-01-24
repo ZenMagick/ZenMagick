@@ -65,6 +65,10 @@
 
     array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/zenmagick.php");
 
+    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPattributes.php");
+    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPproduct.php");
+    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPcategory.php");
+
     // check for existance of all obsolete files
     function zm_get_obsolete_files() {
     global $_zm_obsolete_files;
