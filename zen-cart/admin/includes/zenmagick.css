@@ -115,9 +115,9 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 
 /* jquery filetree */
 #cat-tree {border:1px solid gray;padding:4px;margin:2px;width:24%;}
-.presults {position:absolute;left:25%;top:6px;width:71%;border-bottom:1px solid gray;margin:4px 6px;}
-.presults td {border:1px solid gray;border-bottom:none;}
-.presults td.name {border-right:none;}
+.presults {position:absolute;left:0;top:6px;width:100%;border-bottom:1px solid gray;margin:4px 6px;}
+.presults th, .presults td {border:1px solid gray;border-bottom:none;}
+.presults th.name, .presults td.name {border-right:none;}
 .presults tr.odd td {background:#eee;}
 .presults .rnav td {padding-top:6px;text-align:right;}
 .presults .pno {padding-right:3px;}
