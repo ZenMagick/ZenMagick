@@ -43,7 +43,7 @@ class ZMBoxPlugin extends ZMPlugin {
      * @param string version The version.
      */
     function __construct($title='', $description='', $version='0.0') {
-        parent::__construct($title, $description, $version, 'request');
+        parent::__construct($title, $description, $version);
     }
 
     /**

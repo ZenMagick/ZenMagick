@@ -52,6 +52,7 @@ class ZMPlugin extends ZMObject {
     var $loaderSupport_;
     var $handler_;
     var $traditional_;
+    var $scope_;
 
 
     /**
@@ -60,16 +61,14 @@ class ZMPlugin extends ZMObject {
      * @param string title The title.
      * @param string description The description.
      * @param string version The version.
-     * @param string type The plugin type; default is <em>request</em>.
      */
-    function __construct($title='', $description='', $version='0.0', $type='request') {
+    function __construct($title='', $description='', $version='0.0') {
         parent::__construct();
 
         $this->id_ = get_class($this);
         $this->title_ = $title;
         $this->description_ = $description;
         $this->version_ = $version;
-        $this->setType($type);
         $this->keys_ = array();
         $this->messages_ = array();
         $this->pluginDir_ = null;
@@ -77,6 +76,7 @@ class ZMPlugin extends ZMObject {
         $this->handler_ = null;
         $this->traditional_ = true;
         $this->preferredSortOrder_ = 0;
+        $this->scope_ = ZM_SCOPE_ALL;
     }
 
     /**
@@ -85,10 +85,9 @@ class ZMPlugin extends ZMObject {
      * @param string title The title.
      * @param string description The description.
      * @param string version The version.
-     * @param string type The plugin type; default is <em>request</em>.
      */
-    function ZMPlugin($title='', $description='', $version='0.0', $type='request') {
-        $this->__construct($title, $description, $version, $type);
+    function ZMPlugin($title='', $description='', $version='0.0') {
+        $this->__construct($title, $description, $version);
     }
 
     /**
@@ -336,6 +335,16 @@ class ZMPlugin extends ZMObject {
     /**
      * Get the plugin type.
      *
+     * <p>The plugin type is determined by the plugin folder. The type controls if and when a plugin is
+     * loaded during the <em>init</em> process. Valid types are:</p>
+     * <ul>
+     *  <li>request</li>
+     *  <li>init</li>
+     *  <li>admin</li>
+     * <ul>
+     *
+     * <p>Plugins do not have to set the type, as this is take care of during configuration.</p>
+     *
      * @return string The type.
      */
     function getType() { return $this->type_; }
@@ -512,6 +521,38 @@ class ZMPlugin extends ZMObject {
      * @param string loaderSupport The loader support flag.
      */
     function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
+
+    /**
+     * Set the scope.
+     *
+     * <p>This determines where a plugin is active. Allowed values are:</p>
+     * <ul>
+     *  <li><em>store</em>
+     *   <br>Plugin only active in storefront requests.</li>
+     *  <li><em>admin</em>
+     *   <br>Plugin only active in admin request.</li>
+     *  <li><em>all</em>
+     *   <br>Plugin active for all requests.</li>
+     * </ul>
+     *
+     * <p>Please note that there are constants that may be used intead of plain strings:</p>
+     * <ul>
+     *  <li><code>ZM_SCOPE_STORE</code></li>
+     *  <li><code>ZM_SCOPE_ADMIN</code></li>
+     *  <li><code>ZM_SCOPE_ALL</code></li>
+     * </ul>
+     *
+     * <p>The default scope is <li><code>ZM_SCOPE_ALL</code></li>.</p>
+     * @param string scope The scope.
+     */
+    function setScope($scope) { $this->scope_ = $scope; }
+
+    /**
+     * Get this plugins scope.
+     *
+     * @return string The scope.
+     */
+    function getScope() { return $this->scope_; }
 
 }
 

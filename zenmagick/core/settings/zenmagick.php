@@ -86,7 +86,6 @@
 
     define('ZM_ADMINFN_INSTALLATION', 'zmInstallation.php');
     define('ZM_ADMINFN_CATALOG_MANAGER', 'zmCatalogManager.php');
-    define('ZM_ADMINFN_FEATURES', 'zmFeatures.php');
     define('ZM_ADMINFN_L10N', 'zmL10n.php');
     define('ZM_ADMINFN_ABOUT', 'zmAbout.php');
     define('ZM_ADMINFN_CONSOLE', 'zmConsole.php');
@@ -100,6 +99,10 @@
     define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
     define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
     define('ZM_PLUGIN_ORDER_SUFFIX', 'ORDER');
+
+    define('ZM_SCOPE_STORE', 'store');
+    define('ZM_SCOPE_ADMIN', 'admin');
+    define('ZM_SCOPE_ALL', 'all');
 
 
     //** loglevel **//

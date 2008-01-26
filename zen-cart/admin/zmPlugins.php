@@ -100,6 +100,7 @@ require_once('includes/application_top.php');
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
               'type' => $plugin->getType(),
+              'scope' => $plugin->getScope(),
               'installed' => $plugin->isInstalled(),
               'enabled' => $plugin->isEnabled(),
               'order' => $plugin->getSortOrder()

@@ -836,4 +836,47 @@
         return null;
     }
 
+    /**
+     * Init all plugins of the given type.
+     *
+     * @package org.zenmagick
+     * @param string type The type.
+     * @param string scope The current scope.
+     */
+    function zm_init_plugins($type, $scope) {
+        // prepare environment
+        eval(zm_globals());
+
+        $pluginLoader =& new ZMLoader($type."PluginLoader");
+        foreach ($zm_plugins->getPluginsForType($type) as $id => $plugin) {
+            if ($plugin->isEnabled() && ($plugin->getScope() == $scope || ZM_SCOPE_ALL == $plugin->getScope())) {
+                if ('ALL' == $plugin->getLoaderSupport()) {
+                    $pluginLoader->addPath($plugin->getPluginDir());
+                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                    $pluginLoader->addPath($plugin->getPluginDir(), false);
+                }
+                $pluginId = $plugin->getId();
+                global $$pluginId;
+                $$pluginId = $plugin;
+            }
+        }
+
+        // use plugin loader to load static stuff
+        foreach ($pluginLoader->getStatic() as $static) {
+            require_once($static);
+        }
+
+        // plugins prevail over defaults, *and* themes
+        $rootLoader =& zm_get_root_loader();
+        $rootLoader->setParent($pluginLoader);
+
+        // call init only after everything set up
+        foreach ($zm_plugins->getPluginsForType($type) as $id => $plugin) {
+            if ($plugin->isEnabled() && ($plugin->getScope() == $scope || ZM_SCOPE_ALL == $plugin->getScope())) {
+                // PHP4 hack; use $$id rather than $plugin
+                $$id->init();
+            }
+        }
+    }
+
 ?>

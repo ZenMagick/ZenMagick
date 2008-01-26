@@ -66,6 +66,9 @@ Release 0.8.7
 - add new setting 'admin.isShowCatalogTreeProducts' for the new catalog
   manager
 - replace the current catalog manager page with a new, plugin based, version
+- removed type parameter from ZMPlugin constructor
+- added scope property to ZMPlugin and support during init
+- move plugin init code into separate function
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

@@ -37,7 +37,7 @@ class zm_catalog_default extends ZMCatalogPlugin {
      * Default c'tor.
      */
     function __construct() {
-        parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${plugin.version}');
+        parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${zenmagick.version}');
         $this->setLoaderSupport('FOLDER');
         $this->setPreferredSortOrder(0);
     }
@@ -65,9 +65,9 @@ class zm_catalog_default extends ZMCatalogPlugin {
 
         parent::init();
 
-        if (0 == $zm_request->getProductId() && 0 == $zm_request->getCategoryId()) {
+        //if (0 == $zm_request->getProductId() && 0 == $zm_request->getCategoryId()) {
             $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin');
-        }
+        //}
     }
 
 }

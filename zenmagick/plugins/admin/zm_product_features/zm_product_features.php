@@ -37,7 +37,7 @@ class zm_product_features extends ZMCatalogPlugin {
      * Default c'tor.
      */
     function __construct() {
-        parent::__construct('Product Features', 'Comparable product features', '${plugin.version}');
+        parent::__construct('Product Features', 'Comparable product features', '${zenmagick.version}');
         $this->setLoaderSupport('FOLDER');
         $this->setPreferredSortOrder(100);
     }

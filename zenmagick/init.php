@@ -129,48 +129,14 @@
 
     $zm_plugins = new ZMPlugins();
 
+    $_zm_scope = zm_setting('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
     if (!zm_setting('isAdmin')) {
-        // no admin support so far...
-        // upset init plugins :)
-        // NOTE: init plugins do not support class loader support, etc in order to be quick!
-        foreach ($zm_plugins->getPluginsForType('init') as $plugin) {
-            if ($plugin->isEnabled()) {
-                $plugin->init();
-            }
-        }
+        zm_init_plugins('init', $_zm_scope);
     }
 
     if (zm_setting('isAdmin')) {
-        // upset catalog plugins
-        $catalogPluginLoader =& new ZMLoader("catalogPluginLoader");
-        foreach ($zm_plugins->getPluginsForType('admin') as $id => $plugin) {
-            if ($plugin->isEnabled()) {
-                if ('ALL' == $plugin->getLoaderSupport()) {
-                    $catalogPluginLoader->addPath($plugin->getPluginDir());
-                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
-                    $catalogPluginLoader->addPath($plugin->getPluginDir(), false);
-                }
-                $pluginId = $plugin->getId();
-                $$pluginId = $plugin;
-            }
-        }
-
-        // use plugin loader to load static stuff
-        foreach ($catalogPluginLoader->getStatic() as $static) {
-            require_once($static);
-        }
-
-        // plugins prevail over defaults, *and* themes
-        $rootLoader =& zm_get_root_loader();
-        $rootLoader->setParent($catalogPluginLoader);
-
-        // call init only after everything set up
-        foreach ($zm_plugins->getPluginsForType('admin') as $id => $plugin) {
-            if ($plugin->isEnabled()) {
-                // PHP4 hack; use $$id rather than $plugin
-                $$id->init();
-            }
-        }
+        // admin plugins
+        zm_init_plugins('admin', $_zm_scope);
     }
 
     // set up *before* theme is resolved...
@@ -183,39 +149,7 @@
     $zm_sacsMapper->ensureAccessMethod();
 
     // upset request plugins :)
-    $requestPluginLoader =& new ZMLoader("requestPluginLoader");
-    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
-        if ($plugin->isEnabled()) {
-            if ('ALL' == $plugin->getLoaderSupport()) {
-                $requestPluginLoader->addPath($plugin->getPluginDir());
-            } else if ('FOLDER' == $plugin->getLoaderSupport()) {
-                $requestPluginLoader->addPath($plugin->getPluginDir(), false);
-            }
-            $pluginId = $plugin->getId();
-            $$pluginId = $plugin;
-        }
-    }
-
-    // this means that in some cases core.php *must* be regenerated if plugins are
-    // installed while using core.php
-    if (!defined('ZM_SINGLE_CORE')) {
-        // use plugin loader to load static stuff
-        foreach ($requestPluginLoader->getStatic() as $static) {
-            require_once($static);
-        }
-    }
-
-    // plugins prevail over defaults, *and* themes
-    $rootLoader =& zm_get_root_loader();
-    $rootLoader->setParent($requestPluginLoader);
-
-    // call init only after everything set up
-    foreach ($zm_plugins->getPluginsForType('request') as $id => $plugin) {
-        if ($plugin->isEnabled()) {
-            // PHP4 hack; use $$id rather than $plugin
-            $$id->init();
-        }
-    }
+    zm_init_plugins('request', $_zm_scope);
 
     // resolve theme to be used 
     if (zm_setting('isEnableZenMagick')) {
