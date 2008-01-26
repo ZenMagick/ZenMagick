@@ -70,6 +70,7 @@
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPcategory.php");
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPfeatures.php");
     array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/dtree");
+    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/zmCatalogDtree.php");
 
     // check for existance of all obsolete files
     function zm_get_obsolete_files() {
