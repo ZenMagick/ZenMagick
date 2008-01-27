@@ -33,38 +33,32 @@
  */
 class ZMOrderStatus extends ZMModel {
     var $id_;
+    var $orderId_;
     var $name_;
     var $dateAdded_;
+    var $customerNotified_;
     var $comment_;
 
 
     /**
      * Create new status.
-     *
-     * @param int id The order status id.
-     * @param string name The status name/text.
-     * @param date dateAdded The date the status was added to the order.
-     * @param string comment An optional comment.
      */
-    function ZMOrderStatus($id, $name, $dateAdded, $comment=null) {
+    function __construct() {
         parent::__construct();
 
-		    $this->id_ = $id;
-		    $this->name_ = $name;
-		    $this->dateAdded_ = $dateAdded;
-		    $this->comment_ = $comment;
+        $this->id_ = 0;
+        $this->orderId_ = 0;
+        $this->name_ = '';
+        $this->dateAdded_ = null;
+        $this->customerNotified_ = false;
+        $this->comment_ = '';
     }
 
     /**
      * Create new status.
-     *
-     * @param int id The order status id.
-     * @param string name The status name/text.
-     * @param date dateAdded The date the status was added to the order.
-     * @param string comment An optional comment.
      */
-    function __construct($id, $name, $dateAdded, $comment=null) {
-        $this->ZMOrderStatus($id, $name, $dateAdded, $comment);
+    function ZMOrderStatus() {
+        $this->__construct();
     }
 
     /**
@@ -83,6 +77,13 @@ class ZMOrderStatus extends ZMModel {
     function getId() { return $this->id_; }
 
     /**
+     * Get the order id.
+     *
+     * @return int The order id.
+     */
+    function getOrderId() { return $this->orderId_; }
+
+    /**
      * Get the order status name.
      *
      * @return string The order status name.
@@ -92,9 +93,16 @@ class ZMOrderStatus extends ZMModel {
     /**
      * Get the date it was added.
      *
-     * @return string The date the attribute was added.
+     * @return string The date the status was changed.
      */
     function getDateAdded() { return $this->dateAdded_; }
+
+    /**
+     * Has the customer been notified about this change.
+     *
+     * @return boolean <code>true</code> if the customer has been notified, <code>false</code> if not.
+     */
+    function isCustomerNotified() { return $this->customerNotified_; }
 
     /**
      * Checks if a comment exists for this status.
@@ -110,6 +118,47 @@ class ZMOrderStatus extends ZMModel {
      */
     function getComment() { return $this->comment_; }
 
+    /**
+     * Set the order status id.
+     *
+     * @param int id The order status id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the order id.
+     *
+     * @param int orderId The order id.
+     */
+    function setOrderId($orderId) { $this->orderId_ = $orderId; }
+
+    /**
+     * Set the order status name.
+     *
+     * @param string name The order status name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the date it was added.
+     *
+     * @param string dateAdded The date the status was changed.
+     */
+    function setDateAdded($dateAdded) { $this->dateAdded_ = $dateAdded; }
+
+    /**
+     * Set whether the customer been notified about this change.
+     *
+     * @param boolean customerNotified <code>true</code> if the customer has been notified, <code>false</code> if not.
+     */
+    function setCustomerNotified($customerNotified) { $this->customerNotified_ = $customerNotified; }
+
+    /**
+     * Set the comment.
+     *
+     * @param string comment The comment.
+     */
+    function setComment($comment) { $this->comment_ = $comment; }
 }
 
 ?>

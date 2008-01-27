@@ -172,7 +172,7 @@ class ZMOrders extends ZMService {
         }
 
         $db = $this->getDB();
-        $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments
+        $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments, osh.orders_id, osh.customer_notified
                   from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                   where osh.orders_id = :orderId
                   and osh.orders_status_id = os.orders_status_id
@@ -197,7 +197,12 @@ class ZMOrders extends ZMService {
      * Create new order status instance.
      */
     function &_newOrderStatus($fields) {
-        $status =& $this->create("OrderStatus", $fields['orders_status_id'], $fields['orders_status_name'], $fields['date_added']);
+        $status =& $this->create("OrderStatus");
+        $status->id_ = $fields['orders_status_id'];
+        $status->orderId_ = $fields['orders_id'];
+        $status->name_ = $fields['orders_status_name'];
+        $status->dateAdded_ = $fields['date_added'];
+        $status->customerNotified_ = 1 == $fields['customer_notified'];
         $status->comment_ = $fields['comments'];
         return $status;
     }
@@ -441,6 +446,7 @@ class ZMOrders extends ZMService {
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
         $sql = $this->bindObject($sql, $order, false);
         $sql = $this->bindCustomFields($sql, $order, TABLE_ORDERS);
+        echo $sql."<BR>";
         $db->Execute($sql);
 
         return $order;

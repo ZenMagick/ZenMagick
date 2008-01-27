@@ -71,6 +71,7 @@ Release 0.8.7
 - move plugin init code into separate function
 - fix plugin support mode 'FOLDER' for core.php
 - add (very limited, status only) update method to ZMOrders
+- cleanup ZMOrderHistory, add orderId property
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
