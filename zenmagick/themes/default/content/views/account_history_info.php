@@ -59,7 +59,7 @@
 <h3><?php zm_l10n("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($zm_order->getOrderStati() as $orderStatus) { ?>
+    <?php foreach ($zm_order->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
             <td><?php zm_date_short($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $orderStatus->getName() ?></td>
