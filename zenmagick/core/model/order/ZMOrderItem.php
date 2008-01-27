@@ -73,6 +73,17 @@ class ZMOrderItem extends ZMModel {
     function getProductId() { return $this->productId_; }
 
     /**
+     * Get the product this item is associated to.
+     *
+     * @return ZMProduct The product.
+     */
+    function getProduct() {
+    global $zm_products;
+
+        return $zm_products->getProductForId($this->getProductId());
+    }
+
+    /**
      * Get the quantity.
      *
      * @return int The quantity for this item.

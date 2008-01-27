@@ -95,9 +95,16 @@ class ZMOrder extends ZMModel {
     /**
      * Get the order status.
      *
-     * @return string The order status.
+     * @return int The order status.
      */
     function getStatus() { return $this->status_; }
+
+    /**
+     * Set the order status.
+     *
+     * @param int status The order status.
+     */
+    function setStatus($status) { $this->status_ = $status; }
 
     /**
      * Get the order date.

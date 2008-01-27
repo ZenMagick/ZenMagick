@@ -179,12 +179,13 @@ class ZMService extends ZMObject {
      * @param string sql The sql to work on.
      * @param mixed obj The data object instance.
      * @param string table The table name.
+     * @param string valueMarker The string to be replaced with custom values; default is <em>:customFields</em>.
      * @return string The updated SQL query.
      */
-    function bindCustomFields($sql, $obj, $table) {
+    function bindCustomFields($sql, $obj, $table, $valueMarker=':customFields') {
         $fields = $this->getCustomFields($table);
         if (0 == count($fields)) {
-            return str_replace(':customFields,', '', $sql);
+            return str_replace($valueMarker.',', '', $sql);
         }
 
         $db = $this->getDB();
@@ -195,7 +196,7 @@ class ZMService extends ZMObject {
             $fragment .= $db->bindVars($field[0]." = :value, ", ":value", $obj->get($name), $type);
         }
 
-        return str_replace(':customFields,', $fragment, $sql);
+        return str_replace($valueMarker.',', $fragment, $sql);
     }
 
     /**

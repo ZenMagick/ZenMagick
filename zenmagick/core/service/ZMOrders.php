@@ -367,6 +367,85 @@ class ZMOrders extends ZMService {
         return $totals;
     }
 
+    /**
+     * Update an existing order.
+     *
+     * <p><strong>NOTE: Currently not all properties are supported!</strong></p>
+     *
+     * @param ZMOrder The order.
+     * @return ZMOrder The updated order.
+     */
+    function &updateOrder(&$order) {
+        $db = $this->getDB();
+
+/*
+                customers_name = :customers_name;string,
+                customers_company = :customers_company;string,
+                customers_street_address = :customers_street_address;string,
+                customers_suburb = :customers_suburb;string,
+                customers_city = :customers_city;string,
+                customers_postcode = :customers_postcode;string,
+                customers_state = :customers_state;string,
+                customers_country = :customers_country;string,
+                customers_telephone = :customers_telephone;string,
+                customers_email_address = :customers_email_address;string,
+                customers_address_format_id = :customers_address_format_id;string,
+
+                delivery_name = :delivery_name;string,
+                delivery_company = :delivery_company;string,
+                delivery_street_address = :delivery_street_address;string,
+                delivery_suburb = :delivery_suburb;string,
+                delivery_city = :delivery_city;string,
+                delivery_postcode = :delivery_postcode;string,
+                delivery_state = :delivery_state;string,
+                delivery_country = :delivery_country;string,
+                delivery_address_format_id = :delivery_address_format_id;string,
+
+                billing_name = :billing_name;string,
+                billing_company = :billing_company;string,
+                billing_street_address = :billing_street_address;string,
+                billing_suburb = :billing_suburb;string,
+                billing_city = :billing_city;string,
+                billing_postcode = :billing_postcode;string,
+                billing_state = :billing_state;string,
+                billing_country = :billing_country;string,
+                billing_address_format_id = :billing_address_format_id;string,
+
+                payment_method = :payment_method;string,
+                payment_module_code = :payment_module_code;string,
+
+                shipping_method = :shipping_method;string,
+                shipping_module_code = :shipping_module_code;string,
+
+                coupon_code = :coupon_code;string,
+
+                cc_type = :cc_type;string,
+                cc_owner = :cc_owner;string,
+                cc_number = :cc_number;string,
+                cc_expires = :cc_expires;string,
+
+                currency = :currency;string,
+                currency_value = :currency_value;string,
+
+                date_purchased = :date_purchased;string,
+                last_modified = :last_modified;string,
+                order_total = :order_total;string,
+                order_tax = :order_tax;string,
+
+*/
+        $sql = "update " . TABLE_ORDERS . " set
+                :customFields,
+                customers_id = :accountId;integer,
+                orders_status = :status;integer
+                where orders_id = :orderId";
+        $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
+        $sql = $this->bindObject($sql, $order, false);
+        $sql = $this->bindCustomFields($sql, $order, TABLE_ORDERS);
+        $db->Execute($sql);
+
+        return $order;
+    }
+
 }
 
 ?>
