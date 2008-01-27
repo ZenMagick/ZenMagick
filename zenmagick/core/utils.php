@@ -862,8 +862,10 @@
         }
 
         // use plugin loader to load static stuff
-        foreach ($pluginLoader->getStatic() as $static) {
-            require_once($static);
+        if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
+            foreach ($pluginLoader->getStatic() as $static) {
+                require_once($static);
+            }
         }
 
         // plugins prevail over defaults, *and* themes

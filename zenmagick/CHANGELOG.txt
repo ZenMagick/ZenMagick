@@ -69,6 +69,7 @@ Release 0.8.7
 - removed type parameter from ZMPlugin constructor
 - added scope property to ZMPlugin and support during init
 - move plugin init code into separate function
+- fix plugin support mode 'FOLDER' for core.php
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

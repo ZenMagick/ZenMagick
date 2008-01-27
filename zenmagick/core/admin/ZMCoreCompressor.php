@@ -268,7 +268,7 @@ class ZMCoreCompressor extends ZMObject {
                     if ($noDir || 'PLUGIN' == $flag) {
                         $files = array($pluginDir.$plugin->getId().'.php');
                     } else {
-                        $files = zm_find_includes($pluginDir, true);
+                        $files = zm_find_includes($pluginDir, 'FOLDER' != $flag);
                     }
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);
