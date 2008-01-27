@@ -154,8 +154,16 @@ class ZMOrder extends ZMModel {
      * Get the order status history.
      *
      * @return array A list of previous order stati.
+     * @deprecated Use <code>getOrderStatusHistory</code> instead.
      */
-    function getOrderStati() { return $this->zmOrders_->_getOrderStatiForId($this->id_); }
+    function getOrderStati() { return $this->zmOrders_->getOrderStatusHistoryForId($this->id_); }
+
+    /**
+     * Get the order status history.
+     *
+     * @return array A list of previous order stati.
+     */
+    function getOrderStatusHistory() { return $this->zmOrders_->getOrderStatusHistoryForId($this->id_); }
 
     /**
      * Get the order total.

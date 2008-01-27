@@ -158,12 +158,12 @@ class ZMOrders extends ZMService {
     }
 
     /**
-     * Get order stati for order.
+     * Get order status history for order id.
      *
      * @param int orderId The order id.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
-    function _getOrderStatiForId($orderId, $languageId=null) {
+    function getOrderStatusHistoryForId($orderId, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
