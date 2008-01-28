@@ -158,6 +158,58 @@ class ZMOrders extends ZMService {
     }
 
     /**
+     * Get all orders for a given order status.
+     *
+     * @param int statusId The order status.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMOrder</code> instances.
+     */
+    function getOrdersForStatusId($statusId, $languageId=null) {
+    global $zm_request;
+
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+        
+        $db = $this->getDB();
+        // order only
+        $sqlLimit = 0 != $limit ? " limit ".$limit : "";
+        $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
+                o.customers_street_address, o.customers_suburb, o.customers_city,
+                o.customers_postcode, o.customers_state, o.customers_country,
+                o.customers_telephone, o.customers_email_address, o.customers_address_format_id,
+                o.delivery_name, o.delivery_company, o.delivery_street_address, o.delivery_suburb,
+                o.delivery_city, o.delivery_postcode, o.delivery_state, o.delivery_country,
+                o.delivery_address_format_id, o.billing_name, o.billing_company,
+                o.billing_street_address, o.billing_suburb, o.billing_city, o.billing_postcode,
+                o.billing_state, o.billing_country, o.billing_address_format_id,
+                o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
+                o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
+                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
+                s.orders_status_name
+                from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                where o.orders_status = :statusId
+                and o.orders_id = ot.orders_id
+                and ot.class = 'ot_total'
+                and o.orders_status = s.orders_status_id
+                and s.language_id = :languageId
+                order by orders_id desc".$sqlLimit;
+        $sql = $db->bindVars($sql, ":statusId", $statusId, "integer");
+        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
+        $results = $db->Execute($sql);
+
+        $orders = array();
+        while (!$results->EOF) {
+            $order =& $this->_newOrder($results->fields);
+            array_push($orders, $order);
+            $results->MoveNext();
+        }
+
+        return $orders;
+    }
+
+    /**
      * Get order status history for order id.
      *
      * @param int orderId The order id.
