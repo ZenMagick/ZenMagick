@@ -194,6 +194,24 @@ class ZMOrders extends ZMService {
     }
 
     /**
+     * Create new order status history entry.
+     *
+     * @param ZMOrderStatus orderStatus The new order status.
+     * @return ZMOrderStatus The created order status (incl id).
+     */
+    function createOrderStatusHistory($orderStatus) {
+        $db = $this->getDB();
+        $sql = "INSERT INTO " .  TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments)
+                VALUES (:orderId;integer, :id;integer, now(), :customerNotified;integer, :comment;string)";
+        $sql = $this->bindObject($sql, $orderStatus, false);
+
+        $results = $db->Execute($sql);
+        $orderStatus->id_ = $db->Insert_ID();
+
+        return $orderStatus;
+    }
+
+    /**
      * Create new order status instance.
      */
     function &_newOrderStatus($fields) {
@@ -446,7 +464,6 @@ class ZMOrders extends ZMService {
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
         $sql = $this->bindObject($sql, $order, false);
         $sql = $this->bindCustomFields($sql, $order, TABLE_ORDERS);
-        echo $sql."<BR>";
         $db->Execute($sql);
 
         return $order;

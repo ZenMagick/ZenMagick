@@ -74,6 +74,7 @@ Release 0.8.7
 - cleanup ZMOrderHistory, add orderId property
 - marked ZMOrder::getOrderStati() deprecated; instead use
   ZMOrderi:getOrderStatusHistoryForId() or ZMOrder::getOrderStatusHistory()
+- add method in ZMOrders to create order status history entries
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
