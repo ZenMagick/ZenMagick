@@ -89,8 +89,7 @@ class ZMOrders extends ZMService {
                 and o.orders_id = ot.orders_id
                 and ot.class = 'ot_total'
                 and o.orders_status = s.orders_status_id
-                and s.language_id = :languageId
-                order by orders_id desc".$sqlLimit;
+                and s.language_id = :languageId";
         $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
 
