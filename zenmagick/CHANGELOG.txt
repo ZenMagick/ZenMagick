@@ -78,6 +78,7 @@ Release 0.8.7
 - make zm_format_currency default to the setting 'defaultCurrency' if no other
   currency is found (this will make it work in admin)
 - allow to search for orders by status id
+- add custom field support to ZMManufacturers
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
