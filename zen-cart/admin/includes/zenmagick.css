@@ -124,16 +124,3 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 .presults .nin {padding:0 2px;}
 #b_catalog_manager #main {position:relative;}
 #b_catalog_manager #content {position:absolute;left:3%;top:0;width:71%;}
-
-/*--------------------------------------------------|
-| dTree 2.05 | www.destroydrop.com/javascript/tree/ |
-|---------------------------------------------------|
-| Copyright (c) 2002-2003 Geir Landrö               |
-|--------------------------------------------------*/
-.dtree {font-family:Verdana,Geneva,Arial,Helvetica,sans-serif;font-size:11px;color:#666;white-space:nowrap;}
-.dtree img {border:0px;vertical-align:middle;}
-.dtree a {color:#333;text-decoration:none;}
-.dtree a.node, .dtree a.nodeSel {white-space:nowrap;padding:1px 2px 1px 2px;}
-.dtree a.node:hover, .dtree a.nodeSel:hover {color:#333;text-decoration:underline;}
-.dtree a.nodeSel {background-color:#c0d2ec;}
-/*.dtree .clip {overflow:hidden;}*/
