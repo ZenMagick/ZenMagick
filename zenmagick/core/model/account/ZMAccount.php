@@ -50,6 +50,7 @@ class ZMAccount extends ZMModel {
     var $globalSubscriber_;
     var $subscribedProducts_;
     var $type_;
+    var $groupId_;
 
 
     /**
@@ -76,6 +77,7 @@ class ZMAccount extends ZMModel {
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = array();
         $this->type_ = ZM_ACCOUNT_TYPE_REGISTERED;
+        $this->groupId_ = 0;
     }
 
     /**
@@ -416,6 +418,24 @@ class ZMAccount extends ZMModel {
      */
     function getType() {
         return $this->type_;
+    }
+
+    /**
+     * Set the group id.
+     *
+     * @param int groupId The group id.
+     */
+    function setGroupId($groupId) {
+        $this->groupId_ = $groupId;
+    }
+
+    /**
+     * Get the group id.
+     *
+     * @return int The group id.
+     */
+    function getGroupId() {
+        return $this->groupId_;
     }
 
 }

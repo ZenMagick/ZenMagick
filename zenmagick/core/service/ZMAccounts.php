@@ -65,7 +65,7 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, c.customers_nick
+                c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
                 from " . TABLE_CUSTOMERS . " c
                 where c.customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
@@ -87,7 +87,7 @@ class ZMAccounts extends ZMService {
         $db = $this->getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, c.customers_nick
+                c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
                 from " . TABLE_CUSTOMERS . " c
                 where customers_email_address = :emailAddress";
         $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
@@ -145,11 +145,11 @@ class ZMAccounts extends ZMService {
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
                  customers_default_address_id, customers_authorization, 
-                 customers_gender, customers_dob, customers_password, customers_referral
+                 customers_gender, customers_dob, customers_password, customers_referral, customers_group_pricing
                 ) values (:firstName;string, :lastName;string, :email;string, :nickName;string,
                   :phone;string, :fax;string, :newsletterSubscriber;integer, :emailFormat;string,
                   :defaultAddressId;integer, :authorization;integer,
-                  :gender;string, :dob;date, :password;string, :referral;string)";
+                  :gender;string, :dob;date, :password;string, :referral;string, :groupId;integer)";
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
@@ -191,7 +191,8 @@ class ZMAccounts extends ZMService {
                 customers_authorization = :authorization;integer, 
                 customers_gender = :gender;string,
                 customers_dob = :dob;date,
-                customers_referral = :referral;string
+                customers_referral = :referral;string,
+                customers_group_pricing = :groupId;integer
                 where customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
         $sql = $this->bindObject($sql, $account);
@@ -242,6 +243,7 @@ class ZMAccounts extends ZMService {
         $account->globalSubscriber_ = $this->isGlobalProductSubscriber($account->getId());
         $account->subscribedProducts_ = $this->getSubscribedProductIds($account->getId());
         $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_GUEST);
+        $account->groupId_ = $fields['customers_group_pricing'];
         return $account;
     }
 
