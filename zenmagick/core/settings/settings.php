@@ -45,7 +45,7 @@
     $_ZM_SETTINGS['admin.isShowCatalogTreeProducts'] = true;
 
     // default access level
-    $_ZM_SETTINGS['defaultAccessLevel'] = ZM_ACCOUNT_TYPE_REGISTERED;
+    $_ZM_SETTINGS['defaultAccessLevel'] = null;
 
     // patch flags
     $_ZM_SETTINGS['isEnablePatching'] = true;
