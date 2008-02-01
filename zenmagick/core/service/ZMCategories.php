@@ -33,7 +33,6 @@
  */
 class ZMCategories extends ZMService {
     var $path_;
-    var $type_;
     var $languageId_;
 
     // flat list
@@ -44,35 +43,33 @@ class ZMCategories extends ZMService {
     /**
      * Default c'tor.
      *
-     * @param array path The current category path.
-     * @param string type The category type (not supported yet); default is <code>null</code>.
      * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @param array path The current category path.
      */
-    function ZMCategories($path=null, $type=null, $languageId=null) {
+    function __construct($languageId=null, $path=null) {
     global $zm_request;
 
         parent::__construct();
 
-        $this->path_ = null !== $path ? $path : array();
-        $this->type_ = $type;
         if (null === $languageId) {
             $session = $zm_request->getSession();
             $languageId = $session->getLanguageId();
         }
         $this->languageId_ = $languageId;
-        $this->categories_ = null;
+        $this->path_ = null !== $path ? $path : array();
+
+        $this->categories_ = array();
         $this->treeFlag_ = false;
     }
 
     /**
      * Default c'tor.
      *
-     * @param array path The current category path.
-     * @param string type The category type (not supported yet).
      * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @param array path The current category path.
      */
-    function __construct($path=null, $type=null, $languageId=null) {
-        $this->ZMCategories($path, $type, $languageId);
+    function ZMCategories($languageId=null, $path=null) {
+        $this->__construct($languageId, $path);
     }
 
     /**
@@ -95,19 +92,23 @@ class ZMCategories extends ZMService {
 
     /**
      * Apply path to categories.
+     *
+     * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _applyPath() {
-        if (!isset($this->categories_)) {
+    function _applyPath($languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        if (!isset($this->categories_[$languageId])) {
             return;
         }
 
-        foreach ($this->categories_ as $id => $category) {
-            $this->categories_[$id]->active_ = false;
+        foreach ($this->categories_[$languageId] as $id => $category) {
+            $this->categories_[$languageId][$id]->active_ = false;
         }
 
         foreach ($this->path_ as $id) {
-            if (isset($this->categories_[$id])) {
-                $this->categories_[$id]->active_ = true;
+            if (isset($this->categories_[$languageId][$id])) {
+                $this->categories_[$languageId][$id]->active_ = true;
             }
         }
     }
@@ -117,12 +118,15 @@ class ZMCategories extends ZMService {
      * <p>This will return the first mapped category.</p>
      *
      * @param int productId The product id.
+     * @param int languageId Optional language id; default is <code>null</code>.
      * @return ZMCategory The default category (or <code>null</code>).
      */
-    function getDefaultCategoryForProductId($productId) {
-        if (null === $this->categories_) {
-            $this->_load();
-            $this->_applyPath();
+    function getDefaultCategoryForProductId($productId, $languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        if (!isset($this->categories_[$languageId])) {
+            $this->_load($languageId);
+            $this->_applyPath($languageId);
         }
 
         $db = $this->getDB();
@@ -144,25 +148,29 @@ class ZMCategories extends ZMService {
      * Get all categories.
      *
      * @param array ids Optional list of category ids.
+     * @param int languageId Optional language id; default is <code>null</code>.
      * @return array A list of <code>ZMCategory</code> instances.
      */
-    function getCategories($ids=null) {
-        if (null === $this->categories_) {
-            $this->_load();
-            $this->_applyPath();
+    function getCategories($ids=null, $languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        if (!isset($this->categories_[$languageId])) {
+            $this->categories_[$languageId] = array();
+            $this->_load($languageId);
+            $this->_applyPath($languageId);
             if (!$this->treeFlag_) {
-                $this->_buildTree();
+                $this->_buildTree($languageId);
                 $this->treeFlag_ = true;
             }
         }
 
         if (null === $ids) {
-            return $this->categories_;
+            return $this->categories_[$languageId];
         }
 
         $categories = array();
         foreach ($ids as $id) {
-            $categories[$id] = $this->categories_[$id];
+            $categories[$id] = $this->categories_[$languageId][$id];
         }
 
         return $categories;
@@ -171,23 +179,26 @@ class ZMCategories extends ZMService {
     /**
      * This returns, in fact, not a real tree, but a list of all top level categories.
      *
+     * @param int languageId Optional language id; default is <code>null</code>.
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
-    function getCategoryTree() {
-        if (null === $this->categories_) {
-            $this->_load();
-            $this->_applyPath();
+    function getCategoryTree($languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        if (!isset($this->categories_[$languageId])) {
+            $this->_load($languageId);
+            $this->_applyPath($languageId);
         }
 
         if (!$this->treeFlag_) {
-            $this->_buildTree();
+            $this->_buildTree($languageId);
             $this->treeFlag_ = true;
         }
 
         $tlc = array();
-        foreach ($this->categories_ as $id => $category) {
+        foreach ($this->categories_[$languageId] as $id => $category) {
             if (0 == $category->parentId_ && 0 < $id) {
-                array_push($tlc, $this->categories_[$id]);
+                $tlc[] = $this->categories_[$languageId][$id];
             }
         }
 
@@ -198,10 +209,13 @@ class ZMCategories extends ZMService {
      * Get a category for the given id.
      *
      * @param int categoryId The category id.
+     * @param int languageId Optional language id; default is <code>null</code>.
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
-    function getCategoryForId($categoryId) {
-        if (null === $this->categories_) {
+    function getCategoryForId($categoryId, $languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        if (!isset($this->categories_[$languageId])) {
             $this->_load();
             $this->_applyPath();
             if (!$this->treeFlag_) {
@@ -210,16 +224,20 @@ class ZMCategories extends ZMService {
             }
         }
 
-        $category = $this->categories_[$categoryId];
+        $category = $this->categories_[$languageId][$categoryId];
         return $category;
     }
 
 
     /**
      * Load all categories.
+     *
+     * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _load() {
+    function _load($languageId=null) {
     global $zm_runtime;
+
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         $db = $this->getDB();
         // load all straight away - should be faster to sort them later on
@@ -229,13 +247,13 @@ class ZMCategories extends ZMService {
                   where cd.language_id = :languageId
                   and c.categories_status = '1'
                   order by sort_order, cd.categories_name";
-        $query = $db->bindVars($query, ":languageId", $this->languageId_, "integer");
+        $query = $db->bindVars($query, ":languageId", $languageId, "integer");
         $results = $db->Execute($query, '', true, 150);
 
-        $this->categories_ = array();
+        $this->categories_[$languageId] = array();
         while (!$results->EOF) {
             $category = $this->_newCategory($results->fields);
-            $this->categories_[$category->id_] = $category;
+            $this->categories_[$languageId][$category->id_] = $category;
             $results->MoveNext();
     		}
     }
@@ -243,11 +261,15 @@ class ZMCategories extends ZMService {
 
     /**
      * Create tree data.
+     *
+     * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _buildTree() {
-        foreach ($this->categories_ as $id => $category) {
+    function _buildTree($languageId=null) {
+        $languageId = null !== $languageId ? $languageId : $this->languageId_;
+
+        foreach ($this->categories_[$languageId] as $id => $category) {
             if (0 != $category->parentId_) {
-                $parent =& $this->categories_[$category->parentId_];
+                $parent =& $this->categories_[$languageId][$category->parentId_];
                 array_push($parent->childrenIds_, $id);
             }
         }

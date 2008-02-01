@@ -80,6 +80,11 @@ Release 0.8.7
 - allow to search for orders by status id
 - add custom field support to ZMManufacturers
 - add support to load/update the account (price) group id
+- changed the constructor signature of ZMCategories
+- refactored ZMCategories (again!) to properly allow languageId as optional
+  parameter;
+- fixed bug in index controller that would not create an empty result list if
+  the category is empty
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
