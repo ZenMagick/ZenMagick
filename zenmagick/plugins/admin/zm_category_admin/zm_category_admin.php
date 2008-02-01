@@ -37,7 +37,7 @@ class zm_category_admin extends ZMCatalogPlugin {
      * Default c'tor.
      */
     function __construct() {
-        parent::__construct('Category Maintenance', 'Category Management', '${plugin.version}');
+        parent::__construct('Category Maintenance', 'Category Management', '${zenmagick.version}');
         $this->setLoaderSupport('FOLDER');
         $this->setPreferredSortOrder(5);
     }
