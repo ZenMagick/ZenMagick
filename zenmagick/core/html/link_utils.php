@@ -56,7 +56,7 @@
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
-    function _zm_zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    function _zm_zen_href_link($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     //TODO:
     global $request_type, $session_started, $http_domain, $https_domain;
 

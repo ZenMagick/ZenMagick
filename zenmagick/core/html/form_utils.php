@@ -71,7 +71,7 @@
         return _zm_build_form($page, $params, $id, $method, true, $onsubmit, '', $echo);
     }
 
-    function _zm_build_form($page, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=true) {
+    function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=true) {
     global $zm_request, $zm_validator;
 
         $excludes = explode(',', $excludes);
