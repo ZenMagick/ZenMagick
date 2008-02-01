@@ -210,10 +210,8 @@ class ZMRuntime extends ZMObject {
      * @return ZMLanguage The current language.
      */
     function getLanguage() {
-    global $zm_languages;
-      
-        $language =& $zm_languages->getLanguageForId($this->getLanguageId());
-        return $language;
+        $session = new ZMSession();
+        return $session->getLanguage();
     }
 
     /**
@@ -237,10 +235,10 @@ class ZMRuntime extends ZMObject {
      *
      * @return ZMCurrency The current currency.
      */
-    function &getCurrency() {
+    function getCurrency() {
     global $zm_currencies;
    
-        $currency =& $zm_currencies->getCurrencyForCode($this->getCurrencyCode());
+        $currency = $zm_currencies->getCurrencyForCode($this->getCurrencyCode());
         return $currency;
     }
 
