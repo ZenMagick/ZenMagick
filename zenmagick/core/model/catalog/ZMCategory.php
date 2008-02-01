@@ -194,6 +194,47 @@ class ZMCategory extends ZMModel {
         return "cPath=".$path;
     }
 
+    /**
+     * Set the id.
+     *
+     * @param int id The category id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the parent category id.
+     *
+     * @param int parentId The parent category id.
+     */
+    function setParentId($parentId) { $this->parentId_ = $parentId; }
+
+    /**
+     * Set the category name.
+     *
+     * @param string name The category name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the category description.
+     *
+     * @param string description The description.
+     */
+    function setDescription($description) { $this->description_ = $description; }
+
+    /**
+     * Set the sort order.
+     *
+     * @param int sortOrder The sort order.
+     */
+    function setSortOrder($sortOrder ) { $this->sortOrder_ = $sortOrder; }
+
+    /**
+     * Set the category image (if any).
+     *
+     * @param string image The image name.
+     */
+    function setImage($image) { $this->image_ = $image; }
 }
 
 ?>
