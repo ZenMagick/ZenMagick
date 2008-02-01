@@ -26,10 +26,6 @@
 <?php  
 require('includes/application_top.php');
 
-
-  // common nav params
-  $zm_nav_params = 'productId='.$zm_request->getProductId().'&cPath='.$zm_request->getCategoryPath();
-
   // active fkt
   $selectedFkt = $zm_request->getParameter('fkt', '');
   $zm_nav_params .= '&fkt='.$selectedFkt;
@@ -38,9 +34,19 @@ require('includes/application_top.php');
   if (0 < $zm_request->getProductId()) {
       $product = $zm_products->getProductForId($zm_request->getProductId());
       $title = $product->getName();
+      $zm_nav_params .= '&productId='.$zm_request->getProductId();
   } else if (0 < $zm_request->getCategoryId()) {
       $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
       $title = $category->getName();
+  }
+
+  // common nav params
+  $zm_nav_params = '';
+  if (null != $product) {
+      $zm_nav_params .= '&product='.$product->getId();
+  }
+  if (null != $category) {
+      $zm_nav_params .= '&cPath='.$zm_request->getCategoryPath();
   }
 
   $catalog_menu = array();

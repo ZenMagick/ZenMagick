@@ -29,7 +29,7 @@ a:hover {text-decoration:underline;}
 
 div#main, div#content {padding:8px;position:relative;}
 fieldset {padding:12px;margin:12px 0;}
-legend {font-weight:bold;color:#fff;background-color:#599659;padding:3px 5px;}
+legend {font-weight:bold;color:#fff;background-color:#599659;padding:2px 9px;}
 legend span {font-size:114%;background:#85C285;padding:3px;color:#000;}
 th {color:#000;background:#85C285;border-right:1px solid #fff;padding:3px;}
 td {padding:2px 8px;}
