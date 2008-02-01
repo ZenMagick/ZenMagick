@@ -50,7 +50,7 @@ class ZMAccount extends ZMModel {
     var $globalSubscriber_;
     var $subscribedProducts_;
     var $type_;
-    var $groupId_;
+    var $priceGroupId_;
 
 
     /**
@@ -77,7 +77,7 @@ class ZMAccount extends ZMModel {
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = array();
         $this->type_ = ZM_ACCOUNT_TYPE_REGISTERED;
-        $this->groupId_ = 0;
+        $this->priceGroupId_ = 0;
     }
 
     /**
@@ -421,21 +421,31 @@ class ZMAccount extends ZMModel {
     }
 
     /**
-     * Set the group id.
+     * Set the price group id.
      *
-     * @param int groupId The group id.
+     * @param int priceGroupId The price group id.
      */
-    function setGroupId($groupId) {
-        $this->groupId_ = $groupId;
+    function setPriceGroupId($priceGroupId) {
+        $this->priceGroupId_ = $priceGroupId;
     }
 
     /**
-     * Get the group id.
+     * Get the price group id.
      *
-     * @return int The group id.
+     * @return int The price group id.
      */
-    function getGroupId() {
-        return $this->groupId_;
+    function getPriceGroupId() {
+        return $this->priceGroupId_;
+    }
+    /**
+     * Get a price group.
+     *
+     * @return ZMPriceGroup The group or <code>null</code>.
+     */
+    function getPriceGroup() {
+    global $zm_accounts;
+
+        return $zm_accounts->getPriceGroupForId($this->priceGroupId_);
     }
 
 }

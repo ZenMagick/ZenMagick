@@ -149,7 +149,7 @@ class ZMAccounts extends ZMService {
                 ) values (:firstName;string, :lastName;string, :email;string, :nickName;string,
                   :phone;string, :fax;string, :newsletterSubscriber;integer, :emailFormat;string,
                   :defaultAddressId;integer, :authorization;integer,
-                  :gender;string, :dob;date, :password;string, :referral;string, :groupId;integer)";
+                  :gender;string, :dob;date, :password;string, :referral;string, :priceGroupId;integer)";
         $sql = $this->bindObject($sql, $account);
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
@@ -192,7 +192,7 @@ class ZMAccounts extends ZMService {
                 customers_gender = :gender;string,
                 customers_dob = :dob;date,
                 customers_referral = :referral;string,
-                customers_group_pricing = :groupId;integer
+                customers_group_pricing = :priceGroupId;integer
                 where customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
         $sql = $this->bindObject($sql, $account);
@@ -243,7 +243,7 @@ class ZMAccounts extends ZMService {
         $account->globalSubscriber_ = $this->isGlobalProductSubscriber($account->getId());
         $account->subscribedProducts_ = $this->getSubscribedProductIds($account->getId());
         $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_GUEST);
-        $account->groupId_ = $fields['customers_group_pricing'];
+        $account->priceGroupId_ = $fields['customers_group_pricing'];
         return $account;
     }
 
@@ -365,6 +365,40 @@ class ZMAccounts extends ZMService {
 
         $account->setSubscribedProducts($productIds);
         return $account;
+    }
+
+    /**
+     * Get a price group for the given id.
+     *
+     * @param int priceGroupId The id.
+     * @return ZMPriceGroup The group or <code>null</code>.
+     */
+    function getPriceGroupForId($priceGroupId) {
+        $db = $this->getDB();
+        $sql = "select *
+                from " . TABLE_GROUP_PRICING . "
+                where  group_id = :priceGroupId";
+        $sql = $db->bindVars($sql, ":priceGroupId", $priceGroupId, "integer");
+
+        $results = $db->Execute($sql);
+        $priceGroup = null;
+        if (0 < $results->RecordCount()) {
+            $priceGroup = $this->_newPriceGoup($results->fields);
+        }
+        return $priceGroup;
+    }
+
+    /**
+     * Create new price group instance.
+     */
+    function &_newPriceGroup($fields) {
+        $priceGroup = $this->create("PriceGroup");
+        $priceGroup->id_ = $fields['group_id'];
+        $priceGroup->name_ = $fields['group_name'];
+        $priceGroup->discount_ = $fields['group_percent'];
+        $priceGroup->dateAdded_ = $fields['date_added'];
+        $priceGroup->lastModified_ = $fields['last_modified'];
+        return $priceGroup;
     }
 
 }
