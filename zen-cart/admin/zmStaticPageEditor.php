@@ -31,23 +31,28 @@ require_once('includes/application_top.php');
   $selectedTheme = new ZMTheme($selectedThemeId);
   $newFile = $zm_request->getParameter('newfile');
   $selectedFile = $zm_request->getParameter('file', $newFile);
-  $selectedLanguage = $zm_runtime->getLanguage();
-  $selectedLanguageDirecory = $zm_request->getParameter('languageDirectory', $selectedLanguage->getDirectory());
+  $currentLanguage = $zm_runtime->getLanguage();
+  $selectedLanguageId = $zm_request->getParameter('languageId', $currentLanguage->getId());
 
   $editContents = $zm_request->getParameter('editContents', null, false);
   if (null != $zm_request->getParameter('save') && null != $editContents) {
       // save 
       $editContents = stripslashes($editContents);
-      $selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageDirectory);
+      $selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId);
       $editContents = null;
-  } else {
+  } else if (null != $selectedFile) {
       $editContents = null;
       if (null !== $selectedFile) {
           if (zm_is_empty($selectedFile) && !zm_is_empty($newFile)) {
               $editContents = '';
               $selectedFile = $newFile;
           } else {
-              $editContents = $selectedTheme->staticPageContent($selectedFile, $selectedLanguageDirecory, false);
+              $editContents = $selectedTheme->staticPageContent($selectedFile, $selectedLanguageId, false);
+              echo 'edit....'.$selectedLanguageId;
+              if (null == $editContents) {
+                  // file does not exist, so create (new language?)
+                  $editContents = '';
+              }
           }
       }
   }
@@ -86,16 +91,16 @@ require_once('includes/application_top.php');
 
     <div id="main">
       <div id="content">
-      <h2>ZenMagick Static Page Editor (
-              <select id="languageDirectory" name="languageDirectory" onChange="this.form.submit();">
-                <?php foreach ($zm_languages->getLanguages() as $language) { ?>
-                  <?php $selected = $selectedLanguageDirecory == $language->getDirectory() ? ' selected="selected"' : ''; ?>
-                  <option value="<?php echo $language->getDirectory() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
-                <?php } ?>
-              </select>
-            )<?php echo (null!==$editContents?': '.$selectedFile:'') ?></h2>
-        <?php if (null == $editContents) { ?>
-          <form action="<?php echo ZM_ADMINFN_SP_EDITOR ?>" method="get">
+        <form action="<?php echo ZM_ADMINFN_SP_EDITOR ?>" method="get">
+          <h2>ZenMagick Static Page Editor (
+                  <select id="languageId" name="languageId" onChange="this.form.submit();">
+                    <?php foreach ($zm_languages->getLanguages() as $language) { ?>
+                      <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
+                      <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
+                    <?php } ?>
+                  </select>
+                )<?php echo (null!==$editContents?': '.$selectedFile:'') ?></h2>
+            <?php if (null == $editContents) { ?>
             <?php echo zen_hide_session_id() ?>
             <fieldset>
               <legend>Edit Static Page</legend>
@@ -123,7 +128,7 @@ require_once('includes/application_top.php');
               <input type="text" name="newfile" id="newfile">
 
               <label for="reset_editor">Editor:</label>
-              <?php echo zen_draw_pull_down_menu('reset_editor', $editors_pulldown, $current_editor_key). zen_draw_hidden_field('action', 'set_editor') ?>
+              <?php echo zen_draw_pull_down_menu('reset_editor', $editors_pulldown, $current_editor_key, ' id="reset_editor"'). zen_draw_hidden_field('action', 'set_editor') ?>
 
               <br><br>
               <input type="submit" value="Edit">
@@ -136,7 +141,7 @@ require_once('includes/application_top.php');
             <?php echo zen_hide_session_id() ?>
             <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
             <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
-            <input type="hidden" name="languageDirectory" value="<?php echo $selectedLanguageDirecory ?>">
+            <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
 
             <?php 
               if ($_SESSION['html_editor_preference_status']=="FCKEDITOR") {
@@ -151,7 +156,7 @@ require_once('includes/application_top.php');
 
             <br><br>
             <input type="submit" name="save" value="Save">
-            <a href="<?php echo zen_href_link(ZM_ADMINFN_SP_EDITOR, "themeId=".$selectedThemeId."&languageDirectory=".$selectedLanguageDirecory) ?>">Cancel</a>
+            <a href="<?php echo zen_href_link(ZM_ADMINFN_SP_EDITOR, "themeId=".$selectedThemeId."&amp;languageId=".$selectedLanguageId) ?>">Cancel</a>
             <a href="#" onclick="preview();return false;">Preview</a>
           </form>
         <?php } ?>

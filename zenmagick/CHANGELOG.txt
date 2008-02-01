@@ -86,6 +86,10 @@ Release 0.8.7
 - fixed bug in index controller that would not create an empty result list if
   the category is empty
 - make ZMCategory have a proper default constructor
+- make language selection in static page editor actually work
+- change ZMTheme to use languageId rather than languageName for static page
+  content methods (languageName was actually the directory to mak matters
+	worse!); also non existing language directories are now created on save
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

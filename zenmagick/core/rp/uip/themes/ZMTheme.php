@@ -211,18 +211,20 @@ class ZMTheme extends ZMObject {
      * Get a list of available static pages.
      *
      * @param boolean includeDefaults If set to <code>true</code>, default pages will be included; default is <code>false</code>.
-     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @return array List of available static page names.
      */
-    function getStaticPageList($includeDefaults=false, $languageName=null) {
-    global $zm_runtime, $zm_request;
+    function getStaticPageList($includeDefaults=false, $languageId=null) {
+    global $zm_runtime, $zm_request, $zm_languages;
 
-        if (null == $languageName) {
+        if (null == $languageId) {
             $session = $zm_request->getSession();
             $language = $session->getLanguage();
-            $languageName = $language->getDirectory();
+        } else {
+            $language = $zm_languages->getLanguageForId($languageId);
         }
-        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
+        $languageDir = $language->getDirectory();
+        $path = $this->getLangDir().$languageDir."/".ZM_THEME_STATIC_DIR;
 
         $pages = array();
         if (is_dir($path)) {
@@ -238,7 +240,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageName."/".ZM_THEME_STATIC_DIR;
+            $path = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) { 
@@ -259,18 +261,23 @@ class ZMTheme extends ZMObject {
      *
      * @param string page The page name.
      * @param string contents The contents.
-     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @return boolean The status.
      */
-    function saveStaticPageContent($page, $contents, $languageName=null) {
-    global $zm_runtime, $zm_request;
+    function saveStaticPageContent($page, $contents, $languageId=null) {
+    global $zm_runtime, $zm_request, $zm_languages;
 
-        if (null == $languageName) {
+        if (null == $languageId) {
             $session = $zm_request->getSession();
             $language = $session->getLanguage();
-            $languageName = $language->getDirectory();
+        } else {
+            $language = $zm_languages->getLanguageForId($languageId);
         }
-        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
+        $languageDir = $language->getDirectory();
+        $path = $this->getLangDir().$languageDir."/".ZM_THEME_STATIC_DIR;
+        if (!file_exists($path)) {
+            zm_mkdir($path);
+        }
         $filename = $path.$page.'.php';
 
         if (file_exists($filename)) {
@@ -293,27 +300,29 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
-     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function staticPageContent($page, $languageName=null, $echo=true) {
-    global $zm_runtime, $zm_request;
+    function staticPageContent($page, $languageId=null, $echo=true) {
+    global $zm_runtime, $zm_request, $zm_languages;
 
         if (!zm_setting('isZMDefinePages')) {
-            return $this->zcStaticPageContent($page, $echo);
+            return $this->zcStaticPageContent($page, $languageId, $echo);
         }
 
-        if (null == $languageName) {
+        if (null == $languageId) {
             $session = $zm_request->getSession();
             $language = $session->getLanguage();
-            $languageName = $language->getDirectory();
+        } else {
+            $language = $zm_languages->getLanguageForId($languageId);
         }
-        $path = $this->getLangDir().$languageName."/".ZM_THEME_STATIC_DIR;
+        $languageDir = $language->getDirectory();
+        $path = $this->getLangDir().$languageDir."/".ZM_THEME_STATIC_DIR;
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
-            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageName."/".ZM_THEME_STATIC_DIR.$page.'.php';
+            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR.$page.'.php';
         }
 
         $contents = null;
@@ -332,21 +341,23 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
-     * @param string languageName Optional language name; default is <code>null</code> for current language.
+     * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function zcStaticPageContent($page, $languageName=null, $echo=true) {
-    global $zm_runtime, $zm_request;
+    function zcStaticPageContent($page, $languageId=null, $echo=true) {
+    global $zm_runtime, $zm_request, $zm_languages;
 
-        if (null == $languageName) {
+        if (null == $languageId) {
             $session = $zm_request->getSession();
             $language = $session->getLanguage();
-            $languageName = $language->getDirectory();
+        } else {
+            $language = $zm_languages->getLanguageForId($languageId);
         }
-        $filename = DIR_WS_LANGUAGES . $languageName . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
+        $languageDir = $language->getDirectory();
+        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
-            $filename = DIR_WS_LANGUAGES . $languageName . '/html_includes/define_' . $page . '.php';
+            $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
         }
 
         $contents = null;

@@ -41,6 +41,10 @@
     function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=true) {
     global $zm_runtime;
 
+        if (null === $imageInfo) {
+            return;
+        }
+
         $imageInfo->setParameter($parameter);
         switch ($format) {
         case PRODUCT_IMAGE_LARGE:
