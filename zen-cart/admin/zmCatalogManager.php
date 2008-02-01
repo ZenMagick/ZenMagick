@@ -140,4 +140,5 @@ require('includes/application_top.php');
 
   </body>
 </html>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
 <?php ob_end_flush(); ?>
