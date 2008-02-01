@@ -94,7 +94,7 @@ class ZMSacsMapper extends ZMObject {
     function ensureAuthorization($controller=null) {
     global $zm_request;
 
-        $requiredLevel = $this->getMappingValue($controller, 'level', null);
+        $requiredLevel = $this->getMappingValue($controller, 'level', zm_setting('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
         }

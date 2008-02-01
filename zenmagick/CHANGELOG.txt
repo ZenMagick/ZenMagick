@@ -90,6 +90,9 @@ Release 0.8.7
 - change ZMTheme to use languageId rather than languageName for static page
   content methods (languageName was actually the directory to mak matters
 	worse!); also non existing language directories are now created on save
+- add settnig 'defaultAccessLevel'; default is null so no change; however,
+  setting this to ZM_ACCOUNT_TYPE_REGISTERED would mean *all pages** require
+  to be logged in (unless configured differently)
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

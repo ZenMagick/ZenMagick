@@ -143,7 +143,7 @@
     define('ZM_SALE_TYPE_PRICE', 2);
 
 
-    //** others **//
+    //** tax base **//
 
     define('ZM_PRODUCT_TAX_BASE_STORE', 'Store');
     define('ZM_PRODUCT_TAX_BASE_SHIPPING', 'Shipping');
