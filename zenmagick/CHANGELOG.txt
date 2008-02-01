@@ -85,6 +85,7 @@ Release 0.8.7
   parameter;
 - fixed bug in index controller that would not create an empty result list if
   the category is empty
+- make ZMCategory have a proper default constructor
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

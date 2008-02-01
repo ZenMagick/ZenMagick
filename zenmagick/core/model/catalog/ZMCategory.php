@@ -46,32 +46,23 @@ class ZMCategory extends ZMModel {
 
     /**
      * Default c'tor.
-     *
-     * @param int id The category id.
-     * @param string name The name.
-     * $param boolean active The active flag.
      */
-    function ZMCategory($id, $parentId, $name, $active=false) {
+    function __construct() {
         parent::__construct();
 
-        $this->id_ = $id;
-        $this->parent_ = null;
-        $this->parentId_ = $parentId;
-        $this->name_ = $name;
-        $this->active_ = $active;
+        $this->id_ = 0;
+        $this->parentId_ = 0;
+        $this->name_ = '';
+        $this->active_ = false;
         $this->childrenIds_ = array();
         $this->image_ = null;
     }
 
     /**
      * Default c'tor.
-     *
-     * @param int id The category id.
-     * @param string name The name.
-     * $param boolean active The active flag.
      */
-    function __construct($id, $parentId, $name, $active=false) {
-        $this->ZMCategory($id, $parentId, $name, $active);
+    function ZMCategory() {
+        $this->__construct();
     }
 
     /**

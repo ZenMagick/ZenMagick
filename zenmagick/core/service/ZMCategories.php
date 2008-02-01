@@ -279,7 +279,10 @@ class ZMCategories extends ZMService {
      * Create new <code>ZMCategory</code> instance.
      */
     function &_newCategory($fields) {
-        $category = $this->create("Category", $fields['categories_id'], $fields['parent_id'], $fields['categories_name'], false);
+        $category = $this->create("Category");
+        $category->id_ = $fields['categories_id'];
+        $category->parentId_ = $fields['parent_id'];
+        $category->name_ = $fields['categories_name'];
         $category->description_ = $fields['categories_description'];
         $category->sortOrder_ = $fields['sort_order'];
         $category->image_ = $fields['categories_image'];
