@@ -61,7 +61,7 @@
             $class = trim($class);
             $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        zm_href(FILENAME_DEFAULT, '&'.$category->getPath(), '', false, false) .
+                        zm_href(ZM_FILENAME_CATEGORY, '&'.$category->getPath(), '', false, false) .
                         '">'.zm_htmlencode($category->getName(), false).'</a>';
             if (0 < $noOfProducts) {
                 echo '('.$noOfProducts.')';

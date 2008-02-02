@@ -80,6 +80,7 @@
     define ('ZM_FILENAME_CHECKOUT_GUEST', 'checkout_guest');
     define ('ZM_FILENAME_GUEST_HISTORY', 'guest_history');
     define ('ZM_FILENAME_GV_SEND_CONFIRM', 'gv_send_confirm');
+    define ('ZM_FILENAME_CATEGORY', 'category');
 
 
     //** admin **//

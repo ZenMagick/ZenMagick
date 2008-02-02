@@ -56,67 +56,23 @@ class ZMIndexController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
-     */
-    function process() { 
-    global $zm_request, $zm_crumbtrail;
-
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($zm_request->getProductId());
-
-        return parent::process();
-    }
-
-    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_products;
+    global $zm_request;
 
-        // decide which index view to use and prepare index data
-        $resultList = null;
-        $products = null;
-        $viewName = 'index';
+        $viewName = null;
 
+        // be nice to seo URL's that we do not control and also bookmarked pages
         if (null != $zm_request->getCategoryPath()) {
-            $products = $zm_products->getProductsForCategoryId($zm_request->getCategoryId());
-            $viewName = 'category_list';
-        } else if (null != $zm_request->getManufacturerId()) {
-            $products = $zm_products->getProductsForManufacturerId($zm_request->getManufacturerId());
-            $viewName = 'manufacturer';
-        } else if (null != $zm_request->getParameter('compareId')) {
-            $products = $zm_products->getProductsForIds($zm_request->getParameter('compareId'));
-            $viewName = 'category_list';
-        }
-        if (null !== $products) {
-            $resultList = $this->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
-            $resultList->addFilter(new ZMManufacturerFilter());
-            $resultList->addFilter(new ZMCategoryFilter());
-            $resultList->addSorter(new ZMProductSorter());
-            $resultList->refresh();
-            $this->exportGlobal("zm_resultList", $resultList);
-        }
-
-        $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
-        if ($viewName == "category_list" && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
-        }
-
-        $this->exportGlobal("zm_category", $category);
-
-        if (null != $resultList && 1 == $resultList->getNumberOfResults() && zm_setting('isSkipSingleProductCategory')) {
-            $product = array_pop($resultList->getResults());
-            // TODO: do not use name directly!
-            $zm_request->setParameterMap(array('products_id' => $product->getId()));
-            $viewName = 'product_info';
+        } else if (null != $zm_request->getManufacturerId()) {
+            $viewName = 'category';
+        } else if (null != $zm_request->getParameter('compareId')) {
+            $viewName = 'category';
         }
 
         return $this->findView($viewName);

@@ -80,10 +80,13 @@
         $zm_urlMapper->setMapping('gv_send_confirm', 'success', 'account', 'RedirectView', 'secure=true');
 
         // index
-        $zm_urlMapper->setMapping('index', 'category', 'category');
-        $zm_urlMapper->setMapping('index', 'category_list', 'category_list');
-        $zm_urlMapper->setMapping('index', 'manufacturer', 'manufacturer');
-        $zm_urlMapper->setMapping('index', 'product_info', 'product_info', 'ForwardView');
+        $zm_urlMapper->setMapping('index', 'category', 'category', 'ForwardView');
+
+        // category
+        $zm_urlMapper->setMapping('category', 'category', 'category');
+        $zm_urlMapper->setMapping('category', 'category_list', 'category_list');
+        $zm_urlMapper->setMapping('category', 'manufacturer', 'manufacturer');
+        $zm_urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
 
         // login
         $zm_urlMapper->setMapping('login');

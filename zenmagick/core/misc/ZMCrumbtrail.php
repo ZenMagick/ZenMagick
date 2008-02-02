@@ -127,7 +127,7 @@ class ZMCrumbtrail extends ZMObject {
         // categories
         foreach ($path as $catId) {
             $category =& $zm_categories->getCategoryForId($catId);
-            $this->addCrumb($category->getName(), zm_href(FILENAME_DEFAULT, $category->getPath(), false));
+            $this->addCrumb($category->getName(), zm_href(ZM_FILENAME_CATEGORY, $category->getPath(), false));
         }
     }
 
@@ -143,7 +143,7 @@ class ZMCrumbtrail extends ZMObject {
 
         $manufacturer = $zm_manufacturers->getManufacturerForId($manufacturerId);
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), zm_href(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturerId, false));
+            $this->addCrumb($manufacturer->getName(), zm_href(ZM_FILENAME_CATEGORY, 'manufacturers_id=' . $manufacturerId, false));
         }
     }
 
