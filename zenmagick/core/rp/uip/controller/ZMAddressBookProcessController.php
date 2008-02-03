@@ -204,7 +204,12 @@ class ZMAddressBookProcessController extends ZMController {
         }
 
         $this->exportGlobal("zm_address", $address);
-        $zm_messages->success(zm_l10n_get('Address added to your address book.'));
+
+        // if guest, there is no address book!
+        if ($zm_request->isRegistered()) {
+            $zm_messages->success(zm_l10n_get('Address added to your address book.'));
+        }
+
         return $this->findView('success');
     }
 
