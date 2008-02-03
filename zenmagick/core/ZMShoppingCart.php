@@ -308,6 +308,7 @@ class ZMShoppingCart extends ZMService {
      */
     function setShippingAddressId($addressId) {
         $_SESSION['sendto'] = $addressId;
+        $_SESSION['shipping'] = '';
     }
 
     /**
@@ -329,6 +330,9 @@ class ZMShoppingCart extends ZMService {
     function setBillingAddressId($addressId) {
     global $zm_addresses;
 
+        if (isset($_SESSION['billto']) && $_SESSION['billto'] != $addressId) {
+            $_SESSION['payment'] = '';
+        }
         $_SESSION['billto'] = $addressId;
     }
 

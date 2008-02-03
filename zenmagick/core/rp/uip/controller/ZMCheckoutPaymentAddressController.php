@@ -56,6 +56,26 @@ class ZMCheckoutPaymentAddressController extends ZMController {
 
 
     /**
+     * Check cart state.
+     *
+     * @return ZMView A <code>ZMView</code>  or <code>null</code>.
+     */
+    function checkCart() {
+    global $zm_cart;
+
+        if ($zm_cart->isEmpty()) {
+            return $this->findView("empty_cart");
+        }
+
+        if (!$zm_cart->readyForCheckout()) {
+            return $this->findView("cart_not_ready");
+        }
+
+        return null;
+    }
+
+
+    /**
      * Process a HTTP request.
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
@@ -80,6 +100,10 @@ class ZMCheckoutPaymentAddressController extends ZMController {
     function processGet() {
     global $zm_request, $zm_addresses;
 
+        if (null !== ($view = $this->checkCart())) {
+            return $view;
+        }
+
         $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
@@ -99,6 +123,10 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      */
     function processPost() {
     global $zm_request, $zm_cart, $zm_addresses;
+
+        if (null !== ($view = $this->checkCart())) {
+            return $view;
+        }
 
         // if address field in request, it's a select; otherwise a new address
         $addressId = $zm_request->getParameter('address', null);
