@@ -56,25 +56,73 @@ class ZMCheckoutPaymentAddressController extends ZMController {
 
 
     /**
+     * Process a HTTP request.
+     *
+     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     *
+     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     */
+    function process() { 
+    global $zm_crumbtrail;
+
+        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
+        $zm_crumbtrail->addCrumb(zm_title(false));
+
+        return parent::process();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_addresses;
-
-        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+    global $zm_request, $zm_addresses;
 
         $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
         $address =& $this->create("Address");
         $address->populate();
+        $address->setPrimary(0 == count($addressList));
         $this->exportGlobal("zm_address", $address);
 
         return $this->findView();
+    }
+
+    /**
+     * Process a HTTP POST request.
+     * 
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    function processPost() {
+    global $zm_request, $zm_cart, $zm_addresses;
+
+        // if address field in request, it's a select; otherwise a new address
+        $addressId = $zm_request->getParameter('address', null);
+
+        if (null !== $addressId) {
+            $zm_cart->setBillingAddressId($addressId);
+        } else {
+            // TODO: create business objects to share logic...
+            // use address book controller to process
+            $abc = $this->create("AddressBookProcessController");
+            $view = $abc->createAddress();
+            $address = $abc->getGlobal('zm_address');
+            if (0 == $address->getId()) {
+                $this->exportGlobal("zm_address", $address);
+                $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+                $this->exportGlobal("zm_addressList", $addressList);
+                return $this->findView();
+            }
+            // new address
+            $address = $abc->getGlobal('zm_address');
+            $zm_cart->setBillingAddressId($address->getId());
+        }
+
+        return $this->findView('success');
     }
 
 }

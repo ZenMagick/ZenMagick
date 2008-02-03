@@ -322,6 +322,17 @@ class ZMShoppingCart extends ZMService {
     }
 
     /**
+     * Set the selected billing address.
+     *
+     * @param int addressId The billing address id.
+     */
+    function setBillingAddressId($addressId) {
+    global $zm_addresses;
+
+        $_SESSION['billto'] = $addressId;
+    }
+
+    /**
      * Returns the URL for the actual order form.
      *
      * <p>An example for the actual order form might look similar to this:</p>

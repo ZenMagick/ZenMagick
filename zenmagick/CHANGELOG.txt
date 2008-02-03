@@ -95,6 +95,7 @@ Release 0.8.7
   to be logged in (unless configured differently)
 - introduce ZM_FILENAME_CATEGORY and refactor most of ZMIndexController into
   ZMCategoryController
+- fix billing address controller
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

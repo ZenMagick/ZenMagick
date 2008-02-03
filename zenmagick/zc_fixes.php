@@ -31,7 +31,9 @@
     function zm_needs_zc() {
     global $zm_request;
       
-        return zm_is_checkout_page() || zm_is_in_array($zm_request->getPageName(), 'advanced_search_result');
+        $pageName = $zm_request->getPageName();
+        return (zm_is_checkout_page() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
+            || zm_is_in_array($pageName, 'advanced_search_result');
     }
 
     // skip more zc request handling
