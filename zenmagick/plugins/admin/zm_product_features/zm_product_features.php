@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_product_features extends ZMCatalogPlugin {
+class zm_product_features extends ZMPlugin {
 
     /**
      * Default c'tor.
@@ -66,7 +66,7 @@ class zm_product_features extends ZMCatalogPlugin {
 
         if (0 < $zm_request->getProductId()) {
             // only available if product selected
-            $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin');
+            $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZM_MENU_CATALOG_ADMIN);
         }
     }
 

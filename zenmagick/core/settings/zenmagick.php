@@ -151,6 +151,12 @@
     define('ZM_PRODUCT_TAX_BASE_BILLING', 'Billing');
 
 
+    //** menyu keys **//
+
+    define('ZM_MENU_PLUGINS', 'plugins');
+    define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

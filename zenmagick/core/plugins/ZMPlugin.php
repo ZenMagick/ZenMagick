@@ -490,12 +490,13 @@ class ZMPlugin extends ZMObject {
      * @param string id The page id.
      * @param string title The page title.
      * @param string function The function to render the contents.
+     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZM_MENU_PLUGINS</em>.
      */
-    function addMenuItem($id, $title, $function) {
+    function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
     global $zm_request;
 
         if ($zm_request->isAdmin()) {
-            zm_add_menu_item(new ZMMenuItem('plugins', $id, $title, null, $function));
+            zm_add_menu_item(new ZMMenuItem($menuKey, $id, $title, null, $function));
         }
     }
 

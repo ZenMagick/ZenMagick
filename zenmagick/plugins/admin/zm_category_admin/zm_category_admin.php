@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_category_admin extends ZMCatalogPlugin {
+class zm_category_admin extends ZMPlugin {
 
     /**
      * Default c'tor.
@@ -71,7 +71,7 @@ class zm_category_admin extends ZMCatalogPlugin {
             $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin');
             if (!zm_setting('admin.isShowCatalogTreeProducts')) {
                 if (0 < count($zm_products->getProductIdsForCategoryId($categoryId, false))) {
-                    $this->addMenuItem('zm_category_admin_list', zm_l10n_get('Products'), 'zm_category_admin_list');
+                    $this->addMenuItem('zm_category_admin_list', zm_l10n_get('Products'), 'zm_category_admin_list', ZM_MENU_CATALOG_ADMIN);
                 }
             }
         }

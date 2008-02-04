@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_group_pricing extends ZMCatalogPlugin {
+class zm_group_pricing extends ZMPlugin {
 
     /**
      * Default c'tor.
@@ -67,7 +67,7 @@ class zm_group_pricing extends ZMCatalogPlugin {
 
         if (0 < $zm_request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('zm_group_pricing_admin', zm_l10n_get('Group Pricing'), 'zm_group_pricing_admin');
+            $this->addMenuItem('zm_group_pricing_admin', zm_l10n_get('Group Pricing'), 'zm_group_pricing_admin', ZM_MENU_CATALOG_ADMIN);
         }
     }
 

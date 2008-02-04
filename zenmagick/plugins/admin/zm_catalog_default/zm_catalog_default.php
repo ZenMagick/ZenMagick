@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_catalog_default extends ZMCatalogPlugin {
+class zm_catalog_default extends ZMPlugin {
 
     /**
      * Default c'tor.
@@ -66,7 +66,7 @@ class zm_catalog_default extends ZMCatalogPlugin {
         parent::init();
 
         //if (0 == $zm_request->getProductId() && 0 == $zm_request->getCategoryId()) {
-            $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin');
+            $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin', ZM_MENU_CATALOG_ADMIN);
         //}
     }
 
