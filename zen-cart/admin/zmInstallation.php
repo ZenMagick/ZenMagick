@@ -255,6 +255,7 @@ require_once('includes/application_top.php');
             <?php } else { ?>
               <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
                 and unless you have modified them, or are sure that you need them they can safely be removed.</p>
+              <p><strong>There might be items on this list that need to be removed manually (for example, directories that are not empty).</strong></p>
               <?php $ii = 0; foreach ($obsolete as $file) { $name = zm_mk_relative($file); ?>
                 <input type="checkbox" id="obsolete-<?php echo $ii ?>" name="obsolete[]" value="<?php echo $file ?>">
                 <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
