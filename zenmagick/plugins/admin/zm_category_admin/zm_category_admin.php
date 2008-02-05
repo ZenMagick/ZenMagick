@@ -68,7 +68,7 @@ class zm_category_admin extends ZMPlugin {
         $categoryId = $zm_request->getCategoryId();
         if (0 < $categoryId) {
             // only available if category involved
-            $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin');
+            $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin', ZM_MENU_CATALOG_ADMIN);
             if (!zm_setting('admin.isShowCatalogTreeProducts')) {
                 if (0 < count($zm_products->getProductIdsForCategoryId($categoryId, false))) {
                     $this->addMenuItem('zm_category_admin_list', zm_l10n_get('Products'), 'zm_category_admin_list', ZM_MENU_CATALOG_ADMIN);
