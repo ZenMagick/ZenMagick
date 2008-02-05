@@ -117,6 +117,7 @@ EOT;
 
         if (null != $products) {
             $resultList = $zm_loader->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
+            $resultList->setPagination(16);
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';
             echo '<thead><tr>';

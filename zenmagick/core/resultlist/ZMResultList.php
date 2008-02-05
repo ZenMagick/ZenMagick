@@ -239,6 +239,13 @@ class ZMResultList extends ZMObject {
     function getPagination() { return $this->pagination_; }
 
     /**
+     * Set the configured pagination.
+     *
+     * @param int pagination The number of results per page.
+     */
+    function setPagination($pagination) { $this->pagination_ = $pagination; }
+
+    /**
      * Get the calculated number of pages.
      *
      * @return int The number of pages.
