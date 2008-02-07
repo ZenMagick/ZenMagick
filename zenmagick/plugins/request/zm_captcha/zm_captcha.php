@@ -50,7 +50,7 @@ class zm_captcha extends ZMPlugin {
      * Default c'tor.
      */
     function zm_captcha() {
-        parent::__construct('ZenMagick CAPTCHA Plugin', 'CAPTCHA for ZenMagick');
+        parent::__construct('ZenMagick CAPTCHA Plugin', 'CAPTCHA for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
         $this->captchaEnabled_ = false;
     }
