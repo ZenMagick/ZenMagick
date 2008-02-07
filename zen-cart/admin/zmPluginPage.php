@@ -29,7 +29,7 @@ require_once('includes/application_top.php');
   if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 
-      $contents = ob_get_clean();
+      $_zm_pcontents = ob_get_clean();
   }
 
 
@@ -63,8 +63,8 @@ require_once('includes/application_top.php');
 
     <div id="main">
       <div id="content">
-        <?php if (!zm_is_empty($contents)) {
-            echo $contents;
+        <?php if (!zm_is_empty($_zm_pcontents)) {
+            echo $_zm_pcontents;
         } else if (null != $page) {
             echo $page->getContents();
         } else { ?><h2>Invalid Contents Function: <?php echo $fkt ?></h2><?php } ?>
