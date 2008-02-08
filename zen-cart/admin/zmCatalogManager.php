@@ -31,19 +31,20 @@ require('includes/application_top.php');
   $zm_nav_params .= '&fkt='.$selectedFkt;
 
   $title = null;
+  if (0 < $zm_request->getCategoryId()) {
+      $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+      $title = $category->getName();
+  }
   if (0 < $zm_request->getProductId()) {
       $product = $zm_products->getProductForId($zm_request->getProductId());
       $title = $product->getName();
       $zm_nav_params .= '&productId='.$zm_request->getProductId();
-  } else if (0 < $zm_request->getCategoryId()) {
-      $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
-      $title = $category->getName();
-  }
+  } 
 
   // common nav params
   $zm_nav_params = '';
   if (null != $product) {
-      $zm_nav_params .= '&product='.$product->getId();
+      $zm_nav_params .= '&productId='.$product->getId();
   }
   if (null != $category) {
       $zm_nav_params .= '&cPath='.$zm_request->getCategoryPath();
