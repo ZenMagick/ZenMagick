@@ -405,7 +405,7 @@
 					break;
 				case 'cPath':
 					switch(true){
-						case ($page == ZM_FILENAME_CATEGORY):
+						case ($page == ZM_FILENAME_CATEGORY || $page == FILENAME_DEFAULT):
 							$url = $this->make_url($page, $this->get_category_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($this->is_product_string($params)):
@@ -420,7 +420,7 @@
 					break;
 				case 'manufacturers_id':
 					switch(true){
-						case ($page == ZM_FILENAME_CATEGORY && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
+						case (($page == ZM_FILENAME_CATEGORY  || $page == FILENAME_DEFAULT) && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
 							$url = $this->make_url($page, $this->get_manufacturer_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($page == FILENAME_PRODUCT_INFO):
