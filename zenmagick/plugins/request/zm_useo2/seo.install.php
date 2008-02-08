@@ -132,8 +132,8 @@
 
 			//IMAGINADW.COM
 			$this->default_config['SEO_URLS_ONLY_IN'] = array(
-				'DEFAULT' => 'index, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4',
-				'QUERY' => "INSERT INTO `".TABLE_CONFIGURATION."` VALUES ('', 'Enter pages to allow rewrite', 'SEO_URLS_ONLY_IN', 'index, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4', 'This setting will allow the rewrite only in the specified pages. If it\'s empty all pages will be rewrited. <br><br>The format <b>MUST</b> be in the form: <b>page1,page2,page3</b>', GROUP_INSERT_ID, ".$x.", NOW(), NOW(), NULL, NULL)"
+				'DEFAULT' => 'index, category, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4',
+				'QUERY' => "INSERT INTO `".TABLE_CONFIGURATION."` VALUES ('', 'Enter pages to allow rewrite', 'SEO_URLS_ONLY_IN', 'index, category, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4', 'This setting will allow the rewrite only in the specified pages. If it\'s empty all pages will be rewrited. <br><br>The format <b>MUST</b> be in the form: <b>page1,page2,page3</b>', GROUP_INSERT_ID, ".$x.", NOW(), NOW(), NULL, NULL)"
 			);
 			$x++;
 
