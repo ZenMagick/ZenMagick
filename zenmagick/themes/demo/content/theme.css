@@ -21,42 +21,50 @@
  * $Id$
  */
 
-body {color:#303030;background:white;}
-a {color:black;}
-a:hover {color:black;}
-input.btn, a.btn {background-color:#655f68;color:white;}
+body {color:#6A5F5F;background:#F5F5F5;}
+a {color:#E58C43;}
+a:hover {color:#E58C43;text-decoration:underline;}
+input.btn, a.btn {background-color:#ccc;color:black;}
 #content a.btn:hover {color:white;}
 p.man span {color:#f02025;}
 label span, .legend span {color:#f02025;}
-#content h3 {color:#d32814;}
+
+h1, h2, h3 {
+	margin-bottom: 1em;
+	text-transform: lowercase;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #549DC7;
+}
+
+#container {border:1px solid #fafafa;}
 
 #content ul#messages .msg, #content ul#messages .msg {background:#6f6;color:#000;}
 #content ul#messages .warn {background:#ff0;color:#000;}
 #content ul#messages .error {background:#e55;color:#fff;}
 
-#header {background-color:#7e7782;color:#4c474e;}
-#header h1 {color:#4c474e;}
-#header h1 a {color:#4c474e}
-#header h2 {color:#f0f2f4;font-weight:bold;}
+#header {background:url(images/img01.gif);}
+#header h1 {color:#E58C43;margin-bottom:4px;}
+#header h1 a {color:#E58C43}
+#header h1 a:hover {text-decoration:none;}
+#header h2 {color:#549DC7;font-weight:bold;}
 
-#menu {background:#323034;color:#fff;}
-#menu li a {color:#fff;font-weight:bold;}
-#menu a:hover {text-decoration:underline;background:#323034;color:white;}
+#menu {background:url(images/img01.gif) left bottom;color:#E58C43;border-bottom:1px solid #eee;}
+#menu li a {color:#E58C43;font-weight:bold;}
+#menu a:hover {text-decoration:underline;color:#549DC7;background-color:inherit;}
 
-#crumbtrail {color:black;}
 #content h1 {margin-bottom:8px;}
-#content h2, #content h3 {color:#505050;}
 
 #footer {color:#fff;background:#323034;}
-#footer a {color:#f0f0f0;}
-#footer a:hover {color:#fff;}
-div#footer p#fpages {background:#7e7782;}
+#footer a {color:#6A5F5F;}
+#footer a:hover {color:#6A5F5F;}
+div#footer {background:url(images/img01.gif);color:#6A5F5F;}
+div#footer p#fpages {background:url(images/img01.gif);color:#6A5F5F;}
 
 /* side boxed */
-.box {background-color:#f2f2f3;color:#505050;}
+.box {background-color:#fefefe;border:1px solid #F5F5F5;}
 /* box header */
-#leftcol h3, #rightcol h3 {background-color:#cbc9cd;color:black;}
-#leftcol h3 a, #rightcol h3 a {color:#fff;}
+#leftcol h3, #rightcol h3 {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;color:#549DC7;background-color:#efefef;border:none;}
+#leftcol h3 a, #rightcol h3 a {color:#549DC7;}
 
 /* result lists */
 .rlist th {background-color:#f2f2f3;}
@@ -64,7 +72,7 @@ div#footer p#fpages {background:#7e7782;}
 .rnav span.nin {color:#c0c0c0;}
 
 /* product info */
-legend {color:#d32814;}
+legend {color:#549DC7;}
 
 body#b_account_edit #content span {color:#f02025;}
 body#b_create_account #content span {color:#f02025;}
@@ -78,13 +86,19 @@ body#b_checkout_payment p.paytype:hover {color:white;background-color:#d32814;}
 div#eztoc h4 {background-color:#cbc9cd;color:black;}
 div#eztoc p a {background-color:#cbc9cd;color:black;}
 
-#b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#d32814;background-color:#fff;}
+#b_advanced_search #asfilter legend, #b_advanced_search #term legend {color:#549DC7;background-color:#fff;}
+fieldset fieldset legend {font-weight:normal;color:#549DC7;}
 
 div.mcol {background-color:#f2f2f3;}
 
 /* popup stuff */
-span.example {background-color:#c0c0c0;color:#d32814;}
+span.example {background-color:#e0e0e0;color:#549DC7;}
 
 /* bookmarks */
 #sb_bookmarks img {vertical-align:middle;margin-right:3px;}
 #sb_bookmarks a {display:block;margin-bottom:4px;}
+
+/* view source */
+#footer #sview {margin:4px;}
+#footer #sview a {padding:2px;background:white;color:#b83c26;border:1px dotted black;}
+#source {overflow:scroll;font-family:sans-serif;font-size:120%;}

@@ -25,6 +25,8 @@
 ?>
 <?php
 
+    define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
+
     if ('contact_us' == $zm_request->getPageName()) {
         $zm_runtime->setThemeId('default');
     }

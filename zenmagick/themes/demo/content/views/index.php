@@ -24,20 +24,29 @@
  */
 ?>
 
-<h1>Demo Theme Homepage</h1>
-<p>This demo theme illustrates some of the many ZenMagick features. In particular there are:</p>
+<h1>Welcome to the ZenMagick demo store</h1>
+<p>Running on top of a standard <a href="http://www.zen-cart.com">zen-cart</a> installation,
+  <a href="http://www.zenmagick.org">ZenMagick</a> offers a replacement for the zen-cart templating system. Also included is an
+  object oriented <a href="http://wiki.zenmagick.org/index.php/ZenMagick_API">API</a> to access all storefront relevant database
+  data in a structured way.</p>
+  
+<p>The included demo theme, as seen here, illustrates a few of the many ZenMagick features. In particular there are:</p>
 <ul>
-  <li><a href="<?php zm_href('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses the ZenMagick Ajax controllers</li>
-  <li>Custom CSS per page; for example, this page has some custom CSS that is located under <code>content/css</code></li>
-  <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it</li>
+  <li>The <a href="<?php zm_href('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses the ZenMagick Ajax controllers</li>
+  <li>Custom CSS per page; for example, this page - the homepage - is modified by some custom CSS (main header text in <span style="color:red;">red</span>)</li>
+  <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it; for example:
+    <ul>
+      <li>Additional product filter (experimental)</li>
+      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example, the <a href="<?php zm_href(FILENAME_SITE_MAP) ?>">sidemap</a>)</li>
+    </ul>
+  </li>
   <li>Custom alpha and price-range filter</li>
-  <li>Custom colour schema using custom site wide CSS (theme.css) that builds on the default CSS (this is a feature of default_layout.php)</li>
-  <li>Theme switching (implemented for the contact us page)</li>
+  <li>Theme specific CSS that extends the default look&amp;fee (this is a feature of the main layout template)</li>
+  <li>Request based Theme switching (implemented for the contact us page)</li>
   <li>Field specific error messages (login page)</li>
   <li><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a> integration</li>
-  <li>Drag/Drop Ajax cart demo for category listing (drag listing image onto shopping cart sidebox)<br/>
-    <strong>Note1:</strong> This demo does not use <code>json.js</code> as this is not compatible with the used <a href="http://interface.eyecon.ro">effects library</a>!<br/>
-  </li>
+  <li>Drag/Drop Ajax cart demo in <a href="<?php zm_href(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
+    (drag the product image onto the shopping cart on ther right...)</li>
   <li>A social bookmarking sidebox that lets you bookmark any page (based on the <a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_60&products_id=315">Social Bookmarking</a> mod).</li>
 </ul>
 
