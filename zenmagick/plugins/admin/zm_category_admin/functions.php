@@ -36,8 +36,8 @@
 
         eval(zm_globals());
         $template = file_get_contents($zm_category_admin->getPluginDir().'/views/category_admin.php');
-        $contents = eval('?>'.$template);
-        return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'), $contents);
+        eval('?>'.$template);
+        return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'));
     }
 
     /**

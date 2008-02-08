@@ -35,8 +35,8 @@
     global $zm_catalog_default;
 
         $template = file_get_contents($zm_catalog_default->getPluginDir().'/views/catalog_default.php');
-        $contents = eval('?>'.$template);
-        return new ZMPluginPage('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), $contents);
+        eval('?>'.$template);
+        return new ZMPluginPage('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'));
     }
 
 ?>

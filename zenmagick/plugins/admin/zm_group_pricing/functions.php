@@ -36,8 +36,8 @@
 
         eval(zm_globals());
         $template = file_get_contents($zm_group_pricing->getPluginDir().'/views/group_pricing_admin.php');
-        $contents = eval('?>'.$template);
-        return new ZMPluginPage('zm_group_pricing_admin', zm_l10n_get('Group Pricing'), $contents);
+        eval('?>'.$template);
+        return new ZMPluginPage('zm_group_pricing_admin', zm_l10n_get('Group Pricing'));
     }
 
 ?>

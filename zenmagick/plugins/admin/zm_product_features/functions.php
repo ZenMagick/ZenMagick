@@ -36,8 +36,8 @@
 
         eval(zm_globals());
         $template = file_get_contents($zm_product_features->getPluginDir().'/views/manage_features.php');
-        $contents = eval('?>'.$template);
-        return new ZMPluginPage('zm_product_features_admin', zm_l10n_get('Features'), $contents);
+        eval('?>'.$template);
+        return new ZMPluginPage('zm_product_features_admin', zm_l10n_get('Features'));
     }
 
 ?>
