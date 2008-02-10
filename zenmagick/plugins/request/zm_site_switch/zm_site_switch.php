@@ -62,7 +62,7 @@ class zm_site_switch extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_runtime;
+    global $zm_request, $zm_runtime, $zm_server_names;
 
         parent::init();
 
@@ -70,8 +70,8 @@ class zm_site_switch extends ZMPlugin {
 
         $hostname = $zm_request->getHostname();
 
-        if ('othermagick.org.local' == $hostname) {
-            $zm_runtime->setThemeId('demo');
+        if (isset($zm_server_names[$hostname])) {
+            $zm_runtime->setThemeId($zm_server_names[$hostname]);
         }
     }
 

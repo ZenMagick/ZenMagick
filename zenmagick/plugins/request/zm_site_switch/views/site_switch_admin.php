@@ -30,7 +30,11 @@
     $zm_server_names = array('' => '');
 
     // include the actual config
-    include(ZM_FILE_SITE_SWITCHER);
+    if (file_exists(ZM_FILE_SITE_SWITCHER)) {
+       include(ZM_FILE_SITE_SWITCHER);
+    }
+
+    zm_site_switch_check_permissions();
 
     if (null != $zm_request->getParameter('save')) {
         $zm_server_names = array();
