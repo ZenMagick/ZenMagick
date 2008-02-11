@@ -116,9 +116,9 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 /* jquery filetree */
 #cat-tree {border:1px solid gray;padding:4px;margin:2px;width:24%;}
 .presults {position:absolute;left:0;top:6px;width:100%;border-bottom:1px solid gray;margin:4px 6px;}
-.presults th, .presults td {border:1px solid gray;border-bottom:none;}
-.presults th.name, .presults td.name {border-right:none;}
-.presults tr.odd td {background:#eee;}
+.presults th, .presults td {border:1px solid gray;border-bottom:none;border-right:none;}
+.presults th.last, .presults td.last {border-right:1px solid gray;}
+.presults tr.odd td, tr.odd td input {background:#eee;}
 .presults .rnav td {padding-top:6px;text-align:right;}
 .presults .pno {padding-right:3px;}
 .presults .nin {padding:0 2px;}
