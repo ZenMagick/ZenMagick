@@ -38,6 +38,7 @@ class zm_imagehandler2 extends ZMPlugin {
     function zm_imagehandler2() {
         parent::__construct('ZenMagick ImageHandler2', 'ImageHandler2 support for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
+        $this->setScope(ZM_SCOPE_STORE);
     }
 
     /**
