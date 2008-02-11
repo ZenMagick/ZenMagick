@@ -33,9 +33,9 @@
      * @param ZMImageInfo imageInfo The image info.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
     function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=true) {
