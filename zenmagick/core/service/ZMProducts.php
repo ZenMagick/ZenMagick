@@ -533,6 +533,7 @@ class ZMProducts extends ZMService {
                 :customFields,
                 products_status = :status;integer,
                 products_model = :model;string,
+                products_image = :defaultImage;string,
                 products_quantity = :quantity;integer,
                 products_price = :productPrice;float,
                 products_tax_class_id = :taxClassId;integer,
@@ -682,7 +683,7 @@ class ZMProducts extends ZMService {
         $product->status_ = 1 == $fields['products_status'];
         $product->model_ = $fields['products_model'];
         //TODO: do this in ZMProduct rather than here!
-        $product->image_ = (empty($fields['products_image']) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $fields['products_image'];
+        $product->image_ = $fields['products_image'];
         $product->url_ = $fields['products_url'];
         $product->dateAvailable_ = $fields['products_date_available'];
         $product->dateAdded_ = $fields['products_date_added'];

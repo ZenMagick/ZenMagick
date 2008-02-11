@@ -166,7 +166,16 @@ class ZMProduct extends ZMModel {
      *
      * @return string The default image.
      */
-    function getDefaultImage() { return $this->image_; }
+    function getDefaultImage() { 
+      return (zm_is_empty($this->image_) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $this->image_;
+    }
+
+    /**
+     * Set the product default image.
+     *
+     * @param string image The default image.
+     */
+    function setDefaultImage($image) { $this->image_ = $image; }
 
     /**
      * Get the product URL.
