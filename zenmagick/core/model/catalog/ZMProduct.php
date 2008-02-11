@@ -60,7 +60,7 @@ class ZMProduct extends ZMModel {
     var $sortOrder_;
 
     // raw price
-    var $price_;
+    var $productPrice_;
 
     // funny bits
     var $offers_;
@@ -82,6 +82,7 @@ class ZMProduct extends ZMModel {
         $this->name_ = $name;
         $this->description_ = $description;
         $this->features_ = array();
+        $this->productPrice_ = 0;
         $this->sortOrder_ = 0;
     }
 
@@ -119,6 +120,13 @@ class ZMProduct extends ZMModel {
     function getName() { return $this->name_; }
 
     /**
+     * Set the product name.
+     *
+     * @param string name The product name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
      * Get the description.
      *
      * @return string The product description.
@@ -145,6 +153,13 @@ class ZMProduct extends ZMModel {
      * @return string The model.
      */
     function getModel() { return $this->model_; }
+
+    /**
+     * Set the model.
+     *
+     * @param string model The model.
+     */
+    function setModel($model) { $this->model_ = $model; }
 
     /**
      * Get the product default image.
@@ -182,6 +197,13 @@ class ZMProduct extends ZMModel {
     function getManufacturerId() { return $this->manufacturerId_; }
 
     /**
+     * Set the manufacturer id.
+     *
+     * @param int manufacturerId The manufacturer id.
+     */
+    function setManufacturerId($manufacturerId) { $this->manufacturerId_ = $manufacturerId; }
+
+    /**
      * Get the manufacturer.
      *
      * @return ZMManufacturer The manufacturer.
@@ -201,6 +223,13 @@ class ZMProduct extends ZMModel {
      * @return int The quantity.
      */
     function getQuantity() { return $this->quantity_; }
+
+    /**
+     * Set the quantity.
+     *
+     * @param int quantity The quantity.
+     */
+    function setQuantity($quantity) { $this->quantity_ = $quantity; }
 
     /**
      * Checks if the product quantity is calculated across product variations or not.
@@ -294,11 +323,25 @@ class ZMProduct extends ZMModel {
     function getMasterCategoryId() { return $this->masterCategoryId_; }
 
     /**
-     * Get the product price.
+     * Get the calculated product price.
      *
      * @return float The product price.
      */
     function getPrice() { $offers = $this->getOffers(); return $offers->getCalculatedPrice(); }
+
+    /**
+     * Get the product price.
+     *
+     * @return float The product price.
+     */
+    function getProductPrice() { return $this->productPrice_; }
+
+    /**
+     * Set the product price.
+     *
+     * @param float productPrice The product price.
+     */
+    function setProductPrice($productPrice) { $this->productPrice_ = $productPrice; }
 
     /**
      * Get the product offers.

@@ -96,7 +96,7 @@ class ZMOffers extends ZMService {
      * @return float The product price.
      */
     function getProductPrice($tax=true) {
-        return $tax ? $this->taxRate_->addTax($this->product_->price_) : $this->product_->price_;
+        return $tax ? $this->taxRate_->addTax($this->product_->productPrice_) : $this->product_->productPrice_;
     }
 
     /**

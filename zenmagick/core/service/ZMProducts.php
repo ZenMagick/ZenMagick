@@ -534,7 +534,7 @@ class ZMProducts extends ZMService {
                 products_status = :status;integer,
                 products_model = :model;string,
                 products_quantity = :quantity;integer,
-                products_price = :price;float,
+                products_price = :productPrice;float,
                 products_tax_class_id = :taxClassId;integer,
                 products_date_added = :dateAdded;date,
                 products_date_available = :dateAvailable;date,
@@ -704,7 +704,7 @@ class ZMProducts extends ZMService {
         $product->masterCategoryId_ = $fields['master_categories_id'];
         $product->sortOrder_ = $fields['products_sort_order'];
         // raw price
-        $product->price_ = $fields['products_price'] ? $fields['products_price'] : 0;
+        $product->productPrice_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick
         $product->offers_ = $this->create("Offers", $product);
         $product->offers_->setProduct(&$product);
