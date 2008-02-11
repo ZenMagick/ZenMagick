@@ -33,30 +33,22 @@
      * @package net.zenmagick.admin
      * @param array categories List of start categories.
      * @param string params Additional parameter; default is ''.
+     * @param boolean catUrls Control whether or not to have category urls.
      * @param string id The id of the wrapper div
      * @param boolean root Flag to indicate root level.
      * @return string The created HTML.
      */
-    function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $id='cat-tree', $root=true) {
+    function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
     global $zm_request, $zm_products, $zm_categories, $zm_loader;
 
         if ($root) { 
             ob_start(); 
-            echo <<<EOT
+            echo '
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#cat-tree").treeview({
-          collapsed: true,
-          unique: true,
-          toggle: function() {
-            $(".open");
-          }
-        });
-    });
-</script>
-EOT;
+<script type="text/javascript"> $(document).ready(function() { 
+  $("#'.$id.'").treeview({ collapsed: true, unique: true, toggle: function() { $(".open"); } }); 
+});
+</script>';
             $zm_categories->setPath($zm_request->getCategoryPathArray());
             $rootCategories = $zm_categories->getCategoryTree();
             $root = $zm_loader->create("Category", 0, 0, zm_l10n_get('Catalog'), false);
@@ -73,14 +65,14 @@ EOT;
             $noProducts = count($zm_products->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
             echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
-            $url = zm_href(null, $cparams, false);
+            $url = $catUrls ? zm_href('', $cparams, false) : '#';
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
-                zm_catalog_tree($category->getChildren(), $params, $showProducts, $id, false);
+                zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false);
             } else if ($showProducts && $category->isActive()) {
                 echo '<ul>';
                 foreach ($zm_products->getProductsForCategoryId($category->getId(), false) as $product) {
-                    echo '<li><a href="'.zm_href(null, $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
+                    echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }
@@ -121,16 +113,16 @@ EOT;
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';
             echo '<thead><tr>';
-            echo '<th class="name">'.zm_l10n_get('Name').'</th>';
-            echo '<th class="status">'.zm_l10n_get('Active').'</th>';
+            echo '<th class="first">'.zm_l10n_get('Name').'</th>';
+            echo '<th class="last status">'.zm_l10n_get('Active').'</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             $first = true; 
             $odd = true; 
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
-                echo '<td class="name"><a href="'.zm_href(null, 'productId='.$product->getId().'&'.$params, false).'">'.$product->getName().'</a></td>';
-                echo '<td class="status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
+                echo '<td class="first"><a href="'.zm_href(null, 'productId='.$product->getId().'&'.$params, false).'">'.$product->getName().'</a></td>';
+                echo '<td class="last status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
                 echo '</tr>';
                 $first = false; 
                 $odd = !$odd;
