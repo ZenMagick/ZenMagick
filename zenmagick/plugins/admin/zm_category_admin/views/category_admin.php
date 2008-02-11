@@ -60,10 +60,10 @@
     <fieldset>
         <legend>Name and Description</legend>
         <label for="categoryName">Name</label>
-        <input type="text" id="categoryName" name="categoryName" value="<?php echo $category->getName() ?>" size="30">
+        <input type="text" id="categoryName" name="categoryName" value="<?php echo htmlentities($category->getName()) ?>" size="30">
         <br>
         <label for="categoryDescription" style="display:block;">Description</label>
-        <textarea id="categoryDescription" name="categoryDescription" rows="5"><?php echo $category->getDescription() ?></textarea>
+        <textarea id="categoryDescription" name="categoryDescription" rows="5" cols="80"><?php echo htmlentities($category->getDescription()) ?></textarea>
     </fieldset>
 
     <fieldset style="position:relative;">
@@ -72,14 +72,14 @@
         <?php zm_image($category->getImageInfo(), PRODUCT_IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
         <p class="opt"><label for="categoryImage">Upload Image</label><input type="file" id="categoryImage" name="categoryImage"></p>
         <p class="opt">
-          <label for"imageDir">... to directory</label><select id="imgDir" name="imgDir">
+          <label for="imgDir">... to directory</label><select id="imgDir" name="imgDir">
             <option value="">Main Directory</option>
             <option value="attributes/">attributes</option>
             <option value="uploads/">uploads</option>
           </select>
         </p>
         <p class="or">Or</p>
-        <p class="opt"><label for=imageName">Select image on server</label><input type="text" id="imageName" name="imageName"></p>
+        <p class="opt"><label for="imageName">Select image on server</label><input type="text" id="imageName" name="imageName"></p>
         <p class="or">Or</p>
         <p class="opt"><input type="checkbox" id="imageDelete" name="imageDelete" value="1"> <label for="imageDelete">Clear image association</label></p>
     </fieldset>
@@ -87,7 +87,7 @@
     <fieldset>
         <legend>Other Options</legend>
         <p class="opt">
-            <label for="sortOrder">Sort Order</label><input type="text" name="sortOrder" value="<?php echo $category->getSortOrder() ?>1" size="4">
+            <label for="sortOrder">Sort Order</label><input type="text" id="sortOrder" name="sortOrder" value="<?php echo $category->getSortOrder() ?>1" size="4">
         </p>
         <hr>
         <p class="opt">
