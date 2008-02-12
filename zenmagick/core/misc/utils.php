@@ -275,7 +275,7 @@ return zen_get_uprid($productId, $attributes);
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The formatted amount.
      */
-    function zm_format_currency($amount, $convert=true, $echo=true) {
+    function zm_format_currency($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request, $zm_currencies;
 
         $currency = $zm_currencies->getCurrencyForCode($zm_request->getCurrencyCode());

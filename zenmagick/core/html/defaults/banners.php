@@ -35,7 +35,7 @@
      * @param boolean updateCount If <code>true</code>, the banner counter will get incremented.
      * @return string The HTML formatted banner.
      */
-    function zm_display_banner($banner, $echo=true, $updateCount=true) {
+    function zm_display_banner($banner, $echo=ZM_ECHO_DEFAULT, $updateCount=true) {
     global $zm_banners;
 
         $html = '';

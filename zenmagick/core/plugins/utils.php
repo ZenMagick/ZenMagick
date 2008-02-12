@@ -34,7 +34,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    function zm_plugin_admin_url($function=null, $params='', $echo=true) {
+    function zm_plugin_admin_url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         if (null == $function) {
@@ -68,7 +68,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    function zm_plugin_url($target, $params='', $echo=true) {
+    function zm_plugin_url($target, $params='', $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         $target = explode(';', $target);
@@ -87,7 +87,7 @@
      * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string HTML code.
      */
-    function zm_plugin_value_element($value, $echo=true) {
+    function zm_plugin_value_element($value, $echo=ZM_ECHO_DEFAULT) {
         if ($value->hasSetFunction()) {
             eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');");
             echo str_replace('<br>', '', $set);

@@ -117,7 +117,7 @@ class zm_rss_boxes extends ZMBoxPlugin {
      * @param boolean echo If <code>true</code>, the code will be echo'ed as well as returned.
      * @return string The URL or <code>null</code>.
      */
-    function zm_rss_box($id=null, $echo=true) {
+    function zm_rss_box($id=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_rss_boxes;
 
         if (!isset($zm_rss_boxes)) {

@@ -158,6 +158,8 @@
 
     //** others **//
 
+    define('ZM_ECHO_DEFAULT', false);
+
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
 ?>

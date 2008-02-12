@@ -42,7 +42,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
-    function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=true) {
+    function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=ZM_ECHO_DEFAULT) {
         $html = '';
         $html .= '<select id="' . $name . '" name="' . $name . '" size="' . $size . '"';
         $html .= (null != $onchange ? ' onchange="' . $onchange . '"' : '');
@@ -66,7 +66,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
      */
-    function zm_title($echo=true) {
+    function zm_title($echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         $title = $zm_request->getPageName();
@@ -103,7 +103,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
      */
-    function zm_onload($page=null, $echo=true) {
+    function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request, $zm_themeInfo;
 
         $page = null == $page ? $zm_request->getPageName() : $page;
@@ -126,7 +126,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A list of values.
      */
-    function zm_list_values($list, $sep=', ', $echo=true) {
+    function zm_list_values($list, $sep=', ', $echo=ZM_ECHO_DEFAULT) {
         $first = true;
         $html = '';
         foreach ($list as $value) {
@@ -148,7 +148,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
-    function zm_hidden_list($name, $values, $echo=true) {
+    function zm_hidden_list($name, $values, $echo=ZM_ECHO_DEFAULT) {
         $html = '';
         foreach ($values as $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
@@ -170,7 +170,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
      */
-    function zm_field_messages($name, $echo=true) {
+    function zm_field_messages($name, $echo=ZM_ECHO_DEFAULT) {
     global $zm_messages;
 
         if (!$zm_messages->hasMessages($name)) {

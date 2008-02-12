@@ -95,7 +95,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string An absolute URL.
      */
-    function themeURL($uri, $echo=true) {
+    function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
     global $zm_runtime;
 
         $url = $zm_runtime->getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
@@ -304,7 +304,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function staticPageContent($page, $languageId=null, $echo=true) {
+    function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_runtime, $zm_request, $zm_languages;
 
         if (!zm_setting('isZMDefinePages')) {
@@ -345,7 +345,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function zcStaticPageContent($page, $languageId=null, $echo=true) {
+    function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_runtime, $zm_request, $zm_languages;
 
         if (null == $languageId) {

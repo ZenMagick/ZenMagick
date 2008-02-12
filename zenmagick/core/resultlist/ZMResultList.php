@@ -303,7 +303,7 @@ class ZMResultList extends ZMObject {
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the previous page.
      */
-    function getPreviousURL($secure, $echo=true) {
+    function getPreviousURL($secure, $echo=ZM_ECHO_DEFAULT) {
         if ($secure) {
             $url = zm_secure_href(null, "&page=".$this->getPreviousPageNumber(), false);
         } else {
@@ -321,7 +321,7 @@ class ZMResultList extends ZMObject {
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the next page.
      */
-    function getNextURL($secure=false, $echo=true) {
+    function getNextURL($secure=false, $echo=ZM_ECHO_DEFAULT) {
         if ($secure) {
             $url = zm_secure_href(null, "&page=".$this->getNextPageNumber(), false);
         } else {

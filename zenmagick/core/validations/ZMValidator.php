@@ -206,7 +206,7 @@ class ZMValidator extends ZMObject {
      * @param boolean echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
      * @return string Formatted JavaScript .
      */
-    function toJSString($id, $echo=true) {
+    function toJSString($id, $echo=ZM_ECHO_DEFAULT) {
         $set = array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
 
         if (null == $set) {

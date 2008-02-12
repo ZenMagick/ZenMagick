@@ -101,7 +101,7 @@ class ZMPayments extends ZMService {
      * @param boolean echo If <code>true</code>, echo the code.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    function getPaymentsJavaScript($echo=true) {
+    function getPaymentsJavaScript($echo=ZM_ECHO_DEFAULT) {
         $js = $this->zenModules_->javascript_validation();
 
         if ($echo) echo $js;

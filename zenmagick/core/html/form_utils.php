@@ -43,7 +43,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
-    function zm_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
+    function zm_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=ZM_ECHO_DEFAULT) {
         return _zm_build_form($page, $params, $id, $method, false, $onsubmit, '', $echo);
     }
 
@@ -67,11 +67,11 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form tag plus optional hidden form fields.
      */
-    function zm_secure_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=true) {
+    function zm_secure_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=ZM_ECHO_DEFAULT) {
         return _zm_build_form($page, $params, $id, $method, true, $onsubmit, '', $echo);
     }
 
-    function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=true) {
+    function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=ZM_ECHO_DEFAULT) {
     global $zm_request, $zm_validator;
 
         $excludes = explode(',', $excludes);
@@ -138,7 +138,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form to add a given productId to the shopping cart.
      */
-    function zm_add_product_form($productId, $quantity=0, $echo=true) {
+    function zm_add_product_form($productId, $quantity=0, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
         $html = '';
         $params = 'action=add_product&products_id='.$productId;
@@ -167,7 +167,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form to handle result list options.
      */
-    function zm_result_list_form($echo=true) {
+    function zm_result_list_form($echo=ZM_ECHO_DEFAULT) {
         return _zm_build_form(null, null, null, 'get', false, null, 'sort_id', $echo);
     }
 
@@ -188,7 +188,7 @@
 
 
     // create all required hidden fields for a shopping cart item
-    function zm_sc_product_hidden($scItem, $echo=true) {
+    function zm_sc_product_hidden($scItem, $echo=ZM_ECHO_DEFAULT) {
         $html = '<input type="hidden" name="products_id[]" value="' . $scItem->getId() . '" />';
         if ($scItem->hasAttributes()) {
             foreach ($scItem->getAttributes() as $attribute) {
@@ -206,7 +206,7 @@
      * create form id for shipping method
      * @deprecated
      */
-    function zm_shipping_id($method, $echo=true) {
+    function zm_shipping_id($method, $echo=ZM_ECHO_DEFAULT) {
         $provider = $method->getProvider();
         $id = $provider->getId() . '_' . $method->getId();
 

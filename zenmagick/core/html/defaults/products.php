@@ -204,7 +204,7 @@
 
 
     // format offer price
-    function zm_fmt_price($product, $echo=true) {
+    function zm_fmt_price($product, $echo=ZM_ECHO_DEFAULT) {
       $offers = $product->getOffers();
 
       $html = '<span class="price">';

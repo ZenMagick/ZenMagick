@@ -38,7 +38,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=true) {
+    function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_runtime;
 
         if (null === $imageInfo) {
@@ -78,7 +78,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The encoded HTML.
      */
-    function zm_htmlencode($s, $echo=true) {
+    function zm_htmlencode($s, $echo=ZM_ECHO_DEFAULT) {
         $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
 
         if ($echo) echo $s;
@@ -94,7 +94,7 @@
      * @param boolean echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
      * @return string The stripped text.
      */
-    function zm_strip_html($text, $echo=true) {
+    function zm_strip_html($text, $echo=ZM_ECHO_DEFAULT) {
         $clean = zen_clean_html($text);
 
         if ($echo) echo $clean;
@@ -114,7 +114,7 @@
      * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return string A preformatted attribute in the form ' name="value"'
      */
-    function zm_href_target($newWin=true, $echo=true) {
+    function zm_href_target($newWin=true, $echo=ZM_ECHO_DEFAULT) {
         $text = $newWin ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
 
         if ($echo) echo $text;
@@ -161,7 +161,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
      */
-    function zm_more($s, $max=0, $echo=true) {
+    function zm_more($s, $max=0, $echo=ZM_ECHO_DEFAULT) {
         return zm_build_more($s, $max, '...', $echo);
     }
 
@@ -176,7 +176,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
      */
-    function zm_build_more($s, $max=0, $more=" ...", $echo=true) {
+    function zm_build_more($s, $max=0, $more=" ...", $echo=ZM_ECHO_DEFAULT) {
         $text = $s;
         if (0 != $max && strlen($text) > $max) {
             $pos = strpos($text, ' ', $max-10);
@@ -198,7 +198,7 @@
      * @param what What to display (see phpinfo manual for more)
      * @return boolean <code>true</code> on success.
      */
-    function zm_phpinfo($what, $echo=true) {
+    function zm_phpinfo($what, $echo=ZM_ECHO_DEFAULT) {
         ob_start();                                                                                                       
         phpinfo($what);                                                                                                       
         $info = ob_get_contents();                                                                                       

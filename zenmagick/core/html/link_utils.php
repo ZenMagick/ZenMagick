@@ -38,7 +38,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    function zm_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, false, $echo); }
+    function zm_href($view=null, $params='', $echo=ZM_ECHO_DEFAULT) { return _zm_build_href($view, $params, false, $echo); }
 
 
     /**
@@ -50,7 +50,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full, secure URL.
      */
-    function zm_secure_href($view=null, $params='', $echo=true) { return _zm_build_href($view, $params, true, $echo); }
+    function zm_secure_href($view=null, $params='', $echo=ZM_ECHO_DEFAULT) { return _zm_build_href($view, $params, true, $echo); }
 
 
     /**
@@ -137,7 +137,7 @@
     /**
      * Build a href / url.
      */
-    function _zm_build_href($view=null, $params='', $isSecure=false, $echo=true) {
+    function _zm_build_href($view=null, $params='', $isSecure=false, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         // custom view and params handling
@@ -192,7 +192,7 @@
      * @return string A full URL.
      * @return string A complete product URL.
      */
-    function zm_product_href($productId, $echo=true) { 
+    function zm_product_href($productId, $echo=ZM_ECHO_DEFAULT) { 
         return _zm_build_href(FILENAME_PRODUCT_INFO, '&products_id='.$productId, false, $echo);
     }
 
@@ -204,7 +204,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given static page.
      */
-    function zm_static_href($catName, $echo=true) { 
+    function zm_static_href($catName, $echo=ZM_ECHO_DEFAULT) { 
         return _zm_build_href('static', '&cat='.$catName, false, $echo);
     }
 
@@ -219,7 +219,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    function zm_back_link($text, $echo=true) {
+    function zm_back_link($text, $echo=ZM_ECHO_DEFAULT) {
         $link = zen_back_link() . $text . '</a>';
 
         if ($echo) echo $link;
@@ -234,7 +234,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given ez-page.
      */
-    function zm_ezpage_href($page, $echo=true) {
+    function zm_ezpage_href($page, $echo=ZM_ECHO_DEFAULT) {
         if (null === $page) {
             $href = zm_l10n_get('ezpage not found');
             if ($echo) echo $href;
@@ -273,7 +273,7 @@
      * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
      * @return string A full HTML link.
      */
-    function zm_ezpage_link($id, $text=null, $echo=true) {
+    function zm_ezpage_link($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_pages;
         $page = $zm_pages->getPageForId($id);
         $link = '<a href="' . zm_ezpage_href($page, false) . '"' . zm_href_target($page->isNewWin(), false) . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
@@ -291,7 +291,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The image URI.
      */
-    function zm_image_uri($src, $echo=true) {
+    function zm_image_uri($src, $echo=ZM_ECHO_DEFAULT) {
         $href = DIR_WS_CATALOG.DIR_WS_IMAGES . $src;
 
         if ($echo) echo $href;
@@ -311,7 +311,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    function zm_redirect_href($action, $id, $echo=true) {
+    function zm_redirect_href($action, $id, $echo=ZM_ECHO_DEFAULT) {
         return _zm_build_href(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, $echo);
     }
 
@@ -324,7 +324,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
      */
-    function zm_absolute_href($href, $echo=true) {
+    function zm_absolute_href($href, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         $host = ($zm_request->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
@@ -351,7 +351,7 @@
      * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return A URL.
      */
-    function zm_media_href($filename, $echo=true) {
+    function zm_media_href($filename, $echo=ZM_ECHO_DEFAULT) {
         $href = DIR_WS_MEDIA.$filename;
 
         if ($echo) echo $href;
@@ -370,7 +370,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete Ajax URL.
      */
-    function zm_ajax_href($controller, $method, $params='', $echo=true) { 
+    function zm_ajax_href($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
     global $zm_request;
 
         if (zm_setting('isAdmin')) {
@@ -395,7 +395,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL.
      */
-    function zm_rss_feed_href($channel, $key=null, $echo=true) { 
+    function zm_rss_feed_href($channel, $key=null, $echo=ZM_ECHO_DEFAULT) { 
         $params = 'channel='.$channel;
         if (null !== $key) {
             $params .= "&key=".$key;

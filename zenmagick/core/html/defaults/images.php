@@ -39,7 +39,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    function zm_product_image_link($product, $format=PRODUCT_IMAGE_SMALL, $echo=true) {
+    function zm_product_image_link($product, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
         $html = '<a href="'.zm_product_href($product->getId(), false).'" class="product">';
         $html .= zm_image($product->getImageInfo(), $format, '', false);
         $html .= '</a>';

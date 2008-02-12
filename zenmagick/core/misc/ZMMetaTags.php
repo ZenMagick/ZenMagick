@@ -85,7 +85,7 @@ class ZMMetaTags extends ZMObject {
      * @param boolean echo If <code>true</code>, the title will be echo'ed as well as returned.
      * @return string The page title.
      */
-    function getTitle($echo=true) {
+    function getTitle($echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         $this->_initMetaTags();
@@ -136,7 +136,7 @@ class ZMMetaTags extends ZMObject {
      * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
-    function getKeywords($echo=true) {
+    function getKeywords($echo=ZM_ECHO_DEFAULT) {
         $this->_initMetaTags();
         $value = '';
         if (null != $this->product_) {
@@ -158,7 +158,7 @@ class ZMMetaTags extends ZMObject {
      * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
-    function getDescription($echo=true) {
+    function getDescription($echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
         $this->_initMetaTags();

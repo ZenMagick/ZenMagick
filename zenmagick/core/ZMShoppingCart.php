@@ -365,7 +365,7 @@ class ZMShoppingCart extends ZMService {
      * @return mixed The form content for the actual order process.
      * @see org.zenmagick.ZMShoppingCart#getOrderFormURL
      */
-    function getOrderFormContent($echo=true) {
+    function getOrderFormContent($echo=ZM_ECHO_DEFAULT) {
         $payments = $this->_getPayments();
         $zenModules = $payments->getZenModules();
         $content = $zenModules->process_button();
@@ -437,7 +437,7 @@ class ZMShoppingCart extends ZMService {
      * @param boolean echo If <code>true</code>, echo the code.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    function getPaymentsJavaScript($echo=true) {
+    function getPaymentsJavaScript($echo=ZM_ECHO_DEFAULT) {
         $payments = $this->_getPayments();
         $js = $payments->getPaymentsJavaScript(false);
 

@@ -117,7 +117,7 @@ class zm_google_adsense extends ZMBoxPlugin {
      * @param boolean echo If <code>true</code>, the code will be echo'ed as well as returned.
      * @return string The JavaScript or <code>null</code>.
      */
-    function zm_google_adsense($id=null, $echo=true) {
+    function zm_google_adsense($id=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_google_adsense;
 
         if (!isset($zm_google_adsense)) {
