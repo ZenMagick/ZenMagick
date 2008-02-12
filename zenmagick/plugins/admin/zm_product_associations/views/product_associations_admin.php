@@ -29,3 +29,12 @@
 ?>
 
   <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>
+
+  <a href="#TB_inline?height=355&amp;width=600&amp;inlineId=meddle&amp;modal=true" class="thickbox">Show hidden modal content.</a>
+
+  <div id="meddle" style="display:none;">
+    meddle associations...
+    <?php echo zm_catalog_tree($zm_categories->getCategoryTree(), '', false, true, 'pick-cat-tree'); ?>
+
+    <a href="#" onclick="tb_remove();return false;" class="btn" style="color: #fff;">&raquo;&nbsp;Continue Shopping</a>
+  </div>
