@@ -46,7 +46,7 @@
             echo '
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
 <script type="text/javascript"> $(document).ready(function() { 
-  $("#'.$id.'").treeview({ collapsed: true, unique: true, toggle: function() { $(".open"); } }); 
+  $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
             $zm_categories->setPath($zm_request->getCategoryPathArray());
@@ -64,8 +64,13 @@
             $cparams = $params.'&'.$category->getPath();
             $noProducts = count($zm_products->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
+            $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
             $url = $catUrls ? zm_href('', $cparams, false) : '#';
+            if (false && ($hasProducts && $showProducts) || $hasChildren) {
+                // treeview hit area for faster rendering
+                echo '<div class="hitarea expandable-hitarea"></div>';
+            }
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false);
