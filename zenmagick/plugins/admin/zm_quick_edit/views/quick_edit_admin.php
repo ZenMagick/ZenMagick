@@ -57,7 +57,7 @@
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="first"><?php echo $product->getId() ?></td>
+            <td class="first"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <td><input type="text" name="name_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getName()) ?>" size="35"></td>
             <td><input type="text" name="model_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getModel()) ?>" size="14"></td>
             <td><input type="text" name="image_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getDefaultImage()) ?>" size="24"></td>
