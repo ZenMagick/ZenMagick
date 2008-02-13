@@ -72,8 +72,13 @@ class ZMThemes extends ZMService {
         $infoClass = zm_mk_classname($infoName);
         // theme info file name
         $infoFile = $basePath.$themeId."/".$infoClass.".php";
+
         // load
         if (!class_exists($infoClass)) {
+            if (!file_exists($infoFile)) {
+                zm_log('skipping "' . $themeId . '" - no theme info class found', ZM_LOG_WARN);
+                return null;
+            }
             require_once($infoFile);
         }
         // create instance
@@ -99,8 +104,10 @@ class ZMThemes extends ZMService {
         $dirs = $this->_getThemeDirList();
         // load info classes and get instance
         foreach ($dirs as $dir) {
-            // assuming that directory name corresponds with theme id
-            array_push($infoList, $this->getThemeInfoForId($dir));
+            $themeInfo = $this->getThemeInfoForId($dir);
+            if (null != $themeInfo) {
+                $infoList[] = $themeInfo;
+            }
         }
 
         return $infoList;
@@ -117,8 +124,9 @@ class ZMThemes extends ZMService {
         $themes = array();
         $handle = @opendir($zm_runtime->getThemesDir());
         while (false !== ($file = readdir($handle))) { 
-            if (zm_starts_with($file, '.') || 'CVS' == $file)
+            if (zm_starts_with($file, '.') || 'CVS' == $file) {
                 continue;
+            }
             array_push($themes, $file);
         }
         @closedir($handle);

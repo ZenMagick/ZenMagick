@@ -105,6 +105,7 @@ Release 0.8.7
 	plugins for each and every function
 - use new 'isEchoHTML' setting to disable echoing of HTML, so there is no need
   to explicitely set that parameter in Smarty templates every time
+- make ZMThemes more tolerant when hittin invalid themes
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664
