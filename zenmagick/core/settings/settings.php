@@ -86,6 +86,7 @@
     //$_ZM_SETTINGS['isXHTML'] = true;
     $_ZM_SETTINGS['isJSTarget'] = true;
     $_ZM_SETTINGS['isAutoJSValidation'] = true;
+    $_ZM_SETTINGS['isEchoHTML'] = true;
 
     // system
     $_ZM_SETTINGS['isAdmin'] = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG;

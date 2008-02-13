@@ -98,6 +98,8 @@ Release 0.8.7
 - fix billing address controller
 - patch zm_useo2 to support ZM_FILENAME_CATEGORY
 - update demo design, add view source (sorry!)
+- add setting 'isEchoHTML' that allows to control the default value of the
+  $echo parameter, that most HTML generating methods and functions have
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

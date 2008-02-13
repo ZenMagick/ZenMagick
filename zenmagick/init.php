@@ -163,6 +163,8 @@
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
     }
 
+    define('ZM_ECHO_DEFAULT', zm_setting('isEchoHTML'));
+
     // start output buffering
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
