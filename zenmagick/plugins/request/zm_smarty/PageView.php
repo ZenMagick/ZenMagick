@@ -74,6 +74,9 @@ class PageView extends ZMPageView {
             $smarty->assign($name, $instance);
         }
 
+        // function proxy 
+        $smarty->assign('zm', $this->create('FunctionProxy'));
+
         $template = $this->getLayout();
         if (null != $template) {
             // layout template will include the view using this variable

@@ -100,6 +100,11 @@ Release 0.8.7
 - update demo design, add view source (sorry!)
 - add setting 'isEchoHTML' that allows to control the default value of the
   $echo parameter, that most HTML generating methods and functions have
+- improve zm_smarty plugin by adding a function proxy class that can be used
+  to access ZenMagick (and other) functions without having to write wrapper
+	plugins for each and every function
+- use new 'isEchoHTML' setting to disable echoing of HTML, so there is no need
+  to explicitely set that parameter in Smarty templates every time
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

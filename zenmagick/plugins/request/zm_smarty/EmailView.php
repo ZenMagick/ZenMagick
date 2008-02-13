@@ -95,6 +95,9 @@ class EmailView extends ZMEmailView {
             $smarty->assign($name, $instance);
         }
 
+        // function proxy 
+        $smarty->assign('zm', $this->create('FunctionProxy'));
+
         ob_start();
         $smarty->display($filename);
         return ob_get_clean();

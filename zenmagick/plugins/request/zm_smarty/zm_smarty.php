@@ -36,17 +36,17 @@ class zm_smarty extends ZMPlugin {
     /**
      * Default c'tor.
      */
-    function zm_smarty() {
-        $this->__construct();
+    function __construct() {
+        parent::__construct('ZenMagick Smarty', 'Support for Smarty based themes', '${plugin.version}');
+        $this->setLoaderSupport('FOLDER');
         $this->setKeys(array('smartyDir'));
     }
 
     /**
      * Default c'tor.
      */
-    function __construct() {
-        parent::__construct('ZenMagick Smarty', 'Support for Smarty based themes', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+    function zm_smarty() {
+        $this->__construct();
     }
 
     /**
@@ -73,6 +73,9 @@ class zm_smarty extends ZMPlugin {
     global $zm_layout;
 
         parent::init();
+
+        // do not echo HTML per default
+        zm_set_setting('isEchoHTML', false);
 
         $smartyDir = $this->get('smartyDir');
         if (zm_is_empty($smartyDir)) {
