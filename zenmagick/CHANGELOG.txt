@@ -106,6 +106,8 @@ Release 0.8.7
 - use new 'isEchoHTML' setting to disable echoing of HTML, so there is no need
   to explicitely set that parameter in Smarty templates every time
 - make ZMThemes more tolerant when hittin invalid themes
+- add 'product_not_found' view as custom error page for products not found or
+  unavailable
 
 Release 0.8.6.1
 - fix hardcoded tablename in ZMBanners; #1856664

@@ -112,6 +112,7 @@
 
         // product_info
         $zm_urlMapper->setMapping('product_info');
+        $zm_urlMapper->setMapping('product_info', 'error', 'product_not_found');
         $zm_urlMapper->setMapping('product_info', 'product_music_info', 'product_music_info');
         $zm_urlMapper->setMapping('product_info', 'document_general_info', 'document_general_info');
         $zm_urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');
