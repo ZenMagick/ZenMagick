@@ -184,13 +184,7 @@ class ZMCategory extends ZMModel {
      * @return string The category path in the form <code>cPath=[PATH]</code>.
      */
     function getPath() {
-        $path = '';
-        $first = true;
-        foreach ($this->getPathArray() as $categoryId) {
-            if (!$first) { $path .= "_"; }
-            $path .= $categoryId;
-            $first = false;
-        }
+        $path = implode('_', $this->getPathArray());
         return "cPath=".$path;
     }
 

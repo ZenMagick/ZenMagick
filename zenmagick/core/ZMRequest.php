@@ -222,13 +222,7 @@ class ZMRequest extends ZMObject {
     function setCategoryPathArray($categoryPathArray) {
         if (is_array($categoryPathArray)) {
             $this->categoryPathArray_ = $categoryPathArray;
-            $cPath = '';
-            $first = true;
-            foreach ($this->categoryPathArray_ as $categoryId) {
-                if (!$first) { $cPath .= '_'; }
-                $cPath .= (int)$categoryId;
-                $first = false;
-            }
+            $cPath = implode('_', $this->categoryPathArray_);
             $this->setParameter('cPath', $cPath);
         }
     }

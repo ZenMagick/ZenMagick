@@ -42,7 +42,7 @@
             if (null != $crumb->getURL()) {
                 $html .= '<a href="'.$crumb->getURL().'">'.zm_htmlencode(zm_l10n_get($crumb->getName()), false).'</a>';
             } else {
-				        $html .= zm_htmlencode(zm_l10n_get($crumb->getName()), false);
+                $html .= zm_htmlencode(zm_l10n_get($crumb->getName()), false);
             }
         }
 		    $html .= '</div>';
