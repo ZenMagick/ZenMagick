@@ -66,7 +66,7 @@
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Index" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -101,7 +101,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Category 1_16" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -126,7 +126,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1228820772">&lt;title&gt;Memory&lt;/title&gt;</stringProp>
+                <stringProp name="-1343683273">&lt;title&gt;Memory :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="-99454488">&lt;h2&gt;Memory&lt;/h2&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
@@ -158,8 +158,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1169863753">&lt;title&gt;Graphics Cards&lt;/title&gt;</stringProp>
-                <stringProp name="-257888330">Compare Selected</stringProp>
+                <stringProp name="808847580">&lt;title&gt;Matrox G400 32MB </stringProp>
               </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
@@ -167,7 +166,7 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Product 3" enabled="true">
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Product 13" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -175,7 +174,7 @@
             <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/product/3</stringProp>
+            <stringProp name="HTTPSampler.path">${context}/product/13</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -190,8 +189,8 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1859346387">&lt;title&gt;Microsoft IntelliMouse Pro</stringProp>
-                <stringProp name="1429196995">Microsoft Microsoft IntelliMouse Pro</stringProp>
+                <stringProp name="1409670825">&lt;title&gt;Lethal Weapon Linked </stringProp>
+                <stringProp name="-477682334">Warner Lethal Weapon Linked</stringProp>
               </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
@@ -254,7 +253,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="421719654">&lt;title&gt;Fox&lt;/title&gt;</stringProp>
+                <stringProp name="1230296557">&lt;title&gt;Fox :: ZenMagick&lt;/title&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
@@ -263,7 +262,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Shipping Info" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -394,7 +393,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Sitemap" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -461,7 +460,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Contact Us Form" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -806,7 +805,7 @@
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.name">products_id[]</stringProp>
-                    <stringProp name="Argument.value">3</stringProp>
+                    <stringProp name="Argument.value">13</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                   <elementProp name="" elementType="HTTPArgument">
@@ -892,7 +891,7 @@
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.name">products_id</stringProp>
-                    <stringProp name="Argument.value">3</stringProp>
+                    <stringProp name="Argument.value">13</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                   <elementProp name="" elementType="HTTPArgument">
@@ -908,7 +907,7 @@
               <stringProp name="HTTPSampler.port">${securePort}</stringProp>
               <stringProp name="HTTPSampler.protocol">https</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/product/3?action=add_product</stringProp>
+              <stringProp name="HTTPSampler.path">${context}/product/13?action=add_product</stringProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
