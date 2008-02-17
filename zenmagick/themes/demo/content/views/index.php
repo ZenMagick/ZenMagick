@@ -37,7 +37,7 @@
   <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it; for example:
     <ul>
       <li>Additional product filter (experimental)</li>
-      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example, the <a href="<?php zm_href(FILENAME_SITE_MAP) ?>">sidemap</a>)</li>
+      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example, the <a href="<?php zm_href(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
     </ul>
   </li>
   <li>Custom alpha and price-range filter</li>
