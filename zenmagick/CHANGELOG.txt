@@ -1,3 +1,6 @@
+Release 0.9.1
+- zm_custom_validate_password in zm_master_password does not return a reference!
+
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
 - added ZMShoppingCartItem::getProduct()
