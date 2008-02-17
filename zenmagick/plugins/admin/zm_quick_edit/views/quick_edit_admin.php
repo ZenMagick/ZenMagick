@@ -28,7 +28,7 @@
   // do show the not available image
   zm_set_setting('isShowNoPicture', false);
 
-  $productList = $zm_products->getProductsForCategoryId($zm_request->getCategoryId());
+  $productList = $zm_products->getProductsForCategoryId($zm_request->getCategoryId(), false);
 
   // allow to override with custom fields
   global $zm_quick_edit_field_list;
@@ -40,7 +40,8 @@
           array('title' => 'Model', 'field' => 'model', 'method' => 'model', 'size' => 14),
           array('title' => 'Image', 'field' => 'image', 'method' => 'defaultImage', 'size' => 24),
           array('title' => 'Quantity', 'field' => 'quantity', 'method' => 'quantity', 'size' => 4),
-          array('title' => 'Product Price', 'field' => 'productPrice', 'method' => 'productPrice', 'size' => 6)
+          array('title' => 'Product Price', 'field' => 'productPrice', 'method' => 'productPrice', 'size' => 6),
+          array('title' => 'Status', 'field' => 'status', 'method' => 'status', 'size' => 2)
       );
   }
 
@@ -89,7 +90,7 @@
               $value = htmlentities($value);
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>>
-                <input type="text" name="<?php echo $field['field'] ?>_<?php echo $product->getId() ?>" value="<?php echo $value ?>" size="<?php echo $field['name'] ?>">
+                <input type="text" name="<?php echo $field['field'] ?>_<?php echo $product->getId() ?>" value="<?php echo $value ?>" size="<?php echo $field['size'] ?>">
               </td>
             <?php } ?>
           </tr>
