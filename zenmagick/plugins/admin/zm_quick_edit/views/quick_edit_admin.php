@@ -25,20 +25,43 @@
 ?>
 <?php
 
+  // do show the not available image
   zm_set_setting('isShowNoPicture', false);
 
   $productList = $zm_products->getProductsForCategoryId($zm_request->getCategoryId());
 
+  // allow to override with custom fields
+  global $zm_quick_edit_field_list;
+  if (!isset($zm_quick_edit_field_list)) {
+      // default fields
+      $zm_quick_edit_field_list = array(
+          // title, form field name, getter/setter name
+          array('title' => 'Name', 'field' => 'name', 'method' => 'name', 'size' => 35),
+          array('title' => 'Model', 'field' => 'model', 'method' => 'model', 'size' => 14),
+          array('title' => 'Image', 'field' => 'image', 'method' => 'defaultImage', 'size' => 24),
+          array('title' => 'Quantity', 'field' => 'quantity', 'method' => 'quantity', 'size' => 4),
+          array('title' => 'Product Price', 'field' => 'productPrice', 'method' => 'productPrice', 'size' => 6)
+      );
+  }
+
   if (null != $zm_request->getParameter('submit')) {
       foreach ($productList as $ii => $product) {
-          $product->setName($zm_request->getParameter('name_'.$product->getId()));
-          $product->setModel($zm_request->getParameter('model_'.$product->getId()));
-          $product->setDefaultImage($zm_request->getParameter('image_'.$product->getId()));
-          $product->setQuantity($zm_request->getParameter('quantity_'.$product->getId()));
-          $product->setProductPrice($zm_request->getParameter('pprice_'.$product->getId()));
+          foreach ($zm_quick_edit_field_list as $field) {
+              $fieldname = $field['field'].'_'.$product->getId();
+              $value = $zm_request->getParameter($fieldname);
+              if (null != $field['method']) {
+                  $setMethod = 'set'.ucwords($field['method']);
+                  $product->$setMethod($value);
+              } else {
+                  $product->set($field['field'], $value);
+              }
+
+          }
           $productList[$ii] = $zm_products->updateProduct($product);
       }
   }
+
+  $lastIndex = count($zm_quick_edit_field_list) - 1;
 
 ?>
 
@@ -48,21 +71,27 @@
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
       <thead><tr>
         <th class="first">Id</th>
-        <th>Name</th>
-        <th>Model</th>
-        <th>Image</th>
-        <th>Quantity</th>
-        <th class="last">Product Price</th>
+        <?php foreach ($zm_quick_edit_field_list as $ii => $field) { ?>
+          <th<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>><?php echo $field['title'] ?></th>
+        <?php } ?>
       </tr></thead>
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
             <td class="first"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
-            <td><input type="text" name="name_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getName()) ?>" size="35"></td>
-            <td><input type="text" name="model_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getModel()) ?>" size="14"></td>
-            <td><input type="text" name="image_<?php echo $product->getId() ?>" value="<?php echo htmlentities($product->getDefaultImage()) ?>" size="24"></td>
-            <td><input type="text" name="quantity_<?php echo $product->getId() ?>" value="<?php echo $product->getQuantity() ?>" size="4"></td>
-            <td class="last"><input type="text" name="pprice_<?php echo $product->getId() ?>" value="<?php echo $product->getProductPrice() ?>" size="4"></td>
+            <?php foreach ($zm_quick_edit_field_list as $ii => $field) { 
+              if (null != $field['method']) {
+                $getMethod = 'get'.ucwords($field['method']);
+                $value = $product->$getMethod();
+              } else {
+                $value = $product->get($field['field']);
+              }
+              $value = htmlentities($value);
+              ?>
+              <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>>
+                <input type="text" name="<?php echo $field['field'] ?>_<?php echo $product->getId() ?>" value="<?php echo $value ?>" size="<?php echo $field['name'] ?>">
+              </td>
+            <?php } ?>
           </tr>
         <?php $first = false; $odd = !$odd; } ?>
       </tbody>
