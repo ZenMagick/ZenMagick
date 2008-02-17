@@ -94,6 +94,11 @@
             <param name="plugin.name" value="zm_page_cache" />
             <param name="plugin.version" value="${plugins.zm_page_cache.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_site_switch" />
+            <param name="plugin.version" value="${plugins.zm_site_switch.version}" />
+        </antcall>
     </target>
 
     
