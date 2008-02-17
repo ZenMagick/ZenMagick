@@ -108,7 +108,7 @@ require('includes/application_top.php');
               <ul>
                 <?php $activeTab = 1; ?>
                 <?php foreach ($catalog_menu as $item) { $id = str_replace('fkt:', '', $item->getURL()); ?>
-                  <li><a href="#<? echo $id ?>"><span><?php echo $item->getTitle() ?></span></a></li>
+                  <li><a href="#<?php echo $id ?>"><span><?php echo $item->getTitle() ?></span></a></li>
                 <?php } ?>
               </ul>
               <?php foreach ($catalog_menu as $index => $item) { 

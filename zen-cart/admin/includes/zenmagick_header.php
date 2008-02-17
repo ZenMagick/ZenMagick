@@ -67,7 +67,7 @@
 
 <div id="header">
   <div id="info">
-  logo and such | <a href="zmAdmin.php">Admin Home</a> | <a href="<? echo zen_catalog_href_link() ?>">Store Home</a> | <a href="<?php echo zen_href_link(FILENAME_LOGOFF) ?>">Logoff</a>
+  logo and such | <a href="zmAdmin.php">Admin Home</a> | <a href="<?php echo zen_catalog_href_link() ?>">Store Home</a> | <a href="<?php echo zen_href_link(FILENAME_LOGOFF) ?>">Logoff</a>
   </div>
   <div id="secnav">
     <?php zm_build_menu(); ?>
