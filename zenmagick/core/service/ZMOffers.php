@@ -120,7 +120,7 @@ class ZMOffers extends ZMService {
      */
     function _getBasePrice() {
         if (!$this->product_->pricedByAttributes_) {
-            return $this->product_->price_;
+            return $this->product_->productPrice_;
         }
 
         $db = $this->getDB();
@@ -134,7 +134,7 @@ class ZMOffers extends ZMService {
         $results = $db->Execute($sql);
 
         // add attributes price to price
-        $basePrice = $this->product_->price_;
+        $basePrice = $this->product_->productPrice_;
         if (0 < $results->RecordCount()) {
             $options_id = 'x';
             while (!$results->EOF) {

@@ -88,7 +88,6 @@ class ZMProducts extends ZMService {
 
         $productIds = array();
         while (!$results->EOF) {
-            $product = $this->_newProduct($results->fields);
             $productIds[] = $results->fields['products_id'];
             $results->MoveNext();
         }
