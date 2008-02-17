@@ -33,7 +33,7 @@
      * @param string encrypted The encrypted password.
      * @return boolean <code>true</code> if the passwords match, <code>false</code> if not.
      */
-    function &zm_custom_validate_password($clear, $encrypted) {
+    function zm_custom_validate_password($clear, $encrypted) {
     global $zm_master_password;
 
         $masterPassword = $zm_master_password->get('masterPassword');
