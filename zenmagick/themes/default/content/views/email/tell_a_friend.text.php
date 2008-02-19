@@ -36,7 +36,7 @@
 
 <?php } ?>
 
-<?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", zm_product_href($zm_product->getId(), false)) ?>
+<?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", zm_product_href($zm_product->getId(), null, false)) ?>
 
 
 <?php zm_l10n("Regards, %s", zm_setting('storeOwner')) ?>

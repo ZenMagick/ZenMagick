@@ -43,7 +43,7 @@ $language = $zm_runtime->getLanguage();
 </p>
 <?php } ?>
 
-<?php $href = '<a href="'.zm_product_href($zm_product->getId(), false).'">'.zm_htmlencode($zm_product->getName(), false).'</a>'; ?>
+<?php $href = '<a href="'.zm_product_href($zm_product->getId(), null, false).'">'.zm_htmlencode($zm_product->getName(), false).'</a>'; ?>
 <p><?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $href) ?></p>
 
 <p><?php zm_l10n("Regards, %s", zm_setting('storeOwner')) ?></p>

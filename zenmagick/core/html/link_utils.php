@@ -187,13 +187,23 @@
      * view name. The actual view name gets resolved only when the href is used.</p>
      *
      * @package org.zenmagick.html
-     * @param int productId The product id
+     * @param int productId The product id.
+     * @param int categoryId Optional category id.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      * @return string A complete product URL.
      */
-    function zm_product_href($productId, $echo=ZM_ECHO_DEFAULT) { 
-        return _zm_build_href(FILENAME_PRODUCT_INFO, '&products_id='.$productId, false, $echo);
+    function zm_product_href($productId, $categoryId=null, $echo=ZM_ECHO_DEFAULT) { 
+    global $zm_categories;
+
+        $cPath = '';
+        if (null != $categoryId) {
+            $category = $zm_categories->getCategoryForId($categoryId);
+            if (null != $category) {
+                $cPath = '&'.$category->getPath();
+            }
+        }
+        return _zm_build_href(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath, false, $echo);
     }
 
     /**

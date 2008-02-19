@@ -28,7 +28,7 @@
     <td class="cpt"><input type="checkbox" name="compareId[]" value="<?php echo $product->getId() ?>" /></td>
     <td><?php zm_product_image_link($product) ?></td>
     <td class="pinfo">
-        <a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a><br/>
+        <a href="<?php zm_product_href($product->getId(), $zm_request->getCategoryId()) ?>"><?php echo $product->getName() ?></a><br/>
         <?php zm_more(zm_strip_html($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php zm_format_currency($product->getPrice()) ?></td>

@@ -160,7 +160,7 @@ class ZMCrumbtrail extends ZMObject {
 
         $product = $zm_products->getProductForId($productId);
         if (null != $product) {
-            $this->addCrumb($product->getName(), zm_product_href($productId, false));
+            $this->addCrumb($product->getName(), zm_product_href($productId, null, false));
         }
     }
 
