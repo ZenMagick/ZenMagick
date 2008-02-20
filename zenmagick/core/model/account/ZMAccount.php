@@ -443,9 +443,13 @@ class ZMAccount extends ZMModel {
      * @return ZMPriceGroup The group or <code>null</code>.
      */
     function getPriceGroup() {
-    global $zm_accounts;
+    global $zm_groupPricing;
 
-        return $zm_accounts->getPriceGroupForId($this->priceGroupId_);
+        if (!isset($zm_groupPricing)) {
+            $zm_groupPricing = $this->create("GroupPricing");
+        }
+
+        return $zm_groupPricing->getPriceGroupForId($this->priceGroupId_);
     }
 
 }

@@ -367,40 +367,6 @@ class ZMAccounts extends ZMService {
         return $account;
     }
 
-    /**
-     * Get a price group for the given id.
-     *
-     * @param int priceGroupId The id.
-     * @return ZMPriceGroup The group or <code>null</code>.
-     */
-    function getPriceGroupForId($priceGroupId) {
-        $db = $this->getDB();
-        $sql = "select *
-                from " . TABLE_GROUP_PRICING . "
-                where  group_id = :priceGroupId";
-        $sql = $db->bindVars($sql, ":priceGroupId", $priceGroupId, "integer");
-
-        $results = $db->Execute($sql);
-        $priceGroup = null;
-        if (0 < $results->RecordCount()) {
-            $priceGroup = $this->_newPriceGoup($results->fields);
-        }
-        return $priceGroup;
-    }
-
-    /**
-     * Create new price group instance.
-     */
-    function &_newPriceGroup($fields) {
-        $priceGroup = $this->create("PriceGroup");
-        $priceGroup->id_ = $fields['group_id'];
-        $priceGroup->name_ = $fields['group_name'];
-        $priceGroup->discount_ = $fields['group_percent'];
-        $priceGroup->dateAdded_ = $fields['date_added'];
-        $priceGroup->lastModified_ = $fields['last_modified'];
-        return $priceGroup;
-    }
-
 }
 
 ?>
