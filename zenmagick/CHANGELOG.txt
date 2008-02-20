@@ -8,7 +8,8 @@ Release 0.9.1
   templates that use the echo parameter
 - add categoryId parameter to zm_product_image_link(..); together with the
   previous change this allows to preserve the categoryId for category listings
-- add group pricing service
+- add group pricing service, fix spelling mistake: _newPriceGgroup() rather
+  than _newPriceGoup()
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
