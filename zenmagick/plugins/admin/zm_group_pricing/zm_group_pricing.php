@@ -71,6 +71,24 @@ class zm_group_pricing extends ZMPlugin {
         }
     }
 
+    /**
+     * Install this plugin.
+     */
+    function install() {
+        parent::install();
+        zm_sql_patch(file($this->getPluginDir()."sql/group_pricing.sql"), $this->messages_);
+    }
+
+    /**
+     * Remove this plugin.
+     *
+     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     */
+    function remove($keepSettings=false) {
+        parent::remove($keepSettings);
+        zm_sql_patch(file($this->getPluginDir()."sql/uninstall.sql"), $this->messages_);
+    }
+
 }
 
 ?>

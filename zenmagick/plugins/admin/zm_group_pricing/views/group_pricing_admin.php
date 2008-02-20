@@ -25,6 +25,39 @@
 ?>
 <?php
 
+  $zm_groupPricing = $zm_loader->create("GroupPricing");
 ?>
 
-  <h2>Group Pricing...</h2>
+  <?php zm_form('', $zm_nav_params, '', 'get') ?>
+    <div><input type="hidden" name="fkt" value="zm_group_pricing_admin"></div>
+    <h2>Group Pricing ( <?php zm_idp_select('groupId', $zm_groupPricing->getPriceGroups(), 1, $zm_request->getParameter('groupId'), 'this.form.submit()') ?> )</h2>
+  </form>
+
+  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+    <fieldset>
+      <input type="hidden" name="groupPricingId" value="0">
+      <input type="hidden" name="productId" value="0">
+      <input type="hidden" name="groupId" value="0">
+      <legend>Discount</legend>
+      <p>
+        <label for="discount">Discount</label> 
+        <input type="text" id="discount" name="discount">
+
+        <label for="type">Type</label> 
+        <select id="type" name="type">
+          <option value="$">Amount</option>
+          <option value="%">Percent</option>
+        </select>
+      </p>
+      <p>
+        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php zm_checkbox_state(0) ?>>
+        <label for="regularPriceOnly">Do not allow discount on sale/special</label>
+      </p>
+      <p>
+      </p>
+    </fieldset>
+    <p>
+      <input type="hidden" name="fkt" value="zm_group_pricing_admin">
+      <input type="submit" value="Update">
+    </p>
+  </form>
