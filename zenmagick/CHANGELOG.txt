@@ -10,6 +10,8 @@ Release 0.9.1
   previous change this allows to preserve the categoryId for category listings
 - add group pricing service, fix spelling mistake: _newPriceGgroup() rather
   than _newPriceGoup()
+- disable caching of ajax requests (otherwise cart contents, etc would be
+  cached...)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
