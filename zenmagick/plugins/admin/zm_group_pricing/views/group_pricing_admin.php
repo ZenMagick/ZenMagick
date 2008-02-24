@@ -54,6 +54,10 @@
         <label for="regularPriceOnly">Do not allow discount on sale/special</label>
       </p>
       <p>
+        <label for="startDate">Start Date</label> 
+        <input type="text" id="startDate" name="startDate" value="">
+        <label for="endDate">End Date</label> 
+        <input type="text" id="endDate" name="endDate" value="">
       </p>
     </fieldset>
     <p>
