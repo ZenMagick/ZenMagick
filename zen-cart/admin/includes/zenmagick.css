@@ -34,6 +34,8 @@ legend span {font-size:114%;background:#85C285;padding:3px;color:#000;}
 th {color:#000;background:#85C285;border-right:1px solid #fff;padding:3px;}
 td {padding:2px 8px;}
 fieldset table {border:1px solid #c0c0c0;}
+fieldset p {margin:7px 0;}
+select option {padding:0 4px;}
 ul.closed {display:none;}
 ul.open {display:block;}
 #cnav {float:left;width:20%;border:1px solid gray;padding:8px;margin:8px 5px;}
