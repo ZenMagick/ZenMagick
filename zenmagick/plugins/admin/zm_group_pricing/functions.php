@@ -32,11 +32,31 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_group_pricing_admin() {
-    global $zm_group_pricing, $zm_nav_params;
+    global $zm_nav_params;
 
+        $zm_nav_params .= '&fkt=zm_group_pricing_admin';
         eval(zm_globals());
+
+        $zm_groupPricing = $zm_loader->create("GroupPricing");
+        $zm_priceGroups = $zm_groupPricing->getPriceGroups();
+
+        // request handling
+        if ('GET' == $zm_request->getMethod()) {
+            $zm_groupPricingService = $zm_loader->create("GroupPricingService");
+            $productId = $zm_request->getProductId();
+            $groupId = $zm_request->getParameter('groupId', 0);
+            $zm_productGroupPricing = $zm_groupPricingService->getProductGroupPricing($productId, $groupId);
+            if (null !== $zm_productGroupPricing) {
+                // populate request for initial display
+            }
+        } else if ('POST' == $zm_request->getMethod()) {
+        }
+
+
+        // execute view
         $template = file_get_contents($zm_group_pricing->getPluginDir().'/views/group_pricing_admin.php');
         eval('?>'.$template);
+
         return new ZMPluginPage('zm_group_pricing_admin', zm_l10n_get('Group Pricing'));
     }
 

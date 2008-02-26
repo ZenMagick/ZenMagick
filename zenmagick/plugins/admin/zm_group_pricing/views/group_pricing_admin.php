@@ -23,45 +23,44 @@
  * $Id$
  */
 ?>
-<?php
-
-  $zm_groupPricing = $zm_loader->create("GroupPricing");
-?>
-
   <?php zm_form('', $zm_nav_params, '', 'get') ?>
-    <div><input type="hidden" name="fkt" value="zm_group_pricing_admin"></div>
-    <h2>Group Pricing ( <?php zm_idp_select('groupId', $zm_groupPricing->getPriceGroups(), 1, $zm_request->getParameter('groupId'), 'this.form.submit()') ?> )</h2>
+    <h2>Group Pricing ( <?php zm_idp_select('groupId', $zm_priceGroups, 1, $zm_request->getParameter('groupId'), 'this.form.submit()') ?> )</h2>
   </form>
 
   <?php zm_form('', $zm_nav_params, '', 'post') ?>
     <fieldset>
-      <input type="hidden" name="groupPricingId" value="0">
-      <input type="hidden" name="productId" value="0">
-      <input type="hidden" name="groupId" value="0">
+      <?php if (null === $zm_request->getParameter('groupId')) { $group = $zm_priceGroups[0]; ?>
+        <input type="hidden" name="groupId" value="<?php echo $group->getId() ?>">
+      <?php } ?>
+      <input type="hidden" name="groupPricingId" value="<?php echo $zm_request->getParameter('groupPricingId') ?>">
       <legend>Discount</legend>
       <p>
         <label for="discount">Discount</label> 
-        <input type="text" id="discount" name="discount">
+        <input type="text" id="discount" name="discount" value="<?php echo $zm_request->getParameter('discount') ?>">
 
         <label for="type">Type</label> 
         <select id="type" name="type">
-          <option value="$">Amount</option>
           <option value="%">Percent</option>
+          <option value="$">Amount</option>
         </select>
       </p>
       <p>
-        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php zm_checkbox_state(0) ?>>
+        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php zm_checkbox_state($zm_request->getParameter('regularPriceOnly')) ?>>
         <label for="regularPriceOnly">Do not allow discount on sale/special</label>
       </p>
       <p>
         <label for="startDate">Start Date</label> 
-        <input type="text" id="startDate" name="startDate" value="">
+        <input type="text" id="startDate" name="startDate" value="<?php echo $zm_request->getParameter('startDate') ?>">
         <label for="endDate">End Date</label> 
-        <input type="text" id="endDate" name="endDate" value="">
+        <input type="text" id="endDate" name="endDate" value="<?php echo $zm_request->getParameter('endDate') ?>">
       </p>
     </fieldset>
     <p>
       <input type="hidden" name="fkt" value="zm_group_pricing_admin">
-      <input type="submit" value="Update">
+      <input type="submit" name="create" value="Create">
+      <?php if (0 < $zm_request->getParameter('groupPricingId')) { ?>
+      <input type="submit" name="update" value="Update">
+      <a href="<?php zm_href('', $zm_nav_params.'&groupPricingId='.$zm_request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+      <?php } ?>
     </p>
   </form>
