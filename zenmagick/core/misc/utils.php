@@ -306,4 +306,26 @@ return zen_get_uprid($productId, $attributes);
         return $amount;
     }
 
+
+
+
+    /**
+     * Convert a UI date into the internal data format.
+     *
+     * <p>This is typically used by controller/business code to convert user input before 
+     * storing it in the database.</p>
+     *
+     * @package org.zenmagick.misc
+     * @param string date The date as received via the UI.
+     * @return string The formatted date.
+     */
+    function zm_ui2date($date) {
+        if (zm_is_empty($date)) {
+            return '';
+        }
+        // The individual date components in the order dd, mm, cc, yy.
+        $da = zm_parse_date($date, UI_DATE_FORMAT);
+        return date('Y-m-d 00:00:00', mktime(0, 0, 0, $da[1], $da[0], (int)($da[2].$da[3])));
+    }
+
 ?>
