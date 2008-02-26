@@ -257,6 +257,40 @@ class ZMService extends ZMObject {
         return $customFields;
     }
 
+    /**
+     * Create model and populate using the given data and field map.
+     *
+     * @param string clazz The model class.
+     * @param array data The data (keys are object property names)
+     * @param array fieldMap The field mapping; default is <code>null</code> which will default to this service <code>fieldMap_</code>.
+     * @return mixed The model instance.
+     */
+    function map2obj($clazz, $data, $fieldMap=null) {
+        $obj = $this->create($clazz);
+        if (null === $fieldMap) {
+            $fieldMap = $this->fieldMap_;
+        }
+        // create col => property mapping
+        $map = array();
+        foreach ($fieldMap as $field) {
+            $map[$field[0]] = $field[1];
+        }
+
+        foreach ($data as $key => $value) {
+            if (isset($map[$key])) {
+                // got mapping
+                $name = $map[$key];
+                $ucName = ucwords($name);
+                $setter = 'set' . $ucName;
+                if (method_exists($obj, $setter)) {
+                    $obj->$setter($value);
+                }
+            }
+        }
+
+        return $obj;
+    }
+
 }
 
 ?>
