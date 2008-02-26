@@ -354,7 +354,7 @@ class ZMRequest extends ZMObject {
             $old = $this->request_[$name];
         }
         $this->request_[$name] = $value;
-        return null;
+        return $old;
     }
 
     /**
