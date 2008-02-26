@@ -49,9 +49,9 @@
       </p>
       <p>
         <label for="startDate">Start Date</label> 
-        <input type="text" id="startDate" name="startDate" value="<?php echo $zm_request->getParameter('startDate') ?>">
+        <input type="text" id="startDate" name="startDate" value="<?php zm_date_short($zm_request->getParameter('startDate')) ?>">
         <label for="endDate">End Date</label> 
-        <input type="text" id="endDate" name="endDate" value="<?php echo $zm_request->getParameter('endDate') ?>">
+        <input type="text" id="endDate" name="endDate" value="<?php zm_date_short($zm_request->getParameter('endDate')) ?>">
       </p>
     </fieldset>
     <p>

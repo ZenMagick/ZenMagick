@@ -52,8 +52,8 @@
                 $zm_request->setParameter('discount', $productGroupPricing->getDiscount());
                 $zm_request->setParameter('type', $productGroupPricing->getType());
                 $zm_request->setParameter('regularPriceOnly', $productGroupPricing->isRegularPriceOnly());
-                $zm_request->setParameter('startDate', zm_date_short($productGroupPricing->getStartDate(), false));
-                $zm_request->setParameter('endDate', zm_date_short($productGroupPricing->getEndDate(), false));
+                $zm_request->setParameter('startDate', $productGroupPricing->getStartDate());
+                $zm_request->setParameter('endDate', $productGroupPricing->getEndDate());
             }
         } else if ('POST' == $zm_request->getMethod()) {
             $productGroupPricing = $zm_loader->create("ProductGroupPricing");

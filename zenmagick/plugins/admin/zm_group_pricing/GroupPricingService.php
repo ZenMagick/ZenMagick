@@ -98,7 +98,7 @@ class GroupPricingService extends ZMService {
                 ) values (:productId;integer, :groupId;integer,
                   :discount;float, :type;string, :regularPriceOnly;integer,
                   :startDate;date, :endDate;date)";
-        $sql = $this->bindObject($sql, $groupPricing);
+        $sql = $this->bindObject($sql, $groupPricing, false);
         $db->Execute($sql);
         $groupPricing->id_ = $db->Insert_ID();
 
