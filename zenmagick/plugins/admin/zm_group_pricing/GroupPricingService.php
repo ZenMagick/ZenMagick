@@ -92,11 +92,11 @@ class GroupPricingService extends ZMService {
     function &createProductGroupPricing(&$groupPricing) {
         $db = $this->getDB();
         $sql = "insert into " . ZM_TABLE_GROUP_PRICING . "(
-                 products_id, group_id, group_id,
+                 products_id, group_id,
                  discount, type, regular_price_only,
                  start_date, endt_date
                 ) values (:productId;integer, :groupId;integer,
-                  :discount;float, :regularPriceOnly;integer,
+                  :discount;float, :type;string, :regularPriceOnly;integer,
                   :startDate;date, :endDate;date)";
         $sql = $this->bindObject($sql, $groupPricing);
         $db->Execute($sql);

@@ -74,6 +74,26 @@ class ProductGroupPricing extends ZMModel {
 
 
     /**
+     * Populate all available fields from the given request.
+     *
+     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     */
+    function populate($req=null) {
+    global $zm_request;
+
+        $this->id_ = $zm_request->getParameter('groupPricingId', '0');
+        $this->productId_ = $zm_request->getParameter('productId', '0');
+        $this->groupId_ = $zm_request->getParameter('groupId', '0');
+        $this->discount_ = $zm_request->getParameter('discount', '0');
+        $this->type_ = $zm_request->getParameter('type', '%');
+        $this->regularPriceOnly_ = $zm_request->getParameter('regularPriceOnly');
+        $this->startDate_ = $zm_request->getParameter('startDate');
+        $this->startDate_ = zm_is_empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_;
+        $this->endDate_ = $zm_request->getParameter('endDate');
+    }
+
+
+    /**
      * Get the id.
      *
      * @return int The id.

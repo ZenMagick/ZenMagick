@@ -24,14 +24,13 @@
  */
 ?>
   <?php zm_form('', $zm_nav_params, '', 'get') ?>
-    <h2>Group Pricing ( <?php zm_idp_select('groupId', $zm_priceGroups, 1, $zm_request->getParameter('groupId'), 'this.form.submit()') ?> )</h2>
+    <h2>Group Pricing ( <?php zm_idp_select('groupId', $priceGroups, 1, $zm_request->getParameter('groupId'), 'this.form.submit()') ?> )</h2>
   </form>
 
   <?php zm_form('', $zm_nav_params, '', 'post') ?>
     <fieldset>
-      <?php if (null === $zm_request->getParameter('groupId')) { $group = $zm_priceGroups[0]; ?>
-        <input type="hidden" name="groupId" value="<?php echo $group->getId() ?>">
-      <?php } ?>
+      <?php $groupId = $zm_request->getParameter('groupId', $priceGroups[0]->getId()); ?>
+      <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
       <input type="hidden" name="groupPricingId" value="<?php echo $zm_request->getParameter('groupPricingId') ?>">
       <legend>Discount</legend>
       <p>
@@ -57,10 +56,11 @@
     </fieldset>
     <p>
       <input type="hidden" name="fkt" value="zm_group_pricing_admin">
-      <input type="submit" name="create" value="Create">
       <?php if (0 < $zm_request->getParameter('groupPricingId')) { ?>
-      <input type="submit" name="update" value="Update">
-      <a href="<?php zm_href('', $zm_nav_params.'&groupPricingId='.$zm_request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+          <input type="submit" name="update" value="Update">
+          <a href="<?php zm_href('', $zm_nav_params.'&groupPricingId='.$zm_request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+      <?php } else { ?>
+          <input type="submit" name="create" value="Create">
       <?php } ?>
     </p>
   </form>

@@ -38,18 +38,33 @@
         eval(zm_globals());
 
         $zm_groupPricing = $zm_loader->create("GroupPricing");
-        $zm_priceGroups = $zm_groupPricing->getPriceGroups();
+        $priceGroups = $zm_groupPricing->getPriceGroups();
 
         // request handling
+        $groupPricingService = $zm_loader->create("GroupPricingService");
         if ('GET' == $zm_request->getMethod()) {
-            $zm_groupPricingService = $zm_loader->create("GroupPricingService");
             $productId = $zm_request->getProductId();
             $groupId = $zm_request->getParameter('groupId', 0);
-            $zm_productGroupPricing = $zm_groupPricingService->getProductGroupPricing($productId, $groupId);
-            if (null !== $zm_productGroupPricing) {
-                // populate request for initial display
+            $productGroupPricing = $groupPricingService->getProductGroupPricing($productId, $groupId);
+            if (null !== $productGroupPricing) {
+                // ugh: populate request for initial display
+                $zm_request->setParameter('groupPricingId', $productGroupPricing->getId());
+                $zm_request->setParameter('discount', $productGroupPricing->getDiscount());
+                $zm_request->setParameter('type', $productGroupPricing->getType());
+                $zm_request->setParameter('regularPriceOnly', $productGroupPricing->isRegularPriceOnly());
+                $zm_request->setParameter('startDate', zm_date_short($productGroupPricing->getStartDate(), false));
+                $zm_request->setParameter('endDate', zm_date_short($productGroupPricing->getEndDate(), false));
             }
         } else if ('POST' == $zm_request->getMethod()) {
+            $productGroupPricing = $zm_loader->create("ProductGroupPricing");
+            $productGroupPricing->populate();
+            if (0 == $productGroupPricing->getId()) {
+                // create
+                $productGroupPricing = $groupPricingService->createProductGroupPricing($productGroupPricing);
+            } else {
+                // update
+            }
+            // TODO: redirect
         }
 
 
