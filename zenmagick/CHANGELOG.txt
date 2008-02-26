@@ -12,6 +12,9 @@ Release 0.9.1
   than _newPriceGoup()
 - disable caching of ajax requests (otherwise cart contents, etc would be
   cached...)
+- remove code that added form parameter to the form action (this was done to
+  get around some bits of zen-cart code that were looking at $_GET and $_POST
+	at the same time...)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

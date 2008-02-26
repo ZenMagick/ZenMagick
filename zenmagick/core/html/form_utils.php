@@ -84,15 +84,10 @@
         if (zm_starts_with($page, "http")) {
             $action = $page;
         } else {
-            $action = $secure ? zm_secure_href($page, $params, false) : zm_href($page, $params, false);
+            $action = _zm_build_href($page, '', $secure, false);
         }
 
-        // parse all params 
         parse_str($params, $query);
-        $aurl = parse_url($action);
-        $aparams = isset($aurl['query']) ? zm_htmlurldecode($aurl['query']) : '';
-        parse_str($aparams, $aquery);
-        $query = array_merge($aquery, $query);
         // exclude excludes
         foreach ($excludes as $exclude) {
             if (isset($query[$exclude])) {
@@ -109,18 +104,20 @@
         }
         $html .= ' method="' . $method . '">';
 
-        // add hidden stuff
+        // add hidden stuff (but not to action any more)
         $div = false;
         if (0 < count($query)) { $html .= '<div>'; $div = true; }
         foreach ($query as $name => $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
-        if (!array_key_exists('main_page', $aquery)) {
-            if (!$div) { $html .= '<div>'; }
-            $html .= '<input type="hidden" name="main_page" value="' . (null == $page ? $zm_request->getPageName() : $page) . '" />';
-            if (!$div) { $html .= '</div>'; }
+        if (!array_key_exists('main_page', $query)) {
+            $page = null == $page ? $zm_request->getPageName() : $page;
+            if (null !== $page) {
+                if (!$div) { $html .= '<div>'; $div = true; }
+                $html .= '<input type="hidden" name="main_page" value="' . $page . '" />';
+            }
         }
-        if (0 < count($query)) $html .= '</div>';
+        if ($div) $html .= '</div>';
 
         if ($echo) echo $html;
         return $html;
