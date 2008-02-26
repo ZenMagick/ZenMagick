@@ -136,7 +136,7 @@ class ZMAccounts extends ZMService {
     /**
      * Create a new account.
      *
-     * @param ZMAccount The new account.
+     * @param ZMAccount account The new account.
      * @return ZMAccount The created account incl. the new account id.
      */
     function &createAccount(&$account) {
