@@ -24,6 +24,8 @@
 <?php
 
 define('_ZM_ZEN_DIR_FS_LANGUAGES', DIR_FS_CATALOG_LANGUAGES);
+define('_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES', DIR_FS_ADMIN.DIR_WS_LANGUAGES);
+define('_ZM_INIT_TEMPLATES_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'init_includes/overrides/init_templates.php');
 
 
 /**
@@ -63,7 +65,18 @@ class ZMI18nPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        return 0 != count($this->_getUnpatchedFiles());
+        $isUnpatched = 0 != count($this->_getUnpatchedFiles());
+
+        $isI18n = false;
+        $lines = $this->getFileLines(_ZM_INIT_TEMPLATES_FILE);
+        foreach ($lines as $ii => $line) {
+            if (false !== strpos($line, '$zmLanguagesBefore = true;')) {
+                $isI18n = true;
+                break;
+            }
+        }
+
+        return $isUnpatched || $isI18n;
     }
 
     /**
@@ -79,7 +92,7 @@ class ZMI18nPatch extends ZMFilePatch {
             }
         }
 
-        return true;
+        return is_writeable(_ZM_INIT_TEMPLATES_FILE);
     }
 
     /**
@@ -90,7 +103,8 @@ class ZMI18nPatch extends ZMFilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_DIR_FS_LANGUAGES . " and containing .php files";
+        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_DIR_FS_LANGUAGES . ", " . 
+          _ZM_ZEN_DIR_FS_ADMIN_LANGUAGES . " and containing .php files and " . _ZM_INIT_TEMPLATES_FILE;
     }
 
     /**
@@ -102,10 +116,21 @@ class ZMI18nPatch extends ZMFilePatch {
      */
     function patch($force=false) {
         if ((zm_setting('isEnablePatching')) || $force) {
+            // patch lang files
             $files = $this->_getUnpatchedFiles();
             foreach ($files as $file => $lines) {
                 $this->putFileLines($file, $lines);
             }
+
+            // patch admin lang loading sequence
+            $lines = $this->getFileLines(_ZM_INIT_TEMPLATES_FILE);
+            foreach ($lines as $ii => $line) {
+                if (false !== strpos($line, '$zmLanguagesBefore = true;')) {
+                    $lines[$ii] = str_replace("true", "false", $line);
+                }
+            }
+            $this->putFileLines(_ZM_INIT_TEMPLATES_FILE, $lines);
+
             return true;
         }
 
@@ -125,6 +150,17 @@ class ZMI18nPatch extends ZMFilePatch {
                 if (zm_ends_with($file, '.php')) {
                     $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_LANGUAGES.$file);
                     $files[_ZM_ZEN_DIR_FS_LANGUAGES.$file] = $lines;
+                }
+            }
+            closedir($handle);
+        }
+
+        if (file_exists(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES)) {
+            $handle = opendir(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES);
+            while (false !== ($file = readdir($handle))) {
+                if (zm_ends_with($file, '.php')) {
+                    $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file);
+                    $files[_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file] = $lines;
                 }
             }
             closedir($handle);
@@ -160,6 +196,26 @@ class ZMI18nPatch extends ZMFilePatch {
             closedir($handle);
         }
 
+        if (file_exists(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES)) {
+            $handle = opendir(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES);
+            while (false !== ($file = readdir($handle))) {
+                if (zm_ends_with($file, '.php')) {
+                    $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file);
+                    foreach ($lines as $ii => $line) {
+                        if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw(") && false === strpos($line, "_DISABLED ")) {
+                            // change already here
+                            $lines[$ii] = str_replace('zen_date_raw', 'zen_date_raw_DISABLED', $line);
+                            $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";
+                            // store in array
+                            $files[_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file] = $lines;
+                            break;
+                        }
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
         return $files;
     }
     
@@ -184,6 +240,15 @@ class ZMI18nPatch extends ZMFilePatch {
             }
             $this->putFileLines($file, $lines);
         }
+
+        // patch admin lang loading sequence
+        $lines = $this->getFileLines(_ZM_INIT_TEMPLATES_FILE);
+        foreach ($lines as $ii => $line) {
+            if (false !== strpos($line, '$zmLanguagesBefore = false;')) {
+                $lines[$ii] = str_replace("false", "true", $line);
+            }
+        }
+        $this->putFileLines(_ZM_INIT_TEMPLATES_FILE, $lines);
 
         return true;
     }
