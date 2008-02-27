@@ -16,7 +16,7 @@ CREATE TABLE zm_group_pricing (
   type varchar(2) NOT NULL default '%',
   regular_price_only tinyint(1) NOT NULL default 1,
   start_date datetime NOT NULL,
-  endt_date datetime,
+  end_date datetime,
   PRIMARY KEY (group_pricing_id),
   FOREIGN KEY (products_id) REFERENCES products (products_id) ON DELETE CASCADE,
   FOREIGN KEY (group_id) REFERENCES group_pricing (group_id) ON DELETE CASCADE

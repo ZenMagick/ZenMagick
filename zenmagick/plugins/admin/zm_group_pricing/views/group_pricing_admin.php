@@ -37,10 +37,11 @@
         <label for="discount">Discount</label> 
         <input type="text" id="discount" name="discount" value="<?php echo $zm_request->getParameter('discount') ?>">
 
+        <?php $type = $zm_request->getParameter('type'); ?>
         <label for="type">Type</label> 
         <select id="type" name="type">
-          <option value="%">Percent</option>
-          <option value="$">Amount</option>
+          <option value="%"<?php if ('%' == $type) { echo ' selected'; } ?>>Percent</option>
+          <option value="$"<?php if ('$' == $type) { echo ' selected'; } ?>>Amount</option>
         </select>
       </p>
       <p>
@@ -52,6 +53,7 @@
         <input type="text" id="startDate" name="startDate" value="<?php zm_date_short($zm_request->getParameter('startDate')) ?>">
         <label for="endDate">End Date</label> 
         <input type="text" id="endDate" name="endDate" value="<?php zm_date_short($zm_request->getParameter('endDate')) ?>">
+        <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
       </p>
     </fieldset>
     <p>

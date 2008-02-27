@@ -45,7 +45,7 @@
         if ('GET' == $zm_request->getMethod()) {
             $productId = $zm_request->getProductId();
             $groupId = $zm_request->getParameter('groupId', 0);
-            $productGroupPricing = $groupPricingService->getProductGroupPricing($productId, $groupId);
+            $productGroupPricing = $groupPricingService->getProductGroupPricing($productId, $groupId, false);
             if (null !== $productGroupPricing) {
                 // ugh: populate request for initial display
                 $zm_request->setParameter('groupPricingId', $productGroupPricing->getId());
@@ -63,8 +63,10 @@
                 $productGroupPricing = $groupPricingService->createProductGroupPricing($productGroupPricing);
             } else {
                 // update
+                $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
             }
-            // TODO: redirect
+            $groupId = $zm_request->getParameter('groupId', 0);
+            zm_redirect(zm_href('', $zm_nav_params.'&groupId='.$groupId));
         }
 
 

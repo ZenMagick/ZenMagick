@@ -35,6 +35,18 @@ define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
  * @version $Id$
  */
 class GroupPricingService extends ZMService {
+    var $fieldMap_ = array(
+        // db column, model property name, data type
+        array('group_pricing_id', 'id', 'integer'),
+        array('products_id', 'productId', 'integer'),
+        array('group_id', 'groupId', 'integer'),
+        array('discount', 'discount', 'float'),
+        array('type', 'type', 'string'), 
+        array('regular_price_only', 'regularPriceOnly', 'integer'),
+        array('start_date', 'startDate', 'date'),
+        array('end_date', 'endDate', 'date')
+    );
+
 
     /**
      * Default c'tor.
@@ -63,20 +75,25 @@ class GroupPricingService extends ZMService {
      *
      * @param int productId The source product id.
      * @param int groupId The group id.
+     * @param boolean active If set to <code>true</code> consider active (date) pricings only; default is <code>true</code>.
      * return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
-    function getProductGroupPricing($productId, $groupId) {
+    function getProductGroupPricing($productId, $groupId, $active=true) {
         $db = $this->getDB();
+
+        if ($active) {
+            $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
+        }
         $sql = "select * from " . ZM_TABLE_GROUP_PRICING . "
                 where products_id = :productId
-                and group_id =:groupId";
+                and group_id = :groupId".$dateLimit;
         $sql = $db->bindVars($sql, ":productId", $productId, "integer");
         $sql = $db->bindVars($sql, ":groupId", $groupId, "integer");
 
         $productGroupPricing = null;
         $results = $db->Execute($sql);
         if (!$results->EOF) {
-            $productGroupPricing = $this->_newProductGroupPricing($results->fields);
+            $productGroupPricing = $this->map2obj('ProductGroupPricing', $results->fields);
         }
 
         return $productGroupPricing;
@@ -94,7 +111,7 @@ class GroupPricingService extends ZMService {
         $sql = "insert into " . ZM_TABLE_GROUP_PRICING . "(
                  products_id, group_id,
                  discount, type, regular_price_only,
-                 start_date, endt_date
+                 start_date, end_date
                 ) values (:productId;integer, :groupId;integer,
                   :discount;float, :type;string, :regularPriceOnly;integer,
                   :startDate;date, :endDate;date)";
@@ -106,19 +123,27 @@ class GroupPricingService extends ZMService {
     }
 
     /**
-     * Create new product group pricing.
+     * Update an existing product group pricing.
+     *
+     * @param ProductGroupPricing groupPricing The new product group pricing.
+     * @return ProductGroupPricing The created product group pricing incl. the id.
      */
-    function &_newProductGroupPricing($fields) {
-        $productGroupPricing = $this->create("ProductGroupPricing");
-        $productGroupPricing->id_ = $fields['group_pricing_id'];
-        $productGroupPricing->productId_ = $fields['products_id'];
-        $productGroupPricing->groupId_ = $fields['group_id'];
-        $productGroupPricing->discount_ = $fields['discount'];
-        $productGroupPricing->type_ = $fields['type'];
-        $productGroupPricing->regularPriceOnly_ = $fields['regular_price_only'];
-        $productGroupPricing->startDate_ = $fields['start_date'];
-        $productGroupPricing->endDate_ = $fields['endt_date'];
-        return $productGroupPricing;
+    function &updateProductGroupPricing(&$groupPricing) {
+        $db = $this->getDB();
+        $sql = "update " . ZM_TABLE_GROUP_PRICING . " set
+                products_id = :productId;integer,
+                group_id = :groupId;integer,
+                discount = :discount;float,
+                type = :type;string, 
+                regular_price_only = :regularPriceOnly;integer,
+                start_date = :startDate;date,
+                end_date = :endDate;date
+                where group_pricing_id = :groupPricingId";
+        $sql = $db->bindVars($sql, ":groupPricingId", $groupPricing->getId(), "integer");
+        $sql = $this->bindObject($sql, $groupPricing, false);
+        $db->Execute($sql);
+
+        return $groupPricing;
     }
 
 }
