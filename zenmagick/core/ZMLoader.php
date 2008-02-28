@@ -278,9 +278,12 @@ class ZMLoader {
             case 4:
                 $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
                 break;
+            case 5:
+                $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
+                break;
             default:
-                zm_log("unsupported number of arguments " . $clazz);
-                zm_backtrace();
+                zm_log('unsupported number of arguments ' . $clazz);
+                zm_backtrace('unsupported number of arguments ' . $clazz);
                 break;
             }
             return $obj;
