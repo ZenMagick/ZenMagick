@@ -602,7 +602,7 @@
         $themeInfo =& $theme->getThemeInfo();
 
         // configure theme loader
-        $themeLoader = $zm_loader->ceate("Loader", "themeLoader");
+        $themeLoader = $zm_loader->create("Loader", "themeLoader");
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader
@@ -849,7 +849,7 @@
         // prepare environment
         eval(zm_globals());
 
-        $pluginLoader = $m_loader->create("Loader", $type."PluginLoader");
+        $pluginLoader = $zm_loader->create("Loader", $type."PluginLoader");
         foreach ($zm_plugins->getPluginsForType($type, $scope) as $id => $plugin) {
             if ($plugin->isEnabled()) {
                 if ('ALL' == $plugin->getLoaderSupport()) {
