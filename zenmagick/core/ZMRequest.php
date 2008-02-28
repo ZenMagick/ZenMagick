@@ -48,7 +48,6 @@ class ZMRequest extends ZMObject {
         parent::__construct();
 
         $this->controller_ = null;
-        $this->session_ = $this->create("Session");
         if (null != $request) {
             $this->request_ = $request;
         } else {
@@ -85,7 +84,7 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
     function isValidSession() {
-        return $this->session_->isValid();
+        return $this->getSession()->isValid();
     }
 
     /**
@@ -93,7 +92,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMSession The session.
      */
-    function &getSession() { return $this->session_; }
+    function &getSession() { if (!isset($this->session_)) { $this->session_ = $this->create("Session"); } return $this->session_; }
 
     /**
      * Get the hostname for this request.
@@ -128,7 +127,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    function &getShoppingCart() { return $this->session_->getShoppingCart(); }
+    function &getShoppingCart() { return $this->getSession()->getShoppingCart(); }
 
     /**
      * Get the current page name; ie the <code>main_page</code> value.
@@ -185,7 +184,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The currency code or <code>null</code>.
      */
-    function getCurrencyCode() { return $this->getParameter('currency', $this->session_->getCurrencyCode()); }
+    function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
 
     /**
      * Get the request model number.
@@ -256,7 +255,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    function getAccountId() { return $this->session_->getAccountId(); }
+    function getAccountId() { return $this->getSession()->getAccountId(); }
 
     /**
      * Get the account.
@@ -293,21 +292,21 @@ class ZMRequest extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isAnonymous() { return $this->session_->isAnonymous(); }
+    function isAnonymous() { return $this->getSession()->isAnonymous(); }
 
     /**
      * Returns <code>true</code> if the user is fully registered and logged in.
      *
      * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
      */
-    function isRegistered() { return $this->session_->isRegistered(); }
+    function isRegistered() { return $this->getSession()->isRegistered(); }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isGuest() { return $this->session_->isGuest(); }
+    function isGuest() { return $this->getSession()->isGuest(); }
 
     /**
      * Generic access method for request parameter.
