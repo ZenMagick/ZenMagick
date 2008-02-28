@@ -423,6 +423,7 @@ class ZMCoreCompressor extends ZMObject {
             return;
         }
         $lines = array(
+            '$zm_loader = new ZMLoader();',
             '$zm_runtime = new ZMRuntime();',
             '$zm_request = new ZMRequest();',
         );
