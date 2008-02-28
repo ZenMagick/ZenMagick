@@ -41,7 +41,7 @@
         $priceGroups = $zm_groupPricing->getPriceGroups();
 
         // request handling
-        $groupPricingService = $zm_loader->create("GroupPricingService");
+        $groupPricingService = $zm_loader->create("ProductGroupPricingService");
         if ('GET' == $zm_request->getMethod()) {
             $productId = $zm_request->getProductId();
             $groupId = $zm_request->getParameter('groupId', 0);

@@ -34,7 +34,7 @@ define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
  * @package org.zenmagick.plugins.zm_group_pricing
  * @version $Id$
  */
-class GroupPricingService extends ZMService {
+class ProductGroupPricingService extends ZMService {
     var $fieldMap_ = array(
         // db column, model property name, data type
         array('group_pricing_id', 'id', 'integer'),
@@ -58,7 +58,7 @@ class GroupPricingService extends ZMService {
     /**
      * Default c'tor.
      */
-    function GroupPricingService() {
+    function ProductGroupPricingService() {
         $this->__construct();
     }
 
