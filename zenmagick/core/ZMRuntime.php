@@ -210,7 +210,7 @@ class ZMRuntime extends ZMObject {
      * @return ZMLanguage The current language.
      */
     function getLanguage() {
-        $session = new ZMSession();
+        $session = $this->create("Session");
         return $session->getLanguage();
     }
 

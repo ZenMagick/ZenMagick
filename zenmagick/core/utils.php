@@ -602,7 +602,7 @@
         $themeInfo =& $theme->getThemeInfo();
 
         // configure theme loader
-        $themeLoader = new ZMLoader("themeLoader");
+        $themeLoader = $zm_loader->ceate("Loader", "themeLoader");
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader
@@ -844,12 +844,14 @@
      * @param string scope The current scope.
      */
     function zm_init_plugins($type, $scope) {
+    global $zm_loader;
+
         // prepare environment
         eval(zm_globals());
 
-        $pluginLoader =& new ZMLoader($type."PluginLoader");
-        foreach ($zm_plugins->getPluginsForType($type) as $id => $plugin) {
-            if ($plugin->isEnabled() && ($plugin->getScope() == $scope || ZM_SCOPE_ALL == $plugin->getScope())) {
+        $pluginLoader = $m_loader->create("Loader", $type."PluginLoader");
+        foreach ($zm_plugins->getPluginsForType($type, $scope) as $id => $plugin) {
+            if ($plugin->isEnabled()) {
                 if ('ALL' == $plugin->getLoaderSupport()) {
                     $pluginLoader->addPath($plugin->getPluginDir());
                 } else if ('FOLDER' == $plugin->getLoaderSupport()) {
@@ -873,8 +875,8 @@
         $rootLoader->setParent($pluginLoader);
 
         // call init only after everything set up
-        foreach ($zm_plugins->getPluginsForType($type) as $id => $plugin) {
-            if ($plugin->isEnabled() && ($plugin->getScope() == $scope || ZM_SCOPE_ALL == $plugin->getScope())) {
+        foreach ($zm_plugins->getPluginsForType($type, $scope) as $id => $plugin) {
+            if ($plugin->isEnabled()) {
                 // PHP4 hack; use $$id rather than $plugin
                 $$id->init();
             }

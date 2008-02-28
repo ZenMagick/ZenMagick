@@ -123,13 +123,14 @@ class ZMPlugins extends ZMService {
     /**
      * Get all plugins.
      *
+     * @param string scope The plugin scope; default is <code>ZM_SCOPE_ALL</code>.
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
-    function getAllPlugins($configured=true) {
+    function getAllPlugins($scope=ZM_SCOPE_ALL, $configured=true) {
         $plugins = array();
         foreach ($this->getPluginTypes() as $type => $typeDir) {
-            $plugins[$type] = $this->getPluginsForType($type, $configured);
+            $plugins[$type] = $this->getPluginsForType($type, $scope, $configured);
         }
         return $plugins;
     }
@@ -162,16 +163,19 @@ class ZMPlugins extends ZMService {
      * Get all plugins for the given type.
      *
      * @param string type The plugin type.
+     * @param string scope The plugin scope; default is <code>ZM_SCOPE_ALL</code>.
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function &getPluginsForType($type, $configured=true) {
+    function &getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
         $idList = array();
         if ($configured) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
-                    $idList[] = $id;
+                    if (ZM_SCOPE_ALL == $scope || $status['scope'] == $scope) {
+                        $idList[] = $id;
+                    }
                 }
             }
         } else {
@@ -275,7 +279,7 @@ class ZMPlugins extends ZMService {
             $$name = $instance;
         }
 
-        foreach ($this->getPluginsForType('request') as $id => $plugin) {
+        foreach ($this->getPluginsForType('request', ZM_SCOPE_STORE) as $id => $plugin) {
             // PHP4 hack; use $$id rather than $plugin
             global $$id; $plugin =& $$id;
             if ($plugin->isEnabled()) {

@@ -245,11 +245,11 @@ class ZMCoreCompressor extends ZMObject {
      * @param string out The output directory.
      */
     function _preparePlugins($out) {
-    global $zm_runtime;
+    global $zm_loader, $zm_runtime;
 
         if (!zm_ends_with($out, '/')) $out .= '/';
 
-        $zm_plugins =& new ZMPlugins();
+        $zm_plugins = $zm_loader->create("Plugins");
         foreach ($zm_plugins->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
                 if (!$plugin->isEnabled()) {

@@ -18,6 +18,8 @@ Release 0.9.1
 - add function zm_ui2date()
 - add ZMService::map2obj(..)
 - change the i18n file patch to make theme date settings work in admin
+- make plugin scope more efficient
+- use loader for all core object creation
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

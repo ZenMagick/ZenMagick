@@ -39,6 +39,7 @@ class zm_quick_edit extends ZMPlugin {
         parent::__construct('Quick Edit', 'Quickly edit product properties');
         $this->setPreferredSortOrder(35);
         $this->setLoaderSupport('FOLDER');
+        $this->setScope(ZM_SCOPE_ADMIN);
     }
 
     /**

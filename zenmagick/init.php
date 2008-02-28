@@ -58,9 +58,6 @@
         }
     }
 
-    // classes might depend on runtime being available in their c'tor
-    $zm_runtime = new ZMRuntime();
-
     // here the loader should take over...
     if (!defined('ZM_SINGLE_CORE')) {
         $includes = zm_find_includes($_zm_core_dir, true);
@@ -76,7 +73,10 @@
         }
     }
 
-    $zm_request = new ZMRequest();
+    // application context
+    $zm_runtime = $zm_loader->create("Runtime");
+    // request wrapper
+    $zm_request = $zm_loader->create("Request");
 
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
@@ -127,17 +127,13 @@
         set_error_handler("zm_error_handler");
     }
 
-    $zm_plugins = new ZMPlugins();
-
+    // start with init plugins
+    $zm_plugins = $zm_loader->create("Plugins");
     $_zm_scope = zm_setting('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
-    if (!zm_setting('isAdmin')) {
-        zm_init_plugins('init', $_zm_scope);
-    }
+    zm_init_plugins('init', $_zm_scope);
 
-    if (zm_setting('isAdmin')) {
-        // admin plugins
-        zm_init_plugins('admin', $_zm_scope);
-    }
+    // admin plugins
+    zm_init_plugins('admin', $_zm_scope);
 
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
@@ -152,7 +148,7 @@
     zm_init_plugins('request', $_zm_scope);
 
     // resolve theme to be used 
-    if (zm_setting('isEnableZenMagick')) {
+    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
         $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
     } else {
         $zm_theme = $zm_runtime->getTheme();

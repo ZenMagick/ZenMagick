@@ -87,6 +87,8 @@ class ZMBoxPlugin extends ZMPlugin {
      * Create zen-cart dummy sideboxes plus default boxes for the default theme.
      */
     function createBoxes() {
+    global $zm_loader;
+
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';
@@ -98,7 +100,7 @@ class ZMBoxPlugin extends ZMPlugin {
         }
 
         // default theme
-        $theme = new ZMTheme(ZM_DEFAULT_THEME);
+        $theme = $zm_loader->create("Theme", ZM_DEFAULT_THEME);
         $themeBoxesDir = $theme->getBoxesDir();
         foreach ($this->getBoxNames() as $box) {
             $file = $themeBoxesDir.$box . '.php';
@@ -114,6 +116,8 @@ class ZMBoxPlugin extends ZMPlugin {
      * Remove zen-cart dummy sideboxes plus default boxes for the default theme.
      */
     function removeBoxes() {
+    global $zm_loader;
+
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';
@@ -123,7 +127,7 @@ class ZMBoxPlugin extends ZMPlugin {
         }
 
         // default theme
-        $theme = new ZMTheme(ZM_DEFAULT_THEME);
+        $theme = $zm_loader->create("Theme", ZM_DEFAULT_THEME);
         $themeBoxesDir = $theme->getBoxesDir();
         foreach ($this->getBoxNames() as $box) {
             $file = $themeBoxesDir.$box . '.php';

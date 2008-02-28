@@ -155,7 +155,7 @@ class ZMPlugin extends ZMObject {
     function __set($name, $value) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
-            $config = new ZMConfig();
+            $config = $this->create("Config");
             $config->updateConfigValue($dname, $value);
         }
     }
@@ -256,7 +256,7 @@ class ZMPlugin extends ZMObject {
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     function remove($keepSettings=false) {
-        $config = new ZMConfig();
+        $config = $this->create("Config");
 
         // always remove enable/disable key
         $config->removeConfigValue($this->enabledKey_);
@@ -398,7 +398,7 @@ class ZMPlugin extends ZMObject {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $config = new ZMConfig();
+        $config = $this->create("Config");
         $config->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
     }
 
@@ -409,7 +409,7 @@ class ZMPlugin extends ZMObject {
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
     function getConfigValues($prefix=true) {
-        $config = new ZMConfig();
+        $config = $this->create("Config");
         $values = $config->getConfigValues($this->configPrefix_.'%');
         if (!$prefix) {
             foreach ($values as $name => $value) {
@@ -496,7 +496,7 @@ class ZMPlugin extends ZMObject {
     global $zm_request;
 
         if ($zm_request->isAdmin()) {
-            zm_add_menu_item(new ZMMenuItem($menuKey, $id, $title, null, $function));
+            zm_add_menu_item($this->create("MenuItem", $menuKey, $id, $title, null, $function));
         }
     }
 

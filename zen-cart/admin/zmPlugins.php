@@ -96,7 +96,7 @@ require_once('includes/application_top.php');
 
     // build/update plugin status for all plugins
     $pluginStatus = array();
-    foreach ($zm_plugins->getAllPlugins(false) as $type => $plugins) {
+    foreach ($zm_plugins->getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
               'type' => $plugin->getType(),
@@ -146,7 +146,7 @@ require_once('includes/application_top.php');
     <div id="main">
       <div id="content">
 
-        <?php foreach ($zm_plugins->getAllPlugins(false) as $type => $plugins) { ?>
+        <?php foreach ($zm_plugins->getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo ZM_ADMINFN_PLUGINS ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0"> 

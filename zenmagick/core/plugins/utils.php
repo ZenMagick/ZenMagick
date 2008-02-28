@@ -108,6 +108,8 @@
      * @return ZMPluginPage The plugin page instance.
      */
     function &zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
+    global $zm_loader;
+
         // more reference stuff
         $id = $plugin->getId();
         global $id;
@@ -135,7 +137,7 @@ EOT;
         eval('?>'.$contents);
         $contents = ob_get_clean();
 
-        return new ZMPluginPage($fkts, $title, $contents);
+        return $zm_loader->create("PluginPage", $fkts, $title, $contents);
     }
 
 ?>

@@ -98,9 +98,9 @@ class ZMCategoryController extends ZMController {
         }
         if (null !== $products) {
             $resultList = $this->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
-            $resultList->addFilter(new ZMManufacturerFilter());
-            $resultList->addFilter(new ZMCategoryFilter());
-            $resultList->addSorter(new ZMProductSorter());
+            $resultList->addFilter($this->create("ManufacturerFilter"));
+            $resultList->addFilter($this->create("CategoryFilter"));
+            $resultList->addSorter($this->create("ProductSorter"));
             $resultList->refresh();
             $this->exportGlobal("zm_resultList", $resultList);
         }

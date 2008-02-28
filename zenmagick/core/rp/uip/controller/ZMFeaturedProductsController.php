@@ -71,9 +71,9 @@ class ZMFeaturedProductsController extends ZMController {
 
         $resultList = $this->create("ResultList", $zm_products->getFeaturedProducts($zm_request->getCategoryId(), 0));
         if (null != $resultList) {
-            $resultList->addFilter(new ZMManufacturerFilter());
-            $resultList->addFilter(new ZMCategoryFilter());
-            $resultList->addSorter(new ZMProductSorter());
+            $resultList->addFilter($this->create("ManufacturerFilter"));
+            $resultList->addFilter($this->create("CategoryFilter"));
+            $resultList->addSorter($this->create("ProductSorter"));
             $resultList->refresh();
         }
         $this->exportGlobal("zm_resultList", $resultList);

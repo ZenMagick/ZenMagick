@@ -34,10 +34,10 @@
      * @package org.zenmagick.settings
      */
     function zm_set_default_url_mappings() {
-    global $zm_urlMapper;
+    global $zm_loader, $zm_urlMapper;
 
         if (!isset($zm_urlMapper)) {
-            $zm_urlMapper = new ZMUrlMapper();
+            $zm_urlMapper = $zm_loader->create("UrlMapper");
         }
 
         // global

@@ -28,10 +28,10 @@
      * Set up default SACS mappings.
      */
     function zm_set_default_sacs_mappings() {
-    global $zm_sacsMapper;
+    global $zm_loader, $zm_sacsMapper;
 
         if (!isset($zm_sacsMapper)) {
-            $zm_sacsMapper = new ZMSacsMapper();
+            $zm_sacsMapper = $zm_loader->create("SacsMapper");
         }
 
         // default access settings
