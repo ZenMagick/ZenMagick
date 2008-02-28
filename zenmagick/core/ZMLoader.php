@@ -33,22 +33,18 @@
  * <p>Classes in ZenMagick have to adhere to the following conventions:</p>
  * <ul>
  *  <li>ZenMagick classes start always with the prefix <em>ZM</em></li>
- *  <li>Filenames have to reflect the containd class; this is <strong>case sensitive</strong>
- *    (Noteable exception is ZMObject, which is located in bootstrpa.php!)
+ *  <li>Filenames have to reflect the contained class; this is <strong>case sensitive</strong>
  *  </li>
  *  <li>There is always one class per file</li>
  *  <li>Custom classes use the name of the parent class without the <em>ZM</em> prefix;
  *    For example a custom index controller would extend <code>ZMIndexController</code> and
  *    be named <code>IndexController</code>
  *  </li>
- *  <li>It is considered good practice to group related code in directories similar to the
- *    ZenMagick code
- *  </li>
- *  <li>Classes are created using the class loader <code>create(..)</code> method</li>
+ *  <li>Classes are created using the class loader's <code>create(..)</code> method</li>
  *  <li>Parent classes following the above conventions will be automatically resolved</li>
  * </ul>
  *
- * <p><strong>Note:</strong> This is not scalable as Java code and does not handle more than on
+ * <p><strong>Note:</strong> This is not as scalable as Java code and does not handle more than on
  * level of inheritance.</p>
  *
  * @author mano
@@ -56,44 +52,42 @@
  * @version $Id$
  */
 class ZMLoader {
-    var $name_;
-    var $parent_;
-    var $path_;
+    private static $root_ = null;
+    private $parent_;
+    private $path_;
 
 
     /**
      * Create a new loader.
-     *
-     * @param string name The loader name.
      */
-    function ZMLoader($name) {
-        $this->name_ = $name;
+    public function __construct() {
         $this->parent_ = null;
         $this->path_ = array();
     }
 
-    /** PHP5 constructor. */
-    function __construct($name) {
-        $this->ZMLoader($name);
-    }
 
     /**
-     * Default d'tor.
+     * Get the root loader.
+     *
+     * @return ZMLoader The root loader.
      */
-    function __destruct() {
+    public static function instance() {
+        if (null == ZMLoader::$root_) {
+            ZMLoader::$root_ = new ZMLoader();
+        }
+        return ZMLoader::$root_;
     }
 
 
     /**
      * Get the class path.
      *
-     * <p>This will return the full class path incl. all parent loader.</p>
-     *
+     * @param boolean includeParent If <code>true</code> include the parent loader path: default is <code>true</code>.
      * @return array Class path array.
      */
-    function getClassPath() {
+    public function getClassPath($includeParent=true) {
         $classPath = array_merge($this->path_);
-        if (null != $this->parent_) {
+        if ($includeParent && null != $this->parent_) {
             $classPath = array_merge($this->parent_->getClassPath(), $classPath);
         }
 
@@ -106,37 +100,31 @@ class ZMLoader {
      * @param string path The path to add.
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      */
-    function addPath($path, $recursive=true) {
+    public function addPath($path, $recursive=true) {
         $this->path_ = array_merge($this->path_, $this->_scan($path, $recursive));
     }
 
     /**
-     * Add a given file to the loaders path.
-     *
-     * @param string file The file to add.
-     */
-    function addFile($file) {
-        $this->path_[$classname] = $file;
-    }
-
-    /**
      * Set the parent loader.
-     *
-     * @param ZMLoader parent The new parent.
      */
-    function setParent(&$parent) {
-        $this->parent_ =& $parent;
+    public function setParent($parent) {
+        $root = $this->parent_;
+        while (null != ($tmp = $root->parent_)) {
+            $root = $tmp;
+        }
+        $root->parent_ = $parent;
     }
 
     /**
-     * Return the loaders path.
+     * Load all available static code.
      *
-     * <p>The path is a map of (potential) class names and corresponding filenames.</p>
-     *
-     * @return array The loader path.
+     * <p><strong>Note:</strong> Using this is intended to load functions, defines, etc. As this
+     * is loaded inside a method, variables inside static files will not be real globals.</p>
      */
-    function getPath() {
-        return $this->path_;
+    public function loadStatic() {
+        foreach ($this->getStatic() as $static) {
+            require_once($static);
+        }
     }
 
     /**
@@ -147,7 +135,7 @@ class ZMLoader {
      *
      * @return array Static files with local.php being the first (if it exists).
      */
-    function getStatic() {
+    public function getStatic() {
         $static = array();
         // get full list
         foreach ($this->path_ as $name => $file) {
@@ -159,12 +147,12 @@ class ZMLoader {
         if (array_key_exists('local', $static)) {
             // get local to top 
             $tmp = array();
-            array_push($tmp, $static['local']);
+            $tmp[] = $static['local'];
             unset($static['local']);
             foreach ($static as $name => $file) {
-                array_push($tmp, $file);
+                $tmp[] = $file;
             }
-           $static = $tmp; 
+            $static = $tmp; 
         }
 
         return $static;
@@ -176,23 +164,23 @@ class ZMLoader {
      * @param string name The class name without the <em>ZM</em> prefix.
      * @return string The class filename that or <code>null</code>.
      */
-    function getClassFile($name) {
+    protected function getClassFile($name) {
         $filename = null;
         if (null != $this->parent_) {
             $filename = $this->parent_->getClassFile($name);
         }
 
-        return null != $filename ? $filename : (array_key_exists($name, $this->path_) ? $this->path_[$name] : null);
+        return null != $filename ? $filename : (isset($this->path_[$name]) ? $this->path_[$name] : null);
     }
 
     /**
      * Resolve and load the class code for the given class name.
      *
      * @param string name The class name without the <em>ZM</em> prefix.
-     * @return string The final class name either the given or the ZenMagick default
+     * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    function load($name) {
+    protected function resolve($name) {
         $classfile = $this->getClassFile($name);
         $zmname = "ZM".$name;
         $zmclassfile = $this->getClassFile($zmname);
@@ -200,7 +188,7 @@ class ZMLoader {
         // additional stuff for single core file, as there is no classpath!
         if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
             if (class_exists($name)) {
-                if (zm_starts_with($name, 'ZM')) {
+                if (0 === strpos($name, 'ZM')) {
                     return $name;
                 } else {
                     // make sure we load a ZenMagick class; otherwise there is 
@@ -220,8 +208,6 @@ class ZMLoader {
             }
         }
 
-        //zm_log($this->name_.": loading: class: " . $name .  ", ZM class: " . $zmname, ZM_LOG_DEBUG);
-
         if (null != $zmclassfile && !class_exists($zmname)) { require_once($zmclassfile); }
         if (null != $classfile && !class_exists($name)) { require_once($classfile); }
 
@@ -229,37 +215,36 @@ class ZMLoader {
     }
 
     /**
-     * Resolve, load and instantiate an instance of the class for the given class name.
+     * Shortcut for creating new class instances.
      *
-     * @param string name The class name without the <em>ZM</em> prefix.
+     * @param string name The class name (without the <em>ZM</em> prefix).
      * @param var arg Optional constructor arguments.
+     * @return mixed A new instance of the given class.
      */
-    function create($name) {
-        $args = func_get_args();
-        array_shift($args);
-        return $this->_create($name, $args);
+    public static function make($args) {
+        if (!is_array($args)) {
+            $args = func_get_args();
+        }
+        return ZMLoader::instance()->create($args);
     }
 
     /**
-     * Resolve, load and instantiate an instance of the class for the given class name.
+     * Resolve, load and instantiate a new instance of the given class.
      *
-     * @param string name The class name.
-     * @param array args Optional list of constructor arguments.
-     * @return mixed A class instance or <code>null</code>.
+     * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param var arg Optional constructor arguments.
+     * @return mixed A new instance of the given class.
      */
-    function createWithArgs($name, $args) {
-        return $this->_create($name, $args);
-    }
-
-    /**
-     * Resolve, load and instantiate an instance of the class for the given class name.
-     *
-     * @param string name The class name.
-     * @param array args Optional list of constructor arguments.
-     * @return mixed A class instance or <code>null</code>.
-     */
-    function &_create($name, $args) {
-        $clazz = $this->load($name);
+    public function create($name) {
+        if (is_array($name)) {
+            $tmp = $name;
+            $name = array_shift($tmp);
+            $args = $tmp;
+        } else {
+            $args = func_get_args();
+            array_shift($args);
+        }
+        $clazz = $this->resolve($name);
         if (null != $clazz) {
             $obj = null;
             switch (count($args)) {
@@ -292,15 +277,61 @@ class ZMLoader {
         return null;
     }
 
+
     /**
-     * Build a file map for the given path.
+     * Scan (recursively) for <code>.php</code> files.
+     *
+     * <p>It is worth mentioning that directories will always be processed only after
+     * all plain files in a directory are done.</p>
+     *
+     * @package org.zenmagick
+     * @param string dir The name of the root directory to scan.
+     * @param boolean recursive If <code>true</code>, scan recursively.
+     * @return array List of full filenames of <code>.php</code> files.
+     */
+    public static function findIncludes($dir, $recursive=false) {
+        $includes = array();
+        if (!file_exists($dir) || !is_dir($dir)) {
+            return $includes;
+        }
+
+        // save directories for later
+        $dirs = array();
+
+        $handle = @opendir($dir);
+        while (false !== ($file = readdir($handle))) { 
+            if ("." == $file || ".." == $file)
+                continue;
+
+            $file = $dir.$file;
+            if (is_dir($file)) {
+                $dirs[] = $file;
+            } else if ('.php' == substr($file, -4)) {
+                $includes[] = $file;
+            }
+        }
+        @closedir($handle);
+
+        // process last
+        if ($recursive) {
+            foreach ($dirs as $dir) {
+                $includes = array_merge($includes, ZMLoader::findIncludes($dir."/", $recursive, false));
+            }
+        }
+
+        return $includes;
+    }
+
+
+    /**
+     * Scan the given path for PHP files.
      *
      * @param string path The path to scan.
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      * @return array A file map for the given path.
      */
-    function _scan($path, $recursive=true) {
-        $files = zm_find_includes($path, $recursive);
+    protected function _scan($path, $recursive=true) {
+        $files = ZMLoader::findIncludes($path, $recursive);
         $map = array();
         foreach ($files as $file) {
             $name = str_replace('.php', '', basename($file));

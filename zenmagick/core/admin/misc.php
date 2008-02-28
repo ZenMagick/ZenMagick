@@ -25,58 +25,57 @@
 ?>
 <?php  
 
-    $_zm_obsolete_files = array();
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmFeatures.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCleanup.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/boxes/extra_boxes/zmFeatures_catalog_dhtml.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller/DefaultController.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/extra/categories.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/phpBB.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_cvv_help.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_search_help.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/lang/english/other.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "admin_init.php");
-
-    // Ultimate SEO
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/reset_seo_cache.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.install.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.url.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/admin/installation/patches/file/ZMUltimateSeoSupportPatch.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "includes/functions/extra_functions/zenmagick_ultimate_seo.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/seo.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/default/extra/url_mapping.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/rp/uip/controller/ZMCheckoutAnonymousController.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/demo/controller/AjaxCountryController.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/yui");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/prototype15.js");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/admin/installation/patches/file/ZMDynamicAdminMenuPatch.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "zenmagick/themes/default/content/category.js");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/misc/phpBB.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/validation/rules/custom/ZMNickNameRule.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/bootstrap.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/package.html");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/defaults.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache/ZMPageCache.php");
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . ZM_ROOT . "core/cache");
-
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCacheManager.php");
-
-    array_push($_zm_obsolete_files, DIR_FS_CATALOG . "admin/includes/functions/extra_functions/zenmagick.php");
-
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPattributes.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPproduct.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPcategory.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "zmCMPfeatures.php");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/dtree");
-    array_push($_zm_obsolete_files, DIR_FS_ADMIN . "includes/zmCatalogDtree.php");
-
     // check for existance of all obsolete files
     function zm_get_obsolete_files() {
-    global $_zm_obsolete_files;
+        $all_obsolete_files = array();
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmFeatures.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCleanup.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "includes/boxes/extra_boxes/zmFeatures_catalog_dhtml.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller/DefaultController.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/default/controller";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/extra/categories.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/phpBB.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_cvv_help.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/default/content/views/popup/popup_search_help.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/lang/english/other.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "admin_init.php";
+        // Ultimate SEO
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/ext/reset_seo_cache.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.install.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.url.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/ext/seo.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/admin/installation/patches/file/ZMUltimateSeoSupportPatch.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . "includes/functions/extra_functions/zenmagick_ultimate_seo.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . "admin/includes/functions/extra_functions/seo.php";
+        //
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/default/extra/url_mapping.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/rp/uip/controller/ZMCheckoutAnonymousController.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/demo/controller/AjaxCountryController.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/yui";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "themes/demo/content/prototype15.js";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/admin/installation/patches/file/ZMDynamicAdminMenuPatch.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "zenmagick/themes/default/content/category.js";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/misc/phpBB.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/validation/rules/custom/ZMNickNameRule.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/bootstrap.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/package.html";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/defaults.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/ZMPageCache.php";
+        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache";
+        //
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCacheManager.php";
+        //
+        $all_obsolete_files[] = DIR_FS_CATALOG . "admin/includes/functions/extra_functions/zenmagick.php";
+        //
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCMPattributes.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCMPproduct.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCMPcategory.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "zmCMPfeatures.php";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "includes/dtree";
+        $all_obsolete_files[] = DIR_FS_ADMIN . "includes/zmCatalogDtree.php";
+
         $obsolete = array();
-        foreach ($_zm_obsolete_files as $file) {
+        foreach ($all_obsolete_files as $file) {
             if (file_exists($file)) {
                 array_push($obsolete, $file);
             }
@@ -110,7 +109,7 @@
             }
         }
 
-        $includes = zm_find_includes($root.'/', true);
+        $includes = ZMLoader::findIncludes($root.'/', true);
         foreach ($includes as $include) {
             $strings = array();
             $contents = file_get_contents($include);

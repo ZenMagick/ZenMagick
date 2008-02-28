@@ -124,56 +124,6 @@
 
 
     /**
-     * Scan (recursively) for <code>.php</code> files.
-     *
-     * <p>It is worth mentioning that directories will always be processed only after
-     * all plain files in a directory are done.</p>
-     *
-     * @package org.zenmagick
-     * @param string dir The name of the root directory to scan.
-     * @param boolean recursive If <code>true</code>, scan recursively.
-     * @return array List of full filenames of <code>.php</code> files.
-     */
-    $_zm_includes_buffer = array();
-    function zm_find_includes($dir, $recursive=false, $root=true) {
-    global $_zm_includes_buffer;
-
-        if ($root) { $_zm_includes_buffer = array(); }
-
-        $includes = array();
-        if (!file_exists($dir) || !is_dir($dir)) {
-            return $includes;
-        }
-
-        // save directories for later
-        $dirs = array();
-
-        $handle = @opendir($dir);
-        while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file)
-                continue;
-
-            $file = $dir.$file;
-            if (is_dir($file)) {
-                array_push($dirs, $file);
-            } else if (zm_ends_with($file, ".php")) {
-                array_push($_zm_includes_buffer, $file);
-            }
-        }
-        @closedir($handle);
-
-        // process last
-        if ($recursive) {
-            foreach ($dirs as $dir) {
-                zm_find_includes($dir."/", $recursive, false);
-            }
-        }
-
-        return $_zm_includes_buffer;
-    }
-
-
-    /**
      * Normalize class names based on the filename
      *
      * <p>This is pretty much following Java conventions.</p>
@@ -594,9 +544,6 @@
     function &zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
     global $zm_runtime, $zm_request, $zm_loader;
 
-        // get root loader
-        $rootLoader =& zm_get_root_loader();
-
         // set up theme
         $theme =& $zm_runtime->getThemeForId($themeId);
         $themeInfo =& $theme->getThemeInfo();
@@ -606,22 +553,9 @@
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader
-        $rootLoader->setParent($themeLoader);
+        $zm_loader->setParent($themeLoader);
 
         eval(zm_globals());
-
-        // these can be replaced by themes; will be reinitializes during theme switching
-        $themeClasses = array(
-            'zm_crumbtrail' => 'Crumbtrail',
-            'zm_meta' => 'MetaTags',
-        );
-        foreach ($themeClasses as $name => $clazz) {
-            $currentClazz = strtolower(get_class($$name));
-            if ($currentClazz != strtolower($zm_loader->load($clazz))) {
-                // update only if changed
-                $$name = $zm_loader->create($clazz);
-            }
-        }
 
         // init l10n/i18n
         $session = $zm_request->getSession();
@@ -644,23 +578,6 @@
         $zm_events->fireEvent($zm_runtime, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
 
         return $theme;
-    }
-
-    /**
-     * Get the root loader.
-     *
-     * @package org.zenmagick
-     * @return ZMLoader The root loader.
-     */
-    function &zm_get_root_loader() {
-    global $zm_loader;
-
-        // get root loader
-        $rootLoader =& $zm_loader;
-        while (null != $rootLoader->parent_) {
-            $rootLoader =& $rootLoader->parent_;
-        }
-        return $rootLoader;
     }
 
     /**
@@ -834,53 +751,6 @@
         }
 
         return null;
-    }
-
-    /**
-     * Init all plugins of the given type.
-     *
-     * @package org.zenmagick
-     * @param string type The type.
-     * @param string scope The current scope.
-     */
-    function zm_init_plugins($type, $scope) {
-    global $zm_loader;
-
-        // prepare environment
-        eval(zm_globals());
-
-        $pluginLoader = $zm_loader->create("Loader", $type."PluginLoader");
-        foreach ($zm_plugins->getPluginsForType($type, $scope) as $id => $plugin) {
-            if ($plugin->isEnabled()) {
-                if ('ALL' == $plugin->getLoaderSupport()) {
-                    $pluginLoader->addPath($plugin->getPluginDir());
-                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
-                    $pluginLoader->addPath($plugin->getPluginDir(), false);
-                }
-                $pluginId = $plugin->getId();
-                global $$pluginId;
-                $$pluginId = $plugin;
-            }
-        }
-
-        // use plugin loader to load static stuff
-        if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
-            foreach ($pluginLoader->getStatic() as $static) {
-                require_once($static);
-            }
-        }
-
-        // plugins prevail over defaults, *and* themes
-        $rootLoader =& zm_get_root_loader();
-        $rootLoader->setParent($pluginLoader);
-
-        // call init only after everything set up
-        foreach ($zm_plugins->getPluginsForType($type, $scope) as $id => $plugin) {
-            if ($plugin->isEnabled()) {
-                // PHP4 hack; use $$id rather than $plugin
-                $$id->init();
-            }
-        }
     }
 
 ?>

@@ -268,7 +268,7 @@ class ZMCoreCompressor extends ZMObject {
                     if ($noDir || 'PLUGIN' == $flag) {
                         $files = array($pluginDir.$plugin->getId().'.php');
                     } else {
-                        $files = zm_find_includes($pluginDir, 'FOLDER' != $flag);
+                        $files = ZMLoader::findIncludes($pluginDir, 'FOLDER' != $flag);
                     }
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);
@@ -302,7 +302,7 @@ class ZMCoreCompressor extends ZMObject {
     /**
      * Recursivley strip a directory.
      *
-     * <p>Uses <code>zm_find_includes()</code> to find files to process.</p>
+     * <p>Uses <code>ZMLoader::findIncludes()</code> to find files to process.</p>
      *
      * @param string in The input directory.
      * @param string out The output directory.
@@ -313,7 +313,7 @@ class ZMCoreCompressor extends ZMObject {
         if (!zm_ends_with($in, '/')) $in .= '/';
         if (!zm_ends_with($out, '/')) $out .= '/';
 
-        $files = zm_find_includes($in, $recursive);
+        $files = ZMLoader::findIncludes($in, $recursive);
 
         foreach ($files as $name => $infile) {
             $name = basename($infile);
@@ -349,7 +349,7 @@ class ZMCoreCompressor extends ZMObject {
      */
     function _flattenDirStructure($in, $out) {
         //echo "** flatten " . $in . " into " . $out . "\n";
-        $files = zm_find_includes($in.'/', true);
+        $files = ZMLoader::findIncludes($in.'/', true);
 
         if (!file_exists($out)) {
             zm_mkdir($out, 755);
@@ -448,7 +448,7 @@ class ZMCoreCompressor extends ZMObject {
      */
     function _compressToSingleFile($in, $outfile) {
         //echo "** compress " . $in . " into " . $outfile . "\n";
-        $files = zm_find_includes($in.'/', true);
+        $files = ZMLoader::findIncludes($in.'/', true);
 
         $tmp = array();
         // mess around with results to find some files we need to add first...
@@ -460,9 +460,9 @@ class ZMCoreCompressor extends ZMObject {
         $loadFirst = array(
             '1/zenmagick.php',
             '1/settings.php',
-            'utils.php',
             'ZMObject.php',
             'ZMLoader.php',
+            'utils.php',
             'ZMService.php',
             'ZMSession.php',
             'ZMRequest.php',

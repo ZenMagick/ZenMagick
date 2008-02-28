@@ -41,7 +41,7 @@
 
         // allow plugins to filter/modify the final contents
         $contents = ob_get_clean();
-        $contents = $zm_plugins->filterResponse($contents);
+        $contents = ZMPLugins::filterResponse($contents);
         echo $contents;
 
         // clear messages if not redirect...

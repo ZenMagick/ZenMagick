@@ -34,26 +34,17 @@
  * @package org.zenmagick
  */
 class ZMObject {
-    var $loader_;
+    private static $singletons_ = array();
+
 
     /**
-     * Default c'tor.
-     */
-    function ZMObject() {
-    global $zm_loader;
-
-        $this->loader_ =& $zm_loader;
-    }
-
-    /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
-        $this->ZMObject();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }
@@ -66,11 +57,25 @@ class ZMObject {
      * @param var args A variable number of arguments that will be used as arguments for
      * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
      */
-    function create($name) {
+    function create() {
         $args = func_get_args();
-        array_shift($args);
-        return $this->loader_->createWithArgs($name, $args);
+        return ZMLoader::make($args);
     }
+
+    /**
+     * Get a singleton instance of the calling class.
+     *
+     * @param string name The class name.
+     * @return mixed A singleton object.
+     */
+    protected static function instance($name) {
+        if (!array_key_exists($name, ZMObject::$singletons_)) {
+            ZMObject::$singletons_[$name] = ZMLoader::make($name);
+        }
+
+        return ZMObject::$singletons_[$name];
+    }
+
 }
 
 ?>

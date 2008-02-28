@@ -1394,6 +1394,7 @@ if (!isset($PAWFALIKI_FUNCTIONS_ONLY))
 	// page footer
 	htmlFooter();
 }
+global $zm_request;
 
         $pawfaliki_config['GENERAL']['TITLE'] = zm_setting('storeName');
         $pawfaliki_config['GENERAL']['HOMEPAGE'] = zm_l10n_get("WikiRoot");

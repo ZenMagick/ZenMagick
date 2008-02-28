@@ -61,39 +61,34 @@
  * @version $Id$
  */
 class ZMPlugins extends ZMService {
-    var $pluginStatus_;
-    var $plugins_;
-    var $pluginsDir_;
+    private static $pluginStatus_ = array();
+    private static $plugins_ = array();
 
 
     /**
-     * Default c'tor.
-     */
-    function ZMPlugins() {
-    global $zm_runtime;
-
-        parent::__construct();
-
-        $this->pluginStatus_ = unserialize(ZENMAGICK_PLUGIN_STATUS);
-        if (!is_array($this->pluginStatus_)) {
-            $this->pluginStatus_ = array();
-        }
-        $this->plugins_ = array();
-        $this->pluginsDir_ = $zm_runtime->getPluginsDir();
-    }
-
-    /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
-        $this->ZMPlugins();
+        parent::__construct();
+
+        ZMPlugins::$pluginStatus_ = unserialize(ZENMAGICK_PLUGIN_STATUS);
+        if (!is_array(ZMPlugins::$pluginStatus_)) {
+            ZMPlugins::$pluginStatus_ = array();
+        }
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Plugins');
     }
 
 
@@ -102,15 +97,15 @@ class ZMPlugins extends ZMService {
      *
      * @return array A list of types and their associated directories.
      */
-    function getPluginTypes() {
+    public function getPluginTypes() {
         $types = array();
-        $handle = opendir($this->pluginsDir_);
+        $handle = opendir(ZMRuntime::getPluginsDir());
         while (false !== ($file = readdir($handle))) { 
             if (zm_starts_with($file, '.')) {
                 continue;
             }
 
-            $name = $this->pluginsDir_.$file;
+            $name = ZMRuntime::getPluginsDir().$file;
             if (is_dir($name)) {
                 $types[$file] = $name;
             }
@@ -129,8 +124,8 @@ class ZMPlugins extends ZMService {
      */
     function getAllPlugins($scope=ZM_SCOPE_ALL, $configured=true) {
         $plugins = array();
-        foreach ($this->getPluginTypes() as $type => $typeDir) {
-            $plugins[$type] = $this->getPluginsForType($type, $scope, $configured);
+        foreach (ZMPlugins::getPluginTypes() as $type => $typeDir) {
+            $plugins[$type] = ZMPlugins::getPluginsForType($type, $scope, $configured);
         }
         return $plugins;
     }
@@ -141,8 +136,8 @@ class ZMPlugins extends ZMService {
      * @param string type The plugin type.
      * @return array List of plugin ids.
      */
-    function _getPluginIdsForType($type) {
-        $typeDir = $this->pluginsDir_ . $type . '/';
+    protected static function _getPluginIdsForType($type) {
+        $typeDir = ZMRuntime::$getPluginsDir() . $type . '/';
         $idList = array();
         $handle = @opendir($typeDir);
         if (false !== $handle) {
@@ -167,11 +162,11 @@ class ZMPlugins extends ZMService {
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    function &getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
+    public function getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
         $idList = array();
         if ($configured) {
             // use plugin status to select plugins
-            foreach ($this->pluginStatus_ as $id => $status) {
+            foreach (ZMPlugins::$pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
                     if (ZM_SCOPE_ALL == $status['scope'] || $status['scope'] == $scope) {
                         $idList[] = $id;
@@ -180,20 +175,20 @@ class ZMPlugins extends ZMService {
             }
         } else {
             // do it the long way...
-            $idList = $this->_getPluginIdsForType($type);
+            $idList = ZMPlugins::_getPluginIdsForType($type);
         }
 
         $plugins = array();
         foreach ($idList as $id) {
-            $plugin =& $this->getPluginForId($id, $type);
+            $plugin = ZMPlugins::getPluginForId($id, $type);
             if (null != $plugin) {
-                $plugins[$id] =& $plugin;
+                $plugins[$id] = $plugin;
             }
         }
 
         if (!$configured) {
             // sort
-            usort($plugins, array($this, "_cmp_plugins"));
+            usort($plugins, array(ZMPlugins, "_cmp_plugins"));
         }
 
         return $plugins;
@@ -207,7 +202,7 @@ class ZMPlugins extends ZMService {
      * @return integer Value less than, equal to, or greater than zero if the first argument is
      *  considered to be respectively less than, equal to, or greater than the second.
      */
-    function _cmp_plugins(&$a, &$b) {
+    static function _cmp_plugins($a, $b) {
         $ao = $a->getSortOrder();
         $bo = $b->getSortOrder();
         if ($ao == $bo) {
@@ -223,14 +218,14 @@ class ZMPlugins extends ZMService {
      * @param string type Optional type.
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
-    function &getPluginForId($id, $type=null) {
-        if (array_key_exists($id, $this->plugins_)) {
-            return $this->plugins_[$id];
+    public function getPluginForId($id, $type=null) {
+        if (array_key_exists($id, ZMPlugins::$plugins_)) {
+            return ZMPlugins::$plugins_[$id];
         }
 
-        $status = $this->pluginStatus_[$id];
+        $status = ZMPlugins::$pluginStatus_[$id];
         $type = null != $type ? $type : $status['type'];
-        $typeDir = $this->pluginsDir_ . $type . '/';
+        $typeDir = ZMRuntime::getPluginsDir() . $type . '/';
         $file = $typeDir.$id;
         if (is_dir($file)) {
             // expect plugin file in the directory with the same name and '.php' extension
@@ -253,14 +248,14 @@ class ZMPlugins extends ZMService {
             require_once($file);
         }
 
-        $plugin =& new $id();
+        $plugin = new $id();
         $plugin->setType($type);
         $pluginDir = dirname($file) . '/';
         if ($pluginDir != $typeDir) {
             $plugin->setPluginDir($pluginDir);
         }
 
-        $this->plugins_[$id] =& $plugin;
+        ZMPlugins::$plugins_[$id] = $plugin;
         return $plugin;
     }
 
@@ -270,18 +265,14 @@ class ZMPlugins extends ZMService {
      * @param string contents The page contents.
      * @return string The really final contents :0
      */
-    function filterResponse($contents) {
-    global $zm_request;
-
-        $controller = $zm_request->getController();
+    public function filterResponse($contents) {
+        $controller = ZMRequest::instance()->getController();
         foreach ($controller->getGlobals() as $name => $instance) {
             global $$name;
             $$name = $instance;
         }
 
-        foreach ($this->getPluginsForType('request', ZM_SCOPE_STORE) as $id => $plugin) {
-            // PHP4 hack; use $$id rather than $plugin
-            global $$id; $plugin =& $$id;
+        foreach (ZMPlugins::getPluginsForType('request', ZM_SCOPE_STORE) as $plugin) {
             if ($plugin->isEnabled()) {
                 $pluginHandler = $plugin->getPluginHandler();
                 //TODO: PHP5: interface ZMPluginHandler?
@@ -291,8 +282,58 @@ class ZMPlugins extends ZMService {
                 }
             }
         }
+
         return $contents;
     }
+
+    /**
+     * Init all plugins of the given type and scope.
+     *
+     * @package org.zenmagick
+     * @param string type The type.
+     * @param string scope The current scope.
+     */
+    public function initPlugins($type, $scope) {
+        // prepare environment
+        eval(zm_globals());
+
+        // each type has it's own loader
+        $pluginLoader = ZMLoader::make("Loader");
+
+        // get list
+        $pluginList = ZMPlugins::getPluginsForType($type, $scope);
+
+        // instantiate, add to loader (if required) and make global
+        foreach ($pluginList as $plugin) {
+            if ($plugin->isEnabled()) {
+                if ('ALL' == $plugin->getLoaderSupport()) {
+                    $pluginLoader->addPath($plugin->getPluginDir());
+                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                    $pluginLoader->addPath($plugin->getPluginDir(), false);
+                }
+                $pluginId = $plugin->getId();
+                // make plugin a global using the class name
+                global $$pluginId;
+                $$pluginId = $plugin;
+            }
+        }
+
+        // use plugin loader to load static stuff
+        if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
+            $pluginLoader->loadStatic();
+        }
+
+        // plugins prevail over defaults, *and* themes
+        ZMLoader::instance()->setParent($pluginLoader);
+
+        // call init only after everything set up
+        foreach ($pluginList as $plugin) {
+            if ($plugin->isEnabled()) {
+                $plugin->init();
+            }
+        }
+    }
+
 
 }
 

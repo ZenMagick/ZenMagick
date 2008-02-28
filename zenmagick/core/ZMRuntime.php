@@ -35,16 +35,16 @@
  * @version $Id$
  */
 class ZMRuntime extends ZMObject {
-    var $themeId_;
-    var $pageCache_;
-    var $theme_;
-    var $themes_;
+    private $themeId_;
+    private $pageCache_;
+    private $theme_;
+    private $themes_;
 
 
     /**
      * Default c'tor.
      */
-    function ZMRuntime() {
+    function __construct() {
         parent::__construct();
 
         // init with defaults
@@ -53,56 +53,59 @@ class ZMRuntime extends ZMObject {
         $this->theme_ = null;
     }
 
+
     /**
-     * Default c'tor.
+     * Get instance.
      */
-    function __construct() {
-        $this->ZMRuntime();
+    public static function instance() {
+        return parent::instance('Runtime');
     }
 
     /**
-     * Default d'tor.
+     * Get the application scope.
+     *
+     * @return string Either <code>ZM_SCOPE_STORE</code> or <code>ZM_SCOPE_ADMIN</code>.
      */
-    function __destruct() {
+    public static function getScope() {
+        return zm_setting('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
     }
-
 
     /**
      * Get the database dao.
      *
      * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
      */
-    function getDB() { global $db; return $db; }
+    static function getDB() { global $db; return $db; }
 
     /**
      * Return the directory containing all themes.
      *
      * @return string The base directory for themes.
      */
-    function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
+    static function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
 
     /**
      * Return the directory containing all plugins.
      *
      * @return string The base directory for plugins.
      */
-    function getPluginsDir() { return DIR_FS_CATALOG.ZM_PLUGINS_DIR; }
+    static function getPluginsDir() { return DIR_FS_CATALOG.ZM_PLUGINS_DIR; }
 
     /**
      * Return the base path for theme URIs.
      *
      * @return string The URL path prefix for all themes.
      */
-    function getThemesPathPrefix() { return $this->getContext().ZM_THEMES_DIR; }
+    static function getThemesPathPrefix() { return ZMRuntime::getContext().ZM_THEMES_DIR; }
 
     /**
      * Get the current theme.
      *
      * @return ZMTheme The current theme.
      */
-    function &getTheme() {
+    function getTheme() {
         if (null == $this->theme_) {
-            $this->theme_ =& $this->create("Theme", $this->getThemeId());
+            $this->theme_ = $this->create("Theme", $this->getThemeId());
         }
 
         return $this->theme_;
@@ -151,14 +154,14 @@ class ZMRuntime extends ZMObject {
      *
      * @return string The ZenMagick installation folder.
      */
-    function getZMRootPath() {  return DIR_FS_CATALOG.ZM_ROOT; }
+    static function getZMRootPath() { return DIR_FS_CATALOG.ZM_ROOT; }
 
     /**
      * The application context.
      *
      * @return string The application context.
      */
-    function getContext() { return DIR_WS_CATALOG; }
+    static function getContext() { return DIR_WS_CATALOG; }
 
     /**
      * Set the theme id.

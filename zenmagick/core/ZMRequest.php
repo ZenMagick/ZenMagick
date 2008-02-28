@@ -39,12 +39,12 @@ class ZMRequest extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param array The request; optional, if <code>null</code>,
      *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function ZMRequest($request=null) {
+    function __construct($request=null) {
         parent::__construct();
 
         $this->controller_ = null;
@@ -53,15 +53,10 @@ class ZMRequest extends ZMObject {
         } else {
             $this->request_ = array_merge($_POST, $_GET);
         }
+        $this->session_ = null;
         $this->categoryPathArray_ = null;
     }
 
-    /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMRequest();
-    }
 
     /**
      * Default d'tor.
@@ -70,6 +65,13 @@ class ZMRequest extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Request');
+    }
 
     /**
      * Get the request method.

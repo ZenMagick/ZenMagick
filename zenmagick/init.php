@@ -32,52 +32,50 @@
     @ini_set("register_globals", 0);
 
     // ZenMagick bootstrap
-    $_zm_core_file = dirname(__FILE__)."/core.php";
-    if (!IS_ADMIN_FLAG && file_exists($_zm_core_file)) {
-        require($_zm_core_file);
-
-        // configure core loader
-        $zm_loader =& new ZMLoader('coreLoader');
+    if (!IS_ADMIN_FLAG && file_exists(dirname(__FILE__).'/core.php')) {
+        require(dirname(__FILE__).'/core.php');
     } else {
-        $_zm_core_dir = dirname(__FILE__)."/core/";
-        require($_zm_core_dir."settings/zenmagick.php");
-        require($_zm_core_dir."settings/settings.php");
-        require($_zm_core_dir."utils.php");
-        require($_zm_core_dir."ZMObject.php");
-        require($_zm_core_dir."ZMLoader.php");
-        require($_zm_core_dir."ZMRuntime.php");
-        require($_zm_core_dir."ZMService.php");
-        require($_zm_core_dir."service/ZMThemes.php");
+        $coreDir = dirname(__FILE__).'/core/';
+        require($coreDir."settings/zenmagick.php");
+        require($coreDir."settings/settings.php");
+        require($coreDir."ZMObject.php");
+        require($coreDir."ZMLoader.php");
 
-        // configure core loader
-        $zm_loader =& new ZMLoader('coreLoader');
-        $zm_loader->addPath($_zm_core_dir);
-        // need to do this in global namespace
-        foreach ($zm_loader->getStatic() as $static) {
-            require_once($static);
-        }
-    }
+        // prepare loader
+        ZMLoader::instance()->addPath($coreDir);
+        ZMLoader::instance()->loadStatic();
 
-    // here the loader should take over...
-    if (!defined('ZM_SINGLE_CORE')) {
-        $includes = zm_find_includes($_zm_core_dir, true);
-        foreach ($includes as $include) {
-            // exclude some stuff that gets loaded by the loader
-            if ((false === strpos($include, '/controller/')
-                && false === strpos($include, '/model/')
-                && false === strpos($include, '/admin/')
-                && false === strpos($include, '/settings/'))
-                || (false !== strpos($include, '/admin/') && zm_setting('isAdmin'))) {
-                require_once($include);
+        // preload some stuff
+        foreach (ZMLoader::instance()->getClassPath() as $name => $file) {
+            if ($name == $file) { continue; } // this is static stuff
+            // exclude some stuff that gets resolved dynamically
+            if ((false === strpos($file, '/controller/')
+                  && false === strpos($file, '/model/')
+                  && false === strpos($file, '/admin/')
+                  && false === strpos($file, '/settings/'))
+                || (false !== strpos($file, '/admin/') && zm_setting('isAdmin'))) {
+                require_once($file);
             }
         }
     }
 
-    // application context
-    $zm_runtime = $zm_loader->create("Runtime");
-    // request wrapper
-    $zm_request = $zm_loader->create("Request");
+    // load global settings
+    if (file_exists(dirname(__FILE__).'/local.php')) {
+        require(dirname(__FILE__).'/local.php');
+    }
 
+    // now we can check for a static homepage
+    $request = ZMRequest::instance();
+    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $request->getPageName() && 0 == count($request->getParameterMap())) {
+        require(zm_setting('staticHome'));
+        exit;
+    }
+
+  //TODO: get rid of!
+    // the main instances
+    $zm_runtime = ZMRuntime::instance();
+    $zm_request = ZMRequest::instance();
+    $zm_loader = ZMLoader::instance();
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
@@ -102,38 +100,21 @@
     $zm_account = $zm_request->getAccount();
     // event proxy to simplify event subscription
     $zm_events = new ZMEvents();
-
-    // TODO: get rid of this
-    // these can be replaced by themes; will be reinitializes during theme switching
     $zm_crumbtrail = $zm_loader->create('Crumbtrail');
     $zm_meta = $zm_loader->create('MetaTags');
+  //END TODO
 
-    // load global settings
-    $_zm_local = $zm_runtime->getZMRootPath()."local.php";
-    if (file_exists($_zm_local)) {
-        include($_zm_local);
-    }
 
-    // here we can check for a static homepage
-    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $zm_request->getPageName()
-          && null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId() && null == $zm_request->getParameter('compareId')) {
-        require(zm_setting('staticHome'));
-        exit;
-    }
-
+    // register custom error handler
     if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
-        // register custom error handler
-        //error_reporting(E_ALL);
+        error_reporting(E_ALL);
         set_error_handler("zm_error_handler");
     }
 
-    // start with init plugins
-    $zm_plugins = $zm_loader->create("Plugins");
-    $_zm_scope = zm_setting('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
-    zm_init_plugins('init', $_zm_scope);
-
-    // admin plugins
-    zm_init_plugins('admin', $_zm_scope);
+    // init and admin plugins
+    ZMLoader::make("Plugins");
+    ZMPlugins::initPlugins('init', ZMRuntime::getScope());
+    ZMPlugins::initPlugins('admin', ZMRuntime::getScope());
 
     // set up *before* theme is resolved...
     $zm_urlMapper = new ZMUrlMapper();
@@ -145,7 +126,7 @@
     $zm_sacsMapper->ensureAccessMethod();
 
     // upset request plugins :)
-    zm_init_plugins('request', $_zm_scope);
+    ZMPlugins::initPlugins('request', ZMRuntime::getScope());
 
     // resolve theme to be used 
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
@@ -161,6 +142,7 @@
 
     // always echo in admin
     if (zm_setting('isAdmin')) { zm_set_setting('isEchoHTML', true); }
+    // this is used as default value for the $echo parameter for HTML functions
     define('ZM_ECHO_DEFAULT', zm_setting('isEchoHTML'));
 
     // start output buffering
