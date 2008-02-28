@@ -173,7 +173,7 @@ class ZMPlugins extends ZMService {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
-                    if (ZM_SCOPE_ALL == $scope || $status['scope'] == $scope) {
+                    if (ZM_SCOPE_ALL == $status['scope'] || $status['scope'] == $scope) {
                         $idList[] = $id;
                     }
                 }
