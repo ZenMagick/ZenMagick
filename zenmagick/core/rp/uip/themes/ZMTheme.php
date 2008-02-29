@@ -398,6 +398,27 @@ class ZMTheme extends ZMObject {
         return $this->themeInfo_;
     }
 
+    /**
+     * Load locale settings (l10n/i18n).
+     *
+     * <p>NOTE: This is only going to load mappings. However, since i18n
+     * settings need to be set using <code>define(..)</code>, this is done
+     * in a separate function, once loading (and theme switching) is over.</p>
+     *
+     * @param ZMLanguage language The language.
+     */
+    function loadLocale($language) {
+        $path = $this->getLangDir().$language->getDirectory()."/";
+        $l10n = $path . "l10n.php";
+        if (file_exists($l10n)) {
+            require_once($l10n);
+        }
+        $i18n = $path . "i18n.php";
+        if (file_exists($i18n)) {
+            require_once($i18n);
+        }
+    }
+
 }
 
 ?>

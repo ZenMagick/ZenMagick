@@ -289,7 +289,6 @@ class ZMPlugins extends ZMService {
     /**
      * Init all plugins of the given type and scope.
      *
-     * @package org.zenmagick
      * @param string type The type.
      * @param string scope The current scope.
      */
