@@ -37,10 +37,10 @@
  */
 class ZMUrlMapper extends ZMObject {
     // global views; key is viewId
-    var $globalViews_;
+    private $globalViews_;
     // controller specific views; key is controller
-    var $controllerViews_;
-    var $mapping_;
+    private $controllerViews_;
+    private $mapping_;
 
 
     /**
