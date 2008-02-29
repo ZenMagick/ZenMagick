@@ -80,7 +80,7 @@ class zm_init_language extends ZMPlugin {
                 $language->setId(1);
                 $language->setDirectory('english');
                 $language->setCode('en');
-                zm_log('invalid language - defaulting to en', ZM_LOG_WARN);
+                ZMObject::log('invalid language - defaulting to en', ZM_LOG_WARN);
             }
 
             $session->setLanguage($language);

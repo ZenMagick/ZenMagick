@@ -101,7 +101,7 @@ class ZMController extends ZMObject {
 
         if (null != $view) {
             if (!$view->isValid()) {
-                zm_log('Invalid view: '.$view->getName(), ZM_LOG_WARN);
+                $this->log('Invalid view: '.$view->getName(), ZM_LOG_WARN);
                 $view = $this->findView(zm_setting('missingPageId'));
             }
             $view->setController($this);

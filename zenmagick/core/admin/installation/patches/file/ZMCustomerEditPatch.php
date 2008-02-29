@@ -125,12 +125,12 @@ class ZMCustomerEditPatch extends ZMFilePatch {
 
                 return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
             } else {
-                zm_log("** ZenMagick: no permission to patch edit fix into customers.php", ZM_LOG_ERROR);
+                $this->log("** ZenMagick: no permission to patch edit fix into customers.php", ZM_LOG_ERROR);
                 return false;
             }
         } else {
             // disabled
-            zm_log("** ZenMagick: patch customer edit support disabled - skipping");
+            $this->log("** ZenMagick: patch customer edit support disabled - skipping");
             return false;
         }
 
@@ -159,7 +159,7 @@ class ZMCustomerEditPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $unpatchedLines);
         } else {
-            zm_log("** ZenMagick: no permission to patch customers.php for uninstall", ZM_LOG_ERROR);
+            $this->log("** ZenMagick: no permission to patch customers.php for uninstall", ZM_LOG_ERROR);
             return false;
         }
 

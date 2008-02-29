@@ -257,7 +257,7 @@
                     } else {
                         $translate = false;
                         if (!zm_is_empty($page)) {
-                            zm_log("no pretty link mapping for: ".$page);
+                            ZMObject::log("no pretty link mapping for: ".$page);
                         }
                     }
                 }

@@ -118,7 +118,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         $themes = $zm_runtime->getThemes();
         if (!(zm_setting('isEnablePatching')) && !$force && $this->isOpen()) {
             // disabled
-            zm_log("** ZenMagick: create theme dummies disabled - skipping");
+            $this->log("** ZenMagick: create theme dummies disabled - skipping");
             return false;
         }
 
@@ -138,7 +138,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     fwrite($handle, '?>');
                     fclose($handle);
                 } else {
-                    zm_log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZM_LOG_ERROR);
+                    $this->log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZM_LOG_ERROR);
                     return false;
                 }
             }

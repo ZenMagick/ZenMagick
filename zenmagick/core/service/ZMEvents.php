@@ -121,7 +121,7 @@ class ZMEvents extends ZMObject {
      */
     function update(&$notifier, $eventId, $args=null) {
         $method = $this->event2method($eventId, 'on');
-        zm_log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
+        $this->log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
                 call_user_func(array($obs['obs'], $method), $args);
@@ -144,7 +144,7 @@ class ZMEvents extends ZMObject {
     function fireEvent(&$source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
         $args['source'] = $source;
-        zm_log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
+        $this->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
                 call_user_func(array($obs['obs'], $method), $args);

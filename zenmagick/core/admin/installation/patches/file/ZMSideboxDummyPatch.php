@@ -115,13 +115,13 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                             fclose($handle);
                         }
                     } else {
-                        zm_log("** ZenMagick: no permission to create dummy sidebox " . $box, ZM_LOG_ERROR);
+                        $this->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZM_LOG_ERROR);
                         return false;
                     }
                 }
             } else {
                 // disabled
-                zm_log("** ZenMagick: create sidebox dummies disabled - skipping");
+                $this->log("** ZenMagick: create sidebox dummies disabled - skipping");
                 return false;
             }
         }

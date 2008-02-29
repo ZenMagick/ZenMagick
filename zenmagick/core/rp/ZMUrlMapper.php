@@ -80,7 +80,7 @@ class ZMUrlMapper extends ZMObject {
      */
     function setMapping($controller, $viewId=null, $view=null, $viewClass='PageView', $parameter=null) {
         if (null == $controller && (null == $view || null == $viewId)) {
-            zm_backtrace("invalid url mapping");
+            ZMObject::backtrace("invalid url mapping");
         }
         $viewId = null != $viewId ? $viewId : $controller;
 

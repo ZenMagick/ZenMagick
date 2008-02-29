@@ -56,10 +56,50 @@ class ZMObject {
      * @param string name The class name.
      * @param var args A variable number of arguments that will be used as arguments for
      * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
+     * @deprecated Use <code>ZMLoader::make(..)</code> instead.
      */
-    function create() {
+    public static function create() {
         $args = func_get_args();
         return ZMLoader::make($args);
+    }
+
+    /**
+     * Simple <em>ZenMagick</em> logging function.
+     *
+     * @param string msg The message to log.
+     * @param int level Optional level (default: ZM_LOG_INFO).
+     */
+    public static function log($msg, $level=ZM_LOG_INFO) {
+        if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) {
+            if (zm_setting('isZMErrorHandler')) {
+                trigger_error($msg, E_USER_NOTICE);
+            } else {
+                error_log($msg);
+            }
+        }
+    }
+
+    /**
+     * Simple wrapper around <code>debug_backtrace()</code>.
+     *
+     * @param string msg If set, die with the provided message.
+     */
+    public static function backtrace($msg=null) {
+        if (null !== $msg) {
+            if (is_array($msg)) {
+                echo "<pre>";
+                print_r($msg);
+                echo "</pre>";
+            } else {
+                echo '<h3>'.$msg.'</h3>';
+            }
+        }
+        echo "<pre>";
+        print_r(_zm_clean_backtrace(debug_backtrace()));
+        echo "</pre>";
+        if (null !== $msg) {
+            die();
+        }
     }
 
     /**

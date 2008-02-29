@@ -32,15 +32,18 @@
      * @package org.zenmagick
      * @param string msg The message to log.
      * @param int level Optional level (default: ZM_LOG_INFO).
+     * @deprecated Use <code>ZMObject::log()</code> instead.
      */
-    function zm_log($msg, $level=ZM_LOG_INFO) {
-        if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) {
-            if (zm_setting('isZMErrorHandler')) {
-                trigger_error($msg, E_USER_NOTICE);
-            } else {
-                error_log($msg);
-            }
-        }
+    function zm_log($msg, $level=ZM_LOG_INFO) { ZMObject::log($msg, $leve); }
+    /**
+     * Simple wrapper around <code>debug_backtrace()</code>.
+     *
+     * @package org.zenmagick
+     * @param string msg If set, die with the provided message.
+     * @deprecated Use <code>ZMObject::backtrace()</code> instead.
+     */
+    function zm_backtrace($msg=null) {
+        ZMObject::backtrace($msg);
     }
 
 
@@ -55,7 +58,7 @@
     global $_ZM_SETTINGS;
 
         if (!array_key_exists($name, $_ZM_SETTINGS)) {
-            zm_log("can't find setting: '".$name."'", zm_setting('isDieOnError') ? ZM_LOG_ERROR : ZM_LOG_INFO);
+            ZMObject::log("can't find setting: '".$name."'", zm_setting('isDieOnError') ? ZM_LOG_ERROR : ZM_LOG_INFO);
             if (zm_setting('isDieOnError')) die("can't find setting: '".$name."'");
             return null;
         }
@@ -120,28 +123,6 @@
     function zm_ends_with($s, $end) {
         $endLen = strlen($end);
         return $end == substr($s, -$endLen);
-    }
-
-
-    /**
-     * Normalize class names based on the filename
-     *
-     * <p>This is pretty much following Java conventions.</p>
-     *
-     * @package org.zenmagick
-     * @param string filename The filename.
-     * @return string A corresponding class name.
-     */
-    function zm_mk_classname($filename) {
-        // strip potential file extension and dir
-        $classname = str_replace('.php', '', basename($filename));
-        // '_' == word boundary
-        $classname = str_replace('_', ' ', $classname);
-        // capitalise words
-        $classname = ucwords($classname);
-        // cuddle together :)
-        $classname = str_replace(' ', '', $classname);
-        return $classname;
     }
 
 
@@ -281,47 +262,6 @@
     }
 
 
-    /**
-     * Simple helper to strip unwanted stuff from a stack trace.
-     *
-     * @package org.zenmagick
-     */
-    function _zm_clean_backtrace($stack) {
-        foreach (array('db_', 'loader_') as $ignore) {
-            if (isset($stack[$ignore])) {
-                unset($stack[$ignore]);
-            }
-        }
-        foreach ($stack as $key => $value) {
-            if (is_array($value)) {
-                $stack[$key] = _zm_clean_backtrace($value);
-            } else if (is_object($value)) {
-                $stack[$key] = get_class($value);
-            }
-        }
-
-        return $stack;
-    }
-
-    /**
-     * Simple wrapper around <code>debug_backtrace()</code>.
-     *
-     * @package org.zenmagick
-     * @param string msg If set, die with the provided message.
-     */
-    function zm_backtrace($msg=null) {
-        echo "<pre>";
-        print_r(_zm_clean_backtrace(debug_backtrace()));
-        echo "</pre>";
-        if (null !== $msg) {
-            if (is_array($msg)) {
-                print_r($msg);
-            } else {
-                echo $msg;
-            }
-            die();
-        }
-    }
 
 
     /**
@@ -587,7 +527,7 @@
     function zm_dispatch() {
     global $zm_runtime, $zm_request, $zm_events;
 
-        $controller = ZMLoader::make(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $controller = ZMLoader::make(ZMLoader::makeClassname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
             $controller = ZMLoader::make("DefaultController");
         }

@@ -175,7 +175,7 @@ class ZMThemeBuilder extends ZMObject {
      */
     function _createThemeInfoClass() {
         $infoName = $this->name_ . ' ThemeInfo';
-        $infoClass = zm_mk_classname($infoName);
+        $infoClass = ZMLoader::makeClassname($infoName);
 
         $infoClassFile = $this->getBaseDir() . $infoClass .  '.php';
 

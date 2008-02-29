@@ -110,7 +110,7 @@ if (!function_exists('zen_href_link')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else {
-            zm_backtrace("can't find zen_href_link implementation");
+            ZMObject::backtrace("can't find zen_href_link implementation");
         }
     }
 

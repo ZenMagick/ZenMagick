@@ -61,14 +61,14 @@ class ZMThemes extends ZMObject {
         $basePath = $zm_runtime->getThemesDir();
         $infoName = $themeId. ' ThemeInfo';
         // theme info class name
-        $infoClass = zm_mk_classname($infoName);
+        $infoClass = ZMLoader::makeClassname($infoName);
         // theme info file name
         $infoFile = $basePath.$themeId."/".$infoClass.".php";
 
         // load
         if (!class_exists($infoClass)) {
             if (!file_exists($infoFile)) {
-                zm_log('skipping "' . $themeId . '" - no theme info class found', ZM_LOG_WARN);
+                $this->log('skipping "' . $themeId . '" - no theme info class found', ZM_LOG_WARN);
                 return null;
             }
             require_once($infoFile);

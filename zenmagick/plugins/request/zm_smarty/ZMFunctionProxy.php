@@ -66,7 +66,7 @@ class ZMFunctionProxy {
                 return $method($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
                 break;
             default:
-                zm_backtrace('unsupported number of arguments');
+                ZMObject::backtrace('unsupported number of arguments');
         }
     }
 

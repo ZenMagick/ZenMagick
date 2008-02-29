@@ -91,7 +91,7 @@ class ZMValidator extends ZMObject {
         if (null != $rule && null != $ruleSet) {
             $ruleSet->addRule($rule);
         } else {
-            zm_log("invalid set id ($id) or null rule");
+            $this->log("invalid set id ($id) or null rule");
         }
     }
 

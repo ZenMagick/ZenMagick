@@ -75,7 +75,7 @@
             $useContext = false;
             $isStatic = true;
         } else if (zm_is_empty($page)) {
-            zm_backtrace('missing page parameter');
+            ZMObject::backtrace('missing page parameter');
         }
 
         // default to non ssl

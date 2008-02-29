@@ -267,8 +267,8 @@ class ZMLoader {
                 $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
                 break;
             default:
-                zm_log('unsupported number of arguments ' . $clazz);
-                zm_backtrace('unsupported number of arguments ' . $clazz);
+                ZMObject::log('unsupported number of arguments ' . $clazz);
+                ZMObkect::backtrace('unsupported number of arguments ' . $clazz);
                 break;
             }
             return $obj;
@@ -343,6 +343,26 @@ class ZMLoader {
         }
 
         return $map;
+    }
+
+    /**
+     * Normalize class names based on the filename
+     *
+     * <p>This is pretty much following Java conventions.</p>
+     *
+     * @param string filename The filename.
+     * @return string A corresponding class name.
+     */
+    public static function makeClassname($filename) {
+        // strip potential file extension and dir
+        $classname = str_replace('.php', '', basename($filename));
+        // '_' == word boundary
+        $classname = str_replace('_', ' ', $classname);
+        // capitalise words
+        $classname = ucwords($classname);
+        // cuddle together :)
+        $classname = str_replace(' ', '', $classname);
+        return $classname;
     }
 
 }

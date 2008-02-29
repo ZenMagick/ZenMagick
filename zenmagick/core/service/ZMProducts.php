@@ -612,7 +612,7 @@ class ZMProducts extends ZMObject {
      * @return array A list of product ids.
      */
     function _getRandomProductIds($sql, $max=0) {
-        0 == $max && zm_log("invalid max value: ".$max, ZM_LOG_DEBUG);
+        0 == $max && $this->log("invalid max value: ".$max, ZM_LOG_DEBUG);
 
         $db = ZMRuntime::getDB();
         $productIds = array();

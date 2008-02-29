@@ -84,7 +84,7 @@ class ZMZcoObserver extends ZMObject {
         $method = 'on'.$method;
 
         if (method_exists($this, $method)) {
-            zm_log('calling ' . $method . ' callback...');
+            $this->log('calling ' . $method . ' callback...');
             call_user_func(array($this, $method), $args);
         }
     }
