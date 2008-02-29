@@ -423,6 +423,7 @@ class ZMCoreCompressor extends ZMObject {
             return;
         }
         $lines = array(
+            'if (zm_setting("isLegacyAPI")) { $zm_loader = ZMLoader::instance(); }',
             '$zm_runtime = new ZMRuntime();',
             '$zm_request = new ZMRequest();',
         );
