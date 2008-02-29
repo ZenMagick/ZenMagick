@@ -49,7 +49,7 @@
 
         if ($root) { ob_start(); }
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
-        foreach ($categories as $category) {$ii++;
+        foreach ($categories as $category) {
             $active = $category->isActive();
             $noOfProducts = $showProductCount ? count($zm_products->getProductIdsForCategoryId($category->getId())) : 0;
             $empty = 0 == $noOfProducts;
