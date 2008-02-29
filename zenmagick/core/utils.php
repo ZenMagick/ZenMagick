@@ -58,7 +58,7 @@
     global $_ZM_SETTINGS;
 
         if (!array_key_exists($name, $_ZM_SETTINGS)) {
-            ZMObject::log("can't find setting: '".$name."'", zm_setting('isDieOnError') ? ZM_LOG_ERROR : ZM_LOG_INFO);
+            ZMObject::log("can't find setting: '".$name."'", ZM_LOG_WARN);
             return null;
         }
         return $_ZM_SETTINGS[$name];
