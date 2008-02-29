@@ -180,7 +180,7 @@ class ZMController extends ZMObject {
      * @param string name The object name.
      * @param mixed instance An object instance or <code>null</code>.
      */
-    function &getGlobal($name) {
+    function getGlobal($name) {
         return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
     }
 
@@ -195,7 +195,7 @@ class ZMController extends ZMObject {
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    function &findView($id=null, $parameter=null) {
+    function findView($id=null, $parameter=null) {
     global $zm_urlMapper;
 
         // page and controller name *must* be the same as the logic to 
@@ -239,7 +239,7 @@ class ZMController extends ZMObject {
      *
      * @return ZMView The view or <code>null</code>.
      */
-    function &getView() {
+    function getView() {
         return $this->view_;
     }
 

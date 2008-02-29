@@ -30,7 +30,7 @@
      *
      * @package org.zenmagick.plugins.zm_master_password
      */
-    function &zm_master_password_admin() {
+    function zm_master_password_admin() {
     global $zm_request, $zm_master_password;
 
         if ('POST' == $zm_request->getMethod()) {

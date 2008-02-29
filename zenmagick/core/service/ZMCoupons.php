@@ -64,7 +64,7 @@ class ZMCoupons extends ZMService {
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function &getCouponForCode($code, $languageId=null) {
+    function getCouponForCode($code, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -100,7 +100,7 @@ class ZMCoupons extends ZMService {
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function &getCouponForId($id, $languageId=null) {
+    function getCouponForId($id, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -173,7 +173,7 @@ class ZMCoupons extends ZMService {
      * @param string type The coupon type.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    function &createCoupon($couponCode, $amount, $type) {
+    function createCoupon($couponCode, $amount, $type) {
         $db = $this->getDB();
         $sql = "insert into " . TABLE_COUPONS . " (coupon_type, coupon_code, date_created, coupon_amount)
                 values (:type, :couponCode, now(), :amount)";
@@ -335,7 +335,7 @@ class ZMCoupons extends ZMService {
     /**
      * Create new coupon instance.
      */
-    function &_newCoupon($fields) {
+    function _newCoupon($fields) {
         $coupon = $this->create("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
         $coupon->name_ = $fields['coupon_name'];
@@ -351,7 +351,7 @@ class ZMCoupons extends ZMService {
     /**
      * Load coupon restrictions for the given coupon id.
      */
-    function &_getRestrictionsForId($id) {
+    function _getRestrictionsForId($id) {
         $db = $this->getDB();
         $sql = "select * from " . TABLE_COUPON_RESTRICT . "
                 where coupon_id = :id";

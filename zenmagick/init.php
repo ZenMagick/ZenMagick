@@ -40,7 +40,6 @@
         require($coreDir."settings/settings.php");
         require($coreDir."ZMObject.php");
         require($coreDir."ZMLoader.php");
-        require($coreDir."utils.php");
 
         // prepare loader
         ZMLoader::instance()->addPath($coreDir);

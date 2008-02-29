@@ -98,7 +98,7 @@ class sample_plugin extends ZMPlugin {
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function &createPluginHandler() {
+    function createPluginHandler() {
     global $zm_request;
 
         return 'login' == $zm_request->getPageName() ? new sample_plugin_handler() : null;

@@ -113,7 +113,7 @@ class ZMPayments extends ZMService {
      *
      * @return ZMPaymentType The payment type or <code>null</code>.
      */
-    function &getSelectedPaymentType() {
+    function getSelectedPaymentType() {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) { 
             // must be GV, then, so build custom type

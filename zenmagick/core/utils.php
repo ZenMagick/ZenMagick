@@ -539,7 +539,7 @@
      * @param string themeId The themeId to start with.
      * @return ZMTheme The final theme.
      */
-    function &zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
+    function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
     global $zm_runtime, $zm_request;
 
         // set up theme
@@ -699,7 +699,7 @@
      * @package org.zenmagick
      * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
      */
-    function &zm_get_browser_language() {
+    function zm_get_browser_language() {
     global $zm_languages;
 
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {

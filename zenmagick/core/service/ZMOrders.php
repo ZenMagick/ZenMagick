@@ -62,7 +62,7 @@ class ZMOrders extends ZMService {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMOrder A order or <code>null</code>.
      */
-    function &getOrderForId($orderId, $languageId=null) {
+    function getOrderForId($orderId, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -265,7 +265,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order status instance.
      */
-    function &_newOrderStatus($fields) {
+    function _newOrderStatus($fields) {
         $status = $this->create("OrderStatus");
         $status->id_ = $fields['orders_status_id'];
         $status->orderId_ = $fields['orders_id'];
@@ -279,7 +279,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order instance.
      */
-    function &_newOrder($fields) {
+    function _newOrder($fields) {
         $order = $this->create("Order", $fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
@@ -333,7 +333,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new order item instance.
      */
-    function &_newOrderItem($zenItem) {
+    function _newOrderItem($zenItem) {
         // keep reference of used variables
         $attributesLookup = array();
 
@@ -375,7 +375,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new account instance.
      */
-    function &_newAccount($fields) {
+    function _newAccount($fields) {
         $account = $this->create("Account");
         $account->accountId_ = $fields['customers_id'];
         //$account->firstName_ = $fields['customers_firstname'];
@@ -396,7 +396,7 @@ class ZMOrders extends ZMService {
     /**
      * Create new address instance.
      */
-    function &_newAddress($fields, $prefix) {
+    function _newAddress($fields, $prefix) {
     global $zm_countries;
         $address = $this->create("Address");
         $address->addressId_ = 0;
@@ -449,7 +449,7 @@ class ZMOrders extends ZMService {
      * @param ZMOrder The order.
      * @return ZMOrder The updated order.
      */
-    function &updateOrder(&$order) {
+    function updateOrder(&$order) {
         $db = $this->getDB();
 
 /*

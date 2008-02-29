@@ -93,7 +93,7 @@ class ZMLanguages extends ZMService {
      * @param string code The language code.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    function &getLanguageForCode($code) {
+    function getLanguageForCode($code) {
         if (null === $this->languages_) {
             $this->_load();
         }
@@ -107,7 +107,7 @@ class ZMLanguages extends ZMService {
      * @param int id The language id.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    function &getLanguageForId($id) {
+    function getLanguageForId($id) {
         if (null === $this->languages_) {
             $this->_load();
         }
@@ -125,7 +125,7 @@ class ZMLanguages extends ZMService {
     /**
      * Create new language instance.
      */
-    function &_newLanguage($fields) {
+    function _newLanguage($fields) {
         $language = $this->create("Language");
         $language->id_ = $fields['languages_id'];
         $language->name_ = $fields['name'];

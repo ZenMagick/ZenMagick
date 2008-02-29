@@ -94,7 +94,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMSession The session.
      */
-    function &getSession() { if (!isset($this->session_)) { $this->session_ = $this->create("Session"); } return $this->session_; }
+    function getSession() { if (!isset($this->session_)) { $this->session_ = $this->create("Session"); } return $this->session_; }
 
     /**
      * Get the hostname for this request.
@@ -129,7 +129,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    function &getShoppingCart() { return $this->getSession()->getShoppingCart(); }
+    function getShoppingCart() { return $this->getSession()->getShoppingCart(); }
 
     /**
      * Get the current page name; ie the <code>main_page</code> value.
@@ -264,7 +264,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMAccount The account or <code>null</code>.
      */
-    function &getAccount() {
+    function getAccount() {
     global $zm_accounts;
         
         $accountId = $this->getAccountId();
@@ -363,7 +363,7 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
-    function &getController() { if (null === $this->controller_) {$this->controller_ = $this->create("DefaultController"); } return $this->controller_; }
+    function getController() { if (null === $this->controller_) {$this->controller_ = $this->create("DefaultController"); } return $this->controller_; }
 
     /**
      * Set the current controller.

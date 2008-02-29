@@ -121,7 +121,7 @@ class zm_captcha extends ZMPlugin {
      *
      * @return captcha The captcha.
      */
-    function &getCaptcha() {
+    function getCaptcha() {
         return $this->captcha_;
     }
 

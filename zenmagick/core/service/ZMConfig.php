@@ -183,7 +183,7 @@ class ZMConfig extends ZMService {
     /**
      * Create new config group.
      */
-    function &_newConfigGroup($fields) {
+    function _newConfigGroup($fields) {
         $group = $this->create("ConfigGroup");
         $group->setId($fields['configuration_group_id']);
         $group->setName($fields['configuration_group_title']);

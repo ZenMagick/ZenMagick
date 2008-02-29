@@ -98,7 +98,7 @@ class ZMGroupPricing extends ZMService {
     /**
      * Create new price group instance.
      */
-    function &_newPriceGroup($fields) {
+    function _newPriceGroup($fields) {
         $priceGroup = $this->create("PriceGroup");
         $priceGroup->id_ = $fields['group_id'];
         $priceGroup->name_ = $fields['group_name'];

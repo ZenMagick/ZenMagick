@@ -92,7 +92,7 @@ class zm_google_analytics extends ZMPlugin {
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function &createPluginHandler() {
+    function createPluginHandler() {
         return new zm_google_analytics_plugin_handler();
     }
 

@@ -68,7 +68,7 @@ EOT;
      *
      * @package org.zenmagick.plugins.zm_google_store_locator
      */
-    function &zm_store_locator_admin() {
+    function zm_store_locator_admin() {
     global $zm_request, $zm_google_store_locator;
 
         if ('POST' == $zm_request->getMethod()) {

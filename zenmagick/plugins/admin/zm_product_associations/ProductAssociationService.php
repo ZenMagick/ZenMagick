@@ -223,7 +223,7 @@ class ProductAssociationService extends ZMService {
     /**
      * Create new product association.
      */
-    function &_newProductAssociation($fields) {
+    function _newProductAssociation($fields) {
         $productAssociation = $this->create("ProductAssociation");
         $productAssociation->id_ = $fields['association_id'];
         $productAssociation->type_ = $fields['association_type'];

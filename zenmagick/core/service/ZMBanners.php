@@ -140,7 +140,7 @@ class ZMBanners extends ZMService {
      * @param integer id The banner id.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    function &getBannerForId($id) { 
+    function getBannerForId($id) { 
     global $zm_request;
 
         $db = $this->getDB();
@@ -208,7 +208,7 @@ class ZMBanners extends ZMService {
 
 
     // build banner
-    function &_newBanner($fields) {
+    function _newBanner($fields) {
         $banner = $this->create("ZMBanner");
         $banner->id_ = $fields['banners_id'];
         $banner->title_ = $fields['banners_title'];

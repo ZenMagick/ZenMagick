@@ -334,7 +334,7 @@ class ZMSession extends ZMObject {
      *
      * @return ZMLanguage The language or <code>null</code>.
      */
-    function &getLanguage() {
+    function getLanguage() {
     global $zm_languages;
 
         return $zm_languages->getLanguageForCode($_SESSION['languages_code']);

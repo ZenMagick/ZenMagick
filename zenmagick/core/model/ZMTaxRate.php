@@ -196,7 +196,7 @@ class ZMTaxRate extends ZMModel {
      *
      * @return ZMCurrency A currency.
      */
-    function &_getCurrency() {
+    function _getCurrency() {
     global $zm_runtime, $zm_currencies;
 
         $currency = $zm_runtime->getCurrency();

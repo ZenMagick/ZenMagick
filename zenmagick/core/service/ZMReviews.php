@@ -254,7 +254,7 @@ class ZMReviews extends ZMService {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
-    function &getReviewForId($reviewId, $languageId=null) {
+    function getReviewForId($reviewId, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -309,7 +309,7 @@ class ZMReviews extends ZMService {
      * @param int languageId The language for this review; default is <code>null</code>.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    function &createReview(&$review, &$account, $languageId=null) {
+    function createReview(&$review, &$account, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -343,7 +343,7 @@ class ZMReviews extends ZMService {
     /**
      * Create new review.
      */
-    function &_newReview($fields) {
+    function _newReview($fields) {
         $review = $this->create("Review");
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];

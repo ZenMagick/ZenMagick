@@ -107,7 +107,7 @@
      * @param boolean all Allows to exclude the common values (status/sort order); default is <code>true</code> to show all.
      * @return ZMPluginPage The plugin page instance.
      */
-    function &zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
+    function zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
         // more reference stuff
         $id = $plugin->getId();
         global $id;

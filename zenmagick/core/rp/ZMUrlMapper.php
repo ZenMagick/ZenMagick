@@ -110,7 +110,7 @@ class ZMUrlMapper extends ZMObject {
      *  to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    function &findView($controller, $viewId=null, $parameter=null) {
+    function findView($controller, $viewId=null, $parameter=null) {
         $viewInfo = null;
 
         $viewId = null != $viewId ? $viewId : $controller;

@@ -116,7 +116,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return ZMThemes A <code>ZMThemes</code> object.
      */
-    function &getThemes() {
+    function getThemes() {
         if (null == $this->themes_) {
             $this->themes_ = $this->create("Themes");
         }
@@ -130,7 +130,7 @@ class ZMRuntime extends ZMObject {
      * @param string themeId The theme id or <code>null</code> for the current theme id.
      * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
      */
-    function &getThemeForId($themeId=null) {
+    function getThemeForId($themeId=null) {
         if (null == $themeId) {
             return $this->getTheme();
         }

@@ -64,7 +64,7 @@ class ZMManufacturers extends ZMService {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    function &getManufacturerForId($id, $languageId=null) {
+    function getManufacturerForId($id, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -97,7 +97,7 @@ class ZMManufacturers extends ZMService {
      * @param ZMProduct product The product.
      * @return ZMManufacturer The manufacturer or </code>null</code>.
      */
-    function &getManufacturerForProduct($product) {
+    function getManufacturerForProduct($product) {
 		    return $this->getManufacturerForId($product->manufacturerId_);
     }
 
@@ -160,7 +160,7 @@ class ZMManufacturers extends ZMService {
     /**
      * Create new manufacturer instance.
      */
-    function &_newManufacturer($fields) {
+    function _newManufacturer($fields) {
         $manufacturer = $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
         $manufacturer->image_ = $fields['manufacturers_image'];
         $manufacturer->url_ = $fields['manufacturers_url'];

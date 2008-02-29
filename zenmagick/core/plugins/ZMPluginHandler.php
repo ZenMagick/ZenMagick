@@ -75,7 +75,7 @@ class ZMPluginHandler extends ZMObject {
      *
      * @return ZMPlugin The associated plugin.
      */
-    function &getPlugin() {
+    function getPlugin() {
         return $this->plugin_;
     }
 

@@ -379,7 +379,7 @@ class ZMProducts extends ZMService {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
      */
-    function &getProductForModel($model, $languageId=null) {
+    function getProductForModel($model, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -421,7 +421,7 @@ class ZMProducts extends ZMService {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
      */
-    function &getProductForId($productId, $languageId=null) {
+    function getProductForId($productId, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -526,7 +526,7 @@ class ZMProducts extends ZMService {
      * @param ZMProduct The product.
      * @return ZMProduct The updated product.
      */
-    function &updateProduct(&$product) {
+    function updateProduct(&$product) {
         $db = $this->getDB();
         $sql = "update " . TABLE_PRODUCTS . " set
                 :customFields,
@@ -675,7 +675,7 @@ class ZMProducts extends ZMService {
     /**
      * Create new product instance.
      */
-    function &_newProduct($fields) {
+    function _newProduct($fields) {
     global $zm_features, $zm_taxes;
 
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);

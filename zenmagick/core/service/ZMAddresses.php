@@ -61,7 +61,7 @@ class ZMAddresses extends ZMService {
      * @param int addressId The address id.
      * @return ZMAddress The address or <code>null</code>.
      */
-    function &getAddressForId($addressId) {
+    function getAddressForId($addressId) {
         $db = $this->getDB();
         $sql = "select address_book_id, customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
@@ -117,7 +117,7 @@ class ZMAddresses extends ZMService {
      * @param ZMAddress account The address.
      * @return ZMAddress The updated address.
      */
-    function &updateAddress(&$address) {
+    function updateAddress(&$address) {
         $db = $this->getDB();
         $sql = "update " . TABLE_ADDRESS_BOOK . " set
                     entry_firstname = :firstName;string,
@@ -145,7 +145,7 @@ class ZMAddresses extends ZMService {
      * @param ZMAddress The new address.
      * @return ZMAddress The created address incl. the new address id.
      */
-    function &createAddress(&$address) {
+    function createAddress(&$address) {
         $db = $this->getDB();
         $sql = "insert into " . TABLE_ADDRESS_BOOK . "(
                  customers_id,
@@ -184,7 +184,7 @@ class ZMAddresses extends ZMService {
     /**
      * Create new address instance.
      */
-    function &_newAddress($fields) {
+    function _newAddress($fields) {
     global $zm_countries;
         $address = $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];

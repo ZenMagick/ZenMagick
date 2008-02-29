@@ -112,7 +112,7 @@ class ZMMediaManager extends ZMService {
     /**
      * Create new media collection instance.
      */
-    function &_newMediaCollection($fields) {
+    function _newMediaCollection($fields) {
         $collection = $this->create("MediaCollection");
         $collection->name_ = $fields['media_name'];
 
@@ -122,7 +122,7 @@ class ZMMediaManager extends ZMService {
     /**
      * Create new media instance.
      */
-    function &_newMedia($clip, $type) {
+    function _newMedia($clip, $type) {
         $media = $this->create("Media");
         $media->id_ = $clip['clip_id'];
         $media->filename_ = $clip['clip_filename'];

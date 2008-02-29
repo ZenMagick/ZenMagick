@@ -388,7 +388,7 @@ class ZMTheme extends ZMObject {
      *
      * @return ZMThemeInfo A <code>ZMThemeInfo</code> instance.
      */
-    function &getThemeInfo() {
+    function getThemeInfo() {
     global $zm_runtime;
 
         if (null == $this->themeInfo_) {

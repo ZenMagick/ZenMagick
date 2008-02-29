@@ -68,7 +68,7 @@ class ZMTaxRates extends ZMService {
      * @param int zoneId Optional zoneId; default is <em>0</em>.
      * @return ZMTaxRate The tax rate.
      */
-    function &getTaxRateForClassId($classId, $countryId=0, $zoneId=0) {
+    function getTaxRateForClassId($classId, $countryId=0, $zoneId=0) {
     global $zm_request, $zm_addresses;
 
         if (0 == $countryId && 0 == $zoneId) {

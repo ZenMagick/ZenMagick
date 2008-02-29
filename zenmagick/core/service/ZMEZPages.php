@@ -62,7 +62,7 @@ class ZMEZPages extends ZMService {
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return ZMEZPage A new instance or <code>null</code>.
      */
-    function &getPageForId($pageId, $languageId=null) {
+    function getPageForId($pageId, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {
@@ -226,7 +226,7 @@ class ZMEZPages extends ZMService {
     }
 
 
-    function &_newPage($fields) {
+    function _newPage($fields) {
         $page = $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];

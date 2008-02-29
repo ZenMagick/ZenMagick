@@ -92,7 +92,7 @@ class ZMCurrencies extends ZMService {
      * @param string code The currency code.
      * @return ZMCurrency A currency or <code>null</code>.
      */
-    function &getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
+    function getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
 
     /**
      * Checks if a currency exists for the given code.
@@ -107,7 +107,7 @@ class ZMCurrencies extends ZMService {
     /**
      * Create new currency instance.
      */
-    function &_newCurrency($fields) {
+    function _newCurrency($fields) {
         $currency = $this->create("Currency");
         $currency->code_ = $fields['code'];
         $currency->name_ = $fields['title'];

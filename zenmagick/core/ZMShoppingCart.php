@@ -675,7 +675,7 @@ class ZMShoppingCart extends ZMService {
      *
      * @return ZMAddress The tax address.
      */
-    function &getTaxAddress() {
+    function getTaxAddress() {
         switch (zm_setting('productTaxBase')) {
         case ZM_PRODUCT_TAX_BASE_SHIPPING:
             return $this->getShippingAddress();

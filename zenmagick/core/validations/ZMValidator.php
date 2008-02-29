@@ -101,7 +101,7 @@ class ZMValidator extends ZMObject {
      * @param string id The id/name of the set.
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance or <code>null</code>.
      */
-    function &getRuleSet($id) {
+    function getRuleSet($id) {
         $ruleSet = null;
         if (array_key_exists($id, $this->sets_)) {
             $ruleSet = $this->sets_[$id];

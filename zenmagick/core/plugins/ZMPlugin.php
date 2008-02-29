@@ -447,7 +447,7 @@ class ZMPlugin extends ZMObject {
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function &createPluginHandler() {
+    function createPluginHandler() {
         return null;
     }
 
@@ -457,7 +457,7 @@ class ZMPlugin extends ZMObject {
      * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
      *  not supported.
      */
-    function &getPluginHandler() {
+    function getPluginHandler() {
         if (null == $this->handler_) {
             $this->handler_ = $this->createPluginHandler();
         }
