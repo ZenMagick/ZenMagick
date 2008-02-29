@@ -76,7 +76,7 @@ class ZMAttributes extends ZMService {
         $session = $zm_request->getSession();
         $languageId = $session->getLanguageId();
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select count(*) as total
                 from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
                 where patrib.products_id = :productId
@@ -163,7 +163,7 @@ class ZMAttributes extends ZMService {
             $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pov.products_options_values_name';
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct popt.products_options_id, popt.products_options_name, popt.products_options_sort_order,
                 popt.products_options_type, popt.products_options_length, popt.products_options_comment, popt.products_options_size,
                 popt.products_options_images_per_row, popt.products_options_images_style

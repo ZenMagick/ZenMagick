@@ -65,7 +65,7 @@ class ProductAssociationService extends ZMService {
      * @return boolean <code>true</code> if installed, <code>false</code> if not.
      */
     function isInstalled() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // check for existence
         $results = $db->Execute("show tables");
 
@@ -94,7 +94,7 @@ class ProductAssociationService extends ZMService {
      *
      */
     function prepareAssociationTypes() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . ZM_TABLE_PRODUCT_ASSOCIATION_TYPES;
         $results = $db->Execute($sql);
         while (!$results->EOF) {
@@ -122,7 +122,7 @@ class ProductAssociationService extends ZMService {
         if (!$all) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
         }
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct * from " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
                 where source_product_id = :productId
                 and association_type =:type" . $dateLimit . "
@@ -162,7 +162,7 @@ class ProductAssociationService extends ZMService {
         if (!$all) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
         }
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct * from " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
                 where source_product_id in (:productIdList)
                 and association_type =:type" . $dateLimit . "
@@ -203,7 +203,7 @@ class ProductAssociationService extends ZMService {
         if (!$all) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
         }
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct * from " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
                 where source_product_id in (:productIdList)
                 and association_type =:type" . $dateLimit . "

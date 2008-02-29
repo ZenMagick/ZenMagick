@@ -62,7 +62,7 @@ class ZMAddresses extends ZMService {
      * @return ZMAddress The address or <code>null</code>.
      */
     function getAddressForId($addressId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select address_book_id, customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id,
                   customers_id
@@ -91,7 +91,7 @@ class ZMAddresses extends ZMService {
     function getAddressesForAccountId($accountId) {
         $defaultAddressId = $this->_getDefaultAddressId($accountId);
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select address_book_id, customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address,
                   entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id
                 from " . TABLE_ADDRESS_BOOK . "
@@ -118,7 +118,7 @@ class ZMAddresses extends ZMService {
      * @return ZMAddress The updated address.
      */
     function updateAddress(&$address) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_ADDRESS_BOOK . " set
                     entry_firstname = :firstName;string,
                     entry_lastname = :lastName;string,
@@ -146,7 +146,7 @@ class ZMAddresses extends ZMService {
      * @return ZMAddress The created address incl. the new address id.
      */
     function createAddress(&$address) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_ADDRESS_BOOK . "(
                  customers_id,
                  entry_firstname, entry_lastname, entry_company, entry_gender, 
@@ -172,7 +172,7 @@ class ZMAddresses extends ZMService {
      * @param boolean <code>true</code>.
      */
     function deleteAddressForId($addressId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "delete from " . TABLE_ADDRESS_BOOK . "
                 where  address_book_id = :addressId"; 
         $sql = $db->bindVars($sql, ':addressId', $addressId, 'integer');
@@ -224,7 +224,7 @@ class ZMAddresses extends ZMService {
      * @return string The address format.
      */
     function getAddressFormatForId($addressFormatId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select address_format as format
                 from " . TABLE_ADDRESS_FORMAT . "
                 where address_format_id = :addressFormatId";

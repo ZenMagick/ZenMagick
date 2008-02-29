@@ -123,7 +123,7 @@ class ZMOffers extends ZMService {
             return $this->product_->productPrice_;
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // **non** display_only **but** attributes_price_base_included
         $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
                 from " . TABLE_PRODUCTS_ATTRIBUTES . "
@@ -168,7 +168,7 @@ class ZMOffers extends ZMService {
      * Calculate the special price.
      */
     function _getSpecialPrice() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
                 where products_id = :productId and status='1'";
@@ -204,7 +204,7 @@ class ZMOffers extends ZMService {
   	    $basePrice = $this->getBasePrice(false);
   	    $specialPrice = $this->getSpecialPrice(false);
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // get available sales
         $sql = "select sale_specials_condition, sale_deduction_value, sale_deduction_type
                 from " . TABLE_SALEMAKER_SALES . "

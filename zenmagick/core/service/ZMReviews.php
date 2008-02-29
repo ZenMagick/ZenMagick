@@ -70,7 +70,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select count(*) as count
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                 where r.products_id = :productId
@@ -100,7 +100,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -153,7 +153,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
         $query = "select avg(reviews_rating) as average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                   where r.products_id = :productId
@@ -183,7 +183,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -223,7 +223,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -262,7 +262,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
                 rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
                 from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -292,7 +292,7 @@ class ZMReviews extends ZMService {
      * @param int reviewId The id of the review.
      */
     function updateViewCount($reviewId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "update " . TABLE_REVIEWS . "
                   set reviews_read = reviews_read+1
                   where reviews_id = :reviewId";
@@ -317,7 +317,7 @@ class ZMReviews extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "INSERT INTO " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added, status)
                 VALUES (:productsId, :customersId, :customersName, :rating, now(), :status)";
         $sql = $db->bindVars($sql, ':productsId', $review->getProductId(), 'integer');

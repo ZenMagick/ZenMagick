@@ -94,7 +94,7 @@ class zm_crossell extends ZMPlugin {
             return array();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct xp.xsell_id from " . TABLE_PRODUCTS_XSELL . " xp
                 where xp.products_id = :productId
                 order by xp.sort_order asc limit :limit";

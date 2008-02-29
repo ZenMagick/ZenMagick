@@ -118,7 +118,7 @@ class ZMLayout extends ZMService {
         if (null != $this->leftColBoxes_)
             return $this->leftColBoxes_;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 where layout_box_location = 0
                   and layout_box_status = '1'
@@ -153,7 +153,7 @@ class ZMLayout extends ZMService {
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct layout_box_name, layout_template from " . TABLE_LAYOUT_BOXES . "
                 where layout_box_location = 1
                   and layout_box_status = '1'

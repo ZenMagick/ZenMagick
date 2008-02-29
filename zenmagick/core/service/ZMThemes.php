@@ -147,7 +147,7 @@ class ZMThemes extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select template_dir
                 from " . TABLE_TEMPLATE_SELECT . "
                 where template_language = :languageId";
@@ -173,7 +173,7 @@ class ZMThemes extends ZMService {
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
     function setZCThemeId($themeId, $languageId=0) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 
         // update or insert?
         $sql = "select *

@@ -61,7 +61,7 @@ class ZMGroupPricing extends ZMService {
      * @return array List of ZMPriceGroup objects.
      */
     function getPriceGroups() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_GROUP_PRICING;
 
         $groups = array();
@@ -81,7 +81,7 @@ class ZMGroupPricing extends ZMService {
      * @return ZMPriceGroup The group or <code>null</code>.
      */
     function getPriceGroupForId($priceGroupId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select *
                 from " . TABLE_GROUP_PRICING . "
                 where  group_id = :priceGroupId";

@@ -129,7 +129,7 @@ class ZMCategories extends ZMService {
             $this->_applyPath($languageId);
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "SELECT categories_id
                 FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
                 WHERE products_id = :productId";
@@ -239,7 +239,7 @@ class ZMCategories extends ZMService {
 
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // load all straight away - should be faster to sort them later on
         $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
                   from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd

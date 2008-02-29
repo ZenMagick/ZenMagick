@@ -71,7 +71,7 @@ class ZMConfig extends ZMService {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_CONFIGURATION . " (
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
                   configuration_description, sort_order, 
@@ -98,7 +98,7 @@ class ZMConfig extends ZMService {
      * @param string value The new value.
      */
     function updateConfigValue($key, $value) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_CONFIGURATION . "
                 set configuration_value = :value
                 where configuration_key = :key";
@@ -114,7 +114,7 @@ class ZMConfig extends ZMService {
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
     function getConfigValues($pattern) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select configuration_id, configuration_title, configuration_key, configuration_value,
                 configuration_description,
                 use_function, set_function
@@ -139,7 +139,7 @@ class ZMConfig extends ZMService {
      * @param string key The config key.
      */
     function removeConfigValue($key) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :key";
         $sql = $db->bindVars($sql, ":key", $key, "string");
         $results = $db->Execute($sql);
@@ -151,7 +151,7 @@ class ZMConfig extends ZMService {
      * @param string pattern The key pattern; for example 'foo_%'.
      */
     function removeConfigValues($pattern) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like :key";
         $sql = $db->bindVars($sql, ":key", $pattern, "string");
         $results = $db->Execute($sql);
@@ -163,7 +163,7 @@ class ZMConfig extends ZMService {
      * @return array List of ZMConfigGroup instances.
      */
     function getConfigGroups() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select configuration_group_id, configuration_group_title
                 from " . TABLE_CONFIGURATION_GROUP . " 
                 where visible = '1' order by sort_order";

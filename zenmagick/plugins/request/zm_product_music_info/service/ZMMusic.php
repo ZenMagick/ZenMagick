@@ -66,7 +66,7 @@ class ZMMusic extends ZMService {
 
         $session = $zm_request->getSession();
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "
                 where products_id = :productId";
         $sql = $db->bindVars($sql, ":productId", $productId, "integer");

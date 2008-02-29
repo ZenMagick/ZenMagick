@@ -98,7 +98,7 @@ class ZMBanners extends ZMService {
     function _getBannerForName($identifiers, $all=false) { 
     global $zm_request;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
@@ -143,7 +143,7 @@ class ZMBanners extends ZMService {
     function getBannerForId($id) { 
     global $zm_request;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
         if ($zm_request->isSecure()) {
@@ -171,7 +171,7 @@ class ZMBanners extends ZMService {
      * @param int bannerId The banner id.
      */
     function updateBannerDisplayCount($bannerId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 
         $sql = "select count(*) as count from " . TABLE_BANNERS_HISTORY . "
                 where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
@@ -198,7 +198,7 @@ class ZMBanners extends ZMService {
      * @param int bannerId The banner id.
      */
     function updateBannerClickCount($bannerId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 
         $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1
                 where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";

@@ -66,12 +66,13 @@
 
     // now we can check for a static homepage
     $request = ZMRequest::instance();
-    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $request->getPageName() && 0 == count($request->getParameterMap())) {
+    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $request->getPageName() && (0 == count($request->getParameterMap()))) {
         require(zm_setting('staticHome'));
         exit;
     }
 
     if (zm_setting('isLegacyAPI')) {
+        // deprecated legacy globals
         $zm_loader = ZMLoader::instance();
     }
 

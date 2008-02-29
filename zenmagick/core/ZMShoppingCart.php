@@ -186,7 +186,7 @@ class ZMShoppingCart extends ZMService {
         $session = $zm_request->getSession();
         $languageId = $session->getLanguageId();
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // load attributes
         foreach ($item->zenItem_['attributes'] as $option => $type) {
             $sql = "select popt.products_options_name, poval.products_options_values_name,

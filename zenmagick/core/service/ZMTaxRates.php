@@ -102,7 +102,7 @@ class ZMTaxRates extends ZMService {
             }
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select sum(tax_rate) as tax_rate
                 from (" . TABLE_TAX_RATES . " tr
                 left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id)
@@ -156,7 +156,7 @@ class ZMTaxRates extends ZMService {
      * @return string The decription or <code>null</code>.
      */
     function getTaxDescription($classId, $countryId, $zoneId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select tax_description
                 from (" . TABLE_TAX_RATES . " tr
                 left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id)
@@ -199,7 +199,7 @@ class ZMTaxRates extends ZMService {
         $rate = 0.00;
         $descriptions = explode(_zm_l10n_lookup('tax.delim', ' + '), $description);
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         foreach ($descriptions as $desc) {
             $sql = "SELECT tax_rate FROM " . TABLE_TAX_RATES . "
                     WHERE tax_description = :desc";

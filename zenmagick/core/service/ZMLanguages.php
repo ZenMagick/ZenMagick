@@ -62,7 +62,7 @@ class ZMLanguages extends ZMService {
      * Load languages.
      */
     function _load() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order";
         $results = $db->Execute($sql);
 

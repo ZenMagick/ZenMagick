@@ -86,7 +86,7 @@ class ZMCountries extends ZMService {
         if (null != $this->countries_)
             return $this->countries_;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id
                 from " . TABLE_COUNTRIES . "
                 order by countries_name";
@@ -134,7 +134,7 @@ class ZMCountries extends ZMService {
      * @return string The zone code or the provided default value.
      */
     function getZoneCode($countryId, $zoneId, $defaultZone='') {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select zone_code
                 from " . TABLE_ZONES . "
                 where zone_country_id = :countryId
@@ -162,7 +162,7 @@ class ZMCountries extends ZMService {
             return array();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct zone_id, zone_code, zone_name
                   from " . TABLE_ZONES . "
                   where zone_country_id = :countryId

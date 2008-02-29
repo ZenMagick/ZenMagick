@@ -37,17 +37,12 @@
  * @version $Id$
  */
 class ZMService extends ZMObject {
-    var $_db_;
-
 
     /**
      * Default c'tor.
      */
     function ZMService() {
-    global $zm_runtime;
-
         parent::__construct();
-        $this->_db_ = $zm_runtime->getDB();
     }
 
     /**
@@ -66,13 +61,6 @@ class ZMService extends ZMObject {
 
 
     /**
-     * Get a <code>db</code> instance.
-     *
-     * @return queryFactory A <code>queryFactory</code> instance.
-     */
-    function getDB() { return $this->_db_; }
-
-    /**
      * Bind a list of values to a given SQL query.
      *
      * <p>Converts the values in the given array into a comma separated list of the specified type.</p>
@@ -84,7 +72,7 @@ class ZMService extends ZMObject {
      * @return string The sql with <code>$bindName</code> replaced with a properly formatted value list.
      */
     function bindValueList($sql, $bindName, $values, $type='string') {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $fragment = '';
         foreach ($values as $value) {
             if ('' != $fragment) $fragment .= ', ';
@@ -142,7 +130,7 @@ class ZMService extends ZMObject {
             }
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         foreach ($getter as $lcproperty => $method) {
             if (isset($labels[$lcproperty])) {
                 $label = $labels[$lcproperty];
@@ -188,7 +176,7 @@ class ZMService extends ZMObject {
             return str_replace($valueMarker.',', '', $sql);
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $fragment = '';
         foreach ($fields as $field) {
             $name = $field[0];

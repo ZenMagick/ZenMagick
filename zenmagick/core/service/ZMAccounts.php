@@ -62,7 +62,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
     function getAccountForId($accountId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
                 c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
@@ -84,7 +84,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
     function getAccountForEmailAddress($emailAddress) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
                 c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
@@ -105,7 +105,7 @@ class ZMAccounts extends ZMService {
      * @param int accountId The account id.
      */
     function updateAccountLoginStats($accountId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
@@ -121,7 +121,7 @@ class ZMAccounts extends ZMService {
      * @return boolean <code>true</code> if the email address exists, <code>false</code> if not.
      */
     function emailExists($email) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select count(*) as total
                 from " . TABLE_CUSTOMERS . " c
                 where customers_email_address = :email
@@ -140,7 +140,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount The created account incl. the new account id.
      */
     function createAccount(&$account) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
                  customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
@@ -176,7 +176,7 @@ class ZMAccounts extends ZMService {
      * @return ZMAccount The updated account.
      */
     function updateAccount(&$account) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_CUSTOMERS . " set
                 customers_firstname = :firstName;string,
                 customers_lastname = :lastName;string,
@@ -252,7 +252,7 @@ class ZMAccounts extends ZMService {
      * Set password for account
      */
     function _setAccountPassword($accountId, $password) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "UPDATE " . TABLE_CUSTOMERS . "
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
@@ -269,7 +269,7 @@ class ZMAccounts extends ZMService {
      * @return boolean <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
      */
     function isGlobalProductSubscriber($accountId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select global_product_notifications
                 from " . TABLE_CUSTOMERS_INFO . "
                 where  customers_info_id = :accountId";
@@ -287,7 +287,7 @@ class ZMAccounts extends ZMService {
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
     function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_CUSTOMERS_INFO . "
                 set global_product_notifications = :globalProductSubscriber
                 where  customers_info_id = :accountId";
@@ -304,7 +304,7 @@ class ZMAccounts extends ZMService {
      * @return array A list of subscribed product ids.
      */
     function getSubscribedProductIds($accountId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select products_id
                 from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 where  customers_id = :accountId";
@@ -343,7 +343,7 @@ class ZMAccounts extends ZMService {
             }
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         if (0 < count($remove)) {
             $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     where  customers_id = :accountId

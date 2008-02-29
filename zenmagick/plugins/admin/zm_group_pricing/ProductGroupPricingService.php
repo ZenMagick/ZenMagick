@@ -79,7 +79,7 @@ class ProductGroupPricingService extends ZMService {
      * return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
     function getProductGroupPricing($productId, $groupId, $active=true) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 
         if ($active) {
             $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
@@ -107,7 +107,7 @@ class ProductGroupPricingService extends ZMService {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     function createProductGroupPricing(&$groupPricing) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . ZM_TABLE_GROUP_PRICING . "(
                  products_id, group_id,
                  discount, type, regular_price_only,
@@ -129,7 +129,7 @@ class ProductGroupPricingService extends ZMService {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     function updateProductGroupPricing(&$groupPricing) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . ZM_TABLE_GROUP_PRICING . " set
                 products_id = :productId;integer,
                 group_id = :groupId;integer,

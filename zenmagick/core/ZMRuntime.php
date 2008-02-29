@@ -36,7 +36,6 @@
  */
 class ZMRuntime extends ZMObject {
     private $themeId_;
-    private $pageCache_;
     private $theme_;
     private $themes_;
 
@@ -49,7 +48,6 @@ class ZMRuntime extends ZMObject {
 
         // init with defaults
         $this->themeId_ = null;
-        $this->pageCache_ = null;
         $this->theme_ = null;
     }
 
@@ -75,7 +73,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
      */
-    static function getDB() { global $db; return $db; }
+    public static function getDB() { global $db; return $db; }
 
     /**
      * Return the directory containing all themes.

@@ -70,7 +70,7 @@ class ZMOrders extends ZMService {
             $languageId = $session->getLanguageId();
         }
         
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
                 o.customers_street_address, o.customers_suburb, o.customers_city,
                 o.customers_postcode, o.customers_state, o.customers_country,
@@ -119,7 +119,7 @@ class ZMOrders extends ZMService {
             $languageId = $session->getLanguageId();
         }
         
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -171,7 +171,7 @@ class ZMOrders extends ZMService {
             $languageId = $session->getLanguageId();
         }
         
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
@@ -222,7 +222,7 @@ class ZMOrders extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments, osh.orders_id, osh.customer_notified
                   from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                   where osh.orders_id = :orderId
@@ -251,7 +251,7 @@ class ZMOrders extends ZMService {
      * @return ZMOrderStatus The created order status (incl id).
      */
     function createOrderStatusHistory($orderStatus) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "INSERT INTO " .  TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments)
                 VALUES (:orderId;integer, :id;integer, now(), :customerNotified;integer, :comment;string)";
         $sql = $this->bindObject($sql, $orderStatus, false);
@@ -422,7 +422,7 @@ class ZMOrders extends ZMService {
      * @return array List of <code>ZMOrderItem</code> instances.
      */
     function getOrderTotals($orderId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_ORDERS_TOTAL . "
                 where orders_id = :orderId
                 order by sort_order";
@@ -450,7 +450,7 @@ class ZMOrders extends ZMService {
      * @return ZMOrder The updated order.
      */
     function updateOrder(&$order) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 
 /*
                 customers_name = :customers_name;string,

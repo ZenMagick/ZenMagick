@@ -70,7 +70,7 @@ class ZMEZPages extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where pages_id = :pageId";
         $sql = $db->bindVars($sql, ':pageId', $pageId, 'integer');
@@ -101,7 +101,7 @@ class ZMEZPages extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . " 
                 WHERE ((status_toc = 1 and toc_sort_order <> 0) and toc_chapter= :chapterID)
@@ -137,7 +137,7 @@ class ZMEZPages extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_header = 1
                 and header_sort_order > 0";
@@ -171,7 +171,7 @@ class ZMEZPages extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_sidebox = 1
                 and sidebox_sort_order > 0";
@@ -205,7 +205,7 @@ class ZMEZPages extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_footer = 1
                 and footer_sort_order > 0";

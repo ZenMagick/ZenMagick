@@ -72,7 +72,7 @@ class ZMFeatures extends ZMService {
         $session = $zm_request->getSession();
         $languageId = $session->getLanguageId();
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select f.feature_id, f.feature_type_id, f.language_id, f.feature_name, f.feature_description,
                 f.hidden
                 from " .ZM_TABLE_FEATURES . " f
@@ -101,7 +101,7 @@ class ZMFeatures extends ZMService {
         if (null != $this->featureTypes_)
             return;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select feature_type_id, feature_type
                   from " . ZM_TABLE_FEATURE_TYPES;
 
@@ -161,7 +161,7 @@ class ZMFeatures extends ZMService {
 
     // remove feature for the given id
     function removeFeatureForId($featureId) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "delete from " . ZM_TABLE_FEATURES . "
                 where feature_id = :featureId";
         $sql = $db->bindVars($sql, ':featureId', $featureId, 'integer');
@@ -173,7 +173,7 @@ class ZMFeatures extends ZMService {
 
     // add feature
     function addFeature($type, $languageId, $name, $description, $hidden=false) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . ZM_TABLE_FEATURES . "
                 (feature_type_id, language_id, feature_name, feature_description, hidden)
                 values (:type, :languageId, :name, :description, :hidden)";
@@ -189,7 +189,7 @@ class ZMFeatures extends ZMService {
 
     // update feature
     function updateFeature($featureId, $languageId, $name, $description, $hidden) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . ZM_TABLE_FEATURES . "
                 set feature_name = :name,
                     feature_description = :description,
@@ -210,7 +210,7 @@ class ZMFeatures extends ZMService {
 
     // add feature for product
     function addFeatureForProduct($productId, $featureId, $value, $index=1) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "insert into " . ZM_TABLE_PRODUCT_FEATURES . "
                 (product_id, feature_id, feature_index_id, feature_value)
                 values (:productId, :featureId, :index, :value)";
@@ -225,7 +225,7 @@ class ZMFeatures extends ZMService {
 
     // remove feature for product
     function removeFeatureForProduct($productId, $featureId, $index=null) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "delete from " . ZM_TABLE_PRODUCT_FEATURES . "
                 where product_id = :productId
                 and feature_id = :featureId";
@@ -241,7 +241,7 @@ class ZMFeatures extends ZMService {
 
     // update feature for product
     function updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . ZM_TABLE_PRODUCT_FEATURES . "
                 set feature_value = :value,
                     feature_index_id = :index
@@ -265,7 +265,7 @@ class ZMFeatures extends ZMService {
         if (array_key_exists($productId, $this->productFeatures_))
             return $this->productFeatures_[$productId];
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select f.product_feature_id, f.feature_id, f.feature_index_id, f.feature_value
                   from " . ZM_TABLE_PRODUCT_FEATURES . " f
                   where f.product_id = :productId

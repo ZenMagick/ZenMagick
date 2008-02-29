@@ -71,7 +71,7 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select p.products_id
                 from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                 where ";
@@ -112,7 +112,7 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select p.products_id
                     from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
                     where ";
@@ -148,7 +148,7 @@ class ZMProducts extends ZMService {
      * @return array A list of (int)product ids.
      */
     function getProductIdsForCategoryId($categoryId, $active=true) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = "select p.products_id
                   from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                   where ";
@@ -176,7 +176,7 @@ class ZMProducts extends ZMService {
      * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
      */
     function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
                 where products_id = :productId";
         $sql = $db->bindVars($sql, ":productId", $productId, 'integer');
@@ -220,7 +220,7 @@ class ZMProducts extends ZMService {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getFeaturedProducts($categoryId=null, $max=1, $languageId=null) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
 		    $query = null;
         if (null == $categoryId || 0 == $categoryId) {
             $query = "select distinct p.products_id
@@ -262,7 +262,7 @@ class ZMProducts extends ZMService {
     function getNewProducts($categoryId=null, $max=0, $timeLimit=120, $languageId=null) {
         $timeLimit = 0 == $timeLimit ? zm_setting('globalNewProductsLimit') : $timeLimit;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $queryLimit = '';
         switch (zm_setting('globalNewProductsLimit')) {
             case '0':
@@ -316,7 +316,7 @@ class ZMProducts extends ZMService {
     function getBestSellers($categoryId=null, $max=0, $languageId=null) {
         $max = 0 == $max ? zm_setting('maxBestSellers') : $max;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $query = null;
         if (null != $categoryId) {
             $query = "select distinct p.products_id
@@ -358,7 +358,7 @@ class ZMProducts extends ZMService {
     function getSpecials($max=0, $languageId=null) {
         $max = 0 == $max ? zm_setting('maxSpecialProducts') : $max;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select distinct p.products_id
                 from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
                 where p.products_status = 1
@@ -387,7 +387,7 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -429,7 +429,7 @@ class ZMProducts extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -475,7 +475,7 @@ class ZMProducts extends ZMService {
             return array();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
                     p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
@@ -527,7 +527,7 @@ class ZMProducts extends ZMService {
      * @return ZMProduct The updated product.
      */
     function updateProduct(&$product) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_PRODUCTS . " set
                 :customFields,
                 products_status = :status;integer,
@@ -578,7 +578,7 @@ class ZMProducts extends ZMService {
         if (null == $product)
             return;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_PRODUCTS_DESCRIPTION . "
                 set products_viewed = products_viewed+1
                 where products_id = :productId
@@ -597,7 +597,7 @@ class ZMProducts extends ZMService {
      * @return array A list of product ids.
      */
     function _getProductIds($sql) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $results = $db->Execute($sql);
 
         $productIds = array();
@@ -621,7 +621,7 @@ class ZMProducts extends ZMService {
     function _getRandomProductIds($sql, $max=0) {
         0 == $max && zm_log("invalid max value: ".$max, ZM_LOG_DEBUG);
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $productIds = array();
         $left = $max;
         while (0 < $left) {
@@ -656,7 +656,7 @@ class ZMProducts extends ZMService {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getProductsForSQL($sql, $languageId=null) {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $results = $db->Execute($sql);
         if (0 == $results->RecordCount()) {
             return null;

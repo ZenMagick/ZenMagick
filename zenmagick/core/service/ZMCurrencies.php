@@ -64,11 +64,11 @@ class ZMCurrencies extends ZMService {
      * Load all currencies.
      */
     function _load() {
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
                 from " . TABLE_CURRENCIES;
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $results = $db->Execute($sql);
 
         while (!$results->EOF) {

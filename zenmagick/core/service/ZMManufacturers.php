@@ -73,7 +73,7 @@ class ZMManufacturers extends ZMService {
         }
 
         $manufacturer = null;
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                  ".$this->getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
@@ -115,7 +115,7 @@ class ZMManufacturers extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                  ".$this->getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
@@ -147,7 +147,7 @@ class ZMManufacturers extends ZMService {
             $languageId = $session->getLanguageId();
         }
 
-        $db = $this->getDB();
+        $db = ZMRuntime::getDB();
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
                 SET url_clicked = url_clicked+1, date_last_click = now() 
                 WHERE manufacturers_id = :manufacturersId 
