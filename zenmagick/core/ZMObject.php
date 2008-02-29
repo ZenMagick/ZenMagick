@@ -95,7 +95,7 @@ class ZMObject {
             }
         }
         echo "<pre>";
-        print_r(_zm_clean_backtrace(debug_backtrace()));
+        print_r(debug_backtrace());
         echo "</pre>";
         if (null !== $msg) {
             die();
