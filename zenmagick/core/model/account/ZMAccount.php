@@ -54,7 +54,7 @@ class ZMAccount extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAccount() {
         parent::__construct();
@@ -81,14 +81,14 @@ class ZMAccount extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAccount();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -33,7 +33,7 @@
 class zm_init_defaults extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('Defaults', 'Set request defaults');
@@ -42,14 +42,14 @@ class zm_init_defaults extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_init_defaults() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

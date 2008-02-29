@@ -43,7 +43,7 @@ class ZMSacsMapper extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMSacsMapper() {
         parent::__construct();
@@ -58,14 +58,14 @@ class ZMSacsMapper extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMSacsMapper();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

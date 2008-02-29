@@ -36,7 +36,7 @@ define('ZM_SITE_SWITCH_MAX_SITES', 3);
 class zm_site_switch extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('Site Switch', 'Hostname based theme switching', '${plugin.version}');
@@ -44,14 +44,14 @@ class zm_site_switch extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_site_switch() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

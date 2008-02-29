@@ -34,21 +34,21 @@
 class ZMLogoffController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMLogoffController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMLogoffController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

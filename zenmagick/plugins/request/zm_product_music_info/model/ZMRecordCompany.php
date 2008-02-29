@@ -38,7 +38,7 @@ class ZMRecordCompany extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMRecordCompany() {
         parent::__construct();
@@ -49,14 +49,14 @@ class ZMRecordCompany extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMRecordCompany();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

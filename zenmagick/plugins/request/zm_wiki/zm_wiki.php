@@ -50,7 +50,7 @@ define ('ZM_FILENAME_WIKI', 'wiki');
 class zm_wiki extends ZMBoxPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_wiki() {
         parent::__construct('Pawfaliki Wiki', 'Adds a Wiki.', '${plugin.version}');
@@ -58,14 +58,14 @@ class zm_wiki extends ZMBoxPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_wiki();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

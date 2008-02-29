@@ -62,7 +62,7 @@ class ZMRule {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

@@ -38,7 +38,7 @@ class ZMModel extends ZMObject {
     var $properties_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -46,14 +46,14 @@ class ZMModel extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMModel() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

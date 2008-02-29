@@ -34,21 +34,21 @@
 class ZMGuestHistoryController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMGuestHistoryController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMGuestHistoryController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

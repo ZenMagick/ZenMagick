@@ -34,21 +34,21 @@
 class ZMCheckoutGuestController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCheckoutGuestController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCheckoutGuestController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

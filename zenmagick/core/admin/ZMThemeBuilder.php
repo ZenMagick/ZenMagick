@@ -38,7 +38,7 @@ class ZMThemeBuilder extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMThemeBuilder() {
         parent::__construct();
@@ -49,14 +49,14 @@ class ZMThemeBuilder extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMThemeBuilder();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -34,7 +34,7 @@
 class zm_category_admin extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('Category Maintenance', 'Category Management', '${zenmagick.version}');
@@ -44,14 +44,14 @@ class zm_category_admin extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_category_admin() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

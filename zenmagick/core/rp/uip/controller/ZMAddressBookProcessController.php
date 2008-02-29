@@ -34,21 +34,21 @@
 class ZMAddressBookProcessController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAddressBookProcessController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAddressBookProcessController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

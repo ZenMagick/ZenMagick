@@ -39,7 +39,7 @@ class ZMShoppingCart extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -50,7 +50,7 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

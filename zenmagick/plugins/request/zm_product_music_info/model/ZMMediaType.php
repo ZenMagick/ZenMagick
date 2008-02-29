@@ -38,7 +38,7 @@ class ZMMediaType extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMMediaType() {
         parent::__construct();
@@ -49,14 +49,14 @@ class ZMMediaType extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMMediaType();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

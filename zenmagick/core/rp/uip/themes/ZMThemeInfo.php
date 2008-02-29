@@ -44,7 +44,7 @@ class ZMThemeInfo extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param ZMThemeInfo parent Optional parent theme info instance.
      */
@@ -63,7 +63,7 @@ class ZMThemeInfo extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param ZMThemeInfo parent Optional parent theme info instance.
      */
@@ -72,7 +72,7 @@ class ZMThemeInfo extends ZMObject {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

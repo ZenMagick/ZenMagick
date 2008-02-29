@@ -34,21 +34,21 @@
 class ZMLoginController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMLoginController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMLoginController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

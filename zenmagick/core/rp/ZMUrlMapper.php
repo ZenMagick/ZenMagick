@@ -44,7 +44,7 @@ class ZMUrlMapper extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMUrlMapper() {
         parent::__construct();
@@ -55,14 +55,14 @@ class ZMUrlMapper extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMUrlMapper();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

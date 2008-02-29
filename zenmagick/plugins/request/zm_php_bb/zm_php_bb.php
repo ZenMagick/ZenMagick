@@ -39,7 +39,7 @@ class zm_php_bb extends ZMPlugin {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('ZenMagick phpBB Plugin', 'phpBB for ZenMagick');
@@ -50,14 +50,14 @@ class zm_php_bb extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_php_bb() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

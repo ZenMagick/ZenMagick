@@ -53,7 +53,7 @@ class ZMAddress extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAddress() {
         parent::__construct();
@@ -75,14 +75,14 @@ class ZMAddress extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAddress();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

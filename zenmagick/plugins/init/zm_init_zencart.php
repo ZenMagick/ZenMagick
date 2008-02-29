@@ -33,7 +33,7 @@
 class zm_init_zencart extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('zen-cart', 'Set up zen-cart dependencies');
@@ -42,14 +42,14 @@ class zm_init_zencart extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_init_zencart() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

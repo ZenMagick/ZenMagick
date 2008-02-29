@@ -36,21 +36,21 @@ define('_ZM_ZEN_ADMIN_FILE', DIR_FS_ADMIN . DIR_WS_BOXES . "extras_dhtml.php");
 class ZMAdminMenuPatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAdminMenuPatch() {
         parent::__construct('adminMenu');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAdminMenuPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

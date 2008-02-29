@@ -34,21 +34,21 @@
 class ZMProductsNewController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMProductsNewController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMProductsNewController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

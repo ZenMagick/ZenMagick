@@ -34,21 +34,21 @@
 class ZMAccountPasswordController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAccountPasswordController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAccountPasswordController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

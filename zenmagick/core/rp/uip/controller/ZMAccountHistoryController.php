@@ -34,21 +34,21 @@
 class ZMAccountHistoryController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAccountHistoryController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAccountHistoryController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

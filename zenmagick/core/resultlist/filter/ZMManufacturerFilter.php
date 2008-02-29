@@ -34,21 +34,21 @@
 class ZMManufacturerFilter extends ZMResultListFilter {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMManufacturerFilter() {
         parent::__construct('mfilter', zm_l10n_get('Manufacturer'));
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMManufacturerFilter();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

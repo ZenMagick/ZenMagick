@@ -48,21 +48,21 @@ class ZMFeaturesPatch extends ZMSQLPatch {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMFeaturesPatch() {
         parent::__construct('sqlFeatures');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMFeaturesPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

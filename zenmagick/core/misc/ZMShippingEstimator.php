@@ -34,7 +34,7 @@
 class ZMShippingEstimator extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMShippingEstimator() {
         parent::__construct();
@@ -43,14 +43,14 @@ class ZMShippingEstimator extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMShippingEstimator();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

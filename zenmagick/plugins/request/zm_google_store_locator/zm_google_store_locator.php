@@ -36,7 +36,7 @@ define ('ZM_FILENAME_STORE_LOCATOR', 'store_locator');
 class zm_google_store_locator extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_google_store_locator() {
         parent::__construct('Store Locator', 'Google Maps Store Locator.', '${plugin.version}');
@@ -44,14 +44,14 @@ class zm_google_store_locator extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_google_store_locator();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -38,7 +38,7 @@ class ZMAjaxController extends ZMController {
     var $jason_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAjaxController() {
     global $zm_request;
@@ -50,14 +50,14 @@ class ZMAjaxController extends ZMController {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAjaxController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

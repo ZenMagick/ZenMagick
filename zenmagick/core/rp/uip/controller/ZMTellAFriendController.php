@@ -34,21 +34,21 @@
 class ZMTellAFriendController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMTellAFriendController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMTellAFriendController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

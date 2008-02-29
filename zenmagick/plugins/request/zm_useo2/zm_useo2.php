@@ -33,7 +33,7 @@
 class zm_useo2 extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_useo2() {
         parent::__construct('ZenMagick Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick', '${plugin.version}');
@@ -41,14 +41,14 @@ class zm_useo2 extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_useo2();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

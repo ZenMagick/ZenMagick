@@ -34,21 +34,21 @@
 class ZMPageController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMPageController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMPageController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

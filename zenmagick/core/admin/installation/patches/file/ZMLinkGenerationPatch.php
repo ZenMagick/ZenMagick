@@ -42,21 +42,21 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMLinkGenerationPatch() {
         parent::__construct('linkGeneration');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMLinkGenerationPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

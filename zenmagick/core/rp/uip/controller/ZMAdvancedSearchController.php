@@ -34,21 +34,21 @@
 class ZMAdvancedSearchController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAdvancedSearchController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAdvancedSearchController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

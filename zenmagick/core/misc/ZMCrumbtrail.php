@@ -36,7 +36,7 @@ class ZMCrumbtrail extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCrumbtrail() {
         parent::__construct();
@@ -45,14 +45,14 @@ class ZMCrumbtrail extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCrumbtrail();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

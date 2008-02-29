@@ -34,21 +34,21 @@
 class ZMGvSendConfirmController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMGvSendConfirmController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMGvSendConfirmController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

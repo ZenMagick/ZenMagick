@@ -43,7 +43,7 @@ class ProductGroupPricing extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -59,14 +59,14 @@ class ProductGroupPricing extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ProductGroupPricing() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

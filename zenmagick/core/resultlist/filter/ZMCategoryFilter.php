@@ -36,7 +36,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCategoryFilter() {
     global $zm_request;
@@ -47,14 +47,14 @@ class ZMCategoryFilter extends ZMResultListFilter {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCategoryFilter();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

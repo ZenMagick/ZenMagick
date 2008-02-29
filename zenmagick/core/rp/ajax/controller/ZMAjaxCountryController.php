@@ -34,21 +34,21 @@
 class ZMAjaxCountryController extends ZMAjaxController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAjaxCountryController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMAjaxCountryController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

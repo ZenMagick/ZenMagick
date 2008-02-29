@@ -34,21 +34,21 @@
 class ZMGvSendController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMGvSendController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMGvSendController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

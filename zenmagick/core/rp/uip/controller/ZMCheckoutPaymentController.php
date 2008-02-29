@@ -34,21 +34,21 @@
 class ZMCheckoutPaymentController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCheckoutPaymentController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCheckoutPaymentController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

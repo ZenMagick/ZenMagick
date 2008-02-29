@@ -34,21 +34,21 @@
 class ZMPasswordForgottenController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMPasswordForgottenController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMPasswordForgottenController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

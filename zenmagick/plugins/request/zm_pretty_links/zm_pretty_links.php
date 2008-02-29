@@ -33,7 +33,7 @@
 class zm_pretty_links extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('ZenMagick Pretty Links', 'Pretty Links (SEO) for ZenMagick', '${plugin.version}');
@@ -41,14 +41,14 @@ class zm_pretty_links extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_pretty_links() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

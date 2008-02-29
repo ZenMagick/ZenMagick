@@ -39,7 +39,7 @@
 class zm_product_music_info extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_product_music_info() {
         parent::__construct('Music Product Extras', 'Code for product_music_info product template.', '${plugin.version}');
@@ -47,14 +47,14 @@ class zm_product_music_info extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_product_music_info();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

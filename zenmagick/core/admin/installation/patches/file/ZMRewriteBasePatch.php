@@ -36,21 +36,21 @@ define('_ZM_HTACCESS', DIR_FS_CATALOG.".htaccess");
 class ZMRewriteBasePatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMRewriteBasePatch() {
         parent::__construct('rewriteBase');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMRewriteBasePatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

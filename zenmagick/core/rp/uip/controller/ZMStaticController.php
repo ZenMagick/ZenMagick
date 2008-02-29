@@ -34,21 +34,21 @@
 class ZMStaticController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMStaticController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMStaticController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

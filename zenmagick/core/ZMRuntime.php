@@ -41,7 +41,7 @@ class ZMRuntime extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();

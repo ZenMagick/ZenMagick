@@ -49,7 +49,7 @@ class ZMMetaTags extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param string delimiter Optional keyword delimiter.
      */
@@ -63,7 +63,7 @@ class ZMMetaTags extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param string delimiter Optional keyword delimiter.
      */
@@ -72,7 +72,7 @@ class ZMMetaTags extends ZMObject {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

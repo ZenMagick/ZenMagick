@@ -33,7 +33,7 @@
 class sample_plugin extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function sample_plugin() {
         parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin');
@@ -41,14 +41,14 @@ class sample_plugin extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->sample_plugin();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -114,21 +114,21 @@ class sample_plugin extends ZMPlugin {
 class sample_plugin_handler extends ZMPluginHandler {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function sample_plugin_handler() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->sample_plugin_handler();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

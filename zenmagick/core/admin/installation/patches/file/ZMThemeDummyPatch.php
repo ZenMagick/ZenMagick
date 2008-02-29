@@ -34,21 +34,21 @@
 class ZMThemeDummyPatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMThemeDummyPatch() {
         parent::__construct('themeDummies');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMThemeDummyPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -34,21 +34,21 @@
 class ZMProductReviewsWriteController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMProductReviewsWriteController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMProductReviewsWriteController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -34,7 +34,7 @@
 class ZMSession extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMSession() {
         parent::__construct();
@@ -43,14 +43,14 @@ class ZMSession extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMSession();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

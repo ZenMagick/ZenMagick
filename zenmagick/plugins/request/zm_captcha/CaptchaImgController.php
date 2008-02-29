@@ -36,21 +36,21 @@
 class CaptchaImgController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function CaptchaImgController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->CaptchaImgController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

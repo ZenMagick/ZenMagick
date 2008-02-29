@@ -37,7 +37,7 @@ class PriceRangeFilter extends ZMResultListFilter {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function PriceRangeFilter() {
         parent::__construct('prfilter', zm_l10n_get('Price Range'));
@@ -55,14 +55,14 @@ class PriceRangeFilter extends ZMResultListFilter {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->PriceRangeFilter();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

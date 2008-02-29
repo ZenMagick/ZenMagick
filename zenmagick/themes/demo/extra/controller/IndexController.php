@@ -34,21 +34,21 @@
 class IndexController extends ZMIndexController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function IndexController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->IndexController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

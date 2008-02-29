@@ -35,21 +35,21 @@ define('_ZM_ZEN_CUSTOMERS_PHP', DIR_FS_ADMIN . 'customers.php');
 class ZMCustomerEditPatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCustomerEditPatch() {
         parent::__construct('customerEdit');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCustomerEditPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

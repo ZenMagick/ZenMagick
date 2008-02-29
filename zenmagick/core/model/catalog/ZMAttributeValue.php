@@ -51,7 +51,7 @@ class ZMAttributeValue extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMAttributeValue($id, $name) {
         $this->id_ = $id;
@@ -59,14 +59,14 @@ class ZMAttributeValue extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct($id, $name) {
         $this->ZMAttributeValue($id, $name);
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

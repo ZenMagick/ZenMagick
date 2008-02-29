@@ -43,7 +43,7 @@ define ('_ZM_GOOGLE_ADSENSE_BOX_TEMPLATE', 'box-template.php');
 class zm_google_adsense extends ZMBoxPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_google_adsense() {
         parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_COUNT.' Google AdSense sideboxes.', '${plugin.version}');
@@ -51,14 +51,14 @@ class zm_google_adsense extends ZMBoxPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_google_adsense();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

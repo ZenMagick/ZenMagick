@@ -34,21 +34,21 @@
 class ZMSearch extends ZMModel {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMSearch() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMSearch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

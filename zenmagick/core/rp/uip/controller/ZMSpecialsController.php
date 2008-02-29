@@ -34,21 +34,21 @@
 class ZMSpecialsController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMSpecialsController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMSpecialsController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

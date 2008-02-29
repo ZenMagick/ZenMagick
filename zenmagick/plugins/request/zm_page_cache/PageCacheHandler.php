@@ -37,7 +37,7 @@ class PageCacheHandler extends ZMPluginHandler {
     var $pageCache_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -45,14 +45,14 @@ class PageCacheHandler extends ZMPluginHandler {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function PageCacheHandler() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -36,7 +36,7 @@ class ZMInstallationPatcher extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMInstallationPatcher() {
         parent::__construct();
@@ -45,14 +45,14 @@ class ZMInstallationPatcher extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMInstallationPatcher();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

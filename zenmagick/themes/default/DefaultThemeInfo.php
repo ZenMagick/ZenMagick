@@ -31,7 +31,7 @@
 class DefaultThemeInfo extends ZMThemeInfo {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function DefaultThemeInfo() {
         parent::__construct();
@@ -55,7 +55,7 @@ class DefaultThemeInfo extends ZMThemeInfo {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->DefaultThemeInfo();

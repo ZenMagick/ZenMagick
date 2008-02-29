@@ -42,7 +42,7 @@ class ZMCache extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param string group The cache group.
      * @param array config Configuration.
@@ -56,7 +56,7 @@ class ZMCache extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param string group The cache group.
      * @param array config Configuration.
@@ -66,7 +66,7 @@ class ZMCache extends ZMObject {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -34,21 +34,21 @@
 class ZMDefaultController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMDefaultController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMDefaultController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

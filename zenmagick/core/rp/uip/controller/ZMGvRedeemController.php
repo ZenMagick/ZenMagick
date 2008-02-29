@@ -34,21 +34,21 @@
 class ZMGvRedeemController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMGvRedeemController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMGvRedeemController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

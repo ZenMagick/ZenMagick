@@ -34,7 +34,7 @@
 class zm_group_pricing extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('Group Pricing', 'Group Pricing', '${zenmagick.version}');
@@ -43,14 +43,14 @@ class zm_group_pricing extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_group_pricing() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

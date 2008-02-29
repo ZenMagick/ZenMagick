@@ -34,21 +34,21 @@
 class ZMConfig extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMConfig() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMConfig();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -47,7 +47,7 @@ class zm_recaptcha extends ZMPlugin {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('ZenMagick ReCAPTCHA Plugin', 'ReCAPTCHA for ZenMagick');
@@ -57,14 +57,14 @@ class zm_recaptcha extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_recaptcha() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

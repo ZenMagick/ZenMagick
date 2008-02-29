@@ -34,21 +34,21 @@
 class WikiController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function WikiController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->WikiController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

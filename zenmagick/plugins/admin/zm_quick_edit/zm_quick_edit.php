@@ -33,7 +33,7 @@
 class zm_quick_edit extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('Quick Edit', 'Quickly edit product properties');
@@ -43,14 +43,14 @@ class zm_quick_edit extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_quick_edit() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

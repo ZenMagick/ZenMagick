@@ -59,7 +59,7 @@ class ZMPluginView extends ZMPageView {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

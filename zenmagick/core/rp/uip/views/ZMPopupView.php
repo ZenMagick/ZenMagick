@@ -52,7 +52,7 @@ class ZMPopupView extends ZMPageView {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

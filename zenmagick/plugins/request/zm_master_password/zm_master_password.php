@@ -34,7 +34,7 @@
 class zm_master_password extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_master_password() {
         parent::__construct('Master Password', 'Master password for all accounts.', '${plugin.version}');
@@ -43,14 +43,14 @@ class zm_master_password extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_master_password();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

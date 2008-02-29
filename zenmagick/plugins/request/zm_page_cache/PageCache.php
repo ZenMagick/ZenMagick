@@ -38,7 +38,7 @@ class PageCache extends ZMCache {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('page', array(
@@ -48,14 +48,14 @@ class PageCache extends ZMCache {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function PageCache() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -43,7 +43,7 @@ define ('_ZM_RSS_BOXES_TEMPLATE', 'box-template.php');
 class zm_rss_boxes extends ZMBoxPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_rss_boxes() {
         parent::__construct('RSS Boxes', 'Plugin for up to '._ZM_RSS_BOXES_COUNT.' RSS sideboxes.', '${plugin.version}');
@@ -51,14 +51,14 @@ class zm_rss_boxes extends ZMBoxPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_rss_boxes();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -33,7 +33,7 @@
 class zm_imagehandler2 extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_imagehandler2() {
         parent::__construct('ZenMagick ImageHandler2', 'ImageHandler2 support for ZenMagick', '${plugin.version}');
@@ -42,14 +42,14 @@ class zm_imagehandler2 extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_imagehandler2();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

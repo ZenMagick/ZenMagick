@@ -34,14 +34,14 @@
 class Layout extends ZMLayout {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function Layout() {
         $this->__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();

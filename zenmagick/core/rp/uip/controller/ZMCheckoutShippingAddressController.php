@@ -34,21 +34,21 @@
 class ZMCheckoutShippingAddressController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCheckoutShippingAddressController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCheckoutShippingAddressController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

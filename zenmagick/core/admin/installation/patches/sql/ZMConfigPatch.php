@@ -43,21 +43,21 @@ class ZMConfigPatch extends ZMSQLPatch {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMConfigPatch() {
         parent::__construct('sqlConfig');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMConfigPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

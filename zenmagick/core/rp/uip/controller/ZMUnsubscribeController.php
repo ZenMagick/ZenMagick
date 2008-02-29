@@ -34,21 +34,21 @@
 class ZMUnsubscribeController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMUnsubscribeController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMUnsubscribeController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

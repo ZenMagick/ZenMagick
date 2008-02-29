@@ -38,7 +38,7 @@ class ZMReceiver extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMReceiver() {
         parent::__construct();
@@ -49,14 +49,14 @@ class ZMReceiver extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMReceiver();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

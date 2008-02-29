@@ -40,21 +40,21 @@
 class ZMRssController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMRssController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMRssController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

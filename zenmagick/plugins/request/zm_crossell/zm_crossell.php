@@ -40,7 +40,7 @@ if (!defined('SHOW_PRODUCT_INFO_COLUMNS_XSELL_PRODUCTS')) define('SHOW_PRODUCT_I
 class zm_crossell extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_crossell() {
         parent::__construct('ZenMagick Crossell', 'Adds Crossell support for ZenMagick', '${plugin.version}');
@@ -48,14 +48,14 @@ class zm_crossell extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_crossell();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

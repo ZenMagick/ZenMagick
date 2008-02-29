@@ -42,21 +42,21 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMUltimateSeoSupportPatch() {
         parent::__construct('ultimateSeoSupport');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMUltimateSeoSupportPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

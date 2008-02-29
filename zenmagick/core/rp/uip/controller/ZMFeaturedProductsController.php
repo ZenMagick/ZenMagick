@@ -34,21 +34,21 @@
 class ZMFeaturedProductsController extends ZMController {
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function ZMFeaturedProductsController() {
         parent::__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __construct() {
         $this->ZMFeaturedProductsController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

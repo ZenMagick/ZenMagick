@@ -33,21 +33,21 @@
 class AlphaFilter extends ZMResultListFilter {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function AlphaFilter() {
         parent::__construct('afilter', zm_l10n_get('First character of Name'));
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->AlphaFilter();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

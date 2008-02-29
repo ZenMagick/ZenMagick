@@ -34,7 +34,7 @@
 class ZMZcoObserver extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMZcoObserver() {
     global $zco_notifier;
@@ -46,14 +46,14 @@ class ZMZcoObserver extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMZcoObserver();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

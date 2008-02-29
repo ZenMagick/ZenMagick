@@ -40,21 +40,21 @@ class ZMPluginHandler extends ZMObject {
     var $plugin_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMPluginHandler() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMPluginHandler();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

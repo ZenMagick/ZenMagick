@@ -68,7 +68,7 @@ class ZMPaymentType extends ZMModel {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

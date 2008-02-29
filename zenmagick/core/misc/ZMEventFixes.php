@@ -34,21 +34,21 @@
 class ZMEventFixes extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMEventFixes() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMEventFixes();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

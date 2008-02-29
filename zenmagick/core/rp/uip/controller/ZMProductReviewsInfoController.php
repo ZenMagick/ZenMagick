@@ -34,21 +34,21 @@
 class ZMProductReviewsInfoController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMProductReviewsInfoController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMProductReviewsInfoController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

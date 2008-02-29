@@ -34,21 +34,21 @@
 class ZMContactUsController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMContactUsController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMContactUsController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

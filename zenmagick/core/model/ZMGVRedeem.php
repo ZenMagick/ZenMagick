@@ -38,7 +38,7 @@ class ZMGVRedeem extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMGVRedeem() {
         parent::__construct();
@@ -49,14 +49,14 @@ class ZMGVRedeem extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMGVRedeem();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

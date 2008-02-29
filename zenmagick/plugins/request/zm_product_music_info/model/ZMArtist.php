@@ -41,7 +41,7 @@ class ZMArtist extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMArtist() {
         $this->id_ = 0;
@@ -53,14 +53,14 @@ class ZMArtist extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMArtist();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
     }

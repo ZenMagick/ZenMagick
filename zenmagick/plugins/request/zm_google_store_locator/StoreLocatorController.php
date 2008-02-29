@@ -34,21 +34,21 @@
 class StoreLocatorController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function StoreLocatorController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->StoreLocatorController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -91,7 +91,7 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

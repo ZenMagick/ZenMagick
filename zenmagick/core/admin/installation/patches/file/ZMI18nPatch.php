@@ -38,21 +38,21 @@ define('_ZM_INIT_TEMPLATES_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'init_include
 class ZMI18nPatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMI18nPatch() {
         parent::__construct('i18nSupport');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMI18nPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

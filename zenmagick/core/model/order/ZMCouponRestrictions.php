@@ -37,7 +37,7 @@ class ZMCouponRestrictions extends ZMModel {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCouponRestrictions($categories=array(), $products=array()) {
         parent::__construct();
@@ -47,14 +47,14 @@ class ZMCouponRestrictions extends ZMModel {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct($categories=array(), $products=array()) {
         $this->ZMCouponRestrictions($categories, $products);
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

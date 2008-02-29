@@ -34,21 +34,21 @@
 class ZMShoppingCartController extends ZMController {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMShoppingCartController() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMShoppingCartController();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

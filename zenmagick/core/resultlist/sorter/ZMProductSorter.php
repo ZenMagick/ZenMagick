@@ -52,21 +52,21 @@ class ZMProductSorter extends ZMResultListSorter {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMProductSorter() {
         parent::__construct('psort');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMProductSorter();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

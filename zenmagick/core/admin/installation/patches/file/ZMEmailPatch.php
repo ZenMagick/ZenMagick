@@ -42,21 +42,21 @@ class ZMEmailPatch extends ZMFilePatch {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMEmailPatch() {
         parent::__construct('email');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMEmailPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -42,7 +42,7 @@
 class zm_google_analytics extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_google_analytics() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
@@ -50,14 +50,14 @@ class zm_google_analytics extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->zm_google_analytics();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -122,7 +122,7 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -34,7 +34,7 @@
 class zm_smarty extends ZMPlugin {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('ZenMagick Smarty', 'Support for Smarty based themes', '${plugin.version}');
@@ -43,14 +43,14 @@ class zm_smarty extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_smarty() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

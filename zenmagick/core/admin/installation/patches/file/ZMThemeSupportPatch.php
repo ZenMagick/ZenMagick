@@ -35,21 +35,21 @@ define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
 class ZMThemeSupportPatch extends ZMFilePatch {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMThemeSupportPatch() {
         parent::__construct('themeSupport');
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMThemeSupportPatch();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

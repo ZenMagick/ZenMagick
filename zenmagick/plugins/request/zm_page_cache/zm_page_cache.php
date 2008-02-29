@@ -38,7 +38,7 @@ class zm_page_cache extends ZMPlugin {
     var $pageCacheHandler_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct('ZenMagick Page Cache', 'Simple file based page caching', '${plugin.version}');
@@ -59,14 +59,14 @@ class zm_page_cache extends ZMPlugin {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function zm_page_cache() {
         $this->__construct();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

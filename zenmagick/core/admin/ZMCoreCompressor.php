@@ -53,7 +53,7 @@ class ZMCoreCompressor extends ZMObject {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function ZMCoreCompressor() {
     global $zm_runtime;
@@ -69,14 +69,14 @@ class ZMCoreCompressor extends ZMObject {
     }
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         $this->ZMCoreCompressor();
     }
 
     /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
