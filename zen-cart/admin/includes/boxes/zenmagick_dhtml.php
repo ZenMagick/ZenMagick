@@ -45,7 +45,7 @@ if (!defined('IS_ADMIN_FLAG')) {
                 continue;
             }
             $url = $item->getURL();
-            if (zm_starts_with($url, 'fkt:')) {
+            if (0 === strpos($url, 'fkt:')) {
                 $url = zm_href('zmPluginPage.php', 'fkt=' . substr($url, 4), false);
             } else {
                 $url = zen_href_link($url);
