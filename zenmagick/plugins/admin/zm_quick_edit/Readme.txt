@@ -2,20 +2,22 @@ This is a Catalog Manager plugin to quickly edit all products of a selected cate
 
 All fields are text based, so use this careful as there is no validation (yet).
 
-It is possible to configure your own set of fields by creating an additional .php file in the plugin folder that contains the field information. The name of the file is irrelevant.
+It is possible to configure your own set of fields by creating a function with
+name 'zm_quick_edit_field_list' that returns custom field settings.
 
-An example might be a file field_list.php with the following content:
+An example might be a file field_list.php in the plugin folder with the following content:
 
 <?php
 
   // custom fields
-  global $zm_quick_edit_field_list;
-  $zm_quick_edit_field_list = array(
-      // title, form field name, getter/setter name
-      array('title' => 'Name', 'field' => 'name', 'method' => 'name', 'size' => 35),
-      array('title' => 'metatags_title_status', 'field' => 'metatags_title_status', 'method' => null, 'size' => 14),
-      array('title' => 'Quantity', 'field' => 'quantity', 'method' => 'quantity', 'size' => 4)
-  );
+  function zm_quick_edit_field_list() {
+      return array(
+          // title, form field name, getter/setter name
+          array('title' => 'Name', 'field' => 'name', 'method' => 'name', 'size' => 35),
+          array('title' => 'metatags_title_status', 'field' => 'metatags_title_status', 'method' => null, 'size' => 14),
+          array('title' => 'Quantity', 'field' => 'quantity', 'method' => 'quantity', 'size' => 4)
+      );
+  }
 
 ?>
 

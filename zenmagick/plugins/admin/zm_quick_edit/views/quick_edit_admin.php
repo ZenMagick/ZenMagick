@@ -31,8 +31,9 @@
   $productList = $zm_products->getProductsForCategoryId($zm_request->getCategoryId(), false);
 
   // allow to override with custom fields
-  global $zm_quick_edit_field_list;
-  if (!isset($zm_quick_edit_field_list)) {
+  if (function_exists('zm_quick_edit_field_list')) {
+      $zm_quick_edit_field_list = zm_quick_edit_field_list();
+  } else {
       // default fields
       $zm_quick_edit_field_list = array(
           // title, form field name, getter/setter name
