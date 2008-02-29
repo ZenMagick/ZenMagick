@@ -40,7 +40,7 @@ require_once('includes/application_top.php');
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
-        $plugin = $zm_plugins->getPluginForId($install);
+        $plugin = ZMPlugins::getPluginForId($install);
         if (!$plugin->isInstalled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
@@ -48,8 +48,7 @@ require_once('includes/application_top.php');
                     require_once($static);
                 }
                 // plugins prevail over defaults, but not themes
-                $rootLoader =& zm_get_root_loader();
-                $rootLoader->setParent($pluginLoader);
+                ZMLoader::instance()->setParent($pluginLoader);
             }
             $plugin->install();
             $zm_messages->addAll($plugin->getMessages());
@@ -59,7 +58,7 @@ require_once('includes/application_top.php');
         $needRefresh = true;
         $refresh = $edit;
     } else if (null != $remove) {
-        $plugin = $zm_plugins->getPluginForId($remove);
+        $plugin = ZMPlugins::getPluginForId($remove);
         if ($plugin && $plugin->isInstalled()) {
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
@@ -67,18 +66,18 @@ require_once('includes/application_top.php');
                     require_once($static);
                 }
                 // plugins prevail over defaults, but not themes
-                $rootLoader =& zm_get_root_loader();
-                $rootLoader->setParent($pluginLoader);
+                $rootLoader = zm_get_root_loader();
+                ZMLoader::instance()->setParent($pluginLoader);
             }
             $plugin->remove();
             $zm_messages->addAll($plugin->getMessages());
         }
         $needRefresh = true;
     } else if (null != $edit) {
-        $editPlugin = $zm_plugins->getPluginForId($edit);
+        $editPlugin = ZMPlugins::getPluginForId($edit);
     } else if (null != $select) {
         $edit = $select;
-        $editPlugin = $zm_plugins->getPluginForId($select);
+        $editPlugin = ZMPlugins::getPluginForId($select);
     }
 
     // update
@@ -96,7 +95,7 @@ require_once('includes/application_top.php');
 
     // build/update plugin status for all plugins
     $pluginStatus = array();
-    foreach ($zm_plugins->getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) {
+    foreach (ZMPlugins::getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
               'type' => $plugin->getType(),
@@ -146,7 +145,7 @@ require_once('includes/application_top.php');
     <div id="main">
       <div id="content">
 
-        <?php foreach ($zm_plugins->getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) { ?>
+        <?php foreach (ZMPlugins::getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo ZM_ADMINFN_PLUGINS ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0"> 

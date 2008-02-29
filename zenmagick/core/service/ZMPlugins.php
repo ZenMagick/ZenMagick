@@ -137,7 +137,7 @@ class ZMPlugins extends ZMService {
      * @return array List of plugin ids.
      */
     protected static function _getPluginIdsForType($type) {
-        $typeDir = ZMRuntime::$getPluginsDir() . $type . '/';
+        $typeDir = ZMRuntime::getPluginsDir() . $type . '/';
         $idList = array();
         $handle = @opendir($typeDir);
         if (false !== $handle) {
