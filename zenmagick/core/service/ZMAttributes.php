@@ -47,7 +47,7 @@ class ZMAttributes extends ZMService {
     function ZMAttributes(&$product) {
         parent::__construct();
 
-        $this->product_ =& $product;
+        $this->product_ = $product;
         $this->attributes_ = array();
         $this->hasAttributes_ = $this->_checkForAttributes();
     }

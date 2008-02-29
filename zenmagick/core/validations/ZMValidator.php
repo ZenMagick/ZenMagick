@@ -68,11 +68,11 @@ class ZMValidator extends ZMObject {
      * @param ZMRuleSet set A new rule set.
      */
     function addRuleSet(&$set) {
-        $ruleSet =& $this->getRuleSet($set->getId());
+        $ruleSet = $this->getRuleSet($set->getId());
         if (null != $ruleSet) {
             $ruleSet->addRules($set->getRules());
         } else {
-            $this->sets_[$set->getId()] =& $set;
+            $this->sets_[$set->getId()] = $set;
         }
     }
 
@@ -83,7 +83,7 @@ class ZMValidator extends ZMObject {
      * @param ZMRule rule A new rule.
      */
     function addRule($id, &$rule) {
-        $ruleSet =& $this->getRuleSet($id);
+        $ruleSet = $this->getRuleSet($id);
         if (null == $ruleSet) {
             $ruleSet = $this->create("RuleSet", $id);
             $this->addRuleSet($ruleSet);
@@ -104,7 +104,7 @@ class ZMValidator extends ZMObject {
     function &getRuleSet($id) {
         $ruleSet = null;
         if (array_key_exists($id, $this->sets_)) {
-            $ruleSet =& $this->sets_[$id];
+            $ruleSet = $this->sets_[$id];
         }
         return $ruleSet;
     }
@@ -175,7 +175,7 @@ class ZMValidator extends ZMObject {
 
         if (is_object($req)) {
             $map = $this->obj2map($req, $set);
-            $map['__obj'] =& $req;
+            $map['__obj'] = $req;
         } else {
             $map = $req;
         }

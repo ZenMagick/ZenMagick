@@ -40,6 +40,7 @@
         require($coreDir."settings/settings.php");
         require($coreDir."ZMObject.php");
         require($coreDir."ZMLoader.php");
+        require($coreDir."utils.php");
 
         // prepare loader
         ZMLoader::instance()->addPath($coreDir);
@@ -71,11 +72,14 @@
         exit;
     }
 
+    if (zm_setting('isLegacyAPI')) {
+        $zm_loader = ZMLoader::instance();
+    }
+
   //TODO: get rid of!
     // the main instances
     $zm_runtime = ZMRuntime::instance();
     $zm_request = ZMRequest::instance();
-    $zm_loader = ZMLoader::instance();
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
     $zm_products = new ZMProducts();
@@ -100,8 +104,8 @@
     $zm_account = $zm_request->getAccount();
     // event proxy to simplify event subscription
     $zm_events = new ZMEvents();
-    $zm_crumbtrail = $zm_loader->create('Crumbtrail');
-    $zm_meta = $zm_loader->create('MetaTags');
+    $zm_crumbtrail = ZMLoader::make('Crumbtrail');
+    $zm_meta = ZMLoader::make('MetaTags');
   //END TODO
 
 

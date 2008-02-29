@@ -73,7 +73,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
      */
     function validate($req) {
         if (isset($req['__obj'])) {
-            $address =& $req['__obj'];
+            $address = $req['__obj'];
 
             if (!zm_setting('isAccountState')) {
                 return true;

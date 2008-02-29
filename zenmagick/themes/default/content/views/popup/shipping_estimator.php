@@ -48,14 +48,14 @@
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php zm_l10n("Country") ?></td>
-                <td><?php zm_idp_select('country_id', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $shippingEstimator->getCountryId()) ?></td>
+                <td><?php zm_idp_select('country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $shippingEstimator->getCountryId()) ?></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("State/Province") ?></td>
                 <td>
                     <?php $zones = $zm_countries->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
                     <?php if (0 < count($zones)) { ?>
-                        <?php zm_idp_select('state', array_merge(array($zm_loader->create("IdNamePair", "", zm_l10n_get("Select State"))), $zones), 1, $shippingEstimator->getStateId()) ?>
+                        <?php zm_idp_select('state', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select State"))), $zones), 1, $shippingEstimator->getStateId()) ?>
                     <?php } else { ?>
                         <input type="text" name="state" value="" />
                     <?php } ?>

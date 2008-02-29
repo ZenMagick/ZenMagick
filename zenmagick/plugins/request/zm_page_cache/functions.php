@@ -32,10 +32,10 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_page_cache_admin() {
-    global $zm_request, $zm_loader, $zm_messages, $zm_page_cache;
+    global $zm_request, $zm_messages, $zm_page_cache;
 
         if ('x' == $zm_request->getParameter('pageCache')) {
-            $pageCache = $zm_loader->create('PageCache');
+            $pageCache = ZMLoader::make('PageCache');
             $ok = $pageCache->clear();
             $zm_messages->add(zm_l10n_get('Clear page cache ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');
         }

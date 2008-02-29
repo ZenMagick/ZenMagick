@@ -117,12 +117,12 @@ class ZMPayments extends ZMService {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) { 
             // must be GV, then, so build custom type
-            $paymentType =& $this->create("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
+            $paymentType = $this->create("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
             return $paymentType;
         }
         $confirmation = $zenModule->confirmation();
 
-        $paymentType =& $this->create("PaymentType", $zenModule->code, $zenModule->title);
+        $paymentType = $this->create("PaymentType", $zenModule->code, $zenModule->title);
         if (is_array($confirmation) && array_key_exists('fields', $confirmation)) {
             foreach ($confirmation['fields'] as $zenField) {
                 $paymentType->addField($this->create("PaymentField", $zenField['title'], $zenField['field']));

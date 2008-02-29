@@ -470,7 +470,7 @@ class ZMPlugin extends ZMObject {
      * @param ZMPluginHandler handler A <code>ZMPluginHandler</code> instance.
      */
     function setPluginHandler(&$handler) {
-        return $this->handler_ =& $handler;
+        return $this->handler_ = $handler;
     }
 
     /**

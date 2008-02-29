@@ -86,7 +86,7 @@ require("../zen-cart/zenmagick/external.php");
         $_GET['main_page'] = 'login';
 
         // create login controller
-        $controller = $zm_loader->create("LoginController");
+        $controller = ZMLoader::make("LoginController");
 
         // fake login submit
         global $_POST;
@@ -116,7 +116,7 @@ require("../zen-cart/zenmagick/external.php");
             echo "zen-cart order Date: " . zen_date_long($order->info['date_purchased']) . "<br />";
 
             // get order history using ZenMagick controller
-            $controller = $zm_loader->create("AccountHistoryInfoController");
+            $controller = ZMLoader::make("AccountHistoryInfoController");
             // execute; NOTE: reusing $_GET settings
             $view = $controller->processGet();
             $zm_order = $controller->getGlobal("zm_order");

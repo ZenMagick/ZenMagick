@@ -93,7 +93,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
         foreach ($this->list_->getAllResults() as $result) {
             $category = $result->getDefaultCategory();
             if (null != $category) {
-                $option =& $this->create("FilterOption", $category->getName(), $category->getId(), $category->getId() == $this->filterValues_[0]);
+                $option = $this->create("FilterOption", $category->getName(), $category->getId(), $category->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }
         }

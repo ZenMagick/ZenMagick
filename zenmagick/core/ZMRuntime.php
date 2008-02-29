@@ -118,7 +118,7 @@ class ZMRuntime extends ZMObject {
      */
     function &getThemes() {
         if (null == $this->themes_) {
-            $this->themes_ =& $this->create("Themes");
+            $this->themes_ = $this->create("Themes");
         }
 
         return $this->themes_;
@@ -134,7 +134,7 @@ class ZMRuntime extends ZMObject {
         if (null == $themeId) {
             return $this->getTheme();
         }
-        $theme =& $this->create("Theme", $themeId);
+        $theme = $this->create("Theme", $themeId);
         return $theme;
     }
 
@@ -145,7 +145,7 @@ class ZMRuntime extends ZMObject {
      * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
      */
     function getThemeInfoForId($themeId=null) {
-        $themes =& $this->getThemes();
+        $themes = $this->getThemes();
         return $themes->getThemeInfoForId($themeId);
     }
 
@@ -181,7 +181,7 @@ class ZMRuntime extends ZMObject {
      * @return string The configured zen-cart theme id.
      */
     function getZCThemeId() {
-        $themes =& $this->getThemes();
+        $themes = $this->getThemes();
         $id = $themes->getZCThemeId();
         return zm_is_empty($id) ? ZM_DEFAULT_THEME : $id;
     }

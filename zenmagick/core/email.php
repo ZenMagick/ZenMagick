@@ -36,9 +36,9 @@
      * @return string The email contents.
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
-    global $zm_request, $zm_loader;
+    global $zm_request;
 
-        $view = $zm_loader->create("EmailView", $template, $asHTML, $context);
+        $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
         $view->setController($zm_request->getController());
         return  $view->generate();
     }
@@ -52,10 +52,8 @@
      * @return string Valid return strings are: <code>html</code>, <code>text</code>, <code>both</code> or <code>none</code>.
      */
     function zm_email_formats($template) {
-    global $zm_loader;
-
-        $htmlView = $zm_loader->create("EmailView", $template, true);
-        $textView = $zm_loader->create("EmailView", $template, false);
+        $htmlView = ZMLoader::make("EmailView", $template, true);
+        $textView = ZMLoader::make("EmailView", $template, false);
         if ($htmlView->isValid() && $textView->isValid()) {
             return "both";
         } else if (!file_exists($htmlView->getViewFilename()) && !file_exists($textView->getViewFilename())) {
@@ -87,7 +85,7 @@
      * @param string attachment Optional <strong>single</strong> file attachment.
      */
     function zm_mail($subject, $template, $context, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
-    global $zm_request, $zm_loader;
+    global $zm_request;
 
         // some argument cleanup
         $args = null !== $args ? $args : array();
@@ -104,7 +102,7 @@
         $hasTextTemplate = 'text' == $formats || 'both' == $formats;
 
         // use text format unless only HTML available
-        $view = $zm_loader->create("EmailView", $template, !$hasTextTemplate, $context);
+        $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
         $view->setController($zm_request->getController());
         $text = $view->generate();
 

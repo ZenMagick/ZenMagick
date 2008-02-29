@@ -105,7 +105,7 @@ class ZMController extends ZMObject {
                 $view = $this->findView(zm_setting('missingPageId'));
             }
             $view->setController($this);
-            $this->view_ =& $view;
+            $this->view_ = $view;
         }
 
         $zm_events->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_END, array('view' => $this->view_));
@@ -171,7 +171,7 @@ class ZMController extends ZMObject {
     function exportGlobal($name, &$instance) {
         if (null === $instance)
             return;
-        $this->globals_[$name] =& $instance;
+        $this->globals_[$name] = $instance;
     }
 
     /**
@@ -200,7 +200,7 @@ class ZMController extends ZMObject {
 
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
-        $view =& $zm_urlMapper->findView($this->id_, $id, $parameter);
+        $view = $zm_urlMapper->findView($this->id_, $id, $parameter);
         return $view;
     }
 

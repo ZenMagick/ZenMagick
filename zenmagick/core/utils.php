@@ -55,7 +55,7 @@
     global $_ZM_SETTINGS;
 
         if (!array_key_exists($name, $_ZM_SETTINGS)) {
-            zm_log("can't find setting: '".$name."'");
+            zm_log("can't find setting: '".$name."'", zm_setting('isDieOnError') ? ZM_LOG_ERROR : ZM_LOG_INFO);
             if (zm_setting('isDieOnError')) die("can't find setting: '".$name."'");
             return null;
         }
@@ -166,14 +166,14 @@
      * @package org.zenmagick
      */
     function zm_env() {
-    global $zm_loader, $_ZM_SETTINGS;
+    global $_ZM_SETTINGS;
 
         echo "<h3><em>ZenMagick</em> class instances</h3>";
         echo "<ul>";
 
         // get proper class names in PHP4
         $classes = array();
-        foreach ($zm_loader->getClassPath() as $clazz => $path) {
+        foreach (ZMLoader::getClassPath() as $clazz => $path) {
             $classes[strtolower($clazz)] = $clazz;
         }
 
@@ -244,8 +244,6 @@
      * @return array An array of <code>ZMImageInfo</code> instances.
      */
     function _zm_get_additional_images($image) {
-    global $zm_loader;
-
         $comp = _zm_split_image_name($image);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -276,7 +274,7 @@
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            array_push($imageInfoList, $zm_loader->create("ImageInfo", $subdir.$aimg));
+            array_push($imageInfoList, ZMLoader::make("ImageInfo", $subdir.$aimg));
         }
 
         return $imageInfoList;
@@ -542,18 +540,18 @@
      * @return ZMTheme The final theme.
      */
     function &zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
-    global $zm_runtime, $zm_request, $zm_loader;
+    global $zm_runtime, $zm_request;
 
         // set up theme
-        $theme =& $zm_runtime->getThemeForId($themeId);
-        $themeInfo =& $theme->getThemeInfo();
+        $theme = $zm_runtime->getThemeForId($themeId);
+        $themeInfo = $theme->getThemeInfo();
 
         // configure theme loader
-        $themeLoader = $zm_loader->create("Loader", "themeLoader");
+        $themeLoader = ZMLoader::make("Loader", "themeLoader");
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader
-        $zm_loader->setParent($themeLoader);
+        ZMLoader::instance()->setParent($themeLoader);
 
         eval(zm_globals());
 
@@ -587,11 +585,11 @@
      * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
-    global $zm_runtime, $zm_request, $zm_loader, $zm_events;
+    global $zm_runtime, $zm_request, $zm_events;
 
-        $controller = $zm_loader->create(zm_mk_classname($zm_request->getPageName().'Controller'));
+        $controller = ZMLoader::make(zm_mk_classname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
-            $controller =& $zm_loader->create("DefaultController");
+            $controller = ZMLoader::make("DefaultController");
         }
 
         $zm_request->setController($controller);

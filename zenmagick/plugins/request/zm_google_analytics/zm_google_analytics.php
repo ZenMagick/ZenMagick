@@ -149,7 +149,7 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
      * @return mixed The value.
      */
     function get($name) {
-        $plugin =& $this->getPlugin();
+        $plugin = $this->getPlugin();
         return $plugin->get($name);
     }
 

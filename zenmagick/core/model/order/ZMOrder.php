@@ -222,7 +222,7 @@ class ZMOrder extends ZMModel {
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
     function getPaymentType() {
-        $payments =& $this->create("Payments");
+        $payments = $this->create("Payments");
         return $payments->getSelectedPaymentType();
     }
 

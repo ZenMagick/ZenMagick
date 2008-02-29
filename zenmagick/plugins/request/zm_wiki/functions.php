@@ -44,7 +44,7 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_wiki_admin() {
-    global $zm_request, $zm_loader;
+    global $zm_request;
 
         // create contents into output buffer
         ob_start();
@@ -54,7 +54,7 @@
             echo '<hr>';
         }
         // use controller to allow us to use custom config settings...
-        $controller = $zm_loader->create("WikiController");
+        $controller = ZMLoader::make("WikiController");
         $view = $controller->process();
         // we know it's a function...
         $view->callView();

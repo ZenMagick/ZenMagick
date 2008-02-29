@@ -148,7 +148,7 @@ class ZMOrders extends ZMService {
 
         $orders = array();
         while (!$results->EOF) {
-            $order =& $this->_newOrder($results->fields);
+            $order = $this->_newOrder($results->fields);
             array_push($orders, $order);
             $results->MoveNext();
         }
@@ -200,7 +200,7 @@ class ZMOrders extends ZMService {
 
         $orders = array();
         while (!$results->EOF) {
-            $order =& $this->_newOrder($results->fields);
+            $order = $this->_newOrder($results->fields);
             array_push($orders, $order);
             $results->MoveNext();
         }
@@ -266,7 +266,7 @@ class ZMOrders extends ZMService {
      * Create new order status instance.
      */
     function &_newOrderStatus($fields) {
-        $status =& $this->create("OrderStatus");
+        $status = $this->create("OrderStatus");
         $status->id_ = $fields['orders_status_id'];
         $status->orderId_ = $fields['orders_id'];
         $status->name_ = $fields['orders_status_name'];
@@ -280,7 +280,7 @@ class ZMOrders extends ZMService {
      * Create new order instance.
      */
     function &_newOrder($fields) {
-        $order =& $this->create("Order", $fields['orders_id']);
+        $order = $this->create("Order", $fields['orders_id']);
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
         $order->accountId_ = $fields['customers_id'];
@@ -344,24 +344,24 @@ class ZMOrders extends ZMService {
                     $atname = $attributesLookup[$name];
                 } else {
                     $atname = str_replace(' ', '', $name);
-                    $$atname =& $this->create("Attribute", 0, $name, null);
+                    $$atname = $this->create("Attribute", 0, $name, null);
                     $attributesLookup[$name] = $atname;
                 }
-                $attributeValue =& $this->create("AttributeValue", 0, $zenAttribute['value']);
+                $attributeValue = $this->create("AttributeValue", 0, $zenAttribute['value']);
                 $attributeValue->pricePrefix_ = $zenAttribute['prefix'];
                 $attributeValue->price_ = $zenAttribute['price'];
                 array_push($$atname->values_, $attributeValue);
             }
         }
 
-        $orderItem =& $this->create("OrderItem");
+        $orderItem = $this->create("OrderItem");
         $orderItem->productId_ = $zenItem['id'];
         $orderItem->qty_ = $zenItem['qty'];
         $orderItem->name_ = $zenItem['name'];
         $orderItem->model_ = $zenItem['model'];
         $taxRate = $this->create("TaxRate");
         $taxRate->setRate($zenItem['tax']);
-        $orderItem->taxRate_ =& $taxRate;
+        $orderItem->taxRate_ = $taxRate;
         $taxRate = $this->create("TaxRate");
         $taxRate->setRate($zenItem['tax']);
         $orderItem->calculatedPrice_ = $taxRate->addTax($zenItem['final_price']);
@@ -376,7 +376,7 @@ class ZMOrders extends ZMService {
      * Create new account instance.
      */
     function &_newAccount($fields) {
-        $account =& $this->create("Account");
+        $account = $this->create("Account");
         $account->accountId_ = $fields['customers_id'];
         //$account->firstName_ = $fields['customers_firstname'];
         $account->lastName_ = $fields['customers_name'];
@@ -389,7 +389,7 @@ class ZMOrders extends ZMService {
         //$account->referrals_ = $fields['customers_referral'];
         //$account->defaultAddressId_ = $fields['customers_default_address_id'];
         //XXX
-        $account->accounts_ =& $this->create("Account");
+        $account->accounts_ = $this->create("Account");
         return $account;
     }
 
@@ -398,7 +398,7 @@ class ZMOrders extends ZMService {
      */
     function &_newAddress($fields, $prefix) {
     global $zm_countries;
-        $address =& $this->create("Address");
+        $address = $this->create("Address");
         $address->addressId_ = 0;
         //$address->firstName_ = $fields['entry_firstname'];
         $address->lastName_ = $fields[$prefix.'_name'];
@@ -433,7 +433,7 @@ class ZMOrders extends ZMService {
         $totals = array();
         while (!$results->EOF) {
             $fields = $results->fields;
-            $total =& $this->create("OrderTotal", $fields['title'], $fields['text'], $fields['value'], $fields['class']);
+            $total = $this->create("OrderTotal", $fields['title'], $fields['text'], $fields['value'], $fields['class']);
             $totals[$total->getType()] = $total;
             $results->MoveNext();
         }

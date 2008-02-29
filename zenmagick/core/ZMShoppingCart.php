@@ -44,7 +44,7 @@ class ZMShoppingCart extends ZMService {
     function ZMShoppingCart() {
         parent::__construct();
 
-        $this->cart_ =& $_SESSION['cart'];
+        $this->cart_ = $_SESSION['cart'];
         $this->zenTotals_ = null;
         $this->payments_ = null;
     }
@@ -154,7 +154,7 @@ class ZMShoppingCart extends ZMService {
         if (null != $this->cart_) {
             $zenItems = $this->cart_->get_products();
             foreach ($zenItems as $zenItem) {
-                $item =& $this->create("ShoppingCartItem", $this, $zenItem);
+                $item = $this->create("ShoppingCartItem", $this, $zenItem);
                 array_push($items, $item);
             }
         }
@@ -212,7 +212,7 @@ class ZMShoppingCart extends ZMService {
                 $atname = $attributesLookup[$name];
             } else {
                 $atname = str_replace(' ', '', $name);
-                $$atname =& $this->create("Attribute", $option, $name, null);
+                $$atname = $this->create("Attribute", $option, $name, null);
                 $attributesLookup[$name] = $atname;
             }
 
@@ -221,7 +221,7 @@ class ZMShoppingCart extends ZMService {
                 // text is user input
                 $value = $item->zenItem_['attributes_values'][$option];
             }
-            $attributeValue =& $this->create("AttributeValue", $type, $value);
+            $attributeValue = $this->create("AttributeValue", $type, $value);
 
             $attributeValue->pricePrefix_ = $results->fields['options_values_price'];
             $attributeValue->price_ = $results->fields['options_values_price'];
@@ -272,7 +272,7 @@ class ZMShoppingCart extends ZMService {
      * @return ZMPaymentType The payment type.
      */
     function getPaymentType() {
-        $payments =& $this->create("Payments");
+        $payments = $this->create("Payments");
         return $payments->getSelectedPaymentType();
     }
 
@@ -426,7 +426,7 @@ class ZMShoppingCart extends ZMService {
      */
     function _getPayments() {
         if (null == $this->payments_) {
-            $this->payments_ =& $this->create("Payments");
+            $this->payments_ = $this->create("Payments");
         }
         return $this->payments_;
     }
@@ -476,7 +476,7 @@ class ZMShoppingCart extends ZMService {
         $zenTypes = $zenTotals->credit_selection();
         $creditTypes = array();
         foreach ($zenTypes as $zenType) {
-            $creditType =& $this->create("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
+            $creditType = $this->create("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
             if (isset($zenType['credit_class_error'])) {
                 $creditType->error_ = $zenType['credit_class_error'];
             }

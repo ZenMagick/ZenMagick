@@ -38,7 +38,7 @@
             $_zm_menu = array();
         }
 
-        $_zm_menu[] =& $item;
+        $_zm_menu[] = $item;
     }
 
 
@@ -58,7 +58,7 @@
         $first = true;
         $size = count ($_zm_menu);
         for ($ii=0; $ii < $size; ++$ii) { 
-            $item =& $_zm_menu[$ii];
+            $item = $_zm_menu[$ii];
             if (null == $item) {
                 continue;
             }

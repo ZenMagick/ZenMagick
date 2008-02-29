@@ -59,7 +59,7 @@ class DefaultController extends ZMController {
     global $zm_crumbtrail;
 
         // normal processing
-        $view =& parent::processGet();
+        $view = parent::processGet();
 
         $zm_crumbtrail->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
         $zm_crumbtrail->addCrumb(zm_title(false));

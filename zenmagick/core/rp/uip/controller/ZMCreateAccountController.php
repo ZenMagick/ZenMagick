@@ -80,9 +80,9 @@ class ZMCreateAccountController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $account =& $this->create("Account");
+        $account = $this->create("Account");
         $account->populate();
-        $address =& $this->create("Address");
+        $address = $this->create("Address");
         $address->populate();
 
         $this->exportGlobal("zm_account", $account);
@@ -100,10 +100,10 @@ class ZMCreateAccountController extends ZMController {
     function processPost() {
     global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
 
-        $account =& $this->create("Account");
+        $account = $this->create("Account");
         $account->populate();
 
-        $address =& $this->create("Address");
+        $address = $this->create("Address");
         $address->populate();
 
         if (!$this->validate('create_account')) {

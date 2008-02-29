@@ -79,7 +79,7 @@ class ZMContactUsController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $contactInfo =& $this->create("ContactInfo");
+        $contactInfo = $this->create("ContactInfo");
         if ($zm_request->isRegistered()) {
             $account = $zm_request->getAccount();
             $contactInfo->setName($account->getFullName());
@@ -100,7 +100,7 @@ class ZMContactUsController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        $contactInfo =& $this->create("ContactInfo");
+        $contactInfo = $this->create("ContactInfo");
         $contactInfo->populate();
         // not available in case of success redirect!
         $this->exportGlobal("zm_contact", $contactInfo);
@@ -111,7 +111,7 @@ class ZMContactUsController extends ZMController {
 
         // send email
         $context = array();
-        $context['contactInfo'] =& $contactInfo;
+        $context['contactInfo'] = $contactInfo;
 
         zm_mail(zm_l10n_get("Message from %s", zm_setting('storeName')), 'contact_us', $context, zm_setting('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
 

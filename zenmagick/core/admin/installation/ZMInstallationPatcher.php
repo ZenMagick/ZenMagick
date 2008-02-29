@@ -63,11 +63,9 @@ class ZMInstallationPatcher extends ZMObject {
      * Load all patches.
      */
     function _loadPatches() {
-    global $zm_loader;
-
-        foreach ($zm_loader->getClassPath() as $clazz => $file) {
+        foreach (ZMLoader::instance()->getClassPath() as $clazz => $file) {
             if (false !== strpos($file, "installation") && false != strpos($file, "patches") && 'patches' != basename(dirname($file))) {
-                $patch = $zm_loader->create($clazz);
+                $patch = ZMLoader::make($clazz);
                 $this->patches_[$patch->getId()] = $patch;
             }
         }

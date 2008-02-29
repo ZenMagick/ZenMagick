@@ -150,7 +150,7 @@ class ZMEvents extends ZMObject {
      */
     function fireEvent(&$source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
-        $args['source'] =& $source;
+        $args['source'] = $source;
         zm_log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {

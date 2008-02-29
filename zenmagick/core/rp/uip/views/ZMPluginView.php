@@ -45,7 +45,7 @@ class ZMPluginView extends ZMPageView {
      */
     function ZMPluginView($page, &$plugin) {
         parent::__construct($page);
-        $this->plugin_ =& $plugin;
+        $this->plugin_ = $plugin;
     }
 
     /**

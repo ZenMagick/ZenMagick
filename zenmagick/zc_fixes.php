@@ -42,7 +42,7 @@
     }
 
 
-    $zm_events->attach($zm_loader->create("EventFixes"));
+    $zm_events->attach(ZMLoader::make("EventFixes"));
 
     /*****temp fixes for email generation.... ********/
     // set up order for order_status email

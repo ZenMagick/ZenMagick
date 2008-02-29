@@ -81,7 +81,7 @@ class ZMResultListFilter extends ZMObject {
      *
      * @param ZMResultList list The current result list.
      */
-    function setResultList($list) { $this->list_ =& $list; }
+    function setResultList($list) { $this->list_ = $list; }
 
     /**
      * Filter the given list using the filters <code>exclude($obj)</code> method.

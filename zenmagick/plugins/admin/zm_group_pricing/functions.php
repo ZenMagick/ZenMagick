@@ -37,11 +37,11 @@
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
         eval(zm_globals());
 
-        $zm_groupPricing = $zm_loader->create("GroupPricing");
+        $zm_groupPricing = ZMLoader::make("GroupPricing");
         $priceGroups = $zm_groupPricing->getPriceGroups();
 
         // request handling
-        $groupPricingService = $zm_loader->create("ProductGroupPricingService");
+        $groupPricingService = ZMLoader::make("ProductGroupPricingService");
         if ('GET' == $zm_request->getMethod()) {
             $productId = $zm_request->getProductId();
             $groupId = $zm_request->getParameter('groupId', 0);
@@ -56,7 +56,7 @@
                 $zm_request->setParameter('endDate', $productGroupPricing->getEndDate());
             }
         } else if ('POST' == $zm_request->getMethod()) {
-            $productGroupPricing = $zm_loader->create("ProductGroupPricing");
+            $productGroupPricing = ZMLoader::make("ProductGroupPricing");
             $productGroupPricing->populate();
             if (0 == $productGroupPricing->getId()) {
                 // create

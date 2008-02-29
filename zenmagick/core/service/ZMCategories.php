@@ -269,7 +269,7 @@ class ZMCategories extends ZMService {
 
         foreach ($this->categories_[$languageId] as $id => $category) {
             if (0 != $category->parentId_) {
-                $parent =& $this->categories_[$languageId][$category->parentId_];
+                $parent = $this->categories_[$languageId][$category->parentId_];
                 array_push($parent->childrenIds_, $id);
             }
         }

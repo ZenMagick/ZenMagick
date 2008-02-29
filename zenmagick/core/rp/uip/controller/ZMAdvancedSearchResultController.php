@@ -71,7 +71,7 @@ class ZMAdvancedSearchResultController extends ZMController {
 
         $resultList = $this->create("ResultList", $zm_products->getProductsForSQL($listing_sql));
         if (null != $resultList) {
-            $sorter =& $this->create("ProductSorter");
+            $sorter = $this->create("ProductSorter");
             $sorter->setDefaultSortId(zm_setting('defaultProductSortOrder'));
             $resultList->addSorter($sorter);
             $resultList->refresh();

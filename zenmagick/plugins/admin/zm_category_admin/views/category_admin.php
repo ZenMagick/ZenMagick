@@ -30,7 +30,7 @@
 
   $category = $zm_categories->getCategoryForId($zm_request->getCategoryId(), $selectedLanguageId);
   if (null === $category) {
-      $category = $zm_loader->create("Category");
+      $category = ZMLoader::make("Category");
       $category->setName('** new category **');
 
       // set a few defaults from the default language category

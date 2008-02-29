@@ -97,7 +97,7 @@ class ZMTaxRates extends ZMService {
                 $taxRate->setCountryId($countryId);
                 $taxRate->setZoneId($zoneId);
                 $taxRate->setRate(0);
-                $this->taxRates_[$taxRateId] =& $taxRate;
+                $this->taxRates_[$taxRateId] = $taxRate;
                 return $taxRate;
             }
         }
@@ -133,7 +133,7 @@ class ZMTaxRates extends ZMService {
             $taxRate->setCountryId($countryId);
             $taxRate->setZoneId($zoneId);
             $taxRate->setRate(($multiplier - 1.0) * 100);
-            $this->taxRates_[$taxRateId] =& $taxRate;
+            $this->taxRates_[$taxRateId] = $taxRate;
             return $taxRate;
         }
 
@@ -143,7 +143,7 @@ class ZMTaxRates extends ZMService {
         $taxRate->setCountryId($countryId);
         $taxRate->setZoneId($zoneId);
         $taxRate->setRate(0);
-        $this->taxRates_[$taxRateId] =& $taxRate;
+        $this->taxRates_[$taxRateId] = $taxRate;
         return $taxRate;
     }
 

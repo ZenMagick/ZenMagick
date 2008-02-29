@@ -44,7 +44,7 @@ if (class_exists('ZMInstallationPatcher')) {
     }
 
     $adminMenuPatch = $installer->getPatchForId('adminMenu');
-    if ($adminMenuPatch->isOpen()) {
+    if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
         // only if no ZenMagick menu item
         $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
     }

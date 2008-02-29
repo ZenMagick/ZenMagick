@@ -24,6 +24,8 @@ Release 0.9.1
 - start implementing singletons to replace all zm_ globals
 - streamline init process (in particular when not using core.php)
 - removed obsolete ZMDao class
+- removed all $zm_loader references; there is a new setting 'isLegacyAPI' that
+  may be set to true to keep creating zm_xxxxx globals
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

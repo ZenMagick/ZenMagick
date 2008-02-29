@@ -194,7 +194,7 @@ class ZMConfig extends ZMService {
      * Create new config value instance.
      */
     function _newConfigValue($fields) {
-        $value =& $this->create("ConfigValue");
+        $value = $this->create("ConfigValue");
         $value->id_ = $fields['configuration_id'];
         $value->name_ = $fields['configuration_title'];
         $value->key_ = $fields['configuration_key'];

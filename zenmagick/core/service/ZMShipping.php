@@ -48,7 +48,7 @@ class ZMShipping extends ZMService {
             zm_resolve_zc_class('shipping');
             $zenShipping = new shipping();
         } else {
-            $zenShipping =& $shipping_modules;
+            $zenShipping = $shipping_modules;
         }
         $quotes = $zenShipping->quote();
         foreach ($quotes as $quote) {

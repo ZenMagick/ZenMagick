@@ -109,7 +109,7 @@ class ZMLoader {
      */
     public function setParent($parent) {
         $root = $this->parent_;
-        while (null != ($tmp = $root->parent_)) {
+        while (null != $root && null != ($tmp = $root->parent_)) {
             $root = $tmp;
         }
         $root->parent_ = $parent;

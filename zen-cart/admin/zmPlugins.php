@@ -30,7 +30,7 @@ ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
 
     $zm_config = new ZMConfig();
-    $pluginLoader =& new ZMLoader("pluginLoader");
+    $pluginLoader = new ZMLoader("pluginLoader");
 
     $install = $zm_request->getParameter('install');
     $remove = $zm_request->getParameter('remove');

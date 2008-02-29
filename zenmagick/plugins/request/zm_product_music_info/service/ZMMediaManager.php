@@ -127,7 +127,7 @@ class ZMMediaManager extends ZMService {
         $media->id_ = $clip['clip_id'];
         $media->filename_ = $clip['clip_filename'];
         $media->dateAdded_ = $clip['date_added'];
-        $mediaType =& $this->create("MediaType");
+        $mediaType = $this->create("MediaType");
         $mediaType->id_ = $type['type_id'];
         $mediaType->name_ = $type['type_name'];
         $mediaType->extension_ = $type['type_ext'];

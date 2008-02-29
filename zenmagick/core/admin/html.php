@@ -39,7 +39,7 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
-    global $zm_request, $zm_products, $zm_categories, $zm_loader;
+    global $zm_request, $zm_products, $zm_categories;
 
         if ($root) { 
             ob_start(); 
@@ -51,7 +51,7 @@
 </script>';
             $zm_categories->setPath($zm_request->getCategoryPathArray());
             $rootCategories = $zm_categories->getCategoryTree();
-            $root = $zm_loader->create("Category", 0, 0, zm_l10n_get('Catalog'), false);
+            $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
                 $root->childrenIds_[] = $rc->getId();
             }
@@ -101,7 +101,7 @@
      * @return string The HTML.
      */
     function zm_product_resultlist($params='') {
-    global $zm_request, $zm_products, $zm_loader;
+    global $zm_request, $zm_products;
 
         $resultList = null;
         $products = null;
@@ -113,7 +113,7 @@
         }
 
         if (null != $products) {
-            $resultList = $zm_loader->create("ProductListResultList", $products, zm_setting('maxProductResultList'));
+            $resultList = ZMLoader::make("ProductListResultList", $products, zm_setting('maxProductResultList'));
             $resultList->setPagination(16);
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';

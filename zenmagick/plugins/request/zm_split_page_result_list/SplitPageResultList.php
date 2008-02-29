@@ -95,7 +95,7 @@ class SplitPageResultList extends ZMResultList {
      * @param boolean refresh If <code>true</code>, the result list is automatically refreshed.
      */
     function addFilter($filter, $refresh=false) {
-        $this->filters_[$filter->getId()] =& $filter;
+        $this->filters_[$filter->getId()] = $filter;
         $filter->setResultList($this);
     }
 
@@ -106,7 +106,7 @@ class SplitPageResultList extends ZMResultList {
      * @param boolean refresh If <code>true</code>, the result list is automatically refreshed.
      */
     function addSorter($sorter, $refresh=false) {
-        $this->sorters_[$sorter->getId()] =& $sorter;
+        $this->sorters_[$sorter->getId()] = $sorter;
     }
 
     /**

@@ -363,10 +363,10 @@ class ZMCoupons extends ZMService {
         while (!$results->EOF) {
             if (0 != $results->fields['category_id']) {
                 $restriction = $this->create("CategoryCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
-                $categories[] =& $restriction;
+                $categories[] = $restriction;
             } else {
                 $restriction = $this->create("ProductCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
-                $products[] =& $restriction;
+                $products[] = $restriction;
             }
             $results->MoveNext();
         }

@@ -60,22 +60,20 @@
      * @return array The results converted to messages.
      */
     function _zm_process_sql_patch_results($results) {
-    global $zm_loader;
-
         $messages = array();
         if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
-            array_push($messages, $zm_loader->create("Message", $results['queries'].' statements processed.', 'success'));
+            array_push($messages, ZMLoader::make("Message", $results['queries'].' statements processed.', 'success'));
         } else {
-            array_push($messages, $zm_loader->create("Message", 'Failed: '.$results['queries'].'.', 'error'));
+            array_push($messages, ZMLoader::make("Message", 'Failed: '.$results['queries'].'.', 'error'));
         }
 
         if (!zm_is_empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
-                array_push($messages, $zm_loader->create("Message", 'ERROR: '.$value.'.', 'error'));
+                array_push($messages, ZMLoader::make("Message", 'ERROR: '.$value.'.', 'error'));
             }
         }
         if ($results['ignored'] != 0) {
-            array_push($messages, $zm_loader->create("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
+            array_push($messages, ZMLoader::make("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
         }
 
         return $messages;
