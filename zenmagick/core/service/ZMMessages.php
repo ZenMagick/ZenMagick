@@ -41,15 +41,15 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMMessages extends ZMService {
+class ZMMessages extends ZMObject {
     var $messages_;
     var $uniqueMsgRef_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMMessages() {
+    function __construct() {
     global $messageStack;
 
         parent::__construct();
@@ -60,14 +60,7 @@ class ZMMessages extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMMessages();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

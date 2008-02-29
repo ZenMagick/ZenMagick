@@ -31,24 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMProducts extends ZMService {
+class ZMProducts extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function ZMProducts() {
-        $this->__construct();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -395,7 +388,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".$this->getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_status = '1'
                  and p.products_model = :model
@@ -437,7 +430,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".$this->getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id = :productId
                  and pd.products_id = p.products_id
@@ -483,7 +476,7 @@ class ZMProducts extends ZMService {
                     p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".$this->getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
                  where p.products_id in (:productIdList)
                  and pd.products_id = p.products_id
@@ -491,7 +484,7 @@ class ZMProducts extends ZMService {
         if (!$preserveOrder) {
             $sql .= " order by p.products_sort_order, pd.products_name";
         }
-        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
+        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
 
         $results = $db->Execute($sql);
@@ -553,8 +546,8 @@ class ZMProducts extends ZMService {
                 products_price_sorter = :priceSorter;integer
                 where products_id = :productId";
         $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
-        $sql = $this->bindObject($sql, $product, false);
-        $sql = $this->bindCustomFields($sql, $product, TABLE_PRODUCTS);
+        $sql = ZMDbUtils::bindObject($sql, $product, false);
+        $sql = ZMDbUtils::bindCustomFields($sql, $product, TABLE_PRODUCTS);
         $db->Execute($sql);
 
         return $product;
@@ -713,7 +706,7 @@ class ZMProducts extends ZMService {
         $product->features_ = $zm_features->getFeaturesForProductId($product->getId());
 
         // custom fields
-        foreach ($this->getCustomFields(TABLE_PRODUCTS) as $field) {
+        foreach (ZMDbUtils::getCustomFields(TABLE_PRODUCTS) as $field) {
             if (isset($fields[$field[0]])) {
                 $product->set($field[0], $fields[$field[0]]);
             }

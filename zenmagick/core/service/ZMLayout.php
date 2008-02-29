@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMLayout extends ZMService {
+class ZMLayout extends ZMObject {
     var $leftColEnabled_;
     var $rightColEnabled_;
     var $leftColBoxes_;
@@ -39,9 +39,9 @@ class ZMLayout extends ZMService {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMLayout() {
+    function __construct() {
         parent::__construct();
 
         $this->leftColEnabled_ = true;
@@ -51,14 +51,7 @@ class ZMLayout extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMLayout();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -31,14 +31,14 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMCurrencies extends ZMService {
+class ZMCurrencies extends ZMObject {
     var $currencies_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMCurrencies() {
+    function __construct() {
         parent::__construct();
 
         $this->currencies_ = array();
@@ -46,14 +46,7 @@ class ZMCurrencies extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMCurrencies();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -30,25 +30,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMThemes extends ZMService {
-
+class ZMThemes extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMThemes() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMThemes();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

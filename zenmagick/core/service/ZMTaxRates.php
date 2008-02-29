@@ -31,11 +31,11 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMTaxRates extends ZMService {
+class ZMTaxRates extends ZMObject {
     var $taxRates_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -43,14 +43,7 @@ class ZMTaxRates extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function ZMTaxRates() {
-        $this->__construct();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

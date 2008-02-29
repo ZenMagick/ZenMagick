@@ -25,34 +25,13 @@
 
 
 /**
- * Base service class.
- *
- * <p>A service can be something like a <code>DAO</code>, providing access
- * to database data or any other sort of service that a controller or request handler
- * might want to use. Examples for services that are not <code>DAO</code> are {@link org.zenmagick.service.ZMMessages ZMMessages}
- * or {@link org.zenmagick.service.ZMPlugins ZMPlugins}.</p>
+ * SQL/database utils.
  *
  * @author mano
  * @package org.zenmagick
  * @version $Id$
- * @deprecated Use methods from <code>ZMDbUtils</code> instead.
  */
-class ZMService extends ZMObject {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
+class ZMDbUtils {
 
     /**
      * Bind a list of values to a given SQL query.
@@ -66,7 +45,14 @@ class ZMService extends ZMObject {
      * @return string The sql with <code>$bindName</code> replaced with a properly formatted value list.
      */
     public static function bindValueList($sql, $bindName, $values, $type='string') {
-        return ZMDbUtils::bindValueList($sql, $bindName, $values, $type);
+        $db = ZMRuntime::getDB();
+        $fragment = '';
+        foreach ($values as $value) {
+            if ('' != $fragment) $fragment .= ', ';
+            $fragment .= $db->bindVars(":value", ":value", $value, $type);
+        }
+
+        return $db->bindVars($sql, $bindName, $fragment, 'passthru');
     }
 
     /**
@@ -94,7 +80,58 @@ class ZMService extends ZMObject {
      * @return string The updated SQL query.
      */
     public static function bindObject($sql, $obj, $isRead=true) {
-        return ZMDbUtils::bindObject($sql, $obj, $isRead);
+        // prepare label
+        preg_match_all('/:\w+;\w+/m', $sql, $matches);
+        $labels = array();
+        foreach ($matches[0] as $name) {
+            $label = explode(';', $name);
+            $labels[strtolower(str_replace(':', '', $label[0]))] = array($name, $label[1]);
+        }
+
+        // prepare methods
+        $methods = get_class_methods($obj);
+
+        // strip 'get' prefix and ignore other
+        $getter = array();
+        foreach ($methods as $method) {
+            if (0 === strpos($method, 'get')) {
+                $lcproperty = substr(strtolower($method), 3);
+                $getter[$lcproperty] = $method;
+            } else if (0 === strpos($method, 'is')) {
+                $lcproperty = substr(strtolower($method), 2);
+                $getter[$lcproperty] = $method;
+            }
+        }
+
+        $db = ZMRuntime::getDB();
+        foreach ($getter as $lcproperty => $method) {
+            if (isset($labels[$lcproperty])) {
+                $label = $labels[$lcproperty];
+
+                // execute getXXX()
+                $value = call_user_func(array($obj, $method));
+
+                // bind
+                if ('date' == $label[1]) {
+                    if ($isRead) {
+                        $value = zen_date_raw($value);
+                    } else {
+                        // if not empty nothing, otherwise assume NULL
+                        if (zm_is_empty($value)) {
+                            $value = 'NULL';
+                            $label[1] = 'passthru';
+                        }
+                    }
+                }
+                $sql = $db->bindVars($sql, $label[0], $value, $label[1]);
+
+                // unset so we end up with unmapped properties and/or labels ...
+                unset($labels[$lcproperty]);
+                unset($getter[$lcproperty]);
+            }
+        }
+
+        return $sql;
     }
 
     /**
@@ -107,7 +144,20 @@ class ZMService extends ZMObject {
      * @return string The updated SQL query.
      */
     public static function bindCustomFields($sql, $obj, $table, $valueMarker=':customFields') {
-        return ZMDbUtils::bindCustomFields($sql, $obj, $table, $valueMarker);
+        $fields = ZMDbUtils::getCustomFields($table);
+        if (0 == count($fields)) {
+            return str_replace($valueMarker.',', '', $sql);
+        }
+
+        $db = ZMRuntime::getDB();
+        $fragment = '';
+        foreach ($fields as $field) {
+            $name = $field[0];
+            $type = $field[1];
+            $fragment .= $db->bindVars($field[0]." = :value, ", ":value", $obj->get($name), $type);
+        }
+
+        return str_replace($valueMarker.',', $fragment, $sql);
     }
 
     /**
@@ -118,7 +168,8 @@ class ZMService extends ZMObject {
      *  custom fields for the table.
      */
     public static function getCustomFieldKey($table) {
-        return ZMDbUtils::getCustomFieldKey($table);
+        $table = str_replace(ZM_DB_PREFIX, '', $table);
+        return 'sql.'.$table.'.customFields';
     }
 
     /**
@@ -129,7 +180,19 @@ class ZMService extends ZMObject {
      * @return string A field list or empty string.
      */
     public static function getCustomFieldsSQL($table, $prefix='') {
-        return ZMDbUtils::getCustomFieldsSQL($table, $prefix);
+        $fields = ZMDbUtils::getCustomFields($table);
+        if (0 == count($fields)) {
+            return '';
+        }
+
+        $customFields = '';
+        if (!zm_is_empty($prefix) && !zm_ends_with($prefix, '.')) {
+            $prefix .= '.';
+        }
+        foreach ($fields as $field) {
+            $customFields .= ', '.$prefix.$field[0];
+        }
+        return $customFields;
     }
 
     /**
@@ -142,7 +205,17 @@ class ZMService extends ZMObject {
      * @return array A list of field lists (may be empty).
      */
     public static function getCustomFields($table) {
-        return ZMDbUtils::getCustomFields($table);
+        $setting = zm_setting(ZMDbUtils::getCustomFieldKey($table));
+        if (zm_is_empty($setting)) {
+            return array();
+        }
+
+        $customFields = array();
+        foreach (explode(',', $setting) as $field) {
+            $customFields[] = explode(';', trim($field));
+        }
+
+        return $customFields;
     }
 
     /**
@@ -154,7 +227,29 @@ class ZMService extends ZMObject {
      * @return mixed The model instance.
      */
     public static function map2obj($clazz, $data, $fieldMap=null) {
-        return ZMDbUtils::map2obj($clazz, $data, $fieldMap);
+        $obj = ZMDbUtils::create($clazz);
+        if (null === $fieldMap) {
+            $fieldMap = ZMDbUtils::fieldMap_;
+        }
+        // create col => property mapping
+        $map = array();
+        foreach ($fieldMap as $field) {
+            $map[$field[0]] = $field[1];
+        }
+
+        foreach ($data as $key => $value) {
+            if (isset($map[$key])) {
+                // got mapping
+                $name = $map[$key];
+                $ucName = ucwords($name);
+                $setter = 'set' . $ucName;
+                if (method_exists($obj, $setter)) {
+                    $obj->$setter($value);
+                }
+            }
+        }
+
+        return $obj;
     }
 
 }

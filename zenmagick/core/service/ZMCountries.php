@@ -31,29 +31,22 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMCountries extends ZMService {
+class ZMCountries extends ZMObject {
     var $countries_;
     var $countriesById_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMCountries() {
+    function __construct() {
         parent::__construct();
 
         $this->countries_ = null;
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMCountries();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

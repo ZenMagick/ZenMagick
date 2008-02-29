@@ -31,24 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMOrders extends ZMService {
+class ZMOrders extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMOrders() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMOrders();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -254,7 +247,7 @@ class ZMOrders extends ZMService {
         $db = ZMRuntime::getDB();
         $sql = "INSERT INTO " .  TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments)
                 VALUES (:orderId;integer, :id;integer, now(), :customerNotified;integer, :comment;string)";
-        $sql = $this->bindObject($sql, $orderStatus, false);
+        $sql = DbUtils::bindObject($sql, $orderStatus, false);
 
         $results = $db->Execute($sql);
         $orderStatus->id_ = $db->Insert_ID();
@@ -513,8 +506,8 @@ class ZMOrders extends ZMService {
                 orders_status = :status;integer
                 where orders_id = :orderId";
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
-        $sql = $this->bindObject($sql, $order, false);
-        $sql = $this->bindCustomFields($sql, $order, TABLE_ORDERS);
+        $sql = DbUtils::bindObject($sql, $order, false);
+        $sql = DbUtils::bindCustomFields($sql, $order, TABLE_ORDERS);
         $db->Execute($sql);
 
         return $order;

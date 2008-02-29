@@ -31,28 +31,21 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMBanners extends ZMService {
+class ZMBanners extends ZMObject {
     var $banners_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMBanners() {
+    function __construct() {
         parent::__construct();
 
         $this->banners_ = array();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMBanners();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

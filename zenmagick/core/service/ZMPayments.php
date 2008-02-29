@@ -31,14 +31,14 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMPayments extends ZMService {
+class ZMPayments extends ZMObject {
     var $zenModules_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMPayments() {
+    function __construct() {
     global $payment_modules;
 
         parent::__construct();
@@ -52,14 +52,7 @@ class ZMPayments extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMPayments();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMConfig extends ZMService {
+class ZMConfig extends ZMObject {
 
     /**
      * Default c'tor.

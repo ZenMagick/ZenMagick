@@ -31,16 +31,16 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMFeatures extends ZMService {
+class ZMFeatures extends ZMObject {
     var $features_;
     var $productFeatures_;
     var $featureTypes_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMFeatures() {
+    function __construct() {
         parent::__construct();
 
         $this->features_ = array();
@@ -49,14 +49,7 @@ class ZMFeatures extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMFeatures();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -104,7 +97,6 @@ class ZMFeatures extends ZMService {
         $db = ZMRuntime::getDB();
         $query = "select feature_type_id, feature_type
                   from " . ZM_TABLE_FEATURE_TYPES;
-
         $results = $db->Execute($query);
 
         $this->featureTypes_ = array();

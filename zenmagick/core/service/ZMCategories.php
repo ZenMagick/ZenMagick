@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMCategories extends ZMService {
+class ZMCategories extends ZMObject {
     var $path_;
     var $languageId_;
 
@@ -41,7 +41,7 @@ class ZMCategories extends ZMService {
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      *
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @param array path The current category path.
@@ -63,17 +63,7 @@ class ZMCategories extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     *
-     * @param int languageId The languageId; default is <code>null</code> for session language.
-     * @param array path The current category path.
-     */
-    function ZMCategories($languageId=null, $path=null) {
-        $this->__construct($languageId, $path);
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

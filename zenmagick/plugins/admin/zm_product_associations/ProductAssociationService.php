@@ -45,13 +45,6 @@ class ProductAssociationService extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function ProductAssociationService() {
-        $this->__construct();
-    }
-
-    /**
      * Default d'tor.
      */
     function __destruct() {
@@ -167,7 +160,7 @@ class ProductAssociationService extends ZMService {
                 where source_product_id in (:productIdList)
                 and association_type =:type" . $dateLimit . "
                 order by sort_order asc";
-        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
+        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":type", $type, "integer");
 
         $results = $db->Execute($sql);
@@ -208,7 +201,7 @@ class ProductAssociationService extends ZMService {
                 where source_product_id in (:productIdList)
                 and association_type =:type" . $dateLimit . "
                 order by sort_order asc";
-        $sql = $this->bindValueList($sql, ":productIdList", $productIds, "integer");
+        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
         $sql = $db->bindVars($sql, ":type", $type, "integer");
 
         $results = $db->Execute($sql);

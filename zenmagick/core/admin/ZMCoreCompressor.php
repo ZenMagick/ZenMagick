@@ -463,7 +463,6 @@ class ZMCoreCompressor extends ZMObject {
             'ZMObject.php',
             'ZMLoader.php',
             'utils.php',
-            'ZMService.php',
             'ZMSession.php',
             'ZMRequest.php',
             'ZMRuntime.php',

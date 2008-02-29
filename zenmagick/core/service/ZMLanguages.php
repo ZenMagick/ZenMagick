@@ -31,12 +31,12 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMLanguages extends ZMService {
+class ZMLanguages extends ZMObject {
     var $languages_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -44,14 +44,7 @@ class ZMLanguages extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function ZMLanguages() {
-        $this->__construct();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

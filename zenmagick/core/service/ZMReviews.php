@@ -31,24 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMReviews extends ZMService {
+class ZMReviews extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMReviews() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMReviews();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

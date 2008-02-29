@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMOffers extends ZMService {
+class ZMOffers extends ZMObject {
     var $product_;
     var $basePrice_;
     var $specialPrice_;
@@ -41,11 +41,11 @@ class ZMOffers extends ZMService {
 
 
     /**
-     * Create new offers instance for the given product.
+     * Create new instance.
      *
      * @param ZMProduct product The product.
      */
-    function __construct(&$product) {
+    function __construct($product) {
         parent::__construct();
 
         $this->product_ = $product;
@@ -57,16 +57,7 @@ class ZMOffers extends ZMService {
     }
 
     /**
-     * Create new offers instance for the given product.
-     *
-     * @param ZMProduct product The product.
-     */
-    function ZMOffers(&$product) {
-        $this->__construct($product);
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

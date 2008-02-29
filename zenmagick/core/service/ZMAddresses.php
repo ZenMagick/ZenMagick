@@ -31,24 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMAddresses extends ZMService {
+class ZMAddresses extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMAddresses() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMAddresses();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -133,7 +126,7 @@ class ZMAddresses extends ZMService {
                     entry_country_id = :countryId;integer
                 where address_book_id = :addressId";
         $sql = $db->bindVars($sql, ":addressId", $address->getId(), "integer");
-        $sql = $this->bindObject($sql, $address);
+        $sql = ZMDbUtils::bindObject($sql, $address);
         $db->Execute($sql);
         return $address;
     }
@@ -157,7 +150,7 @@ class ZMAddresses extends ZMService {
                   :firstName;string, :lastName;string, :companyName;string, :gender;string,
                   :address;string, :suburb;string, :postcode;string, :city;string,
                   :state;string, :zoneId;integer, :countryId;integer)";
-        $sql = $this->bindObject($sql, $address);
+        $sql = ZMDbUtils::bindObject($sql, $address);
         $db->Execute($sql);
         $address->addressId_ = $db->Insert_ID();
 

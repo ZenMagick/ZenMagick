@@ -42,23 +42,16 @@ class ZMEvents extends ZMObject {
     var $subscriber_;
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMEvents() {
+    function __construct() {
         parent::__construct();
 
         $this->subscriber_ = array();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMEvents();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

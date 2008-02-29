@@ -32,7 +32,7 @@
  * @package org.zenmagick
  * @version $Id$
  */
-class ZMShoppingCart extends ZMService {
+class ZMShoppingCart extends ZMObject {
     var $cart_;
     var $zenTotals_;
     var $payments_;
@@ -41,19 +41,12 @@ class ZMShoppingCart extends ZMService {
     /**
      * Default c'tor.
      */
-    function ZMShoppingCart() {
+    function __construct() {
         parent::__construct();
 
         $this->cart_ = $_SESSION['cart'];
         $this->zenTotals_ = null;
         $this->payments_ = null;
-    }
-
-    /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMShoppingCart();
     }
 
     /**

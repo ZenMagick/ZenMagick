@@ -31,24 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMAccounts extends ZMService {
+class ZMAccounts extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMAccounts() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMAccounts();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -150,7 +143,7 @@ class ZMAccounts extends ZMService {
                   :phone;string, :fax;string, :newsletterSubscriber;integer, :emailFormat;string,
                   :defaultAddressId;integer, :authorization;integer,
                   :gender;string, :dob;date, :password;string, :referral;string, :priceGroupId;integer)";
-        $sql = $this->bindObject($sql, $account);
+        $sql = ZMDbUtils::bindObject($sql, $account);
         $db->Execute($sql);
         $account->id_ = $db->Insert_ID();
 
@@ -195,7 +188,7 @@ class ZMAccounts extends ZMService {
                 customers_group_pricing = :priceGroupId;integer
                 where customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-        $sql = $this->bindObject($sql, $account);
+        $sql = ZMDbUtils::bindObject($sql, $account);
         $db->Execute($sql);
 
         // check for existence in case record does not exist...
@@ -349,7 +342,7 @@ class ZMAccounts extends ZMService {
                     where  customers_id = :accountId
                     and products_id in (:productIdList)";
             $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-            $sql = $this->bindValueList($sql, ":productIdList", $remove, "integer");
+            $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $remove, "integer");
             $results = $db->Execute($sql);
         }
 

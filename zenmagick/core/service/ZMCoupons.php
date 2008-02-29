@@ -31,26 +31,19 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMCoupons extends ZMService {
+class ZMCoupons extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMCoupons() {
+    function __construct() {
         parent::__construct();
 
         $this->countries_ = null;
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMCoupons();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

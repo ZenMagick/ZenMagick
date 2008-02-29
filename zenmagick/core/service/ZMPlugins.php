@@ -60,7 +60,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMPlugins extends ZMService {
+class ZMPlugins extends ZMObject {
     private static $pluginStatus_ = array();
     private static $plugins_ = array();
 

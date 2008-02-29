@@ -31,12 +31,12 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMShippingProviders extends ZMService {
+class ZMShippingProviders extends ZMObject {
     var $provider_;
 
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
     function __construct() {
         parent::__construct();
@@ -44,14 +44,7 @@ class ZMShippingProviders extends ZMService {
     }
 
     /**
-     * Default c'tor.
-     */
-    function ZMShippingProviders() {
-        $this->__construct();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();

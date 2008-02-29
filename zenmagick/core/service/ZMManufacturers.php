@@ -31,25 +31,17 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMManufacturers extends ZMService {
-
+class ZMManufacturers extends ZMObject {
 
     /**
-     * Default c'tor.
+     * Create new instance.
      */
-    function ZMManufacturers() {
+    function __construct() {
         parent::__construct();
     }
 
     /**
-     * Default c'tor.
-     */
-    function __construct() {
-        $this->ZMManufacturers();
-    }
-
-    /**
-     * Default d'tor.
+     * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
@@ -75,7 +67,7 @@ class ZMManufacturers extends ZMService {
         $manufacturer = null;
         $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
-                 ".$this->getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
@@ -117,7 +109,7 @@ class ZMManufacturers extends ZMService {
 
         $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
-                 ".$this->getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
@@ -166,7 +158,7 @@ class ZMManufacturers extends ZMService {
         $manufacturer->url_ = $fields['manufacturers_url'];
 
         // custom fields
-        foreach ($this->getCustomFields(TABLE_MANUFACTURERS) as $field) {
+        foreach (ZMDbUtils::getCustomFields(TABLE_MANUFACTURERS) as $field) {
             if (isset($fields[$field[0]])) {
                 $manufacturer->set($field[0], $fields[$field[0]]);
             }

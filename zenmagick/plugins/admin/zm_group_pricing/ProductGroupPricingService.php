@@ -34,7 +34,7 @@ define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
  * @package org.zenmagick.plugins.zm_group_pricing
  * @version $Id$
  */
-class ProductGroupPricingService extends ZMService {
+class ProductGroupPricingService extends ZMObject {
     var $fieldMap_ = array(
         // db column, model property name, data type
         array('group_pricing_id', 'id', 'integer'),
@@ -53,13 +53,6 @@ class ProductGroupPricingService extends ZMService {
      */
     function __construct() {
         parent::__construct();
-    }
-
-    /**
-     * Default c'tor.
-     */
-    function ProductGroupPricingService() {
-        $this->__construct();
     }
 
     /**
@@ -93,7 +86,7 @@ class ProductGroupPricingService extends ZMService {
         $productGroupPricing = null;
         $results = $db->Execute($sql);
         if (!$results->EOF) {
-            $productGroupPricing = $this->map2obj('ProductGroupPricing', $results->fields);
+            $productGroupPricing = ZMDbUtils::map2obj('ProductGroupPricing', $results->fields);
         }
 
         return $productGroupPricing;
@@ -115,7 +108,7 @@ class ProductGroupPricingService extends ZMService {
                 ) values (:productId;integer, :groupId;integer,
                   :discount;float, :type;string, :regularPriceOnly;integer,
                   :startDate;date, :endDate;date)";
-        $sql = $this->bindObject($sql, $groupPricing, false);
+        $sql = ZMDbUtils::bindObject($sql, $groupPricing, false);
         $db->Execute($sql);
         $groupPricing->id_ = $db->Insert_ID();
 
@@ -140,7 +133,7 @@ class ProductGroupPricingService extends ZMService {
                 end_date = :endDate;date
                 where group_pricing_id = :groupPricingId";
         $sql = $db->bindVars($sql, ":groupPricingId", $groupPricing->getId(), "integer");
-        $sql = $this->bindObject($sql, $groupPricing, false);
+        $sql = ZMDbUtils::bindObject($sql, $groupPricing, false);
         $db->Execute($sql);
 
         return $groupPricing;
