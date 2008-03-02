@@ -62,13 +62,13 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         $product = null;
         if ($zm_request->getProductId()) {
-            $product = $zm_products->getProductForId($zm_request->getProductId());
+            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
         } else if ($zm_request->getModel()) {
-            $product = $zm_products->getProductForModel($zm_request->getModel());
+            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
         }
 
         if (null == $product) {
@@ -97,7 +97,7 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_products;
+    global $zm_request, $zm_messages;
 
         $emailMessage = $this->create("EmailMessage");
         $emailMessage->populate();
@@ -109,9 +109,9 @@ class ZMTellAFriendController extends ZMController {
 
         $product = null;
         if ($zm_request->getProductId()) {
-            $product = $zm_products->getProductForId($zm_request->getProductId());
+            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
         } else if ($zm_request->getModel()) {
-            $product = $zm_products->getProductForModel($zm_request->getModel());
+            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
         }
 
         if (null == $product) {

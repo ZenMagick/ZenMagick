@@ -33,7 +33,7 @@
    * there is currently no way to accessing this information otherwise.
    */
 
-$order = $zm_orders->getOrderForId($INTRO_ORDER_NUMBER);
+$order = ZMOrders::instance()->getOrderForId($INTRO_ORDER_NUMBER);
 $shippingAddress = $order->getShippingAddress();
 $billingAddress = $order->getBillingAddress();
 $paymentType = $order->getPaymentType();

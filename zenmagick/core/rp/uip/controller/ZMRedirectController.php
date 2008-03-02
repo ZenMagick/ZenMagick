@@ -62,16 +62,16 @@ class ZMRedirectController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_banners, $zm_manufacturers, $zm_languages;
+    global $zm_request, $zm_manufacturers, $zm_languages;
 
         $action = $zm_request->getParameter('action');
         $goto = $zm_request->getParameter('goto');
 
         switch ($action) {
         case 'banner':
-            $banner = $zm_banners->getBannerForId($goto);
+            $banner = ZMBanners::instance()->getBannerForId($goto);
             if (null != $banner) {
-                $zm_banners->updateBannerClickCount($goto);
+                ZMBanners::instance()->updateBannerClickCount($goto);
                 return $this->findView('success', array('url' => $banner->getUrl()));
             }
             break;

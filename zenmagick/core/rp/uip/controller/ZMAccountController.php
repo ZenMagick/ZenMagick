@@ -62,12 +62,12 @@ class ZMAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_orders;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
         // last order is first, so displaying the first page is just fine...
-        $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
+        $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId());
         $resultList = $this->create("ResultList", $orders, zm_setting('accountOrderHistoryLimit'));
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", $zm_request->getAccount());

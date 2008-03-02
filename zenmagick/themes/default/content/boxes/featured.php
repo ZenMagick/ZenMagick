@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $products = $zm_products->getFeaturedProducts(null, 1); ?>
+<?php $products = ZMProducts::instance()->getFeaturedProducts(null, 1); ?>
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>

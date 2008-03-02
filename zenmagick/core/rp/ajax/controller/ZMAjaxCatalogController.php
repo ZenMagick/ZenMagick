@@ -61,11 +61,11 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @return void
      */
     function getProductForIdJSON() {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         $productId = $zm_request->getParameter('productId', 0);
 
-        $flatObj = $this->flattenObject($zm_products->getProductForId($productId),
+        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId),
             array('id', 'name', 'description', 'model', 
                 'attributes' => array('id', 'type', 'name',
                     'values' => array('id', 'name', 'default')
@@ -84,7 +84,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @return void
      */
     function getProductsForCategoryIdJSON() {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         $categoryId = $zm_request->getParameter('categoryId', 0);
         $activeOnly = true;
@@ -92,7 +92,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             $activeOnly = $zm_request->getParameter('active', true);
         }
 
-        $flatObj = $this->flattenObject($zm_products->getProductsForCategoryId($categoryId, $active),
+        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $active),
             array('id', 'name', 'description', 'model', 
                 'attributes' => array('id', 'type', 'name',
                     'values' => array('id', 'name', 'default')

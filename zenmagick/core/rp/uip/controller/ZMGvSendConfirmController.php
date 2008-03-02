@@ -95,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_coupons, $zm_messages;
+    global $zm_request, $zm_messages;
 
         if (null != $zm_request->getParameter('edit')) {
             return $this->findView('edit');
@@ -125,15 +125,15 @@ class ZMGvSendConfirmController extends ZMController {
 
         // update balance
         $newBalance = $balance - $amount;
-        $zm_coupons->setVoucherBalanceForAccountId($account->getId(), $newBalance);
+        $coupons = ZMCoupons::instance();
+        $coupons->setVoucherBalanceForAccountId($account->getId(), $newBalance);
 
         // create the new voucher
-        $couponCode = $zm_coupons->createCouponCode($account->getEmail());
-        $coupon = $zm_coupons->createCoupon($couponCode, $amount, ZM_COUPON_TYPPE_GV);
+        $couponCode = $coupons->createCouponCode($account->getEmail());
+        $coupon = $coupons->createCoupon($couponCode, $amount, ZM_COUPON_TYPPE_GV);
 
         // create coupon tracker
-        $zm_coupons->createCouponTracker($coupon, $account, $gvreceiver);
-
+        $coupons->createCouponTracker($coupon, $account, $gvreceiver);
 
         // create gv_send email
         $context = array('zm_account' => $account, 'zm_gvreceiver' => $gvreceiver, 'zm_coupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');

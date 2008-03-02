@@ -70,12 +70,12 @@ class ZMTaxRates extends ZMObject {
      * @return ZMTaxRate The tax rate.
      */
     function getTaxRateForClassId($classId, $countryId=0, $zoneId=0) {
-    global $zm_request, $zm_addresses;
+    global $zm_request;
 
         if (0 == $countryId && 0 == $zoneId) {
             $account = $zm_request->getAccount();
             if (null != $account && ZM_ACCOUNT_TYPE_REGISTERED == $account->getType()) {
-                $defaultAddress = $zm_addresses->getAddressForId($account->getDefaultAddressId());
+                $defaultAddress = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
                 $zoneId = $defaultAddress->getZoneId();
                 $countryId = $defaultAddress->getCountryId();
             } else {

@@ -79,7 +79,7 @@ class ZMCategoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_products;
+    global $zm_request, $zm_categories;
 
         // decide which index view to use and prepare index data
         $resultList = null;
@@ -87,13 +87,13 @@ class ZMCategoryController extends ZMController {
         $viewName = 'error';
 
         if (null != $zm_request->getCategoryPath()) {
-            $products = $zm_products->getProductsForCategoryId($zm_request->getCategoryId());
+            $products = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId());
             $viewName = 'category_list';
         } else if (null != $zm_request->getManufacturerId()) {
-            $products = $zm_products->getProductsForManufacturerId($zm_request->getManufacturerId());
+            $products = ZMProducts::instance()->getProductsForManufacturerId($zm_request->getManufacturerId());
             $viewName = 'manufacturer';
         } else if (null != $zm_request->getParameter('compareId')) {
-            $products = $zm_products->getProductsForIds($zm_request->getParameter('compareId'));
+            $products = ZMProducts::instance()->getProductsForIds($zm_request->getParameter('compareId'));
             $viewName = 'category_list';
         }
         if (null !== $products) {

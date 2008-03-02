@@ -25,7 +25,7 @@
 ?>
 
 <?php $zm_theme->staticPageContent("main_page") ?>
-<?php $featured = $zm_products->getFeaturedProducts(0, 4); ?>
+<?php $featured = ZMProducts::instance()->getFeaturedProducts(0, 4); ?>
 <h3>Featured Products</h3>
 <div id="featured">
   <?php foreach ($featured as $product) { ?>

@@ -78,17 +78,17 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_addresses;
+    global $zm_request, $zm_crumbtrail;
 
         $viewName = null;
         if ($zm_request->getParameter('edit')) {
             $zm_crumbtrail->addCrumb("Edit");
-            $address = $zm_addresses->getAddressForId($zm_request->getParameter('edit'));
+            $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('edit'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_edit';
         } else if ($zm_request->getParameter('delete')) {
             $zm_crumbtrail->addCrumb("Delete");
-            $address = $zm_addresses->getAddressForId($zm_request->getParameter('delete'));
+            $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('delete'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_delete';
         } else {
@@ -131,7 +131,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function updateAddress() {
-    global $zm_request, $zm_addresses, $zm_accounts, $zm_messages;
+    global $zm_request, $zm_accounts, $zm_messages;
 
         $address = $this->create("Address");
         $address->populate();
@@ -141,7 +141,7 @@ class ZMAddressBookProcessController extends ZMController {
             return $this->findView('address_book_edit');
         }
 
-        $address = $zm_addresses->updateAddress($address);
+        $address = ZMAddresses::instance()->updateAddress($address);
 
         // process primary setting
         if ($address->isPrimary()) {
@@ -163,12 +163,12 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function deleteAddress() {
-    global $zm_addresses, $zm_request, $zm_messages;
+    global $zm_request, $zm_messages;
 
         $account = $zm_request->getAccount();
         $addressId = $zm_request->getParameter('addressId', 0);
         if (0 < $addressId) {
-            $zm_addresses->deleteAddressForId($addressId);
+            ZMAddresses::instance()->deleteAddressForId($addressId);
             $zm_messages->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
         }
         return $this->findView('success');
@@ -180,7 +180,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function createAddress() {
-    global $zm_addresses, $zm_accounts, $zm_request, $zm_messages;
+    global $zm_accounts, $zm_request, $zm_messages;
 
         $address = $this->create("Address");
         $address->populate();
@@ -191,10 +191,10 @@ class ZMAddressBookProcessController extends ZMController {
             return $this->findView('address_book_create');
         }
 
-        $address = $zm_addresses->createAddress($address);
+        $address = ZMAddresses::instance()->createAddress($address);
 
         // process primary setting
-        if ($address->isPrimary() || 1 == count($zm_addresses->getAddressesForAccountId($zm_request->getAccountId()))) {
+        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId()))) {
             $account = $zm_request->getAccount();
             $account->setDefaultAddressId($address->getId());
             $zm_accounts->updateAccount($account);

@@ -84,7 +84,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_accounts, $zm_reviews;
+    global $zm_request, $zm_messages, $zm_accounts;
 
         $review = $this->create("Review");
         $review->populate();
@@ -104,7 +104,7 @@ class ZMProductReviewsWriteController extends ZMController {
 
         $account = $zm_request->getAccount();
         $session = $zm_request->getSession();
-        $zm_reviews->createReview($review, $account, $session->getLanguageId());
+        ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
 
         // account email
         if (zm_setting('isApproveReviews') && zm_setting('isEmailAdminReview')) {
@@ -127,13 +127,13 @@ class ZMProductReviewsWriteController extends ZMController {
      * @return ZMProduct The product or <code>null</code>.
      */
     function _getProduct() {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         $product = null;
         if ($zm_request->getProductId()) {
-            $product = $zm_products->getProductForId($zm_request->getProductId());
+            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
         } else if ($zm_request->getModel()) {
-            $product = $zm_products->getProductForModel($zm_request->getModel());
+            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
         }
         return $product;
     }

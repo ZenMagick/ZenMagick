@@ -98,7 +98,7 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_accounts, $zm_addresses;
+    global $zm_request, $zm_messages, $zm_accounts;
 
         $account = $this->create("Account");
         $account->populate();
@@ -117,7 +117,7 @@ class ZMCreateAccountController extends ZMController {
         $account = $zm_accounts->createAccount($account);
 
         $address->setAccountId($account->getId());
-        $address = $zm_addresses->createAddress($address);
+        $address = ZMAddresses::instance()->createAddress($address);
 
         $account->setDefaultAddressId($address->getId());
         $zm_accounts->updateAccount($account);

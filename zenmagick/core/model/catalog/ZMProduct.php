@@ -423,14 +423,18 @@ class ZMProduct extends ZMModel {
      *
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
-    function hasReviews() { global $zm_reviews; return 0 < $zm_reviews->getReviewCount($this->id_); }
+    function hasReviews() { 
+        return 0 < ZMReviews::instance()->getReviewCount($this->id_);
+    }
 
     /**
      * Get the number of reviews for this product.
      *
      * @return int The number of reviews.
      */
-    function getReviewCount() { global $zm_reviews; return $zm_reviews->getReviewCount($this); }
+    function getReviewCount() { 
+        return ZMReviews::instance()->getReviewCount($this);
+    }
 
     /**
      * Get the product type config values for this product.
@@ -440,7 +444,9 @@ class ZMProduct extends ZMModel {
      * @param string field The field name.
      * @return mixed The setting value.
      */
-    function getTypeSetting($field) { global $zm_products; return $zm_products->getProductTypeSetting($this->id_, $field); }
+    function getTypeSetting($field) { 
+        return ZMProducts::instance()->getProductTypeSetting($this->id_, $field);
+    }
 
     /**
      * Get the default category.
@@ -460,14 +466,12 @@ class ZMProduct extends ZMModel {
     /**
      * Get the average rating.
      *
-     * <p>Convenience method for <code>$zm_reviews->getAverageRatingForProductId($product->getId())</code>.</p>
+     * <p>Convenience method for <code>ZMReviews::instance()->getAverageRatingForProductId($product->getId())</code>.</p>
      *
      * @return float The average rating.
      */
     function getAverageRating() {
-    global $zm_reviews;
-
-        return $zm_reviews->getAverageRatingForProductId($this->id_);
+        return ZMReviews::instance()->getAverageRatingForProductId($this->id_);
     }
 
     /**

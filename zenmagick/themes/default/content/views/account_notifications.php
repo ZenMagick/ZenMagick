@@ -36,7 +36,7 @@
         <fieldset>
             <legend><?php zm_l10n("Product Notifications") ?></legend>
             <?php $ii=0; 
-            foreach ($zm_account->getSubscribedProducts() as $productId) { $product = $zm_products->getProductForId($productId); ?>
+            foreach ($zm_account->getSubscribedProducts() as $productId) { $product = ZMProducts::instance()->getProductForId($productId); ?>
                 <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $product->getName() : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>

@@ -512,7 +512,7 @@
         // finalise i18n
         zm_i18n_finalise();
 
-        $zm_events->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
 
         return $theme;
     }
@@ -524,7 +524,7 @@
      * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
-    global $zm_request, $zm_events;
+    global $zm_request;
 
         $controller = ZMLoader::make(ZMLoader::makeClassname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
@@ -541,9 +541,9 @@
         // generate response
         if (null != $view) {
             $controller->exportGlobal("zm_view", $view);
-            $zm_events->fireEvent(null, ZM_EVENT_VIEW_START, array('view' =>& $view));
+            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' =>& $view));
             $view->generate();
-            $zm_events->fireEvent(null, ZM_EVENT_VIEW_DONE);
+            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE);
         }
 
         return true;
@@ -575,9 +575,7 @@
      * @param array args Optional additional parameter; default is <code>null</code>.
      */
     function zm_fire_event(&$source, $eventId, $args=null) {
-    global $zm_events;
-
-        $zm_events->fireEvent($source, $eventId, $args);
+        ZMEvents::instance()->fireEvent($source, $eventId, $args);
     }
 
 

@@ -35,7 +35,7 @@
      * @return string A fully formatted address.
      */
     function zm_format_address(&$address, $html=true, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_countries, $zm_addresses;
+    global $zm_countries;
 
         if (null == $address) {
             $out = zm_l10n_get("N/A");    
@@ -81,7 +81,7 @@
         if ($suburb != '') $streets = $street . $cr . $suburb;
         if ($state != '') $statecomma = $state . ', ';
 
-        $format = $zm_addresses->getAddressFormatForId($zmcountry->getAddressFormatId());
+        $format = ZMAddresses::instance()->getAddressFormatForId($zmcountry->getAddressFormatId());
         // $format is using all the local variables...
         eval("\$out = \"$format\";");
 

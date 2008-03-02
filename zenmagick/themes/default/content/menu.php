@@ -41,8 +41,7 @@
         <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>
     <?php if (zm_setting('isShowEZHeaderNav')) { ?>
-        <?php $pages = $zm_pages->getPagesForHeader(); ?>
-        <?php foreach ($pages as $page) { ?>
+        <?php foreach (ZMEZPages::instance()->getPagesForHeader() as $page) { ?>
             <li><?php zm_ezpage_link($page->getId()) ?></li>
         <?php } ?>
     <?php } ?>

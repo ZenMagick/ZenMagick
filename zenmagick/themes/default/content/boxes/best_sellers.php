@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $products = $zm_products->getBestSellers($zm_request->getCategoryId()); ?>
+<?php $products = ZMProducts::instance()->getBestSellers($zm_request->getCategoryId()); ?>
 <?php if (0 < count($products)) { ?>
     <h3><?php zm_l10n("Best Sellers") ?></h3>
     <div id="sb_bestsellers" class="box">

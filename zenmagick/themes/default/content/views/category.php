@@ -32,7 +32,7 @@
     <?php } ?>
 <?php } ?>
 
-<?php $featured = $zm_products->getFeaturedProducts($zm_category->getId(), 4); ?>
+<?php $featured = ZMProducts::instance()->getFeaturedProducts($zm_category->getId(), 4); ?>
 
 <?php if (0 < count($featured)) { ?>
     <h3>Featured Products</h3>

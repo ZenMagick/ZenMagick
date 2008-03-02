@@ -27,6 +27,7 @@
 
     $productId = $zm_request->getProductId();
 
+    $zm_features = ZMFeatures::instance();
     // set up some stuff
     $featureTypes = $zm_features->getFeatureTypes();
     $features = $zm_features->getFeatureList();
@@ -144,7 +145,7 @@
 
     $product = null;
     if (0 != $productId) {
-      $product = $zm_products->getProductForId($productId);
+      $product = ZMProducts::instance()->getProductForId($productId);
     }
 ?>
 

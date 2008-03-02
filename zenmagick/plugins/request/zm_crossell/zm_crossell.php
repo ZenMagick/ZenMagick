@@ -88,8 +88,6 @@ class zm_crossell extends ZMPlugin {
      * @return array List of <code>ZMProduct</code> objects.
      */
     function getXSellForProductId($productId, $ignoreMinLimit=false) {
-    global $zm_products;
-
         if (!$this->isEnabled()) {
             return array();
         }
@@ -112,7 +110,7 @@ class zm_crossell extends ZMPlugin {
             return array();
         }
 
-        return $zm_products->getProductsForIds($productIds);
+        return ZMProducts::instance()->getProductsForIds($productIds);
     }
 
 }

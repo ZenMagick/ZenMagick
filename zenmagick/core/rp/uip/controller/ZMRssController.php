@@ -179,14 +179,12 @@ class ZMRssController extends ZMController {
      * @return ZMRssFeed The feed data.
      */
     function getReviewsFeed($key=null) {
-    global $zm_reviews, $zm_products;
-
         $product = null;
         if (null != $key)  {
-            $reviews = array_reverse($zm_reviews->getReviewsForProductId($key));
-            $product = $zm_products->getProductForId($key);
+            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key));
+            $product = ZMProducts::instance()->getProductForId($key);
         } else {
-            $reviews = array_reverse($zm_reviews->getAllReviews());
+            $reviews = array_reverse(ZMReviews::instance()->getAllReviews());
         }
         if (null != $key && null == $product) {
             return null;
@@ -196,7 +194,7 @@ class ZMRssController extends ZMController {
         $lastPubDate = null;
         foreach ($reviews as $review) {
             if (null == $key) {
-                $product = $zm_products->getProductForId($review->getProductId());
+                $product = ZMProducts::instance()->getProductForId($review->getProductId());
             }
             $item = $this->create("RssItem");
             $item->setTitle(zm_l10n_get("Review: %s", $product->getName()));
@@ -236,10 +234,8 @@ class ZMRssController extends ZMController {
      * @return ZMRssFeed The feed data.
      */
     function getChapterFeed($key=null) {
-    global $zm_pages;
-
         $items = array();
-        $toc = $zm_pages->getPagesForChapterId($key);
+        $toc = ZMEZPages::instance()->getPagesForChapterId($key);
         foreach ($toc as $page) {
             $item = $this->create("RssItem");
             $item->setTitle($page->getTitle());
@@ -268,15 +264,13 @@ class ZMRssController extends ZMController {
      * @return ZMRssFeed The feed data.
      */
     function getProductsFeed($key=null) {
-    global $zm_products;
-
         if ('new' != $key) {
             return null;
         }
 
         $lastPubDate = null;
         $items = array();
-        $products = array_slice(array_reverse($zm_products->getNewProducts()), 0, 20);
+        $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
         foreach ($products as $product) {
             $item = $this->create("RssItem");
             $item->setTitle($product->getName());

@@ -207,9 +207,7 @@ class ZMShippingEstimator extends ZMObject {
      * @return ZMAddress The curretn address or <code>null</code>.
      */
     function getAddress() {
-    global $zm_addresses;
-
-        return $zm_addresses->getAddressForId($this->_getAddressId());
+        return ZMAddresses::instance()->getAddressForId($this->_getAddressId());
     }
 
 }

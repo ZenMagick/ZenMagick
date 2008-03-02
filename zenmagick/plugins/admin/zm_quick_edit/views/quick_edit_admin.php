@@ -28,7 +28,7 @@
   // do show the not available image
   zm_set_setting('isShowNoPicture', false);
 
-  $productList = $zm_products->getProductsForCategoryId($zm_request->getCategoryId(), false);
+  $productList = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId(), false);
 
   // allow to override with custom fields
   if (function_exists('zm_quick_edit_field_list')) {
@@ -59,7 +59,7 @@
               }
 
           }
-          $productList[$ii] = $zm_products->updateProduct($product);
+          $productList[$ii] = ZMProducts::instance()->updateProduct($product);
       }
   }
 

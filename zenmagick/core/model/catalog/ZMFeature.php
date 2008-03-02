@@ -105,7 +105,7 @@ class ZMFeature extends ZMModel {
      *
      * @return string The feature type.
      */
-    function getType() { global $zm_features; return $zm_features->getFeatureTypeForId($this->type_); }
+    function getType() { return ZMFeatures::instance()->getFeatureTypeForId($this->type_); }
 
 }
 

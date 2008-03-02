@@ -62,7 +62,7 @@ class IndexController extends ZMIndexController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_crumbtrail, $zm_products;
+    global $zm_request, $zm_categories, $zm_crumbtrail;
 
         if (null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId()) {
             // default
@@ -112,7 +112,7 @@ class IndexController extends ZMIndexController {
         $listing_split = new splitPageResults($listing_sql, zm_setting('maxProductResultList'), 'p.products_id', 'page');
 
         /**** make proper products */
-        $products = $zm_products->getProductsForSQL($listing_split->sql_query);
+        $products = ZMProducts::instance()->getProductsForSQL($listing_split->sql_query);
 
         $resultList = $this->create("SplitPageResultList", $products, $listing_split, zm_setting('maxProductResultList'));
         //$resultList = $this->create("ResultList", $products, zm_setting('maxProductResultList'));

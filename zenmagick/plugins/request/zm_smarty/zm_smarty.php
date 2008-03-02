@@ -70,8 +70,6 @@ class zm_smarty extends ZMPlugin {
      * Init.
      */
     function init() {
-    global $zm_layout;
-
         parent::init();
 
         // do not echo HTML per default
@@ -85,8 +83,6 @@ class zm_smarty extends ZMPlugin {
 
         zm_set_setting('templateSuffix', '.tpl');
         zm_set_setting('isEnableThemeDefaults', false);
-
-        $zm_layout = $this->create("Layout");
 
         // make sure PageView is loaded as PopupView extends it
         if (!class_exists('PageView')) {

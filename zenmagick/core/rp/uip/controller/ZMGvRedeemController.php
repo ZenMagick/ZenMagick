@@ -62,7 +62,7 @@ class ZMGvRedeemController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_coupons, $zm_messages;
+    global $zm_request, $zm_crumbtrail, $zm_messages;
 
         $zm_crumbtrail->addCrumb(zm_title(false));
 
@@ -72,12 +72,12 @@ class ZMGvRedeemController extends ZMController {
 
         if (!zm_is_empty($gvredeem->getCode())) {
             // only try to redeem if code given - people might browse the page without code parameter...
-            $coupon = $zm_coupons->getCouponForCode($gvredeem->getCode());
-            if (null != $coupon && ZM_COUPON_TYPPE_GV == $coupon->getType() && $zm_coupons->isCouponRedeemable($coupon->getId())) {
+            $coupon = ZMCoupons::instance()->getCouponForCode($gvredeem->getCode());
+            if (null != $coupon && ZM_COUPON_TYPPE_GV == $coupon->getType() && ZMCoupons::instance()->isCouponRedeemable($coupon->getId())) {
                 // all good, set amount
                 $gvredeem->setAmount($coupon->getAmount());
                 // TODO: remote address
-                $zm_coupons->redeemCoupon($coupon->getId(), $zm_request->getAccountId());
+                ZMCoupons::instance()->redeemCoupon($coupon->getId(), $zm_request->getAccountId());
                 $gvredeem->setRedeemed(true);
                 // TODO: only for PHP4 and weak references
                 $this->exportGlobal("zm_gvredeem", $gvredeem);

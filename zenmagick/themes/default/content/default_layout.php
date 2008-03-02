@@ -24,6 +24,7 @@
  */
 ?>
 <?php
+
     // allow for custom layout settings without having to copy the whole file every time...
     $pageLayout = "layout/".$zm_view->getName().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
@@ -51,12 +52,12 @@
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
     <?php } ?>
-    <?php if (!$zm_layout->isLeftColEnabled() || !$zm_layout->isRightColEnabled()) { ?>
+    <?php if (!ZMLayout::instance()->isLeftColEnabled() || !ZMLayout::instance()->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
-        <?php if (!$zm_layout->isLeftColEnabled()) { ?>
+        <?php if (!ZMLayout::instance()->isLeftColEnabled()) { ?>
           #content {margin-left:10px;}
         <?php } ?>
-        <?php if (!$zm_layout->isRightColEnabled()) { ?>
+        <?php if (!ZMLayout::instance()->isRightColEnabled()) { ?>
           body div#content {margin-right:20px;}
         <?php } ?>
       </style>
@@ -64,7 +65,7 @@
   </head>
 
   <body id="b_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
-    <?php $bannerBox = $zm_banners->getBannerForIndex(1); if (null != $bannerBox) { ?>
+    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(1); if (null != $bannerBox) { ?>
         <div id="bannerOne"><?php zm_display_banner($bannerBox); ?></div>
     <?php } ?>
 
@@ -72,17 +73,17 @@
       <?php include $zm_theme->themeFile("header.php") ?>
       <?php include $zm_theme->themeFile("menu.php") ?>
 
-      <?php if ($zm_layout->isLeftColEnabled()) { ?>
+      <?php if (ZMLayout::instance()->isLeftColEnabled()) { ?>
         <div id="leftcol">
-          <?php foreach ($zm_layout->getLeftColBoxNames() as $box) { ?>
+          <?php foreach (ZMLayout::instance()->getLeftColBoxNames() as $box) { ?>
               <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         </div>
       <?php } ?>
 
-      <?php if ($zm_layout->isRightColEnabled()) { ?>
+      <?php if (ZMLayout::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
-          <?php foreach ($zm_layout->getRightColBoxNames() as $box) { ?>
+          <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
               <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         </div>
@@ -93,7 +94,7 @@
             <?php echo zm_build_crumbtrail($zm_crumbtrail, " &gt; "); ?>
         <?php } ?>
 
-        <?php $bannerBox = $zm_banners->getBannerForIndex(3); if (null != $bannerBox) { ?>
+        <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(3); if (null != $bannerBox) { ?>
             <div id="bannerThree"><?php zm_display_banner($bannerBox); ?></div>
         <?php } ?>
 
@@ -107,7 +108,7 @@
 
         <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
 
-        <?php $bannerBox = $zm_banners->getBannerForIndex(4); if (null != $bannerBox) { ?>
+        <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(4); if (null != $bannerBox) { ?>
             <div id="bannerFour"><?php zm_display_banner($bannerBox); ?></div>
         <?php } ?>
       </div>
@@ -115,7 +116,7 @@
       <?php include $zm_theme->themeFile("footer.php") ?>
     </div>
 
-    <?php $bannerBox = $zm_banners->getBannerForIndex(6); if (null != $bannerBox) { ?>
+    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(6); if (null != $bannerBox) { ?>
         <div id="bannerSix"><?php zm_display_banner($bannerBox); ?></div>
     <?php } ?>
 

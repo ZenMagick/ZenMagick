@@ -251,12 +251,12 @@ class ZMMetaTags extends ZMObject {
      * Load product info.
      */
     function _loadProduct() {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         if (null == $zm_request->getProductId() || null != $this->product_)
             return;
 
-        $product = $zm_products->getProductForId($zm_request->getProductId());
+        $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
         $this->product_ = $product->getName() . ' [' . $product->getModel() . ']';
     }
 

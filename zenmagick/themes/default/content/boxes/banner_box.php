@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $bannerBox = $zm_banners->getBannerForIndex(7); ?>
+<?php $bannerBox = ZMBanners::instance()->getBannerForIndex(7); ?>
 <?php if (null != $bannerBox) { ?>
     <h3><?php zm_l10n("Sponsors") ?></h3>
     <div id="sb_banner_box" class="box">

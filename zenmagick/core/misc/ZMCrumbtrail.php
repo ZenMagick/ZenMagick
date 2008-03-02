@@ -153,12 +153,12 @@ class ZMCrumbtrail extends ZMObject {
      * @param int productId The product id of the product to add.
      */
     function addProduct($productId) {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         if (null == $productId)
             return;
 
-        $product = $zm_products->getProductForId($productId);
+        $product = ZMProducts::instance()->getProductForId($productId);
         if (null != $product) {
             $this->addCrumb($product->getName(), zm_product_href($productId, null, false));
         }

@@ -42,13 +42,13 @@
     }
 
 
-    $zm_events->attach(ZMLoader::make("EventFixes"));
+    ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
     /*****temp fixes for email generation.... ********/
     // set up order for order_status email
     if (null !== $zm_request->getParameter("oID") && 'update_order' == $zm_request->getParameter("action")) {
         $orderId = $zm_request->getParameter("oID");
-        $zm_order = $zm_orders->getOrderForId($orderId);
+        $zm_order = ZMOrders::instance()->getOrderForId($orderId);
         $zm_account = $zm_accounts->getAccountForId($zm_order->getAccountId());
     }
     /*****temp fixes for email generation.... ********/

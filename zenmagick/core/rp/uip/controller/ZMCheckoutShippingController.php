@@ -63,7 +63,7 @@ class ZMCheckoutShippingController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request, $zm_addresses, $zm_cart, $zm_messages, $zm_crumbtrail;
+    global $zm_request, $zm_cart, $zm_messages, $zm_crumbtrail;
 
         // do a bit of checking first...
         if ($zm_cart->isEmpty()) {

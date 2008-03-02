@@ -62,7 +62,7 @@ class ZMProductComparisonController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_products, $zm_messages;
+    global $zm_request, $zm_crumbtrail, $zm_messages;
 
         $zm_crumbtrail->addCrumb("Compare Products");
 
@@ -70,7 +70,7 @@ class ZMProductComparisonController extends ZMController {
         $productIds = $zm_request->getParameter("compareId");
         $productList = array();
         foreach ($productIds as $productId) {
-            $product = $zm_products->getProductForId($productId);
+            $product = ZMProducts::instance()->getProductForId($productId);
             array_push($productList, $product);
             if (3 == count($productList))
                 break;

@@ -63,10 +63,8 @@ class ZMCategoryFilter extends ZMResultListFilter {
 
     // lazy load all included productIds
     function _getProductIds() {
-    global $zm_products;
-
         if (null === $this->productIds_) {
-            $this->productIds_ = $zm_products->getProductIdsForCategoryId($this->filterValues_[0]);
+            $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0]);
         }
         return $this->productIds_;
     }

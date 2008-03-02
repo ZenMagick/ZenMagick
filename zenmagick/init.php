@@ -75,35 +75,35 @@
         // deprecated legacy globals
         $zm_loader = ZMLoader::instance();
         $zm_runtime = ZMRuntime::instance();
+        $zm_layout = ZMLayout::instance();
+        $zm_products = ZMProducts::instance();
+        $zm_taxes = ZMTaxRates::instance();
+        $zm_reviews = ZMReviews::instance();
+        $zm_pages = ZMEZPages::instance();
+        $zm_coupons = ZMCoupons::instance();
+        $zm_banners = ZMBanners::instance();
+        $zm_features = ZMFeatures::instance();
+        $zm_orders = ZMOrders::instance();
+        $zm_events = ZMEvents::instance();
+        $zm_addresses = ZMAddresses::instance();
     }
 
   //TODO: get rid of!
     // the main instances
     $zm_request = ZMRequest::instance();
     // set up main class instances (aka the ZenMagick API)
-    $zm_layout = new ZMLayout();
-    $zm_products = new ZMProducts();
-    $zm_taxes = new ZMTaxRates();
-    $zm_reviews = new ZMReviews();
     $zm_categories = new ZMCategories();
-    $zm_features = new ZMFeatures();
     $zm_manufacturers = new ZMManufacturers();
     $zm_accounts = new ZMAccounts();
     $zm_currencies = new ZMCurrencies();
-    $zm_addresses = new ZMAddresses();
     $zm_countries = new ZMCountries();
-    $zm_orders = new ZMOrders();
     $zm_cart = new ZMShoppingCart();
     $zm_messages = new ZMMessages();
-    $zm_pages = new ZMEZPages();
-    $zm_coupons = new ZMCoupons();
-    $zm_banners = new ZMBanners();
     $zm_languages = new ZMLanguages();
     $zm_validator = new ZMValidator();
     // share instance
     $zm_account = $zm_request->getAccount();
     // event proxy to simplify event subscription
-    $zm_events = new ZMEvents();
     $zm_crumbtrail = ZMLoader::make('Crumbtrail');
     $zm_meta = ZMLoader::make('MetaTags');
   //END TODO
@@ -152,6 +152,6 @@
     // start output buffering
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
-    $zm_events->fireEvent(null, ZM_EVENT_INIT_DONE);
+    ZMEvents::instance()->fireEvent(null, ZM_EVENT_INIT_DONE);
 
 ?>

@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $product = $zm_products->getProductForId($review->getProductId()); ?>
+<?php $product = ZMProducts::instance()->getProductForId($review->getProductId()); ?>
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
         <?php zm_product_image_link($product) ?>

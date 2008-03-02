@@ -77,14 +77,14 @@ class ZMDiscountCouponController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_coupons, $zm_messages;
+    global $zm_request, $zm_messages;
 
         $viewName = null;
         $code = $zm_request->getParameter('lookup_discount_coupon');
         if (null == $code) {
             $zm_messages->warn(zm_l10n_get(zm_l10n_get("Please enter a coupon code.")));
         } else {
-            $coupon = $zm_coupons->getCouponForCode($code);
+            $coupon = ZMCoupons::instance()->getCouponForCode($code);
             if (null == $coupon) {
                 $zm_messages->error(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
                 $this->exportGlobal("zm_coupon_code", $code);

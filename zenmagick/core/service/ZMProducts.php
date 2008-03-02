@@ -676,8 +676,6 @@ class ZMProducts extends ZMObject {
      * Create new product instance.
      */
     function _newProduct($fields) {
-    global $zm_features, $zm_taxes;
-
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status_ = 1 == $fields['products_status'];
         $product->model_ = $fields['products_model'];
@@ -698,7 +696,7 @@ class ZMProducts extends ZMObject {
         $product->taxClassId_ = $fields['products_tax_class_id'];
         $product->discountType_ = $fields['products_discount_type'];
         $product->discountTypeFrom_ = $fields['products_discount_type_from'];
-        $product->taxRate_ = $zm_taxes->getTaxRateForClassId($fields['products_tax_class_id']);
+        $product->taxRate_ = ZMTaxRates::instance()->getTaxRateForClassId($fields['products_tax_class_id']);
         $product->priceSorter_ = $fields['products_price_sorter'];
         $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
         $product->masterCategoryId_ = $fields['master_categories_id'];
@@ -710,7 +708,7 @@ class ZMProducts extends ZMObject {
         $product->offers_->setProduct(&$product);
         $product->attributes_ = $this->create("Attributes", $product);
         //TODO
-        $product->features_ = $zm_features->getFeaturesForProductId($product->getId());
+        $product->features_ = ZMFeatures::instance()->getFeaturesForProductId($product->getId());
 
         // custom fields
         foreach (ZMDbUtils::getCustomFields(TABLE_PRODUCTS) as $field) {

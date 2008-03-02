@@ -77,7 +77,7 @@ class ZMGuestHistoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_orders, $zm_messages, $zm_crumbtrail;
+    global $zm_request, $zm_accounts, $zm_messages, $zm_crumbtrail;
 
         if (!$this->validate('guest_history')) {
             return $this->findView();
@@ -89,7 +89,7 @@ class ZMGuestHistoryController extends ZMController {
         // default
         $account = null;
         // find order first 
-        $order = $zm_orders->getOrderForId($orderId);
+        $order = ZMOrders::instance()->getOrderForId($orderId);
 
         if (null != $order) {
             $accountId = $order->getAccountId();

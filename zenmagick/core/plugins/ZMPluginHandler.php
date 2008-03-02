@@ -83,18 +83,14 @@ class ZMPluginHandler extends ZMObject {
      * Register this plugin as zen-cart zco subscriber.
      */
     function zcoSubscribe() {
-    global $zm_events;
-
-        $zm_events->attach($this);
+        ZMEvents::instance()->attach($this);
     }
 
     /**
      * Un-register this plugin as zen-cart zco subscriber.
      */
     function zcoUnsubscribe() {
-    global $zm_events;
-
-        $zm_events->detach($this);
+        ZMEvents::instance()->detach($this);
     }
 
     /**

@@ -289,9 +289,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The shipping address.
      */
     function getShippingAddress() {
-    global $zm_addresses;
-
-        return $zm_addresses->getAddressForId($_SESSION['sendto']);
+        return ZMAddresses::instance()->getAddressForId($_SESSION['sendto']);
     }
 
     /**
@@ -310,9 +308,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The billing address.
      */
     function getBillingAddress() {
-    global $zm_addresses;
-
-        return $zm_addresses->getAddressForId($_SESSION['billto']);
+        return ZMAddresses::instance()->getAddressForId($_SESSION['billto']);
     }
 
     /**
@@ -577,9 +573,7 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     function addProduct($productId, $quantity=1, $attributes=array()) {
-    global $zm_products;
-
-        $product = $zm_products->getProductForId($productId);
+        $product = ZMProducts::instance()->getProductForId($productId);
         $attributes = zm_sanitize_attributes($product, $attributes);
         $attributes = zm_prepare_uploads($product, $attributes);
 
@@ -630,8 +624,6 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
     function updateProduct($cartProductId, $quantity) {
-    global $zm_products;
-
         if (null !== $cartProductId && null !== $quantity) {
             if (0 == $quantity) {
                 return $this->removeProduct($cartProductId);
@@ -639,7 +631,7 @@ class ZMShoppingCart extends ZMObject {
 
 
             $productId = zm_base_product_id($cartProductId);
-            $product = $zm_products->getProductForId($productId);
+            $product = ZMProducts::instance()->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
             $adjustedQty = $this->adjustQty($quantity);

@@ -98,13 +98,13 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_addresses;
+    global $zm_request;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }
 
-        $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+        $addressList = ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
         $address = $this->create("Address");
@@ -122,7 +122,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_cart, $zm_addresses;
+    global $zm_request, $zm_cart;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
@@ -141,7 +141,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
             $address = $abc->getGlobal('zm_address');
             if (0 == $address->getId()) {
                 $this->exportGlobal("zm_address", $address);
-                $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+                $addressList = ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId());
                 $this->exportGlobal("zm_addressList", $addressList);
                 return $this->findView();
             }

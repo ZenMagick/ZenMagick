@@ -39,7 +39,7 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
-    global $zm_request, $zm_products, $zm_categories;
+    global $zm_request, $zm_categories;
 
         if ($root) { 
             ob_start(); 
@@ -62,7 +62,7 @@
         echo '<ul>';
         foreach ($categories as $category) {
             $cparams = $params.'&'.$category->getPath();
-            $noProducts = count($zm_products->getProductIdsForCategoryId($category->getId(), false));
+            $noProducts = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
@@ -76,7 +76,7 @@
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false);
             } else if ($showProducts && $category->isActive()) {
                 echo '<ul>';
-                foreach ($zm_products->getProductsForCategoryId($category->getId(), false) as $product) {
+                foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
                     echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
@@ -101,15 +101,15 @@
      * @return string The HTML.
      */
     function zm_product_resultlist($params='') {
-    global $zm_request, $zm_products;
+    global $zm_request;
 
         $resultList = null;
         $products = null;
 
         if (null != $zm_request->getCategoryPath()) {
-            $products = $zm_products->getProductsForCategoryId($zm_request->getCategoryId(), false);
+            $products = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId(), false);
         } else if (null != $zm_request->getManufacturerId()) {
-            $products = $zm_products->getProductsForManufacturerId($zm_request->getManufacturerId(), false);
+            $products = ZMProducts::instance()->getProductsForManufacturerId($zm_request->getManufacturerId(), false);
         }
 
         if (null != $products) {

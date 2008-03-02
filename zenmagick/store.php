@@ -33,9 +33,9 @@
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
-        $zm_events->fireEvent(null, ZM_EVENT_DISPATCH_START);
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_START);
         zm_dispatch();
-        $zm_events->fireEvent(null, ZM_EVENT_DISPATCH_DONE);
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_DONE);
 
         require('includes/application_bottom.php');
 

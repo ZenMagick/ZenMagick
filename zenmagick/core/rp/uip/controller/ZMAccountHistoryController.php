@@ -62,12 +62,12 @@ class ZMAccountHistoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_orders;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $orders = $zm_orders->getOrdersForAccountId($zm_request->getAccountId());
+        $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId());
         $resultList = $this->create("ResultList", $orders, 10);
         $this->exportGlobal("zm_resultList", $resultList);
 

@@ -69,7 +69,7 @@ require("../zen-cart/zenmagick/external.php");
       <?php $category = $zm_categories->getCategoryForId(9); ?>
       <h2><?php echo $category->getName() ?></h2>
       <ul>
-        <?php foreach ($zm_products->getProductsForCategoryId(9) as $product) { ?>
+        <?php foreach (ZMProducts::instance()->getProductsForCategoryId(9) as $product) { ?>
           <li><?php echo $product->getName() ?></li>
         <?php } ?>
       </ul>

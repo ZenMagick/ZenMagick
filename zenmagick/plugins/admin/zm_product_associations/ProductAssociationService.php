@@ -142,11 +142,9 @@ class ProductAssociationService extends ZMObject {
      * return array A list of <code>ProductAssociation</code> instances.
      */
     function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
-    global $zm_products;
-
         $associations = array();
 
-        $productIds = $zm_products->getProductIdsForCategoryId($categoryId, !$all);
+        $productIds = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all);
         if (0 == count($productIds)) {
             return $associations;
         }

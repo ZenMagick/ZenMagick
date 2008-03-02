@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $reviews = $zm_reviews->getRandomReviews($zm_request->getProductId(), 1); ?>
+<?php $reviews = ZMReviews::instance()->getRandomReviews($zm_request->getProductId(), 1); ?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();

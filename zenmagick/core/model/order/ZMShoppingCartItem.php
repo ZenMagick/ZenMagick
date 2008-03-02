@@ -86,9 +86,7 @@ class ZMShoppingCartItem extends ZMModel {
      * @return ZMTaxRate The tax rate or <code>null</code>.
      */
     function getTaxRate() {
-    global $zm_taxes;
-
-        return $zm_taxes->getTaxRateForClassId($this->zenItem_['tax_class_id']);
+        return ZMTaxRates::instance()->getTaxRateForClassId($this->zenItem_['tax_class_id']);
     }
 
     /**
@@ -96,10 +94,8 @@ class ZMShoppingCartItem extends ZMModel {
      *
      * @return ZMProduct The product.
      */
-    function getProduct() {
-    global $zm_products;
-
-        return $zm_products->getProductForId($this->getId());
+    function getProduct() { 
+        return ZMProducts::instance()->getProductForId($this->getId());
     }
 
     function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }

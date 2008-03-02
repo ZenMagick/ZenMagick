@@ -62,12 +62,12 @@ class ZMAddressBookController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_addresses;
+    global $zm_request, $zm_crumbtrail;
 
         $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         $zm_crumbtrail->addCrumb(zm_title(false));
 
-        $addressList = $zm_addresses->getAddressesForAccountId($zm_request->getAccountId());
+        $addressList = ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
         return $this->findView();

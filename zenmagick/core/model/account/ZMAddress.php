@@ -280,9 +280,7 @@ class ZMAddress extends ZMModel {
      * @return string The address format id.
      */
     function getAddressFormat() {
-    global $zm_addresses;
-
-        return $zm_addresses->getAddressFormatForId($this->country_->getAddressFormatId());
+        return ZMAddresses::instance()->getAddressFormatForId($this->country_->getAddressFormatId());
     }
 
     /**

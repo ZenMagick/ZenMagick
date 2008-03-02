@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $allBanners = $zm_banners->getAllBanners(); ?>
+<?php $allBanners = ZMBanners::instance()->getAllBanners(); ?>
 <?php if (0 < count($allBanners)) { ?>
     <h3><?php zm_l10n("Sponsors") ?></h3>
     <div id="sb_banner_box_all" class="box">

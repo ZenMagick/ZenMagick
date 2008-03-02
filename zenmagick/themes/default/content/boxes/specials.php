@@ -25,7 +25,7 @@
 ?>
 
 <?php if (0 == $zm_request->getProductId() && 'specials' != $zm_request->getPageName()) { ?>
-    <?php $products = $zm_products->getSpecials(1); ?>
+    <?php $products = ZMProducts::instance()->getSpecials(1); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
         <h3><a href="<?php zm_href(FILENAME_SPECIALS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Specials") ?></h3>
         <div id="sb_specials" class="box">

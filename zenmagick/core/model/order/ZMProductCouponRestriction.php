@@ -79,7 +79,7 @@ class ZMProductCouponRestriction extends ZMModel {
      *
      * @return A <code>ZMProduct</code> instance.
      */
-    function getProduct() { global $zm_products; return $zm_products->getProductForId($this->productId_); }
+    function getProduct() { return ZMProducts::instance()->getProductForId($this->productId_); }
 
 }
 

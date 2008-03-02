@@ -284,8 +284,7 @@
      * @return string A full HTML link.
      */
     function zm_ezpage_link($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_pages;
-        $page = $zm_pages->getPageForId($id);
+        $page = ZMEZPages::instance()->getPageForId($id);
         $link = '<a href="' . zm_ezpage_href($page, false) . '"' . zm_href_target($page->isNewWin(), false) . '>' . (null == $text ? $page->getTitle() : $text) . ' </a>';
 
         if ($echo) echo $link;

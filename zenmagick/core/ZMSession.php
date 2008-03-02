@@ -160,14 +160,12 @@ class ZMSession extends ZMObject {
      * @param ZMAccount account The account.
      */
     function setAccount($account) {
-    global $zm_addresses;
-
         $_SESSION['customer_id'] = $account->getId();
         $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
         $_SESSION['customers_authorization'] = $account->getAuthorization();
         $_SESSION['customer_first_name'] = $account->getFirstName();
         $_SESSION['account_type'] = $account->getType();
-        $address = $zm_addresses->getAddressForId($account->getDefaultAddressId());
+        $address = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
         if (null != $address) {
             $_SESSION['customer_country_id'] = $address->getCountryId();
             $_SESSION['customer_zone_id'] = $address->getZoneId();

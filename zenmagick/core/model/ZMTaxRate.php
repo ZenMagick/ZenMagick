@@ -90,10 +90,8 @@ class ZMTaxRate extends ZMModel {
      * @return string The tax description.
      */
     function getDescription() { 
-    global $zm_taxes;
-
         if (null == $this->description_) {
-            $this->description_ = $zm_taxes->getTaxDescription($this->classId_, $this->countryId_, $this->zoneId_);
+            $this->description_ = ZMTaxRates::instance()->getTaxDescription($this->classId_, $this->countryId_, $this->zoneId_);
         }
         return $this->description_; 
     }

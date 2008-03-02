@@ -27,8 +27,7 @@
 <div id="footer">
   <?php if (zm_setting('isShowEZFooterNav')) { ?>
       <p id="fpages">
-          <?php $pages = $zm_pages->getPagesForFooter(); ?>
-          <?php foreach ($pages as $page) { ?>
+          <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
               <?php zm_ezpage_link($page->getId()) ?>
           <?php } ?>
       </p>
@@ -41,7 +40,7 @@
       </p>
   <?php } ?>
 
-  <?php $bannerBox = $zm_banners->getBannerForIndex(5); if (null != $bannerBox) { ?>
+  <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
       <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
   <?php } ?>
 

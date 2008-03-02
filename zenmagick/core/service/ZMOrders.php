@@ -47,6 +47,13 @@ class ZMOrders extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Orders');
+    }
+
 
     /**
      * Get order for the given id.

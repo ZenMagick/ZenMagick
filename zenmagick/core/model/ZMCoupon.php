@@ -187,9 +187,7 @@ class ZMCoupon extends ZMModel {
      * @return array An array of <code>ZMCouponRestriction</code> instances.
      */
     function getRestrictions() {
-    global $zm_coupons;
-
-        return $zm_coupons->_getRestrictionsForId($this->id_);
+        return ZMCoupons::instance()->_getRestrictionsForId($this->id_);
     }
 
 }

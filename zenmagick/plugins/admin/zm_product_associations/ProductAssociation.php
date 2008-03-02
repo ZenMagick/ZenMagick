@@ -70,9 +70,7 @@ class ProductAssociation extends ZMModel {
      * @return ZMProduct The associated product.
      */
     function getTargetProduct() {
-    global $zm_products;
-
-        return $zm_products->getProductForId($this->targetId_);
+        return ZMProducts::instance()->getProductForId($this->targetId_);
     }
 
 }

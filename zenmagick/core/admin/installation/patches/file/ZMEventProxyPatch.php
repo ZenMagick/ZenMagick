@@ -69,7 +69,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
 
         // look for ZenMagick code...
         foreach ($lines as $line) {
-            if (false !== strpos($line, '$zm_events')) {
+            if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()')) {
                 return false;
             }
         }
@@ -117,7 +117,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
                     array_push($patchedLines, $line);
                     if (false !== strpos($line, "function notify(")) {
                         // need to insert after the matched line
-                        array_push($patchedLines, '    global $zm_events; if(isset($zm_events)) { $zm_events->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
+                        array_push($patchedLines, '    if(class_exists(ZMEvents)) { ZMEvents::instance()->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
                     }
                 }
 
@@ -149,7 +149,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_BASE_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, 'global $zm_events;')) {
+                if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()')) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
