@@ -105,7 +105,7 @@ require_once('includes/application_top.php');
             <fieldset>
               <legend>Edit Static Page</legend>
               <label for="themeId">Theme:</label>
-              <?php $themes = ZMThemes::instance()->getThemes(); $themeInfoList = $themes->getThemeInfoList(); ?>
+              <?php $themeInfoList = ZMThemes::instance()->getThemeInfoList(); ?>
               <select id="themeId" name="themeId" onChange="this.form.submit();">
                 <option value="">Select Theme</option>
                 <?php foreach ($themeInfoList as $themeInfo) { ?>

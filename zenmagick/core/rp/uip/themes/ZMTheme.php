@@ -209,7 +209,7 @@ class ZMTheme extends ZMObject {
      * @return array List of available static page names.
      */
     function getStaticPageList($includeDefaults=false, $languageId=null) {
-    global $$zm_request, $zm_languages;
+    global $zm_request, $zm_languages;
 
         if (null == $languageId) {
             $session = $zm_request->getSession();

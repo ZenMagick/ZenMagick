@@ -25,7 +25,6 @@
 ?>
 <?php  
 require_once('includes/application_top.php');
-require_once('includes/zmCatalogDtree.php');
 
   $themePath = '';
   $defaults = isset($_POST['defaults']) || isset($_GET['defaults']);
@@ -97,7 +96,7 @@ require_once('includes/zmCatalogDtree.php');
         <form action="<?php echo ZM_ADMINFN_L10N ?>" method="post">
           <fieldset>
             <legend>Select Theme to display the language mappings</legend>
-            <?php $themes = ZMThemes::instance()->getThemes(); $themeInfoList = $themes->getThemeInfoList(); ?>
+            <?php $themeInfoList = ZMThemes::instance()->getThemeInfoList(); ?>
             <select id="theme" name="theme" onchange="this.form.submit()">
               <option value="">Select Theme</option>
               <?php foreach ($themeInfoList as $themeInfo) { ?>
