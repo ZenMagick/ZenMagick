@@ -66,6 +66,13 @@ class ZMMessages extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Messages');
+    }
+
 
     /**
      * Load messages from zen-cart message stack.

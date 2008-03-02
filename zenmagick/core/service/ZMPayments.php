@@ -58,6 +58,13 @@ class ZMPayments extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Payments');
+    }
+
 
     /**
      * Get the zen-cart payment modules.

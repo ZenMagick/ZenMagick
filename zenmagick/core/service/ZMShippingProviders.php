@@ -50,6 +50,13 @@ class ZMShippingProviders extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('ShippingProviders');
+    }
+
 
     /**
      * Get a list of shipping providers.

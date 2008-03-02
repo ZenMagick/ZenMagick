@@ -47,6 +47,13 @@ class ZMAccounts extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Accounts');
+    }
+
 
     /**
      * Get account for the given account id.

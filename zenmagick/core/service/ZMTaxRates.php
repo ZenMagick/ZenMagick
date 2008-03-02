@@ -34,6 +34,7 @@
 class ZMTaxRates extends ZMObject {
     var $taxRates_;
 
+
     /**
      * Create new instance.
      */
@@ -47,6 +48,13 @@ class ZMTaxRates extends ZMObject {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('TaxRates');
     }
 
 

@@ -36,15 +36,8 @@ class ZMConfig extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMConfig() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMConfig();
+        parent::__construct();
     }
 
     /**
@@ -52,6 +45,13 @@ class ZMConfig extends ZMObject {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Config');
     }
 
 

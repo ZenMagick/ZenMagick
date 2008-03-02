@@ -47,6 +47,13 @@ class ZMReviews extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Reviews');
+    }
+
 
     /**
      * Get the number of reviews for the given product (id).

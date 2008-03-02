@@ -49,6 +49,13 @@ class ZMCoupons extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Coupons');
+    }
+
 
     /**
      * Coupon lookup for the given code.

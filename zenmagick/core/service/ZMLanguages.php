@@ -50,6 +50,13 @@ class ZMLanguages extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Languages');
+    }
+
 
     /**
      * Load languages.

@@ -64,6 +64,13 @@ class ZMShipping extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Shipping');
+    }
+
 
     function isFreeShipping() {
     global $order;

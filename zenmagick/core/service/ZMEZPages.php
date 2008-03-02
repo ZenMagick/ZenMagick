@@ -47,6 +47,13 @@ class ZMEZPages extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('EZPages');
+    }
+
 
     /**
      * Get page for id.

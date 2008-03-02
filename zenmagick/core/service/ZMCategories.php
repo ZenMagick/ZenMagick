@@ -34,7 +34,6 @@
 class ZMCategories extends ZMObject {
     var $path_;
     var $languageId_;
-
     // flat list
     var $categories_;
     var $treeFlag_;
@@ -67,6 +66,13 @@ class ZMCategories extends ZMObject {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Categories');
     }
 
 

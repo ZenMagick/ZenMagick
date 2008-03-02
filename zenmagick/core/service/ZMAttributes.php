@@ -59,6 +59,13 @@ class ZMAttributes extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Attributes');
+    }
+
 
     // inital (simple sql) check to see whether there are any attributes at all
     function _checkForAttributes() {
@@ -83,7 +90,6 @@ class ZMAttributes extends ZMObject {
 
     // create new attribute
     function _newAttribute($fields) {
-//echo "<pre>";print_r($fields);echo "</pre>";
         $attribute = $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];

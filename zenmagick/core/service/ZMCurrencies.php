@@ -52,6 +52,13 @@ class ZMCurrencies extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Currencies');
+    }
+
 
     /**
      * Load all currencies.

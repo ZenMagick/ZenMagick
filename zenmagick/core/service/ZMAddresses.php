@@ -47,6 +47,13 @@ class ZMAddresses extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Addresses');
+    }
+
 
     /**
      * Get the address for the given id.

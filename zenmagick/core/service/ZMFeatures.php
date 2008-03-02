@@ -55,6 +55,13 @@ class ZMFeatures extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Features');
+    }
+
 
     function _loadFeatures() {
     global $zm_request;

@@ -53,6 +53,7 @@ class ZMThemes extends ZMObject {
         return parent::instance('Themes');
     }
 
+
     /**
      * Get <code>ZMTheme</code> instance for the given theme Id.
      *

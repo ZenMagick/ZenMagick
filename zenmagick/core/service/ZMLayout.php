@@ -57,6 +57,13 @@ class ZMLayout extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Layout');
+    }
+
 
     /**
      * Enable/disable the left column.

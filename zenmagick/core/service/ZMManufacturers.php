@@ -47,8 +47,14 @@ class ZMManufacturers extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Manufacturers');
+    }
 
-    // get manufacturer for id
+
     /**
      * Get manufacturer for id.
      *

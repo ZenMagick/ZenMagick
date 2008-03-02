@@ -47,6 +47,13 @@ class ZMProducts extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Products');
+    }
+
 
     /**
      * Get all active products for the given category id.

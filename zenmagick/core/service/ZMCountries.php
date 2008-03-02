@@ -52,6 +52,13 @@ class ZMCountries extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Countries');
+    }
+
 
     /**
      * Get country for the given name.

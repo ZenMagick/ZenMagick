@@ -51,6 +51,13 @@ class ZMBanners extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Banners');
+    }
+
 
     /**
      * Get a banner for the given (zen-cart) index.

@@ -47,6 +47,13 @@ class ZMGroupPricing extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('GroupPricing');
+    }
+
 
     /**
      * Get all price groups.

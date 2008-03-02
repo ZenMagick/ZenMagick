@@ -57,6 +57,13 @@ class ZMEvents extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Events');
+    }
+
 
     /**
      * Attach an observer to this event source.
