@@ -63,10 +63,8 @@ class ZMGvSendConfirmController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -95,7 +93,7 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages;
+    global $zm_request;
 
         if (null != $zm_request->getParameter('edit')) {
             return $this->findView('edit');
@@ -119,7 +117,7 @@ class ZMGvSendConfirmController extends ZMController {
         $currentCurrencyCode = $zm_request->getCurrencyCode();
         if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
-            $currency = $zm_currencies->getCurrencyForCode($currentCurrencyCode);
+            $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
             $amount = $currency->convertFrom($amount);
         }
 
@@ -148,7 +146,7 @@ class ZMGvSendConfirmController extends ZMController {
             zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, zm_setting('emailAdminGvSend'));
         }
 
-        $zm_messages->success(zm_l10n_get("Gift Certificate successfully send!"));
+        ZMMessages::instance()->success(zm_l10n_get("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

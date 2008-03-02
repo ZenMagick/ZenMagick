@@ -68,7 +68,7 @@ class zm_php_bb extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_validator, $phpBB;
+    global $zm_request, $phpBB;
 
         parent::init();
     
@@ -86,30 +86,30 @@ class zm_php_bb extends ZMPlugin {
 
         if ('create_account' == $this->page_) {
             // add custom validation rules
-            $zm_validator->addRule('create_account', new ZMRequiredRule('nick', 'Please enter a nickname.'));
+            ZMValidator::instance()->addRule('create_account', new ZMRequiredRule('nick', 'Please enter a nickname.'));
 
             $nicknameRule = $this->create("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB).');
             $nicknameRule->setFunction('_zmp_is_not_duplicate_nickname');
-            $zm_validator->addRule('create_account', $nicknameRule);
+            ZMValidator::instance()->addRule('create_account', $nicknameRule);
 
             $emailRule = $this->create("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB).');
             $emailRule->setFunction('_zmp_is_not_duplicate_email');
-            $zm_validator->addRule('create_account', $emailRule);
+            ZMValidator::instance()->addRule('create_account', $emailRule);
 
             $this->zcoSubscribe();
         } else if ('account_password' == $this->page_) {
             $this->zcoSubscribe();
         } else if ('account_edit' == $this->page_) {
             // add custom validation rules
-            $zm_validator->addRule('edit_account', new ZMRequiredRule('nick', 'Please enter a nickname.'));
+            ZMValidator::instance()->addRule('edit_account', new ZMRequiredRule('nick', 'Please enter a nickname.'));
 
             $nicknameRule = $this->create("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB).');
             $nicknameRule->setFunction('_zmp_is_not_duplicate_nickname_changed');
-            $zm_validator->addRule('edit_account', $nicknameRule);
+            ZMValidator::instance()->addRule('edit_account', $nicknameRule);
 
             $emailRule = $this->create("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB).');
             $emailRule->setFunction('_zmp_is_not_duplicate_email_changed');
-            $zm_validator->addRule('edit_account', $emailRule);
+            ZMValidator::instance()->addRule('edit_account', $emailRule);
 
             $this->zcoSubscribe();
         }

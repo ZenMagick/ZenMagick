@@ -194,7 +194,7 @@ class ZMTaxRate extends ZMModel {
         $currency = ZMRuntime::getCurrency();
         if (null == $currency) {
             $this->log('no currency found - using default currency', ZM_LOG_WARN);
-            $currency = $zm_currencies->getCurrencyForCode(zm_setting('defaultCurrency'));
+            $currency = ZMCurrencies::instance()->getCurrencyForCode(zm_setting('defaultCurrency'));
         }
 
         return $currency;

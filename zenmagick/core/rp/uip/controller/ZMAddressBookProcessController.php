@@ -63,10 +63,8 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
 
         return parent::process();
     }
@@ -78,21 +76,21 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
         $viewName = null;
         if ($zm_request->getParameter('edit')) {
-            $zm_crumbtrail->addCrumb("Edit");
+            ZMCrumbtrail::instance()->addCrumb("Edit");
             $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('edit'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_edit';
         } else if ($zm_request->getParameter('delete')) {
-            $zm_crumbtrail->addCrumb("Delete");
+            ZMCrumbtrail::instance()->addCrumb("Delete");
             $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('delete'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_delete';
         } else {
-            $zm_crumbtrail->addCrumb("New Entry");
+            ZMCrumbtrail::instance()->addCrumb("New Entry");
             $this->exportGlobal("zm_address", $this->create("Address"));
             $viewName = 'address_book_create';
         }
@@ -107,18 +105,18 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
         
         $action = $zm_request->getParameter('action');
         $view = null;
         if ('update' == $action) {
-            $zm_crumbtrail->addCrumb("Edit");
+            ZMCrumbtrail::instance()->addCrumb("Edit");
             $view = $this->updateAddress();
         } else if ('deleteconfirm' == $action) {
-            $zm_crumbtrail->addCrumb("Delete");
+            ZMCrumbtrail::instance()->addCrumb("Delete");
             $view = $this->deleteAddress();
         } else if ('process' == $action) {
-            $zm_crumbtrail->addCrumb("New Entry");
+            ZMCrumbtrail::instance()->addCrumb("New Entry");
             $view = $this->createAddress();
         }
 
@@ -131,7 +129,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function updateAddress() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         $address = $this->create("Address");
         $address->populate();
@@ -147,13 +145,13 @@ class ZMAddressBookProcessController extends ZMController {
         if ($address->isPrimary()) {
             $account = $zm_request->getAccount();
             $account->setDefaultAddressId($address->getId());
-            $zm_accounts->updateAccount($account);
+            ZMAccounts::instance()->updateAccount($account);
 
             $session = $zm_request->getSession();
             $session->setAccount($account);
         }
 
-        $zm_messages->success(zm_l10n_get('The selected address has been successfully updated.'));
+        ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully updated.'));
         return $this->findView('success');
     }
 
@@ -163,13 +161,13 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function deleteAddress() {
-    global $zm_request, $zm_messages;
+    global $zm_request;
 
         $account = $zm_request->getAccount();
         $addressId = $zm_request->getParameter('addressId', 0);
         if (0 < $addressId) {
             ZMAddresses::instance()->deleteAddressForId($addressId);
-            $zm_messages->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
+            ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
         }
         return $this->findView('success');
     }
@@ -180,7 +178,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function createAddress() {
-    global $zm_accounts, $zm_request, $zm_messages;
+    global $zm_request;
 
         $address = $this->create("Address");
         $address->populate();
@@ -197,7 +195,7 @@ class ZMAddressBookProcessController extends ZMController {
         if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId()))) {
             $account = $zm_request->getAccount();
             $account->setDefaultAddressId($address->getId());
-            $zm_accounts->updateAccount($account);
+            ZMAccounts::instance()->updateAccount($account);
 
             $session = $zm_request->getSession();
             $session->setAccount($account);
@@ -207,7 +205,7 @@ class ZMAddressBookProcessController extends ZMController {
 
         // if guest, there is no address book!
         if ($zm_request->isRegistered()) {
-            $zm_messages->success(zm_l10n_get('Address added to your address book.'));
+            ZMMessages::instance()->success(zm_l10n_get('Address added to your address book.'));
         }
 
         return $this->findView('success');

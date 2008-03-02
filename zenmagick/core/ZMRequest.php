@@ -67,13 +67,6 @@ class ZMRequest extends ZMObject {
 
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return parent::instance('Request');
-    }
-
-    /**
      * Get the request method.
      *
      * @return string The upper case request method.
@@ -265,14 +258,12 @@ class ZMRequest extends ZMObject {
      * @return ZMAccount The account or <code>null</code>.
      */
     function getAccount() {
-    global $zm_accounts;
-        
         $accountId = $this->getAccountId();
         if (0 == $accountId) {
             return null;
         }
 
-        return $zm_accounts->getAccountForId($accountId);
+        return ZMAccounts::instance()->getAccountForId($accountId);
     }
 
     /**

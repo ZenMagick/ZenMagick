@@ -65,7 +65,7 @@
     }
 
     // now we can check for a static homepage
-    $request = ZMRequest::instance();
+    $request = new ZMRequest();
     if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $request->getPageName() && (0 == count($request->getParameterMap()))) {
         require(zm_setting('staticHome'));
         exit;
@@ -86,26 +86,26 @@
         $zm_orders = ZMOrders::instance();
         $zm_events = ZMEvents::instance();
         $zm_addresses = ZMAddresses::instance();
+        $zm_messages = ZMMessages::instance();
+        $zm_validator = ZMValidator::instance();
+        $zm_categories = ZMCategories::instance();
+        $zm_manufacturers = ZMManufacturers::instance();
+        $zm_crumbtrail = ZMCrumbtrail::instance();
+        $zm_meta = ZMMetaTags::instance();
+        $zm_currencies = ZMCurrencies::instance();
+        $zm_languages = ZMLanguages::instance();
+        $zm_countries = ZMCountries::instance();
+        $zm_accounts = ZMAccounts::instance();
     }
 
   //TODO: get rid of!
     // the main instances
-    $zm_request = ZMRequest::instance();
+    $zm_request = $request;
     // set up main class instances (aka the ZenMagick API)
-    $zm_categories = new ZMCategories();
-    $zm_manufacturers = new ZMManufacturers();
-    $zm_accounts = new ZMAccounts();
-    $zm_currencies = new ZMCurrencies();
-    $zm_countries = new ZMCountries();
     $zm_cart = new ZMShoppingCart();
-    $zm_messages = new ZMMessages();
-    $zm_languages = new ZMLanguages();
-    $zm_validator = new ZMValidator();
     // share instance
     $zm_account = $zm_request->getAccount();
     // event proxy to simplify event subscription
-    $zm_crumbtrail = ZMLoader::make('Crumbtrail');
-    $zm_meta = ZMLoader::make('MetaTags');
   //END TODO
 
 

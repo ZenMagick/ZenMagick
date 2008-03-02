@@ -62,9 +62,9 @@ class ZMGvRedeemController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_messages;
+    global $zm_request;
 
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         $gvredeem = $this->create('GVRedeem');
         $gvredeem->populate();
@@ -83,7 +83,7 @@ class ZMGvRedeemController extends ZMController {
                 $this->exportGlobal("zm_gvredeem", $gvredeem);
             } else {
                 // not redeemable
-                $zm_messages->error(zm_l10n_get('The provided gift voucher code seems to be invalid!'));
+                ZMMessages::instance()->error(zm_l10n_get('The provided gift voucher code seems to be invalid!'));
             }
         }
 

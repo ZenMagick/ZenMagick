@@ -73,7 +73,9 @@ class ZMCategoryCouponRestriction extends ZMModel {
      *
      * @return A <code>ZMCategory</code> instance.
      */
-    function getCategory() { global $zm_categories; return $zm_categories->getCategoryForId($this->categoryId_); }
+    function getCategory() { 
+        return ZMCategories::instance()->getCategoryForId($this->categoryId_);
+    }
 
 }
 

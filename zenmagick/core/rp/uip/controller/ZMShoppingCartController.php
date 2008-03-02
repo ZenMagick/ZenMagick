@@ -62,9 +62,9 @@ class ZMShoppingCartController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_crumbtrail, $zm_cart;
+    global $zm_cart;
 
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return $this->findView($zm_cart->isEmpty() ? 'empty_cart' : 'shopping_cart');
     }

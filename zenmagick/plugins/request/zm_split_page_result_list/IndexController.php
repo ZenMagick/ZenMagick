@@ -62,7 +62,7 @@ class IndexController extends ZMIndexController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_crumbtrail;
+    global $zm_request;
 
         if (null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId()) {
             // default
@@ -120,7 +120,7 @@ class IndexController extends ZMIndexController {
         $this->exportGlobal("zm_resultList", $resultList);
         $viewName = 'category_list';
 
-        $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+        $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
         if ($viewName == "category_list" && ((!$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }

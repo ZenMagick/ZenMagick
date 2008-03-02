@@ -62,7 +62,7 @@ class ZMProductInfoController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
         $product = null;
         if ($zm_request->getProductId()) {
@@ -79,9 +79,9 @@ class ZMProductInfoController extends ZMController {
         ZMProducts::instance()->updateViewCount($product);
 
         // crumbtrail handling
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($product->getId());
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($product->getId());
 
         $viewName = zen_get_info_page($product->getId());
         return $this->findView($viewName);

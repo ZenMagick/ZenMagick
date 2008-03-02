@@ -35,8 +35,6 @@
      * @return string A fully formatted address.
      */
     function zm_format_address(&$address, $html=true, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_countries;
-
         if (null == $address) {
             $out = zm_l10n_get("N/A");    
             if ($echo) echo $out;
@@ -57,10 +55,10 @@
             $zmcountry = $address->getCountry();
             $country = $zmcountry->getName();
             if (0 != $address->getZoneId()) {
-                $state = $zm_countries->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
+                $state = ZMCountries::instance()->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
             }
         } else {
-            $zmcountry = $zm_countries->getCountryForId(zm_setting('storeCountry'));
+            $zmcountry = ZMCountries::instance()->getCountryForId(zm_setting('storeCountry'));
             $country = '';
             $state = '';
         }

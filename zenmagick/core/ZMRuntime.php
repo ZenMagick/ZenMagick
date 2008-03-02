@@ -159,10 +159,8 @@ class ZMRuntime extends ZMObject {
      * @return ZMCurrency The current currency.
      */
     public static function getCurrency() {
-    global $zm_currencies;
-   
         $session = ZMObject::instance('Session');
-        $currency = $zm_currencies->getCurrencyForCode($session->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode($session->getCurrencyCode());
         return $currency;
     }
 

@@ -84,7 +84,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_accounts;
+    global $zm_request;
 
         $review = $this->create("Review");
         $review->populate();
@@ -117,7 +117,7 @@ class ZMProductReviewsWriteController extends ZMController {
             zm_mail($subject, 'review', $context, zm_setting('emailAdminReview'));
         }
 
-        $zm_messages->success(zm_l10n_get("Thank you for your submission"));
+        ZMMessages::instance()->success(zm_l10n_get("Thank you for your submission"));
         return $this->findView('success', array('parameter' => 'products_id='.$product->getId()));
     }
 
@@ -144,12 +144,12 @@ class ZMProductReviewsWriteController extends ZMController {
      * @param ZMProduct product The current product.
      */
     function _handleCrumbtrail($product) {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($product->getId());
-        $zm_crumbtrail->addCrumb("Reviews");
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($product->getId());
+        ZMCrumbtrail::instance()->addCrumb("Reviews");
     }
 
 }

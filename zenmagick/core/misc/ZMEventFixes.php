@@ -59,18 +59,18 @@ class ZMEventFixes extends ZMObject {
      * Validate addresses for guest checkout.
      */
     function onNotifyHeaderEndCheckoutConfirmation() {
-    global $zm_request, $zm_cart, $zm_messages;
+    global $zm_request, $zm_cart;
 
         $session = $zm_request->getSession();
         if ($session->isGuest()) {
             // check for address
             if (!$zm_cart->hasShippingAddress() && !$zm_cart->isVirtual()) {
-                $zm_messages->error(zm_l10n_get('Please provide a shipping address'));
+                ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
                 zm_redirect(zm_secure_href(FILENAME_CHECKOUT_SHIPPING_ADDRESS));
             }
 
             if (null == $zm_cart->getBillingAddress()) {
-                $zm_messages->error(zm_l10n_get('Please provide a billing address'));
+                ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
                 zm_redirect(zm_secure_href(FILENAME_CHECKOUT_PAYMENT_ADDRESS));
             }
         }

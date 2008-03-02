@@ -191,7 +191,7 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
      * @return string The order tracking code or empty string if not applicable.
      */
     function getCheckoutCode() {
-    global $zm_request, $zm_order, $zm_categories;
+    global $zm_request, $zm_order;
 
         if ('checkout_success' != $zm_request->getPageName()) {
             return '';
@@ -215,7 +215,7 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
         //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
         foreach ($zm_order->getOrderItems() as $orderItem) {
             $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
-            $category = $zm_categories->getDefaultCategoryForProductId($orderItem->getProductId());
+            $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId());
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $code .= 'UTM:I|'.$zm_order->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
         }

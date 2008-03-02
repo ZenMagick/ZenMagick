@@ -28,14 +28,14 @@
   $currentLanguage = ZMRuntime::getLanguage();
   $selectedLanguageId = $zm_request->getParameter('languageId', $currentLanguage->getId());
 
-  $category = $zm_categories->getCategoryForId($zm_request->getCategoryId(), $selectedLanguageId);
+  $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId(), $selectedLanguageId);
   if (null === $category) {
       $category = ZMLoader::make("Category");
       $category->setName('** new category **');
 
       // set a few defaults from the default language category
-      $defaultLanguage = $zm_languages->getLanguageForCode(zm_setting('defaultLanguageCode'));
-      $defaultCategory = $zm_categories->getCategoryForId($zm_request->getCategoryId(), $defaultLanguage->getId());
+      $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
+      $defaultCategory = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId(), $defaultLanguage->getId());
       if (null != $defaultCategory) {
           // only if exist (might not be the case if category is all new)
           $category->setName($defaultCategory->getName());
@@ -49,7 +49,7 @@
   <?php zm_form('', $zm_nav_params, '', 'get') ?>
     <div><input type="hidden" name="fkt" value="zm_category_admin"></div>
     <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onChange="this.form.submit();">
-                <?php foreach ($zm_languages->getLanguages() as $language) { ?>
+                <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
                   <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
                   <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
                 <?php } ?>

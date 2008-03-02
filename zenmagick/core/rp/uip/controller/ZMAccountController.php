@@ -62,9 +62,9 @@ class ZMAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         // last order is first, so displaying the first page is just fine...
         $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId());

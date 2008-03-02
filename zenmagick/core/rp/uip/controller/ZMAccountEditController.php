@@ -63,10 +63,8 @@ class ZMAccountEditController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -78,7 +76,7 @@ class ZMAccountEditController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         if (!$this->validate('edit_account')) {
             return $this->findView();
@@ -91,15 +89,15 @@ class ZMAccountEditController extends ZMController {
 
         if ($reqAccount->getEmail() != $currentAccount->getEmail()) {
             // email changed, so make sure it doesn't exist
-            if ($zm_accounts->emailExists($reqAccount->getEmail())) {
-                $zm_messages->error(zm_l10n_get('Sorry, the entered email address already exists.'));
+            if (ZMAccounts::instance()->emailExists($reqAccount->getEmail())) {
+                ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered email address already exists.'));
                 return $this->findView();
             }
         }
 
-        $zm_accounts->updateAccount($reqAccount);
+        ZMAccounts::instance()->updateAccount($reqAccount);
 
-        $zm_messages->success(zm_l10n_get('Your account has been updated.'));
+        ZMMessages::instance()->success(zm_l10n_get('Your account has been updated.'));
 
         return $this->findView('success');
     }

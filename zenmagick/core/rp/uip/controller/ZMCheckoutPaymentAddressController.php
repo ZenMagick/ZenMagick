@@ -83,10 +83,8 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }

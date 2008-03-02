@@ -62,12 +62,12 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_wiki;
+    global $zm_request, $zm_wiki;
 
-        $zm_crumbtrail->clear();
-        $zm_crumbtrail->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
+        ZMCrumbtrail::instance()->clear();
+        ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
         $page = $zm_request->getParameter('page', 'WikiRoot');
-        $zm_crumbtrail->addCrumb(zm_format_title($page));
+        ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
 
         return $this->create("PluginView", zm_view_wiki, $zm_wiki);
     }
@@ -80,12 +80,12 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->clear();
-        $zm_crumbtrail->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
+        ZMCrumbtrail::instance()->clear();
+        ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
         $page = $zm_request->getParameter('page', 'WikiRoot');
-        $zm_crumbtrail->addCrumb(zm_format_title($page));
+        ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
 
         return $this->create("PluginView", zm_view_wiki_edit, $zm_wiki);
     }

@@ -62,9 +62,9 @@ class ZMProductComparisonController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_messages;
+    global $zm_request;
 
-        $zm_crumbtrail->addCrumb("Compare Products");
+        ZMCrumbtrail::instance()->addCrumb("Compare Products");
 
         $product = null;
         $productIds = $zm_request->getParameter("compareId");
@@ -76,7 +76,7 @@ class ZMProductComparisonController extends ZMController {
                 break;
         }
         if (3 < count($productIds)) {
-            $zm_messages->warn(zm_l10n_get("You can't compare more that 3 products - displaying first three."));
+            ZMMessages::instance()->warn(zm_l10n_get("You can't compare more that 3 products - displaying first three."));
         }
 
         $this->exportGlobal("zm_productList", $productList);

@@ -33,7 +33,7 @@
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
     <?php if (zm_setting('isCustomerProductNotifications')) { ?>
-        <?php if (!$zm_account->isGlobalProductSubscriber()) { ?>
+        <?php if (!$zm_request->getAccount()->isGlobalProductSubscriber()) { ?>
             <fieldset>
                 <legend><?php zm_l10n("Product Notifications") ?></legend>
                 <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
@@ -49,7 +49,7 @@
     <?php } ?>
 
 
-    <?php $voucherBalance = $zm_account->getVoucherBalance(); ?>
+    <?php $voucherBalance = $zm_request->getAccount()->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>

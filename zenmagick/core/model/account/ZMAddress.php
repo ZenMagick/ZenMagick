@@ -95,7 +95,7 @@ class ZMAddress extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request, $zm_countries;
+    global $zm_request;
 
         $this->addressId_ = $zm_request->getParameter('addressId', 0);
         $this->firstName_ = $zm_request->getParameter('firstname', '');
@@ -106,7 +106,7 @@ class ZMAddress extends ZMModel {
         $this->suburb_ = $zm_request->getParameter('suburb', '');
         $this->postcode_ = $zm_request->getParameter('postcode', '');
         $this->city_ = $zm_request->getParameter('city', '');
-        $this->country_ = $zm_countries->getCountryForId($zm_request->getParameter('zone_country_id', 0));
+        $this->country_ = ZMCountries::instance()->getCountryForId($zm_request->getParameter('zone_country_id', 0));
         if (null == $this->country_) {
             $this->country_ = $this->create("Country");
         }
@@ -115,7 +115,7 @@ class ZMAddress extends ZMModel {
         $this->zoneId_ = 0;
         // free text or zone id
         $state = $zm_request->getParameter('state', '');
-        $zones = $zm_countries->getZonesForCountryId($this->country_->getId());
+        $zones = ZMCountries::instance()->getZonesForCountryId($this->country_->getId());
         if (0 < count ($zones)) {
             // need $state to match either an id or name
             foreach ($zones as $zone) {

@@ -63,9 +63,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -96,7 +94,7 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         $session = $zm_request->getSession();
         if (!$session->isValid()) {
@@ -113,15 +111,15 @@ class ZMLoginController extends ZMController {
         }
 
         $emailAddress = $zm_request->getParameter('email_address');
-        $account = $zm_accounts->getAccountForEmailAddress($emailAddress);
+        $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
-            $zm_messages->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
+            ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
         $password = $zm_request->getParameter('password');
         if (!zm_validate_password($password, $account->getPassword())) {
-            $zm_messages->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
+            ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
@@ -130,7 +128,7 @@ class ZMLoginController extends ZMController {
         $session->setAccount($account);
 
         // update login stats
-        $zm_accounts->updateAccountLoginStats($account->getId());
+        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
 
         // restore cart contents
         $session->restoreCart();

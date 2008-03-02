@@ -52,28 +52,26 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
      * @return boolean <code>true</code> if permissions are ok, <code>false</code> if not.
      */
     function zm_site_switch_check_permissions() {
-    global $zm_messages;
-
         $localDir = dirname(ZM_FILE_SITE_SWITCHER);
         if (!file_exists($localDir)) {
             // can we create folder than all ok...
             if (is_writeable(dirname($localDir))) {
                 return true;
             }
-            $zm_messages->error('need permission to write '.dirname($localDir));
+            ZMMessages::instance()->error('need permission to write '.dirname($localDir));
             return false;
         }
 
         if (is_writeable(dirname($localDir))) {
             $localConfig = $localDir.'/configure.php';
             if (file_exists($localConfig) && !is_writeable($localConfig)) {
-                $zm_messages->error('need permission to update '.$localConfig);
+                ZMMessages::instance()->error('need permission to update '.$localConfig);
                 return false;
             }
             return true;
         }
 
-        $zm_messages->error('need permission to write '.$localDir);
+        ZMMessages::instance()->error('need permission to write '.$localDir);
         return false;
     }
 
@@ -84,13 +82,11 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
      * @package org.zenmagick.plugins.zm_site_switch
      */
     function zm_site_switch_setup_switcher() {
-    global $zm_messages;
-
         $localDir = dirname(ZM_FILE_SITE_SWITCHER);
         if (!is_dir($localDir)) {
             zm_mkdir($localDir);
             if (!is_dir($localDir)) {
-                $zm_messages->error('could not create directory: \''.$localDir.'\'');
+                ZMMessages::instance()->error('could not create directory: \''.$localDir.'\'');
                 return;
             }
         }
@@ -101,7 +97,7 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
                 $ok = fwrite($handle, ZM_SITE_SWITCHER_CONFIGURE_LINE);
                 fclose($handle);
             } else {
-                $zm_messages->error('could not create file: \''.ZM_SITE_SWITCHER_CONFIGURE_LINE.'\'');
+                ZMMessages::instance()->error('could not create file: \''.ZM_SITE_SWITCHER_CONFIGURE_LINE.'\'');
                 return;
             }
         } else {
@@ -128,7 +124,7 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
                     }
                     rename($localConfig.'.tmp', $localConfig);
                 } else {
-                    $zm_messages->error('could not create file in \''.$localDir.'\'');
+                    ZMMessages::instance()->error('could not create file in \''.$localDir.'\'');
                     return;
                 }
             }
@@ -142,12 +138,10 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
      * @package org.zenmagick.plugins.zm_site_switch
      */
     function zm_site_switch_remove_switcher() {
-    global $zm_messages;
-
         if (file_exists(ZM_FILE_SITE_SWITCHER)) {
             unlink(ZM_FILE_SITE_SWITCHER);
             if (is_dir($localDir)) {
-                $zm_messages->error('could not remove file: \''.ZM_FILE_SITE_SWITCHER.'\'');
+                ZMMessages::instance()->error('could not remove file: \''.ZM_FILE_SITE_SWITCHER.'\'');
                 return;
             }
         }
@@ -176,7 +170,7 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
                 }
                 rename($localConfig.'.tmp', $localConfig);
             } else {
-                $zm_messages->error('could not write temp file in: \''.$localDir.'\'');
+                ZMMessages::instance()->error('could not write temp file in: \''.$localDir.'\'');
                 return;
             }
         }

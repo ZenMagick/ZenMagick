@@ -41,12 +41,12 @@
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_page_cache_request_cacheable() {
-    global $zm_request, $zm_cart, $zm_messages;
+    global $zm_request, $zm_cart;
         
         return !$zm_request->isSecure() 
           && !zm_is_checkout_page(true) 
           && $zm_cart->isEmpty() 
-          && !$zm_messages->hasMessages()
+          && !ZMMessages::instance()->hasMessages()
           && false === strpos($zm_request->getPageName(), 'ajax')
           && false === strpos($zm_request->getPageName(), 'address_book')
           && false === strpos($zm_request->getPageName(), 'account');

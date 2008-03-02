@@ -63,9 +63,7 @@ class ZMGuestHistoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb('Guest Order');
+        ZMCrumbtrail::instance()->addCrumb('Guest Order');
 
         return parent::process();
     }
@@ -77,7 +75,7 @@ class ZMGuestHistoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages, $zm_crumbtrail;
+    global $zm_request;
 
         if (!$this->validate('guest_history')) {
             return $this->findView();
@@ -94,16 +92,16 @@ class ZMGuestHistoryController extends ZMController {
         if (null != $order) {
             $accountId = $order->getAccountId();
             if (null != $accountId) {
-                $account = $zm_accounts->getAccountForId($accountId);
+                $account = ZMAccounts::instance()->getAccountForId($accountId);
             }
         }
 
         if (null != $account && null != $order && ZM_ACCOUNT_TYPE_GUEST == $account->getType() && $account->getEmail() == $email) {
-            $zm_crumbtrail->addCrumb("Order # ".$order->getId());
+            ZMCrumbtrail::instance()->addCrumb("Order # ".$order->getId());
             $this->exportGlobal("zm_order", $order);
             return $this->findView('success');
         } else {
-            $zm_messages->warn(zm_l10n_get('No order information found'));
+            ZMMessages::instance()->warn(zm_l10n_get('No order information found'));
             return $this->findView();
         }
     }

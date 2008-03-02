@@ -266,7 +266,9 @@ class ZMPlugins extends ZMObject {
      * @return string The really final contents :0
      */
     public function filterResponse($contents) {
-        $controller = ZMRequest::instance()->getController();
+    global $zm_request;
+
+        $controller = $zm_request->getController();
         foreach ($controller->getGlobals() as $name => $instance) {
             global $$name;
             $$name = $instance;

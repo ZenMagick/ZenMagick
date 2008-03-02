@@ -37,18 +37,18 @@
         $themeBuilder->setInheritDefaults($zm_request->getParameter('inherit', false));
         $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msg) {
-            $zm_messages->msg($msg);
+            ZMMessages::instance()->msg($msg);
         }
 
         if ($switchto) {
             // create dummy files
             $dummyPatch = new ZMThemeDummyPatch();
             $dummyPatch->patch(true);
-            $zm_messages->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
+            ZMMessages::instance()->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
 
             // select new theme
             ZMThemes::instance()->setZCThemeId($name);
-            $zm_messages->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
+            ZMMessages::instance()->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
         }
 
     }
@@ -69,9 +69,9 @@
   <body id="b_theme_builder">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <?php if ($zm_messages->hasMessages()) { ?>
+    <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>

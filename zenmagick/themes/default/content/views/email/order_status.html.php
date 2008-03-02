@@ -35,7 +35,7 @@ $language = ZMRuntime::getLanguage();
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?></p>
+<p><?php zm_l10n("Dear %s %s,", $zm_request->getAccount()->getFirstName(), $zm_request->getAccount()->getLastName()) ?></p>
 
 <p><?php zm_l10n("This is to inform you that your order #%s has been update.", $zm_order->getId()) ?></p>
 <?php $href = '<a href="'.zm_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>'; ?>

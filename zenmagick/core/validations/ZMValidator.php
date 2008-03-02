@@ -40,7 +40,7 @@ class ZMValidator extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMValidator() {
+    function __construct() {
         parent::__construct();
 
         $this->sets_ = array();
@@ -48,17 +48,17 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMValidator();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Validator');
     }
 
 

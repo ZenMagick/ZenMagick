@@ -56,13 +56,11 @@ class DefaultController extends ZMController {
      * Process a GET request.
      */
     function processGet() {
-    global $zm_crumbtrail;
-
         // normal processing
         $view = parent::processGet();
 
-        $zm_crumbtrail->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return $view;
     }

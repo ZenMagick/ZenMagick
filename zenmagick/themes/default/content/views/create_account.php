@@ -117,10 +117,10 @@
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php zm_idp_select('zone_country_id', $zm_countries->getCountries(), 1, $countryId) ?></td>
+                    <td><?php zm_idp_select('zone_country_id', ZMCountries::instance()->getCountries(), 1, $countryId) ?></td>
                 </tr>
                 <?php if (zm_setting('isAccountState')) { ?>
-                    <?php $zones = $zm_countries->getZonesForCountryId($countryId); ?>
+                    <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>

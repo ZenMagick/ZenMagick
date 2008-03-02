@@ -34,6 +34,7 @@
      */
 
 
+    $zm_validator = ZMValidator::instance();
     /* edit account */
     $zm_validator->addRuleSet(new ZMRuleSet('edit_account', array(
         new ZMRequiredRule('firstname', 'Please enter your first name.'),

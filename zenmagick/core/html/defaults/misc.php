@@ -171,14 +171,12 @@
      * @return string HTML unordered list of messages or <code>null</code>.
      */
     function zm_field_messages($name, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_messages;
-
-        if (!$zm_messages->hasMessages($name)) {
+        if (!ZMMessages::instance()->hasMessages($name)) {
             return null;
         }
 
         $html = '<ul id="'.$name.'Info" class="fieldMsg">';
-        foreach ($zm_messages->getMessages($name) as $msg) {
+        foreach (ZMMessages::instance()->getMessages($name) as $msg) {
             $html .= '<li class="'.$msg->getType().'">'.$msg->getText().'</li>';
         }
         $html .= '</ul>';

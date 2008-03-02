@@ -53,9 +53,9 @@ require_once('includes/application_top.php');
 
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <?php if ($zm_messages->hasMessages()) { ?>
+    <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>

@@ -34,12 +34,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php $zm_meta->getTitle() ?></title>
+    <title><?php ZMMetaTags::instance()->getTitle() ?></title>
     <base href="<?php echo $zm_request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <meta name="generator" content="ZenMagick <?php echo zm_setting('ZenMagickVersion') ?>" />
-    <meta name="keywords" content="<?php $zm_meta->getKeywords()?>" />
-    <meta name="description" content="<?php $zm_meta->getDescription()?>" />
+    <meta name="keywords" content="<?php ZMMetaTags::instance()->getKeywords()?>" />
+    <meta name="description" content="<?php ZMMetaTags::instance()->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
     <!--[if IE]><link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("ie.css") ?>"  /><![endif]-->
     <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
@@ -91,16 +91,16 @@
 
       <div id="content">
         <?php if ('index' != $zm_view->getName() && zm_setting('isShowCrumbtrail')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-            <?php echo zm_build_crumbtrail($zm_crumbtrail, " &gt; "); ?>
+            <?php echo zm_build_crumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
         <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(3); if (null != $bannerBox) { ?>
             <div id="bannerThree"><?php zm_display_banner($bannerBox); ?></div>
         <?php } ?>
 
-        <?php if ($zm_messages->hasMessages()) { ?>
+        <?php if (ZMMessages::instance()->hasMessages()) { ?>
             <ul id="messages">
-            <?php foreach ($zm_messages->getMessages() as $message) { ?>
+            <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
                 <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             <?php } ?>
             </ul>

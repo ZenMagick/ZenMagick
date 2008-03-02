@@ -85,7 +85,9 @@ class ZMCategory extends ZMModel {
      *
      * @return ZMCategory The parent category or <code>null</code>.
      */
-    function getParent() { global $zm_categories; return 0 != $this->parentId_ ? $zm_categories->getCategoryForId($this->parentId_) : null; }
+    function getParent() { 
+        return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_) : null;
+    }
 
     /**
      * Get the parent category id (if any).
@@ -127,7 +129,9 @@ class ZMCategory extends ZMModel {
      *
      * @return array A list of <code>ZMcategory</code> instances.
      */
-    function getChildren() { global $zm_categories; return $zm_categories->getCategories($this->childrenIds_); }
+    function getChildren() { 
+        return ZMCategories::instance()->getCategories($this->childrenIds_);
+    }
 
     /**
      * Get the category description.

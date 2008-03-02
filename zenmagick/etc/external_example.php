@@ -43,12 +43,10 @@ require("../zen-cart/zenmagick/external.php");
 
     // show messages
     function showMessages() {
-    global $zm_messages;
-
-        $zm_messages->_loadMessageStack();
-        if ($zm_messages->hasMessages()) {
+        ZMMessages::instance()->_loadMessageStack();
+        if (ZMMessages::instance()->hasMessages()) {
           echo '<ul id="messages">';
-          foreach ($zm_messages->getMessages() as $message) {
+          foreach (ZMMessages::instance()->getMessages() as $message) {
               echo '<li class="'.$message->getType().'">'. $message->getText().'</li>';
           }
           echo '</ul>';
@@ -66,7 +64,7 @@ require("../zen-cart/zenmagick/external.php");
 
     <div>
       <h1>Access Categories and Products</h1>
-      <?php $category = $zm_categories->getCategoryForId(9); ?>
+      <?php $category = ZMCategories::instance()->getCategoryForId(9); ?>
       <h2><?php echo $category->getName() ?></h2>
       <ul>
         <?php foreach (ZMProducts::instance()->getProductsForCategoryId(9) as $product) { ?>

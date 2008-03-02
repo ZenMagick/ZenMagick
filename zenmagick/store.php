@@ -28,8 +28,8 @@
     //TODO: remove once using init plugins
     $zm_request->setCategoryPathArray($cPath_array);
 
-    $zm_messages->_loadMessageStack();
-    $zm_categories->setPath($zm_request->getCategoryPathArray());
+    ZMMessages::instance()->_loadMessageStack();
+    ZMCategories::instance()->setPath($zm_request->getCategoryPathArray());
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {

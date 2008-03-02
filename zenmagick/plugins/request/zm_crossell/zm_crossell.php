@@ -63,18 +63,6 @@ class zm_crossell extends ZMPlugin {
 
 
     /**
-     * Init this plugin.
-     */
-    function init() {
-    global $zm_categories;
-
-        parent::init();
-
-        $zm_categories = $this->create("Categories");
-    }
-
-
-    /**
      * Get x-sell products for the given productId.
      *
      * <p>This will return no products, if the number of products is less than the 

@@ -63,10 +63,8 @@ class ZMAccountPasswordController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -78,7 +76,7 @@ class ZMAccountPasswordController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         if (!$this->validate('account_password')) {
             return $this->findView();
@@ -95,13 +93,13 @@ class ZMAccountPasswordController extends ZMController {
         $confirmPassword = $zm_request->getParameter('password_confirmation');
 
         if (!zm_validate_password($oldPassword, $account->getPassword())) {
-            $zm_messages->error(zm_l10n_get('Your current password did not match the password in our records. Please try again.'));
+            ZMMessages::instance()->error(zm_l10n_get('Your current password did not match the password in our records. Please try again.'));
             return $this->findView();
         }
 
         // update password
         $newEncrpytedPassword = zm_encrypt_password($newPassword);
-        $zm_accounts->_setAccountPassword($account->getId(), $newEncrpytedPassword);
+        ZMAccounts::instance()->_setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         $zm_messages->success(zm_l10n_get('Your password has been updated.'));
 

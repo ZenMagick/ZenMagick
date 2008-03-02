@@ -30,8 +30,7 @@
 
     // build full zen-cart menu
     zm_add_menu_item(new ZMMenuItem(null, 'config', zm_l10n_get('Configuration')));
-    $zm_config = new ZMConfig();
-    $configGroups = $zm_config->getConfigGroups();
+    $configGroups = ZMConfig::instance()->getConfigGroups();
     foreach ($configGroups as $group) {
         $id = strtolower($group->getName());
         $id = str_replace(' ', '', $id);

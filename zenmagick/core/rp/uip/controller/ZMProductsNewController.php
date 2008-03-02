@@ -62,12 +62,12 @@ class ZMProductsNewController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories, $zm_crumbtrail;
+    global $zm_request;
 
         // crumbtrail handling
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addCrumb("New Products");
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addCrumb("New Products");
 
         $newProducts = ZMProducts::instance()->getNewProducts($zm_request->getCategoryId());
         $resultList = $this->create("ResultList", $newProducts);

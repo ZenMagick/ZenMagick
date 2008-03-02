@@ -39,7 +39,7 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
-    global $zm_request, $zm_categories;
+    global $zm_request;
 
         if ($root) { 
             ob_start(); 
@@ -49,8 +49,8 @@
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
-            $zm_categories->setPath($zm_request->getCategoryPathArray());
-            $rootCategories = $zm_categories->getCategoryTree();
+            ZMCategories::instance()->setPath($zm_request->getCategoryPathArray());
+            $rootCategories = ZMCategories::instance()->getCategoryTree();
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
                 $root->childrenIds_[] = $rc->getId();

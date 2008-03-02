@@ -63,10 +63,8 @@ class ZMAccountNewslettersController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb("Newsletter");
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb("Newsletter");
 
         return parent::process();
     }
@@ -78,17 +76,17 @@ class ZMAccountNewslettersController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         $newsletterSubscriber = zm_boolean($zm_request->getParameter('newsletter_general', 0));
 
         $account = $zm_request->getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
             $account->setNewsletterSubscriber($newsletterSubscriber);
-            $zm_accounts->updateAccount($account);
+            ZMAccounts::instance()->updateAccount($account);
         }
 
-        $zm_messages->success(zm_l10n_get('Your newsletter subscription has been updated.'));
+        ZMMessages::instance()->success(zm_l10n_get('Your newsletter subscription has been updated.'));
         return $this->findView('success');
     }
 

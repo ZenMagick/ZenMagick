@@ -65,22 +65,22 @@ require_once('includes/application_top.php');
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
-                $zm_messages->addAll($patch->getMessages());
+                ZMMessages::instance()->addAll($patch->getMessages());
                 if ($status) {
-                    $zm_messages->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    ZMMessages::instance()->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                 } else {
-                    $zm_messages->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    ZMMessages::instance()->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
             } else if (!$patch->isOpen() && null == $zm_request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
                     $status = $patch->undo();
-                    $zm_messages->addAll($patch->getMessages());
+                    ZMMessages::instance()->addAll($patch->getMessages());
                     if ($status) {
-                        $zm_messages->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        ZMMessages::instance()->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        $zm_messages->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        ZMMessages::instance()->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }
@@ -113,15 +113,15 @@ require_once('includes/application_top.php');
 
         if ($coreCompressor->hasErrors()) {
             foreach ($coreCompressor->getErrors() as $msg) {
-                $zm_messages->error($msg);
+                ZMMessages::instance()->error($msg);
             }
         } else if ($didGenerate) {
-            $zm_messages->success("Succsesfully (re-)generated core.php");
+            ZMMessages::instance()->success("Succsesfully (re-)generated core.php");
         }
 
         if (array_key_exists('optimize', $_POST) && !array_key_exists('singleCore', $_POST)) {
             $coreCompressor->disable();
-            $zm_messages->msg("Disabled usage of core.php");
+            ZMMessages::instance()->msg("Disabled usage of core.php");
         }
     }
 
@@ -197,9 +197,9 @@ require_once('includes/application_top.php');
   <body id="b_installation">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <?php if ($zm_messages->hasMessages()) { ?>
+    <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>

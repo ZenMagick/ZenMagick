@@ -62,13 +62,13 @@ class ZMProductReviewsInfoController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
         // crumbtrail handling
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($zm_request->getProductId());
-        $zm_crumbtrail->addCrumb("Reviews");
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($zm_request->getProductId());
+        ZMCrumbtrail::instance()->addCrumb("Reviews");
 
         $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
         $this->exportGlobal("zm_product", $product);

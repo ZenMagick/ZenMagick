@@ -26,7 +26,7 @@
 
 <h3><?php zm_l10n("Languages") ?></h3>
 <div id="sb_languages" class="box">
-    <?php $ii = 0; foreach ($zm_languages->getLanguages() as $language) { ?>
+    <?php $ii = 0; foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
         <a href="<?php zm_href(null, "language=".$language->getCode()) ?>"><img src="<?php $zm_theme->themeURL("images/lang/" . $language->getDirectory() . "/" . $language->getImage()) ?>" alt="<?php echo $language->getName() ?>" title="<?php echo $language->getName() ?>" /></a>
         <?php if (0 == $ii%zm_setting('flagMaxColumns') && 0 < $ii) { ?><br /><?php } ?>
     <?php ++$ii; } ?>

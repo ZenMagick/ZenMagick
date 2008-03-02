@@ -62,10 +62,10 @@ class ZMCheckoutSuccessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId(), 1);
         $this->exportGlobal("zm_order", $orders[0]);

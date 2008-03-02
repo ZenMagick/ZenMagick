@@ -62,12 +62,11 @@ class ZMAdvancedSearchResultController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_crumbtrail;
     global $listing_sql;
 
         // zc search sql
-        $zm_crumbtrail->addCrumb("Advanced Search", zm_href(FILENAME_ADVANCED_SEARCH, null, false));
-        $zm_crumbtrail->addCrumb("Results");
+        ZMCrumbtrail::instance()->addCrumb("Advanced Search", zm_href(FILENAME_ADVANCED_SEARCH, null, false));
+        ZMCrumbtrail::instance()->addCrumb("Results");
 
         $resultList = $this->create("ResultList", ZMProducts::instance()->getProductsForSQL($listing_sql));
         if (null != $resultList) {

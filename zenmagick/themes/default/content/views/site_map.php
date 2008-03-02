@@ -26,7 +26,7 @@
 
 <?php $contact = '<a href="'.zm_href(FILENAME_CONTACT_US, null, false) .'">'.zm_l10n_get("let us know").'</a>'; ?>
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
-<?php echo zm_build_category_tree_list($zm_categories->getCategoryTree(), "catalog"); ?>
+<?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
 <ul>
     <?php if (zm_setting('isSiteMapAccountLinks') && $zm_request->isRegistered()) { ?>
       <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>

@@ -62,9 +62,7 @@ class ZMDefaultController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::processGet();
     }

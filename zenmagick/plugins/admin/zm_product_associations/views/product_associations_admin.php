@@ -34,7 +34,7 @@
 
   <div id="meddle" style="display:none;">
     meddle associations...
-    <?php echo zm_catalog_tree($zm_categories->getCategoryTree(), '', false, true, 'pick-cat-tree'); ?>
+    <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, true, 'pick-cat-tree'); ?>
 
     <a href="#" onclick="tb_remove();return false;" class="btn" style="color: #fff;">&raquo;&nbsp;Continue Shopping</a>
   </div>

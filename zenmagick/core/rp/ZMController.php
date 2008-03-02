@@ -212,21 +212,19 @@ class ZMController extends ZMObject {
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     function validate($id, $req=null) {
-    global $zm_validator, $zm_messages;
-
         if (null === $req) {
             $req = zm_sanitize($_POST);
         }
 
-        if (!$zm_validator->hasRuleSet($id)) {
+        if (!ZMValidator::instance()->hasRuleSet($id)) {
             return true;
         }
 
-        $valid = $zm_validator->validate($req, $id);
+        $valid = ZMValidator::instance()->validate($req, $id);
         if (!$valid) {
-            foreach ($zm_validator->getMessages() as $field => $fieldMessages) {
+            foreach (ZMValidator::instance()->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {
-                    $zm_messages->error($msg, $field);
+                    ZMMessages::instance()->error($msg, $field);
                 }
             }
         }

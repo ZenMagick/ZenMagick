@@ -72,12 +72,12 @@
     }
 
     function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request, $zm_validator;
+    global $zm_request;
 
         $excludes = explode(',', $excludes);
-        if ($zm_validator->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
+        if (ZMValidator::instance()->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
             // create JS validation code
-            $zm_validator->insertJSValidation($id);
+            ZMValidator::instance()->insertJSValidation($id);
         }
 
         $html = '';

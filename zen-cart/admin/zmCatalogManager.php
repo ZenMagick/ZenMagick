@@ -32,11 +32,11 @@ require('includes/application_top.php');
 
   $title = null;
   if (0 < $zm_request->getCategoryId()) {
-      $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+      $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
       $title = $category->getName();
   }
   if (0 < $zm_request->getProductId()) {
-      $product = $zm_products->getProductForId($zm_request->getProductId());
+      $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
       $title = $product->getName();
       $zm_nav_params .= '&productId='.$zm_request->getProductId();
   } 
@@ -92,16 +92,16 @@ require('includes/application_top.php');
   <body id="b_catalog_manager" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <?php if ($zm_messages->hasMessages()) { ?>
+    <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>
     <?php } ?>
 
     <div id="main">
-      <?php echo zm_catalog_tree($zm_categories->getCategoryTree(), '', zm_setting('admin.isShowCatalogTreeProducts')); ?>
+      <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', zm_setting('admin.isShowCatalogTreeProducts')); ?>
       <div id="content">
         <?php if (0 < count($catalog_menu)) { ?>
             <div id="main-tab-container">

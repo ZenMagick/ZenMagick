@@ -49,7 +49,7 @@
     if (null !== $zm_request->getParameter("oID") && 'update_order' == $zm_request->getParameter("action")) {
         $orderId = $zm_request->getParameter("oID");
         $zm_order = ZMOrders::instance()->getOrderForId($orderId);
-        $zm_account = $zm_accounts->getAccountForId($zm_order->getAccountId());
+        $zm_account = ZMAccounts::instance()->getAccountForId($zm_order->getAccountId());
     }
     /*****temp fixes for email generation.... ********/
 

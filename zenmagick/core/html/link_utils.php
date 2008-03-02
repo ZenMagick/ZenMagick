@@ -194,11 +194,9 @@
      * @return string A complete product URL.
      */
     function zm_product_href($productId, $categoryId=null, $echo=ZM_ECHO_DEFAULT) { 
-    global $zm_categories;
-
         $cPath = '';
         if (null != $categoryId) {
-            $category = $zm_categories->getCategoryForId($categoryId);
+            $category = ZMCategories::instance()->getCategoryForId($categoryId);
             if (null != $category) {
                 $cPath = '&'.$category->getPath();
             }

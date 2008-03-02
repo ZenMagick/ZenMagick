@@ -59,7 +59,7 @@ class zm_init_language extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_languages;
+    global $zm_request;
 
         parent::init();
 
@@ -67,12 +67,12 @@ class zm_init_language extends ZMPlugin {
         if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $zm_request->getLanguageCode())) {
             if (0 != $languageCode) {
                 // URL parameter takes precedence
-                $language = $zm_languages->getLanguageForCode($languageCode);
+                $language = ZMLanguages::instance()->getLanguageForCode($languageCode);
             } else {
                 if (zm_setting('isUseBrowserLanguage')) {
                     $language = zm_get_browser_language();
                 } else {
-                    $language = $zm_languages->getLanguageForCode(zm_setting('defaultLanguageCode'));
+                    $language = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
                 }
             }
             if (null == $language) {

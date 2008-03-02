@@ -185,7 +185,6 @@ class ZMAddresses extends ZMObject {
      * Create new address instance.
      */
     function _newAddress($fields) {
-    global $zm_countries;
         $address = $this->create("Address");
         $address->addressId_ = $fields['address_book_id'];
         $address->accountId_ = $fields['customers_id'];
@@ -199,7 +198,7 @@ class ZMAddresses extends ZMObject {
         $address->city_ = $fields['entry_city'];
         $address->state_ = $fields['entry_state'];
         $address->zoneId_ = $fields['entry_zone_id'];
-        $address->country_ = $zm_countries->getCountryForId((int)$fields['entry_country_id']);
+        $address->country_ = ZMCountries::instance()->getCountryForId((int)$fields['entry_country_id']);
         return $address;
     }
 
@@ -210,9 +209,7 @@ class ZMAddresses extends ZMObject {
      * @param int accountId The account id.
      */
     function _getDefaultAddressId($accountId) {
-    global $zm_accounts;
-
-        $account = $zm_accounts->getAccountForId($accountId);
+        $account = ZMAccounts::instance()->getAccountForId($accountId);
         return null != $account ? $account->getDefaultAddressId() : 0;
     }
 

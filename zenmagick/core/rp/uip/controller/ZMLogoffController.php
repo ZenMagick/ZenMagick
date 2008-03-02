@@ -62,7 +62,7 @@ class ZMLogoffController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_crumbtrail, $zm_cart;
+    global $zm_request, $zm_cart;
 
         $session = $zm_request->getSession();
         if (!$session->isAnonymous()) {
@@ -73,7 +73,7 @@ class ZMLogoffController extends ZMController {
         }
 
         // display page
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
         return $this->findView();
     }
 

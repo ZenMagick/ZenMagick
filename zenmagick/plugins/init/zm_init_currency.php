@@ -59,7 +59,7 @@ class zm_init_currency extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_currencies;
+    global $zm_request;
 
         parent::init();
 
@@ -67,7 +67,7 @@ class zm_init_currency extends ZMPlugin {
         //TODO:? use default language currency? : this should be put into the db against the lang!
         if (null == $session->getCurrencyCode() || null != ($currencyCode = $zm_request->getCurrencyCode())) {
             if (null != $currencyCode) {
-                if (null == $zm_currencies->getCurrencyForCode($currencyCode)) {
+                if (null == ZMCurrencies::instance()->getCurrencyForCode($currencyCode)) {
                     $currencyCode = zm_setting('defaultCurrency');
                 }
             } else {

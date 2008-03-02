@@ -81,10 +81,10 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), $zm_countries->getCountries()), 1, $countryId) ?></td>
+                <td><?php zm_idp_select('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), 1, $countryId) ?></td>
             </tr>
             <?php if (zm_setting('isAccountState')) { ?>
-                <?php $zones = $zm_countries->getZonesForCountryId($countryId); ?>
+                <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                     <td>

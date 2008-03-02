@@ -97,7 +97,7 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages;
+    global $zm_request;
 
         $emailMessage = $this->create("EmailMessage");
         $emailMessage->populate();
@@ -132,7 +132,7 @@ class ZMTellAFriendController extends ZMController {
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, zm_setting('emailAdminTellAFriend'));
         }
 
-        $zm_messages->success(zm_l10n_get("Message send successfully"));
+        ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));
         $emailMessage = $this->create("EmailMessage");
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 
@@ -145,12 +145,12 @@ class ZMTellAFriendController extends ZMController {
      * @param ZMProduct product The current product.
      */
     function _handleCrumbtrail($product) {
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($product->getId());
-        $zm_crumbtrail->addCrumb("Tell A Friend");
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($product->getId());
+        ZMCrumbtrail::instance()->addCrumb("Tell A Friend");
     }
 
 }

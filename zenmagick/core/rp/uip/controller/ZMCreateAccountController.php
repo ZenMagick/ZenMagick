@@ -63,10 +63,8 @@ class ZMCreateAccountController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -98,7 +96,7 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_messages, $zm_accounts;
+    global $zm_request;
 
         $account = $this->create("Account");
         $account->populate();
@@ -114,13 +112,13 @@ class ZMCreateAccountController extends ZMController {
 
         // hen and egg...
         $account->setPassword(zm_encrypt_password($zm_request->getParameter('password')));
-        $account = $zm_accounts->createAccount($account);
+        $account = ZMAccounts::instance()->createAccount($account);
 
         $address->setAccountId($account->getId());
         $address = ZMAddresses::instance()->createAddress($address);
 
         $account->setDefaultAddressId($address->getId());
-        $zm_accounts->updateAccount($account);
+        ZMAccounts::instance()->updateAccount($account);
 
         $session = $zm_request->getSession();
         $session->recreate();
@@ -139,7 +137,7 @@ class ZMCreateAccountController extends ZMController {
             zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", zm_setting('storeName')), 'welcome', $context, zm_setting('emailAdminCreateAccount'));
         }
 
-        $zm_messages->success(zm_l10n_get("Thank you for signing up"));
+        ZMMessages::instance()->success(zm_l10n_get("Thank you for signing up"));
 
         $followUpUrl = $session->getLoginFollowUp();
         return $this->findView('success', array('url' => $followUpUrl));

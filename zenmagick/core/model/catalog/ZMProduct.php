@@ -217,7 +217,9 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMManufacturer The manufacturer.
      */
-    function getManufacturer() { global $zm_manufacturers; return $zm_manufacturers->getManufacturerForProduct($this); }
+    function getManufacturer() { 
+        return ZMManufacturers::instance()->getManufacturerForProduct($this); 
+    }
 
     /**
      * Get the product weight.
@@ -457,10 +459,8 @@ class ZMProduct extends ZMModel {
      * @return ZMCategory The default category.
      */
     function getDefaultCategory() {
-    global $zm_categories;
-
-        return null != $this->masterCategoryId_ ? $zm_categories->getCategoryForId($this->masterCategoryId_) :
-            $zm_categories->getDefaultCategoryForProductId($this->id_);
+        return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_) :
+            ZMCategories::instance()->getDefaultCategoryForProductId($this->id_);
     }
 
     /**

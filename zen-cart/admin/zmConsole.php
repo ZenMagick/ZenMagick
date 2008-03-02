@@ -42,7 +42,7 @@ if ('' != $code) {
     ob_end_clean();                                                                                                   
 }
 if ('' == $code) {
-    $code = "\$product = \$zm_products->getProductForId(8);\n"
+    $code = "\$product = ZMProducts::instance()->getProductForId(8);\n"
            ."if (null != \$product) {\n"
            ."   echo \$product->getName().\":\\n\".\$product->getDescription();\n"
            ."   \n"

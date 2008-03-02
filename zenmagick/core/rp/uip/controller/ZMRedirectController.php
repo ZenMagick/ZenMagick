@@ -62,7 +62,7 @@ class ZMRedirectController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_manufacturers, $zm_languages;
+    global $zm_request;
 
         $action = $zm_request->getParameter('action');
         $goto = $zm_request->getParameter('goto');
@@ -85,18 +85,18 @@ class ZMRedirectController extends ZMController {
         case 'manufacturer':
             $manufacturerId = $zm_request->getManufacturerId();
             if (0 < $manufacturerId) {
-                $manufacturer = $zm_manufacturers->getManufacturerForId($manufacturerId);
+                $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
 
                 if (null == $manufacturer || null == $manufacturer->getURL()) {
                     // try default language if different from session language
                     if (zm_setting('defaultLanguageCode') != $zm_request->getSession()->getLanguageCode()) {
-                        $defaultLanguage = $zm_languages->getLanguageForCode(zm_setting('defaultLanguageCode'));
-                        $manufacturer = $zm_manufacturers->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
+                        $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
+                        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }
                 }
 
                 if (null != $manufacturer && null != $manufacturer->getURL()) {
-                    $zm_manufacturers->updateManufacturerClickCount($manufacturerId);
+                    ZMManufacturers::instance()->updateManufacturerClickCount($manufacturerId);
                     return $this->findView('success', array('url' => $manufacturer->getUrl()));
                 }
                 

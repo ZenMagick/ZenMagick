@@ -58,14 +58,12 @@ class zm_useo2 extends ZMPlugin {
      * Install this plugin.
      */
     function install() {
-    global $zm_messages;
-
         // this will remove all '%SEO%' configuration settings, so do this first,
         // before creating SEO plugin settings in parent::install() ...
         $patch = $this->create('ZMUltimateSeoSupportPatch');
         if (null != $patch && $patch->isOpen()) {
             $status = $patch->patch(true);
-            $zm_messages->addAll($patch->getMessages());
+            ZMMessages::instance()->addAll($patch->getMessages());
         }
 
         parent::install();
@@ -77,14 +75,12 @@ class zm_useo2 extends ZMPlugin {
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>true</code>.
      */
     function remove($keepSettings=true) {
-    global $zm_messages;
-
         parent::remove($keepSettings);
 
         $patch = $this->create('ZMUltimateSeoSupportPatch');
         if (!$patch->isOpen() && $patch->canUndo()) {
             $status = $patch->undo();
-            $zm_messages->addAll($patch->getMessages());
+            ZMMessages::instance()->addAll($patch->getMessages());
         }
     }
 

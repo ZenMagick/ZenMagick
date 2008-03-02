@@ -32,7 +32,7 @@
     </div>
     <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
-    <p id="author"><?php zm_l10n("Review by: %s", $zm_account->getFullName()) ?></p>
+    <p id="author"><?php zm_l10n("Review by: %s", $zm_request->getAccount()->getFullName()) ?></p>
   </div>
 </form>
 

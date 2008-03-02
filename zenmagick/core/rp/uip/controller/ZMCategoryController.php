@@ -63,11 +63,11 @@ class ZMCategoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request, $zm_crumbtrail;
+    global $zm_request;
 
-        $zm_crumbtrail->addCategoryPath($zm_request->getCategoryPathArray());
-        $zm_crumbtrail->addManufacturer($zm_request->getManufacturerId());
-        $zm_crumbtrail->addProduct($zm_request->getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($zm_request->getProductId());
 
         return parent::process();
     }
@@ -79,7 +79,7 @@ class ZMCategoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_categories;
+    global $zm_request;
 
         // decide which index view to use and prepare index data
         $resultList = null;
@@ -105,7 +105,7 @@ class ZMCategoryController extends ZMController {
             $this->exportGlobal("zm_resultList", $resultList);
         }
 
-        $category = $zm_categories->getCategoryForId($zm_request->getCategoryId());
+        $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
         if ($viewName == "category_list" && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }

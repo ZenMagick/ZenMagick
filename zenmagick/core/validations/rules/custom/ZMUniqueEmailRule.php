@@ -69,9 +69,7 @@ class ZMUniqueEmailRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-    global $zm_accounts;
-
-        return zm_is_empty($req[$this->name_]) || !$zm_accounts->emailExists($req[$this->name_]);
+        return zm_is_empty($req[$this->name_]) || !ZMAccounts::instance()->emailExists($req[$this->name_]);
     }
 
 

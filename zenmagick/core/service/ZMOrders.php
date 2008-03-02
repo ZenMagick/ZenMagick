@@ -397,7 +397,6 @@ class ZMOrders extends ZMObject {
      * Create new address instance.
      */
     function _newAddress($fields, $prefix) {
-    global $zm_countries;
         $address = $this->create("Address");
         $address->addressId_ = 0;
         //$address->firstName_ = $fields['entry_firstname'];
@@ -410,7 +409,7 @@ class ZMOrders extends ZMObject {
         $address->city_ = $fields[$prefix.'_city'];
         $address->state_ = $fields[$prefix.'_state'];
         //$address->zoneId_ = $fields['entry_zone_id'];
-        $address->country_ = $zm_countries->getCountryForName($fields[$prefix.'_country']);
+        $address->country_ = ZMCountries::instance()->getCountryForName($fields[$prefix.'_country']);
         $address->format_ = $fields[$prefix.'_address_format_id'];
         return $address;
     }

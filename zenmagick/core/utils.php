@@ -290,11 +290,11 @@
      * @param string url A fully qualified url.
      */
     function zm_redirect($url) {
-    global $zm_request, $zm_messages;
+    global $zm_request;
 
-        if ($zm_messages->hasMessages()) {
+        if (ZMMessages::instance()->hasMessages()) {
             $session = $zm_request->getSession();
-            $session->setMessages($zm_messages->getMessages());
+            $session->setMessages(ZMMessages::instance()->getMessages());
         }
 
         $url = str_replace('&amp;', '&', $url);
@@ -637,8 +637,6 @@
      * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
      */
     function zm_get_browser_language() {
-    global $zm_languages;
-
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // build list of language identifiers
             $browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -671,13 +669,13 @@
                     $code = '';
                 }
 
-                if (null != ($language = ($zm_languages->getLanguageForCode($code)))) {
+                if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
                     // found!
                     return $language;
                 } elseif (isset($language_substitutions[$code])) {
                     // try fallback to substitue
                     $code = $language_substitutions[$code];
-                    if (null != ($language = ($zm_languages->getLanguageForCode($code)))) {
+                    if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
                         // found!
                         return $language;
                     }

@@ -63,9 +63,7 @@ class ZMCheckoutGuestController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_crumbtrail;
-
-        $zm_crumbtrail->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         return parent::process();
     }
@@ -77,10 +75,10 @@ class ZMCheckoutGuestController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_accounts, $zm_messages;
+    global $zm_request;
 
         if (!zm_setting('isGuestCheckout')) {
-            $zm_messages->warn(zm_l10n_get('Guest checkout not allowed at this time'));
+            ZMMessages::instance()->warn(zm_l10n_get('Guest checkout not allowed at this time'));
             return $this->findView('guest_checkout_disabled');
         }
 
@@ -101,7 +99,7 @@ class ZMCheckoutGuestController extends ZMController {
         $account->setEmail($zm_request->getParameter('email_address'));
         $account->setPassword('');
         $account->setType(ZM_ACCOUNT_TYPE_GUEST);
-        $account = $zm_accounts->createAccount($account);
+        $account = ZMAccounts::instance()->createAccount($account);
 
         // update session with valid account
         $session->recreate();

@@ -276,12 +276,12 @@ return zen_get_uprid($productId, $attributes);
      * @return string The formatted amount.
      */
     function zm_format_currency($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request, $zm_currencies;
+    global $zm_request;
 
-        $currency = $zm_currencies->getCurrencyForCode($zm_request->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode($zm_request->getCurrencyCode());
         if (null == $currency) {
           ZMObject::log('no currency found - using default currency', ZM_LOG_WARN);
-            $currency = $zm_currencies->getCurrencyForCode(zm_setting('defaultCurrency'));
+            $currency = ZMCurrencies::instance()->getCurrencyForCode(zm_setting('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);
 
@@ -298,9 +298,9 @@ return zen_get_uprid($productId, $attributes);
      * @return float The amount.
      */
     function zm_parse_money($money) {
-    global $zm_request, $zm_currencies;
+    global $zm_request;
 
-        $currency = $zm_currencies->getCurrencyForCode($zm_request->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode($zm_request->getCurrencyCode());
         $amount = $currency->parse($money, false);
 
         return $amount;

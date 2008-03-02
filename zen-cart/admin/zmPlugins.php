@@ -29,7 +29,6 @@ define('GZIP_LEVEL', 0);
 ob_start(); require('sqlpatch.php'); ob_end_clean();
 require_once('includes/application_top.php');
 
-    $zm_config = new ZMConfig();
     $pluginLoader = new ZMLoader("pluginLoader");
 
     $install = $zm_request->getParameter('install');
@@ -51,7 +50,7 @@ require_once('includes/application_top.php');
                 ZMLoader::instance()->setParent($pluginLoader);
             }
             $plugin->install();
-            $zm_messages->addAll($plugin->getMessages());
+            ZMMessages::instance()->addAll($plugin->getMessages());
         }
         $edit = $install;
         $editPlugin = $plugin;
@@ -70,7 +69,7 @@ require_once('includes/application_top.php');
                 ZMLoader::instance()->setParent($pluginLoader);
             }
             $plugin->remove();
-            $zm_messages->addAll($plugin->getMessages());
+            ZMMessages::instance()->addAll($plugin->getMessages());
         }
         $needRefresh = true;
     } else if (null != $edit) {
@@ -83,7 +82,7 @@ require_once('includes/application_top.php');
     // update
     if (isset($_POST) && array_key_exists('pluginId', $_POST)) {
         while (list($key, $value) = each($_POST['configuration'])) {
-          $zm_config->updateConfigValue($key, $value);
+            ZMConfig::instance()->updateConfigValue($key, $value);
         }
         $refresh = $_POST['pluginId'];
         $needRefresh = true;
@@ -107,7 +106,7 @@ require_once('includes/application_top.php');
         }
     }
     // update in db
-    $zm_config->updateConfigValue('ZENMAGICK_PLUGIN_STATUS', serialize($pluginStatus));
+    ZMConfig::instance()->updateConfigValue('ZENMAGICK_PLUGIN_STATUS', serialize($pluginStatus));
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -134,9 +133,9 @@ require_once('includes/application_top.php');
   <body id="b_plugins" onload="init()">
     <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 
-    <?php if ($zm_messages->hasMessages()) { ?>
+    <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($zm_messages->getMessages() as $message) { ?>
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>
