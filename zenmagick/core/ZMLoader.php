@@ -291,7 +291,7 @@ class ZMLoader {
      */
     public static function findIncludes($dir, $recursive=false) {
         $includes = array();
-        if (!is_dir($dir)) {
+        if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
             return $includes;
         }
 
