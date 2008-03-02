@@ -104,13 +104,14 @@
      * @return string A complete onload attribute incl. value or an empty string.
      */
     function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request, $zm_themeInfo;
+    global $zm_request;
 
         $page = null == $page ? $zm_request->getPageName() : $page;
 
         $onload = '';
-        if ($zm_themeInfo->hasPageEventHandler('onload', $page)) {
-            $onload = ' onload="' . $zm_themeInfo->getPageEventHandler('onload', $page) . '"';
+        $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
+        if ($themeInfo->hasPageEventHandler('onload', $page)) {
+            $onload = ' onload="' . $themeInfo->getPageEventHandler('onload', $page) . '"';
         }
 
         if ($echo) echo $onload;

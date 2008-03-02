@@ -41,20 +41,11 @@ class ZMTheme extends ZMObject {
      *
      * @params string themeId The theme id/name.
      */
-    function ZMTheme($themeId) {
+    function __construct($themeId) {
         parent::__construct();
 
         $this->themeId_ = $themeId;
         $this->themeInfo_ = null;
-    }
-
-    /**
-     * Create new instance.
-     *
-     * @params string themeId The theme id/name.
-     */
-    function __construct($themeId) {
-        $this->ZMTheme($themeId);
     }
 
     /**

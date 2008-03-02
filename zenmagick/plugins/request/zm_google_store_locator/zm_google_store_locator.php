@@ -91,9 +91,7 @@ class zm_google_store_locator extends ZMPlugin {
      * Update theme once init is done.
      */
     function onZMInitDone($args) {
-    global $zm_themeInfo;
-
-        $zm_themeInfo->setPageEventHandler('onload', ZM_FILENAME_STORE_LOCATOR, "load_locator_map()");
+        ZMRuntime::getTheme()->getThemeInfo()->setPageEventHandler('onload', ZM_FILENAME_STORE_LOCATOR, "load_locator_map()");
     }
 
 }

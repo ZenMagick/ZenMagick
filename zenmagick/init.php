@@ -120,25 +120,26 @@
     ZMPlugins::initPlugins('init', ZMRuntime::getScope());
     ZMPlugins::initPlugins('admin', ZMRuntime::getScope());
 
-    // set up *before* theme is resolved...
-    $zm_urlMapper = new ZMUrlMapper();
+    // load default mappings
     zm_set_default_url_mappings();
-    $zm_sacsMapper = new ZMSacsMapper();
     zm_set_default_sacs_mappings();
 
     // make sure to use SSL if required
-    $zm_sacsMapper->ensureAccessMethod();
+    ZMSacsMapper::instance()->ensureAccessMethod();
 
     // upset request plugins :)
     ZMPlugins::initPlugins('request', ZMRuntime::getScope());
 
     // resolve theme to be used 
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
-        $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
-    } else {
-        $zm_theme = ZMRuntime::getTheme();
+        ZMRuntime::setTheme(zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
     }
-    $zm_themeInfo = $zm_theme->getThemeInfo();
+    //TODO:
+    $zm_theme = ZMRuntime::getTheme();
+    if (zm_setting('isLegacyAPI')) {
+        // deprecated legacy globals
+        $zm_themeInfo = $zm_theme->getThemeInfo();
+    }
 
     if (zm_setting('isEnableZenMagick')) {
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');

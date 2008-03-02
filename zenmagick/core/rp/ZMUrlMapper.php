@@ -46,7 +46,7 @@ class ZMUrlMapper extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMUrlMapper() {
+    function __construct() {
         parent::__construct();
 
         $this->mapping_ = array();
@@ -55,17 +55,17 @@ class ZMUrlMapper extends ZMObject {
     }
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMUrlMapper();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('UrlMapper');
     }
 
 

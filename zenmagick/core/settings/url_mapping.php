@@ -34,137 +34,133 @@
      * @package org.zenmagick.settings
      */
     function zm_set_default_url_mappings() {
-    global $zm_urlMapper;
-
-        if (!isset($zm_urlMapper)) {
-            $zm_urlMapper = ZMLoader::make("UrlMapper");
-        }
+        $urlMapper = ZMUrlMapper::instance();
 
         // global
-        $zm_urlMapper->setMapping(null, 'error', 'error');
-        $zm_urlMapper->setMapping(null, 'missing_page', 'error');
-        $zm_urlMapper->setMapping(null, 'index', 'index');
-        $zm_urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
+        $urlMapper->setMapping(null, 'error', 'error');
+        $urlMapper->setMapping(null, 'missing_page', 'error');
+        $urlMapper->setMapping(null, 'index', 'index');
+        $urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
 
         // checkout states
-        $zm_urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping(null, 'cart_not_ready', 'shopping_cart', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping(null, 'cart_is_virtual', 'checkout_billing', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping(null, 'check_cart', 'shopping_cart', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping(null, 'cart_not_ready', 'shopping_cart', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping(null, 'cart_is_virtual', 'checkout_billing', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping(null, 'check_cart', 'shopping_cart', 'RedirectView', 'secure=true');
 
 
         // popups
-        $zm_urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PopupView');
-        $zm_urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PopupView');
-        $zm_urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PopupView');
-        $zm_urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PopupView');
+        $urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PopupView');
+        $urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PopupView');
+        $urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PopupView');
+        $urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PopupView');
 
         // address_book_process
-        $zm_urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
-        $zm_urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
-        $zm_urlMapper->setMapping('address_book_process', 'address_book_delete', 'address_book_delete');
-        $zm_urlMapper->setMapping('address_book_process', 'success', 'address_book', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
+        $urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
+        $urlMapper->setMapping('address_book_process', 'address_book_delete', 'address_book_delete');
+        $urlMapper->setMapping('address_book_process', 'success', 'address_book', 'RedirectView', 'secure=true');
 
         // contact_us
-        $zm_urlMapper->setMapping('contact_us');
-        $zm_urlMapper->setMapping('contact_us', 'success', 'contact_us_success', 'RedirectView');
+        $urlMapper->setMapping('contact_us');
+        $urlMapper->setMapping('contact_us', 'success', 'contact_us_success', 'RedirectView');
 
         // discount_coupon
-        $zm_urlMapper->setMapping('discount_coupon');
-        $zm_urlMapper->setMapping('discount_coupon', 'info', 'discount_coupon_info');
+        $urlMapper->setMapping('discount_coupon');
+        $urlMapper->setMapping('discount_coupon', 'info', 'discount_coupon_info');
 
         // gv_send
-        $zm_urlMapper->setMapping('gv_send');
-        $zm_urlMapper->setMapping('gv_send', 'success', 'gv_send_confirm');
-        $zm_urlMapper->setMapping('gv_send_confirm', 'edit', 'gv_send', 'ForwardView');
-        $zm_urlMapper->setMapping('gv_send_confirm', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('gv_send');
+        $urlMapper->setMapping('gv_send', 'success', 'gv_send_confirm');
+        $urlMapper->setMapping('gv_send_confirm', 'edit', 'gv_send', 'ForwardView');
+        $urlMapper->setMapping('gv_send_confirm', 'success', 'account', 'RedirectView', 'secure=true');
 
         // index
-        $zm_urlMapper->setMapping('index', 'category', 'category', 'ForwardView');
+        $urlMapper->setMapping('index', 'category', 'category', 'ForwardView');
 
         // category
-        $zm_urlMapper->setMapping('category', 'category', 'category');
-        $zm_urlMapper->setMapping('category', 'category_list', 'category_list');
-        $zm_urlMapper->setMapping('category', 'manufacturer', 'manufacturer');
-        $zm_urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
+        $urlMapper->setMapping('category', 'category', 'category');
+        $urlMapper->setMapping('category', 'category_list', 'category_list');
+        $urlMapper->setMapping('category', 'manufacturer', 'manufacturer');
+        $urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
 
         // login
-        $zm_urlMapper->setMapping('login');
-        $zm_urlMapper->setMapping('login', 'success', 'account', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping('login', 'account', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('login');
+        $urlMapper->setMapping('login', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('login', 'account', 'account', 'RedirectView', 'secure=true');
 
         // logoff
-        $zm_urlMapper->setMapping('logoff');
-        $zm_urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');
+        $urlMapper->setMapping('logoff');
+        $urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');
 
         // password_forgotten
-        $zm_urlMapper->setMapping('password_forgotten');
-        $zm_urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('password_forgotten');
+        $urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView', 'secure=true');
 
         // guest checkout
-        $zm_urlMapper->setMapping('checkout_guest', 'login');
-        $zm_urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView', 'secure=true');
-        $zm_urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('checkout_guest', 'login');
+        $urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView', 'secure=true');
 
         // guest history
-        $zm_urlMapper->setMapping('guest_history');
-        $zm_urlMapper->setMapping('guest_history', 'success', 'account_history_info');
+        $urlMapper->setMapping('guest_history');
+        $urlMapper->setMapping('guest_history', 'success', 'account_history_info');
 
         // product_info
-        $zm_urlMapper->setMapping('product_info');
-        $zm_urlMapper->setMapping('product_info', 'error', 'product_not_found');
-        $zm_urlMapper->setMapping('product_info', 'product_music_info', 'product_music_info');
-        $zm_urlMapper->setMapping('product_info', 'document_general_info', 'document_general_info');
-        $zm_urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');
-        $zm_urlMapper->setMapping('product_info', 'product_free_shipping_info', 'product_free_shipping_info');
+        $urlMapper->setMapping('product_info');
+        $urlMapper->setMapping('product_info', 'error', 'product_not_found');
+        $urlMapper->setMapping('product_info', 'product_music_info', 'product_music_info');
+        $urlMapper->setMapping('product_info', 'document_general_info', 'document_general_info');
+        $urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');
+        $urlMapper->setMapping('product_info', 'product_free_shipping_info', 'product_free_shipping_info');
 
         // account_edit
-        $zm_urlMapper->setMapping('account_edit');
-        $zm_urlMapper->setMapping('account_edit', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('account_edit');
+        $urlMapper->setMapping('account_edit', 'success', 'account', 'RedirectView', 'secure=true');
 
         // account_password
-        $zm_urlMapper->setMapping('account_password');
-        $zm_urlMapper->setMapping('account_password', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('account_password');
+        $urlMapper->setMapping('account_password', 'success', 'account', 'RedirectView', 'secure=true');
 
         // shopping_cart
-        $zm_urlMapper->setMapping('shopping_cart');
-        $zm_urlMapper->setMapping('shopping_cart', 'empty_cart', 'empty_cart');
+        $urlMapper->setMapping('shopping_cart');
+        $urlMapper->setMapping('shopping_cart', 'empty_cart', 'empty_cart');
 
         // create_account
-        $zm_urlMapper->setMapping('create_account');
-        $zm_urlMapper->setMapping('create_account', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('create_account');
+        $urlMapper->setMapping('create_account', 'success', 'account', 'RedirectView', 'secure=true');
 
         // tell_a_friend
-        $zm_urlMapper->setMapping('tell_a_friend');
-        $zm_urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
+        $urlMapper->setMapping('tell_a_friend');
+        $urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
 
         // product_reviews_write
-        $zm_urlMapper->setMapping('product_reviews_write');
-        $zm_urlMapper->setMapping('product_reviews_write', 'success', 'product_reviews', 'RedirectView');
+        $urlMapper->setMapping('product_reviews_write');
+        $urlMapper->setMapping('product_reviews_write', 'success', 'product_reviews', 'RedirectView');
 
         // account_newsletters
-        $zm_urlMapper->setMapping('account_newsletters');
-        $zm_urlMapper->setMapping('account_newsletters', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('account_newsletters');
+        $urlMapper->setMapping('account_newsletters', 'success', 'account', 'RedirectView', 'secure=true');
 
         // account_notifications
-        $zm_urlMapper->setMapping('account_notifications');
-        $zm_urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('account_notifications');
+        $urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView', 'secure=true');
 
         // shipping 
-        $zm_urlMapper->setMapping('checkout_shipping');
-        $zm_urlMapper->setMapping('checkout_shipping', 'success', 'checkout_billing', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('checkout_shipping');
+        $urlMapper->setMapping('checkout_shipping', 'success', 'checkout_billing', 'RedirectView', 'secure=true');
 
         // shipping address
-        $zm_urlMapper->setMapping('checkout_shipping_address');
-        $zm_urlMapper->setMapping('checkout_shipping_address', 'success', 'checkout_shipping', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('checkout_shipping_address');
+        $urlMapper->setMapping('checkout_shipping_address', 'success', 'checkout_shipping', 'RedirectView', 'secure=true');
 
         // billing address
-        $zm_urlMapper->setMapping('checkout_payment_address');
-        $zm_urlMapper->setMapping('checkout_payment_address', 'success', 'checkout_payment', 'RedirectView', 'secure=true');
+        $urlMapper->setMapping('checkout_payment_address');
+        $urlMapper->setMapping('checkout_payment_address', 'success', 'checkout_payment', 'RedirectView', 'secure=true');
 
         // redirect
-        $zm_urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
-        $zm_urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
+        $urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
+        $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
     }
 
 ?>

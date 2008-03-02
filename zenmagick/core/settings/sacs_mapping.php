@@ -28,36 +28,32 @@
      * Set up default SACS mappings.
      */
     function zm_set_default_sacs_mappings() {
-    global $zm_sacsMapper;
-
-        if (!isset($zm_sacsMapper)) {
-            $zm_sacsMapper = ZMLoader::make("SacsMapper");
-        }
+        $sacsMapper = ZMSacsMapper::instance();
 
         // default access settings
-        $zm_sacsMapper->setMapping('account');
-        $zm_sacsMapper->setMapping('account_edit');
-        $zm_sacsMapper->setMapping('account_history');
-        $zm_sacsMapper->setMapping('account_history_info');
-        $zm_sacsMapper->setMapping('account_newsletter');
-        $zm_sacsMapper->setMapping('account_notifications');
-        $zm_sacsMapper->setMapping('account_password');
-        $zm_sacsMapper->setMapping('address_book');
-        $zm_sacsMapper->setMapping('address_book_process');
-        $zm_sacsMapper->setMapping('checkout_process', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('checkout_confirmation', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('checkout_payment', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('checkout_payment_address', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('checkout_shipping', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('checkout_shipping_address', ZM_ACCOUNT_TYPE_GUEST);
-        $zm_sacsMapper->setMapping('gv_redeem');
-        $zm_sacsMapper->setMapping('gv_send');
-        $zm_sacsMapper->setMapping('gv_send_confirm');
-        $zm_sacsMapper->setMapping('product_reviews_write');
-        $zm_sacsMapper->setMapping('login', ZM_ACCOUNT_TYPE_ANONYMOUS);
+        $sacsMapper->setMapping('account');
+        $sacsMapper->setMapping('account_edit');
+        $sacsMapper->setMapping('account_history');
+        $sacsMapper->setMapping('account_history_info');
+        $sacsMapper->setMapping('account_newsletter');
+        $sacsMapper->setMapping('account_notifications');
+        $sacsMapper->setMapping('account_password');
+        $sacsMapper->setMapping('address_book');
+        $sacsMapper->setMapping('address_book_process');
+        $sacsMapper->setMapping('checkout_process', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('checkout_confirmation', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('checkout_payment', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('checkout_payment_address', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('checkout_shipping', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('checkout_shipping_address', ZM_ACCOUNT_TYPE_GUEST);
+        $sacsMapper->setMapping('gv_redeem');
+        $sacsMapper->setMapping('gv_send');
+        $sacsMapper->setMapping('gv_send_confirm');
+        $sacsMapper->setMapping('product_reviews_write');
+        $sacsMapper->setMapping('login', ZM_ACCOUNT_TYPE_ANONYMOUS);
 
         if (!zm_setting('isTellAFriendAnonymousAllow')) {
-            $zm_sacsMapper->setMapping('tell_a_friend');
+            $sacsMapper->setMapping('tell_a_friend');
         }
     }
 

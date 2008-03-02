@@ -45,7 +45,7 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMSacsMapper() {
+    function __construct() {
         parent::__construct();
 
         $this->mapping_ = array();
@@ -58,17 +58,17 @@ class ZMSacsMapper extends ZMObject {
     }
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMSacsMapper();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('SacsMapper');
     }
 
 

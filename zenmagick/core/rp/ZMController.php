@@ -81,10 +81,9 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_sacsMapper, $zm_request;
+    global $zm_request;
 
-        $zm_sacsMapper->ensureAuthorization($this->id_);
-
+        ZMSacsMapper::instance()->ensureAuthorization($this->id_);
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START);
 
         $view = null;
@@ -196,11 +195,9 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     function findView($id=null, $parameter=null) {
-    global $zm_urlMapper;
-
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
-        $view = $zm_urlMapper->findView($this->id_, $id, $parameter);
+        $view = ZMUrlMapper::instance()->findView($this->id_, $id, $parameter);
         return $view;
     }
 

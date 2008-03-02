@@ -106,6 +106,10 @@ class ZMRuntime extends ZMObject {
             return ZMRuntime::$themeId_;
         }
 
+        if (null != ZMRuntime::$theme_) {
+            return ZMRuntime::$theme_->getThemeId();
+        }
+
         ZMRuntime::$themeId_ = ZMThemes::instance()->getZCThemeId();
         $path = ZMRuntime::getThemesDir().ZMRuntime::$themeId_;
         if (!@file_exists($path) || !@is_dir($path)) {
@@ -142,6 +146,15 @@ class ZMRuntime extends ZMObject {
         }
 
         return ZMRuntime::$theme_;
+    }
+
+    /**
+     * Set the current theme.
+     *
+     * @param ZMTheme theme The theme.
+     */
+    public static function setTheme($theme) {
+        ZMRuntime::$theme_ = $theme;
     }
 
     /**
