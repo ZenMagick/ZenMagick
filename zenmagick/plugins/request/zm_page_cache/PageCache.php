@@ -87,7 +87,7 @@ class PageCache extends ZMCache {
      * @return string A cache id.
      */
     function getId() {
-    global $zm_runtime, $zm_request, $zm_theme;
+    global $zm_request, $zm_theme;
 
         $session = $zm_request->getSession();
         return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();

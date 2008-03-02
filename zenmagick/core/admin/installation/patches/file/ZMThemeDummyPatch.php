@@ -61,9 +61,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-    global $zm_runtime;
-
-        $themes = $zm_runtime->getThemes();
+        $themes = ZMThemes::instace()->getThemes();
         foreach ($themes->getThemeInfoList() as $themeInfo) {
             if (ZM_DEFAULT_THEME == $themeInfo->getThemeId()) {
                 continue;
@@ -113,9 +111,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-    global $zm_runtime;
-
-        $themes = $zm_runtime->getThemes();
+        $themes = ZMThemes::instace()->getThemes();
         if (!(zm_setting('isEnablePatching')) && !$force && $this->isOpen()) {
             // disabled
             $this->log("** ZenMagick: create theme dummies disabled - skipping");

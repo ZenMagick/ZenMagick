@@ -31,7 +31,7 @@ require_once('includes/application_top.php');
   $selectedTheme = new ZMTheme($selectedThemeId);
   $newFile = $zm_request->getParameter('newfile');
   $selectedFile = $zm_request->getParameter('file', $newFile);
-  $currentLanguage = $zm_runtime->getLanguage();
+  $currentLanguage = ZMRuntime::getLanguage();
   $selectedLanguageId = $zm_request->getParameter('languageId', $currentLanguage->getId());
 
   $editContents = $zm_request->getParameter('editContents', null, false);
@@ -105,7 +105,7 @@ require_once('includes/application_top.php');
             <fieldset>
               <legend>Edit Static Page</legend>
               <label for="themeId">Theme:</label>
-              <?php $themes = $zm_runtime->getThemes(); $themeInfoList = $themes->getThemeInfoList(); ?>
+              <?php $themes = ZMThemes::instance()->getThemes(); $themeInfoList = $themes->getThemeInfoList(); ?>
               <select id="themeId" name="themeId" onChange="this.form.submit();">
                 <option value="">Select Theme</option>
                 <?php foreach ($themeInfoList as $themeInfo) { ?>

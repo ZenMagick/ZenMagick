@@ -84,7 +84,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_runtime, $zm_request, $zm_messages, $zm_accounts, $zm_reviews;
+    global $zm_request, $zm_messages, $zm_accounts, $zm_reviews;
 
         $review = $this->create("Review");
         $review->populate();

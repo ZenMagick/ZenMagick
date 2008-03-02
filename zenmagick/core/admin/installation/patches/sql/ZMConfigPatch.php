@@ -81,9 +81,7 @@ class ZMConfigPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-    global $zm_runtime;
-
-        $baseDir = $zm_runtime->getZMRootPath();
+        $baseDir = ZMRuntime::getZMRootPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -103,13 +101,11 @@ class ZMConfigPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-    global $zm_runtime;
-
         if ($this->isOpen()) {
             return true;
         }
 
-        $baseDir = $zm_runtime->getZMRootPath();
+        $baseDir = ZMRuntime::getZMRootPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);

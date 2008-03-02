@@ -479,10 +479,10 @@
      * @return ZMTheme The final theme.
      */
     function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
-    global $zm_runtime, $zm_request;
+    global $zm_request;
 
         // set up theme
-        $theme = $zm_runtime->getThemeForId($themeId);
+        $theme = ZMThemes::instance()->getThemeForId($themeId);
         $themeInfo = $theme->getThemeInfo();
 
         // configure theme loader
@@ -505,14 +505,14 @@
         }
 
         // check for theme switching
-        if ($zm_runtime->getThemeId() != $themeInfo->getThemeId()) {
-            return zm_resolve_theme($zm_runtime->getThemeId(), true);
+        if (ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
+            return zm_resolve_theme(ZMRuntime::getThemeId(), true);
         }
 
         // finalise i18n
         zm_i18n_finalise();
 
-        $zm_events->fireEvent($zm_runtime, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
+        $zm_events->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
 
         return $theme;
     }
@@ -524,7 +524,7 @@
      * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
-    global $zm_runtime, $zm_request, $zm_events;
+    global $zm_request, $zm_events;
 
         $controller = ZMLoader::make(ZMLoader::makeClassname($zm_request->getPageName().'Controller'));
         if (null == $controller) {
@@ -541,9 +541,9 @@
         // generate response
         if (null != $view) {
             $controller->exportGlobal("zm_view", $view);
-            $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_START, array('view' =>& $view));
+            $zm_events->fireEvent(null, ZM_EVENT_VIEW_START, array('view' =>& $view));
             $view->generate();
-            $zm_events->fireEvent($zm_runtime, ZM_EVENT_VIEW_DONE);
+            $zm_events->fireEvent(null, ZM_EVENT_VIEW_DONE);
         }
 
         return true;

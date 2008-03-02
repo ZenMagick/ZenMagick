@@ -93,9 +93,6 @@ class ZMAttributes extends ZMObject {
 
     // create new attribute value
     function _newAttributeValue($fields) {
-    global $zm_runtime;
-
-//echo "<pre>";print_r($fields);echo "</pre>";
         $value = $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];

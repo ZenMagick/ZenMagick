@@ -106,8 +106,6 @@ class ZMLayout extends ZMObject {
      * @return array Name of all boxes to be displayed.
      */
     function getLeftColBoxNames() {
-    global $zm_runtime;
-
         if (null != $this->leftColBoxes_)
             return $this->leftColBoxes_;
 
@@ -117,15 +115,15 @@ class ZMLayout extends ZMObject {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMObject::instance('Themes')->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
-        $theme = $zm_runtime->getTheme();
+        $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (zm_setting('isEnableThemeDefaults') && file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (zm_setting('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
 
                 array_push($boxes, $box);
             }
@@ -141,8 +139,6 @@ class ZMLayout extends ZMObject {
      * @return array Name of all boxes to be displayed.
      */
     function getRightColBoxNames() {
-    global $zm_runtime;
-
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
@@ -152,15 +148,15 @@ class ZMLayout extends ZMObject {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMObject::instance('Themes')->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
-        $theme = $zm_runtime->getTheme();
+        $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (zm_setting('isEnableThemeDefaults') && file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (zm_setting('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
                 array_push($boxes, $box);
             }
             $results->MoveNext();

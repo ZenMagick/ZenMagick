@@ -56,15 +56,13 @@ class ZMCoreCompressor extends ZMObject {
      * Create new instance.
      */
     function ZMCoreCompressor() {
-    global $zm_runtime;
-
         parent::__construct();
 
-        $this->coreDirname_ = $zm_runtime->getZMRootPath().'core';
-        $this->pluginsPreparedDirname_ = $zm_runtime->getZMRootPath().'plugins.prepared';
-        $this->strippedDirname_ = $zm_runtime->getZMRootPath().'core.stripped';
-        $this->flatDirname_ = $zm_runtime->getZMRootPath().'core.flat';
-        $this->coreFilename_ = $zm_runtime->getZMRootPath().'core.php';
+        $this->coreDirname_ = ZMRuntime::getZMRootPath().'core';
+        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared';
+        $this->strippedDirname_ = ZMRuntime::getZMRootPath().'core.stripped';
+        $this->flatDirname_ = ZMRuntime::getZMRootPath().'core.flat';
+        $this->coreFilename_ = ZMRuntime::getZMRootPath().'core.php';
         $this->errors_ = array();
     }
 
@@ -94,7 +92,6 @@ class ZMCoreCompressor extends ZMObject {
 
     /**
      * Check for errors.
-        $themes = $zm_runtime->getThemes();
      *
      * @return boolean <code>true</code> if errors exist.
      */
@@ -245,8 +242,6 @@ class ZMCoreCompressor extends ZMObject {
      * @param string out The output directory.
      */
     function _preparePlugins($out) {
-    global $zm_runtime;
-
         if (!zm_ends_with($out, '/')) $out .= '/';
 
         $zm_plugins = ZMLoader::make("Plugins");
@@ -262,7 +257,7 @@ class ZMCoreCompressor extends ZMObject {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
                     if (zm_is_empty($pluginDir)) {
-                        $pluginDir = $zm_runtime->getPluginsDir() . $type . '/';
+                        $pluginDir = ZMRuntime::getPluginsDir() . $type . '/';
                         $noDir = true;
                     }
                     if ($noDir || 'PLUGIN' == $flag) {
@@ -424,7 +419,7 @@ class ZMCoreCompressor extends ZMObject {
         }
         $lines = array(
             'if (zm_setting("isLegacyAPI")) { $zm_loader = ZMLoader::instance(); }',
-            '$zm_runtime = new ZMRuntime();',
+            'if (zm_setting("isLegacyAPI")) { $zm_runtime = ZMLoader::make("Runtime"); }',
             '$zm_request = new ZMRequest();',
         );
         foreach ($lines as $line) {

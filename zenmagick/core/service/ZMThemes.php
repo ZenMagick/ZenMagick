@@ -47,18 +47,34 @@ class ZMThemes extends ZMObject {
     }
 
     /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('Themes');
+    }
+
+    /**
+     * Get <code>ZMTheme</code> instance for the given theme Id.
+     *
+     * @param string themeId The theme id.
+     * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
+     */
+    function getThemeForId($themeId=null) {
+        $theme = ZMLoader::make("Theme", $themeId);
+        return $theme;
+    }
+
+    /**
      * Get <code>ZMThemeInfo</code> instance for the current (or given) theme Id.
      *
      * @param string themeId The theme id or <code>null</code> for the current theme id.
      * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
      */
     function getThemeInfoForId($themeId=null) {
-    global $zm_runtime;
-
         // theme id
-        $themeId = null == $themeId ? $zm_runtime->getThemeId() : $themeId;
+        $themeId = null == $themeId ? ZMRuntime::getThemeId() : $themeId;
         // theme base path
-        $basePath = $zm_runtime->getThemesDir();
+        $basePath = ZMRuntime::getThemesDir();
         $infoName = $themeId. ' ThemeInfo';
         // theme info class name
         $infoClass = ZMLoader::makeClassname($infoName);
@@ -89,10 +105,8 @@ class ZMThemes extends ZMObject {
      * @return array A list of <code>ZMThemeInfo</code> instances.
      */ 
     function getThemeInfoList() {
-    global $zm_runtime;
-
         $infoList = array();
-        $basePath = $zm_runtime->getThemesDir();
+        $basePath = ZMRuntime::getThemesDir();
         $dirs = $this->_getThemeDirList();
         // load info classes and get instance
         foreach ($dirs as $dir) {
@@ -111,10 +125,8 @@ class ZMThemes extends ZMObject {
      * @return array List of all directories under <em>themes</em> that contain a theme.
      */
     function _getThemeDirList() {
-    global $zm_runtime;
-
         $themes = array();
-        $handle = @opendir($zm_runtime->getThemesDir());
+        $handle = @opendir(ZMRuntime::getThemesDir());
         while (false !== ($file = readdir($handle))) { 
             if (zm_starts_with($file, '.') || 'CVS' == $file) {
                 continue;
@@ -155,6 +167,7 @@ class ZMThemes extends ZMObject {
             $themeId = $results->fields['template_dir'];
         }
 
+        $themeId = empty($themeId) ? ZM_DEFAULT_THEME : $themeId;
         return $themeId;
     }
 

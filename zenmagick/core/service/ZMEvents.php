@@ -141,7 +141,7 @@ class ZMEvents extends ZMObject {
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>array()</code>.
      */
-    function fireEvent(&$source, $eventId, $args=array()) {
+    function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
         $args['source'] = $source;
         $this->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);

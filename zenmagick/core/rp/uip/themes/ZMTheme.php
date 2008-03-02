@@ -96,12 +96,10 @@ class ZMTheme extends ZMObject {
      * @return string An absolute URL.
      */
     function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_runtime;
-
-        $url = $zm_runtime->getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
+        $url = ZMRuntime::getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
-            if (file_exists($zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$uri)) {
-                $url = $zm_runtime->getThemesPathPrefix().ZM_DEFAULT_THEME."/".ZM_THEME_CONTENT_DIR.$uri;
+            if (file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$uri)) {
+                $url = ZMRuntime::getThemesPathPrefix().ZM_DEFAULT_THEME."/".ZM_THEME_CONTENT_DIR.$uri;
             }
         }
 
@@ -118,9 +116,7 @@ class ZMTheme extends ZMObject {
      * @return string The themes root directory.
      */
     function getRootDir() {
-    global $zm_runtime;
-
-        return $zm_runtime->getThemesDir() . $this->themeId_ . '/';
+        return ZMRuntime::getThemesDir() . $this->themeId_ . '/';
     }
 
     /**
@@ -181,12 +177,10 @@ class ZMTheme extends ZMObject {
      * @return string A fully qualified filename.
      */
     function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
-    global $zm_runtime;
-
         $file = $this->getRootDir().$baseDir.$name;
         if (zm_setting('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
-            $dfile = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.$baseDir.$name;
+            $dfile = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.$baseDir.$name;
             if (file_exists($dfile)) {
                 $file = $dfile;
             }
@@ -215,7 +209,7 @@ class ZMTheme extends ZMObject {
      * @return array List of available static page names.
      */
     function getStaticPageList($includeDefaults=false, $languageId=null) {
-    global $zm_runtime, $zm_request, $zm_languages;
+    global $$zm_request, $zm_languages;
 
         if (null == $languageId) {
             $session = $zm_request->getSession();
@@ -240,7 +234,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR;
+            $path = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) { 
@@ -265,7 +259,7 @@ class ZMTheme extends ZMObject {
      * @return boolean The status.
      */
     function saveStaticPageContent($page, $contents, $languageId=null) {
-    global $zm_runtime, $zm_request, $zm_languages;
+    global $zm_request, $zm_languages;
 
         if (null == $languageId) {
             $session = $zm_request->getSession();
@@ -305,7 +299,7 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_runtime, $zm_request, $zm_languages;
+    global $zm_request, $zm_languages;
 
         if (!zm_setting('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $languageId, $echo);
@@ -322,7 +316,7 @@ class ZMTheme extends ZMObject {
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
-            $filename = $zm_runtime->getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR.$page.'.php';
+            $filename = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR.$page.'.php';
         }
 
         $contents = null;
@@ -346,7 +340,7 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_runtime, $zm_request, $zm_languages;
+    global $zm_request, $zm_languages;
 
         if (null == $languageId) {
             $session = $zm_request->getSession();
@@ -355,7 +349,7 @@ class ZMTheme extends ZMObject {
             $language = $zm_languages->getLanguageForId($languageId);
         }
         $languageDir = $language->getDirectory();
-        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.$zm_runtime->getZCThemeId().'/define_' . $page . '.php';
+        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.ZMThemes::instance()->getZCThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
             $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
         }
@@ -389,10 +383,8 @@ class ZMTheme extends ZMObject {
      * @return ZMThemeInfo A <code>ZMThemeInfo</code> instance.
      */
     function getThemeInfo() {
-    global $zm_runtime;
-
         if (null == $this->themeInfo_) {
-            $this->themeInfo_ = $zm_runtime->getThemeInfoForId($this->themeId_);
+            $this->themeInfo_ = ZMThemes::instance()->getThemeInfoForId($this->themeId_);
         }
 
         return $this->themeInfo_;

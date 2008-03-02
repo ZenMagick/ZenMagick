@@ -28,7 +28,7 @@
     define ('ZM_FILENAME_SOURCE_VIEW', 'source_view');
 
     if ('contact_us' == $zm_request->getPageName()) {
-        $zm_runtime->setThemeId('default');
+        ZMRuntime::setThemeId('default');
     }
 
     // use theme static pages rather than zen-cart's define pages

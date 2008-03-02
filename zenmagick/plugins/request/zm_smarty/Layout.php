@@ -54,8 +54,6 @@ class Layout extends ZMLayout {
      * @return array Name of all boxes to be displayed.
      */
     function getLeftColBoxNames() {
-    global $zm_runtime;
-
         if (null != $this->leftColBoxes_)
             return $this->leftColBoxes_;
 
@@ -65,10 +63,10 @@ class Layout extends ZMLayout {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMThemes::instance()->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
-        $theme = $zm_runtime->getTheme();
+        $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = str_replace('.php', '.tpl', $results->fields['layout_box_name']);
@@ -87,8 +85,6 @@ class Layout extends ZMLayout {
      * @return array Name of all boxes to be displayed.
      */
     function getRightColBoxNames() {
-    global $zm_runtime;
-
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
@@ -98,10 +94,10 @@ class Layout extends ZMLayout {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', $zm_runtime->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMThemes::instance()->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
-        $theme = $zm_runtime->getTheme();
+        $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
             $box = str_replace('.php', '.tpl', $results->fields['layout_box_name']);

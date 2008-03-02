@@ -37,7 +37,7 @@ $order = $zm_orders->getOrderForId($INTRO_ORDER_NUMBER);
 $shippingAddress = $order->getShippingAddress();
 $billingAddress = $order->getBillingAddress();
 $paymentType = $order->getPaymentType();
-$language = $zm_runtime->getLanguage();
+$language = ZMRuntime::getLanguage();
 ?><?php zm_l10n("%s Order Confirmation\n", zm_setting('storeName')) ?>
 
 <?php zm_l10n("Thanks for shopping at %s,\n", zm_setting('storeName')) ?>

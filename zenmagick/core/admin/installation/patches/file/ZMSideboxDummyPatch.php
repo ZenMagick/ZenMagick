@@ -172,10 +172,8 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      * return array List of sideboxes that need zen-cart dummies.
      */
     function _getMissingZCSideboxes() {
-    global $zm_runtime;
-
         $missingBoxes = array();
-        $theme = $zm_runtime->getTheme();
+        $theme = ZMRuntime::getTheme();
         $boxPath = $theme->getBoxesDir();
         if (file_exists($boxPath) && is_readable($boxPath)) {
             // make list of all theme boxes

@@ -27,36 +27,22 @@
 /**
  * A central place for all runtime stuff.
  *
- * <p>This is not really neccessary, but I prefer to have a single place
- * where I can look up stuff rather than search tons fo files.</p>
- *
+ * <p>This is kind of the <em>application context</em>.</p>
  * @author mano
  * @package org.zenmagick
  * @version $Id$
  */
 class ZMRuntime extends ZMObject {
-    private $themeId_;
-    private $theme_;
-    private $themes_;
-
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-
-        // init with defaults
-        $this->themeId_ = null;
-        $this->theme_ = null;
-    }
+    private static $themeId_;
+    private static $theme_;
+    private static $db_;
 
 
     /**
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Runtime');
+        return ZMObject::instance('Runtime');
     }
 
     /**
@@ -73,93 +59,62 @@ class ZMRuntime extends ZMObject {
      *
      * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
      */
-    public static function getDB() { global $db; return $db; }
+    public static function getDB() { if (null == ZMRuntime::$db_) { global $db; ZMRuntime::$db_ = $db; } return ZMRuntime::$db_; }
 
     /**
      * Return the directory containing all themes.
      *
      * @return string The base directory for themes.
      */
-    static function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
+    public static function getThemesDir() { return DIR_FS_CATALOG.ZM_THEMES_DIR; }
 
     /**
      * Return the directory containing all plugins.
      *
      * @return string The base directory for plugins.
      */
-    static function getPluginsDir() { return DIR_FS_CATALOG.ZM_PLUGINS_DIR; }
+    public static function getPluginsDir() { return DIR_FS_CATALOG.ZM_PLUGINS_DIR; }
 
     /**
      * Return the base path for theme URIs.
      *
      * @return string The URL path prefix for all themes.
      */
-    static function getThemesPathPrefix() { return ZMRuntime::getContext().ZM_THEMES_DIR; }
-
-    /**
-     * Get the current theme.
-     *
-     * @return ZMTheme The current theme.
-     */
-    function getTheme() {
-        if (null == $this->theme_) {
-            $this->theme_ = $this->create("Theme", $this->getThemeId());
-        }
-
-        return $this->theme_;
-    }
-
-    /**
-     * Get the single <code>ZMThemes</code> instance.
-     *
-     * @return ZMThemes A <code>ZMThemes</code> object.
-     */
-    function getThemes() {
-        if (null == $this->themes_) {
-            $this->themes_ = $this->create("Themes");
-        }
-
-        return $this->themes_;
-    }
-
-    /**
-     * Get <code>ZMTheme</code> instance for the current (or given) theme Id.
-     *
-     * @param string themeId The theme id or <code>null</code> for the current theme id.
-     * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
-     */
-    function getThemeForId($themeId=null) {
-        if (null == $themeId) {
-            return $this->getTheme();
-        }
-        $theme = $this->create("Theme", $themeId);
-        return $theme;
-    }
-
-    /**
-     * Get <code>ZMThemeInfo</code> instance for the current (or given) theme Id.
-     *
-     * @param string themeId The theme id or <code>null</code> for the current theme id.
-     * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
-     */
-    function getThemeInfoForId($themeId=null) {
-        $themes = $this->getThemes();
-        return $themes->getThemeInfoForId($themeId);
-    }
+    public static function getThemesPathPrefix() { return ZMRuntime::getContext().ZM_THEMES_DIR; }
 
     /**
      * Get the full ZenMagick installation path.
      *
      * @return string The ZenMagick installation folder.
      */
-    static function getZMRootPath() { return DIR_FS_CATALOG.ZM_ROOT; }
+    public static function getZMRootPath() { return DIR_FS_CATALOG.ZM_ROOT; }
 
     /**
      * The application context.
      *
      * @return string The application context.
      */
-    static function getContext() { return DIR_WS_CATALOG; }
+    public static function getContext() { return DIR_WS_CATALOG; }
+
+    /**
+     * Get the effective theme id.
+     *
+     * @return string The currently effective theme id.
+     */
+    public static function getThemeId() {
+        if (null != ZMRuntime::$themeId_) {
+            return ZMRuntime::$themeId_;
+        }
+
+        ZMRuntime::$themeId_ = ZMThemes::instance()->getZCThemeId();
+        $path = ZMRuntime::getThemesDir().ZMRuntime::$themeId_;
+        if (!@file_exists($path) || !@is_dir($path)) {
+            ZMObject::log("invalid theme id: '".ZMRuntime::$themeId_.'"');
+            return ZM_DEFAULT_THEME;
+        }
+
+        return ZMRuntime::$themeId_;
+    }
 
     /**
      * Set the theme id.
@@ -171,38 +126,22 @@ class ZMRuntime extends ZMObject {
      *
      * @param string themeId The new theme id.
      */
-    function setThemeId($themeId) { $this->themeId_ = $themeId; $this->theme_ = null; }
-
-    /**
-     * Get the configured zen-cart theme id.
-     *
-     * @return string The configured zen-cart theme id.
-     */
-    function getZCThemeId() {
-        $themes = $this->getThemes();
-        $id = $themes->getZCThemeId();
-        return zm_is_empty($id) ? ZM_DEFAULT_THEME : $id;
+    public static function setThemeId($themeId) { 
+        ZMRuntime::$themeId_ = $themeId; 
+        ZMRuntime::$theme_ = null;
     }
 
     /**
-     * Get the effective theme id.
+     * Get the current theme.
      *
-     * @return string The currently effective theme id.
+     * @return ZMTheme The current theme.
      */
-    function getThemeId() {
-        if (null != $this->themeId_) {
-            return $this->themeId_;
+    public static function getTheme() {
+        if (null == ZMRuntime::$theme_) {
+            ZMRuntime::$theme_ = ZMLoader::make("Theme", ZMRuntime::getThemeId());
         }
 
-        //$themeId = strtolower($this->getZCThemeId($this->getLanguageId()));
-        $this->themeId_ = $this->getZCThemeId($this->getLanguageId());
-        $path = $this->getThemesDir().$this->themeId_;
-        if (!@file_exists($path) || !@is_dir($path)) {
-            $this->log("invalid theme id: '".$this->themeId_.'"');
-            return ZM_DEFAULT_THEME;
-        }
-
-        return $this->themeId_;
+        return ZMRuntime::$theme_;
     }
 
     /**
@@ -210,46 +149,22 @@ class ZMRuntime extends ZMObject {
      *
      * @return ZMLanguage The current language.
      */
-    function getLanguage() {
-        $session = $this->create("Session");
-        return $session->getLanguage();
+    public static function getLanguage() {
+        return ZMObject::instance('Session')->getLanguage();
     }
-
-    /**
-     * Get the language id.
-     *
-     * @return int The current language id.
-     * @deprecated Use <code>$zm_request->getSession()->getLanguageId()</code> instead.
-     */
-    function getLanguageId() { return (int)$_SESSION['languages_id']; }
-
-    /**
-     * Get the current language name.
-     *
-     * @return string The current language name.
-     * @deprecated Use <code>$zm_request->getSession()->getLanguage()->getDirectory()</code> instead.
-     */
-    function getLanguageName() { return $_SESSION['language']; }
 
     /**
      * Get the current currency.
      *
      * @return ZMCurrency The current currency.
      */
-    function getCurrency() {
+    public static function getCurrency() {
     global $zm_currencies;
    
-        $currency = $zm_currencies->getCurrencyForCode($this->getCurrencyCode());
+        $session = ZMObject::instance('Session');
+        $currency = $zm_currencies->getCurrencyForCode($session->getCurrencyCode());
         return $currency;
     }
-
-    /**
-     * Get the current currency code.
-     *
-     * @return string The current currency code.
-     * @deprecated Use <code>$zm_request->getCurrencyCode()</code> instead.
-     */
-    function getCurrencyCode() { return $_SESSION['currency']; }
 
 }
 

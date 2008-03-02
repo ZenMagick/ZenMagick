@@ -29,6 +29,8 @@ Release 0.9.1
 - get rid of ZMService::getDB()
 - mark ZMService deprecated; use ZMDbUtils methods instead
 - moved zm_log and zm_backtrace into ZMObject
+- refactor ZMRuntime and make all methods static; some of the theme related
+  methods moved into ZMThemes
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

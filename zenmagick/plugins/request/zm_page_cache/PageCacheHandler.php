@@ -68,7 +68,7 @@ class PageCacheHandler extends ZMPluginHandler {
      * @param array args Contains the final theme (key: 'theme').
      */
     function onZMThemeResolved($args) {
-    global $zm_runtime, $zm_theme, $zm_page_cache;
+    global $zm_theme, $zm_page_cache;
 
         // handle page caching
         if ($zm_page_cache->isEnabled()) {
@@ -78,7 +78,7 @@ class PageCacheHandler extends ZMPluginHandler {
                 if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
                     echo $contents;
                     if (zm_setting('isDisplayTimerStats')) {
-                        $db = $zm_runtime->getDB();
+                        $db = ZMRuntime::getDB();
                         echo '<!-- zm_page_cache stats: ' . round($db->queryTime(), 4) . ' sec. for ' . $db->queryCount() . ' queries; ';
                         echo 'page: ' . zm_get_elapsed_time() . ' sec.; ';
                         echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';

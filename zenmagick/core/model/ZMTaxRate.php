@@ -168,8 +168,6 @@ class ZMTaxRate extends ZMModel {
      * @return double The amount incl. tax.
      */
     function addTax($amount) {
-    global $zm_runtime;
-
         $currency = $this->_getCurrency();
         if (zm_setting('isTaxInclusive') && 0 < $this->rate_) {
             return zen_round($amount, $currency->getDecimalPlaces()) + $this->calculateTax($amount);
@@ -185,8 +183,6 @@ class ZMTaxRate extends ZMModel {
      * @return double The tax value.
      */
     function calculateTax($amount) {
-    global $zm_runtime;
-
         $currency = $this->_getCurrency();
         return zen_round($amount * $this->rate_ / 100, $currency->getDecimalPlaces());
     }
@@ -197,9 +193,7 @@ class ZMTaxRate extends ZMModel {
      * @return ZMCurrency A currency.
      */
     function _getCurrency() {
-    global $zm_runtime, $zm_currencies;
-
-        $currency = $zm_runtime->getCurrency();
+        $currency = ZMRuntime::getCurrency();
         if (null == $currency) {
             $this->log('no currency found - using default currency', ZM_LOG_WARN);
             $currency = $zm_currencies->getCurrencyForCode(zm_setting('defaultCurrency'));

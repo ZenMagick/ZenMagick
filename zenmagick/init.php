@@ -74,11 +74,11 @@
     if (zm_setting('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_loader = ZMLoader::instance();
+        $zm_runtime = ZMRuntime::instance();
     }
 
   //TODO: get rid of!
     // the main instances
-    $zm_runtime = ZMRuntime::instance();
     $zm_request = ZMRequest::instance();
     // set up main class instances (aka the ZenMagick API)
     $zm_layout = new ZMLayout();
@@ -134,9 +134,9 @@
 
     // resolve theme to be used 
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
-        $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $zm_runtime->getThemeId());
+        $zm_theme = zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
     } else {
-        $zm_theme = $zm_runtime->getTheme();
+        $zm_theme = ZMRuntime::getTheme();
     }
     $zm_themeInfo = $zm_theme->getThemeInfo();
 
@@ -152,6 +152,6 @@
     // start output buffering
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
 
-    $zm_events->fireEvent($zm_runtime, ZM_EVENT_INIT_DONE);
+    $zm_events->fireEvent(null, ZM_EVENT_INIT_DONE);
 
 ?>

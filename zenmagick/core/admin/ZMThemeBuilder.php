@@ -134,9 +134,7 @@ class ZMThemeBuilder extends ZMObject {
      * @return string The theme base directory.
      */
     function getBaseDir() {
-    global $zm_runtime;
-
-        return $zm_runtime->getThemesDir() . $this->name_ . '/';
+        return ZMRuntime::getThemesDir() . $this->name_ . '/';
     }
 
     /**

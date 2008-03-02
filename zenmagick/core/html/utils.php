@@ -39,8 +39,6 @@
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
     function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_runtime;
-
         if (null === $imageInfo) {
             return;
         }
@@ -59,7 +57,7 @@
             break;
         }
         if (!zm_starts_with($imgSrc, '/')) {
-            $imgSrc = $zm_runtime->getContext() . $imgSrc;
+            $imgSrc = ZMRuntime::getContext() . $imgSrc;
         }
         $html = '<img src="'.$imgSrc.'" alt="'.$imageInfo->getAltText().'" ';
         $html .= $imageInfo->getFormattedParameter();

@@ -90,8 +90,6 @@
 
     // find all l10n strings
     function zm_build_theme_l10n_map($root, $defaults=false, $merge=false) {
-    global $zm_runtime;
-
         $themeId = basename($root);
         $l10nMap = array();
 
@@ -102,7 +100,7 @@
 
         if ($merge) {
             // load existing mappings
-            $zm_runtime->setThemeId($themeId);
+            ZMRuntime::setThemeId($themeId);
             zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $themeId);
             if (0 < count($GLOBALS['_zm_i18n_text'])) {
                 $l10nMap['inherited_mappings'] = $GLOBALS['_zm_l10n_text'];

@@ -35,7 +35,7 @@ define('ZM_TABLE_PRODUCT_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_product_associations'
  * @package org.zenmagick.plugins.zm_product_associations
  * @version $Id$
  */
-class ProductAssociationService extends ZMService {
+class ProductAssociationService extends ZMObject {
 
     /**
      * Create new instance.

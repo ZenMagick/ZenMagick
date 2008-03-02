@@ -54,11 +54,9 @@ class ZMMetaTags extends ZMObject {
      * @param string delimiter Optional keyword delimiter.
      */
     function ZMMetaTags($delimiter=null) {
-    global $zm_runtime;
-
         parent::__construct();
 
-        $this->db_ = $zm_runtime->getDB();
+        $this->db_ = ZMRuntime::getDB();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : zm_setting('metaTagKeywordDelimiter');
     }
 

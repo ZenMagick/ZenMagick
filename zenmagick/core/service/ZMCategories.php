@@ -225,8 +225,6 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      */
     function _load($languageId=null) {
-    global $zm_runtime;
-
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         $db = ZMRuntime::getDB();

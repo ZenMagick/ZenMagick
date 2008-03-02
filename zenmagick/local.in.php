@@ -17,11 +17,13 @@
 
     // set error logfile for ZenMagick log entries; 
     // null = leave it to PHP's error_log(..) function where to write to (usually the httpd error log)
-    //zm_set_setting('zmLogFilename', $zm_runtime->getZMRootPath()."zenmagick.log");
+    //zm_set_setting('zmLogFilename', ZMRuntime::getZMRootPath()."zenmagick.log");
 
     // set to true to log all PHP errors in custom file using the ZenMagick error handler
     //zm_set_setting('isZMErrorHandler', true);
 
+    // enable ZenMagick's global variables
+    //zm_set_setting('isLegacyAPI', true);
 
     /*===============================================================================
      * The following settings are to disable automatic patching of zen-cart files.

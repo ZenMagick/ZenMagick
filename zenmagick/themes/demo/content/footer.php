@@ -35,7 +35,7 @@
   <?php } ?>
   <?php if (zm_setting('isDisplayTimerStats')) { ?>
       <p>
-        <?php $db = $zm_runtime->getDB(); ?>
+        <?php $db = ZMRuntime::getDB(); ?>
         Queries: <?php echo $db->queryCount(); ?>; Query Time: <?php echo round($db->queryTime(), 4); ?>;
         Page Execution Time: <?php echo zm_get_elapsed_time(); ?>;
       </p>

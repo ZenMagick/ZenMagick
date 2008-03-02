@@ -26,7 +26,7 @@
 preg_match('/$$\s+\w+$$/m', $EMAIL_MESSAGE_HTML, $matches);
 $password = trim($matches[0]);
 if (!zm_is_empty($newPassword)) { $password = $newPassword; }
-$language = $zm_runtime->getLanguage();
+$language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>

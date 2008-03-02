@@ -25,7 +25,7 @@
 ?>
 <?php
 
-  $currentLanguage = $zm_runtime->getLanguage();
+  $currentLanguage = ZMRuntime::getLanguage();
   $selectedLanguageId = $zm_request->getParameter('languageId', $currentLanguage->getId());
 
   $category = $zm_categories->getCategoryForId($zm_request->getCategoryId(), $selectedLanguageId);

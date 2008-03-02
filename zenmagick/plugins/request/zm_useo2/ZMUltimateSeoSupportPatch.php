@@ -178,8 +178,6 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
      * @return array Hash with filename as key and contents as array of lines as value.
      */
     function _getUnpatchedAdminFiles() {
-    global $zm_runtime;
-
         $files = array();
         foreach ($this->adminFiles_ as $file) {
             $lines = $this->getFileLines(DIR_FS_ADMIN.$file);
