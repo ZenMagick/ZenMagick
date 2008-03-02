@@ -96,16 +96,13 @@
         $zm_languages = ZMLanguages::instance();
         $zm_countries = ZMCountries::instance();
         $zm_accounts = ZMAccounts::instance();
+        // share instance
+        $zm_account = $zm_request->getAccount();
     }
 
   //TODO: get rid of!
-    // the main instances
     $zm_request = $request;
-    // set up main class instances (aka the ZenMagick API)
     $zm_cart = new ZMShoppingCart();
-    // share instance
-    $zm_account = $zm_request->getAccount();
-    // event proxy to simplify event subscription
   //END TODO
 
 
