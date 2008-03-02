@@ -37,7 +37,7 @@
      * @return array A set of valid attribute values for the given product.
      * @todo IMPLEMENT!
      */
-    function zm_prepare_uploads(&$product, $attributes=array()) {
+    function zm_prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
             if (zm_starts_with($name, zm_setting('uploadOptionPrefix'))) {
@@ -61,7 +61,7 @@
      * @return array A set of valid attribute values for the given product.
      * @todo return note of changes made
      */
-    function zm_sanitize_attributes(&$product, $attributes=array()) {
+    function zm_sanitize_attributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
         if (!zm_setting('isSanitizeAttributes')) {
             return $attributes;

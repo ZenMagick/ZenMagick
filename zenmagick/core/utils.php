@@ -574,7 +574,7 @@
      * @param string eventId The event id.
      * @param array args Optional additional parameter; default is <code>null</code>.
      */
-    function zm_fire_event(&$source, $eventId, $args=null) {
+    function zm_fire_event($source, $eventId, $args=null) {
         ZMEvents::instance()->fireEvent($source, $eventId, $args);
     }
 
@@ -622,9 +622,10 @@
             $errlevel = "Unknown";
         }
 
-        $handle = fopen(zm_setting('zmLogFilename'), "a"); 
-        fputs($handle, "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"); 
-        fclose($handle); 
+        if (null != ($handle = fopen(zm_setting('zmLogFilename'), "a"))) {
+            fputs($handle, "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"); 
+            fclose($handle); 
+        }
     } 
 
 

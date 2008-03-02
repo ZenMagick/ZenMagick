@@ -361,7 +361,7 @@ class ZMRequest extends ZMObject {
      *
      * @param ZMController controller The new controller.
      */
-    function setController(&$controller) { $this->controller_ = $controller; }
+    function setController($controller) { $this->controller_ = $controller; }
 
     /**
      * Get the current category id.

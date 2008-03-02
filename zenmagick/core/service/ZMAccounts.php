@@ -139,7 +139,7 @@ class ZMAccounts extends ZMObject {
      * @param ZMAccount account The new account.
      * @return ZMAccount The created account incl. the new account id.
      */
-    function createAccount(&$account) {
+    function createAccount($account) {
         $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_CUSTOMERS . "(
                  customers_firstname, customers_lastname, customers_email_address, customers_nick, 
@@ -175,7 +175,7 @@ class ZMAccounts extends ZMObject {
      * @param ZMAccount The account.
      * @return ZMAccount The updated account.
      */
-    function updateAccount(&$account) {
+    function updateAccount($account) {
         $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_CUSTOMERS . " set
                 customers_firstname = :firstName;string,
@@ -327,7 +327,7 @@ class ZMAccounts extends ZMObject {
      * @param array productIds The new list of subscribed product ids.
      * @return ZMAccount The aupdated account.
      */
-    function setSubscribedProductIds(&$account, $productIds) {
+    function setSubscribedProductIds($account, $productIds) {
         $currentList = array_flip($account->getSubscribedProducts());
         $newList = array_flip($productIds);
         $remove = array();

@@ -99,7 +99,7 @@ class ProductGroupPricingService extends ZMObject {
      * @param ProductGroupPricing groupPricing The new product group pricing.
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
-    function createProductGroupPricing(&$groupPricing) {
+    function createProductGroupPricing($groupPricing) {
         $db = ZMRuntime::getDB();
         $sql = "insert into " . ZM_TABLE_GROUP_PRICING . "(
                  products_id, group_id,
@@ -121,7 +121,7 @@ class ProductGroupPricingService extends ZMObject {
      * @param ProductGroupPricing groupPricing The new product group pricing.
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
-    function updateProductGroupPricing(&$groupPricing) {
+    function updateProductGroupPricing($groupPricing) {
         $db = ZMRuntime::getDB();
         $sql = "update " . ZM_TABLE_GROUP_PRICING . " set
                 products_id = :productId;integer,

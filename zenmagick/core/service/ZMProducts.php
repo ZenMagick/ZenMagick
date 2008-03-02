@@ -526,7 +526,7 @@ class ZMProducts extends ZMObject {
      * @param ZMProduct The product.
      * @return ZMProduct The updated product.
      */
-    function updateProduct(&$product) {
+    function updateProduct($product) {
         $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_PRODUCTS . " set
                 :customFields,
@@ -705,7 +705,7 @@ class ZMProducts extends ZMObject {
         $product->productPrice_ = $fields['products_price'] ? $fields['products_price'] : 0;
         // some magick
         $product->offers_ = $this->create("Offers", $product);
-        $product->offers_->setProduct(&$product);
+        $product->offers_->setProduct($product);
         $product->attributes_ = $this->create("Attributes", $product);
         //TODO
         $product->features_ = ZMFeatures::instance()->getFeaturesForProductId($product->getId());

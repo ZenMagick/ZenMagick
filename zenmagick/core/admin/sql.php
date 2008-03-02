@@ -37,7 +37,7 @@
      * @param boolean Debug flag.
      * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
-    function zm_sql_patch($sql, &$messages, $debug=false) {
+    function zm_sql_patch($sql, $messages, $debug=false) {
         if ($debug) {
             $_GET['debug'] = 'ON';
         }

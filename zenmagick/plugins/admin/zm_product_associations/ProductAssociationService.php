@@ -178,7 +178,7 @@ class ProductAssociationService extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ProductAssociation</code> instances.
      */
-    function getProductAssociationsForShoppingCart(&$shoppingCart, $type, $all=false) {
+    function getProductAssociationsForShoppingCart($shoppingCart, $type, $all=false) {
 
         $associations = array();
         $productIds = array();

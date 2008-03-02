@@ -86,7 +86,7 @@ class ZMThemeInfo extends ZMObject {
      *
      * @param ZMThemeInfo parent An optional parent theme info.
      */
-    function setParent(&$parent) {
+    function setParent($parent) {
         $this->parent_ = $parent;
         $this->config_ = array_merge($parent->config_, $this->config_);
         $this->layout_ = array_merge($parent->layout_, $this->layout_);

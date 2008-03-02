@@ -102,7 +102,7 @@ class ZMShippingMethod extends ZMModel {
      *
      * @param ZMTaxRate taxRate The tax rate.
      */
-    function setTaxRate(&$taxRate) { $this->taxRate_ = $taxRate; }
+    function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 
     /**
      * Get the shipping id.

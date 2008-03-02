@@ -448,7 +448,7 @@ class ZMOrders extends ZMObject {
      * @param ZMOrder The order.
      * @return ZMOrder The updated order.
      */
-    function updateOrder(&$order) {
+    function updateOrder($order) {
         $db = ZMRuntime::getDB();
 
 /*

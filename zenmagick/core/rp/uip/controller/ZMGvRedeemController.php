@@ -96,7 +96,7 @@ class ZMGvRedeemController extends ZMController {
      * @param ZMGVRedeem redeem The redeem info.
      * @return ZMGVRedeem The updated redeem info.
      */
-    function gvRedeem(&$gvredeem) {
+    function gvRedeem($gvredeem) {
         return $gvredeem;
     }
 }

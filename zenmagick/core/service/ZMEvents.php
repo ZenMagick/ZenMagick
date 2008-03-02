@@ -70,10 +70,10 @@ class ZMEvents extends ZMObject {
      *
      * @param mixed observer Reference to the observer class or method.
      */
-    function attach(&$observer) {
+    function attach($observer) {
         $eventId = 'all';
         $nameHash = md5(get_class($observer).$eventId);
-        $this->subscriber_[$nameHash] = array('obs'=> &$observer, 'eventID'=>$eventId);
+        $this->subscriber_[$nameHash] = array('obs'=> $observer, 'eventID'=>$eventId);
     }
 
     /**
@@ -126,7 +126,7 @@ class ZMEvents extends ZMObject {
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>null</code>.
      */
-    function update(&$notifier, $eventId, $args=null) {
+    function update($notifier, $eventId, $args=null) {
         $method = $this->event2method($eventId, 'on');
         $this->log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {

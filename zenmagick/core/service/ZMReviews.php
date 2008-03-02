@@ -309,7 +309,7 @@ class ZMReviews extends ZMObject {
      * @param int languageId The language for this review; default is <code>null</code>.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    function createReview(&$review, &$account, $languageId=null) {
+    function createReview($review, $account, $languageId=null) {
     global $zm_request;
 
         if (null === $languageId) {

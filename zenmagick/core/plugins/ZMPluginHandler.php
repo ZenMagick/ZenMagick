@@ -66,7 +66,7 @@ class ZMPluginHandler extends ZMObject {
      *
      * @param ZMPlugin plugin The associated plugin.
      */
-    function setPlugin(&$plugin) {
+    function setPlugin($plugin) {
         $this->plugin_ = $plugin;
     }
 

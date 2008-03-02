@@ -196,7 +196,7 @@ class ZMCoupons extends ZMObject {
      * @param ZMAccount account The sender account.
      * @param ZMGVReceiver gvreceiver The receiver.
      */
-    function createCouponTracker(&$coupon, &$account, &$gvreceiver) {
+    function createCouponTracker($coupon, $account, $gvreceiver) {
         $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_COUPON_EMAIL_TRACK . "(coupon_id, customer_id_sent, sent_firstname, sent_lastname, emailed_to, date_sent)
                  values (:couponId, :accountId, :firstName, :lastName, :email, now())";

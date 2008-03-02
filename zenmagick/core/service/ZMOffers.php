@@ -76,7 +76,7 @@ class ZMOffers extends ZMObject {
      *
      * @param ZMProduct product The product.
      */
-    function setProduct(&$product) { $this->product_ = $product; }
+    function setProduct($product) { $this->product_ = $product; }
 
     /**
      * Get the product price.

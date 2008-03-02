@@ -168,7 +168,7 @@ class ZMController extends ZMObject {
      * @param string name The name under which the object should be visible.
      * @param mixed instance An object.
      */
-    function exportGlobal($name, &$instance) {
+    function exportGlobal($name, $instance) {
         if (null === $instance)
             return;
         $this->globals_[$name] = $instance;

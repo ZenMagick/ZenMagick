@@ -117,7 +117,7 @@ class ZMAddresses extends ZMObject {
      * @param ZMAddress account The address.
      * @return ZMAddress The updated address.
      */
-    function updateAddress(&$address) {
+    function updateAddress($address) {
         $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_ADDRESS_BOOK . " set
                     entry_firstname = :firstName;string,
@@ -145,7 +145,7 @@ class ZMAddresses extends ZMObject {
      * @param ZMAddress The new address.
      * @return ZMAddress The created address incl. the new address id.
      */
-    function createAddress(&$address) {
+    function createAddress($address) {
         $db = ZMRuntime::getDB();
         $sql = "insert into " . TABLE_ADDRESS_BOOK . "(
                  customers_id,

@@ -321,7 +321,7 @@ class ZMSession extends ZMObject {
      *
      * @param ZMLanguage language The language.
      */
-    function setLanguage(&$language) {
+    function setLanguage($language) {
         $_SESSION['language'] = $language->getDirectory();
         $_SESSION['languages_id'] = $language->getId();
         $_SESSION['languages_code'] = $language->getCode();

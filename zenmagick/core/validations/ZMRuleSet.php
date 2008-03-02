@@ -76,8 +76,8 @@ class ZMRuleSet {
      *
      * @param ZMRule rule A new rule.
      */
-    function addRule(&$rule) {
-        $this->rules_[] = &$rule;
+    function addRule($rule) {
+        $this->rules_[] = $rule;
     }
 
     /**

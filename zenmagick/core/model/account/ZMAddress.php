@@ -358,7 +358,7 @@ class ZMAddress extends ZMModel {
      *
      * @param ZMCountry country The country.
      */
-    function setCountry(&$country) { $this->country_ = $country; }
+    function setCountry($country) { $this->country_ = $country; }
 
 }
 

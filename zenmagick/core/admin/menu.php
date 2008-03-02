@@ -31,7 +31,7 @@
      * @package org.zenmagick.admin
      * @param ZMMenuItem item The new item.
      */
-    function zm_add_menu_item(&$item) {
+    function zm_add_menu_item($item) {
     global $_zm_menu;
 
         if (!isset($_zm_menu)) {

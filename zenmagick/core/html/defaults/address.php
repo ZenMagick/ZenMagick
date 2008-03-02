@@ -34,7 +34,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formatted address.
      */
-    function zm_format_address(&$address, $html=true, $echo=ZM_ECHO_DEFAULT) {
+    function zm_format_address($address, $html=true, $echo=ZM_ECHO_DEFAULT) {
         if (null == $address) {
             $out = zm_l10n_get("N/A");    
             if ($echo) echo $out;
