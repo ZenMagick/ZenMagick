@@ -47,7 +47,7 @@
             ZMMessages::instance()->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
 
             // select new theme
-            ZMThemes::instance()->setZCThemeId($name);
+            ZMThemes::instance()->updateZCThemeId($name);
             ZMMessages::instance()->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
         }
 

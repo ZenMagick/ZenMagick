@@ -40,7 +40,6 @@
  * @version $Id: ZMMetaTags.php 803 2008-03-02 09:13:21Z dermanomann $
  */
 class ZMMetaTags extends ZMObject {
-    var $db_;
     var $topCategories_ = null;
     var $crumbtrail_ = null;
     var $product_ = null;
@@ -55,8 +54,6 @@ class ZMMetaTags extends ZMObject {
      */
     function __construct($delimiter=null) {
         parent::__construct();
-
-        $this->db_ = ZMRuntime::getDB();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : zm_setting('metaTagKeywordDelimiter');
     }
 
@@ -261,10 +258,6 @@ class ZMMetaTags extends ZMObject {
      */
     function _loadCategory() {
     global $zm_request;
-
-        if (null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId()) {
-            return;
-        }
 
         if (null != $zm_request->getCategoryPath()) {
             $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());

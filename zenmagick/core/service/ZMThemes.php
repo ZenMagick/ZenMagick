@@ -173,12 +173,12 @@ class ZMThemes extends ZMObject {
     }
 
     /**
-     * Set the configured zen-cart theme id.
+     * Update the configured zen-cart theme id.
      *
      * @param string themeId The theme id.
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
-    function setZCThemeId($themeId, $languageId=0) {
+    function updateZCThemeId($themeId, $languageId=0) {
         $db = ZMRuntime::getDB();
 
         // update or insert?
