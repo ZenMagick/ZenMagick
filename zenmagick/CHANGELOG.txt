@@ -33,6 +33,7 @@ Release 0.9.1
   methods moved into ZMThemes
 - made ZMAttributes a proper service
 - moved ZMOffers into model/catalog
+- added a simple request based cache to ZMProducts
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

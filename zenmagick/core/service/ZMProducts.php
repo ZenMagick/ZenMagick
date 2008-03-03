@@ -32,12 +32,15 @@
  * @version $Id$
  */
 class ZMProducts extends ZMObject {
+    private $cache_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->cache_ = array();
     }
 
     /**
@@ -471,36 +474,50 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        if (0 == count($productIds)) {
-            return array();
-        }
-
-        $db = ZMRuntime::getDB();
-        $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_image, pd.products_url, p.products_price,
-                    p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
-                    p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                    p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min, p.products_quantity_mixed,
-                    p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
-                 from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                 where p.products_id in (:productIdList)
-                 and pd.products_id = p.products_id
-                 and pd.language_id = :languageId";
-        if (!$preserveOrder) {
-            $sql .= " order by p.products_sort_order, pd.products_name";
-        }
-        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
-        $results = $db->Execute($sql);
-
         $products = array();
-        while (!$results->EOF) {
-            $product = $this->_newProduct($results->fields);
-            $products[] = $product;
-            $results->MoveNext();
+        if (0 == count($productIds)) {
+            return $products;
+        }
+
+        // check cache first
+        $needLoadIds = array();
+        foreach ($productIds as $id) {
+            if (isset($this->cache_[$id])) {
+                $products[] = $this->cache_[$id];
+            } else {
+                $needLoadIds[$id] = $id;
+            }
+        }
+
+        if (0 < count($needLoadIds)) {
+            $db = ZMRuntime::getDB();
+            $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
+                        p.products_image, pd.products_url, p.products_price,
+                        p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
+                        p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
+                        p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
+                        p.products_quantity_order_min, p.products_quantity_mixed,
+                        p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
+                     ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
+                     from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                     where p.products_id in (:productIdList)
+                     and pd.products_id = p.products_id
+                     and pd.language_id = :languageId";
+            if (!$preserveOrder) {
+                $sql .= " order by p.products_sort_order, pd.products_name";
+            }
+            $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $needLoadIds, "integer");
+            $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
+
+            $results = $db->Execute($sql);
+
+            while (!$results->EOF) {
+                $product = $this->_newProduct($results->fields);
+                $products[] = $product;
+                // put in cache
+                $this->cache_[$product->getId()] = $product;
+                $results->MoveNext();
+            }
         }
 
         if ($preserveOrder) {
@@ -556,6 +573,9 @@ class ZMProducts extends ZMObject {
         $sql = ZMDbUtils::bindObject($sql, $product, false);
         $sql = ZMDbUtils::bindCustomFields($sql, $product, TABLE_PRODUCTS);
         $db->Execute($sql);
+
+        // update cache
+        $this->cache_[$product->getId()] = $product;
 
         return $product;
     }
