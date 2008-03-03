@@ -43,7 +43,6 @@ require("../zen-cart/zenmagick/external.php");
 
     // show messages
     function showMessages() {
-        ZMMessages::instance()->_loadMessageStack();
         if (ZMMessages::instance()->hasMessages()) {
           echo '<ul id="messages">';
           foreach (ZMMessages::instance()->getMessages() as $message) {
@@ -77,25 +76,16 @@ require("../zen-cart/zenmagick/external.php");
       <h1>Login and query order history</h1>
       <?php 
         /** CHANGE TO VALID ACCOUNT **/
+        $zm_request->setParameterMap(array(
+          'email_address' => 'some@domain.com', 
+          'password' => 'xxxxxx'
+          ));
         $email = "some@email.com";
         $pwd = "xxxxxx";
 
-        // fake request
-        $_GET['main_page'] = 'login';
-
-        // create login controller
-        $controller = ZMLoader::make("LoginController");
-
-        // fake login submit
-        global $_POST;
-        if (!isset($_POST)) {
-            $_POST = array();
-        }
-        $_POST['email_address'] = $email;
-        $_POST['password'] = $pwd;
         // execute
+        $controller = ZMLoader::make("LoginController");
         $view = $controller->processPost();
-
         showMessages();
 
         echo "Login result: ".$view->getMappingId()."<br />";
@@ -104,54 +94,36 @@ require("../zen-cart/zenmagick/external.php");
             $account = $zm_request->getAccount();
             echo "<h3>Account Name: " . $account->getFullName()."</h3>";
             
-            // get order history for order #3 using zen-cart bridge
-            $_GET['main_page'] = 'account_history_info';
-            $_GET['order_id'] = '3';
-
-            zm_call_zc_page('account_history_info', 'order');
-            showMessages();
-
-            echo "zen-cart order Date: " . zen_date_long($order->info['date_purchased']) . "<br />";
-
             // get order history using ZenMagick controller
             $controller = ZMLoader::make("AccountHistoryInfoController");
-            // execute; NOTE: reusing $_GET settings
+            $zm_request->setParameterMap($_GET);
             $view = $controller->processGet();
             $zm_order = $controller->getGlobal("zm_order");
-            echo "ZenMagick order date: " . zm_date_short($zm_order->getOrderDate(), false);
+            if ($zm_order) {
+                echo "ZenMagick order date: " . zm_date_short($zm_order->getOrderDate(), false);
+            } else {
+                echo "order #8 not found";
+            }
         } else {
             echo '<h2>Could not login - did you edit this sample to provide valid login information?</h2>';
         }
 
-        $zen_redirect_url = null;
-
         // clean cart if not empty
         if (!$zm_cart->isEmpty()) {
             echo "<h3>Cleaning up Shopping Cart ... </h3>";
-            $_GET['action'] = 'update_product';
-            $_POST['action'] = 'update_product';
-            $_POST['main_page'] = 'shopping_cart';
-            $_POST['products_id'] = array();
-            $_POST['cart_quantity'] = array();
             foreach ($zm_cart->getItems() as $item) {
-                $_POST['products_id'][] = $item->getId();
-                $_POST['cart_quantity'][] = 0;
+                echo "Removing ".$item->getProduct()->getName()."<BR>";
+                $zm_cart->updateProduct($item->getId(), 0);
             }
-            zm_call_zc_page('product_info');
         }
 
-        // fake add to cart
-        $_GET['action'] = 'add_product';
-        $_POST['action'] = 'add_product';
-        $_POST['products_id'] = $zm_request->getParameter('pid', 8);;
-        $_POST['cart_quantity'] = 1;
-        zm_call_zc_page('product_info');
+        // add product_id=8, qty=2
+        $zm_cart->addProduct(8, 2);
 
         echo "<h3>Shopping Cart after add</h3>";
         foreach ($zm_cart->getItems() as $item) {
           ?><?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br /><?php
         }
-        echo $zen_redirect_url;
 
      ?>
     </div>
