@@ -64,14 +64,4 @@
         $_GET['number_of_uploads'] = $uploads;
     }
 
-    // security fix to allow post for login
-    if ("login" == $zm_request->getPageName()) {
-        // *disable* zc account create code
-        $_GET['action'] = $_POST['action'];
-        unset($_POST['action']);
-    }
-
-    // zc fails if UI_DATE_FORMAT changes
-    define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
-
 ?>
