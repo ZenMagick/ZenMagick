@@ -53,7 +53,6 @@ class ZMProduct extends ZMModel {
     var $taxClassId_;
     var $discountType_;
     var $discountTypeFrom_;
-    var $taxRate_;
     var $priceSorter_;
     var $pricedByAttributes_;
     var $masterCategoryId_;
@@ -63,9 +62,7 @@ class ZMProduct extends ZMModel {
     var $productPrice_;
 
     // funny bits
-    var $offers_;
-    var $attributes_;
-    var $features_;
+    var $attributeService_;
 
 
     /**
@@ -81,9 +78,9 @@ class ZMProduct extends ZMModel {
         $this->id_ = $id;
         $this->name_ = $name;
         $this->description_ = $description;
-        $this->features_ = array();
         $this->productPrice_ = 0;
         $this->sortOrder_ = 0;
+        $this->attributeService_ = null;
     }
 
     /**
@@ -167,7 +164,7 @@ class ZMProduct extends ZMModel {
      * @return string The default image.
      */
     function getDefaultImage() { 
-      return (zm_is_empty($this->image_) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $this->image_;
+        return (zm_is_empty($this->image_) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $this->image_;
     }
 
     /**
@@ -317,7 +314,7 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMTaxRate The tax rate.
      */
-    function getTaxRate() { return $this->taxRate_; }
+    function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId_); }
 
     /**
      * Get the product price sorter.
@@ -359,7 +356,17 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    function getOffers() { $this->offers_->setProduct($this); return $this->offers_; }
+    function getOffers() { return ZMLoader::make("Offers", $this); }
+
+    /**
+     * Get attribute service.
+     */
+    private function _getAttributeService() {
+        if (null == $this->attributeService_) {
+            $this->attributeService_ = ZMLoader::make("Attributes", $this);
+        }
+        return $this->attributeService_;
+    }
 
     /**
      * Check if this product has attributes or not.
@@ -367,14 +374,14 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    function hasAttributes() { return $this->attributes_->hasAttributes_; }
+    function hasAttributes() { return $this->_getAttributeService()->hasAttributes_; }
 
     /**
      * Get the product attributes.
      *
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
-    function getAttributes() { return $this->attributes_->getAttributes(); }
+    function getAttributes() { return $this->_getAttributeService()->getAttributes(); }
 
     /**
      * Get the product features.
@@ -383,9 +390,10 @@ class ZMProduct extends ZMModel {
      * @return array List of product features.
      */
     function getFeatures($hidden=false) {
+        $features = ZMFeatures::instance()->getFeaturesForProductId($this->id_);
         if (!$hidden) {
             $arr = array();
-            foreach ($this->features_ as $feature) {
+            foreach ($features as $feature) {
                 if (!$feature->isHidden()) {
                     $arr[$feature->getName()] = $feature;
                 }
@@ -394,7 +402,7 @@ class ZMProduct extends ZMModel {
         }
 
         // include hidden
-        return $this->features_;
+        return $features;
     }
 
     /**

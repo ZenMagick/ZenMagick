@@ -679,7 +679,6 @@ class ZMProducts extends ZMObject {
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status_ = 1 == $fields['products_status'];
         $product->model_ = $fields['products_model'];
-        //TODO: do this in ZMProduct rather than here!
         $product->image_ = $fields['products_image'];
         $product->url_ = $fields['products_url'];
         $product->dateAvailable_ = $fields['products_date_available'];
@@ -696,19 +695,12 @@ class ZMProducts extends ZMObject {
         $product->taxClassId_ = $fields['products_tax_class_id'];
         $product->discountType_ = $fields['products_discount_type'];
         $product->discountTypeFrom_ = $fields['products_discount_type_from'];
-        $product->taxRate_ = ZMTaxRates::instance()->getTaxRateForClassId($fields['products_tax_class_id']);
         $product->priceSorter_ = $fields['products_price_sorter'];
         $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
         $product->masterCategoryId_ = $fields['master_categories_id'];
         $product->sortOrder_ = $fields['products_sort_order'];
-        // raw price
+        // the raw price
         $product->productPrice_ = $fields['products_price'] ? $fields['products_price'] : 0;
-        // some magick
-        $product->offers_ = $this->create("Offers", $product);
-        $product->offers_->setProduct($product);
-        $product->attributes_ = $this->create("Attributes", $product);
-        //TODO
-        $product->features_ = ZMFeatures::instance()->getFeaturesForProductId($product->getId());
 
         // custom fields
         foreach (ZMDbUtils::getCustomFields(TABLE_PRODUCTS) as $field) {
