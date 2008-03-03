@@ -63,8 +63,11 @@ class ZMAccountEditController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
+    global $zm_request;
+
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        $this->exportGlobal("zm_account", $zm_request->getAccount());
 
         return parent::process();
     }
