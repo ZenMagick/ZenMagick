@@ -29,7 +29,7 @@
     // hide as to avoid filenames that contain account names, etc.
     @ini_set("display_errors", false);
     @ini_set("log_errors", true); 
-    @ini_set("register_globals", 0);
+    @ini_set("register_globals", false);
 
     // ZenMagick bootstrap
     if (!IS_ADMIN_FLAG && file_exists(dirname(__FILE__).'/core.php')) {
@@ -64,9 +64,11 @@
         require(dirname(__FILE__).'/local.php');
     }
 
+    // famous global
+    $zm_request = new ZMRequest();
+
     // now we can check for a static homepage
-    $request = new ZMRequest();
-    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $request->getPageName() && (0 == count($request->getParameterMap()))) {
+    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $zm_request->getPageName() && (0 == count($zm_request->getParameterMap()))) {
         require(zm_setting('staticHome'));
         exit;
     }
@@ -98,13 +100,8 @@
         $zm_accounts = ZMAccounts::instance();
         // share instance
         $zm_account = $zm_request->getAccount();
+        $zm_cart = new ZMShoppingCart();
     }
-
-  //TODO: get rid of!
-    $zm_request = $request;
-    $zm_cart = new ZMShoppingCart();
-  //END TODO
-
 
     // register custom error handler
     if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
@@ -131,8 +128,10 @@
     if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
         ZMRuntime::setTheme(zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
     }
-    //TODO:
+
+    // another famous global
     $zm_theme = ZMRuntime::getTheme();
+
     if (zm_setting('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_themeInfo = $zm_theme->getThemeInfo();

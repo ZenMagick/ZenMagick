@@ -107,9 +107,9 @@ class ZMSession extends ZMObject {
     /**
      * Get the current shopping cart.
      *
-     * @return ZMShoppingCart The current shopping cart (may be empty).
+     * @return mixed The current <strong>zen-cart</strong> shopping cart (may be empty).
      */
-    function getShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
+    function getZCShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
 
     /**
      * Get the account id.

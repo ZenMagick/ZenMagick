@@ -67,6 +67,9 @@ class ZMCheckoutPaymentController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
+        $shoppingCart = $zm_request->getShoppingCart();
+        $this->exportGlobal("zm_cart", $shoppingCart);
+
         return $this->findView();
     }
 

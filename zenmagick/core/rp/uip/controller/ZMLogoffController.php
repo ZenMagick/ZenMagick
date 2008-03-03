@@ -62,7 +62,7 @@ class ZMLogoffController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         $session = $zm_request->getSession();
         if (!$session->isAnonymous()) {

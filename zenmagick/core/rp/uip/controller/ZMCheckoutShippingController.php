@@ -63,21 +63,23 @@ class ZMCheckoutShippingController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request, $zm_cart;
+    global $zm_request;
+
+        $shoppingCart = $zm_request->getShoppingCart();
 
         // do a bit of checking first...
-        if ($zm_cart->isEmpty()) {
+        if ($shoppingCart->isEmpty()) {
             return $this->findView('empty_cart');
         }
 
-        if (!$zm_cart->readyForCheckout()) {
+        if (!$shoppingCart->readyForCheckout()) {
             ZMMessages::instance()->error(zm_l10n_get('Please update your order ...'));
             return $this->findView('check_cart');
         }
 
         // stock handling
         if (zm_setting('isEnableStock') && !zm_setting('isAllowLowStockCheckout')) {
-            foreach ($zm_cart->getItems() as $item) {
+            foreach ($shoppingCart->getItems() as $item) {
                 if (!$item->isStockAvailable()) {
                     ZMMessages::instance()->error(zm_l10n_get('Some items in your order are out of stock'));
                     return $this->findView('check_cart');
@@ -86,13 +88,15 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         // set default address if required
-        if (!$zm_cart->hasShippingAddress()) {
+        if (!$shoppingCart->hasShippingAddress()) {
             $account = $zm_request->getAccount();
-            $zm_cart->setShippingAddressId($account->getDefaultAddresssId());
+            $shoppingCart->setShippingAddressId($account->getDefaultAddresssId());
         }
 
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+
+        $this->exportGlobal("zm_cart", $shoppingCart);
 
         return parent::process();
     }

@@ -44,7 +44,7 @@
   <a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
-<?php if (zm_setting('isGuestCheckout') && !$zm_cart->isEmpty()) { ?>
+<?php if (zm_setting('isGuestCheckout') && !$zm_request->getShoppingCart()->isEmpty()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
   <?php zm_secure_form(ZM_FILENAME_CHECKOUT_GUEST, "action=process", 'checkout_guest', 'post', 'return validate(this);') ?>
     <fieldset>

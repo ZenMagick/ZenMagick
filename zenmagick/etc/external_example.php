@@ -109,19 +109,20 @@ require("../zen-cart/zenmagick/external.php");
         }
 
         // clean cart if not empty
-        if (!$zm_cart->isEmpty()) {
+        $shoppingCart = $zm_request->getShoppingCart();
+        if (!$shoppingCart->isEmpty()) {
             echo "<h3>Cleaning up Shopping Cart ... </h3>";
-            foreach ($zm_cart->getItems() as $item) {
+            foreach ($shoppingCart->getItems() as $item) {
                 echo "Removing ".$item->getProduct()->getName()."<BR>";
-                $zm_cart->updateProduct($item->getId(), 0);
+                $shoppingCart->updateProduct($item->getId(), 0);
             }
         }
 
         // add product_id=8, qty=2
-        $zm_cart->addProduct(8, 2);
+        $shoppingCart->addProduct(8, 2);
 
         echo "<h3>Shopping Cart after add</h3>";
-        foreach ($zm_cart->getItems() as $item) {
+        foreach ($shoppingCart->getItems() as $item) {
           ?><?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br /><?php
         }
 

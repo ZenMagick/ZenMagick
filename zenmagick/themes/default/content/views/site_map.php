@@ -38,7 +38,7 @@
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NEWSLETTERS); ?>"><?php zm_l10n("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NOTIFICATIONS); ?>"><?php zm_l10n("Change Product Notifications") ?></a></li>
       </ul></li>
-        <?php if (!$zm_cart->isEmpty()) { ?>
+        <?php if (!$zm_request->getShoppingCart()->isEmpty()) { ?>
             <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("Shopping cart") ?></a></li>
             <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("Checkout") ?></a></li>
         <?php } ?>

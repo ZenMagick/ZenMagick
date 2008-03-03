@@ -60,17 +60,18 @@ class ZMCheckoutShippingAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code>  or <code>null</code>.
      */
     function checkCart() {
-    global $zm_cart;
+    global $zm_request;
 
-        if ($zm_cart->isEmpty()) {
+        $shoppingCart = $zm_request->getShoppingCart();
+        if ($shoppingCart->isEmpty()) {
             return $this->findView("empty_cart");
         }
 
-        if (!$zm_cart->readyForCheckout()) {
+        if (!$shoppingCart->readyForCheckout()) {
             return $this->findView("cart_not_ready");
         }
 
-        if ($zm_cart->isVirtual()) {
+        if ($shoppingCart->isVirtual()) {
             return $this->findView("cart_is_virtual");
         }
 
@@ -86,8 +87,13 @@ class ZMCheckoutShippingAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
+    global $zm_request;
+
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+
+        $shoppingCart = $zm_request->getShoppingCart();
+        $this->exportGlobal("zm_cart", $shoppingCart);
 
         return parent::process();
     }
@@ -99,7 +105,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
@@ -123,7 +129,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
@@ -132,8 +138,9 @@ class ZMCheckoutShippingAddressController extends ZMController {
         // if address field in request, it's a select; otherwise a new address
         $addressId = $zm_request->getParameter('address', null);
 
+        $shoppingCart = $zm_request->getShoppingCart();
         if (null !== $addressId) {
-            $zm_cart->setShippingAddressId($addressId);
+            $shoppingCart->setShippingAddressId($addressId);
         } else {
             // TODO: create business objects to share logic...
             // use address book controller to process
@@ -148,7 +155,7 @@ class ZMCheckoutShippingAddressController extends ZMController {
             }
             // new address
             $address = $abc->getGlobal('zm_address');
-            $zm_cart->setShippingAddressId($address->getId());
+            $shoppingCart->setShippingAddressId($address->getId());
         }
 
         return $this->findView('success');

@@ -32,29 +32,31 @@
  * @version $Id$
  */
 class ZMRequest extends ZMObject {
-    var $controller_;
-    var $session_;
-    var $request_;
-    var $categoryPathArray_;
+    private $controller_;
+    private $session_;
+    private $parameter_;
+    private $categoryPathArray_;
+    private $shoppingCart_;
 
 
     /**
      * Create new instance.
      *
-     * @param array The request; optional, if <code>null</code>,
+     * @param array parameter Optional request parameter; if <code>null</code>,
      *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function __construct($request=null) {
+    function __construct($parameter=null) {
         parent::__construct();
 
-        $this->controller_ = null;
-        if (null != $request) {
-            $this->request_ = $request;
+        if (null != $parameter) {
+            $this->parameter_ = $parameter;
         } else {
-            $this->request_ = array_merge($_POST, $_GET);
+            $this->parameter_ = array_merge($_POST, $_GET);
         }
+        $this->controller_ = null;
         $this->session_ = null;
         $this->categoryPathArray_ = null;
+        $this->cart_ = null;
     }
 
 
@@ -71,14 +73,14 @@ class ZMRequest extends ZMObject {
      *
      * @return string The upper case request method.
      */
-    function getMethod() { return strtoupper($_SERVER['REQUEST_METHOD']); }
+    public function getMethod() { return strtoupper($_SERVER['REQUEST_METHOD']); }
 
     /**
      * Check for a valid session.
      *
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
-    function isValidSession() {
+    public function isValidSession() {
         return $this->getSession()->isValid();
     }
 
@@ -87,77 +89,88 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMSession The session.
      */
-    function getSession() { if (!isset($this->session_)) { $this->session_ = $this->create("Session"); } return $this->session_; }
+    public function getSession() { 
+        if (!isset($this->session_)) { 
+            $this->session_ = $this->create("Session"); 
+        } 
+        return $this->session_;
+    }
 
     /**
      * Get the hostname for this request.
      *
      * @return strng The hostname.
      */
-    function getHostname() { return $_SERVER['HTTP_HOST']; }
+    public function getHostname() { return $_SERVER['HTTP_HOST']; }
 
     /**
      * Get the full query string.
      *
      * @return string The full query string for this request.
      */
-    function getQueryString() { return $_SERVER['QUERY_STRING']; }
+    public function getQueryString() { return $_SERVER['QUERY_STRING']; }
 
     /**
      * Get the complete parameter map.
      *
      * @return array Map of all request parameters
      */
-    function getParameterMap() { return $this->request_; }
+    public function getParameterMap() { return $this->parameter_; }
 
     /**
      * Set the parameter map.
      *
      * @param array map Map of all request parameters
      */
-    function setParameterMap($map) { $this->request_ = $map; }
+    public function setParameterMap($map) { $this->parameter_ = $map; }
 
     /**
      * Get the current shopping cart.
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    function getShoppingCart() { return $this->getSession()->getShoppingCart(); }
+    public function getShoppingCart() { 
+        if (null == $this->shoppingCart_) {
+            $this->shoppingCart_ = ZMLoader::make('ShoppingCart');
+        }
+
+        return $this->shoppingCart_;
+    }
 
     /**
      * Get the current page name; ie the <code>main_page</code> value.
      *
      * @return string The value of the <code>main_page</code> query parameter.
      */
-    function getPageName() { return $this->getParameter('main_page'); }
+    public function getPageName() { return $this->getParameter('main_page'); }
 
     /**
      * Get the current page index (if available).
      *
      * @return int The current page index (default is 1).
      */
-    function getPageIndex() {  return $this->getParameter('page', 1); }
+    public function getPageIndex() {  return $this->getParameter('page', 1); }
 
     /**
      * Get the current sort id.
      *
      * @return string The current sort id.
      */
-    function getSortId() {  return $this->getParameter('sort_id'); }
+    public function getSortId() {  return $this->getParameter('sort_id'); }
 
     /** 
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
      */
-    function getSubPageName() { return $this->getParameter('cat'); }
+    public function getSubPageName() { return $this->getParameter('cat'); }
 
     /**
      * Get the product id.
      *
      * @return int The request product id or <code>0</code>.
      */
-    function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
+    public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
      * Get the language code.
@@ -168,7 +181,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The language code or <code>null</code>.
      */
-    function getLanguageCode() { return (int)$this->getParameter('language'); }
+    public function getLanguageCode() { return (int)$this->getParameter('language'); }
 
     /**
      * Get the currency code.
@@ -179,28 +192,28 @@ class ZMRequest extends ZMObject {
      *
      * @return string The currency code or <code>null</code>.
      */
-    function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
+    public function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
 
     /**
      * Get the request model number.
      *
      * @return string The model numner or <code>null</code>.
      */
-    function getModel() { return $this->getParameter('model'); }
+    public function getModel() { return $this->getParameter('model'); }
 
     /**
      * Get the current category path.
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.
      */
-    function getCategoryPath() { return $this->getParameter('cPath', null); }
+    public function getCategoryPath() { return $this->getParameter('cPath', null); }
 
     /**
      * Get the category path arry.
      *
      * @return array The current category path broken into an array of category ids.
      */
-    function getCategoryPathArray() {
+    public function getCategoryPathArray() {
         if (null === $this->categoryPathArray_) {
             $this->_parseCategoryPath();
         }
@@ -213,7 +226,7 @@ class ZMRequest extends ZMObject {
      *
      * @param array categoryPathArray The category path as array.
      */
-    function setCategoryPathArray($categoryPathArray) {
+    public function setCategoryPathArray($categoryPathArray) {
         if (is_array($categoryPathArray)) {
             $this->categoryPathArray_ = $categoryPathArray;
             $cPath = implode('_', $this->categoryPathArray_);
@@ -224,7 +237,7 @@ class ZMRequest extends ZMObject {
     /**
      * Parse the category path.
      */
-    function _parseCategoryPath() {
+    private function _parseCategoryPath() {
         $path = $this->getParameter('cPath');
         $this->categoryPathArray_ = array();
         if (null !== $path) {
@@ -243,21 +256,21 @@ class ZMRequest extends ZMObject {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    function getManufacturerId() { return $this->getParameter('manufacturers_id', 0); }
+    public function getManufacturerId() { return $this->getParameter('manufacturers_id', 0); }
 
     /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    function getAccountId() { return $this->getSession()->getAccountId(); }
+    public function getAccountId() { return $this->getSession()->getAccountId(); }
 
     /**
      * Get the account.
      *
      * @return ZMAccount The account or <code>null</code>.
      */
-    function getAccount() {
+    public function getAccount() {
         $accountId = $this->getAccountId();
         if (0 == $accountId) {
             return null;
@@ -271,35 +284,35 @@ class ZMRequest extends ZMObject {
      *
      * @return int The current review id or <code>0</code>.
      */
-    function getReviewId() { return $this->getParameter('reviews_id', 0); }
+    public function getReviewId() { return $this->getParameter('reviews_id', 0); }
 
     /**
      * Get the current order id.
      *
      * @return int The current order id or <code>0</code>.
      */
-    function getOrderId() { return $this->getParameter('order_id', 0); }
+    public function getOrderId() { return $this->getParameter('order_id', 0); }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isAnonymous() { return $this->getSession()->isAnonymous(); }
+    public function isAnonymous() { return $this->getSession()->isAnonymous(); }
 
     /**
      * Returns <code>true</code> if the user is fully registered and logged in.
      *
      * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
      */
-    function isRegistered() { return $this->getSession()->isRegistered(); }
+    public function isRegistered() { return $this->getSession()->isRegistered(); }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    function isGuest() { return $this->getSession()->isGuest(); }
+    public function isGuest() { return $this->getSession()->isGuest(); }
 
     /**
      * Generic access method for request parameter.
@@ -311,7 +324,7 @@ class ZMRequest extends ZMObject {
      * @return string The parameter value or the default value or <code>null</code>.
      * @deprecated use getParameter() instead
      */
-    function getRequestParameter($name, $default=null) { 
+    public function getRequestParameter($name, $default=null) { 
         return $this->getParameter($name, $default, true);
     }
 
@@ -325,9 +338,9 @@ class ZMRequest extends ZMObject {
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
-    function getParameter($name, $default=null, $sanitize=true) { 
-        if (isset($this->request_[$name])) {
-            return $sanitize ? zm_sanitize($this->request_[$name]) : $this->request_[$name];
+    public function getParameter($name, $default=null, $sanitize=true) { 
+        if (isset($this->parameter_[$name])) {
+            return $sanitize ? zm_sanitize($this->parameter_[$name]) : $this->parameter_[$name];
         } else {
             return $default;
         }
@@ -340,12 +353,12 @@ class ZMRequest extends ZMObject {
      * @param mixed value The value.
      * @return mixed The previous value or <code>null</code>.
      */
-    function setParameter($name, $value) { 
+    public function setParameter($name, $value) { 
         $old = null;
-        if (isset($this->request_[$name])) {
-            $old = $this->request_[$name];
+        if (isset($this->parameter_[$name])) {
+            $old = $this->parameter_[$name];
         }
-        $this->request_[$name] = $value;
+        $this->parameter_[$name] = $value;
         return $old;
     }
 
@@ -354,21 +367,27 @@ class ZMRequest extends ZMObject {
      *
      * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
-    function getController() { if (null === $this->controller_) {$this->controller_ = $this->create("DefaultController"); } return $this->controller_; }
+    public function getController() { 
+        if (null === $this->controller_) {
+            $this->controller_ = $this->create("DefaultController");
+        } 
+        
+        return $this->controller_; 
+    }
 
     /**
      * Set the current controller.
      *
      * @param ZMController controller The new controller.
      */
-    function setController($controller) { $this->controller_ = $controller; }
+    public function setController($controller) { $this->controller_ = $controller; }
 
     /**
      * Get the current category id.
      *
      * @return int The current category id or <code>0</code>.
      */
-    function getCategoryId() {
+    public function getCategoryId() {
         $cPath = $this->getCategoryPathArray();
 
         if (0 < count($cPath)) {
@@ -383,7 +402,7 @@ class ZMRequest extends ZMObject {
      *
      * @return boolean <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
      */
-    function isSecure() {
+    public function isSecure() {
         return 443 == $_SERVER['SERVER_PORT'] || (isset($_SERVER['HTTPS']) && 'on' == strtolower($_SERVER['HTTPS']));
     }
 
@@ -392,7 +411,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string A base URL for the current request.
      */
-    function getPageBase() {
+    public function getPageBase() {
         $base = null;
         if (!$this->isSecure()) { 
             $base = HTTP_SERVER . DIR_WS_CATALOG;
@@ -408,7 +427,7 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if code execution is in the context of an admin page,
      *  <code>false</code> if not.
      */
-    function isAdmin() {
+    public function isAdmin() {
         return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
     }
 

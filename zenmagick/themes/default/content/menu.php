@@ -36,7 +36,7 @@
     <?php if (!$zm_request->isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGOFF); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!$zm_cart->isEmpty() && !zm_is_checkout_page()) { ?>
+    <?php if (!$zm_request->getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>

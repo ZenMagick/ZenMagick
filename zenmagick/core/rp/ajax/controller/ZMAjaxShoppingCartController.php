@@ -59,8 +59,6 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Estimate shipping.
      */
     function estimateShippingJSON() {
-    global $zm_cart;
-
         $shippingEstimator = $this->create("ShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
@@ -100,16 +98,17 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Get cart content.
      */
     function getContentsJSON() {
-    global $zm_cart;
+    global $zm_request;
 
+        $shoppingCart = $zm_request->getShoppingCart();
         $cart = array();
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zm_format_currency($value, true, false) : $value;');
-        foreach ($zm_cart->getItems() as $item) {
+        foreach ($shoppingCart->getItems() as $item) {
             array_push($items, $this->flattenObject($item, array('id', 'name', 'qty', 'itemTotal'), $formatter));
         }
         $cart['items'] = $items;
-        $cart['total'] = zm_format_currency($zm_cart->getTotal(), true, false);
+        $cart['total'] = zm_format_currency($shoppingCart->getTotal(), true, false);
 
         $flatObj = $this->flattenObject($cart);
         $json = $this->toJSON($flatObj);
@@ -130,14 +129,15 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function addProductJSON() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
+        $shoppingCart = $zm_request->getShoppingCart();
         $productId = $zm_request->getParameter('productId', null);
         $quantity = $zm_request->getParameter('quantity', 0);
         $id = $zm_request->getParameter('id', array());
 
         if (null !== $productId && 0 != $quantity) {
-            $zm_cart->addProduct($productId, $quantity, $id);
+            $shoppingCart->addProduct($productId, $quantity, $id);
         }
 
         $this->getContentsJSON();
@@ -149,12 +149,13 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function removeProductJSON() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         $productId = $zm_request->getParameter('productId', null);
 
         if (null !== $productId) {
-            $zm_cart->removeProduct($productId);
+            $shoppingCart = $zm_request->getShoppingCart();
+            $shoppingCart->removeProduct($productId);
         }
 
         $this->getContentsJSON();
@@ -174,13 +175,14 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function updateProductJSON() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         $productId = $zm_request->getParameter('productId', null);
         $quantity = $zm_request->getParameter('quantity', 0);
 
         if (null !== $productId && 0 != $quantity) {
-            $zm_cart->updateProduct($productId, $quantity);
+            $shoppingCart = $zm_request->getShoppingCart();
+            $shoppingCart->updateProduct($productId, $quantity);
         }
 
         $this->getContentsJSON();

@@ -61,13 +61,14 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code>  or <code>null</code>.
      */
     function checkCart() {
-    global $zm_cart;
+    global $zm_request;
 
-        if ($zm_cart->isEmpty()) {
+        $shoppingCart = $zm_request->getShoppingCart();
+        if ($shoppingCart->isEmpty()) {
             return $this->findView("empty_cart");
         }
 
-        if (!$zm_cart->readyForCheckout()) {
+        if (!$shoppingCart->readyForCheckout()) {
             return $this->findView("cart_not_ready");
         }
 
@@ -83,8 +84,13 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
+    global $zm_request;
+
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+
+        $shoppingCart = $zm_request->getShoppingCart();
+        $this->exportGlobal("zm_cart", $shoppingCart);
 
         return parent::process();
     }
@@ -120,7 +126,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_cart;
+    global $zm_request;
 
         if (null !== ($view = $this->checkCart())) {
             return $view;
@@ -129,8 +135,9 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         // if address field in request, it's a select; otherwise a new address
         $addressId = $zm_request->getParameter('address', null);
 
+        $shoppingCart = $zm_request->getShoppingCart();
         if (null !== $addressId) {
-            $zm_cart->setBillingAddressId($addressId);
+            $shoppingCart->setBillingAddressId($addressId);
         } else {
             // TODO: create business objects to share logic...
             // use address book controller to process
@@ -145,7 +152,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
             }
             // new address
             $address = $abc->getGlobal('zm_address');
-            $zm_cart->setBillingAddressId($address->getId());
+            $shoppingCart->setBillingAddressId($address->getId());
         }
 
         return $this->findView('success');
