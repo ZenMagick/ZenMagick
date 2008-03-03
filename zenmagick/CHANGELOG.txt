@@ -31,6 +31,8 @@ Release 0.9.1
 - moved zm_log and zm_backtrace into ZMObject
 - refactor ZMRuntime and make all methods static; some of the theme related
   methods moved into ZMThemes
+- made ZMAttributes a proper service
+- moved ZMOffers into model/catalog
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

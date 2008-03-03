@@ -62,7 +62,8 @@ class ZMProduct extends ZMModel {
     var $productPrice_;
 
     // funny bits
-    var $attributeService_;
+    var $attributes_;
+    var $offers_;
 
 
     /**
@@ -80,7 +81,8 @@ class ZMProduct extends ZMModel {
         $this->description_ = $description;
         $this->productPrice_ = 0;
         $this->sortOrder_ = 0;
-        $this->attributeService_ = null;
+        $this->attributes_ = null;
+        $this->offers_ = null;
     }
 
     /**
@@ -335,7 +337,7 @@ class ZMProduct extends ZMModel {
      *
      * @return float The product price.
      */
-    function getPrice() { $offers = $this->getOffers(); return $offers->getCalculatedPrice(); }
+    function getPrice() { return $this->getOffers()->getCalculatedPrice(); }
 
     /**
      * Get the product price.
@@ -356,16 +358,11 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    function getOffers() { return ZMLoader::make("Offers", $this); }
-
-    /**
-     * Get attribute service.
-     */
-    private function _getAttributeService() {
-        if (null == $this->attributeService_) {
-            $this->attributeService_ = ZMLoader::make("Attributes", $this);
+    function getOffers() { 
+        if (null == $this->offers_) {
+            $this->offers_ = ZMLoader::make("Offers", $this); 
         }
-        return $this->attributeService_;
+        return $this->offers_;
     }
 
     /**
@@ -374,14 +371,21 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    function hasAttributes() { return $this->_getAttributeService()->hasAttributes_; }
+    function hasAttributes() { return 0 < count($this->attributes_); }
 
     /**
      * Get the product attributes.
      *
+     * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
-    function getAttributes() { return $this->_getAttributeService()->getAttributes(); }
+    function getAttributes($languageId=null) { 
+        if (null == $this->attributes_) {
+            $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this, $languageId);
+        }
+
+        return $this->attributes_;
+    }
 
     /**
      * Get the product features.

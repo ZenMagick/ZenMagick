@@ -28,7 +28,7 @@
  * All stuff related to product prices and offers.
  *
  * @author mano
- * @package org.zenmagick.service
+ * @package org.zenmagick.model.catalog
  * @version $Id$
  */
 class ZMOffers extends ZMObject {

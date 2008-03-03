@@ -25,31 +25,19 @@
 
 
 /**
- * Attributes service.
- *
- * <p>This one is actually only used internally by the product service.</p>
+ * Attribute service.
  *
  * @author mano
  * @package org.zenmagick.service
  * @version $Id$
  */
 class ZMAttributes extends ZMObject {
-    var $product_;
-    var $hasAttributes_;
-    var $attributes_;
-
 
     /**
-     * Create new instance for the given product.
-     *
-     * @param ZMProduct product The product whose attributes we want to load.
+     * Create new instance.
      */
-    function __construct($product) {
+    function __construct() {
         parent::__construct();
-
-        $this->product_ = $product;
-        $this->attributes_ = array();
-        $this->hasAttributes_ = $this->_checkForAttributes();
     }
 
     /**
@@ -67,12 +55,20 @@ class ZMAttributes extends ZMObject {
     }
 
 
-    // inital (simple sql) check to see whether there are any attributes at all
-    function _checkForAttributes() {
+    /**
+     * Simple lookup to check for existing attributes.
+     *
+     * @param int productId The product id.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
+     */ 
+    function checkForAttributes($productId, $languageId=null) {
     global $zm_request;
 
-        $session = $zm_request->getSession();
-        $languageId = $session->getLanguageId();
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
 
         $db = ZMRuntime::getDB();
         $sql = "select count(*) as total
@@ -81,7 +77,7 @@ class ZMAttributes extends ZMObject {
                 and patrib.options_id = popt.products_options_id
                 and popt.language_id = :languageId
                 limit 1";
-        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $results = $db->Execute($sql);
         return 0 < $results->fields['total'];
@@ -98,7 +94,7 @@ class ZMAttributes extends ZMObject {
 
 
     // create new attribute value
-    function _newAttributeValue($fields) {
+    function _newAttributeValue($fields, $product) {
         $value = $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
@@ -115,11 +111,11 @@ class ZMAttributes extends ZMObject {
         // and now the funky stuff
         if ($value->isDiscounted_) {
             $price = zm_get_attributes_price_final($fields["products_attributes_id"], 1, '', 'false');
-            $value->price_ = zm_get_discount_calc((int)$this->product_->getId(), true, $price);
+            $value->price_ = zm_get_discount_calc((int)$product->getId(), true, $price);
         } else {
             $value->price_ = $fields['options_values_price'];
         }
-        $taxRate = $this->product_->getTaxRate();
+        $taxRate = $product->getTaxRate();
         $value->price_ = $taxRate->addTax($value->price_);
 
         if ($value->isOneTime_ || $value->isPriceFactorOneTime_) {
@@ -133,15 +129,20 @@ class ZMAttributes extends ZMObject {
     }
 
 
-    // load attributes
-    function _loadAttributes() {
+    /**
+     * Load attributes for the given product and language.
+     *
+     * @param ZMProduct product The product.
+     * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
+     */ 
+    function getAttributesForProduct($product, $languageId=null) {
     global $zm_request;
 
-        if (!$this->hasAttributes_ || 0 < count($this->attributes_))
-            return;
-
-        $session = $zm_request->getSession();
-        $languageId = $session->getLanguageId();
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
 
         $attributesOrderBy= '';
         if (zm_setting('isSortAttributesByName')) {
@@ -166,10 +167,11 @@ class ZMAttributes extends ZMObject {
                 and patrib.options_id = popt.products_options_id
                 and popt.language_id = :languageId" .
                 $attributesOrderBy;
-        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+        $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $attributeResults = $db->Execute($sql);
 
+        $attributes = array();
         // iterate over all attributes
         while (!$attributeResults->EOF) {
             $attribute = $this->_newAttribute($attributeResults->fields);
@@ -182,36 +184,25 @@ class ZMAttributes extends ZMObject {
                     and pov.language_id = :languageId " .
                     $valuesOrderBy;
             $sql = $db->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
-            $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
+            $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
             $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
             $valueResults = $db->Execute($sql);
 
             // get all values for the current attribute
             while (!$valueResults->EOF) {
-                $value = $this->_newAttributeValue($valueResults->fields);
+                $value = $this->_newAttributeValue($valueResults->fields, $product);
                 // add to attribute
                 array_push($attribute->values_, $value);
                 $valueResults->MoveNext();
             }
 
             // add to attributes
-            array_push($this->attributes_, $attribute);
+            $attributes[] = $attribute;
             $attributeResults->MoveNext();
         }
+
+        return $attributes;
     }
-
-
-    /**
-     * @return boolean <code>true</code> if there are attributes (values) available,
-     *  <code>false</code> if not.
-     */
-    function hasAttributes() { return $this->hasAttributes_; }
-
-    /**
-     * @return array A list of {@link org.zenmagick.model.ZMAttribute ZMAttribute} instances.
-     * @see org.zenmagick.model.ZMAttribute ZMAttribute
-     */
-    function getAttributes() { $this->_loadAttributes(); return $this->attributes_; }
 
 }
 
