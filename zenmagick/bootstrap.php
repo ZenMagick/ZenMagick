@@ -26,7 +26,7 @@
 <?php
     /**
      * This is an attempt to create an alternative bootstrap sequence to minimize
-     * zen-cart dependencies in ZenMagick.
+     * zen-cart dependencies and overhead in ZenMagick.
      *
      * Main motivation right now is to see what sort of performance improvements would be possible
      * to cut out even more zen-cart code during request handling.
@@ -45,7 +45,7 @@
      * handler code.
      *
      * To make the above request handling work, all init plugins need to be
-     * installed (and in the correct order, too!).
+     * installed and enabled.
      *
      * Possible improvements:
      * - merge referenced zen-cart files where appropriate
