@@ -388,28 +388,6 @@ class ZMProduct extends ZMModel {
     }
 
     /**
-     * Get the product features.
-     *
-     * @param boolean hidden If <code>true</code>, hidden features will be included in the returned list.
-     * @return array List of product features.
-     */
-    function getFeatures($hidden=false) {
-        $features = ZMFeatures::instance()->getFeaturesForProductId($this->id_);
-        if (!$hidden) {
-            $arr = array();
-            foreach ($features as $feature) {
-                if (!$feature->isHidden()) {
-                    $arr[$feature->getName()] = $feature;
-                }
-            }
-            return $arr;
-        }
-
-        // include hidden
-        return $features;
-    }
-
-    /**
      * Get the product image info.
      *
      * @return ZMImageInfo The product image info.

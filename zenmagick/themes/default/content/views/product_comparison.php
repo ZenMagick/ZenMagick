@@ -31,7 +31,7 @@
     $featureNames = array(); 
 
     foreach ($zm_productList as $product) {
-        $features = $product->getFeatures();
+        $features = ZMFeatures::instance()->getFeaturesforProductIdAndStatus($product->getId());
         array_push($featureList, $features);
         $featureNames = array_merge($featureNames, array_flip(array_keys($features)));
     } 

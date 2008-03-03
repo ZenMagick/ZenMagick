@@ -63,6 +63,9 @@ class ZMFeatures extends ZMObject {
     }
 
 
+    /**
+     * Load features.
+     */
     function _loadFeatures() {
     global $zm_request;
 
@@ -97,6 +100,9 @@ class ZMFeatures extends ZMObject {
         return;
     }
 
+    /**
+     * Load internal list of feature types.
+     */
     function _loadFeatureTypes() {
         if (null != $this->featureTypes_)
             return;
@@ -115,14 +121,22 @@ class ZMFeatures extends ZMObject {
         return;
     }
 
-    // get a list of all features
+    /**
+     * Get a list of all features.
+     *
+     * @return array List of <code>ZMFeature</code> objects.
+     */
     function getFeatureList() {
         $this->_loadFeatures();
 
         return $this->features_;
     }
 
-    // get feature types
+    /**
+     * Get a list of all available feature types.
+     *
+     * @return array List of feature types (id/name) using <code>ZMIdNamePair</code>.
+     */
     function getFeatureTypes() {
         $this->_loadFeatureTypes();
 
@@ -134,7 +148,12 @@ class ZMFeatures extends ZMObject {
         return $types;
     }
 
-    // get feature type for id
+    /**
+     * Get a specific feature type.
+     *
+     * @param int id The feature type id.
+     * @return ZMIdNamePair The feature type or <code>null</code>.
+     */
     function getFeatureTypeForId($id) {
         $this->_loadFeatureTypes();
 
@@ -146,7 +165,12 @@ class ZMFeatures extends ZMObject {
         return $type;
     }
 
-    // get feature for id
+    /**
+     * Get the feature for the given id.
+     *
+     * @param int id The feature id.
+     * @return ZMFeature A feature or <code>null</code>.
+     */
     function getFeatureForId($id) {
         $this->_loadFeatures();
 
@@ -158,7 +182,12 @@ class ZMFeatures extends ZMObject {
         return $feature;
     }
 
-    // remove feature for the given id
+    /**
+     * Remove feature for the given id.
+     *
+     * @param int id The feature id to remove.
+     * @return boolean <code>true</code> if the feature was removed successfully, <code>false</code> if not.
+     */
     function removeFeatureForId($featureId) {
         $db = ZMRuntime::getDB();
         $sql = "delete from " . ZM_TABLE_FEATURES . "
@@ -170,7 +199,16 @@ class ZMFeatures extends ZMObject {
         return true;
     }
 
-    // add feature
+    /**
+     * Add a feature.
+     * 
+     * @param string type The feature type.
+     * @param int languageId The language id.
+     * @param string name The name.
+     * @param string description The description.
+     * @param boolean hidden Flag the feature as hidden or not.
+     * @return boolean <code>true</code> if the feature was added, <code>false</code> if not.
+     */
     function addFeature($type, $languageId, $name, $description, $hidden=false) {
         $db = ZMRuntime::getDB();
         $sql = "insert into " . ZM_TABLE_FEATURES . "
@@ -186,7 +224,16 @@ class ZMFeatures extends ZMObject {
         return true;
     }
 
-    // update feature
+    /**
+     * Update a feature.
+     *
+     * @param int featureId The feature id.
+     * @param int languageId The language id.
+     * @param string name The name.
+     * @param string description The description.
+     * @param boolean hidden Flag the feature as hidden or not.
+     * @return boolean <code>true</code> if the feature was updated, <code>false</code> if not.
+     */
     function updateFeature($featureId, $languageId, $name, $description, $hidden) {
         $db = ZMRuntime::getDB();
         $sql = "update " . ZM_TABLE_FEATURES . "
@@ -258,6 +305,31 @@ class ZMFeatures extends ZMObject {
         unset($this->productFeatures_[$productId]);
         return true;
     }
+
+    /**
+     * Get the features for the given product (id).
+     *
+     * @param int productId The product id.
+     * @param boolean hidden If <code>true</code>, hidden features will be included
+     *  in the returned list; default is <code>false</code>.
+     * @return array List of product features.
+     */
+    function getFeaturesforProductIdAndStatus($productId, $hidden=false) {
+        $features = $this->getFeaturesForProductId($productIdid_);
+        if (!$hidden) {
+            $arr = array();
+            foreach ($features as $feature) {
+                if (!$feature->isHidden()) {
+                    $arr[$feature->getName()] = $feature;
+                }
+            }
+            return $arr;
+        }
+
+        // include hidden
+        return $features;
+    }
+
 
     // get features for id
     function getFeaturesForProductId($productId) {

@@ -38,6 +38,7 @@ Release 0.9.1
 - removed document_product_info.php view; there is no difference to the
   default product view and ZenMagick does not support any document specific
 	things
+- move features code into zm_product_features plugin
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
