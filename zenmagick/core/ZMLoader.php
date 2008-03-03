@@ -108,7 +108,7 @@ class ZMLoader {
      * Set the parent loader.
      */
     public function setParent($parent) {
-        $root = $this->parent_;
+        $root = $this;
         while (null != $root && null != ($tmp = $root->parent_)) {
             $root = $tmp;
         }
@@ -180,7 +180,7 @@ class ZMLoader {
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    protected function resolve($name) {
+    public function resolve($name) {
         $classfile = $this->getClassFile($name);
         $zmname = "ZM".$name;
         $zmclassfile = $this->getClassFile($zmname);
