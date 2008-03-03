@@ -226,7 +226,7 @@
 <?php if (null != $product) { ?>
   <fieldset>
       <legend><?php zm_l10n("Features for <span>%s</span>", $product->getName()) ?></legend>
-      <?php $productFeatures = $product->getFeatures(true); ?>
+      <?php $productFeatures = $zm_features->getFeaturesForProductId($product->getId()); ?>
       <?php if (0 < count($productFeatures)) { ?>
         <table cellspacing="0" cellpadding="2">
           <thead>
