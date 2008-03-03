@@ -35,6 +35,9 @@ Release 0.9.1
 - moved ZMOffers into model/catalog
 - added a simple request based cache to ZMProducts
 - removed function zm_call_zc_page(..) and updated external.php accordingly
+- removed document_product_info.php view; there is no difference to the
+  default product view and ZenMagick does not support any document specific
+	things
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
