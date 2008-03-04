@@ -24,6 +24,15 @@
 <?php
 
 
+// compare 
+define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
+
+// features
+define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');
+define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'zm_product_features');
+define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
+
+
 /**
  * Plugin adding product features.
  *

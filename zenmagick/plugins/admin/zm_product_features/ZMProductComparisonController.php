@@ -25,7 +25,9 @@
 
 
 /**
- * Request controller for static pages.
+ * Request controller for product comparison.
+ *
+ * <p>Expects a number of product ids in the request parameter <code>compareId</code>.</p>
  *
  * @author mano
  * @package org.zenmagick.rp.uip.controller

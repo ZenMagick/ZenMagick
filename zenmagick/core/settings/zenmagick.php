@@ -66,15 +66,10 @@
     //** db **//
 
     define('ZM_DB_PREFIX', DB_PREFIX);
-    // features
-    define('ZM_TABLE_FEATURE_TYPES', ZM_DB_PREFIX . 'zm_feature_types');
-    define('ZM_TABLE_PRODUCT_FEATURES', ZM_DB_PREFIX . 'zm_product_features');
-    define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
 
 
     //** files **//
 
-    define ('ZM_FILENAME_COMPARE_PRODUCTS', 'product_comparison');
     define ('ZM_FILENAME_RSS', 'rss');
     define ('ZM_FILENAME_CHECKOUT_GUEST', 'checkout_guest');
     define ('ZM_FILENAME_GUEST_HISTORY', 'guest_history');
