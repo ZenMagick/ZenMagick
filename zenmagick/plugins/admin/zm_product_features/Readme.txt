@@ -17,3 +17,4 @@ An example of how features could be displayed per product would be:
   <?php } ?>
 
 
+Sample code on how to display products next to each other can be found in the etc folder of this plugin.
