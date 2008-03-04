@@ -52,16 +52,6 @@
       </fieldset>
   <?php } ?>
 
-  <?php $features = ZMFeatures::instance()->getFeaturesforProductIdAndStatus($zm_product->getId()); ?>
-  <?php if (0 < count($features)) { ?>
-      <fieldset>
-          <legend><?php zm_l10n("Features") ?></legend>
-          <?php foreach ($features as $feature) { ?>
-          <?php echo $feature->getName() ?>: <?php zm_list_values($feature->getValues()) ?> <?php zm_htmlencode($feature->getDescription()) ?><br />
-          <?php } ?>
-      </fieldset>
-  <?php } ?>
-
   <fieldset>
       <legend><?php zm_l10n("Shopping Options") ?></legend>
       <?php $minMsg = ""; if (1 < $zm_product->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $zm_product->getMinOrderQty()); } ?>
