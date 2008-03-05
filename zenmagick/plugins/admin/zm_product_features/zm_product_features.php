@@ -67,6 +67,25 @@ class zm_product_features extends ZMPlugin {
 
 
     /**
+     * Install this plugin.
+     */
+    function install() {
+        parent::install();
+        zm_sql_patch(file($this->getPluginDir()."sql/features.sql"), $this->messages_);
+    }
+
+    /**
+     * Remove this plugin.
+     *
+     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     */
+    function remove($keepSettings=false) {
+        parent::remove($keepSettings);
+        zm_sql_patch(file($this->getPluginDir()."sql/features_undo.sql"), $this->messages_);
+    }
+
+
+    /**
      * Init this plugin.
      */
     function init() {
