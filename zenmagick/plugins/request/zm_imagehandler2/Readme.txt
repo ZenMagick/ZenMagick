@@ -12,7 +12,7 @@ Installation
 
 Template changes
 ================
-In order to use the image hover feature of ImahgeHandler2, the following
+In order to use the image hover feature of ImageHandler2, the following
 manual steps are required:
 
 a) Copy style_imagehover.css and jscript_imagehover.js into the default theme's content folder (zenmagick/themes/default/content)
@@ -25,4 +25,4 @@ b) Add the following two lines to the <head> element of the used layout file(s):
 
 Ideally, they would be the last two lines before the closing head tag (</head>)
 
-c) You also might want to adjust the widht/height for the image popup in common.js.
+c) You also might want to adjust the width/height for the image popup in common.js.
