@@ -48,8 +48,7 @@ require_once('includes/application_top.php');
 
         "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
 
-        "sqlConfig" => "Setup ZenMagick config groups and initial values",
-        "sqlFeatures" => "Install Features database tables"
+        "sqlConfig" => "Setup ZenMagick config groups and initial values"
     );
 
     $coreCompressor = new ZMCoreCompressor();
