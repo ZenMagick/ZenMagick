@@ -73,7 +73,7 @@ class ZMMinRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return zm_is_empty($req[$this->name_]) || (!array_key_exists($this->name_, $req) || $this->min_ <= strlen(trim($req[$this->name_])));
+        return empty($req[$this->name_]) || (!array_key_exists($this->name_, $req) || $this->min_ <= strlen(trim($req[$this->name_])));
     }
 
 

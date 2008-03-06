@@ -92,7 +92,7 @@ class ZMArtist extends ZMModel {
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    function hasImage() { return !zm_is_empty($this->image_); }
+    function hasImage() { return !empty($this->image_); }
 
     /**
      * Get the artist image.
@@ -113,7 +113,7 @@ class ZMArtist extends ZMModel {
      *
      * @return boolean <code>true</code> if a URL is available, <code>false</code> if not.
      */
-    function hasUrl() { return !zm_is_empty($this->url_); }
+    function hasUrl() { return !empty($this->url_); }
 
     /**
      * Get the artist URL.

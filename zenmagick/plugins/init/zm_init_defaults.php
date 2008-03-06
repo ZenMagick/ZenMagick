@@ -74,7 +74,7 @@ class zm_init_defaults extends ZMPlugin {
         /** sanitize other stuff **/
         $_SERVER['REMOTE_ADDR'] = preg_replace('/[^0-9.%]/', '', $_SERVER['REMOTE_ADDR']);
 
-        if (!isset($parameter['main_page']) || zm_is_empty($parameter['main_page'])) $parameter['main_page'] = 'index';
+        if (!isset($parameter['main_page']) || empty($parameter['main_page'])) $parameter['main_page'] = 'index';
 
         $zm_request->setParameterMap($parameter);
     }

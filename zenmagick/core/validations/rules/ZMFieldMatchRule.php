@@ -75,7 +75,7 @@ class ZMFieldMatchRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return zm_is_empty($req[$this->name_]) || zm_is_empty($req[$this->other_]) || ($req[$this->name_] == $req[$this->other_]);
+        return empty($req[$this->name_]) || empty($req[$this->other_]) || ($req[$this->name_] == $req[$this->other_]);
     }
 
 

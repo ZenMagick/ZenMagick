@@ -43,11 +43,11 @@ class PriceRangeFilter extends ZMResultListFilter {
         parent::__construct('prfilter', zm_l10n_get('Price Range'));
 
         $this->ranges_ = array();
-        if (!zm_is_empty($this->filterValues_) && is_array($this->filterValues_)) {
+        if (!empty($this->filterValues_) && is_array($this->filterValues_)) {
             // values are in the form of from-to
             foreach ($this->filterValues_ as $value) {
                 $range = explode('-', $value);
-                if (!zm_is_empty($value)) {
+                if (!empty($value)) {
                     $this->ranges_[$value] = $range;
                 }
             }

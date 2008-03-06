@@ -109,7 +109,7 @@ class ZMGVReceiver extends ZMModel {
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    function hasMessage() { return !zm_is_empty($this->message_); }
+    function hasMessage() { return !empty($this->message_); }
 
     /**
      * Get the message.

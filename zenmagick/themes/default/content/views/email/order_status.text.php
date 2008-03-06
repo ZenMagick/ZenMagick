@@ -37,7 +37,7 @@ $comment = trim($matches[1]);
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 
-<?php if (!zm_is_empty($comment)) { ?>
+<?php if (!empty($comment)) { ?>
 <?php zm_l10n("The following comment has been added to your order:") ?>
 
 <?php echo $comment ?>

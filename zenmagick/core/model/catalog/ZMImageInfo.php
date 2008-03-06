@@ -57,7 +57,7 @@ class ZMImageInfo extends ZMModel {
         $imageBase = $comp[2];
 
         // set default image
-        if (zm_is_empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
+        if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
             $this->imageDefault_ = zm_image_uri(zm_setting('imgNotFound'), false);
         } else {
             $this->imageDefault_ = zm_image_uri($image, false);
@@ -158,7 +158,7 @@ class ZMImageInfo extends ZMModel {
     function setParameter($parameter) {
         if (is_array($parameter)) {
             $this->parameter_ = $parameter;
-        } else if (!zm_is_empty($parameter)) {
+        } else if (!empty($parameter)) {
             parse_str($parameter, $this->parameter_);
         } else {
             $this->log('invalid image parameter '.$parameter, ZM_LOG_WARN);

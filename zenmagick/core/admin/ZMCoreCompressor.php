@@ -256,7 +256,7 @@ class ZMCoreCompressor extends ZMObject {
                 if ('NONE' != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
-                    if (zm_is_empty($pluginDir)) {
+                    if (empty($pluginDir)) {
                         $pluginDir = ZMRuntime::getPluginsDir() . $type . '/';
                         $noDir = true;
                     }
@@ -272,7 +272,7 @@ class ZMCoreCompressor extends ZMObject {
                             $relDir = '';
                         }
                         $source = file_get_contents($file);
-                        if (!zm_is_empty($relDir)) {
+                        if (!empty($relDir)) {
                             zm_mkdir($pluginBase . $relDir, 755);
                         }
                         $outfile = $pluginBase . $relDir . basename($file);

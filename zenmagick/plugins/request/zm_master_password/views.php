@@ -37,7 +37,7 @@
             $values = $zm_request->getParameter('configuration', array());
             $masterPassword = $values['MASTERPASSWORD'];
             // allow to reset to blank
-            if (!zm_is_empty($masterPassword)) {
+            if (!empty($masterPassword)) {
                 $masterPassword = zm_encrypt_password($masterPassword);
             }
             $zm_master_password->set('masterPassword', $masterPassword);

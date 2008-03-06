@@ -67,7 +67,7 @@ class ZMForwardView extends ZMView {
      * @return boolean <code>true</code> if the forward url is not empty.
      */
     function isValid() {
-        return !zm_is_empty($this->page_);
+        return !empty($this->page_);
     }
 
     /**

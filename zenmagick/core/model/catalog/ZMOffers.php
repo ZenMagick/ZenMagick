@@ -169,7 +169,7 @@ class ZMOffers extends ZMObject {
         if (0 < $results->RecordCount()) {
     	      $specialPrice = $results->fields['specials_new_products_price'];
         }
-        return !zm_is_empty($specialPrice) ? $specialPrice : null;
+        return !empty($specialPrice) ? $specialPrice : null;
     }
 
     /**

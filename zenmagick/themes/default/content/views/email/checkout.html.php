@@ -92,7 +92,7 @@ $language = ZMRuntime::getLanguage();
 <h3><?php zm_l10n("Payment Details") ?></h3>
 <?php $paymentType = $order->getPaymentType(); ?>
 <p><?php echo $paymentType->getName() ?></p>
-<?php if (!zm_is_empty($PAYMENT_METHOD_FOOTER)) { ?>
+<?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>
 <p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
 <?php } ?>
 

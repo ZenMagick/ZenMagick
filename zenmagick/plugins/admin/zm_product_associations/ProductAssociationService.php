@@ -221,7 +221,7 @@ class ProductAssociationService extends ZMObject {
         $productAssociation->sourceId_ = $fields['source_product_id'];
         $productAssociation->targetId_ = $fields['target_product_id'];
         $productAssociation->startDate_ = $fields['start_date'];
-        $productAssociation->endDate_ = zm_is_empty($fields['end_date']) ? null : $fields['end_date'];
+        $productAssociation->endDate_ = empty($fields['end_date']) ? null : $fields['end_date'];
         $productAssociation->defaultQty_ = $fields['default_quantity'];
         $productAssociation->sortOrder_ = $fields['sort_order'];
         return $productAssociation;

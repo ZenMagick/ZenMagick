@@ -107,7 +107,7 @@ class ZMThemeBuilder extends ZMObject {
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     function build() {
-        if (zm_is_empty($this->name_)) {
+        if (empty($this->name_)) {
             array_push($this->messages_, 'Invalid theme name "' . $this->name_ . '".');
             return false;
         }

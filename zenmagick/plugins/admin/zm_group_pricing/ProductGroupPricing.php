@@ -88,7 +88,7 @@ class ProductGroupPricing extends ZMModel {
         $this->type_ = $zm_request->getParameter('type', '%');
         $this->regularPriceOnly_ = $zm_request->getParameter('regularPriceOnly');
         $this->startDate_ = $zm_request->getParameter('startDate');
-        $this->startDate_ = zm_ui2date(zm_is_empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_);
+        $this->startDate_ = zm_ui2date(empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_);
         $this->endDate_ = zm_ui2date($zm_request->getParameter('endDate'));
     }
 

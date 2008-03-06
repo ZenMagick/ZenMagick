@@ -220,7 +220,7 @@ class ZMValidator extends ZMObject {
         $first = true;
         foreach ($set->getRules() as $rule) {
             $ruleJS = $rule->toJSString();
-            if (zm_is_empty($ruleJS)) {
+            if (empty($ruleJS)) {
                 continue;
             }
             if (!$first) $js .= ','.$n;

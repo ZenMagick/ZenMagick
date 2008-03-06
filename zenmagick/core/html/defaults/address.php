@@ -84,7 +84,7 @@
         eval("\$out = \"$format\";");
 
         $company = $address->getCompanyName();
-        if (zm_setting('isAccountCompany') && !zm_is_empty($company) ) {
+        if (zm_setting('isAccountCompany') && !empty($company) ) {
             $out = $company . $cr . $out;
         }
 

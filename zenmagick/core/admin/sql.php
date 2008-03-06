@@ -42,12 +42,12 @@
             $_GET['debug'] = 'ON';
         }
         $sql = zen_db_prepare_input($sql);
-        if (!zm_is_empty($sql)) {
+        if (!empty($sql)) {
             $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
             foreach (_zm_process_sql_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
-            return zm_is_empty($results['error']);
+            return empty($results['error']);
         }
 
         return true;
@@ -67,7 +67,7 @@
             array_push($messages, ZMLoader::make("Message", 'Failed: '.$results['queries'].'.', 'error'));
         }
 
-        if (!zm_is_empty($results['errors'])) {
+        if (!empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
                 array_push($messages, ZMLoader::make("Message", 'ERROR: '.$value.'.', 'error'));
             }

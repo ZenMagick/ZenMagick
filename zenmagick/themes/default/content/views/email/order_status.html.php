@@ -45,7 +45,7 @@ $language = ZMRuntime::getLanguage();
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 
-<?php if (!zm_is_empty($comment)) { ?>
+<?php if (!empty($comment)) { ?>
 <p><?php zm_l10n("The following comment has been added to your order:") ?></p>
 <p><?php echo zm_text2html($comment) ?></p>
 <?php } ?>

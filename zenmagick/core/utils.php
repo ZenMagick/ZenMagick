@@ -45,6 +45,19 @@
     function zm_backtrace($msg=null) {
         ZMObject::backtrace($msg);
     }
+    /**
+     * Check if a given value or array is empty.
+     *
+     * @package org.zenmagick
+     * @param mixed value The value or array to check.
+     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
+     * @deprecated Use <code>zm_is_empty()</code> instead.
+     */
+    function zm_is_empty($value) { 
+        return empty($value);
+    }
+
+
 
 
     /**
@@ -122,21 +135,6 @@
     function zm_ends_with($s, $end) {
         $endLen = strlen($end);
         return $end == substr($s, -$endLen);
-    }
-
-
-    /**
-     * stripslashes incl. array support.
-     *
-     * @package org.zenmagick
-     * @param mixed value A value to strip.
-     * @return mixed The stripped value.
-     */
-    function zm_stripslashes($value) {
-        if (!get_magic_quotes_gpc())
-            return $value;
-
-       return is_array($value) ?  array_map('zm_stripslashes', $value) : stripslashes($value);
     }
 
 
@@ -264,23 +262,6 @@
 
 
     /**
-     * Check if a given value or array is empty.
-     *
-     * @package org.zenmagick
-     * @param mixed value The value or array to check.
-     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
-     */
-    function zm_is_empty($value) { 
-        // support for arrays
-        if (is_array($value)) {
-            return 0 == count($value);
-        }
-
-        return (empty($value) && 0 == strlen($value)) || null == $value || 0 == strlen(trim($value));
-    }
-
-
-    /**
      * Redirect to the given url.
      *
      * <p>This function wil also persist existing messages in the session in order to be
@@ -396,7 +377,7 @@
      * @return boolean <code>true</code> on success.
      */
     function zm_mkdir($dir, $perms=755, $recursive=true) {
-        if (null == $dir || zm_is_empty($dir)) {
+        if (null == $dir || empty($dir)) {
             return false;
         }
         if (file_exists($dir) && is_dir($dir))

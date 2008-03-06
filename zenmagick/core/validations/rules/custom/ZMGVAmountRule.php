@@ -74,7 +74,7 @@ class ZMGVAmountRule extends ZMRule {
     function validate($req) {
     global $zm_request;
 
-        if (zm_is_empty($req[$this->name_])) {
+        if (empty($req[$this->name_])) {
             return true;
         }
 

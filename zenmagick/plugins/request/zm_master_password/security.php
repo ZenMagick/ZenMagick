@@ -38,7 +38,7 @@
 
         $masterPassword = $zm_master_password->get('masterPassword');
 
-        return !zm_is_empty($masterPassword) && zen_validate_password($clear, $masterPassword);
+        return !empty($masterPassword) && zen_validate_password($clear, $masterPassword);
     }
 
 ?>

@@ -49,7 +49,7 @@
         map.setCenter(new GLatLng('.$location.'), '.$zoom.');
         var marker = new GMarker(map.getCenter());
         map.addOverlay(marker);
-        '.(!zm_is_empty($markerText) ? 'marker.openInfoWindowHtml("'.$markerText.'")' : '').'
+        '.(!empty($markerText) ? 'marker.openInfoWindowHtml("'.$markerText.'")' : '').'
       }
   }
   //google.setOnLoadCallback(load_locator_map);

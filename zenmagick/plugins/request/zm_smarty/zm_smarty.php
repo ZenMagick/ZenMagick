@@ -76,7 +76,7 @@ class zm_smarty extends ZMPlugin {
         zm_set_setting('isEchoHTML', false);
 
         $smartyDir = $this->get('smartyDir');
-        if (zm_is_empty($smartyDir)) {
+        if (empty($smartyDir)) {
             $smartyDir = $this->getPluginDir().'/smarty/';
         }
         define('SMARTY_DIR', $smartyDir.'/libs/');

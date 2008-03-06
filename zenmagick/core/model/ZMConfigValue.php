@@ -122,7 +122,7 @@ class ZMConfigValue extends ZMModel {
      * @return boolean <code>true</code> if a set function is configured, <code>false<code> if not.
      */
     function hasSetFunction() {
-        return !zm_is_empty($this->setFunction_);
+        return !empty($this->setFunction_);
     }
 
     /**

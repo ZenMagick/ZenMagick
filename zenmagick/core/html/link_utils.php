@@ -65,7 +65,7 @@
             // admin links!
             $isAdmin = true;
             //TODO: init!
-            if (zm_is_empty($page)) {
+            if (empty($page)) {
                 if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
                 while (false !== strpos($PHP_SELF, '//')) $PHP_SELF = str_replace('//', '/', $PHP_SELF);
                 $page = $PHP_SELF;
@@ -74,7 +74,7 @@
             }
             $useContext = false;
             $isStatic = true;
-        } else if (zm_is_empty($page)) {
+        } else if (empty($page)) {
             ZMObject::backtrace('missing page parameter');
         }
 
@@ -101,7 +101,7 @@
             $query .= 'main_page=' . $page;
         }
 
-        if (!zm_is_empty($params)) {
+        if (!empty($params)) {
             $query .= '&'.strtr(trim($params), array('"' => '&quot;'));
         }
 

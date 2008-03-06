@@ -97,7 +97,7 @@ class ZMManufacturer extends ZMModel {
      *
      * @return boolean <code>true</code> if an image exists, <code>false</code> if not.
      */
-    function hasImage() { return !zm_is_empty($this->image_); }
+    function hasImage() { return !empty($this->image_); }
 
     /**
      * Get the manufacturer image info.

@@ -126,7 +126,7 @@ class ZMAddress extends ZMModel {
             }
         } else {
             // need some free text that is not numeric (pretty safe to assume!)
-            if (!zm_is_empty($state)) {
+            if (!empty($state)) {
                 if (!is_numeric($state)) {
                     $this->state_ = $state;
                 }

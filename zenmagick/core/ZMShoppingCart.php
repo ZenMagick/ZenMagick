@@ -274,14 +274,14 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
-    function hasShippingAddress() { return !zm_is_empty($_SESSION['sendto']); }
+    function hasShippingAddress() { return !empty($_SESSION['sendto']); }
 
     /**
      * Checks if the cart has a billing address.
      *
      * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
-    function hasBillingAddress() { return !zm_is_empty($_SESSION['billto']); }
+    function hasBillingAddress() { return !empty($_SESSION['billto']); }
 
     /**
      * Get the current shipping address.

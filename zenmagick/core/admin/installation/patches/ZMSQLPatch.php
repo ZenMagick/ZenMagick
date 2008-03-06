@@ -86,10 +86,10 @@ class ZMSQLPatch extends ZMInstallationPatch {
      */
     function _runSQL($sql) {
         $sql = zen_db_prepare_input($sql);
-        if (!zm_is_empty($sql)) {
+        if (!empty($sql)) {
             $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
             $this->_processSQLMessages($results);
-            return zm_is_empty($results['error']);
+            return empty($results['error']);
         }
 
         return true;
@@ -105,7 +105,7 @@ class ZMSQLPatch extends ZMInstallationPatch {
             array_push($this->messages_, $this->create("Message", 'Failed: '.$results['queries'].'.', 'error'));
         }
 
-        if (!zm_is_empty($results['errors'])) {
+        if (!empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
                 array_push($this->messages_, $this->create("Message", 'ERROR: '.$value.'.', 'error'));
             }

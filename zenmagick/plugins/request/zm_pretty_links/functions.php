@@ -256,7 +256,7 @@
                         $removeNames = array_merge($removeNames, $mapping['exclude']);
                     } else {
                         $translate = false;
-                        if (!zm_is_empty($page)) {
+                        if (!empty($page)) {
                             ZMObject::log("no pretty link mapping for: ".$page);
                         }
                     }

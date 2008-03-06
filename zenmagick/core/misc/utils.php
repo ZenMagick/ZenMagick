@@ -320,7 +320,7 @@ return zen_get_uprid($productId, $attributes);
      * @return string The formatted date.
      */
     function zm_ui2date($date) {
-        if (zm_is_empty($date)) {
+        if (empty($date)) {
             return '';
         }
         // The individual date components in the order dd, mm, cc, yy.

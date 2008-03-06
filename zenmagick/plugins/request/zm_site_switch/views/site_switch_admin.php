@@ -42,7 +42,7 @@
             if (zm_starts_with($name, 'hostname_')) {
                 $index = str_replace('hostname_', '', $name);
                 $themeId = $zm_request->getParameter('themeId_'.$index);
-                if (!zm_is_empty($name) && !zm_is_empty($themeId)) {
+                if (!empty($name) && !empty($themeId)) {
                     $zm_server_names[$value] = $themeId;
                 }
             }

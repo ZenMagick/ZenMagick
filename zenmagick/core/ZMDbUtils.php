@@ -117,7 +117,7 @@ class ZMDbUtils {
                         $value = zen_date_raw($value);
                     } else {
                         // if not empty nothing, otherwise assume NULL
-                        if (zm_is_empty($value)) {
+                        if (empty($value)) {
                             $value = 'NULL';
                             $label[1] = 'passthru';
                         }
@@ -186,7 +186,7 @@ class ZMDbUtils {
         }
 
         $customFields = '';
-        if (!zm_is_empty($prefix) && !zm_ends_with($prefix, '.')) {
+        if (!empty($prefix) && !zm_ends_with($prefix, '.')) {
             $prefix .= '.';
         }
         foreach ($fields as $field) {
@@ -206,7 +206,7 @@ class ZMDbUtils {
      */
     public static function getCustomFields($table) {
         $setting = zm_setting(ZMDbUtils::getCustomFieldKey($table));
-        if (zm_is_empty($setting)) {
+        if (empty($setting)) {
             return array();
         }
 

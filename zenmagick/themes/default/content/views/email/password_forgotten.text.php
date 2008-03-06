@@ -25,7 +25,7 @@
 ?><?php
 preg_match('/$$\s+\w+$$/m', $EMAIL_MESSAGE_HTML, $matches);
 $password = trim($matches[0]);
-if (!zm_is_empty($newPassword)) { $password = $newPassword; }
+if (!empty($newPassword)) { $password = $newPassword; }
 $language = ZMRuntime::getLanguage();
 ?><?php zm_l10n("New Password Request\n") ?>
 

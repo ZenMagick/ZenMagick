@@ -82,7 +82,7 @@ class ZMRecordCompany extends ZMModel {
      *
      * @return boolean <code>true</code> if a URL exists, <code>false</code> if not.
      */
-    function hasUrl() { return !zm_is_empty($this->url_); }
+    function hasUrl() { return !empty($this->url_); }
 
     /**
      * Get the record company ULR.

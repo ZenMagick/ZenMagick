@@ -171,14 +171,14 @@
 
     // do/do not echo code for a selected radio button
     function zm_radio_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && zm_is_empty($value))) {
+        if ($setting == $value || ($default && empty($value))) {
             echo ' checked="checked"';
         }
     }
 
     // do/do not echo code for a selected checkbox
     function zm_checkbox_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && zm_is_empty($value))) {
+        if ($setting == $value || ($default && empty($value))) {
             echo ' checked="checked"';
         }
     }

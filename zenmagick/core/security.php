@@ -80,7 +80,9 @@
         if (is_string($value)) {
             $value = ereg_replace(' +', ' ', $value);
             $value = preg_replace("/[<>]/", '_', $value);
-            $value = zm_stripslashes($value);
+            if (get_magic_quotes_gpc()) {
+                $value = stripslashes($value);
+            }
             return trim($value);
         } elseif (is_array($value)) {
             reset($value);
