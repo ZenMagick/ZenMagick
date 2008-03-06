@@ -548,19 +548,6 @@
 
 
     /**
-     * Fire an event.
-     *
-     * @package org.zenmagick
-     * @param mixed source The event source.
-     * @param string eventId The event id.
-     * @param array args Optional additional parameter; default is <code>null</code>.
-     */
-    function zm_fire_event($source, $eventId, $args=null) {
-        ZMEvents::instance()->fireEvent($source, $eventId, $args);
-    }
-
-
-    /**
      * Custom error handler.
      *
      * @package org.zenmagick
