@@ -43,6 +43,7 @@ Release 0.9.1
 - use empty where possbile rather than zm_is_empty(); made zm_is_empty a
   simple wrapper around empty rather than trying to be clever
 - removed zm_fire_event()
+- add ZMProducts::getProducts()
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

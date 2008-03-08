@@ -59,6 +59,43 @@ class ZMProducts extends ZMObject {
 
 
     /**
+     * Get all products.
+     *
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
+    function getProducts($active=true, $languageId=null) {
+    global $zm_request;
+
+        if (null === $languageId) {
+            $session = $zm_request->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        $db = ZMRuntime::getDB();
+        $query = "select p.products_id
+                    from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
+                    where ";
+        if ($active) {
+            $query .= " p.products_status = 1 and ";
+        }
+        $query .= " pd.products_id = p.products_id
+                    and pd.language_id = :languageId
+                    order by p.products_sort_order, pd.products_name";
+        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
+        $results = $db->Execute($query);
+
+        $productIds = array();
+        while (!$results->EOF) {
+            $product = $this->_newProduct($results->fields);
+            $productIds[] = $results->fields['products_id'];
+            $results->MoveNext();
+        }
+        return $this->getProductsForIds($productIds, false, $languageId);
+    }
+
+    /**
      * Get all active products for the given category id.
      *
      * @param int categoryId The category id.
