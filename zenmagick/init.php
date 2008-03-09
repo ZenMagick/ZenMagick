@@ -84,7 +84,6 @@
         $zm_pages = ZMEZPages::instance();
         $zm_coupons = ZMCoupons::instance();
         $zm_banners = ZMBanners::instance();
-        $zm_features = ZMFeatures::instance();
         $zm_orders = ZMOrders::instance();
         $zm_events = ZMEvents::instance();
         $zm_addresses = ZMAddresses::instance();
