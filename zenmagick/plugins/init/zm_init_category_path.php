@@ -68,7 +68,9 @@ class zm_init_category_path extends ZMPlugin {
                 // set default based on product default category
                 $product = ZMProducts::instance()->getProductForId($productId);
                 $defaultCategory = $product->getDefaultCategory();
-                $zm_request->setCategoryPathArray($defaultCategory->getPathArray());
+                if (null != $defaultCategory) {
+                    $zm_request->setCategoryPathArray($defaultCategory->getPathArray());
+                }
             }
         }
     }
