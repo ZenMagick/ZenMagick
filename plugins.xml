@@ -99,6 +99,11 @@
             <param name="plugin.name" value="zm_site_switch" />
             <param name="plugin.version" value="${plugins.zm_site_switch.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_hoverbox3" />
+            <param name="plugin.version" value="${plugins.zm_hoverbox3.version}" />
+        </antcall>
     </target>
 
     
