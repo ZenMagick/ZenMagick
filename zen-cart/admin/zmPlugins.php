@@ -65,7 +65,6 @@ require_once('includes/application_top.php');
                     require_once($static);
                 }
                 // plugins prevail over defaults, but not themes
-                $rootLoader = zm_get_root_loader();
                 ZMLoader::instance()->setParent($pluginLoader);
             }
             $plugin->remove();
