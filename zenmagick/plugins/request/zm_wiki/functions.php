@@ -72,7 +72,7 @@
      * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_wiki_is_page_cacheable() {
-        global $zm_request;
+    global $zm_request;
 
         $lastPageCacheStrategy = zm_setting('plugin.zm_wiki.last-page-caching-strategy');
         return 'wiki' == $zm_request->getPageName() ? false : $lastPageCacheStrategy();

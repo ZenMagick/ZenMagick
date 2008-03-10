@@ -35,34 +35,17 @@
  * @version $Id$
  */
 class zm_page_cache extends ZMPlugin {
-    var $pageCacheHandler_;
+    private $pageCache_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ZenMagick Page Cache', 'Simple file based page caching', '${plugin.version}');
+        parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
         $this->setLoaderSupport('ALL');
         $this->setPreferredSortOrder(9999);
-
-        // set default cache config
-        $defaults = array(
-            'pageCacheDir' => DIR_FS_SQL_CACHE."/zenmagick/pages/",
-            'pageCacheTTL' => 300, // in sec.
-            'pageCacheStrategyCallback' => 'zm_page_cache_request_cacheable'
-        );
-        foreach ($defaults as $key => $value) {
-            if (null === zm_setting($key)) {
-                zm_set_setting($key, $value);
-            }
-        }
-    }
-
-    /**
-     * Create new instance.
-     */
-    function zm_page_cache() {
-        $this->__construct();
+        $this->pageCache_ = null;
     }
 
     /**
@@ -78,21 +61,99 @@ class zm_page_cache extends ZMPlugin {
      */
     function init() {
         parent::init();
-        $this->pageCacheHandler_ = $this->create('PageCacheHandler');
-        $this->pageCacheHandler_->zcoSubscribe();
+
+        $this->zcoSubscribe();
+
+        $config = array(
+            'pageCacheTTL' => 300, // in sec.
+        );
+        foreach ($config as $key => $value) {
+            if (null !== zm_setting($key)) {
+                $config[$key] = zm_setting($key);
+            }
+        }
+        $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
 
         $this->addMenuItem('zm_page_cache_admin', zm_l10n_get('Page Cache'), 'zm_page_cache_admin');
     }
 
 
     /**
-     * Create the plugin handler.
+     * Create unique cache key for the context of the current request.
      *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
+     * <p>Depending on whether the user is logged in or not, a user 
+     * specifc keu will be generated, to avoid session leaks.</p>
+     *
+     * @return string A cache id.
      */
-    function createPluginHandler() {
-        return $this->pageCacheHandler_;
+    function getRequestKey() {
+    global $zm_request, $zm_theme;
+
+        $session = $zm_request->getSession();
+        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();
+    }
+
+    /**
+     * Controls if the current page is cacheable or not.
+     *
+     * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
+     *
+     * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
+     */
+    function isCacheable() {
+        $callback = zm_setting('pageCacheStrategyCallback');
+        if (function_exists($callback)) {
+            return $callback();
+        }
+
+        return zm_page_cache_request_cacheable();
+    }
+
+
+    /**
+     * Theme resolved event handler.
+     *
+     * <p>This is the point during request handling where it is decided whether to
+     * use the page cache or not.</p>
+     *
+     * @param array args Contains the final theme (key: 'theme').
+     */
+    function onZMThemeResolved($args) {
+    global $zm_theme;
+
+        // handle page caching
+        if ($this->isEnabled()) {
+            // need $zm_theme for PageCache::getId()
+            $zm_theme = $args['theme'];
+            if ($this->isCacheable() && $contents = $this->pageCache_->get($this->getRequestKey())) {
+                if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
+                    echo $contents;
+                    if (zm_setting('isDisplayTimerStats')) {
+                        $db = ZMRuntime::getDB();
+                        echo '<!-- zm_page_cache stats: ' . round($db->queryTime(), 4) . ' sec. for ' . $db->queryCount() . ' queries; ';
+                        echo 'page: ' . zm_get_elapsed_time() . ' sec.; ';
+                        echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
+                    }
+                }
+                require('includes/application_bottom.php');
+                exit;
+            }
+        }
+    }
+
+
+    /**
+     * Filter the response contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function filterResponse($contents) {
+        if ($this->isEnabled() && $this->isCacheable()) {
+            $this->pageCache_->save($contents, $this->getRequestKey());
+        }
+
+        return $contents;
     }
 
 }

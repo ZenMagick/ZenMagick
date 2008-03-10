@@ -40,6 +40,8 @@
  * @version $Id$
  */
 class zm_google_analytics extends ZMPlugin {
+    var $eol_;
+
 
     /**
      * Create new instance.
@@ -47,6 +49,7 @@ class zm_google_analytics extends ZMPlugin {
     function zm_google_analytics() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
         $this->setKeys(array('uacct', 'affiliation',/*'target', */ 'identifier', "debug"));
+        $this->eol_ = "\n";
     }
 
     /**
@@ -84,50 +87,6 @@ class zm_google_analytics extends ZMPlugin {
           'zen_cfg_select_option(array(\''.'Enabled'.'\', \''.'Disabled'.'\'), ');
     }
 
-    /**
-     * Create the plugin handler.
-     *
-     * <p>This is the method to be implemented by plugins that require a handler.</p>
-     *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
-     */
-    function createPluginHandler() {
-        return new zm_google_analytics_plugin_handler();
-    }
-
-}
-
-/**
- * Contents filter that adds Google analytics code to all pages.
- */
-class zm_google_analytics_plugin_handler extends ZMPluginHandler {
-    var $eol_;
-
-
-    /**
-     * Create new instance.
-     */
-    function zm_google_analytics_plugin_handler() {
-        parent::__construct();
-
-        $this->eol_ = "\n";
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_google_analytics_plugin_handler();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Filter the response contents.
@@ -139,18 +98,6 @@ class zm_google_analytics_plugin_handler extends ZMPluginHandler {
         $trackerCode = $this->getTrackerCode();
         $checkoutCode = $this->getCheckoutCode();
         return preg_replace('/<\/body>/', $trackerCode . $checkoutCode. ' </body>', $contents, 1);
-    }
-
-
-    /**
-     * Get plugin config value.
-     *
-     * @param string name The name.
-     * @return mixed The value.
-     */
-    function get($name) {
-        $plugin = $this->getPlugin();
-        return $plugin->get($name);
     }
 
     /**

@@ -275,13 +275,8 @@ class ZMPlugins extends ZMObject {
         }
 
         foreach (ZMPlugins::getPluginsForType('request', ZM_SCOPE_STORE) as $plugin) {
-            if ($plugin->isEnabled()) {
-                $pluginHandler = $plugin->getPluginHandler();
-                //TODO: PHP5: interface ZMPluginHandler?
-                if (null !== $pluginHandler && is_subclass_of($pluginHandler, 'ZMPluginHandler')) {
-                    $pluginHandler->setPlugin($plugin);
-                    $contents = $pluginHandler->filterResponse($contents);
-                }
+            if ($plugin->isEnabled() && method_exists($plugin, 'filterResponse')) {
+                $contents = $plugin->filterResponse($contents);
             }
         }
 

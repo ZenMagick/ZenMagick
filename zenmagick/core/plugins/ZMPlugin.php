@@ -425,40 +425,6 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Create the plugin handler.
-     *
-     * <p>This is the method to be implemented by plugins that require a handler.</p>
-     *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
-     */
-    function createPluginHandler() {
-        return null;
-    }
-
-    /**
-     * Get the plugin handler.
-     *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
-     */
-    function getPluginHandler() {
-        if (null == $this->handler_) {
-            $this->handler_ = $this->createPluginHandler();
-        }
-        return $this->handler_;
-    }
-
-    /**
-     * Set the plugin handler.
-     *
-     * @param ZMPluginHandler handler A <code>ZMPluginHandler</code> instance.
-     */
-    function setPluginHandler($handler) {
-        return $this->handler_ = $handler;
-    }
-
-    /**
      * Add plugin maintenance screen to navigation.
      *
      * <p>The provided function is free to implement content generation in one of two different
@@ -539,6 +505,16 @@ class ZMPlugin extends ZMObject {
      * @return string The scope.
      */
     function getScope() { return $this->scope_; }
+
+    /**
+     * Filter the response contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function filterResponse($contents) {
+        return $contents;
+    }
 
 }
 

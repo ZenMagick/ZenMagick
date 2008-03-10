@@ -91,62 +91,23 @@ class sample_plugin extends ZMPlugin {
     }
 
     /**
-     * Create the plugin handler.
-     *
-     * <p>This is the method to be implemented by plugins that require a handler.</p>
-     *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
-     */
-    function createPluginHandler() {
-    global $zm_request;
-
-        return 'login' == $zm_request->getPageName() ? new sample_plugin_handler() : null;
-    }
-
-}
-
-
-/**
- * Simple page filter.
- * @package org.zenmagick.plugins
- */
-class sample_plugin_handler extends ZMPluginHandler {
-
-    /**
-     * Create new instance.
-     */
-    function sample_plugin_handler() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->sample_plugin_handler();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Filter the response contents.
      *
      * @param string contents The contents.
      * @return string The modified contents.
      */
     function filterResponse($contents) {
-        $plugin = $this->getPlugin();
-        return preg_replace('/<\/h1>/', ' (modified by ' . $plugin->getName() . ')</h1>', $contents, 1);
+    global $zm_request;
+
+        if ('login' == $zm_request->getPageName()) {
+            $contents =  preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
+        }
+
+        return $contents;
     }
 
 }
+
 
 /**
  * Handle sample admin page.
