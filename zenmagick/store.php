@@ -38,12 +38,11 @@
 
         // allow plugins to filter/modify the final contents
         $contents = ob_get_clean();
-        $contents = ZMPLugins::filterResponse($contents);
+        $contents = ZMPlugins::filterResponse($contents);
         echo $contents;
 
         // clear messages if not redirect...
-        $_zm_session = ZMRequest::getSession();
-        $_zm_session->clearMessages();
+        ZMRequest::getSession()->clearMessages();
 
         exit;
     }

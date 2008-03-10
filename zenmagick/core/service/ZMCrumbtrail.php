@@ -116,7 +116,7 @@ class ZMCrumbtrail extends ZMObject {
     /**
      * Add the given category path to the crumbtrail.
      *
-     * @param array path The category path to add as a list of <code>ZMCategory</code> instances.
+     * @param array path The category path to add as a list of category ids.
      */
     function addCategoryPath($path) {
         if (null == $path)
