@@ -95,7 +95,7 @@ class zm_recaptcha extends ZMPlugin {
         parent::init();
 
         // check if we need to do anything for this request...
-        $page = $zm_request->getPageName();
+        $page = ZMRequest::getPageName();
         if (true == $this->get($page) && isset($this->pageConfig_[$page])) { 
             $form = $this->pageConfig_[$page][1];
             // active for this page
@@ -157,7 +157,7 @@ class zm_recaptcha extends ZMPlugin {
 function zm_recaptcha_validate($req) {
 global $zm_request, $zm_recaptcha;
 
-    if (zm_is_empty($zm_request->getParameter(ZM_RECAPTCHA_FIELD))) {
+    if (zm_is_empty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

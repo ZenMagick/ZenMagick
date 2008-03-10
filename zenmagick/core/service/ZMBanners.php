@@ -101,7 +101,7 @@ class ZMBanners extends ZMObject {
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
-        if ($zm_request->isSecure()) {
+        if (ZMRequest::isSecure()) {
             $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
         }
 
@@ -146,7 +146,7 @@ class ZMBanners extends ZMObject {
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
-        if ($zm_request->isSecure()) {
+        if (ZMRequest::isSecure()) {
             $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
         }
 

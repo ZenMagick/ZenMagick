@@ -110,7 +110,7 @@
 
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
-        //TODO:$session = $zm_request->getSession();
+        //TODO:$session = ZMRequest::getSession();
         if ($addSessionId && ($session_started/* || $session->isValid()*/) && !zm_setting('isForceCookieUse')) {
             if (defined('SID') && !zm_is_empty(SID)) {
                 // defined, so use it
@@ -144,7 +144,7 @@
         if (null === $view || null === $params) {
             $query = array();
             if (null === $view || null === $params) {
-                $query = $zm_request->getParameterMap();
+                $query = ZMRequest::getParameterMap();
                 unset($query['main_page']);
                 unset($query[zen_session_name()]);
             }
@@ -165,7 +165,7 @@
         }
 
         // default to current view
-        $view = $view === null ? $zm_request->getPageName() : $view;
+        $view = $view === null ? ZMRequest::getPageName() : $view;
         $href = null;
         if (function_exists('zm_build_seo_href')) {
             // use custom SEO builder function
@@ -334,8 +334,8 @@
     function zm_absolute_href($href, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
-        $host = ($zm_request->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
-        $context = ($zm_request->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+        $host = (ZMRequest::isSecure() ? HTTPS_SERVER : HTTP_SERVER);
+        $context = (ZMRequest::isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
         if (!zm_starts_with($href, '/')) {
             // make fully qualified
@@ -387,7 +387,7 @@
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', _zm_build_href($controller, $params.'&method='.$method, $zm_request->isSecure(), false));
+        $url = str_replace('&amp;', '&', _zm_build_href($controller, $params.'&method='.$method, ZMRequest::isSecure(), false));
 
         if ($echo) echo $url;
         return $url;

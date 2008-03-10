@@ -99,7 +99,7 @@ class ZMSacsMapper extends ZMObject {
             return;
         }
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         $level = ZM_ACCOUNT_TYPE_ANONYMOUS;
         if (null != $account) {
             $level = $account->getType();
@@ -107,7 +107,7 @@ class ZMSacsMapper extends ZMObject {
 
         if (!zm_is_in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             if (!$session->isValid()) {
                 // no valid session
                 zm_redirect(zm_href(zm_setting('invalidSessionPage'), '', false));
@@ -129,7 +129,7 @@ class ZMSacsMapper extends ZMObject {
     global $zm_request;
 
         $secure = $this->getMappingValue($controller, 'level', false);
-        if ($secure && !$zm_request->isSecure() && zm_setting('isEnableSSL') && zm_setting('isEnforceSSL')) {
+        if ($secure && !ZMRequest::isSecure() && zm_setting('isEnableSSL') && zm_setting('isEnforceSSL')) {
             zm_redirect(zm_secure_href(null, null, false));
         }
     }
@@ -146,7 +146,7 @@ class ZMSacsMapper extends ZMObject {
     global $zm_request;
 
         if (null == $controller) {
-            $controller = $zm_request->getPageName();
+            $controller = ZMRequest::getPageName();
         }
 
         if (!isset($this->mapping_[$controller])) {

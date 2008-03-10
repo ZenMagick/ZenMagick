@@ -65,17 +65,17 @@ class ZMTellAFriendController extends ZMController {
     global $zm_request;
 
         $product = null;
-        if ($zm_request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
-        } else if ($zm_request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
+        if (ZMRequest::getProductId()) {
+            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        } else if (ZMRequest::getModel()) {
+            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
         }
 
         if (null == $product) {
             return $this->findView('error');
         }
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         $emailMessage = $this->create("EmailMessage");
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());
@@ -108,10 +108,10 @@ class ZMTellAFriendController extends ZMController {
         }
 
         $product = null;
-        if ($zm_request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
-        } else if ($zm_request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
+        if (ZMRequest::getProductId()) {
+            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        } else if (ZMRequest::getModel()) {
+            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
         }
 
         if (null == $product) {
@@ -125,7 +125,7 @@ class ZMTellAFriendController extends ZMController {
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (zm_setting('isEmailAdminTellAFriend')) {
             // store copy
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $context = zm_email_copy_context($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
             $context['zm_product'] = $product;
@@ -147,8 +147,8 @@ class ZMTellAFriendController extends ZMController {
     function _handleCrumbtrail($product) {
     global $zm_request;
 
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
         ZMCrumbtrail::instance()->addCrumb("Tell A Friend");
     }

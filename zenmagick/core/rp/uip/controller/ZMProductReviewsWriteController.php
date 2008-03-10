@@ -70,7 +70,7 @@ class ZMProductReviewsWriteController extends ZMController {
         }
 
         $this->exportGlobal("zm_product", $product);
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         $this->_handleCrumbtrail($product);
 
@@ -97,19 +97,19 @@ class ZMProductReviewsWriteController extends ZMController {
         if (!$this->validate('review')) {
             $this->_handleCrumbtrail($product);
             $this->exportGlobal("zm_product", $product);
-            $this->exportGlobal("zm_account", $zm_request->getAccount());
+            $this->exportGlobal("zm_account", ZMRequest::getAccount());
             $this->exportGlobal("zm_review", $review);
             return $this->findView();
         }
 
-        $account = $zm_request->getAccount();
-        $session = $zm_request->getSession();
+        $account = ZMRequest::getAccount();
+        $session = ZMRequest::getSession();
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
 
         // account email
         if (zm_setting('isApproveReviews') && zm_setting('isEmailAdminReview')) {
             $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['zm_review'] = $review;
@@ -130,10 +130,10 @@ class ZMProductReviewsWriteController extends ZMController {
     global $zm_request;
 
         $product = null;
-        if ($zm_request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
-        } else if ($zm_request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
+        if (ZMRequest::getProductId()) {
+            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        } else if (ZMRequest::getModel()) {
+            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
         }
         return $product;
     }
@@ -146,8 +146,8 @@ class ZMProductReviewsWriteController extends ZMController {
     function _handleCrumbtrail($product) {
     global $zm_request;
 
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
     }

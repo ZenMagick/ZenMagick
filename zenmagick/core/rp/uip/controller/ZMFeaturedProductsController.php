@@ -65,11 +65,11 @@ class ZMFeaturedProductsController extends ZMController {
     global $zm_request;
 
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addCrumb("Featured Products");
 
-        $resultList = $this->create("ResultList", ZMProducts::instance()->getFeaturedProducts($zm_request->getCategoryId(), 0));
+        $resultList = $this->create("ResultList", ZMProducts::instance()->getFeaturedProducts(ZMRequest::getCategoryId(), 0));
         if (null != $resultList) {
             $resultList->addFilter($this->create("ManufacturerFilter"));
             $resultList->addFilter($this->create("CategoryFilter"));

@@ -64,7 +64,7 @@ class ZMLogoffController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();

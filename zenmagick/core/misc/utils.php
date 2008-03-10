@@ -70,7 +70,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
     function zm_is_checkout_page($includeCart=true) {
     global $zm_request;
 
-        $page = $zm_request->getPageName();
+        $page = ZMRequest::getPageName();
         return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
     }
 
@@ -278,7 +278,7 @@ return zen_get_uprid($productId, $attributes);
     function zm_format_currency($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
-        $currency = ZMCurrencies::instance()->getCurrencyForCode($zm_request->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         if (null == $currency) {
           ZMObject::log('no currency found - using default currency', ZM_LOG_WARN);
             $currency = ZMCurrencies::instance()->getCurrencyForCode(zm_setting('defaultCurrency'));
@@ -300,7 +300,7 @@ return zen_get_uprid($productId, $attributes);
     function zm_parse_money($money) {
     global $zm_request;
 
-        $currency = ZMCurrencies::instance()->getCurrencyForCode($zm_request->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         $amount = $currency->parse($money, false);
 
         return $amount;

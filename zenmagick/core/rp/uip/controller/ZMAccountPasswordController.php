@@ -82,15 +82,15 @@ class ZMAccountPasswordController extends ZMController {
             return $this->findView();
         }
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         if (null == $account) {
             $this->log('could not access session account', ZM_LOG_ERROR);
             return $this->findView('error');
         }
 
-        $oldPassword = $zm_request->getParameter('password_current');
-        $newPassword = $zm_request->getParameter('password_new');
-        $confirmPassword = $zm_request->getParameter('password_confirmation');
+        $oldPassword = ZMRequest::getParameter('password_current');
+        $newPassword = ZMRequest::getParameter('password_new');
+        $confirmPassword = ZMRequest::getParameter('password_confirmation');
 
         if (!zm_validate_password($oldPassword, $account->getPassword())) {
             ZMMessages::instance()->error(zm_l10n_get('Your current password did not match the password in our records. Please try again.'));

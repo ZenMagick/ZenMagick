@@ -97,16 +97,16 @@ class ZMAddress extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->addressId_ = $zm_request->getParameter('addressId', 0);
-        $this->firstName_ = $zm_request->getParameter('firstname', '');
-        $this->lastName_ = $zm_request->getParameter('lastname', '');
-        $this->companyName_ = $zm_request->getParameter('company', '');
-        $this->gender_ = $zm_request->getParameter('gender', '');
-        $this->address_ = $zm_request->getParameter('street_address', '');
-        $this->suburb_ = $zm_request->getParameter('suburb', '');
-        $this->postcode_ = $zm_request->getParameter('postcode', '');
-        $this->city_ = $zm_request->getParameter('city', '');
-        $this->country_ = ZMCountries::instance()->getCountryForId($zm_request->getParameter('zone_country_id', 0));
+        $this->addressId_ = ZMRequest::getParameter('addressId', 0);
+        $this->firstName_ = ZMRequest::getParameter('firstname', '');
+        $this->lastName_ = ZMRequest::getParameter('lastname', '');
+        $this->companyName_ = ZMRequest::getParameter('company', '');
+        $this->gender_ = ZMRequest::getParameter('gender', '');
+        $this->address_ = ZMRequest::getParameter('street_address', '');
+        $this->suburb_ = ZMRequest::getParameter('suburb', '');
+        $this->postcode_ = ZMRequest::getParameter('postcode', '');
+        $this->city_ = ZMRequest::getParameter('city', '');
+        $this->country_ = ZMCountries::instance()->getCountryForId(ZMRequest::getParameter('zone_country_id', 0));
         if (null == $this->country_) {
             $this->country_ = $this->create("Country");
         }
@@ -114,7 +114,7 @@ class ZMAddress extends ZMModel {
         $this->state_ = '';
         $this->zoneId_ = 0;
         // free text or zone id
-        $state = $zm_request->getParameter('state', '');
+        $state = ZMRequest::getParameter('state', '');
         $zones = ZMCountries::instance()->getZonesForCountryId($this->country_->getId());
         if (0 < count ($zones)) {
             // need $state to match either an id or name
@@ -134,7 +134,7 @@ class ZMAddress extends ZMModel {
 
         }
 
-        $this->isPrimary_ = zm_boolean($zm_request->getParameter('primary', false));
+        $this->isPrimary_ = zm_boolean(ZMRequest::getParameter('primary', false));
         $this->format_ = 0;
     }
 

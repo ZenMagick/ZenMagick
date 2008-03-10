@@ -64,17 +64,15 @@
         require(dirname(__FILE__).'/local.php');
     }
 
-    // famous global
-    $zm_request = new ZMRequest();
-
     // now we can check for a static homepage
-    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == $zm_request->getPageName() && (0 == count($zm_request->getParameterMap()))) {
+    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == ZMRequest::getPageName() && (0 == count(ZMRequest::getParameterMap()))) {
         require(zm_setting('staticHome'));
         exit;
     }
 
     if (zm_setting('isLegacyAPI')) {
         // deprecated legacy globals
+        $zm_request = new ZMRequest();
         $zm_loader = ZMLoader::instance();
         $zm_runtime = ZMRuntime::instance();
         $zm_layout = ZMLayout::instance();
@@ -98,7 +96,7 @@
         $zm_countries = ZMCountries::instance();
         $zm_accounts = ZMAccounts::instance();
         // share instance
-        $zm_account = $zm_request->getAccount();
+        $zm_account = ZMRequest::getAccount();
         $zm_cart = new ZMShoppingCart();
     }
 

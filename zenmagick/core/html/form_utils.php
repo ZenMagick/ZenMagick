@@ -111,7 +111,7 @@
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
         if (!array_key_exists('main_page', $query)) {
-            $page = null == $page ? $zm_request->getPageName() : $page;
+            $page = null == $page ? ZMRequest::getPageName() : $page;
             if (null !== $page) {
                 if (!$div) { $html .= '<div>'; $div = true; }
                 $html .= '<input type="hidden" name="main_page" value="' . $page . '" />';

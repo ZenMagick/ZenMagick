@@ -85,7 +85,7 @@ class ZMForwardView extends ZMView {
 
         ZMCrumbtrail::instance()->reset();
         // TODO: do not use name directly!
-        $zm_request->setParameter('main_page', $this->page_);
+        ZMRequest::setParameter('main_page', $this->page_);
         zm_dispatch();
         return null;
     }

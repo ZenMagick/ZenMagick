@@ -76,7 +76,7 @@ require("../zen-cart/zenmagick/external.php");
       <h1>Login and query order history</h1>
       <?php 
         /** CHANGE TO VALID ACCOUNT **/
-        $zm_request->setParameterMap(array(
+        ZMRequest::setParameterMap(array(
           'email_address' => 'some@domain.com', 
           'password' => 'xxxxxx'
           ));
@@ -91,12 +91,12 @@ require("../zen-cart/zenmagick/external.php");
         echo "Login result: ".$view->getMappingId()."<br />";
 
         if ('account' == $view->getMappingId() || 'success' == $view->getMappingId()) {
-            $account = $zm_request->getAccount();
+            $account = ZMRequest::getAccount();
             echo "<h3>Account Name: " . $account->getFullName()."</h3>";
             
             // get order history using ZenMagick controller
             $controller = ZMLoader::make("AccountHistoryInfoController");
-            $zm_request->setParameterMap($_GET);
+            ZMRequest::setParameterMap($_GET);
             $view = $controller->processGet();
             $zm_order = $controller->getGlobal("zm_order");
             if ($zm_order) {
@@ -109,7 +109,7 @@ require("../zen-cart/zenmagick/external.php");
         }
 
         // clean cart if not empty
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
         if (!$shoppingCart->isEmpty()) {
             echo "<h3>Cleaning up Shopping Cart ... </h3>";
             foreach ($shoppingCart->getItems() as $item) {

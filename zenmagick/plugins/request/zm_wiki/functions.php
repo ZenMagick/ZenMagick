@@ -48,7 +48,7 @@
 
         // create contents into output buffer
         ob_start();
-        if ($zm_request->isAdmin()) {
+        if (ZMRequest::isAdmin()) {
             echo '<a href="'.zm_plugin_admin_url('zm_wiki_admin', 'page=WikiRoot', false).'">WikiRoot</a>';
             echo '&nbsp;<a href="'.zm_plugin_admin_url('zm_wiki_admin', 'page=PageList', false).'">PageList</a>';
             echo '<hr>';
@@ -75,7 +75,7 @@
     global $zm_request;
 
         $lastPageCacheStrategy = zm_setting('plugin.zm_wiki.last-page-caching-strategy');
-        return 'wiki' == $zm_request->getPageName() ? false : $lastPageCacheStrategy();
+        return 'wiki' == ZMRequest::getPageName() ? false : $lastPageCacheStrategy();
     }
 
 
@@ -88,7 +88,7 @@
     global $zm_request;
 
         $mode = getMode();
-        if (!$zm_request->isAdmin()) {
+        if (!ZMRequest::isAdmin()) {
             $mode = 'display';
         }
 
@@ -109,12 +109,12 @@
             $canEdit = true;
             break;
         case 'REGISTERED':
-            if ($zm_request->isRegistered()) {
+            if (ZMRequest::isRegistered()) {
                 $canEdit = true;
             }
             break;
         case 'ADMIN':
-            if ($zm_request->isAdmin()) {
+            if (ZMRequest::isAdmin()) {
                 $canEdit = true;
             }
             break;
@@ -134,7 +134,7 @@
     global $zm_request, $pawfaliki_config;
 
         $mode = getMode();
-        if (!$zm_request->isAdmin() && !zm_is_in_array($mode, 'edit,save,cancel')) {
+        if (!ZMRequest::isAdmin() && !zm_is_in_array($mode, 'edit,save,cancel')) {
             $mode = '';
         }
 

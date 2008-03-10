@@ -24,13 +24,13 @@
  */
 ?>
 
-<?php if (!$zm_request->getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
+<?php if (!ZMRequest::getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
     <h3><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
-        <?php foreach ($zm_request->getShoppingCart()->getItems() as $item) { ?>
+        <?php foreach (ZMRequest::getShoppingCart()->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><?php zm_format_currency($zm_request->getShoppingCart()->getTotal()) ?></p>
+        <p><?php zm_format_currency(ZMRequest::getShoppingCart()->getTotal()) ?></p>
     </div>
 <?php } ?>

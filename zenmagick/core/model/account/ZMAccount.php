@@ -103,17 +103,17 @@ class ZMAccount extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->firstName_ = $zm_request->getParameter('firstname', '');
-        $this->lastName_ = $zm_request->getParameter('lastname', '');
-        $this->dob_ = $zm_request->getParameter('dob', '01/01/1970');
-        $this->nickName_ = $zm_request->getParameter('nick', '');
-        $this->gender_ = $zm_request->getParameter('gender', '');
-        $this->email_ = trim($zm_request->getParameter('email_address', ''));
-        $this->phone_ = $zm_request->getParameter('telephone', '');
-        $this->fax_ = $zm_request->getParameter('fax', '');
-        $this->emailFormat_ = $zm_request->getParameter('email_format', 'TEXT');
-        $this->referral_ = $zm_request->getParameter('referral', '');
-        $this->newsletter_ = $zm_request->getParameter('newsletter', false);
+        $this->firstName_ = ZMRequest::getParameter('firstname', '');
+        $this->lastName_ = ZMRequest::getParameter('lastname', '');
+        $this->dob_ = ZMRequest::getParameter('dob', '01/01/1970');
+        $this->nickName_ = ZMRequest::getParameter('nick', '');
+        $this->gender_ = ZMRequest::getParameter('gender', '');
+        $this->email_ = trim(ZMRequest::getParameter('email_address', ''));
+        $this->phone_ = ZMRequest::getParameter('telephone', '');
+        $this->fax_ = ZMRequest::getParameter('fax', '');
+        $this->emailFormat_ = ZMRequest::getParameter('email_format', 'TEXT');
+        $this->referral_ = ZMRequest::getParameter('referral', '');
+        $this->newsletter_ = ZMRequest::getParameter('newsletter', false);
     }
 
 

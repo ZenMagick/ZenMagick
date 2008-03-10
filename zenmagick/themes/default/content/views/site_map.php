@@ -28,7 +28,7 @@
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
 <ul>
-    <?php if (zm_setting('isSiteMapAccountLinks') && $zm_request->isRegistered()) { ?>
+    <?php if (zm_setting('isSiteMapAccountLinks') && ZMRequest::isRegistered()) { ?>
       <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_EDIT); ?>"><?php zm_l10n("Change Account") ?></a></li>
@@ -38,7 +38,7 @@
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NEWSLETTERS); ?>"><?php zm_l10n("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NOTIFICATIONS); ?>"><?php zm_l10n("Change Product Notifications") ?></a></li>
       </ul></li>
-        <?php if (!$zm_request->getShoppingCart()->isEmpty()) { ?>
+        <?php if (!ZMRequest::getShoppingCart()->isEmpty()) { ?>
             <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("Shopping cart") ?></a></li>
             <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("Checkout") ?></a></li>
         <?php } ?>

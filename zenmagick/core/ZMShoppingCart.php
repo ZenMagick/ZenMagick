@@ -176,7 +176,7 @@ class ZMShoppingCart extends ZMObject {
         if (!isset($item->zenItem_['attributes']) || !is_array($item->zenItem_['attributes']))
             return $attributesLookup;
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         $languageId = $session->getLanguageId();
 
         $db = ZMRuntime::getDB();

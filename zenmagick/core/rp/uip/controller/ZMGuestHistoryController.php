@@ -81,8 +81,8 @@ class ZMGuestHistoryController extends ZMController {
             return $this->findView();
         }
 
-        $orderId = $zm_request->getParameter('orderId', 0);
-        $email = $zm_request->getParameter('email', 0);
+        $orderId = ZMRequest::getParameter('orderId', 0);
+        $email = ZMRequest::getParameter('email', 0);
 
         // default
         $account = null;

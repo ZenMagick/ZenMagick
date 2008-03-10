@@ -83,7 +83,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // our session
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
 
         if (!$session->isAnonymous()) {
             // already logged in either way
@@ -96,7 +96,7 @@ class ZMCheckoutGuestController extends ZMController {
 
         // create anonymous account
         $account = $this->create("Account");
-        $account->setEmail($zm_request->getParameter('email_address'));
+        $account->setEmail(ZMRequest::getParameter('email_address'));
         $account->setPassword('');
         $account->setType(ZM_ACCOUNT_TYPE_GUEST);
         $account = ZMAccounts::instance()->createAccount($account);

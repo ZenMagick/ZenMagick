@@ -47,7 +47,7 @@ class ZMController extends ZMObject {
 
         $this->globals_ = array();
         // use as controller id
-        $this->id_ = $zm_request->getPageName();
+        $this->id_ = ZMRequest::getPageName();
 
         foreach ($GLOBALS as $name => $instance) {
             if (zm_starts_with($name, "zm_")) {
@@ -87,7 +87,7 @@ class ZMController extends ZMObject {
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START);
 
         $view = null;
-        switch ($zm_request->getMethod()) {
+        switch (ZMRequest::getMethod()) {
             case 'GET':
                 $view = $this->processGet();
                 break;

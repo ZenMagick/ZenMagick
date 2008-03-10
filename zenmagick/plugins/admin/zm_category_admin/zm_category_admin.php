@@ -66,7 +66,7 @@ class zm_category_admin extends ZMPlugin {
 
         parent::init();
 
-        $categoryId = $zm_request->getCategoryId();
+        $categoryId = ZMRequest::getCategoryId();
         if (0 < $categoryId) {
             // only available if category involved
             $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin', ZM_MENU_CATALOG_ADMIN);

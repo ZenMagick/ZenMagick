@@ -43,13 +43,13 @@
     function zm_page_cache_request_cacheable() {
     global $zm_request;
         
-        return !$zm_request->isSecure() 
+        return !ZMRequest::isSecure() 
           && !zm_is_checkout_page(true) 
-          && $zm_request->getShoppingCart()->isEmpty() 
+          && ZMRequest::getShoppingCart()->isEmpty() 
           && !ZMMessages::instance()->hasMessages()
-          && false === strpos($zm_request->getPageName(), 'ajax')
-          && false === strpos($zm_request->getPageName(), 'address_book')
-          && false === strpos($zm_request->getPageName(), 'account');
+          && false === strpos(ZMRequest::getPageName(), 'ajax')
+          && false === strpos(ZMRequest::getPageName(), 'address_book')
+          && false === strpos(ZMRequest::getPageName(), 'account');
     }
 
 ?>

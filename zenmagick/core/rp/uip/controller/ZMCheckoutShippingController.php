@@ -65,7 +65,7 @@ class ZMCheckoutShippingController extends ZMController {
     function process() { 
     global $zm_request;
 
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
 
         // do a bit of checking first...
         if ($shoppingCart->isEmpty()) {
@@ -89,7 +89,7 @@ class ZMCheckoutShippingController extends ZMController {
 
         // set default address if required
         if (!$shoppingCart->hasShippingAddress()) {
-            $account = $zm_request->getAccount();
+            $account = ZMRequest::getAccount();
             $shoppingCart->setShippingAddressId($account->getDefaultAddresssId());
         }
 

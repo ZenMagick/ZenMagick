@@ -64,20 +64,20 @@ class IndexController extends ZMIndexController {
     function processGet() {
     global $zm_request;
 
-        if (null == $zm_request->getCategoryPath() && null == $zm_request->getManufacturerId()) {
+        if (null == ZMRequest::getCategoryPath() && null == ZMRequest::getManufacturerId()) {
             // default
             return parent::processGet();
         }
 
         //**** START  prepare zen-cart environment
         global $db;
-        $current_category_id = $zm_request->getCategoryId();
+        $current_category_id = ZMRequest::getCategoryId();
 
         //***** include zen-cart code
         require_once(DIR_WS_INCLUDES . 'index_filters/default_filter.php');
 
         //***** translate sort order
-        $sortId = $zm_request->getSortId();
+        $sortId = ZMRequest::getSortId();
         $desc = false;
         if (zm_ends_with($sortId, '_d')) {
             $desc = true;
@@ -120,7 +120,7 @@ class IndexController extends ZMIndexController {
         $this->exportGlobal("zm_resultList", $resultList);
         $viewName = 'category_list';
 
-        $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
+        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
         if ($viewName == "category_list" && ((!$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }
@@ -130,7 +130,7 @@ class IndexController extends ZMIndexController {
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && zm_setting('isSkipSingleProductCategory')) {
             $product = array_pop($resultList->getResults());
             // TODO: do not use name directly?
-            $zm_request->setParameterMap(array('products_id' => $product->getId()));
+            ZMRequest::setParameterMap(array('products_id' => $product->getId()));
             $viewName = 'product_info';
         }
 

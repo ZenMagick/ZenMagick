@@ -100,7 +100,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     function getContentsJSON() {
     global $zm_request;
 
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
         $cart = array();
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zm_format_currency($value, true, false) : $value;');
@@ -131,10 +131,10 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     function addProductJSON() {
     global $zm_request;
 
-        $shoppingCart = $zm_request->getShoppingCart();
-        $productId = $zm_request->getParameter('productId', null);
-        $quantity = $zm_request->getParameter('quantity', 0);
-        $id = $zm_request->getParameter('id', array());
+        $shoppingCart = ZMRequest::getShoppingCart();
+        $productId = ZMRequest::getParameter('productId', null);
+        $quantity = ZMRequest::getParameter('quantity', 0);
+        $id = ZMRequest::getParameter('id', array());
 
         if (null !== $productId && 0 != $quantity) {
             $shoppingCart->addProduct($productId, $quantity, $id);
@@ -151,10 +151,10 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     function removeProductJSON() {
     global $zm_request;
 
-        $productId = $zm_request->getParameter('productId', null);
+        $productId = ZMRequest::getParameter('productId', null);
 
         if (null !== $productId) {
-            $shoppingCart = $zm_request->getShoppingCart();
+            $shoppingCart = ZMRequest::getShoppingCart();
             $shoppingCart->removeProduct($productId);
         }
 
@@ -177,11 +177,11 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     function updateProductJSON() {
     global $zm_request;
 
-        $productId = $zm_request->getParameter('productId', null);
-        $quantity = $zm_request->getParameter('quantity', 0);
+        $productId = ZMRequest::getParameter('productId', null);
+        $quantity = ZMRequest::getParameter('quantity', 0);
 
         if (null !== $productId && 0 != $quantity) {
-            $shoppingCart = $zm_request->getShoppingCart();
+            $shoppingCart = ZMRequest::getShoppingCart();
             $shoppingCart->updateProduct($productId, $quantity);
         }
 

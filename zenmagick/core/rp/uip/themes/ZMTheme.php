@@ -203,7 +203,7 @@ class ZMTheme extends ZMObject {
     global $zm_request;
 
         if (null == $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -253,7 +253,7 @@ class ZMTheme extends ZMObject {
     global $zm_request;
 
         if (null == $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -297,7 +297,7 @@ class ZMTheme extends ZMObject {
         }
 
         if (null == $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -334,7 +334,7 @@ class ZMTheme extends ZMObject {
     global $zm_request;
 
         if (null == $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);

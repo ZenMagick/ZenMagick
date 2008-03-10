@@ -78,7 +78,7 @@ class ZMDiscountCouponController extends ZMController {
     global $zm_request;
 
         $viewName = null;
-        $code = $zm_request->getParameter('lookup_discount_coupon');
+        $code = ZMRequest::getParameter('lookup_discount_coupon');
         if (null == $code) {
             ZMMessages::instance()->warn(zm_l10n_get(zm_l10n_get("Please enter a coupon code.")));
         } else {

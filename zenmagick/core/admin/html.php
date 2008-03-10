@@ -49,7 +49,7 @@
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
-            ZMCategories::instance()->setPath($zm_request->getCategoryPathArray());
+            ZMCategories::instance()->setPath(ZMRequest::getCategoryPathArray());
             $rootCategories = ZMCategories::instance()->getCategoryTree();
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
@@ -106,10 +106,10 @@
         $resultList = null;
         $products = null;
 
-        if (null != $zm_request->getCategoryPath()) {
-            $products = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId(), false);
-        } else if (null != $zm_request->getManufacturerId()) {
-            $products = ZMProducts::instance()->getProductsForManufacturerId($zm_request->getManufacturerId(), false);
+        if (null != ZMRequest::getCategoryPath()) {
+            $products = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
+        } else if (null != ZMRequest::getManufacturerId()) {
+            $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::getManufacturerId(), false);
         }
 
         if (null != $products) {
@@ -136,12 +136,12 @@
                 echo '<tr class="rnav"><td colspan="2">';
                 echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getCurrentPageNumber(), $resultList->getNumberOfPages()).'</span>';
                 if ($resultList->hasPreviousPage()) {
-                    echo '<a href="'.$resultList->getPreviousURL($zm_request->isSecure(), false).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
+                    echo '<a href="'.$resultList->getPreviousURL(ZMRequest::isSecure(), false).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
                 } else {
                     echo '<span class="nin">'.zm_l10n_get("Previous").'</span>&nbsp;';
                 }
                 if ($resultList->hasNextPage()) {
-                    echo '<a href="'.$resultList->getNextURL($zm_request->isSecure(), false).'">'.zm_l10n_get("Next").'</a>';
+                    echo '<a href="'.$resultList->getNextURL(ZMRequest::isSecure(), false).'">'.zm_l10n_get("Next").'</a>';
                 } else {
                     echo '<span class="nin">'.zm_l10n_get("Next").'</span>';
                 }

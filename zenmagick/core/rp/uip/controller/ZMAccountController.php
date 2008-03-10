@@ -67,10 +67,10 @@ class ZMAccountController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         // last order is first, so displaying the first page is just fine...
-        $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId());
+        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId());
         $resultList = $this->create("ResultList", $orders, zm_setting('accountOrderHistoryLimit'));
         $this->exportGlobal("zm_resultList", $resultList);
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         return $this->findView();
     }

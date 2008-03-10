@@ -39,7 +39,7 @@
     global $zm_request;
 
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
-        $view->setController($zm_request->getController());
+        $view->setController(ZMRequest::getController());
         return  $view->generate();
     }
 
@@ -103,7 +103,7 @@
 
         // use text format unless only HTML available
         $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
-        $view->setController($zm_request->getController());
+        $view->setController(ZMRequest::getController());
         $text = $view->generate();
 
         // call actual mail function; the name corresponds to the one used in the installation patch

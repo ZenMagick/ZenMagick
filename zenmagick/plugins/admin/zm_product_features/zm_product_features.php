@@ -102,7 +102,7 @@ class zm_product_features extends ZMPlugin {
         // make ZMFeatures available by pre-loading it
         ZMLoader::instance()->resolve("ZMFeatures");
 
-        if (0 < $zm_request->getProductId()) {
+        if (0 < ZMRequest::getProductId()) {
             // only available if product selected
             $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZM_MENU_CATALOG_ADMIN);
         }

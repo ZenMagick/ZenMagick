@@ -47,6 +47,7 @@ Release 0.9.1
 - add zm_hoverbox3 plugin
 - refactored caching
 - get rid of ZMPluginHandler
+- convert ZMRequest methods into static ones, make $zm_request obsolete
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
@@ -92,7 +93,7 @@ Release 0.9.0
 - remove obsolete ZMAjaxCatalogController::getAttributesForProductIdJSON()
 - make zm_ajax_href work in admin pages
 - make themeId case sensitive
-- use $zm_request->getSession() rather than new ZMSession()
+- use ZMRequest::getSession() rather than new ZMSession()
 - make the following methods deprecated: ZMRuntime::getLanguageId(),
   ZMRuntime::getLanguageName() and ZMRuntime::getCurrencyCode();
 	this change affects a large number of files including the currency sidebox

@@ -82,7 +82,7 @@ class zm_init_session extends ZMPlugin {
          */
         if (isset($_POST[zen_session_name()])) {
           zen_session_id($_POST[zen_session_name()]);
-        } elseif ($zm_request->isSecure() && isset($_GET[zen_session_name()]) ) {
+        } elseif (ZMRequest::isSecure() && isset($_GET[zen_session_name()]) ) {
           zen_session_id($_GET[zen_session_name()]);
         }
         /**

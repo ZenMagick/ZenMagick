@@ -89,14 +89,14 @@ class ZMMetaTags extends ZMObject {
         $title = str_replace('Popup ', '', $title);
 
         // lookup localized page title
-        $page = $zm_request->getPageName();
+        $page = ZMRequest::getPageName();
         $pageTitleKey = zm_setting('metaTitlePrefix').$page;
         if (null != _zm_l10n_lookup($pageTitleKey, null)) {
             $title = zm_l10n_get($pageTitleKey);
         }
 
         // special handling for categories, manufacturers
-        $controller = $zm_request->getController();
+        $controller = ZMRequest::getController();
         $view = $controller->getView();
         $name = $view->getName();
         if ('index' == $name) {
@@ -162,7 +162,7 @@ class ZMMetaTags extends ZMObject {
         }
 
         // special handling for home
-        if ('index' == $zm_request->getPageName()) {
+        if ('index' == ZMRequest::getPageName()) {
             $value .= zm_setting('metaTagCrumbtrailDelimiter');
             $value .= $this->topCategories_;
         }
@@ -213,9 +213,9 @@ class ZMMetaTags extends ZMObject {
             return;
 
         $this->crumbtrail_ = $this->create("Crumbtrail");
-        $this->crumbtrail_->addCategoryPath($zm_request->getCategoryPathArray());
-        $this->crumbtrail_->addManufacturer($zm_request->getManufacturerId());
-        $this->crumbtrail_->addProduct($zm_request->getProductId());
+        $this->crumbtrail_->addCategoryPath(ZMRequest::getCategoryPathArray());
+        $this->crumbtrail_->addManufacturer(ZMRequest::getManufacturerId());
+        $this->crumbtrail_->addProduct(ZMRequest::getProductId());
     }
 
 
@@ -246,10 +246,10 @@ class ZMMetaTags extends ZMObject {
     function _loadProduct() {
     global $zm_request;
 
-        if (null == $zm_request->getProductId() || null != $this->product_)
+        if (null == ZMRequest::getProductId() || null != $this->product_)
             return;
 
-        $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
+        $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
         $this->product_ = $product->getName() . ' [' . $product->getModel() . ']';
     }
 
@@ -259,11 +259,11 @@ class ZMMetaTags extends ZMObject {
     function _loadCategory() {
     global $zm_request;
 
-        if (null != $zm_request->getCategoryPath()) {
-            $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
+        if (null != ZMRequest::getCategoryPath()) {
+            $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
             $this->category_ = $category->getName();
-        } else if (null != $zm_request->getManufacturerId()) {
-            $manufacturer = ZMManufacturers::instance()->getManufacturerForId($zm_request->getManufacturerId());
+        } else if (null != ZMRequest::getManufacturerId()) {
+            $manufacturer = ZMManufacturers::instance()->getManufacturerForId(ZMRequest::getManufacturerId());
             $this->category_ = $manufacturer->getName();
         }
     }

@@ -27,7 +27,7 @@ $newOrderStatus = $EMAIL_TEXT_NEW_STATUS;
 preg_match('/[^:]*:(.*)/ms', $EMAIL_TEXT_STATUS_COMMENTS, $matches);
 $comment = trim($matches[1]);
 ?>
-<?php zm_l10n("Dear %s %s,", $zm_request->getAccount()->getFirstName(), $zm_request->getAccount()->getLastName()) ?>
+<?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?>
 
 
 <?php zm_l10n("This is to inform you that your order #%s has been update.", $zm_order->getId()) ?>

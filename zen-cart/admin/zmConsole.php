@@ -27,13 +27,13 @@
 
 require_once('includes/application_top.php');
 
-if ('true' == $zm_request->getRequestParameter('remove', 'false')) {
+if ('true' == ZMRequest::getRequestParameter('remove', 'false')) {
     // destry myself
     unlink(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE);
   	zen_redirect(zen_href_link(FILENAME_DEFAULT));
 }
 
-$code = stripslashes($zm_request->getParameter('code', '', false));
+$code = stripslashes(ZMRequest::getParameter('code', '', false));
 $zm_result = null;
 if ('' != $code) {
     ob_start();

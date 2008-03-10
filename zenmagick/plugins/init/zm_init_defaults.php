@@ -63,7 +63,7 @@ class zm_init_defaults extends ZMPlugin {
 
         parent::init();
 
-        $parameter = $zm_request->getParameterMap();
+        $parameter = ZMRequest::getParameterMap();
 
         /** sanitize common parameter **/
         if (isset($parameter['products_id'])) $parameter['products_id'] = ereg_replace('[^0-9a-f:]', '', $parameter['products_id']);
@@ -76,7 +76,7 @@ class zm_init_defaults extends ZMPlugin {
 
         if (!isset($parameter['main_page']) || empty($parameter['main_page'])) $parameter['main_page'] = 'index';
 
-        $zm_request->setParameterMap($parameter);
+        ZMRequest::setParameterMap($parameter);
     }
 
 }

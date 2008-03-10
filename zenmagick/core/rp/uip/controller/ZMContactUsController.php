@@ -78,8 +78,8 @@ class ZMContactUsController extends ZMController {
     global $zm_request;
 
         $contactInfo = $this->create("ContactInfo");
-        if ($zm_request->isRegistered()) {
-            $account = $zm_request->getAccount();
+        if (ZMRequest::isRegistered()) {
+            $account = ZMRequest::getAccount();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());
 

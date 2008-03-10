@@ -31,7 +31,7 @@
     function zm_needs_zc() {
     global $zm_request;
       
-        $pageName = $zm_request->getPageName();
+        $pageName = ZMRequest::getPageName();
         return (zm_is_checkout_page() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
             || zm_is_in_array($pageName, 'advanced_search_result');
     }
@@ -46,17 +46,17 @@
 
     /*****temp fixes for email generation.... ********/
     // set up order for order_status email
-    if (null !== $zm_request->getParameter("oID") && 'update_order' == $zm_request->getParameter("action")) {
-        $orderId = $zm_request->getParameter("oID");
+    if (null !== ZMRequest::getParameter("oID") && 'update_order' == ZMRequest::getParameter("action")) {
+        $orderId = ZMRequest::getParameter("oID");
         $zm_order = ZMOrders::instance()->getOrderForId($orderId);
         $zm_account = ZMAccounts::instance()->getAccountForId($zm_order->getAccountId());
     }
     /*****temp fixes for email generation.... ********/
 
     // simulate the number of uploads parameter for add to cart
-    if ('add_product' == $zm_request->getParameter('action')) {
+    if ('add_product' == ZMRequest::getParameter('action')) {
         $uploads = 0;
-        foreach ($zm_request->getParameterMap() as $name => $value) {
+        foreach (ZMRequest::getParameterMap() as $name => $value) {
             if (zm_starts_with($name, zm_setting('uploadOptionPrefix'))) {
                 ++$uploads;
             }

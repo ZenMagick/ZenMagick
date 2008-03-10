@@ -69,8 +69,8 @@
     function zm_title($echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
-        $title = $zm_request->getPageName();
-        $title = 'static' != $title ? $title : $zm_request->getSubPageName();
+        $title = ZMRequest::getPageName();
+        $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
         $title = zm_format_title($title);
 
         if ($echo) echo $title;
@@ -106,7 +106,7 @@
     function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
     global $zm_request;
 
-        $page = null == $page ? $zm_request->getPageName() : $page;
+        $page = null == $page ? ZMRequest::getPageName() : $page;
 
         $onload = '';
         $themeInfo = ZMRuntime::getTheme()->getThemeInfo();

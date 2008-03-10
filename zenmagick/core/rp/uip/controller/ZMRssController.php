@@ -74,8 +74,8 @@ class ZMRssController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $channel = ucwords($zm_request->getParameter('channel', null));
-        $key = $zm_request->getParameter('key', null);
+        $channel = ucwords(ZMRequest::getParameter('channel', null));
+        $key = ZMRequest::getParameter('key', null);
 
         // delegate items to channel method
         $method = "get".$channel."Feed";

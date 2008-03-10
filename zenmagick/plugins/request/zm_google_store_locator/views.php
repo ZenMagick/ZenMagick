@@ -71,8 +71,8 @@ EOT;
     function zm_store_locator_admin() {
     global $zm_request, $zm_google_store_locator;
 
-        if ('POST' == $zm_request->getMethod()) {
-            $values = $zm_request->getParameter('configuration', array());
+        if ('POST' == ZMRequest::getMethod()) {
+            $values = ZMRequest::getParameter('configuration', array());
             foreach ($values as $name => $value) {
                 $zm_google_store_locator->set($name, $value);
             }

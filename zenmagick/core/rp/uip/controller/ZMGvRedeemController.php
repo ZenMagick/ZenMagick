@@ -77,7 +77,7 @@ class ZMGvRedeemController extends ZMController {
                 // all good, set amount
                 $gvredeem->setAmount($coupon->getAmount());
                 // TODO: remote address
-                ZMCoupons::instance()->redeemCoupon($coupon->getId(), $zm_request->getAccountId());
+                ZMCoupons::instance()->redeemCoupon($coupon->getId(), ZMRequest::getAccountId());
                 $gvredeem->setRedeemed(true);
                 // TODO: only for PHP4 and weak references
                 $this->exportGlobal("zm_gvredeem", $gvredeem);

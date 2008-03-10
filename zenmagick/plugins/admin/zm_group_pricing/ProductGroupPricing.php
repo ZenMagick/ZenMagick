@@ -81,15 +81,15 @@ class ProductGroupPricing extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->id_ = $zm_request->getParameter('groupPricingId', '0');
-        $this->productId_ = $zm_request->getParameter('productId', '0');
-        $this->groupId_ = $zm_request->getParameter('groupId', '0');
-        $this->discount_ = $zm_request->getParameter('discount', '0');
-        $this->type_ = $zm_request->getParameter('type', '%');
-        $this->regularPriceOnly_ = $zm_request->getParameter('regularPriceOnly');
-        $this->startDate_ = $zm_request->getParameter('startDate');
+        $this->id_ = ZMRequest::getParameter('groupPricingId', '0');
+        $this->productId_ = ZMRequest::getParameter('productId', '0');
+        $this->groupId_ = ZMRequest::getParameter('groupId', '0');
+        $this->discount_ = ZMRequest::getParameter('discount', '0');
+        $this->type_ = ZMRequest::getParameter('type', '%');
+        $this->regularPriceOnly_ = ZMRequest::getParameter('regularPriceOnly');
+        $this->startDate_ = ZMRequest::getParameter('startDate');
         $this->startDate_ = zm_ui2date(empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_);
-        $this->endDate_ = zm_ui2date($zm_request->getParameter('endDate'));
+        $this->endDate_ = zm_ui2date(ZMRequest::getParameter('endDate'));
     }
 
 

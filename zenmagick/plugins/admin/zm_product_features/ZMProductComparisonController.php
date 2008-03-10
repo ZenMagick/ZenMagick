@@ -69,7 +69,7 @@ class ZMProductComparisonController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Compare Products");
 
         $product = null;
-        $productIds = $zm_request->getParameter("compareId");
+        $productIds = ZMRequest::getParameter("compareId");
         $productList = array();
         foreach ($productIds as $productId) {
             $product = ZMProducts::instance()->getProductForId($productId);

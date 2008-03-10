@@ -25,9 +25,9 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><?php zm_product_image_link($product, $zm_request->getCategoryId()) ?></td>
+    <td><?php zm_product_image_link($product, ZMRequest::getCategoryId()) ?></td>
     <td class="pinfo">
-        <a href="<?php zm_product_href($product->getId(), $zm_request->getCategoryId()) ?>"><?php echo $product->getName() ?></a><br/>
+        <a href="<?php zm_product_href($product->getId(), ZMRequest::getCategoryId()) ?>"><?php echo $product->getName() ?></a><br/>
         <?php zm_more(zm_strip_html($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php zm_format_currency($product->getPrice()) ?></td>

@@ -65,18 +65,18 @@ class ZMProductReviewsInfoController extends ZMController {
     global $zm_request;
 
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct($zm_request->getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
 
-        $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
+        $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
         $this->exportGlobal("zm_product", $product);
 
-        $review = ZMReviews::instance()->getReviewForId($zm_request->getReviewId());
+        $review = ZMReviews::instance()->getReviewForId(ZMRequest::getReviewId());
         $this->exportGlobal("zm_review", $review);
 
-        ZMReviews::instance()->updateViewCount($zm_request->getReviewId());
+        ZMReviews::instance()->updateViewCount(ZMRequest::getReviewId());
 
         return $this->findView();
     }

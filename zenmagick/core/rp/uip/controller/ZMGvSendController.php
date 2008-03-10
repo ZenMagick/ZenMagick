@@ -78,7 +78,7 @@ class ZMGvSendController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
         return $this->findView();
@@ -93,13 +93,13 @@ class ZMGvSendController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $gvreceiver = $this->create("GVReceiver");
         $gvreceiver->populate();
         $this->exportGlobal("zm_gvreceiver", $gvreceiver);
 
         // back from confirmation to edit or not valid
-        if (null != $zm_request->getParameter('edit') || !$this->validate('gvreceiverObject', $gvreceiver)) {
+        if (null != ZMRequest::getParameter('edit') || !$this->validate('gvreceiverObject', $gvreceiver)) {
             return $this->findView();
         }
 

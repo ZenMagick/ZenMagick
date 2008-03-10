@@ -115,7 +115,7 @@ class zm_google_analytics extends ZMPlugin {
     function getTrackerCode() {
     global $zm_request;
 
-        if ($zm_request->isSecure()) {
+        if (ZMRequest::isSecure()) {
             $url = "https://ssl.google-analytics.com/urchin.js";
         } else {
             $url = "http://www.google-analytics.com/urchin.js";
@@ -140,7 +140,7 @@ class zm_google_analytics extends ZMPlugin {
     function getCheckoutCode() {
     global $zm_request, $zm_order;
 
-        if ('checkout_success' != $zm_request->getPageName()) {
+        if ('checkout_success' != ZMRequest::getPageName()) {
             return '';
         }
 

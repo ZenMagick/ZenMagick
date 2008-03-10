@@ -26,7 +26,7 @@
 
     require_once('includes/application_top.php');
 
-    $controller = ZMLoader::create(zm_mk_classname($zm_request->getParameter('controller')).'Controller');
+    $controller = ZMLoader::create(zm_mk_classname(ZMRequest::getParameter('controller')).'Controller');
     eval(zm_globals());
     $controller->process();
 

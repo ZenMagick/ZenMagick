@@ -75,11 +75,11 @@ class ZMEmailMessage extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->fromEmail_ = $zm_request->getParameter('from_email_address');
-        $this->fromName_ = $zm_request->getParameter('from_name', '');
-        $this->toEmail_ = $zm_request->getParameter('to_email_address');
-        $this->toName_ = $zm_request->getParameter('to_name', '');
-        $this->message_ = $zm_request->getParameter('message', '');
+        $this->fromEmail_ = ZMRequest::getParameter('from_email_address');
+        $this->fromName_ = ZMRequest::getParameter('from_name', '');
+        $this->toEmail_ = ZMRequest::getParameter('to_email_address');
+        $this->toName_ = ZMRequest::getParameter('to_name', '');
+        $this->message_ = ZMRequest::getParameter('message', '');
     }
 
     /**

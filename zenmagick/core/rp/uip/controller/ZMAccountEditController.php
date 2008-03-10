@@ -67,7 +67,7 @@ class ZMAccountEditController extends ZMController {
 
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         return parent::process();
     }
@@ -85,9 +85,9 @@ class ZMAccountEditController extends ZMController {
             return $this->findView();
         }
 
-        $currentAccount = $zm_request->getAccount();
+        $currentAccount = ZMRequest::getAccount();
 
-        $reqAccount = $zm_request->getAccount();
+        $reqAccount = ZMRequest::getAccount();
         $reqAccount->populate();
 
         if ($reqAccount->getEmail() != $currentAccount->getEmail()) {

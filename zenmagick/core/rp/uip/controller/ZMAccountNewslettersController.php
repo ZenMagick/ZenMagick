@@ -67,7 +67,7 @@ class ZMAccountNewslettersController extends ZMController {
 
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb("Newsletter");
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         return parent::process();
     }
@@ -81,9 +81,9 @@ class ZMAccountNewslettersController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        $newsletterSubscriber = zm_boolean($zm_request->getParameter('newsletter_general', 0));
+        $newsletterSubscriber = zm_boolean(ZMRequest::getParameter('newsletter_general', 0));
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
             $account->setNewsletterSubscriber($newsletterSubscriber);
             ZMAccounts::instance()->updateAccount($account);

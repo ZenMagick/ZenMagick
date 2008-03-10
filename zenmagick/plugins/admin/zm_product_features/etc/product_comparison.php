@@ -66,6 +66,6 @@
     </tbody>
 </table>
 <?php zm_form(ZM_FILENAME_CATEGORY, '', null, 'get') ?>
-    <?php zm_hidden_list('compareId[]', $zm_request->getParameter("compareId")) ?>
+    <?php zm_hidden_list('compareId[]', ZMRequest::getParameter("compareId")) ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Change Selection") ?>" /></div>
 </form>

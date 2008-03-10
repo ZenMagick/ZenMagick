@@ -45,7 +45,7 @@ class ZMAjaxController extends ZMController {
 
         parent::__construct();
 
-        $this->method_ = $zm_request->getParameter('method', null);
+        $this->method_ = ZMRequest::getParameter('method', null);
         $this->json_ = new Services_JSON();
     }
 

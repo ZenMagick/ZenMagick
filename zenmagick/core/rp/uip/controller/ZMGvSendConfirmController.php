@@ -78,8 +78,8 @@ class ZMGvSendConfirmController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $action = $zm_request->getParameter('action');
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $action = ZMRequest::getParameter('action');
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
         $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
 
@@ -95,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        if (null != $zm_request->getParameter('edit')) {
+        if (null != ZMRequest::getParameter('edit')) {
             return $this->findView('edit');
         }
 
@@ -108,13 +108,13 @@ class ZMGvSendConfirmController extends ZMController {
         }
 
         // the sender account
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         // current balance
         $balance = $account->getVoucherBalance();
         // coupon amount
         $amount = $gvreceiver->getAmount(); 
 
-        $currentCurrencyCode = $zm_request->getCurrencyCode();
+        $currentCurrencyCode = ZMRequest::getCurrencyCode();
         if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
@@ -138,7 +138,7 @@ class ZMGvSendConfirmController extends ZMController {
         zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvreceiver->getEmail());
         if (zm_setting('isEmailAdminGvSend')) {
             // store copy
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['zm_gvreceiver'] = $gvreceiver;

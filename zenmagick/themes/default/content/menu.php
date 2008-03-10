@@ -27,16 +27,16 @@
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php zm_href(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
-    <?php if ($zm_request->isAnonymous()) { ?>
+    <?php if (ZMRequest::isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGIN); ?>"><?php zm_l10n("LOGIN") ?></a></li>
     <?php } ?>
-    <?php if ($zm_request->isRegistered()) { ?>
+    <?php if (ZMRequest::isRegistered()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
     <?php } ?>
-    <?php if (!$zm_request->isAnonymous()) { ?>
+    <?php if (!ZMRequest::isAnonymous()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_LOGOFF); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!$zm_request->getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
+    <?php if (!ZMRequest::getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
         <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>

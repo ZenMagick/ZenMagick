@@ -72,7 +72,7 @@
     function zm_l10n_chunk_get($name) {
     global $zm_request, $zm_theme;
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         $language = $session->getLanguage();
 
         $file = $language->getDirectory().'/'.$name.'.txt';

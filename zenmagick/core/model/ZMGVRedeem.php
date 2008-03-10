@@ -71,7 +71,7 @@ class ZMGVRedeem extends ZMModel {
     function populate($req=null) {
     global $zm_request;
 
-        $this->code_ = $zm_request->getParameter('couponCode', '');
+        $this->code_ = ZMRequest::getParameter('couponCode', '');
     }
 
 

@@ -296,7 +296,7 @@
     global $zm_request;
 
         if (ZMMessages::instance()->hasMessages()) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $session->setMessages(ZMMessages::instance()->getMessages());
         }
 
@@ -433,7 +433,7 @@
         eval(zm_globals());
 
         // init l10n/i18n
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         $language = $session->getLanguage();
         $theme->loadLocale($language);
 
@@ -464,12 +464,12 @@
     function zm_dispatch() {
     global $zm_request;
 
-        $controller = ZMLoader::make(ZMLoader::makeClassname($zm_request->getPageName().'Controller'));
+        $controller = ZMLoader::make(ZMLoader::makeClassname(ZMRequest::getPageName().'Controller'));
         if (null == $controller) {
             $controller = ZMLoader::make("DefaultController");
         }
 
-        $zm_request->setController($controller);
+        ZMRequest::setController($controller);
 
         eval(zm_globals());
 

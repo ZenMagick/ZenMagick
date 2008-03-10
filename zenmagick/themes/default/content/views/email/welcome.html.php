@@ -32,7 +32,7 @@ $language = ZMRuntime::getLanguage();
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $zm_request->getAccount()->getFirstName(), $zm_request->getAccount()->getLastName()) ?></p>
+<p><?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?></p>
 
 <p><?php zm_l10n("We wish to welcome you to %s.", zm_setting('storeName')) ?></p>
 <div><?php echo zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner')) ?></div>

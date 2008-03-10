@@ -65,10 +65,10 @@ class ZMProductInfoController extends ZMController {
     global $zm_request;
 
         $product = null;
-        if ($zm_request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
-        } else if ($zm_request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($zm_request->getModel());
+        if (ZMRequest::getProductId()) {
+            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        } else if (ZMRequest::getModel()) {
+            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
         }
 
         $this->exportGlobal("zm_product", $product);
@@ -79,8 +79,8 @@ class ZMProductInfoController extends ZMController {
         ZMProducts::instance()->updateViewCount($product);
 
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
 
         $viewName = zen_get_info_page($product->getId());

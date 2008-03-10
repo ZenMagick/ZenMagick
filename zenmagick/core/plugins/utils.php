@@ -38,7 +38,7 @@
     global $zm_request;
 
         if (null == $function) {
-            $function = $zm_request->getParameter('fkt');
+            $function = ZMRequest::getParameter('fkt');
         }
         $url = zen_href_link('zmPluginPage', 'fkt='.$function.'&'.$params, 'SSL');
 
@@ -72,7 +72,7 @@
     global $zm_request;
 
         $target = explode(';', $target);
-        if ($zm_request->isAdmin()) {
+        if (ZMRequest::isAdmin()) {
             return zm_plugin_admin_url($target[1], $params, $echo);
         } else {
             return zm_href($target[0], $params, $echo);

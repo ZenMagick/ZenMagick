@@ -64,8 +64,8 @@ class ZMRedirectController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $action = $zm_request->getParameter('action');
-        $goto = $zm_request->getParameter('goto');
+        $action = ZMRequest::getParameter('action');
+        $goto = ZMRequest::getParameter('goto');
 
         switch ($action) {
         case 'banner':
@@ -83,13 +83,13 @@ class ZMRedirectController extends ZMController {
             break;
 
         case 'manufacturer':
-            $manufacturerId = $zm_request->getManufacturerId();
+            $manufacturerId = ZMRequest::getManufacturerId();
             if (0 < $manufacturerId) {
                 $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
 
                 if (null == $manufacturer || null == $manufacturer->getURL()) {
                     // try default language if different from session language
-                    if (zm_setting('defaultLanguageCode') != $zm_request->getSession()->getLanguageCode()) {
+                    if (zm_setting('defaultLanguageCode') != ZMRequest::getSession()->getLanguageCode()) {
                         $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
                         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }

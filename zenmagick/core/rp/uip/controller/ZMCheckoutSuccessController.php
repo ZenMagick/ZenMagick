@@ -67,12 +67,12 @@ class ZMCheckoutSuccessController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
-        $orders = ZMOrders::instance()->getOrdersForAccountId($zm_request->getAccountId(), 1);
+        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId(), 1);
         $this->exportGlobal("zm_order", $orders[0]);
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
-        if (zm_setting('isLogoffGuestAfterOrder') && $zm_request->isGuest()) {
-            $session = $zm_request->getSession();
+        if (zm_setting('isLogoffGuestAfterOrder') && ZMRequest::isGuest()) {
+            $session = ZMRequest::getSession();
             $session->clear();
         }
 

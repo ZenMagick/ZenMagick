@@ -63,7 +63,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
     function checkCart() {
     global $zm_request;
 
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
         if ($shoppingCart->isEmpty()) {
             return $this->findView("empty_cart");
         }
@@ -89,7 +89,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);
 
         return parent::process();
@@ -108,7 +108,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
             return $view;
         }
 
-        $addressList = ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId());
+        $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
         $address = $this->create("Address");
@@ -133,9 +133,9 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         }
 
         // if address field in request, it's a select; otherwise a new address
-        $addressId = $zm_request->getParameter('address', null);
+        $addressId = ZMRequest::getParameter('address', null);
 
-        $shoppingCart = $zm_request->getShoppingCart();
+        $shoppingCart = ZMRequest::getShoppingCart();
         if (null !== $addressId) {
             $shoppingCart->setBillingAddressId($addressId);
         } else {
@@ -146,7 +146,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
             $address = $abc->getGlobal('zm_address');
             if (0 == $address->getId()) {
                 $this->exportGlobal("zm_address", $address);
-                $addressList = ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId());
+                $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
                 $this->exportGlobal("zm_addressList", $addressList);
                 return $this->findView();
             }

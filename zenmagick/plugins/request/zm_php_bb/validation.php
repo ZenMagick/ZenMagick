@@ -63,7 +63,7 @@
     global $zm_request;
     
         // the current account
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
 
         if ($account->getNickName() != $req['nick']) {
             // changed
@@ -84,7 +84,7 @@
     global $zm_request;
     
         // the current account
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
 
         if ($account->getEmail() != $req['email_address']) {
             // changed

@@ -99,7 +99,7 @@ class sample_plugin extends ZMPlugin {
     function filterResponse($contents) {
     global $zm_request;
 
-        if ('login' == $zm_request->getPageName()) {
+        if ('login' == ZMRequest::getPageName()) {
             $contents =  preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 
@@ -118,8 +118,8 @@ class sample_plugin extends ZMPlugin {
 function sample_plugin_admin() {
 global $zm_request, $sample_plugin;
 
-    if ('POST' == $zm_request->getMethod()) {
-        $values = $zm_request->getParameter('configuration', array());
+    if ('POST' == ZMRequest::getMethod()) {
+        $values = ZMRequest::getParameter('configuration', array());
         foreach ($values as $name => $value) {
             $sample_plugin->set($name, $value);
         }

@@ -68,7 +68,7 @@ class zm_site_switch extends ZMPlugin {
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
 
-        $hostname = $zm_request->getHostname();
+        $hostname = ZMRequest::getHostname();
 
         if (isset($zm_server_names[$hostname])) {
             ZMRuntime::setThemeId($zm_server_names[$hostname]);

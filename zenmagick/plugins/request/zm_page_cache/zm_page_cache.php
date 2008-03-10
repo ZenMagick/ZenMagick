@@ -89,8 +89,8 @@ class zm_page_cache extends ZMPlugin {
     function getRequestKey() {
     global $zm_request, $zm_theme;
 
-        $session = $zm_request->getSession();
-        return $zm_request->getPageName() . '-' . $zm_request->getQueryString() . '-' . $zm_request->getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();
+        $session = ZMRequest::getSession();
+        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();
     }
 
     /**

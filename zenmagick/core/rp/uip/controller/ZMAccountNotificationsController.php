@@ -67,7 +67,7 @@ class ZMAccountNotificationsController extends ZMController {
 
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb('Product Notifications');
-        $this->exportGlobal("zm_account", $zm_request->getAccount());
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         return parent::process();
     }
@@ -81,9 +81,9 @@ class ZMAccountNotificationsController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        $globalProductSubscriber = zm_boolean($zm_request->getParameter('product_global', 0));
+        $globalProductSubscriber = zm_boolean(ZMRequest::getParameter('product_global', 0));
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         $isGlobalUpdate = false;
         if ($globalProductSubscriber != $account->isGlobalProductSubscriber()) {
             $account->setGlobalProductSubscriber($globalProductSubscriber);
@@ -94,7 +94,7 @@ class ZMAccountNotificationsController extends ZMController {
         if (!$isGlobalUpdate) {
             // if global update is on, products are not listed in the form,
             // therefore, they would all be removed if updated!
-            $subscribedProducts = $zm_request->getParameter('notify', array());
+            $subscribedProducts = ZMRequest::getParameter('notify', array());
             $account = ZMAccounts::instance()->setSubscribedProductIds($account, $subscribedProducts);
         }
 

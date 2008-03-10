@@ -77,7 +77,7 @@ class ZMLoginController extends ZMController {
     function processGet() {
     global $zm_request;
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         if (!$session->isAnonymous()) {
             // already logged in
             return $this->findView('index');
@@ -96,7 +96,7 @@ class ZMLoginController extends ZMController {
     function processPost() {
     global $zm_request;
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         if (!$session->isValid()) {
             return $this->findView('cookie_usage');
         }
@@ -110,14 +110,14 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $emailAddress = $zm_request->getParameter('email_address');
+        $emailAddress = ZMRequest::getParameter('email_address');
         $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
-        $password = $zm_request->getParameter('password');
+        $password = ZMRequest::getParameter('password');
         if (!zm_validate_password($password, $account->getPassword())) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();

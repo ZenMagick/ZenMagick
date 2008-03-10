@@ -34,7 +34,7 @@
     $gjs = zm_google_adsense('BOX_ID', false);
 
 ?>
-<?php if (!empty($gjs) && !$zm_request->isSecure()) { ?>
+<?php if (!empty($gjs) && !ZMRequest::isSecure()) { ?>
     <div class="box google">
         <?php echo $gjs ?>
     </div>

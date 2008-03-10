@@ -28,7 +28,7 @@
   // do show the not available image
   zm_set_setting('isShowNoPicture', false);
 
-  $productList = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId(), false);
+  $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
 
   // allow to override with custom fields
   if (function_exists('zm_quick_edit_field_list')) {
@@ -46,11 +46,11 @@
       );
   }
 
-  if (null != $zm_request->getParameter('submit')) {
+  if (null != ZMRequest::getParameter('submit')) {
       foreach ($productList as $ii => $product) {
           foreach ($zm_quick_edit_field_list as $field) {
               $fieldname = $field['field'].'_'.$product->getId();
-              $value = $zm_request->getParameter($fieldname);
+              $value = ZMRequest::getParameter($fieldname);
               if (null != $field['method']) {
                   $setMethod = 'set'.ucwords($field['method']);
                   $product->$setMethod($value);

@@ -24,8 +24,8 @@
  */
 ?>
 
-<?php if (null != $zm_request->getProductId()) { ?>
-    <?php $product = ZMProducts::instance()->getProductForId($zm_request->getProductId()); ?>
+<?php if (null != ZMRequest::getProductId()) { ?>
+    <?php $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId()); ?>
     <?php $manufacturer = $product->getManufacturer(); ?>
     <?php if (null != $manufacturer) { ?>
         <h3><?php zm_l10n("Manufacturer Info") ?></h3>

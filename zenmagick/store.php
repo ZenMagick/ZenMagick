@@ -26,7 +26,7 @@
 <?php
 
     ZMMessages::instance()->_loadMessageStack();
-    ZMCategories::instance()->setPath($zm_request->getCategoryPathArray());
+    ZMCategories::instance()->setPath(ZMRequest::getCategoryPathArray());
 
     // main request processor
     if (zm_setting('isEnableZenMagick')) {
@@ -42,7 +42,7 @@
         echo $contents;
 
         // clear messages if not redirect...
-        $_zm_session = $zm_request->getSession();
+        $_zm_session = ZMRequest::getSession();
         $_zm_session->clearMessages();
 
         exit;

@@ -65,9 +65,9 @@ class ZMCategoryController extends ZMController {
     function process() { 
     global $zm_request;
 
-        ZMCrumbtrail::instance()->addCategoryPath($zm_request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($zm_request->getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct($zm_request->getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
 
         return parent::process();
     }
@@ -86,14 +86,14 @@ class ZMCategoryController extends ZMController {
         $products = null;
         $viewName = 'error';
 
-        if (null != $zm_request->getCategoryPath()) {
-            $products = ZMProducts::instance()->getProductsForCategoryId($zm_request->getCategoryId());
+        if (null != ZMRequest::getCategoryPath()) {
+            $products = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId());
             $viewName = 'category_list';
-        } else if (null != $zm_request->getManufacturerId()) {
-            $products = ZMProducts::instance()->getProductsForManufacturerId($zm_request->getManufacturerId());
+        } else if (null != ZMRequest::getManufacturerId()) {
+            $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::getManufacturerId());
             $viewName = 'manufacturer';
-        } else if (null != $zm_request->getParameter('compareId')) {
-            $products = ZMProducts::instance()->getProductsForIds($zm_request->getParameter('compareId'));
+        } else if (null != ZMRequest::getParameter('compareId')) {
+            $products = ZMProducts::instance()->getProductsForIds(ZMRequest::getParameter('compareId'));
             $viewName = 'category_list';
         }
         if (null !== $products) {
@@ -105,7 +105,7 @@ class ZMCategoryController extends ZMController {
             $this->exportGlobal("zm_resultList", $resultList);
         }
 
-        $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId());
+        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
         if ($viewName == "category_list" && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }
@@ -115,7 +115,7 @@ class ZMCategoryController extends ZMController {
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && zm_setting('isSkipSingleProductCategory')) {
             $product = array_pop($resultList->getResults());
             // TODO: do not use name directly!
-            $zm_request->setParameterMap(array('products_id' => $product->getId()));
+            ZMRequest::setParameterMap(array('products_id' => $product->getId()));
             $viewName = 'product_info';
         }
 

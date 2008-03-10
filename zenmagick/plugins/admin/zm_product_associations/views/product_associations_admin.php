@@ -25,7 +25,7 @@
 ?>
 <?php
 
-  $zm_product = ZMProducts::instance()->getProductForId($zm_request->getProductId());
+  $zm_product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
 ?>
 
   <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>

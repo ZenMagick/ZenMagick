@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $zm_request->getProductId(), 'tell_a_friend', 'post', 'return validate(this)'); ?>
+<?php zm_secure_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . ZMRequest::getProductId(), 'tell_a_friend', 'post', 'return validate(this)'); ?>
    <fieldset>
       <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 

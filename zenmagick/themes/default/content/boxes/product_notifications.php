@@ -24,18 +24,18 @@
  */
 ?>
 
-<?php if (0 != $zm_request->getProductId() && isset($zm_product)) { ?>
+<?php if (0 != ZMRequest::getProductId() && isset($zm_product)) { ?>
      <?php 
       $isSubscribed = false;
-      if ($zm_request->isRegistered()) {
-          $account = $zm_request->getAccount();
+      if (ZMRequest::isRegistered()) {
+          $account = ZMRequest::getAccount();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();
-              $isSubscribed = array_key_exists($zm_request->getProductId(), array_flip($subscribedProducts));
+              $isSubscribed = array_key_exists(ZMRequest::getProductId(), array_flip($subscribedProducts));
           }
       }
     ?>
-    <?php if ($zm_request->isAnonymous() || !$isSubscribed) { ?>
+    <?php if (ZMRequest::isAnonymous() || !$isSubscribed) { ?>
         <h3><?php zm_l10n("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
             <a href="<?php zm_href(null, 'action=notify') ?>"><img src="<?php $zm_theme->themeURL("images/big_tick.gif") ?>" alt="<?php zm_l10n("Notify me of updates to this product") ?>" title="<?php zm_l10n("Notify me of updates to this product") ?>" /><br /><?php zm_l10n("Notify me of updates to <strong>%s</strong>", $zm_product->getName())?></a>

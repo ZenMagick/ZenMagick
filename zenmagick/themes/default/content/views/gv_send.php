@@ -24,7 +24,7 @@
  */
 ?>
 
-<p><?php zm_l10n("Current available balance: <strong>%s</strong>", zm_format_currency($zm_request->getAccount()->getVoucherBalance(), true, false)) ?></p>
+<p><?php zm_l10n("Current available balance: <strong>%s</strong>", zm_format_currency(ZMRequest::getAccount()->getVoucherBalance(), true, false)) ?></p>
 <?php zm_secure_form(FILENAME_GV_SEND, '', 'gv_send', "post", "return validate(this);") ?>
     <fieldset>
         <legend><?php zm_l10n("EMail Gift Certificate") ?></legend>

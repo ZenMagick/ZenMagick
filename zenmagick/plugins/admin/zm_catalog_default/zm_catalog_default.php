@@ -66,7 +66,7 @@ class zm_catalog_default extends ZMPlugin {
 
         parent::init();
 
-        //if (0 == $zm_request->getProductId() && 0 == $zm_request->getCategoryId()) {
+        //if (0 == ZMRequest::getProductId() && 0 == ZMRequest::getCategoryId()) {
             $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin', ZM_MENU_CATALOG_ADMIN);
         //}
     }

@@ -79,14 +79,14 @@ class ZMAddressBookProcessController extends ZMController {
     global $zm_request;
 
         $viewName = null;
-        if ($zm_request->getParameter('edit')) {
+        if (ZMRequest::getParameter('edit')) {
             ZMCrumbtrail::instance()->addCrumb("Edit");
-            $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('edit'));
+            $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('edit'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_edit';
-        } else if ($zm_request->getParameter('delete')) {
+        } else if (ZMRequest::getParameter('delete')) {
             ZMCrumbtrail::instance()->addCrumb("Delete");
-            $address = ZMAddresses::instance()->getAddressForId($zm_request->getParameter('delete'));
+            $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('delete'));
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_delete';
         } else {
@@ -107,7 +107,7 @@ class ZMAddressBookProcessController extends ZMController {
     function processPost() {
     global $zm_request;
         
-        $action = $zm_request->getParameter('action');
+        $action = ZMRequest::getParameter('action');
         $view = null;
         if ('update' == $action) {
             ZMCrumbtrail::instance()->addCrumb("Edit");
@@ -143,11 +143,11 @@ class ZMAddressBookProcessController extends ZMController {
 
         // process primary setting
         if ($address->isPrimary()) {
-            $account = $zm_request->getAccount();
+            $account = ZMRequest::getAccount();
             $account->setDefaultAddressId($address->getId());
             ZMAccounts::instance()->updateAccount($account);
 
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $session->setAccount($account);
         }
 
@@ -163,8 +163,8 @@ class ZMAddressBookProcessController extends ZMController {
     function deleteAddress() {
     global $zm_request;
 
-        $account = $zm_request->getAccount();
-        $addressId = $zm_request->getParameter('addressId', 0);
+        $account = ZMRequest::getAccount();
+        $addressId = ZMRequest::getParameter('addressId', 0);
         if (0 < $addressId) {
             ZMAddresses::instance()->deleteAddressForId($addressId);
             ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
@@ -182,7 +182,7 @@ class ZMAddressBookProcessController extends ZMController {
 
         $address = $this->create("Address");
         $address->populate();
-        $address->setAccountId($zm_request->getAccountId());
+        $address->setAccountId(ZMRequest::getAccountId());
 
         if (!$this->validate('addressObject', $address)) {
             $this->exportGlobal("zm_address", $address);
@@ -192,19 +192,19 @@ class ZMAddressBookProcessController extends ZMController {
         $address = ZMAddresses::instance()->createAddress($address);
 
         // process primary setting
-        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($zm_request->getAccountId()))) {
-            $account = $zm_request->getAccount();
+        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId()))) {
+            $account = ZMRequest::getAccount();
             $account->setDefaultAddressId($address->getId());
             ZMAccounts::instance()->updateAccount($account);
 
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $session->setAccount($account);
         }
 
         $this->exportGlobal("zm_address", $address);
 
         // if guest, there is no address book!
-        if ($zm_request->isRegistered()) {
+        if (ZMRequest::isRegistered()) {
             ZMMessages::instance()->success(zm_l10n_get('Address added to your address book.'));
         }
 

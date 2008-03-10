@@ -51,7 +51,7 @@ class ZMCategories extends ZMObject {
         parent::__construct();
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
         $this->languageId_ = $languageId;

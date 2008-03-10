@@ -26,16 +26,16 @@
 <?php
 
   $currentLanguage = ZMRuntime::getLanguage();
-  $selectedLanguageId = $zm_request->getParameter('languageId', $currentLanguage->getId());
+  $selectedLanguageId = ZMRequest::getParameter('languageId', $currentLanguage->getId());
 
-  $category = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId(), $selectedLanguageId);
+  $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $selectedLanguageId);
   if (null === $category) {
       $category = ZMLoader::make("Category");
       $category->setName('** new category **');
 
       // set a few defaults from the default language category
       $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
-      $defaultCategory = ZMCategories::instance()->getCategoryForId($zm_request->getCategoryId(), $defaultLanguage->getId());
+      $defaultCategory = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $defaultLanguage->getId());
       if (null != $defaultCategory) {
           // only if exist (might not be the case if category is all new)
           $category->setName($defaultCategory->getName());

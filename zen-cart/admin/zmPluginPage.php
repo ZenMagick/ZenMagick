@@ -25,7 +25,7 @@
 ?><?php
 require_once('includes/application_top.php');
 
-  $fkt = $zm_request->getParameter('fkt');
+  $fkt = ZMRequest::getParameter('fkt');
   if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 

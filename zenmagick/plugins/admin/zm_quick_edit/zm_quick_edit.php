@@ -65,8 +65,8 @@ class zm_quick_edit extends ZMPlugin {
 
         parent::init();
 
-        if (0 < $zm_request->getCategoryId() && 0 == $zm_request->getProductId()) {
-            $count = count(ZMProducts::instance()->getProductIdsForCategoryId($zm_request->getCategoryId()));
+        if (0 < ZMRequest::getCategoryId() && 0 == ZMRequest::getProductId()) {
+            $count = count(ZMProducts::instance()->getProductIdsForCategoryId(ZMRequest::getCategoryId()));
             if (0 < $count) {
                 // only available if category involved
                 $this->addMenuItem('zm_quick_edit', zm_l10n_get('Quick Edit'), 'zm_quick_edit_admin', ZM_MENU_CATALOG_ADMIN);

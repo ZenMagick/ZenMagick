@@ -80,10 +80,10 @@ class ZMGVAmountRule extends ZMRule {
 
         $amount = $req[$this->name_];
 
-        $account = $zm_request->getAccount();
+        $account = ZMRequest::getAccount();
         $balance = $account->getVoucherBalance();
 
-        $currentCurrencyCode = $zm_request->getCurrencyCode();
+        $currentCurrencyCode = ZMRequest::getCurrencyCode();
         if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);

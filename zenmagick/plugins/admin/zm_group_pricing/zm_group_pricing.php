@@ -65,7 +65,7 @@ class zm_group_pricing extends ZMPlugin {
 
         parent::init();
 
-        if (0 < $zm_request->getProductId()) {
+        if (0 < ZMRequest::getProductId()) {
             // only available if product involved
             $this->addMenuItem('zm_group_pricing_admin', zm_l10n_get('Group Pricing'), 'zm_group_pricing_admin', ZM_MENU_CATALOG_ADMIN);
         }

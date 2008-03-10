@@ -63,13 +63,13 @@ class zm_init_category_path extends ZMPlugin {
 
         parent::init();
 
-        if (0 != ($productId = $zm_request->getProductId())) {
-            if (null == $zm_request->getCategoryPath()) {
+        if (0 != ($productId = ZMRequest::getProductId())) {
+            if (null == ZMRequest::getCategoryPath()) {
                 // set default based on product default category
                 $product = ZMProducts::instance()->getProductForId($productId);
                 $defaultCategory = $product->getDefaultCategory();
                 if (null != $defaultCategory) {
-                    $zm_request->setCategoryPathArray($defaultCategory->getPathArray());
+                    ZMRequest::setCategoryPathArray($defaultCategory->getPathArray());
                 }
             }
         }

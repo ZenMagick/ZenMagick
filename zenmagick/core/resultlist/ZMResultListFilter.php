@@ -51,7 +51,7 @@ class ZMResultListFilter extends ZMObject {
 
         $this->id_ = $id;
         $this->name_ = $name;
-        $value = $zm_request->getParameter($this->id_, '');
+        $value = ZMRequest::getParameter($this->id_, '');
         $this->filterValues_ = explode(",", $value);
     }
 
@@ -116,7 +116,7 @@ class ZMResultListFilter extends ZMObject {
     function isActive() {
     global $zm_request;
 
-        return null != $zm_request->getParameter($this->id_, null);
+        return null != ZMRequest::getParameter($this->id_, null);
     }
 
     /**

@@ -446,7 +446,7 @@ class ZMPlugin extends ZMObject {
     function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
     global $zm_request;
 
-        if ($zm_request->isAdmin()) {
+        if (ZMRequest::isAdmin()) {
             zm_add_menu_item($this->create("MenuItem", $menuKey, $id, $title, null, $function));
         }
     }

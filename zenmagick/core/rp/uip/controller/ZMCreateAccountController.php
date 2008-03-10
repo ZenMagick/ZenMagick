@@ -111,7 +111,7 @@ class ZMCreateAccountController extends ZMController {
         }
 
         // hen and egg...
-        $account->setPassword(zm_encrypt_password($zm_request->getParameter('password')));
+        $account->setPassword(zm_encrypt_password(ZMRequest::getParameter('password')));
         $account = ZMAccounts::instance()->createAccount($account);
 
         $address->setAccountId($account->getId());
@@ -120,7 +120,7 @@ class ZMCreateAccountController extends ZMController {
         $account->setDefaultAddressId($address->getId());
         ZMAccounts::instance()->updateAccount($account);
 
-        $session = $zm_request->getSession();
+        $session = ZMRequest::getSession();
         $session->recreate();
         $session->setAccount($account);
         $session->restoreCart();

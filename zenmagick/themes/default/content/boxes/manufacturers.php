@@ -30,7 +30,7 @@
     <div id="sb_manufacturers" class="box">
         <?php zm_form(ZM_FILENAME_CATEGORY, '', null, "get") ?>
             <div>
-                <?php zm_idp_select('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Please Select"))), $manufacturers), 3, $zm_request->getManufacturerId(), 'this.form.submit()') ?>
+                <?php zm_idp_select('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Please Select"))), $manufacturers), 3, ZMRequest::getManufacturerId(), 'this.form.submit()') ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
                 </noscript>

@@ -61,8 +61,8 @@ class ZMEventFixes extends ZMObject {
     function onNotifyHeaderEndCheckoutConfirmation() {
     global $zm_request;
 
-        $session = $zm_request->getSession();
-        $shoppingCart = $zm_request->getShoppingCart();
+        $session = ZMRequest::getSession();
+        $shoppingCart = ZMRequest::getShoppingCart();
         if ($session->isGuest()) {
             // check for address
             if (!$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
@@ -83,7 +83,7 @@ class ZMEventFixes extends ZMObject {
     function onZMDispatchStart() {
     global $zm_request;
 
-        if (false !== strpos($zm_request->getPageName(), 'ajax')) {
+        if (false !== strpos(ZMRequest::getPageName(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }
     }

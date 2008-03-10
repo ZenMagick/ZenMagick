@@ -34,7 +34,7 @@
     function zm_page_cache_admin() {
     global $zm_request, $zm_page_cache;
 
-        if ('x' == $zm_request->getParameter('pageCache')) {
+        if ('x' == ZMRequest::getParameter('pageCache')) {
             $pageCache = ZMLoader::make('PageCache');
             $ok = $pageCache->clear();
             ZMMessages::instance()->add(zm_l10n_get('Clear page cache ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');

@@ -63,7 +63,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
             // default to zen-cart
             return zen_build_html_email_from_template_org($template, $args);
         }
-        $view->setController($zm_request->getController());
+        $view->setController(ZMRequest::getController());
         $html = $view->generate();
         return $html;
     }

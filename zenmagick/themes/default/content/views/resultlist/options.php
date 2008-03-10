@@ -44,12 +44,12 @@
         <?php if ($zm_resultList->hasSorters()) { ?>
             <div>
                 <input type="hidden" name="page" value="<?php echo $zm_resultList->getCurrentPageNumber() ?>" />
-                <?php if ($zm_request->getCategoryPath()) { ?>
-                    <input type="hidden" name="cPath" value="<?php echo $zm_request->getCategoryPath() ?>" />
-                <?php } else if ($zm_request->getManufacturerId()) { ?>
-                    <input type="hidden" name="manufacturers_id" value="<?php echo $zm_request->getManufacturerId() ?>" />
-                <?php } else if (null != $zm_request->getParameter("compareId")) { ?>
-                    <?php zm_hidden_list('compareId[]', $zm_request->getParameter("compareId")) ?>
+                <?php if (ZMRequest::getCategoryPath()) { ?>
+                    <input type="hidden" name="cPath" value="<?php echo ZMRequest::getCategoryPath() ?>" />
+                <?php } else if (ZMRequest::getManufacturerId()) { ?>
+                    <input type="hidden" name="manufacturers_id" value="<?php echo ZMRequest::getManufacturerId() ?>" />
+                <?php } else if (null != ZMRequest::getParameter("compareId")) { ?>
+                    <?php zm_hidden_list('compareId[]', ZMRequest::getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

@@ -69,7 +69,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -107,7 +107,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -148,7 +148,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -423,7 +423,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -465,7 +465,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -507,7 +507,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -628,7 +628,7 @@ class ZMProducts extends ZMObject {
     global $zm_request;
 
         if (null === $languageId) {
-            $session = $zm_request->getSession();
+            $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 

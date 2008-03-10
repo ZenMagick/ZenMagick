@@ -27,14 +27,14 @@
 
     require_once('includes/application_top.php');
 
-    if ('POST' == $zm_request->getMethod()) {
-        $name = $zm_request->getParameter('name');
-        $inherit = $zm_request->getParameter('inherit', false);
-        $switchto = $zm_request->getParameter('switchto', false);
+    if ('POST' == ZMRequest::getMethod()) {
+        $name = ZMRequest::getParameter('name');
+        $inherit = ZMRequest::getParameter('inherit', false);
+        $switchto = ZMRequest::getParameter('switchto', false);
 
         $themeBuilder = new ZMThemeBuilder();
-        $themeBuilder->setName($zm_request->getParameter('name'));
-        $themeBuilder->setInheritDefaults($zm_request->getParameter('inherit', false));
+        $themeBuilder->setName(ZMRequest::getParameter('name'));
+        $themeBuilder->setInheritDefaults(ZMRequest::getParameter('inherit', false));
         $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msg) {
             ZMMessages::instance()->msg($msg);

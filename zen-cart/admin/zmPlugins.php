@@ -31,11 +31,11 @@ require_once('includes/application_top.php');
 
     $pluginLoader = new ZMLoader("pluginLoader");
 
-    $install = $zm_request->getParameter('install');
-    $remove = $zm_request->getParameter('remove');
-    $edit = $zm_request->getParameter('edit');
-    $type = $zm_request->getParameter('type');
-    $select = $zm_request->getParameter('select');
+    $install = ZMRequest::getParameter('install');
+    $remove = ZMRequest::getParameter('remove');
+    $edit = ZMRequest::getParameter('edit');
+    $type = ZMRequest::getParameter('type');
+    $select = ZMRequest::getParameter('select');
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
