@@ -365,6 +365,32 @@ class ZMLoader {
         return $classname;
     }
 
+    /**
+     * Resolve the given zen-cart class.
+     *
+     * <p>This functuon ensures that the given class is loaded.</p>
+     *
+     * @param string clazz The class name.
+     */
+    public static function resolveZCClass($clazz) {
+        if (!class_exists($clazz)) {
+            require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php');
+        }
+    }
+
+    /**
+     * Get class hierachy for the given class/object.
+     *
+     * @param mixed object The object or class name.
+     * @return array The class hierachy.
+     */
+    public static function getClassHierachy($object) {
+        $hierachy = array($object);
+        while($object = get_parent_class($object)) { $hierachy[] = $object; }
+        return $hierachy;
+    }
+
+
 }
 
 ?>

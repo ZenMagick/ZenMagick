@@ -102,7 +102,7 @@ class ZMShippingProviders extends ZMObject {
         // TODO: create fake environment
         global $template;
         if (!isset($template)) {
-            zm_resolve_zc_class('template_func');
+            ZMLoader::resolveZCClass('template_func');
             $template = new template_func();
         }
 

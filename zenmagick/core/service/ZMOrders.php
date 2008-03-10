@@ -318,7 +318,7 @@ class ZMOrders extends ZMObject {
     function _getOrderItems($order) {
         $orderItems = array();
 
-        zm_resolve_zc_class("order");
+        ZMLoader::resolveZCClass('order');
         $zenOrder = new order($order->getId());
         // keep ref for further use
         $order->zenOrder_ = $zenOrder;

@@ -67,21 +67,28 @@ class ZMRequest extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    protected static function instance() {
+        return ZMObject::instance('Request');
+    }
+
 
     /**
      * Get the request method.
      *
      * @return string The upper case request method.
      */
-    public function getMethod() { return strtoupper($_SERVER['REQUEST_METHOD']); }
+    public static function getMethod() { return strtoupper($_SERVER['REQUEST_METHOD']); }
 
     /**
      * Check for a valid session.
      *
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
-    public function isValidSession() {
-        return $this->getSession()->isValid();
+    public static function isValidSession() {
+        return ZMRequest::instance()->getSession()->isValid();
     }
 
     /**
@@ -90,10 +97,12 @@ class ZMRequest extends ZMObject {
      * @return ZMSession The session.
      */
     public function getSession() { 
-        if (!isset($this->session_)) { 
-            $this->session_ = $this->create("Session"); 
+        $self = ZMRequest::instance();
+        if (!isset($self->session_)) { 
+            $self->session_ = $self->create("Session"); 
         } 
-        return $this->session_;
+
+        return $self->session_;
     }
 
     /**
@@ -101,28 +110,28 @@ class ZMRequest extends ZMObject {
      *
      * @return strng The hostname.
      */
-    public function getHostname() { return $_SERVER['HTTP_HOST']; }
+    public static function getHostname() { return $_SERVER['HTTP_HOST']; }
 
     /**
      * Get the full query string.
      *
      * @return string The full query string for this request.
      */
-    public function getQueryString() { return $_SERVER['QUERY_STRING']; }
+    public static function getQueryString() { return $_SERVER['QUERY_STRING']; }
 
     /**
      * Get the complete parameter map.
      *
      * @return array Map of all request parameters
      */
-    public function getParameterMap() { return $this->parameter_; }
+    public function getParameterMap() { return ZMRequest::instance()->parameter_; }
 
     /**
      * Set the parameter map.
      *
      * @param array map Map of all request parameters
      */
-    public function setParameterMap($map) { $this->parameter_ = $map; }
+    public function setParameterMap($map) { ZMRequest::instance()->parameter_ = $map; }
 
     /**
      * Get the current shopping cart.
@@ -130,11 +139,12 @@ class ZMRequest extends ZMObject {
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
     public function getShoppingCart() { 
-        if (null == $this->shoppingCart_) {
-            $this->shoppingCart_ = ZMLoader::make('ShoppingCart');
+        $self = ZMRequest::instance();
+        if (null == $self->shoppingCart_) {
+            $self->shoppingCart_ = ZMLoader::make('ShoppingCart');
         }
 
-        return $this->shoppingCart_;
+        return $self->shoppingCart_;
     }
 
     /**
@@ -142,35 +152,35 @@ class ZMRequest extends ZMObject {
      *
      * @return string The value of the <code>main_page</code> query parameter.
      */
-    public function getPageName() { return $this->getParameter('main_page'); }
+    public function getPageName() { return ZMRequest::instance()->getParameter('main_page'); }
 
     /**
      * Get the current page index (if available).
      *
      * @return int The current page index (default is 1).
      */
-    public function getPageIndex() {  return $this->getParameter('page', 1); }
+    public function getPageIndex() {  return ZMRequest::instance()->getParameter('page', 1); }
 
     /**
      * Get the current sort id.
      *
      * @return string The current sort id.
      */
-    public function getSortId() {  return $this->getParameter('sort_id'); }
+    public function getSortId() {  return ZMRequest::instance()->getParameter('sort_id'); }
 
     /** 
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
      */
-    public function getSubPageName() { return $this->getParameter('cat'); }
+    public function getSubPageName() { return ZMRequest::instance()->getParameter('cat'); }
 
     /**
      * Get the product id.
      *
      * @return int The request product id or <code>0</code>.
      */
-    public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
+    public function getProductId() { return (int)ZMRequest::instance()->getParameter('products_id', ZMRequest::instance()->getParameter('productId', 0)); }
 
     /**
      * Get the language code.
@@ -181,7 +191,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The language code or <code>null</code>.
      */
-    public function getLanguageCode() { return (int)$this->getParameter('language'); }
+    public function getLanguageCode() { return (int)ZMRequest::instance()->getParameter('language'); }
 
     /**
      * Get the currency code.
@@ -192,21 +202,21 @@ class ZMRequest extends ZMObject {
      *
      * @return string The currency code or <code>null</code>.
      */
-    public function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
+    public function getCurrencyCode() { return ZMRequest::instance()->getParameter('currency', ZMRequest::instance()->getSession()->getCurrencyCode()); }
 
     /**
      * Get the request model number.
      *
      * @return string The model numner or <code>null</code>.
      */
-    public function getModel() { return $this->getParameter('model'); }
+    public function getModel() { return ZMRequest::instance()->getParameter('model'); }
 
     /**
      * Get the current category path.
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.
      */
-    public function getCategoryPath() { return $this->getParameter('cPath', null); }
+    public function getCategoryPath() { return ZMRequest::instance()->getParameter('cPath', null); }
 
     /**
      * Get the category path arry.
@@ -214,11 +224,9 @@ class ZMRequest extends ZMObject {
      * @return array The current category path broken into an array of category ids.
      */
     public function getCategoryPathArray() {
-        if (null === $this->categoryPathArray_) {
-            $this->_parseCategoryPath();
-        }
-
-        return $this->categoryPathArray_;
+        // do this every time in case it changed
+        ZMRequest::instance()->_parseCategoryPath();
+        return ZMRequest::instance()->categoryPathArray_;
     }
 
     /**
@@ -228,9 +236,9 @@ class ZMRequest extends ZMObject {
      */
     public function setCategoryPathArray($categoryPathArray) {
         if (is_array($categoryPathArray)) {
-            $this->categoryPathArray_ = $categoryPathArray;
-            $cPath = implode('_', $this->categoryPathArray_);
-            $this->setParameter('cPath', $cPath);
+            ZMRequest::instance()->categoryPathArray_ = $categoryPathArray;
+            $cPath = implode('_', ZMRequest::instance()->categoryPathArray_);
+            ZMRequest::instance()->setParameter('cPath', $cPath);
         }
     }
 
@@ -238,14 +246,14 @@ class ZMRequest extends ZMObject {
      * Parse the category path.
      */
     private function _parseCategoryPath() {
-        $path = $this->getParameter('cPath');
-        $this->categoryPathArray_ = array();
+        $path = ZMRequest::instance()->getParameter('cPath');
+        ZMRequest::instance()->categoryPathArray_ = array();
         if (null !== $path) {
             $path = explode('_', $path);
             foreach ($path as $categoryId) {
                 $categoryId = (int)$categoryId;
-                if (!in_array($categoryId, $this->categoryPathArray_)) {
-                    $this->categoryPathArray_[] = $categoryId;
+                if (!in_array($categoryId, ZMRequest::instance()->categoryPathArray_)) {
+                    ZMRequest::instance()->categoryPathArray_[] = $categoryId;
                 }
             }
         }
@@ -256,14 +264,14 @@ class ZMRequest extends ZMObject {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    public function getManufacturerId() { return $this->getParameter('manufacturers_id', 0); }
+    public function getManufacturerId() { return ZMRequest::instance()->getParameter('manufacturers_id', 0); }
 
     /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    public function getAccountId() { return $this->getSession()->getAccountId(); }
+    public function getAccountId() { return ZMRequest::instance()->getSession()->getAccountId(); }
 
     /**
      * Get the account.
@@ -271,7 +279,7 @@ class ZMRequest extends ZMObject {
      * @return ZMAccount The account or <code>null</code>.
      */
     public function getAccount() {
-        $accountId = $this->getAccountId();
+        $accountId = ZMRequest::instance()->getAccountId();
         if (0 == $accountId) {
             return null;
         }
@@ -284,35 +292,35 @@ class ZMRequest extends ZMObject {
      *
      * @return int The current review id or <code>0</code>.
      */
-    public function getReviewId() { return $this->getParameter('reviews_id', 0); }
+    public function getReviewId() { return ZMRequest::instance()->getParameter('reviews_id', 0); }
 
     /**
      * Get the current order id.
      *
      * @return int The current order id or <code>0</code>.
      */
-    public function getOrderId() { return $this->getParameter('order_id', 0); }
+    public function getOrderId() { return ZMRequest::instance()->getParameter('order_id', 0); }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    public function isAnonymous() { return $this->getSession()->isAnonymous(); }
+    public function isAnonymous() { return ZMRequest::instance()->getSession()->isAnonymous(); }
 
     /**
      * Returns <code>true</code> if the user is fully registered and logged in.
      *
      * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
      */
-    public function isRegistered() { return $this->getSession()->isRegistered(); }
+    public function isRegistered() { return ZMRequest::instance()->getSession()->isRegistered(); }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
      */
-    public function isGuest() { return $this->getSession()->isGuest(); }
+    public function isGuest() { return ZMRequest::instance()->getSession()->isGuest(); }
 
     /**
      * Generic access method for request parameter.
@@ -325,7 +333,7 @@ class ZMRequest extends ZMObject {
      * @deprecated use getParameter() instead
      */
     public function getRequestParameter($name, $default=null) { 
-        return $this->getParameter($name, $default, true);
+        return ZMRequest::instance()->getParameter($name, $default, true);
     }
 
     /**
@@ -339,8 +347,8 @@ class ZMRequest extends ZMObject {
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
     public function getParameter($name, $default=null, $sanitize=true) { 
-        if (isset($this->parameter_[$name])) {
-            return $sanitize ? zm_sanitize($this->parameter_[$name]) : $this->parameter_[$name];
+        if (isset(ZMRequest::instance()->parameter_[$name])) {
+            return $sanitize ? zm_sanitize(ZMRequest::instance()->parameter_[$name]) : ZMRequest::instance()->parameter_[$name];
         } else {
             return $default;
         }
@@ -355,10 +363,10 @@ class ZMRequest extends ZMObject {
      */
     public function setParameter($name, $value) { 
         $old = null;
-        if (isset($this->parameter_[$name])) {
-            $old = $this->parameter_[$name];
+        if (isset(ZMRequest::instance()->parameter_[$name])) {
+            $old = ZMRequest::instance()->parameter_[$name];
         }
-        $this->parameter_[$name] = $value;
+        ZMRequest::instance()->parameter_[$name] = $value;
         return $old;
     }
 
@@ -368,11 +376,11 @@ class ZMRequest extends ZMObject {
      * @return ZMController The current controller or <code>ZMDefaultController</code>.
      */
     public function getController() { 
-        if (null === $this->controller_) {
-            $this->controller_ = $this->create("DefaultController");
+        if (null === ZMRequest::instance()->controller_) {
+            ZMRequest::instance()->controller_ = ZMRequest::instance()->create("DefaultController");
         } 
         
-        return $this->controller_; 
+        return ZMRequest::instance()->controller_; 
     }
 
     /**
@@ -380,7 +388,7 @@ class ZMRequest extends ZMObject {
      *
      * @param ZMController controller The new controller.
      */
-    public function setController($controller) { $this->controller_ = $controller; }
+    public function setController($controller) { ZMRequest::instance()->controller_ = $controller; }
 
     /**
      * Get the current category id.
@@ -388,7 +396,7 @@ class ZMRequest extends ZMObject {
      * @return int The current category id or <code>0</code>.
      */
     public function getCategoryId() {
-        $cPath = $this->getCategoryPathArray();
+        $cPath = ZMRequest::instance()->getCategoryPathArray();
 
         if (0 < count($cPath)) {
             return end($cPath);
@@ -413,7 +421,7 @@ class ZMRequest extends ZMObject {
      */
     public function getPageBase() {
         $base = null;
-        if (!$this->isSecure()) { 
+        if (!ZMRequest::instance()->isSecure()) { 
             $base = HTTP_SERVER . DIR_WS_CATALOG;
         } else {
             $base = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;

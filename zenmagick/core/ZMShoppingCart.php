@@ -131,7 +131,7 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     function isVirtual() {
-        zm_resolve_zc_class('order');
+        ZMLoader::resolveZCClass('order');
         $order = new order();
 
         return $order->content_type == 'virtual';

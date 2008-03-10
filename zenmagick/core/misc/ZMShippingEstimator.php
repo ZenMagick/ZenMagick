@@ -38,8 +38,6 @@ class ZMShippingEstimator extends ZMObject {
      */
     function ZMShippingEstimator() {
         parent::__construct();
-
-        zm_resolve_zc_class("http_client");
     }
 
     /**
@@ -178,7 +176,7 @@ class ZMShippingEstimator extends ZMObject {
               global $shipping;
               $shipping='';
               // include the order class (uses the sendto !)
-              zm_resolve_zc_class('order');
+              ZMLoader::resolveZCClass('order');
               $order = new order;
           } else {
               $order->delivery = $this->getZCAddress();

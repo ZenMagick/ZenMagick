@@ -51,11 +51,33 @@
      * @package org.zenmagick
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
-     * @deprecated Use <code>zm_is_empty()</code> instead.
+     * @deprecated Use <code>empty()</code> instead.
      */
     function zm_is_empty($value) { 
         return empty($value);
     }
+    /**
+     * Resolve the given zen-cart class.
+     *
+     * <p>This functuon ensures that the given class is loaded.</p>
+     *
+     * @package org.zenmagick
+     * @param string clazz The class name.
+     * @deprecated Use <code>ZMLoader::resolveZCClass()</code> instead.
+     */
+    function zm_resolve_zc_class($clazz) { ZMLoader::resolveZCClass($clazz); }
+    /**
+     * Get the currently elapsed page execution time.
+     *
+     * @package org.zenmagick
+     * @return long The execution time in milliseconds.
+     * @deprecated Use <code>ZMRuntime::getExecutionTime()</code> instead.
+     */
+    function zm_get_elapsed_time() { return ZMRuntime::getExecutionTime(); }
+
+
+
+
 
 
 
@@ -299,35 +321,6 @@
 
 
     /**
-     * Resolve the given zen-cart class.
-     *
-     * <p>This functuon ensures that the given class is loaded.</p>
-     *
-     * @package org.zenmagick
-     * @param string clazz The class name.
-     */
-    function zm_resolve_zc_class($clazz) {
-        if (!class_exists($clazz)) {
-            require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php');
-        }
-    }
-
-
-    /**
-     * Get the currently elapsed page execution time.
-     *
-     * @package org.zenmagick
-     * @return long The execution time in milliseconds.
-     */
-    function zm_get_elapsed_time() {
-        $startTime = explode (' ', PAGE_PARSE_START_TIME);
-        $endTime = explode (' ', microtime());
-        $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
-        return round($executionTime, 4);
-    }
-
-
-    /**
      * Remove a directory (tree).
      *
      * @package org.zenmagick
@@ -353,19 +346,6 @@
         }
     }
 
-
-    /**
-     * Get class hierachy for the given class/object.
-     *
-     * @package org.zenmagick
-     * @param mixed object The object or class name.
-     * @return array The class hierachy.
-     */
-    function zm_class_hierachy($object) {
-        $hierachy = array($object);
-        while($object = get_parent_class($object)) { $hierachy[] = $object; }
-        return $hierachy;
-    }
 
     /**
      * Make dir.
@@ -415,29 +395,6 @@
         }
         $code .= ";";
         return $code;
-    }
-
-    /**
-     * Load locale settings (l10n/i18n)for the given theme.
-     *
-     * <p>NOTE: This is only going to load mappings. However, since i18n
-     * settings need to be set using <code>define(..)</code>, this is done
-     * in a separate function, once loading (and theme switching) is over.</p>
-     *
-     * @package org.zenmagick
-     * @param ZMTheme theme The theme.
-     * @param string languageName The language name.
-     */
-    function zm_load_theme_locale($theme, $languageName) {
-        $path = $theme->getLangDir().$languageName."/";
-        $l10n = $path . "l10n.php";
-        if (file_exists($l10n)) {
-            require_once($l10n);
-        }
-        $i18n = $path . "i18n.php";
-        if (file_exists($i18n)) {
-            require_once($i18n);
-        }
     }
 
     /**
@@ -595,64 +552,5 @@
             fclose($handle); 
         }
     } 
-
-
-    /**
-     * Determine the browser language.
-     *
-     * <p>As found at <a href="http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html">http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html</a>.</p>
-     *
-     * @package org.zenmagick
-     * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
-     */
-    function zm_get_browser_language() {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            // build list of language identifiers
-            $browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-            
-            // build list of language substitutions
-            if (defined('BROWSER_LANGUAGE_SUBSTITUTIONS') && BROWSER_LANGUAGE_SUBSTITUTIONS != '') {
-                $substitutions = explode(',', BROWSER_LANGUAGE_SUBSTITUTIONS);
-                $language_substitutions = array();
-                for ($i = 0; $i < count($substitutions); $i++) {
-                    $subst = explode(':', $substitutions[$i]);
-                    $language_substitutions[trim($subst[0])] = trim($subst[1]);
-                }
-            }
-
-            for ($i=0, $n=sizeof($browser_languages); $i<$n; $i++) {
-                // separate the clear language identifier from possible language quality (q param)
-                $lang = explode(';', $browser_languages[$i]);
-                
-                if (strlen($lang[0]) == 2) {
-                    // 2 letter only language code (code without subtags)
-                    $code = $lang[0];
-                
-                } elseif (strpos($lang[0], '-') == 2 || strpos($lang[0], '_') == 2) {
-                    // 2 letter language code with subtags
-                    // use only language code and throw out all possible subtags
-                    // the underscore is not RFC3036 and RFC4646 valid, but sometimes used and acceptable in this case
-                    $code = substr($lang[0], 0, 2);
-                } else {
-                    // ignore all other language identifiers
-                    $code = '';
-                }
-
-                if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
-                    // found!
-                    return $language;
-                } elseif (isset($language_substitutions[$code])) {
-                    // try fallback to substitue
-                    $code = $language_substitutions[$code];
-                    if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
-                        // found!
-                        return $language;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
 
 ?>

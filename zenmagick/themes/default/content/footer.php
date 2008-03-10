@@ -36,7 +36,7 @@
       <p>
         <?php $db = ZMRuntime::getDB(); ?>
         Queries: <?php echo $db->queryCount(); ?>; Query Time: <?php echo round($db->queryTime(), 4); ?>;
-        Page Execution Time: <?php echo zm_get_elapsed_time(); ?>;
+        Page Execution Time: <?php echo ZMRuntime::getExecutionTime(); ?>;
       </p>
   <?php } ?>
 

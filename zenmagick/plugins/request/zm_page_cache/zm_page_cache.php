@@ -131,7 +131,7 @@ class zm_page_cache extends ZMPlugin {
                     if (zm_setting('isDisplayTimerStats')) {
                         $db = ZMRuntime::getDB();
                         echo '<!-- zm_page_cache stats: ' . round($db->queryTime(), 4) . ' sec. for ' . $db->queryCount() . ' queries; ';
-                        echo 'page: ' . zm_get_elapsed_time() . ' sec.; ';
+                        echo 'page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';
                         echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
                     }
                 }
