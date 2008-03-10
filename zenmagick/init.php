@@ -95,7 +95,6 @@
         $zm_languages = ZMLanguages::instance();
         $zm_countries = ZMCountries::instance();
         $zm_accounts = ZMAccounts::instance();
-        // share instance
         $zm_account = ZMRequest::getAccount();
         $zm_cart = new ZMShoppingCart();
     }
