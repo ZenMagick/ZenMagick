@@ -86,6 +86,32 @@ class zm_hoverbox3 extends ZMPlugin {
         return $zm_loader->create("H3PageContentHandler");
     }
 
+    /**
+     * Filter the response contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function filterResponse($contents) {
+    global $zm_theme;
+
+        if (strpos($contents, 'hoverbox')) {
+            // hover3 used in this page
+            $h3head = '';
+            $h3head .= '<link rel="stylesheet" type="text/css" href="' . $zm_theme->themeURL('hover3/stylesheet_hoverbox3.css', false) . '" />';
+            $h3head .= '<script type="text/javascript" src="' . $zm_theme->themeURL('hover3/ic_effects.js', false) . '"></script>';
+            // eval js config
+            $h3config_tpl = file_get_contents($this->getPluginDir().'/ic_hoverbox_config.tpl');
+            ob_start();
+            eval('?>'.$h3config_tpl);
+            $h3config = ob_get_clean();
+            $h3head .= $h3config;
+            $h3head .= '<script type="text/javascript" src="' . $zm_theme->themeURL('hover3/ic_hoverbox3.js', false) . '"></script>';
+            $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
+        }
+        return $contents;
+    }
+
 }
 
 ?>
