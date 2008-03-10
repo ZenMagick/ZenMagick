@@ -106,7 +106,9 @@ class ZMCategoryController extends ZMController {
         }
 
         $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
-        if ($viewName == "category_list" && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) && zm_setting('isUseCategoryPage'))) {
+        if ($viewName == "category_list" 
+            && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
+                && zm_setting('isUseCategoryPage'))) {
             $viewName = 'category';
         }
 
@@ -114,8 +116,7 @@ class ZMCategoryController extends ZMController {
 
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && zm_setting('isSkipSingleProductCategory')) {
             $product = array_pop($resultList->getResults());
-            // TODO: do not use name directly!
-            ZMRequest::setParameterMap(array('products_id' => $product->getId()));
+            ZMRequest::setParameter('products_id', $product->getId());
             $viewName = 'product_info';
         }
 
