@@ -74,6 +74,32 @@
      * @deprecated Use <code>ZMRuntime::getExecutionTime()</code> instead.
      */
     function zm_get_elapsed_time() { return ZMRuntime::getExecutionTime(); }
+    /**
+     * Create a PHP directive for all global ZenMagick objects.
+     *
+     * <p>This can be used as argument for <code>eval(..)</code> to make all
+     * ZenMagick globals available. Example: <code>eval(zm_globals());</code>.</p>
+     *
+     * @package org.zenmagick
+     * @return string A valid PHP global directive including all ZenMagick globals.
+     * @deprecated No replacement as globals are generally deprecated
+     */
+    function zm_globals() {
+        $code = 'global ';
+        $first = true;
+        foreach ($GLOBALS as $name => $instance) {
+            if (zm_starts_with($name, "zm_")) {
+                if (is_object($instance)) {
+                    if (!$first) $code .= ", ";
+                    $code .= '$'.$name;
+                    $first = false;
+                }
+            }
+        }
+        $code .= ";";
+        return $code;
+    }
+
 
 
 
@@ -373,31 +399,6 @@
     }
 
     /**
-     * Create a PHP directive for all global ZenMagick objects.
-     *
-     * <p>This can be used as argument for <code>eval(..)</code> to make all
-     * ZenMagick globals available. Example: <code>eval(zm_globals());</code>.</p>
-     *
-     * @package org.zenmagick
-     * @return string A valid PHP global directive including all ZenMagick globals.
-     */
-    function zm_globals() {
-        $code = 'global ';
-        $first = true;
-        foreach ($GLOBALS as $name => $instance) {
-            if (zm_starts_with($name, "zm_")) {
-                if (is_object($instance)) {
-                    if (!$first) $code .= ", ";
-                    $code .= '$'.$name;
-                    $first = false;
-                }
-            }
-        }
-        $code .= ";";
-        return $code;
-    }
-
-    /**
      * Resolve theme incl. loader update, theme switching and all theme default
      * handling.
      *
@@ -430,7 +431,7 @@
         // add loader to root loader
         ZMLoader::instance()->setParent($themeLoader);
 
-        eval(zm_globals());
+        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
 
         // init l10n/i18n
         $session = ZMRequest::getSession();
@@ -471,7 +472,7 @@
 
         ZMRequest::setController($controller);
 
-        eval(zm_globals());
+        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
 
         // execute controller
         $view = $controller->process();

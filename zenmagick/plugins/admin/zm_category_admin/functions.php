@@ -34,7 +34,7 @@
     function zm_category_admin() {
     global $zm_category_admin, $zm_nav_params;
 
-        eval(zm_globals());
+        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_category_admin->getPluginDir().'/views/category_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'));

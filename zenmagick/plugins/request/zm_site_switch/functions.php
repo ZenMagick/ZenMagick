@@ -38,7 +38,7 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
     function zm_site_switch_admin() {
     global $zm_site_switch;
 
-        eval(zm_globals());
+        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_site_switch->getPluginDir().'/views/site_switch_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_site_switch_admin', zm_l10n_get('Site Switch'), null);

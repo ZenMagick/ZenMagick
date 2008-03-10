@@ -35,7 +35,7 @@
     global $zm_nav_params;
 
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
-        eval(zm_globals());
+        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
 
         $zm_groupPricing = ZMLoader::make("GroupPricing");
         $priceGroups = $zm_groupPricing->getPriceGroups();
