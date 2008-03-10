@@ -224,38 +224,30 @@ class ZMRequest extends ZMObject {
      * @return array The current category path broken into an array of category ids.
      */
     public function getCategoryPathArray() {
-        // do this every time in case it changed
-        ZMRequest::instance()->_parseCategoryPath();
-        return ZMRequest::instance()->categoryPathArray_;
+        $path = ZMRequest::instance()->getParameter('cPath');
+        $cPath = array();
+        if (null !== $path) {
+            $path = explode('_', $path);
+            foreach ($path as $categoryId) {
+                $categoryId = (int)$categoryId;
+                if (!in_array($categoryId, $cPath)) {
+                    $cPath[] = $categoryId;
+                }
+            }
+        }
+        return $cPath;
     }
 
     /**
      * Set the category path arry.
      *
-     * @param array categoryPathArray The category path as array.
+     * @param array cPath The category path as array.
      */
-    public function setCategoryPathArray($categoryPathArray) {
-        if (is_array($categoryPathArray)) {
-            ZMRequest::instance()->categoryPathArray_ = $categoryPathArray;
-            $cPath = implode('_', ZMRequest::instance()->categoryPathArray_);
-            ZMRequest::instance()->setParameter('cPath', $cPath);
-        }
-    }
-
-    /**
-     * Parse the category path.
-     */
-    private function _parseCategoryPath() {
-        $path = ZMRequest::instance()->getParameter('cPath');
-        ZMRequest::instance()->categoryPathArray_ = array();
-        if (null !== $path) {
-            $path = explode('_', $path);
-            foreach ($path as $categoryId) {
-                $categoryId = (int)$categoryId;
-                if (!in_array($categoryId, ZMRequest::instance()->categoryPathArray_)) {
-                    ZMRequest::instance()->categoryPathArray_[] = $categoryId;
-                }
-            }
+    public function setCategoryPathArray($cPath) {
+        if (is_array($cPath)) {
+            ZMRequest::instance()->setParameter('cPath', implode('_', $cPath));
+        } else {
+            ZMObject::log('invalid cPath: ' . $cPath, ZM_LOG_ERROR);
         }
     }
 

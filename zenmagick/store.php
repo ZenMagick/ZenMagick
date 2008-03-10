@@ -25,9 +25,6 @@
 ?>
 <?php
 
-    //TODO: remove once using init plugins
-    $zm_request->setCategoryPathArray($cPath_array);
-
     ZMMessages::instance()->_loadMessageStack();
     ZMCategories::instance()->setPath($zm_request->getCategoryPathArray());
 
