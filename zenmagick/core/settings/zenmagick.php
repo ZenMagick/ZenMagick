@@ -102,6 +102,7 @@
 
     //** loglevel **//
 
+    define('ZM_LOG_NONE', 0);
     define('ZM_LOG_ERROR', 1);
     define('ZM_LOG_WARN', 2);
     define('ZM_LOG_INFO', 3);
