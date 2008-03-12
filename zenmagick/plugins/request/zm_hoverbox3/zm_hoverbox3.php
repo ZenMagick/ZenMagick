@@ -75,18 +75,6 @@ class zm_hoverbox3 extends ZMPlugin {
     }
 
     /**
-     * Create the plugin handler.
-     *
-     * @return ZMPluginHandler A <code>ZMPluginHandler</code> instance or <code>null</code> if
-     *  not supported.
-     */
-    function createPluginHandler() {
-    global $zm_loader;
-
-        return $zm_loader->create("H3PageContentHandler");
-    }
-
-    /**
      * Filter the response contents.
      *
      * @param string contents The contents.
