@@ -79,8 +79,6 @@ class ZMContactInfo extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->name_ = ZMRequest::getParameter('contactname', '');
         $this->email_ = ZMRequest::getParameter('email', '');
         $this->message_ = ZMRequest::getParameter('enquiry', '');

@@ -95,9 +95,7 @@ class ZMView extends ZMObject {
      * @return string The full view filename.
      */
     function _getViewFilename($subdir=null, $prefixToDir=true) {
-    global $zm_theme;
-
-        $filename = $zm_theme->getViewsDir();
+        $filename = ZMRuntime::getTheme()->getViewsDir();
         if (null != $subdir) {
             $filename .= $subdir.'/';
             if ($prefixToDir) {
@@ -116,7 +114,7 @@ class ZMView extends ZMObject {
         }
         $filename .= zm_setting('templateSuffix');
 
-        return $zm_theme->themeFile($filename);
+        return ZMRuntime::getTheme()->themeFile($filename);
     }
 
     /**

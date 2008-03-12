@@ -47,8 +47,6 @@ class ZMResultList extends ZMObject {
      * @param int page The current page number (default is 0)
      */
     function ZMResultList($results, $pagination=10, $page=0) {
-    global $zm_request;
-
         parent::__construct();
 
         $this->results_ = $results;

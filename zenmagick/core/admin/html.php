@@ -39,8 +39,6 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
-    global $zm_request;
-
         if ($root) { 
             ob_start(); 
             echo '
@@ -101,8 +99,6 @@
      * @return string The HTML.
      */
     function zm_product_resultlist($params='') {
-    global $zm_request;
-
         $resultList = null;
         $products = null;
 

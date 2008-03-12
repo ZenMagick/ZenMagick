@@ -62,8 +62,6 @@ class ZMProductInfoController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());

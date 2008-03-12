@@ -63,8 +63,6 @@ class ZMAttributes extends ZMObject {
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */ 
     function checkForAttributes($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -137,8 +135,6 @@ class ZMAttributes extends ZMObject {
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */ 
     function getAttributesForProduct($product, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

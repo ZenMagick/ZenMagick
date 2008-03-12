@@ -72,8 +72,6 @@ class ZMAjaxCountryController extends ZMAjaxController {
      * @return void
      */
     function getZonesForCountryIdJSON() {
-    global $zm_request;
-
         $countryId = ZMRequest::getParameter('countryId', null);
 
         $flatObj = $this->flattenObject(ZMCountries::instance()->getZonesForCountryId($countryId), array('id', 'name'));

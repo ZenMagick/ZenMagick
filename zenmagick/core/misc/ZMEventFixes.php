@@ -59,8 +59,6 @@ class ZMEventFixes extends ZMObject {
      * Validate addresses for guest checkout.
      */
     function onNotifyHeaderEndCheckoutConfirmation() {
-    global $zm_request;
-
         $session = ZMRequest::getSession();
         $shoppingCart = ZMRequest::getShoppingCart();
         if ($session->isGuest()) {
@@ -81,8 +79,6 @@ class ZMEventFixes extends ZMObject {
      * Remove ajax requests from navigation history.
      */
     function onZMDispatchStart() {
-    global $zm_request;
-
         if (false !== strpos(ZMRequest::getPageName(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }

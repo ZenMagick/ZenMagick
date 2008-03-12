@@ -55,8 +55,6 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * version of it.
      */
     function zen_build_html_email_from_template($template, $args=array()) {
-    global $zm_request;
-
         if (!isset($zm_request) || !class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }
         $view = ZMLoader::make("EmailView", $template, true, $args);
         if (!file_exists($view->getViewFilename()) && function_exists('zen_build_html_email_from_template_org')) {

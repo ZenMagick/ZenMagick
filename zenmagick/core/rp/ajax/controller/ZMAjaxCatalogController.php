@@ -61,8 +61,6 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @return void
      */
     function getProductForIdJSON() {
-    global $zm_request;
-
         $productId = ZMRequest::getParameter('productId', 0);
 
         $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId),
@@ -84,8 +82,6 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @return void
      */
     function getProductsForCategoryIdJSON() {
-    global $zm_request;
-
         $categoryId = ZMRequest::getParameter('categoryId', 0);
         $activeOnly = true;
         if (zm_setting('isAdmin')) {

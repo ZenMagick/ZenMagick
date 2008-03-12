@@ -35,8 +35,6 @@
      * @return string A full URL.
      */
     function zm_plugin_admin_url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         if (null == $function) {
             $function = ZMRequest::getParameter('fkt');
         }
@@ -69,8 +67,6 @@
      * @return string A full URL.
      */
     function zm_plugin_url($target, $params='', $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $target = explode(';', $target);
         if (ZMRequest::isAdmin()) {
             return zm_plugin_admin_url($target[1], $params, $echo);

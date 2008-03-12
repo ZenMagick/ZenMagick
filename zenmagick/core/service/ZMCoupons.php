@@ -65,8 +65,6 @@ class ZMCoupons extends ZMObject {
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     function getCouponForCode($code, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -101,8 +99,6 @@ class ZMCoupons extends ZMObject {
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     function getCouponForId($id, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

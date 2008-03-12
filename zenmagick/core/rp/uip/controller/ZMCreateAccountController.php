@@ -76,8 +76,6 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $account = $this->create("Account");
         $account->populate();
         $address = $this->create("Address");
@@ -96,8 +94,6 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $account = $this->create("Account");
         $account->populate();
 

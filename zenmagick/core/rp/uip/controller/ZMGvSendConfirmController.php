@@ -76,8 +76,6 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $action = ZMRequest::getParameter('action');
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
@@ -93,8 +91,6 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         if (null != ZMRequest::getParameter('edit')) {
             return $this->findView('edit');
         }

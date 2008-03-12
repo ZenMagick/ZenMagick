@@ -45,8 +45,6 @@ class ZMResultListFilter extends ZMObject {
      * @param string name An optional filter name.
      */
     function ZMResultListFilter($id=null, $name='') {
-    global $zm_request;
-
         parent::__construct();
 
         $this->id_ = $id;
@@ -114,8 +112,6 @@ class ZMResultListFilter extends ZMObject {
      * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
     function isActive() {
-    global $zm_request;
-
         return null != ZMRequest::getParameter($this->id_, null);
     }
 

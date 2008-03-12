@@ -78,7 +78,7 @@ class ZMMessages extends ZMObject {
      * Load messages from zen-cart message stack.
      */
     function _loadMessageStack() {
-    global $messageStack, $zm_request;
+    global $messageStack;
 
         $session = ZMRequest::getSession();
 

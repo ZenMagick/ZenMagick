@@ -66,8 +66,6 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getProducts($active=true, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -104,8 +102,6 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -145,8 +141,6 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getProductsForManufacturerId($manufacturerId, $active=true, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -420,8 +414,6 @@ class ZMProducts extends ZMObject {
      * @return ZMProduct The product or <code>null</code>.
      */
     function getProductForModel($model, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -462,8 +454,6 @@ class ZMProducts extends ZMObject {
      * @return ZMProduct The product or <code>null</code>.
      */
     function getProductForId($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -504,8 +494,6 @@ class ZMProducts extends ZMObject {
      * @return ZMProduct The product or <code>null</code>.
      */
     function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -625,8 +613,6 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
     function updateViewCount($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

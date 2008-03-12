@@ -62,8 +62,6 @@ class ZMRedirectController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $action = ZMRequest::getParameter('action');
         $goto = ZMRequest::getParameter('goto');
 

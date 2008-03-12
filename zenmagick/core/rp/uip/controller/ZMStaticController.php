@@ -62,8 +62,6 @@ class ZMStaticController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         // prepare page name for crumbtrail
         $sub = ZMRequest::getSubPageName();
         $sub = str_replace('_', ' ', $sub);

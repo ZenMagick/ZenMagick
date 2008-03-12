@@ -70,8 +70,6 @@ class ZMTaxRates extends ZMObject {
      * @return ZMTaxRate The tax rate.
      */
     function getTaxRateForClassId($classId, $countryId=0, $zoneId=0) {
-    global $zm_request;
-
         if (0 == $countryId && 0 == $zoneId) {
             $account = ZMRequest::getAccount();
             if (null != $account && ZM_ACCOUNT_TYPE_REGISTERED == $account->getType()) {

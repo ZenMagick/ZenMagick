@@ -44,8 +44,6 @@
      * @return array An array containing HTML formatted attributes.
      */
     function zm_build_attribute_elements($product) {
-      global $db;
-
         $elements = array();
         // not sure how this could happen!
         $attributes = $product->getAttributes();

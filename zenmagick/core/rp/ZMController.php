@@ -41,8 +41,6 @@ class ZMController extends ZMObject {
      * Create new instance.
      */
     function ZMController() {
-    global $zm_request;
-
         parent::__construct();
 
         $this->globals_ = array();
@@ -81,8 +79,6 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request;
-
         ZMSacsMapper::instance()->ensureAuthorization($this->id_);
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START);
 

@@ -70,16 +70,14 @@
      * @return string A localized version based on the current language, or <code>null</code>.
      */
     function zm_l10n_chunk_get($name) {
-    global $zm_request, $zm_theme;
-
         $session = ZMRequest::getSession();
         $language = $session->getLanguage();
 
         $file = $language->getDirectory().'/'.$name.'.txt';
-        if ($zm_theme->themeFileExists($file, ZM_THEME_LANG_DIR)) {
+        if (ZMRuntime::getTheme()->themeFileExists($file, ZM_THEME_LANG_DIR)) {
             $args = func_get_args();
             array_shift($args);
-            $contents = file_get_contents($zm_theme->themeFile($file, ZM_THEME_LANG_DIR));
+            $contents = file_get_contents(ZMRuntime::getTheme()->themeFile($file, ZM_THEME_LANG_DIR));
             if (null == $args) {
                 // no need for expensive printf!
                 return $contents;

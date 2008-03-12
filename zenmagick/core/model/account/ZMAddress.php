@@ -95,8 +95,6 @@ class ZMAddress extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->addressId_ = ZMRequest::getParameter('addressId', 0);
         $this->firstName_ = ZMRequest::getParameter('firstname', '');
         $this->lastName_ = ZMRequest::getParameter('lastname', '');

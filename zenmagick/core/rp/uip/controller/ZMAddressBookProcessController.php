@@ -76,8 +76,6 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $viewName = null;
         if (ZMRequest::getParameter('edit')) {
             ZMCrumbtrail::instance()->addCrumb("Edit");
@@ -105,8 +103,6 @@ class ZMAddressBookProcessController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-        
         $action = ZMRequest::getParameter('action');
         $view = null;
         if ('update' == $action) {
@@ -129,8 +125,6 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function updateAddress() {
-    global $zm_request;
-
         $address = $this->create("Address");
         $address->populate();
 
@@ -161,8 +155,6 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function deleteAddress() {
-    global $zm_request;
-
         $account = ZMRequest::getAccount();
         $addressId = ZMRequest::getParameter('addressId', 0);
         if (0 < $addressId) {
@@ -178,8 +170,6 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function createAddress() {
-    global $zm_request;
-
         $address = $this->create("Address");
         $address->populate();
         $address->setAccountId(ZMRequest::getAccountId());

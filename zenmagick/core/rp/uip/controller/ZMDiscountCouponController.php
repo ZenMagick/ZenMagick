@@ -75,8 +75,6 @@ class ZMDiscountCouponController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $viewName = null;
         $code = ZMRequest::getParameter('lookup_discount_coupon');
         if (null == $code) {

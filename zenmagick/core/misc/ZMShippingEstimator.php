@@ -163,7 +163,6 @@ class ZMShippingEstimator extends ZMObject {
      */
     function prepare() {
     global $db, $order;
-    global $zm_request;
 
         // Only do when something is in the cart
         if (!ZMRequest::getShoppingCart()->isEmpty()) {
@@ -195,7 +194,7 @@ class ZMShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { global $zm_request; return ZMRequest::getShoppingCart()->isEmpty(); }
+    function isCartEmpty() { return ZMRequest::getShoppingCart()->isEmpty(); }
 
     /**
      * Get current address (if any)

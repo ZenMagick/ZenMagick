@@ -444,8 +444,6 @@ class ZMPlugin extends ZMObject {
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZM_MENU_PLUGINS</em>.
      */
     function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
-    global $zm_request;
-
         if (ZMRequest::isAdmin()) {
             zm_add_menu_item($this->create("MenuItem", $menuKey, $id, $title, null, $function));
         }

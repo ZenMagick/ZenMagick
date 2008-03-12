@@ -62,8 +62,6 @@ class ZMIndexController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $viewName = null;
 
         // be nice to seo URL's that we do not control and also bookmarked pages

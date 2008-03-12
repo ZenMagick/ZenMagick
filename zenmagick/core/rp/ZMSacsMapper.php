@@ -92,8 +92,6 @@ class ZMSacsMapper extends ZMObject {
      * @param string controller The controller; default is <code>null</code> to use the current page name.
      */
     function ensureAuthorization($controller=null) {
-    global $zm_request;
-
         $requiredLevel = $this->getMappingValue($controller, 'level', zm_setting('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
@@ -126,8 +124,6 @@ class ZMSacsMapper extends ZMObject {
      * @param string controller The controller; default is <code>null</code> to use the current page name.
      */
     function ensureAccessMethod($controller=null) {
-    global $zm_request;
-
         $secure = $this->getMappingValue($controller, 'level', false);
         if ($secure && !ZMRequest::isSecure() && zm_setting('isEnableSSL') && zm_setting('isEnforceSSL')) {
             zm_redirect(zm_secure_href(null, null, false));
@@ -143,8 +139,6 @@ class ZMSacsMapper extends ZMObject {
      * @return mixed The value or the provided default value; default is <code>null</code>.
      */
     function getMappingValue($controller, $key, $default=null) {
-    global $zm_request;
-
         if (null == $controller) {
             $controller = ZMRequest::getPageName();
         }

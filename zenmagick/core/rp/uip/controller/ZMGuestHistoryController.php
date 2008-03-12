@@ -75,8 +75,6 @@ class ZMGuestHistoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         if (!$this->validate('guest_history')) {
             return $this->findView();
         }

@@ -72,8 +72,6 @@
     }
 
     function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $excludes = explode(',', $excludes);
         if (ZMValidator::instance()->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
             // create JS validation code
@@ -136,7 +134,6 @@
      * @return A HTML form to add a given productId to the shopping cart.
      */
     function zm_add_product_form($productId, $quantity=0, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
         $html = '';
         $params = 'action=add_product&products_id='.$productId;
         $html .= '<form action="' . zm_secure_href(zen_get_info_page($productId), $params, false) . '"';

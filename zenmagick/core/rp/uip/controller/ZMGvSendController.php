@@ -76,8 +76,6 @@ class ZMGvSendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
 
@@ -91,8 +89,6 @@ class ZMGvSendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
         $gvreceiver = $this->create("GVReceiver");
         $gvreceiver->populate();

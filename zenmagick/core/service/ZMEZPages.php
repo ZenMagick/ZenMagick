@@ -63,8 +63,6 @@ class ZMEZPages extends ZMObject {
      * @return ZMEZPage A new instance or <code>null</code>.
      */
     function getPageForId($pageId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -94,8 +92,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     function getPagesForChapterId($chapterId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -130,8 +126,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     function getPagesForHeader($languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -164,8 +158,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     function getPagesForSidebar($languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -198,8 +190,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     function getPagesForFooter($languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

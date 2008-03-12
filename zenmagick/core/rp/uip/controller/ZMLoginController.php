@@ -75,8 +75,6 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $session = ZMRequest::getSession();
         if (!$session->isAnonymous()) {
             // already logged in
@@ -94,8 +92,6 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $session = ZMRequest::getSession();
         if (!$session->isValid()) {
             return $this->findView('cookie_usage');

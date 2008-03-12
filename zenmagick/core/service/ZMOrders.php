@@ -63,8 +63,6 @@ class ZMOrders extends ZMObject {
      * @return ZMOrder A order or <code>null</code>.
      */
     function getOrderForId($orderId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -112,8 +110,6 @@ class ZMOrders extends ZMObject {
      * @return array List of <code>ZMOrder</code> instances.
      */
     function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -164,8 +160,6 @@ class ZMOrders extends ZMObject {
      * @return array List of <code>ZMOrder</code> instances.
      */
     function getOrdersForStatusId($statusId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -215,8 +209,6 @@ class ZMOrders extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
     function getOrderStatusHistoryForId($orderId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

@@ -36,8 +36,6 @@
      * @return string The email contents.
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
-    global $zm_request;
-
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
         $view->setController(ZMRequest::getController());
         return  $view->generate();
@@ -85,8 +83,6 @@
      * @param string attachment Optional <strong>single</strong> file attachment.
      */
     function zm_mail($subject, $template, $context, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
-    global $zm_request;
-
         // some argument cleanup
         $args = null !== $args ? $args : array();
         $toName = null !== $toName ? $toName : $toEmail;

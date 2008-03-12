@@ -72,8 +72,6 @@ class ZMRssController extends ZMController {
      * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($key)</code>.</p>
      */
     function processGet() {
-    global $zm_request;
-
         $channel = ucwords(ZMRequest::getParameter('channel', null));
         $key = ZMRequest::getParameter('key', null);
 

@@ -101,8 +101,6 @@ class ZMAccount extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->firstName_ = ZMRequest::getParameter('firstname', '');
         $this->lastName_ = ZMRequest::getParameter('lastname', '');
         $this->dob_ = ZMRequest::getParameter('dob', '01/01/1970');
@@ -441,13 +439,7 @@ class ZMAccount extends ZMModel {
      * @return ZMPriceGroup The group or <code>null</code>.
      */
     function getPriceGroup() {
-    global $zm_groupPricing;
-
-        if (!isset($zm_groupPricing)) {
-            $zm_groupPricing = $this->create("GroupPricing");
-        }
-
-        return $zm_groupPricing->getPriceGroupForId($this->priceGroupId_);
+        return ZMGroupPricing::instance()->getPriceGroupForId($this->priceGroupId_);
     }
 
 }

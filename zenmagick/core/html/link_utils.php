@@ -58,7 +58,7 @@
      */
     function _zm_zen_href_link($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     //TODO:
-    global $request_type, $session_started, $http_domain, $https_domain;
+    global $session_started, $http_domain, $https_domain;
 
         $isAdmin = false;
         if (zm_setting('isAdmin')) {
@@ -138,8 +138,6 @@
      * Build a href / url.
      */
     function _zm_build_href($view=null, $params='', $isSecure=false, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         // custom view and params handling
         if (null === $view || null === $params) {
             $query = array();
@@ -332,8 +330,6 @@
      * @return string The absolute href.
      */
     function zm_absolute_href($href, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $host = (ZMRequest::isSecure() ? HTTPS_SERVER : HTTP_SERVER);
         $context = (ZMRequest::isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
@@ -378,8 +374,6 @@
      * @return string A complete Ajax URL.
      */
     function zm_ajax_href($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
-    global $zm_request;
-
         if (zm_setting('isAdmin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';

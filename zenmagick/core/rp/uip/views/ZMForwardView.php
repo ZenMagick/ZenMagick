@@ -81,8 +81,6 @@ class ZMForwardView extends ZMView {
      * </ul>
      */
     function generate() { 
-    global $zm_request;
-
         ZMCrumbtrail::instance()->reset();
         // TODO: do not use name directly!
         ZMRequest::setParameter('main_page', $this->page_);

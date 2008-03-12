@@ -62,8 +62,6 @@ class ZMGvRedeemController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         $gvredeem = $this->create('GVRedeem');

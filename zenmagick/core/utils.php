@@ -319,8 +319,6 @@
      * @param string url A fully qualified url.
      */
     function zm_redirect($url) {
-    global $zm_request;
-
         if (ZMMessages::instance()->hasMessages()) {
             $session = ZMRequest::getSession();
             $session->setMessages(ZMMessages::instance()->getMessages());
@@ -418,8 +416,6 @@
      * @return ZMTheme The final theme.
      */
     function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
-    global $zm_request;
-
         // set up theme
         $theme = ZMThemes::instance()->getThemeForId($themeId);
         $themeInfo = $theme->getThemeInfo();
@@ -463,8 +459,6 @@
      * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
-    global $zm_request;
-
         $controller = ZMLoader::make(ZMLoader::makeClassname(ZMRequest::getPageName().'Controller'));
         if (null == $controller) {
             $controller = ZMLoader::make("DefaultController");

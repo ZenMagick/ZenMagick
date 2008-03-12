@@ -150,8 +150,6 @@ class ZMCrumbtrail extends ZMObject {
      * @param int productId The product id of the product to add.
      */
     function addProduct($productId) {
-    global $zm_request;
-
         if (null == $productId)
             return;
 

@@ -63,8 +63,6 @@ class ZMCategoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request;
-
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
@@ -79,8 +77,6 @@ class ZMCategoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         // decide which index view to use and prepare index data
         $resultList = null;
         $products = null;

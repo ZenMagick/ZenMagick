@@ -72,8 +72,6 @@ class ZMGVAmountRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-    global $zm_request;
-
         if (empty($req[$this->name_])) {
             return true;
         }

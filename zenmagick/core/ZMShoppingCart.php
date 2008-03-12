@@ -168,8 +168,6 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of product attributes.
      */
     function _getItemAttributes($item) {
-    global $zm_request;
-
         // collect attribute values for same attribute
         $attributesLookup = array();
 
@@ -317,8 +315,6 @@ class ZMShoppingCart extends ZMObject {
      * @param int addressId The billing address id.
      */
     function setBillingAddressId($addressId) {
-    global $zm_addresses;
-
         if (isset($_SESSION['billto']) && $_SESSION['billto'] != $addressId) {
             $_SESSION['payment'] = '';
         }

@@ -73,8 +73,6 @@ class ZMEmailMessage extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->fromEmail_ = ZMRequest::getParameter('from_email_address');
         $this->fromName_ = ZMRequest::getParameter('from_name', '');
         $this->toEmail_ = ZMRequest::getParameter('to_email_address');

@@ -63,8 +63,6 @@ class ZMCheckoutShippingController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request;
-
         $shoppingCart = ZMRequest::getShoppingCart();
 
         // do a bit of checking first...
@@ -108,10 +106,7 @@ class ZMCheckoutShippingController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $this->exportGlobal("zm_shipping", $this->create("Shipping"));
-
         return $this->findView();
     }
 

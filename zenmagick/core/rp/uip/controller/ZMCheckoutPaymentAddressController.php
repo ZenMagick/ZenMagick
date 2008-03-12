@@ -61,8 +61,6 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code>  or <code>null</code>.
      */
     function checkCart() {
-    global $zm_request;
-
         $shoppingCart = ZMRequest::getShoppingCart();
         if ($shoppingCart->isEmpty()) {
             return $this->findView("empty_cart");
@@ -84,8 +82,6 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request;
-
         ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_PAYMENT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
@@ -102,8 +98,6 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }
@@ -126,8 +120,6 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }

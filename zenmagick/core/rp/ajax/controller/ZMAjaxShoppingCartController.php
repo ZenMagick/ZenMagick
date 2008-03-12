@@ -98,8 +98,6 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Get cart content.
      */
     function getContentsJSON() {
-    global $zm_request;
-
         $shoppingCart = ZMRequest::getShoppingCart();
         $cart = array();
         $items = array();
@@ -129,8 +127,6 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function addProductJSON() {
-    global $zm_request;
-
         $shoppingCart = ZMRequest::getShoppingCart();
         $productId = ZMRequest::getParameter('productId', null);
         $quantity = ZMRequest::getParameter('quantity', 0);
@@ -149,8 +145,6 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function removeProductJSON() {
-    global $zm_request;
-
         $productId = ZMRequest::getParameter('productId', null);
 
         if (null !== $productId) {
@@ -175,8 +169,6 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <p>Will return the new cart contents.</p>
      */
     function updateProductJSON() {
-    global $zm_request;
-
         $productId = ZMRequest::getParameter('productId', null);
         $quantity = ZMRequest::getParameter('quantity', 0);
 

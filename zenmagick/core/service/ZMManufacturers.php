@@ -63,8 +63,6 @@ class ZMManufacturers extends ZMObject {
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
     function getManufacturerForId($id, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -106,8 +104,6 @@ class ZMManufacturers extends ZMObject {
      * @return array List of <code>ZMManufacturer</code> instances.
      */
     function getManufacturers($languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -138,8 +134,6 @@ class ZMManufacturers extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
     function updateManufacturerClickCount($id, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

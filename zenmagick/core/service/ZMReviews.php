@@ -63,8 +63,6 @@ class ZMReviews extends ZMObject {
      * @return int The number of published reviews for the product.
      */
     function getReviewCount($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -93,8 +91,6 @@ class ZMReviews extends ZMObject {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getRandomReviews($productId=null, $max=1, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -146,8 +142,6 @@ class ZMReviews extends ZMObject {
      * @return float The average rating or <code>null</code> if no ratnig exists.
      */
     function getAverageRatingForProductId($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -176,8 +170,6 @@ class ZMReviews extends ZMObject {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getReviewsForProductId($productId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -216,8 +208,6 @@ class ZMReviews extends ZMObject {
      * @return array List of <code>ZMReview</code> instances.
      */
     function getAllReviews($languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -255,8 +245,6 @@ class ZMReviews extends ZMObject {
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
     function getReviewForId($reviewId, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -310,8 +298,6 @@ class ZMReviews extends ZMObject {
      * @return ZMReview The inserted review (incl. the new id).
      */
     function createReview($review, $account, $languageId=null) {
-    global $zm_request;
-
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

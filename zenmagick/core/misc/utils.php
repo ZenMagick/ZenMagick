@@ -68,8 +68,6 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * @return boolean <code>true</code> if the current page is a checkout page.
      */
     function zm_is_checkout_page($includeCart=true) {
-    global $zm_request;
-
         $page = ZMRequest::getPageName();
         return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
     }
@@ -276,8 +274,6 @@ return zen_get_uprid($productId, $attributes);
      * @return string The formatted amount.
      */
     function zm_format_currency($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         if (null == $currency) {
           ZMObject::log('no currency found - using default currency', ZM_LOG_WARN);
@@ -298,8 +294,6 @@ return zen_get_uprid($productId, $attributes);
      * @return float The amount.
      */
     function zm_parse_money($money) {
-    global $zm_request;
-
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         $amount = $currency->parse($money, false);
 

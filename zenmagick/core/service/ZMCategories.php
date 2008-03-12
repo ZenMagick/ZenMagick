@@ -46,8 +46,6 @@ class ZMCategories extends ZMObject {
      * @param array path The current category path.
      */
     function __construct($languageId=null, $path=null) {
-    global $zm_request;
-
         parent::__construct();
 
         if (null === $languageId) {

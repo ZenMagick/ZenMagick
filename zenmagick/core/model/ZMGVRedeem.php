@@ -69,8 +69,6 @@ class ZMGVRedeem extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->code_ = ZMRequest::getParameter('couponCode', '');
     }
 

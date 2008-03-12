@@ -63,8 +63,6 @@ class ZMAccountNewslettersController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-    global $zm_request;
-
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb("Newsletter");
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
@@ -79,8 +77,6 @@ class ZMAccountNewslettersController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $newsletterSubscriber = zm_boolean(ZMRequest::getParameter('newsletter_general', 0));
 
         $account = ZMRequest::getAccount();

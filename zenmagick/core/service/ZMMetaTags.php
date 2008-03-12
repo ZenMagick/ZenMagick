@@ -79,8 +79,6 @@ class ZMMetaTags extends ZMObject {
      * @return string The page title.
      */
     function getTitle($echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $this->_initMetaTags();
 
         // default to page name
@@ -152,8 +150,6 @@ class ZMMetaTags extends ZMObject {
      * @return string The meta tag value.
      */
     function getDescription($echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $this->_initMetaTags();
         $value = zm_setting('storeName');
         if (0 < strlen($this->_formatCrumbtrail())) {
@@ -207,8 +203,6 @@ class ZMMetaTags extends ZMObject {
      * Load category crumbtrail.
      */
     function _loadCrumbtrail() {
-    global $zm_request;
-
         if (null != $this->crumbtrail_)
             return;
 
@@ -244,8 +238,6 @@ class ZMMetaTags extends ZMObject {
      * Load product info.
      */
     function _loadProduct() {
-    global $zm_request;
-
         if (null == ZMRequest::getProductId() || null != $this->product_)
             return;
 
@@ -257,8 +249,6 @@ class ZMMetaTags extends ZMObject {
      * Load category info.
      */
     function _loadCategory() {
-    global $zm_request;
-
         if (null != ZMRequest::getCategoryPath()) {
             $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
             $this->category_ = $category->getName();

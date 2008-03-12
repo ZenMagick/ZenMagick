@@ -46,8 +46,6 @@ class ZMResultListSorter extends ZMObject {
      * @param string name An optional sorter name.
      */
     function ZMResultListSorter($id=null, $name='') {
-    global $zm_request;
-
         parent::__construct();
 
         $this->id_ = $id;

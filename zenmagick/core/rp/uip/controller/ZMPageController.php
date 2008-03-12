@@ -62,8 +62,6 @@ class ZMPageController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         // prepare page name for crumbtrail
         $page = ZMEZPages::instance()->getPageForId(ZMRequest::getParameter("id"));
         

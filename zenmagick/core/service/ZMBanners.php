@@ -96,8 +96,6 @@ class ZMBanners extends ZMObject {
      * @return array A list of <code>ZMBanner</code> instances.
      */
     function _getBannerForName($identifiers, $all=false) { 
-    global $zm_request;
-
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
@@ -141,8 +139,6 @@ class ZMBanners extends ZMObject {
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
     function getBannerForId($id) { 
-    global $zm_request;
-
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';

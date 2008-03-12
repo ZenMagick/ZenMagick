@@ -79,8 +79,6 @@ class ZMReview extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->rating_ = ZMRequest::getParameter('rating', 0);
         $this->productId_ = ZMRequest::getParameter('products_id', 0);
         $this->text_ = ZMRequest::getParameter('review_text', '');

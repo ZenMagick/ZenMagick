@@ -200,8 +200,6 @@ class ZMTheme extends ZMObject {
      * @return array List of available static page names.
      */
     function getStaticPageList($includeDefaults=false, $languageId=null) {
-    global $zm_request;
-
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
@@ -250,8 +248,6 @@ class ZMTheme extends ZMObject {
      * @return boolean The status.
      */
     function saveStaticPageContent($page, $contents, $languageId=null) {
-    global $zm_request;
-
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
@@ -290,8 +286,6 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         if (!zm_setting('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $languageId, $echo);
         }
@@ -331,8 +325,6 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();

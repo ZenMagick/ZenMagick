@@ -67,8 +67,6 @@
      * @return string A reasonable page title.
      */
     function zm_title($echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $title = ZMRequest::getPageName();
         $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
         $title = zm_format_title($title);
@@ -104,8 +102,6 @@
      * @return string A complete onload attribute incl. value or an empty string.
      */
     function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
-    global $zm_request;
-
         $page = null == $page ? ZMRequest::getPageName() : $page;
 
         $onload = '';

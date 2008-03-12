@@ -76,8 +76,6 @@ class ZMAccountPasswordController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         if (!$this->validate('account_password')) {
             return $this->findView();
         }

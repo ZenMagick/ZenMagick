@@ -62,8 +62,6 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
@@ -97,8 +95,6 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         $emailMessage = $this->create("EmailMessage");
         $emailMessage->populate();
 
@@ -145,8 +141,6 @@ class ZMTellAFriendController extends ZMController {
      * @param ZMProduct product The current product.
      */
     function _handleCrumbtrail($product) {
-    global $zm_request;
-
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
