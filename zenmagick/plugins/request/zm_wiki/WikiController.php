@@ -62,7 +62,7 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request, $zm_wiki;
+    global $zm_wiki;
 
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
@@ -80,8 +80,6 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request;
-
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
         $page = ZMRequest::getParameter('page', 'WikiRoot');

@@ -62,8 +62,6 @@ class zm_category_admin extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         $categoryId = ZMRequest::getCategoryId();

@@ -62,8 +62,6 @@ class IndexController extends ZMIndexController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_request;
-
         if (null == ZMRequest::getCategoryPath() && null == ZMRequest::getManufacturerId()) {
             // default
             return parent::processGet();

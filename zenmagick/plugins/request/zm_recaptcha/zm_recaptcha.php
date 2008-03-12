@@ -90,8 +90,6 @@ class zm_recaptcha extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         // check if we need to do anything for this request...
@@ -155,7 +153,7 @@ class zm_recaptcha extends ZMPlugin {
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_recaptcha_validate($req) {
-global $zm_request, $zm_recaptcha;
+global $zm_recaptcha;
 
     if (zm_is_empty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks

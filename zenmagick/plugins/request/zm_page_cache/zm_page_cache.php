@@ -87,7 +87,7 @@ class zm_page_cache extends ZMPlugin {
      * @return string A cache id.
      */
     function getRequestKey() {
-    global $zm_request, $zm_theme;
+    global $zm_theme;
 
         $session = ZMRequest::getSession();
         return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();

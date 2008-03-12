@@ -59,8 +59,6 @@ class zm_init_defaults extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         $parameter = ZMRequest::getParameterMap();

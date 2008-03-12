@@ -29,19 +29,19 @@
     define('ZM_EXTERNAL_CALL', true);
 
     // get current dir
-    $zm__ext_cwd = getcwd();
+    $_zm_ext_cwd = getcwd();
 
     // figure out the zen-cart root
-    $zm_ext_zenroot = dirname(dirname(__FILE__));
-    if (false === $zm_ext_zenroot) {
-        $zm_ext_zenroot = str_replace($_SERVER['SCRIPT_NAME'],'', $_SERVER['SCRIPT_FILENAME']);
+    $_zm_ext_zenroot = dirname(dirname(__FILE__));
+    if (false === $_zm_ext_zenroot) {
+        $_zm_ext_zenroot = str_replace($_SERVER['SCRIPT_NAME'],'', $_SERVER['SCRIPT_FILENAME']);
     }
     // change to zenroot
-    chdir($zm_ext_zenroot);
+    chdir($_zm_ext_zenroot);
     // need session to get account type... define('STORE_SESSIONS', ''); // leave empty to avoid session handling errors using $db
     require('includes/application_top.php');
 
     // change back
-    chdir($zm__ext_cwd);
+    chdir($_zm__ext_cwd);
 
 ?>

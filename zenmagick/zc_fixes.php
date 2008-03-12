@@ -29,8 +29,6 @@
      * Simple function to check if we need zen-cart...
      */
     function zm_needs_zc() {
-    global $zm_request;
-      
         $pageName = ZMRequest::getPageName();
         return (zm_is_checkout_page() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
             || zm_is_in_array($pageName, 'advanced_search_result');

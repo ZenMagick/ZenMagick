@@ -244,8 +244,7 @@ class ZMCoreCompressor extends ZMObject {
     function _preparePlugins($out) {
         if (!zm_ends_with($out, '/')) $out .= '/';
 
-        $zm_plugins = ZMLoader::make("Plugins");
-        foreach ($zm_plugins->getAllPlugins() as $type => $plugins) {
+        foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
                 if (!$plugin->isEnabled()) {
                     continue;
@@ -418,9 +417,11 @@ class ZMCoreCompressor extends ZMObject {
             return;
         }
         $lines = array(
-            'if (zm_setting("isLegacyAPI")) { $zm_loader = ZMLoader::instance(); }',
-            'if (zm_setting("isLegacyAPI")) { $zm_runtime = ZMLoader::make("Runtime"); }',
-            '$zm_request = new ZMRequest();',
+            'if (zm_setting("isLegacyAPI")) {',
+            '  $zm_loader = ZMLoader::instance();',
+            '  $zm_runtime = ZMLoader::make("Runtime");',
+            '  $zm_request = new ZMRequest();',
+            '}'
         );
         foreach ($lines as $line) {
             if (false === fwrite($handle, $line."\n")) {

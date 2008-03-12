@@ -62,7 +62,7 @@ class zm_site_switch extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_server_names;
+    global $zm_server_names;
 
         parent::init();
 

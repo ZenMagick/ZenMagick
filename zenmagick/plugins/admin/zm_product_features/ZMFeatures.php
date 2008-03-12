@@ -67,8 +67,6 @@ class ZMFeatures extends ZMObject {
      * Load features.
      */
     function _loadFeatures() {
-    global $zm_request;
-
         if (null != $this->features_)
             return;
 

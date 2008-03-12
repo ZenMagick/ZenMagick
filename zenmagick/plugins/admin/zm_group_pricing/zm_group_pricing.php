@@ -61,8 +61,6 @@ class zm_group_pricing extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         if (0 < ZMRequest::getProductId()) {

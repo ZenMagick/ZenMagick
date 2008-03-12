@@ -33,8 +33,8 @@ The following code can be used to display music related information:
 
   <?php 
       // set up services
-      $zm_music = $this->create("Music");
-      $zm_mediaManager = $this->create("MediaManager");
+      $zm_music = ZMLoader::make("Music");
+      $zm_mediaManager = ZMLOader::make("MediaManager");
       // get artist information
       $artist = $zm_music->getArtistForProductId($zm_product->getId());
       // get musc collections for this product/artist

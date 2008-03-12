@@ -60,8 +60,6 @@
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
     function _zmp_is_not_duplicate_nickname_changed($req) {
-    global $zm_request;
-    
         // the current account
         $account = ZMRequest::getAccount();
 
@@ -81,8 +79,6 @@
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     function _zmp_is_not_duplicate_email_changed($req) {
-    global $zm_request;
-    
         // the current account
         $account = ZMRequest::getAccount();
 

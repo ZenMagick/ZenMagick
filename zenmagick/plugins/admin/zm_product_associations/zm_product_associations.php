@@ -80,7 +80,7 @@ class zm_product_associations extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $zm_associations;
+    global $zm_associations;
 
         parent::init();
 

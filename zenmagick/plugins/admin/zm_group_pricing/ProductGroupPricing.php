@@ -79,8 +79,6 @@ class ProductGroupPricing extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-    global $zm_request;
-
         $this->id_ = ZMRequest::getParameter('groupPricingId', '0');
         $this->productId_ = ZMRequest::getParameter('productId', '0');
         $this->groupId_ = ZMRequest::getParameter('groupId', '0');

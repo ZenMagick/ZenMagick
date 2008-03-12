@@ -68,7 +68,7 @@ class zm_php_bb extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request, $phpBB;
+    global $phpBB;
 
         parent::init();
     
@@ -124,7 +124,7 @@ class zm_php_bb extends ZMPlugin {
      * @param array args Optional parameter ('view' => $view).
      */
     function onZMControllerProcessEnd($args) {
-    global $zm_request, $phpBB;
+    global $phpBB;
 
         if ('POST' == ZMRequest::getMethod()) {
             $view = $args['view'];

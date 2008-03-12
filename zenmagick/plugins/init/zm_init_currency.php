@@ -59,8 +59,6 @@ class zm_init_currency extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         $session = ZMRequest::getSession();

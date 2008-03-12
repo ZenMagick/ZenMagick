@@ -31,7 +31,7 @@
      * @package org.zenmagick.plugins.zm_master_password
      */
     function zm_master_password_admin() {
-    global $zm_request, $zm_master_password;
+    global $zm_master_password;
 
         if ('POST' == ZMRequest::getMethod()) {
             $values = ZMRequest::getParameter('configuration', array());

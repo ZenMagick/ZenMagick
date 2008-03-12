@@ -66,5 +66,5 @@ Replace the line:
 
 with:
 
-      <?php $product = $zm_products->getProductForId($review->getProductId()); ?>
+      <?php $product = ZMProducts::instance()->getProductForId($review->getProductId()); ?>
       <p><?php hover3_product_image_link($product), $review->getProductImageInfo(), false) ?></p>

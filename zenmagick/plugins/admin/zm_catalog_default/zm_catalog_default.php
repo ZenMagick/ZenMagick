@@ -62,8 +62,6 @@ class zm_catalog_default extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         //if (0 == ZMRequest::getProductId() && 0 == ZMRequest::getCategoryId()) {

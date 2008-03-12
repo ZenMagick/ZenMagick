@@ -59,8 +59,6 @@ class zm_init_zencart extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         if (!function_exists('zen_exit')) {

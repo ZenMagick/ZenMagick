@@ -44,8 +44,6 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_wiki_admin() {
-    global $zm_request;
-
         // create contents into output buffer
         ob_start();
         if (ZMRequest::isAdmin()) {
@@ -72,8 +70,6 @@
      * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_wiki_is_page_cacheable() {
-    global $zm_request;
-
         $lastPageCacheStrategy = zm_setting('plugin.zm_wiki.last-page-caching-strategy');
         return 'wiki' == ZMRequest::getPageName() ? false : $lastPageCacheStrategy();
     }
@@ -85,8 +81,6 @@
      * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_view_wiki() {
-    global $zm_request;
-
         $mode = getMode();
         if (!ZMRequest::isAdmin()) {
             $mode = 'display';
@@ -131,7 +125,7 @@
      * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_view_wiki_edit() {
-    global $zm_request, $pawfaliki_config;
+    global $pawfaliki_config;
 
         $mode = getMode();
         if (!ZMRequest::isAdmin() && !zm_is_in_array($mode, 'edit,save,cancel')) {

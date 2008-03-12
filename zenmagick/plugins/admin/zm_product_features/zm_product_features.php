@@ -89,8 +89,6 @@ class zm_product_features extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         // make ZMFeatures available by pre-loading it

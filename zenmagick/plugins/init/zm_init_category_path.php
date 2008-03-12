@@ -59,8 +59,6 @@ class zm_init_category_path extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_request;
-
         parent::init();
 
         if (0 != ($productId = ZMRequest::getProductId())) {

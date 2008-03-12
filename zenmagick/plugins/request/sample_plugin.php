@@ -97,8 +97,6 @@ class sample_plugin extends ZMPlugin {
      * @return string The modified contents.
      */
     function filterResponse($contents) {
-    global $zm_request;
-
         if ('login' == ZMRequest::getPageName()) {
             $contents =  preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
@@ -116,7 +114,7 @@ class sample_plugin extends ZMPlugin {
  * @return ZMPluginPage The plugin page.
  */
 function sample_plugin_admin() {
-global $zm_request, $sample_plugin;
+global $sample_plugin;
 
     if ('POST' == ZMRequest::getMethod()) {
         $values = ZMRequest::getParameter('configuration', array());
