@@ -37,12 +37,12 @@
       // default fields
       $zm_quick_edit_field_list = array(
           // title, form field name, getter/setter name
-          array('title' => 'Name', 'field' => 'name', 'method' => 'name', 'size' => 35),
-          array('title' => 'Model', 'field' => 'model', 'method' => 'model', 'size' => 14),
-          array('title' => 'Image', 'field' => 'image', 'method' => 'defaultImage', 'size' => 24),
-          array('title' => 'Quantity', 'field' => 'quantity', 'method' => 'quantity', 'size' => 4),
-          array('title' => 'Product Price', 'field' => 'productPrice', 'method' => 'productPrice', 'size' => 6),
-          array('title' => 'Status', 'field' => 'status', 'method' => 'status', 'size' => 2)
+          array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
+          array('title' => 'Model', 'field' => 'model', 'property' => 'model', 'size' => 14),
+          array('title' => 'Image', 'field' => 'image', 'property' => 'defaultImage', 'size' => 24),
+          array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4),
+          array('title' => 'Product Price', 'field' => 'productPrice', 'property' => 'productPrice', 'size' => 6),
+          array('title' => 'Status', 'field' => 'status', 'property' => 'status', 'size' => 2)
       );
   }
 
@@ -51,8 +51,8 @@
           foreach ($zm_quick_edit_field_list as $field) {
               $fieldname = $field['field'].'_'.$product->getId();
               $value = ZMRequest::getParameter($fieldname);
-              if (null != $field['method']) {
-                  $setMethod = 'set'.ucwords($field['method']);
+              if (null != $field['property']) {
+                  $setMethod = 'set'.ucwords($field['property']);
                   $product->$setMethod($value);
               } else {
                   $product->set($field['field'], $value);
@@ -82,8 +82,8 @@
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
             <td class="first"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <?php foreach ($zm_quick_edit_field_list as $ii => $field) { 
-              if (null != $field['method']) {
-                $getMethod = 'get'.ucwords($field['method']);
+              if (null != $field['property']) {
+                $getMethod = 'get'.ucwords($field['property']);
                 $value = $product->$getMethod();
               } else {
                 $value = $product->get($field['field']);
