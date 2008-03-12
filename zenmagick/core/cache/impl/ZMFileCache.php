@@ -77,13 +77,6 @@ class ZMFileCache extends ZMObject implements ZMCache {
     /**
      * {@inheritDoc}
      */
-    public function getGroup() {
-        return $this->group_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function clear() {
         return $this->cache_->clean($this->group_);
     }

@@ -72,9 +72,9 @@ class zm_page_cache extends ZMPlugin {
                 $config[$key] = zm_setting($key);
             }
         }
-        $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
 
-        $this->addMenuItem('zm_page_cache_admin', zm_l10n_get('Page Cache'), 'zm_page_cache_admin');
+        // get one now to make cache admin work
+        $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
     }
 
 

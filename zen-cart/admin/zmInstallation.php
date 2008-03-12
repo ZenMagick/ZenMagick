@@ -206,7 +206,7 @@ require_once('includes/application_top.php');
 
     <div id="main">
       <div id="content">
-      <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
+        <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
 
         <form action="<?php echo ZM_ADMINFN_INSTALLATION ?>" method="post" onsubmit="return zm_user_confirm('Update File Patches?');">
           <fieldset class="patches">

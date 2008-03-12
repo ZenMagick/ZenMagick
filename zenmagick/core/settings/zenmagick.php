@@ -87,6 +87,7 @@
     define('ZM_ADMINFN_PLUGINS', 'zmPlugins.php');
     define('ZM_ADMINFN_THEME_BUILDER', 'zmThemeBuilder.php');
     define('ZM_ADMINFN_SP_EDITOR', 'zmStaticPageEditor.php');
+    define('ZM_ADMINFN_CACHE', 'zmCacheAdmin.php');
 
 
     //** plugins/modules **//

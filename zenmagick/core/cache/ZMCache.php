@@ -38,7 +38,7 @@ interface ZMCache {
     /**
      * Init the instance.
      *
-     * @param string group The cache group.
+     * @param string group The cache group/class.
      * @param array config Configuration.
      */
     public function init($group, $config);
@@ -49,13 +49,6 @@ interface ZMCache {
      * @return boolean <code>true</code> if this cache is ready to be used.
      */
     public function isAvailable();
-
-    /**
-     * Get the group.
-     *
-     * @return string The group.
-     */
-    public function getGroup();
 
     /**
      * Clear the cache.
