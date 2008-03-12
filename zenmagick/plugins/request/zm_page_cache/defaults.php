@@ -41,8 +41,6 @@
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_page_cache_request_cacheable() {
-    global $zm_request;
-        
         return !ZMRequest::isSecure() 
           && !zm_is_checkout_page(true) 
           && ZMRequest::getShoppingCart()->isEmpty() 

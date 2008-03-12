@@ -55,8 +55,6 @@ class ZMMusic extends ZMObject {
      * @return Artist Artist information.
      */
     function getArtistForProductId($productId) {
-    global $zm_request;
-
         $session = ZMRequest::getSession();
 
         $db = ZMRuntime::getDB();
