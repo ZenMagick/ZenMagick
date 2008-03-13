@@ -102,7 +102,7 @@ class zm_smarty extends ZMPlugin {
 
         // generate view using Smarty templating
         $smarty = new Smarty();
-        $theme = ZMRequest::getTheme();
+        $theme = ZMRuntime::getTheme();
         $themeRoot = $theme->getRootDir();
 
         // main dirs

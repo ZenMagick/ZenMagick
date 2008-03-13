@@ -447,7 +447,7 @@
         // finalise i18n
         zm_i18n_finalise();
 
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' =>& $theme));
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' => $theme));
 
         return $theme;
     }
@@ -473,9 +473,13 @@
 
         // generate response
         if (null != $view) {
-            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' =>& $view));
+            // common view variables
+            $controller->exportGlobal('zm_view', $view);
+            $controller->exportGlobal('zm_theme', ZMRuntime::getTheme());
+
+            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' => $view));
             $view->generate();
-            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE);
+            ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE, array('view' => $view));
         }
 
         return true;

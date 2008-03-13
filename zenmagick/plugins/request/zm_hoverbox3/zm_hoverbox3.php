@@ -82,7 +82,7 @@ class zm_hoverbox3 extends ZMPlugin {
      */
     function filterResponse($contents) {
         if (strpos($contents, 'hoverbox')) {
-            $theme = ZMRequest::getTheme();
+            $theme = ZMRuntime::getTheme();
             // hover3 used in this page
             $h3head = '';
             $h3head .= '<link rel="stylesheet" type="text/css" href="' . $theme->themeURL('hover3/stylesheet_hoverbox3.css', false) . '" />';

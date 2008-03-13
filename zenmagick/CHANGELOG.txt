@@ -51,6 +51,7 @@ Release 0.9.1
 - convert ZMRequest methods into static ones, make $zm_request obsolete
 - move cache admin page back into core, remove from zm_page_cache
 - remove most global statements!
+- make $zm_view and $zm_theme basic view variables, but not actual globals!
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
