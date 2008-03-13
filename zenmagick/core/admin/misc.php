@@ -58,10 +58,8 @@
         $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/misc/phpBB.php";
         $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/validation/rules/custom/ZMNickNameRule.php";
         $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/bootstrap.php";
-        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/package.html";
         $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/defaults.php";
         $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache/ZMPageCache.php";
-        $all_obsolete_files[] = DIR_FS_CATALOG . ZM_ROOT . "core/cache";
         //
         $all_obsolete_files[] = DIR_FS_ADMIN . "zmCacheManager.php";
         //
