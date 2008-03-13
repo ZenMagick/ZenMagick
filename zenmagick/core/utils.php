@@ -473,7 +473,6 @@
 
         // generate response
         if (null != $view) {
-            $controller->exportGlobal("zm_view", $view);
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' =>& $view));
             $view->generate();
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE);

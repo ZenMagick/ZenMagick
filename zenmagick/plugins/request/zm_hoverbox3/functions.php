@@ -34,8 +34,6 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
 
   // product image function
   function hover3_product_image_link($product, $imageInfo, $showLargerImage=true) {
-  global $zm_theme;
-
       if(HOVERBOX_ENABLED == 'true'){
         if(HOVERBOX_DISPLAY_TITLE == 'true'){
           $title = zen_clean_html($product->getName());
@@ -59,7 +57,7 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
         }
           
         if ($showLargerImage) {
-            echo zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT) . '<div class="lrgarea"><a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName()), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '"><img src="' . $zm_theme->themeUrl('hover3/images/vlrg-pinfo.jpg', false) . '" alt="View Larger" class="lrglink" /></a></div>';
+            echo zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT) . '<div class="lrgarea"><a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName()), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '"><img src="' . ZMRequest::getTheme()->themeUrl('hover3/images/vlrg-pinfo.jpg', false) . '" alt="View Larger" class="lrglink" /></a></div>';
         } else {
             echo  '<a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName()), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '">'.zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT).'</a>';
         }

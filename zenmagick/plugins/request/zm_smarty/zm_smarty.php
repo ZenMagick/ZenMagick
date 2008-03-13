@@ -97,14 +97,13 @@ class zm_smarty extends ZMPlugin {
      * @return Smarty A <code>Smarty</code> instance.
      */
     function &getSmarty() {
-    global $zm_theme;
-
         // use included version
         require_once(SMARTY_DIR.'Smarty.class.php');
 
         // generate view using Smarty templating
         $smarty = new Smarty();
-        $themeRoot = $zm_theme->getRootDir();
+        $theme = ZMRequest::getTheme();
+        $themeRoot = $theme->getRootDir();
 
         // main dirs
         $smarty->template_dir = $themeRoot.'content';
@@ -116,7 +115,7 @@ class zm_smarty extends ZMPlugin {
         $smarty->plugins_dir = array(
             'plugins', // the default under SMARTY_DIR
             $this->getPluginDir().'zm_plugins',
-            $zm_theme->getRootDir().'plugins'
+            $theme->getRootDir().'plugins'
         );
 
         // all settings as map

@@ -125,11 +125,9 @@
         ZMRuntime::setTheme(zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
     }
 
-    // another famous global
-    $zm_theme = ZMRuntime::getTheme();
-
     if (zm_setting('isLegacyAPI')) {
         // deprecated legacy globals
+        $zm_theme = ZMRuntime::getTheme();
         $zm_themeInfo = $zm_theme->getThemeInfo();
     }
 

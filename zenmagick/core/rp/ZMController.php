@@ -101,6 +101,8 @@ class ZMController extends ZMObject {
             }
             $view->setController($this);
             $this->view_ = $view;
+            // always make the view available
+            $this->exportGlobal('zm_view', $this->view_);
         }
 
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_END, array('view' => $this->view_));

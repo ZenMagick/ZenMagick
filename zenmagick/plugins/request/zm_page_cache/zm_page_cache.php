@@ -87,10 +87,8 @@ class zm_page_cache extends ZMPlugin {
      * @return string A cache id.
      */
     function getRequestKey() {
-    global $zm_theme;
-
         $session = ZMRequest::getSession();
-        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . $zm_theme->getThemeId();
+        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . ZMRequest::getThemeId();
     }
 
     /**
@@ -119,12 +117,8 @@ class zm_page_cache extends ZMPlugin {
      * @param array args Contains the final theme (key: 'theme').
      */
     function onZMThemeResolved($args) {
-    global $zm_theme;
-
         // handle page caching
         if ($this->isEnabled()) {
-            // need $zm_theme for PageCache::getId()
-            $zm_theme = $args['theme'];
             if ($this->isCacheable() && $contents = $this->pageCache_->get($this->getRequestKey())) {
                 if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
                     echo $contents;

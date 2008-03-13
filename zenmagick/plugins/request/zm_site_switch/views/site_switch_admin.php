@@ -24,8 +24,6 @@
  */
 ?><?php
 
-    $zm_themes = new ZMThemes();
-
     // default
     $zm_server_names = array('' => '');
 
@@ -78,7 +76,7 @@
             <legend>Site #<?php echo $ii ?></legend>
             <p><label for="hostname_<?php echo $ii ?>">Hostname:</label> <input type="text" name="hostname_<?php echo $ii ?>" value="<?php echo $hostname ?>"></p>
             <p><label for="themeId_<?php echo $ii ?>">Theme:</label> <select name="themeId_<?php echo $ii ?>">
-                <?php foreach ($zm_themes->getThemeInfoList() as $themeInfo) { $selected = $themeId == $themeInfo->getThemeId() ? ' selected' : ''; ?>
+                <?php foreach (ZMThemes::instance()->getThemeInfoList() as $themeInfo) { $selected = $themeId == $themeInfo->getThemeId() ? ' selected' : ''; ?>
                     <option value="<?php echo $themeInfo->getThemeId() ?>"<?php echo $selected ?>><?php echo $themeInfo->getName() ?></option>
                 <?php } ?>
             </select></p>

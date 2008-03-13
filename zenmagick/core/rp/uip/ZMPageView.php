@@ -81,7 +81,6 @@ class ZMPageView extends ZMView {
         foreach ($controller->getGlobals() as $name => $instance) {
             $$name = $instance;
         }
-        $zm_view = $this;
 
         $template = $this->getLayout();
         if (null != $template) {
