@@ -720,7 +720,7 @@ class ZMProducts extends ZMObject {
      */
     function _newProduct($fields) {
         $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
-        $product->status_ = 1 == $fields['products_status'];
+        $product->status_ = $fields['products_status'];
         $product->model_ = $fields['products_model'];
         $product->image_ = $fields['products_image'];
         $product->url_ = $fields['products_url'];
