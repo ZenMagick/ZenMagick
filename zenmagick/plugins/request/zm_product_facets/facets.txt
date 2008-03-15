@@ -1,0 +1,29 @@
+<?php
+
+    function zm_category_tree_ids($categoryId) {
+        $ids = array($categoryId);
+        foreach (ZMCategories::instance()->getCategoryForId($categoryId)->getChildren() as $child) {
+            $childIds = zm_category_tree_ids($child->getId());
+            $ids = array_merge($ids, $childIds);
+        }
+        return $ids;
+    }
+
+    //$facets = ZMProductFacets::instance()->filterWithTypes(array('manufacturers' => array(3)));
+    $facets = ZMProductFacets::instance()->filterWithTypes(array('manufacturers' => array(4), 'categories' => zm_category_tree_ids(3)));
+    //$facets = ZMProductFacets::instance()->filterWithTypes(array('prices' => array(1)));
+    //$facets = ZMProductFacets::instance()->getFacets();
+
+    foreach ($facets as $type => $facet) {
+        echo '<h3>'.$type.'</h3>';
+        foreach ($facet as $id => $info) {
+            if (0 < $info['productCount']) {
+                echo "<BR><u>".$info['name']." (".$info['productCount'].")</u><BR>";
+                foreach ($info['products'] as $id => $name) {
+                    //echo "&nbsp;&nbsp;".$name."<BR>";
+                }
+            }
+        }
+    }
+
+?>
