@@ -106,10 +106,13 @@ class ZMObject {
      * Get a singleton instance of the calling class.
      *
      * @param string name The class name.
+     * @param string instance If set, register the given object, unless the name is already taken.
      * @return mixed A singleton object.
      */
-    protected static function instance($name) {
-        if (!array_key_exists($name, ZMObject::$singletons_)) {
+    protected static function instance($name, $instance=null) {
+        if (null != $instance && !isset(ZMObject::$singletons_[$name])) {
+            ZMObject::$singletons_[$name] = $instance;
+        } else if (!array_key_exists($name, ZMObject::$singletons_)) {
             ZMObject::$singletons_[$name] = ZMLoader::make($name);
         }
 
