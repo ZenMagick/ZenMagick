@@ -46,13 +46,6 @@ class ZMModel extends ZMObject {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMModel() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
@@ -110,6 +103,31 @@ class ZMModel extends ZMObject {
      */
     function set($name, $value) {
         $this->__set($name, $value);
+    }
+
+    /**
+     * Handle generic getXXX()/setXXX()/isXXX() methods.
+     *
+     * @param string method The method name.
+     * @param array args Optional arguments.
+     * @return mixed The result of the supported method or null.
+     */
+    public function __call($method, $args) {
+        if (0 === strpos($method, 'get') && 0 == count($args)) {
+            $property = str_replace('get', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->get($property);
+        } else 
+        if (0 === strpos($method, 'is') && 0 == count($args)) {
+            $property = str_replace('is', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->get($property);
+        } else if (0 === strpos($method, 'set') && 1 == count($args)) {
+            $property = str_replace('set', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->set($property, $args[0]);
+        }
+        return $null;
     }
 
 }
