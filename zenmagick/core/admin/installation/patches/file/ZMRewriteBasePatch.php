@@ -63,14 +63,16 @@ class ZMRewriteBasePatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $lines = $this->getFileLines(_ZM_HTACCESS);
-        foreach ($lines as $line) {
-            $words = explode(' ', $line);
-            if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
-                return DIR_WS_CATALOG != $words[1];
+        if (file_exists(_ZM_HTACCESS)) {
+            $lines = $this->getFileLines(_ZM_HTACCESS);
+            foreach ($lines as $line) {
+                $words = explode(' ', $line);
+                if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
+                    return DIR_WS_CATALOG != $words[1];
+                }
             }
+            return false;
         }
-
         return false;
     }
 
@@ -80,7 +82,7 @@ class ZMRewriteBasePatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_HTACCESS);
+        return !file_exists(_ZM_HTACCESS) || is_writeable(_ZM_HTACCESS);
     }
 
     /**
@@ -100,7 +102,7 @@ class ZMRewriteBasePatch extends ZMFilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_HTACCESS;
+        return ($this->isReady() || !file_exists(_ZM_HTACCESS)) ? "" : "Need permission to write " . _ZM_HTACCESS;
     }
 
     /**

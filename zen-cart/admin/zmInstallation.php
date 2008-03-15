@@ -150,7 +150,7 @@ require_once('includes/application_top.php');
                     id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
                     value="<?php echo $patch->getId() ?>"
                     <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
-                    <?php if (!$patch->canUndo()) { ?>disabled="disabled" <?php } ?>>
+                    <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
                   <label for="<?php echo $patch->getId() ?>">
                       <?php echo $patchLabel[$patch->getId()] ?>
                   </label>
