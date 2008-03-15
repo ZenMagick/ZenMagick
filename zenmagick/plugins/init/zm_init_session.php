@@ -61,6 +61,11 @@ class zm_init_session extends ZMPlugin {
     function init() {
         parent::init();
 
+        //TODO: this shouldn't be necessary
+        if (zm_setting('isAdmin')) {
+            return;
+        }
+
         //TODO:
         /**
          * set the session name and save path

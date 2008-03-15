@@ -61,7 +61,8 @@ class zm_init_zencart extends ZMPlugin {
     function init() {
         parent::init();
 
-        if (!function_exists('zen_exit')) {
+        //TODO: this shouldn't be necessary (isAdmin)
+        if (!function_exists('zen_exit') && !zm_setting('isAdmin')) {
             // general functions
             require(DIR_WS_FUNCTIONS . 'functions_general.php');
             require(DIR_WS_FUNCTIONS . 'html_output.php');
