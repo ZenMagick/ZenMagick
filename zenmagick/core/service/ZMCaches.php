@@ -76,7 +76,7 @@ class ZMCaches extends ZMObject {
     public function getCache($group, $config=array(), $type='file') {
         ksort($config);
         $class = ucwords($type).'Cache';
-        $key = $class.':'.serialize($config);
+        $key = $group.':'.$class.':'.serialize($config);
 
         $instance = null;
         if (null == $this->caches_[$key]) {
