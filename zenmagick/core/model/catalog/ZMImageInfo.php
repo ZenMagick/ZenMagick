@@ -45,13 +45,13 @@ class ZMImageInfo extends ZMModel {
      * @param string image The image name.
      * @param string alt The alt text.
      */
-    function ZMImageInfo($image, $alt='') {
+    function __construct($image, $alt='') {
         parent::__construct();
 
         $this->altText_ = $alt;
         $this->parameter_ = array();
 
-        $comp = _zm_split_image_name($image);
+        $comp = ZMImageInfo::splitImageName($image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -80,16 +80,6 @@ class ZMImageInfo extends ZMModel {
         } else {
             $this->imageLarge_ = zm_image_uri('large/'.$large, false);
         }
-    }
-
-    /**
-     * Create new image info.
-     *
-     * @param string image The image name.
-     * @param string alt The alt text.
-     */
-    function __construct($image, $alt='') {
-        $this->ZMImageInfo($image, $alt);
     }
 
     /**
@@ -184,6 +174,75 @@ class ZMImageInfo extends ZMModel {
         }
 
         return $html;
+    }
+
+
+    /**
+     * Split image name into components that we need to process it.
+     *
+     * @package org.zenmagick
+     * @param string image The image.
+     * @return array An array consisting of [optional subdirectory], [file extension], [basename]
+     */
+    public static function splitImageName($image) {
+        // optional subdir on all levels
+        $subdir = dirname($image);
+        $subdir = "." == $subdir ? "" : $subdir."/";
+
+        // the file extension
+        $ext = substr($image, strrpos($image, '.'));
+
+        // filename without suffix
+        $basename = '';
+        if ('' != $image) {
+            $basename = ereg_replace($ext, '', $image);
+        }
+
+        return array($subdir, $ext, $basename);
+    }
+
+    /**
+     * Look up additional product images.
+     *
+     * @package org.zenmagick
+     * @param string image The image to look up.
+     * @return array An array of <code>ZMImageInfo</code> instances.
+     */
+    public static function getAdditionalImages($image) {
+        $comp = ZMImageInfo::splitImageName($image);
+        $subdir = $comp[0];
+        $ext = $comp[1];
+        $realImageBase = basename($comp[2]);
+
+        // directory to scan
+        $dirname = DIR_FS_CATALOG.DIR_WS_IMAGES.$subdir;
+
+        $imageList = array();
+        if ($dir = @dir($dirname)) {
+            while ($file = $dir->read()) {
+                if (!is_dir($dirname . $file)) {
+                    if (zm_ends_with($file, $ext)) {
+                        if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
+                            if ($file != basename($image)) {
+                                if ($realImageBase . ereg_replace($realImageBase, '', $file) == $file) {
+                                    array_push($imageList, $file);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $dir->close();
+            sort($imageList);
+        }
+
+        // create ZMImageInfo list...
+        $imageInfoList = array();
+        foreach ($imageList as $aimg) {
+            array_push($imageInfoList, ZMLoader::make("ImageInfo", $subdir.$aimg));
+        }
+
+        return $imageInfoList;
     }
 
 }

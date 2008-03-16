@@ -72,7 +72,7 @@ class ImageInfo extends ZMImageInfo {
      * @return string The default image.
      */
     function getDefaultImage() { 
-        $comp = _zm_split_image_name($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -95,7 +95,7 @@ class ImageInfo extends ZMImageInfo {
      * @return string The medium image.
      */
     function getMediumImage() {
-        $comp = _zm_split_image_name($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -112,7 +112,7 @@ class ImageInfo extends ZMImageInfo {
      * @return string The large image.
      */
     function getLargeImage() {
-        $comp = _zm_split_image_name($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];

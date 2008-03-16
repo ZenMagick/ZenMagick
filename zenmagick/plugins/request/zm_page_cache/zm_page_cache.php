@@ -64,14 +64,7 @@ class zm_page_cache extends ZMPlugin {
 
         $this->zcoSubscribe();
 
-        $config = array(
-            'pageCacheTTL' => 300, // in sec.
-        );
-        foreach ($config as $key => $value) {
-            if (null !== zm_setting($key)) {
-                $config[$key] = zm_setting($key);
-            }
-        }
+        $config = array('cacheTTL' => zm_setting('pageCacheTTL', 300));
 
         // get one now to make cache admin work
         $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
@@ -88,7 +81,7 @@ class zm_page_cache extends ZMPlugin {
      */
     function getRequestKey() {
         $session = ZMRequest::getSession();
-        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . ZMRequest::getThemeId();
+        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . ZMRuntime::getThemeId();
     }
 
     /**

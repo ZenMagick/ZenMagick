@@ -399,7 +399,7 @@ class ZMProduct extends ZMModel {
      *
      * @return array List of optional <code>ZMImageInfo</code> instances.
      */
-    function getAdditionalImages() { return _zm_get_additional_images($this->image_); }
+    function getAdditionalImages() { return ZMImageInfo::getAdditionalImages($this->image_); }
 
 
     /**
