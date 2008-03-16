@@ -96,7 +96,8 @@ class zm_product_features extends ZMPlugin {
 
         if (zm_setting('isLegacyAPI')) {
         global $zm_features;
-
+            // we are not doing this for all plugins that include services, but this used to be 
+            // part of core, so not doing this might break stuff
             $zm_features = ZMFeatures::instance();
         }
 

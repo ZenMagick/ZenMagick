@@ -25,7 +25,7 @@ Usage
 To display associated products, for example, cross sells, the following code could be used
 in your template:
 
-    $crossSells = $zm_associations->getProductAssociations($product->getId(), ZM_PA_CROSS_SELL);
+    $crossSells = ProductAssociationService::instance()->getProductAssociations($product->getId(), ZM_PA_CROSS_SELL);
     foreach ($crossSells as $crossSell) {
         $product = $crossSell->getTargetProduct();
         echo $product->getName()."<BR>";

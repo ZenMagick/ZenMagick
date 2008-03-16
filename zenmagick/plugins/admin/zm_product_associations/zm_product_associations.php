@@ -80,16 +80,14 @@ class zm_product_associations extends ZMPlugin {
      * Init this plugin.
      */
     function init() {
-    global $zm_associations;
-
         parent::init();
 
-        $zm_associations = ZMLoader::make("ProductAssociationService");
-        if ($zm_associations && $zm_associations->isInstalled()) {
-            $zm_associations->prepareAssociationTypes();
+        $associations = ZMLoader::make("ProductAssociationService");
+        if ($associations && $associations->isInstalled()) {
+            $associations->prepareAssociationTypes();
         }
 
-        if ($zm_associations && 0 < ZMRequest::getProductId()) {
+        if ($associations && 0 < ZMRequest::getProductId()) {
             // only available if product involved
             $this->addMenuItem('zmpa', zm_l10n_get('Product Associations'), 'zm_pa_admin', ZM_MENU_CATALOG_ADMIN);
         }
