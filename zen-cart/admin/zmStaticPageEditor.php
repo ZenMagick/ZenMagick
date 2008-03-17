@@ -100,7 +100,7 @@ require_once('includes/application_top.php');
                     <?php } ?>
                   </select>
                 )<?php echo (null!==$editContents?': '.$selectedFile:'') ?></h2>
-            <?php if (null == $editContents) { ?>
+          <?php if (null == $editContents) { ?>
             <?php echo zen_hide_session_id() ?>
             <fieldset>
               <legend>Edit Static Page</legend>
@@ -133,8 +133,8 @@ require_once('includes/application_top.php');
               <br><br>
               <input type="submit" value="Edit">
             </fieldset>
-          </form>
-        <?php } ?>
+          <?php } ?>
+        </form>
 
         <?php if (null !== $editContents) { ?>
           <form action="<?php echo ZM_ADMINFN_SP_EDITOR ?>" method="post">
@@ -150,9 +150,9 @@ require_once('includes/application_top.php');
                 $oFCKeditor->Width  = '700' ;
                 $oFCKeditor->Height = '450' ;
                 $output = $oFCKeditor->CreateHtml() ; echo $output;
-              } else { // using HTMLAREA or just raw "source"
-                echo zen_draw_textarea_field('editContents', 'soft', '100', '30', $editContents, ' id="editContents"');
-              } ?>
+              } else { // using HTMLAREA or just raw "source" ?>
+                <textarea name="editContents" cols="100" rows="30"  id="editContents"><?php echo htmlentities($editContents) ?></textarea>
+              <?php } ?>
 
             <br><br>
             <input type="submit" name="save" value="Save">

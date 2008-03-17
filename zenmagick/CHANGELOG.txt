@@ -56,6 +56,7 @@ Release 0.9.1
   magic PHP5 method __call(..)
 - fix wrong error message in installation page when main.htaccess file does
   not exist
+- fix tag and entity handling in static page editor (thanks, Matt)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
