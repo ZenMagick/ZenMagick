@@ -59,7 +59,7 @@ class ZMCoreCompressor extends ZMObject {
         parent::__construct();
 
         $this->coreDirname_ = ZMRuntime::getZMRootPath().'core';
-        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared';
+        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared2';
         $this->strippedDirname_ = ZMRuntime::getZMRootPath().'core.stripped';
         $this->flatDirname_ = ZMRuntime::getZMRootPath().'core.flat';
         $this->coreFilename_ = ZMRuntime::getZMRootPath().'core.php';
@@ -458,18 +458,17 @@ class ZMCoreCompressor extends ZMObject {
             '1/settings.php',
             'ZMObject.php',
             'ZMLoader.php',
-            'utils.php',
-            'ZMSession.php',
-            'ZMRequest.php',
-            'ZMRuntime.php',
             'init_bootstrap.php'
         );
         $tmp2 = array();
         foreach ($loadFirst as $first) {
-            array_push($tmp2, $tmp[$first]); unset($tmp[$first]);
+            $tmp2[] = $tmp[$first];
         }
-        foreach ($tmp as $file) {
-            array_push($tmp2, $file);
+        $firstLookup = array_flip($loadFirst);
+        foreach ($tmp as $key => $file) {
+            if (!isset($firstLookup[$key])) {
+                $tmp2[] = $file;
+            }
         }
 
         $files = $tmp2;
