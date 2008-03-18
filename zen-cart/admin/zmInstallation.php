@@ -241,7 +241,7 @@ require_once('includes/application_top.php');
               <br>
               <p><?php zm_l10n("This option will compress all files under core and all installed plugins into a single file <code>core.php</code>.
               If you install/uninstall plugins or make any other changes to the core directory you'll need to regenerate <code>core.php</code> in
-              order to make this changes become active.") ?></p>
+              order to make these changes become active.") ?></p>
               <div class="submit"><input type="submit" value="<?php zm_l10n("Update") ?>"></div>
           </fieldset>
         </form>
