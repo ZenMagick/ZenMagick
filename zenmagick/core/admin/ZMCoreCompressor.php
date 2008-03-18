@@ -59,7 +59,7 @@ class ZMCoreCompressor extends ZMObject {
         parent::__construct();
 
         $this->coreDirname_ = ZMRuntime::getZMRootPath().'core';
-        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared2';
+        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared';
         $this->strippedDirname_ = ZMRuntime::getZMRootPath().'core.stripped';
         $this->flatDirname_ = ZMRuntime::getZMRootPath().'core.flat';
         $this->coreFilename_ = ZMRuntime::getZMRootPath().'core.php';
@@ -458,6 +458,8 @@ class ZMCoreCompressor extends ZMObject {
             '1/settings.php',
             'ZMObject.php',
             'ZMLoader.php',
+            'ZMRuntime.php',
+            'ZMRequest.php',
             'init_bootstrap.php'
         );
         $tmp2 = array();
