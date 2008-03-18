@@ -658,33 +658,23 @@ class ZMProducts extends ZMObject {
      * Get some random product ids.
      *
      * @param string sql Some SQL.
-     * @param int max The maximum number of results.
+     * @param int max The maximum number of results; default is <em>0</em> for all.
      * @return array A list of product ids.
      */
     function _getRandomProductIds($sql, $max=0) {
-        0 == $max && $this->log("invalid max value: ".$max, ZM_LOG_DEBUG);
-
         $db = ZMRuntime::getDB();
         $productIds = array();
-        $left = $max;
-        while (0 < $left) {
-            $results = $db->ExecuteRandomMulti($sql, $left);
-            if (0 == $results->RecordCount()) {
-                break;
-            }
-            while (!$results->EOF) {
-                // make sure we do not have duplicates
-                $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-                $results->MoveNext();
-                if ($max == count($productIds))
-                    break;
-            }
-            $reminder = $max - count($productIds);
-            if ($reminder == $left) {
-                // can't find any more
-                break;
-            }
-            $left = $reminder;
+        $results = $db->Execute($sql);
+        while (!$results->EOF) {
+            // make sure we do not have duplicates
+            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
+            $results->MoveNext();
+        }
+
+        shuffle($productIds);
+
+        if (0 < $max && count($productIds) > $max) {
+            $productIds = array_slice($productIds, 0, $max);
         }
 
         return $productIds;
