@@ -60,6 +60,9 @@ Release 0.9.1
 - make the random product access methods in ZMProducts reliably return the
   expected number of results (or as much as possible)
 - allow custom form element functions to customize zm_quick_edit fields
+- dropped individual result list pagination settings in favour of a single
+  setting 'defaultResultListPagination'; changed templates where appropriate
+	to set individual pagination
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

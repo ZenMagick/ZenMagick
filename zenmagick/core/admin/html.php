@@ -109,7 +109,7 @@
         }
 
         if (null != $products) {
-            $resultList = ZMLoader::make("ProductListResultList", $products, zm_setting('maxProductResultList'));
+            $resultList = ZMLoader::make("ProductListResultList", $products);
             $resultList->setPagination(16);
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';

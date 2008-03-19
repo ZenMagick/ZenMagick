@@ -40,22 +40,10 @@ class ZMProductListResultList extends ZMResultList {
      * Create new result list.
      *
      * @param array The results.
-     * @param int pagination Number of results per page (default is 10)
      * @param int page The current page number (default is 0)
      */
-    function __construct($results, $pagination=10, $page=0) {
-        parent::__construct($results, $pagination, $page);
-    }
-
-    /**
-     * Create new result list.
-     *
-     * @param array The results.
-     * @param int pagination Number of results per page (default is 10)
-     * @param int page The current page number (default is 0)
-     */
-    function ZMProductListResultList($results, $pagination=10, $page=0) {
-        $this->__construct($results, $pagination, $page);
+    function __construct($results, $page=0) {
+        parent::__construct($results, $page);
     }
 
     /**

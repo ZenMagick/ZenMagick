@@ -43,10 +43,9 @@ class ZMResultList extends ZMObject {
      * Create new result list.
      *
      * @param array The results.
-     * @param int pagination Number of results per page (default is 10)
      * @param int page The current page number (default is 0)
      */
-    function ZMResultList($results, $pagination=10, $page=0) {
+    function __construct($results, $page=0) {
         parent::__construct();
 
         $this->results_ = $results;
@@ -55,21 +54,10 @@ class ZMResultList extends ZMObject {
         }
         $this->filters_ = array();
         $this->sorters_ = array();
-        $this->pagination_ = $pagination;
+        $this->pagination_ = zm_setting('defaultResultListPagination');
         $page = 0 == $page ? ZMRequest::getPageIndex() : $page;
         $this->page_ = $page;
         $this->refresh();
-    }
-
-    /**
-     * Create new result list.
-     *
-     * @param array The results.
-     * @param int pagination Number of results per page (default is 10)
-     * @param int page The current page number (default is 0)
-     */
-    function __construct($results, $pagination=10, $page=0) {
-        $this->ZMResultList($results, $pagination, $page);
     }
 
     /**

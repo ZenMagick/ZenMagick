@@ -155,8 +155,8 @@
     // default to random on pages that have products_id set
     $_ZM_SETTINGS['isReviewsDefaultToRandom'] = true;
 
-    // max orders in account overview
-    $_ZM_SETTINGS['accountOrderHistoryLimit'] = 3;
+    // result list 
+    $_ZM_SETTINGS['defaultResultListPagination'] = 10;
 
     // page not found
     $_ZM_SETTINGS['isPageNotFoundDefinePage'] = DEFINE_PAGE_NOT_FOUND_STATUS == '1';
@@ -164,15 +164,11 @@
     // tell a friend
     $_ZM_SETTINGS['isTellAFriendAnonymousAllow'] = ALLOW_GUEST_TO_TELL_A_FRIEND == 'true';
 
-    // max result list
-    $_ZM_SETTINGS['maxProductResultList'] = MAX_DISPLAY_PRODUCTS_LISTING;
+    // max 
     $_ZM_SETTINGS['maxBestSellers'] = MAX_DISPLAY_BESTSELLERS;
     $_ZM_SETTINGS['maxSpecialProducts'] = MAX_RANDOM_SELECT_SPECIALS;
     $_ZM_SETTINGS['maxRandomReviews'] = MAX_RANDOM_SELECT_REVIEWS;
-
-    // this is a general limit
     $_ZM_SETTINGS['globalNewProductsLimit'] = SHOW_NEW_PRODUCTS_LIMIT;
-    // this is a display limit
     $_ZM_SETTINGS['maxNewProducts'] = MAX_DISPLAY_NEW_PRODUCTS;
 
     // show privacy message

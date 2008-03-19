@@ -50,7 +50,8 @@
     </fieldset>
 <?php } ?>
 
-<?php if ($zm_resultList->hasResults()) { /* show last three */ ?>
+<?php if ($zm_resultList->hasResults()) { ?>
+    <?php $zm_resultList->setPagination(3); ?>
     <h3>
         <?php if (3 < $zm_resultList->getNumberOfResults()) { ?>
             <a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY) ?>"><?php zm_l10n("(Show All)") ?></a>
