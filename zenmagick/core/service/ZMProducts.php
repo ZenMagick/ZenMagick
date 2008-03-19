@@ -393,7 +393,7 @@ class ZMProducts extends ZMObject {
                 from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
                 where p.products_status = 1
                 and p.products_id = s.products_id
-                and s.status = 1
+                and s.status = 1";
 
         $productIds = $this->_getRandomProductIds($sql, $max);
         return $this->getProductsForIds($productIds, false, $languageId);
