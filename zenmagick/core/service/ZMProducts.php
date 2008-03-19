@@ -361,18 +361,14 @@ class ZMProducts extends ZMObject {
                       and p.products_id = p2c.products_id
                       and p2c.categories_id = c.categories_id
                       and :categoryId in (c.categories_id, c.parent_id)
-                      order by p.products_ordered desc
-                      limit :limit";
+                      order by p.products_ordered desc";
             $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
-            $query = $db->bindVars($query, ":limit", $max, "integer");
         } else {
             $query = "select distinct p.products_id, p.products_ordered
                       from " . TABLE_PRODUCTS . " p
                       where p.products_status = '1'
                       and p.products_ordered > 0
-                      order by p.products_ordered desc
-                      limit :limit";
-            $query = $db->bindVars($query, ":limit", $max, "integer");
+                      order by p.products_ordered desc";
         }
 
         $results = $db->Execute($query);
@@ -398,8 +394,6 @@ class ZMProducts extends ZMObject {
                 where p.products_status = 1
                 and p.products_id = s.products_id
                 and s.status = 1
-                limit :limit";
-        $sql = $db->bindVars($sql, ":limit", $max, "integer");
 
         $productIds = $this->_getRandomProductIds($sql, $max);
         return $this->getProductsForIds($productIds, false, $languageId);
