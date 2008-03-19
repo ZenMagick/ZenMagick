@@ -39,10 +39,10 @@ class ZMProductListResultList extends ZMResultList {
     /**
      * Create new result list.
      *
-     * @param array The results.
+     * @param array The results; default is <code>null</code>.
      * @param int page The current page number (default is 0)
      */
-    function __construct($results, $page=0) {
+    function __construct($results=null, $page=0) {
         parent::__construct($results, $page);
     }
 

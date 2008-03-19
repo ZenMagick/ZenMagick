@@ -63,6 +63,8 @@ Release 0.9.1
 - dropped individual result list pagination settings in favour of a single
   setting 'defaultResultListPagination'; changed templates where appropriate
 	to set individual pagination
+- add ZMResultSource interface and ZMObjectResultSource (default)
+  implementation
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

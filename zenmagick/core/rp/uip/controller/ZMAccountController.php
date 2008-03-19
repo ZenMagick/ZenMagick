@@ -64,9 +64,10 @@ class ZMAccountController extends ZMController {
     function processGet() {
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
-        // last order is first, so displaying the first page is just fine...
-        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId());
-        $resultList = $this->create("ResultList", $orders);
+        // orders are sorted desc...
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array(ZMRequest::getAccountId()));
+        $resultList = $this->create("ResultList");
+        $resultList->setResultSource($resultSource);
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
 

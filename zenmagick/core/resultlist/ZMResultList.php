@@ -27,6 +27,15 @@
 /**
  * A list that might span multiple pages.
  *
+ * <p>A result list operates on a given set of results. Results do not have to have
+ * any specific properties, type specific code is contained to filters and sorters.</p>
+ *
+ * <p>Results may be provided via:</p>
+ * <ul>
+ *  <li>The contructor</li>
+ *  <li>A result source</li>
+ * </ul>
+ *
  * @author mano
  * @package org.zenmagick.resultlist
  * @version $Id$
@@ -37,17 +46,19 @@ class ZMResultList extends ZMObject {
     var $pagination_;
     var $filters_;
     var $sorters_;
+    var $resultSource_;
 
 
     /**
      * Create new result list.
      *
-     * @param array The results.
+     * @param array The results; default is <code>null</code>.
      * @param int page The current page number (default is 0)
      */
-    function __construct($results, $page=0) {
+    function __construct($results=null, $page=0) {
         parent::__construct();
 
+        $this->resultSource_ = null;
         $this->results_ = $results;
         if (null == $results) {
             $this->results_ = array();
@@ -57,7 +68,9 @@ class ZMResultList extends ZMObject {
         $this->pagination_ = zm_setting('defaultResultListPagination');
         $page = 0 == $page ? ZMRequest::getPageIndex() : $page;
         $this->page_ = $page;
-        $this->refresh();
+        if (null != $results) {
+            $this->refresh();
+        }
     }
 
     /**
@@ -67,6 +80,21 @@ class ZMResultList extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Set a source for results.
+     *
+     * <p>The advantage of using a result source is that alternative implementations are free
+     * to ignore these, modify them or replace them as needed. Providing results via
+     * the constructor means that the resources used to build that list might be wasted.</p>
+     *
+     * @param ZMResultSource resultSource A result source.
+     */
+    function setResultSource($resultSource) {
+        $this->resultSource_ = $resultSource;
+        $this->results_ = $resultSource->getResults();
+        $this->refresh();
+    }
 
     /**
      * Apply all configured filter.

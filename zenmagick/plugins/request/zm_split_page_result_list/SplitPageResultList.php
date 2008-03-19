@@ -40,22 +40,10 @@ class SplitPageResultList extends ZMResultList {
      *
      * @param array The results.
      * @param splitPageResults splitPageResults The <code>splitPageResults</code> instance.
-     * @param int pagination Number of results per page (default is 10)
      */
-    function __construct($results, $splitPageResults, $pagination=10) {
+    function __construct($results, $splitPageResults) {
         parent::__construct($results, $pagination);
         $this->splitPageResults_ = $splitPageResults;
-    }
-
-    /**
-     * Create new result list.
-     *
-     * @param array The results.
-     * @param splitPageResults splitPageResults The <code>splitPageResults</code> instance.
-     * @param int pagination Number of results per page (default is 10)
-     */
-    function SplitPageResultList($results, $splitPageResults, $pagination=10) {
-        $this->__construct($results, $splitPageResults, $pagination);
     }
 
     /**
