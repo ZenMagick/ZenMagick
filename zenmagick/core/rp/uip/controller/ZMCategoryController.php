@@ -77,23 +77,30 @@ class ZMCategoryController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        // decide which index view to use and prepare index data
-        $resultList = null;
-        $products = null;
         $viewName = 'error';
+        $method = null;
+        $args = null;
 
+        // decide what to do
         if (null != ZMRequest::getCategoryPath()) {
-            $products = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId());
+            $method = "getProductsForCategoryId";
+            $args = array(ZMRequest::getCategoryId());
             $viewName = 'category_list';
         } else if (null != ZMRequest::getManufacturerId()) {
-            $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::getManufacturerId());
+            $method = "getProductsForManufacturerId";
+            $args = array(ZMRequest::getManufacturerId());
             $viewName = 'manufacturer';
         } else if (null != ZMRequest::getParameter('compareId')) {
-            $products = ZMProducts::instance()->getProductsForIds(ZMRequest::getParameter('compareId'));
+            $method = "getProductsForIds";
+            $args = array(ZMRequest::getParameter('compareId'));
             $viewName = 'category_list';
         }
-        if (null !== $products) {
-            $resultList = $this->create("ProductListResultList", $products);
+
+        $resultList = null;
+        if (null !== $method) {
+            $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
+            $resultList = ZMLoader::make("ResultList");
+            $resultList->setResultSource($resultSource);
             $resultList->addFilter($this->create("ManufacturerFilter"));
             $resultList->addFilter($this->create("CategoryFilter"));
             $resultList->addSorter($this->create("ProductSorter"));

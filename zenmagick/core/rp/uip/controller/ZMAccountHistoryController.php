@@ -65,8 +65,9 @@ class ZMAccountHistoryController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
-        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId());
-        $resultList = $this->create("ResultList", $orders);
+        $resultList = ZMLoader::make("ResultList");
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array(ZMRequest::getAccountId()));
+        $resultList->setResultSource($resultSource);
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

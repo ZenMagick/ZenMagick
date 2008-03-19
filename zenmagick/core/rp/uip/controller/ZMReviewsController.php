@@ -68,7 +68,9 @@ class ZMReviewsController extends ZMController {
         ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
 
-        $resultList = $this->create("ResultList", ZMReviews::instance()->getAllReviews());
+        $resultList = ZMLoader::make("ResultList");
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getAllReviews");
+        $resultList->setResultSource($resultSource);
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

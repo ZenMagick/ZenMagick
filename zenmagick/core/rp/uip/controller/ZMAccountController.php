@@ -65,8 +65,8 @@ class ZMAccountController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb(zm_title(false));
 
         // orders are sorted desc...
+        $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array(ZMRequest::getAccountId()));
-        $resultList = $this->create("ResultList");
         $resultList->setResultSource($resultSource);
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", ZMRequest::getAccount());

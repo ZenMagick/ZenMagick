@@ -68,13 +68,13 @@ class ZMAdvancedSearchResultController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Advanced Search", zm_href(FILENAME_ADVANCED_SEARCH, null, false));
         ZMCrumbtrail::instance()->addCrumb("Results");
 
-        $resultList = $this->create("ResultList", ZMProducts::instance()->getProductsForSQL($listing_sql));
-        if (null != $resultList) {
-            $sorter = $this->create("ProductSorter");
-            $sorter->setDefaultSortId(zm_setting('defaultProductSortOrder'));
-            $resultList->addSorter($sorter);
-            $resultList->refresh();
-        }
+        $resultList = ZMLoader::make("ResultList");
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForSQL", array($listing_sql));
+        $resultList->setResultSource($resultSource);
+        $sorter = $this->create("ProductSorter");
+        $sorter->setDefaultSortId(zm_setting('defaultProductSortOrder'));
+        $resultList->addSorter($sorter);
+        $resultList->refresh();
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

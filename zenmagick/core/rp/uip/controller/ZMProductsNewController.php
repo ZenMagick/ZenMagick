@@ -67,14 +67,13 @@ class ZMProductsNewController extends ZMController {
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addCrumb("New Products");
 
-        $newProducts = ZMProducts::instance()->getNewProducts(ZMRequest::getCategoryId());
-        $resultList = $this->create("ResultList", $newProducts);
-        if (null != $resultList) {
-            $resultList->addFilter($this->create("ManufacturerFilter"));
-            $resultList->addFilter($this->create("CategoryFilter"));
-            $resultList->addSorter($this->create("ProductSorter"));
-            $resultList->refresh();
-        }
+        $resultList = $this->create("ResultList");
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts", array(ZMRequest::getCategoryId()));
+        $resultList->setResultSource($resultSource);
+        $resultList->addFilter($this->create("ManufacturerFilter"));
+        $resultList->addFilter($this->create("CategoryFilter"));
+        $resultList->addSorter($this->create("ProductSorter"));
+        $resultList->refresh();
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();
