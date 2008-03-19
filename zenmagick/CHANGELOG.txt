@@ -59,6 +59,7 @@ Release 0.9.1
 - fix tag and entity handling in static page editor (thanks, Matt)
 - make the random product access methods in ZMProducts reliably return the
   expected number of results (or as much as possible)
+- allow custom form element functions to customize zm_quick_edit fields
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -9,12 +9,19 @@ An example might be a file field_list.php in the plugin folder with the followin
 
 <?php
 
+  // default form element function
+  function zm_quick_edit_checkbox_field($field, $id, $value, $product) {
+      return '<input type="checkbox" name="'.$id.'" value="1"'.($value ? ' checked' : '').'>';
+  }
+
+
   // custom fields
   function zm_quick_edit_field_list() {
       return array(
-          // title, form field name, getter/setter name
           array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
           array('title' => 'metatags_title_status', 'field' => 'metatags_title_status', 'property' => null, 'size' => 14),
+          // checkbox doesn't need size
+          array('title' => 'Status', 'field' => 'Status', 'property' => 'Status', 'method' => 'zm_quick_edit_checkbox_field'),
           array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4)
       );
   }
@@ -28,7 +35,9 @@ Each field is configured separately, and requires the following information:
             of the getModel() and setModel() methods.
             For custom fields, set the method to null. Please note that in this case the field name (see above)
             is assumed to be the database column name.
-- size: The input field size
+- size: The field size
+- method: Optional method to render the form element (default is an input field).
+          The signature of the method is: function($field, $id, $value, $product)
 
 NOTE: For custom fields you also have to configure ZMProducts in order to actually read/write those columns. This is done
 by setting 'sql.products.customFields'.

@@ -80,7 +80,7 @@
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="first"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
+            <td class="first" style="text-align:right;"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <?php foreach ($zm_quick_edit_field_list as $ii => $field) { 
               if (null != $field['property']) {
                 $getMethod = 'get'.ucwords($field['property']);
@@ -90,8 +90,9 @@
               }
               $value = htmlentities($value);
               ?>
-              <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>>
-                <input type="text" name="<?php echo $field['field'] ?>_<?php echo $product->getId() ?>" value="<?php echo $value ?>" size="<?php echo $field['size'] ?>">
+              <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
+                <?php $method = isset($field['method']) ? $field['method'] : 'zm_quick_edit_input_field'; ?>
+                <?php echo $method($field, $field['field'].'_'.$product->getId(), $value, $product); ?>
               </td>
             <?php } ?>
           </tr>

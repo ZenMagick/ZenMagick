@@ -41,4 +41,55 @@
         return new ZMPluginPage('zm_quick_edit_admin', zm_l10n_get('Quick Edit'));
     }
 
+
+    /**
+     * Quick edit form element function.
+     *
+     * @package org.zenmagick.plugins.zm_quick_edit
+     * @return string Checkbox HTML.
+     */
+    function zm_quick_edit_checkbox_field($field, $id, $value, $product) {
+        return '<input type="checkbox" name="'.$id.'" value="1"'.($value ? ' checked' : '').'>';
+    }
+
+    /**
+     * Quick edit form element function.
+     *
+     * @package org.zenmagick.plugins.zm_quick_edit
+     * @return string Dropdown HTML.
+     */
+    function zm_quick_edit_dropdown_field($field, $id, $value, $product, $options) {
+        $html = '<select name="'.$id.'">';
+        foreach ($options as $option) {
+            $html .= '<option value="'.$option->getId().'"'.($value==$option->getId() ? ' selected' : '').'>'.$option->getName().'</option>';
+        }
+        $html .= '</select>';
+        return $html;
+    }
+
+    /**
+     * Quick edit form element function.
+     *
+     * @package org.zenmagick.plugins.zm_quick_edit
+     * @return string Manufacturer id dropdown HTML.
+     */
+    function zm_quick_edit_manufacturer_id($field, $id, $value, $product) {
+        $manufacturers = ZMManufacturers::instance()->getManufacturers();
+        $options = array_merge(array(ZMLoader::make("IdNamePair", "", " --- ")), $manufacturers);
+        return zm_quick_edit_dropdown_field($field, $id, $value, $product, $options);
+    }
+
+    /**
+     * Quick edit form element function.
+     *
+     * <p>This is the default function used if none specified.</p>
+     *
+     * @package org.zenmagick.plugins.zm_quick_edit
+     * @return string Input HTML.
+     */
+    function zm_quick_edit_input_field($field, $id, $value, $product) {
+        return '<input type="text" name="'.$id.'" value="'.$value.'" size="'.$field['size'].'">';
+    }
+
+
 ?>
