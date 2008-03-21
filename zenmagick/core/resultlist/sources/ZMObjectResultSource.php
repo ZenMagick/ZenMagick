@@ -77,6 +77,24 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         return $this->resultClass_;
     }
 
+    /**
+     * Get the method name.
+     *
+     * @return string The method name.
+     */
+    public function getMethod() {
+        return $this->method_;
+    }
+
+    /**
+     * Get the method parameter.
+     *
+     * @return array The method parameter.
+     */
+    public function getArgs() {
+        return $this->args_;
+    }
+
 }
 
 ?>
