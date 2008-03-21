@@ -135,7 +135,7 @@ require('includes/application_top.php');
         <?php } ?>
         <script type="text/javascript">
             $(function() { 
-              $('#main-tab-container ul').tabs(<?php echo $activeTab ?>, { fxSlide: true, fxFade: true, fxSpeed: 'fast' }); 
+              $('#main-tab-container > ul').tabs(<?php echo $activeTab ?>, { fxSlide: true, fxFade: true, fxSpeed: 'fast' }); 
             });
         </script>
       </div>
