@@ -32,11 +32,11 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_group_pricing_admin() {
-    global $zm_nav_params;
+    global $zm_group_pricing, $zm_nav_params;
 
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
 
-        $priceGroups = ProductGroupPricingService::instance()->getPriceGroups();
+        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
 
         // request handling
         $groupPricingService = ZMLoader::make("ProductGroupPricingService");

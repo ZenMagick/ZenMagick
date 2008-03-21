@@ -62,6 +62,13 @@ class ProductGroupPricingService extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('ProductGroupPricingService');
+    }
+
 
     /**
      * Get product group pricing for the given product and group.
