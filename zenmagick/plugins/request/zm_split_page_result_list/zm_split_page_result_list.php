@@ -41,13 +41,6 @@ class zm_split_page_result_list extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_split_page_result_list() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
