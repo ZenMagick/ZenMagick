@@ -41,12 +41,12 @@
  * @version $Id$
  */
 class ZMResultList extends ZMObject {
-    var $results_;
-    var $page_;
-    var $pagination_;
-    var $filters_;
-    var $sorters_;
-    var $resultSource_;
+    private $page_;
+    private $pagination_;
+    private $filters_;
+    private $sorters_;
+    protected $resultSource_;
+    protected $results_;
 
 
     /**
@@ -188,7 +188,7 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if sorter are active, <code>false</code> if not.
      */
-    function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
+    function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->getResults()); }
 
     /**
      * Get all sorter.
@@ -222,7 +222,7 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if results are available, <code>false</code> if not.
      */
-    function hasResults() { return 0 != count($this->results_); }
+    function hasResults() { return 0 != count($this->getResults()); }
 
     /**
      * Returns all results.
@@ -236,7 +236,7 @@ class ZMResultList extends ZMObject {
      *
      * @return int The number if results.
      */
-    function getNumberOfResults() { return count($this->results_); }
+    function getNumberOfResults() { return count($this->getResults()); }
 
     /**
      * Get the current page number.
