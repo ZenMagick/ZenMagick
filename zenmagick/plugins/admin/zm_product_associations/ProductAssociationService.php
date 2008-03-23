@@ -36,12 +36,14 @@ define('ZM_TABLE_PRODUCT_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_product_associations'
  * @version $Id$
  */
 class ProductAssociationService extends ZMObject {
+    private $associationTypes_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->associationTypes_ = array();
     }
 
     /**
@@ -49,6 +51,13 @@ class ProductAssociationService extends ZMObject {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return parent::instance('ProductAssociationService');
     }
 
 
@@ -92,14 +101,24 @@ class ProductAssociationService extends ZMObject {
         $results = $db->Execute($sql);
         while (!$results->EOF) {
             $type = $results->fields['association_type'];
-            $name = $results->fields['association_type_name'];
-            $name = str_replace('-', '_', $name);
+            $clearName = $results->fields['association_type_name'];
+            $name = str_replace('-', '_', $clearName);
             $name = str_replace(' ', '_', $name);
             $name = strtoupper($name);
             $name = 'ZM_PA_'.$name;
             define($name, $type);
+            $this->associationTypes_[$name] = $clearName;
             $results->MoveNext();
         }
+    }
+
+    /**
+     * Get association types.
+     *
+     * @return array Map of association type => name.
+     */
+    public function getAssociationTypes() {
+        return $this->associationTypes_;
     }
 
     /**

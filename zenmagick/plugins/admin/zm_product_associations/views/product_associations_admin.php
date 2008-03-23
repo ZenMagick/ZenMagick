@@ -30,11 +30,19 @@
 
   <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>
 
-  <a href="#TB_inline?height=355&amp;width=600&amp;inlineId=meddle&amp;modal=true" class="thickbox">Show hidden modal content.</a>
+  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+    <?php $types = ProductAssociationService::instance()->getAssociationTypes(); ?>
+    <select name="type">
+      <?php foreach ($types as $type => $name) { ?>
+        <option value="<?php echo $type ?>"><?php echo $name ?></option>
+      <?php } ?>
+    </select>
 
-  <div id="meddle" style="display:none;">
-    meddle associations...
-    <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, true, 'pick-cat-tree'); ?>
+  </form>
 
-    <a href="#" onclick="tb_remove();return false;" class="btn" style="color: #fff;">&raquo;&nbsp;Continue Shopping</a>
+  <a href="#TB_inline?height=355&amp;width=600&amp;inlineId=productPicker&amp;modal=true" class="thickbox">Show hidden modal content.</a>
+
+  <div id="productPicker" style="display:none;">
+    <?php  echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, true, 'pick-cat-tree'); ?>
+    <a href="#" onclick="tb_remove();return false;">OK</a>
   </div>
