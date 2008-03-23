@@ -40,29 +40,22 @@
  * @version $Id$
  */
 class zm_google_analytics extends ZMPlugin {
-    var $eol_;
+    private $eol_;
 
 
     /**
      * Create new instance.
      */
-    function zm_google_analytics() {
+    public function __construct() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
         $this->setKeys(array('uacct', 'affiliation',/*'target', */ 'identifier', "debug"));
         $this->eol_ = "\n";
     }
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_google_analytics();
-    }
-
-    /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
@@ -70,7 +63,7 @@ class zm_google_analytics extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Google Analytics Account', 'uacct', 'UA-XXXXXX-X', 'Your Google Analytics account number');
@@ -94,25 +87,31 @@ class zm_google_analytics extends ZMPlugin {
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
-        $trackerCode = $this->getTrackerCode();
-        $checkoutCode = $this->getCheckoutCode();
-        return preg_replace('/<\/body>/', $trackerCode . $checkoutCode. ' </body>', $contents, 1);
+    public function filterResponse($contents) {
+        if (zm_setting('plugins.zm_google_analytics.urchin', false)) {
+            $trackerCode = $this->getTrackerCodeUrchin();
+            $checkoutCode = $this->getCheckoutCodeUrchin();
+        } else {
+            $trackerCode = $this->getTrackerCodeGa();
+            $checkoutCode = $this->getCheckoutCodeGa();
+        }
+        $code = !empty($checkoutCode) ? $checkoutCode : $trackerCode;
+        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
     }
 
     /**
      * Check for debug flag.
      */
-    function isDebug() {
+    public function isDebug() {
         return 'Enabled' == $this->get('debug');
     }
 
     /**
-     * Format the generic tracking code.
+     * Format the generic tracking code using the deprecated urchin format.
      *
      * @return string The tracking code.
      */
-    function getTrackerCode() {
+    protected function getTrackerCodeUrchin() {
         if (ZMRequest::isSecure()) {
             $url = "https://ssl.google-analytics.com/urchin.js";
         } else {
@@ -131,11 +130,11 @@ class zm_google_analytics extends ZMPlugin {
     }
 
     /**
-     * Format the checkout order tracking code.
+     * Format the checkout order tracking code using the deprecated urchin format.
      *
      * @return string The order tracking code or empty string if not applicable.
      */
-    function getCheckoutCode() {
+    protected function getCheckoutCodeUrchin() {
     global $zm_order;
 
         if ('checkout_success' != ZMRequest::getPageName()) {
@@ -172,6 +171,117 @@ class zm_google_analytics extends ZMPlugin {
         }
         $code .= '__utmSetTrans();</script>' . $this->eol_;
         
+        return $code;
+    }
+
+    /**
+     * Format the generic tracking code using the ga format.
+     *
+     * @return string The tracking code.
+     */
+    protected function getTrackerCodeGa() {
+        $tracker = $this->get('uacct');
+
+        $code = <<<EOT
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("$tracker");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+EOT;
+
+        if ($this->isDebug()) {
+            $code = '<!-- DEBUG: '.$code.' -->';
+        }
+        return $code;
+    }
+
+    /**
+     * Format the checkout order tracking code using the ga format.
+     *
+     * @return string The order tracking code or empty string if not applicable.
+     */
+    protected function getCheckoutCodeGa() {
+    global $zm_order;
+
+        if ('checkout_success' != ZMRequest::getPageName()) {
+            return '';
+        }
+
+        $tracker = $this->get('uacct');
+        $affiliation = $this->get('affiliation');
+
+        // order
+        $address = $zm_order->hasShippingAddress() ? $zm_order->getShippingAddress() : $zm_order->getBillingAddress();
+        $city = $address->getCity();
+        $state = $address->getState();
+        $country = $address->getCountry();
+        $countryCode = $address->getCountry()->getIsoCode3();
+
+        // totals
+        $orderId = $zm_order->getId();
+        $total = $zm_order->getOrderTotal('total', true);
+        $totalValue = number_format($total->getAmount(), 2, '.', '');
+        $tax = $zm_order->getOrderTotal('tax', true);
+        $taxValue = number_format($tax->getAmount(), 2, '.', '');
+        $shipping = $zm_order->getOrderTotal('shipping', true);
+        $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
+
+        // order code
+        $code = <<<EOT
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ?
+"https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost +
+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("$tracker");
+pageTracker._initData();
+pageTracker._trackPageview();
+pageTracker._addTrans(
+"${orderId}", // order ID - required
+"${affiliation}", // affiliation or store name
+"${totalValue}", // total - required
+"${taxValue}", // tax
+"${shippingValue}", // shipping
+"${city}", // city
+"${state}", // state or province
+"${countryCode}" // country
+);
+EOT;
+        // items
+        foreach ($zm_order->getOrderItems() as $orderItem) {
+            $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
+            $name = $orderItem->getName();
+            $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId())->getName();
+            $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
+            $qty = $orderItem->getQty();
+            $code .= <<<EOT
+pageTracker._addItem(
+"${orderId}", // order ID - required
+"${identifier}", // SKU/code
+"${name}", // product name
+"${categoryName}", // category or variation
+"${price}", // unit price - required
+"${qty}" // quantity - required
+);
+EOT;
+        }
+
+        $code .= <<<EOT
+pageTracker._trackTrans();
+</script>
+EOT;
+
+        if ($this->isDebug()) {
+            $code = '<!-- DEBUG: '.$code.' -->';
+        }
+
         return $code;
     }
 

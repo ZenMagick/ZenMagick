@@ -1,3 +1,8 @@
+Version 0.3.0
+- added new ga style JavaScript
+- add setting to force urchin style JavaScript by setting
+  'plugins.zm_google_analytics.urchin' to true
+
 Version 0.2.0
 - Updated for changed plugin architecture
 
