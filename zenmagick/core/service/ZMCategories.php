@@ -32,20 +32,20 @@
  * @version $Id$
  */
 class ZMCategories extends ZMObject {
-    var $path_;
-    var $languageId_;
+    private $path_;
+    private $languageId_;
     // flat list
-    var $categories_;
-    var $treeFlag_;
+    private $categories_;
+    private $treeFlag_;
 
 
     /**
      * Create new instance.
      *
      * @param int languageId The languageId; default is <code>null</code> for session language.
-     * @param array path The current category path.
+     * @param array path The current category path; default is an empty array
      */
-    function __construct($languageId=null, $path=null) {
+    public function __construct($languageId=null, $path=array()) {
         parent::__construct();
 
         if (null === $languageId) {
@@ -62,7 +62,7 @@ class ZMCategories extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
@@ -79,9 +79,9 @@ class ZMCategories extends ZMObject {
      *
      * @param array path The current path.
      */
-    function setPath($path) { 
+    public function setPath($path) { 
         $this->path_ = null !== $path ? $path : $this->path_;
-        $this->_applyPath();    
+        $this->applyPath();    
     }
 
     /**
@@ -89,7 +89,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _applyPath($languageId=null) {
+    protected function applyPath($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
@@ -115,12 +115,12 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      * @return ZMCategory The default category (or <code>null</code>).
      */
-    function getDefaultCategoryForProductId($productId, $languageId=null) {
+    public function getDefaultCategoryForProductId($productId, $languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
-            $this->_load($languageId);
-            $this->_applyPath($languageId);
+            $this->load($languageId);
+            $this->applyPath($languageId);
         }
 
         $db = ZMRuntime::getDB();
@@ -145,15 +145,15 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      * @return array A list of <code>ZMCategory</code> instances.
      */
-    function getCategories($ids=null, $languageId=null) {
+    public function getCategories($ids=null, $languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
             $this->categories_[$languageId] = array();
-            $this->_load($languageId);
-            $this->_applyPath($languageId);
+            $this->load($languageId);
+            $this->applyPath($languageId);
             if (!$this->treeFlag_) {
-                $this->_buildTree($languageId);
+                $this->buildTree($languageId);
                 $this->treeFlag_ = true;
             }
         }
@@ -176,16 +176,16 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
-    function getCategoryTree($languageId=null) {
+    public function getCategoryTree($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
-            $this->_load($languageId);
-            $this->_applyPath($languageId);
+            $this->load($languageId);
+            $this->applyPath($languageId);
         }
 
         if (!$this->treeFlag_) {
-            $this->_buildTree($languageId);
+            $this->buildTree($languageId);
             $this->treeFlag_ = true;
         }
 
@@ -206,14 +206,14 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
-    function getCategoryForId($categoryId, $languageId=null) {
+    public function getCategoryForId($categoryId, $languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
-            $this->_load();
-            $this->_applyPath();
+            $this->load();
+            $this->applyPath();
             if (!$this->treeFlag_) {
-                $this->_buildTree();
+                $this->buildTree();
                 $this->treeFlag_ = true;
             }
         }
@@ -228,7 +228,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _load($languageId=null) {
+    protected function load($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         $db = ZMRuntime::getDB();
@@ -244,7 +244,7 @@ class ZMCategories extends ZMObject {
 
         $this->categories_[$languageId] = array();
         while (!$results->EOF) {
-            $category = $this->_newCategory($results->fields);
+            $category = $this->newCategory($results->fields);
             $this->categories_[$languageId][$category->id_] = $category;
             $results->MoveNext();
     		}
@@ -256,7 +256,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int languageId Optional language id; default is <code>null</code>.
      */
-    function _buildTree($languageId=null) {
+    protected function buildTree($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         foreach ($this->categories_[$languageId] as $id => $category) {
@@ -270,7 +270,7 @@ class ZMCategories extends ZMObject {
     /**
      * Create new <code>ZMCategory</code> instance.
      */
-    function _newCategory($fields) {
+    protected function newCategory($fields) {
         $category = $this->create("Category");
         $category->id_ = $fields['categories_id'];
         $category->parentId_ = $fields['parent_id'];
