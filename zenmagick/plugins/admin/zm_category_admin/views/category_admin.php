@@ -101,8 +101,8 @@
             </select>
         </p>
         <p class="opt">
-            <input type="radio" id="restrictTypeAll" name="restrictTypeLevel" value="r"><label for="restrictTypeAll">Include Subcategories</label>
-            <input type="radio" id="restrictTypeSingle" name="restrictTypeLevel" value="r"><label for="restrictTypeAll">Category only</label>
+            <input type="radio" id="restrictTypeAll" name="restrictTypeLevel" value="r"> <label for="restrictTypeAll">Include Subcategories</label>
+            <input type="radio" id="restrictTypeSingle" name="restrictTypeLevel" value="r"> <label for="restrictTypeAll">Category only</label>
         </p>
     </fieldset>
 

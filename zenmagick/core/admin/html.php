@@ -54,7 +54,6 @@
                 $root->childrenIds_[] = $rc->getId();
             }
             $categories = array($root);
-            //$categories = $rootCategories;
             echo '<div id="'.$id.'" class="filetree">';
         }
         echo '<ul>';
@@ -65,17 +64,13 @@
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
             $url = $catUrls ? zm_href('', $cparams, false) : '#';
-            if (false && ($hasProducts && $showProducts) || $hasChildren) {
-                // treeview hit area for faster rendering
-                echo '<div class="hitarea expandable-hitarea"></div>';
-            }
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false);
             } else if ($showProducts && $category->isActive()) {
                 echo '<ul>';
-                foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
-                    echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
+                    foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
+                        echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }
