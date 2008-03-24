@@ -489,6 +489,10 @@ class ZMCoreCompressor extends ZMObject {
         while (0 < count($files)) {
             $processed = 0;
             foreach ($files as $key => $infile) {
+                if (empty($infile)) {
+                    unset($files[$key]);
+                    continue;
+                }
                 $path = explode('/', $infile);
                 $level = count($path)-count($inpath)-1;
                 if ($level == $currLevel || $key < 4) {
