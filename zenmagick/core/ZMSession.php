@@ -36,17 +36,10 @@ class ZMSession extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMSession() {
+    function __construct() {
         parent::__construct();
 
         $this->controller_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMSession();
     }
 
     /**
