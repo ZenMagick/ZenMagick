@@ -76,7 +76,7 @@ class ZMModel extends ZMObject {
     }
 
     /**
-     * Support to access plugin config values by name.
+     * Support to access property values by name.
      *
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
@@ -96,7 +96,7 @@ class ZMModel extends ZMObject {
     }
 
     /**
-     * Support to set plugin config values by name.
+     * Support to set property values by name.
      *
      * @param string name The property name.
      * @param mixed value The value.
