@@ -227,9 +227,11 @@ class ZMDbUtils {
      */
     public static function addCustomFields($mapping, $table) {
         $setting = zm_setting(ZMDbUtils::getCustomFieldKey($table));
-        foreach (explode(',', $setting) as $field) {
-            $fieldInfo = explode(';', trim($field));
-            $mapping[$fieldInfo[0]] = $fieldInfo[0].':'.$fieldInfo[1];
+        if (!empty($setting)) {
+            foreach (explode(',', $setting) as $field) {
+                $fieldInfo = explode(';', trim($field));
+                $mapping[$fieldInfo[0]] = $fieldInfo[0].':'.$fieldInfo[1];
+            }
         }
 
         return $mapping;

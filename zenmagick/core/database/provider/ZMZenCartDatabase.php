@@ -34,6 +34,7 @@
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private $db_;
 
+
     /**
      * Create a new instance.
      */

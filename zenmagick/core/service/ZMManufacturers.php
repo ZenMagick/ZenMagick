@@ -32,19 +32,24 @@
  * @version $Id$
  */
 class ZMManufacturers extends ZMObject {
+    private static $mapping_ = null;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
+        if (null == ZMManufacturers::$mapping_) {
+            ZMManufacturers::$mapping_ = array(
+              'id' => 'manufacturers_id:integer:primary',
+              'name' => 'manufacturers_name:string',
+              'image' => 'manufacturers_image:string',
+              'url' => 'manufacturers_url:string',
+              'languageId' => 'languageId:integer'
+            );
+            ZMManufacturers::$mapping_ = ZMDbUtils::addCustomFields(ZMManufacturers::$mapping_, TABLE_MANUFACTURERS);
+        }
     }
 
     /**
@@ -68,23 +73,15 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $manufacturer = null;
-        $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
-                where m.manufacturers_id = :manufacturerId";
-        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
-        $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
+                where m.manufacturers_id = :id";
 
-        $results = $db->Execute($sql);
-        if (0 < $results->RecordCount()) {
-            $manufacturer = $this->_newManufacturer($results->fields);
-        }
-
-        return $manufacturer;
+        $args = array('id' => $id, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZMManufacturers::$mapping_, 'Manufacturer');
     }
 
     /**
@@ -109,22 +106,14 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
-        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
-        $results = $db->Execute($sql);
 
-        $manufacturers = array();
-        while (!$results->EOF) {
-            $manufacturer = $this->_newManufacturer($results->fields);
-            array_push($manufacturers, $manufacturer);
-            $results->MoveNext();
-        }
-        return $manufacturers;
+        $args = array('languageId' => $languageId);
+        return ZMRuntime::getDatabase()->query($sql, $args, ZMManufacturers::$mapping_, 'Manufacturer');
     }
 
     /**
@@ -147,26 +136,6 @@ class ZMManufacturers extends ZMObject {
         $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
         $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
         $db->Execute($sql);
-    }
-
-    /**
-     * Create new manufacturer instance.
-     */
-    function _newManufacturer($fields) {
-        $manufacturer = ZMLoader::make("Manufacturer");
-        $manufacturer->setId($fields['manufacturers_id']);
-        $manufacturer->setName($fields['manufacturers_name']);
-        $manufacturer->setImage($fields['manufacturers_image']);
-        $manufacturer->setUrl($fields['manufacturers_url']);
-
-        // custom fields
-        foreach (ZMDbUtils::getCustomFields(TABLE_MANUFACTURERS) as $field) {
-            if (isset($fields[$field[0]])) {
-                $manufacturer->set($field[0], $fields[$field[0]]);
-            }
-        }
-
-        return $manufacturer;
     }
 
 }
