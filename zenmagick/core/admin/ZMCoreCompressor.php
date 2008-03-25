@@ -458,7 +458,7 @@ class ZMCoreCompressor extends ZMObject {
             '1/settings.php',
             'ZMObject.php',
             'ZMLoader.php',
-            'ZMRuntime.php',
+            '1/ZMRuntime.php',
             'ZMRequest.php',
             'init_bootstrap.php'
         );
@@ -489,7 +489,8 @@ class ZMCoreCompressor extends ZMObject {
         while (0 < count($files)) {
             $processed = 0;
             foreach ($files as $key => $infile) {
-                if (empty($infile)) {
+                // leave here just in case...
+                if (empty($infile) || !file_exists($file)) {
                     unset($files[$key]);
                     continue;
                 }
