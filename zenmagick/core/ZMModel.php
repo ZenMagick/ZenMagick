@@ -35,7 +35,8 @@
  * @version $Id$
  */
 class ZMModel extends ZMObject {
-    var $properties_;
+    private $properties_;
+
 
     /**
      * Create new instance.
@@ -58,7 +59,7 @@ class ZMModel extends ZMObject {
      *
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
-    function populate($req=null) {
+    public function populate($req=null) {
         return;
     }
 
@@ -68,7 +69,7 @@ class ZMModel extends ZMObject {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-    function __get($name) {
+    public function __get($name) {
         if (isset($this->properties_[$name])) {
             return $this->properties_[$name];
         }
@@ -81,7 +82,7 @@ class ZMModel extends ZMObject {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-    function get($name) {
+    public function get($name) {
         return $this->__get($name);
     }
 
@@ -91,7 +92,7 @@ class ZMModel extends ZMObject {
      * @param string name The property name.
      * @param mixed value The value.
      */
-    function __set($name, $value) {
+    public function __set($name, $value) {
         $this->properties_[$name] = $value;
     }
 
@@ -101,7 +102,7 @@ class ZMModel extends ZMObject {
      * @param string name The property name.
      * @param mixed value The value.
      */
-    function set($name, $value) {
+    public function set($name, $value) {
         $this->__set($name, $value);
     }
 

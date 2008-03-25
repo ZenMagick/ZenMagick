@@ -32,35 +32,21 @@
  * @version $Id$
  */
 class ZMManufacturer extends ZMModel {
-    var $id_;
-    var $name_;
-    var $image_;
-    var $url_;
+    private $id_;
+    private $name_;
+    private $image_;
+    private $url_;
 
 
     /**
-     * Create new manufacturer
-     *
-     * @param int id The manufacturer id.
-     * @param string name The name.
+     * Create new instance
      */
-    function ZMManufacturer($id, $name) {
+    function __construct() {
         parent::__construct();
-
-        $this->id_ = $id;
-        $this->name_ = $name;
+        $this->id_ = 0;
+        $this->name_ = '';
         $this->image_ = null;
         $this->url_ = null;
-    }
-
-    /**
-     * Create new manufacturer
-     *
-     * @param int id The manufacturer id.
-     * @param string name The name.
-     */
-    function __construct($id, $name) {
-        $this->ZMManufacturer($id, $name);
     }
 
     /**
@@ -112,6 +98,34 @@ class ZMManufacturer extends ZMModel {
      * @return string The manufacturer URL.
      */
     function getURL() { return $this->url_; }
+
+    /**
+     * Set the manufacturer id.
+     *
+     * @param int id The manufacturer id.
+     */
+    function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the manufacturer name.
+     *
+     * @param string name The manufacturer name.
+     */
+    function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the manufacturer image.
+     *
+     * @param string image The manufacturer image.
+     */
+    function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Set the manufacturer URL.
+     *
+     * @param string url The manufacturer URL.
+     */
+    function setURL($url) { $this->url_ = $url; }
 
 }
 

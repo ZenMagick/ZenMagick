@@ -39,6 +39,9 @@
     // legacy API is initializing all zm_ globals
     $_ZM_SETTINGS['isLegacyAPI'] = false;
 
+    // database provider class
+    $_ZM_SETTINGS['dbProvider'] = 'ZMZenCartDatabase';
+
     // redirect page for invalid sessions
     $_ZM_SETTINGS['invalidSessionPage'] = FILENAME_COOKIE_USAGE;
 

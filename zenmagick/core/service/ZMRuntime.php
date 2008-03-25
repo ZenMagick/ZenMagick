@@ -62,6 +62,13 @@ class ZMRuntime extends ZMObject {
     public static function getDB() { if (null == ZMRuntime::$db_) { global $db; ZMRuntime::$db_ = $db; } return ZMRuntime::$db_; }
 
     /**
+     * Get the database (provider).
+     *
+     * @return ZMDatabase A <code>ZMDatabase</code> implementation.
+     */
+    public static function getDatabase() { return ZMObject::instance(zm_setting('dbProvider')); }
+
+    /**
      * Return the directory containing all themes.
      *
      * @return string The base directory for themes.

@@ -153,9 +153,11 @@ class ZMManufacturers extends ZMObject {
      * Create new manufacturer instance.
      */
     function _newManufacturer($fields) {
-        $manufacturer = $this->create("Manufacturer", $fields['manufacturers_id'], $fields['manufacturers_name']);
-        $manufacturer->image_ = $fields['manufacturers_image'];
-        $manufacturer->url_ = $fields['manufacturers_url'];
+        $manufacturer = ZMLoader::make("Manufacturer");
+        $manufacturer->setId($fields['manufacturers_id']);
+        $manufacturer->setName($fields['manufacturers_name']);
+        $manufacturer->setImage($fields['manufacturers_image']);
+        $manufacturer->setUrl($fields['manufacturers_url']);
 
         // custom fields
         foreach (ZMDbUtils::getCustomFields(TABLE_MANUFACTURERS) as $field) {

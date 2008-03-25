@@ -119,6 +119,31 @@ class ZMObject {
         return ZMObject::$singletons_[$name];
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString() {
+        $s =  '['.get_class($this);
+        $first = true;
+        foreach (get_object_vars($this) as $name => $value) {
+            if ($first) {
+                $s .= ' ';
+            } else {
+                $s .= ', ';
+            }
+            $s .= $name.'=';
+            if (is_object($value)) {
+                $s .= '['.get_class($value).']';
+            } else {
+                $s .= $value;
+            }
+            $first = false;
+        }
+        $s .= ']';
+        return $s;
+    }
+
 }
 
 ?>
