@@ -30,7 +30,7 @@
  * <p>A generic, lightweight database layer.</p>
  *
  * @author mano
- * @package org.zenmagick
+ * @package org.zenmagick.database
  * @version $Id$
  */
 interface ZMDatabase {
@@ -68,6 +68,16 @@ interface ZMDatabase {
      * @param array mapping The field mappings.
      */
     public function updateModel($table, $model, $mapping);
+
+    /**
+     * Update a single row using the provided SQL and model data.
+     *
+     * @param string sql The update sql.
+     * @param mixed data A model instance or array.
+     * @param array mapping The field mappings.
+     */
+    public function update($sql, $data, $mapping);
+
 }
 
 ?>

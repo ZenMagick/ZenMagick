@@ -28,7 +28,7 @@
  * Implementation of the ZenMagick database layer using zen-cart's <code>$db</code>.
  *
  * @author mano
- * @package org.zenmagick
+ * @package org.zenmagick.database.provider
  * @version $Id$
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
@@ -52,6 +52,25 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update($sql, $data, $mapping) {
+        if (is_array($data)) {
+            // TODO: cache mapping
+            $mapping = $this->parseMapping($mapping);
+            // bind query parameter
+            foreach ($data as $name => $value) {
+                $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
+            }
+        } else if (is_object($data)) {
+            $sql = ZMDbUtils::bindObject($sql, $data, false);
+        } else {
+            ZMObject::backtrace('invalid data type');
+        }
+        $this->db_->Execute($sql);
+    }
 
     /**
      * {@inheritDoc}

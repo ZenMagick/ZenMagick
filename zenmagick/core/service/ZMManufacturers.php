@@ -49,12 +49,11 @@ class ZMManufacturers extends ZMObject {
               'image' => 'column=manufacturers_image;type=string',
               'url' => 'column=manufacturers_url;type=string;readonly=true',
               'clickCount' => 'column=url_clicked;type=integer;readonly=true',
-              'lastClick' => 'column=date_last_clicked;type=date;readonly=true'
+              'lastClick' => 'column=date_last_click;type=date;readonly=true'
             );
             ZMManufacturers::$manufacturerMapping_ = ZMDbUtils::addCustomFields(ZMManufacturers::$manufacturerMapping_, TABLE_MANUFACTURERS);
         }
         if (null == ZMManufacturers::$manufacturerInfoMapping_) {
-            // clicks are updated using straight SQL
             ZMManufacturers::$manufacturerInfoMapping_ = array(
               'id' => 'column=manufacturers_id;type=integer;primary=true',
               'languageId' => 'column=languages_id;type=integer;primary=true',
@@ -87,13 +86,13 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image,
-                mi.manufacturers_url, mi.languages_id, mi.url_clicked, mi.date_last_click
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
-                from " . TABLE_MANUFACTURERS . " m
-                left join " . TABLE_MANUFACTURERS_INFO . " mi
-                on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
-                where m.manufacturers_id = :id";
+        $sql = "SELECT m.manufacturers_id, m.manufacturers_name, m.manufacturers_image,
+                  mi.manufacturers_url, mi.languages_id, mi.url_clicked, mi.date_last_click
+                   ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
+                FROM " . TABLE_MANUFACTURERS . " m
+                LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+                ON (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)
+                WHERE m.manufacturers_id = :id";
 
         $args = array('id' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, ZMManufacturers::$manufacturerMapping_, 'Manufacturer');
@@ -155,14 +154,12 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
                 SET url_clicked = url_clicked+1, date_last_click = now() 
-                WHERE manufacturers_id = :manufacturersId 
-                AND languages_id = :languagesId";
-        $sql = $db->bindVars($sql, ':languageId', $languageId, 'integer');
-        $sql = $db->bindVars($sql, ':manufacturerId', $id, 'integer');
-        $db->Execute($sql);
+                WHERE manufacturers_id = :id 
+                AND languages_id = :languageId";
+        $args = array('id' => $id, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->query($sql, $args, ZMManufacturers::$manufacturerInfoMapping_);
     }
 
 }

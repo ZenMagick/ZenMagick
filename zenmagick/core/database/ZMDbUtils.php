@@ -28,7 +28,7 @@
  * SQL/database utils.
  *
  * @author mano
- * @package org.zenmagick
+ * @package org.zenmagick.database
  * @version $Id$
  */
 class ZMDbUtils {
