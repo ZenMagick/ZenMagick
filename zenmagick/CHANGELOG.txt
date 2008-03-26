@@ -79,6 +79,7 @@ Release 0.9.1
 - removed the following settings: 'firstNameMinLength', 'lastNameMinLength',
   'phoneMinLength', 'addressMinLength', 'postcodeMinLength', 'cityMinLength',
 	'stateMinLength', 'passwordMinLength'
+- fix new products query
 
 
 Release 0.9.0

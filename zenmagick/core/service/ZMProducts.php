@@ -305,13 +305,13 @@ class ZMProducts extends ZMObject {
                 break;
             case '1':
                 // global limit of one date
-                $newDate = date('Ym', time()) . '01';
+                $date = date('Ym', time()) . '01';
                 $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
             default:
                 // 120 days; 24 hours; 60 mins; 60secs
                 $dateRange = time() - ($timeLimit * 24 * 60 * 60);
-                $newDate = date('Ymd', $dateRange);
+                $date = date('Ymd', $dateRange);
                 $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
         }
@@ -334,6 +334,7 @@ class ZMProducts extends ZMObject {
         }
         $query .= " order by products_date_added";
 
+        echo $query;
         $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
