@@ -32,7 +32,7 @@ define('ZM_CACHE_BASE_DIR', DIR_FS_SQL_CACHE.'/zenmagick/');
  * <p>File caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author mano
- * @package org.zenmagick.cache.impl
+ * @package org.zenmagick.cache.provider
  * @version $Id$
  */
 class ZMFileCache extends ZMObject implements ZMCache {
