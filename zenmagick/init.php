@@ -37,6 +37,7 @@
     } else {
         $coreDir = dirname(__FILE__).'/core/';
         require($coreDir."settings/zenmagick.php");
+        require($coreDir."ZMSettings.php");
         require($coreDir."settings/settings.php");
         require($coreDir."ZMObject.php");
         require($coreDir."ZMLoader.php");
@@ -53,7 +54,7 @@
                   && false === strpos($file, '/model/')
                   && false === strpos($file, '/admin/')
                   && false === strpos($file, '/settings/'))
-                || (false !== strpos($file, '/admin/') && zm_setting('isAdmin'))) {
+                || (false !== strpos($file, '/admin/') && ZMSettings::get('isAdmin'))) {
                 require_once($file);
             }
         }
@@ -65,12 +66,12 @@
     }
 
     // now we can check for a static homepage
-    if (!zm_is_empty(zm_setting('staticHome')) && 'index' == ZMRequest::getPageName() && (0 == count(ZMRequest::getParameterMap()))) {
-        require(zm_setting('staticHome'));
+    if (!zm_is_empty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() && (0 == count(ZMRequest::getParameterMap()))) {
+        require(ZMSettings::get('staticHome'));
         exit;
     }
 
-    if (zm_setting('isLegacyAPI')) {
+    if (ZMSettings::get('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_request = new ZMRequest();
         $zm_loader = ZMLoader::instance();
@@ -100,7 +101,7 @@
     }
 
     // register custom error handler
-    if (zm_setting('isZMErrorHandler') && null != zm_setting('zmLogFilename')) {
+    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
         error_reporting(E_ALL);
         set_error_handler("zm_error_handler");
     }
@@ -121,27 +122,27 @@
     ZMPlugins::initPlugins('request', ZMRuntime::getScope());
 
     // resolve theme to be used 
-    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) {
-        ZMRuntime::setTheme(zm_resolve_theme(zm_setting('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
+    if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) {
+        ZMRuntime::setTheme(zm_resolve_theme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
     }
 
-    if (zm_setting('isLegacyAPI')) {
+    if (ZMSettings::get('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_theme = ZMRuntime::getTheme();
         $zm_themeInfo = $zm_theme->getThemeInfo();
     }
 
-    if (zm_setting('isEnableZenMagick')) {
+    if (ZMSettings::get('isEnableZenMagick')) {
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
     }
 
     // always echo in admin
-    if (zm_setting('isAdmin')) { zm_set_setting('isEchoHTML', true); }
+    if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
     // this is used as default value for the $echo parameter for HTML functions
-    define('ZM_ECHO_DEFAULT', zm_setting('isEchoHTML'));
+    define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
 
     // start output buffering
-    if (zm_setting('isEnableZenMagick') && !zm_setting('isAdmin')) { ob_start(); }
+    if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) { ob_start(); }
 
     ZMEvents::instance()->fireEvent(null, ZM_EVENT_INIT_DONE);
 

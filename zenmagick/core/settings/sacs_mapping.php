@@ -26,6 +26,12 @@
 
     /**
      * Set up default SACS mappings.
+     *
+     * <p>The reason for this being wrapped in a function is to make it possible
+     * to include in <code>core.php</code>. Also, this leaves the option of
+     * alternative storage to improve loading time.</p>
+     *
+     * @package org.zenmagick.settings
      */
     function zm_set_default_sacs_mappings() {
         $sacsMapper = ZMSacsMapper::instance();

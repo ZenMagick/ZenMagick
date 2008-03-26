@@ -72,6 +72,9 @@ Release 0.9.1
 - moved zm_sql_patch(..) into ZMDbUtils::executePatch(..)
 - remove obsolete ZMService
 - remove deprecated zm_shipping_id(..)
+- removed setting 'flagMaxColumns' - this should be coded in the template
+- marked zm_setting functions as deprecated, the new (and hopefully final) way
+  is ZMSettings::get(), ZMSettings::set()
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

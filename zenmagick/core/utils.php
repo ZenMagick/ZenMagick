@@ -99,15 +99,6 @@
         $code .= ";";
         return $code;
     }
-
-
-
-
-
-
-
-
-
     /**
      * Configuration lookup.
      *
@@ -115,18 +106,9 @@
      * @param string name The setting to check.
      * @param mixed default Optional default value to be returned if setting not found; default is <code>null</code>.
      * @return mixed The setting value or <code>null</code>.
+     * @deprecated Use <code>ZMSettings::get()</code> instead.
      */
-    function zm_setting($name, $default=null) {
-    global $_ZM_SETTINGS;
-
-        if (!array_key_exists($name, $_ZM_SETTINGS)) {
-            ZMObject::log("can't find setting: '".$name."'", ZM_LOG_WARN);
-            return $default;
-        }
-        return $_ZM_SETTINGS[$name];
-    }
-
-
+    function zm_setting($name, $default=null) { return ZMSettings::get($name, $default); }
     /**
      * Set configuration value.
      *
@@ -134,28 +116,20 @@
      * @param string name The setting to check.
      * @param mixed value (New) value.
      * @return mixed The old setting value or <code>null</code>.
+     * @deprecated Use <code>ZMSettings::set()</code> instead.
      */
-    function zm_set_setting($name, $value) {
-    global $_ZM_SETTINGS;
-
-        $oldValue = array_key_exists($name, $_ZM_SETTINGS) ? $_ZM_SETTINGS[$name] : null;
-        $_ZM_SETTINGS[$name] = $value;
-
-        return $oldValue;
-    }
-
-
+    function zm_set_setting($name, $value) { return ZMSettings::set($name, $value); }
     /**
      * Get all settings.
      *
      * @package org.zenmagick
      * @return array Map of all settings.
+     * @deprecated Use <code>ZMSettings::getAll()</code> instead.
      */
-    function zm_settings() {
-    global $_ZM_SETTINGS;
+    function zm_settings() { return ZMSettings::getAll(); }
 
-        return $_ZM_SETTINGS;
-    }
+
+
 
 
     /**

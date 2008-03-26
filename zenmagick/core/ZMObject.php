@@ -70,8 +70,8 @@ class ZMObject {
      * @param int level Optional level (default: ZM_LOG_INFO).
      */
     public static function log($msg, $level=ZM_LOG_INFO) {
-        if (zm_setting('isLogEnabled') && $level <= zm_setting('logLevel')) {
-            if (zm_setting('isZMErrorHandler')) {
+        if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
+            if (ZMSettings::get('isZMErrorHandler')) {
                 trigger_error($msg, E_USER_NOTICE);
             } else {
                 error_log($msg);

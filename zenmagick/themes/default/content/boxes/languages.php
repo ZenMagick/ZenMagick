@@ -28,6 +28,6 @@
 <div id="sb_languages" class="box">
     <?php $ii = 0; foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
         <a href="<?php zm_href(null, "language=".$language->getCode()) ?>"><img src="<?php $zm_theme->themeURL("images/lang/" . $language->getDirectory() . "/" . $language->getImage()) ?>" alt="<?php echo $language->getName() ?>" title="<?php echo $language->getName() ?>" /></a>
-        <?php if (0 == $ii%zm_setting('flagMaxColumns') && 0 < $ii) { ?><br /><?php } ?>
+        <?php if (0 == $ii%5 && 0 < $ii) { ?><br /><?php } ?>
     <?php ++$ii; } ?>
 </div>
