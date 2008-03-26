@@ -76,6 +76,10 @@ Release 0.9.1
 - marked zm_setting, etc functions as deprecated, the new (and hopefully final)
   way is ZMSettings::get(), ZMSettings::set()
 - cleaned up local.in.php
+- removed the following settings: 'firstNameMinLength', 'lastNameMinLength',
+  'phoneMinLength', 'addressMinLength', 'postcodeMinLength', 'cityMinLength',
+	'stateMinLength', 'passwordMinLength'
+
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

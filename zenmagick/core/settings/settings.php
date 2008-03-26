@@ -182,16 +182,6 @@
         'isAccountReferral' => CUSTOMERS_REFERRAL_STATUS == 2,
         'isAccountNickname' => false,
 
-        // account
-        'firstNameMinLength' => ENTRY_FIRST_NAME_MIN_LENGTH,
-        'lastNameMinLength' => ENTRY_LAST_NAME_MIN_LENGTH,
-        'phoneMinLength' => ENTRY_TELEPHONE_MIN_LENGTH,
-        'addressMinLength' => ENTRY_STREET_ADDRESS_MIN_LENGTH,
-        'postcodeMinLength' => ENTRY_POSTCODE_MIN_LENGTH,
-        'cityMinLength' => ENTRY_CITY_MIN_LENGTH,
-        'stateMinLength' => ENTRY_STATE_MIN_LENGTH,
-        'passwordMinLength' => ENTRY_PASSWORD_MIN_LENGTH,
-
         // default customer approval setting
         'defaultCustomerApproval' => CUSTOMERS_APPROVAL_AUTHORIZATION,
 
