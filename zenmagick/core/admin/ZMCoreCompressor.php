@@ -459,7 +459,7 @@ class ZMCoreCompressor extends ZMObject {
             'ZMObject.php',
             'ZMLoader.php',
             '1/ZMRuntime.php',
-            'ZMRequest.php',
+            '1/ZMRequest.php',
             'init_bootstrap.php'
         );
         $tmp2 = array();

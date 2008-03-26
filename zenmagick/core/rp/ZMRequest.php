@@ -28,7 +28,7 @@
  * A central place for all request/session stuff.
  *
  * @author mano
- * @package org.zenmagick
+ * @package org.zenmagick.rp
  * @version $Id$
  */
 class ZMRequest extends ZMObject {
