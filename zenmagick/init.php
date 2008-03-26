@@ -51,7 +51,6 @@
             if ($name == $file) { continue; } // this is static stuff
             // exclude some stuff that gets resolved dynamically
             if ((false === strpos($file, '/controller/')
-                  && false === strpos($file, '/model/')
                   && false === strpos($file, '/admin/')
                   && false === strpos($file, '/settings/'))
                 || (false !== strpos($file, '/admin/') && ZMSettings::get('isAdmin'))) {
