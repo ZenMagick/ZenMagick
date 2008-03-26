@@ -33,8 +33,10 @@
         'zmLogFilename' => null,
         'isZMErrorHandler' => false,
         'missingPageId' => 'error',
+
         // whether to strip code in core.php
         'isStripCore' => true,
+
         // legacy API is initializing all zm_ globals
         'isLegacyAPI' => false,
 
@@ -50,10 +52,11 @@
         // default access level
         'defaultAccessLevel' => null,
 
-        // patch flags
+        // enable auto patching during installation
         'isEnablePatching' => true,
 
-        // guest account behaviour
+        // guest checkout
+        'isGuestCheckout' => false,
         'isLogoffGuestAfterOrder' => true,
 
         'isDisplayTimerStats' => DISPLAY_PAGE_PARSE_TIME == 'true',
@@ -138,15 +141,11 @@
         // reviews
         'isApproveReviews' => REVIEWS_APPROVAL == '1',
 
-        // guest checkout
-        'isGuestCheckout' => false,
-
         // language support for ez-pages
         'isEZPagesLangSupport' => false,
 
         // sort default
         'defaultProductSortOrder' => 'price',
-
         'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',
         // sort attribute values
         'isSortAttributeValuesByPrice' => PRODUCTS_OPTIONS_SORT_BY_PRICE != '1',
