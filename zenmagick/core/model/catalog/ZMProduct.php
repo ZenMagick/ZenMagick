@@ -228,6 +228,13 @@ class ZMProduct extends ZMModel {
     function getWeight() { return $this->weight_; }
 
     /**
+     * Set the product weight.
+     *
+     * @param float weight The weight.
+     */
+    function setWeight($weight) { $this->weight_ = $weight; }
+
+    /**
      * Get the quantity.
      *
      * @return int The quantity.
@@ -296,6 +303,13 @@ class ZMProduct extends ZMModel {
      * @return int The tax class id.
      */
     function getTaxClassId() { return $this->taxClassId_; }
+
+    /**
+     * Set the tax class id.
+     *
+     * @param int taxClassId The tax class id.
+     */
+    function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
 
     /**
      * Get the discount type.
