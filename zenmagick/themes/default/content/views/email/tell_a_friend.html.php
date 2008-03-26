@@ -27,14 +27,14 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Product recommendation from %s at %s", $zm_emailMessage->getFromName(), zm_setting('storeName')) ?></title>
+<title><?php zm_l10n("Product recommendation from %s at %s", $zm_emailMessage->getFromName(), ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?></p>
 
-<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), ZMSettings::get('storeName')) ?></p>
 
 <?php if ($zm_emailMessage->hasMessage()) { ?>
 <p>
@@ -46,9 +46,9 @@ $language = ZMRuntime::getLanguage();
 <?php $href = '<a href="'.zm_product_href($zm_product->getId(), null, false).'">'.zm_htmlencode($zm_product->getName(), false).'</a>'; ?>
 <p><?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $href) ?></p>
 
-<p><?php zm_l10n("Regards, %s", zm_setting('storeOwner')) ?></p>
+<p><?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>
 </body>
 </html>

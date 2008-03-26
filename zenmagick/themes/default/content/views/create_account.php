@@ -25,7 +25,7 @@
 ?>
 
 <?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'create_account', "post", "return validate(this);") ?>
-    <?php if (zm_setting('isPrivacyMessage')) { ?>
+    <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
             <p>
@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (zm_setting('isAccountGender')) { ?>
+                <?php if (ZMSettings::get('isAccountGender')) { ?>
                     <tr>
                         <td><?php zm_l10n("Title") ?><span>*</span></td>
                         <td>
@@ -64,7 +64,7 @@
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
                     <td><input type="text" name="lastname" value="<?php echo $zm_account->getLastName() ?>" /></td>
                 </tr>
-                <?php if (zm_setting('isAccountDOB')) { ?>
+                <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
                         <td><input type="text" name="dob" value="<?php echo $zm_account->getDOB() ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
@@ -74,7 +74,7 @@
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>
                 </tr>
-                <?php if (zm_setting('isAccountNickname')) { ?>
+                <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
                         <td><input type="text" name="nick" value="<?php echo $zm_account->getNickName() ?>" /></td>
@@ -88,7 +88,7 @@
                     <td><?php zm_l10n("Confirm Password") ?><span>*</span></td>
                     <td><input type="password" name="confirmation" value="" /></td>
                 </tr>
-                <?php if (zm_setting('isAccountCompany')) { ?>
+                <?php if (ZMSettings::get('isAccountCompany')) { ?>
                     <tr>
                         <td><?php zm_l10n("Company Name") ?></td>
                         <td><input type="text" name="company" value="<?php echo $zm_address->getCompanyName() ?>" /></td>
@@ -109,7 +109,7 @@
                 </tr>
                 <?php 
                     $country = $zm_address->getCountry(); 
-                    $countryId = 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry');
+                    $countryId = 0 != $country->getId() ? $country->getId() : ZMSettings::get('storeCountry');
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
@@ -119,7 +119,7 @@
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
                     <td><?php zm_idp_select('zone_country_id', ZMCountries::instance()->getCountries(), 1, $countryId) ?></td>
                 </tr>
-                <?php if (zm_setting('isAccountState')) { ?>
+                <?php if (ZMSettings::get('isAccountState')) { ?>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
@@ -151,14 +151,14 @@
                         <label for="text"><?php zm_l10n("Text") ?></label>
                     </td>
                 </tr>
-                <?php if (zm_setting('isAccountNewsletter')) { ?>
+                <?php if (ZMSettings::get('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
                         <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php zm_checkbox_state($zm_account->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
                     </tr>
                 <?php } ?>
 
-                <?php if (zm_setting('isAccountReferral')) { ?>
+                <?php if (ZMSettings::get('isAccountReferral')) { ?>
                     <tr>
                         <td><?php zm_l10n("Referral Code") ?><span>*</span></td>
                         <td><input type="text" name="referral" value="" /></td>

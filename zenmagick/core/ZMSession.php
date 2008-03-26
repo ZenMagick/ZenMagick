@@ -92,7 +92,7 @@ class ZMSession extends ZMObject {
      * @param boolean force If <code>true</code>, force recreation of the session, even if this is disabled.
      */
     function recreate($force=false) {
-        if ($force || zm_setting('isSessionRecreate')) {
+        if ($force || ZMSettings::get('isSessionRecreate')) {
             zen_session_recreate();
         }
     }

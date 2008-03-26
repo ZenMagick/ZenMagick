@@ -110,7 +110,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((zm_setting('isEnablePatching')) || $force) {
+        if ((ZMSettings::get('isEnablePatching')) || $force) {
             if (is_writeable(_ZM_ZEN_BASE_PHP)) {
                 $patchedLines = array();
                 foreach ($lines as $line) {

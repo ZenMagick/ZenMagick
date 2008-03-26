@@ -303,7 +303,7 @@ class ZMCoupons extends ZMObject {
      * @return string A new unique coupon code.
      */
     function createCouponCode($salt, $length=0) {
-        $length = 0 == $length ? zm_setting('couponCodeLength') : $length;
+        $length = 0 == $length ? ZMSettings::get('couponCodeLength') : $length;
 
         srand((double)microtime()*1000000); 
         $codes = md5(uniqid(@rand().$salt, true));

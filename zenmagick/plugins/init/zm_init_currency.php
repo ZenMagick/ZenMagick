@@ -66,10 +66,10 @@ class zm_init_currency extends ZMPlugin {
         if (null == $session->getCurrencyCode() || null != ($currencyCode = ZMRequest::getCurrencyCode())) {
             if (null != $currencyCode) {
                 if (null == ZMCurrencies::instance()->getCurrencyForCode($currencyCode)) {
-                    $currencyCode = zm_setting('defaultCurrency');
+                    $currencyCode = ZMSettings::get('defaultCurrency');
                 }
             } else {
-                $currencyCode = zm_setting('defaultCurrency');
+                $currencyCode = ZMSettings::get('defaultCurrency');
             }
             $session->setCurrencyCode($currencyCode);
         }

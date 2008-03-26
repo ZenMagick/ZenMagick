@@ -123,7 +123,7 @@
         $index = 1;
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
-            $name = 'id['.zm_setting('textOptionPrefix').$attribute->getId().']';
+            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'._zm_buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""/>';
             array_push($elements, $text);
@@ -141,11 +141,11 @@
         $index = 1;
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index;
-            $name = 'id['.zm_setting('textOptionPrefix').$attribute->getId().']';
+            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'._zm_buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""/>';
-            $text .= '<input type="hidden" name="'.zm_setting('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"/>';
-            $text .= '<input type="hidden" name="'.zm_setting('textOptionPrefix').zm_setting('uploadOptionPrefix').$uploadIndex.'" value=""/>';
+            $text .= '<input type="hidden" name="'.ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"/>';
+            $text .= '<input type="hidden" name="'.ZMSettings::get('textOptionPrefix').ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value=""/>';
             array_push($elements, $text);
         }
         $element['html'] = $elements;

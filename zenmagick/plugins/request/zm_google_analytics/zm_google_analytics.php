@@ -88,7 +88,7 @@ class zm_google_analytics extends ZMPlugin {
      * @return string The modified contents.
      */
     public function filterResponse($contents) {
-        if (zm_setting('plugins.zm_google_analytics.urchin', false)) {
+        if (ZMSettings::get('plugins.zm_google_analytics.urchin', false)) {
             $trackerCode = $this->getTrackerCodeUrchin();
             $checkoutCode = $this->getCheckoutCodeUrchin();
         } else {

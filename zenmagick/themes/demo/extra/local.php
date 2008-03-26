@@ -32,6 +32,6 @@
     }
 
     // use theme static pages rather than zen-cart's define pages
-    zm_set_setting('isZMDefinePages', true);
+    ZMSettings::set('isZMDefinePages', true);
 
 ?>

@@ -50,9 +50,9 @@ $language = ZMRuntime::getLanguage();
 <p><?php echo zm_text2html($comment) ?></p>
 <?php } ?>
 
-<p><?php zm_l10n("Regards, %s", zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>
 </body>
 </html>

@@ -60,7 +60,7 @@
         <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
         <div>
             <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("HTML tags are not allowed.") ?><br />
-            <?php if (zm_setting('isApproveReviews')) { ?>
+            <?php if (ZMSettings::get('isApproveReviews')) { ?>
                <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("Reviews require prior approval before they will be displayed.") ?>
             <?php } ?>
         </div>

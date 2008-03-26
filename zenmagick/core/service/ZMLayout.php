@@ -98,14 +98,14 @@ class ZMLayout extends ZMObject {
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isLeftColEnabled() { return zm_setting('isEnableLeftColumn') && $this->leftColEnabled_; }
+    function isLeftColEnabled() { return ZMSettings::get('isEnableLeftColumn') && $this->leftColEnabled_; }
 
     /**
      * Checks if the right column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isRightColEnabled() { return zm_setting('isEnableRightColumn') && $this->rightColEnabled_; }
+    function isRightColEnabled() { return ZMSettings::get('isEnableRightColumn') && $this->rightColEnabled_; }
 
     /**
      * Get the box names for the left column.
@@ -130,7 +130,7 @@ class ZMLayout extends ZMObject {
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (zm_setting('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
 
                 array_push($boxes, $box);
             }
@@ -163,7 +163,7 @@ class ZMLayout extends ZMObject {
         while (!$results->EOF) {
             $box = $results->fields['layout_box_name'];
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (zm_setting('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
                 array_push($boxes, $box);
             }
             $results->MoveNext();

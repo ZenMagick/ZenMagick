@@ -41,7 +41,7 @@
         // try hostname
         $hostname = $session->getClientHostname();
         if (null == $hostname) {
-            if (zm_setting('isResolveClientIP')) {
+            if (ZMSettings::get('isResolveClientIP')) {
                 $hostname = gethostbyaddr($session->getClientAddress());
             } else {
                 $hostname = zm_l10n_get("Disabled");

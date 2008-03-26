@@ -66,7 +66,7 @@
      * @package org.zenmagick.security
      * @return string The new password.
      */
-    function zm_new_password() { return zen_create_random_value(zm_setting('minPasswordLength'), 'mixed'); }
+    function zm_new_password() { return zen_create_random_value(ZMSettings::get('minPasswordLength'), 'mixed'); }
 
 
     /**

@@ -62,7 +62,7 @@ class zm_init_session extends ZMPlugin {
         parent::init();
 
         //TODO: this shouldn't be necessary
-        if (zm_setting('isAdmin')) {
+        if (ZMSettings::get('isAdmin')) {
             return;
         }
 

@@ -26,13 +26,13 @@
 <?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?>
 
 
-<?php zm_l10n("We wish to welcome you to %s.", zm_setting('storeName')) ?>
+<?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?>
 
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_welcome', ZMSettings::get('storeName'), ZMSettings::get('storeEmail'), ZMSettings::get('storeOwner'))) ?>
 
-<?php zm_l10n("Sincerely, %s", zm_setting('storeOwner')) ?>
+<?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
 
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>
 <?php echo $office_only_text; ?>

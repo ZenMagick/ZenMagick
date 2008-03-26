@@ -205,7 +205,7 @@ class ZMDbUtils {
      * @return array A list of field lists (may be empty).
      */
     public static function getCustomFields($table) {
-        $setting = zm_setting(ZMDbUtils::getCustomFieldKey($table));
+        $setting = ZMSettings::get(ZMDbUtils::getCustomFieldKey($table));
         if (empty($setting)) {
             return array();
         }
@@ -226,7 +226,7 @@ class ZMDbUtils {
      * @return array The updated mapping
      */
     public static function addCustomFields($mapping, $table) {
-        $setting = zm_setting(ZMDbUtils::getCustomFieldKey($table));
+        $setting = ZMSettings::get(ZMDbUtils::getCustomFieldKey($table));
         if (!empty($setting)) {
             foreach (explode(',', $setting) as $field) {
                 $fieldInfo = explode(';', trim($field));
@@ -283,7 +283,7 @@ class ZMDbUtils {
      * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
     public static function executePatch($sql, $messages, $debug=false) {
-        if (!zm_setting('isAdmin')) {
+        if (!ZMSettings::get('isAdmin')) {
             return false;
         }
 

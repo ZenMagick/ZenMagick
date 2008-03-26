@@ -81,9 +81,9 @@ class PageView extends ZMPageView {
         if (null != $template) {
             // layout template will include the view using this variable
             $smarty->assign('view_name', $this->getViewFilename());
-            $smarty->display($template.zm_setting('templateSuffix'));
+            $smarty->display($template.ZMSettings::get('templateSuffix'));
         } else {
-            $smarty->display($this->getName().zm_setting('templateSuffix'));
+            $smarty->display($this->getName().ZMSettings::get('templateSuffix'));
         }
     }
 

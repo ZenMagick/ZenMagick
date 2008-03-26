@@ -112,7 +112,7 @@ class ZMView extends ZMObject {
         } else {
             $filename .= $this->page_;
         }
-        $filename .= zm_setting('templateSuffix');
+        $filename .= ZMSettings::get('templateSuffix');
 
         return ZMRuntime::getTheme()->themeFile($filename);
     }

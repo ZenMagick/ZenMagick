@@ -330,7 +330,7 @@
         // add loader to root loader
         ZMLoader::instance()->setParent($themeLoader);
 
-        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
+        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
 
         // init l10n/i18n
         $session = ZMRequest::getSession();
@@ -369,7 +369,7 @@
 
         ZMRequest::setController($controller);
 
-        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
+        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
 
         // execute controller
         $view = $controller->process();
@@ -448,7 +448,7 @@
             $errlevel = "Unknown";
         }
 
-        if (null != ($handle = fopen(zm_setting('zmLogFilename'), "a"))) {
+        if (null != ($handle = fopen(ZMSettings::get('zmLogFilename'), "a"))) {
             fputs($handle, "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"); 
             fclose($handle); 
         }

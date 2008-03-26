@@ -1395,10 +1395,10 @@ if (!isset($PAWFALIKI_FUNCTIONS_ONLY))
 	htmlFooter();
 }
 
-        $pawfaliki_config['GENERAL']['TITLE'] = zm_setting('storeName');
+        $pawfaliki_config['GENERAL']['TITLE'] = ZMSettings::get('storeName');
         $pawfaliki_config['GENERAL']['HOMEPAGE'] = zm_l10n_get("WikiRoot");
         $pawfaliki_config['LOCALE']['HOMEPAGE_LINK'] = "[[WikiRoot]]"; // link to the homepage
-        $pawfaliki_config['GENERAL']['ADMIN'] = zm_setting('storeEmail');
+        $pawfaliki_config['GENERAL']['ADMIN'] = ZMSettings::get('storeEmail');
         $pawfaliki_config['GENERAL']['CSS'] = '';
         if (ZMRequest::isAdmin()) {
             $pawfaliki_config['GENERAL']['PAGES_DIRECTORY'] = "../wiki/files/";

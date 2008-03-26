@@ -58,9 +58,6 @@
 
         'isDisplayTimerStats' => DISPLAY_PAGE_PARSE_TIME == 'true',
 
-        // enable POST request processing for listed pages
-        'postRequestEnabledList' => "login,password_forgotten,account_password,account_edit,contact_us,address_book_process,address_book_delete,create_account,tell_a_friend,product_reviews_write,account_newsletters,account_notifications,checkout_shipping_address,gv_send,gv_send_confirm",
-
         // sanitize attributes when handling product submissions (add to cart, etc)
         'isSanitizeAttributes' => true,
 

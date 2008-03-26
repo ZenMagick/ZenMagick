@@ -32,7 +32,7 @@
     <?php $customercare = '<a href="' . zm_href(FILENAME_CONTACT_US, '', false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
-    <?php if (zm_setting('isCustomerProductNotifications')) { ?>
+    <?php if (ZMSettings::get('isCustomerProductNotifications')) { ?>
         <?php if (!ZMRequest::getAccount()->isGlobalProductSubscriber()) { ?>
             <fieldset>
                 <legend><?php zm_l10n("Product Notifications") ?></legend>

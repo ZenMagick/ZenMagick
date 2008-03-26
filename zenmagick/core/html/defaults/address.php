@@ -58,7 +58,7 @@
                 $state = ZMCountries::instance()->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
             }
         } else {
-            $zmcountry = ZMCountries::instance()->getCountryForId(zm_setting('storeCountry'));
+            $zmcountry = ZMCountries::instance()->getCountryForId(ZMSettings::get('storeCountry'));
             $country = '';
             $state = '';
         }
@@ -84,7 +84,7 @@
         eval("\$out = \"$format\";");
 
         $company = $address->getCompanyName();
-        if (zm_setting('isAccountCompany') && !empty($company) ) {
+        if (ZMSettings::get('isAccountCompany') && !empty($company) ) {
             $out = $company . $cr . $out;
         }
 

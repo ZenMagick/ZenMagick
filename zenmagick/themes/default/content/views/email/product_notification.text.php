@@ -27,4 +27,4 @@
 
 <?php echo strip_tags($EMAIL_MESSAGE_HTML) ?>
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

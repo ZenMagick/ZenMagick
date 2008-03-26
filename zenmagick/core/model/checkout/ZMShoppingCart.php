@@ -507,7 +507,7 @@ class ZMShoppingCart extends ZMObject {
      * @return The adjusted quantity.
      */
     function adjustQty($quantity) {
-        $digits = zm_setting('qtyDecimals');
+        $digits = ZMSettings::get('qtyDecimals');
         if (0 != $digits) {
             if (strstr($quantity, '.')) {
                 // remove leading '0'
@@ -657,14 +657,14 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The tax address.
      */
     function getTaxAddress() {
-        switch (zm_setting('productTaxBase')) {
+        switch (ZMSettings::get('productTaxBase')) {
         case ZM_PRODUCT_TAX_BASE_SHIPPING:
             return $this->getShippingAddress();
         case ZM_PRODUCT_TAX_BASE_BILLING:
             return $this->getBillingAddress();
         case ZM_PRODUCT_TAX_BASE_STORE:
             $address = $this->getBillingAddress();
-            if ($address->getZoneId() != zm_setting('storeZone')) {
+            if ($address->getZoneId() != ZMSettings::get('storeZone')) {
                 return $this->getShippingAddress();
             }
             return $address;

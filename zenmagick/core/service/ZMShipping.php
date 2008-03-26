@@ -74,16 +74,16 @@ class ZMShipping extends ZMObject {
 
     function isFreeShipping() {
     global $order;
-        if (zm_setting('isOrderTotalFreeShipping')) {
+        if (ZMSettings::get('isOrderTotalFreeShipping')) {
             $pass = false;
-            switch (zm_setting('freeShippingDestination')) {
+            switch (ZMSettings::get('freeShippingDestination')) {
               case 'national':
-                  if ($order->delivery['country_id'] == zm_setting('storeCountry')) {
+                  if ($order->delivery['country_id'] == ZMSettings::get('storeCountry')) {
                       $pass = true;
                   }
                   break;
               case 'international':
-                  if ($order->delivery['country_id'] != zm_setting('storeCountry')) {
+                  if ($order->delivery['country_id'] != ZMSettings::get('storeCountry')) {
                       $pass = true;
                   }
                   break;
@@ -92,7 +92,7 @@ class ZMShipping extends ZMObject {
                   break;
             }
 
-            if (($pass == true) && ($_SESSION['cart']->show_total() >= zm_setting('freeShippingOrderThreshold'))) {
+            if (($pass == true) && ($_SESSION['cart']->show_total() >= ZMSettings::get('freeShippingOrderThreshold'))) {
                 return true;
             }
         }

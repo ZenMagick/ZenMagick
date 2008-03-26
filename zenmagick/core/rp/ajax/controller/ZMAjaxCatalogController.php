@@ -84,7 +84,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     function getProductsForCategoryIdJSON() {
         $categoryId = ZMRequest::getParameter('categoryId', 0);
         $activeOnly = true;
-        if (zm_setting('isAdmin')) {
+        if (ZMSettings::get('isAdmin')) {
             $activeOnly = ZMRequest::getParameter('active', true);
         }
 

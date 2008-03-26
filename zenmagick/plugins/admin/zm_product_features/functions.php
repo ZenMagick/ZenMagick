@@ -34,7 +34,7 @@
     function zm_product_features_admin() {
     global $zm_product_features, $zm_nav_params;
 
-        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
+        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_product_features->getPluginDir().'/views/manage_features.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_product_features_admin', zm_l10n_get('Features'));

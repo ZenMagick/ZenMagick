@@ -117,15 +117,15 @@ class ZMTellAFriendController extends ZMController {
         $this->_handleCrumbtrail($product);
 
         $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $product, 'office_only_html' => '', 'office_only_text' => '');
-        $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), zm_setting('storeName'));
+        $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
-        if (zm_setting('isEmailAdminTellAFriend')) {
+        if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
             $session = ZMRequest::getSession();
             $context = zm_email_copy_context($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
             $context['zm_product'] = $product;
-            zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, zm_setting('emailAdminTellAFriend'));
+            zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));

@@ -36,7 +36,7 @@ $language = ZMRuntime::getLanguage();
 
 <div><?php echo $EMAIL_MESSAGE_HTML; ?></div>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>
 </body>
 </html>

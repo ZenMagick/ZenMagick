@@ -73,8 +73,9 @@ Release 0.9.1
 - remove obsolete ZMService
 - remove deprecated zm_shipping_id(..)
 - removed setting 'flagMaxColumns' - this should be coded in the template
-- marked zm_setting functions as deprecated, the new (and hopefully final) way
-  is ZMSettings::get(), ZMSettings::set()
+- marked zm_setting, etc functions as deprecated, the new (and hopefully final)
+  way is ZMSettings::get(), ZMSettings::set()
+- cleaned up local.in.php
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
@@ -990,7 +991,7 @@ Release 0.6.2:
   permissions do not allow to add the ZenMagick menu, or under ZenMagick
 - return error view when ez page not found; same for product page and a few
   more
-- zm_setting(..) now accepts a second parameter to set values; the return
+- ZMSettings::get(..) now accepts a second parameter to set values; the return
   value is the old value or null
 - upaded local.in.php to reflect this change; using $_ZM_SETTINGS is not
   deprecated - this might eventually disappear altogether...

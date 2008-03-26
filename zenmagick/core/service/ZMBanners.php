@@ -69,7 +69,7 @@ class ZMBanners extends ZMObject {
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
     function getBannerForIndex($index) {
-        $list = $this->_getBannerForName(zm_setting('bannerGroup'.$index));
+        $list = $this->_getBannerForName(ZMSettings::get('bannerGroup'.$index));
         return 0 < count($list) ? $list[0] : null;
     }
 
@@ -81,7 +81,7 @@ class ZMBanners extends ZMObject {
      *
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    function getAllBanners() { return $this->_getBannerForName(zm_setting('bannerGroupAll'), true); }
+    function getAllBanners() { return $this->_getBannerForName(ZMSettings::get('bannerGroupAll'), true); }
 
 
     /**

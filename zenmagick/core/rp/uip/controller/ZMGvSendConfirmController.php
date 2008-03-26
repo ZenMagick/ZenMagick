@@ -111,7 +111,7 @@ class ZMGvSendConfirmController extends ZMController {
         $amount = $gvreceiver->getAmount(); 
 
         $currentCurrencyCode = ZMRequest::getCurrencyCode();
-        if (zm_setting('defaultCurrency') != $currentCurrencyCode) {
+        if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
             $amount = $currency->convertFrom($amount);
@@ -132,14 +132,14 @@ class ZMGvSendConfirmController extends ZMController {
         // create gv_send email
         $context = array('zm_account' => $account, 'zm_gvreceiver' => $gvreceiver, 'zm_coupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
         zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvreceiver->getEmail());
-        if (zm_setting('isEmailAdminGvSend')) {
+        if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
             $session = ZMRequest::getSession();
             $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['zm_gvreceiver'] = $gvreceiver;
             $context['zm_coupon'] = $coupon;
-            zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, zm_setting('emailAdminGvSend'));
+            zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, ZMSettings::get('emailAdminGvSend'));
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Gift Certificate successfully send!"));

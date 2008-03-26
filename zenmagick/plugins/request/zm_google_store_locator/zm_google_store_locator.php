@@ -68,7 +68,7 @@ class zm_google_store_locator extends ZMPlugin {
         $this->addConfigValue('Google Maps admin key', 'adminKey', '', 'Your Google Maps key for the admin page');
         $this->addConfigValue('Store Location', 'location', '37.4419, -122.1419', 'The store location (Lat,Lng)');
         $this->addConfigValue('Zoom Level', 'zoom', '13', 'The initial zoom level');
-        $this->addConfigValue('Marker Text', 'marker_text', zm_setting('storeName'), 
+        $this->addConfigValue('Marker Text', 'marker_text', ZMSettings::get('storeName'), 
           'Optional text for the store marker', 'zen_cfg_textarea(');
         $this->addConfigValue('Add Controls', 'controls', 'true', 'Enable/disable map controls', 'zen_cfg_select_option(array(\'true\',\'false\'),');
     }

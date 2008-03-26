@@ -48,7 +48,7 @@ The setting can be configured using the global local.php file; for example, to
 give edit rights to registered users only, add the following line:
 
 
-    zm_set_setting('plugin.zm_wiki.restriction', 'REGISTERED');
+    ZMSettings::set('plugin.zm_wiki.restriction', 'REGISTERED');
 
 
 SIDEBOX

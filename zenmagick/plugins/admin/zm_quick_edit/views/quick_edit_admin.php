@@ -26,7 +26,7 @@
 <?php
 
   // do show the not available image
-  zm_set_setting('isShowNoPicture', false);
+  ZMSettings::set('isShowNoPicture', false);
 
   $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
 

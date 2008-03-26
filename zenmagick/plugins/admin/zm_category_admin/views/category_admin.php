@@ -34,7 +34,7 @@
       $category->setName('** new category **');
 
       // set a few defaults from the default language category
-      $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
+      $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
       $defaultCategory = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $defaultLanguage->getId());
       if (null != $defaultCategory) {
           // only if exist (might not be the case if category is all new)

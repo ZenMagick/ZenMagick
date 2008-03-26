@@ -101,7 +101,7 @@ require('includes/application_top.php');
     <?php } ?>
 
     <div id="main">
-      <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', zm_setting('admin.isShowCatalogTreeProducts')); ?>
+      <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
       <div id="content">
         <?php if (0 < count($catalog_menu)) { ?>
             <div id="main-tab-container">

@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php if (zm_setting('isShowEZBoxesNav')) { ?>
+<?php if (ZMSettings::get('isShowEZBoxesNav')) { ?>
     <?php $sbchapter = isset($sbchapter) ? $sbchapter : ZMRequest::getParameter("sbchapter", null); ?>
     <?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter) : ZMEZPages::instance()->getPagesForSidebar(); ?>
     <?php if (0 < count($pages)) { ?>

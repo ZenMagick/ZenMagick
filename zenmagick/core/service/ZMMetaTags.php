@@ -54,7 +54,7 @@ class ZMMetaTags extends ZMObject {
      */
     function __construct($delimiter=null) {
         parent::__construct();
-        $this->keywordDelimiter_ = null != $delimiter ? $delimiter : zm_setting('metaTagKeywordDelimiter');
+        $this->keywordDelimiter_ = null != $delimiter ? $delimiter : ZMSettings::get('metaTagKeywordDelimiter');
     }
 
     /**
@@ -88,7 +88,7 @@ class ZMMetaTags extends ZMObject {
 
         // lookup localized page title
         $page = ZMRequest::getPageName();
-        $pageTitleKey = zm_setting('metaTitlePrefix').$page;
+        $pageTitleKey = ZMSettings::get('metaTitlePrefix').$page;
         if (null != _zm_l10n_lookup($pageTitleKey, null)) {
             $title = zm_l10n_get($pageTitleKey);
         }
@@ -98,7 +98,7 @@ class ZMMetaTags extends ZMObject {
         $view = $controller->getView();
         $name = $view->getName();
         if ('index' == $name) {
-            $title = zm_setting('storeName');
+            $title = ZMSettings::get('storeName');
         } else if (zm_starts_with($name, 'product_')) {
             $title = $this->product_;
         } else if ('category' == $name || 'category_list' == $name || 'manufacturer' == $name) {
@@ -110,9 +110,9 @@ class ZMMetaTags extends ZMObject {
             }
         }
 
-        if (zm_setting('isStoreNameInTitle') && 'index' != $page) {
-            if (0 < strlen($title)) $title .= zm_setting('metaTitleDelimiter');
-            $title .= zm_setting('storeName');
+        if (ZMSettings::get('isStoreNameInTitle') && 'index' != $page) {
+            if (0 < strlen($title)) $title .= ZMSettings::get('metaTitleDelimiter');
+            $title .= ZMSettings::get('storeName');
         }
 
         $title = zm_htmlencode($title, false);
@@ -151,15 +151,15 @@ class ZMMetaTags extends ZMObject {
      */
     function getDescription($echo=ZM_ECHO_DEFAULT) {
         $this->_initMetaTags();
-        $value = zm_setting('storeName');
+        $value = ZMSettings::get('storeName');
         if (0 < strlen($this->_formatCrumbtrail())) {
-            $value .= zm_setting('metaTagCrumbtrailDelimiter');
+            $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
             $value .= $this->_formatCrumbtrail();
         }
 
         // special handling for home
         if ('index' == ZMRequest::getPageName()) {
-            $value .= zm_setting('metaTagCrumbtrailDelimiter');
+            $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
             $value .= $this->topCategories_;
         }
 
@@ -225,7 +225,7 @@ class ZMMetaTags extends ZMObject {
         $first = true;
         $value = '';
         foreach ($crumbs as $crumb) {
-            if (!$first) $value .= zm_setting('metaTagCrumbtrailDelimiter');
+            if (!$first) $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
             $first = false;
             $value .= $crumb->getName();
         }

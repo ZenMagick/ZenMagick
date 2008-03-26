@@ -37,7 +37,7 @@
     <title><?php ZMMetaTags::instance()->getTitle() ?></title>
     <base href="<?php echo ZMRequest::getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
-    <meta name="generator" content="ZenMagick <?php echo zm_setting('ZenMagickVersion') ?>" />
+    <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('ZenMagickVersion') ?>" />
     <meta name="keywords" content="<?php ZMMetaTags::instance()->getKeywords()?>" />
     <meta name="description" content="<?php ZMMetaTags::instance()->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
@@ -90,7 +90,7 @@
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $zm_view->getName() && zm_setting('isShowCrumbtrail')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $zm_view->getName() && ZMSettings::get('isShowCrumbtrail')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo zm_build_crumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 

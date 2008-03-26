@@ -29,10 +29,10 @@ if (!empty($newPassword)) { $password = $newPassword; }
 $language = ZMRuntime::getLanguage();
 ?><?php zm_l10n("New Password Request\n") ?>
 
-<?php zm_l10n("This is in response to a request for a new password for your account at %s.\n", zm_setting('storeName')) ?>
+<?php zm_l10n("This is in response to a request for a new password for your account at %s.\n", ZMSettings::get('storeName')) ?>
 <?php zm_l10n("Your new password is: %s\n\n", $password) ?>
 <?php zm_l10n("For security reasons please remember to change your password next time you logon.\n") ?>
 
-<?php zm_l10n("Regards, %s\n", zm_setting('storeName')) ?>
+<?php zm_l10n("Regards, %s\n", ZMSettings::get('storeName')) ?>
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

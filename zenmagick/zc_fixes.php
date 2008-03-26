@@ -35,7 +35,7 @@
     }
 
     // skip more zc request handling
-    if (zm_setting('isEnableZenMagick') && !zm_needs_zc()) {
+    if (ZMSettings::get('isEnableZenMagick') && !zm_needs_zc()) {
         $code_page_directory = 'zenmagick';
     }
 
@@ -55,7 +55,7 @@
     if ('add_product' == ZMRequest::getParameter('action')) {
         $uploads = 0;
         foreach (ZMRequest::getParameterMap() as $name => $value) {
-            if (zm_starts_with($name, zm_setting('uploadOptionPrefix'))) {
+            if (zm_starts_with($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }

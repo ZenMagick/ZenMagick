@@ -141,14 +141,14 @@ class ZMAttributes extends ZMObject {
         }
 
         $attributesOrderBy= '';
-        if (zm_setting('isSortAttributesByName')) {
+        if (ZMSettings::get('isSortAttributesByName')) {
             $attributesOrderBy= ' order by popt.products_options_name';
         } else {
             $attributesOrderBy= ' order by LPAD(popt.products_options_sort_order,11,"0")';
         }
 
         $valuesOrderBy= '';
-        if (zm_setting('isSortAttributeValuesByPrice')) {
+        if (ZMSettings::get('isSortAttributeValuesByPrice')) {
             $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pa.options_values_price';
         } else {
             $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pov.products_options_values_name';

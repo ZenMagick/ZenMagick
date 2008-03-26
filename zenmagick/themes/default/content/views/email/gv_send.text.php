@@ -40,5 +40,5 @@
 <?php zm_l10n("To redeem your gift, visit %s.", zm_secure_href(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), false)) ?>
 
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>
 <?php echo $office_only_text; ?>

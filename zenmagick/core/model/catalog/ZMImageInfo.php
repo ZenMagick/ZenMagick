@@ -58,13 +58,13 @@ class ZMImageInfo extends ZMModel {
 
         // set default image
         if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
-            $this->imageDefault_ = zm_image_uri(zm_setting('imgNotFound'), false);
+            $this->imageDefault_ = zm_image_uri(ZMSettings::get('imgNotFound'), false);
         } else {
             $this->imageDefault_ = zm_image_uri($image, false);
         }
 
         // evaluate optional medium image
-        $medium = $imageBase.zm_setting('imgSuffixMedium').$ext;
+        $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
         if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'medium/'.$medium)) {
             // default to next smaller version
             $this->imageMedium_ = $this->imageDefault_;
@@ -73,7 +73,7 @@ class ZMImageInfo extends ZMModel {
         }
 
         // evaluate optional large image
-        $large = $imageBase.zm_setting('imgSuffixLarge').$ext;
+        $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
         if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'large/'.$large)) {
             // default to next smaller version
             $this->imageLarge_ = $this->imageMedium_;

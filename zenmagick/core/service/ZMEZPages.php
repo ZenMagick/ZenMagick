@@ -72,7 +72,7 @@ class ZMEZPages extends ZMObject {
         $sql = "select * from " . TABLE_EZPAGES . "
                 where pages_id = :pageId";
         $sql = $db->bindVars($sql, ':pageId', $pageId, 'integer');
-        if (zm_setting('isEZPagesLangSupport')) {
+        if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $languageId, 'integer');
         }
         $results = $db->Execute($sql);
@@ -102,7 +102,7 @@ class ZMEZPages extends ZMObject {
                 FROM " . TABLE_EZPAGES . " 
                 WHERE ((status_toc = 1 and toc_sort_order <> 0) and toc_chapter= :chapterID)
                 AND alt_url_external = '' and alt_url = ''";
-        if (zm_setting('isEZPagesLangSupport')) {
+        if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $languageId, 'integer');
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
@@ -135,7 +135,7 @@ class ZMEZPages extends ZMObject {
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_header = 1
                 and header_sort_order > 0";
-        if (zm_setting('isEZPagesLangSupport')) {
+        if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $languageId, 'integer');
         }
         $sql .= " order by header_sort_order, pages_title";
@@ -167,7 +167,7 @@ class ZMEZPages extends ZMObject {
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_sidebox = 1
                 and sidebox_sort_order > 0";
-        if (zm_setting('isEZPagesLangSupport')) {
+        if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $languageId, 'integer');
         }
         $sql .= " order by sidebox_sort_order, pages_title";
@@ -199,7 +199,7 @@ class ZMEZPages extends ZMObject {
         $sql = "select * from " . TABLE_EZPAGES . "
                 where status_footer = 1
                 and footer_sort_order > 0";
-        if (zm_setting('isEZPagesLangSupport')) {
+        if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql = $db->bindVars($sql . " and languages_id = :languageId", ':languageId', $languageId, 'integer');
         }
         $sql .= " order by footer_sort_order, pages_title";

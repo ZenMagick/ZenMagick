@@ -28,7 +28,7 @@
  * ZenMagick SEO API function.
  */
 function zm_build_seo_href($view=null, $params='', $isSecure=false) {
-    if (isset($GLOBALS['SeoUrl']) && (null == zm_setting('seoEnabledPagesList') || zm_is_in_array($view, zm_setting('seoEnabledPagesList')))) {
+    if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('seoEnabledPagesList') || zm_is_in_array($view, ZMSettings::get('seoEnabledPagesList')))) {
         return $GLOBALS['SeoUrl']->buildHrefLink($view, $params, $isSecure ? 'SSL' : 'NONSSL');
     } else {
         return _zm_zen_href_link($view, $params, $isSecure ? 'SSL' : 'NONSSL');

@@ -38,9 +38,9 @@ $shippingAddress = $order->getShippingAddress();
 $billingAddress = $order->getBillingAddress();
 $paymentType = $order->getPaymentType();
 $language = ZMRuntime::getLanguage();
-?><?php zm_l10n("%s Order Confirmation\n", zm_setting('storeName')) ?>
+?><?php zm_l10n("%s Order Confirmation\n", ZMSettings::get('storeName')) ?>
 
-<?php zm_l10n("Thanks for shopping at %s,\n", zm_setting('storeName')) ?>
+<?php zm_l10n("Thanks for shopping at %s,\n", ZMSettings::get('storeName')) ?>
 <?php zm_l10n("The following is a summary of your order.\n") ?>
 
 <?php zm_l10n("Order Details\n") ?>
@@ -83,4 +83,4 @@ $language = ZMRuntime::getLanguage();
 <?php } ?>
 
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

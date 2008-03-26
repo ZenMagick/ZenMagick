@@ -277,7 +277,7 @@ return zen_get_uprid($productId, $attributes);
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         if (null == $currency) {
           ZMObject::log('no currency found - using default currency', ZM_LOG_WARN);
-            $currency = ZMCurrencies::instance()->getCurrencyForCode(zm_setting('defaultCurrency'));
+            $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);
 

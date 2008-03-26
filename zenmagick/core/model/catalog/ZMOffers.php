@@ -237,7 +237,7 @@ class ZMOffers extends ZMObject {
             return $bestSpecialPrice;
         }
 
-        $calculationDecimals = zm_setting('calculationDecimals');
+        $calculationDecimals = ZMSettings::get('calculationDecimals');
 
         // sanitize
         $saleBasePrice = $saleBasePrice < 0 ? 0 : $saleBasePrice;
@@ -275,9 +275,9 @@ class ZMOffers extends ZMObject {
         $this->discountPercent_ = 0;
         if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
             if (0 != $salePrice) {
-                $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), zm_setting('discountDecimals'));
+                $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
             } else {
-                $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), zm_setting('discountDecimals'));
+                $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
             }
         }
     }

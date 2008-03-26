@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (zm_setting('isAccountGender')) { ?>
+                <?php if (ZMSettings::get('isAccountGender')) { ?>
                     <tr>
                         <td><?php zm_l10n("Title") ?><span>*</span></td>
                         <td>
@@ -54,7 +54,7 @@
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
                     <td><input type="text" name="lastname" value="<?php echo $zm_account->getLastName() ?>" /></td>
                 </tr>
-                <?php if (zm_setting('isAccountDOB')) { ?>
+                <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
                         <td><input type="text" name="dob" value="<?php zm_date_short($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
@@ -64,7 +64,7 @@
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>
                 </tr>
-                <?php if (zm_setting('isAccountNickname')) { ?>
+                <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
                         <td><input type="text" name="nick" value="<?php echo $zm_account->getNickName() ?>" /></td>

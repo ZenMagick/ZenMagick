@@ -106,7 +106,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         $missingBoxes = $this->_getMissingZCSideboxes();
 
         if (0 < count($missingBoxes)) {
-            if ((zm_setting('isEnablePatching')) || $force) {
+            if ((ZMSettings::get('isEnablePatching')) || $force) {
                 foreach ($missingBoxes as $box) {
                     if ($this->isReady()) {
                         if (!file_exists(_ZM_ZEN_DIR_FS_BOXES.$box)) {

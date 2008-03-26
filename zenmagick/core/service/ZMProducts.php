@@ -294,11 +294,11 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getNewProducts($categoryId=null, $max=0, $timeLimit=120, $languageId=null) {
-        $timeLimit = 0 == $timeLimit ? zm_setting('globalNewProductsLimit') : $timeLimit;
+        $timeLimit = 0 == $timeLimit ? ZMSettings::get('globalNewProductsLimit') : $timeLimit;
 
         $db = ZMRuntime::getDB();
         $queryLimit = '';
-        switch (zm_setting('globalNewProductsLimit')) {
+        switch (ZMSettings::get('globalNewProductsLimit')) {
             case '0':
                 // no global limit
                 $queryLimit = '';
@@ -348,7 +348,7 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getBestSellers($categoryId=null, $max=0, $languageId=null) {
-        $max = 0 == $max ? zm_setting('maxBestSellers') : $max;
+        $max = 0 == $max ? ZMSettings::get('maxBestSellers') : $max;
 
         $db = ZMRuntime::getDB();
         $query = null;
@@ -389,7 +389,7 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     function getSpecials($max=0, $languageId=null) {
-        $max = 0 == $max ? zm_setting('maxSpecialProducts') : $max;
+        $max = 0 == $max ? ZMSettings::get('maxSpecialProducts') : $max;
 
         $db = ZMRuntime::getDB();
         $sql = "select distinct p.products_id

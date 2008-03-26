@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Store Enquiry %s,", zm_setting('storeName')) ?>
+<?php zm_l10n("Store Enquiry %s,", ZMSettings::get('storeName')) ?>
 
 
 <?php zm_l10n("From: %s", $contactInfo->getName()) ?>

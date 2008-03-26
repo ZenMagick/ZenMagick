@@ -67,10 +67,10 @@ class zm_init_language extends ZMPlugin {
                 // URL parameter takes precedence
                 $language = ZMLanguages::instance()->getLanguageForCode($languageCode);
             } else {
-                if (zm_setting('isUseBrowserLanguage')) {
+                if (ZMSettings::get('isUseBrowserLanguage')) {
                     $language = $this->getClientLanguage();
                 } else {
-                    $language = ZMLanguages::instance()->getLanguageForCode(zm_setting('defaultLanguageCode'));
+                    $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
                 }
             }
             if (null == $language) {

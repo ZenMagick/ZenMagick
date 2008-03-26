@@ -126,7 +126,7 @@ class ZMReviews extends ZMObject {
                     break;
             }
             if (0 == count($reviews)) {
-                if (null == $productId || !zm_setting('isReviewsDefaultToRandom'))
+                if (null == $productId || !ZMSettings::get('isReviewsDefaultToRandom'))
                     break;
                 return $this->getRandomReviews(null, $max);
             }
@@ -310,7 +310,7 @@ class ZMReviews extends ZMObject {
         $sql = $db->bindVars($sql, ':customersId', $account->getId(), 'integer');
         $sql = $db->bindVars($sql, ':customersName', $account->getFullName(), 'string');
         $sql = $db->bindVars($sql, ':rating', $review->getRating(), 'string');
-        $status = zm_setting('isApproveReviews') ? '0' : '1';
+        $status = ZMSettings::get('isApproveReviews') ? '0' : '1';
         $sql = $db->bindVars($sql, ':status', $status, 'integer');
         $db->Execute($sql);
 

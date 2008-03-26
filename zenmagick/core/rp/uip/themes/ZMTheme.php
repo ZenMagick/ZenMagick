@@ -71,7 +71,7 @@ class ZMTheme extends ZMObject {
      */
     function hasLayout($page) {
         // layouts reside in the content directory
-        return file_exists($this->getContentDir().$page.zm_setting('templateSuffix'));
+        return file_exists($this->getContentDir().$page.ZMSettings::get('templateSuffix'));
     }
 
     /**
@@ -88,7 +88,7 @@ class ZMTheme extends ZMObject {
      */
     function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
         $url = ZMRuntime::getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
-        if (zm_setting('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
+        if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
             if (file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$uri)) {
                 $url = ZMRuntime::getThemesPathPrefix().ZM_DEFAULT_THEME."/".ZM_THEME_CONTENT_DIR.$uri;
             }
@@ -169,7 +169,7 @@ class ZMTheme extends ZMObject {
      */
     function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
         $file = $this->getRootDir().$baseDir.$name;
-        if (zm_setting('isEnableThemeDefaults') && !file_exists($file)) {
+        if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
             $dfile = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.$baseDir.$name;
             if (file_exists($dfile)) {
@@ -286,7 +286,7 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-        if (!zm_setting('isZMDefinePages')) {
+        if (!ZMSettings::get('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $languageId, $echo);
         }
 
@@ -300,7 +300,7 @@ class ZMTheme extends ZMObject {
         $path = $this->getLangDir().$languageDir."/".ZM_THEME_STATIC_DIR;
 
         $filename = $path.$page.'.php';
-        if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
+        if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
             $filename = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_LANG_DIR.$languageDir."/".ZM_THEME_STATIC_DIR.$page.'.php';
         }
 
@@ -333,7 +333,7 @@ class ZMTheme extends ZMObject {
         }
         $languageDir = $language->getDirectory();
         $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.ZMThemes::instance()->getZCThemeId().'/define_' . $page . '.php';
-        if (!file_exists($filename) && zm_setting('isEnableThemeDefaults')) {
+        if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
             $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
         }
 

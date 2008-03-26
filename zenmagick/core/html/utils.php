@@ -113,7 +113,7 @@
      * @return string A preformatted attribute in the form ' name="value"'
      */
     function zm_href_target($newWin=true, $echo=ZM_ECHO_DEFAULT) {
-        $text = $newWin ? (zm_setting('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
+        $text = $newWin ? (ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
 
         if ($echo) echo $text;
         return $text;

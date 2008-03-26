@@ -40,7 +40,7 @@
     function zm_prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
-            if (zm_starts_with($name, zm_setting('uploadOptionPrefix'))) {
+            if (zm_starts_with($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }
@@ -63,7 +63,7 @@
      */
     function zm_sanitize_attributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!zm_setting('isSanitizeAttributes')) {
+        if (!ZMSettings::get('isSanitizeAttributes')) {
             return $attributes;
         }
 
@@ -78,7 +78,7 @@
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
             if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                $attributeId = zm_setting('textOptionPrefix') . $attributeId;
+                $attributeId = ZMSettings::get('textOptionPrefix') . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
             if (!array_key_exists($attributeId, $attributes)) {

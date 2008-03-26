@@ -27,12 +27,12 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Store Enquiry %s,", zm_setting('storeName')) ?></title>
+<title><?php zm_l10n("Store Enquiry %s,", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Store Enquiry %s,", zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("Store Enquiry %s,", ZMSettings::get('storeName')) ?></p>
 
 
 <p><?php zm_l10n("From: %s", $contactInfo->getName()) ?></p>

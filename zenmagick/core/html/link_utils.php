@@ -61,7 +61,7 @@
     global $session_started, $http_domain, $https_domain;
 
         $isAdmin = false;
-        if (zm_setting('isAdmin')) {
+        if (ZMSettings::get('isAdmin')) {
             // admin links!
             $isAdmin = true;
             //TODO: init!
@@ -80,7 +80,7 @@
 
         // default to non ssl
         $server = HTTP_SERVER;
-        if ($transport == 'SSL' && zm_setting('isEnableSSL')) {
+        if ($transport == 'SSL' && ZMSettings::get('isEnableSSL')) {
             $server = HTTPS_SERVER;
         }
 
@@ -111,7 +111,7 @@
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
         //TODO:$session = ZMRequest::getSession();
-        if ($addSessionId && ($session_started/* || $session->isValid()*/) && !zm_setting('isForceCookieUse')) {
+        if ($addSessionId && ($session_started/* || $session->isValid()*/) && !ZMSettings::get('isForceCookieUse')) {
             if (defined('SID') && !zm_is_empty(SID)) {
                 // defined, so use it
                 $sid = SID;
@@ -374,7 +374,7 @@
      * @return string A complete Ajax URL.
      */
     function zm_ajax_href($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
-        if (zm_setting('isAdmin')) {
+        if (ZMSettings::get('isAdmin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
         } else {

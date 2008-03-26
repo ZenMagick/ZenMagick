@@ -93,7 +93,7 @@ class ZMThemes extends ZMObject {
         // create instance
         $obj = new $infoClass();
         $obj->setThemeId($themeId);
-        if ($themeId != ZM_DEFAULT_THEME && zm_setting('isEnableThemeDefaults')) {
+        if ($themeId != ZM_DEFAULT_THEME && ZMSettings::get('isEnableThemeDefaults')) {
             $obj->setParent($this->getThemeInfoForId(ZM_DEFAULT_THEME));
         }
 

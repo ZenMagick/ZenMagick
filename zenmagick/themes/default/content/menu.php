@@ -40,7 +40,7 @@
         <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>
-    <?php if (zm_setting('isShowEZHeaderNav')) { ?>
+    <?php if (ZMSettings::get('isShowEZHeaderNav')) { ?>
         <?php foreach (ZMEZPages::instance()->getPagesForHeader() as $page) { ?>
             <li><?php zm_ezpage_link($page->getId()) ?></li>
         <?php } ?>

@@ -238,7 +238,7 @@ class '.$infoClass.' extends ZMThemeInfo {
 
         $contents = '<?php
 
-    zm_set_setting(\'isEnableThemeDefaults\', false);
+    ZMSettings::set(\'isEnableThemeDefaults\', false);
 
 ?>
 ';

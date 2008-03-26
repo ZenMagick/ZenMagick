@@ -100,7 +100,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $medium = $imageBase.zm_setting('imgSuffixMedium').$ext;
+        $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
         $newimg = handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         $this->formattedParameter_ = $newimg[4];
         return $newimg[0];
@@ -117,7 +117,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $large = $imageBase.zm_setting('imgSuffixLarge').$ext;
+        $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
         $newimg = handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
         $this->formattedParameter_ = $newimg[4];
         return $newimg[0];

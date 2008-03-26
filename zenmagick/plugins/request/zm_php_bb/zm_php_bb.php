@@ -82,7 +82,7 @@ class zm_php_bb extends ZMPlugin {
         }
 
         // enable nickname field
-        zm_set_setting('isAccountNickname', true);
+        ZMSettings::set('isAccountNickname', true);
 
         if ('create_account' == $this->page_) {
             // add custom validation rules

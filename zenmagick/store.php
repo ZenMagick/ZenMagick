@@ -29,7 +29,7 @@
     ZMCategories::instance()->setPath(ZMRequest::getCategoryPathArray());
 
     // main request processor
-    if (zm_setting('isEnableZenMagick')) {
+    if (ZMSettings::get('isEnableZenMagick')) {
         ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_START);
         zm_dispatch();
         ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_DONE);

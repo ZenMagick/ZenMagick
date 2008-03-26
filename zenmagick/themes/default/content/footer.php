@@ -25,14 +25,14 @@
 ?>
 
 <div id="footer">
-  <?php if (zm_setting('isShowEZFooterNav')) { ?>
+  <?php if (ZMSettings::get('isShowEZFooterNav')) { ?>
       <p id="fpages">
           <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
               <?php zm_ezpage_link($page->getId()) ?>
           <?php } ?>
       </p>
   <?php } ?>
-  <?php if (zm_setting('isDisplayTimerStats')) { ?>
+  <?php if (ZMSettings::get('isDisplayTimerStats')) { ?>
       <p>
         <?php $db = ZMRuntime::getDB(); ?>
         Queries: <?php echo $db->queryCount(); ?>; Query Time: <?php echo round($db->queryTime(), 4); ?>;

@@ -44,6 +44,6 @@ $comment = trim($matches[1]);
 <?php } ?>
 
 
-<?php zm_l10n("Regards, %s", zm_setting('storeName')) ?>
+<?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?>
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

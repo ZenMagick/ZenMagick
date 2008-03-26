@@ -92,7 +92,7 @@ class ZMSacsMapper extends ZMObject {
      * @param string controller The controller; default is <code>null</code> to use the current page name.
      */
     function ensureAuthorization($controller=null) {
-        $requiredLevel = $this->getMappingValue($controller, 'level', zm_setting('defaultAccessLevel'));
+        $requiredLevel = $this->getMappingValue($controller, 'level', ZMSettings::get('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
         }
@@ -108,7 +108,7 @@ class ZMSacsMapper extends ZMObject {
             $session = ZMRequest::getSession();
             if (!$session->isValid()) {
                 // no valid session
-                zm_redirect(zm_href(zm_setting('invalidSessionPage'), '', false));
+                zm_redirect(zm_href(ZMSettings::get('invalidSessionPage'), '', false));
             }
             $session->markRequestAsLoginFollowUp();
             zm_redirect(zm_secure_href('login', '', false));
@@ -125,7 +125,7 @@ class ZMSacsMapper extends ZMObject {
      */
     function ensureAccessMethod($controller=null) {
         $secure = $this->getMappingValue($controller, 'level', false);
-        if ($secure && !ZMRequest::isSecure() && zm_setting('isEnableSSL') && zm_setting('isEnforceSSL')) {
+        if ($secure && !ZMRequest::isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
             zm_redirect(zm_secure_href(null, null, false));
         }
     }

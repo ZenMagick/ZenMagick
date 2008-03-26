@@ -136,7 +136,7 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        if (true /*(zm_setting('isEnablePatching') && zm_setting('isUltimateSeoPatchSupport'))*/ || $force) {
+        if (true /*(ZMSettings::get('isEnablePatching') && ZMSettings::get('isUltimateSeoPatchSupport'))*/ || $force) {
             $files = $this->_getUnpatchedAdminFiles();
             foreach ($files as $file => $lines) {
                 if (is_writeable($file)) {

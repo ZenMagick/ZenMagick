@@ -76,7 +76,7 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         // stock handling
-        if (zm_setting('isEnableStock') && !zm_setting('isAllowLowStockCheckout')) {
+        if (ZMSettings::get('isEnableStock') && !ZMSettings::get('isAllowLowStockCheckout')) {
             foreach ($shoppingCart->getItems() as $item) {
                 if (!$item->isStockAvailable()) {
                     ZMMessages::instance()->error(zm_l10n_get('Some items in your order are out of stock'));

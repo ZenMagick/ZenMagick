@@ -115,7 +115,7 @@ class ZMI18nPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        if ((zm_setting('isEnablePatching')) || $force) {
+        if ((ZMSettings::get('isEnablePatching')) || $force) {
             // patch lang files
             $files = $this->_getUnpatchedFiles();
             foreach ($files as $file => $lines) {

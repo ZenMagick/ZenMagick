@@ -86,8 +86,8 @@ class ZMAjaxController extends ZMController {
      */
     function process() {
         $method = $this->method_;
-        if (!method_exists($this, $this->method_) && method_exists($this, $this->method_.zm_setting('ajaxFormat'))) {
-            $method = $this->method_.zm_setting('ajaxFormat');
+        if (!method_exists($this, $this->method_) && method_exists($this, $this->method_.ZMSettings::get('ajaxFormat'))) {
+            $method = $this->method_.ZMSettings::get('ajaxFormat');
         }
 
         if (method_exists($this, $method)) {
@@ -106,8 +106,8 @@ class ZMAjaxController extends ZMController {
      */
     function setJSONHeader($json) {
         $this->setContentType('text/plain');
-        if (zm_setting('isJSONHeader')) { header("X-JSON: ".$json); }
-        if (zm_setting('isJSONEcho')) { echo $json; }
+        if (ZMSettings::get('isJSONHeader')) { header("X-JSON: ".$json); }
+        if (ZMSettings::get('isJSONEcho')) { echo $json; }
     }
 
     /**

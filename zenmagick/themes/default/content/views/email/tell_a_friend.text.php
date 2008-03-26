@@ -26,7 +26,7 @@
 <?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?>
 
 
-<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), zm_setting('storeName')) ?>
+<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), ZMSettings::get('storeName')) ?>
 
 <?php if ($zm_emailMessage->hasMessage()) { ?>
 
@@ -39,8 +39,8 @@
 <?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", zm_product_href($zm_product->getId(), null, false)) ?>
 
 
-<?php zm_l10n("Regards, %s", zm_setting('storeOwner')) ?>
+<?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?>
 
 
 
-<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail'))) ?>
+<?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

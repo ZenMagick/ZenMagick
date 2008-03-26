@@ -31,7 +31,7 @@
   if (ZM_COUPON_TYPPE_FIXED == $coupon->getType()) {
       $discount = zm_l10n_get($fixed, zm_format_currency($coupon->getAmount(), true, false));
   } else if (ZM_COUPON_TYPPE_PERCENT == $coupon->getType()) {
-      $discount = zm_l10n_get($fixed, number_format($coupon->getAmount(), zm_setting('discountDecimals')).'%');
+      $discount = zm_l10n_get($fixed, number_format($coupon->getAmount(), ZMSettings::get('discountDecimals')).'%');
   } else {
       $discount = zm_l10n_get('This coupon gives you free shipping on your order');
   }

@@ -90,7 +90,7 @@ class ZMPasswordForgottenController extends ZMController {
 
         // send email (clear text)
         $context = array('newPassword' => $newPassword);
-        zm_mail(zm_l10n_get("Forgotten Password - %s", zm_setting('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
+        zm_mail(zm_l10n_get("Forgotten Password - %s", ZMSettings::get('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
 
         // report success
         ZMMessages::instance()->success(zm_l10n_get('A new password has been sent to your email address.'));

@@ -77,8 +77,8 @@ class ZMTaxRates extends ZMObject {
                 $zoneId = $defaultAddress->getZoneId();
                 $countryId = $defaultAddress->getCountryId();
             } else {
-                $zoneId = zm_setting('storeZone');
-                $countryId = zm_setting('storeCountry');
+                $zoneId = ZMSettings::get('storeZone');
+                $countryId = ZMSettings::get('storeCountry');
             }
         }
 
@@ -88,8 +88,8 @@ class ZMTaxRates extends ZMObject {
             return $this->taxRates_[$taxRateId];
         }
 
-        if (ZM_PRODUCT_TAX_BASE_STORE == zm_setting('productTaxBase')) {
-            if (zm_setting('storeZone') != $zoneId) {
+        if (ZM_PRODUCT_TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
+            if (ZMSettings::get('storeZone') != $zoneId) {
                 $taxRate = $this->create("TaxRate");
                 $taxRate->setId($taxRateId);
                 $taxRate->setClassId($classId);

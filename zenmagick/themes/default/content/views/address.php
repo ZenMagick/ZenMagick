@@ -26,7 +26,7 @@
 
 <?php 
     $country = $address->getCountry();
-    $countryId = 0 != $country->getId() ? $country->getId() : zm_setting('storeCountry');
+    $countryId = 0 != $country->getId() ? $country->getId() : ZMSettings::get('storeCountry');
 ?>
 <fieldset>
     <legend><?php zm_l10n("Address") ?></legend>
@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (zm_setting('isAccountGender')) { ?>
+            <?php if (ZMSettings::get('isAccountGender')) { ?>
                 <tr>
                     <td><?php zm_l10n("Title") ?><span>*</span></td>
                     <td>
@@ -57,7 +57,7 @@
                 <td><?php zm_l10n("Last Name") ?><span>*</span></td>
                 <td><input type="text" id="lastname" name="lastname" value="<?php echo $address->getLastName() ?>" /></td>
             </tr>
-            <?php if (zm_setting('isAccountCompany')) { ?>
+            <?php if (ZMSettings::get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php zm_l10n("Company Name") ?></td>
                     <td><input type="text" id="company" name="company" value="<?php echo $address->getCompanyName() ?>" /></td>
@@ -83,7 +83,7 @@
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
                 <td><?php zm_idp_select('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), 1, $countryId) ?></td>
             </tr>
-            <?php if (zm_setting('isAccountState')) { ?>
+            <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>

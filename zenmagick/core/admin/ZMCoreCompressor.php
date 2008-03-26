@@ -134,12 +134,12 @@ class ZMCoreCompressor extends ZMObject {
         // add some levels to make plugins load last
         $this->_preparePlugins($this->pluginsPreparedDirname_.'/1/2/3/4');
 
-        if (zm_setting('isStripCore')) {
+        if (ZMSettings::get('isStripCore')) {
             $this->_stripPhpDir($this->coreDirname_, $this->strippedDirname_);
             $this->_stripPhpDir($this->pluginsPreparedDirname_, $this->strippedDirname_);
         }
         if (!$this->hasErrors()) {
-            if (zm_setting('isStripCore')) {
+            if (ZMSettings::get('isStripCore')) {
                 $this->_flattenDirStructure($this->strippedDirname_, $this->flatDirname_);
             } else {
                 $this->_flattenDirStructure($this->coreDirname_, $this->flatDirname_);
@@ -151,7 +151,7 @@ class ZMCoreCompressor extends ZMObject {
             }
         }
 
-        if (zm_setting('isStripCore')) {
+        if (ZMSettings::get('isStripCore')) {
             $this->clean();
         }
     }
@@ -385,7 +385,7 @@ class ZMCoreCompressor extends ZMObject {
                 return;
             }
 
-            if (!zm_setting('isStripCore')) {
+            if (!ZMSettings::get('isStripCore')) {
                 if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
                     array_push($this->errors_, 'could not write to file ' . $outfile);
                     return;
@@ -417,7 +417,7 @@ class ZMCoreCompressor extends ZMObject {
             return;
         }
         $lines = array(
-            'if (zm_setting("isLegacyAPI")) {',
+            'if (ZMSettings::get("isLegacyAPI")) {',
             '  $zm_loader = ZMLoader::instance();',
             '  $zm_runtime = ZMLoader::make("Runtime");',
             '  $zm_request = new ZMRequest();',
@@ -501,7 +501,7 @@ class ZMCoreCompressor extends ZMObject {
                     unset($files[$key]);
                     $source = file_get_contents($infile);
 
-                    if (!zm_setting('isStripCore')) {
+                    if (!ZMSettings::get('isStripCore')) {
                         if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
                             array_push($this->errors_, 'could not write to file ' . $outfile);
                             return;

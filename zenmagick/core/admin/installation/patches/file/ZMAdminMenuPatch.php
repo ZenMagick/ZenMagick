@@ -96,7 +96,7 @@ class ZMAdminMenuPatch extends ZMFilePatch {
      */
     function patch($force=false) {
         if ($this->isOpen()) {
-            if ((zm_setting('isEnablePatching')) || $force) {
+            if ((ZMSettings::get('isEnablePatching')) || $force) {
                 // patch
                 if ($this->isReady()) {
                     $this->log("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu", ZM_LOG_ERROR);

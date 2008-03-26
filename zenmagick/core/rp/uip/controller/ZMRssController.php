@@ -117,7 +117,7 @@ class ZMRssController extends ZMController {
     function rssHeader($channel) {
         $lines = array(
           '<?xml version="1.0" encoding="UTF-8"?>',
-          '<!-- generator="ZenMagick '.zm_setting('ZenMagickVersion').'" -->',
+          '<!-- generator="ZenMagick '.ZMSettings::get('ZenMagickVersion').'" -->',
           '<rss version="2.0">',
           '  <channel>',
           '    <title><![CDATA['.zm_xml_encode($channel->getTitle()).']]></title>',
@@ -212,9 +212,9 @@ class ZMRssController extends ZMController {
         $channel->setTitle(zm_l10n_get("Product Reviews"));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         if (null != $key)  {
-            $channel->setDescription(zm_l10n_get("Product Reviews for %s at %s", $product->getName(), zm_setting('storeName')));
+            $channel->setDescription(zm_l10n_get("Product Reviews for %s at %s", $product->getName(), ZMSettings::get('storeName')));
         } else {
-            $channel->setDescription(zm_l10n_get("Product Reviews at %s", zm_setting('storeName')));
+            $channel->setDescription(zm_l10n_get("Product Reviews at %s", ZMSettings::get('storeName')));
         }
         $channel->setLastBuildDate(zm_mk_rss_date($lastPubDate));
 
@@ -283,9 +283,9 @@ class ZMRssController extends ZMController {
         }
 
         $channel = $this->create("RssChannel");
-        $channel->setTitle(zm_l10n_get("New Products at %s", zm_setting('storeName')));
+        $channel->setTitle(zm_l10n_get("New Products at %s", ZMSettings::get('storeName')));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
-        $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", zm_setting('storeName')));
+        $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = $this->create("RssFeed");

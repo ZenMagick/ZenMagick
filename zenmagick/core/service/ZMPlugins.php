@@ -289,7 +289,7 @@ class ZMPlugins extends ZMObject {
      */
     public function initPlugins($type, $scope) {
         // prepare environment
-        if (zm_setting('isLegacyAPI')) { eval(zm_globals()); }
+        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
 
         // each type has it's own loader
         $pluginLoader = ZMLoader::make("Loader");

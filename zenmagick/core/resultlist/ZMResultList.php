@@ -65,7 +65,7 @@ class ZMResultList extends ZMObject {
         }
         $this->filters_ = array();
         $this->sorters_ = array();
-        $this->pagination_ = zm_setting('defaultResultListPagination');
+        $this->pagination_ = ZMSettings::get('defaultResultListPagination');
         $page = 0 == $page ? ZMRequest::getPageIndex() : $page;
         $this->page_ = $page;
         if (null != $results) {

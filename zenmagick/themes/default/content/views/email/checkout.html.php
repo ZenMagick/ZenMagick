@@ -41,11 +41,11 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("%s Order Confirmation", zm_setting('storeName')) ?></title>
+<title><?php zm_l10n("%s Order Confirmation", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Thanks for shopping at %s,", zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("Thanks for shopping at %s,", ZMSettings::get('storeName')) ?></p>
 <p><?php zm_l10n("The following is a summary of your order.") ?></p>
 
 <h3><?php zm_l10n("Order Details") ?></h3>
@@ -96,7 +96,7 @@ $language = ZMRuntime::getLanguage();
 <p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
 <?php } ?>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>
 </body>
 </html>

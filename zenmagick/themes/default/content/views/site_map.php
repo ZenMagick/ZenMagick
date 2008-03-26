@@ -28,7 +28,7 @@
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
 <ul>
-    <?php if (zm_setting('isSiteMapAccountLinks') && ZMRequest::isRegistered()) { ?>
+    <?php if (ZMSettings::get('isSiteMapAccountLinks') && ZMRequest::isRegistered()) { ?>
       <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_EDIT); ?>"><?php zm_l10n("Change Account") ?></a></li>
@@ -54,13 +54,13 @@
           <li><a href="<?php zm_href(FILENAME_CONDITIONS); ?>"><?php zm_l10n("Terms &amp; Conditions") ?></a></li>
           <li><a href="<?php zm_href(FILENAME_CONTACT_US); ?>"><?php zm_l10n("Contact Us") ?></a></li>
 
-      <?php if (zm_setting('isEnabledGV')) { ?>
+      <?php if (ZMSettings::get('isEnabledGV')) { ?>
           <li><a href="<?php zm_href(FILENAME_GV_FAQ); ?>"><?php zm_l10n("Giftvoucher FAQ") ?></a></li>
       <?php } ?>
-      <?php if (zm_setting('isEnabledCoupons')) { ?>
+      <?php if (ZMSettings::get('isEnabledCoupons')) { ?>
           <li><a href="<?php zm_href(FILENAME_DISCOUNT_COUPON); ?>"><?php zm_l10n("Coupon Lookup") ?></a></li>
       <?php } ?>
-      <?php if (zm_setting('isEnableUnsubscribeLink')) { ?>
+      <?php if (ZMSettings::get('isEnableUnsubscribeLink')) { ?>
           <li><a href="<?php zm_href(FILENAME_UNSUBSCRIBE); ?>"><?php zm_l10n("Newsletter Unsubscribe") ?></a></li>
       <?php } ?>
    </ul></li>

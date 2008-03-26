@@ -51,7 +51,7 @@ class ZMRuntime extends ZMObject {
      * @return string Either <code>ZM_SCOPE_STORE</code> or <code>ZM_SCOPE_ADMIN</code>.
      */
     public static function getScope() {
-        return zm_setting('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
+        return ZMSettings::get('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
     }
 
     /**
@@ -66,7 +66,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
-    public static function getDatabase() { return ZMObject::instance(zm_setting('dbProvider')); }
+    public static function getDatabase() { return ZMObject::instance(ZMSettings::get('dbProvider')); }
 
     /**
      * Return the directory containing all themes.

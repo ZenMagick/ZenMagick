@@ -86,7 +86,7 @@
         // some argument cleanup
         $args = null !== $args ? $args : array();
         $toName = null !== $toName ? $toName : $toEmail;
-        $fromEmail = null !== $fromEmail ? $fromEmail : zm_setting('storeEmailFrom');
+        $fromEmail = null !== $fromEmail ? $fromEmail : ZMSettings::get('storeEmailFrom');
         $fromName = null !== $fromName ? $fromName : $fromEmail;
         // this is sooo weiyrd!
         $attparam = '';

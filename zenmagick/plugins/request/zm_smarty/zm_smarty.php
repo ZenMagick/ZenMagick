@@ -73,7 +73,7 @@ class zm_smarty extends ZMPlugin {
         parent::init();
 
         // do not echo HTML per default
-        zm_set_setting('isEchoHTML', false);
+        ZMSettings::set('isEchoHTML', false);
 
         $smartyDir = $this->get('smartyDir');
         if (empty($smartyDir)) {
@@ -81,8 +81,8 @@ class zm_smarty extends ZMPlugin {
         }
         define('SMARTY_DIR', $smartyDir.'/libs/');
 
-        zm_set_setting('templateSuffix', '.tpl');
-        zm_set_setting('isEnableThemeDefaults', false);
+        ZMSettings::set('templateSuffix', '.tpl');
+        ZMSettings::set('isEnableThemeDefaults', false);
 
         // make sure PageView is loaded as PopupView extends it
         if (!class_exists('PageView')) {

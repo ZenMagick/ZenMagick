@@ -27,18 +27,18 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Welcome to %s", zm_setting('storeName')) ?></title>
+<title><?php zm_l10n("Welcome to %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?></p>
 
-<p><?php zm_l10n("We wish to welcome you to %s.", zm_setting('storeName')) ?></p>
-<div><?php echo zm_l10n_chunk_get('email_welcome', zm_setting('storeName'), zm_setting('storeEmail'), zm_setting('storeOwner')) ?></div>
-<p><?php zm_l10n("Sincerely, %s", zm_setting('storeOwner')) ?></p>
+<p><?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?></p>
+<div><?php echo zm_l10n_chunk_get('email_welcome', ZMSettings::get('storeName'), ZMSettings::get('storeEmail'), ZMSettings::get('storeOwner')) ?></div>
+<p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

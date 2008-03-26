@@ -56,7 +56,7 @@
 
         $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
 
-        if (null != zm_setting('seoEnabledPagesList') && !zm_is_in_array($view, zm_setting('seoEnabledPagesList'))) {
+        if (null != ZMSettings::get('seoEnabledPagesList') && !zm_is_in_array($view, ZMSettings::get('seoEnabledPagesList'))) {
             return $href;
         }
 

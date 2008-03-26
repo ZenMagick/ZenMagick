@@ -73,7 +73,7 @@
 
     function _zm_build_form($page=null, $params='', $id=null, $method='post', $secure=false, $onsubmit=null, $excludes='', $echo=ZM_ECHO_DEFAULT) {
         $excludes = explode(',', $excludes);
-        if (ZMValidator::instance()->hasRuleSet($id) && zm_setting('isAutoJSValidation')) {
+        if (ZMValidator::instance()->hasRuleSet($id) && ZMSettings::get('isAutoJSValidation')) {
             // create JS validation code
             ZMValidator::instance()->insertJSValidation($id);
         }

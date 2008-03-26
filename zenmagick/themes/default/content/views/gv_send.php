@@ -44,5 +44,5 @@
 
 <p class="rclear">
     <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+    <?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </p>

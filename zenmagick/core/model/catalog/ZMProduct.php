@@ -166,7 +166,7 @@ class ZMProduct extends ZMModel {
      * @return string The default image.
      */
     function getDefaultImage() { 
-        return (empty($this->image_) && zm_setting('isShowNoPicture')) ? zm_setting('imgNotFound') : $this->image_;
+        return (empty($this->image_) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image_;
     }
 
     /**

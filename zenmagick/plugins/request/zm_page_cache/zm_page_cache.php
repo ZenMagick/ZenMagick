@@ -64,7 +64,7 @@ class zm_page_cache extends ZMPlugin {
 
         $this->zcoSubscribe();
 
-        $config = array('cacheTTL' => zm_setting('pageCacheTTL', 300));
+        $config = array('cacheTTL' => ZMSettings::get('pageCacheTTL', 300));
 
         // get one now to make cache admin work
         $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
@@ -92,7 +92,7 @@ class zm_page_cache extends ZMPlugin {
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function isCacheable() {
-        $callback = zm_setting('pageCacheStrategyCallback');
+        $callback = ZMSettings::get('pageCacheStrategyCallback');
         if (function_exists($callback)) {
             return $callback();
         }
@@ -115,7 +115,7 @@ class zm_page_cache extends ZMPlugin {
             if ($this->isCacheable() && $contents = $this->pageCache_->get($this->getRequestKey())) {
                 if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
                     echo $contents;
-                    if (zm_setting('isDisplayTimerStats')) {
+                    if (ZMSettings::get('isDisplayTimerStats')) {
                         $db = ZMRuntime::getDB();
                         echo '<!-- zm_page_cache stats: ' . round($db->queryTime(), 4) . ' sec. for ' . $db->queryCount() . ' queries; ';
                         echo 'page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';

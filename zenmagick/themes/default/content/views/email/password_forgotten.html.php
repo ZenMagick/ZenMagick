@@ -30,18 +30,18 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("New Password Request - %s", zm_setting('storeName')) ?></title>
+<title><?php zm_l10n("New Password Request - %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("New Password Request") ?></p>
-<p><?php zm_l10n("This is in response to a request for a new password for your account at %s.", zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("This is in response to a request for a new password for your account at %s.", ZMSettings::get('storeName')) ?></p>
 <p><?php zm_l10n("Your new password is: %s", $password) ?></p>
 <p><?php zm_l10n("For security reasons please remember to change your password next time you logon.") ?></p>
-<p><?php zm_l10n("Regards, %s", zm_setting('storeName')) ?></p>
+<p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_advisory', zm_setting('storeEmail')) ?>
+<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>
 </body>
 </html>

@@ -103,14 +103,14 @@ class ZMProductReviewsWriteController extends ZMController {
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
 
         // account email
-        if (zm_setting('isApproveReviews') && zm_setting('isEmailAdminReview')) {
+        if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
             $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
             $session = ZMRequest::getSession();
             $context = zm_email_copy_context($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['zm_review'] = $review;
             $context['zm_product'] = $product;
-            zm_mail($subject, 'review', $context, zm_setting('emailAdminReview'));
+            zm_mail($subject, 'review', $context, ZMSettings::get('emailAdminReview'));
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Thank you for your submission"));

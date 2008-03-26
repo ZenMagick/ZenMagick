@@ -75,7 +75,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
         if (isset($req['__obj'])) {
             $address = $req['__obj'];
 
-            if (!zm_setting('isAccountState')) {
+            if (!ZMSettings::get('isAccountState')) {
                 return true;
             }
 
