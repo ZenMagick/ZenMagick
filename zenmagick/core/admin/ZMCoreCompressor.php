@@ -458,7 +458,7 @@ class ZMCoreCompressor extends ZMObject {
             '1/settings.php',
             'ZMObject.php',
             'ZMLoader.php',
-            '1/ZMRuntime.php',
+            'ZMRuntime.php',
             '1/ZMRequest.php',
             'init_bootstrap.php'
         );
