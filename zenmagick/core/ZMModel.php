@@ -35,7 +35,7 @@
  * @version $Id$
  */
 class ZMModel extends ZMObject {
-    private $properties_;
+    protected $properties_;
 
 
     /**

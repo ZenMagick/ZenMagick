@@ -56,6 +56,43 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function updateModel($table, $model, $mapping) {
+        // TODO: cache mapping
+        $mapping = $this->parseMapping($mapping);
+
+        $sql = 'UPDATE '.$table.' SET';
+
+        $firstSet = true;
+        $firstWhere = true;
+        $where = ' WHERE ';
+        foreach ($mapping as $field) {
+            if ($field['primary']) {
+                if (!$firstWhere) {
+                    $where .= ' AND ';
+                }
+                $where .= $field['column'].' = :'.$field['property'].';'.$field['type'];
+                $firstWhere = false;
+            } else {
+                if (!$field['readonly']) {
+                    if (!$firstSet) {
+                        $sql .= ',';
+                    }
+                    $sql .= ' '.$field['column'].' = :'.$field['property'].';'.$field['type'];
+                    $firstSet = false;
+                }
+            }
+        }
+        if (7 > strlen($where)) {
+            ZMObject::backtrace('missing primary key');
+        }
+        $sql .= $where;
+        $sql = ZMDbUtils::bindObject($sql, $model, false);
+        $this->db_->Execute($sql);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
         $results = $this->query($sql, $args, $mapping, $modelClass);
         return 1 == count($results) ? $results[0] : null;
@@ -132,7 +169,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $mappedRow = array();
         foreach ($mapping as $field) {
             if (isset($row[$field['column']])) {
-                $mappedRow[$field['field']] = $row[$field['column']];
+                $mappedRow[$field['property']] = $row[$field['column']];
             }
         }
 
@@ -147,14 +184,22 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     protected function parseMapping($mapping) {
         $tableInfo = array();
-        foreach ($mapping as $field => $info) {
-            $token = explode(':', $info);
-            if (2 > count($token)) {
-                ZMObject::backtrace('invalid table mapping: '.$info);
+        $defaults = array('primary' => false, 'readonly' => false);
+        foreach ($mapping as $property => $info) {
+            $arr = array();
+            parse_str(str_replace(';', '&', $info), $arr);
+            $tableInfo[$property] = array_merge($defaults, $arr);
+            $tableInfo[$property]['property'] = $property;
+            // handle boolean values
+            foreach ($tableInfo[$property] as $name => $value) {
+                if ('false' == $value) {
+                    $tableInfo[$property][$name] = false;
+                } else if ('true' == $value) {
+                    $tableInfo[$property][$name] = true;
+                } 
             }
-            $isPrimary = 2 < count($token);
-            $tableInfo[$field] = array('field' => $field, 'column' => $token[0], 'type' => $token[1], 'isPrimary' => $isPrimary);
         }
+
         return $tableInfo;
     }
 

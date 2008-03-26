@@ -35,7 +35,10 @@ class ZMManufacturer extends ZMModel {
     private $id_;
     private $name_;
     private $image_;
+    private $languageId_;
     private $url_;
+    private $clickCount_;
+    private $lastClick_;
 
 
     /**
@@ -46,7 +49,10 @@ class ZMManufacturer extends ZMModel {
         $this->id_ = 0;
         $this->name_ = '';
         $this->image_ = null;
+        $this->languageId_ = 0;
         $this->url_ = null;
+        $this->clickCount_ = 0;
+        $this->lastClick_ = null;
     }
 
     /**
@@ -126,6 +132,48 @@ class ZMManufacturer extends ZMModel {
      * @param string url The manufacturer URL.
      */
     function setURL($url) { $this->url_ = $url; }
+
+    /**
+     * Get the language id.
+     *
+     * @return int The language id.
+     */
+    function getLanguageId() { return $this->languageId_; }
+
+    /**
+     * Set the language id.
+     *
+     * @param int languageId The language id.
+     */
+    function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+
+    /**
+     * Get the click counter.
+     *
+     * @return int The click count for this manufactuer and language.
+     */
+    function getClickCount() { return $this->clickCount_; }
+
+    /**
+     * Set the click counter.
+     *
+     * @param int clickCount The click count for this manufactuer and language.
+     */
+    function setClickCount($clickCount) { $this->clickCount_ = $clickCount; }
+
+    /**
+     * Get the date of the last click.
+     *
+     * @return date The last click date.
+     */
+    function getLastClick() { return $this->lastClick_; }
+
+    /**
+     * Set the date of the last click.
+     *
+     * @param date lastClick The last click date.
+     */
+    function setLastClick($lastClick) { $this->lastClick_ = $lastClick; }
 
 }
 

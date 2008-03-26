@@ -32,7 +32,8 @@
  * @version $Id$
  */
 class ZMManufacturers extends ZMObject {
-    private static $mapping_ = null;
+    private static $manufacturerMapping_ = null;
+    private static $manufacturerInfoMapping_ = null;
 
 
     /**
@@ -40,15 +41,28 @@ class ZMManufacturers extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        if (null == ZMManufacturers::$mapping_) {
-            ZMManufacturers::$mapping_ = array(
-              'id' => 'manufacturers_id:integer:primary',
-              'name' => 'manufacturers_name:string',
-              'image' => 'manufacturers_image:string',
-              'url' => 'manufacturers_url:string',
-              'languageId' => 'languageId:integer'
+        if (null == ZMManufacturers::$manufacturerMapping_) {
+            ZMManufacturers::$manufacturerMapping_ = array(
+              'id' => 'column=manufacturers_id;type=integer;primary=true',
+              'languageId' => 'column=languages_id;type=integer;readonly=true',
+              'name' => 'column=manufacturers_name;type=string',
+              'image' => 'column=manufacturers_image;type=string',
+              'url' => 'column=manufacturers_url;type=string;readonly=true',
+              'clickCount' => 'column=url_clicked;type=integer;readonly=true',
+              'lastClick' => 'column=date_last_clicked;type=date;readonly=true'
             );
-            ZMManufacturers::$mapping_ = ZMDbUtils::addCustomFields(ZMManufacturers::$mapping_, TABLE_MANUFACTURERS);
+            ZMManufacturers::$manufacturerMapping_ = ZMDbUtils::addCustomFields(ZMManufacturers::$manufacturerMapping_, TABLE_MANUFACTURERS);
+        }
+        if (null == ZMManufacturers::$manufacturerInfoMapping_) {
+            // clicks are updated using straight SQL
+            ZMManufacturers::$manufacturerInfoMapping_ = array(
+              'id' => 'column=manufacturers_id;type=integer;primary=true',
+              'languageId' => 'column=languages_id;type=integer;primary=true',
+              'url' => 'column=manufacturers_url;type=string'/*,
+              'url_clicked' => 'column=url_clicked;type=integer',
+              'date_last_click' => 'column=url_clicked;type=date'*/
+            );
+            ZMManufacturers::$manufacturerInfoMapping_ = ZMDbUtils::addCustomFields(ZMManufacturers::$manufacturerInfoMapping_, TABLE_MANUFACTURERS_INFO);
         }
     }
 
@@ -73,7 +87,8 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
+        $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image,
+                mi.manufacturers_url, mi.languages_id, mi.url_clicked, mi.date_last_click
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
@@ -81,7 +96,7 @@ class ZMManufacturers extends ZMObject {
                 where m.manufacturers_id = :id";
 
         $args = array('id' => $id, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZMManufacturers::$mapping_, 'Manufacturer');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZMManufacturers::$manufacturerMapping_, 'Manufacturer');
     }
 
     /**
@@ -92,6 +107,17 @@ class ZMManufacturers extends ZMObject {
      */
     function getManufacturerForProduct($product) {
 		    return $this->getManufacturerForId($product->manufacturerId_);
+    }
+
+    /**
+     * Update an existing manufacturer.
+     *
+     * @param ZMManufacturer manufacturer The manufacturer.
+     * @return ZMManufacturer The updated manufacturer.
+     */
+    function updateManufacturer($manufacturer) {
+        ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer, ZMManufacturers::$manufacturerMapping_);
+        ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer, ZMManufacturers::$manufacturerInfoMapping_);
     }
 
     /**
@@ -106,14 +132,15 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url
+        $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image,
+                mi.manufacturers_url, mi.languages_id, mi.url_clicked, mi.date_last_click
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
 
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, ZMManufacturers::$mapping_, 'Manufacturer');
+        return ZMRuntime::getDatabase()->query($sql, $args, ZMManufacturers::$manufacturerMapping_, 'Manufacturer');
     }
 
     /**

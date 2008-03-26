@@ -562,7 +562,7 @@ class ZMProducts extends ZMObject {
      *
      * <p><strong>NOTE: Currently not all properties are supported!</strong></p>
      *
-     * @param ZMProduct The product.
+     * @param ZMProduct product The product.
      * @return ZMProduct The updated product.
      */
     function updateProduct($product) {

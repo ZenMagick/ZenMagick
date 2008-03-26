@@ -135,6 +135,17 @@ class ZMObject {
             $s .= $name.'=';
             if (is_object($value)) {
                 $s .= '['.get_class($value).']';
+            } else if (is_array($value)) {
+                $s .= '{';
+                $afirst = true;
+                foreach ($value as $key => $val) {
+                    if (!$afirst) {
+                        $s .= ', ';
+                    }
+                    $s .= $key. '=>'.$val;
+                    $afirst = false;
+                }
+                $s .= '}';
             } else {
                 $s .= $value;
             }

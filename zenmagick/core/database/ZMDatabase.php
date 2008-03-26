@@ -60,6 +60,14 @@ interface ZMDatabase {
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null);
 
+    /**
+     * Update a single row using the given model and mapping.
+     *
+     * @param string table The table to update.
+     * @param mixed model The model instance.
+     * @param array mapping The field mappings.
+     */
+    public function updateModel($table, $model, $mapping);
 }
 
 ?>
