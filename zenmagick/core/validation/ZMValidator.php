@@ -28,7 +28,7 @@
  * A validator.
  *
  * @author mano
- * @package org.zenmagick.validations
+ * @package org.zenmagick.validation
  * @version $Id$
  */
 class ZMValidator extends ZMObject {

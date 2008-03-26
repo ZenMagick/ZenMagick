@@ -31,7 +31,7 @@
  * contains any currency formatting.</p>
  *
  * @author mano
- * @package org.zenmagick.validations.rules.custom
+ * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */
 class ZMGVAmountRule extends ZMRule {

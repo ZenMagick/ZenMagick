@@ -28,7 +28,7 @@
  * Check for unique email address.
  *
  * @author mano
- * @package org.zenmagick.validations.rules.custom
+ * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */
 class ZMUniqueEmailRule extends ZMRule {

@@ -28,7 +28,7 @@
  * Date validation rule.
  *
  * @author mano
- * @package org.zenmagick.validations.rules
+ * @package org.zenmagick.validation.rules
  * @version $Id$
  */
 class ZMDateRule extends ZMRule {

@@ -31,7 +31,7 @@
  * just the request map.</p>
  *
  * @author mano
- * @package org.zenmagick.validations.rules.custom
+ * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */
 class ZMStateOrZoneIdRule extends ZMRule {

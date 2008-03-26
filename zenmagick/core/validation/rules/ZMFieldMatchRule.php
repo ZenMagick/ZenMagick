@@ -30,7 +30,7 @@
  * <p>This is mostly to match new and confirm password.
  *
  * @author mano
- * @package org.zenmagick.validations.rules
+ * @package org.zenmagick.validation.rules
  * @version $Id$
  */
 class ZMFieldMatchRule extends ZMRule {

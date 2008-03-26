@@ -28,7 +28,7 @@
  * Email validation rules.
  *
  * @author mano
- * @package org.zenmagick.validations.rules
+ * @package org.zenmagick.validation.rules
  * @version $Id$
  */
 class ZMEmailRule extends ZMRule {
