@@ -159,7 +159,7 @@ class ZMManufacturers extends ZMObject {
                 WHERE manufacturers_id = :id 
                 AND languages_id = :languageId";
         $args = array('id' => $id, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, ZMManufacturers::$manufacturerInfoMapping_);
+        return ZMRuntime::getDatabase()->update($sql, $args, ZMManufacturers::$manufacturerInfoMapping_);
     }
 
 }
