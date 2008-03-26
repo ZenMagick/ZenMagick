@@ -69,6 +69,7 @@ Release 0.9.1
   should make switching to another db package easier once all databse access
 	is replaced with the new code; also, this will focrce completing the missing
 	bits in the model classes as it uses object - array mappings and back
+- moved zm_sql_patch(..) into ZMDbUtils::executePatch(..)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

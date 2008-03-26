@@ -271,6 +271,64 @@ class ZMDbUtils {
         return $obj;
     }
 
+    /**
+     * Execute a SQL patch.
+     *
+     * <p><strong>NOTE:</strong> This functionallity is only available in the context
+     * of the ZenMagick installation or plugins page.</p>
+     *
+     * @param string sql The sql.
+     * @param array Result message list.
+     * @param boolean Debug flag.
+     * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
+     */
+    public static function executePatch($sql, $messages, $debug=false) {
+        if (!zm_setting('isAdmin')) {
+            return false;
+        }
+
+        if ($debug) {
+            $_GET['debug'] = 'ON';
+        }
+        $sql = zen_db_prepare_input($sql);
+        if (!empty($sql)) {
+            $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
+            foreach (ZMDbUtils::processPatchResults($results) as $msg) {
+                $messages[] = $msg;
+            }
+            return empty($results['error']);
+        }
+
+        return true;
+    }
+
+    /**
+     * Process SQL patch messages.
+     *
+     * @param array The execution results.
+     * @return array The results converted to messages.
+     */
+    private static function processPatchResults($results) {
+        $messages = array();
+        if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
+            array_push($messages, ZMLoader::make("Message", $results['queries'].' statements processed.', 'success'));
+        } else {
+            array_push($messages, ZMLoader::make("Message", 'Failed: '.$results['queries'].'.', 'error'));
+        }
+
+        if (!empty($results['errors'])) {
+            foreach ($results['errors'] as $value) {
+                array_push($messages, ZMLoader::make("Message", 'ERROR: '.$value.'.', 'error'));
+            }
+        }
+        if ($results['ignored'] != 0) {
+            array_push($messages, ZMLoader::make("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
+        }
+
+        return $messages;
+    }
+
+
 }
 
 ?>

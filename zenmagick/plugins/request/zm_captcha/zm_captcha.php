@@ -75,7 +75,7 @@ class zm_captcha extends ZMPlugin {
      */
     function install() {
         parent::install();
-        zm_sql_patch(file($this->getPluginDir()."install.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file($this->getPluginDir()."install.sql"), $this->messages_);
     }
 
     /**
@@ -85,7 +85,7 @@ class zm_captcha extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        zm_sql_patch(file($this->getPluginDir()."uninstall.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file($this->getPluginDir()."uninstall.sql"), $this->messages_);
     }
 
 

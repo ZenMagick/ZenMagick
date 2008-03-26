@@ -75,7 +75,7 @@ class zm_group_pricing extends ZMPlugin {
      */
     function install() {
         parent::install();
-        zm_sql_patch(file($this->getPluginDir()."sql/group_pricing.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/group_pricing.sql"), $this->messages_);
     }
 
     /**
@@ -85,7 +85,7 @@ class zm_group_pricing extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        zm_sql_patch(file($this->getPluginDir()."sql/uninstall.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/uninstall.sql"), $this->messages_);
     }
 
 }
