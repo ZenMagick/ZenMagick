@@ -28,7 +28,7 @@
  * Settings (ZenMagick's configuration).
  *
  * @author mano
- * @package org.zenmagick.service
+ * @package org.zenmagick
  * @version $Id$
  */
 class ZMSettings {
