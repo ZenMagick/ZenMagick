@@ -185,7 +185,7 @@ class ZMAddresses extends ZMObject {
      * Create new address instance.
      */
     function _newAddress($fields) {
-        $address = $this->create("Address");
+        $address = ZMLoader::make("Address");
         $address->addressId_ = $fields['address_book_id'];
         $address->accountId_ = $fields['customers_id'];
         $address->firstName_ = $fields['entry_firstname'];

@@ -224,7 +224,7 @@ class ZMAccounts extends ZMObject {
      * Create new account instance.
      */
     function _newAccount($fields) {
-        $account = $this->create("Account");
+        $account = ZMLoader::make("Account");
         $account->id_ = $fields['customers_id'];
         $account->password_ = $fields['customers_password'];
         $account->firstName_ = $fields['customers_firstname'];

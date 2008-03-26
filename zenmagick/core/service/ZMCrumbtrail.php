@@ -110,7 +110,7 @@ class ZMCrumbtrail extends ZMObject {
      * @param string url Optional crumbtrail element URL.
      */
     function addCrumb($name, $url = null) {
-        array_push($this->crumbs_, $this->create("Crumb", $name, $url));
+        array_push($this->crumbs_, ZMLoader::make("Crumb", $name, $url));
     }
 
     /**

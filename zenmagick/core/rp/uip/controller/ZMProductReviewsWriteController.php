@@ -82,7 +82,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $review = $this->create("Review");
+        $review = ZMLoader::make("Review");
         $review->populate();
 
         $product = $this->_getProduct();

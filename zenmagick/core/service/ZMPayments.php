@@ -80,13 +80,13 @@ class ZMPayments extends ZMObject {
         $zenTypes = $this->zenModules_->selection();
         $paymentTypes = array();
         foreach ($zenTypes as $zenType) {
-            $paymentType = $this->create("PaymentType", $zenType['id'], $zenType['module']);
+            $paymentType = ZMLoader::make("PaymentType", $zenType['id'], $zenType['module']);
             if (isset($zenType['error'])) {
                 $paymentType->error_ = $zenType['error'];
             }
             if (isset($zenType['fields'])) {
                 foreach ($zenType['fields'] as $zenField) {
-                    $paymentType->addField($this->create("PaymentField", $zenField['title'], $zenField['field']));
+                    $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
                 }
             }
             array_push($paymentTypes, $paymentType);
@@ -117,15 +117,15 @@ class ZMPayments extends ZMObject {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) { 
             // must be GV, then, so build custom type
-            $paymentType = $this->create("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
+            $paymentType = ZMLoader::make("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
             return $paymentType;
         }
         $confirmation = $zenModule->confirmation();
 
-        $paymentType = $this->create("PaymentType", $zenModule->code, $zenModule->title);
+        $paymentType = ZMLoader::make("PaymentType", $zenModule->code, $zenModule->title);
         if (is_array($confirmation) && array_key_exists('fields', $confirmation)) {
             foreach ($confirmation['fields'] as $zenField) {
-                $paymentType->addField($this->create("PaymentField", $zenField['title'], $zenField['field']));
+                $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
             }
         }
 

@@ -86,7 +86,7 @@ class zm_smarty extends ZMPlugin {
 
         // make sure PageView is loaded as PopupView extends it
         if (!class_exists('PageView')) {
-            $this->create('PageView', 'dummy');
+            ZMLoader::make('PageView', 'dummy');
         }
     }
 

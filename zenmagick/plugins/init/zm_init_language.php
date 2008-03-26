@@ -74,7 +74,7 @@ class zm_init_language extends ZMPlugin {
                 }
             }
             if (null == $language) {
-                $language = $this->create("Language");
+                $language = ZMLoader::make("Language");
                 $language->setId(1);
                 $language->setDirectory('english');
                 $language->setCode('en');

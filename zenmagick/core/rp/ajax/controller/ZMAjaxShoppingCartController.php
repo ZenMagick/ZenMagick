@@ -59,7 +59,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Estimate shipping.
      */
     function estimateShippingJSON() {
-        $shippingEstimator = $this->create("ShippingEstimator");
+        $shippingEstimator = ZMLoader::make("ShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
 
@@ -70,7 +70,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $methods = array();
         if (!$shippingEstimator->isCartEmpty()) {
-            $shipping = $this->create("Shipping");
+            $shipping = ZMLoader::make("Shipping");
             if (!$shipping->isFreeShipping()) {
                 foreach ($shipping->getShippingProvider() as $provider) {
                     if ($provider->hasError()) 

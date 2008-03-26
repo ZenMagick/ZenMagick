@@ -77,7 +77,7 @@ class ZMGvSendController extends ZMController {
      */
     function processGet() {
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
+        $this->exportGlobal("zm_gvreceiver", ZMLoader::make("GVReceiver"));
 
         return $this->findView();
     }
@@ -90,7 +90,7 @@ class ZMGvSendController extends ZMController {
      */
     function processPost() {
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $gvreceiver = $this->create("GVReceiver");
+        $gvreceiver = ZMLoader::make("GVReceiver");
         $gvreceiver->populate();
         $this->exportGlobal("zm_gvreceiver", $gvreceiver);
 
@@ -100,7 +100,7 @@ class ZMGvSendController extends ZMController {
         }
 
         // to fakce the email content display
-        $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
+        $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
 
         return $this->findView('success');
     }

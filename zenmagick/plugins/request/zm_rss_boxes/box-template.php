@@ -32,7 +32,7 @@
      */
 
 ?>
-<?php $zm_rss = $this->create("ZMRss", zm_rss_box('RSS_URL', false), null ); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
+<?php $zm_rss = ZMLoader::make("ZMRss", zm_rss_box('RSS_URL', false), null ); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
     <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php zm_htmlencode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>

@@ -75,7 +75,7 @@ class ZMContactUsController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        $contactInfo = $this->create("ContactInfo");
+        $contactInfo = ZMLoader::make("ContactInfo");
         if (ZMRequest::isRegistered()) {
             $account = ZMRequest::getAccount();
             $contactInfo->setName($account->getFullName());
@@ -94,7 +94,7 @@ class ZMContactUsController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $contactInfo = $this->create("ContactInfo");
+        $contactInfo = ZMLoader::make("ContactInfo");
         $contactInfo->populate();
         // not available in case of success redirect!
         $this->exportGlobal("zm_contact", $contactInfo);

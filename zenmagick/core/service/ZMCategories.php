@@ -271,7 +271,7 @@ class ZMCategories extends ZMObject {
      * Create new <code>ZMCategory</code> instance.
      */
     protected function newCategory($fields) {
-        $category = $this->create("Category");
+        $category = ZMLoader::make("Category");
         $category->id_ = $fields['categories_id'];
         $category->parentId_ = $fields['parent_id'];
         $category->name_ = $fields['categories_name'];

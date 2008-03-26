@@ -194,7 +194,7 @@ class ZMRssController extends ZMController {
             if (null == $key) {
                 $product = ZMProducts::instance()->getProductForId($review->getProductId());
             }
-            $item = $this->create("RssItem");
+            $item = ZMLoader::make("RssItem");
             $item->setTitle(zm_l10n_get("Review: %s", $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
@@ -208,7 +208,7 @@ class ZMRssController extends ZMController {
             }
         }
 
-        $channel = $this->create("RssChannel");
+        $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Product Reviews"));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         if (null != $key)  {
@@ -218,7 +218,7 @@ class ZMRssController extends ZMController {
         }
         $channel->setLastBuildDate(zm_mk_rss_date($lastPubDate));
 
-        $feed = $this->create("RssFeed");
+        $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -235,20 +235,20 @@ class ZMRssController extends ZMController {
         $items = array();
         $toc = ZMEZPages::instance()->getPagesForChapterId($key);
         foreach ($toc as $page) {
-            $item = $this->create("RssItem");
+            $item = ZMLoader::make("RssItem");
             $item->setTitle($page->getTitle());
             $item->setLink(zm_ezpage_href($page, false));
             $item->setDescription($page->getTitle());
             array_push($items, $item);
         }
 
-        $channel = $this->create("RssChannel");
+        $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
         $channel->setLastBuildDate(zm_mk_rss_date());
 
-        $feed = $this->create("RssFeed");
+        $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -270,7 +270,7 @@ class ZMRssController extends ZMController {
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
         foreach ($products as $product) {
-            $item = $this->create("RssItem");
+            $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
             $item->setLink(zm_product_href($product->getId(), null, false));
             $item->setDescription(zm_more(zm_strip_html($product->getDescription(), false), 60, false));
@@ -282,13 +282,13 @@ class ZMRssController extends ZMController {
             }
         }
 
-        $channel = $this->create("RssChannel");
+        $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("New Products at %s", ZMSettings::get('storeName')));
         $channel->setLink(zm_href(FILENAME_DEFAULT, '', false));
         $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = $this->create("RssFeed");
+        $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 

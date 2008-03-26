@@ -206,7 +206,7 @@ class ZMMetaTags extends ZMObject {
         if (null != $this->crumbtrail_)
             return;
 
-        $this->crumbtrail_ = $this->create("Crumbtrail");
+        $this->crumbtrail_ = ZMLoader::make("Crumbtrail");
         $this->crumbtrail_->addCategoryPath(ZMRequest::getCategoryPathArray());
         $this->crumbtrail_->addManufacturer(ZMRequest::getManufacturerId());
         $this->crumbtrail_->addProduct(ZMRequest::getProductId());

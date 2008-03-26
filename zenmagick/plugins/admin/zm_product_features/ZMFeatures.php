@@ -84,7 +84,7 @@ class ZMFeatures extends ZMObject {
 
         $this->features_ = array();
         while (!$results->EOF) {
-            $feature = $this->create("Feature");
+            $feature = ZMLoader::make("Feature");
             $feature->id_ = $results->fields['feature_id'];
             $feature->type_ = $results->fields['feature_type_id'];
             $feature->name_ = $results->fields['feature_name'];
@@ -140,7 +140,7 @@ class ZMFeatures extends ZMObject {
 
         $types = array();
         foreach ($this->featureTypes_ as $id => $name) {
-            $types[$id] = $this->create("IdNamePair", $id, $name);
+            $types[$id] = ZMLoader::make("IdNamePair", $id, $name);
         }
 
         return $types;
@@ -157,7 +157,7 @@ class ZMFeatures extends ZMObject {
 
         $type = null;
         if (array_key_exists($id, $this->featureTypes_)) {
-            $type = $this->create("IdNamePair", $id, $this->featureTypes_[$id]);
+            $type = ZMLoader::make("IdNamePair", $id, $this->featureTypes_[$id]);
         }
 
         return $type;
@@ -352,7 +352,7 @@ class ZMFeatures extends ZMObject {
                 if (null != $feature) {
                     $features[$feature->getName()] = $feature;
                 }
-                $feature = $this->create("Feature");
+                $feature = ZMLoader::make("Feature");
             }
             $feature->id_ = $results->fields['feature_id'];
             $tmp = $this->features_[$feature->id_];

@@ -93,7 +93,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // create anonymous account
-        $account = $this->create("Account");
+        $account = ZMLoader::make("Account");
         $account->setEmail(ZMRequest::getParameter('email_address'));
         $account->setPassword('');
         $account->setType(ZM_ACCOUNT_TYPE_GUEST);

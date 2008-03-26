@@ -126,7 +126,7 @@ class ZMLanguages extends ZMObject {
      * Create new language instance.
      */
     function _newLanguage($fields) {
-        $language = $this->create("Language");
+        $language = ZMLoader::make("Language");
         $language->id_ = $fields['languages_id'];
         $language->name_ = $fields['name'];
         $language->image_ = $fields['image'];

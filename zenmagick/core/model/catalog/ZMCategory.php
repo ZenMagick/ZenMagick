@@ -160,7 +160,7 @@ class ZMCategory extends ZMModel {
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
     function getImageInfo() { 
-        return !empty($this->image_) ? $this->create("ImageInfo", $this->image_, $this->name_) : null;
+        return !empty($this->image_) ? ZMLoader::make("ImageInfo", $this->image_, $this->name_) : null;
     }
 
     /**

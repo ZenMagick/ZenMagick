@@ -78,8 +78,8 @@ class ZMGvSendConfirmController extends ZMController {
     function processGet() {
         $action = ZMRequest::getParameter('action');
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $this->exportGlobal("zm_gvreceiver", $this->create("GVReceiver"));
-        $this->exportGlobal("zm_coupon", $this->create("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
+        $this->exportGlobal("zm_gvreceiver", ZMLoader::make("GVReceiver"));
+        $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
 
         return $this->findView();
     }
@@ -95,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
             return $this->findView('edit');
         }
 
-        $gvreceiver = $this->create("GVReceiver");
+        $gvreceiver = ZMLoader::make("GVReceiver");
         $gvreceiver->populate();
 
         // revalidate

@@ -99,7 +99,7 @@ class zm_recaptcha extends ZMPlugin {
             // active for this page
             $this->captchaEnabled_ = true;
             ZMValidator::instance()->addRule($form, new ZMRequiredRule(ZM_RECAPTCHA_FIELD, 'Please enter the captcha.'));
-            $captchaRule = $this->create("WrapperRule", ZM_RECAPTCHA_FIELD, 'The entered captcha is not correct.');
+            $captchaRule = ZMLoader::make("WrapperRule", ZM_RECAPTCHA_FIELD, 'The entered captcha is not correct.');
             $captchaRule->setFunction('zm_recaptcha_validate');
             ZMValidator::instance()->addRule($form, $captchaRule);
         }

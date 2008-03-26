@@ -89,7 +89,7 @@ class ZMAddressBookProcessController extends ZMController {
             $viewName = 'address_book_delete';
         } else {
             ZMCrumbtrail::instance()->addCrumb("New Entry");
-            $this->exportGlobal("zm_address", $this->create("Address"));
+            $this->exportGlobal("zm_address", ZMLoader::make("Address"));
             $viewName = 'address_book_create';
         }
 
@@ -125,7 +125,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function updateAddress() {
-        $address = $this->create("Address");
+        $address = ZMLoader::make("Address");
         $address->populate();
 
         if (!$this->validate('addressObject', $address)) {
@@ -170,7 +170,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView The result view.
      */
     function createAddress() {
-        $address = $this->create("Address");
+        $address = ZMLoader::make("Address");
         $address->populate();
         $address->setAccountId(ZMRequest::getAccountId());
 

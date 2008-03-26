@@ -74,7 +74,7 @@ class ZMShoppingCartItem extends ZMModel {
     function getId() { return $this->zenItem_['id']; }
     function getName() { return $this->zenItem_['name']; }
     function getImage() { return $this->zenItem_['image']; }
-    function getImageInfo() { return $this->create("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
+    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
     function getItemPrice() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']); }
     function getItemTotal() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }

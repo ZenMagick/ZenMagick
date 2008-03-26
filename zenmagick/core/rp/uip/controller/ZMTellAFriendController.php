@@ -74,7 +74,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         $account = ZMRequest::getAccount();
-        $emailMessage = $this->create("EmailMessage");
+        $emailMessage = ZMLoader::make("EmailMessage");
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());
             $emailMessage->setFromName($account->getFullName());
@@ -95,7 +95,7 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $emailMessage = $this->create("EmailMessage");
+        $emailMessage = ZMLoader::make("EmailMessage");
         $emailMessage->populate();
 
         if (!$this->validate('tell_a_friend')) {
@@ -129,7 +129,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));
-        $emailMessage = $this->create("EmailMessage");
+        $emailMessage = ZMLoader::make("EmailMessage");
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 
         return $this->findView('success', array('parameter' => 'products_id='.$product->getId()));

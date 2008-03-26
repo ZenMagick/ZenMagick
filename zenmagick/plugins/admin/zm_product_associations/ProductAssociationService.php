@@ -234,7 +234,7 @@ class ProductAssociationService extends ZMObject {
      * Create new product association.
      */
     function _newProductAssociation($fields) {
-        $productAssociation = $this->create("ProductAssociation");
+        $productAssociation = ZMLoader::make("ProductAssociation");
         $productAssociation->id_ = $fields['association_id'];
         $productAssociation->type_ = $fields['association_type'];
         $productAssociation->sourceId_ = $fields['source_product_id'];

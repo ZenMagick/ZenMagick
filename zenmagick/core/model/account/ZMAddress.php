@@ -69,7 +69,7 @@ class ZMAddress extends ZMModel {
         $this->city_ = '';
         $this->state_ = '';
         $this->zoneId_ = 0;
-        $this->country_ = $this->create("Country");
+        $this->country_ = ZMLoader::make("Country");
         $this->isPrimary_ = false;
         $this->format_ = 0;
     }
@@ -106,7 +106,7 @@ class ZMAddress extends ZMModel {
         $this->city_ = ZMRequest::getParameter('city', '');
         $this->country_ = ZMCountries::instance()->getCountryForId(ZMRequest::getParameter('zone_country_id', 0));
         if (null == $this->country_) {
-            $this->country_ = $this->create("Country");
+            $this->country_ = ZMLoader::make("Country");
         }
 
         $this->state_ = '';

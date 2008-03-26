@@ -105,7 +105,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
 
-        $address = $this->create("Address");
+        $address = ZMLoader::make("Address");
         $address->populate();
         $address->setPrimary(0 == count($addressList));
         $this->exportGlobal("zm_address", $address);
@@ -133,7 +133,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         } else {
             // TODO: create business objects to share logic...
             // use address book controller to process
-            $abc = $this->create("AddressBookProcessController");
+            $abc = ZMLoader::make("AddressBookProcessController");
             $view = $abc->createAddress();
             $address = $abc->getGlobal('zm_address');
             if (0 == $address->getId()) {

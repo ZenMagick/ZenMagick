@@ -99,7 +99,7 @@ class ZMGroupPricing extends ZMObject {
      * Create new price group instance.
      */
     function _newPriceGroup($fields) {
-        $priceGroup = $this->create("PriceGroup");
+        $priceGroup = ZMLoader::make("PriceGroup");
         $priceGroup->id_ = $fields['group_id'];
         $priceGroup->name_ = $fields['group_name'];
         $priceGroup->discount_ = $fields['group_percent'];

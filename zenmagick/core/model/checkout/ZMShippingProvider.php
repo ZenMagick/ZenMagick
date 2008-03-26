@@ -52,7 +52,7 @@ class ZMShippingProvider extends ZMModel {
         $taxRate = $this->getTaxRate();
         if (is_array($this->zenQuote_['methods'])) {
             foreach ($this->zenQuote_['methods'] as $method) {
-                $method = $this->create("ShippingMethod", $this, $method);
+                $method = ZMLoader::make("ShippingMethod", $this, $method);
                 $method->setTaxRate($taxRate);
                 $this->methods_[$method->getId()] = $method;
             }
@@ -95,7 +95,7 @@ class ZMShippingProvider extends ZMModel {
      *
      * @return float The shipping tax rate.
      */
-    function getTaxRate() { $taxRate = $this->create("TaxRate"); $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0); return $taxRate; }
+    function getTaxRate() { $taxRate = ZMLoader::make("TaxRate"); $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0); return $taxRate; }
 
     /**
      * Checks if an icon exists for this provider.

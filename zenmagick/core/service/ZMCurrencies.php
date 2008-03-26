@@ -108,7 +108,7 @@ class ZMCurrencies extends ZMObject {
      * Create new currency instance.
      */
     function _newCurrency($fields) {
-        $currency = $this->create("Currency");
+        $currency = ZMLoader::make("Currency");
         $currency->code_ = $fields['code'];
         $currency->name_ = $fields['title'];
         $currency->symbolLeft_ = $fields['symbol_left'];

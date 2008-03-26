@@ -96,7 +96,7 @@ class ZMManufacturer extends ZMModel {
      *
      * @return ZMImageInfo The image info.
      */
-    function getImageInfo() { return $this->create("ImageInfo", $this->image_, $this->name_); }
+    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
 
     /**
      * Get the manufacturer URL.

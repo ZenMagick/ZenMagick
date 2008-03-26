@@ -196,7 +196,7 @@ class ZMOrder extends ZMModel {
             }
         }
 
-        return $force ? $this->create("ZMOrderTotal", ucwords($name), 0, 0, $type) : null;
+        return $force ? ZMLoader::make("ZMOrderTotal", ucwords($name), 0, 0, $type) : null;
     }
 
     /**
@@ -222,7 +222,7 @@ class ZMOrder extends ZMModel {
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
     function getPaymentType() {
-        $payments = $this->create("Payments");
+        $payments = ZMLoader::make("Payments");
         return $payments->getSelectedPaymentType();
     }
 

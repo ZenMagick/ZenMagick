@@ -48,7 +48,7 @@ class ZMShippingMethod extends ZMModel {
 
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = $this->create("TaxRate"); 
+        $this->taxRate_ = ZMLoader::make("TaxRate"); 
     }
 
     /**

@@ -106,7 +106,7 @@ class ZMCheckoutShippingController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        $this->exportGlobal("zm_shipping", $this->create("Shipping"));
+        $this->exportGlobal("zm_shipping", ZMLoader::make("Shipping"));
         return $this->findView();
     }
 

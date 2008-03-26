@@ -179,7 +179,7 @@ class ZMCoupons extends ZMObject {
         $results = $db->Execute($sql);
 
         $id = $db->Insert_ID();
-        $coupon = $this->create("Coupon", $id, $couponCode, $type);
+        $coupon = ZMLoader::make("Coupon", $id, $couponCode, $type);
         $coupon->amount_ = $fields['coupon_amount'];
 
         return $coupon;
@@ -332,7 +332,7 @@ class ZMCoupons extends ZMObject {
      * Create new coupon instance.
      */
     function _newCoupon($fields) {
-        $coupon = $this->create("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
+        $coupon = ZMLoader::make("Coupon", $fields['coupon_id'], $fields['coupon_code'], $fields['coupon_type']);
         $coupon->amount_ = $fields['coupon_amount'];
         $coupon->name_ = $fields['coupon_name'];
         $coupon->description_ = $fields['coupon_description'];
@@ -354,20 +354,20 @@ class ZMCoupons extends ZMObject {
         $sql = $db->bindVars($sql, ':id', $id, 'string');
         $results = $db->Execute($sql);
 
-        $restrictions = $this->create("CouponRestrictions");
+        $restrictions = ZMLoader::make("CouponRestrictions");
         $products = array();
         while (!$results->EOF) {
             if (0 != $results->fields['category_id']) {
-                $restriction = $this->create("CategoryCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
+                $restriction = ZMLoader::make("CategoryCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['category_id']);
                 $categories[] = $restriction;
             } else {
-                $restriction = $this->create("ProductCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
+                $restriction = ZMLoader::make("ProductCouponRestriction", $results->fields['coupon_restrict'] == 'N', $results->fields['product_id']);
                 $products[] = $restriction;
             }
             $results->MoveNext();
         }
 
-        return $this->create("CouponRestrictions", $categories, $products);
+        return ZMLoader::make("CouponRestrictions", $categories, $products);
     }
 
 }

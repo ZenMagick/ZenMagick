@@ -71,7 +71,7 @@ class ZMAdvancedSearchResultController extends ZMController {
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForSQL", array($listing_sql));
         $resultList->setResultSource($resultSource);
-        $sorter = $this->create("ProductSorter");
+        $sorter = ZMLoader::make("ProductSorter");
         $sorter->setDefaultSortId(ZMSettings::get('defaultProductSortOrder'));
         $resultList->addSorter($sorter);
         $resultList->refresh();

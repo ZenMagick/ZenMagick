@@ -106,7 +106,7 @@ class ZMMediaManager extends ZMObject {
      * Create new media collection instance.
      */
     function _newMediaCollection($fields) {
-        $collection = $this->create("MediaCollection");
+        $collection = ZMLoader::make("MediaCollection");
         $collection->name_ = $fields['media_name'];
 
         return $collection;
@@ -116,11 +116,11 @@ class ZMMediaManager extends ZMObject {
      * Create new media instance.
      */
     function _newMedia($clip, $type) {
-        $media = $this->create("Media");
+        $media = ZMLoader::make("Media");
         $media->id_ = $clip['clip_id'];
         $media->filename_ = $clip['clip_filename'];
         $media->dateAdded_ = $clip['date_added'];
-        $mediaType = $this->create("MediaType");
+        $mediaType = ZMLoader::make("MediaType");
         $mediaType->id_ = $type['type_id'];
         $mediaType->name_ = $type['type_name'];
         $mediaType->extension_ = $type['type_ext'];

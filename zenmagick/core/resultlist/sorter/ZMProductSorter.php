@@ -124,7 +124,7 @@ class ZMProductSorter extends ZMResultListSorter {
     function getOptions() {
         $options = array();
         foreach ($this->options_ as $id => $name) {
-            $option = $this->create("SortOption", $name, $id, $id == $this->sortId_, $this->isDecending());
+            $option = ZMLoader::make("SortOption", $name, $id, $id == $this->sortId_, $this->isDecending());
             array_push($options, $option);
         }
 

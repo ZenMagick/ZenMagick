@@ -84,7 +84,7 @@ class ZMAttributes extends ZMObject {
 
     // create new attribute
     function _newAttribute($fields) {
-        $attribute = $this->create("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
+        $attribute = ZMLoader::make("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
         $attribute->sortOrder_ = $fields['products_options_sort_order'];
         $attribute->comment_ = $fields['products_options_comment'];
         return $attribute;
@@ -93,7 +93,7 @@ class ZMAttributes extends ZMObject {
 
     // create new attribute value
     function _newAttributeValue($fields, $product) {
-        $value = $this->create("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
+        $value = ZMLoader::make("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
         // let's start with the easy ones
         $value->pricePrefix_ = $fields['price_prefix'];
         $value->isFree_ = ('1' == $fields['product_attribute_is_free']);

@@ -330,7 +330,7 @@ class ZMReviews extends ZMObject {
      * Create new review.
      */
     function _newReview($fields) {
-        $review = $this->create("Review");
+        $review = ZMLoader::make("Review");
         $review->id_ = $fields['reviews_id'];
         $review->rating_ = $fields['reviews_rating'];
         $review->text_ = $fields['reviews_text'];

@@ -100,18 +100,18 @@ class ZMSQLPatch extends ZMInstallationPatch {
      */
     function _processSQLMessages($results) {
         if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
-            array_push($this->messages_, $this->create("Message", $results['queries'].' statements processed.', 'success'));
+            array_push($this->messages_, ZMLoader::make("Message", $results['queries'].' statements processed.', 'success'));
         } else {
-            array_push($this->messages_, $this->create("Message", 'Failed: '.$results['queries'].'.', 'error'));
+            array_push($this->messages_, ZMLoader::make("Message", 'Failed: '.$results['queries'].'.', 'error'));
         }
 
         if (!empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
-                array_push($this->messages_, $this->create("Message", 'ERROR: '.$value.'.', 'error'));
+                array_push($this->messages_, ZMLoader::make("Message", 'ERROR: '.$value.'.', 'error'));
             }
         }
         if ($results['ignored'] != 0) {
-            array_push($this->messages_, $this->create("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
+            array_push($this->messages_, ZMLoader::make("Message", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
         }
     }
 

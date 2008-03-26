@@ -147,7 +147,7 @@ class ZMShoppingCart extends ZMObject {
         if (null != $this->cart_) {
             $zenItems = $this->cart_->get_products();
             foreach ($zenItems as $zenItem) {
-                $item = $this->create("ShoppingCartItem", $this, $zenItem);
+                $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
                 array_push($items, $item);
             }
         }
@@ -203,7 +203,7 @@ class ZMShoppingCart extends ZMObject {
                 $atname = $attributesLookup[$name];
             } else {
                 $atname = str_replace(' ', '', $name);
-                $$atname = $this->create("Attribute", $option, $name, null);
+                $$atname = ZMLoader::make("Attribute", $option, $name, null);
                 $attributesLookup[$name] = $atname;
             }
 
@@ -212,7 +212,7 @@ class ZMShoppingCart extends ZMObject {
                 // text is user input
                 $value = $item->zenItem_['attributes_values'][$option];
             }
-            $attributeValue = $this->create("AttributeValue", $type, $value);
+            $attributeValue = ZMLoader::make("AttributeValue", $type, $value);
 
             $attributeValue->pricePrefix_ = $results->fields['options_values_price'];
             $attributeValue->price_ = $results->fields['options_values_price'];
@@ -263,7 +263,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMPaymentType The payment type.
      */
     function getPaymentType() {
-        $payments = $this->create("Payments");
+        $payments = ZMLoader::make("Payments");
         return $payments->getSelectedPaymentType();
     }
 
@@ -400,7 +400,7 @@ class ZMShoppingCart extends ZMObject {
                 //print_r($zenTotal);
                 //echo "t:".$zenTotal."<br>";
                 //TODO: amount!
-                array_push($totals, $this->create("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['text'], $type));
+                array_push($totals, ZMLoader::make("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['text'], $type));
             }
         }
         return $totals;
@@ -411,7 +411,7 @@ class ZMShoppingCart extends ZMObject {
      */
     function _getPayments() {
         if (null == $this->payments_) {
-            $this->payments_ = $this->create("Payments");
+            $this->payments_ = ZMLoader::make("Payments");
         }
         return $this->payments_;
     }
@@ -461,7 +461,7 @@ class ZMShoppingCart extends ZMObject {
         $zenTypes = $zenTotals->credit_selection();
         $creditTypes = array();
         foreach ($zenTypes as $zenType) {
-            $creditType = $this->create("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
+            $creditType = ZMLoader::make("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
             if (isset($zenType['credit_class_error'])) {
                 $creditType->error_ = $zenType['credit_class_error'];
             }
@@ -469,7 +469,7 @@ class ZMShoppingCart extends ZMObject {
                 foreach ($zenType['fields'] as $zenField) {
                     //XXX fix HTML
                     $field = str_replace('textfield', 'text', $zenField['field']);
-                    $creditType->addField($this->create("PaymentField", $zenField['title'], $field));
+                    $creditType->addField(ZMLoader::make("PaymentField", $zenField['title'], $field));
                 }
             }
             if (isset($zenType['checkbox'])) {
@@ -480,7 +480,7 @@ class ZMShoppingCart extends ZMObject {
                 $field = trim(substr($checkbox, $pos));
                 //XXX fix submitFunction functionallity
                 $field = str_replace('submitFunction()', "submitFunction(this, ".$this->getTotal().")", $field);
-                $creditType->addField($this->create("PaymentField", $title, $field));
+                $creditType->addField(ZMLoader::make("PaymentField", $title, $field));
             }
             array_push($creditTypes, $creditType);
         }

@@ -184,7 +184,7 @@ class ZMConfig extends ZMObject {
      * Create new config group.
      */
     function _newConfigGroup($fields) {
-        $group = $this->create("ConfigGroup");
+        $group = ZMLoader::make("ConfigGroup");
         $group->setId($fields['configuration_group_id']);
         $group->setName($fields['configuration_group_title']);
         return $group;
@@ -194,7 +194,7 @@ class ZMConfig extends ZMObject {
      * Create new config value instance.
      */
     function _newConfigValue($fields) {
-        $value = $this->create("ConfigValue");
+        $value = ZMLoader::make("ConfigValue");
         $value->id_ = $fields['configuration_id'];
         $value->name_ = $fields['configuration_title'];
         $value->key_ = $fields['configuration_key'];

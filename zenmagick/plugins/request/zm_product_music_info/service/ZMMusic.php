@@ -92,14 +92,14 @@ class ZMMusic extends ZMObject {
         $sql = $db->bindVars($sql, ":genreId", $extra->fields['music_genre_id'], "integer");
         $musicGenre = $db->Execute($sql);
 
-        $theArtist = $this->create("Artist");
+        $theArtist = ZMLoader::make("Artist");
         $theArtist->id_ = $artist->fields['artists_id'];
         $theArtist->name_ = $artist->fields['artists_name'];
         $theArtist->genre_ = $musicGenre->fields['music_genre_name'];
         $theArtist->image_ = $artist->fields['artists_image'];
         $theArtist->url_ = $artistInfo->fields['artists_url'];
 
-        $theRecordCompany = $this->create("RecordCompany");
+        $theRecordCompany = ZMLoader::make("RecordCompany");
         $theRecordCompany->id_ = $extra->fields['record_company_id'];
         $theRecordCompany->name_ = $recordCompanyInfo->fields['record_company_name'];
         $theRecordCompany->url_ = $recordCompanyInfo->fields['record_company_url'];

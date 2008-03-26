@@ -706,7 +706,7 @@ class ZMProducts extends ZMObject {
      * Create new product instance.
      */
     function _newProduct($fields) {
-        $product = $this->create("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
+        $product = ZMLoader::make("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status_ = $fields['products_status'];
         $product->model_ = $fields['products_model'];
         $product->image_ = $fields['products_image'];

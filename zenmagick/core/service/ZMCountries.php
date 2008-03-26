@@ -94,7 +94,7 @@ class ZMCountries extends ZMObject {
         $this->countries_ = array();
         $results = $db->Execute($sql);
         while (!$results->EOF) {
-            $country = $this->create("Country");
+            $country = ZMLoader::make("Country");
             $country->id_ = $results->fields['countries_id'];
             $country->name_ = $results->fields['countries_name'];
             $country->isoCode2_ = $results->fields['countries_iso_code_2'];
@@ -172,7 +172,7 @@ class ZMCountries extends ZMObject {
 
         $zones = array();
         while (!$results->EOF) {
-            $zone = $this->create("Zone");
+            $zone = ZMLoader::make("Zone");
             $zone->setId($results->fields['zone_id']);
             $zone->setCode($results->fields['zone_code']);
             $zone->setName($results->fields['zone_name']);

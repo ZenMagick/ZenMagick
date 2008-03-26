@@ -70,9 +70,9 @@ class ZMFeaturedProductsController extends ZMController {
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getFeaturedProducts", array(ZMRequest::getCategoryId()));
         $resultList->setResultSource($resultSource);
-        $resultList->addFilter($this->create("ManufacturerFilter"));
-        $resultList->addFilter($this->create("CategoryFilter"));
-        $resultList->addSorter($this->create("ProductSorter"));
+        $resultList->addFilter(ZMLoader::make("ManufacturerFilter"));
+        $resultList->addFilter(ZMLoader::make("CategoryFilter"));
+        $resultList->addSorter(ZMLoader::make("ProductSorter"));
         $resultList->refresh();
         $this->exportGlobal("zm_resultList", $resultList);
 

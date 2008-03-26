@@ -117,7 +117,7 @@ class ZMShippingProviders extends ZMObject {
                 $module = new $moduleInfo['class']();
                 // either all or enabled (installed+enabled as per config option) - (this is different from $module->enabled!)
                 if (!$configured || 0 < $module->check()) {
-                    $this->provider_[$configured][] = $this->create("ShippingProviderWrapper", $module);
+                    $this->provider_[$configured][] = ZMLoader::make("ShippingProviderWrapper", $module);
                 }
             }
         }

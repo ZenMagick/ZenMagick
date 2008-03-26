@@ -52,7 +52,7 @@ class ZMShipping extends ZMObject {
         }
         $quotes = $zenShipping->quote();
         foreach ($quotes as $quote) {
-            array_push($this->provider_, $this->create("ShippingProvider", $quote));
+            array_push($this->provider_, ZMLoader::make("ShippingProvider", $quote));
         }
 
     }

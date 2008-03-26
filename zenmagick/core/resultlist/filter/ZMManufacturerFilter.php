@@ -73,7 +73,7 @@ class ZMManufacturerFilter extends ZMResultListFilter {
         foreach ($this->list_->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
-                $option = $this->create("FilterOption", $manufacturer->getName(), $manufacturer->getId(), $manufacturer->getId() == $this->filterValues_[0]);
+                $option = ZMLoader::make("FilterOption", $manufacturer->getName(), $manufacturer->getId(), $manufacturer->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }
         }

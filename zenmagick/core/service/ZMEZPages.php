@@ -217,7 +217,7 @@ class ZMEZPages extends ZMObject {
 
 
     function _newPage($fields) {
-        $page = $this->create("EZPage", $fields['pages_id'], $fields['pages_title']);
+        $page = ZMLoader::make("EZPage", $fields['pages_id'], $fields['pages_title']);
         $page->altUrl_ = $fields['alt_url'];
         $page->altUrlExternal_ = $fields['alt_url_external'];
         $page->htmlText_ = $fields['pages_html_text'];

@@ -156,12 +156,12 @@ class ZMShippingProviderWrapper extends ZMModel {
         $this->errors_ = isset($quotes['errors']) ? $quotes['errors'] : array();
 
         // capture tax
-        $taxRate = $this->create("TaxRate"); 
+        $taxRate = ZMLoader::make("TaxRate"); 
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();
         foreach ($quotes['methods'] as $method) {
-            $shippingMethod = $this->create("ShippingMethod", $this, $method);
+            $shippingMethod = ZMLoader::make("ShippingMethod", $this, $method);
             $shippingMethod->setTaxRate($taxRate);
             $methods[$shippingMethod->getId()] = $shippingMethod;
         }

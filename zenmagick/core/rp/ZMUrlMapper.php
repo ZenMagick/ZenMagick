@@ -131,7 +131,7 @@ class ZMUrlMapper extends ZMObject {
             $viewInfo = array('view' => $controller, 'class' => 'PageView', 'parameter' => null);
         }
 
-        $view = $this->create($viewInfo['class'], $viewInfo['view']);
+        $view = ZMLoader::make($viewInfo['class'], $viewInfo['view']);
         $view->setMappingId($viewId);
         $parameterMap = $this->_toArray($viewInfo['parameter']);
         $parameterMap = array_merge($parameterMap, $this->_toArray($parameter));
