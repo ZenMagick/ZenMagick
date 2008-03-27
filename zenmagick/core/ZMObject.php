@@ -59,6 +59,7 @@ class ZMObject {
      * @deprecated Use <code>ZMLoader::make(..)</code> instead.
      */
     public static function create() {
+        ZMObject::backtrace('deprecated');
         $args = func_get_args();
         return ZMLoader::make($args);
     }
