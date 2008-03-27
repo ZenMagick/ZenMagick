@@ -32,20 +32,18 @@
     <?php $customercare = '<a href="' . zm_href(FILENAME_CONTACT_US, '', false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
-    <?php if (ZMSettings::get('isCustomerProductNotifications')) { ?>
-        <?php if (!ZMRequest::getAccount()->isGlobalProductSubscriber()) { ?>
-            <fieldset>
-                <legend><?php zm_l10n("Product Notifications") ?></legend>
-                <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
-                <?php foreach ($zm_order->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
-                    <p>
-                        <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
-                        <label for="<?php echo $id ?>"><?php echo $orderItem->getName() ?></label><br />
-                    </p>
-                <?php } ?>
-                <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
-            </fieldset>
-        <?php } ?>
+    <?php if (!ZMRequest::getAccount()->isGlobalProductSubscriber()) { ?>
+        <fieldset>
+            <legend><?php zm_l10n("Product Notifications") ?></legend>
+            <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
+            <?php foreach ($zm_order->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
+                <p>
+                    <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
+                    <label for="<?php echo $id ?>"><?php echo $orderItem->getName() ?></label><br />
+                </p>
+            <?php } ?>
+            <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
+        </fieldset>
     <?php } ?>
 
 

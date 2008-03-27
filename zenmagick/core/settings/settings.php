@@ -26,16 +26,28 @@
 <?php
 
     ZMSettings::setAll(array(
-        'isEnableZenMagick' => true,
+
+    /**************************************
+     * System options.
+     */
+
+        // version
         'ZenMagickVersion' => '${zenmagick.version}',
-        'logLevel' => ZM_LOG_INFO,
-        'isLogEnabled' => false,
-        'zmLogFilename' => null,
-        'isZMErrorHandler' => false,
-        'missingPageId' => 'error',
+
+        // use ZenMagick templating
+        'isEnableZenMagick' => true,
+
+        // are we in admin or storefront?
+        'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
+
+        // legacy API is initializing all zm_ globals
+        'isLegacyAPI' => false,
 
         // whether to strip code in core.php
         'isStripCore' => true,
+
+        // enable auto patching during installation
+        'isEnablePatching' => true,
 
         // legacy API is initializing all zm_ globals
         'isLegacyAPI' => false,
@@ -43,45 +55,185 @@
         // database provider class
         'dbProvider' => 'ZMZenCartDatabase',
 
+        // default access level; same as anonymous
+        'defaultAccessLevel' => null,
+
+        // language support for ez-pages; this is API only, zen-cart does not use this
+        'isEZPagesLangSupport' => false,
+
+        // show products in Catalog Manager tree or not
+        'admin.isShowCatalogTreeProducts' => true,
+
+        // sanitize attributes when handling product submissions (add to cart, etc)
+        'isSanitizeAttributes' => true,
+
+        // look for define pages in theme folder
+        'isZMDefinePages' => true,
+
+        // default to default in ZM themes
+        'isEnableThemeDefaults' => true,
+
+        // template suffix/extension
+        'templateSuffix' => '.php',
+
+        // enable gift vouchers 
+        'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
+
+        // enable coupons
+        'isEnabledCoupons' => MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
+
+        // allow anonymous tell a friend; good for spamming ;)
+        'isTellAFriendAnonymousAllow' => ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
+
+        // do reviews need to be approved
+        'isApproveReviews' => REVIEWS_APPROVAL == '1',
+
+        // customer approval default value
+        'defaultCustomerApproval' => CUSTOMERS_APPROVAL_AUTHORIZATION,
+
+
+
+    /**************************************
+     * Logging options.
+     */
+
+        // overal log leve
+        'logLevel' => ZM_LOG_INFO,
+
+        // enable/disable loggin
+        'isLogEnabled' => false,
+
+        // filename for custom logfile
+        'zmLogFilename' => null,
+
+        // whether to use ZenMagick error handler for logging (using the filename)
+        'isZMErrorHandler' => false,
+
+
+
+    /**************************************
+     * Stock handling
+     */
+
+        // enable stock tracking
+        'isEnableStock' => STOCK_CHECK == 'true',
+
+        // allow checkout of low stock products (low meaning 'out of stock')
+        'isAllowLowStockCheckout' => STOCK_ALLOW_CHECKOUT == 'true',
+
+
+
+    /**************************************
+     * Error pages, other global page settings
+     */
+
+        // will be used if the original view is not valid/does not exist
+        'missingPageId' => 'error',
+
         // redirect page for invalid sessions
         'invalidSessionPage' => FILENAME_COOKIE_USAGE,
 
-        // admin settings
-        'admin.isShowCatalogTreeProducts' => true,
+        // static homepage
+        'staticHome' => null,
 
-        // default access level
-        'defaultAccessLevel' => null,
+        // use category page
+        'isUseCategoryPage' => false,
 
-        // enable auto patching during installation
-        'isEnablePatching' => true,
+        // show category listing for single products or show product page instead?
+        'isSkipSingleProductCategory' => SKIP_SINGLE_PRODUCT_CATEGORIES == 'True',
+
+
+
+    /**************************************
+     * Guest checkout
+     */
 
         // guest checkout
         'isGuestCheckout' => false,
         'isLogoffGuestAfterOrder' => true,
 
-        // sanitize attributes when handling product submissions (add to cart, etc)
-        'isSanitizeAttributes' => true,
+
+
+    /**************************************
+     * Ajax checkout
+     */
+
+        // echo JSON response
+        'isJSONEcho' => true,
+
+        // put JSON response in JSON header
+        'isJSONHeader' => false,
+
+        // default format; this is taken as method suffix to resolve Ajax methods
+        'ajaxFormat' => 'JSON',
+
+
+
+    /**************************************
+     * formatting and other defaults
+     */
 
         // decimal places for quantity
         'qtyDecimals' => QUANTITY_DECIMALS,
 
-        // look for define pages in theme folder
-        'isZMDefinePages' => true,
-
-        // language strategy
+        // language detection strategy
         'isUseBrowserLanguage' => LANGUAGE_DEFAULT_SELECTOR == 'Browser',
+
+        // default language
         'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
-        // static homepage
-        'staticHome' => null,
+        // result list 
+        'defaultResultListPagination' => 10,
 
-        // rss config
+        // cart form constants
+        'textOptionPrefix' => TEXT_PREFIX,
+        'uploadOptionPrefix' => UPLOAD_PREFIX
+
+        // default/store currency
+        'defaultCurrency' => DEFAULT_CURRENCY,
+        'textCurrencyMapping' => CURRENCIES_TRANSLATIONS,
+
+        // discount decimals
+        'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
+
+        // price calucaltion decimals for rounding
+        'calculationDecimals' => 4,
+
+        // min length for coupon code generation
+        'couponCodeLength' => SECURITY_CODE_LENGTH,
+
+
+
+    /**************************************
+     * Tax settings
+     */
+
+        // tax decimal places
+        'taxDecimalPlaces' => TAX_DECIMAL_PLACES,
+
+        // tax inclusive/exclusive
+        'isTaxInclusive' => DISPLAY_PRICE_WITH_TAX == 'true',
+
+        // product tax base
+        'productTaxBase' => STORE_PRODUCT_TAX_BASIS, //shipping,billing,store
+
+        // shipping tax base
+        'shippingTaxBase' => STORE_SHIPPING_TAX_BASIS, //shipping,billing,store
+
+
+
+    /**************************************
+     * RSS settings
+     */
+
+        // cache folder
         'rssCacheDir' => DIR_FS_SQL_CACHE."/zenmagick/rss/",
+
+        // cache TTL
         'rssCacheTimeout' => 1200,
 
-        // stock options
-        'isEnableStock' => STOCK_CHECK == 'true',
-        'isAllowLowStockCheckout' => STOCK_ALLOW_CHECKOUT == 'true',
+
+
 
         // HTML generation / validation
         //'isXHTML' => true,
@@ -89,15 +241,34 @@
         'isAutoJSValidation' => true,
         'isEchoHTML' => true,
 
-        // system
-        'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
+
+
+    /**************************************
+     * Security and session
+     */
+
+        // use SSL
         'isEnableSSL' => ENABLE_SSL == 'true',
+
+        // force use of SSL
         'isEnforceSSL' => true,
+
+        // cookies only?
         'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
+
+        // recreate sessions?
         'isSessionRecreate' => SESSION_RECREATE == 'True',
+
+        // minimum length of passwords
         'minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
+
         'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
-        'couponCodeLength' => SECURITY_CODE_LENGTH,
+
+
+
+    /**************************************
+     * EMAIL
+     */
 
         // email
         'isEmailEnabled' => SEND_EMAILS == 'true',
@@ -113,33 +284,18 @@
         'isEmailAdminGvSend' => SEND_EXTRA_GV_CUSTOMER_EMAILS_TO_STATUS == '1' && SEND_EXTRA_GV_CUSTOMER_EMAILS_TO != '',
         'emailAdminGvSend' => SEND_EXTRA_GV_CUSTOMER_EMAILS_TO,
 
-        // Ajax
-        'isJSONEcho' => true,
-        'isJSONHeader' => false,
-        'ajaxFormat' => 'JSON',
 
-        // default to default in ZM themes
-        'isEnableThemeDefaults' => true,
-        'templateSuffix' => '.php',
 
-        // main layout
+    /**************************************
+     * Layout
+     */
+
         'isEnableLeftColumn' => COLUMN_LEFT_STATUS != 0,
         'isEnableRightColumn' => COLUMN_RIGHT_STATUS != 0,
-
         'isShowCrumbtrail' => DEFINE_BREADCRUMB_STATUS == '1',
         'isShowEZHeaderNav' => EZPAGES_STATUS_HEADER == '1',
         'isShowEZBoxesNav' => EZPAGES_STATUS_SIDEBOX == '1',
         'isShowEZFooterNav' => EZPAGES_STATUS_FOOTER == '1',
-
-        // use category page
-        'isUseCategoryPage' => false,
-        'isSkipSingleProductCategory' => SKIP_SINGLE_PRODUCT_CATEGORIES == 'True',
-
-        // reviews
-        'isApproveReviews' => REVIEWS_APPROVAL == '1',
-
-        // language support for ez-pages
-        'isEZPagesLangSupport' => false,
 
         // sort default
         'defaultProductSortOrder' => 'price',
@@ -150,18 +306,15 @@
         // default to random on pages that have products_id set
         'isReviewsDefaultToRandom' => true,
 
-        // result list 
-        'defaultResultListPagination' => 10,
-
-        // tell a friend
-        'isTellAFriendAnonymousAllow' => ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
-
         // max 
         'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
         'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
         'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
         'globalNewProductsLimit' => SHOW_NEW_PRODUCTS_LIMIT,
         'maxNewProducts' => MAX_DISPLAY_NEW_PRODUCTS,
+
+        
+        //** the following are tricky as they also affect validation
 
         // show privacy message
         'isPrivacyMessage' => DISPLAY_PRIVACY_CONDITIONS == 'true',
@@ -175,35 +328,12 @@
         'isAccountReferral' => CUSTOMERS_REFERRAL_STATUS == 2,
         'isAccountNickname' => false,
 
-        // default customer approval setting
-        'defaultCustomerApproval' => CUSTOMERS_APPROVAL_AUTHORIZATION,
 
-        // product notification
-        'isCustomerProductNotifications' => CUSTOMERS_PRODUCTS_NOTIFICATION_STATUS == '1',
 
-        // downloads
-        'isDownloadsEnabled' => DOWNLOAD_ENABLED == 'true',
+    /**************************************
+     * Store info
+     */
 
-        // default/store currency
-        'defaultCurrency' => DEFAULT_CURRENCY,
-        'textCurrencyMapping' => CURRENCIES_TRANSLATIONS,
-
-        // tax
-        'taxDecimalPlaces' => TAX_DECIMAL_PLACES,
-        'isTaxInclusive' => DISPLAY_PRICE_WITH_TAX == 'true',
-        'productTaxBase' => STORE_PRODUCT_TAX_BASIS, //shipping,billing,store
-        'shippingTaxBase' => STORE_SHIPPING_TAX_BASIS, //shipping,billing,store
-
-        'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
-        'calculationDecimals' => 4,
-
-        // GV 
-        'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
-
-        // coupons
-        'isEnabledCoupons' => MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
-
-        // store
         'storeOwner' => STORE_OWNER,
         'storeName' => STORE_NAME,
         'storeNameAddress' => STORE_NAME_ADDRESS,
@@ -212,12 +342,22 @@
         'storeEmail' => STORE_OWNER_EMAIL_ADDRESS,
         'storeEmailFrom' => EMAIL_FROM,
 
-        // modules/shipping
+
+
+    /**************************************
+     * TODO: These are free shipping ot options!
+     */
+
         'isOrderTotalFreeShipping' => defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true',
         'freeShippingDestination' => MODULE_ORDER_TOTAL_SHIPPING_DESTINATION,
         'freeShippingOrderThreshold' => MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER,
 
-        // banner
+ 
+
+    /**************************************
+     * Banner
+     */
+
         'bannerGroup1' => SHOW_BANNERS_GROUP_SET1,
         'bannerGroup2' => SHOW_BANNERS_GROUP_SET2,
         'bannerGroup3' => SHOW_BANNERS_GROUP_SET3,
@@ -228,22 +368,45 @@
         'bannerGroup8' => SHOW_BANNERS_GROUP_SET8,
         'bannerGroupAll' => SHOW_BANNERS_GROUP_SET_ALL,
 
-        // images
+
+
+    /**************************************
+     * Image settings
+     */
+
+        // show 'no image found' image
         'isShowNoPicture' => PRODUCTS_IMAGE_NO_IMAGE_STATUS == '1',
+
+        // the 'no image found' image
         'imgNotFound' => PRODUCTS_IMAGE_NO_IMAGE,
+
+        // suffix for medium size images
         'imgSuffixMedium' => IMAGE_SUFFIX_MEDIUM,
+
+        // suffix for large size images
         'imgSuffixLarge' => IMAGE_SUFFIX_LARGE,
 
-        // meta
+
+
+    /**************************************
+     * Meta tag options
+     */
+
+        // keyword delimiter
         'metaTagKeywordDelimiter' => ', ',
+
+        // delimiter for meta tag crumbtrail content
         'metaTagCrumbtrailDelimiter' => ' - ',
+
+        // meta tag title delimiter
         'metaTitleDelimiter' => ' :: ',
+
+        // setting prefix to lookup custom meta tag data; example 'title_index'
         'metaTitlePrefix' => 'title_',
+
+        // add store name to title
         'isStoreNameInTitle' => true,
 
-        // others
-        'textOptionPrefix' => TEXT_PREFIX,
-        'uploadOptionPrefix' => UPLOAD_PREFIX
-    ));
+   ));
 
 ?>

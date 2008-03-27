@@ -89,6 +89,8 @@ Release 0.9.1
   links
 - removed setting 'isEnableUnsubscribeLink'; default is to show the link
 - removed setting 'isContactUsStoreAddress'; default is to show the address
+- removed setting 'isCustomerProductNotifications'; default is to show
+  notofication options
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
