@@ -83,6 +83,15 @@ class ZMSettings {
         ZMSettings::$settings_ = $settings;
     }
 
+    /**
+     * Add a map of settings.
+     *
+     * @param array settings Map of settings.
+     */
+    public static function addAll($settings) {
+        ZMSettings::$settings_ = array_merge(ZMSettings::$settings_, $settings);
+    }
+
 }
 
 ?>

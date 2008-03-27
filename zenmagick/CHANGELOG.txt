@@ -100,6 +100,8 @@ Release 0.9.1
 - removed settings isShowEZHeaderNav, isShowEZBoxesNav, isShowEZFooterNav
 - removed setting isShowCrumbtrail
 - removed settings isEnableLeftColumn and isEnableRightColumn
+- added etc/legacy_settings.php; this can be copied into
+  zenmagick/core/settings to re-add removed settings to make old themes work
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
