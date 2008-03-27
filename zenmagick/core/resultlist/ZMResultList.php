@@ -236,7 +236,7 @@ class ZMResultList extends ZMObject {
      *
      * @return int The number if results.
      */
-    function getNumberOfResults() { return count($this->getResults()); }
+    function getNumberOfResults() { return count($this->results_); }
 
     /**
      * Get the current page number.
