@@ -187,7 +187,7 @@
 
         // cart form constants
         'textOptionPrefix' => TEXT_PREFIX,
-        'uploadOptionPrefix' => UPLOAD_PREFIX
+        'uploadOptionPrefix' => UPLOAD_PREFIX,
 
         // default/store currency
         'defaultCurrency' => DEFAULT_CURRENCY,
@@ -405,7 +405,7 @@
         'metaTitlePrefix' => 'title_',
 
         // add store name to title
-        'isStoreNameInTitle' => true,
+        'isStoreNameInTitle' => true
 
    ));
 
