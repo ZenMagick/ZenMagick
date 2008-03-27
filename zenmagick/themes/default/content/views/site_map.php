@@ -28,7 +28,7 @@
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
 <ul>
-    <?php if (ZMSettings::get('isSiteMapAccountLinks') && ZMRequest::isRegistered()) { ?>
+    <?php if (ZMRequest::isRegistered()) { ?>
       <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_EDIT); ?>"><?php zm_l10n("Change Account") ?></a></li>
@@ -60,8 +60,6 @@
       <?php if (ZMSettings::get('isEnabledCoupons')) { ?>
           <li><a href="<?php zm_href(FILENAME_DISCOUNT_COUPON); ?>"><?php zm_l10n("Coupon Lookup") ?></a></li>
       <?php } ?>
-      <?php if (ZMSettings::get('isEnableUnsubscribeLink')) { ?>
-          <li><a href="<?php zm_href(FILENAME_UNSUBSCRIBE); ?>"><?php zm_l10n("Newsletter Unsubscribe") ?></a></li>
-      <?php } ?>
+      <li><a href="<?php zm_href(FILENAME_UNSUBSCRIBE); ?>"><?php zm_l10n("Newsletter Unsubscribe") ?></a></li>
    </ul></li>
 </ul>

@@ -65,7 +65,7 @@ Release 0.9.1
 	to set individual pagination
 - add ZMResultSource interface and ZMObjectResultSource (default)
   implementation
-- add a (incomplete) interface ZMDatabase as a think database layer; this
+- add a (incomplete) interface ZMDatabase as a thin database layer; this
   should make switching to another db package easier once all databse access
 	is replaced with the new code; also, this will focrce completing the missing
 	bits in the model classes as it uses object - array mappings and back
@@ -79,8 +79,16 @@ Release 0.9.1
 - removed the following settings: 'firstNameMinLength', 'lastNameMinLength',
   'phoneMinLength', 'addressMinLength', 'postcodeMinLength', 'cityMinLength',
 	'stateMinLength', 'passwordMinLength'
-- fix new products query
+- fix new products query (date restriction)
 - remove 'isDisplayTimerStats', add zm_page_stats plugin
+- removed setting 'isShowCategoryProductCount'; default behaviour is now to
+  show the count
+- removed setting 'isPageNotFoundDefinePage'; default is to show static page
+  content
+- removed setting 'isSiteMapAccountLinks'; default is now to show account
+  links
+- removed setting 'isEnableUnsubscribeLink'; default is to show the link
+- removed setting 'isContactUsStoreAddress'; default is to show the address
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

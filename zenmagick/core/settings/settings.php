@@ -133,7 +133,6 @@
 
         // use category page
         'isUseCategoryPage' => false,
-        'isShowCategoryProductCount' => 'true' == SHOW_COUNTS,
         'isSkipSingleProductCategory' => SKIP_SINGLE_PRODUCT_CATEGORIES == 'True',
 
         // reviews
@@ -153,9 +152,6 @@
 
         // result list 
         'defaultResultListPagination' => 10,
-
-        // page not found
-        'isPageNotFoundDefinePage' => DEFINE_PAGE_NOT_FOUND_STATUS == '1',
 
         // tell a friend
         'isTellAFriendAnonymousAllow' => ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
@@ -201,20 +197,11 @@
         'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
         'calculationDecimals' => 4,
 
-        // site map
-        'isSiteMapAccountLinks' => SHOW_ACCOUNT_LINKS_ON_SITE_MAP=='Yes',
-
         // GV 
         'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
         // coupons
         'isEnabledCoupons' => MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
-
-        // newsletter
-        'isEnableUnsubscribeLink' => SHOW_NEWSLETTER_UNSUBSCRIBE_LINK == 'true',
-
-        // contact us
-        'isContactUsStoreAddress' => CONTACT_US_STORE_NAME_ADDRESS == '1',
 
         // store
         'storeOwner' => STORE_OWNER,

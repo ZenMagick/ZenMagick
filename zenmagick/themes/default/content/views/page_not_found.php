@@ -26,8 +26,6 @@
 
 <h3><?php zm_l10n("Page Not Found") ?></h3>
 
-<?php if (ZMSettings::get('isPageNotFoundDefinePage')) { ?>
-    <?php echo eval('?>'.$zm_theme->staticPageContent("page_not_found", null, false)) ?>
-<?php } ?>
+<?php echo eval('?>'.$zm_theme->staticPageContent("page_not_found", null, false)) ?>
 
 <?php include('site_map.php'); ?>
