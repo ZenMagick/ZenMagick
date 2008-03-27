@@ -99,7 +99,7 @@ class ZMRequest extends ZMObject {
     public function getSession() { 
         $self = ZMRequest::instance();
         if (!isset($self->session_)) { 
-            $self->session_ = $self->create("Session"); 
+            $self->session_ = ZMLoader::make("Session"); 
         } 
 
         return $self->session_;
@@ -369,7 +369,7 @@ class ZMRequest extends ZMObject {
      */
     public function getController() { 
         if (null === ZMRequest::instance()->controller_) {
-            ZMRequest::instance()->controller_ = ZMRequest::instance()->create("DefaultController");
+            ZMRequest::instance()->controller_ = ZMLoader::make("DefaultController");
         } 
         
         return ZMRequest::instance()->controller_; 
