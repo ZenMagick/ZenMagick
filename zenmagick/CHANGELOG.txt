@@ -93,6 +93,10 @@ Release 0.9.1
   notofication options
 - changed the default for 'isLogoffGuestAfterOrder' from true to false
 - do no use page cache for POST requests
+- if 'isLogoffGuestAfterOrder' is set to true, logout user only *after* the
+  checkout success page is shown (that means isGuest() will still return true
+	in checkout_success.php)
+- changed default for 'isLogoffGuestAfterOrder' from true to false
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

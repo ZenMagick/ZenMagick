@@ -109,6 +109,7 @@
     define('ZM_LOG_INFO', 3);
     define('ZM_LOG_DEBUG', 4);
     define('ZM_LOG_TRACE', 5);
+    define('ZM_LOG_ALL', 99999);
 
 
     //** fixed product images sizes **//

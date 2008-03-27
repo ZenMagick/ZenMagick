@@ -69,12 +69,20 @@ class ZMCheckoutSuccessController extends ZMController {
         $this->exportGlobal("zm_order", $orders[0]);
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
+        // see: onZMViewDone()
+        ZMEvents::instance()->attach($this);
+
+        return $this->findView();
+    }
+
+    /**
+     * Event handler to logout guest users only *after* the view is done.
+     */
+    public function onZMViewDone($args) {
         if (ZMSettings::get('isLogoffGuestAfterOrder') && ZMRequest::isGuest()) {
             $session = ZMRequest::getSession();
             $session->clear();
         }
-
-        return $this->findView();
     }
 
 }
