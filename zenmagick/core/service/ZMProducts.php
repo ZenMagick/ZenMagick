@@ -334,7 +334,6 @@ class ZMProducts extends ZMObject {
         }
         $query .= " order by products_date_added";
 
-        echo $query;
         $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
