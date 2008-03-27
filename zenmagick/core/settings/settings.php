@@ -59,8 +59,6 @@
         'isGuestCheckout' => false,
         'isLogoffGuestAfterOrder' => true,
 
-        'isDisplayTimerStats' => DISPLAY_PAGE_PARSE_TIME == 'true',
-
         // sanitize attributes when handling product submissions (add to cart, etc)
         'isSanitizeAttributes' => true,
 

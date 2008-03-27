@@ -32,13 +32,6 @@
           <?php } ?>
       </p>
   <?php } ?>
-  <?php if (ZMSettings::get('isDisplayTimerStats')) { ?>
-      <p>
-        <?php $db = ZMRuntime::getDB(); ?>
-        Queries: <?php echo $db->queryCount(); ?>; Query Time: <?php echo round($db->queryTime(), 4); ?>;
-        Page Execution Time: <?php echo ZMRuntime::getExecutionTime(); ?>;
-      </p>
-  <?php } ?>
 
   <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
       <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
