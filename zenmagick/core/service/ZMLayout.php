@@ -98,14 +98,14 @@ class ZMLayout extends ZMObject {
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isLeftColEnabled() { return ZMSettings::get('isEnableLeftColumn') && $this->leftColEnabled_; }
+    function isLeftColEnabled() { return $this->leftColEnabled_; }
 
     /**
      * Checks if the right column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isRightColEnabled() { return ZMSettings::get('isEnableRightColumn') && $this->rightColEnabled_; }
+    function isRightColEnabled() { return $this->rightColEnabled_; }
 
     /**
      * Get the box names for the left column.

@@ -25,24 +25,22 @@
 ?>
 
 <div id="footer">
-  <?php if (ZMSettings::get('isShowEZFooterNav')) { ?>
-      <p id="fpages">
-          <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
-              <?php zm_ezpage_link($page->getId()) ?>
-          <?php } ?>
-      </p>
-  <?php } ?>
+    <p id="fpages">
+        <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+            <?php zm_ezpage_link($page->getId()) ?>
+        <?php } ?>
+    </p>
 
-  <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
-      <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
-  <?php } ?>
+    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
+        <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
+    <?php } ?>
 
-  <p id="sview">
-      <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
-      <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
-  </p>
-  <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
-  <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | 
-    Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by 
-    <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+    <p id="sview">
+        <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
+        <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
+    </p>
+    <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
+    <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | 
+      Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by 
+      <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 </div>

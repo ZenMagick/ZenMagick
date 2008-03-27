@@ -290,13 +290,6 @@
      * Layout
      */
 
-        'isEnableLeftColumn' => COLUMN_LEFT_STATUS != 0,
-        'isEnableRightColumn' => COLUMN_RIGHT_STATUS != 0,
-        'isShowCrumbtrail' => DEFINE_BREADCRUMB_STATUS == '1',
-        'isShowEZHeaderNav' => EZPAGES_STATUS_HEADER == '1',
-        'isShowEZBoxesNav' => EZPAGES_STATUS_SIDEBOX == '1',
-        'isShowEZFooterNav' => EZPAGES_STATUS_FOOTER == '1',
-
         // sort default
         'defaultProductSortOrder' => 'price',
         'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',

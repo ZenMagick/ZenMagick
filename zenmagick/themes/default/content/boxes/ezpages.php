@@ -24,15 +24,13 @@
  */
 ?>
 
-<?php if (ZMSettings::get('isShowEZBoxesNav')) { ?>
-    <?php $sbchapter = isset($sbchapter) ? $sbchapter : ZMRequest::getParameter("sbchapter", null); ?>
-    <?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter) : ZMEZPages::instance()->getPagesForSidebar(); ?>
-    <?php if (0 < count($pages)) { ?>
-        <h3><?php zm_l10n("Important Links") ?></h3>
-        <div id="sb_ezpages" class="box">
-            <?php foreach ($pages as $page) { ?>
-                <?php zm_ezpage_link($page->getId())?>
-            <?php } ?>
-        </div>
-    <?php } ?>
+<?php $sbchapter = isset($sbchapter) ? $sbchapter : ZMRequest::getParameter("sbchapter", null); ?>
+<?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter) : ZMEZPages::instance()->getPagesForSidebar(); ?>
+<?php if (0 < count($pages)) { ?>
+    <h3><?php zm_l10n("Important Links") ?></h3>
+    <div id="sb_ezpages" class="box">
+        <?php foreach ($pages as $page) { ?>
+            <?php zm_ezpage_link($page->getId())?>
+        <?php } ?>
+    </div>
 <?php } ?>

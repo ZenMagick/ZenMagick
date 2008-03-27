@@ -25,18 +25,16 @@
 ?>
 
 <div id="footer">
-  <?php if (ZMSettings::get('isShowEZFooterNav')) { ?>
-      <p id="fpages">
-          <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
-              <?php zm_ezpage_link($page->getId()) ?>
-          <?php } ?>
-      </p>
-  <?php } ?>
+    <p id="fpages">
+        <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+            <?php zm_ezpage_link($page->getId()) ?>
+        <?php } ?>
+    </p>
 
-  <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
-      <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
-  <?php } ?>
+    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
+        <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
+    <?php } ?>
 
-  <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
-  <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
+    <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
+    <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
 </div>

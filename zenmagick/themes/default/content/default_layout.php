@@ -90,7 +90,7 @@
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $zm_view->getName() && ZMSettings::get('isShowCrumbtrail')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $zm_view->getName()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo zm_build_crumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
