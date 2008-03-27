@@ -150,7 +150,7 @@
 
         // guest checkout
         'isGuestCheckout' => false,
-        'isLogoffGuestAfterOrder' => true,
+        'isLogoffGuestAfterOrder' => false,
 
 
 

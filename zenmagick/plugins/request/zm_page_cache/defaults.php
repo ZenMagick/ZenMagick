@@ -44,6 +44,7 @@
         return !ZMRequest::isSecure() 
           && !zm_is_checkout_page(true) 
           && ZMRequest::getShoppingCart()->isEmpty() 
+          && 'POST' != ZMRequest::getMethod()
           && !ZMMessages::instance()->hasMessages()
           && false === strpos(ZMRequest::getPageName(), 'ajax')
           && false === strpos(ZMRequest::getPageName(), 'address_book')

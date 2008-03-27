@@ -27,8 +27,10 @@
 <?php zm_secure_form(FILENAME_CHECKOUT_SUCCESS, 'action=update') ?>
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
     <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $zm_order->getId()) ?></p>
-    <?php $account = '<a href="' . zm_href(FILENAME_ACCOUNT, '', false) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
-    <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
+    <?php if (ZMRequest::getAccount()->isRegistered()) { ?>
+        <?php $account = '<a href="' . zm_href(FILENAME_ACCOUNT, '', false) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
+        <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
+    <?php } ?>
     <?php $customercare = '<a href="' . zm_href(FILENAME_CONTACT_US, '', false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
