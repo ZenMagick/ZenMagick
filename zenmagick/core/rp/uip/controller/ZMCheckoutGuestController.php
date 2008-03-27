@@ -96,6 +96,7 @@ class ZMCheckoutGuestController extends ZMController {
         $account = ZMLoader::make("Account");
         $account->setEmail(ZMRequest::getParameter('email_address'));
         $account->setPassword('');
+        $account->setDob('0000-00-00 00:00:00');
         $account->setType(ZM_ACCOUNT_TYPE_GUEST);
         $account = ZMAccounts::instance()->createAccount($account);
 
