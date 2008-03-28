@@ -68,7 +68,7 @@ class ZMFeaturedProductsController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Featured Products");
 
         $resultList = ZMLoader::make("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getFeaturedProducts", array(ZMRequest::getCategoryId()));
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getFeaturedProducts", array(ZMRequest::getCategoryId(), 0));
         $resultList->setResultSource($resultSource);
         $resultList->addFilter(ZMLoader::make("ManufacturerFilter"));
         $resultList->addFilter(ZMLoader::make("CategoryFilter"));

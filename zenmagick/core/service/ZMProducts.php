@@ -255,8 +255,9 @@ class ZMProducts extends ZMObject {
      */
     function getFeaturedProducts($categoryId=null, $max=1, $languageId=null) {
         $db = ZMRuntime::getDB();
-		    $query = null;
-        if (null == $categoryId || 0 == $categoryId) {
+
+		$query = null;
+        if (null == $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p 
                       left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
@@ -397,7 +398,7 @@ class ZMProducts extends ZMObject {
                 and p.products_id = s.products_id
                 and s.status = 1";
 
-        $productIds = $this->_getRandomProductIds($sql, $max);
+        $productIds = 0 !== $max ? $this->_getRandomProductIds($sql, $max) : $this->_getProductIds($sql);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
