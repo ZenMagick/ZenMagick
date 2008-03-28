@@ -32,20 +32,9 @@
  * @version $Id$
  */
 class ZMRuleSet {
-    var $id_;
-    var $rules_;
+    private $id_;
+    private $rules_;
 
-
-    /**
-     * Create new rule set.
-     *
-     * @param string id The id.
-     * @param array rules Optional initial list of rules.
-     */
-    function ZMRuleSet($id, $rules=null) {
-        $this->id_ = $id;
-        $this->rules_ = null != $rules ? $rules : array();
-    }
 
     /**
      * Create new rule set.
@@ -54,7 +43,8 @@ class ZMRuleSet {
      * @param array rules Optional initial list of rules.
      */
     function __construct($id, $rules=null) {
-        $this->ZMRuleSet($id, $rules);
+        $this->id_ = $id;
+        $this->rules_ = null != $rules ? $rules : array();
     }
 
     /**
@@ -69,14 +59,14 @@ class ZMRuleSet {
      *
      * @return int The rule set id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Add a new <code>ZMRule</code>.
      *
      * @param ZMRule rule A new rule.
      */
-    function addRule($rule) {
+    public function addRule($rule) {
         $this->rules_[] = $rule;
     }
 
@@ -85,8 +75,25 @@ class ZMRuleSet {
      *
      * @param array rules A list of <code>ZMRule</code> instances.
      */
-    function addRules($rules) {
+    public function addRules($rules) {
         $this->rules_ = array_merge($this->rules_, $rules);
+    }
+
+    /**
+     * Remove a rule.
+     *
+     * @param string type The type (class name).
+     * @param string name The field name.
+     */
+    public function removeRule($type, $name) {
+        $tmp = array();
+        foreach ($this->rules_ as $rule) {
+            if (get_class($rule) == $type && $rule->getName() == $name) {
+                continue;
+            }
+            $tmp[] = $rule;
+        }
+        $this->rules_ = $tmp;
     }
 
     /**
@@ -94,7 +101,7 @@ class ZMRuleSet {
      *
      * @return array A list of <code>ZMRule</code> objects.
      */
-    function getRules() {
+    public function getRules() {
         return $this->rules_;
     }
 

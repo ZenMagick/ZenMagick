@@ -31,24 +31,11 @@
  * @package org.zenmagick.validation
  * @version $Id$
  */
-class ZMRule {
-    var $name_;
-    var $msg_;
-    var $defaultMsg_;
+abstract class ZMRule {
+    private $name_;
+    private $msg_;
+    private $defaultMsg_;
 
-
-    /**
-     * Create new validation rule.
-     *
-     * @param string name The field name.
-     * @param string defaultMsg The default error message.
-     * @param string msg Optional custom error message.
-     */
-    function ZMRule($name, $defaultMsg, $msg=null) {
-        $this->name_ = $name;
-        $this->defaultMsg_ = $defaultMsg;
-        $this->msg_ = $msg;
-    }
 
     /**
      * Create new validation rule.
@@ -58,7 +45,9 @@ class ZMRule {
      * @param string msg Optional custom error message.
      */
     function __construct($name, $defaultMsg, $msg=null) {
-        $this->ZMRule($name, $defaultMsg, $msg);
+        $this->name_ = $name;
+        $this->defaultMsg_ = $defaultMsg;
+        $this->msg_ = $msg;
     }
 
     /**
@@ -74,8 +63,8 @@ class ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
-        die("can't use ZMRule directly");
+    public function validate($req) {
+        ZMObject::backtrace("can't use ZMRule directly");
     }
 
 
@@ -84,7 +73,7 @@ class ZMRule {
      *
      * @return string The name of the data element this rule is testing.
      */
-    function getName() {
+    public function getName() {
         return $this->name_;
     }
 
@@ -94,8 +83,8 @@ class ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
-        die("not implemented");
+    public function toJSString() {
+        ZMObject::backtrace("not implemented");
     }
 
 
@@ -104,7 +93,7 @@ class ZMRule {
      *
      * @return string Localized error message.
      */
-    function getErrorMsg() {
+    public function getErrorMsg() {
         return null != $this->msg_ ? $this->msg_ : zm_l10n_get($this->defaultMsg_, ucwords(str_replace('_', ' ', $this->name_)));
     }
 
