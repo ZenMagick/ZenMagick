@@ -68,6 +68,15 @@
 
         // flags :)
         'flagMaxColumns' => MAX_LANGUAGE_FLAGS_COLUMNS,
+
+        // max
+        'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
+        'globalNewProductsLimit' => SHOW_NEW_PRODUCTS_LIMIT,
+        'maxNewProducts' => MAX_DISPLAY_NEW_PRODUCTS,
+
+        // default to random on pages that have products_id set
+        'isReviewsDefaultToRandom' => true,
+
     ));
 
 ?>

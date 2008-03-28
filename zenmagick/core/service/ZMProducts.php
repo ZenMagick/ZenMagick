@@ -246,7 +246,7 @@ class ZMProducts extends ZMObject {
     }
 
     /**
-     * Get featured products.
+     * Get random featured products.
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
      * @param int max The maximum number of results; default is <code>1</code>.
@@ -283,33 +283,32 @@ class ZMProducts extends ZMObject {
 
 
     /**
-     * Get new products.
-     *
-     * <p>Find products added in the past number of days specified by <code>$timeLimit</code>.</p>
+     * Get random new products.
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
-     * @param int max The maximum number of results; default is <code>1</code>.
-     * @param int timeLimit Optional time limit in days; default is <em>120</em>, use <em>0</em> for no limit.
+     * @param int max The maximum number of results; default is <code>0</code> for all.
+     * @param int timeLimit Optional time limit in days (or first of month for using <em>1</em); 
+     *  default is <code>null</code> to use the setting 'maxNewProducts'.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getNewProducts($categoryId=null, $max=0, $timeLimit=120, $languageId=null) {
-        $timeLimit = 0 == $timeLimit ? ZMSettings::get('globalNewProductsLimit') : $timeLimit;
+    function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
+        $timeLimit = null === $timeLimit ? ZMSettings::get('maxNewProducts') : $timeLimit;
 
         $db = ZMRuntime::getDB();
         $queryLimit = '';
-        switch (ZMSettings::get('globalNewProductsLimit')) {
+        switch ($timeLimit) {
             case '0':
                 // no global limit
                 $queryLimit = '';
                 break;
             case '1':
-                // global limit of one date
+                // this month
                 $date = date('Ym', time()) . '01';
                 $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
                 break;
             default:
-                // 120 days; 24 hours; 60 mins; 60secs
+                // X days; 24 hours; 60 mins; 60secs
                 $dateRange = time() - ($timeLimit * 24 * 60 * 60);
                 $date = date('Ymd', $dateRange);
                 $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
@@ -334,7 +333,7 @@ class ZMProducts extends ZMObject {
         }
         $query .= " order by products_date_added";
 
-        $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
+        $productIds = 0 !== $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -343,16 +342,16 @@ class ZMProducts extends ZMObject {
      * Get best seller products.
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
-     * @param int max The maximum number of results; default is <code>1</code>.
+     * @param int max The maximum number of results; default is <code>null</code> to use the setting <em>maxBestSellers</em>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getBestSellers($categoryId=null, $max=0, $languageId=null) {
-        $max = 0 == $max ? ZMSettings::get('maxBestSellers') : $max;
+    function getBestSellers($categoryId=null, $max=null, $languageId=null) {
+        $max = null === $max ? ZMSettings::get('maxBestSellers') : $max;
 
         $db = ZMRuntime::getDB();
         $query = null;
-        if (null != $categoryId) {
+        if (null !== $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p, "
                       . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c 
@@ -382,14 +381,14 @@ class ZMProducts extends ZMObject {
 
 
     /**
-     * Get products marked as specials.
+     * Get random products marked as specials.
      *
-     * @param int max The maximum number of results; default is <code>1</code>.
+     * @param int max The maximum number of results; default is <code>null</code> to use the setting <em>maxSpecialProducts</em>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getSpecials($max=0, $languageId=null) {
-        $max = 0 == $max ? ZMSettings::get('maxSpecialProducts') : $max;
+    function getSpecials($max=null, $languageId=null) {
+        $max = null === $max ? ZMSettings::get('maxSpecialProducts') : $max;
 
         $db = ZMRuntime::getDB();
         $sql = "select distinct p.products_id

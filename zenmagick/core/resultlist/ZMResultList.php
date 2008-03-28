@@ -188,7 +188,7 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if sorter are active, <code>false</code> if not.
      */
-    function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->getResults()); }
+    function hasSorters() { return 0 != count($this->sorters_) && 1 < count($this->results_); }
 
     /**
      * Get all sorter.
@@ -222,7 +222,7 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if results are available, <code>false</code> if not.
      */
-    function hasResults() { return 0 != count($this->getResults()); }
+    function hasResults() { return 0 != count($this->results_); }
 
     /**
      * Returns all results.

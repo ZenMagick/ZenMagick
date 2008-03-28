@@ -296,15 +296,11 @@
         // sort attribute values
         'isSortAttributeValuesByPrice' => PRODUCTS_OPTIONS_SORT_BY_PRICE != '1',
 
-        // default to random on pages that have products_id set
-        'isReviewsDefaultToRandom' => true,
-
         // max 
         'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
         'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
+        'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
         'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
-        'globalNewProductsLimit' => SHOW_NEW_PRODUCTS_LIMIT,
-        'maxNewProducts' => MAX_DISPLAY_NEW_PRODUCTS,
 
         
         //** the following are tricky as they also affect validation

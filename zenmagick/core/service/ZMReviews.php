@@ -85,12 +85,14 @@ class ZMReviews extends ZMObject {
     /**
      * Get a random review.
      *
-     * @param int productId Optional productId to limit reviews to one product.
-     * @param int max Optional result limit; default is <code>1</code>.
+     * @param int productId Optional productId to limit reviews to one product; default is <code>null</code>.
+     * @param int max Optional result limit; default is <code>null</code> to use the setting <em></em>.
      * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getRandomReviews($productId=null, $max=1, $languageId=null) {
+    function getRandomReviews($productId=null, $max=null, $languageId=null) {
+        $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
+        
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -113,10 +115,10 @@ class ZMReviews extends ZMObject {
         if (null != $productId) {
             $query .= $db->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
         }
-        $query .= " limit " . MAX_RANDOM_SELECT_REVIEWS;
 
         $reviews = array();
         while ($max > count($reviews)) {
+            $lastCount == count($reviews);
             $results = $db->ExecuteRandomMulti($query, $max);
             while (!$results->EOF) {
                 $review = $this->_newReview($results->fields);
@@ -125,12 +127,11 @@ class ZMReviews extends ZMObject {
                 if ($max == count($reviews))
                     break;
             }
-            if (0 == count($reviews)) {
-                if (null == $productId || !ZMSettings::get('isReviewsDefaultToRandom'))
-                    break;
-                return $this->getRandomReviews(null, $max);
+            if (count($reviews) == $lastCount) {
+                break;
             }
         }
+
         return $reviews;
     }
 

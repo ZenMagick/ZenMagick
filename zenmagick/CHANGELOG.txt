@@ -102,6 +102,11 @@ Release 0.9.1
 - removed settings isEnableLeftColumn and isEnableRightColumn
 - added etc/legacy_settings.php; this can be copied into
   zenmagick/core/settings to re-add removed settings to make old themes work
+- removed setting 'maxRandomReviews'
+- drop 'globalNewProductsLimit' and use 'maxNewProducts' instead
+- removed setting 'isReviewsDefaultToRandom'; reviews sidebox changed to
+  implement this rather having this rather obscure behaviour in ZMReviews
+- added new setting 'maxRandomReviews'
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -24,7 +24,16 @@
  */
 ?>
 
-<?php $reviews = ZMReviews::instance()->getRandomReviews(ZMRequest::getProductId(), 1); ?>
+<?php 
+
+    // get review for product (if on product page)
+    $reviews = ZMReviews::instance()->getRandomReviews(ZMRequest::getProductId(), 1); 
+
+    if (0 == count($reviews) && 0 == ZMRequest::getProductId()) {
+        // default to any random on non product pages
+        $reviews = ZMReviews::instance()->getRandomReviews(null, 1); 
+    }
+?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
