@@ -287,14 +287,8 @@
 
 
     /**************************************
-     * Layout
+     * Layout/API behaviour
      */
-
-        // sort default
-        'defaultProductSortOrder' => 'price',
-        'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',
-        // sort attribute values
-        'isSortAttributeValuesByPrice' => PRODUCTS_OPTIONS_SORT_BY_PRICE != '1',
 
         // max 
         'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
@@ -302,8 +296,12 @@
         'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
         'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
 
-        
-        //** the following are tricky as they also affect validation
+        // TODO: (depends on sorter/filter?) sort default
+        'defaultProductSortOrder' => 'price',
+        // sort attributes by name rather than the sort order
+        'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',
+        // sort attribute values by name rather than sort order
+        'isSortAttributeValuesByPrice' => PRODUCTS_OPTIONS_SORT_BY_PRICE != '1',
 
         // show privacy message
         'isPrivacyMessage' => DISPLAY_PRIVACY_CONDITIONS == 'true',
