@@ -107,6 +107,7 @@ Release 0.9.1
 - removed setting 'isReviewsDefaultToRandom'; reviews sidebox changed to
   implement this rather having this rather obscure behaviour in ZMReviews
 - added new setting 'maxRandomReviews'
+- specials view was missing result page navigation
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
