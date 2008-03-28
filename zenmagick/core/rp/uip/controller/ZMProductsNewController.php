@@ -68,7 +68,7 @@ class ZMProductsNewController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("New Products");
 
         $resultList = ZMLoader::make("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts", array(ZMRequest::getCategoryId()));
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts");
         $resultList->setResultSource($resultSource);
         $resultList->addFilter(ZMLoader::make("ManufacturerFilter"));
         $resultList->addFilter(ZMLoader::make("CategoryFilter"));
