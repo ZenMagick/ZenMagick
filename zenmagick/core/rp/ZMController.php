@@ -32,15 +32,15 @@
  * @version $Id$
  */
 class ZMController extends ZMObject {
-    var $id_;
-    var $globals_;
-    var $view_;
+    private $id_;
+    private $globals_;
+    private $view_;
 
 
     /**
      * Create new instance.
      */
-    function ZMController() {
+    function __construct() {
         parent::__construct();
 
         $this->globals_ = array();
@@ -54,13 +54,6 @@ class ZMController extends ZMObject {
                 }
             }
         }
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMController();
     }
 
     /**
@@ -78,7 +71,7 @@ class ZMController extends ZMObject {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function process() { 
+    public function process() { 
         ZMSacsMapper::instance()->ensureAuthorization($this->id_);
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START);
 
@@ -115,7 +108,7 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         return $this->findView();
     }
 
@@ -126,7 +119,7 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() { return $this->processGet(); }
+    public function processPost() { return $this->processGet(); }
 
 
     /**
@@ -135,7 +128,7 @@ class ZMController extends ZMObject {
      * @param string type The content type.
      * @param string charset Optional charset; default is utf-8; <code>null</code> will omit the charset part.
      */
-    function setContentType($type, $charset="utf-8") {
+    public function setContentType($type, $charset="utf-8") {
         $text = "Content-Type: " . $type;
         if (null != $charset) {
             $text .= "; charset=" . $charset;
@@ -151,7 +144,7 @@ class ZMController extends ZMObject {
      * @return array An associative array of <code>name => object</code> for all variables
      *  that need to be exported into the theme space.
      */
-    function getGlobals() {
+    public function getGlobals() {
         return $this->globals_;
     }
 
@@ -163,7 +156,7 @@ class ZMController extends ZMObject {
      * @param string name The name under which the object should be visible.
      * @param mixed instance An object.
      */
-    function exportGlobal($name, $instance) {
+    public function exportGlobal($name, $instance) {
         if (null === $instance)
             return;
         $this->globals_[$name] = $instance;
@@ -175,7 +168,7 @@ class ZMController extends ZMObject {
      * @param string name The object name.
      * @param mixed instance An object instance or <code>null</code>.
      */
-    function getGlobal($name) {
+    public function getGlobal($name) {
         return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
     }
 
@@ -190,7 +183,7 @@ class ZMController extends ZMObject {
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    function findView($id=null, $parameter=null) {
+    public function findView($id=null, $parameter=null) {
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
         $view = ZMUrlMapper::instance()->findView($this->id_, $id, $parameter);
@@ -204,7 +197,7 @@ class ZMController extends ZMObject {
      * @param mixed req A (request) map, an object or <code>null</code> to default to <code>$_POST</code>.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    function validate($id, $req=null) {
+    public function validate($id, $req=null) {
         if (null === $req) {
             $req = zm_sanitize($_POST);
         }
@@ -230,7 +223,7 @@ class ZMController extends ZMObject {
      *
      * @return ZMView The view or <code>null</code>.
      */
-    function getView() {
+    public function getView() {
         return $this->view_;
     }
 
@@ -239,7 +232,7 @@ class ZMController extends ZMObject {
      *
      * @return string The id (page name).
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
 }
 
