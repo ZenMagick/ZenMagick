@@ -44,13 +44,6 @@ class zm_site_switch extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_site_switch() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

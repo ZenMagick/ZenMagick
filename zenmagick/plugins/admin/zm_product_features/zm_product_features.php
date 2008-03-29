@@ -52,13 +52,6 @@ class zm_product_features extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_product_features() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

@@ -44,13 +44,6 @@ class zm_catalog_default extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_catalog_default() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

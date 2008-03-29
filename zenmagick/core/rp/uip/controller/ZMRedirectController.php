@@ -41,13 +41,6 @@ class ZMRedirectController extends ZMController {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMRedirectController() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

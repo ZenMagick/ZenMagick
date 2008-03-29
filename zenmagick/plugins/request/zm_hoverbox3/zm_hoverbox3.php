@@ -42,13 +42,6 @@ class zm_hoverbox3 extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_hoverbox3() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

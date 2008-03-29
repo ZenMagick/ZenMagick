@@ -43,13 +43,6 @@ class zm_quick_edit extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_quick_edit() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

@@ -42,13 +42,6 @@ class zm_init_defaults extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_init_defaults() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

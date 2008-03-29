@@ -59,13 +59,6 @@ class ZMCategory extends ZMModel {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMCategory() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

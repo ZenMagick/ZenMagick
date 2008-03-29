@@ -42,13 +42,6 @@ class zm_init_session extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_init_session() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

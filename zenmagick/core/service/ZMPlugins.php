@@ -162,7 +162,7 @@ class ZMPlugins extends ZMObject {
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    public function getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
+    public static function getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
         $idList = array();
         if ($configured) {
             // use plugin status to select plugins
@@ -218,7 +218,7 @@ class ZMPlugins extends ZMObject {
      * @param string type Optional type.
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
-    public function getPluginForId($id, $type=null) {
+    public static function getPluginForId($id, $type=null) {
         if (array_key_exists($id, ZMPlugins::$plugins_)) {
             return ZMPlugins::$plugins_[$id];
         }

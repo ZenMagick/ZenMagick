@@ -57,13 +57,6 @@ class zm_recaptcha extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_recaptcha() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

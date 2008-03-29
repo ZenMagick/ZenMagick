@@ -43,13 +43,6 @@ class zm_smarty extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_smarty() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

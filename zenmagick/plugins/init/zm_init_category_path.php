@@ -42,13 +42,6 @@ class zm_init_category_path extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_init_category_path() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

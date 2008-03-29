@@ -43,13 +43,6 @@ class zm_product_associations extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_product_associations() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

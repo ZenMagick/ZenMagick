@@ -55,13 +55,6 @@ class ZMOrderStatus extends ZMModel {
     }
 
     /**
-     * Create new status.
-     */
-    function ZMOrderStatus() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

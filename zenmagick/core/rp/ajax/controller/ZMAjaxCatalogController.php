@@ -41,13 +41,6 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMAjaxCatalogController() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

@@ -56,13 +56,6 @@ class ZMTaxRate extends ZMModel {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMCurrency() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

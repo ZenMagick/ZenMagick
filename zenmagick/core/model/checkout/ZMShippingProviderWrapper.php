@@ -55,15 +55,6 @@ class ZMShippingProviderWrapper extends ZMModel {
     }
 
     /**
-     * Create a new shipping provider.
-     *
-     * @param mixed zenModule A zen-cart shipping module instance.
-     */
-    function ZMShippingProviderWrapper($zenModule) {
-        $this->__construct($zenModule);
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

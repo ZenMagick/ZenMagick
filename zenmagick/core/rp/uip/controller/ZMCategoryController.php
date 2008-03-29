@@ -41,13 +41,6 @@ class ZMCategoryController extends ZMController {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMCategoryController() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

@@ -42,13 +42,6 @@ class zm_init_currency extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_init_currency() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

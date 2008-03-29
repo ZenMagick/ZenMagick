@@ -43,13 +43,6 @@ class zm_group_pricing extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_group_pricing() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

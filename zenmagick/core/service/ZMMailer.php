@@ -44,13 +44,6 @@ class ZMMailer extends ZMObject {
     }
 
     /**
-     * Create new instance.
-     */
-    function ZMMailer() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

@@ -50,13 +50,6 @@ class ProductAssociation extends ZMModel {
     }
 
     /**
-     * Create new instance.
-     */
-    function ProductAssociations() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

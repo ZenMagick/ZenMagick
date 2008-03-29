@@ -41,13 +41,6 @@ class zm_pretty_links extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_pretty_links() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

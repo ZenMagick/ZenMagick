@@ -44,13 +44,6 @@ class zm_category_admin extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_category_admin() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

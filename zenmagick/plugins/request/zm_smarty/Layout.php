@@ -36,15 +36,15 @@ class Layout extends ZMLayout {
     /**
      * Create new instance.
      */
-    function Layout() {
-        $this->__construct();
+    function __construct() {
+        parent::__construct();
     }
 
     /**
-     * Create new instance.
+     * Destruct instance.
      */
-    function __construct() {
-        parent::__construct();
+    function __destruct() {
+        parent::__destruct();
     }
 
 

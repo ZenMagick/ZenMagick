@@ -50,13 +50,6 @@ class zm_php_bb extends ZMPlugin {
     }
 
     /**
-     * Create new instance.
-     */
-    function zm_php_bb() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

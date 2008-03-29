@@ -59,13 +59,6 @@ class ProductGroupPricing extends ZMModel {
     }
 
     /**
-     * Create new instance.
-     */
-    function ProductGroupPricing() {
-        $this->__construct();
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

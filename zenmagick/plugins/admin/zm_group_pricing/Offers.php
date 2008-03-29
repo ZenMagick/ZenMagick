@@ -38,17 +38,8 @@ class Offers extends ZMOffers {
      *
      * @param ZMProduct product The product.
      */
-    function __construct(&$product) {
+    function __construct($product) {
         parent::__construct($product);
-    }
-
-    /**
-     * Create new offers instance for the given product.
-     *
-     * @param ZMProduct product The product.
-     */
-    function Offers(&$product) {
-        $this->__construct($product);
     }
 
     /**

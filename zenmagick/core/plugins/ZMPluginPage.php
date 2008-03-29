@@ -56,18 +56,6 @@ class ZMPluginPage extends ZMObject {
     }
 
     /**
-     * Create a new plugin page.
-     *
-     * @param string id The id.
-     * @param string title The title.
-     * @param string contents The page contents.
-     * @param string header Optional code to be injected into the header; default is <code>null</code>.
-     */
-    function ZMPluginPage($id, $title, $contents=null, $header='') {
-        $this->__construct($id, $title, $contents, $header);
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {

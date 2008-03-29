@@ -80,17 +80,6 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Create new plugin.
-     *
-     * @param string title The title.
-     * @param string description The description.
-     * @param string version The version.
-     */
-    function ZMPlugin($title='', $description='', $version='0.0') {
-        $this->__construct($title, $description, $version);
-    }
-
-    /**
      * Destruct instance.
      */
     function __destruct() {
