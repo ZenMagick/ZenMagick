@@ -66,6 +66,13 @@ interface ZMCache {
     public function get($id);
 
     /**
+     * Remove the cache entry for the given id.
+     *
+     * @param string id The cache id.
+     */
+    public function remove($id);
+
+    /**
      * Save some data in a cache file
      *
      * @param mixed $data The data to be put in cache.

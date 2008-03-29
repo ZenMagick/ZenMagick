@@ -112,7 +112,7 @@ class zm_page_cache extends ZMPlugin {
     function onZMThemeResolved($args) {
         // handle page caching
         if ($this->isEnabled()) {
-            if ($this->isCacheable() && $contents = $this->pageCache_->get($this->getRequestKey())) {
+            if (false !== ($contents = $this->pageCache_->get($this->getRequestKey())) && $this->isCacheable()) {
                 if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
                     echo $contents;
                     if (true) {
@@ -124,6 +124,9 @@ class zm_page_cache extends ZMPlugin {
                 }
                 require('includes/application_bottom.php');
                 exit;
+            }
+            if (false !== $contents) {
+                $this->pageCache_->remove($this->getRequestKey());
             }
         }
     }

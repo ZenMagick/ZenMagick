@@ -110,6 +110,7 @@ Release 0.9.1
 - specials view was missing result page navigation
 - added new setting 'isLogMissingSettings' with a default of false as this was
   starting to annoy me
+- add option to remove cache entries
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

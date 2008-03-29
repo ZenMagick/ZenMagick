@@ -91,6 +91,13 @@ class ZMFileCache extends ZMObject implements ZMCache {
     /**
      * {@inheritDoc}
      */
+    public function remove($id) {
+        return $this->cache_->remove($id, $this->group_);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function save($data, $id) {
         return $this->cache_->save($data, $id, $this->group_);
     }
