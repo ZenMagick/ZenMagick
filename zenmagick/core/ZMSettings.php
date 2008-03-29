@@ -44,7 +44,9 @@ class ZMSettings {
      */
     public static function get($name, $default=null) {
         if (!isset(ZMSettings::$settings_[$name])) {
-            ZMObject::log("can't find setting: '".$name."'", ZM_LOG_WARN);
+            if (isset(ZMSettings::$settings_['isLogMissingSettings']) && ZMSettings::$settings_['isLogMissingSettings']) {
+                ZMObject::log("can't find setting: '".$name."'", ZM_LOG_WARN);
+            }
             return $default;
         }
 
