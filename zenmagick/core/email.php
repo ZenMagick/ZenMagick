@@ -84,13 +84,12 @@
      */
     function zm_mail($subject, $template, $context, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
         // some argument cleanup
-        $args = null !== $args ? $args : array();
         $toName = null !== $toName ? $toName : $toEmail;
         $fromEmail = null !== $fromEmail ? $fromEmail : ZMSettings::get('storeEmailFrom');
         $fromName = null !== $fromName ? $fromName : $fromEmail;
         // this is sooo weiyrd!
         $attparam = '';
-        if (null !== $atttachment) {
+        if (null !== $attachment) {
             $attparam = array('file' => $attachment);
         }
 

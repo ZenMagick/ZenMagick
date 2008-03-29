@@ -115,7 +115,7 @@
             if (defined('SID') && !zm_is_empty(SID)) {
                 // defined, so use it
                 $sid = SID;
-            } elseif (($request_type == 'NONSSL' && HTTPS_SERVER == $server) || ($request_type == 'SSL' && HTTP_SERVER == $server)) {
+            } elseif (($transport == 'NONSSL' && HTTPS_SERVER == $server) || ($transport == 'SSL' && HTTP_SERVER == $server)) {
                 // switch from http to https or vice versa
                 if ($http_domain != $https_domain) {
                     $sid = zen_session_name() . '=' . zen_session_id();

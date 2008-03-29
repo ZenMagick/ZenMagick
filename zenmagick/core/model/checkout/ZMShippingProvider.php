@@ -50,7 +50,7 @@ class ZMShippingProvider extends ZMModel {
         $this->zenQuote_ = $zenQuote;
         $this->methods_ = array();
         $taxRate = $this->getTaxRate();
-        if (is_array($this->zenQuote_['methods'])) {
+        if (isset($this->zenQuote_['methods']) && is_array($this->zenQuote_['methods'])) {
             foreach ($this->zenQuote_['methods'] as $method) {
                 $method = ZMLoader::make("ShippingMethod", $this, $method);
                 $method->setTaxRate($taxRate);

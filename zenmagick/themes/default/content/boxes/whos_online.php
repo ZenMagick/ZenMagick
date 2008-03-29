@@ -37,7 +37,7 @@
 
         <?php if (1 == $counts[1]) { /* one guest */ ?>
             <?php $out .= zm_l10n_get(" one guest") ?>
-        <?php } else if (1 < $count[1]) { /* many guests */ ?>
+        <?php } else if (1 < $counts[1]) { /* many guests */ ?>
             <?php $out .= zm_l10n_get(" %s guests", $counts[1]) ?>
         <?php } else { ?>
             <?php if (1 == $counts[0]) { /* one session */ ?>

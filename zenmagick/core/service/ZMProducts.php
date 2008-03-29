@@ -615,9 +615,6 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        if (null == $product)
-            return;
-
         $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_PRODUCTS_DESCRIPTION . "
                 set products_viewed = products_viewed+1

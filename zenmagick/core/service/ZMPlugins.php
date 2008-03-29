@@ -188,7 +188,7 @@ class ZMPlugins extends ZMObject {
 
         if (!$configured) {
             // sort
-            usort($plugins, array(ZMPlugins, "_cmp_plugins"));
+            usort($plugins, array('ZMPlugins', "_cmp_plugins"));
         }
 
         return $plugins;
@@ -202,7 +202,7 @@ class ZMPlugins extends ZMObject {
      * @return integer Value less than, equal to, or greater than zero if the first argument is
      *  considered to be respectively less than, equal to, or greater than the second.
      */
-    static function _cmp_plugins($a, $b) {
+    protected static function _cmp_plugins($a, $b) {
         $ao = $a->getSortOrder();
         $bo = $b->getSortOrder();
         if ($ao == $bo) {

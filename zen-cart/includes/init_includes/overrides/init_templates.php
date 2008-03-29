@@ -28,7 +28,7 @@
     $zm_is_init = true;
     $zmLanguagesBefore = true;
 
-    if ($zm_languagesBefore) {
+    if ($zmLanguagesBefore) {
         // initial setup loading languages first
         require(dirname(__FILE__) . "/init_languages.php"); //initial
     }
@@ -36,7 +36,7 @@
     // init ZenMagick
     include(DIR_FS_CATALOG."zenmagick/init.php");
 
-    if (!$zm_languagesBefore) {
+    if (!$zmLanguagesBefore) {
         // once all i18n is patched, this line will be used
         require(dirname(__FILE__) . "/init_languages.php"); //i18n-patched
     }

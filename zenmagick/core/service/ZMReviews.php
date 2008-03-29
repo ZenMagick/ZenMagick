@@ -118,7 +118,7 @@ class ZMReviews extends ZMObject {
 
         $reviews = array();
         while ($max > count($reviews)) {
-            $lastCount == count($reviews);
+            $lastCount = count($reviews);
             $results = $db->ExecuteRandomMulti($query, $max);
             while (!$results->EOF) {
                 $review = $this->_newReview($results->fields);
