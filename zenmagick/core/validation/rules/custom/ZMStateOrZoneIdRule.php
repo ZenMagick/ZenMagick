@@ -36,17 +36,6 @@
  */
 class ZMStateOrZoneIdRule extends ZMRule {
 
-
-    /**
-     * Create new required rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function ZMStateOrZoneIdRule($name, $msg=null) {
-        parent::__construct($name, "Please enter a state.", $msg);
-    }
-
     /**
      * Create new required rule.
      *
@@ -54,7 +43,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
-        $this->ZMStateOrZoneIdRule($name, $msg);
+        parent::__construct($name, "Please enter a state.", $msg);
     }
 
     /**

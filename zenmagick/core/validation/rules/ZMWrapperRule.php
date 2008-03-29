@@ -42,21 +42,11 @@ class ZMWrapperRule extends ZMRule {
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    function ZMWrapperRule($name, $msg=null) {
+    function __construct($name, $msg=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
 
         $this->function_ = null;
         $this->javascript_ = '';
-    }
-
-    /**
-     * Create new rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function __construct($name, $msg=null) {
-        $this->ZMWrapperRule($name, $msg);
     }
 
     /**

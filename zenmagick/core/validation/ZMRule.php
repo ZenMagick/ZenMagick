@@ -31,7 +31,7 @@
  * @package org.zenmagick.validation
  * @version $Id$
  */
-abstract class ZMRule {
+abstract class ZMRule extends ZMObject {
     private $name_;
     private $msg_;
     private $defaultMsg_;
@@ -45,6 +45,7 @@ abstract class ZMRule {
      * @param string msg Optional custom error message.
      */
     function __construct($name, $defaultMsg, $msg=null) {
+        parent::__construct();
         $this->name_ = $name;
         $this->defaultMsg_ = $defaultMsg;
         $this->msg_ = $msg;
@@ -54,6 +55,7 @@ abstract class ZMRule {
      * Destruct instance.
      */
     function __destruct() {
+        parent::__destruct();
     }
 
 
@@ -77,6 +79,23 @@ abstract class ZMRule {
         return $this->name_;
     }
 
+    /**
+     * Get the custom error message.
+     *
+     * @return string The custom error message.
+     */
+    public function getMsg() {
+        return $this->msg_;
+    }
+
+    /**
+     * Get the default error message.
+     *
+     * @return string The default error message.
+     */
+    public function getDefaultMsg() {
+        return $this->defaultMsg_;
+    }
 
     /**
      * Create JS validation call.

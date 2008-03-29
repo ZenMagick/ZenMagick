@@ -42,20 +42,9 @@ class ZMMinRule extends ZMRule {
      * @param int min The minimun length.
      * @param string msg Optional message.
      */
-    function ZMMinRule($name, $min, $msg=null) {
+    function __construct($name, $min, $msg=null) {
         parent::__construct($name, "%s must be at leat %s characters long.", $msg);
         $this->min_ = $min;
-    }
-
-    /**
-     * Create new min length rule.
-     *
-     * @param string name The field name.
-     * @param int min The minimun length.
-     * @param string msg Optional message.
-     */
-    function __construct($name, $min, $msg=null) {
-        $this->ZMMinRule($name, $min, $msg);
     }
 
     /**
@@ -73,7 +62,7 @@ class ZMMinRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return empty($req[$this->name_]) || (!array_key_exists($this->name_, $req) || $this->min_ <= strlen(trim($req[$this->name_])));
+        return empty($req[$this->getName()]) || (!array_key_exists($this->getName(), $req) || $this->min_ <= strlen(trim($req[$this->getName()])));
     }
 
 
@@ -83,7 +72,7 @@ class ZMMinRule extends ZMRule {
      * @return string Localized error message.
      */
     function getErrorMsg() {
-        return zm_l10n_get((null != $this->msg_ ? $this->msg_ : $this->defaultMsg_), $this->name_, $this->min_);
+        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min_);
     }
 
 
@@ -94,7 +83,7 @@ class ZMMinRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('min'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".$this->min_;
         $js .= ")";

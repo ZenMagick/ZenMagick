@@ -33,17 +33,6 @@
  */
 class ZMRequiredRule extends ZMRule {
 
-
-    /**
-     * Create new required rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function ZMRequiredRule($name, $msg=null) {
-        parent::__construct($name, "Please enter a value for %s.", $msg);
-    }
-
     /**
      * Create new required rule.
      *
@@ -51,7 +40,7 @@ class ZMRequiredRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
-        $this->ZMRequiredRule($name, $msg);
+        parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
     /**
@@ -69,7 +58,7 @@ class ZMRequiredRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return array_key_exists($this->name_, $req) && !empty($req[$this->name_]);
+        return array_key_exists($this->getName(), $req) && !empty($req[$this->getName()]);
     }
 
 
@@ -80,7 +69,7 @@ class ZMRequiredRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('required'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ")";
         return $js;

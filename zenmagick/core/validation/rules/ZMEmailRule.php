@@ -33,17 +33,6 @@
  */
 class ZMEmailRule extends ZMRule {
 
-
-    /**
-     * Create new email rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function ZMEmailRule($name, $msg=null) {
-        parent::__construct($name, "%s is not a valid email.", $msg);
-    }
-
     /**
      * Create new email rule.
      *
@@ -51,7 +40,7 @@ class ZMEmailRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
-        $this->ZMEmailRule($name, $msg);
+        parent::__construct($name, "%s is not a valid email.", $msg);
     }
 
     /**
@@ -89,13 +78,13 @@ class ZMEmailRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        if (!array_key_exists($this->name_, $req)) {
+        if (!array_key_exists($this->getName(), $req)) {
             return true;
         }
 
-        $email = $req[$this->name_];
+        $email = $req[$this->getName()];
 
-        return empty($req[$this->name_]) || eregi($this->_emailRegexp(), $email) && zen_validate_email($email);
+        return empty($req[$this->getName()]) || eregi($this->_emailRegexp(), $email) && zen_validate_email($email);
     }
 
 
@@ -106,7 +95,7 @@ class ZMEmailRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('regexp'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->_emailRegexp().'"';
         $js .= ")";

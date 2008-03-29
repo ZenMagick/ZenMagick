@@ -42,21 +42,9 @@ class ZMDateRule extends ZMRule {
      * @param string format The date format (eg: DD/MM/YYYY); if <code>null</code>, <em>UI_DATE_FORMAT</em> will be used.
      * @param string msg Optional message.
      */
-    function ZMDateRule($name, $format=null, $msg=null) {
-        parent::__construct($name, "Please enter a valid date (%s).", $msg);
-
-        $this->format_ = $format;
-    }
-
-    /**
-     * Create new date rule.
-     *
-     * @param string name The field name.
-     * @param string format The date format (eg: DD/MM/YYYY); if <code>null</code>, <em>UI_DATE_FORMAT</em> will be used.
-     * @param string msg Optional message.
-     */
     function __construct($name, $format=null, $msg=null) {
-        $this->ZMDateRule($name, $format, $msg);
+        parent::__construct($name, "Please enter a valid date (%s).", $msg);
+        $this->format_ = $format;
     }
 
     /**
@@ -85,9 +73,9 @@ class ZMDateRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        $da = zm_parse_date($req[$this->name_], $this->getFormat());
+        $da = zm_parse_date($req[$this->getName()], $this->getFormat());
 
-        return empty($req[$this->name_]) || @checkdate($da[1], $da[0], $da[2].$da[3]);
+        return empty($req[$this->getName()]) || @checkdate($da[1], $da[0], $da[2].$da[3]);
     }
 
 
@@ -97,7 +85,7 @@ class ZMDateRule extends ZMRule {
      * @return string Localized error message.
      */
     function getErrorMsg() {
-        return zm_l10n_get((null != $this->msg_ ? $this->msg_ : $this->defaultMsg_), $this->name_, $this->getFormat());
+        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
     }
 
 
@@ -108,7 +96,7 @@ class ZMDateRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('date'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->getFormat().'"';
         $js .= ")";

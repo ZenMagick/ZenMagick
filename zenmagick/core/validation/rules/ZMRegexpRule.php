@@ -42,20 +42,9 @@ class ZMRegexpRule extends ZMRule {
      * @param string regexp The regular expression.
      * @param string msg Optional message.
      */
-    function ZMRegexpRule($name, $regexp, $msg=null) {
+    function __construct($name, $regexp, $msg=null) {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->regexp_ = $regexp;
-    }
-
-    /**
-     * Create new regexp rule.
-     *
-     * @param string name The field name.
-     * @param string regexp The regular expression.
-     * @param string msg Optional message.
-     */
-    function __construct($name, $regexp, $msg=null) {
-        $this->ZMRegexpRule($name, $regexp, $msg);
     }
 
     /**
@@ -73,7 +62,7 @@ class ZMRegexpRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return array_key_exists($this->name_, $req) && eregi($this->regexp_, $req[$this->name_]);
+        return array_key_exists($this->getName(), $req) && eregi($this->regexp_, $req[$this->getName()]);
     }
 
 
@@ -84,7 +73,7 @@ class ZMRegexpRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('regexp'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->regexp_.'"';
         $js .= ")";

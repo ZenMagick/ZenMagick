@@ -44,20 +44,9 @@ class ZMFieldMatchRule extends ZMRule {
      * @param string other The other fields name.
      * @param string msg Optional message.
      */
-    function ZMFieldMatchRule($name, $other, $msg=null) {
+    function __construct($name, $other, $msg=null) {
         parent::__construct($name, "%s and %s must match.", $msg);
         $this->other_ = $other;
-    }
-
-    /**
-     * Create new field match rule.
-     *
-     * @param string name The field name.
-     * @param string other The other fields name.
-     * @param string msg Optional message.
-     */
-    function __construct($name, $other, $msg=null) {
-        $this->ZMFieldMatchRule($name, $other, $msg);
     }
 
     /**
@@ -75,7 +64,7 @@ class ZMFieldMatchRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return empty($req[$this->name_]) || empty($req[$this->other_]) || ($req[$this->name_] == $req[$this->other_]);
+        return empty($req[$this->getName()]) || empty($req[$this->other_]) || ($req[$this->getName()] == $req[$this->other_]);
     }
 
 
@@ -85,7 +74,7 @@ class ZMFieldMatchRule extends ZMRule {
      * @return string Localized error message.
      */
     function getErrorMsg() {
-        return zm_l10n_get((null != $this->msg_ ? $this->msg_ : $this->defaultMsg_), $this->name_, $this->other_);
+        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->other_);
     }
 
 
@@ -96,7 +85,7 @@ class ZMFieldMatchRule extends ZMRule {
      */
     function toJSString() {
         $js = "    new Array('fieldMatch'";
-        $js .= ",'".$this->name_."'";
+        $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",'".$this->other_."'";
         $js .= ")";

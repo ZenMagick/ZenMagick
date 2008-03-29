@@ -33,17 +33,6 @@
  */
 class ZMUniqueEmailRule extends ZMRule {
 
-
-    /**
-     * Create new required rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function ZMUniqueEmailRule($name, $msg=null) {
-        parent::__construct($name, "Email already in use.", $msg);
-    }
-
     /**
      * Create new required rule.
      *
@@ -51,7 +40,7 @@ class ZMUniqueEmailRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
-        $this->ZMUniqueEmailRule($name, $msg);
+        parent::__construct($name, "Email already in use.", $msg);
     }
 
     /**
@@ -69,7 +58,7 @@ class ZMUniqueEmailRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return empty($req[$this->name_]) || !ZMAccounts::instance()->emailExists($req[$this->name_]);
+        return empty($req[$this->getName()]) || !ZMAccounts::instance()->emailExists($req[$this->getName()]);
     }
 
 

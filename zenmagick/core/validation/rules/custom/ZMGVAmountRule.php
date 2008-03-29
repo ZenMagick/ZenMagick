@@ -36,17 +36,6 @@
  */
 class ZMGVAmountRule extends ZMRule {
 
-
-    /**
-     * Create new required rule.
-     *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     */
-    function ZMGVAmountRule($name, $msg=null) {
-        parent::__construct($name, "Invalid Gift Certificate value.", $msg);
-    }
-
     /**
      * Create new required rule.
      *
@@ -54,7 +43,7 @@ class ZMGVAmountRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
-        $this->ZMGVAmountRule($name, $msg);
+        parent::__construct($name, "Invalid Gift Certificate value.", $msg);
     }
 
     /**
@@ -72,11 +61,11 @@ class ZMGVAmountRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        if (empty($req[$this->name_])) {
+        if (empty($req[$this->getName()])) {
             return true;
         }
 
-        $amount = $req[$this->name_];
+        $amount = $req[$this->getName()];
 
         $account = ZMRequest::getAccount();
         $balance = $account->getVoucherBalance();
