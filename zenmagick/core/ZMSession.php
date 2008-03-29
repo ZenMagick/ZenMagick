@@ -38,8 +38,6 @@ class ZMSession extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
-        $this->controller_ = null;
     }
 
     /**
@@ -55,7 +53,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
-    function isValid() {
+    public function isValid() {
     global $session_started;
 
         // zen-cart / ZenMagick init plugin
@@ -68,7 +66,7 @@ class ZMSession extends ZMObject {
      * @param string name The field name.
      * @param mixed value The value.
      */
-    function setValue($name, $value) {
+    public function setValue($name, $value) {
         $_SESSION[$name] = $value;
     }
 
@@ -78,7 +76,7 @@ class ZMSession extends ZMObject {
      * @param string name The field name.
      * @return mixed The value or <code>null</code>.
      */
-    function getValue($name) {
+    public function getValue($name) {
         if (isset($_SESSION[$name])) {
             return $_SESSION[$name];
         }
@@ -91,7 +89,7 @@ class ZMSession extends ZMObject {
      *
      * @param boolean force If <code>true</code>, force recreation of the session, even if this is disabled.
      */
-    function recreate($force=false) {
+    public function recreate($force=false) {
         if ($force || ZMSettings::get('isSessionRecreate')) {
             zen_session_recreate();
         }
@@ -102,14 +100,14 @@ class ZMSession extends ZMObject {
      *
      * @return mixed The current <strong>zen-cart</strong> shopping cart (may be empty).
      */
-    function getZCShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
+    public function getZCShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
 
     /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
+    public function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
 
     /**
      * Returns the current session type.
@@ -118,7 +116,7 @@ class ZMSession extends ZMObject {
      *
      * @return char The session type.
      */
-    function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_ANONYMOUS; }
+    public function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_ANONYMOUS; }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
@@ -127,7 +125,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
-    function isAnonymous() { return !array_key_exists('account_type', $_SESSION) || ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
+    public function isAnonymous() { return !array_key_exists('account_type', $_SESSION) || ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
@@ -136,7 +134,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    function isGuest() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
+    public function isGuest() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
@@ -145,14 +143,14 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
-    function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_REGISTERED == $_SESSION['account_type']; }
+    public function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_REGISTERED == $_SESSION['account_type']; }
 
     /**
      * Set the account for the current session.
      *
      * @param ZMAccount account The account.
      */
-    function setAccount($account) {
+    public function setAccount($account) {
         $_SESSION['customer_id'] = $account->getId();
         $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
         $_SESSION['customers_authorization'] = $account->getAuthorization();
@@ -170,7 +168,7 @@ class ZMSession extends ZMObject {
      *
      * <p>This will effectively logoff the curent account.
      */
-    function clear() {
+    public function clear() {
         session_destroy();
         unset($_SESSION['account_type']);
         $_SESSION['customers_id'] = '';
@@ -179,7 +177,7 @@ class ZMSession extends ZMObject {
     /**
      * Restore the shopping cart contents.
      */
-    function restoreCart() {
+    public function restoreCart() {
         if (isset($_SESSION['cart'])) {
           $_SESSION['cart']->restore_contents();
         }
@@ -190,7 +188,7 @@ class ZMSession extends ZMObject {
      *
      * @param array messages A list of <code>ZMMessage</code> objects.
      */
-    function setMessages($messages) {
+    public function setMessages($messages) {
         if (!is_array($_SESSION['messageToStack'])) {
             $sessionMessages = array();
         } else {
@@ -207,7 +205,7 @@ class ZMSession extends ZMObject {
     /**
      * Clear all session messages.
      */
-    function clearMessages() {
+    public function clearMessages() {
         $_SESSION['messageToStack'] = '';
     }
 
@@ -216,7 +214,7 @@ class ZMSession extends ZMObject {
      *
      * @param array Messages.
      */
-    function getMessages() {
+    public function getMessages() {
         $messages = array();
         if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
             foreach ($_SESSION['messageToStack'] as $arr) {
@@ -230,7 +228,7 @@ class ZMSession extends ZMObject {
     /**
      * Mark current request for return after login.
      */
-    function markRequestAsLoginFollowUp() {
+    public function markRequestAsLoginFollowUp() {
         if (!isset($_SESSION['navigation'])) {
             $_SESSION['navigation'] = new navigationHistory();
         }
@@ -242,7 +240,7 @@ class ZMSession extends ZMObject {
      *
      * @return string The url to go to or <code>null</code>.
      */
-    function getLoginFollowUp() {
+    public function getLoginFollowUp() {
         $url = null;
         if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
             $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
@@ -258,7 +256,7 @@ class ZMSession extends ZMObject {
      *
      * @return string The client IP address or <code>null</code>.
      */
-    function getClientAddress() {
+    public function getClientAddress() {
         return $_SESSION['REMOTE_ADDR'];
     }
 
@@ -267,7 +265,7 @@ class ZMSession extends ZMObject {
      *
      * @return string The client host name or <code>null</code>.
      */
-    function getClientHostname() {
+    public function getClientHostname() {
         return isset($_SESSION['customers_host_address']) ? $_SESSION['customers_host_address'] : null;
     }
 
@@ -276,7 +274,7 @@ class ZMSession extends ZMObject {
      *
      * @return string The session currency code or <code>null</code>.
      */
-    function getCurrencyCode() {
+    public function getCurrencyCode() {
         return isset($_SESSION['currency']) ? $_SESSION['currency'] : null;
     }
 
@@ -285,7 +283,7 @@ class ZMSession extends ZMObject {
      *
      * @param string currencyCode The session currency code.
      */
-    function setCurrencyCode($currencyCode) {
+    public function setCurrencyCode($currencyCode) {
         $_SESSION['currency'] = $currencyCode;
     }
 
@@ -297,7 +295,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean </code>true</code> if a session is open, <code>false</code> if not.
      */
-    function isOpen() {
+    public function isOpen() {
         $_SESSION['_zm_session_test'] = 'check';
         @session_start();
 
@@ -314,7 +312,7 @@ class ZMSession extends ZMObject {
      *
      * @param ZMLanguage language The language.
      */
-    function setLanguage($language) {
+    public function setLanguage($language) {
         $_SESSION['language'] = $language->getDirectory();
         $_SESSION['languages_id'] = $language->getId();
         $_SESSION['languages_code'] = $language->getCode();
@@ -325,7 +323,7 @@ class ZMSession extends ZMObject {
      *
      * @return ZMLanguage The language or <code>null</code>.
      */
-    function getLanguage() {
+    public function getLanguage() {
         return ZMLanguages::instance()->getLanguageForCode($_SESSION['languages_code']);
     }
 
@@ -334,7 +332,7 @@ class ZMSession extends ZMObject {
      *
      * @return int The current language id.
      */
-    function getLanguageId() { return (int)$_SESSION['languages_id']; }
+    public function getLanguageId() { return (int)$_SESSION['languages_id']; }
 
 }
 

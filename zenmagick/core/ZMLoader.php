@@ -101,7 +101,7 @@ class ZMLoader {
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      */
     public function addPath($path, $recursive=true) {
-        $this->path_ = array_merge($this->path_, $this->_scan($path, $recursive));
+        $this->path_ = array_merge($this->path_, $this->scan($path, $recursive));
     }
 
     /**
@@ -330,7 +330,7 @@ class ZMLoader {
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      * @return array A file map for the given path.
      */
-    protected function _scan($path, $recursive=true) {
+    protected function scan($path, $recursive=true) {
         $files = ZMLoader::findIncludes($path, $recursive);
         $map = array();
         foreach ($files as $file) {
