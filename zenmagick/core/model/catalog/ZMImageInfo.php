@@ -150,8 +150,6 @@ class ZMImageInfo extends ZMModel {
             $this->parameter_ = $parameter;
         } else if (!empty($parameter)) {
             parse_str($parameter, $this->parameter_);
-        } else {
-            $this->log('invalid image parameter '.$parameter, ZM_LOG_WARN);
         }
     }
 

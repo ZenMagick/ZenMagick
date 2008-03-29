@@ -38,7 +38,7 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter=null, $echo=ZM_ECHO_DEFAULT) {
+    function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
         if (null === $imageInfo) {
             return;
         }
