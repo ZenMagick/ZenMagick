@@ -39,14 +39,13 @@
  * @version $Id$
  */
 class ZMEvents extends ZMObject {
-    var $subscriber_;
+    private $subscriber_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-
         $this->subscriber_ = array();
     }
 
@@ -70,7 +69,7 @@ class ZMEvents extends ZMObject {
      *
      * @param mixed observer Reference to the observer class or method.
      */
-    function attach($observer) {
+    public function attach($observer) {
         $eventId = 'all';
         $nameHash = md5(get_class($observer).$eventId);
         $this->subscriber_[$nameHash] = array('obs'=> $observer, 'eventID'=>$eventId);
@@ -81,7 +80,7 @@ class ZMEvents extends ZMObject {
      *
      * @param mixed observer Reference to the observer class or method.
      */
-    function detach($observer) {
+    public function detach($observer) {
         $eventId = 'all';
         $nameHash = md5(get_class($observer).$eventId);
         unset($this->subscriber_[$nameHash]);
@@ -103,7 +102,7 @@ class ZMEvents extends ZMObject {
      * @param string prefix Optional prefix; default is '<code>on</code>'.
      * @return string The corresponding method name.
      */
-    function event2method($eventId, $prefix='onZM') {
+    protected function event2method($eventId, $prefix='onZM') {
         // id is upper case
         $method = strtolower($eventId);
         // '_' == word boundary
@@ -126,7 +125,7 @@ class ZMEvents extends ZMObject {
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>null</code>.
      */
-    function update($notifier, $eventId, $args=null) {
+    public function update($notifier, $eventId, $args=null) {
         $method = $this->event2method($eventId, 'on');
         $this->log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
@@ -148,7 +147,7 @@ class ZMEvents extends ZMObject {
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>array()</code>.
      */
-    function fireEvent($source, $eventId, $args=array()) {
+    public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
         $args['source'] = $source;
         $this->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
