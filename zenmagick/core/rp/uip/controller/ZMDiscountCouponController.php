@@ -36,15 +36,8 @@ class ZMDiscountCouponController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMDiscountCouponController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMDiscountCouponController();
+        parent::__construct();
     }
 
     /**

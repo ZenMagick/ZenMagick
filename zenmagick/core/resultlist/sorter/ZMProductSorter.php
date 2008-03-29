@@ -54,15 +54,8 @@ class ZMProductSorter extends ZMResultListSorter {
     /**
      * Create new instance.
      */
-    function ZMProductSorter() {
-        parent::__construct('psort');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMProductSorter();
+        parent::__construct('psort');
     }
 
     /**

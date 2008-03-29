@@ -36,15 +36,8 @@ class ZMPageController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMPageController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMPageController();
+        parent::__construct();
     }
 
     /**

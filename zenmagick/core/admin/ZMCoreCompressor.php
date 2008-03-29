@@ -55,7 +55,7 @@ class ZMCoreCompressor extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMCoreCompressor() {
+    function __construct() {
         parent::__construct();
 
         $this->coreDirname_ = ZMRuntime::getZMRootPath().'core';
@@ -64,13 +64,6 @@ class ZMCoreCompressor extends ZMObject {
         $this->flatDirname_ = ZMRuntime::getZMRootPath().'core.flat';
         $this->coreFilename_ = ZMRuntime::getZMRootPath().'core.php';
         $this->errors_ = array();
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMCoreCompressor();
     }
 
     /**

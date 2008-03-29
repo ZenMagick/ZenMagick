@@ -36,15 +36,8 @@ class ZMEventFixes extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMEventFixes() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMEventFixes();
+        parent::__construct();
     }
 
     /**

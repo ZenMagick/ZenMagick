@@ -36,15 +36,8 @@ class ZMCreateAccountController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMCreateAccountController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCreateAccountController();
+        parent::__construct();
     }
 
     /**

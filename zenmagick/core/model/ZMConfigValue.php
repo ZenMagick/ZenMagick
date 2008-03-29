@@ -44,17 +44,9 @@ class ZMConfigValue extends ZMModel {
     /**
      * Create new config value.
      */
-    function ZMConfigValue() {
-        parent::__construct();
-
-		    $this->id_ = 0;
-    }
-
-    /**
-     * Create new config value.
-     */
     function __construct() {
-        $this->ZMConfigValue();
+        parent::__construct();
+		$this->id_ = 0;
     }
 
     /**

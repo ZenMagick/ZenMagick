@@ -36,15 +36,8 @@ class ZMSpecialsController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMSpecialsController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMSpecialsController();
+        parent::__construct();
     }
 
     /**

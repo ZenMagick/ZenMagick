@@ -36,15 +36,8 @@ class WikiController extends ZMController {
     /**
      * Create new instance.
      */
-    function WikiController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->WikiController();
+        parent::__construct();
     }
 
     /**

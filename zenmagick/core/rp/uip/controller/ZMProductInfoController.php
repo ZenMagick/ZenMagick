@@ -36,15 +36,8 @@ class ZMProductInfoController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMProductInfoController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMProductInfoController();
+        parent::__construct();
     }
 
     /**

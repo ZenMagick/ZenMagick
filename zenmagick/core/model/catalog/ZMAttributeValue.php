@@ -53,16 +53,10 @@ class ZMAttributeValue extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMAttributeValue($id, $name) {
+    function __construct($id, $name) {
+        parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct($id, $name) {
-        $this->ZMAttributeValue($id, $name);
     }
 
     /**

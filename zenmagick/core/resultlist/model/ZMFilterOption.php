@@ -44,23 +44,11 @@ class ZMFilterOption extends ZMModel {
      * @param int id The option id.
      * @param boolean active Optional active flag if this option is currently active.
      */
-    function ZMFilterOption($name, $id, $active=false) {
+    function __construct($name, $id, $active=false) {
         parent::__construct();
-
         $this->name_ = $name;
         $this->id_ = $id;
         $this->active_ = $active;
-    }
-
-    /**
-     * Create a new filter option.
-     *
-     * @param string name The option name.
-     * @param int id The option id.
-     * @param boolean active Optional active flag if this option is currently active.
-     */
-    function __construct($name, $id, $active=false) {
-        $this->ZMFilterOption($name, $id, $active);
     }
 
     /**

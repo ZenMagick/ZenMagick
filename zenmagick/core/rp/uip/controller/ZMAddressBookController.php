@@ -36,15 +36,8 @@ class ZMAddressBookController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAddressBookController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAddressBookController();
+        parent::__construct();
     }
 
     /**

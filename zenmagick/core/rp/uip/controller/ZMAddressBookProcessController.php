@@ -36,15 +36,8 @@ class ZMAddressBookProcessController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAddressBookProcessController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAddressBookProcessController();
+        parent::__construct();
     }
 
     /**

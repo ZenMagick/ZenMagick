@@ -42,7 +42,7 @@ class ZMEmailMessage extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMEmailMessage() {
+    function __construct() {
         parent::__construct();
 
         $this->fromEmail_ = null;
@@ -50,13 +50,6 @@ class ZMEmailMessage extends ZMModel {
         $this->toEmail_ = null;
         $this->toName_ = '';
         $this->message_ = '';
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMEmailMessage();
     }
 
     /**

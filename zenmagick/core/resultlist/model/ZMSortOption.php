@@ -49,25 +49,13 @@ class ZMSortOption extends ZMModel {
      * @param boolean active Optional active flag if this option is currently active.
      * @param boolean decending Ascending/decending flag (default is ascending.
      */
-    function ZMSortOption($name, $id, $active=false, $decending=false) {
+    function __construct($name, $id, $active=false, $decending=false) {
         parent::__construct();
 
         $this->name_ = $name;
         $this->id_ = $id;
         $this->active_ = $active;
         $this->decending_ = $decending;
-    }
-
-    /**
-     * Create a new sort option.
-     *
-     * @param string name The option name.
-     * @param int id The option id.
-     * @param boolean active Optional active flag if this option is currently active.
-     * @param boolean decending Ascending/decending flag (default is ascending.
-     */
-    function __construct($name, $id, $active=false, $decending=false) {
-        $this->ZMSortOption($name, $id, $active, $decending);
     }
 
     /**

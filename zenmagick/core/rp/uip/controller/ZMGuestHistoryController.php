@@ -36,15 +36,8 @@ class ZMGuestHistoryController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMGuestHistoryController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMGuestHistoryController();
+        parent::__construct();
     }
 
     /**

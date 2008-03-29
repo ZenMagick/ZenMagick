@@ -41,21 +41,10 @@ class ImageInfo extends ZMImageInfo {
      * @param string image The image name.
      * @param string alt The alt text.
      */
-    function ImageInfo($image, $alt='') {
+    function __construct($image, $alt='') {
         parent::__construct($image, $alt);
-
         $this->image_ = $image;
         $this->formattedParameter_ = '';
-    }
-
-    /**
-     * Create new image info.
-     *
-     * @param string image The image name.
-     * @param string alt The alt text.
-     */
-    function __construct($image, $alt='') {
-        $this->ImageInfo($image, $alt);
     }
 
     /**

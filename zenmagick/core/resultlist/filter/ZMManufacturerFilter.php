@@ -36,15 +36,8 @@ class ZMManufacturerFilter extends ZMResultListFilter {
     /**
      * Create new instance.
      */
-    function ZMManufacturerFilter() {
-        parent::__construct('mfilter', zm_l10n_get('Manufacturer'));
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMManufacturerFilter();
+        parent::__construct('mfilter', zm_l10n_get('Manufacturer'));
     }
 
     /**

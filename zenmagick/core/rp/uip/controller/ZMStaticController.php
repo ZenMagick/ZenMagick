@@ -36,15 +36,8 @@ class ZMStaticController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMStaticController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMStaticController();
+        parent::__construct();
     }
 
     /**

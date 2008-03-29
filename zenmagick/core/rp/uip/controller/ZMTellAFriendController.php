@@ -36,15 +36,8 @@ class ZMTellAFriendController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMTellAFriendController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMTellAFriendController();
+        parent::__construct();
     }
 
     /**

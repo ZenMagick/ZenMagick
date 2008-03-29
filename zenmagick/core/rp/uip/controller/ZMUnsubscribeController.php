@@ -36,15 +36,8 @@ class ZMUnsubscribeController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMUnsubscribeController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMUnsubscribeController();
+        parent::__construct();
     }
 
     /**

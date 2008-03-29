@@ -38,17 +38,8 @@ class PopupView extends PageView {
      *
      * @param string page The page (view) name.
      */
-    function PopupView($page) {
-        parent::__construct($page);
-    }
-
-    /**
-     * Create new popup view.
-     *
-     * @param string page The page (view) name.
-     */
     function __construct($page) {
-        $this->PopupView($page);
+        parent::__construct($page);
     }
 
     /**

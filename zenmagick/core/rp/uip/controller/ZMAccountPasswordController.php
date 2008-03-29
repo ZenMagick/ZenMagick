@@ -36,15 +36,8 @@ class ZMAccountPasswordController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAccountPasswordController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAccountPasswordController();
+        parent::__construct();
     }
 
     /**

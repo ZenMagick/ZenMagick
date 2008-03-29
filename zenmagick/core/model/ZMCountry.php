@@ -42,7 +42,7 @@ class ZMCountry extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMCountry() {
+    function __construct() {
         parent::__construct();
 
         $this->id_ = 0;
@@ -50,13 +50,6 @@ class ZMCountry extends ZMModel {
         $this->isoCode2_ = '';
         $this->isoCode3_ = '';
         $this->addressFormatId_ = 0;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMCountry();
     }
 
     /**

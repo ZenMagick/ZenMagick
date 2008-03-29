@@ -38,17 +38,8 @@ class ZMPopupView extends ZMPageView {
      *
      * @param string page The page (view) name.
      */
-    function ZMPopupView($page) {
-        parent::__construct($page);
-    }
-
-    /**
-     * Create new popup view.
-     *
-     * @param string page The page (view) name.
-     */
     function __construct($page) {
-        $this->ZMPopupView($page);
+        parent::__construct($page);
     }
 
     /**

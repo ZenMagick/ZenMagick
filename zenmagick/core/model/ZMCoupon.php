@@ -56,23 +56,11 @@ class ZMCoupon extends ZMModel {
      * @param string code The coupon code.
      * @param string type The coupon type; default is blank.
      */
-    function ZMCoupon($id, $code, $type='') {
-        parent::__construct();
-
-		    $this->id_ = $id;
-		    $this->code_ = $code;
-		    $this->type_ = $type;
-    }
-
-    /**
-     * Create new instance
-     *
-     * @param int id The coupon id.
-     * @param string code The coupon code.
-     * @param string type The coupon type; default is blank.
-     */
     function __construct($id, $code, $type='') {
-        $this->ZMCoupon($id, $code, $type);
+        parent::__construct();
+        $this->id_ = $id;
+        $this->code_ = $code;
+        $this->type_ = $type;
     }
 
     /**

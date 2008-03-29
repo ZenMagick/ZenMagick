@@ -42,15 +42,8 @@ class ZMLanguage extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMLanguage() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMLanguage();
+        parent::__construct();
     }
 
     /**

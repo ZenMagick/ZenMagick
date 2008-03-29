@@ -38,15 +38,8 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMSideboxDummyPatch() {
-        parent::__construct('sideboxDummies');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMSideboxDummyPatch();
+        parent::__construct('sideboxDummies');
     }
 
     /**

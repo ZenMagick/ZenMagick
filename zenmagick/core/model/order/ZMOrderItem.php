@@ -44,17 +44,9 @@ class ZMOrderItem extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMOrderItem() {
-        parent::__construct();
-
-        $this->attributes_ = array();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMOrderItem();
+        parent::__construct();
+        $this->attributes_ = array();
     }
 
     /**

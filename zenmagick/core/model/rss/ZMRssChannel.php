@@ -43,19 +43,9 @@ class ZMRssChannel extends ZMModel {
      *
      * @param array Channel data.
      */
-    function ZMRssChannel($rs=null) {
-        parent::__construct();
-
-        $this->rs_ = null !== $rs ? $rs : array();
-    }
-
-    /**
-     * Create new RSS channel.
-     *
-     * @param array Channel data.
-     */
     function __construct($rs=null) {
-        $this->ZMRssChannel($rs);
+        parent::__construct();
+        $this->rs_ = null !== $rs ? $rs : array();
     }
 
     /**

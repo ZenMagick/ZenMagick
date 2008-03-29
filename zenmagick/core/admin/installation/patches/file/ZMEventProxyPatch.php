@@ -37,15 +37,8 @@ class ZMEventProxyPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMEventProxyPatch() {
-        parent::__construct('eventProxy');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMEventProxyPatch();
+        parent::__construct('eventProxy');
     }
 
     /**

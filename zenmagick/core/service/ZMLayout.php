@@ -43,7 +43,6 @@ class ZMLayout extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->leftColEnabled_ = true;
         $this->rightColEnabled_ = true;
         $this->leftColBoxes_ = null;

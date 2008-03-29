@@ -42,7 +42,6 @@ class ZMFeatures extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->features_ = array();
         $this->productFeatures_ = array();
         $this->featureTypes_ = null;

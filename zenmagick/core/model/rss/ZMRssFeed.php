@@ -40,18 +40,10 @@ class ZMRssFeed extends ZMModel {
     /**
      * Create new RSS feed.
      */
-    function ZMRssFeed() {
+    function __construct() {
         parent::__construct();
-
         $this->channel_ = null;
         $this->items_ = array();
-    }
-
-    /**
-     * Create new RSS feed.
-     */
-    function __construct() {
-        $this->ZMRssFeed();
     }
 
     /**

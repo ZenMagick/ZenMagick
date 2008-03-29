@@ -40,17 +40,8 @@ class ZMPageView extends ZMView {
      *
      * @param string page The page (view) name.
      */
-    function ZMPageView($page) {
-        parent::__construct($page);
-    }
-
-    /**
-     * Create new theme view view.
-     *
-     * @param string page The page (view) name.
-     */
     function __construct($page) {
-        $this->ZMPageView($page);
+        parent::__construct($page);
     }
 
     /**

@@ -45,16 +45,9 @@ class zm_google_adsense extends ZMBoxPlugin {
     /**
      * Create new instance.
      */
-    function zm_google_adsense() {
+    function __construct() {
         parent::__construct('Google AdSense Boxes', 'Plugin for up to '._ZM_GOOGLE_ADSENSE_COUNT.' Google AdSense sideboxes.', '${plugin.version}');
         $this->setKeys($this->getBoxNames());
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_google_adsense();
     }
 
     /**

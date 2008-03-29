@@ -31,7 +31,7 @@
  * @package org.zenmagick.validation
  * @version $Id$
  */
-class ZMRuleSet {
+class ZMRuleSet extends ZMObject {
     private $id_;
     private $rules_;
 
@@ -43,6 +43,7 @@ class ZMRuleSet {
      * @param array rules Optional initial list of rules.
      */
     function __construct($id, $rules=null) {
+        parent::__construct();
         $this->id_ = $id;
         $this->rules_ = null != $rules ? $rules : array();
     }
@@ -51,6 +52,7 @@ class ZMRuleSet {
      * Destruct instance.
      */
     function __destruct() {
+        parent::__destruct();
     }
 
 

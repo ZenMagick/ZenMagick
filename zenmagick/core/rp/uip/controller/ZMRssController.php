@@ -42,15 +42,8 @@ class ZMRssController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMRssController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMRssController();
+        parent::__construct();
     }
 
     /**

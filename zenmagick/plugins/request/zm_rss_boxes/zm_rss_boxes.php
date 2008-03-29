@@ -45,16 +45,9 @@ class zm_rss_boxes extends ZMBoxPlugin {
     /**
      * Create new instance.
      */
-    function zm_rss_boxes() {
+    function __construct() {
         parent::__construct('RSS Boxes', 'Plugin for up to '._ZM_RSS_BOXES_COUNT.' RSS sideboxes.', '${plugin.version}');
         $this->setKeys($this->getBoxNames());
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_rss_boxes();
     }
 
     /**

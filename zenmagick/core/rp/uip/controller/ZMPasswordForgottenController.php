@@ -36,15 +36,8 @@ class ZMPasswordForgottenController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMPasswordForgottenController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMPasswordForgottenController();
+        parent::__construct();
     }
 
     /**

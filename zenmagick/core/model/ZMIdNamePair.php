@@ -42,21 +42,10 @@ class ZMIdNamePair extends ZMModel {
      * @param int id The id.
      * @param string name The name.
      */
-    function ZMIdNamePair($id, $name) {
-        parent::__construct();
-
-		    $this->id_ = $id;
-		    $this->name_ = $name;
-    }
-
-    /**
-     * Create new id - name pair.
-     *
-     * @param int id The id.
-     * @param string name The name.
-     */
     function __construct($id, $name) {
-        $this->ZMIdNamePair($id, $name);
+        parent::__construct();
+        $this->id_ = $id;
+        $this->name_ = $name;
     }
 
     /**

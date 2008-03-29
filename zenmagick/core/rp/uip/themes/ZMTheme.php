@@ -43,7 +43,6 @@ class ZMTheme extends ZMObject {
      */
     function __construct($themeId) {
         parent::__construct();
-
         $this->themeId_ = $themeId;
         $this->themeInfo_ = null;
     }

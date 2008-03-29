@@ -40,19 +40,11 @@ class ZMMediaType extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMMediaType() {
+    function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->name_ = null;
         $this->extension_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMMediaType();
     }
 
     /**

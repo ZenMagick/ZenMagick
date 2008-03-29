@@ -45,7 +45,6 @@ class ZMOrderStatus extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->orderId_ = 0;
         $this->name_ = '';

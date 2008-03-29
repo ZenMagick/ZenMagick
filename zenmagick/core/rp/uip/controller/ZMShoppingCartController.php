@@ -36,15 +36,8 @@ class ZMShoppingCartController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMShoppingCartController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMShoppingCartController();
+        parent::__construct();
     }
 
     /**

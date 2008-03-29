@@ -40,15 +40,8 @@ class ZMI18nPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMI18nPatch() {
-        parent::__construct('i18nSupport');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMI18nPatch();
+        parent::__construct('i18nSupport');
     }
 
     /**

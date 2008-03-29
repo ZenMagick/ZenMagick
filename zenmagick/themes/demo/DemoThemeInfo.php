@@ -33,7 +33,7 @@ class DemoThemeInfo extends ZMThemeInfo {
     /**
      * Create new instance.
      */
-    function DemoThemeInfo() {
+    function __construct() {
         parent::__construct();
 
         $this->setName('ZenMagick Demo Theme');
@@ -51,13 +51,6 @@ class DemoThemeInfo extends ZMThemeInfo {
         //$this->setDefaultPageEventHandler('onload', "inject_category_code();");
     }
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->DemoThemeInfo();
-    }
-    
 }
 
 ?>

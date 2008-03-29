@@ -73,9 +73,8 @@ class ZMProduct extends ZMModel {
      * @param string name The product name.
      * @param string description The product description.
      */
-    function ZMProduct($id, $name, $description) {
+    function __construct($id, $name, $description) {
         parent::__construct();
-
         $this->id_ = $id;
         $this->name_ = $name;
         $this->description_ = $description;
@@ -83,17 +82,6 @@ class ZMProduct extends ZMModel {
         $this->sortOrder_ = 0;
         $this->attributes_ = null;
         $this->offers_ = null;
-    }
-
-    /**
-     * Create new product.
-     *
-     * @param int id The product id.
-     * @param string name The product name.
-     * @param string description The product description.
-     */
-    function __construct($id, $name, $description) {
-        $this->ZMProduct($id, $name, $description);
     }
 
     /**

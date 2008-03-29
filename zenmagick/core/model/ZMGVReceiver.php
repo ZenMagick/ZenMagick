@@ -43,20 +43,13 @@ class ZMGVReceiver extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMGVReceiver() {
+    function __construct() {
         parent::__construct();
 
         $this->name_ = '';
         $this->email_ = '';
         $this->amount_ = 0;
         $this->message_ = '';
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMGVReceiver();
     }
 
     /**

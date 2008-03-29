@@ -36,15 +36,8 @@ class ZMCheckoutShippingController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMCheckoutShippingController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCheckoutShippingController();
+        parent::__construct();
     }
 
     /**

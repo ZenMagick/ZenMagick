@@ -38,15 +38,8 @@ class ZMRewriteBasePatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMRewriteBasePatch() {
-        parent::__construct('rewriteBase');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMRewriteBasePatch();
+        parent::__construct('rewriteBase');
     }
 
     /**

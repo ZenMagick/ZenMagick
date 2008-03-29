@@ -43,19 +43,9 @@ class ZMRssItem extends ZMModel {
      *
      * @param array Array of item data.
      */
-    function ZMRssItem($item=null) {
-        parent::__construct();
-
-        $this->item_ = null !== $item ? $item : array();
-    }
-
-    /**
-     * Create new RSS item.
-     *
-     * @param array Array of item data.
-     */
     function __construct($item=null) {
-        $this->ZMRssItem($item);
+        parent::__construct();
+        $this->item_ = null !== $item ? $item : array();
     }
 
     /**

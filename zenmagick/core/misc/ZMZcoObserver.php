@@ -36,20 +36,13 @@ class ZMZcoObserver extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMZcoObserver() {
+    function __construct() {
     global $zco_notifier;
 
         parent::__construct();
 
         $zco_notifier->attach($this, array('NOTIFY_HEADER_START_GV_SEND'));
         $zco_notifier->attach($this, array('NOTIFY_LOGIN_SUCCESS_VIA_CREATE_ACCOUNT'));
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMZcoObserver();
     }
 
     /**

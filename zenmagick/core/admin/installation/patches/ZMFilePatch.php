@@ -38,19 +38,9 @@ class ZMFilePatch extends ZMInstallationPatch {
      *
      * @param string id Id of the patch.
      */
-    function ZMFilePatch($id) {
-        parent::__construct($id);
-
-        clearstatcache();
-    }
-
-    /**
-     * Create new patch.
-     *
-     * @param string id Id of the patch.
-     */
     function __construct($id) {
-        $this->ZMFilePatch($id);
+        parent::__construct($id);
+        clearstatcache();
     }
 
     /**

@@ -40,19 +40,12 @@ class ZMThemeBuilder extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMThemeBuilder() {
+    function __construct() {
         parent::__construct();
 
         $this->name_ = '';
         $this->inheritDefaults_ = true;
         $this->messages_ = array();
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMThemeBuilder();
     }
 
     /**

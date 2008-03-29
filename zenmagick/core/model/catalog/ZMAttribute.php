@@ -47,24 +47,12 @@ class ZMAttribute extends ZMModel {
      * @param string name The name.
      * @param string type The type.
      */
-    function ZMAttribute($id, $name, $type) {
+    function __construct($id, $name, $type) {
         parent::__construct();
-
         $this->id_ = $id;
         $this->name_ = $name;
         $this->type_ = $type;
         $this->values_ = array();
-    }
-
-    /**
-     * Create new attribute.
-     *
-     * @param int id The id.
-     * @param string name The name.
-     * @param string type The type.
-     */
-    function __construct($id, $name, $type) {
-        $this->ZMAttribute($id, $name, $type);
     }
 
     /**

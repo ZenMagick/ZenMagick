@@ -40,7 +40,6 @@ class ZMCurrencies extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->currencies_ = array();
         $this->_load();
     }

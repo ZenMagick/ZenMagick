@@ -53,21 +53,11 @@ class ZMOrder extends ZMModel {
      *
      * @param int id The order id.
      */
-    function ZMOrder($id) {
+    function __construct($id) {
         parent::__construct();
-
         $this->id_ = $id;
         $this->zenOrder_ = null;
         $this->zmOrders_ = null;
-    }
-
-    /**
-     * Create order.
-     *
-     * @param int id The order id.
-     */
-    function __construct($id) {
-        $this->ZMOrder($id);
     }
 
     /**

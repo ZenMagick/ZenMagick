@@ -36,15 +36,8 @@ class ZMContactUsController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMContactUsController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMContactUsController();
+        parent::__construct();
     }
 
     /**

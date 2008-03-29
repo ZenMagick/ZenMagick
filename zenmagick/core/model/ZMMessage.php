@@ -49,23 +49,12 @@ class ZMMessage extends ZMModel {
      * @param string type The message type; default is <em>msg</em>.
      * @param string ref The referencing resource; default is <code>global</code>.
      */
-    function ZMMessage($text, $type='msg', $ref='global') {
+    function __construct($text, $type='msg', $ref='global') {
         parent::__construct();
 
         $this->text_ = $text;
         $this->type_ = $type;
         $this->ref_ = $ref;
-    }
-
-    /**
-     * Create new message.
-     *
-     * @param string text The message text.
-     * @param string type The message type; default is <em>msg</em>.
-     * @param string ref The referencing resource; default is <code>global</code>.
-     */
-    function __construct($text, $type='msg', $ref='global') {
-        $this->ZMMessage($text, $type, $ref);
     }
 
     /**

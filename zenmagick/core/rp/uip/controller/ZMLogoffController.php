@@ -36,15 +36,8 @@ class ZMLogoffController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMLogoffController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMLogoffController();
+        parent::__construct();
     }
 
     /**

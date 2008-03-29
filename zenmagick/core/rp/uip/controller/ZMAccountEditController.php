@@ -36,15 +36,8 @@ class ZMAccountEditController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAccountEditController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAccountEditController();
+        parent::__construct();
     }
 
     /**

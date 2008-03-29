@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMConfigPatch extends ZMSQLPatch {
-
     var $sqlFiles_ = array(
         "etc/sql/config.sql"
     );
@@ -41,19 +40,11 @@ class ZMConfigPatch extends ZMSQLPatch {
     );
 
 
-
-    /**
-     * Create new instance.
-     */
-    function ZMConfigPatch() {
-        parent::__construct('sqlConfig');
-    }
-
     /**
      * Create new instance.
      */
     function __construct() {
-        $this->ZMConfigPatch();
+        parent::__construct('sqlConfig');
     }
 
     /**

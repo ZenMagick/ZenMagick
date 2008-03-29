@@ -36,17 +36,10 @@ class zm_master_password extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function zm_master_password() {
+    function __construct() {
         parent::__construct('Master Password', 'Master password for all accounts.', '${plugin.version}');
         $this->setLoaderSupport('ALL');
         $this->setTraditional(false);
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_master_password();
     }
 
     /**

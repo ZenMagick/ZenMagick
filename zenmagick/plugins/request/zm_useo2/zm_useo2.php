@@ -35,16 +35,9 @@ class zm_useo2 extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function zm_useo2() {
+    function __construct() {
         parent::__construct('ZenMagick Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_useo2();
     }
 
     /**

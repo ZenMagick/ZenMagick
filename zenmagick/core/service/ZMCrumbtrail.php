@@ -40,7 +40,6 @@ class ZMCrumbtrail extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->reset();
     }
 

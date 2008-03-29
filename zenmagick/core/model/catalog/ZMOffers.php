@@ -47,7 +47,6 @@ class ZMOffers extends ZMObject {
      */
     function __construct($product) {
         parent::__construct();
-
         $this->product_ = $product;
         $this->basePrice_ = null;
         $this->specialPrice_ = null;

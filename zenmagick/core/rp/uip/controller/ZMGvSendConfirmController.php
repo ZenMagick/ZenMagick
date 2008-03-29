@@ -36,15 +36,8 @@ class ZMGvSendConfirmController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMGvSendConfirmController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMGvSendConfirmController();
+        parent::__construct();
     }
 
     /**

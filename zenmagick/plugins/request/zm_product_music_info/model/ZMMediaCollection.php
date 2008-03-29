@@ -39,18 +39,10 @@ class ZMMediaCollection extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMMediaCollection() {
+    function __construct() {
         parent::__construct();
-
         $this->name_ = '';
         $this->items_ = array();
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMMediaCollection();
     }
 
     /**

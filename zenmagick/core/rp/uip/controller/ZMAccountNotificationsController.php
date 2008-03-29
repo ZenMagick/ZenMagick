@@ -36,15 +36,8 @@ class ZMAccountNotificationsController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAccountNotificationsController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAccountNotificationsController();
+        parent::__construct();
     }
 
     /**

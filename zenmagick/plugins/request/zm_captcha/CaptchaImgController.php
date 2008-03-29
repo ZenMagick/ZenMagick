@@ -38,15 +38,8 @@ class CaptchaImgController extends ZMController {
     /**
      * Create new instance.
      */
-    function CaptchaImgController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->CaptchaImgController();
+        parent::__construct();
     }
 
     /**

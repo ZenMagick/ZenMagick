@@ -36,15 +36,8 @@ class ZMAccountNewslettersController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAccountNewslettersController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAccountNewslettersController();
+        parent::__construct();
     }
 
     /**

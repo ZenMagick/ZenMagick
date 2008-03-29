@@ -42,21 +42,10 @@ class ZMCrumb extends ZMModel {
      * @param string name The name.
      * @param string url Optional url; default is <code>null</code>.
      */
-    function ZMCrumb($name, $url=null) {
+    function __construct($name, $url=null) {
         parent::__construct();
-
         $this->name_ = $name;
         $this->url_ = $url;
-    }
-
-    /**
-     * Create a new crumbtrail crumb.
-     *
-     * @param string name The name.
-     * @param string url Optional url; default is <code>null</code>.
-     */
-    function __construct($name, $url=null) {
-        $this->ZMCrumb($name, $url);
     }
 
     /**

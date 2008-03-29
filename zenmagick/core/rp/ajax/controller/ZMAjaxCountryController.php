@@ -36,15 +36,8 @@ class ZMAjaxCountryController extends ZMAjaxController {
     /**
      * Create new instance.
      */
-    function ZMAjaxCountryController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAjaxCountryController();
+        parent::__construct();
     }
 
     /**

@@ -43,19 +43,9 @@ class ZMPluginView extends ZMPageView {
      * @param string page The page (view) name.
      * @param string plugin The plugin.
      */
-    function ZMPluginView($page, $plugin) {
+    function __construct($page, $plugin) {
         parent::__construct($page);
         $this->plugin_ = $plugin;
-    }
-
-    /**
-     * Create new theme view view.
-     *
-     * @param string page The page (view) name.
-     * @param string plugin The plugin.
-     */
-    function __construct($page, $plugin) {
-        $this->ZMPluginView($page, $plugin);
     }
 
     /**

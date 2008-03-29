@@ -42,16 +42,9 @@ class zm_crossell extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function zm_crossell() {
+    function __construct() {
         parent::__construct('ZenMagick Crossell', 'Adds Crossell support for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_crossell();
     }
 
     /**

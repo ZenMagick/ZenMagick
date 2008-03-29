@@ -50,7 +50,7 @@ class ZMMenuItem extends ZMModel {
      * @param string file A filename implementing the page contents.
      * @param string function A function implementing the page contents.
      */
-    function ZMMenuItem($parent, $id, $title, $file=null, $function=null) {
+    function __construct($parent, $id, $title, $file=null, $function=null) {
         parent::__construct();
         $this->parent_ = $parent;
         // make it less likely to have name collisions...
@@ -58,19 +58,6 @@ class ZMMenuItem extends ZMModel {
         $this->title_ = $title;
         $this->file_ = $file;
         $this->function_ = $function;
-    }
-
-    /**
-     * Create new item.
-     * 
-     * @param string parent The id of the parent.
-     * @param string id The page id.
-     * @param string title The page title.
-     * @param string file A filename implementing the page contents.
-     * @param string function A function implementing the page contents.
-     */
-    function __construct($parent, $id, $title, $file=null, $function=null) {
-        $this->ZMMenuItem($parent, $id, $title, $file, $function);
     }
 
     /**

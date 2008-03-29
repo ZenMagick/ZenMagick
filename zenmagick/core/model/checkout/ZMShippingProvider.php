@@ -44,9 +44,8 @@ class ZMShippingProvider extends ZMModel {
      *
      * @param array zenQuote The zen-cart shipping quote infos for this provider.
      */
-    function ZMShippingProvider($zenQuote) {
+    function __construct($zenQuote) {
         parent::__construct();
-
         $this->zenQuote_ = $zenQuote;
         $this->methods_ = array();
         $taxRate = $this->getTaxRate();
@@ -57,15 +56,6 @@ class ZMShippingProvider extends ZMModel {
                 $this->methods_[$method->getId()] = $method;
             }
         }
-    }
-
-    /**
-     * Create a new shipping provider.
-     *
-     * @param array zenQuote The zen-cart shipping quote infos for this provider.
-     */
-    function __construct($zenQuote) {
-        $this->ZMShippingProvider($zenQuote);
     }
 
     /**

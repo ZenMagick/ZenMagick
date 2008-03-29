@@ -38,15 +38,8 @@ class ZMProductComparisonController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMProductComparisonController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMProductComparisonController();
+        parent::__construct();
     }
 
     /**

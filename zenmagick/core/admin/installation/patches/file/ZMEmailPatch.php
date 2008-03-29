@@ -44,15 +44,8 @@ class ZMEmailPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMEmailPatch() {
-        parent::__construct('email');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMEmailPatch();
+        parent::__construct('email');
     }
 
     /**

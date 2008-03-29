@@ -38,17 +38,9 @@ class ZMInstallationPatcher extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMInstallationPatcher() {
-        parent::__construct();
-
-        $this->_loadPatches();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMInstallationPatcher();
+        parent::__construct();
+        $this->_loadPatches();
     }
 
     /**

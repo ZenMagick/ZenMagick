@@ -36,15 +36,8 @@ class ZMCheckoutPaymentAddressController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMCheckoutPaymentAddressController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCheckoutPaymentAddressController();
+        parent::__construct();
     }
 
     /**

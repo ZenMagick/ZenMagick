@@ -36,15 +36,8 @@ class ZMSearch extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMSearch() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMSearch();
+        parent::__construct();
     }
 
     /**

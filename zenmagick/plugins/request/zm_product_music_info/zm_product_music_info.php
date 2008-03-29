@@ -41,16 +41,9 @@ class zm_product_music_info extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function zm_product_music_info() {
+    function __construct() {
         parent::__construct('Music Product Extras', 'Code for product_music_info product template.', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_product_music_info();
     }
 
     /**

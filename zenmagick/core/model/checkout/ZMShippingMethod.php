@@ -43,22 +43,11 @@ class ZMShippingMethod extends ZMModel {
      * @param ZMShippingProvider provider The shipping provider for this method.
      * @param array zenMethod The zen-cart method infos.
      */
-    function ZMShippingMethod($provider, $zenMethod) {
+    function __construct($provider, $zenMethod) {
         parent::__construct();
-
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
         $this->taxRate_ = ZMLoader::make("TaxRate"); 
-    }
-
-    /**
-     * Create new shipping method.
-     *
-     * @param ZMShippingProvider provider The shipping provider for this method.
-     * @param array zenMethod The zen-cart method infos.
-     */
-    function __construct($provider, $zenMethod) {
-        $this->ZMShippingMethod($provider, $zenMethod);
     }
 
     /**

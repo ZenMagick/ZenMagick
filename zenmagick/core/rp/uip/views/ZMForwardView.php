@@ -40,17 +40,8 @@ class ZMForwardView extends ZMView {
      *
      * @param string page The page (view) name.
      */
-    function ZMForwardView($page) {
-        parent::__construct($page);
-    }
-
-    /**
-     * Create a new forward view.
-     *
-     * @param string page The page (view) name.
-     */
     function __construct($page) {
-        $this->ZMForwardView($page);
+        parent::__construct($page);
     }
 
     /**

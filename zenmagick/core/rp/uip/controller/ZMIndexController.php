@@ -36,15 +36,8 @@ class ZMIndexController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMIndexController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMIndexController();
+        parent::__construct();
     }
 
     /**

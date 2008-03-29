@@ -45,7 +45,7 @@ class ZMResultListSorter extends ZMObject {
      * @param string id An optional sorter id.
      * @param string name An optional sorter name.
      */
-    function ZMResultListSorter($id=null, $name='') {
+    function __construct($id=null, $name='') {
         parent::__construct();
 
         $this->id_ = $id;
@@ -55,16 +55,6 @@ class ZMResultListSorter extends ZMObject {
         if (zm_ends_with($this->sortId_, '_a') || $this->decending_) {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
-    }
-
-    /**
-     * Create a new result list sorter.
-     *
-     * @param string id An optional sorter id.
-     * @param string name An optional sorter name.
-     */
-    function __construct($id=null, $name='') {
-        $this->ZMResultListSorter($id, $name);
     }
 
     /**

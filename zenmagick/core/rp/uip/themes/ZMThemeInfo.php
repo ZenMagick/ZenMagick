@@ -48,9 +48,8 @@ class ZMThemeInfo extends ZMObject {
      *
      * @param ZMThemeInfo parent Optional parent theme info instance.
      */
-    function ZMThemeInfo() {
+    function __construct() {
         parent::__construct();
-
         $this->parent_ = array();
         $this->info_ = array();
         $this->config_ = array();
@@ -60,15 +59,6 @@ class ZMThemeInfo extends ZMObject {
         $this->setDefaultLayout('default_layout');
         $this->setViewsDir("views/");
         $this->setErrorPage('error');
-    }
-
-    /**
-     * Create new instance.
-     *
-     * @param ZMThemeInfo parent Optional parent theme info instance.
-     */
-    function __construct() {
-        $this->ZMThemeInfo();
     }
 
     /**

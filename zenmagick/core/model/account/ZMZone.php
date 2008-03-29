@@ -40,19 +40,11 @@ class ZMZone extends ZMModel {
     /**
      * Create new zone.
      */
-    function ZMZone() {
-        parent::__construct();
-
-		    $this->id_ = 0;
-		    $this->code_ = null;
-		    $this->name_ = null;
-    }
-
-    /**
-     * Create new zone.
-     */
     function __construct() {
-        $this->ZMZone();
+        parent::__construct();
+        $this->id_ = 0;
+        $this->code_ = null;
+        $this->name_ = null;
     }
 
     /**

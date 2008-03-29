@@ -40,19 +40,11 @@ class ZMRecordCompany extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMRecordCompany() {
+    function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->name_ = '';
         $this->url_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMRecordCompany();
     }
 
     /**

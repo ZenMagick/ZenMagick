@@ -40,19 +40,11 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
     );
 
 
-
-    /**
-     * Create new instance.
-     */
-    function ZMLinkGenerationPatch() {
-        parent::__construct('linkGeneration');
-    }
-
     /**
      * Create new instance.
      */
     function __construct() {
-        $this->ZMLinkGenerationPatch();
+        parent::__construct('linkGeneration');
     }
 
     /**

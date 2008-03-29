@@ -39,18 +39,10 @@ class ZMCategoryCouponRestriction extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMCategoryCouponRestriction($allowed, $categoryId) {
-        parent::__construct();
-
-		    $this->allowed_ = $allowed;
-		    $this->categoryId_ = $categoryId;
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct($allowed, $categoryId) {
-        $this->ZMCategoryCouponRestriction($allowed, $categoryId);
+        parent::__construct();
+        $this->allowed_ = $allowed;
+        $this->categoryId_ = $categoryId;
     }
 
     /**

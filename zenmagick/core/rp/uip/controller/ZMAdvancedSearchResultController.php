@@ -36,15 +36,8 @@ class ZMAdvancedSearchResultController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAdvancedSearchResultController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAdvancedSearchResultController();
+        parent::__construct();
     }
 
     /**

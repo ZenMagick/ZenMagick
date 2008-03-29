@@ -36,15 +36,8 @@ class ZMAccountHistoryInfoController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMAccountHistoryInfoController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAccountHistoryInfoController();
+        parent::__construct();
     }
 
     /**

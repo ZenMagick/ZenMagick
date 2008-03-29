@@ -42,21 +42,10 @@ class ZMPaymentField extends ZMModel {
      * @param string label The field label.
      * @param string html The (input) field HTML.
      */
-    function ZMPaymentField($label, $html) {
+    function __construct($label, $html) {
         parent::__construct();
-
         $this->label_ = $label;
         $this->html_ = $html;
-    }
-
-    /**
-     * Create new payment (input) field.
-     *
-     * @param string label The field label.
-     * @param string html The (input) field HTML.
-     */
-    function __construct($label, $html) {
-        $this->ZMPaymentField($label, $html);
     }
 
     /**

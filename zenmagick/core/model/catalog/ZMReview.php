@@ -45,9 +45,8 @@ class ZMReview extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMReview() {
+    function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->rating_ = 0;
         $this->productId_ = 0;
@@ -56,13 +55,6 @@ class ZMReview extends ZMModel {
         $this->text_ = '';
         $this->dateAdded_ = '';
         $this->author_ = '';
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMReview();
     }
 
     /**

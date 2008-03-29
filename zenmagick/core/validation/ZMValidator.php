@@ -42,7 +42,6 @@ class ZMValidator extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->sets_ = array();
         $this->messages_ = array();
     }

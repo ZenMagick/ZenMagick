@@ -36,15 +36,8 @@ class ZMGvRedeemController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMGvRedeemController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMGvRedeemController();
+        parent::__construct();
     }
 
     /**

@@ -43,22 +43,14 @@ class ZMBanner extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMBanner() {
+    function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->title_ = '';
         $this->image_ = null;
         $this->text_ = '';
         $this->isNewWin_ = false;
         $this->url_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMBanner();
     }
 
     /**

@@ -36,15 +36,8 @@ class ZMDefaultController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMDefaultController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMDefaultController();
+        parent::__construct();
     }
 
     /**

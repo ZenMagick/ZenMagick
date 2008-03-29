@@ -33,7 +33,7 @@ class DefaultThemeInfo extends ZMThemeInfo {
     /**
      * Create new instance.
      */
-    function DefaultThemeInfo() {
+    function __construct() {
         parent::__construct();
 
         $this->setName('Default');
@@ -54,13 +54,6 @@ class DefaultThemeInfo extends ZMThemeInfo {
         $this->setPageEventHandler('onload', 'login', "focus('email_address');");
     }
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->DefaultThemeInfo();
-    }
-    
 }
 
 ?>

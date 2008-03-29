@@ -45,7 +45,7 @@ class ZMCurrency extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMCurrency() {
+    function __construct() {
         parent::__construct();
 
         $this->code_ = '';
@@ -53,13 +53,6 @@ class ZMCurrency extends ZMModel {
         $this->decimalPlaces_ = 2;
         $this->thousandsPoint_ = '';
         $this->rate_ = 1;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMCurrency();
     }
 
     /**

@@ -55,7 +55,7 @@ class ZMAddress extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMAddress() {
+    function __construct() {
         parent::__construct();
 
         $this->addressId_ = 0;
@@ -72,13 +72,6 @@ class ZMAddress extends ZMModel {
         $this->country_ = ZMLoader::make("Country");
         $this->isPrimary_ = false;
         $this->format_ = 0;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMAddress();
     }
 
     /**

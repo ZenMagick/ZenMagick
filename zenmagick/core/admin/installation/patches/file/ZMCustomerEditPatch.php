@@ -37,15 +37,8 @@ class ZMCustomerEditPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMCustomerEditPatch() {
-        parent::__construct('customerEdit');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCustomerEditPatch();
+        parent::__construct('customerEdit');
     }
 
     /**

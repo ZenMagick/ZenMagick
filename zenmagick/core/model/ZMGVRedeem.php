@@ -40,19 +40,12 @@ class ZMGVRedeem extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMGVRedeem() {
+    function __construct() {
         parent::__construct();
 
         $this->code_ = '';
         $this->amount_ = 0;
         $this->redeemed_ = false;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMGVRedeem();
     }
 
     /**

@@ -38,15 +38,8 @@ class ZMAdminMenuPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMAdminMenuPatch() {
-        parent::__construct('adminMenu');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMAdminMenuPatch();
+        parent::__construct('adminMenu');
     }
 
     /**

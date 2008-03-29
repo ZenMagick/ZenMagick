@@ -56,7 +56,7 @@ class ZMEZPage extends ZMModel {
      * @param int id The page id.
      * @param string title The page title.
      */
-    function ZMEZPage($id, $title) {
+    function __construct($id, $title) {
         parent::__construct();
 
         $this->id_ = $id;
@@ -74,16 +74,6 @@ class ZMEZPage extends ZMModel {
         $this->isNewWin_ = false;
         $this->isSSL_ = false;
         $this->tocChapter_ = 0;
-    }
-
-    /**
-     * Create new page.
-     *
-     * @param int id The page id.
-     * @param string title The page title.
-     */
-    function __construct($id, $title) {
-        $this->ZMEZPage($id, $title);
     }
 
     /**

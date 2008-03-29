@@ -37,15 +37,8 @@ class ZMThemeSupportPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMThemeSupportPatch() {
-        parent::__construct('themeSupport');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMThemeSupportPatch();
+        parent::__construct('themeSupport');
     }
 
     /**

@@ -52,16 +52,9 @@ class zm_wiki extends ZMBoxPlugin {
     /**
      * Create new instance.
      */
-    function zm_wiki() {
+    function __construct() {
         parent::__construct('Pawfaliki Wiki', 'Adds a Wiki.', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_wiki();
     }
 
     /**

@@ -43,19 +43,8 @@ class EmailView extends ZMEmailView {
      * @param boolean html Flag to indicate whether to use the HTML or text template; default is <code>true</code>.
      * @param array args Additional context values.
      */
-    function EmailView($template, $html=true, $args=array()) {
-        parent::__construct($template, $html, $args);
-    }
-
-    /**
-     * Create new email view.
-     *
-     * @param string template The template name.
-     * @param boolean html Flag to indicate whether to use the HTML or text template; default is <code>true</code>.
-     * @param array args Additional context values.
-     */
     function __construct($template, $html=true, $args=array()) {
-        $this->EmailView($template, $html, $args);
+        parent::__construct($template, $html, $args);
     }
 
     /**

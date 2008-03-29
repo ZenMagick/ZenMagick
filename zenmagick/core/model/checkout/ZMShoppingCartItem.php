@@ -44,22 +44,11 @@ class ZMShoppingCartItem extends ZMModel {
      * @param ZMShoppingCart cart The associated shopping cart.
      * @param array zenItem The zen-cart shopping item infos.
      */
-    function ZMShoppingCartItem($cart, $zenItem) {
+    function __construct($cart, $zenItem) {
         parent::__construct();
-
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
         $this->attributes_ = null;
-    }
-
-    /**
-     * Create new shopping cart item
-     *
-     * @param ZMShoppingCart cart The associated shopping cart.
-     * @param array zenItem The zen-cart shopping item infos.
-     */
-    function __construct($cart, $zenItem) {
-        $this->ZMShoppingCartItem($cart, $zenItem);
     }
 
     /**

@@ -39,17 +39,9 @@ class ZMConfigGroup extends ZMModel {
     /**
      * Create new config group.
      */
-    function ZMConfigGroup() {
-        parent::__construct();
-
-		    $this->id_ = 0;
-    }
-
-    /**
-     * Create new config group.
-     */
     function __construct() {
-        $this->ZMConfigGroup();
+        parent::__construct();
+		$this->id_ = 0;
     }
 
     /**

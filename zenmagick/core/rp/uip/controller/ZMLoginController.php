@@ -36,15 +36,8 @@ class ZMLoginController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMLoginController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMLoginController();
+        parent::__construct();
     }
 
     /**

@@ -44,15 +44,8 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMUltimateSeoSupportPatch() {
-        parent::__construct('ultimateSeoSupport');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMUltimateSeoSupportPatch();
+        parent::__construct('ultimateSeoSupport');
     }
 
     /**

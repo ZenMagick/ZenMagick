@@ -36,15 +36,8 @@ class ZMShippingEstimator extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMShippingEstimator() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMShippingEstimator();
+        parent::__construct();
     }
 
     /**

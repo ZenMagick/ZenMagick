@@ -43,21 +43,10 @@ class ZMView extends ZMObject {
      * @param string page The page (view) name.
      * @param string mapping The mapping id.
      */
-    function ZMView($page, $mappingId=null) {
+    function __construct($page, $mappingId=null) {
         parent::__construct();
-
         $this->page_ = $page;
         $this->mapping_ = $mappingId;
-    }
-
-    /**
-     * Create new view for the given name.
-     *
-     * @param string page The page (view) name.
-     * @param string mappingId The mapping id.
-     */
-    function __construct($page, $mappingId=null) {
-        $this->ZMView($page, $mappingId);
     }
 
     /**

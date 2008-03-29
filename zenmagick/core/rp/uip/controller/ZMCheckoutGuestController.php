@@ -36,15 +36,8 @@ class ZMCheckoutGuestController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMCheckoutGuestController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCheckoutGuestController();
+        parent::__construct();
     }
 
     /**

@@ -47,7 +47,6 @@ class ZMImageInfo extends ZMModel {
      */
     function __construct($image, $alt='') {
         parent::__construct();
-
         $this->altText_ = $alt;
         $this->parameter_ = array();
 

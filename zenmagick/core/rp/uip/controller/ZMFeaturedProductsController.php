@@ -36,15 +36,8 @@ class ZMFeaturedProductsController extends ZMController {
     /**
      * Destruct instance.
      */
-    function ZMFeaturedProductsController() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
     function __construct() {
-        $this->ZMFeaturedProductsController();
+        parent::__construct();
     }
 
     /**

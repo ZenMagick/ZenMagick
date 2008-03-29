@@ -35,16 +35,9 @@ class zm_useo3 extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function zm_useo3() {
+    function __construct() {
         parent::__construct('ZenMagick Ultimate SEO3', 'Ultimate SEO 3.x for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->zm_useo3();
     }
 
     /**

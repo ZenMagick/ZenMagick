@@ -36,15 +36,8 @@ class ZMThemeDummyPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function ZMThemeDummyPatch() {
-        parent::__construct('themeDummies');
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMThemeDummyPatch();
+        parent::__construct('themeDummies');
     }
 
     /**

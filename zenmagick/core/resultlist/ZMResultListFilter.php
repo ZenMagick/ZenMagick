@@ -44,23 +44,13 @@ class ZMResultListFilter extends ZMObject {
      * @param string id An optional filter id.
      * @param string name An optional filter name.
      */
-    function ZMResultListFilter($id=null, $name='') {
+    function __construct($id=null, $name='') {
         parent::__construct();
 
         $this->id_ = $id;
         $this->name_ = $name;
         $value = ZMRequest::getParameter($this->id_, '');
         $this->filterValues_ = explode(",", $value);
-    }
-
-    /**
-     * Create a new result list filter.
-     *
-     * @param string id An optional filter id/name.
-     * @param string name An optional filter name.
-     */
-    function __construct($id=null, $name='') {
-        $this->ZMResultListFilter($id, $name);
     }
 
     /**

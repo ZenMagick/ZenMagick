@@ -56,7 +56,7 @@ class ZMAccount extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMAccount() {
+    function __construct() {
         parent::__construct();
 
         $this->id_ = 0;
@@ -78,13 +78,6 @@ class ZMAccount extends ZMModel {
         $this->subscribedProducts_ = array();
         $this->type_ = ZM_ACCOUNT_TYPE_REGISTERED;
         $this->priceGroupId_ = 0;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMAccount();
     }
 
     /**

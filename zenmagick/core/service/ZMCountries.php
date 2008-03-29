@@ -41,7 +41,6 @@ class ZMCountries extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->countries_ = null;
     }
 

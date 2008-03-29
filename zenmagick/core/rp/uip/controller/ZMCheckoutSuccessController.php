@@ -36,15 +36,8 @@ class ZMCheckoutSuccessController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMCheckoutSuccessController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMCheckoutSuccessController();
+        parent::__construct();
     }
 
     /**

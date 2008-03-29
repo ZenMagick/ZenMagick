@@ -44,23 +44,11 @@ class ZMFeatureValue extends ZMModel {
      * @param int index The value index.
      * @param mixed The actual value.
      */
-    function ZMFeatureValue($id, $index, $value) {
+    function __construct($id, $index, $value) {
         parent::__construct();
-
         $this->id_ = $id;
         $this->index_ = $index;
         $this->value_ = $value;
-    }
-
-    /**
-     * Create new feature value.
-     *
-     * @param int id The feature id.
-     * @param int index The value index.
-     * @param mixed The actual value.
-     */
-    function __construct($id, $index, $value) {
-        $this->ZMFeatureValue($id, $index, $value);
     }
 
     /**

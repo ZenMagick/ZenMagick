@@ -42,21 +42,10 @@ class ZMProductCouponRestriction extends ZMModel {
      * @param boolean allowed The allowed flag.
      * @param int productId The product id this restriction applies to.
      */
-    function ZMProductCouponRestriction($allowed, $productId) {
-        parent::__construct();
-
-		    $this->allowed_ = $allowed;
-		    $this->productId_ = $productId;
-    }
-
-    /**
-     * Create new coupon restriction.
-     *
-     * @param boolean allowed The allowed flag.
-     * @param int productId The product id this restriction applies to.
-     */
     function __construct($allowed, $productId) {
-        $this->ZMProductCouponRestriction($allowed, $productId);
+        parent::__construct();
+        $this->allowed_ = $allowed;
+        $this->productId_ = $productId;
     }
 
     /**

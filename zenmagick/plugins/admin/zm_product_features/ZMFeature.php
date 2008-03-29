@@ -43,18 +43,10 @@ class ZMFeature extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMFeature() {
-        parent::__construct();
-
-        $this->id_ = 0;
-		    $this->values_ = array();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMFeature();
+        parent::__construct();
+        $this->id_ = 0;
+		$this->values_ = array();
     }
 
     /**

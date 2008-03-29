@@ -35,16 +35,9 @@ class sample_plugin extends ZMPlugin {
     /**
      * Create new instance.
      */
-    function sample_plugin() {
+    function __construct() {
         parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin');
         $this->setKeys(array('rq1key1', 'rq1key2'));
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->sample_plugin();
     }
 
     /**

@@ -45,24 +45,12 @@ class ZMContactInfo extends ZMModel {
      * @param string email The contacts email address.
      * @param string message An optional message.
      */
-    function ZMContactInfo($name='', $email='', $message='') {
-        parent::__construct();
-
-		    $this->name_ = $name;
-		    $this->email_ = $email;
-		    $this->recipient_ = null;
-		    $this->message_ = $msg;
-    }
-
-    /**
-     * Create new instance.
-     *
-     * @param string name The contact name.
-     * @param string email The contacts email address.
-     * @param string message An optional message.
-     */
     function __construct($name='', $email='', $message='') {
-        $this->ZMContactInfo($name, $email, $message);
+        parent::__construct();
+        $this->name_ = $name;
+        $this->email_ = $email;
+        $this->recipient_ = null;
+        $this->message_ = $msg;
     }
 
     /**

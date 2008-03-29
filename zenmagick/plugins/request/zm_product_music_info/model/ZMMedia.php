@@ -41,20 +41,12 @@ class ZMMedia extends ZMModel {
     /**
      * Create new instance.
      */
-    function ZMMedia() {
+    function __construct() {
         parent::__construct();
-
         $this->id_ = 0;
         $this->filename_ = null;
         $this->dateAdded_ = null;
         $this->type_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMMedia();
     }
 
     /**

@@ -36,15 +36,8 @@ class ZMGvSendController extends ZMController {
     /**
      * Create new instance.
      */
-    function ZMGvSendController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->ZMGvSendController();
+        parent::__construct();
     }
 
     /**
