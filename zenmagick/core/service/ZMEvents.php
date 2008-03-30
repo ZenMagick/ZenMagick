@@ -60,7 +60,7 @@ class ZMEvents extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Events');
+        return ZMObject::singleton('Events');
     }
 
 

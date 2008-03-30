@@ -54,7 +54,7 @@ class ZMTaxRates extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('TaxRates');
+        return ZMObject::singleton('TaxRates');
     }
 
 

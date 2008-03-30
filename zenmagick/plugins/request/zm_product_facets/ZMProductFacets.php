@@ -50,7 +50,7 @@ class ZMProductFacets extends ZMObject {
         // register as singleton (just in case)
         // this is to prevent leaking instances, as this plugin does not just resolve the class
         // ProductFacets during init, but uses ZMLoader::make() in order to force cache registration...
-        parent::instance('ProductFacets', $this);
+        ZMObject::singleton('ProductFacets', $this);
     }
 
     /**
@@ -64,7 +64,7 @@ class ZMProductFacets extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('ProductFacets');
+        return ZMObject::singleton('ProductFacets');
     }
 
 

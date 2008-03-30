@@ -51,7 +51,7 @@ class ZMOrders extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Orders');
+        return ZMObject::singleton('Orders');
     }
 
 

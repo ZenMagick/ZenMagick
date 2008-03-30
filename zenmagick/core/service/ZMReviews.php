@@ -51,7 +51,7 @@ class ZMReviews extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Reviews');
+        return ZMObject::singleton('Reviews');
     }
 
 

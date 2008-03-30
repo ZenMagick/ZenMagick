@@ -68,7 +68,7 @@ class ZMSacsMapper extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('SacsMapper');
+        return ZMObject::singleton('SacsMapper');
     }
 
 

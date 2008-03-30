@@ -57,7 +57,7 @@ class ProductAssociationService extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('ProductAssociationService');
+        return ZMObject::singleton('ProductAssociationService');
     }
 
 

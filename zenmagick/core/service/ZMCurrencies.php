@@ -55,7 +55,7 @@ class ZMCurrencies extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Currencies');
+        return ZMObject::singleton('Currencies');
     }
 
 

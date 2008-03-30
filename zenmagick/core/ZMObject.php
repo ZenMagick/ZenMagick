@@ -110,7 +110,7 @@ class ZMObject {
      * @param string instance If set, register the given object, unless the name is already taken.
      * @return mixed A singleton object.
      */
-    protected static function instance($name, $instance=null) {
+    protected static function singleton($name, $instance=null) {
         if (null != $instance && !isset(ZMObject::$singletons_[$name])) {
             ZMObject::$singletons_[$name] = $instance;
         } else if (!array_key_exists($name, ZMObject::$singletons_)) {

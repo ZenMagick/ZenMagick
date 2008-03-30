@@ -60,7 +60,7 @@ class ZMLayout extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Layout');
+        return ZMObject::singleton('Layout');
     }
 
 
@@ -121,7 +121,7 @@ class ZMLayout extends ZMObject {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', ZMObject::instance('Themes')->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMObject::singleton('Themes')->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
         $theme = ZMRuntime::getTheme();
@@ -154,7 +154,7 @@ class ZMLayout extends ZMObject {
                   and layout_box_status = '1'
                   and layout_template = :themeId
                 order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', ZMObject::instance('Themes')->getZCThemeId(), 'string');
+        $sql = $db->bindVars($sql, ':themeId', ZMObject::singleton('Themes')->getZCThemeId(), 'string');
         $results = $db->Execute($sql);
 
         $theme = ZMRuntime::getTheme();

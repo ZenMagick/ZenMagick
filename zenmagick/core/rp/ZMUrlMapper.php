@@ -65,7 +65,7 @@ class ZMUrlMapper extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('UrlMapper');
+        return ZMObject::singleton('UrlMapper');
     }
 
 

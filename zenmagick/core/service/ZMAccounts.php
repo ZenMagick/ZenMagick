@@ -51,7 +51,7 @@ class ZMAccounts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Accounts');
+        return ZMObject::singleton('Accounts');
     }
 
 

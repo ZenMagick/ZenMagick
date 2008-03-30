@@ -52,7 +52,7 @@ class ZMCoupons extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Coupons');
+        return ZMObject::singleton('Coupons');
     }
 
 

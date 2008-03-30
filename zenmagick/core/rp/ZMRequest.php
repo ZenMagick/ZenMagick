@@ -71,7 +71,7 @@ class ZMRequest extends ZMObject {
      * Get instance.
      */
     protected static function instance() {
-        return ZMObject::instance('Request');
+        return ZMObject::singleton('Request');
     }
 
 

@@ -69,7 +69,7 @@ class ZMManufacturers extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Manufacturers');
+        return ZMObject::singleton('Manufacturers');
     }
 
 

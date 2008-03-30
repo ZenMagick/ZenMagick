@@ -55,7 +55,7 @@ class ZMCountries extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Countries');
+        return ZMObject::singleton('Countries');
     }
 
 

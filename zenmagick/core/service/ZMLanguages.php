@@ -54,7 +54,7 @@ class ZMLanguages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Languages');
+        return ZMObject::singleton('Languages');
     }
 
 

@@ -51,7 +51,7 @@ class ZMEZPages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('EZPages');
+        return ZMObject::singleton('EZPages');
     }
 
 

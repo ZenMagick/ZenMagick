@@ -110,7 +110,10 @@ Release 0.9.1
 - specials view was missing result page navigation
 - added new setting 'isLogMissingSettings' with a default of false as this was
   starting to annoy me
-- add option to remove cache entries
+- addes option to remove cache entries
+- removed a ton of PHP4 constructor methods
+- decouple services (and other classes) instance method from ZMObject's
+  instance() method (renamed to singleton())
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -54,7 +54,7 @@ class ZMCrumbtrail extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Crumbtrail');
+        return ZMObject::singleton('Crumbtrail');
     }
 
 

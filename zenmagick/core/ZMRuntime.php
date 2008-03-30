@@ -42,7 +42,7 @@ class ZMRuntime extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::instance('Runtime');
+        return ZMObject::singleton('Runtime');
     }
 
     /**
@@ -66,7 +66,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
-    public static function getDatabase() { return ZMObject::instance(ZMSettings::get('dbProvider')); }
+    public static function getDatabase() { return ZMObject::singleton(ZMSettings::get('dbProvider')); }
 
     /**
      * Return the directory containing all themes.
@@ -170,7 +170,7 @@ class ZMRuntime extends ZMObject {
      * @return ZMLanguage The current language.
      */
     public static function getLanguage() {
-        return ZMObject::instance('Session')->getLanguage();
+        return ZMObject::singleton('Session')->getLanguage();
     }
 
     /**
@@ -179,7 +179,7 @@ class ZMRuntime extends ZMObject {
      * @return ZMCurrency The current currency.
      */
     public static function getCurrency() {
-        $session = ZMObject::instance('Session');
+        $session = ZMObject::singleton('Session');
         $currency = ZMCurrencies::instance()->getCurrencyForCode($session->getCurrencyCode());
         return $currency;
     }

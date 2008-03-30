@@ -62,7 +62,7 @@ class ZMPayments extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Payments');
+        return ZMObject::singleton('Payments');
     }
 
 

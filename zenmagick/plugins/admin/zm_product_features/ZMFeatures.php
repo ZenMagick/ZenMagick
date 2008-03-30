@@ -58,7 +58,7 @@ class ZMFeatures extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Features');
+        return ZMObject::singleton('Features');
     }
 
 

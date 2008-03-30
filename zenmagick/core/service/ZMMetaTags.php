@@ -68,7 +68,7 @@ class ZMMetaTags extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('MetaTags');
+        return ZMObject::singleton('MetaTags');
     }
 
 

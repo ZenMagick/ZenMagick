@@ -68,7 +68,7 @@ class ZMShipping extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Shipping');
+        return ZMObject::singleton('Shipping');
     }
 
 

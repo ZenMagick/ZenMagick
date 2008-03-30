@@ -51,7 +51,7 @@ class ZMConfig extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Config');
+        return ZMObject::singleton('Config');
     }
 
 

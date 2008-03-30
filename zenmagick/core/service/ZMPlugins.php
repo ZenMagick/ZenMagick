@@ -88,7 +88,7 @@ class ZMPlugins extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return parent::instance('Plugins');
+        return ZMObject::singleton('Plugins');
     }
 
 
