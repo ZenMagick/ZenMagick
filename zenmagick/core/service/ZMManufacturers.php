@@ -134,6 +134,7 @@ class ZMManufacturers extends ZMObject {
         $sql = "select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image,
                 mi.manufacturers_url, mi.languages_id, mi.url_clicked, mi.date_last_click
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS, 'm')."
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_MANUFACTURERS_INFO, 'mi')."
                 from " . TABLE_MANUFACTURERS . " m
                 left join " . TABLE_MANUFACTURERS_INFO . " mi
                 on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = :languageId)";
