@@ -123,7 +123,7 @@ class ZMLoader {
      */
     public function loadStatic() {
         foreach ($this->getStatic() as $static) {
-            require_once($static);
+            require_once $static;
         }
     }
 
@@ -208,8 +208,8 @@ class ZMLoader {
             }
         }
 
-        if (null != $zmclassfile && !class_exists($zmname)) { require_once($zmclassfile); }
-        if (null != $classfile && !class_exists($name)) { require_once($classfile); }
+        if (null != $zmclassfile && !class_exists($zmname)) { require_once $zmclassfile; }
+        if (null != $classfile && !class_exists($name)) { require_once $classfile; }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }
@@ -302,7 +302,6 @@ class ZMLoader {
         while (false !== ($file = readdir($handle))) { 
             if ("." == $file || ".." == $file)
                 continue;
-
             $file = $dir.$file;
             if (is_dir($file)) {
                 $dirs[] = $file;
@@ -312,10 +311,10 @@ class ZMLoader {
         }
         @closedir($handle);
 
-        // process last
+        // process folders last
         if ($recursive) {
             foreach ($dirs as $dir) {
-                $includes = array_merge($includes, ZMLoader::findIncludes($dir."/", $recursive, false));
+                $includes = array_merge($includes, ZMLoader::findIncludes($dir."/", $recursive));
             }
         }
 
@@ -374,7 +373,7 @@ class ZMLoader {
      */
     public static function resolveZCClass($clazz) {
         if (!class_exists($clazz)) {
-            require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php');
+            require_once DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php';
         }
     }
 
