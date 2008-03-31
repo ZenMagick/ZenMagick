@@ -65,7 +65,8 @@
     }
 
     // now we can check for a static homepage
-    if (!zm_is_empty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() && (0 == count(ZMRequest::getParameterMap()))) {
+    if (!zm_is_empty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
         require(ZMSettings::get('staticHome'));
         exit;
     }
