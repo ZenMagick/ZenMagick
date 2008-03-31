@@ -124,13 +124,26 @@ class ZMShippingProviderWrapper extends ZMModel {
         $this->errors_ = array();
 
         // TODO: setup globals, etc with address information, similar to shipping estimator...
-        global $order;
+        global $order, $shipping_weight, $shipping_num_boxes, $total_count;
+
         $order = new _zm_order();
+
         $order->delivery['country']['id'] = $address->getCountryId();
+        $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
         $order->delivery['zone_id'] = $address->getZoneId();
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
         }
+        $cart = ZMRequest::getShoppingCart();
+        $total_count = $cart->getSize();
+        $shipping_weight = $cart->getWeight();
+
+        $shipping_num_boxes = 1;
+        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+            $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
+            $shipping_weight = $shipping_weight/$shipping_num_boxes;
+        }
+
 
         // create new instance for each quote!
         // this is required as most modules do stuff in the c'tor (for example zone checks)

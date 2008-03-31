@@ -69,6 +69,8 @@ class ZMShippingProviders extends ZMObject {
             return $this->provider_[$configured];
         }
 
+        ZMLoader::resolveZCClass('http_client');
+
         $this->provider_[$configured] = array();
 
         $moduleInfos = array();
@@ -115,8 +117,8 @@ class ZMShippingProviders extends ZMObject {
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();
-                // either all or enabled (installed+enabled as per config option) - (this is different from $module->enabled!)
-                if (!$configured || 0 < $module->check()) {
+                // either all or enabled (installed+enabled as per config option) - (is this different from $module->enabled?)
+                if (!$configured || (0 < $module->check() && $module->enabled)) {
                     $this->provider_[$configured][] = ZMLoader::make("ShippingProviderWrapper", $module);
                 }
             }
