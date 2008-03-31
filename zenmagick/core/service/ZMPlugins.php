@@ -265,7 +265,7 @@ class ZMPlugins extends ZMObject {
      * @param string contents The page contents.
      * @return string The really final contents :0
      */
-    public function filterResponse($contents) {
+    public static function filterResponse($contents) {
         $controller = ZMRequest::getController();
         foreach ($controller->getGlobals() as $name => $instance) {
             global $$name;
@@ -287,7 +287,7 @@ class ZMPlugins extends ZMObject {
      * @param string type The type.
      * @param string scope The current scope.
      */
-    public function initPlugins($type, $scope) {
+    public static function initPlugins($type, $scope) {
         // prepare environment
         if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
 
