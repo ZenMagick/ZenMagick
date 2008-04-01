@@ -79,6 +79,7 @@
 
     function _zm_buildRadioElement($product, $attribute) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'radio';
         $elements = array();
@@ -98,6 +99,7 @@
 
     function _zm_buildCheckboxElement($product, $attribute) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'checkbox';
         $elements = array();
@@ -117,6 +119,7 @@
 
     function _zm_buildTextElement($product, $attribute) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'text';
         $elements = array();
@@ -135,6 +138,7 @@
 
     function _zm_buildUploadElement($product, $attribute, $uploadIndex) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'upload';
         $elements = array();
@@ -155,6 +159,7 @@
 
     function _zm_buildFeatureElement($attribute) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'feature';
         $elements = array();
@@ -168,6 +173,7 @@
 
     function _zm_buildSelectElement($product, $attribute) {
         $element = array();
+        $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
         $element['type'] = 'select';
         $elements = array();
