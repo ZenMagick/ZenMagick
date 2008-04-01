@@ -564,7 +564,7 @@ class ZMShoppingCart extends ZMObject {
      * @param int productId The product id.
      * @param int quantity The quantity; default is <code>1</code>.
      * @param array attributes Optional list of attributes; key is the attribute id, the value can 
-     *  contain be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
+     *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     function addProduct($productId, $quantity=1, $attributes=array()) {
