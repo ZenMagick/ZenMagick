@@ -65,6 +65,9 @@ class ResultList extends ZMResultList {
         if ('Product' != $resultSource->getResultClass() || !($resultSource instanceof ZMObjectResultSource)) {
             parent::setResultSource($resultSource);
         }
+        if ('index' != ZMRequest::getPageName() && 'category' != ZMRequest::getPageName()) {
+            parent::setResultSource($resultSource);
+        }
 
         //**** START  prepare zen-cart environment
         global $db;
@@ -114,7 +117,7 @@ class ResultList extends ZMResultList {
      * <p>This is the moment the actual query is done.
      */
     private function ensureSplitter() {
-        if (null!= $this->sql_ && null == $this->splitter_) {
+        if (null != $this->sql_ && null == $this->splitter_) {
             $this->splitter_ = new splitPageResults($this->sql_, $this->getPagination(), 'p.products_id', 'page');
             $this->results_ = ZMProducts::instance()->getProductsForSQL($this->splitter_->sql_query);
         }
@@ -147,7 +150,24 @@ class ResultList extends ZMResultList {
     /**
      * {@inheritDoc}
      */
+    function hasSorters() { 
+        $this->ensureSplitter(); 
+        return parent::hasSorters();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    function hasResults() {
+        $this->ensureSplitter(); 
+        return parent::hasResults();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     function refresh() { 
+        $this->ensureSplitter(); 
         if (null == $this->sql_) { 
             parent::refresh(); 
         }
