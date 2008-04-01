@@ -115,6 +115,7 @@ Release 0.9.1
 - decouple services (and other classes) instance method from ZMObject's
   instance() method (renamed to singleton())
 - changed the init code to require the language and category path init plugins
+- add Creole based ZMDatabase implementation (not yet complete)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

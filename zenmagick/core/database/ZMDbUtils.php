@@ -272,6 +272,59 @@ class ZMDbUtils {
     }
 
     /**
+     * Parse mapping.
+     *
+     * @param array mapping The mapping table.
+     */
+    public static function parseMapping($mapping) {
+        //todo: cache:        ksort($mapping); $key = crc32(serialize($mapping));
+        $tableInfo = array();
+        $defaults = array('primary' => false, 'readonly' => false);
+        foreach ($mapping as $property => $info) {
+            $arr = array();
+            parse_str(str_replace(';', '&', $info), $arr);
+            $tableInfo[$property] = array_merge($defaults, $arr);
+            $tableInfo[$property]['property'] = $property;
+            // handle boolean values
+            foreach ($tableInfo[$property] as $name => $value) {
+                if ('false' == $value) {
+                    $tableInfo[$property][$name] = false;
+                } else if ('true' == $value) {
+                    $tableInfo[$property][$name] = true;
+                } 
+            }
+        }
+
+        return $tableInfo;
+    }
+
+    /**
+     * Create model and populate using the given data and field map.
+     *
+     * @param string modelClass The model class.
+     * @param array data The data (keys are object property names)
+     * @param array mapping The field mapping.
+     * @return mixed The model instance.
+     */
+    public static function map2model($modelClass, $data, $mapping=null) {
+        $model = ZMLoader::make($modelClass);
+
+        foreach ($data as $key => $value) {
+            $setter = 'set' . ucwords($key);
+            if (method_exists($model, $setter)) {
+                // specific method exists
+                $model->$setter($value);
+            } else {
+                // use general purpose method
+                $model->set($key, $value);
+            }
+        }
+
+        return $model;
+    }
+
+
+    /**
      * Execute a SQL patch.
      *
      * <p><strong>NOTE:</strong> This functionallity is only available in the context

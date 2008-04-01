@@ -25,24 +25,30 @@
 
 
 /**
- * Implementation of the ZenMagick database layer using zen-cart's <code>$db</code>.
+ * Implementation of the ZenMagick database layer using <em>Creole</em>.
  *
+ * @see http://creole.phpdb.org/trac/
  * @author mano
  * @package org.zenmagick.database.provider
  * @version $Id$
  */
-class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
-    private $db_;
+class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
+    private $conn_;
 
 
     /**
      * Create a new instance.
      */
     function __construct() {
-    global $db;
-
         parent::__construct();
-        $this->db_ = $db;
+        // avoid creole dot notation as that does not work here
+        Creole::registerDriver('mysql', 'MySQLConnection');
+        $dsn = array('phptype' => 'mysql',
+                     'hostspec' => DB_SERVER,
+                     'username' => DB_SERVER_USERNAME,
+                     'password' => DB_SERVER_PASSWORD,
+                     'database' => DB_DATABASE);
+        $this->conn_ = Creole::getConnection($dsn);
     }
 
     /**
@@ -62,6 +68,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $mapping = ZMDbUtils::parseMapping($mapping);
             // bind query parameter
             foreach ($data as $name => $value) {
+              //TODO:
                 $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
             }
         } else if (is_object($data)) {
@@ -105,6 +112,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMObject::backtrace('missing primary key');
         }
         $sql .= $where;
+        //TODO:
         $sql = ZMDbUtils::bindObject($sql, $model, false);
         $this->db_->Execute($sql);
     }
@@ -124,49 +132,79 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
-        // bind query parameter
-        foreach ($args as $name => $value) {
-            $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
+        // find out the order of args
+        $regexp = ':'.implode(array_keys($args), '|:');
+        preg_match_all('/'.$regexp.'/', $sql, $argOrder);
+        // modify SQL replacing :key syntax with ?
+        foreach (explode('|', $regexp) as $key) {
+            $sql = str_replace($key, '?', $sql);
         }
 
-        $results = array();
-        $rs = $this->db_->Execute($sql);
-        while (!$rs->EOF) {
-            $result = $rs->fields;
-            if (null != $mapping) {
-                $result = $this->translateRow($result, $mapping);
+        // create statement
+        $stmt = $this->conn_->prepareStatement($sql);
+        $index = 1;
+        // set values by index
+        foreach ($argOrder[0] as $name) {
+            $name = substr($name, 1);
+            $type = $mapping[$name]['type'];
+            switch ($type) {
+            case 'integer':
+                $stmt->setInt($index, $args[$name]);
+                break;
+            default:
+                ZMObject::backtrace('unsupported data type: '.$type);
+                break;
             }
-            if (null != $modelClass) {
-                $result = ZMDbUtils::map2model($modelClass, $result, $mapping);
-            }
+            ++$index;
+        }
+        $rs = $stmt->executeQuery();
 
-            $results[] = $result;
-            $rs->MoveNext();
+        $results = array();
+        while ($rs->next()) {
+            $results[] = self::rs2modelList($modelClass, $rs, $mapping);
         }
 
         return $results;
     }
 
     /**
-     * Translate a given raw database row with the given mapping.
+     * Create model and populate using the given rs and field map.
      *
-     * @param array row The database row map.
-     * @param array mapping The mapping (may be <code>null</code>).
-     * @return array The mapped row.
+     * @param string modelClass The model class.
+     * @param ResultSet rs A Creole result set.
+     * @param array mapping The field mapping.
+     * @return mixed The model instance.
      */
-    protected function translateRow($row, $mapping) {
-        if (null == $mapping) {
-            return $row;
-        }
+    protected static function rs2modelList($modelClass, $rs, $mapping=null) {
+        $model = ZMLoader::make($modelClass);
 
-        $mappedRow = array();
-        foreach ($mapping as $field) {
-            if (isset($row[$field['column']])) {
-                $mappedRow[$field['property']] = $row[$field['column']];
+        foreach ($mapping as $field => $info) {
+            $setter = 'set' . ucwords($field);
+            switch ($info['type']) {
+            case 'integer':
+                $value = $rs->getInt($info['column']);
+                break;
+            case 'string':
+                $value = $rs->getString($info['column']);
+                break;
+            case 'date':
+                $value = $rs->getDate($info['column']);
+                break;
+            default:
+                ZMObject::backtrace('unsupported data type: '.$info['type']);
+                break;
+            }
+
+            if (method_exists($model, $setter)) {
+                // specific method exists
+                $model->$setter($value);
+            } else {
+                // use general purpose method
+                $model->set($key, $value);
             }
         }
 
-        return $mappedRow;
+        return $model;
     }
 
 }
