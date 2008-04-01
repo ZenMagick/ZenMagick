@@ -373,7 +373,7 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    function hasAttributes() { return 0 < count($this->attributes_); }
+    function hasAttributes() { return 0 < count($this->getAttributes()); }
 
     /**
      * Get the product attributes.
