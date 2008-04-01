@@ -98,6 +98,8 @@
         $zm_accounts = ZMAccounts::instance();
         $zm_account = ZMRequest::getAccount();
         $zm_cart = new ZMShoppingCart();
+        $zm_urlMapper = ZMUrlMapper::instance();
+        $zm_sacsMapper = ZMSacsMapper::instance();
     }
 
     // register custom error handler
