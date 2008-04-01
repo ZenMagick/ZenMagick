@@ -53,6 +53,7 @@ class ZMOffers extends ZMObject {
         $this->salePrice_ = null;
         $this->discountPercent_ = 0;
         $this->taxRate_ = $product->getTaxRate();
+        $this->calculatePrice();
     }
 
     /**
@@ -68,14 +69,14 @@ class ZMOffers extends ZMObject {
      *
      * @return boolean <code>true</code> if attribute prices exist.
      */
-    function isAttributePrice() { return zm_has_product_attributes_values($this->product_->getId()); }
+    public function isAttributePrice() { return zm_has_product_attributes_values($this->product_->getId()); }
 
     /**
      * Set the product.
      *
      * @param ZMProduct product The product.
      */
-    function setProduct($product) { $this->product_ = $product; }
+    public function setProduct($product) { $this->product_ = $product; }
 
     /**
      * Get the product price.
@@ -85,7 +86,7 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The product price.
      */
-    function getProductPrice($tax=true) {
+    public function getProductPrice($tax=true) {
         return $tax ? $this->taxRate_->addTax($this->product_->productPrice_) : $this->product_->productPrice_;
     }
 
@@ -97,9 +98,9 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The base price.
      */
-    function getBasePrice($tax=true) {
+    public function getBasePrice($tax=true) {
         if (null === $this->basePrice_) {
-            $this->basePrice_ = $this->_getBasePrice();
+            $this->basePrice_ = $this->getBasePrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->basePrice_) : $this->basePrice_;
@@ -108,7 +109,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the base price.
      */
-    function _getBasePrice() {
+    protected function getBasePrice() {
         if (!$this->product_->pricedByAttributes_) {
             return $this->product_->productPrice_;
         }
@@ -146,9 +147,9 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The special price.
      */
-    function getSpecialPrice($tax=true) {
+    public function getSpecialPrice($tax=true) {
         if (null === $this->specialPrice_) {
-            $this->specialPrice_ = $this->_getSpecialPrice();
+            $this->specialPrice_ = $this->getSpecialPrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->specialPrice_) : $this->specialPrice_;
@@ -157,7 +158,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the special price.
      */
-    function _getSpecialPrice() {
+    protected function getSpecialPrice() {
         $db = ZMRuntime::getDB();
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
@@ -181,7 +182,7 @@ class ZMOffers extends ZMObject {
      */
     function getSalePrice($tax=true) {
         if (null === $this->salePrice_) {
-            $this->salePrice_ = $this->_getSalePrice();
+            $this->salePrice_ = $this->getSalePrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->salePrice_) : $this->salePrice_;
@@ -190,7 +191,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the discount price.
      */
-    function _getSalePrice() {
+    protected function getSalePrice() {
   	    $basePrice = $this->getBasePrice(false);
   	    $specialPrice = $this->getSpecialPrice(false);
 
@@ -265,7 +266,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the (best) price.
      */
-    function _calculatePrice() {
+    protected function calculatePrice() {
         $basePrice = $this->getBasePrice(false);
         $specialPrice = $this->getSpecialPrice(false);
         $salePrice = $this->getSalePrice(false);
@@ -286,14 +287,14 @@ class ZMOffers extends ZMObject {
      *
      * @return float The discount in percent.
      */
-    function getDiscountPercent() { return $this->discountPercent_; }
+    public function getDiscountPercent() { return $this->discountPercent_; }
 
     /**
      * Get the discount amount.
      *
      * @return float The discount amount.
      */
-    function getDiscountAmount() {
+    public function getDiscountAmount() {
         $save = 0;
         if (!$this->product_->isFree() && ($this->isSpecial() || $this->isSale())) {
           if ($this->isSpecial())  {
@@ -310,21 +311,21 @@ class ZMOffers extends ZMObject {
      *
      * @return float The tax rate.
      */
-    function getTaxRate() { return $this->taxRate_; }
+    public function getTaxRate() { return $this->taxRate_; }
 
     /**
      * Checks if a special price is available.
      *
      * @return boolean <code>true</code> if a special price is available.
      */
-    function isSpecial() { return 0 != $this->specialPrice_ && $this->specialPrice_ != $this->basePrice_ && !$this->isSale(); }
+    public function isSpecial() { return 0 != $this->specialPrice_ && $this->specialPrice_ != $this->basePrice_ && !$this->isSale(); }
 
     /**
      * Checks if a sale price is available.
      *
      * @return boolean <code>true</code> if a sale price is available.
      */
-    function isSale() { return 0 != $this->salePrice_; }
+    public function isSale() { return 0 != $this->salePrice_; }
 
     /**
      * Get the calculated price.
@@ -334,7 +335,7 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    function getCalculatedPrice($tax=true) { 
+    public function getCalculatedPrice($tax=true) { 
         if ($this->product_->isFree()) {
             return 0;
         } else if (0 != ($salePrice = $this->getSalePrice($tax))) {
