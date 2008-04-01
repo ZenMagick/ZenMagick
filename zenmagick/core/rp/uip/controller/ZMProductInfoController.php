@@ -25,7 +25,7 @@
 
 
 /**
- * Request controller for static pages.
+ * Request controller for product details.
  *
  * @author mano
  * @package org.zenmagick.rp.uip.controller
