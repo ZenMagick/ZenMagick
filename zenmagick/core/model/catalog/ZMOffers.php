@@ -100,7 +100,7 @@ class ZMOffers extends ZMObject {
      */
     public function getBasePrice($tax=true) {
         if (null === $this->basePrice_) {
-            $this->basePrice_ = $this->getBasePrice();
+            $this->basePrice_ = $this->doGetBasePrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->basePrice_) : $this->basePrice_;
@@ -109,7 +109,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the base price.
      */
-    protected function getBasePrice() {
+    protected function doGetBasePrice() {
         if (!$this->product_->pricedByAttributes_) {
             return $this->product_->productPrice_;
         }
@@ -149,7 +149,7 @@ class ZMOffers extends ZMObject {
      */
     public function getSpecialPrice($tax=true) {
         if (null === $this->specialPrice_) {
-            $this->specialPrice_ = $this->getSpecialPrice();
+            $this->specialPrice_ = $this->doGetSpecialPrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->specialPrice_) : $this->specialPrice_;
@@ -158,7 +158,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the special price.
      */
-    protected function getSpecialPrice() {
+    protected function doGetSpecialPrice() {
         $db = ZMRuntime::getDB();
         $sql = "select specials_new_products_price
                 from " . TABLE_SPECIALS .  "
@@ -180,9 +180,9 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The discount price.
      */
-    function getSalePrice($tax=true) {
+    public function getSalePrice($tax=true) {
         if (null === $this->salePrice_) {
-            $this->salePrice_ = $this->getSalePrice();
+            $this->salePrice_ = $this->doGetSalePrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->salePrice_) : $this->salePrice_;
@@ -191,7 +191,7 @@ class ZMOffers extends ZMObject {
     /**
      * Calculate the discount price.
      */
-    protected function getSalePrice() {
+    protected function doGetSalePrice() {
   	    $basePrice = $this->getBasePrice(false);
   	    $specialPrice = $this->getSpecialPrice(false);
 
