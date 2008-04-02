@@ -63,20 +63,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function update($sql, $data, $mapping) {
-        if (is_array($data)) {
-            // TODO: cache mapping
-            $mapping = ZMDbUtils::parseMapping($mapping);
-            // bind query parameter
-            foreach ($data as $name => $value) {
-              //TODO:
-                $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
-            }
-        } else if (is_object($data)) {
-            $sql = ZMDbUtils::bindObject($sql, $data, false);
-        } else {
-            ZMObject::backtrace('invalid data type');
-        }
-        $this->db_->Execute($sql);
+        // TODO: cache mapping
+        $mapping = ZMDbUtils::parseMapping($mapping);
+
+        $stmt = $this->prepareStatement($sql, $data, $mapping);
+        $stmt->executeUpdate();
     }
 
     /**
@@ -96,14 +87,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
-                $where .= $field['column'].' = :'.$field['property'].';'.$field['type'];
+                $where .= $field['column'].' = :'.$field['property'];
                 $firstWhere = false;
             } else {
                 if (!$field['readonly']) {
                     if (!$firstSet) {
                         $sql .= ',';
                     }
-                    $sql .= ' '.$field['column'].' = :'.$field['property'].';'.$field['type'];
+                    $sql .= ' '.$field['column'].' = :'.$field['property'];
                     $firstSet = false;
                 }
             }
@@ -112,9 +103,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             ZMObject::backtrace('missing primary key');
         }
         $sql .= $where;
-        //TODO:
-        $sql = ZMDbUtils::bindObject($sql, $model, false);
-        $this->db_->Execute($sql);
+
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $stmt->executeUpdate();
     }
 
     /**
@@ -131,6 +122,31 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
+
+        $stmt = $this->prepareStatement($sql, $args, $mapping);
+        $rs = $stmt->executeQuery();
+
+        $results = array();
+        while ($rs->next()) {
+            $results[] = self::rs2model($modelClass, $rs, $mapping);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Create a prepared statement.
+     *
+     * @param string sql The initial SQL.
+     * @param mixed args The data either as map or ZMModel instance.
+     * @param array mapping The field mapping.
+     * @return A <code>PreparedStatement</code> or null;
+     */
+    protected function prepareStatement($sql, $args, $mapping=null) {
+        // make sure we are working on a map
+        if (is_object($args)) {
+            $args = $this->obj2map($args, $mapping);
+        }
 
         // find out the order of args
         $regexp = ':'.implode(array_keys($args), '|:');
@@ -151,20 +167,43 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'integer':
                 $stmt->setInt($index, $args[$name]);
                 break;
+            case 'string':
+                $stmt->setString($index, $args[$name]);
+                break;
             default:
                 ZMObject::backtrace('unsupported data type: '.$type);
                 break;
             }
             ++$index;
         }
-        $rs = $stmt->executeQuery();
 
-        $results = array();
-        while ($rs->next()) {
-            $results[] = self::rs2modelList($modelClass, $rs, $mapping);
+        return $stmt;
+    }
+
+    /**
+     * Create a hash map based on the properties of the given object.
+     *
+     * @param obj The object.
+     * @param array mapping The mapping.
+     * @return array A hash map of all extracted object properties.
+     * @todo cleanup all bean related code
+     */
+    protected function obj2map($obj, $mapping) {
+        $prefixList = array('get', 'is', 'has');
+
+        $map = array();
+        foreach (array_keys($mapping) as $name) {
+            $ucName = ucwords($name);
+            foreach ($prefixList as $prefix) {
+                $getter = $prefix . $ucName;
+                if (method_exists($obj, $getter)) {
+                    $map[$name] = $obj->$getter();
+                    break;
+                }
+            }
         }
 
-        return $results;
+        return $map;
     }
 
     /**
@@ -175,7 +214,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @param array mapping The field mapping.
      * @return mixed The model instance.
      */
-    protected static function rs2modelList($modelClass, $rs, $mapping=null) {
+    protected static function rs2model($modelClass, $rs, $mapping=null) {
         $model = ZMLoader::make($modelClass);
 
         foreach ($mapping as $field => $info) {
