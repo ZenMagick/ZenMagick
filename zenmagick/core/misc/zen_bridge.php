@@ -50,7 +50,6 @@ if (!function_exists('zen_href_link')) {
     function zm_get_attributes_price_final_onetime($arg1, $args2, $arg3) {
         return zen_get_attributes_price_final_onetime($arg1, $args2, $arg3);
     }
-    function zm_has_product_attributes_values($productId) { return zen_has_product_attributes_values($productId); }
     function zm_get_discount_calc($arg1, $args2, $arg3) { return zen_get_discount_calc($arg1, $args2, $arg3); }
     function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { if($echo) echo zen_date_short($date); return zen_date_short($date); }
 
