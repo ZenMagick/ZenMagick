@@ -43,9 +43,9 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
         if(HOVERBOX_DISPLAY_PRICE == 'true'){
           $offers = $product->getOffers();
           if($offers->isSpecial()){
-            $price = ' - ' . (($product->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . zm_format_currency($offers->getSpecialPrice(), false, false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . zm_format_currency($offers->getSpecialPrice(), false, false);
           }else{
-            $price = ' - ' . (($product->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . zm_format_currency($offers->getCalculatedPrice(), false, false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . zm_format_currency($offers->getCalculatedPrice(), false, false);
           }
         }else{
           $price='';

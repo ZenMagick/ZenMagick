@@ -116,6 +116,10 @@ Release 0.9.1
   instance() method (renamed to singleton())
 - changed the init code to require the language and category path init plugins
 - add Creole based ZMDatabase implementation (not yet complete)
+- removed unused function zm_check_stock(..), zm_get_info_page(..)
+- deprecate ZMProduct::isAttributePrice() use the existing ZMOffers method
+  instead
+- remove unused function zm_has_product_attributes_values(..)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

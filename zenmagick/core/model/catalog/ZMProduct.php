@@ -408,8 +408,9 @@ class ZMProduct extends ZMModel {
      * Checks if the price is affected by attribute prices.
      *
      * @return boolean <code>true</code> if the price is affected by attributes, <code>false</code> if not.
+     * @deprecated use ZMOffers::isAttributePrice() instead
      */
-    function isAttributePrice() { return zm_has_product_attributes_values($this->id_); }
+    function isAttributePrice() { return $this->getOffers()->isAttributePrice(); }
 
 
     /**
