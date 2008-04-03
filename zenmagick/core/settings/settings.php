@@ -144,6 +144,10 @@
         // show category listing for single products or show product page instead?
         'isSkipSingleProductCategory' => SKIP_SINGLE_PRODUCT_CATEGORIES == 'True',
 
+        // show cart after product added
+        'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
+
+
 
 
     /**************************************
