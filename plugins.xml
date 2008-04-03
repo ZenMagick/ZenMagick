@@ -108,6 +108,10 @@
         <antcall target="plugin-release">
             <param name="plugin.name" value="zm_page_stats" />
             <param name="plugin.version" value="${plugins.zm_page_stats.version}" />
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_multi_qty" />
+            <param name="plugin.version" value="${plugins.zm_multi_qty.version}" />
         </antcall>
     </target>
 
