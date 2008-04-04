@@ -64,6 +64,9 @@ class ZMValidator extends ZMObject {
     /**
      * Add a new <code>ZMRuleSet</code>.
      *
+     * <p><strong>NOTE:</strong> If a rule set already exists (same id), the rules of the
+     * given set are added to the existing set.</p>
+     *
      * @param ZMRuleSet set A new rule set.
      */
     function addRuleSet($set) {
