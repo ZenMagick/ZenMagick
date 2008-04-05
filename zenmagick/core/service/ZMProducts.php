@@ -199,7 +199,7 @@ class ZMProducts extends ZMObject {
             $this->categoryProductMap_ = array();
             $results = $db->Execute($query);
             while (!$results->EOF) {
-                $categoryKey = $prefix.$results->fields['categories_id'];
+                $categoryKey = $keyPrefix.$results->fields['categories_id'];
                 if (!isset($this->categoryProductMap_[$categoryKey])) {
                     $this->categoryProductMap_[$categoryKey] = array();
                 }
@@ -208,7 +208,7 @@ class ZMProducts extends ZMObject {
             }
         }
 
-        $categoryKey = $prefix.$categoryId;
+        $categoryKey = $keyPrefix.$categoryId;
         return isset($this->categoryProductMap_[$categoryKey]) ? $this->categoryProductMap_[$categoryKey] : array();
     }
 
