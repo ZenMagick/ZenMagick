@@ -50,6 +50,7 @@ Release 0.9.1
 - get rid of ZMPluginHandler
 - convert ZMRequest methods into static ones, make $zm_request obsolete
 - move cache admin page back into core, remove from zm_page_cache
+- refactor cache code, add remove method to remove expired cache entries
 - remove most global statements!
 - make $zm_view and $zm_theme basic view variables, but not actual globals!
 - add support for generic getXXX()/setXXX()/isXXX() model methods via the
