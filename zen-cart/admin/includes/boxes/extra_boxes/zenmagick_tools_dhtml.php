@@ -35,7 +35,7 @@ if (class_exists('ZMInstallationPatcher')) {
      * display installation menu item for manual installation.
      */
 
-    $isInstallation = null !== strpos($_SERVER[SCRIPT_FILENAME], ZM_ADMINFN_INSTALLATION);
+    $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], ZM_ADMINFN_INSTALLATION);
     $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
     $installer = new ZMInstallationPatcher();
     if (!$duringUninstall && !$isInstallation && $installer->isPatchesOpen()) {
