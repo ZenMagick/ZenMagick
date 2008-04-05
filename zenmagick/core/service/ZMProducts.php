@@ -33,6 +33,7 @@
  */
 class ZMProducts extends ZMObject {
     private $cache_;
+    private $categoryProductMap_;
 
 
     /**
@@ -41,6 +42,7 @@ class ZMProducts extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->cache_ = array();
+        $this->categoryProductMap_ = null;
     }
 
     /**
@@ -181,7 +183,6 @@ class ZMProducts extends ZMObject {
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @return array A list of (int)product ids.
      */
-    private $categoryProductMap_ = null;
     function getProductIdsForCategoryId($categoryId, $active=true) {
         // asuming that if we do this once we might do this more often...
         $keyPrefix = $active ? 'a:' : '';
