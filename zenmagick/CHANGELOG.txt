@@ -122,6 +122,8 @@ Release 0.9.1
   instead
 - remove unused function zm_has_product_attributes_values(..)
 - added setting 'isShowCartAfterAddProduct'
+- make products in category lookup perform much better than before (it's now a
+  single query plus some array juggling)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

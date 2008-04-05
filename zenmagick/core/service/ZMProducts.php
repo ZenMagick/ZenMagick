@@ -172,7 +172,7 @@ class ZMProducts extends ZMObject {
 
 
     /**
-     * Get  list of all active product ids for a given category.
+     * Get list of all active product ids for a given category.
      *
      * <p>This is a faster version of <code>getProductsForCategoryId(int)</code>. In addition,
      * this will ignore language preferences.
@@ -181,20 +181,35 @@ class ZMProducts extends ZMObject {
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @return array A list of (int)product ids.
      */
+    private $categoryProductMap_ = null;
     function getProductIdsForCategoryId($categoryId, $active=true) {
-        $db = ZMRuntime::getDB();
-        $query = "select p.products_id
-                  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                  where ";
-        if ($active) {
-            $query .= " p.products_status = 1 and ";
-        }
-        $query .= " p.products_id = p2c.products_id
-                  and p2c.categories_id = :categoryId
-                  order by p.products_sort_order";
-        $query = $db->bindVars($query, ":categoryId", $categoryId, 'integer');
+        // asuming that if we do this once we might do this more often...
+        $keyPrefix = $active ? 'a:' : '';
+        if (null == $this->categoryProductMap_) {
+            $db = ZMRuntime::getDB();
+            $query = "select p.products_id, p2c.categories_id
+                      from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                      where ";
+            if ($active) {
+                $query .= " p.products_status = 1 and ";
+            }
+            $query .= " p.products_id = p2c.products_id
+                      order by p.products_sort_order";
 
-        return $this->_getProductIds($query);
+            $this->categoryProductMap_ = array();
+            $results = $db->Execute($query);
+            while (!$results->EOF) {
+                $categoryKey = $prefix.$results->fields['categories_id'];
+                if (!isset($this->categoryProductMap_[$categoryKey])) {
+                    $this->categoryProductMap_[$categoryKey] = array();
+                }
+                $this->categoryProductMap_[$categoryKey][] = $results->fields['products_id'];
+                $results->MoveNext();
+            }
+        }
+
+        $categoryKey = $prefix.$categoryId;
+        return isset($this->categoryProductMap_[$categoryKey]) ? $this->categoryProductMap_[$categoryKey] : array();
     }
 
 
