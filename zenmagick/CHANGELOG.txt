@@ -124,6 +124,8 @@ Release 0.9.1
 - added setting 'isShowCartAfterAddProduct'
 - make products in category lookup perform much better than before (it's now a
   single query plus some array juggling)
+- made ZMLoader::create(..) protected to force use of ZMLoader::make(..)
+  instead; affects 2 boxes, 2 views and 1 popup
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
