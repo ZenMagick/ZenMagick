@@ -85,7 +85,7 @@ class zm_product_features extends ZMPlugin {
         parent::init();
 
         // make ZMFeatures available by pre-loading it
-        ZMLoader::instance()->resolve("ZMFeatures");
+        ZMLoader::resolve("Features");
 
         if (ZMSettings::get('isLegacyAPI')) {
         global $zm_features;

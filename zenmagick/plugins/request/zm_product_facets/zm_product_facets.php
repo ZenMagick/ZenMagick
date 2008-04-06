@@ -54,8 +54,8 @@ class zm_product_facets extends ZMPlugin {
         parent::init();
 
         // create as this will also init the underlying cache
-        ZMLoader::instance()->resolve("ProductFacets");
-ZMLoader::instance()->resolve("Facet");
+        ZMLoader::resolve("ProductFacets");
+ZMLoader::resolve("Facet");
 
         // load default facets
         ZMProductFacets::instance()->addFacetBuilder('manufacturers', 'zm_build_manufacturer_facet');

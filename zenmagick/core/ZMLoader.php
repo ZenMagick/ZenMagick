@@ -47,6 +47,8 @@
  * <p><strong>Note:</strong> This is not as scalable as Java code and does not handle more than on
  * level of inheritance.</p>
  *
+ * <p>Static methods operate on the root loader.</p>
+ *
  * @author mano
  * @package org.zenmagick
  * @version $Id$
@@ -180,10 +182,11 @@ class ZMLoader {
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public function resolve($name) {
-        $classfile = $this->getClassFile($name);
+    public static function resolve($name) {
+        $rootLoader = ZMLoader::instance();
+        $classfile = $rootLoader->getClassFile($name);
         $zmname = "ZM".$name;
-        $zmclassfile = $this->getClassFile($zmname);
+        $zmclassfile = $rootLoader->getClassFile($zmname);
 
         // additional stuff for single core file, as there is no classpath!
         if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
@@ -235,7 +238,7 @@ class ZMLoader {
      * @param var arg Optional constructor arguments.
      * @return mixed A new instance of the given class.
      */
-    public function create($name) {
+    protected function create($name) {
         if (is_array($name)) {
             $tmp = $name;
             $name = array_shift($tmp);
@@ -244,7 +247,7 @@ class ZMLoader {
             $args = func_get_args();
             array_shift($args);
         }
-        $clazz = $this->resolve($name);
+        $clazz = ZMLoader::resolve($name);
         if (null != $clazz) {
             $obj = null;
             switch (count($args)) {
