@@ -32,6 +32,9 @@
  * @version $Id$
  */
 class ZMCategories extends ZMObject {
+    private static $categoryMapping_ = null;
+    private static $categoryDescriptionMapping_ = null;
+
     private $path_;
     private $languageId_;
     // flat list
@@ -47,6 +50,27 @@ class ZMCategories extends ZMObject {
      */
     public function __construct($languageId=null, $path=array()) {
         parent::__construct();
+
+        if (null == ZMCategories::$categoryMapping_) {
+            ZMCategories::$categoryMapping_ = array(
+              'id' => 'column=categories_id;type=integer;primary=true',
+              'languageId' => 'column=language_id;type=integer;readonly=true',
+              'parentId' => 'column=parent_id;type=integer',
+              'image' => 'column=categories_image;type=string',
+              'sortOrder' => 'column=sort_order;type=integer',
+              'name' => 'column=categories_name;type=string;readonly=true',
+              'description' => 'column=categories_description;type=string;readonly=true'
+            );
+        }
+
+        if (null == ZMCategories::$categoryDescriptionMapping_) {
+            ZMCategories::$categoryDescriptionMapping_ = array(
+              'id' => 'column=categories_id;type=integer;primary=true',
+              'languageId' => 'column=language_id;type=integer;primary=true',
+              'name' => 'column=categories_name;type=string',
+              'description' => 'column=categories_description;type=string'
+            );
+        }
 
         if (null === $languageId) {
             $session = ZMRequest::getSession();
@@ -224,6 +248,17 @@ class ZMCategories extends ZMObject {
 
 
     /**
+     * Update an existing category.
+     *
+     * @param ZMCategory category The category.
+     * @return Category The updated category.
+     */
+    function updateCategory($category) {
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category, ZMCategories::$categoryMapping_);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category, ZMCategories::$categoryDescriptionMapping_);
+    }
+
+    /**
      * Load all categories.
      *
      * @param int languageId Optional language id; default is <code>null</code>.
@@ -231,23 +266,18 @@ class ZMCategories extends ZMObject {
     protected function load($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
-        $db = ZMRuntime::getDB();
         // load all straight away - should be faster to sort them later on
-        $query = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order
-                  from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd
-                  on c.categories_id = cd.categories_id
-                  where cd.language_id = :languageId
-                  and c.categories_status = '1'
-                  order by sort_order, cd.categories_name";
-        $query = $db->bindVars($query, ":languageId", $languageId, "integer");
-        $results = $db->Execute($query, '', true, 150);
+        $sql = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order, cd.language_id
+                from " . TABLE_CATEGORIES . " c
+                left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id
+                where cd.language_id = :languageId
+                and c.categories_status = '1'
+                order by sort_order, cd.categories_name";
 
-        $this->categories_[$languageId] = array();
-        while (!$results->EOF) {
-            $category = $this->newCategory($results->fields);
+        $args = array('languageId' => $languageId);
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, ZMCategories::$categoryMapping_, 'Category') as $category) {
             $this->categories_[$languageId][$category->id_] = $category;
-            $results->MoveNext();
-    		}
+        }
     }
 
 
@@ -265,20 +295,6 @@ class ZMCategories extends ZMObject {
                 array_push($parent->childrenIds_, $id);
             }
         }
-    }
-
-    /**
-     * Create new <code>ZMCategory</code> instance.
-     */
-    protected function newCategory($fields) {
-        $category = ZMLoader::make("Category");
-        $category->id_ = $fields['categories_id'];
-        $category->parentId_ = $fields['parent_id'];
-        $category->name_ = $fields['categories_name'];
-        $category->description_ = $fields['categories_description'];
-        $category->sortOrder_ = $fields['sort_order'];
-        $category->image_ = $fields['categories_image'];
-        return $category;
     }
 
 }

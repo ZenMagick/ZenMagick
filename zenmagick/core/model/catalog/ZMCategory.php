@@ -42,6 +42,7 @@ class ZMCategory extends ZMModel {
     var $description_;
     var $sortOrder_;
     var $image_;
+    var $languageId_;
 
 
     /**
@@ -55,6 +56,7 @@ class ZMCategory extends ZMModel {
         $this->active_ = false;
         $this->childrenIds_ = array();
         $this->image_ = null;
+        $this->languageId_ = 0;
     }
 
     /**
@@ -217,7 +219,7 @@ class ZMCategory extends ZMModel {
      *
      * @param int sortOrder The sort order.
      */
-    function setSortOrder($sortOrder ) { $this->sortOrder_ = $sortOrder; }
+    function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
     /**
      * Set the category image (if any).
@@ -225,6 +227,21 @@ class ZMCategory extends ZMModel {
      * @param string image The image name.
      */
     function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Get the language id.
+     *
+     * @return int The language id.
+     */
+    function getLanguageId() { return $this->languageId_; }
+
+    /**
+     * Set the language id.
+     *
+     * @param int languageId The language id.
+     */
+    function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+
 }
 
 ?>
