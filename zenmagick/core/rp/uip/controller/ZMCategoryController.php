@@ -111,7 +111,8 @@ class ZMCategoryController extends ZMController {
         $this->exportGlobal("zm_category", $category);
 
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {
-            $product = array_pop($resultList->getResults());
+            $results = $resultList->getResults();
+            $product = array_pop($results);
             ZMRequest::setParameter('products_id', $product->getId());
             $viewName = 'product_info';
         }
