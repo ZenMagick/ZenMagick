@@ -34,7 +34,24 @@
     function zm_category_admin() {
     global $zm_category_admin, $zm_nav_params;
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
+        if (null != ZMRequest::getParameter('update')) {
+            // load from db to start with
+            $languageId = ZMRequest::getParameter('languageId', ZMRuntime::getLanguage()->getId());
+            $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $languageId);
+            $category->setName(ZMRequest::getParameter('categoryName'));
+            $category->setDescription(ZMRequest::getParameter('categoryDescription', '', false));
+            $imageName = ZMRequest::getParameter('imageName');
+            if (!empty($imageName)) {
+                $category->setImage($imageName);
+            }
+            if (ZMRequest::getParameter('imageDelete')) {
+                $category->setImage('');
+            }
+            $category->setSortOrder(ZMRequest::getParameter('sortOrder'));
+            ZMCategories::instance()->updateCategory($category);
+            ZMMessages::instance()->success(zm_l10n_get('Category updated'));
+        }
+
         $template = file_get_contents($zm_category_admin->getPluginDir().'/views/category_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'));

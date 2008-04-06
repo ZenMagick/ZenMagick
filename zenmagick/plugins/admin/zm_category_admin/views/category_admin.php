@@ -56,7 +56,7 @@
               </select> )</h2>
   </form>
 
-  <?php zm_form(null, $zm_nav_params, '', 'post') ?>
+  <?php zm_form('', $zm_nav_params, '', 'post') ?>
     <fieldset>
         <legend>Name and Description</legend>
         <label for="categoryName">Name</label>
@@ -87,7 +87,7 @@
     <fieldset>
         <legend>Other Options</legend>
         <p class="opt">
-            <label for="sortOrder">Sort Order</label><input type="text" id="sortOrder" name="sortOrder" value="<?php echo $category->getSortOrder() ?>1" size="4">
+            <label for="sortOrder">Sort Order</label><input type="text" id="sortOrder" name="sortOrder" value="<?php echo $category->getSortOrder() ?>" size="4">
         </p>
         <hr>
         <p class="opt">
@@ -101,17 +101,21 @@
             </select>
         </p>
         <p class="opt">
-            <input type="radio" id="restrictTypeAll" name="restrictTypeLevel" value="r"> <label for="restrictTypeAll">Include Subcategories</label>
             <input type="radio" id="restrictTypeSingle" name="restrictTypeLevel" value="r"> <label for="restrictTypeAll">Category only</label>
+            <input type="radio" id="restrictTypeAll" name="restrictTypeLevel" value="r"> <label for="restrictTypeAll">Include Subcategories</label>
         </p>
     </fieldset>
 
-    <h3>Update, move, delete, etc. coming soon...</h3>
-    <!--
+    <h3>Full update, move, delete, create coming ...</h3>
     <div class="btn">
-        <input type="submit" class="btn" value="Save">
+        <input type="hidden" name="fkt" value="zm_category_admin">
+        <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
+        <?php if (0 < $category->getId()) { ?>
+            <input type="submit" class="btn" name="update" value="Update">
+        <?php } ?>
+<!--
         <input type="submit" class="btn mod" value="Move">
         <input type="submit" class="btn del" value="Delete" onclick="return zm_user_confirm('Delete category \'<?php echo $category->getName() ?>\'?');">
+-->
     </div>
-    -->
 </form>
