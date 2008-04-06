@@ -46,7 +46,7 @@
         }
 
         if (0 < $uploads) {
-            // handle file uploads
+            //TODO: handle file uploads
         }
 
         return $attributes;
