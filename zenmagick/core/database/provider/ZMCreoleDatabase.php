@@ -62,6 +62,51 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function createModel($table, $model, $mapping) {
+        // TODO: cache mapping
+        $mapping = ZMDbUtils::parseMapping($mapping);
+
+        $sql = 'INSERT INTO '.$table.' SET';
+
+        $firstSet = true;
+        foreach ($mapping as $field) {
+            if (!$field['readonly'] && !$field['primary']) {
+                if (!$firstSet) {
+                    $sql .= ',';
+                }
+                $sql .= ' '.$field['column'].' = :'.$field['property'];
+                $firstSet = false;
+            }
+        }
+
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $idgen = $this->conn_->getIdGenerator();
+        $newId = null;
+        //XXX: add support for SEQUENCE?
+        if($idgen->isBeforeInsert()) {
+            $newId = $idgen->getId();
+            $stmt->executeUpdate();
+        } else { // isAfterInsert()
+            $stmt->executeUpdate();
+            $newId = $idgen->getId();
+        }
+
+        foreach ($mapping as $property => $field) {
+            if ($field['primary']) {
+                $method = 'set'.ucwords($property);
+                if (!method_exists($model, $method)) {
+                    ZMObject::backtrace('missing primary key setter ' . $method);
+                }
+                $model->$method($newId);
+            }
+        }
+
+        return $model;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function update($sql, $data, $mapping) {
         // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
@@ -83,7 +128,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['primary']) {
+            if ($field['key']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
@@ -100,7 +145,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            ZMObject::backtrace('missing primary key');
+            ZMObject::backtrace('missing key');
         }
         $sql .= $where;
 
@@ -113,7 +158,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
         $results = $this->query($sql, $args, $mapping, $modelClass);
-        return 1 == count($results) ? $results[0] : null;
+        return 0 < count($results) ? $results[0] : null;
     }
 
     /**
@@ -122,6 +167,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
+
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
@@ -212,13 +258,16 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @param string modelClass The model class.
      * @param ResultSet rs A Creole result set.
      * @param array mapping The field mapping.
-     * @return mixed The model instance.
+     * @return mixed The model instance or array (if modelClass is <code>null</code>).
      */
     protected static function rs2model($modelClass, $rs, $mapping=null) {
-        $model = ZMLoader::make($modelClass);
+        if (null != $modelClass) {
+            $model = ZMLoader::make($modelClass);
+        } else {
+            $model = array();
+        }
 
         foreach ($mapping as $field => $info) {
-            $setter = 'set' . ucwords($field);
             switch ($info['type']) {
             case 'integer':
                 $value = $rs->getInt($info['column']);
@@ -234,12 +283,17 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             }
 
-            if (method_exists($model, $setter)) {
-                // specific method exists
-                $model->$setter($value);
+            if (null != $modelClass) {
+                $setter = 'set' . ucwords($field);
+                if (method_exists($model, $setter)) {
+                    // specific method exists
+                    $model->$setter($value);
+                } else {
+                    // use general purpose method
+                    $model->set($key, $value);
+                }
             } else {
-                // use general purpose method
-                $model->set($key, $value);
+                $model[$field] = $value;
             }
         }
 

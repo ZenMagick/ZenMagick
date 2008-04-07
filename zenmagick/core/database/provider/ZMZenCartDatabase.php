@@ -56,6 +56,42 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function createModel($table, $model, $mapping) {
+        // TODO: cache mapping
+        $mapping = ZMDbUtils::parseMapping($mapping);
+
+        $sql = 'INSERT INTO '.$table.' SET';
+        $firstSet = true;
+        foreach ($mapping as $field) {
+            if (!$field['readonly'] && !$field['primary']) {
+                if (!$firstSet) {
+                    $sql .= ',';
+                }
+                $sql .= ' '.$field['column'].' = :'.$field['property'].';'.$field['type'];
+                $firstSet = false;
+            }
+        }
+
+        $sql = ZMDbUtils::bindObject($sql, $model, false);
+        $this->db_->Execute($sql);
+
+        foreach ($mapping as $property => $field) {
+            if ($field['primary']) {
+                $newId = $this->db_->Insert_ID();
+                $method = 'set'.ucwords($property);
+                if (!method_exists($model, $method)) {
+                    ZMObject::backtrace('missing primary key setter ' . $method);
+                }
+                $model->$method($newId);
+            }
+        }
+
+        return $model;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function update($sql, $data, $mapping) {
         if (is_array($data)) {
             // TODO: cache mapping
@@ -80,12 +116,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
-
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['primary']) {
+            if ($field['key']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
@@ -102,9 +137,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            ZMObject::backtrace('missing primary key');
+            ZMObject::backtrace('missing key');
         }
         $sql .= $where;
+
         $sql = ZMDbUtils::bindObject($sql, $model, false);
         $this->db_->Execute($sql);
     }
@@ -114,7 +150,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
         $results = $this->query($sql, $args, $mapping, $modelClass);
-        return 1 == count($results) ? $results[0] : null;
+        return 0 < count($results) ? $results[0] : null;
     }
 
     /**

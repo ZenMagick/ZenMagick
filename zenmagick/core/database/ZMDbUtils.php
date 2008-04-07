@@ -279,7 +279,7 @@ class ZMDbUtils {
     public static function parseMapping($mapping) {
         //todo: cache:        ksort($mapping); $key = crc32(serialize($mapping));
         $tableInfo = array();
-        $defaults = array('primary' => false, 'readonly' => false);
+        $defaults = array('primary' => false, 'readonly' => false, 'key' => false);
         foreach ($mapping as $property => $info) {
             $arr = array();
             parse_str(str_replace(';', '&', $info), $arr);

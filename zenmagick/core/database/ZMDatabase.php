@@ -78,6 +78,16 @@ interface ZMDatabase {
      */
     public function update($sql, $data, $mapping);
 
+    /**
+     * Create a single row using the given model and mapping.
+     *
+     * @param string table The table to update.
+     * @param mixed model The model instance.
+     * @param array mapping The field mappings.
+     * @return mixed The model with the updated primary key.
+     */
+    public function createModel($table, $model, $mapping);
+
 }
 
 ?>

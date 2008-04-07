@@ -32,8 +32,9 @@
  * @version $Id$
  */
 class ZMCategories extends ZMObject {
-    private static $categoryMapping_ = null;
-    private static $categoryDescriptionMapping_ = null;
+    public static $CATEGORY_MAPPING = null;
+    public static $CATEGORY_DESCRIPTION_MAPPING = null;
+    public static $PRODUCTS_TO_CATEGORIES_MAPPING = null;
 
     private $languageId_;
     // flat list
@@ -49,8 +50,8 @@ class ZMCategories extends ZMObject {
     public function __construct($languageId=null) {
         parent::__construct();
 
-        if (null == ZMCategories::$categoryMapping_) {
-            ZMCategories::$categoryMapping_ = array(
+        if (null == ZMCategories::$CATEGORY_MAPPING) {
+            ZMCategories::$CATEGORY_MAPPING = array(
               'id' => 'column=categories_id;type=integer;primary=true',
               'languageId' => 'column=language_id;type=integer;readonly=true',
               'active' => 'column=categories_status;type=integer',
@@ -62,12 +63,20 @@ class ZMCategories extends ZMObject {
             );
         }
 
-        if (null == ZMCategories::$categoryDescriptionMapping_) {
-            ZMCategories::$categoryDescriptionMapping_ = array(
-              'id' => 'column=categories_id;type=integer;primary=true',
-              'languageId' => 'column=language_id;type=integer;primary=true',
+        if (null == ZMCategories::$CATEGORY_DESCRIPTION_MAPPING) {
+            ZMCategories::$CATEGORY_DESCRIPTION_MAPPING = array(
+              // id follows categories id, so no autoincrement, or such
+              'id' => 'column=categories_id;type=integer;key=true',
+              'languageId' => 'column=language_id;type=integer;key=true',
               'name' => 'column=categories_name;type=string',
               'description' => 'column=categories_description;type=string'
+            );
+        }
+
+        if (null == ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING) {
+            ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING = array(
+              'productId' => 'column=products_id;type=integer;key=true',
+              'categoryId' => 'column=categories_id;type=integer;key=true;readonly=true'
             );
         }
 
@@ -109,18 +118,17 @@ class ZMCategories extends ZMObject {
             $this->load($languageId);
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "SELECT categories_id
+        $sql = "SELECT categories_id, products_id
                 FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
                 WHERE products_id = :productId";
-        $sql = $db->bindVars($sql, ":productId", $productId, 'integer');
-        $results = $db->Execute($sql);
+        $args = array('productId' => $productId);
 
         $category = null;
-        if (!$results->EOF) {
-            $category = $this->getCategoryForId($results->fields['categories_id']);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING);
+        if (null !== $result) {
+            $category = $this->getCategoryForId($result['categoryId']);
         }
-        
+
         return $category;
     }
 
@@ -204,8 +212,20 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     function updateCategory($category) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category, ZMCategories::$categoryMapping_);
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category, ZMCategories::$categoryDescriptionMapping_);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category, ZMCategories::$CATEGORY_MAPPING);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category, ZMCategories::$CATEGORY_DESCRIPTION_MAPPING);
+    }
+
+    /**
+     * Create a new category.
+     *
+     * @param ZMCategory category The category.
+     * @return Category The updated category.
+     */
+    function createCategory($category) {
+        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category, ZMCategories::$CATEGORY_MAPPING);
+        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category, ZMCategories::$CATEGORY_DESCRIPTION_MAPPING);
+        return $category;
     }
 
     /**
@@ -225,7 +245,7 @@ class ZMCategories extends ZMObject {
                 order by sort_order, cd.categories_name";
 
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, ZMCategories::$categoryMapping_, 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, ZMCategories::$CATEGORY_MAPPING, 'Category') as $category) {
             $this->categories_[$languageId][$category->id_] = $category;
         }
     }
