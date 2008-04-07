@@ -35,7 +35,6 @@ class ZMCategories extends ZMObject {
     private static $categoryMapping_ = null;
     private static $categoryDescriptionMapping_ = null;
 
-    private $path_;
     private $languageId_;
     // flat list
     private $categories_;
@@ -46,15 +45,15 @@ class ZMCategories extends ZMObject {
      * Create new instance.
      *
      * @param int languageId The languageId; default is <code>null</code> for session language.
-     * @param array path The current category path; default is an empty array
      */
-    public function __construct($languageId=null, $path=array()) {
+    public function __construct($languageId=null) {
         parent::__construct();
 
         if (null == ZMCategories::$categoryMapping_) {
             ZMCategories::$categoryMapping_ = array(
               'id' => 'column=categories_id;type=integer;primary=true',
               'languageId' => 'column=language_id;type=integer;readonly=true',
+              'active' => 'column=categories_status;type=integer',
               'parentId' => 'column=parent_id;type=integer',
               'image' => 'column=categories_image;type=string',
               'sortOrder' => 'column=sort_order;type=integer',
@@ -77,10 +76,7 @@ class ZMCategories extends ZMObject {
             $languageId = $session->getLanguageId();
         }
         $this->languageId_ = $languageId;
-        $this->path_ = null !== $path ? $path : array();
-
         $this->categories_ = array();
-        $this->treeFlag_ = false;
     }
 
     /**
@@ -99,39 +95,6 @@ class ZMCategories extends ZMObject {
 
 
     /**
-     * Set the path.
-     *
-     * @param array path The current path.
-     */
-    public function setPath($path) { 
-        $this->path_ = null !== $path ? $path : $this->path_;
-        $this->applyPath();    
-    }
-
-    /**
-     * Apply path to categories.
-     *
-     * @param int languageId Optional language id; default is <code>null</code>.
-     */
-    protected function applyPath($languageId=null) {
-        $languageId = null !== $languageId ? $languageId : $this->languageId_;
-
-        if (!isset($this->categories_[$languageId])) {
-            return;
-        }
-
-        foreach ($this->categories_[$languageId] as $id => $category) {
-            $this->categories_[$languageId][$id]->active_ = false;
-        }
-
-        foreach ($this->path_ as $id) {
-            if (isset($this->categories_[$languageId][$id])) {
-                $this->categories_[$languageId][$id]->active_ = true;
-            }
-        }
-    }
-
-    /**
      * Get the default category for the given product id.
      * <p>This will return the first mapped category.</p>
      *
@@ -144,7 +107,6 @@ class ZMCategories extends ZMObject {
 
         if (!isset($this->categories_[$languageId])) {
             $this->load($languageId);
-            $this->applyPath($languageId);
         }
 
         $db = ZMRuntime::getDB();
@@ -175,11 +137,7 @@ class ZMCategories extends ZMObject {
         if (!isset($this->categories_[$languageId])) {
             $this->categories_[$languageId] = array();
             $this->load($languageId);
-            $this->applyPath($languageId);
-            if (!$this->treeFlag_) {
-                $this->buildTree($languageId);
-                $this->treeFlag_ = true;
-            }
+            $this->buildTree($languageId);
         }
 
         if (null === $ids) {
@@ -205,13 +163,9 @@ class ZMCategories extends ZMObject {
 
         if (!isset($this->categories_[$languageId])) {
             $this->load($languageId);
-            $this->applyPath($languageId);
+            $this->buildTree($languageId);
         }
 
-        if (!$this->treeFlag_) {
-            $this->buildTree($languageId);
-            $this->treeFlag_ = true;
-        }
 
         $tlc = array();
         foreach ($this->categories_[$languageId] as $id => $category) {
@@ -234,12 +188,8 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         if (!isset($this->categories_[$languageId])) {
-            $this->load();
-            $this->applyPath();
-            if (!$this->treeFlag_) {
-                $this->buildTree();
-                $this->treeFlag_ = true;
-            }
+            $this->load($languageId);
+            $this->buildTree($languageId);
         }
 
         $category = $this->categories_[$languageId][$categoryId];
@@ -267,11 +217,11 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         // load all straight away - should be faster to sort them later on
-        $sql = "select c.categories_id, cd.categories_name, c.parent_id, cd.categories_description, c.categories_image, c.sort_order, cd.language_id
+        $sql = "select c.categories_id, c.parent_id, c.categories_image, c.sort_order, c.categories_status,
+                cd.categories_name, cd.categories_description, cd.language_id
                 from " . TABLE_CATEGORIES . " c
                 left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id
                 where cd.language_id = :languageId
-                and c.categories_status = '1'
                 order by sort_order, cd.categories_name";
 
         $args = array('languageId' => $languageId);
@@ -292,7 +242,7 @@ class ZMCategories extends ZMObject {
         foreach ($this->categories_[$languageId] as $id => $category) {
             if (0 != $category->parentId_) {
                 $parent = $this->categories_[$languageId][$category->parentId_];
-                array_push($parent->childrenIds_, $id);
+                $parent->childrenIds_[] = $id;
             }
         }
     }

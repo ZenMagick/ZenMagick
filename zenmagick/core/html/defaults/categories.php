@@ -42,13 +42,21 @@
      * @param boolean $useCategoryPage If true, create links for empty categories.
      * @param boolean activeParent If true, the parent category is considered in the current category path.
      * @param boolean root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
+     * @param array path The active category path.
      * @return string The given categories as nested unordered list.
      */
-    function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true) {
-        if ($root) { ob_start(); }
+    function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
+        if ($root) { 
+            ob_start();
+            $path = ZMRequest::getCategoryPathArray();
+            $path = array_flip($path);
+        }
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
-            $active = $category->isActive();
+            if (!$category->isActive()) {
+                continue;
+            }
+            $active = isset($path[$category->getId()]);
             $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
             $empty = 0 == $noOfProducts;
             echo '<li>';
@@ -68,7 +76,7 @@
                 echo '&gt;';
             }
             if ($category->hasChildren()) { // && $active) {
-                zm_build_category_tree_list($category->getChildren(), $showProductCount, $useCategoryPage, $active, false);
+                zm_build_category_tree_list($category->getChildren(), $showProductCount, $useCategoryPage, $active, false, $path);
             }
             echo '</li>';
         }

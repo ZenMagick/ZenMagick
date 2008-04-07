@@ -127,6 +127,7 @@ Release 0.9.1
 - made ZMLoader::create(..) protected to force use of ZMLoader::make(..)
   instead; affects 2 boxes, 2 views and 1 popup
 - add (limited) update functionality to category maintenance
+- streamline category handling
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

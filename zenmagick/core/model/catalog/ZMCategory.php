@@ -105,11 +105,18 @@ class ZMCategory extends ZMModel {
     function getName() { return $this->name_; }
 
     /**
-     * Checks if this category is active; ie. in the category path.
+     * Checks if this category is active; ie. visible in the storefront.
      *
-     * @return boolean <code>true</code> if this category is in the category path, <code>false</code> if not.
+     * @return boolean <code>true</code> if this category is active, <code>false</code> if not.
      */
     function isActive() { return $this->active_; }
+
+    /**
+     * Set the active flag.
+     *
+     * @param boolean active <code>true</code> if this category is active, <code>false</code> if not.
+     */
+    function setActive($active) { $this->active_ = $active; }
 
     /**
      * Checks if this category has children.

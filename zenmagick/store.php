@@ -25,8 +25,8 @@
 ?>
 <?php
 
+    // pick up messages from zen-cart request handling
     ZMMessages::instance()->_loadMessageStack();
-    ZMCategories::instance()->setPath(ZMRequest::getCategoryPathArray());
 
     // main request processor
     if (ZMSettings::get('isEnableZenMagick')) {

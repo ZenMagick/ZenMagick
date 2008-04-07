@@ -36,18 +36,20 @@
      * @param boolean catUrls Control whether or not to have category urls.
      * @param string id The id of the wrapper div
      * @param boolean root Flag to indicate root level.
+     * @param array path The active category path.
      * @return string The created HTML.
      */
-    function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true) {
+    function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true, $path=null) {
         if ($root) { 
             ob_start(); 
+            $path = ZMRequest::getCategoryPathArray();
+            $path = array_flip($path);
             echo '
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
 <script type="text/javascript"> $(document).ready(function() { 
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
-            ZMCategories::instance()->setPath(ZMRequest::getCategoryPathArray());
             $rootCategories = ZMCategories::instance()->getCategoryTree();
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
@@ -58,16 +60,17 @@
         }
         echo '<ul>';
         foreach ($categories as $category) {
+            $active = isset($path[$category->getId()]);
             $cparams = $params.'&'.$category->getPath();
             $noProducts = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;
             $hasChildren = 0 != count($category->getChildren());
-            echo '<li class="'.(($category->isActive()||0==$category->getId()) ? 'open' : '').'">';
+            echo '<li class="'.(($active||0==$category->getId()) ? 'open' : '').'">';
             $url = $catUrls ? zm_href('', $cparams, false) : '#';
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
-                zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false);
-            } else if ($showProducts && $category->isActive()) {
+                zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false, $path);
+            } else if ($showProducts && $active) {
                 echo '<ul>';
                     foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
                         echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
