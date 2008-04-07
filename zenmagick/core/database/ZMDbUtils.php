@@ -32,6 +32,8 @@
  * @version $Id$
  */
 class ZMDbUtils {
+    private static $MAPPING_CACHE = array();
+
 
     /**
      * Bind a list of values to a given SQL query.
@@ -277,7 +279,13 @@ class ZMDbUtils {
      * @param array mapping The mapping table.
      */
     public static function parseMapping($mapping) {
-        //todo: cache:        ksort($mapping); $key = crc32(serialize($mapping));
+        // cache mapping if possible
+        ksort($mapping); 
+        $mapKey = crc32(serialize($mapping));
+        if (isset(ZMDbUtils::$MAPPING_CACHE[$mapKey])) {
+            return ZMDbUtils::$MAPPING_CACHE[$mapKey];
+        }
+
         $tableInfo = array();
         $defaults = array('primary' => false, 'readonly' => false, 'key' => false);
         foreach ($mapping as $property => $info) {
@@ -294,6 +302,8 @@ class ZMDbUtils {
                 } 
             }
         }
+
+        ZMDbUtils::$MAPPING_CACHE[$mapKey] = $tableInfo;
 
         return $tableInfo;
     }
