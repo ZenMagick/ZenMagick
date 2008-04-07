@@ -38,6 +38,7 @@
             // load from db to start with
             $languageId = ZMRequest::getParameter('languageId', ZMRuntime::getLanguage()->getId());
             $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $languageId);
+            $category->setActive(ZMRequest::getParameter('status'), false);
             $category->setName(ZMRequest::getParameter('categoryName'));
             $category->setDescription(ZMRequest::getParameter('categoryDescription', '', false));
             $imageName = ZMRequest::getParameter('imageName');

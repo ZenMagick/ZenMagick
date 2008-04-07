@@ -58,7 +58,9 @@
 
   <?php zm_form('', $zm_nav_params, '', 'post') ?>
     <fieldset>
-        <legend>Name and Description</legend>
+        <legend>General</legend>
+        <input type="checkbox" id="status" name="status" value="1" <?php zm_checkbox_state($category->isActive()) ?>> <label for="status">Status</label>
+        <br><br>
         <label for="categoryName">Name</label>
         <input type="text" id="categoryName" name="categoryName" value="<?php echo htmlentities($category->getName()) ?>" size="30">
         <br>
