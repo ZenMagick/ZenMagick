@@ -344,7 +344,7 @@
 
         // check for theme switching
         if (ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
-            return zm_resolve_theme(ZMRuntime::getThemeId(), true);
+            return zm_resolve_theme(ZMRuntime::getThemeId());
         }
 
         // finalise i18n

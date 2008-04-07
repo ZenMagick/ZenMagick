@@ -121,6 +121,7 @@ class ZMRuntime extends ZMObject {
         $path = ZMRuntime::getThemesDir().ZMRuntime::$themeId_;
         if (!@file_exists($path) || !@is_dir($path)) {
             ZMObject::log("invalid theme id: '".ZMRuntime::$themeId_.'"');
+            ZMRuntime::$themeId_ = null;
             return ZM_DEFAULT_THEME;
         }
 
