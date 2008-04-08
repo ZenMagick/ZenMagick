@@ -40,6 +40,7 @@
  */
 class ZMEvents extends ZMObject {
     private $subscriber_;
+    private $eventLog;
 
     /**
      * Create new instance.
@@ -47,6 +48,7 @@ class ZMEvents extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->subscriber_ = array();
+        $this->eventLog = array();
     }
 
     /**
@@ -84,6 +86,15 @@ class ZMEvents extends ZMObject {
         $eventId = 'all';
         $nameHash = md5(get_class($observer).$eventId);
         unset($this->subscriber_[$nameHash]);
+    }
+
+    /**
+     * Get the event log.
+     *
+     * @return array Log of all events and timings.
+     */
+    public function getEventLog() {
+        return $this->eventLog;
     }
 
     /**
@@ -127,6 +138,7 @@ class ZMEvents extends ZMObject {
      */
     public function update($notifier, $eventId, $args=null) {
         $method = $this->event2method($eventId, 'on');
+        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime());
         $this->log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
@@ -149,6 +161,7 @@ class ZMEvents extends ZMObject {
      */
     public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
+        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime());
         $args['source'] = $source;
         $this->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {

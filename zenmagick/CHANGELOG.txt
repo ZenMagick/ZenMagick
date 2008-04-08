@@ -128,6 +128,7 @@ Release 0.9.1
   instead; affects 2 boxes, 2 views and 1 popup
 - add (limited) update functionality to category maintenance
 - streamline category handling
+- make ZMEvents log events and allow zm_page_stats to show those
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
