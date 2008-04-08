@@ -61,6 +61,7 @@
     define('ZM_EVENT_CONTROLLER_PROCESS_START', 'controller_process_start');
     define('ZM_EVENT_CONTROLLER_PROCESS_END', 'controller_process_end');
     define('ZM_EVENT_THEME_RESOLVED', 'theme_resolved');
+    define('ZM_EVENT_ALL_DONE', 'all_done');
 
 
     //** db **//

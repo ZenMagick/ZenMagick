@@ -44,6 +44,8 @@
         // clear messages if not redirect...
         ZMRequest::getSession()->clearMessages();
 
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_ALL_DONE);
+
         exit;
     }
 
