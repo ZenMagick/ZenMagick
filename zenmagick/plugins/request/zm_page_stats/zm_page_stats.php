@@ -64,18 +64,19 @@ class zm_page_stats extends ZMPlugin {
         $info .= '&nbsp;&nbsp;&nbsp;SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $info .= '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;';
         $info .= '</div>';
-        $info .= '<div id="event-log">';
-        $info .= '<table border="1">';
-        foreach (ZMEvents::instance()->getEventLog() as $event) {
-            $info .= '<tr>';
-            $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
-            $info .= '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
-            $info .= '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
-            $info .= '</tr>';
+        if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
+            $info .= '<div id="event-log">';
+            $info .= '<table border="1">';
+            foreach (ZMEvents::instance()->getEventLog() as $event) {
+                $info .= '<tr>';
+                $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
+                $info .= '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
+                $info .= '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
+                $info .= '</tr>';
+            }
+            $info .= '</table>';
+            $info .= '</div>';
         }
-        $info .= '</table>';
-        $info .= '</div>';
-
 
         return preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
     }
