@@ -57,10 +57,11 @@ class zm_init_category_path extends ZMPlugin {
         if (0 != ($productId = ZMRequest::getProductId())) {
             if (null == ZMRequest::getCategoryPath()) {
                 // set default based on product default category
-                $product = ZMProducts::instance()->getProductForId($productId);
-                $defaultCategory = $product->getDefaultCategory();
-                if (null != $defaultCategory) {
-                    ZMRequest::setCategoryPathArray($defaultCategory->getPathArray());
+                if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
+                    $defaultCategory = $product->getDefaultCategory();
+                    if (null != $defaultCategory) {
+                        ZMRequest::setCategoryPathArray($defaultCategory->getPathArray());
+                    }
                 }
             }
         }

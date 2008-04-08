@@ -74,6 +74,11 @@ class ZMCategoryController extends ZMController {
         $method = null;
         $args = null;
 
+        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
+        if (null == $category) {
+            return $this->findView('category_not_found');
+        }
+
         // decide what to do
         if (null != ZMRequest::getCategoryPath()) {
             $method = "getProductsForCategoryId";
@@ -101,7 +106,6 @@ class ZMCategoryController extends ZMController {
             $this->exportGlobal("zm_resultList", $resultList);
         }
 
-        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
         if ($viewName == "category_list" 
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
                 && ZMSettings::get('isUseCategoryPage'))) {

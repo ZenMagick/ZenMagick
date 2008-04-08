@@ -241,8 +241,12 @@ class ZMMetaTags extends ZMObject {
         if (null == ZMRequest::getProductId() || null != $this->product_)
             return;
 
-        $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        $this->product_ = $product->getName() . ' [' . $product->getModel() . ']';
+        if (null != ($product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId()))) {
+            $this->product_ = $product->getName();
+            if (!zm_is_empty($product->getModel())) {
+                $this->product_ .= ' [' . $product->getModel() . ']';
+            }
+        }
     }
 
     /**
@@ -250,11 +254,13 @@ class ZMMetaTags extends ZMObject {
      */
     function _loadCategory() {
         if (null != ZMRequest::getCategoryPath()) {
-            $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
-            $this->category_ = $category->getName();
+            if (null != ($category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId()))) {
+                $this->category_ = $category->getName();
+            }
         } else if (null != ZMRequest::getManufacturerId()) {
-            $manufacturer = ZMManufacturers::instance()->getManufacturerForId(ZMRequest::getManufacturerId());
-            $this->category_ = $manufacturer->getName();
+            if (null != ($manufacturer = ZMManufacturers::instance()->getManufacturerForId(ZMRequest::getManufacturerId()))) {
+                $this->category_ = $manufacturer->getName();
+            }
         }
     }
 

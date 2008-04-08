@@ -64,7 +64,7 @@ class ZMProductInfoController extends ZMController {
 
         $this->exportGlobal("zm_product", $product);
         if (null == $product || !$product->getStatus()) {
-            return $this->findView('error');
+            return $this->findView('product_not_found');
         }
 
         ZMProducts::instance()->updateViewCount($product);

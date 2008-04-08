@@ -124,6 +124,9 @@ class ZMCrumbtrail extends ZMObject {
         // categories
         foreach ($path as $catId) {
             $category = ZMCategories::instance()->getCategoryForId($catId);
+            if (null == $category) {
+                return;
+            }
             $this->addCrumb($category->getName(), zm_href(ZM_FILENAME_CATEGORY, $category->getPath(), false));
         }
     }

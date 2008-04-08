@@ -39,6 +39,8 @@
         // global
         $urlMapper->setMapping(null, 'error', 'error');
         $urlMapper->setMapping(null, 'missing_page', 'error');
+        $urlMapper->setMapping(null, 'product_not_found', 'error');
+        $urlMapper->setMapping(null, 'category_not_found', 'error');
         $urlMapper->setMapping(null, 'index', 'index');
         $urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
 
