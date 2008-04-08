@@ -46,17 +46,6 @@
         ZMObject::backtrace($msg);
     }
     /**
-     * Check if a given value or array is empty.
-     *
-     * @package org.zenmagick
-     * @param mixed value The value or array to check.
-     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
-     * @deprecated Use <code>empty()</code> instead.
-     */
-    function zm_is_empty($value) { 
-        return empty($value);
-    }
-    /**
      * Resolve the given zen-cart class.
      *
      * <p>This functuon ensures that the given class is loaded.</p>
@@ -131,6 +120,16 @@
 
 
 
+    /**
+     * Check if a given value or array is empty.
+     *
+     * @package org.zenmagick
+     * @param mixed value The value or array to check.
+     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
+     */
+    function zm_is_empty($value) { 
+        return empty($value);
+    }
 
     /**
      * Check if the given string starts with the provided string.
