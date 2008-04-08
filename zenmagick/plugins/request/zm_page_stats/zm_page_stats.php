@@ -67,6 +67,10 @@ class zm_page_stats extends ZMPlugin {
         if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
             $info .= '<div id="event-log">';
             $info .= '<table border="1">';
+            $info .= '<tr>';
+            $info .= '<td style="text-align:right;padding:4px;">'.ZMRuntime::getExecutionTime(ZM_START_TIME).'</td>';
+            $info .= '<td colspan="2" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
+            $info .= '</tr>';
             foreach (ZMEvents::instance()->getEventLog() as $event) {
                 $info .= '<tr>';
                 $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';

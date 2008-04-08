@@ -188,11 +188,12 @@ class ZMRuntime extends ZMObject {
     /**
      * Get the currently elapsed page execution time.
      *
+     * @param string time Optional execution timestamp to be used instead of the current time.
      * @return long The execution time in milliseconds.
      */
-    public static function getExecutionTime() {
+    public static function getExecutionTime($time=null) {
         $startTime = explode (' ', PAGE_PARSE_START_TIME);
-        $endTime = explode (' ', microtime());
+        $endTime = explode (' ', (null!=$time?$time:microtime()));
         $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
         return round($executionTime, 4);
     }

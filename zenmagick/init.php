@@ -25,6 +25,8 @@
 ?>
 <?php
 
+    define('ZM_START_TIME', microtime());
+
     error_reporting(E_ALL^E_NOTICE);
     // hide as to avoid filenames that contain account names, etc.
     @ini_set("display_errors", false);
