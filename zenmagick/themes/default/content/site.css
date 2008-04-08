@@ -39,6 +39,7 @@ a.btn {font-weight:normal;padding:2px 4px;}
 p.man span {padding-left:2px;color:#f02025;font-size:80%;}
 label span, .legend span {padding-left:2px;color:#f02025;font-size:80%;}
 select {min-width:4.2em;}
+select option {padding:0 4px;}
 .clear {clear:both;}
 .rclear {clear:right;}
 fieldset h4 {margin-bottom:8px;}
