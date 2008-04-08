@@ -57,6 +57,8 @@ class ZMAdvancedSearchResultController extends ZMController {
     function processGet() {
     global $listing_sql;
 
+        ZMObject::log('search SQL: '.$listing_sql, ZM_LOG_TRACE);
+
         // zc search sql
         ZMCrumbtrail::instance()->addCrumb("Advanced Search", zm_href(FILENAME_ADVANCED_SEARCH, null, false));
         ZMCrumbtrail::instance()->addCrumb("Results");
