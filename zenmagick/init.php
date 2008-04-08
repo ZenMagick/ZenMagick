@@ -125,7 +125,8 @@
 
     // resolve theme to be used 
     if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) {
-        ZMRuntime::setTheme(zm_resolve_theme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId()));
+        $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
+        ZMRuntime::setTheme($theme);
     }
 
     if (ZMSettings::get('isLegacyAPI')) {

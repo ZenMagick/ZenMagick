@@ -300,62 +300,6 @@
     }
 
     /**
-     * Resolve theme incl. loader update, theme switching and all theme default
-     * handling.
-     *
-     * <p>This is <strong>the</strong> method in the ZenMagick theme handling. It will:</p>
-     * <ol>
-     *  <li>Configure the theme loader to add theme specific code (controller) to the classpath</li>
-     *  <li>Init l10n/i18n</li>
-     *  <li>Load the theme specific <code>extra</code> code</li>
-     *  <li>Check for theme switching and repeat the process if needed</li>
-     * </ol>
-     *
-     * <p>Passing default theme id rather than the current theme id is equivalent to
-     * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
-     *
-     * @package org.zenmagick
-     * @param string themeId The themeId to start with.
-     * @return ZMTheme The final theme.
-     */
-    function zm_resolve_theme($themeId=ZM_DEFAULT_THEME) {
-        // set up theme
-        $theme = ZMThemes::instance()->getThemeForId($themeId);
-        $themeInfo = $theme->getThemeInfo();
-
-        // configure theme loader
-        $themeLoader = ZMLoader::make("Loader", "themeLoader");
-        $themeLoader->addPath($theme->getExtraDir());
-
-        // add loader to root loader
-        ZMLoader::instance()->setParent($themeLoader);
-
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
-
-        // init l10n/i18n
-        $session = ZMRequest::getSession();
-        $language = $session->getLanguage();
-        $theme->loadLocale($language);
-
-        // use theme loader to load static stuff
-        foreach ($themeLoader->getStatic() as $static) {
-            require_once($static);
-        }
-
-        // check for theme switching
-        if (ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
-            return zm_resolve_theme(ZMRuntime::getThemeId());
-        }
-
-        // finalise i18n
-        zm_i18n_finalise();
-
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' => $theme));
-
-        return $theme;
-    }
-
-    /**
      * Dispatch the current request.
      *
      * @package org.zenmagick

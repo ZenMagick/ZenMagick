@@ -60,7 +60,7 @@ class ZMThemes extends ZMObject {
      * @param string themeId The theme id.
      * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
      */
-    function getThemeForId($themeId=null) {
+    public function getThemeForId($themeId=null) {
         $theme = ZMLoader::make("Theme", $themeId);
         return $theme;
     }
@@ -71,7 +71,7 @@ class ZMThemes extends ZMObject {
      * @param string themeId The theme id or <code>null</code> for the current theme id.
      * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
      */
-    function getThemeInfoForId($themeId=null) {
+    public function getThemeInfoForId($themeId=null) {
         // theme id
         $themeId = null == $themeId ? ZMRuntime::getThemeId() : $themeId;
         // theme base path
@@ -105,10 +105,10 @@ class ZMThemes extends ZMObject {
      *
      * @return array A list of <code>ZMThemeInfo</code> instances.
      */ 
-    function getThemeInfoList() {
+    public function getThemeInfoList() {
         $infoList = array();
         $basePath = ZMRuntime::getThemesDir();
-        $dirs = $this->_getThemeDirList();
+        $dirs = $this->getThemeDirList();
         // load info classes and get instance
         foreach ($dirs as $dir) {
             $themeInfo = $this->getThemeInfoForId($dir);
@@ -125,7 +125,7 @@ class ZMThemes extends ZMObject {
      *
      * @return array List of all directories under <em>themes</em> that contain a theme.
      */
-    function _getThemeDirList() {
+    private function getThemeDirList() {
         $themes = array();
         $handle = @opendir(ZMRuntime::getThemesDir());
         while (false !== ($file = readdir($handle))) { 
@@ -144,7 +144,7 @@ class ZMThemes extends ZMObject {
      * @param int languageId Optional language id.
      * @return string The configured zen-cart theme id.
      */
-    function getZCThemeId($languageId=null) {
+    public function getZCThemeId($languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -176,7 +176,7 @@ class ZMThemes extends ZMObject {
      * @param string themeId The theme id.
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
-    function updateZCThemeId($themeId, $languageId=0) {
+    public function updateZCThemeId($themeId, $languageId=0) {
         $db = ZMRuntime::getDB();
 
         // update or insert?
@@ -204,6 +204,61 @@ class ZMThemes extends ZMObject {
         }
 
         $results = $db->Execute($sql);
+    }
+
+    /**
+     * Resolve theme incl. loader update, theme switching and all theme default
+     * handling.
+     *
+     * <p>This is <strong>the</strong> method in the ZenMagick theme handling. It will:</p>
+     * <ol>
+     *  <li>Configure the theme loader to add theme specific code (controller) to the classpath</li>
+     *  <li>Init l10n/i18n</li>
+     *  <li>Load the theme specific <code>extra</code> code</li>
+     *  <li>Check for theme switching and repeat the process if needed</li>
+     * </ol>
+     *
+     * <p>Passing default theme id rather than the current theme id is equivalent to
+     * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
+     *
+     * @param string themeId The themeId to start with; default is <code>ZM_DEFAULT_THEME</code>.
+     * @return ZMTheme The final theme.
+     */
+    public function resolveTheme($themeId=ZM_DEFAULT_THEME) {
+        // set up theme
+        $theme = ZMThemes::instance()->getThemeForId($themeId);
+        $themeInfo = $theme->getThemeInfo();
+
+        // configure theme loader
+        $themeLoader = ZMLoader::make("Loader");
+        $themeLoader->addPath($theme->getExtraDir());
+
+        // add loader to root loader
+        ZMLoader::instance()->setParent($themeLoader);
+
+        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
+
+        // init l10n/i18n
+        $session = ZMRequest::getSession();
+        $language = $session->getLanguage();
+        $theme->loadLocale($language);
+
+        // use theme loader to load static stuff
+        foreach ($themeLoader->getStatic() as $static) {
+            require_once($static);
+        }
+
+        // check for theme switching
+        if (ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
+            return $this->resolveTheme(ZMRuntime::getThemeId());
+        }
+
+        // finalise i18n
+        zm_i18n_finalise();
+
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_THEME_RESOLVED, array('theme' => $theme));
+
+        return $theme;
     }
 
 }
