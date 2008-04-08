@@ -86,20 +86,24 @@ class ZMObject {
      * @param string msg If set, die with the provided message.
      */
     public static function backtrace($msg=null) {
-        if (null !== $msg) {
-            if (is_array($msg)) {
-                echo "<pre>";
-                print_r($msg);
-                echo "</pre>";
-            } else {
-                echo '<h3>'.$msg.'</h3>';
+        if (ZMSettings::get('isShowBacktrace')) {
+            if (null !== $msg) {
+                if (is_array($msg)) {
+                    echo "<pre>";
+                    print_r($msg);
+                    echo "</pre>";
+                } else {
+                    echo '<h3>'.$msg.'</h3>';
+                }
             }
-        }
-        echo "<pre>";
-        print_r(debug_backtrace());
-        echo "</pre>";
-        if (null !== $msg) {
-            die();
+            echo "<pre>";
+            print_r(debug_backtrace());
+            echo "</pre>";
+            if (null !== $msg) {
+                die();
+            }
+        } else {
+            ZMObject::log('BACKTRACE: '.$msg, ZM_LOG_ERROR);
         }
     }
 

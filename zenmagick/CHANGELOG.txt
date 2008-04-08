@@ -133,6 +133,8 @@ Release 0.9.1
 - remove invalid HTML from error view
 - add mappings for category/product not found and map to error page as default
 - fix null errors when trying to display non existing category/product; #1937559
+- add new setting 'isShowBacktrace' to either show backtrace as before, or to
+  just create an error log record
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -112,6 +112,10 @@
         // whether to log missing settings
         'isLogMissingSettings' => false,
 
+        // whether to show backtrace and die or just log
+        'isShowBacktrace' => false,
+
+
 
     /**************************************
      * Stock handling
