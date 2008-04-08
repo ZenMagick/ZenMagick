@@ -57,7 +57,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'INSERT INTO '.$table.' SET';
@@ -94,7 +93,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function update($sql, $data, $mapping) {
         if (is_array($data)) {
-            // TODO: cache mapping
             $mapping = ZMDbUtils::parseMapping($mapping);
             // bind query parameter
             foreach ($data as $name => $value) {
@@ -112,7 +110,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
@@ -157,7 +154,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         // bind query parameter

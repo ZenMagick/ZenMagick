@@ -186,7 +186,7 @@ class ZMProducts extends ZMObject {
     function getProductIdsForCategoryId($categoryId, $active=true) {
         // asuming that if we do this once we might do this more often...
         $keyPrefix = $active ? 'a:' : '';
-        if (null == $this->categoryProductMap_) {
+        if (null === $this->categoryProductMap_) {
             $db = ZMRuntime::getDB();
             $query = "select p.products_id, p2c.categories_id
                       from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c

@@ -54,13 +54,14 @@ class ZMCategories extends ZMObject {
             ZMCategories::$CATEGORY_MAPPING = array(
               'id' => 'column=categories_id;type=integer;primary=true',
               'languageId' => 'column=language_id;type=integer;readonly=true',
-              'active' => 'column=categories_status;type=integer',
+              'active' => 'column=categories_status;type=boolean',
               'parentId' => 'column=parent_id;type=integer',
               'image' => 'column=categories_image;type=string',
               'sortOrder' => 'column=sort_order;type=integer',
               'name' => 'column=categories_name;type=string;readonly=true',
               'description' => 'column=categories_description;type=string;readonly=true'
             );
+            ZMCategories::$CATEGORY_MAPPING = ZMDbUtils::addCustomFields(ZMCategories::$CATEGORY_MAPPING, TABLE_CATEGORIES);
         }
 
         if (null == ZMCategories::$CATEGORY_DESCRIPTION_MAPPING) {
@@ -71,6 +72,7 @@ class ZMCategories extends ZMObject {
               'name' => 'column=categories_name;type=string',
               'description' => 'column=categories_description;type=string'
             );
+            ZMCategories::$CATEGORY_DESCRIPTION_MAPPING = ZMDbUtils::addCustomFields(ZMCategories::$CATEGORY_DESCRIPTION_MAPPING, TABLE_CATEGORIES_DESCRIPTION);
         }
 
         if (null == ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING) {
@@ -78,6 +80,7 @@ class ZMCategories extends ZMObject {
               'productId' => 'column=products_id;type=integer;key=true',
               'categoryId' => 'column=categories_id;type=integer;key=true;readonly=true'
             );
+            ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING = ZMDbUtils::addCustomFields(ZMCategories::$PRODUCTS_TO_CATEGORIES_MAPPING, TABLE_PRODUCTS_TO_CATEGORIES);
         }
 
         if (null === $languageId) {
@@ -237,12 +240,12 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : $this->languageId_;
 
         // load all straight away - should be faster to sort them later on
-        $sql = "select c.categories_id, c.parent_id, c.categories_image, c.sort_order, c.categories_status,
+        $sql = "SELECT c.categories_id, c.parent_id, c.categories_image, c.sort_order, c.categories_status,
                 cd.categories_name, cd.categories_description, cd.language_id
-                from " . TABLE_CATEGORIES . " c
-                left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id
-                where cd.language_id = :languageId
-                order by sort_order, cd.categories_name";
+                FROM " . TABLE_CATEGORIES . " c
+                LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                WHERE cd.language_id = :languageId
+                ORDER BY sort_order, cd.categories_name";
 
         $args = array('languageId' => $languageId);
         foreach (ZMRuntime::getDatabase()->query($sql, $args, ZMCategories::$CATEGORY_MAPPING, 'Category') as $category) {

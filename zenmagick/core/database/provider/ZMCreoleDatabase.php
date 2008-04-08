@@ -63,7 +63,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'INSERT INTO '.$table.' SET';
@@ -108,7 +107,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function update($sql, $data, $mapping) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
@@ -119,7 +117,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
@@ -165,7 +162,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
-        // TODO: cache mapping
         $mapping = ZMDbUtils::parseMapping($mapping);
 
 
@@ -212,6 +208,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             switch ($type) {
             case 'integer':
                 $stmt->setInt($index, $args[$name]);
+                break;
+            case 'boolean':
+                $stmt->setBoolean($index, $args[$name]);
                 break;
             case 'string':
                 $stmt->setString($index, $args[$name]);
@@ -271,6 +270,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             switch ($info['type']) {
             case 'integer':
                 $value = $rs->getInt($info['column']);
+                break;
+            case 'boolean':
+                $value = $rs->getBoolean($info['column']);
                 break;
             case 'string':
                 $value = $rs->getString($info['column']);
