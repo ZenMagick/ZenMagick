@@ -161,10 +161,10 @@ class ZMTaxRate extends ZMModel {
     function addTax($amount) {
         $currency = $this->_getCurrency();
         if (ZMSettings::get('isTaxInclusive') && 0 < $this->rate_) {
-            return zen_round($amount, $currency->getDecimalPlaces()) + $this->calculateTax($amount);
+            return round($amount, $currency->getDecimalPlaces()) + $this->calculateTax($amount);
         }
 
-        return zen_round($amount, $currency->getDecimalPlaces());
+        return round($amount, $currency->getDecimalPlaces());
     }
 
     /**
@@ -175,7 +175,7 @@ class ZMTaxRate extends ZMModel {
      */
     function calculateTax($amount) {
         $currency = $this->_getCurrency();
-        return zen_round($amount * $this->rate_ / 100, $currency->getDecimalPlaces());
+        return round($amount * $this->rate_ / 100, $currency->getDecimalPlaces());
     }
 
     /**

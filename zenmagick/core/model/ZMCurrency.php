@@ -142,7 +142,7 @@ class ZMCurrency extends ZMModel {
      * @return float The converted amount.
      */
     function convertTo($amount) {
-        return zen_round($amount * $this->rate_, $this->decimalPlaces_);
+        return round($amount * $this->rate_, $this->decimalPlaces_);
     }
 
     /**
@@ -152,7 +152,7 @@ class ZMCurrency extends ZMModel {
      * @return float The converted amount.
      */
     function convertFrom($amount) {
-        return zen_round($amount * (1/$this->rate_), $this->decimalPlaces_);
+        return round($amount * (1/$this->rate_), $this->decimalPlaces_);
     }
 
     /**
