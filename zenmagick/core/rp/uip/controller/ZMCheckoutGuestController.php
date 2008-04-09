@@ -81,7 +81,7 @@ class ZMCheckoutGuestController extends ZMController {
             return $this->findView('success');
         }
 
-        if (!$this->validate('checkout_anonymous')) {
+        if (!$this->validate('checkout_guest')) {
             return $this->findView();
         }
 

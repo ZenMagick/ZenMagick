@@ -135,6 +135,9 @@ Release 0.9.1
 - fix null errors when trying to display non existing category/product; #1937559
 - add new setting 'isShowBacktrace' to either show backtrace as before, or to
   just create an error log record
+- fix broken guest checkout validation, add missing URL mapping to re-display
+  login when validation fails; #1937568
+- fix wrong date field names in advanced search form; #1937582
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -101,6 +101,7 @@
 
         // guest checkout
         $urlMapper->setMapping('checkout_guest', 'login');
+        $urlMapper->setMapping('checkout_guest', 'checkout_guest', 'login');
         $urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView', 'secure=true');
         $urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView', 'secure=true');
 

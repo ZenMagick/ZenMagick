@@ -58,8 +58,8 @@
 
         <fieldset>
             <legend><?php zm_l10n("Price Range"); ?></legend>
-            <input type="text" id="pFrom" name="pFrom" value="<?php echo $zm_search->getPriceFrom() ?>" />
-            <input type="text" id="pTo" name="pTo" value="<?php echo $zm_search->getPriceTo() ?>" />
+            <input type="text" id="pfrom" name="pfrom" value="<?php echo $zm_search->getPriceFrom() ?>" />
+            <input type="text" id="pto" name="pto" value="<?php echo $zm_search->getPriceTo() ?>" />
         </fieldset> 
 
         <fieldset> 
