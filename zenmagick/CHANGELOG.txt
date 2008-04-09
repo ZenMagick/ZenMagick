@@ -138,6 +138,9 @@ Release 0.9.1
 - fix broken guest checkout validation, add missing URL mapping to re-display
   login when validation fails; #1937568
 - fix wrong date field names in advanced search form; #1937582
+- make ZMProducts::getFeaturedProducts(..) work as expected; #1937548;
+- add new parameter to ZMProducts::getFeaturedProducts(..) to allow inclusion
+  of child categories
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

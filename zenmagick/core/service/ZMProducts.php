@@ -266,13 +266,14 @@ class ZMProducts extends ZMObject {
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
      * @param int max The maximum number of results; default is <code>1</code>.
+     * @param boolean includeChildren Optional flag to include child categories in the search; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getFeaturedProducts($categoryId=null, $max=1, $languageId=null) {
+    function getFeaturedProducts($categoryId=null, $max=1, $includeChildren=false, $languageId=null) {
         $db = ZMRuntime::getDB();
 
-		$query = null;
+		    $query = null;
         if (null == $categoryId) {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p 
@@ -281,6 +282,7 @@ class ZMProducts extends ZMObject {
                       and p.products_status = '1'
                       and f.status = '1'";
         } else {
+            $categoryCond = $includeChildren ? '(c.parent_id = :categoryId or c.categories_id = :categoryId)' : 'c.categories_id = :categoryId';
             $query = "select distinct p.products_id
                      from (" . TABLE_PRODUCTS . " p
                      left join " . TABLE_FEATURED . " f on p.products_id = f.products_id), " .
@@ -288,7 +290,7 @@ class ZMProducts extends ZMObject {
                       TABLE_CATEGORIES . " c
                      where p.products_id = p2c.products_id
                      and p2c.categories_id = c.categories_id
-                     and c.parent_id = :categoryId
+                     and " . $categoryCond . "
                      and p.products_id = f.products_id
                      and p.products_status = 1 and f.status = 1";
             $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
