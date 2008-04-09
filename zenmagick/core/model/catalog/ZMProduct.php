@@ -49,6 +49,7 @@ class ZMProduct extends ZMModel {
     var $qtyOrderMin_;
     var $qtyOrderMax_;
     var $isFree_;
+    var $isAlwaysFreeShipping_;
     var $isCall_;
     var $taxClassId_;
     var $discountType_;
@@ -277,6 +278,20 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if the product is free, <code>false</code> if not.
      */
     function isFree() { return $this->isFree_; }
+
+    /**
+     * Checks if the product is always free shipping
+     *
+     * @return boolean <code>true</code> if the product is free shipping, <code>false</code> if not.
+     */
+    function isAlwaysFreeShipping() { return $this->isAlwaysFreeShipping_; }
+
+    /**
+     * Configure if the product is always free shipping
+     *
+     * @param boolean b <code>true</code> if the product is free shipping, <code>false</code> if not.
+     */
+    function setAlwaysFreeShipping($b) { $this->isAlwaysFreeShipping_ = $b; }
 
     /**
      * Checks if the user needs to call for this product.

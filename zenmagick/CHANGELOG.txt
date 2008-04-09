@@ -129,18 +129,19 @@ Release 0.9.1
 - add (limited) update functionality to category maintenance
 - streamline category handling
 - make ZMEvents log events and allow zm_page_stats to show those
-- encode address output and improve phpdoc; #1937505
+- encode address output and improve phpdoc; b:#1937505
 - remove invalid HTML from error view
 - add mappings for category/product not found and map to error page as default
-- fix null errors when trying to display non existing category/product; #1937559
+- fix null errors when trying to display non existing category/product; b:#1937559
 - add new setting 'isShowBacktrace' to either show backtrace as before, or to
   just create an error log record
 - fix broken guest checkout validation, add missing URL mapping to re-display
-  login when validation fails; #1937568
-- fix wrong date field names in advanced search form; #1937582
-- make ZMProducts::getFeaturedProducts(..) work as expected; #1937548;
+  login when validation fails; b:#1937568
+- fix wrong date field names in advanced search form; b:#1937582
+- make ZMProducts::getFeaturedProducts(..) work as expected; b:#1937548;
 - add new parameter to ZMProducts::getFeaturedProducts(..) to allow inclusion
   of child categories
+- add always free shipping property to ZMProduct; f:#1937525
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

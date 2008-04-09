@@ -439,7 +439,7 @@ class ZMProducts extends ZMObject {
                     p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                    p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
+                    p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
@@ -479,7 +479,7 @@ class ZMProducts extends ZMObject {
                     p.products_image, pd.products_url, p.products_price,
                     p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                     p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                    p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
+                    p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
                     p.products_quantity_order_min, p.products_quantity_mixed,
                     p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                  ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
@@ -535,7 +535,7 @@ class ZMProducts extends ZMObject {
                         p.products_image, pd.products_url, p.products_price,
                         p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
                         p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                        p.product_is_call, p.product_is_free, p.products_qty_box_status, p.products_quantity_order_max,
+                        p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
                         p.products_quantity_order_min, p.products_quantity_mixed,
                         p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
                      ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
@@ -600,6 +600,7 @@ class ZMProducts extends ZMObject {
                 products_weight = :weight;float,
                 product_is_call = :call;integer,
                 product_is_free = :free;integer,
+                product_is_always_free_shipping = :alwaysFreeShipping;integer,
                 products_qty_box_status = :qtyBoxStatus;integer,
                 products_quantity_order_max = :maxOrderQty;integer,
                 products_quantity_order_min = :minOrderQty;integer,
@@ -736,6 +737,7 @@ class ZMProducts extends ZMObject {
         $product->qtyOrderMin_ = $fields['products_quantity_order_min'];
         $product->qtyOrderMax_ = $fields['products_quantity_order_max'];
         $product->isFree_ = $fields['product_is_free'];
+        $product->isAlwaysFreeShipping_ = $fields['product_is_always_free_shipping'];
         $product->isCall_ = $fields['product_is_call'];
         $product->taxClassId_ = $fields['products_tax_class_id'];
         $product->discountType_ = $fields['products_discount_type'];
