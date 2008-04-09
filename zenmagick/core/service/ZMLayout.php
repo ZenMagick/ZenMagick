@@ -32,10 +32,11 @@
  * @version $Id$
  */
 class ZMLayout extends ZMObject {
-    var $leftColEnabled_;
-    var $rightColEnabled_;
-    var $leftColBoxes_;
-    var $rightColBoxes_;
+    private $leftColEnabled_;
+    private $rightColEnabled_;
+    private $leftColBoxes_;
+    private $rightColBoxes_;
+    private $tableMeta;
 
 
     /**
@@ -47,6 +48,7 @@ class ZMLayout extends ZMObject {
         $this->rightColEnabled_ = true;
         $this->leftColBoxes_ = null;
         $this->rightColBoxes_ = null;
+        $this->tableMeta = array();
     }
 
     /**
@@ -69,49 +71,49 @@ class ZMLayout extends ZMObject {
      *
      * @param boolean bool If <code>true</code> the left column will be displayed.
      */
-    function setLeftColEnabled($bool) { $this->leftColEnabled_ = $bool; }
+    public function setLeftColEnabled($bool) { $this->leftColEnabled_ = $bool; }
 
     /**
      * Enable/disable the right column.
      *
      * @param boolean bool If <code>true</code> the right column will be displayed.
      */
-    function setRightColEnabled($bool) { $this->rightColEnabled_ = $bool; }
+    public function setRightColEnabled($bool) { $this->rightColEnabled_ = $bool; }
 
     /**
      * Set the boxes for the left column.
      *
      * @param array boxes List of box names to be displayed in the left column.
      */
-    function setLeftColBoxes($boxes) { if (is_array($boxes)) $this->leftColBoxes_ = $boxes; }
+    public function setLeftColBoxes($boxes) { if (is_array($boxes)) $this->leftColBoxes_ = $boxes; }
 
     /**
      * Set the boxes for the right column.
      *
      * @param array boxes List of box names to be displayed in the right column.
      */
-    function setRightColBoxes($boxes) { if (is_array($boxes)) $this->rightColBoxes_ = $boxes; }
+    public function setRightColBoxes($boxes) { if (is_array($boxes)) $this->rightColBoxes_ = $boxes; }
 
     /**
      * Checks if the left column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isLeftColEnabled() { return $this->leftColEnabled_; }
+    public function isLeftColEnabled() { return $this->leftColEnabled_; }
 
     /**
      * Checks if the right column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    function isRightColEnabled() { return $this->rightColEnabled_; }
+    public function isRightColEnabled() { return $this->rightColEnabled_; }
 
     /**
      * Get the box names for the left column.
      *
      * @return array Name of all boxes to be displayed.
      */
-    function getLeftColBoxNames() {
+    public function getLeftColBoxNames() {
         if (null != $this->leftColBoxes_)
             return $this->leftColBoxes_;
 
@@ -144,7 +146,7 @@ class ZMLayout extends ZMObject {
      *
      * @return array Name of all boxes to be displayed.
      */
-    function getRightColBoxNames() {
+    public function getRightColBoxNames() {
         if (null != $this->rightColBoxes_)
             return $this->rightColBoxes_;
 
@@ -169,6 +171,22 @@ class ZMLayout extends ZMObject {
         }
 
         return $boxes;
+    }
+
+    /**
+     * Get the field length of a particular column.
+     *
+     * @param string table The database table name.
+     * @param string field The field/column name.
+     * @return int The field length.
+     */
+    public function getFieldLength($table, $field) {
+        if (!isset($this->tableMeta[$table])) {
+            $db = ZMRuntime::getDB();
+            $this->tableMeta[$table] = $db->MetaColumns($table);
+        }
+
+        return $this->tableMeta[$table][strtoupper($field)]->max_length;
     }
 
 }

@@ -53,25 +53,6 @@ if (!function_exists('zen_href_link')) {
     function zm_get_discount_calc($arg1, $args2, $arg3) { return zen_get_discount_calc($arg1, $args2, $arg3); }
     function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { if($echo) echo zen_date_short($date); return zen_date_short($date); }
 
-    function zm_field_length($context, $field, $max=40, $echo=ZM_ECHO_DEFAULT) {
-        $length = zen_field_length($context, $field);
-        $html = '';
-        switch (true) {
-            case ($length > $max):
-                $html = 'size="' . ($max+1) . '" maxlength="' . $length . '"';
-                break;
-            case (0 == $max):
-                $html = '" maxlength="' . $length . '"';
-                break;
-            default:
-                $html = 'size="' . ($length+1) . '" maxlength="' . $length . '"';
-                break;
-        }
-
-        if ($echo) echo $html;
-        return $html;
-    }
-
     // get online counter
     function zm_get_online_counts() {
     global $db;

@@ -142,6 +142,8 @@ Release 0.9.1
 - add new parameter to ZMProducts::getFeaturedProducts(..) to allow inclusion
   of child categories
 - add always free shipping property to ZMProduct; f:#1937525
+- added ZMLayout::getFieldLength(..) to replace usage of zen_field_length(..);
+  also the meta data is cached, so should slightly reduce db access
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

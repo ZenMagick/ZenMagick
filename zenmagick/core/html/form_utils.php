@@ -196,4 +196,34 @@
         return $html;
     }
 
+
+    /**
+     * Create size and maxlength attributes for for input fields.
+     *
+     * @package org.zenmagick.html
+     * @param string context The table name.
+     * @param string field The field name.
+     * @param int max The size attribute; default is <em>40</em>.
+     * @param boolean echo If <code>true</code>, the attributes will be echo'ed as well as returned.
+     * @return string The attributes.
+     */
+    function zm_field_length($context, $field, $max=40, $echo=ZM_ECHO_DEFAULT) {
+        $length = ZMLayout::instance()->getFieldLength($context, $field);
+        $html = '';
+        switch (true) {
+            case ($length > $max):
+                $html = 'size="' . ($max+1) . '" maxlength="' . $length . '"';
+                break;
+            case (0 == $max):
+                $html = '" maxlength="' . $length . '"';
+                break;
+            default:
+                $html = 'size="' . ($length+1) . '" maxlength="' . $length . '"';
+                break;
+        }
+
+        if ($echo) echo $html;
+        return $html;
+    }
+
 ?>
