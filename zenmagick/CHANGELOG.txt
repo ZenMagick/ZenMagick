@@ -875,7 +875,7 @@ Release 0.8.0
   messages
 - ZMCurrencies does not rely on zen-carts global $currencies instance any more
 - renamed ZMThemeView to ZMPageView
-- make product comparison formk use GET rather than POST
+- make product comparison form use GET rather than POST
 - added contact_us POST handling; there is no support for the recipient
   dropdown; also, the email template will not work when using zen-cart request
 	handling

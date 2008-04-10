@@ -60,9 +60,11 @@ class zm_page_stats extends ZMPlugin {
     function filterResponse($contents) {
         $info = '<div id="page-stats">';
         $info .= 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
+        $info .= '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br>';
         $db = ZMRuntime::getDB();
-        $info .= '&nbsp;&nbsp;&nbsp;SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
-        $info .= '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;';
+        $info .= '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
+        $stats = ZMRuntime::getDatabase()->getStats();
+        $info .= '&nbsp;&nbsp;<strong>database</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
         $info .= '</div>';
         if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
             $info .= '<div id="event-log">';

@@ -34,6 +34,8 @@
  */
 class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
+    private $queriesCount;
+    private $queriesTime;
 
 
     /**
@@ -49,6 +51,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                      'password' => DB_SERVER_PASSWORD,
                      'database' => DB_DATABASE);
         $this->conn_ = Creole::getConnection($dsn);
+        $this->queriesCount = 0;
+        $this->queriesTime = 0;
     }
 
     /**
@@ -58,11 +62,33 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         parent::__destruct();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        $stats = array();
+        $stats['time'] = $this->queriesTime;
+        $stats['queries'] = $this->queriesCount;
+        return $stats;
+    }
+
+    /**
+     * Get the elapsed time since <code>$start</code>.
+     *
+     * @param string start The starting time.
+     * @return long The time in milliseconds.
+     */
+    protected function getExecutionTime($start) {
+        $start = explode (' ', $start);
+        $end = explode (' ', microtime());
+        return $end[1]+$end[0]-$start[1]-$start[0];
+    }
 
     /**
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'INSERT INTO '.$table.' SET';
@@ -89,6 +115,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $stmt->executeUpdate();
             $newId = $idgen->getId();
         }
+        ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
             if ($field['primary']) {
@@ -100,6 +127,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
+        $this->queriesTime += $this->getExecutionTime($startTime);
         return $model;
     }
 
@@ -107,16 +135,20 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function update($sql, $data, $mapping) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $stmt->executeUpdate();
+        ++$this->queriesCount;
+        $this->queriesTime += $this->getExecutionTime($startTime);
     }
 
     /**
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
@@ -148,6 +180,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
+        ++$this->queriesCount;
+        $this->queriesTime += $this->getExecutionTime($startTime);
     }
 
     /**
@@ -162,17 +196,20 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
+        ++$this->queriesCount;
 
         $results = array();
         while ($rs->next()) {
             $results[] = self::rs2model($modelClass, $rs, $mapping);
         }
 
+        $this->queriesTime += $this->getExecutionTime($startTime);
         return $results;
     }
 

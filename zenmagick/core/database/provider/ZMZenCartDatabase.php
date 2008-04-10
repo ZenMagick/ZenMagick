@@ -33,6 +33,8 @@
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private $db_;
+    private $queriesCount;
+    private $queriesTime;
 
 
     /**
@@ -43,6 +45,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         parent::__construct();
         $this->db_ = $db;
+        $this->queriesCount = 0;
+        $this->queriesTime = 0;
     }
 
     /**
@@ -56,7 +60,32 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function getStats() {
+        $stats = array();
+        $stats['time'] = $this->queriesTime;
+        $stats['queries'] = $this->queriesCount;
+        //$stats['time'] = $this->db_->queryTime();
+        //$stats['queries'] = $this->db_->queryCount();
+        return $stats;
+    }
+
+    /**
+     * Get the elapsed time since <code>$start</code>.
+     *
+     * @param string start The starting time.
+     * @return long The time in milliseconds.
+     */
+    protected function getExecutionTime($start) {
+        $start = explode (' ', $start);
+        $end = explode (' ', microtime());
+        return $end[1]+$end[0]-$start[1]-$start[0];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function createModel($table, $model, $mapping) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'INSERT INTO '.$table.' SET';
@@ -73,6 +102,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
         $this->db_->Execute($sql);
+        ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
             if ($field['primary']) {
@@ -85,6 +115,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
+        $this->queriesTime += $this->getExecutionTime($startTime);
         return $model;
     }
 
@@ -92,6 +123,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function update($sql, $data, $mapping) {
+        $startTime = microtime();
         if (is_array($data)) {
             $mapping = ZMDbUtils::parseMapping($mapping);
             // bind query parameter
@@ -104,12 +136,15 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMObject::backtrace('invalid data type');
         }
         $this->db_->Execute($sql);
+        ++$this->queriesCount;
+        $this->queriesTime += $this->getExecutionTime($startTime);
     }
 
     /**
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
@@ -140,6 +175,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
         $this->db_->Execute($sql);
+        ++$this->queriesCount;
+        $this->queriesTime += $this->getExecutionTime($startTime);
     }
 
     /**
@@ -154,6 +191,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
+        $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         // bind query parameter
@@ -163,6 +201,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $results = array();
         $rs = $this->db_->Execute($sql);
+        ++$this->queriesCount;
         while (!$rs->EOF) {
             $result = $rs->fields;
             if (null != $mapping) {
@@ -176,6 +215,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $rs->MoveNext();
         }
 
+        $this->queriesTime += $this->getExecutionTime($startTime);
         return $results;
     }
 

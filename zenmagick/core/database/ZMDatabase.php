@@ -88,6 +88,13 @@ interface ZMDatabase {
      */
     public function createModel($table, $model, $mapping);
 
+    /**
+     * Get some stats about database usage.
+     *
+     * @return array A map with statistical data.
+     */
+    public function getStats();
+
 }
 
 ?>
