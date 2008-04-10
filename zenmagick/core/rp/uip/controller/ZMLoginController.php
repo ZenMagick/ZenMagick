@@ -69,8 +69,8 @@ class ZMLoginController extends ZMController {
      */
     function processGet() {
         $session = ZMRequest::getSession();
-        if (!$session->isAnonymous()) {
-            // already logged in
+        if ($session->isRegistered()) {
+            // can't get any better than this!
             return $this->findView('index');
         }
 

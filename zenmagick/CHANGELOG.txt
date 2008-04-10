@@ -150,6 +150,8 @@ Release 0.9.1
 - added field length validation for address, account and gv-send; f:#1937566
 - do not hide primary address checkbox in address edit page when ticked and
   validation fails; f:#1937628  (template change in address.php)
+- change login logic to show the login page to guest users when they try to
+  access resources that require full registration
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
