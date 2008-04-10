@@ -96,17 +96,20 @@
                     </td>
                 </tr>
             <?php } ?>
-            <?php if (!$address->isPrimary()) { ?>
+            <?php if (!$address->get('_isPrimary')) { ?>
                  <tr>
                     <td></td>
                     <td>
-                        <input type="checkbox" id="primary" name="primary" value="on" />
+                        <input type="checkbox" id="primary" name="primary" value="on" <?php zm_checkbox_state($address->isPrimary()) ?> />
                         <label for="primary"><?php zm_l10n("Use as primary address") ?></label>
                     </td>
                 </tr>
             <?php } ?>
             <tr class="legend">
-                <td colspan="2"><?php zm_l10n("<span>*</span> Mandatory fields") ?></td>
+                <td colspan="2">
+                    <input type="hidden" name="_isPrimary" value="<?php echo $address->get('_isPrimary') ?>" />
+                    <?php zm_l10n("<span>*</span> Mandatory fields") ?>
+                </td>
             </tr>
         </tbody>
     </table>

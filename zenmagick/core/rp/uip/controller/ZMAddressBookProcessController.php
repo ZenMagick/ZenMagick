@@ -73,6 +73,8 @@ class ZMAddressBookProcessController extends ZMController {
         if (ZMRequest::getParameter('edit')) {
             ZMCrumbtrail::instance()->addCrumb("Edit");
             $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('edit'));
+            // set the original isPrimary status to avoid hiding the tickbox when selected, but validation fails
+            $address->set('_isPrimary', $address->isPrimary());
             $this->exportGlobal("zm_address", $address);
             $viewName = 'address_book_edit';
         } else if (ZMRequest::getParameter('delete')) {
@@ -120,6 +122,8 @@ class ZMAddressBookProcessController extends ZMController {
     function updateAddress() {
         $address = ZMLoader::make("Address");
         $address->populate();
+        // preserve original status
+        $address->set('_isPrimary', ZMRequest::getParameter('_isPrimary', false));
 
         if (!$this->validate('addressObject', $address)) {
             $this->exportGlobal("zm_address", $address);
@@ -131,11 +135,13 @@ class ZMAddressBookProcessController extends ZMController {
         // process primary setting
         if ($address->isPrimary()) {
             $account = ZMRequest::getAccount();
-            $account->setDefaultAddressId($address->getId());
-            ZMAccounts::instance()->updateAccount($account);
+            if ($account->getDefaultAddressId() != $address->getId()) {
+                $account->setDefaultAddressId($address->getId());
+                ZMAccounts::instance()->updateAccount($account);
 
-            $session = ZMRequest::getSession();
-            $session->setAccount($account);
+                $session = ZMRequest::getSession();
+                $session->setAccount($account);
+            }
         }
 
         ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully updated.'));
