@@ -246,7 +246,7 @@ class ZMOrders extends ZMObject {
         $db = ZMRuntime::getDB();
         $sql = "INSERT INTO " .  TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments)
                 VALUES (:orderId;integer, :id;integer, now(), :customerNotified;integer, :comment;string)";
-        $sql = DbUtils::bindObject($sql, $orderStatus, false);
+        $sql = ZMDbUtils::bindObject($sql, $orderStatus, false);
 
         $results = $db->Execute($sql);
         $orderStatus->id_ = $db->Insert_ID();
@@ -504,8 +504,8 @@ class ZMOrders extends ZMObject {
                 orders_status = :status;integer
                 where orders_id = :orderId";
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
-        $sql = DbUtils::bindObject($sql, $order, false);
-        $sql = DbUtils::bindCustomFields($sql, $order, TABLE_ORDERS);
+        $sql = ZMDbUtils::bindObject($sql, $order, false);
+        $sql = ZMDbUtils::bindCustomFields($sql, $order, TABLE_ORDERS);
         $db->Execute($sql);
 
         return $order;
