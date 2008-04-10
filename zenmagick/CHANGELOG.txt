@@ -144,6 +144,10 @@ Release 0.9.1
 - add always free shipping property to ZMProduct; f:#1937525
 - added ZMLayout::getFieldLength(..) to replace usage of zen_field_length(..);
   also the meta data is cached, so should slightly reduce db access
+- fix broken gv_send form validation
+- add new validation rule ZMMaxFieldLengthRule that validates max length based
+  on the corresponding database column length
+- added field length validation for address, account and gv-send; f:#1937566
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
