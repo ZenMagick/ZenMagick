@@ -150,7 +150,7 @@
         new ZMMaxFieldLengthRule('postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
         new ZMRequiredRule('zone_country_id', 'Please select a country.'),
         new ZMRequiredRule('telephone', "Please enter your telephone details."),
-        new ZMMaxFieldLengthRule('telephone', TABLE_ADDRESS_BOOK, 'entry_telephone')
+        new ZMMaxFieldLengthRule('telephone', TABLE_CUSTOMERS, 'customers_telephone')
     )));
     if (ZMSettings::get('isPrivacyMessage')) {
         $zm_validator->addRule('create_account', new ZMRequiredRule('privacy_conditions', 'You must agree to the privacy policy.'));
