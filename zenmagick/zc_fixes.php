@@ -62,4 +62,8 @@
         $_GET['number_of_uploads'] = $uploads;
     }
 
+    // make action work with zen-cart cart and checkout code
+    if (isset($_POST['action']) && !isset($_GET['action'])) {
+        $_GET['action'] = $_POST['action'];
+    }
 ?>
