@@ -48,75 +48,17 @@
      *
      * <p>If address is <code>null</code>, the localized version of <em>N/A</em> will be returned.</p>
      *
+     * <p>All output is HTML encoded.</p>
+     *
      * @package org.zenmagick.html.defaults
      * @param ZMAddress address The address to format.
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formatted address that, depending on the <em>html</code> flag, is either HTML or ASCII formatted.
+     * @deprecated use the new toolbox instead!
      */
     function zm_format_address($address, $html=true, $echo=ZM_ECHO_DEFAULT) {
-        if (null == $address) {
-            $out = zm_l10n_get("N/A");    
-        } else {
-            if (!zm_is_empty($address->getLastName())) {
-                $firstname = $address->getFirstName();
-                $lastname = $address->getLastName();
-            } else {
-                $firstname = '';
-                $lastname = '';
-            }
-            $company = $address->getCompanyName();
-            $street = $address->getAddress();
-            $suburb = $address->getSuburb();
-            $city = $address->getCity();
-            $state = $address->getState();
-            if (0 != $address->getCountryId()) {
-                $zmcountry = $address->getCountry();
-                $country = $zmcountry->getName();
-                if (0 != $address->getZoneId()) {
-                    $state = ZMCountries::instance()->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
-                }
-            } else {
-                $zmcountry = ZMCountries::instance()->getCountryForId(ZMSettings::get('storeCountry'));
-                $country = '';
-                $state = '';
-            }
-            $postcode = $address->getPostcode();
-
-            $boln = '';
-            if ($html) {
-                $hr = '<hr>';
-                $cr = '<br />';
-            } else {
-                $hr = '----------------------------------------';
-                $cr = "\n";
-            }
-
-            // encode
-            $vars = array('firstname', 'lastname', 'company', 'street', 'suburb', 'city', 'state', 'country', 'postcode');
-            foreach ($vars as $var) {
-                $$var = htmlentities($$var);
-            }
-
-            // alias or derived
-            $zip = $postcode;
-            $statecomma = '';
-            $streets = $street;
-            if ($suburb != '') $streets = $street . $cr . $suburb;
-            if ($state != '') $statecomma = $state . ', ';
-
-            $format = ZMAddresses::instance()->getAddressFormatForId($zmcountry->getAddressFormatId());
-            // $format is using all the local variables...
-            eval("\$out = \"$format\";");
-
-            $company = $address->getCompanyName();
-            if (ZMSettings::get('isAccountCompany') && !empty($company) ) {
-                $out = $company . $cr . $out;
-            }
-        }
-
-        if ($echo) echo $out;
-        return $out;
+        return ZMToolbox::instance()->macro->formatAddress($address, $html, $echo);
     }
 
 ?>

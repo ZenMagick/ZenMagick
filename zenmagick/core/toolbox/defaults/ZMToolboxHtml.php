@@ -66,7 +66,7 @@ class ZMToolboxHtml extends ZMObject {
             $imgSrc = ZMRuntime::getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
-        $html = '<img src="'.$imgSrc.'" alt="'.$imageInfo->getAltText().'" ';
+        $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText(), false).'" ';
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';
 
@@ -127,30 +127,6 @@ class ZMToolboxHtml extends ZMObject {
     }
 
     /**
-     * Encode a given URL to valid HTML.
-     *
-     * @param string url The url to encode.
-     * @return string The URL encoded in valid HTM.
-     */
-    public function urlencode($url) {
-        $url = htmlentities($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
-        $url = str_replace(' ', '%20', $url);
-        return $url;
-    }
-
-    /**
-     * Decode a HTML encoded URL.
-     *
-     * @param string url The url to decode.
-     * @return string The decoded URL.
-     */
-    public function urldecode($url) {
-        $s = html_entity_decode($url);
-        $s = str_replace('%20', ' ', $s);
-        return $s;
-    }
-
-    /**
      * Create a full back link.
      *
      * <p>Return a full HTML <code>&lt;a&gt;</code> tag.</p>
@@ -182,7 +158,7 @@ class ZMToolboxHtml extends ZMObject {
         $page = ZMEZPages::instance()->getPageForId($id);
         $toolbox = ZMToolbox::instance();
         $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false) . '>' . 
-                    (null == $text ? htmlentities($page->getTitle()) : $text) . '</a>';
+                    (null == $text ? $this->encode($page->getTitle(), false) : $text) . '</a>';
 
         if ($echo) echo $link;
         return $link;
