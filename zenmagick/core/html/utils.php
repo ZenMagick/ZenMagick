@@ -37,34 +37,10 @@
      *  a query string style list of name/value pairs or a map.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
+     * @deprecated use the new toolbox instead!
      */
     function zm_image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
-        if (null === $imageInfo) {
-            return;
-        }
-
-        $imageInfo->setParameter($parameter);
-        switch ($format) {
-        case PRODUCT_IMAGE_LARGE:
-            $imgSrc = $imageInfo->getLargeImage();
-            break;
-        case PRODUCT_IMAGE_MEDIUM:
-            $imgSrc = $imageInfo->getMediumImage();
-            break;
-            break;
-        case PRODUCT_IMAGE_SMALL:
-            $imgSrc = $imageInfo->getDefaultImage();
-            break;
-        }
-        if (!zm_starts_with($imgSrc, '/')) {
-            $imgSrc = ZMRuntime::getContext() . $imgSrc;
-        }
-        $html = '<img src="'.$imgSrc.'" alt="'.$imageInfo->getAltText().'" ';
-        $html .= $imageInfo->getFormattedParameter();
-        $html .= ' />';
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->html->image($imageInfo, $format, $parameter, $echo);
     }
 
 
@@ -75,12 +51,10 @@
      * @param string s The string to decode.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The encoded HTML.
+     * @deprecated use the new toolbox instead!
      */
     function zm_htmlencode($s, $echo=ZM_ECHO_DEFAULT) {
-        $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
-
-        if ($echo) echo $s;
-        return $s;
+        return ZMToolbox::instance()->html->encode($s, $echo);
     }
 
 
@@ -91,12 +65,10 @@
      * @param string text The text to clean up.
      * @param boolean echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
      * @return string The stripped text.
+     * @deprecated use the new toolbox instead!
      */
     function zm_strip_html($text, $echo=ZM_ECHO_DEFAULT) {
-        $clean = zen_clean_html($text);
-
-        if ($echo) echo $clean;
-        return $clean;
+        return ZMToolbox::instance()->html->strip($text, $echo);
     }
 
 
@@ -111,12 +83,10 @@
      * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
      * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return string A preformatted attribute in the form ' name="value"'
+     * @deprecated use the new toolbox instead!
      */
     function zm_href_target($newWin=true, $echo=ZM_ECHO_DEFAULT) {
-        $text = $newWin ? (ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
-
-        if ($echo) echo $text;
-        return $text;
+        return ZMToolbox::instance()->html->hrefTarget($newWin, $echo);
     }
 
 
@@ -126,11 +96,10 @@
      * @package org.zenmagick.html
      * @param string url The url to encode.
      * @return string The URL encoded in valid HTM.
+     * @deprecated use the new toolbox instead!
      */
     function zm_htmlurlencode($url) {
-        $url = htmlentities($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
-        $url = str_replace(' ', '%20', $url);
-        return $url;
+        return ZMToolbox::instance()->net->encode($url);
     }
 
 
@@ -140,11 +109,10 @@
      * @package org.zenmagick.html
      * @param string url The url to decode.
      * @return string The decoded URL.
+     * @deprecated use the new toolbox instead!
      */
     function zm_htmlurldecode($s) {
-        $s = html_entity_decode($s);
-        $s = str_replace('%20', ' ', $s);
-        return $s;
+        return ZMToolbox::instance()->net->decode($url);
     }
 
 
@@ -158,11 +126,11 @@
      * @param int max The number of allowed characters.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
+     * @deprecated use the new toolbox instead!
      */
     function zm_more($s, $max=0, $echo=ZM_ECHO_DEFAULT) {
-        return zm_build_more($s, $max, '...', $echo);
+        return ZMToolbox::instance()->html->more($s, $max, '...', $echo);
     }
-
 
     /**
      * Truncate text.
@@ -173,19 +141,10 @@
      * @param string more Optional string that will be appended to indicate that the text was truncated.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The (possibly) truncated text.
+     * @deprecated use the new toolbox instead!
      */
     function zm_build_more($s, $max=0, $more=" ...", $echo=ZM_ECHO_DEFAULT) {
-        $text = $s;
-        if (0 != $max && strlen($text) > $max) {
-            $pos = strpos($text, ' ', $max-10);
-            if (!($pos === false)) {
-                $text = substr($text, 0, $pos+1);
-            }
-            $text .= $more;
-        }
-
-        if ($echo) echo $text;
-        return $text;
+        return ZMToolbox::instance()->html->more($s, $max, $more, $echo);
     }
 
 
@@ -195,17 +154,10 @@
      * @package org.zenmagick.html
      * @param what What to display (see phpinfo manual for more)
      * @return boolean <code>true</code> on success.
+     * @deprecated use the new toolbox instead!
      */
     function zm_phpinfo($what, $echo=ZM_ECHO_DEFAULT) {
-        ob_start();                                                                                                       
-        phpinfo($what);                                                                                                       
-        $info = ob_get_contents();                                                                                       
-        ob_end_clean();                                                                                                   
-        $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
-        $info = str_replace('width="600"', '', $info);
-
-        if ($echo) echo $info;
-        return $info;
+        return ZMToolbox::instance()->format->phpinfo($what, $echo);
     }
 
 ?>

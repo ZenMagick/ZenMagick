@@ -65,9 +65,10 @@ class ZMToolboxHtml extends ZMObject {
         if (!zm_starts_with($imgSrc, '/')) {
             $imgSrc = ZMRuntime::getContext() . $imgSrc;
         }
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$imageInfo->getAltText().'" ';
         $html .= $imageInfo->getFormattedParameter();
-        $html .= ' />';
+        $html .= $slash.'>';
 
         if ($echo) echo $html;
         return $html;
@@ -76,11 +77,11 @@ class ZMToolboxHtml extends ZMObject {
     /**
      * Encode a given string to valid HTML.
      *
-     * @param string s The string to decode.
+     * @param string s The string to encode.
      * @param boolean echo If <code>true</code>, the escaped string will be echo'ed as well as returned.
      * @return string The encoded HTML.
      */
-    public function htmlencode($s, $echo=ZM_ECHO_DEFAULT) {
+    public function encode($s, $echo=ZM_ECHO_DEFAULT) {
         $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
 
         if ($echo) echo $s;
