@@ -47,6 +47,10 @@ class ZMController extends ZMObject {
         // use as controller id
         $this->id_ = ZMRequest::getPageName();
 
+        // always add toolbox
+        $this->exportGlobal('toolbox', ZMToolbox::instance());
+        $this->exportGlobal('_', ZMToolbox::instance());
+
         foreach ($GLOBALS as $name => $instance) {
             if (zm_starts_with($name, "zm_")) {
                 if (is_object($instance)) {

@@ -152,6 +152,8 @@ Release 0.9.1
   validation fails; f:#1937628  (template change in address.php)
 - change login logic to show the login page to guest users when they try to
   access resources that require full registration
+- add initial toolbox version; enable isXHTML setting as this will be
+  supported by the toolbox
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

@@ -246,7 +246,7 @@
 
 
         // HTML generation / validation
-        //'isXHTML' => true,
+        'isXHTML' => true,
         'isJSTarget' => true,
         'isAutoJSValidation' => true,
         'isEchoHTML' => true,
