@@ -27,7 +27,7 @@
 
 
     /**
-     * Creates a HTML <code>&lt;mg&gt;</code> tag for the given <code>ZMImageInfo</code>.
+     * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
      * @package org.zenmagick.html.defaults
      * @param ZMImageInfo imageInfo The image info.
