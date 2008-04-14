@@ -265,12 +265,12 @@ class ZMProducts extends ZMObject {
      * Get random featured products.
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
-     * @param int max The maximum number of results; default is <code>1</code>.
+     * @param int max The maximum number of results; default is <code>0</code> for all.
      * @param boolean includeChildren Optional flag to include child categories in the search; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getFeaturedProducts($categoryId=null, $max=1, $includeChildren=false, $languageId=null) {
+    function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
         $db = ZMRuntime::getDB();
 
 		    $query = null;
@@ -342,11 +342,10 @@ class ZMProducts extends ZMObject {
         } else {
             $query = "select distinct p.products_id
                       from " . TABLE_PRODUCTS . " p
-                      left join " . TABLE_SPECIALS . " s
                       on p.products_id = s.products_id, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
                       where p.products_id = p2c.products_id
                       and p2c.categories_id = c.categories_id
-                      and c.parent_id = :categoryId
+                      and c.categories_id = :categoryId
                       and p.products_status = 1" . $queryLimit;
             $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
         }
