@@ -54,13 +54,13 @@
 <?php if (!zm_is_checkout_page()) { ?>
 <h3><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
-        <?php if ($request->getShoppingCart()->isEmpty()) { ?>
+        <?php if (ZMRequest::getShoppingCart()->isEmpty()) { ?>
             <?php zm_l10n("Cart is Empty") ?>
         <?php } ?>
-        <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
+        <?php foreach (ZMRequest::getShoppingCart()->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php zm_format_currency($request->getShoppingCart()->getTotal()) ?></p>
+        <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php zm_format_currency(ZMRequest::getShoppingCart()->getTotal()) ?></p>
     </div>
 <?php } ?>
