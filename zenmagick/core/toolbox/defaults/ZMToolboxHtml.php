@@ -181,7 +181,7 @@ class ZMToolboxHtml extends ZMObject {
     public function ezpageLink($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
         $page = ZMEZPages::instance()->getPageForId($id);
         $toolbox = ZMToolbox::instance();
-        $link = '<a href="' . $toollbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false) . '>' . 
+        $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false) . '>' . 
                     (null == $text ? htmlentities($page->getTitle()) : $text) . '</a>';
 
         if ($echo) echo $link;
