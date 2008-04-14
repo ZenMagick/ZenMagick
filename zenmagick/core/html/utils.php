@@ -157,7 +157,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_phpinfo($what, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->format->phpinfo($what, $echo);
+        return ZMToolbox::instance()->macro->phpinfo($what, $echo);
     }
 
 ?>

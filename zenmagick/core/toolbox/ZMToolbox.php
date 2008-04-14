@@ -48,10 +48,10 @@ class ZMToolbox extends ZMModel {
      */
     public $net;
     /** 
-     * @var ZMToolboxFormat
-     * @return ZMToolboxFormat
+     * @var ZMToolboxMacro
+     * @return ZMToolboxMacro
      */
-    public $format;
+    public $macro;
 
 
     /**
@@ -64,7 +64,7 @@ class ZMToolbox extends ZMModel {
         $this->html = ZMLoader::make('ToolboxHtml');
         $this->form = ZMLoader::make('ToolboxForm');
         $this->net = ZMLoader::make('ToolboxNet');
-        $this->format = ZMLoader::make('ToolboxFormat');
+        $this->macro = ZMLoader::make('ToolboxMacro');
     }
 
     /**
