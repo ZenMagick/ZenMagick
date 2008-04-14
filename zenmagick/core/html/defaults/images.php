@@ -39,14 +39,10 @@
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
+     * @deprecated use the new toolbox instead!
      */
     function zm_product_image_link($product, $categoryId=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
-        $html = '<a href="'.zm_product_href($product->getId(), $categoryId, false).'" class="product">';
-        $html .= zm_image($product->getImageInfo(), $format, '', false);
-        $html .= '</a>';
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->html->productImageLink($product, $categoryId, $format, $echo);
     }
 
 

@@ -155,13 +155,36 @@ class ZMToolboxHtml extends ZMObject {
      * @return string A full HTML link.
      */
     public function ezpageLink($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
-        $page = ZMEZPages::instance()->getPageForId($id);
         $toolbox = ZMToolbox::instance();
+        $page = ZMEZPages::instance()->getPageForId($id);
         $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false) . '>' . 
                     (null == $text ? $this->encode($page->getTitle(), false) : $text) . '</a>';
 
         if ($echo) echo $link;
         return $link;
+    }
+
+    /**
+     * Create a HTML <code>&lt;a&gt;</code> tag with the product image of the
+     * given product.
+     *
+     * <p>This one will return a fully encoded HTML <code>&lt;img&gt;</code> tag.</p>
+     *
+     * @param ZMProduct product A product.
+     * @param int categoryId Optional category id.
+     * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
+     *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
+     */
+    public function productImageLink($product, $categoryId=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+        $toolbox = ZMToolbox::instance();
+        $html = '<a href="'.$toolbox->net->product($product->getId(), $categoryId, false).'" class="product">';
+        $html .= $this->image($product->getImageInfo(), $format, '', false);
+        $html .= '</a>';
+
+        if ($echo) echo $html;
+        return $html;
     }
 
     /**

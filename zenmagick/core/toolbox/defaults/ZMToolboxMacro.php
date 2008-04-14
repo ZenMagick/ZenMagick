@@ -146,6 +146,131 @@ class ZMToolboxMacro extends ZMObject {
         return $out;
     }
 
+    /**
+     * Display the given banner.
+     *
+     * @param ZMBanner banner A <code>ZMBanner</code> instance.
+     * @param boolean updateStats If <code>true</code>, the banner stats will get updated (click count).
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string The HTML formatted banner.
+     */
+    public function showBanner($banner, $echo=ZM_ECHO_DEFAULT, $updateStats=true) {
+        $html = '';
+
+        if (null != $banner) {
+            $toolbox = ZMToolbox::instance();
+            if (!zm_is_empty($banner->getText())) {
+                // use text if not empty
+                $html = $banner->getText();
+            } else {
+                $slash = ZMSettings::get('isXHTML') ? '/' : '';
+                $img = '<img src="'.$toolbox->net->image($banner->getImage(), false).'" alt="'.
+                          $toolbox->html->encode($banner->getTitle(), false).'"'.$slash.'>';
+                if (zm_is_empty($banner->getUrl())) {
+                    // if we do not have a url try our luck with the image...
+                    $html = $img;
+                } else {
+                    $html = '<a href="'.$toolbox->net->redirect('banner', $banner->getId(), false).'"'.
+                                $toolbox->html->hrefTarget($banner->isNewWin(), false).'>'.$img.'</a>';
+                }
+            }
+
+            if ($updateStats) {
+                ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
+            }
+        }
+
+        if ($echo) echo $html;
+        return $html;
+    }
+ 
+    /**
+     * Helper to format a given <code>ZMCrumbtrail</code>.
+     *
+     * @param ZMCrumbtrail crumbtrail A <code>ZMCrumbtrail</code> instance.
+     * @param string sep A separator string.
+     * @return string A fully HTML formatted crumbtrail.
+     */
+    public function buildCrumbtrail($crumbtrail, $sep) {
+        $toolbox = ZMToolbox::instance();
+        $html = '<div id="crumbtrail">';
+        $first = true;
+        foreach ($crumbtrail->getCrumbs() as $crumb) {
+            if (!$first) $html .= $sep;
+            $first = false;
+            if (null != $crumb->getURL()) {
+                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode(zm_l10n_get($crumb->getName()), false).'</a>';
+            } else {
+                $html .= $toolbox->html->encode(zm_l10n_get($crumb->getName()), false);
+            }
+        }
+		    $html .= '</div>';
+        return $html;
+    }
+
+    /**
+     * Build a nested unordered list from the given categories.
+     *
+     * <p>Supports show category count and use category page.</p>
+     *
+     * <p>Links in the active path (&lt;a&gt;) will have a class named <code>act</code>,
+     * empty categories will have a class <code>empty</code>. Note that both can occur
+     * at the same time.</p>
+     *
+     * <p>Uses output buffering for increased performance.</p>
+     *
+     * <p>Please note that the last three parameter are used internally and should not bet set.</p>
+     *
+     * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
+     * @param boolean showProductCount If true, show the product count per category; default is <code>false</code>.
+     * @param boolean $useCategoryPage If true, create links for empty categories; default is <code>false</code>.
+     * @param boolean activeParent If true, the parent category is considered in the current category path; default is <code>false</code>.
+     * @param boolean root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>); default is <code>true</code>.
+     * @param array path The active category path; default is <code>null</code>.
+     * @return string The given categories as nested unordered list.
+     */
+    public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
+        $toolbox = ZMToolbox::instance();
+        if ($root) { 
+            ob_start();
+            $path = ZMRequest::getCategoryPathArray();
+            $path = array_flip($path);
+        }
+        echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
+        foreach ($categories as $category) {
+            if (!$category->isActive()) {
+                continue;
+            }
+            $active = isset($path[$category->getId()]);
+            $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
+            $empty = 0 == $noOfProducts;
+            echo '<li>';
+            $class = '';
+            $class = $active ? 'act' : '';
+            $class .= $empty ? ' empty' : '';
+            $class .= ($active && !$category->hasChildren()) ? ' curr' : '';
+            $class = trim($class);
+            $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
+            echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
+                        $toolbox->net->url(ZM_FILENAME_CATEGORY, '&'.$category->getPath(), '', false, false) .
+                        '">'.$toolbox->html->encode($category->getName(), false).'</a>';
+            if (0 < $noOfProducts) {
+                echo '('.$noOfProducts.')';
+            }
+            if ($category->hasChildren()) {
+                echo '&gt;';
+            }
+            if ($category->hasChildren()) {
+                $this->categoryTree($category->getChildren(), $showProductCount, $useCategoryPage, $active, false, $path);
+            }
+            echo '</li>';
+        }
+        echo '</ul>';
+
+        $html = $root ? ob_get_clean() : '';
+        return $html;
+    }
+
 }
 
 ?>

@@ -44,46 +44,10 @@
      * @param boolean root Flag to indicate the start of the recursion (not required to set, as defaults to <code>true</code>).
      * @param array path The active category path.
      * @return string The given categories as nested unordered list.
+     * @deprecated use the new toolbox instead!
      */
     function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
-        if ($root) { 
-            ob_start();
-            $path = ZMRequest::getCategoryPathArray();
-            $path = array_flip($path);
-        }
-        echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
-        foreach ($categories as $category) {
-            if (!$category->isActive()) {
-                continue;
-            }
-            $active = isset($path[$category->getId()]);
-            $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
-            $empty = 0 == $noOfProducts;
-            echo '<li>';
-            $class = '';
-            $class = $active ? 'act' : '';
-            $class .= $empty ? ' empty' : '';
-            $class .= ($active && !$category->hasChildren()) ? ' curr' : '';
-            $class = trim($class);
-            $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
-            echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        zm_href(ZM_FILENAME_CATEGORY, '&'.$category->getPath(), '', false, false) .
-                        '">'.zm_htmlencode($category->getName(), false).'</a>';
-            if (0 < $noOfProducts) {
-                echo '('.$noOfProducts.')';
-            }
-            if ($category->hasChildren()) {
-                echo '&gt;';
-            }
-            if ($category->hasChildren()) { // && $active) {
-                zm_build_category_tree_list($category->getChildren(), $showProductCount, $useCategoryPage, $active, false, $path);
-            }
-            echo '</li>';
-        }
-        echo '</ul>';
-
-        $html = $root ? ob_get_clean() : '';
-        return $html;
+        return ZMToolbox::instance()->macro->categoryTree($categories, $showProductCount, $useCategoryPage);
     }
 
 ?>

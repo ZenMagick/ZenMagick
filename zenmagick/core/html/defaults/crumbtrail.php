@@ -32,21 +32,10 @@
      * @param ZMCrumbtrail crumbtrail A <code>ZMCrumbtrail</code> instance.
      * @param string sep A separator string.
      * @return string A fully HTML formatted crumbtrail.
+     * @deprecated use the new toolbox instead!
      */
     function zm_build_crumbtrail($crumbtrail, $sep) {
-        $html = '<div id="crumbtrail">';
-        $first = true;
-        foreach ($crumbtrail->getCrumbs() as $crumb) {
-            if (!$first) $html .= $sep;
-            $first = false;
-            if (null != $crumb->getURL()) {
-                $html .= '<a href="'.$crumb->getURL().'">'.zm_htmlencode(zm_l10n_get($crumb->getName()), false).'</a>';
-            } else {
-                $html .= zm_htmlencode(zm_l10n_get($crumb->getName()), false);
-            }
-        }
-		    $html .= '</div>';
-        return $html;
+        return ZMToolbox::instance()->macro->buildCrumbtrail($crumbtrail, $sep);
     }
 
 ?>

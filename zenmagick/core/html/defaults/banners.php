@@ -34,32 +34,10 @@
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @param boolean updateCount If <code>true</code>, the banner counter will get incremented.
      * @return string The HTML formatted banner.
+     * @deprecated use the new toolbox instead!
      */
     function zm_display_banner($banner, $echo=ZM_ECHO_DEFAULT, $updateCount=true) {
-        $html = '';
-
-        if (null == $banner)
-            return $html;
-
-        if (!zm_is_empty($banner->getText())) {
-            // use text if not empty
-            $html = $banner->getText();
-        } else {
-            $img = '<img src="'.zm_image_uri($banner->getImage(), false).'" alt="'.$banner->getTitle().'" />';
-            if (zm_is_empty($banner->getUrl())) {
-                // if we do not have a url try our luck with the image...
-                $html = $img;
-            } else {
-                $html = '<a href="'.zm_redirect_href('banner', $banner->getId(), false).'"'.zm_href_target($banner->isNewWin(), false).'>'.$img.'</a>';
-            }
-        }
-
-        if ($updateCount) {
-            ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
-        }
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->macro->showBanner($banner, $updateCount, $echo);
     }
  
 
