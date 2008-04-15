@@ -153,9 +153,10 @@
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
     function zm_hidden_list($name, $values, $echo=ZM_ECHO_DEFAULT) {
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
-            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
+            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
         }
 
         if ($echo) echo $html;
