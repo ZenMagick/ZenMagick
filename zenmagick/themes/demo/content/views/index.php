@@ -32,12 +32,12 @@
   
 <p>The included demo theme, as seen here, illustrates a few of the many ZenMagick features. In particular there are:</p>
 <ul>
-  <li>The <a href="<?php zm_href('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses the ZenMagick Ajax controllers</li>
+  <li>The <a href="<?php $_t->net->url('ajax_demo') ?>">Ajax demo page</a> - Simple code that uses the ZenMagick Ajax controllers</li>
   <li>Custom CSS per page; for example, this page - the homepage - is modified by some custom CSS (main header text in <span style="color:red;">red</span>)</li>
   <li>The <code>extra/controller</code> folder contains a few custom controller that change the default ZenMagick behaviour or extend it; for example:
     <ul>
       <li>Additional product filter (experimental)</li>
-      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example, the <a href="<?php zm_href(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
+      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example, the <a href="<?php $_t->net->url(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
     </ul>
   </li>
   <li>Custom alpha and price-range filter</li>
@@ -45,7 +45,7 @@
   <li>Request based Theme switching (implemented for the contact us page)</li>
   <li>Field specific error messages (login page)</li>
   <li><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a> integration</li>
-  <li>Drag/Drop Ajax cart demo in <a href="<?php zm_href(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
+  <li>Drag/Drop Ajax cart demo in <a href="<?php $_t->net->url(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
     (drag the product image onto the shopping cart on ther right...)</li>
   <li>A social bookmarking sidebox that lets you bookmark any page (based on the <a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_60&products_id=315">Social Bookmarking</a> mod).</li>
 </ul>
@@ -56,8 +56,8 @@
 <div id="featured">
   <?php foreach ($featured as $product) { ?>
     <div>
-      <p><?php zm_product_image_link($product) ?></p>
-      <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
+      <p><?php $_t->html->productImageLink($product) ?></p>
+      <p><a href="<?php $_t->net->product($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
       <?php $offers = $product->getOffers(); ?>
       <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
     </div>

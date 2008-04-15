@@ -168,11 +168,11 @@ class ZMToolboxForm extends ZMObject {
      *
      * @param string table The table name.
      * @param string col The column name.
-     * @param int max The size attribute; default is <em>0</em> for no limit.
+     * @param int max The size attribute; default is <em>40</em>; use <code>0</code> to prevent a <em>size</em> attribute.
      * @param boolean echo If <code>true</code>, the attributes will be echo'ed as well as returned.
      * @return string The attributes.
      */
-    public function fieldLength($table, $col, $max=0, $echo=ZM_ECHO_DEFAULT) {
+    public function fieldLength($table, $col, $max=40, $echo=ZM_ECHO_DEFAULT) {
         //TODO: convert from col to form field/model property
         $length = ZMLayout::instance()->getFieldLength($table, $col);
         $html = '';

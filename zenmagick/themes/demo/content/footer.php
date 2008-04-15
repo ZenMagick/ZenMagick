@@ -27,17 +27,17 @@
 <div id="footer">
     <p id="fpages">
         <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
-            <?php zm_ezpage_link($page->getId()) ?>
+            <?php $_t->html->ezpageLink($page->getId()) ?>
         <?php } ?>
     </p>
 
     <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
-        <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
+        <div id="bannerFive"><?php $_t->html->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <p id="sview">
-        <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
-        <a href="<?php zm_href(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
+        <a href="<?php $_t->net->url(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
+        <a href="<?php $_t->net->url(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
     </p>
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
     <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | 

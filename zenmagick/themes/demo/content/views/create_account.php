@@ -37,7 +37,7 @@
         var countryId = $('#zone_country_id').val();
         $.ajax({
             type: "GET",
-            url: "<?php zm_ajax_href('country', 'getZonesForCountryId') ?>",
+            url: "<?php $_t->net->ajax('country', 'getZonesForCountryId') ?>",
             data: "countryId="+countryId,
             success: function(msg) {
                 // remove timer
@@ -66,13 +66,13 @@
     }
 </script>
 
-<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'create_account', "post", "return validate(this);") ?>
+<?php $_t->form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id' => 'create_account', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
             <p>
                 <?php zm_l10n("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
-                <?php $href = '<a href="' . zm_static_href('privacy', false) . '">' . zm_l10n_get("here") . '</a>'; ?>
+                <?php $href = '<a href="' . $_t->net->staticPage('privacy', '', false, false) . '">' . zm_l10n_get("here") . '</a>'; ?>
                 <?php zm_l10n("The privacy statement can be read %s.", $href) ?><p>
             <p><input type="checkbox" id="privacy" name="privacy_conditions" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
         </fieldset>
@@ -139,15 +139,15 @@
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="street_address" value="<?php echo $zm_address->getAddress() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="street_address" value="<?php echo $zm_address->getAddress() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php echo $zm_address->getSuburb() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php echo $zm_address->getSuburb() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php echo $zm_address->getCity() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php echo $zm_address->getCity() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
                     $country = $zm_address->getCountry(); 
@@ -155,7 +155,7 @@
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php echo $zm_address->getPostcode() ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php echo $zm_address->getPostcode() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>

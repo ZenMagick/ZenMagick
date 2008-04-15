@@ -30,19 +30,19 @@
 <?php $manufacturer = $zm_product->getManufacturer() ?>
 <h2><?php echo null != $manufacturer ? $manufacturer->getName() : '' ?> <?php echo $zm_product->getName(); ?></h2>
 
-<?php zm_add_product_form($zm_product->getId()) ?>
+<?php $_t->form->addProduct($zm_product->getId()) ?>
   <?php $imageInfo = $zm_product->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php echo $zm_product->getName(); ?>"><?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
+          <a href="<?php $_t->net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php $_t->html->encode($zm_product->getName()) ?>"><?php $_t->html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
-          <?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?>
+          <?php $_t->html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?>
       <?php } ?>
-      <div id="desc"><?php echo $zm_product->getDescription() ?></div>
+      <div id="desc"><?php $_t->html->encode($zm_product->getDescription()) ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php zm_l10n("Producer") ?>: <?php zm_htmlencode($manufacturer->getName()); ?><br />
+        <?php zm_l10n("Producer") ?>: <?php $_t->html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php zm_htmlencode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
+      <p id="price"><?php $_t->html->encode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
   </div>
 
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>
@@ -69,9 +69,9 @@
           <legend><?php zm_l10n("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php zm_absolute_href($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php $_t->net->absolute($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $_t->net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
               <?php } else { ?>
-                  <img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php $_t->net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>
@@ -80,13 +80,13 @@
       <fieldset>
           <legend><?php zm_l10n("Other Options") ?></legend>
           <?php if ($zm_product->hasReviews()) { ?>
-              <a class="btn" href="<?php zm_href(FILENAME_PRODUCT_REVIEWS, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php $_t->net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php zm_href(FILENAME_PRODUCT_REVIEWS_WRITE, null) ?>"><?php zm_l10n("Write a Review") ?></a>
+              <a class="btn" href="<?php $_t->net->url(FILENAME_PRODUCT_REVIEWS_WRITE, '') ?>"><?php zm_l10n("Write a Review") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('tell_a_friend')) { ?>
-              <a class="btn" href="<?php zm_href(FILENAME_TELL_A_FRIEND, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
+              <a class="btn" href="<?php $_t->net->url(FILENAME_TELL_A_FRIEND, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>

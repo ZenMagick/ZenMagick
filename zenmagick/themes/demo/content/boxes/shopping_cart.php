@@ -30,7 +30,7 @@
 <script type="text/javascript">
     // callback used by drop handler to update cart contents
     var updateSBCartContent = function(msg) {
-        var href_template = '<?php zm_product_href('{productId}') ?>';
+        var href_template = '<?php $_t->net->product('{productId}') ?>';
         // NOTE: using json.js here will break IE and create ugly JS erros in FF
         var cart = eval('(' + msg + ')');
         // clear
@@ -52,13 +52,13 @@
 </script>
 
 <?php if (!zm_is_checkout_page()) { ?>
-<h3><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Shopping Cart") ?></h3>
+<h3><a href="<?php $_t->net->url(FILENAME_SHOPPING_CART, '', true) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if (ZMRequest::getShoppingCart()->isEmpty()) { ?>
             <?php zm_l10n("Cart is Empty") ?>
         <?php } ?>
         <?php foreach (ZMRequest::getShoppingCart()->getItems() as $item) { ?>
-            <?php echo $item->getQty(); ?> x <a href="<?php zm_product_href($item->getId()) ?>"><?php echo $item->getName(); ?></a><br />
+            <?php echo $item->getQty(); ?> x <a href="<?php $_t->net->product($item->getId()) ?>"><?php echo $item->getName(); ?></a><br />
         <?php } ?>
         <hr/>
         <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php zm_format_currency(ZMRequest::getShoppingCart()->getTotal()) ?></p>
