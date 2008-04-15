@@ -68,8 +68,14 @@
      */
     function zm_title($echo=ZM_ECHO_DEFAULT) {
         $title = ZMRequest::getPageName();
+        // special case for static pages
         $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
-        $title = zm_format_title($title);
+
+        // format
+        $title = str_replace('_', ' ', $title);
+        // capitalise words
+        $title = ucwords($title);
+        $title = zm_l10n_get($title);
 
         if ($echo) echo $title;
         return $title;
@@ -81,6 +87,7 @@
      * @package org.zenmagick.html.defaults
      * @param string page The page name.
      * @return string A reasonable page title.
+     * @deprecated use zm_title instead
      */
     function zm_format_title($page=null) {
         $title = str_replace('_', ' ', $page);
@@ -156,7 +163,7 @@
     }
 
     /**
-     * Get form field errors.
+     * Show form field specific error messages.
      *
      * <p>The generated <code>ul</code> tag will have the value <em>[$name]Info</em> as id, and
      * a class of <em>fieldMsg</em>.
@@ -166,20 +173,10 @@
      * @param string name The field name.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
+     * @deprecated use toolbox instead
      */
     function zm_field_messages($name, $echo=ZM_ECHO_DEFAULT) {
-        if (!ZMMessages::instance()->hasMessages($name)) {
-            return null;
-        }
-
-        $html = '<ul id="'.$name.'Info" class="fieldMsg">';
-        foreach (ZMMessages::instance()->getMessages($name) as $msg) {
-            $html .= '<li class="'.$msg->getType().'">'.$msg->getText().'</li>';
-        }
-        $html .= '</ul>';
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->html->fieldMessages($name, $echo);
     }
 
 ?>

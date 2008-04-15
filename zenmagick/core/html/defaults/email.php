@@ -34,29 +34,10 @@
      * @param string email The sender email.
      * @param ZMSession session The current session.
      * @return array Hash of extra information.
+     * @deprecated use the new toolbox instead!
      */
     function zm_email_copy_context($name, $email, $session) {
-        $context = array();
-
-        // try hostname
-        $hostname = $session->getClientHostname();
-        if (null == $hostname) {
-            if (ZMSettings::get('isResolveClientIP')) {
-                $hostname = gethostbyaddr($session->getClientAddress());
-            } else {
-                $hostname = zm_l10n_get("Disabled");
-            }
-        }
-
-        $context['office_only_text'] = "\n\n" .
-          zm_l10n_get("Office Use Only:") . "\n" .
-          zm_l10n_get("From: ") . $name . "\n" .
-          zm_l10n_get("Email: ") . $email . "\n" .
-          zm_l10n_get("Remote: ") . $session->getClientAddress() . " - " . $hostname . "\n" .
-          zm_l10n_get("Date: ") . date("D M j Y G:i:s T") . "\n\n";
-        $context['office_only_html'] = nl2br($context['office_only_text']);
-
-        return $context;
+        return ZMToolbox::instance()->macro->officeOnlyEmailFooter($name, $email, $session);
     }
 
 ?>

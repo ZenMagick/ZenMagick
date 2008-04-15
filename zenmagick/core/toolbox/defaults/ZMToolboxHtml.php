@@ -226,6 +226,35 @@ class ZMToolboxHtml extends ZMObject {
         return $text;
     }
 
+    /**
+     * Show form field specific error messages.
+     *
+     * <p>The generated <code>ul</code> tag will have the value <em>[$name]Info</em> as id, and
+     * a class of <em>fieldMsg</em>.
+     * Each <code>li</code> will have the type as class assigned.</p>
+     *
+     * <p>Messages are HTML escaped/encoded but no further localization is done.</p>
+     *
+     * @param string name The field name.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string HTML unordered list of messages or <code>null</code>.
+     */
+    public function fieldMessages($name, $echo=ZM_ECHO_DEFAULT) {
+        if (!ZMMessages::instance()->hasMessages($name)) {
+            return null;
+        }
+
+        $html = '<ul id="'.$name.'Info" class="fieldMsg">';
+        foreach (ZMMessages::instance()->getMessages($name) as $msg) {
+            $html .= '<li class="'.$msg->getType().'">'.$this->encode($msg->getText(), false).'</li>';
+        }
+        $html .= '</ul>';
+
+        if ($echo) echo $html;
+        return $html;
+    }
+
+
 }
 
 ?>

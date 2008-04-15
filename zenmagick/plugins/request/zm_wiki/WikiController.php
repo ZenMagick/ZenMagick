@@ -60,7 +60,11 @@ class WikiController extends ZMController {
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href(ZM_FILENAME_WIKI, '', false));
         $page = ZMRequest::getParameter('page', 'WikiRoot');
-        ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
+        $page = str_replace('_', ' ', $page);
+        // capitalise words
+        $page = ucwords($page);
+        $page = zm_l10n_get($page);
+        ZMCrumbtrail::instance()->addCrumb(zm_l10n_get($page));
 
         return ZMLoader::make("PluginView", zm_view_wiki, $zm_wiki);
     }
