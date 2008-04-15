@@ -81,6 +81,16 @@ class ZMToolbox extends ZMModel {
         return ZMObject::singleton('Toolbox');
     }
 
+
+    /**
+     * Get a map of all tools.
+     *
+     * @return array A map of all available tools.
+     */
+    public function getTools() {
+        return array_merge(array('html' => $this->html, 'form' => $this->form, 'net' => $this->net, 'macro' => $this->macro), $this->properties_);
+    }
+
 }
 
 ?>
