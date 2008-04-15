@@ -391,14 +391,8 @@ class ZMShoppingCart extends ZMObject {
             $class = str_replace('.php', '', $module);
             $output = $GLOBALS[$class]->output;
             $type = substr($class, 3);
-            //$size = sizeof($output);
-            //echo "m:".$module." ".$size." ".$type."<br>";
-
             foreach ($output as $zenTotal) {
-                //print_r($zenTotal);
-                //echo "t:".$zenTotal."<br>";
-                //TODO: amount!
-                array_push($totals, ZMLoader::make("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['text'], $type));
+                $totals[] = ZMLoader::make("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
             }
         }
         return $totals;
