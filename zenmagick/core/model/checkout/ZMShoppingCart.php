@@ -370,7 +370,7 @@ class ZMShoppingCart extends ZMObject {
                 //TODO:?????
                 $zenTotals = new order_total();
             }
-            zm_resolve_zc_class('order');
+            ZMLoader::resolveZCClass('order');
             $GLOBALS['order'] = new order();
             $this->zenTotals_->process();
         }
