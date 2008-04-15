@@ -37,14 +37,14 @@
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-    $href = zm_href(FILENAME_PRODUCT_REVIEWS_INFO, $params, false);
+    $href = $_t->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params, false, false);
     $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating());
     $rimg = '<img src="'.$zm_theme->themeURL('images/stars_'.$review->getRating().'.gif', false).'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
-    <h3><a href="<?php zm_href(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h3>
+    <h3><a href="<?php $_t->net->url(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h3>
     <div id="sb_reviews" class="box">
-        <p><a href="<?php zm_product_href($review->getProductId()) ?>"><?php zm_image($review->getProductImageInfo()) ?></a></p>
-        <p id="rtext"><a href="<?php echo $href ?>"><?php zm_more($review->getText(), 60) ?></a></p>
+        <p><a href="<?php $_t->net->product($review->getProductId()) ?>"><?php $_t->html->image($review->getProductImageInfo()) ?></a></p>
+        <p id="rtext"><a href="<?php echo $href ?>"><?php $_t->html->more($review->getText(), 60) ?></a></p>
         <p><a href="<?php echo $href ?>"><?php echo $rimg ?></a></p>
     </div>
 <?php } ?>

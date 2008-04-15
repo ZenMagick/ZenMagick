@@ -27,7 +27,7 @@
 <?php if (false === strpos(ZMRequest::getPageName(), 'advanced_search')) { ?>
     <h3><?php zm_l10n("Quick Search") ?></h3>
     <div id="sb_search" class="box">
-        <?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', null, "get") ?>
+        <?php $_t->form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, array('method' => 'get')) ?>
             <div>
                 <input type="hidden" name="search_in_description" value="1" />
                 <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
@@ -36,6 +36,6 @@
                 <input type="text" id="keyword" name="keyword" value="<?php echo ZMRequest::getParameter('keyword', KEYWORD_DEFAULT) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>
-        <a class="clear" href="<?php zm_href(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
+        <a class="clear" href="<?php $_t->net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
     </div>
 <?php } ?>

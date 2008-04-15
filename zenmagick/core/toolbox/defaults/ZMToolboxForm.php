@@ -72,7 +72,7 @@ class ZMToolboxForm extends ZMObject {
         }
 
         // set action attr
-        if (null !== $page && null !== strpos($page, '://')) {
+        if (null !== $page && false !== strpos($page, '://')) {
             $attr['action'] = $page;
         } else {
             $attr['action'] = ZMToolbox::instance()->net->url($page, '', $secure, false);

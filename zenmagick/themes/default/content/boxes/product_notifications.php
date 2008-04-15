@@ -38,12 +38,12 @@
     <?php if (ZMRequest::isAnonymous() || !$isSubscribed) { ?>
         <h3><?php zm_l10n("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php zm_href(null, 'action=notify') ?>"><img src="<?php $zm_theme->themeURL("images/big_tick.gif") ?>" alt="<?php zm_l10n("Notify me of updates to this product") ?>" title="<?php zm_l10n("Notify me of updates to this product") ?>" /><br /><?php zm_l10n("Notify me of updates to <strong>%s</strong>", $zm_product->getName())?></a>
+            <a href="<?php $_t->net->url(null, 'action=notify') ?>"><img src="<?php $zm_theme->themeURL("images/big_tick.gif") ?>" alt="<?php zm_l10n("Notify me of updates to this product") ?>" title="<?php zm_l10n("Notify me of updates to this product") ?>" /><br /><?php zm_l10n("Notify me of updates to <strong>%s</strong>", $zm_product->getName())?></a>
         </div>
     <?php } else if ($isSubscribed) { ?>
         <h3><?php zm_l10n("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php zm_href(null, 'action=notify_remove') ?>"><img src="<?php $zm_theme->themeURL("images/big_remove.gif") ?>" alt="<?php zm_l10n("Remove product notification") ?>" title="<?php zm_l10n("Remove product notification") ?>" /><br /><?php zm_l10n("Do not notify me of updates to <strong>%s</strong>", $zm_product->getName())?></a>
+            <a href="<?php $_t->net->url(null, 'action=notify_remove') ?>"><img src="<?php $zm_theme->themeURL("images/big_remove.gif") ?>" alt="<?php zm_l10n("Remove product notification") ?>" title="<?php zm_l10n("Remove product notification") ?>" /><br /><?php zm_l10n("Do not notify me of updates to <strong>%s</strong>", $zm_product->getName())?></a>
         </div>
     <?php } else if ($isSubscribed) { ?>
     <?php } ?>

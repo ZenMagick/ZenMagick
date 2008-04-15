@@ -27,5 +27,5 @@
 <?php $tree = ZMCategories::instance()->getCategoryTree(); ?>
 <h3><?php zm_l10n("Categories") ?></h3>
 <div id="sb_categories" class="box">
-    <?php echo zm_build_category_tree_list($tree, true, ZMSettings::get('isUseCategoryPage')) ?>
+    <?php echo $_t->macro->categoryTree($tree, true, ZMSettings::get('isUseCategoryPage')) ?>
 </div>

@@ -28,10 +28,10 @@
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>
-    <h3><a href="<?php zm_href(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Featured") ?></h3>
+    <h3><a href="<?php $_t->net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Featured") ?></h3>
     <div id="sb_featured" class="box">
-        <p><?php zm_product_image_link($product) ?></p>
-        <p><a href="<?php zm_product_href($product->getId()) ?>"><?php zm_htmlencode($product->getName()) ?></a></p>
+        <p><?php $_t->html->productImageLink($product) ?></p>
+        <p><a href="<?php $_t->net->product($product->getId()) ?>"><?php $_t->html->encode($product->getName()) ?></a></p>
         <?php $offers = $product->getOffers(); ?>
         <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
     </div>

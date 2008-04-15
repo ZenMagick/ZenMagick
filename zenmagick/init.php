@@ -141,6 +141,9 @@
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
     }
 
+    // manually set toolbox for admin
+    if (ZMSettings::get('isAdmin')) { $_t = ZMToolbox::instance(); }
+
     // always echo in admin
     if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
     // this is used as default value for the $echo parameter for HTML functions

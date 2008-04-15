@@ -26,8 +26,8 @@
 
 <h3><?php zm_l10n("Legalese") ?></h3>
 <div id="sb_information" class="box">
-    <a href="<?php zm_static_href("shippinginfo") ?>"><?php zm_l10n("Shipping &amp; Returns") ?></a>
-    <a href="<?php zm_static_href("privacy") ?>"><?php zm_l10n("Our Privacy Policy") ?></a>
-    <a href="<?php zm_static_href("conditions") ?>"><?php zm_l10n("Conditions") ?></a>
-    <a href="<?php zm_href(FILENAME_CONTACT_US) ?>"><?php zm_l10n("Contact Us") ?></a>
+    <a href="<?php $_t->net->staticPage("shippinginfo") ?>"><?php zm_l10n("Shipping &amp; Returns") ?></a>
+    <a href="<?php $_t->net->staticPage("privacy") ?>"><?php zm_l10n("Our Privacy Policy") ?></a>
+    <a href="<?php $_t->net->staticPage("conditions") ?>"><?php zm_l10n("Conditions") ?></a>
+    <a href="<?php $_t->net->url(FILENAME_CONTACT_US) ?>"><?php zm_l10n("Contact Us") ?></a>
 </div>

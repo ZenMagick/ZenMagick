@@ -27,12 +27,12 @@
 <div id="footer">
     <p id="fpages">
         <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
-            <?php zm_ezpage_link($page->getId()) ?>
+            <?php $_t->html->ezpageLink($page->getId()) ?>
         <?php } ?>
     </p>
 
     <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(5); if (null != $bannerBox) { ?>
-        <div id="bannerFive"><?php zm_display_banner($bannerBox); ?></div>
+        <div id="bannerFive"><?php $_t->macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>

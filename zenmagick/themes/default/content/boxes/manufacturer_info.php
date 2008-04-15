@@ -33,29 +33,29 @@
             <div id="sb_manufacturer_info" class="box">
                 <?php 
                 if ($manufacturer->hasImage()) {
-                    $url = zm_href(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false);
+                    $url = $_t->net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     if (!zm_is_empty($manufacturer->getURL())) {
-                        $url = zm_redirect_href('manufacturer', $manufacturer->getId(), false);
+                        $url = $_t->net->redirect('manufacturer', $manufacturer->getId(), false);
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
-                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_image($manufacturer->getImageInfo()) ?></a><?php
+                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php $_t->html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!zm_is_empty($manufacturer->getURL())) {
-                        $url = zm_href(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false);
+                        $url = $_t->net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } else {
-                    $url = zm_href(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false);
+                    $url = $_t->net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     $text = zm_l10n_get("Other Products");
                     if (!zm_is_empty($manufacturer->getURL())) {
-                        $url = zm_redirect_href('manufacturer', $manufacturer->getId(), false);
+                        $url = $_t->net->redirect('manufacturer', $manufacturer->getId(), false);
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                         $text = zm_l10n_get("Manufacturer Homepage");
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
                     if (!zm_is_empty($manufacturer->getURL())) {
-                        $url = zm_href(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false);
+                        $url = $_t->net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } ?>

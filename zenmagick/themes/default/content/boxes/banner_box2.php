@@ -28,6 +28,6 @@
 <?php if (null != $bannerBox2) { ?>
     <h3><?php zm_l10n("Have you seen ...") ?></h3>
     <div id="sb_banner_box2" class="box">
-        <?php zm_display_banner($bannerBox2); ?>
+        <?php $_t->macro->showBanner($bannerBox2); ?>
     </div>
 <?php } ?>
