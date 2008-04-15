@@ -189,6 +189,33 @@ class ZMLayout extends ZMObject {
         return $this->tableMeta[$table][strtoupper($field)]->max_length;
     }
 
+    /**
+     * Find the product template for a given product.
+     *
+     * @param int productId The product id.
+     * @return string The template name to be used to display product details.
+     */
+    public function getProductTemplate($productId) {
+        // default
+        $template = 'product';
+
+        $db = ZMRuntime::getDB();
+        $sql = "SELECT products_type FROM " . TABLE_PRODUCTS . " WHERE products_id = :productId";
+        $sql = $db->bindVars($sql, ':productId', $productId, 'integer');
+        $results = $db->Execute($sql);
+        if (0 < $results->RecordCount()) {
+            $type = $results->fields['products_type'];
+            $sql = "SELECT type_handler FROM " . TABLE_PRODUCT_TYPES . " WHERE type_id = :type";
+            $sql = $db->bindVars($sql, ':type', $type, 'integer');
+            $results = $db->Execute($sql);
+            if (0 < $results->RecordCount()) {
+                $template = $results->fields['type_handler'];
+            }
+        }
+
+        return $template . '_info';
+    }
+
 }
 
 ?>

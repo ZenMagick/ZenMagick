@@ -692,6 +692,28 @@ class ZMProducts extends ZMObject {
         return $productIds;
     }
 
+    /**
+     * Check if a certain quantity of a given product is available.
+     *
+     * @param int productId The product id.
+     * @param int quantity The desired quantity.
+     * @return boolean <code>true</code> if the requested quantity is available, <code>false</code> if not.
+     */
+    function isQuantityAvailable($productId, $quantity) {
+        $db = ZMRuntime::getDB();
+        $sql = "SELECT products_quantity
+                from " . TABLE_PRODUCTS . "
+                where products_id = :productId";
+        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
+        $results = $db->Execute($sql);
+
+        $available = 0;
+        if (0 < $results->RecordCount()) {
+            $available = (int)$results->fields['products_quantity'];
+        }
+
+        return 0 <= ($available - $quantity);
+    }
 
     /**
      * Execute the given SQL and return the resulting product.

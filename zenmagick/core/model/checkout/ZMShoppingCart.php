@@ -114,9 +114,8 @@ class ZMShoppingCart extends ZMObject {
      *  <code>false</code> if not.
      */
     function hasOutOfStockItems() {
-        $zenItems = $this->cart_->get_products();
-        foreach ($zenItems as $zenItem) {
-            if (zen_check_stock($zenItem['id'], $zenItem['quantity'])) {
+        foreach ($this->getItems() as $item) {
+            if (!$item->isStockAvailable()) {
                 return true;
             }
         }
@@ -147,7 +146,7 @@ class ZMShoppingCart extends ZMObject {
             $zenItems = $this->cart_->get_products();
             foreach ($zenItems as $zenItem) {
                 $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
-                array_push($items, $item);
+                $items[] = $item;
             }
         }
         return $items;
