@@ -156,6 +156,7 @@ Release 0.9.1
   supported by the toolbox
 - add ZMLayout::getProductTemplate() and ZMProducts::isQuantityAvailable() and
   use
+- moved zm_media_href into the zm_music_product_info plugin
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

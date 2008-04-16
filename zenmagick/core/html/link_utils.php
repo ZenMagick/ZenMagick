@@ -179,24 +179,6 @@
         return ZMToolbox::instance()->net->absolute($href, $echo);
     }
 
-
-    /**
-     * Media href.
-     *
-     * @package org.zenmagick.html
-     * @param string filename The media filename.
-     * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
-     * @return A URL.
-     * @deprecated use the new toolbox instead!
-     */
-    function zm_media_href($filename, $echo=ZM_ECHO_DEFAULT) {
-      //TODO:
-        $href = DIR_WS_MEDIA.$filename;
-
-        if ($echo) echo $href;
-        return $href;
-    }
-
     /**
      * Convenience function.
      *
