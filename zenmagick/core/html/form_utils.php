@@ -107,18 +107,20 @@
     }
 
 
-    // do/do not echo code for a selected radio button
+    /**
+     * do/do not echo code for a selected radio button
+     * @deprecated use the new toolbox instead!
+     */
     function zm_radio_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && empty($value))) {
-            echo ' checked="checked"';
-        }
+        ZMToolbox::instance()->form->radioState($setting, $value, $default);
     }
 
-    // do/do not echo code for a selected checkbox
+    /**
+     * do/do not echo code for a selected checkbox
+     * @deprecated use the new toolbox instead!
+     */
     function zm_checkbox_state($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && empty($value))) {
-            echo ' checked="checked"';
-        }
+        ZMToolbox::instance()->form-checkboxState($setting, $value, $default);
     }
 
 

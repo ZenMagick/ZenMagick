@@ -192,6 +192,32 @@ class ZMToolboxForm extends ZMObject {
         return $html;
     }
 
+    /**
+     * Makes a radio button checked.
+     *
+     * @param mixed setting The actual value.
+     * @param mixed value The value for this radio button; default is <code>true</code>.
+     * @param boolean default The default state; default is <code>false</code>.
+     */
+    public function radioState($setting, $value=true, $default=false) {
+        if ($setting == $value || ($default && empty($value))) {
+            echo ' checked="checked"';
+        }
+    }
+
+    /**
+     * Makes a checkbox checked.
+     *
+     * @param mixed setting The actual value.
+     * @param mixed value The value for this radio button; default is <code>true</code>.
+     * @param boolean default The default state; default is <code>false</code>.
+     */
+    public function checkboxState($setting, $value=true, $default=false) {
+        if ($setting == $value || ($default && empty($value))) {
+            echo ' checked="checked"';
+        }
+    }
+
 }
 
 ?>
