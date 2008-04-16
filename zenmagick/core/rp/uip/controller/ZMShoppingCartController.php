@@ -60,6 +60,14 @@ class ZMShoppingCartController extends ZMController {
         $shoppingCart = ZMRequest::getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);
 
+        if (ZMSettings::get('isEnableStock') && $shoppingCart->hasOutOfStockItems()) {
+            if (ZMSettings::get('isAllowLowStockCheckout')) {
+                ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
+            } else {
+                ZMMessages::instance()->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
+            }
+        }
+
         return $this->findView($shoppingCart->isEmpty() ? 'empty_cart' : 'shopping_cart');
     }
 

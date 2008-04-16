@@ -158,6 +158,7 @@ Release 0.9.1
   use
 - moved zm_media_href into the zm_music_product_info plugin
 - moved zm_list_values into zm_product_features plugin
+- add out of stock warning/error for shopping cart; f:#1937570
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
