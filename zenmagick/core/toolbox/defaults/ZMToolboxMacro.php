@@ -305,6 +305,269 @@ class ZMToolboxMacro extends ZMObject {
     }
 
 
+    /**
+     * Generate HTML for product attributes.
+     *
+     * <p>Usage sample:</p>
+     *
+     * <code><pre>
+     *  &lt;?php $attributes = $macro->productAttributes($zm_product); ?&gt;
+     *  &lt;?php foreach ($attributes as $attribute) { ?&gt;
+     *  &nbsp;&nbsp;  &lt;?php foreach ($attribute['html'] as $option) { ?&gt;
+     *  &nbsp;&nbsp;&nbsp;&nbsp;    &lt;p&gt;&lt;?php echo $option ?&gt;&lt;/p&gt;
+     *  &nbsp;&nbsp;  &lt;?php } ?&gt;
+     *  &lt;?php } ?&gt;
+     * </pre></code>
+     *
+     * @param ZMProduct product A <code>ZMProduct</code> instance.
+     * @return array An array containing HTML formatted attributes.
+     */
+    public function productAttributes($product) {
+        $elements = array();
+        $attributes = $product->getAttributes();
+        $uploadIndex = 1;
+        foreach ($attributes as $attribute) {
+            switch ($attribute->getType()) {
+                case PRODUCTS_OPTIONS_TYPE_RADIO:
+                    $elements[] = $this->productRadioAttribute($product, $attribute);
+                    break;
+                case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
+                    $elements[] = $this->productCheckboxAttribute($product, $attribute);
+                    break;
+                case PRODUCTS_OPTIONS_TYPE_READONLY:
+                    $elements[] = $this->productReadonlyAttribute($attribute);
+                    break;
+                case PRODUCTS_OPTIONS_TYPE_TEXT:
+                    $elements[] = $this->productTextAttribute($product, $attribute);
+                    break;
+                case PRODUCTS_OPTIONS_TYPE_FILE:
+                    $elements[] = $this->productUploadAttribute($product, $attribute, $uploadIndex);
+                    ++$uploadIndex;
+                    break;
+                case PRODUCTS_OPTIONS_TYPE_SELECT:
+                    $elements[] = $this->productSelectAttribute($product, $attribute);
+                    break;
+                default:
+                    ZMObject::backtrace('Unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
+            }
+        }
+
+        return $elements;
+    }
+
+    /**
+     * Generate HTML for a <em>RADIO</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productRadioAttribute($product, $attribute) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'radio';
+        $elements = array();
+        $index = 1;
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        foreach ($attribute->getValues() as $value) {
+            $id = 'id_'.$attribute->getId().'_'.$index++;
+            $name = 'id['.$attribute->getId().']';
+            $checked = $value->isDefault() ? ' checked="checked"' : '';
+            $radio = '<input type="radio" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
+            $radio .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
+            array_push($elements, $radio);
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Generate HTML for a <em>CHECKBOX</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productCheckboxAttribute($product, $attribute) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'checkbox';
+        $elements = array();
+        $index = 1;
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        foreach ($attribute->getValues() as $value) {
+            $id = 'id_'.$attribute->getId().'_'.$index++;
+            $name = 'id['.$attribute->getId().']['.$value->getId().']';
+            $checked = $value->isDefault() ? ' checked="checked"' : '';
+            $checkbox = '<input type="checkbox" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
+            $checkbox .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
+            array_push($elements, $checkbox);
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Generate HTML for a <em>TEXT</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productTextAttribute($product, $attribute) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'text';
+        $elements = array();
+        $index = 1;
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        foreach ($attribute->getValues() as $value) {
+            $id = 'id_'.$attribute->getId().'_'.$index++;
+            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
+            $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
+            $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
+            array_push($elements, $text);
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Generate HTML for a <em>FILE</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productUploadAttribute($product, $attribute, $uploadIndex) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'upload';
+        $elements = array();
+        $index = 1;
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        foreach ($attribute->getValues() as $value) {
+            $id = 'id_'.$attribute->getId().'_'.$index;
+            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
+            $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
+            $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
+            $text .= '<input type="hidden" name="'.ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"'.$slash.'>';
+            $text .= '<input type="hidden" name="'.ZMSettings::get('textOptionPrefix').ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value=""'.$slash.'>';
+            array_push($elements, $text);
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Generate HTML for a <em>READONLY</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productReadonlyAttribute($attribute) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'feature';
+        $elements = array();
+        foreach ($attribute->getValues() as $value) {
+            array_push($elements, $value->getName());
+        }
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Generate HTML for a <em>SELECT</em> attribute.
+     *
+     * @param ZMProduct product The product.
+     * @param ZMAttribute attribute The attribute.
+     * @return array Attribute info plus HTML to render this attribute.
+     */
+    protected function productSelectAttribute($product, $attribute) {
+        $element = array();
+        $element['id'] = $attribute->getId();
+        $element['name'] = $attribute->getName();
+        $element['type'] = 'select';
+        $elements = array();
+        $html = '<select name="id['.$attribute->getId().']">';
+        foreach ($attribute->getValues() as $value) {
+            $selected = $value->isDefault() ? ' selected="selected"' : '';
+            $html .= '<option value="'.$value->getId().'"'.$selected.'>'.$this->buildAttributeValueLabel($product, $value, false).'</option>';
+        }
+        $html .= '</select>';
+        array_push($elements, $html);
+        $element['html'] = $elements;
+        return $element;
+    }
+
+    /**
+     * Format an attribute value label.
+     * 
+     * @param ZMProduct product The product.
+     * @param ZMAttributeValue value The attribute value.
+     * @param boolean enableImage Optional flag to enable/disable images; default is <code>true</code>.
+     * @return string A fully HTML formatted attribute value label.
+     */
+    protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        $label = '';
+        if ($value->hasImage() && $enableImage) {
+            $label = '<img src="' . zm_image_uri($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+        }
+        $label .= zm_l10n_get($value->getName());
+
+        if ($value->isFree() && $product->isFree()) {
+            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), true, false));
+        } else if (0 != $value->getPrice()) {
+            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency(abs($value->getPrice()), true, false));
+        }
+        //TODO: onetime and weight
+
+        return $label;
+    }
+
+    /**
+     * Format the product price incl. offer, special and other stuff.
+     *
+     * @param ZMProduct product The product.
+     * @param boolean echo If <code>true</code>, the formatted price HTML will be echo'ed as well as returned.
+     * @return string The fully HTML formatted price.
+     */
+    public function productPrice($product, $echo=ZM_ECHO_DEFAULT) {
+      $offers = $product->getOffers();
+
+      $html = '<span class="price">';
+      if ($offers->isAttributePrice()) {
+          $html .= zm_l10n_get("Starting at: ");
+      }
+      if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
+          $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), true, false) . '</span> ';
+          if ($offers->isSpecial())  {
+              if ($offers->isSale()) {
+                 $html .= '<span class="strike special">' . zm_format_currency($offers->getSpecialPrice(), true, false) . '</span>';
+              } else {
+                 $html .= zm_format_currency($offers->getSpecialPrice(), true, false);
+              }
+          }
+          if ($offers->isSale()) {
+             $html .= zm_format_currency($offers->getSalePrice(), true, false);
+          }
+      } else {
+          $html .= zm_format_currency($offers->getCalculatedPrice(), true, false);
+      }
+      $html .= '</span>';
+
+      if ($echo) echo $html;
+      return $html;
+    }
+
 }
 
 ?>
