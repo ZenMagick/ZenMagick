@@ -15,6 +15,8 @@ In order to use this plugin you will have to modify your product_info view.
 Please note that some of the changes can be avoided (hiding the regular qty field) if using a custom
 product type for all products that should be treated this way.
 
+NOTE: The attribute used must not be of type TEXT or UPLOAD!
+
 
 Show multiple quantity fields for all available values of a single attribute
 ----------------------------------------------------------------------------

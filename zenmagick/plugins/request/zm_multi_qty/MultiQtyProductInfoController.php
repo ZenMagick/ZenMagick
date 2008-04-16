@@ -34,13 +34,6 @@
 class MultiQtyProductInfoController extends ZMController {
 
     /**
-     * TODO: remove
-     */
-    function MultiQtyProductInfoController() {
-        $this->__construct();
-    }
-
-    /**
      * Create new instance.
      */
     function __construct() {
@@ -62,13 +55,11 @@ class MultiQtyProductInfoController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-    global $zm_request, $zm_cart, $zm_messages;
-
-        $productId = $zm_request->getProductId();
+        $productId = ZMRequest::getProductId();
         // prepare attributes
-        $multiQtyId = $zm_request->getParameter(MULTI_QUANTITY_ID);
+        $multiQtyId = ZMRequest::getParameter(MULTI_QUANTITY_ID);
         // id is the shared form field for all attributes
-        $attributes = $zm_request->getParameter('id');
+        $attributes = ZMRequest::getParameter('id');
         $multiQty = $attributes[$multiQtyId];
         unset($attributes[$multiQtyId]);
 
@@ -78,12 +69,12 @@ class MultiQtyProductInfoController extends ZMController {
             if (!empty($qty) && 0 < $qty) {
                 $addedSome = true;
                 $attributes[$multiQtyId] = $id;
-                $zm_cart->addProduct($productId, $qty, $attributes);
+                ZMRequest::getShoppingCart()->addProduct($productId, $qty, $attributes);
             }
         }
 
         if (!$addedSome) {
-            $zm_messages->error(zm_l10n_get('Quantity missing - no product(s) added'));
+            ZMMessages::error(zm_l10n_get('Quantity missing - no product(s) added'));
         }
 
         return $this->findView('success');

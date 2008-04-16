@@ -37,13 +37,6 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
 class zm_multi_qty extends ZMPlugin {
 
     /**
-     * TODO: remove
-     */
-    function zm_multi_qty() {
-        $this->__construct();
-    }
-
-    /**
      * Create new instance.
      */
     function __construct() {
@@ -69,8 +62,8 @@ class zm_multi_qty extends ZMPlugin {
         $this->zcoSubscribe();
 
         // make sure this exists...
-        if (null === zm_setting('isShowCartAfterAddProduct')) {
-            zm_set_setting('isShowCartAfterAddProduct', true);
+        if (null === ZMSettings::get('isShowCartAfterAddProduct')) {
+            ZMSettings::set('isShowCartAfterAddProduct', true);
         }
     }
 
@@ -78,19 +71,17 @@ class zm_multi_qty extends ZMPlugin {
      * Stop zen-cart processing multi qty requests.
      */
     function onZMInitDone($args) {
-    global $zm_request, $zm_urlMapper;
-
-        if (null != $zm_request->getParameter(MULTI_QUANTITY_ID)) {
+        if (null != ZMRequest::getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi qty add, so leave it to the custom controller to do so
             unset($_GET['action']);
             // tweak the main_page parameter to use our custom controller
-            $zm_request->setParameter('main_page', 'multi_qty_product_info');
+            ZMRequest::setParameter('main_page', 'multi_qty_product_info');
 
             // add url mappings
-            if (zm_setting('isShowCartAfterAddProduct')) {
-                $zm_urlMapper->setMapping('multi_qty_product_info', 'success', 'shopping_cart', 'RedirectView', 'secure=true');
+            if (ZMSettings::get('isShowCartAfterAddProduct')) {
+                ZMUrlMapper::instance()->setMapping('multi_qty_product_info', 'success', 'shopping_cart', 'RedirectView', 'secure=true');
             } else {
-                $zm_urlMapper->setMapping('multi_qty_product_info', 'success', 'product_info', 'RedirectView', 'parameter=products_id='.$zm_request->getProductId());
+                ZMUrlMapper::instance()->setMapping('multi_qty_product_info', 'success', 'product_info', 'RedirectView', 'parameter=products_id='.ZMRequest::getProductId());
             }
         }
     }
