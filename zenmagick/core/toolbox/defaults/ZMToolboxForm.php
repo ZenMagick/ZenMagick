@@ -193,29 +193,83 @@ class ZMToolboxForm extends ZMObject {
     }
 
     /**
-     * Makes a radio button checked.
+     * Makes a checkbox or radio button checked.
      *
      * @param mixed setting The actual value.
      * @param mixed value The value for this radio button; default is <code>true</code>.
      * @param boolean default The default state; default is <code>false</code>.
      */
-    public function radioState($setting, $value=true, $default=false) {
+    public function checked($setting, $value=true, $default=false) {
         if ($setting == $value || ($default && empty($value))) {
-            echo ' checked="checked"';
+            echo ZMSettings::get('isXHTML') ? ' checked="checked"' : ' checked';
         }
     }
 
     /**
-     * Makes a checkbox checked.
+     * Create a id/name pair based select box.
      *
-     * @param mixed setting The actual value.
-     * @param mixed value The value for this radio button; default is <code>true</code>.
-     * @param boolean default The default state; default is <code>false</code>.
+     * <p>Helper function that can create a HTML <code>&lt;select&gt;</code> tag from 
+     * any array that contains class instances that provide <code>getId()</code> and
+     * <code>getName()</code> getter methods.</p>
+     *
+     * <p>Default attributes are:</p>
+     * <ul>
+     *  <li>id - <em>$name</em></li>
+     *  <li>name - <em>$name</em></li>
+     *  <li>size - <em>1</em></li>
+     * </ul>
+     *
+     * @param string name The name.
+     * @param array list A list of options.
+     * @param array attr Optional HTML attribute map; default is <code>null</code>.
+     * @param string selectedId Value of option to select; default is <code>null</code>.
+     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
+     * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
-    public function checkboxState($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && empty($value))) {
-            echo ' checked="checked"';
+    public function idpSelect($name, $list, $attr=array(), $selectedId=null, $echo=ZM_ECHO_DEFAULT) {
+        $defaults = array('id' => $name, 'name' => $name, 'size' => 1);
+        if (null === $attr) {
+            $attr = $defaults;
+        } else {
+            $attr = array_merge($defaults, $attr);
         }
+
+        $html = '<select';
+        foreach ($attr as $name => $value) {
+            if (null !== $value) {
+                $html .= ' '.$name.'="'.$value.'"';
+            }
+        }
+        $html .= '>';
+        foreach ($list as $item) {
+            $selected = $item->getId() == $selectedId;
+            $html .= '<option value="' . $item->getId() . '"';
+            $html .= ($selected ? ' selected="selected"' : '');
+            $html .= '>' . $item->getName() . '</option>';
+        }
+        $html .= '</select>';
+
+        if ($echo) echo $html;
+        return $html;
+    }
+
+    /**
+     * Create a group of hidden form fields with a common name (ie. <code>someId[]</code>).
+     *
+     * @param string name The common name.
+     * @param array values List of values.
+     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
+     * @return string HTML formatted input fields of type <em>hidden</em>.
+     */
+    public function hiddenList($name, $values, $echo=ZM_ECHO_DEFAULT) {
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        $html = '';
+        foreach ($values as $value) {
+            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
+        }
+
+        if ($echo) echo $html;
+        return $html;
     }
 
 }

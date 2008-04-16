@@ -254,6 +254,27 @@ class ZMToolboxHtml extends ZMObject {
         return $html;
     }
 
+    /**
+     * Get optional onload handler attribute for the current page.
+     *
+     * <p>The generated HTML is in the form <code> onload="SOME JAVASCRIPT"</code>.</p>
+     *
+     * @param string page The page name; default is <code>null<code> for the current page.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A complete onload attribute incl. value or an empty string.
+     */
+    public function onload($page=null, $echo=ZM_ECHO_DEFAULT) {
+        $page = null == $page ? ZMRequest::getPageName() : $page;
+
+        $onload = '';
+        $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
+        if ($themeInfo->hasPageEventHandler('onload', $page)) {
+            $onload = ' onload="' . $themeInfo->getPageEventHandler('onload', $page) . '"';
+        }
+
+        if ($echo) echo $onload;
+        return $onload;
+    }
 
 }
 

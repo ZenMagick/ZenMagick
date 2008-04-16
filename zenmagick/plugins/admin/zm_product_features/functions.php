@@ -40,4 +40,26 @@
         return new ZMPluginPage('zm_product_features_admin', zm_l10n_get('Features'));
     }
 
+    /**
+     * Create a list of values separated by the given separator string.
+     *
+     * @package org.zenmagick.plugins.zm_product_features
+     * @param array list Array of values.
+     * @param string sep Separator string; default: ', '.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A list of values.
+     */
+    function zm_list_values($list, $sep=', ', $echo=ZM_ECHO_DEFAULT) {
+        $first = true;
+        $html = '';
+        foreach ($list as $value) {
+            if (!$first) $html .= $sep;
+            $first = false;
+            $html .= $value;
+        }
+
+        if ($echo) echo $html;
+        return $html;
+    }
+
 ?>

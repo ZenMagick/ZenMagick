@@ -43,20 +43,7 @@
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=ZM_ECHO_DEFAULT) {
-        $html = '';
-        $html .= '<select id="' . $name . '" name="' . $name . '" size="' . $size . '"';
-        $html .= (null != $onchange ? ' onchange="' . $onchange . '"' : '');
-        $html .= '>';
-        foreach ($list as $item) {
-            $selected = $item->getId() == $selectedId;
-            $html .= '<option value="' . $item->getId() . '"';
-            $html .= ($selected ? ' selected="selected"' : '');
-            $html .= '>' . $item->getName() . '</option>';
-        }
-        $html .= '</select>';
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->form->idpSelect($name, $list, array('size' => $size, 'onchange' => $onchange), $selectedId, $echo);
     }
 
     /**
@@ -65,20 +52,10 @@
      * @package org.zenmagick.html.defaults
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
+     * @deprecated use toolbox instead
      */
     function zm_title($echo=ZM_ECHO_DEFAULT) {
-        $title = ZMRequest::getPageName();
-        // special case for static pages
-        $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
-
-        // format
-        $title = str_replace('_', ' ', $title);
-        // capitalise words
-        $title = ucwords($title);
-        $title = zm_l10n_get($title);
-
-        if ($echo) echo $title;
-        return $title;
+        return ZMToolbox::instance()->utils->getTitle(null, $echo);
     }
 
     /**
@@ -107,40 +84,10 @@
      * @param string page The page name or <code>null<code> for the current page.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
+     * @deprecated use toolbox instead
      */
     function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
-        $page = null == $page ? ZMRequest::getPageName() : $page;
-
-        $onload = '';
-        $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
-        if ($themeInfo->hasPageEventHandler('onload', $page)) {
-            $onload = ' onload="' . $themeInfo->getPageEventHandler('onload', $page) . '"';
-        }
-
-        if ($echo) echo $onload;
-        return $onload;
-    }
-
-    /**
-     * Create a list of values separated by the given separator string.
-     *
-     * @package org.zenmagick.html.defaults
-     * @param array list Array of values.
-     * @param string sep Separator string; default: ', '.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string A list of values.
-     */
-    function zm_list_values($list, $sep=', ', $echo=ZM_ECHO_DEFAULT) {
-        $first = true;
-        $html = '';
-        foreach ($list as $value) {
-            if (!$first) $html .= $sep;
-            $first = false;
-            $html .= $value;
-        }
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->html->onload($page, $echo);
     }
 
     /**
@@ -151,16 +98,10 @@
      * @param array values List of values.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML formatted input fields of type <em>hidden</em>.
+     * @deprecated use toolbox instead
      */
     function zm_hidden_list($name, $values, $echo=ZM_ECHO_DEFAULT) {
-        $slash = ZMSettings::get('isXHTML') ? '/' : '';
-        $html = '';
-        foreach ($values as $value) {
-            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
-        }
-
-        if ($echo) echo $html;
-        return $html;
+        return ZMToolbox::instance()->form->hiddenList($name, $values, $echo);
     }
 
     /**

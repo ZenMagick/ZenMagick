@@ -112,7 +112,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_radio_state($setting, $value=true, $default=false) {
-        ZMToolbox::instance()->form->radioState($setting, $value, $default);
+        ZMToolbox::instance()->form->checked($setting, $value, $default);
     }
 
     /**
@@ -120,7 +120,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_checkbox_state($setting, $value=true, $default=false) {
-        ZMToolbox::instance()->form-checkboxState($setting, $value, $default);
+        ZMToolbox::instance()->form->checked($setting, $value, $default);
     }
 
 

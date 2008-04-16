@@ -52,6 +52,11 @@ class ZMToolbox extends ZMModel {
      * @return ZMToolboxMacro
      */
     public $macro;
+    /** 
+     * @var ZMToolboxUtils
+     * @return ZMToolboxUtils
+     */
+    public $utils;
 
 
     /**
@@ -65,6 +70,7 @@ class ZMToolbox extends ZMModel {
         $this->form = ZMLoader::make('ToolboxForm');
         $this->net = ZMLoader::make('ToolboxNet');
         $this->macro = ZMLoader::make('ToolboxMacro');
+        $this->utils = ZMLoader::make('ToolboxUtils');
     }
 
     /**
@@ -88,7 +94,7 @@ class ZMToolbox extends ZMModel {
      * @return array A map of all available tools.
      */
     public function getTools() {
-        return array_merge(array('html' => $this->html, 'form' => $this->form, 'net' => $this->net, 'macro' => $this->macro), $this->properties_);
+        return array_merge(array('html' => $this->html, 'form' => $this->form, 'net' => $this->net, 'macro' => $this->macro, 'utils' => $this->utils), $this->properties_);
     }
 
 }
