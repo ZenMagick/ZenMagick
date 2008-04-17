@@ -115,6 +115,7 @@ class ZMReviews extends ZMObject {
         if (null != $productId) {
             $query .= $db->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
         }
+        $query .= " order by date_added DESC";
 
         $reviews = array();
         while ($max > count($reviews)) {
@@ -188,7 +189,8 @@ class ZMReviews extends ZMObject {
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
                 and r.status = '1'
-                and p.products_id = :productId";
+                and p.products_id = :productId
+                order by date_added DESC";
         $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
         $query = $db->bindVars($query, ":productId", $productId, 'integer');
 
@@ -225,7 +227,8 @@ class ZMReviews extends ZMObject {
                 and rd.languages_id = :languageId
                 and p.products_id = pd.products_id
                 and pd.language_id = :languageId
-                and r.status = '1'";
+                and r.status = '1'
+                order by date_added DESC";
         $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
 
         $reviews = array();
