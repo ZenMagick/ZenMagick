@@ -32,7 +32,7 @@
             <a href="javascript:popupWindow('<?php zm_href(FILENAME_POPUP_SEARCH_HELP, false) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="askeyword" name="keyword" value="<?php echo $zm_search->getKeyword(KEYWORD_DEFAULT) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="askeyword" name="keyword" value="<?php $_t->html->encode($zm_search->getKeyword(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             <?php $checked = $zm_search->getIncludeDescription() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="search_in_description" name="search_in_description" value="1" <?php echo $checked?>/>
             <label class="checkboxLabel" for="search_in_description"><?php zm_l10n("Search in product descriptions"); ?></label>
@@ -58,16 +58,16 @@
 
         <fieldset>
             <legend><?php zm_l10n("Price Range"); ?></legend>
-            <input type="text" id="pfrom" name="pfrom" value="<?php echo $zm_search->getPriceFrom() ?>" />
-            <input type="text" id="pto" name="pto" value="<?php echo $zm_search->getPriceTo() ?>" />
+            <input type="text" id="pfrom" name="pfrom" value="<?php $_t->html->encode($zm_search->getPriceFrom()) ?>" />
+            <input type="text" id="pto" name="pto" value="<?php $_t->html->encode($zm_search->getPriceTo()) ?>" />
         </fieldset> 
 
         <fieldset> 
             <legend><?php zm_l10n("Date"); ?></legend>
             <?php /* UI_DATE_FORMAT is defined in the theme's i18n.php setup */ ?>
             <?php $onfocus = "if(this.value=='" . UI_DATE_FORMAT . "') this.value='';" ?>
-            <input type="text" id="dfrom" name="dfrom" value="<?php echo $zm_search->getDateFrom(UI_DATE_FORMAT) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dto" name="dto" value="<?php echo $zm_search->getDateTo(UI_DATE_FORMAT) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dfrom" name="dfrom" value="<?php $_t->html->encode($zm_search->getDateFrom(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dto" name="dto" value="<?php $_t->html->encode($zm_search->getDateTo(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </fieldset> 
     </fieldset> 
 

@@ -33,7 +33,7 @@
       <legend><?php zm_l10n("Coupon details") ?></legend>
       <div>
         <label for="couponCode"><?php zm_l10n("Coupon Code") ?></label>
-        <input type="text" id="couponCode" name="couponCode" value="<?php echo $zm_gvredeem->getCode() ?>" /> 
+        <input type="text" id="couponCode" name="couponCode" value="<?php $_t->html->encode($zm_gvredeem->getCode()) ?>" /> 
       </div>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>

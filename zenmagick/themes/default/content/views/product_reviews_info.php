@@ -29,7 +29,7 @@
     <div id="pinfo">
       <?php $imageInfo = $zm_product->getImageInfo() ?>
       <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image_link($zm_product) ?></a>
-      <?php echo $zm_product->getDescription(); ?>
+      <?php $_t->html->encode($zm_product->getDescription()); ?>
     </div>
     <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
@@ -39,11 +39,11 @@
       <?php $rtext = zm_l10n_get("%s of 5 stars!", $zm_review->getRating()) ?>
       <span id="stars">
         <img src="<?php $zm_theme->themeURL('images/stars_'.$zm_review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
-        <?php echo $rtext ?>
+        <?php $rtext ?>
       </span>
     </p>
     <div id="rlongtext">
-        <?php echo $zm_review->getText() ?>
+        <?php $_t->html->encode($zm_review->getText()) ?>
     </div>
   </div>
 </form>

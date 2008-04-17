@@ -25,7 +25,7 @@
 ?>
 
 <?php $manufacturer = $zm_product->getManufacturer() ?>
-<h2><?php echo null != $manufacturer ? $manufacturer->getName() : '' ?> <?php echo $zm_product->getName(); ?></h2>
+<h2><?php $_t->html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php $_t->html->encode($zm_product->getName()) ?></h2>
 
 <?php zm_add_product_form($zm_product->getId()) ?>
   <?php $imageInfo = $zm_product->getImageInfo() ?>
@@ -35,7 +35,7 @@
       <?php } else { ?>
           <?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?>
       <?php } ?>
-      <div id="desc"><?php echo $zm_product->getDescription() ?></div>
+      <div id="desc"><?php $_t->html->encode($zm_product->getDescription()) ?></div>
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php zm_htmlencode($manufacturer->getName()); ?><br />
       <?php } ?>
@@ -45,7 +45,7 @@
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
-          <legend><?php echo $attribute['name'] ?></legend>
+          <legend><?php $_t->html->encode($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>

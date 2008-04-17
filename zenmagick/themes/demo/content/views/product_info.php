@@ -28,7 +28,7 @@
 <script type="text/javascript" src="<?php $zm_theme->themeURL("lightbox/lightbox.js") ?>"></script>
 
 <?php $manufacturer = $zm_product->getManufacturer() ?>
-<h2><?php echo null != $manufacturer ? $manufacturer->getName() : '' ?> <?php echo $zm_product->getName(); ?></h2>
+<h2><?php $_t->html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php $_t->html->encode($zm_product->getName()) ?></h2>
 
 <?php $_t->form->addProduct($zm_product->getId()) ?>
   <?php $imageInfo = $zm_product->getImageInfo() ?>
@@ -48,9 +48,9 @@
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
-          <legend><?php echo $attribute['name'] ?></legend>
+          <legend><?php $_t->html->encode($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
-            <p><?php echo $option ?></p>
+            <p><?php $option ?></p>
           <?php } ?>
       </fieldset>
   <?php } ?>

@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php zm_product_image_link($zm_product) ?>
-      <?php echo $zm_product->getDescription(); ?>
+      <?php $_t->html->encode($zm_product->getDescription()); ?>
     </div>
     <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>

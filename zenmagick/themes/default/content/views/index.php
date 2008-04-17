@@ -31,7 +31,7 @@
   <?php foreach ($featured as $product) { ?>
     <div>
       <p><?php zm_product_image_link($product) ?></p>
-      <p><a href="<?php zm_product_href($product->getId()) ?>"><?php echo $product->getName() ?></a></p>
+      <p><a href="<?php zm_product_href($product->getId()) ?>"><?php $_t->html->encode($product->getName()) ?></a></p>
       <?php $offers = $product->getOffers(); ?>
       <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
     </div>

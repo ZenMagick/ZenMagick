@@ -100,26 +100,26 @@
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("First Name") ?><span>*</span></td>
-                    <td><input type="text" name="firstname" value="<?php echo $zm_account->getFirstName() ?>" /></td>
+                    <td><input type="text" name="firstname" value="<?php $_t->html->encode($zm_account->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
-                    <td><input type="text" name="lastname" value="<?php echo $zm_account->getLastName() ?>" /></td>
+                    <td><input type="text" name="lastname" value="<?php $_t->html->encode($zm_account->getLastName()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php echo $zm_account->getDOB() ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
+                        <td><input type="text" name="dob" value="<?php $_t->html->encode($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
-                    <td><input type="text" name="email_address" value="<?php echo $zm_account->getEmail() ?>" /></td>
+                    <td><input type="text" name="email_address" value="<?php $_t->html->encode($zm_account->getEmail()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
-                        <td><input type="text" name="nick" value="<?php echo $zm_account->getNickName() ?>" /></td>
+                        <td><input type="text" name="nick" value="<?php $_t->html->encode($zm_account->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -133,21 +133,21 @@
                 <?php if (ZMSettings::get('isAccountCompany')) { ?>
                     <tr>
                         <td><?php zm_l10n("Company Name") ?></td>
-                        <td><input type="text" name="company" value="<?php echo $zm_address->getCompanyName() ?>" /></td>
+                        <td><input type="text" name="company" value="<?php $_t->html->encode($zm_address->getCompanyName()) ?>" /></td>
                     </tr>
                 <?php } ?>
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="street_address" value="<?php echo $zm_address->getAddress() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="street_address" value="<?php $_t->html->encode($zm_address->getAddress()) ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php echo $zm_address->getSuburb() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php $_t->html->encode($zm_address->getSuburb()) ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php echo $zm_address->getCity() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php $_t->html->encode($zm_address->getCity()) ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
                     $country = $zm_address->getCountry(); 
@@ -155,7 +155,7 @@
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php echo $zm_address->getPostcode() ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php $_t->html->encode($zm_address->getPostcode()) ?>" <?php $_t->form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
@@ -169,7 +169,7 @@
                             <?php if (0 < count($zones)) { ?>
                                 <?php zm_idp_select('state', $zones, 1, $zm_address->getState()) ?>
                             <?php } else { ?>
-                                <input type="text" name="state" value="<?php echo $zm_address->getState() ?>" />
+                                <input type="text" name="state" value="<?php $_t->html->encode($zm_address->getState()) ?>" />
                             <?php } ?>
                         </td>
                     </tr>
@@ -177,11 +177,11 @@
 
                 <tr>
                     <td><?php zm_l10n("Telephone Number") ?><span>*</span></td>
-                    <td><input type="text" name="telephone" value="<?php echo $zm_account->getPhone() ?>" /></td>
+                    <td><input type="text" name="telephone" value="<?php $_t->html->encode($zm_account->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Fax Number") ?></td>
-                    <td><input type="text" name="fax" value="<?php echo $zm_account->getFax() ?>" /></td>
+                    <td><input type="text" name="fax" value="<?php $_t->html->encode($zm_account->getFax()) ?>" /></td>
                 </tr>
 
                  <tr>

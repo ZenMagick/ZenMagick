@@ -35,7 +35,7 @@
                     <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
                     <?php if (1 == count($zm_addressList)) { $checked = ' checked="checked"'; } ?>
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="address" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
-                    <label for="address_<?php echo $address->getId() ?>"><?php echo $address->getFullName() ?></label>
+                    <label for="address_<?php echo $address->getId() ?>"><?php $_t->html->encode($address->getFullName()) ?></label>
                     <br/>
                     <?php zm_format_address($address) ?>
                     <br/>

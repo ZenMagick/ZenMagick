@@ -30,7 +30,7 @@
   <fieldset>
     <legend><?php zm_l10n("Look-up Discount Coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $zm_coupon_code ?>" />
+    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php $_t->html->encode($zm_coupon_code) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" />
 </form>

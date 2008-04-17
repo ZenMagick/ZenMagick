@@ -26,7 +26,7 @@
 
 <?php foreach ($zm_addressList as $address) { ?>
     <fieldset>
-        <legend><?php echo ($address->getFirstName() . ' ' . $address->getLastName()) ?>
+        <legend><?php $_t->html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
         <?php echo ($address->isPrimary() ? zm_l10n("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>

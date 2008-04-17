@@ -59,13 +59,13 @@ $language = ZMRuntime::getLanguage();
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
 <td><?php echo $orderItem->getQty() ?> x </td>
-<td><?php echo $orderItem->getName() ?></td>
+<td><?php $_t->html->encode($orderItem->getName()) ?></td>
 <td><?php zm_format_currency($orderItem->getCalculatedPrice()) ?></td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotals() as $orderTotal) { ?>
 <tr>
-<td colspan="2"><?php echo $orderTotal->getName() ?></td>
+<td colspan="2"><?php $_t->html->encode($orderTotal->getName()) ?></td>
 <td><?php echo $orderTotal->getValue() ?></td>
 </tr>
 <?php } ?>
@@ -91,7 +91,7 @@ $language = ZMRuntime::getLanguage();
 
 <h3><?php zm_l10n("Payment Details") ?></h3>
 <?php $paymentType = $order->getPaymentType(); ?>
-<p><?php echo $paymentType->getName() ?></p>
+<p><?php $_t->html->encode($paymentType->getName()) ?></p>
 <?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>
 <p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
 <?php } ?>

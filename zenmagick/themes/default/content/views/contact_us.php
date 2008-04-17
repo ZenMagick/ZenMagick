@@ -34,13 +34,13 @@
     <fieldset>
         <legend><?php zm_l10n("Contact us") ?></legend>
         <label for="contactname"><?php zm_l10n("Full Name") ?><span>*</span></label>
-        <input type="text" id="contactname" name="contactname" size="40" value="<?php echo $zm_contact->getName() ?>" /><br />
+        <input type="text" id="contactname" name="contactname" size="40" value="<?php $_t->html->encode($zm_contact->getName()) ?>" /><br />
 
         <label for="email"><?php zm_l10n("Email Address") ?><span>*</span></label>
-        <input type="text" id="email" name="email" size="40" value="<?php echo $zm_contact->getEmail() ?>" /><br />
+        <input type="text" id="email" name="email" size="40" value="<?php $_t->html->encode($zm_contact->getEmail()) ?>" /><br />
 
         <label for="enquiry"><?php zm_l10n("Message") ?><span>*</span></label>
-        <textarea id="enquiry" name="enquiry" cols="30" rows="7"><?php echo $zm_contact->getMessage() ?></textarea>
+        <textarea id="enquiry" name="enquiry" cols="30" rows="7"><?php $_t->html->encode($zm_contact->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>

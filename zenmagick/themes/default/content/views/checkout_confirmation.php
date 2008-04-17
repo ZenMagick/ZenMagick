@@ -31,14 +31,14 @@
         <?php foreach ($zm_cart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQty() ?> x <?php echo $item->getName() ?>
+                    <?php echo $item->getQty() ?> x <?php $_t->html->encode($item->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php echo $attribute->getName() ?>:</span>
+                            <p><span class="attr"><?php $_t->html->encode($attribute->getName()) ?>:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php echo $attributeValue->getName() ?></span>
+                                <span class="atval"><?php $_t->html->encode($attributeValue->getName()) ?></span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
@@ -56,7 +56,7 @@
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php echo $total->getName() ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr><td class="total"><?php $_t->html->encode($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
               }
           ?>
 
@@ -69,12 +69,12 @@
     <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
     <?php $paymentType = $zm_cart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
-      <h4><?php echo $paymentType->getName() ?></h4>
+      <h4><?php $_t->html->encode($paymentType->getName()) ?></h4>
       <?php $fields = $paymentType->getFields();
           if (0 < count($fields)) {
               ?><table cellpadding="0" cellspacing="0"><tbody><?php
               foreach ($fields as $field) {
-                ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+                ?><tr><td><label><?php $_t->html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
               }
               ?></table><?php
             }
@@ -86,7 +86,7 @@
     <fieldset>
         <legend><?php zm_l10n("Shipping") ?></legend>
         <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING) ?>"><?php zm_l10n("Change") ?></a></div>
-        <?php echo $zm_cart->getShippingMethod() ?><br/>
+        <?php $_t->html->encode($zm_cart->getShippingMethod()) ?><br/>
     </fieldset>
 <?php } ?>
 
@@ -114,7 +114,7 @@
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
-    <div><?php echo (!zm_is_empty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
+    <div><?php $_t->html->encode(!zm_is_empty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
 </fieldset>
 
 

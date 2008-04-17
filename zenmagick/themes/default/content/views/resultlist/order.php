@@ -28,7 +28,7 @@
     <td><a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId()) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
     <td><?php zm_date_short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
-    <td><?php echo $address->getFullName()  ?></td>
+    <td><?php $_t->html->encode($address->getFullName()) ?></td>
     <td><?php zm_l10n($order->getStatus()) ?></td>
     <td class="pprice"><?php zm_format_currency($order->getTotal()) ?></td>
 </tr>

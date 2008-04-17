@@ -48,7 +48,7 @@
                       $tot = ' tot';
                   }
                   ?><tr>
-                      <td class="total"><?php echo $total->getName() ?></td>
+                      <td class="total"><?php $_t->html->encode($total->getName()) ?></td>
                       <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
                   </tr><?php
               }
@@ -62,11 +62,11 @@
       <fieldset>
           <legend><?php zm_l10n("Credit Options") ?></legend>
           <?php foreach ($creditTypes as $type) { ?>
-              <p class="credittype"><?php echo $type->getName() ?></p>
-              <div class="instr"><?php echo $type->getInstructions() ?></div>
+              <p class="credittype"><?php $_t->html->encode($type->getName()) ?></p>
+              <div class="instr"><?php $_t->html->encode($type->getInstructions()) ?></div>
               <table class="pt" cellpadding="0" cellspacing="0"><tbody>
                   <?php foreach ($type->getFields() as $field) { ?>
-                     <tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
+                     <tr><td><label><?php $_t->html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
                   <?php } ?>
               </tbody></table>
           <?php } ?>
@@ -81,16 +81,16 @@
       foreach ($paymentTypes as $type) {
         $sptid = 'pt_'.$type->getId();
         if ($single) {
-          ?><p><input type="hidden" name="payment" value="<?php echo $type->getId() ?>" /><?php
+          ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
         } else {
           ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php zm_radio_state($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
         }
-        ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
+        ?><label for="<?php echo $sptid ?>"><?php $_t->html->encode($type->getName()) ?></label></p><?php
         $fields = $type->getFields();
         if (0 < count($fields)) {
             ?><table class="pt" cellpadding="0" cellspacing="0"><tbody><?php
             foreach ($fields as $field) {
-              ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+              ?><tr><td><label><?php $_t->html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
             }
             ?></tbody></table><?php
           }
@@ -102,7 +102,7 @@
       <legend><?php zm_l10n("Comments") ?></legend>
       <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
       <?php /* Fix for IE bug regarding textarea... */ ?>
-      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $zm_cart->getComment() ?></textarea></td></tr></table>
+      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $_t->html->encode($zm_cart->getComment()) ?></textarea></td></tr></table>
   </fieldset>
 
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

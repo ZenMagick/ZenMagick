@@ -33,7 +33,7 @@
 <?php if ($zm_gvreceiver->hasMessage()) { ?>
 <?php zm_l10n("%s says:", ZMRequest::getAccount()->getFirstName()); ?>
 
-<?php echo $zm_gvreceiver->getMessage() ?>
+<?php $zm_gvreceiver->getMessage() ?>
 
 <?php } ?>
 

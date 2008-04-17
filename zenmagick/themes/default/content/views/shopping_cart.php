@@ -38,14 +38,14 @@
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
                         <span class="note"><?php zm_l10n('* Out of Stock') ?></span><br/>
                     <?php } ?>
-                    <?php echo $item->getName() ?>
+                    <?php $_t->html->encode($item->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php echo $attribute->getName() ?>:</span>
+                            <p><span class="attr"><?php $_t->html->encode($attribute->getName()) ?>:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php echo $attributeValue->getName() ?></span>
+                                <span class="atval"><?php $_t->html->encode($attributeValue->getName()) ?></span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
