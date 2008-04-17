@@ -66,7 +66,7 @@
             $hasProducts = 0 != $noProducts;
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($active||0==$category->getId()) ? 'open' : '').'">';
-            $url = $catUrls ? zm_href('', $cparams, false) : '#';
+            $url = $catUrls ? ZMToolbox::instance()->net->url('', $cparams, false, false) : '#';
             echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false, $path);

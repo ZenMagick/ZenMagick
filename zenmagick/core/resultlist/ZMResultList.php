@@ -318,11 +318,7 @@ class ZMResultList extends ZMObject {
      * @return string A URL pointing to the previous page.
      */
     function getPreviousURL($secure, $echo=ZM_ECHO_DEFAULT) {
-        if ($secure) {
-            $url = zm_secure_href(null, "&page=".$this->getPreviousPageNumber(), false);
-        } else {
-            $url = zm_href(null, "&page=".$this->getPreviousPageNumber(), false);
-        }
+        $url = ZMToolbox::instance()->net->url(null, "&page=".$this->getPreviousPageNumber(), $secure, false);
 
         if ($echo) echo $url;
         return $url;
@@ -336,11 +332,7 @@ class ZMResultList extends ZMObject {
      * @return string A URL pointing to the next page.
      */
     function getNextURL($secure=false, $echo=ZM_ECHO_DEFAULT) {
-        if ($secure) {
-            $url = zm_secure_href(null, "&page=".$this->getNextPageNumber(), false);
-        } else {
-            $url = zm_href(null, "&page=".$this->getNextPageNumber(), false);
-        }
+        $url = ZMToolbox::instance()->net->url(null, "&page=".$this->getNextPageNumber(), $secure, false);
 
         if ($echo) echo $url;
         return $url;

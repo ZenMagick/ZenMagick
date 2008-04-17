@@ -64,7 +64,7 @@ class ZMLogoffController extends ZMController {
         }
 
         // display page
-        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
         return $this->findView();
     }
 

@@ -55,7 +55,7 @@ class ZMShoppingCartController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
         
         $shoppingCart = ZMRequest::getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);

@@ -82,7 +82,7 @@ class ZMMetaTags extends ZMObject {
         $this->_initMetaTags();
 
         // default to page name
-        $title = zm_title(false);
+        $title = ZMToolbox::instance()->utils->getTitle(null, false);
         // remove popup prefix
         $title = str_replace('Popup ', '', $title);
 
@@ -115,7 +115,7 @@ class ZMMetaTags extends ZMObject {
             $title .= ZMSettings::get('storeName');
         }
 
-        $title = zm_htmlencode($title, false);
+        $title = ZMToolbox::instance()->html->encode($title, false);
 
         if ($echo) echo $title;
         return $title;
@@ -137,7 +137,7 @@ class ZMMetaTags extends ZMObject {
 
         $value .= $this->topCategories_;
 
-        $value = zm_htmlencode($value, false);
+        $value = ZMToolbox::instance()->html->encode($value, false);
 
         if ($echo) echo $value;
         return $value;
@@ -163,7 +163,7 @@ class ZMMetaTags extends ZMObject {
             $value .= $this->topCategories_;
         }
 
-        $value = zm_htmlencode($value, false);
+        $value = ZMToolbox::instance()->html->encode($value, false);
 
         if ($echo) echo $value;
         return $value;

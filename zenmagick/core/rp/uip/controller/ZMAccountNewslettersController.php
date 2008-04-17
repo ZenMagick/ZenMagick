@@ -56,7 +56,7 @@ class ZMAccountNewslettersController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process() { 
-        ZMCrumbtrail::instance()->addCrumb("Account", zm_secure_href(FILENAME_ACCOUNT, '', false));
+        ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Newsletter");
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
 

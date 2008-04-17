@@ -115,7 +115,7 @@ class ZMTellAFriendController extends ZMController {
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
             $session = ZMRequest::getSession();
-            $context = zm_email_copy_context($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
+            $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
             $context['zm_product'] = $product;
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));

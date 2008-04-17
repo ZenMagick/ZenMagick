@@ -28,11 +28,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title><?php zm_title() ?> :: ZenMagick</title>
+    <title><?php $_t->utils->getTitle() ?> :: ZenMagick</title>
 		<link rel="stylesheet" type="text/css" href="<?php $zm_theme->themeURL("site.css") ?>"/>
 	</head>
   <body>
-    <h2><?php zm_title() ?></h2>
+    <h2><?php $_t->utils->getTitle() ?></h2>
 
 		<?php $zm_theme->includeStaticPageContent('error') ?>
   </body>

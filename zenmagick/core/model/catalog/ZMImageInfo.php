@@ -57,9 +57,9 @@ class ZMImageInfo extends ZMModel {
 
         // set default image
         if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
-            $this->imageDefault_ = zm_image_uri(ZMSettings::get('imgNotFound'), false);
+            $this->imageDefault_ = ZMToolbox::instance()->net->image(ZMSettings::get('imgNotFound'), false);
         } else {
-            $this->imageDefault_ = zm_image_uri($image, false);
+            $this->imageDefault_ = ZMToolbox::instance()->net->image($image, false);
         }
 
         // evaluate optional medium image
@@ -68,7 +68,7 @@ class ZMImageInfo extends ZMModel {
             // default to next smaller version
             $this->imageMedium_ = $this->imageDefault_;
         } else {
-            $this->imageMedium_ = zm_image_uri('medium/'.$medium, false);
+            $this->imageMedium_ = ZMToolbox::instance()->net->image('medium/'.$medium, false);
         }
 
         // evaluate optional large image
@@ -77,7 +77,7 @@ class ZMImageInfo extends ZMModel {
             // default to next smaller version
             $this->imageLarge_ = $this->imageMedium_;
         } else {
-            $this->imageLarge_ = zm_image_uri('large/'.$large, false);
+            $this->imageLarge_ = ZMToolbox::instance()->net->image('large/'.$large, false);
         }
     }
 

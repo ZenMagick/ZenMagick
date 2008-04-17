@@ -55,7 +55,7 @@ class ZMAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         // orders are sorted desc...
         $resultList = ZMLoader::make("ResultList");

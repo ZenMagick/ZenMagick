@@ -71,7 +71,7 @@
         if (ZMRequest::isAdmin()) {
             return zm_plugin_admin_url($target[1], $params, $echo);
         } else {
-            return zm_href($target[0], $params, $echo);
+            return ZMToolbox::instance()->net->url($target[0], $params, false, $echo);
         }
     }
 

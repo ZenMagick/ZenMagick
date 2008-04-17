@@ -78,7 +78,7 @@
                 } else {
                     $url = $item->getURL();
                     if (zm_starts_with($url, 'fkt:')) {
-                        $url = zm_href('zmPluginPage.php', 'fkt=' . substr($url, 4));
+                        $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt=' . substr($url, 4));
                     }
                     echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
                 }

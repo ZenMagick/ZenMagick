@@ -58,12 +58,12 @@ class ZMEventFixes extends ZMObject {
             // check for address
             if (!$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
                 ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
-                zm_redirect(zm_secure_href(FILENAME_CHECKOUT_SHIPPING_ADDRESS));
+                zm_redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
             }
 
             if (null == $shoppingCart->getBillingAddress()) {
                 ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
-                zm_redirect(zm_secure_href(FILENAME_CHECKOUT_PAYMENT_ADDRESS));
+                zm_redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
             }
         }
     }

@@ -77,11 +77,7 @@ class ZMRedirectView extends ZMView {
         if (null != $this->url_) {
             $url = $this->url_;
         } else {
-            if ($this->secure_) {
-                $url = zm_secure_href($this->page_, $this->parameter_, false);
-            } else {
-                $url = zm_href($this->page_, $this->parameter_, false);
-            }
+            $url = ZMToolbox::instance()->net->url($this->page_, $this->parameter_, $this->secure_, false);
         }
 
         zm_redirect($url);

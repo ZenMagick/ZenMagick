@@ -49,9 +49,6 @@
         // enable auto patching during installation
         'isEnablePatching' => true,
 
-        // legacy API is initializing all zm_ globals
-        'isLegacyAPI' => false,
-
         // database provider class
         'dbProvider' => 'ZMZenCartDatabase',
 

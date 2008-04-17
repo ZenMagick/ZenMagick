@@ -84,8 +84,8 @@ class ZMCheckoutShippingController extends ZMController {
             $shoppingCart->setShippingAddressId($account->getDefaultAddresssId());
         }
 
-        ZMCrumbtrail::instance()->addCrumb("Checkout", zm_secure_href(FILENAME_CHECKOUT_SHIPPING, '', false));
-        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $this->exportGlobal("zm_cart", $shoppingCart);
 

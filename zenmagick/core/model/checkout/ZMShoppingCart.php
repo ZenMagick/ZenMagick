@@ -334,7 +334,7 @@ class ZMShoppingCart extends ZMObject {
      */
     function getOrderFormURL() {
     global $$_SESSION['payment'];
-        $url = zm_secure_href(FILENAME_CHECKOUT_PROCESS, '', false);
+        $url = ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PROCESS, '', true, false);
         if (isset($$_SESSION['payment']->form_action_url)) {
             $url = $$_SESSION['payment']->form_action_url;
         }
@@ -366,7 +366,7 @@ class ZMShoppingCart extends ZMObject {
         if (null == $this->zenTotals_) {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
-                zm_resolve_zc_class('order_total');
+                ZMLoader::resolveZCClass('order_total');
                 //TODO:?????
                 $zenTotals = new order_total();
             }

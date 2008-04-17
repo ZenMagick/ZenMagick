@@ -108,10 +108,10 @@ class ZMSacsMapper extends ZMObject {
             $session = ZMRequest::getSession();
             if (!$session->isValid()) {
                 // no valid session
-                zm_redirect(zm_href(ZMSettings::get('invalidSessionPage'), '', false));
+                zm_redirect(ZMToolbox::instance()->net->url(ZMSettings::get('invalidSessionPage'), '', false, false));
             }
             $session->markRequestAsLoginFollowUp();
-            zm_redirect(zm_secure_href('login', '', false));
+            zm_redirect(ZMToolbox::instance()->net->url('login', '', true, false));
         }
     }
 
@@ -126,7 +126,7 @@ class ZMSacsMapper extends ZMObject {
     function ensureAccessMethod($controller=null) {
         $secure = $this->getMappingValue($controller, 'level', false);
         if ($secure && !ZMRequest::isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
-            zm_redirect(zm_secure_href(null, null, false));
+            zm_redirect(ZMToolbox::instance()->net->url(null, null, true, false));
         }
     }
 

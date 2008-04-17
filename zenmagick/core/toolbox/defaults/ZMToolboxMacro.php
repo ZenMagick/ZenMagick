@@ -516,10 +516,11 @@ class ZMToolboxMacro extends ZMObject {
      * @return string A fully HTML formatted attribute value label.
      */
     protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
+        $toolbox = ZMToolbox::instance();
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
-            $label = '<img src="' . zm_image_uri($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+            $label = '<img src="' . $toolbox->net->image($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
         }
         $label .= zm_l10n_get($value->getName());
 

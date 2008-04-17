@@ -55,7 +55,7 @@ class ZMAdvancedSearchController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        ZMCrumbtrail::instance()->addCrumb(zm_title(false));
+        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $search = ZMLoader::make("Search");
         $this->exportGlobal("zm_search", $search);
