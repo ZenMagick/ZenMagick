@@ -29,7 +29,7 @@
         <tbody>
         <?php $odd = true; $first = true; foreach ($zm_cart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="remove"><a href="<?php zm_href(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php $zm_theme->themeUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+            <td class="remove"><a href="<?php $_t->net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php $zm_theme->themeUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
                     <?php zm_product_image_link($item) ?>
                     <?php zm_sc_product_hidden($item) ?>
@@ -67,10 +67,10 @@
     </table>
     <div class="btn">
         <input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" />
-        <a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("Checkout") ?></a>
+        <a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
     </div>
     <div>
-        <a class="btn" href="<?php zm_secure_href(FILENAME_POPUP_SHIPPING_ESTIMATOR); ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+        <a class="btn" href="<?php $_t->net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
     </div>
 
 </form>

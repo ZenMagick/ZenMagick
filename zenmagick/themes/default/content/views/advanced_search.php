@@ -25,11 +25,11 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php zm_form(FILENAME_ADVANCED_SEARCH_RESULT, '', 'advanced_search', "get", "return validate(this);") ?>
+<?php $_t->form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, , false, array('method' => 'get', 'id' => 'advanced_search', 'onsubmit' => "return validate(this);")) ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">
-            <a href="javascript:popupWindow('<?php zm_href(FILENAME_POPUP_SEARCH_HELP, false) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
+            <a href="javascript:popupWindow('<?php $_t->net->url(FILENAME_POPUP_SEARCH_HELP) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="askeyword" name="keyword" value="<?php $_t->html->encode($zm_search->getKeyword(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />

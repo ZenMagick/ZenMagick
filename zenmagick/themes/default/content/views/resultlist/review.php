@@ -37,6 +37,6 @@
     <td class="lnks">
         <p><a class="btn" href="<?php zm_product_href($product->getId()) ?>"><?php zm_l10n("Product Information") ?></a></p>
         <?php $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId(); ?>
-        <p><a class="btn" href="<?php zm_href(FILENAME_PRODUCT_REVIEWS_INFO, $params) ?>"><?php zm_l10n("Read full review") ?></a></p>
+        <p><a class="btn" href="<?php $_t->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params) ?>"><?php zm_l10n("Read full review") ?></a></p>
     </td>
 </tr>

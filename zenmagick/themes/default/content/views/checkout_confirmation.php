@@ -66,7 +66,7 @@
 
 <fieldset>
     <legend><?php zm_l10n("Payment Method") ?></legend>
-    <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
     <?php $paymentType = $zm_cart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php $_t->html->encode($paymentType->getName()) ?></h4>
@@ -85,7 +85,7 @@
 <?php if (!$zm_cart->isVirtual()) { ?>
     <fieldset>
         <legend><?php zm_l10n("Shipping") ?></legend>
-        <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING) ?>"><?php zm_l10n("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
         <?php $_t->html->encode($zm_cart->getShippingMethod()) ?><br/>
     </fieldset>
 <?php } ?>
@@ -94,7 +94,7 @@
     <legend><?php zm_l10n("Address Information") ?></legend>
     <?php if ($zm_cart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING_ADDRESS) ?>"><?php zm_l10n("Change") ?></a></div>
+            <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
             <h4><?php zm_l10n("Shipping Address") ?></h4>
             <?php zm_format_address($zm_cart->getShippingAddress()) ?>
         </div>
@@ -105,7 +105,7 @@
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT_ADDRESS) ?>"><?php zm_l10n("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
         <h4><?php zm_l10n("Billing Address") ?></h4>
         <?php zm_format_address($zm_cart->getBillingAddress()) ?>
     </div>
@@ -113,12 +113,12 @@
 
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
-    <div class="btn"><a class="btn" href="<?php zm_secure_href(FILENAME_CHECKOUT_PAYMENT) ?>"><?php zm_l10n("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
     <div><?php $_t->html->encode(!zm_is_empty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
 </fieldset>
 
 
-<?php zm_secure_form($zm_cart->getOrderFormURL()) ?>
+<?php $_t->net->url($zm_cart->getOrderFormURL(), '', true) ?>
     <?php $zm_cart->getOrderFormContent() ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Confirm to order") ?>" /></div>
 </form>

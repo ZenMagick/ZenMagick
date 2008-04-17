@@ -57,7 +57,7 @@ class ZMAddressBookProcessController extends ZMController {
      */
     function process() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb("Address Book", zm_secure_href(FILENAME_ADDRESS_BOOK, '', false));
+        ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
 
         return parent::process();
     }

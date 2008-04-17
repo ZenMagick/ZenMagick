@@ -92,7 +92,7 @@ class ZMToolboxForm extends ZMObject {
 
         // create JS validation code if all go
         if (isset($attr['id']) && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
-            ZMValidator::instance()->insertJSValidation($id);
+            ZMValidator::instance()->insertJSValidation($attr['id']);
         }
 
         echo '<form';

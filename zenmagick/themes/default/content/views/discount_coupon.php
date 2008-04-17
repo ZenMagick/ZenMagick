@@ -26,7 +26,7 @@
 
 <?php $zm_theme->staticPageContent("discount_coupon") ?>
 
-<?php zm_form(FILENAME_DISCOUNT_COUPON, 'action=lookup') ?>
+<?php $_t->form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php zm_l10n("Look-up Discount Coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>

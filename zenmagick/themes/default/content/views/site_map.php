@@ -24,42 +24,42 @@
  */
 ?>
 
-<?php $contact = '<a href="'.zm_href(FILENAME_CONTACT_US, null, false) .'">'.zm_l10n_get("let us know").'</a>'; ?>
+<?php $contact = '<a href="'.$_t->net->url(FILENAME_CONTACT_US, '', false, false) .'">'.zm_l10n_get("let us know").'</a>'; ?>
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
 <ul>
     <?php if (ZMRequest::isRegistered()) { ?>
-      <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT) ?>"><?php zm_l10n("My Account") ?></a>
+      <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT, '', true) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
-        <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_EDIT); ?>"><?php zm_l10n("Change Account") ?></a></li>
-        <li><a href="<?php zm_secure_href(FILENAME_ADDRESS_BOOK); ?>"><?php zm_l10n("My Address Book") ?></a></li>
-        <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_PASSWORD); ?>"><?php zm_l10n("Change My Password") ?></a></li>
-        <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_HISTORY) ?>"><?php zm_l10n("Order History") ?></a></li>
-        <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NEWSLETTERS); ?>"><?php zm_l10n("Change Newsletter Subscriptions") ?></a></li>
-        <li><a href="<?php zm_secure_href(FILENAME_ACCOUNT_NOTIFICATIONS); ?>"><?php zm_l10n("Change Product Notifications") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT_EDIT, '', true); ?>"><?php zm_l10n("Change Account") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ADDRESS_BOOK, '', true); ?>"><?php zm_l10n("My Address Book") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT_PASSWORD, '', true); ?>"><?php zm_l10n("Change My Password") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT_HISTORY, '', true) ?>"><?php zm_l10n("Order History") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true); ?>"><?php zm_l10n("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT_NOTIFICATIONS, '', true); ?>"><?php zm_l10n("Change Product Notifications") ?></a></li>
       </ul></li>
         <?php if (!ZMRequest::getShoppingCart()->isEmpty()) { ?>
-            <li><a href="<?php zm_secure_href(FILENAME_SHOPPING_CART); ?>"><?php zm_l10n("Shopping cart") ?></a></li>
-            <li><a href="<?php zm_secure_href(FILENAME_CHECKOUT_SHIPPING); ?>"><?php zm_l10n("Checkout") ?></a></li>
+            <li><a href="<?php $_t->net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("Shopping cart") ?></a></li>
+            <li><a href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("Checkout") ?></a></li>
         <?php } ?>
     <?php } ?>
-    <li><a href="<?php zm_href(FILENAME_ADVANCED_SEARCH); ?>"><?php zm_l10n("Advanced Search") ?></a></li>
-    <li><a href="<?php zm_href(FILENAME_PRODUCTS_NEW); ?>"><?php zm_l10n("New Products") ?></a></li>
-    <li><a href="<?php zm_href(FILENAME_SPECIALS); ?>"><?php zm_l10n("Specials") ?></a></li>
-    <li><a href="<?php zm_href(FILENAME_REVIEWS); ?>"><?php zm_l10n("Reviews") ?></a></li>
+    <li><a href="<?php $_t->net->url(FILENAME_ADVANCED_SEARCH); ?>"><?php zm_l10n("Advanced Search") ?></a></li>
+    <li><a href="<?php $_t->net->url(FILENAME_PRODUCTS_NEW); ?>"><?php zm_l10n("New Products") ?></a></li>
+    <li><a href="<?php $_t->net->url(FILENAME_SPECIALS); ?>"><?php zm_l10n("Specials") ?></a></li>
+    <li><a href="<?php $_t->net->url(FILENAME_REVIEWS); ?>"><?php zm_l10n("Reviews") ?></a></li>
     <li><?php zm_l10n("Information") ?>
         <ul>
-          <li><a href="<?php zm_href(FILENAME_SHIPPING); ?>"><?php zm_l10n("Shipping Information") ?></a></li>
-          <li><a href="<?php zm_href(FILENAME_PRIVACY); ?>"><?php zm_l10n("Privacy Policy") ?></a></li>
-          <li><a href="<?php zm_href(FILENAME_CONDITIONS); ?>"><?php zm_l10n("Terms &amp; Conditions") ?></a></li>
-          <li><a href="<?php zm_href(FILENAME_CONTACT_US); ?>"><?php zm_l10n("Contact Us") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_SHIPPING); ?>"><?php zm_l10n("Shipping Information") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_PRIVACY); ?>"><?php zm_l10n("Privacy Policy") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_CONDITIONS); ?>"><?php zm_l10n("Terms &amp; Conditions") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_CONTACT_US); ?>"><?php zm_l10n("Contact Us") ?></a></li>
 
       <?php if (ZMSettings::get('isEnabledGV')) { ?>
-          <li><a href="<?php zm_href(FILENAME_GV_FAQ); ?>"><?php zm_l10n("Giftvoucher FAQ") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_GV_FAQ); ?>"><?php zm_l10n("Giftvoucher FAQ") ?></a></li>
       <?php } ?>
       <?php if (ZMSettings::get('isEnabledCoupons')) { ?>
-          <li><a href="<?php zm_href(FILENAME_DISCOUNT_COUPON); ?>"><?php zm_l10n("Coupon Lookup") ?></a></li>
+          <li><a href="<?php $_t->net->url(FILENAME_DISCOUNT_COUPON); ?>"><?php zm_l10n("Coupon Lookup") ?></a></li>
       <?php } ?>
-      <li><a href="<?php zm_href(FILENAME_UNSUBSCRIBE); ?>"><?php zm_l10n("Newsletter Unsubscribe") ?></a></li>
+      <li><a href="<?php $_t->net->url(FILENAME_UNSUBSCRIBE); ?>"><?php zm_l10n("Newsletter Unsubscribe") ?></a></li>
    </ul></li>
 </ul>
