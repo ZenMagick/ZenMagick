@@ -212,6 +212,7 @@ body#b_shopping_cart td.itm p span {font-style:italic;}
 body#b_shopping_cart td.itm p span.atval {font-size:92%;}
 body#b_shopping_cart tr.even td {background-color:#fafbfc;}
 body#b_shopping_cart tr.other td {border-top:1px solid #c0c0c0;}
+body#b_shopping_cart .note {color:#e55;font-weight:bold;}
 
 body#b_address_book_process #content table {padding-left:20px;}
 body#b_address_book_process #content table #label {width:12em;}

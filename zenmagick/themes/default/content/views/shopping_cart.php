@@ -35,6 +35,9 @@
                     <?php zm_sc_product_hidden($item) ?>
                 </td>
                 <td class="itm">
+                    <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
+                        <span class="note"><?php zm_l10n('* Out of Stock') ?></span><br/>
+                    <?php } ?>
                     <?php echo $item->getName() ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
