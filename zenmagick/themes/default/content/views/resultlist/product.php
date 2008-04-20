@@ -28,7 +28,7 @@
     <td><?php zm_product_image_link($product, ZMRequest::getCategoryId()) ?></td>
     <td class="pinfo">
         <a href="<?php zm_product_href($product->getId(), ZMRequest::getCategoryId()) ?>"><?php $_t->html->encode($product->getName()) ?></a><br/>
-        <?php zm_more(zm_strip_html($product->getDescription(), false), 120) ?>
+        <?php $_t->html->more($_t->html->strip($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php zm_format_currency($product->getPrice()) ?></td>
 </tr>

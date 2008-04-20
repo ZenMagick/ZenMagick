@@ -181,6 +181,7 @@ class ZMRssController extends ZMController {
             return null;
         }
 
+        $toolbox = ZMToolbox::instance();
         $items = array();
         $lastPubDate = null;
         foreach ($reviews as $review) {
@@ -191,8 +192,8 @@ class ZMRssController extends ZMController {
             $item->setTitle(zm_l10n_get("Review: %s", $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-            $item->setLink(ZMToolbox::instance()->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params, false, false));
-            $item->setDescription(zm_more($review->getText(), 60, false));
+            $item->setLink($toolbox->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params, false, false));
+            $item->setDescription($toolbox->html->more($review->getText(), 60, false));
             $item->setPubDate(zm_mk_rss_date($review->getDateAdded()));
             array_push($items, $item);
 
@@ -203,7 +204,7 @@ class ZMRssController extends ZMController {
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Product Reviews"));
-        $channel->setLink(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT, '', false, false));
         if (null != $key)  {
             $channel->setDescription(zm_l10n_get("Product Reviews for %s at %s", $product->getName(), ZMSettings::get('storeName')));
         } else {
@@ -259,6 +260,7 @@ class ZMRssController extends ZMController {
             return null;
         }
 
+        $toolbox = ZMToolbox::instance();
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
@@ -266,7 +268,7 @@ class ZMRssController extends ZMController {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
             $item->setLink(zm_product_href($product->getId(), null, false));
-            $item->setDescription(zm_more(zm_strip_html($product->getDescription(), false), 60, false));
+            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription(), false), 60, false));
             $item->setPubDate(zm_mk_rss_date($product->getDateAdded()));
             array_push($items, $item);
 
@@ -277,7 +279,7 @@ class ZMRssController extends ZMController {
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("New Products at %s", ZMSettings::get('storeName')));
-        $channel->setLink(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT, '', false, false));
         $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 

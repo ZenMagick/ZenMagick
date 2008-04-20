@@ -110,7 +110,7 @@ class ZMToolboxNet extends ZMObject {
         while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
         $query = (1 < strlen($query)) ? $query : '';
 
-        return zm_htmlurlencode($server.$path.$query);
+        return $this->encode($server.$path.$query);
     }
 
 

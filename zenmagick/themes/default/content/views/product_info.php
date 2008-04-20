@@ -37,9 +37,9 @@
       <?php } ?>
       <div id="desc"><?php $_t->html->encode($zm_product->getDescription()) ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php zm_l10n("Producer") ?>: <?php zm_htmlencode($manufacturer->getName()); ?><br />
+        <?php zm_l10n("Producer") ?>: <?php $_t->html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php zm_htmlencode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
+      <p id="price"><?php $_t->html->encode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
   </div>
 
   <?php $attributes = zm_build_attribute_elements($zm_product); ?>

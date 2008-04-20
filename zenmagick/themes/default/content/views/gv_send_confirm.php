@@ -26,10 +26,10 @@
 
 <?php zm_secure_form(ZM_FILENAME_GV_SEND_CONFIRM, null, null, "post") ?>
     <div>
-        <input type="hidden" name="to_name" value="<?php zm_htmlencode($zm_gvreceiver->getName()) ?>" />
-        <input type="hidden" name="email" value="<?php zm_htmlencode($zm_gvreceiver->getEmail()) ?>" />
-        <input type="hidden" name="amount" value="<?php zm_htmlencode($zm_gvreceiver->getAmount()) ?>" />
-        <input type="hidden" name="message" value="<?php zm_htmlencode($zm_gvreceiver->getMessage()) ?>" />
+        <input type="hidden" name="to_name" value="<?php $_t->html->encode($zm_gvreceiver->getName()) ?>" />
+        <input type="hidden" name="email" value="<?php $_t->html->encode($zm_gvreceiver->getEmail()) ?>" />
+        <input type="hidden" name="amount" value="<?php $_t->html->encode($zm_gvreceiver->getAmount()) ?>" />
+        <input type="hidden" name="message" value="<?php $_t->html->encode($zm_gvreceiver->getMessage()) ?>" />
     </div>
     <fieldset>
         <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
