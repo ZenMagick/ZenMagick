@@ -562,8 +562,8 @@ class ZMShoppingCart extends ZMObject {
      */
     function addProduct($productId, $quantity=1, $attributes=array()) {
         $product = ZMProducts::instance()->getProductForId($productId);
-        $attributes = zm_sanitize_attributes($product, $attributes);
-        $attributes = zm_prepare_uploads($product, $attributes);
+        $attributes = $this->sanitize_attributes($product, $attributes);
+        $attributes = $this->prepare_uploads($product, $attributes);
 
         //TODO: zc: comp
         $attributes = (0 < count($attributes) ? $attributes : '');
@@ -664,6 +664,128 @@ class ZMShoppingCart extends ZMObject {
 
         $this->log('invalid productTaxBase!', ZM_LOG_ERROR);
         return null;
+    }
+
+    /**
+     * Prepare file uploads.
+     *
+     * <p>Check for uploaded files and prepare attributes accordingly.</p>
+     *
+     * @param ZMProduct product The product.
+     * @param array attributes The given attributes.
+     * @return array A set of valid attribute values for the given product.
+     * @todo IMPLEMENT!
+     */
+    function prepare_uploads($product, $attributes=array()) {
+        $uploads = 0;
+        foreach ($attributes as $name => $value) {
+            if (ZMTools::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+                ++$uploads;
+            }
+        }
+
+        if (0 < $uploads) {
+            //TODO: handle file uploads
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Sanitize the given attributes and add default values if attributes/values invalid/missing.
+     *
+     * @param ZMProduct product The product.
+     * @param array attributes The given attributes.
+     * @return array A set of valid attribute values for the given product.
+     * @todo return note of changes made
+     */
+    function sanitize_attributes($product, $attributes=array()) {
+        //TODO: where should this actually be? attributes, rules, cart, products?
+        if (!ZMSettings::get('isSanitizeAttributes')) {
+            return $attributes;
+        }
+
+        if (!$product->hasAttributes()) {
+            return array();
+        }
+
+        $defaultAttributes = $product->getAttributes();
+
+        // check for valid values
+        $validAttributeIds = array();
+        foreach ($defaultAttributes as $attribute) {
+            $attributeId = $attribute->getId();
+            if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                $attributeId = ZMSettings::get('textOptionPrefix') . $attributeId;
+            }
+            $validAttributeIds[$attributeId] = $attributeId;
+            if (!array_key_exists($attributeId, $attributes)) {
+                // missing attribute
+                $defaultId = null;
+                // try to find the default value
+                foreach ($attribute->getValues() as $value) {
+                    if (null === $defaultId) {
+                        // use first as default if default is not configured
+                        $defaultId = $value->getId();
+                    }
+                    if ($value->isDefault()) {
+                        $defaultId = $value->getId();
+                        break;
+                    }
+                }
+
+                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                    // use default id for radio and select
+                    $attributes[$attributeId] = $defaultId;
+                } else if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                    // use emtpy string for text input attributes
+                    $attributes[$attributeId] = '';
+                }
+            } else {
+                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                    // validate single non input attributes
+                    $defaultId = null;
+                    $isValid = false;
+                    foreach ($attribute->getValues() as $value) {
+                        if ($value->isDefault()) {
+                            $defaultId = $value->getId();
+                        }
+                        if ($attributes[$attributeId] == $value->getId()) {
+                            $isValid = true;
+                            break;
+                        }
+                    }
+                    if (!$isValid) {
+                        // use default
+                        $attributes[$attributeId] = $defaultId;
+                    }
+                } else if (PRODUCTS_OPTIONS_TYPE_CHECKBOX == $attribute->getType()) {
+                    // validate multi non input attributes
+                    foreach ($attributes[$attributeId] as $avid => $attrValue) {
+                        $isValid = false;
+                        foreach ($attribute->getValues() as $value) {
+                            if ($attrValue == $value->getId()) {
+                                $isValid = true;
+                                break;
+                            }
+                        }
+                        if (!$isValid) {
+                            unset($attributes[$attributeId][$avid]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // strip invalid attributes
+        foreach ($attributes as $id => $value) {
+            if (!array_key_exists($id, $validAttributeIds)) {
+                unset($attributes[$id]);
+            }
+        }
+
+        return $attributes;
     }
 
 }
