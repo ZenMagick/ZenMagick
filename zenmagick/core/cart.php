@@ -40,7 +40,7 @@
     function zm_prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
-            if (zm_starts_with($name, ZMSettings::get('uploadOptionPrefix'))) {
+            if (ZMTools::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }
@@ -77,7 +77,7 @@
         $validAttributeIds = array();
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
-            if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+            if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                 $attributeId = ZMSettings::get('textOptionPrefix') . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
@@ -96,15 +96,15 @@
                     }
                 }
 
-                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // use default id for radio and select
                     $attributes[$attributeId] = $defaultId;
-                } else if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                } else if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                     // use emtpy string for text input attributes
                     $attributes[$attributeId] = '';
                 }
             } else {
-                if (zm_is_in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // validate single non input attributes
                     $defaultId = null;
                     $isValid = false;

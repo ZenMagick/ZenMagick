@@ -116,21 +116,41 @@
      * @deprecated Use <code>ZMSettings::getAll()</code> instead.
      */
     function zm_settings() { return ZMSettings::getAll(); }
-
-
-
-
+    /**
+     * Remove a directory (tree).
+     *
+     * @package org.zenmagick
+     * @param string dir The directory name.
+     * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
+     * @deprecated use ZMTools instead.
+     */
+    function zm_rmdir($dir, $recursive=true) {
+        return ZMTools::rmdir($dir, $recursive);
+    }
+    /**
+     * Make dir.
+     *
+     * @package org.zenmagick
+     * @param string dir The folder name.
+     * @param int perms The file permisssions; (default: 755)
+     * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
+     * @return boolean <code>true</code> on success.
+     * @deprecated use ZMTools instead.
+     */
+    function zm_mkdir($dir, $perms=755, $recursive=true) {
+        return ZMTools::mkdir($dir, $perms, $recursive);
+    }
     /**
      * Check if a given value or array is empty.
      *
      * @package org.zenmagick
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
+     * @deprecated use ZMTools instead.
      */
     function zm_is_empty($value) { 
-        return empty($value);
+        return ZMTools::isEmpty($value);
     }
-
     /**
      * Check if the given string starts with the provided string.
      *
@@ -139,12 +159,11 @@
      * @param string start The needle.
      * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
      *  <code>false</code> if not.
+     * @deprecated use ZMTools instead.
      */
     function zm_starts_with($s, $start) {
-        return 0 === strpos($s, $start);
+        return ZMTools::startsWith($s, $start);
     }
-
-
     /**
      * Check if the given string ends with the provided string.
      *
@@ -153,17 +172,16 @@
      * @param string end The needle.
      * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
      *  <code>false</code> if not.
+     * @deprecated use ZMTools instead.
      */
     function zm_ends_with($s, $end) {
-        $endLen = strlen($end);
-        return $end == substr($s, -$endLen);
+        return ZMTools::endsWith($s, $end);
     }
-
-
     /**
      * Helper function to dump the ZenMagick environment.
      *
      * @package org.zenmagick
+     * @deprecated
      */
     function zm_env() {
     global $_ZM_SETTINGS;
@@ -207,10 +225,30 @@
             echo "<li>" . $key . " = " . $value . "</li>";
         }
         echo "</ul>";
-
     }
-
-
+    /**
+     * Check if the given value exists in the array or comma separated list.
+     *
+     * @package org.zenmagick
+     * @param string value The value to search for.
+     * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
+     * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
+     * @deprecated use ZMTools instead.
+     */
+    function zm_is_in_array($value, $array) {
+        return ZMTools::inArray($value, $array);
+    }
+    /**
+     * Exit execution.
+     *
+     * <p>Calling this function will end all request handling in an ordered manner.</p>
+     *
+     * @package org.zenmagick
+     * @deprecated use ZMRuntime instead.
+     */
+    function zm_exit() {
+        ZMRuntime::finish();
+    }
     /**
      * Redirect to the given url.
      *
@@ -219,84 +257,14 @@
      *
      * @package org.zenmagick
      * @param string url A fully qualified url.
+     * @deprecated Use ZMRequest instead
      */
     function zm_redirect($url) {
-        if (ZMMessages::instance()->hasMessages()) {
-            $session = ZMRequest::getSession();
-            $session->setMessages(ZMMessages::instance()->getMessages());
-        }
-
-        $url = str_replace('&amp;', '&', $url);
-
-        header('Location: ' . $url);
-        zm_exit();
+        ZMRequest::redirect($url);
     }
 
 
-    /**
-     * Exit execution.
-     *
-     * <p>Calling this function will end all request handling in an ordered manner.</p>
-     *
-     * @package org.zenmagick
-     */
-    function zm_exit() {
-        zen_session_close();
-        exit();
-    }
 
-
-    /**
-     * Remove a directory (tree).
-     *
-     * @package org.zenmagick
-     * @param string dir The directory name.
-     * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
-     */
-    function zm_rmdir($dir, $recursive=true) {
-        if (is_dir($dir)) {
-            if (substr($dir, -1) != '/') { $dir .= '/'; }
-            $handle = opendir($dir);
-            while (false !== ($file = readdir($handle))) {
-                if ('.' != $file && '..' != $file) {
-                    $path = $dir.$file;
-                    if (is_dir($path) && $recursive) {
-                        zm_rmdir($path, $recursive);
-                    } else {
-                       unlink($path);
-                    }
-                }
-            }
-            closedir($handle);
-            rmdir($dir);
-        }
-    }
-
-
-    /**
-     * Make dir.
-     *
-     * @package org.zenmagick
-     * @param string dir The folder name.
-     * @param int perms The file permisssions; (default: 755)
-     * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
-     * @return boolean <code>true</code> on success.
-     */
-    function zm_mkdir($dir, $perms=755, $recursive=true) {
-        if (null == $dir || empty($dir)) {
-            return false;
-        }
-        if (file_exists($dir) && is_dir($dir))
-            return true;
-
-        $parent = dirname($dir);
-        if (!file_exists($parent) && $recursive) {
-            if(!zm_mkdir($parent, $perms, $recursive))
-                return false;
-        }
-        $result = mkdir($dir, octdec($perms));
-        return $result;
-    }
 
     /**
      * Dispatch the current request.
@@ -330,23 +298,6 @@
 
         return true;
     }
-
-    /**
-     * Check if the given value exists in the array or comma separated list.
-     *
-     * @package org.zenmagick
-     * @param string value The value to search for.
-     * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
-     * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
-     */
-    function zm_is_in_array($value, $array) {
-        if (!is_array($array)) {
-            $array = explode(",", $array);
-        }
-        $array = array_flip($array);
-        return isset($array[$value]);
-    }
-
 
     /**
      * Custom error handler.

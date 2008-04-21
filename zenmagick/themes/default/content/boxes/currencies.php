@@ -25,7 +25,7 @@
 ?>
 
 <?php $currencyList = ZMCurrencies::instance()->getCurrencies(); ?>
-<?php if (0 < count($currencyList) && !zm_starts_with(ZMRequest::getPageName(), 'checkout')) { ?>
+<?php if (0 < count($currencyList) && !ZMTools::startsWith(ZMRequest::getPageName(), 'checkout')) { ?>
     <h3><?php zm_l10n("Currencies") ?></h3>
     <div id="sb_currencies" class="box">
         <?php $_t->form->open(null, '', false, null, array('method'=>'get')) ?>

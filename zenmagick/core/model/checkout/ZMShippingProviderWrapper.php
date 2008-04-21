@@ -81,7 +81,7 @@ class ZMShippingProviderWrapper extends ZMModel {
      *
      * @return boolean <code>true</code> if an icon, <code>false</code> if not.
      */
-    function hasIcon() { return !zm_is_empty($this->zenModule_->icon); }
+    function hasIcon() { return !ZMTools::isEmpty($this->zenModule_->icon); }
 
     /**
      * Get the icon.

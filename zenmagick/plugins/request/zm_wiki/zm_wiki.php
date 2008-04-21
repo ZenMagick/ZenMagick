@@ -72,8 +72,8 @@ class zm_wiki extends ZMBoxPlugin {
         parent::install();
 
         $filesDir = str_replace('/', DIRECTORY_SEPARATOR, DIR_FS_CATALOG."wiki/files/");
-        zm_mkdir($filesDir);
-        zm_mkdir(str_replace('/', DIRECTORY_SEPARATOR, DIR_FS_CATALOG."wiki/tmp/"));
+        ZMTools::mkdir($filesDir);
+        ZMTools::mkdir(str_replace('/', DIRECTORY_SEPARATOR, DIR_FS_CATALOG."wiki/tmp/"));
 
         // create WikiNav default
         $wikiNav = $filesDir.'WikiNav';

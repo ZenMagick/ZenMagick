@@ -79,7 +79,7 @@ class ResultList extends ZMResultList {
         //***** translate sort order
         $sortId = ZMRequest::getSortId();
         $desc = false;
-        if (zm_ends_with($sortId, '_d')) {
+        if (ZMTools::endsWith($sortId, '_d')) {
             $desc = true;
             $sortId = str_replace('_d', '', $sortId);
         } else {

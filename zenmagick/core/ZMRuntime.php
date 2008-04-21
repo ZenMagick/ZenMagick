@@ -198,6 +198,16 @@ class ZMRuntime extends ZMObject {
         return round($executionTime, 4);
     }
 
+    /**
+     * Finish execution.
+     *
+     * <p>Calling this function will end all request handling in an ordered manner.</p>
+     */
+    public static function finish() {
+        zen_session_close();
+        exit();
+    }
+
 }
 
 ?>

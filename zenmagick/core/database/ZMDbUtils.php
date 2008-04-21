@@ -188,7 +188,7 @@ class ZMDbUtils {
         }
 
         $customFields = '';
-        if (!empty($prefix) && !zm_ends_with($prefix, '.')) {
+        if (!empty($prefix) && !ZMTools::endsWith($prefix, '.')) {
             $prefix .= '.';
         }
         foreach ($fields as $field) {

@@ -114,7 +114,7 @@ global $sample_plugin;
         foreach ($values as $name => $value) {
             $sample_plugin->set($name, $value);
         }
-        zm_redirect(zm_plugin_admin_url());
+        ZMRequest::redirect(zm_plugin_admin_url());
     }
 
     return zm_simple_config_form($sample_plugin, 'sample_plugin_admin', 'Sample Plugin Admin Page');

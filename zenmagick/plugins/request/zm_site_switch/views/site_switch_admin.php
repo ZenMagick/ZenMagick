@@ -37,7 +37,7 @@
     if (null != ZMRequest::getParameter('save')) {
         $zm_server_names = array();
         foreach (ZMRequest::getParameterMap() as $name => $value) {
-            if (zm_starts_with($name, 'hostname_')) {
+            if (ZMTools::startsWith($name, 'hostname_')) {
                 $index = str_replace('hostname_', '', $name);
                 $themeId = ZMRequest::getParameter('themeId_'.$index);
                 if (!empty($name) && !empty($themeId)) {

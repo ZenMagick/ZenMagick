@@ -76,7 +76,7 @@ EOT;
             foreach ($values as $name => $value) {
                 $zm_google_store_locator->set($name, $value);
             }
-            zm_redirect(zm_plugin_admin_url());
+            ZMRequest::redirect(zm_plugin_admin_url());
         }
 
         $adminKey = $zm_google_store_locator->get('adminKey');

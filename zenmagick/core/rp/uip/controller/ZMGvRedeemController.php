@@ -61,7 +61,7 @@ class ZMGvRedeemController extends ZMController {
         $gvredeem->populate();
         $this->exportGlobal("zm_gvredeem", $gvredeem);
 
-        if (!zm_is_empty($gvredeem->getCode())) {
+        if (!ZMTools::isEmpty($gvredeem->getCode())) {
             // only try to redeem if code given - people might browse the page without code parameter...
             $coupon = ZMCoupons::instance()->getCouponForCode($gvredeem->getCode());
             if (null != $coupon && ZM_COUPON_TYPPE_GV == $coupon->getType() && ZMCoupons::instance()->isCouponRedeemable($coupon->getId())) {

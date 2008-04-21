@@ -124,7 +124,7 @@ require('includes/application_top.php');
                         $page = $fkt(); 
                         $contents = ob_get_clean();
                     } ?>
-                    <?php if (!zm_is_empty($contents)) {
+                    <?php if (!ZMTools::isEmpty($contents)) {
                         echo $contents;
                     } else if (null != $page) {
                         echo $page->getContents();

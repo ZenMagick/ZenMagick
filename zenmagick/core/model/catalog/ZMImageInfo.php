@@ -218,7 +218,7 @@ class ZMImageInfo extends ZMModel {
         if ($dir = @dir($dirname)) {
             while ($file = $dir->read()) {
                 if (!is_dir($dirname . $file)) {
-                    if (zm_ends_with($file, $ext)) {
+                    if (ZMTools::endsWith($file, $ext)) {
                         if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
                             if ($file != basename($image)) {
                                 if ($realImageBase . ereg_replace($realImageBase, '', $file) == $file) {

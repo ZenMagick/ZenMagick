@@ -41,7 +41,7 @@
                 $masterPassword = zm_encrypt_password($masterPassword);
             }
             $zm_master_password->set('masterPassword', $masterPassword);
-            zm_redirect(zm_plugin_admin_url());
+            ZMRequest::redirect(zm_plugin_admin_url());
         }
 
         //TODO: custom form; either single field to set or old, new, confirm to change

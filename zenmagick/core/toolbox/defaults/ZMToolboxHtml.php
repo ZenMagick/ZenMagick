@@ -62,7 +62,7 @@ class ZMToolboxHtml extends ZMObject {
             $imgSrc = $imageInfo->getDefaultImage();
             break;
         }
-        if (!zm_starts_with($imgSrc, '/')) {
+        if (!ZMTools::startsWith($imgSrc, '/')) {
             $imgSrc = ZMRuntime::getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('isXHTML') ? '/' : '';

@@ -431,6 +431,26 @@ class ZMRequest extends ZMObject {
         return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
     }
 
+    /**
+     * Redirect to the given url.
+     *
+     * <p>This method wil also persist existing messages in the session in order to be
+     * able to display them after the redirect.</p>
+     *
+     * @param string url A fully qualified url.
+     */
+    public static function redirect($url) {
+        if (ZMMessages::instance()->hasMessages()) {
+            $session = ZMRequest::getSession();
+            $session->setMessages(ZMMessages::instance()->getMessages());
+        }
+
+        $url = str_replace('&amp;', '&', $url);
+
+        header('Location: ' . $url);
+        ZMRuntime::finish();
+    }
+
 }
 
 ?>

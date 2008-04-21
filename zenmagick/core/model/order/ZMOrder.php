@@ -130,7 +130,7 @@ class ZMOrder extends ZMModel {
      * @return boolean <code>true</code> if a shipping address exists, <code>false</code> if not.
      */
     function hasShippingAddress() {
-        return !(zm_is_empty($this->shippingAddress_->lastName_) && zm_is_empty($this->shippingAddress_->address_));
+        return !(ZMTools::isEmpty($this->shippingAddress_->lastName_) && ZMTools::isEmpty($this->shippingAddress_->address_));
     }
 
     /**

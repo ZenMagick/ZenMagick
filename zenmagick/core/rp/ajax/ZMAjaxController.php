@@ -143,7 +143,7 @@ class ZMAjaxController extends ZMController {
             $prefixList = array('get', 'is', 'has');
             foreach ($all as $method) {
                 foreach ($prefixList as $prefix) {
-                    if (zm_starts_with($method, $prefix)) {
+                    if (ZMTools::startsWith($method, $prefix)) {
                         array_push($methods, substr($method, strlen($prefix)));
                     }
                 }

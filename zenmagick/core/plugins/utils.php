@@ -115,7 +115,7 @@
 <form action="<?php zm_plugin_admin_url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues(false) as \$value) { ?>
-            <?php if (!\$all && (zm_ends_with(\$value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || zm_ends_with(\$value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
+            <?php if (!\$all && (ZMTools::endsWith(\$value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || ZMTools::endsWith(\$value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
             <tr>
                 <td><?php echo \$value->getName() ?></td>
                 <td><?php zm_plugin_value_element(\$value) ?></td>

@@ -157,7 +157,7 @@ class zm_captcha extends ZMPlugin {
 function zm_captcha_validate($req) {
 global $zm_captcha;
 
-    if (zm_is_empty(ZMRequest::getParameter(ZM_CAPTCHA_FIELD))) {
+    if (ZMTools::isEmpty(ZMRequest::getParameter(ZM_CAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

@@ -112,7 +112,7 @@ class zm_smarty extends ZMPlugin {
         );
 
         // all settings as map
-        $smarty->assign('zm_setting', zm_settings());
+        $smarty->assign('zm_setting', ZMSettings::getAll());
 
         // use callback for futher settings
         if (function_exists('zms_smarty_config')) {

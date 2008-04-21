@@ -31,7 +31,7 @@
     function zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
         return (zm_is_checkout_page() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
-            || zm_is_in_array($pageName, 'advanced_search_result');
+            || ZMTools::inArray($pageName, 'advanced_search_result');
     }
 
     // skip more zc request handling
@@ -55,7 +55,7 @@
     if ('add_product' == ZMRequest::getParameter('action')) {
         $uploads = 0;
         foreach (ZMRequest::getParameterMap() as $name => $value) {
-            if (zm_starts_with($name, ZMSettings::get('uploadOptionPrefix'))) {
+            if (ZMTools::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }

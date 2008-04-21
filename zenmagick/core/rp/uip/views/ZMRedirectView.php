@@ -80,7 +80,7 @@ class ZMRedirectView extends ZMView {
             $url = ZMToolbox::instance()->net->url($this->page_, $this->parameter_, $this->secure_, false);
         }
 
-        zm_redirect($url);
+        ZMRequest::redirect($url);
     }
 
     /**

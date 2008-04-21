@@ -88,7 +88,7 @@ require_once('includes/application_top.php');
     }
 
     if ($needRefresh) {
-        zm_redirect(ZM_ADMINFN_PLUGINS.'?select='.$refresh);
+        ZMRequest::redirect(ZM_ADMINFN_PLUGINS.'?select='.$refresh);
     }
 
     // build/update plugin status for all plugins
@@ -180,7 +180,7 @@ require_once('includes/application_top.php');
                 </tr>
                 <?php if ($isEdit) { ?>
                   <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <?php if (!$plugin->isTraditional() && !(zm_ends_with($value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || zm_ends_with($value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
+                    <?php if (!$plugin->isTraditional() && !(ZMTools::endsWith($value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || ZMTools::endsWith($value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                       <td><?php echo $value->getName() ?></td>
                       <td><?php echo $value->getDescription() ?></td>

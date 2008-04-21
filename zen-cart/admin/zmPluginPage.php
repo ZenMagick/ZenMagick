@@ -63,7 +63,7 @@ require_once('includes/application_top.php');
 
     <div id="main">
       <div id="content">
-        <?php if (!zm_is_empty($_zm_pcontents)) {
+        <?php if (!ZMTools::isEmpty($_zm_pcontents)) {
             echo $_zm_pcontents;
         } else if (null != $page) {
             echo $page->getContents();

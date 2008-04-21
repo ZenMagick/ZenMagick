@@ -129,7 +129,7 @@ class ZMThemes extends ZMObject {
         $themes = array();
         $handle = @opendir(ZMRuntime::getThemesDir());
         while (false !== ($file = readdir($handle))) { 
-            if (zm_starts_with($file, '.') || 'CVS' == $file) {
+            if (ZMTools::startsWith($file, '.') || 'CVS' == $file) {
                 continue;
             }
             array_push($themes, $file);

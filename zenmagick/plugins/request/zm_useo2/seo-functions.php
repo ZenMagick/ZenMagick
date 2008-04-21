@@ -120,7 +120,7 @@
     function zm_build_seo_href($page=null, $parameters='', $isSecure=false) {
         /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
         $sefu = explode(",", ereg_replace(' +', '', SEO_URLS_ONLY_IN));
-        if ((SEO_URLS_ONLY_IN != "" && !in_array($page, $sefu)) || (null != ZMSettings::get('seoEnabledPagesList') && !zm_is_in_array($page, ZMSettings::get('seoEnabledPagesList')))) {
+        if ((SEO_URLS_ONLY_IN != "" && !in_array($page, $sefu)) || (null != ZMSettings::get('seoEnabledPagesList') && !ZMTools::inArray($page, ZMSettings::get('seoEnabledPagesList')))) {
             return _zm_zen_href_link($page, $parameters, $isSecure ? 'SSL' : 'NONSSL');
         }
         

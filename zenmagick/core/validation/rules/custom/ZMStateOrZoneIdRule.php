@@ -69,7 +69,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
             }
 
             // TODO: make sure that zone is actually required!
-            return !zm_is_empty($address->getState()) || 0 != $address->getZoneId();
+            return !ZMTools::isEmpty($address->getState()) || 0 != $address->getZoneId();
         }
 
         return true;

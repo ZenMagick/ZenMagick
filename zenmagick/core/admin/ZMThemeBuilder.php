@@ -143,18 +143,18 @@ class ZMThemeBuilder extends ZMObject {
         }
 
         // try base dir
-        zm_mkdir($themeDir, 755);
+        ZMTools::mkdir($themeDir, 755);
         if (!file_exists($themeDir)) {
             array_push($this->messages_, 'Could not create theme dir "' . $themeDir . '".');
             return false;
         }
 
         // do the common ones
-        zm_mkdir($themeDir.ZM_THEME_CONTENT_DIR, 755);
-        zm_mkdir($themeDir.ZM_THEME_EXTRA_DIR, 755);
-        zm_mkdir($themeDir.ZM_THEME_CONTENT_DIR.'views/', 755);
-        zm_mkdir($themeDir.ZM_THEME_BOXES_DIR, 755);
-        zm_mkdir($themeDir.ZM_THEME_LANG_DIR, 755);
+        ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR, 755);
+        ZMTools::mkdir($themeDir.ZM_THEME_EXTRA_DIR, 755);
+        ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR.'views/', 755);
+        ZMTools::mkdir($themeDir.ZM_THEME_BOXES_DIR, 755);
+        ZMTools::mkdir($themeDir.ZM_THEME_LANG_DIR, 755);
 
         return true;
     }

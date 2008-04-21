@@ -186,7 +186,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                     if (false !== strpos($line, "function ") 
                         && false !== strpos($line, $fktCfg[0]."(") 
                         && false === strpos($line, $fktCfg[1])
-                        && zm_ends_with(trim($line), "{")) {
+                        && ZMTools::endsWith(trim($line), "{")) {
                         // modify
                         $lines[$ii] = str_replace($fktCfg[0], $fktCfg[0].$fktCfg[1], $line);
                         $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";

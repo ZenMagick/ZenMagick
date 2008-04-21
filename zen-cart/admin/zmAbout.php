@@ -63,10 +63,6 @@ require_once('includes/application_top.php');
             <?php zm_phpinfo(1); ?>
             <p><?php zm_l10n('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
           </div>
-          <div class="about">
-            <h2><?php zm_l10n("The ZenMagick environment") ?></h2>
-            <?php zm_env(); ?>
-          </div>
       </div>
     </div>
 

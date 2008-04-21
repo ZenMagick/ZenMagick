@@ -56,7 +56,7 @@
 
         $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
 
-        if (null != ZMSettings::get('seoEnabledPagesList') && !zm_is_in_array($view, ZMSettings::get('seoEnabledPagesList'))) {
+        if (null != ZMSettings::get('seoEnabledPagesList') && !ZMTools::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {
             return $href;
         }
 
@@ -64,10 +64,10 @@
         $queryString = zm_htmlurldecode($url['query']);
         parse_str($queryString, $query);
         $path = dirname($url['path']);
-        if (!zm_ends_with($path, '/')) {
+        if (!ZMTools::endsWith($path, '/')) {
             $path .= '/';
         }
-        if (zm_starts_with($path, '\\')) {
+        if (ZMTools::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
         $page = $query['main_page'];
@@ -234,7 +234,7 @@
                 array_push($removeNames, 'action');
                 break;
             default:
-                if (zm_starts_with($page, 'popup_')) {
+                if (ZMTools::startsWith($page, 'popup_')) {
                     $path .= "popup/".substr($page, 6);
                 } else {
                     if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {

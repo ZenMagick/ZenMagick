@@ -54,7 +54,7 @@ class ZMController extends ZMObject {
         }
 
         foreach ($GLOBALS as $name => $instance) {
-            if (zm_starts_with($name, "zm_")) {
+            if (ZMTools::startsWith($name, "zm_")) {
                 if (is_object($instance)) {
                     $this->exportGlobal($name, $GLOBALS[$name]);
                 }

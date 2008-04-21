@@ -117,7 +117,7 @@ class ZMFileCache extends ZMObject implements ZMCache {
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
     private function _ensureCacheDir($dir) {
-        zm_mkdir($dir, 755);
+        ZMTools::mkdir($dir, 755);
         return file_exists($dir) && is_writeable($dir);
     }
 

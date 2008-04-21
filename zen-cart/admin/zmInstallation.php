@@ -165,8 +165,8 @@ require_once('includes/application_top.php');
     <?php }
 
     if ($needRefresh) {
-        zm_redirect(ZM_ADMINFN_INSTALLATION);
-        zm_exit();
+        ZMRequest::redirect(ZM_ADMINFN_INSTALLATION);
+        ZMRuntime::finish();
     }
 
 ?>

@@ -43,7 +43,7 @@ require_once('includes/application_top.php');
   } else if (null != $selectedFile) {
       $editContents = null;
       if (null !== $selectedFile) {
-          if (zm_is_empty($selectedFile) && !zm_is_empty($newFile)) {
+          if (ZMTools::isEmpty($selectedFile) && !ZMTools::isEmpty($newFile)) {
               $editContents = '';
               $selectedFile = $newFile;
           } else {

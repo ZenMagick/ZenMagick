@@ -212,7 +212,7 @@ class ZMTheme extends ZMObject {
         if (is_dir($path)) {
             $handle = @opendir($path);
             while (false !== ($file = readdir($handle))) { 
-                if (!zm_ends_with($file, '.php')) {
+                if (!ZMTools::endsWith($file, '.php')) {
                     continue;
                 }
                 $page = str_replace('.php', '', $file);
@@ -226,7 +226,7 @@ class ZMTheme extends ZMObject {
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) { 
-                    if (!zm_ends_with($file, '.php')) {
+                    if (!ZMTools::endsWith($file, '.php')) {
                         continue;
                     }
                     $page = str_replace('.php', '', $file);
@@ -256,7 +256,7 @@ class ZMTheme extends ZMObject {
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir."/".ZM_THEME_STATIC_DIR;
         if (!file_exists($path)) {
-            zm_mkdir($path);
+            ZMTools::mkdir($path);
         }
         $filename = $path.$page.'.php';
 

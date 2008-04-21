@@ -83,7 +83,7 @@
 
     // make zen-cart relative
     function zm_mk_relative($file) {
-      return zm_starts_with($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
+      return ZMTools::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
     }
 
     // find all l10n strings

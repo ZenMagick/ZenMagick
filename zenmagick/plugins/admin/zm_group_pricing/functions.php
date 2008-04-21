@@ -64,7 +64,7 @@
                 $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
             }
             $groupId = ZMRequest::getParameter('groupId', 0);
-            zm_redirect(zm_href('', $zm_nav_params.'&groupId='.$groupId));
+            ZMRequest::redirect(zm_href('', $zm_nav_params.'&groupId='.$groupId));
         }
 
 

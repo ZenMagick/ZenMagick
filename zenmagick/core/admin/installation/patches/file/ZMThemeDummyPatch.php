@@ -144,7 +144,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         foreach ($dummies as $file) {
             // avoid recursive delete, just in case
             @unlink($file."/template_info.php");
-            zm_rmdir($file, false);
+            ZMTools::rmdir($file, false);
         }
 
         return true;
@@ -161,7 +161,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         if (file_exists(DIR_FS_CATALOG_TEMPLATES)) {
             $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !zm_starts_with($file, '.')) {
+                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !ZMTools::startsWith($file, '.')) {
                     $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
                     if (false !== strpos($contents, 'created by ZenMagick')) {
                         array_push($dummies, DIR_FS_CATALOG_TEMPLATES.$file);

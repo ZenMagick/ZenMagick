@@ -112,9 +112,9 @@ class ZMCoreCompressor extends ZMObject {
      * Clean up all temp. files.
      */
     function clean() {
-        zm_rmdir($this->pluginsPreparedDirname_);
-        zm_rmdir($this->strippedDirname_);
-        zm_rmdir($this->flatDirname_);
+        ZMTools::rmdir($this->pluginsPreparedDirname_);
+        ZMTools::rmdir($this->strippedDirname_);
+        ZMTools::rmdir($this->flatDirname_);
     }
 
     /**
@@ -235,7 +235,7 @@ class ZMCoreCompressor extends ZMObject {
      * @param string out The output directory.
      */
     function _preparePlugins($out) {
-        if (!zm_ends_with($out, '/')) $out .= '/';
+        if (!ZMTools::endsWith($out, '/')) $out .= '/';
 
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
@@ -244,7 +244,7 @@ class ZMCoreCompressor extends ZMObject {
                 }
                 $flag = $plugin->getLoaderSupport();
                 $pluginBase = $out.$type.'/'.$plugin->getId().'/';
-                zm_mkdir($pluginBase, 755);
+                ZMTools::mkdir($pluginBase, 755);
                 if ('NONE' != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
@@ -265,7 +265,7 @@ class ZMCoreCompressor extends ZMObject {
                         }
                         $source = file_get_contents($file);
                         if (!empty($relDir)) {
-                            zm_mkdir($pluginBase . $relDir, 755);
+                            ZMTools::mkdir($pluginBase . $relDir, 755);
                         }
                         $outfile = $pluginBase . $relDir . basename($file);
 
@@ -297,8 +297,8 @@ class ZMCoreCompressor extends ZMObject {
      */
     function _stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";
-        if (!zm_ends_with($in, '/')) $in .= '/';
-        if (!zm_ends_with($out, '/')) $out .= '/';
+        if (!ZMTools::endsWith($in, '/')) $in .= '/';
+        if (!ZMTools::endsWith($out, '/')) $out .= '/';
 
         $files = ZMLoader::findIncludes($in, $recursive);
 
@@ -306,18 +306,18 @@ class ZMCoreCompressor extends ZMObject {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
-            if (!zm_ends_with($outdir, '/')) $outdir .= '/';
+            if (!ZMTools::endsWith($outdir, '/')) $outdir .= '/';
             $outfile = $outdir.$name;
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    zm_mkdir(dirname($outdir), 755);
+                    ZMTools::mkdir(dirname($outdir), 755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                zm_mkdir($outdir, 755);
+                ZMTools::mkdir($outdir, 755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -339,7 +339,7 @@ class ZMCoreCompressor extends ZMObject {
         $files = ZMLoader::findIncludes($in.'/', true);
 
         if (!file_exists($out)) {
-            zm_mkdir($out, 755);
+            ZMTools::mkdir($out, 755);
         }
 
         $inpath = explode('/', $in);
@@ -352,13 +352,13 @@ class ZMCoreCompressor extends ZMObject {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    zm_mkdir(dirname($outdir), 755);
+                    ZMTools::mkdir(dirname($outdir), 755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                zm_mkdir($outdir, 755);
+                ZMTools::mkdir($outdir, 755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;

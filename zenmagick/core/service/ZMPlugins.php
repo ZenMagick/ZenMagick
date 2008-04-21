@@ -101,7 +101,7 @@ class ZMPlugins extends ZMObject {
         $types = array();
         $handle = opendir(ZMRuntime::getPluginsDir());
         while (false !== ($file = readdir($handle))) { 
-            if (zm_starts_with($file, '.')) {
+            if (ZMTools::startsWith($file, '.')) {
                 continue;
             }
 
@@ -142,7 +142,7 @@ class ZMPlugins extends ZMObject {
         $handle = @opendir($typeDir);
         if (false !== $handle) {
             while (false !== ($file = readdir($handle))) { 
-                if (zm_starts_with($file, '.')) {
+                if (ZMTools::startsWith($file, '.')) {
                     continue;
                 }
 

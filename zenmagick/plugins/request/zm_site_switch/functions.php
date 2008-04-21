@@ -84,7 +84,7 @@ define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(dirname(__FILE__).\'/zm
     function zm_site_switch_setup_switcher() {
         $localDir = dirname(ZM_FILE_SITE_SWITCHER);
         if (!is_dir($localDir)) {
-            zm_mkdir($localDir);
+            ZMTools::mkdir($localDir);
             if (!is_dir($localDir)) {
                 ZMMessages::instance()->error('could not create directory: \''.$localDir.'\'');
                 return;
