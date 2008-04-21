@@ -39,7 +39,7 @@ $language = ZMRuntime::getLanguage();
 <?php if ($zm_gvreceiver->hasMessage()) { ?>
 <p>
 <?php zm_l10n("%s says:", ZMRequest::getAccount()->getFirstName()); ?><br>
-<?php echo zm_text2html($zm_gvreceiver->getMessage()) ?>
+<?php echo $html->text2html($zm_gvreceiver->getMessage()) ?>
 </p>
 <?php } ?>
 <?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), '', true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>

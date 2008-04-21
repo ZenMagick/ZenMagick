@@ -150,12 +150,10 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * @package org.zenmagick.misc
      * @param string s The input string.
      * @return string HTML formatted text.
+     * @deprecated use ZMToolbox instead
      */
     function zm_text2html($s) {
-        $html = str_replace("\n", '<br>', $s);
-        $html = str_replace("\r\n", '<br>', $html);
-        $html = str_replace("\r", '', $html);
-        return $html;
+        return ZMToolbox::instance()->html->text2html($s);
     }
 
 
@@ -204,12 +202,10 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
      * @package org.zenmagick.misc
      * @param mixed value The value.
      * @return boolean The boolean value.
+     * @deprecated use ZMTools instead
      */
     function zm_boolean($value) {
-        if (is_integer($value)) {
-            return $value;
-        }
-        return ZMTools::inArray(strtolower($value), "on,true,yes,1");
+        return ZMTools::asBoolean($value);
     }
 
 

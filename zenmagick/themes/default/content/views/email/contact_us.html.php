@@ -39,5 +39,5 @@ $language = ZMRuntime::getLanguage();
 <p><?php zm_l10n("Email: %s", $contactInfo->getEmail()) ?></p>
 
 <hr>
-<div><?php echo zm_text2html($contactInfo->getMessage()) ?></div>
+<div><?php echo $html->text2html($contactInfo->getMessage()) ?></div>
 <hr>

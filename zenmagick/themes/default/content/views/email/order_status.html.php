@@ -47,7 +47,7 @@ $language = ZMRuntime::getLanguage();
 
 <?php if (!empty($comment)) { ?>
 <p><?php zm_l10n("The following comment has been added to your order:") ?></p>
-<p><?php echo zm_text2html($comment) ?></p>
+<p><?php echo $html->text2html($comment) ?></p>
 <?php } ?>
 
 <p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>

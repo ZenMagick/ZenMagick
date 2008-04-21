@@ -39,7 +39,7 @@ $language = ZMRuntime::getLanguage();
 <?php if ($zm_emailMessage->hasMessage()) { ?>
 <p>
 <?php zm_l10n("%s also sent a note saying:", $zm_emailMessage->getFromName()) ?><br>
-<?php echo zm_text2html($zm_emailMessage->getMessage()) ?>
+<?php echo $html->text2html($zm_emailMessage->getMessage()) ?>
 </p>
 <?php } ?>
 

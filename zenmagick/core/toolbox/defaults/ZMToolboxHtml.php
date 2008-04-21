@@ -276,6 +276,19 @@ class ZMToolboxHtml extends ZMObject {
         return $onload;
     }
 
+    /**
+     * Convert text based user input into HTML.
+     *
+     * @param string s The input string.
+     * @return string HTML formatted text.
+     */
+    public function text2html($s) {
+        $html = str_replace("\n", '<br>', $s);
+        $html = str_replace("\r\n", '<br>', $html);
+        $html = str_replace("\r", '', $html);
+        return $html;
+    }
+
 }
 
 ?>
