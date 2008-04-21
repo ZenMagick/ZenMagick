@@ -27,10 +27,10 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td class="cpt"><input type="checkbox" name="compareId[]" value="<?php echo $product->getId() ?>" /></td>
     <!-- need id on link to identify the product -->
-    <td><a href="<?php $_t->net->product($product->getId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php $_t->html->image($product->getImageInfo(), PRODUCT_IMAGE_SMALL) ?></a></td>
+    <td><a href="<?php $net->product($product->getId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php $html->image($product->getImageInfo(), PRODUCT_IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
-        <a href="<?php $_t->net->product($product->getId()) ?>"><?php $_t->html->encode($product->getName()) ?></a><br/>
-        <?php $_t->html->more($_t->html->strip($product->getDescription(), false), 120) ?>
+        <a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a><br/>
+        <?php $html->more($html->strip($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php zm_format_currency($product->getPrice()) ?></td>
 </tr>

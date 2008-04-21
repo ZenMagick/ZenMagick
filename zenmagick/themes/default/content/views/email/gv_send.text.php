@@ -37,7 +37,7 @@
 
 <?php } ?>
 
-<?php zm_l10n("To redeem your gift, visit %s.", $_t->net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), '', true, false)) ?>
+<?php zm_l10n("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), '', true, false)) ?>
 
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

@@ -31,14 +31,14 @@
         <?php foreach ($zm_cart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQty() ?> x <?php $_t->html->encode($item->getName()) ?>
+                    <?php echo $item->getQty() ?> x <?php $html->encode($item->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php $_t->html->encode($attribute->getName()) ?>:</span>
+                            <p><span class="attr"><?php $html->encode($attribute->getName()) ?>:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php $_t->html->encode($attributeValue->getName()) ?></span>
+                                <span class="atval"><?php $html->encode($attributeValue->getName()) ?></span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
@@ -56,7 +56,7 @@
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php $_t->html->encode($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr><td class="total"><?php $html->encode($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
               }
           ?>
 
@@ -66,15 +66,15 @@
 
 <fieldset>
     <legend><?php zm_l10n("Payment Method") ?></legend>
-    <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
     <?php $paymentType = $zm_cart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
-      <h4><?php $_t->html->encode($paymentType->getName()) ?></h4>
+      <h4><?php $html->encode($paymentType->getName()) ?></h4>
       <?php $fields = $paymentType->getFields();
           if (0 < count($fields)) {
               ?><table cellpadding="0" cellspacing="0"><tbody><?php
               foreach ($fields as $field) {
-                ?><tr><td><label><?php $_t->html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+                ?><tr><td><label><?php $html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
               }
               ?></table><?php
             }
@@ -85,8 +85,8 @@
 <?php if (!$zm_cart->isVirtual()) { ?>
     <fieldset>
         <legend><?php zm_l10n("Shipping") ?></legend>
-        <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-        <?php $_t->html->encode($zm_cart->getShippingMethod()) ?><br/>
+        <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+        <?php $html->encode($zm_cart->getShippingMethod()) ?><br/>
     </fieldset>
 <?php } ?>
 
@@ -94,7 +94,7 @@
     <legend><?php zm_l10n("Address Information") ?></legend>
     <?php if ($zm_cart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+            <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
             <h4><?php zm_l10n("Shipping Address") ?></h4>
             <?php zm_format_address($zm_cart->getShippingAddress()) ?>
         </div>
@@ -105,7 +105,7 @@
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
         <h4><?php zm_l10n("Billing Address") ?></h4>
         <?php zm_format_address($zm_cart->getBillingAddress()) ?>
     </div>
@@ -113,12 +113,12 @@
 
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
-    <div class="btn"><a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-    <div><?php $_t->html->encode(!ZMTools::isEmpty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
+    <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+    <div><?php $html->encode(!ZMTools::isEmpty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
 </fieldset>
 
 
-<?php $_t->net->url($zm_cart->getOrderFormURL(), '', true) ?>
+<?php $net->url($zm_cart->getOrderFormURL(), '', true) ?>
     <?php $zm_cart->getOrderFormContent() ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Confirm to order") ?>" /></div>
 </form>

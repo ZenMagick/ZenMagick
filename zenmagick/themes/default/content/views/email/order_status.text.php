@@ -31,7 +31,7 @@ $comment = trim($matches[1]);
 
 
 <?php zm_l10n("This is to inform you that your order #%s has been update.", $zm_order->getId()) ?>
-<?php zm_l10n("More details can be found at the following URL: %s", $_t->net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
+<?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
 
 <?php if ($newOrderStatus != $zm_order->getStatus()) { ?>
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>

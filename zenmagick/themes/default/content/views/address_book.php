@@ -26,15 +26,15 @@
 
 <?php foreach ($zm_addressList as $address) { ?>
     <fieldset>
-        <legend><?php $_t->html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
+        <legend><?php $html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
         <?php echo ($address->isPrimary() ? zm_l10n("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="<?php $_t->net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
+                <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
             <?php } ?>
-            <a class="btn" href="<?php $_t->net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
+            <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
         <?php zm_format_address($address) ?>
     </fieldset>
 <?php } ?>
-<div class="btn"><a href="<?php $_t->net->url(FILENAME_ADDRESS_BOOK_PROCESS, '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>
+<div class="btn"><a href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>

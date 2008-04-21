@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<h2><?php $_t->html->encode($zm_category->getName()) ?></h2>
+<h2><?php $html->encode($zm_category->getName()) ?></h2>
 
 <?php
 $imageInfo = $zm_category->getImageInfo(); 
@@ -37,7 +37,7 @@ echo $imageInfo;
 <?php if ($zm_category->hasChildren()) { ?>
     <h3><?php zm_l10n("Available Categories") ?></h3>
     <?php foreach ($zm_category->getChildren() as $category) { ?>
-        <?php $_t->html->encode($category->getName()) ?><br />
+        <?php $html->encode($category->getName()) ?><br />
     <?php } ?>
 <?php } ?>
 
@@ -49,7 +49,7 @@ echo $imageInfo;
       <?php foreach ($featured as $product) { ?>
         <div>
           <p><?php zm_product_image_link($product) ?></p>
-          <p><a href="<?php zm_product_href($product->getId()) ?>"><?php $_t->html->encode($product->getName()) ?></a></p>
+          <p><a href="<?php zm_product_href($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
           <?php $offers = $product->getOffers(); ?>
           <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
         </div>

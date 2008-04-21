@@ -27,7 +27,7 @@
 <fieldset>
     <legend><?php zm_l10n("Shipping Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
+        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
     </div>
     <?php zm_format_address($zm_cart->getShippingAddress()) ?>
 </fieldset>
@@ -51,11 +51,11 @@
                     </thead>
                     <tbody>
                     <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
-                        <tr><td colspan="3"><strong><?php $_t->html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
+                        <tr><td colspan="3"><strong><?php $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
                         <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
                             <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $zm_cart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                                <td><?php $_t->html->encode($method->getName()) ?></td>
+                                <td><?php $html->encode($method->getName()) ?></td>
                                 <td class="smcost"><?php zm_format_currency($method->getCost()) ?></td>
                                 <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php zm_radio_state(true, $selected) ?> /></td>
                             </tr>
@@ -71,7 +71,7 @@
         <legend><?php zm_l10n("Comments") ?></legend>
         <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $_t->html->encode($zm_cart->getComment()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($zm_cart->getComment()) ?></textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

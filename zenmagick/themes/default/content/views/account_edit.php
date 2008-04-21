@@ -48,11 +48,11 @@
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("First Name") ?><span>*</span></td>
-                    <td><input type="text" name="firstname" value="<?php $_t->html->encode($zm_account->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstname" value="<?php $html->encode($zm_account->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
-                    <td><input type="text" name="lastname" value="<?php $_t->html->encode($zm_account->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastname" value="<?php $html->encode($zm_account->getLastName()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
@@ -62,21 +62,21 @@
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
-                    <td><input type="text" name="email_address" value="<?php $_t->html->encode($zm_account->getEmail()) ?>" /></td>
+                    <td><input type="text" name="email_address" value="<?php $html->encode($zm_account->getEmail()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
-                        <td><input type="text" name="nick" value="<?php $_t->html->encode($zm_account->getNickName()) ?>" /></td>
+                        <td><input type="text" name="nick" value="<?php $html->encode($zm_account->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("Telephone Number") ?><span>*</span></td>
-                    <td><input type="text" name="telephone" value="<?php $_t->html->encode($zm_account->getPhone()) ?>" /></td>
+                    <td><input type="text" name="telephone" value="<?php $html->encode($zm_account->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Fax Number") ?></td>
-                    <td><input type="text" name="fax" value="<?php $_t->html->encode($zm_account->getFax()) ?>" /></td>
+                    <td><input type="text" name="fax" value="<?php $html->encode($zm_account->getFax()) ?>" /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("E-Mail Format") ?><span>*</span></td>

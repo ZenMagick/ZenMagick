@@ -26,7 +26,7 @@
 
 <h3><?php zm_l10n("RSS Feeds") ?></h3>
 <div id="sb_feeds" class="box">
-    <a href="<?php $_t->net->rssFeed('reviews') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Product Reviews") ?></a>
-    <a href="<?php $_t->net->rssFeed('products', 'new') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("New Products") ?></a>
+    <a href="<?php $net->rssFeed('reviews') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Product Reviews") ?></a>
+    <a href="<?php $net->rssFeed('products', 'new') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("New Products") ?></a>
     <a href="<?php zm_rss_feed_href('chapter', '10') ?>"><img src="<?php $zm_theme->themeURL('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Chapter 10") ?></a>
 </div>

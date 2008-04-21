@@ -28,15 +28,15 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
         <?php zm_product_image_link($product) ?>
-        <h3><?php $_t->html->encode($product->getName()) ?></h3>
+        <h3><?php $html->encode($product->getName()) ?></h3>
         <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()); ?>
         <p><img src="<?php $zm_theme->themeURL('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
-        <p class="rtext"><?php $_t->html->more($_t->html->strip($review->getText(), false), 120) ?></p>
+        <p class="rtext"><?php $html->more($html->strip($review->getText(), false), 120) ?></p>
         <p class="rinfo"><?php zm_l10n("Date added: %s by %s", $review->getDateAdded(), $review->getAuthor()) ?></p>
     </td>
     <td class="lnks">
         <p><a class="btn" href="<?php zm_product_href($product->getId()) ?>"><?php zm_l10n("Product Information") ?></a></p>
         <?php $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId(); ?>
-        <p><a class="btn" href="<?php $_t->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params) ?>"><?php zm_l10n("Read full review") ?></a></p>
+        <p><a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params) ?>"><?php zm_l10n("Read full review") ?></a></p>
     </td>
 </tr>

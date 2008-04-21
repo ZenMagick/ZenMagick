@@ -27,10 +27,10 @@
 <?php if (0 == ZMRequest::getProductId() && 'specials' != ZMRequest::getPageName()) { ?>
     <?php $products = ZMProducts::instance()->getSpecials(1); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
-        <h3><a href="<?php $_t->net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Specials") ?></h3>
+        <h3><a href="<?php $net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Specials") ?></h3>
         <div id="sb_specials" class="box">
-            <p><?php $_t->html->productImageLink($product) ?></p>
-            <p><a href="<?php $_t->net->product($product->getId()) ?>"><?php $_t->html->encode($product->getName()) ?></a></p>
+            <p><?php $html->productImageLink($product) ?></p>
+            <p><a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
             <?php $offers = $product->getOffers(); ?>
             <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
         </div>

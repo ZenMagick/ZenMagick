@@ -26,22 +26,22 @@
 
 <div id="menu">
   <ul>
-    <li class="first"><a href="<?php $_t->net->url(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
+    <li class="first"><a href="<?php $net->url(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
     <?php if (ZMRequest::isAnonymous()) { ?>
-        <li><a href="<?php $_t->net->url(FILENAME_LOGIN, '', true); ?>"><?php zm_l10n("LOGIN") ?></a></li>
+        <li><a href="<?php $net->url(FILENAME_LOGIN, '', true); ?>"><?php zm_l10n("LOGIN") ?></a></li>
     <?php } ?>
     <?php if (ZMRequest::isRegistered()) { ?>
-        <li><a href="<?php $_t->net->url(FILENAME_ACCOUNT, '', true); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
+        <li><a href="<?php $net->url(FILENAME_ACCOUNT, '', true); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
     <?php } ?>
     <?php if (!ZMRequest::isAnonymous()) { ?>
-        <li><a href="<?php $_t->net->url(FILENAME_LOGOFF, '', true); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
+        <li><a href="<?php $net->url(FILENAME_LOGOFF, '', true); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!ZMRequest::getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
-        <li><a href="<?php $_t->net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
-        <li><a href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
+        <li><a href="<?php $net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
+        <li><a href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>
     <?php foreach (ZMEZPages::instance()->getPagesForHeader() as $page) { ?>
-        <li><?php $_t->html->ezpageLink($page->getId()) ?></li>
+        <li><?php $html->ezpageLink($page->getId()) ?></li>
     <?php } ?>
   </ul>
 </div>

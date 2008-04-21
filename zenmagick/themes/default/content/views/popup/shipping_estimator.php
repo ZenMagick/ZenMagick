@@ -84,7 +84,7 @@
                 <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
                     <?php $selected = false; /* TODO */ ?>
                     <tr class="smethod<?php echo ($selected ? " sel" : "") ?>">
-                        <td class="smname"><strong><?php $_t->html->encode($provider->getName()) ?></strong> <?php $_t->html->encode($method->getName()) ?></td>
+                        <td class="smname"><strong><?php $html->encode($provider->getName()) ?></strong> <?php $html->encode($method->getName()) ?></td>
                         <td class="smcost"><?php zm_format_currency($method->getCost()) ?></td>
                     </tr>
                 <?php } ?>

@@ -66,7 +66,7 @@
 
   <body id="b_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
     <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(1); if (null != $bannerBox) { ?>
-        <div id="bannerOne"><?php $_t->macro->showBanner($bannerBox); ?></div>
+        <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <div id="container">
@@ -91,11 +91,11 @@
 
       <div id="content">
         <?php if ('index' != $zm_view->getName()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-            <?php echo $_t->macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
+            <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
         <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(3); if (null != $bannerBox) { ?>
-            <div id="bannerThree"><?php $_t->macro->showBanner($bannerBox); ?></div>
+            <div id="bannerThree"><?php $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
 
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
@@ -109,7 +109,7 @@
         <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
 
         <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(4); if (null != $bannerBox) { ?>
-            <div id="bannerFour"><?php $_t->macro->showBanner($bannerBox); ?></div>
+            <div id="bannerFour"><?php $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
       </div>
 
@@ -117,7 +117,7 @@
     </div>
 
     <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(6); if (null != $bannerBox) { ?>
-        <div id="bannerSix"><?php $_t->macro->showBanner($bannerBox); ?></div>
+        <div id="bannerSix"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
   </body>

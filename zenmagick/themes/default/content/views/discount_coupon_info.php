@@ -26,7 +26,7 @@
 
 <?php $restrictions = $zm_coupon->getRestrictions(); ?>
 <p><?php zm_l10n("The Discount Coupon Redemption Code you have entered is for %s.", $zm_coupon->getName()) ?></p>
-<p><?php zm_l10n("Discount Offer:") ?><br /><?php $_t->html->encode($zm_coupon->getDescription()) ?></p>
+<p><?php zm_l10n("Discount Offer:") ?><br /><?php $html->encode($zm_coupon->getDescription()) ?></p>
 
 <h4><?php zm_l10n("Promotional Period") ?></h4>
 <p><?php zm_l10n("The coupon is valid between %s and %s.", zm_date_short($zm_coupon->getStartDate(), false), zm_date_short($zm_coupon->getExpiryDate(), false)) ?></p>
@@ -35,7 +35,7 @@
     <h4><?php zm_l10n("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
-        <li><?php $_t->html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -44,7 +44,7 @@
     <h4><?php zm_l10n("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
-        <li><?php $_t->html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -53,11 +53,11 @@
     <h4><?php zm_l10n("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
-<?php $_t->form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
+<?php $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php zm_l10n("Look-up another discount coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php $_t->html->encode($zm_coupon_code) ?>" />
+    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php $html->encode($zm_coupon_code) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" />
 </form>

@@ -56,7 +56,7 @@
           $('#cart_progress').show();
           $.ajax({
               type: "POST",
-              url: "<?php $_t->net->ajax('shopping_cart', 'addProduct') ?>",
+              url: "<?php $net->ajax('shopping_cart', 'addProduct') ?>",
               data: "productId="+productId+"&quantity=1",
               success: function(msg) {
                   // declared in sidebox, so easier to change layout...
@@ -74,7 +74,7 @@
         <?php include($zm_theme->themeFile('views/resultlist/options.php')) ?>
     </div>
 
-    <?php $_t->form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
+    <?php $form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
         <div class="rlist">
             <table cellspacing="0" cellpadding="0"><tbody>
                 <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>

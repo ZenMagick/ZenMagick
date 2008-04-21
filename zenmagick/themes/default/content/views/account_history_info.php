@@ -31,14 +31,14 @@
         <tr>
             <td class="qty"><?php echo $orderItem->getQty() ?> x </td>
             <td class="itm">
-                <?php $_t->html->encode($orderItem->getName()) ?>
+                <?php $html->encode($orderItem->getName()) ?>
                 <?php if ($orderItem->hasAttributes()) { ?>
                     <br/>
                     <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
-                        <p><span class="attr"><?php $_t->html->encode($attribute->getName()) ?>:</span>
+                        <p><span class="attr"><?php $html->encode($attribute->getName()) ?>:</span>
                         <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                             <?php if (!$first) { ?>, <?php } ?>
-                            <span class="atval"><?php $_t->html->encode($attributeValue->getName()) ?></span>
+                            <span class="atval"><?php $html->encode($attributeValue->getName()) ?></span>
                         <?php $first = false; } ?>
                         </p>
                     <?php } ?>
@@ -49,7 +49,7 @@
     <?php } ?>
     <?php foreach ($zm_order->getOrderTotals() as $orderTotal) { ?>
         <tr>
-            <td colspan="2" class="total"><?php $_t->html->encode($orderTotal->getName()) ?></td>
+            <td colspan="2" class="total"><?php $html->encode($orderTotal->getName()) ?></td>
             <td class="price"><?php echo $orderTotal->getValue() ?></td>
         </tr>
     <?php } ?>
@@ -62,8 +62,8 @@
     <?php foreach ($zm_order->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
             <td><?php zm_date_short($orderStatus->getDateAdded()) ?></td>
-            <td><?php $_t->html->encode($orderStatus->getName()) ?></td>
-            <td class="cmt"><?php $_t->html->encode($orderStatus->getComment()) ?></td>
+            <td><?php $html->encode($orderStatus->getName()) ?></td>
+            <td class="cmt"><?php $html->encode($orderStatus->getComment()) ?></td>
         </tr>
     <?php } ?>
     </tbody>

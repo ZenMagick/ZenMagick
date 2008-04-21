@@ -28,6 +28,6 @@
 <?php if (null != $bannerBox) { ?>
     <h3><?php zm_l10n("Sponsors") ?></h3>
     <div id="sb_banner_box" class="box">
-        <?php $_t->macro->showBanner($bannerBox); ?>
+        <?php $macro->showBanner($bannerBox); ?>
     </div>
 <?php } ?>

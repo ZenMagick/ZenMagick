@@ -24,37 +24,37 @@
  */
 ?>
 
-<?php $_t->form->open(FILENAME_LOGIN, "action=process", true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
+<?php $form->open(FILENAME_LOGIN, "action=process", true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>
     <div>
       <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-      <input type="text" id="email_address" name="email_address" <?php $_t->form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-      <?php $_t->html->fieldMessages('email_address') ?>
+      <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+      <?php $html->fieldMessages('email_address') ?>
     </div>
     <div>
       <label for="password"><?php zm_l10n("Password") ?></label>
-      <input type="password" id="password" name="password" <?php $_t->form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
-      <?php $_t->html->fieldMessages('password') ?>
+      <input type="password" id="password" name="password" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+      <?php $html->fieldMessages('password') ?>
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
 </form>
 
 <p>
-  <a href="<?php $_t->net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
-  <a href="<?php $_t->net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+  <a href="<?php $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
+  <a href="<?php $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
 <?php if (ZMSettings::get('isGuestCheckout') && !ZMRequest::getShoppingCart()->isEmpty()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
-  <?php $_t->form->open(ZM_FILENAME_CHECKOUT_GUEST, "action=process", true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
+  <?php $form->open(ZM_FILENAME_CHECKOUT_GUEST, "action=process", true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
     <fieldset>
       <legend><?php zm_l10n("Checkout without registering") ?></legend>
       <div>
         <label for="email_address_guest"><?php zm_l10n("E-Mail Address") ?></label>
-        <input type="text" id="email_address_guest" name="email_address" <?php $_t->form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-        <?php $_t->html->fieldMessages('email_address') ?>
+        <input type="text" id="email_address_guest" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+        <?php $html->fieldMessages('email_address') ?>
         <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
       </div>
     </fieldset>

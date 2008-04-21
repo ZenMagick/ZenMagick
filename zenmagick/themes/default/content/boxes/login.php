@@ -27,20 +27,20 @@
 <?php if (ZMRequest::isAnonymous() && 'login' != ZMRequest::getPageName() && 'time_out' != ZMRequest::getPageName()) { ?>
     <h3><?php zm_l10n("Login") ?></h3>
     <div id="sb_login" class="box">
-        <?php $_t->form->open(FILENAME_LOGIN, "action=process", true) ?>
+        <?php $form->open(FILENAME_LOGIN, "action=process", true) ?>
             <div>
                 <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-                <input type="text" id="email_address" name="email_address" <?php $_t->form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
+                <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
             </div>
             <div>
                 <label for="password"><?php zm_l10n("Password") ?></label>
                 <input type="submit" class="btn" value="<?php zm_l10n("Login") ?>" />
-                <input type="password" id="password" name="password" <?php $_t->form->fieldLength(TABLE_CUSTOMERS, 'customers_password', 9) ?> /> 
+                <input type="password" id="password" name="password" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password', 9) ?> /> 
             </div>
         </form>
         <div>
-            <a href="<?php $_t->net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a>
-            <a href="<?php $_t->net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+            <a href="<?php $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a>
+            <a href="<?php $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
         </div>
     </div>
 <?php } ?>

@@ -29,7 +29,7 @@
         <tbody>
         <?php $odd = true; $first = true; foreach ($zm_cart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="remove"><a href="<?php $_t->net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php $zm_theme->themeUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+            <td class="remove"><a href="<?php $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php $zm_theme->themeUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
                     <?php zm_product_image_link($item) ?>
                     <?php zm_sc_product_hidden($item) ?>
@@ -38,14 +38,14 @@
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
                         <span class="note"><?php zm_l10n('* Out of Stock') ?></span><br/>
                     <?php } ?>
-                    <?php $_t->html->encode($item->getName()) ?>
+                    <?php $html->encode($item->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php $_t->html->encode($attribute->getName()) ?>:</span>
+                            <p><span class="attr"><?php $html->encode($attribute->getName()) ?>:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php $_t->html->encode($attributeValue->getName()) ?></span>
+                                <span class="atval"><?php $html->encode($attributeValue->getName()) ?></span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
@@ -67,10 +67,10 @@
     </table>
     <div class="btn">
         <input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" />
-        <a class="btn" href="<?php $_t->net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
+        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
     </div>
     <div>
-        <a class="btn" href="<?php $_t->net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+        <a class="btn" href="<?php $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
     </div>
 
 </form>

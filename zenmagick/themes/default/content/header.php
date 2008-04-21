@@ -25,6 +25,6 @@
 ?>
 
 <div id="header">
-  <h1><a href="<?php $_t->net->url(FILENAME_DEFAULT) ?>">ZenMagick</a></h1>
+  <h1><a href="<?php $net->url(FILENAME_DEFAULT) ?>">ZenMagick</a></h1>
   <h2>As simple as that!</h2>
 </div>

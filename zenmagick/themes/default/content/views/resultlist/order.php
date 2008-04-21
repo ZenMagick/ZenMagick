@@ -25,10 +25,10 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><a href="<?php $_t->net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
+    <td><a href="<?php $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
     <td><?php zm_date_short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
-    <td><?php $_t->html->encode($address->getFullName()) ?></td>
+    <td><?php $html->encode($address->getFullName()) ?></td>
     <td><?php zm_l10n($order->getStatus()) ?></td>
     <td class="pprice"><?php zm_format_currency($order->getTotal()) ?></td>
 </tr>
