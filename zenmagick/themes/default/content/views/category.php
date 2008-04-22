@@ -25,15 +25,6 @@
 ?>
 <h2><?php $html->encode($zm_category->getName()) ?></h2>
 
-<?php
-$imageInfo = $zm_category->getImageInfo(); 
-zm_image($imageInfo, PRODUCT_IMAGE_LARGE);
-echo '<BR>';
-echo '<img src="'.zm_image_uri($zm_category->getImage(), false).'" width="200" heigth="100">';
-echo '<BR>';
-echo $imageInfo;
-?>
-
 <?php if ($zm_category->hasChildren()) { ?>
     <h3><?php zm_l10n("Available Categories") ?></h3>
     <?php foreach ($zm_category->getChildren() as $category) { ?>
