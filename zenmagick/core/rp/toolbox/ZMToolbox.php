@@ -28,7 +28,7 @@
  * Container for template related utilities.
  *
  * @author mano
- * @package org.zenmagick.toolbox
+ * @package org.zenmagick.rp.toolbox
  * @version $Id$
  */
 class ZMToolbox extends ZMModel {

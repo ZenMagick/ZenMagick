@@ -28,7 +28,7 @@
  * Macro utilities.
  *
  * @author mano
- * @package org.zenmagick.toolbox.defaults
+ * @package org.zenmagick.rp.toolbox.defaults
  * @version $Id$
  */
 class ZMToolboxMacro extends ZMObject {

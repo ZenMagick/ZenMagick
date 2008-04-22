@@ -28,7 +28,7 @@
  * Networking/URL related functions.
  *
  * @author mano
- * @package org.zenmagick.toolbox.defaults
+ * @package org.zenmagick.rp.toolbox.defaults
  * @version $Id$
  */
 class ZMToolboxNet extends ZMObject {
