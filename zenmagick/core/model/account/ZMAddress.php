@@ -110,7 +110,7 @@ class ZMAddress extends ZMModel {
         if (0 < count ($zones)) {
             // need $state to match either an id or name
             foreach ($zones as $zone) {
-                if ($zone->getName() == $state || $zone->getId() == $state) {
+                if ($zone->getName() == $state || $zone->getId() == $state || $zone->getCode() == $state) {
                     $this->zoneId_ = $zone->getId();
                     break;
                 }
