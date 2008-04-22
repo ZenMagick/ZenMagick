@@ -70,7 +70,7 @@ class ZMAccountNewslettersController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $newsletterSubscriber = zm_boolean(ZMRequest::getParameter('newsletter_general', 0));
+        $newsletterSubscriber = ZMTools::asBoolean(ZMRequest::getParameter('newsletter_general', 0));
 
         $account = ZMRequest::getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {

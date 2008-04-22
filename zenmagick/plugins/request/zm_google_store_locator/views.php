@@ -37,7 +37,7 @@
         $location = $zm_google_store_locator->get('location');
         $zoom = $zm_google_store_locator->get('zoom');
         $markerText = $zm_google_store_locator->get('marker_text');
-        $controls = zm_boolean($zm_google_store_locator->get('controls'));
+        $controls = ZMTools::asBoolean($zm_google_store_locator->get('controls'));
 
         $script = '
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$storeKey.'" type="text/javascript"></script>

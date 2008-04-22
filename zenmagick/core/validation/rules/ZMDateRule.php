@@ -73,7 +73,7 @@ class ZMDateRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        $da = zm_parse_date($req[$this->getName()], $this->getFormat());
+        $da = ZMToolbox::instance()->parseDate($req[$this->getName()], $this->getFormat());
 
         return empty($req[$this->getName()]) || @checkdate($da[1], $da[0], $da[2].$da[3]);
     }

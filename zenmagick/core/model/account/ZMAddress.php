@@ -125,7 +125,7 @@ class ZMAddress extends ZMModel {
 
         }
 
-        $this->isPrimary_ = zm_boolean(ZMRequest::getParameter('primary', false));
+        $this->isPrimary_ = ZMTools::asBoolean(ZMRequest::getParameter('primary', false));
         $this->format_ = 0;
     }
 

@@ -70,7 +70,7 @@ class ZMAccountNotificationsController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $globalProductSubscriber = zm_boolean(ZMRequest::getParameter('product_global', 0));
+        $globalProductSubscriber = ZMTools::asBoolean(ZMRequest::getParameter('product_global', 0));
 
         $account = ZMRequest::getAccount();
         $isGlobalUpdate = false;

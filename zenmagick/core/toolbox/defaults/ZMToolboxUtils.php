@@ -55,6 +55,26 @@ class ZMToolboxUtils extends ZMObject {
         return $title;
     }
 
+    /**
+     * Encode XML control characters.
+     *
+     * @param string s The input string.
+     * @return string The encoded string.
+     */
+    public function encodeXML($s) {
+        $encoding = array(
+            '<' => '&lt;',
+            '>' => '&gt;',
+            '&' => '&amp;'
+        );
+
+        foreach ($encoding as $char => $entity) {
+            $s = str_replace($char, $entity, $s);
+        }
+
+        return $s;
+    }
+
 }
 
 ?>
