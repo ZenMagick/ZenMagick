@@ -30,7 +30,7 @@
      */
     function zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
-        return (zm_is_checkout_page() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
+        return (ZMRequest::isCheckout() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
             || ZMTools::inArray($pageName, 'advanced_search_result');
     }
 

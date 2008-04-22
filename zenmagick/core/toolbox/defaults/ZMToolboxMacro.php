@@ -525,9 +525,9 @@ class ZMToolboxMacro extends ZMObject {
         $label .= zm_l10n_get($value->getName());
 
         if ($value->isFree() && $product->isFree()) {
-            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), zm_format_currency($value->getPrice(), true, false));
+            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice(), true, false));
         } else if (0 != $value->getPrice()) {
-            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), zm_format_currency(abs($value->getPrice()), true, false));
+            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice()), true, false));
         }
         //TODO: onetime and weight
 
@@ -542,31 +542,32 @@ class ZMToolboxMacro extends ZMObject {
      * @return string The fully HTML formatted price.
      */
     public function productPrice($product, $echo=ZM_ECHO_DEFAULT) {
-      $offers = $product->getOffers();
+        $toolbox = ZMToolbox::instance();
+        $offers = $product->getOffers();
 
-      $html = '<span class="price">';
-      if ($offers->isAttributePrice()) {
-          $html .= zm_l10n_get("Starting at: ");
-      }
-      if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
-          $html .= '<span class="strike base">' . zm_format_currency($offers->getBasePrice(), true, false) . '</span> ';
-          if ($offers->isSpecial())  {
-              if ($offers->isSale()) {
-                 $html .= '<span class="strike special">' . zm_format_currency($offers->getSpecialPrice(), true, false) . '</span>';
-              } else {
-                 $html .= zm_format_currency($offers->getSpecialPrice(), true, false);
-              }
-          }
-          if ($offers->isSale()) {
-             $html .= zm_format_currency($offers->getSalePrice(), true, false);
-          }
-      } else {
-          $html .= zm_format_currency($offers->getCalculatedPrice(), true, false);
-      }
-      $html .= '</span>';
+        $html = '<span class="price">';
+        if ($offers->isAttributePrice()) {
+            $html .= zm_l10n_get("Starting at: ");
+        }
+        if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
+            $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice(), true, false) . '</span> ';
+            if ($offers->isSpecial())  {
+                if ($offers->isSale()) {
+                   $html .= '<span class="strike special">' . $toolbox->utils->formatMoney($offers->getSpecialPrice(), true, false) . '</span>';
+                } else {
+                   $html .= $toolbox->utils->formatMoney($offers->getSpecialPrice(), true, false);
+                }
+            }
+            if ($offers->isSale()) {
+               $html .= $toolbox->utils->formatMoney($offers->getSalePrice(), true, false);
+            }
+        } else {
+            $html .= $toolbox->utils->formatMoney($offers->getCalculatedPrice(), true, false);
+        }
+        $html .= '</span>';
 
-      if ($echo) echo $html;
-      return $html;
+        if ($echo) echo $html;
+        return $html;
     }
 
 }

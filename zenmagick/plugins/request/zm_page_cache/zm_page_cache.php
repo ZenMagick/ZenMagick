@@ -113,7 +113,7 @@ class zm_page_cache extends ZMPlugin {
         // handle page caching
         if ($this->isEnabled()) {
             if (false !== ($contents = $this->pageCache_->get($this->getRequestKey())) && $this->isCacheable()) {
-                if (!zm_eval_if_modified_since($this->pageCache_->lastModified())) {
+                if (ZMTools::ifModifiedSince($this->pageCache_->lastModified())) {
                     echo $contents;
                     if (true) {
                         $db = ZMRuntime::getDB();

@@ -422,6 +422,18 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Checks, if the current page is a checkout page.
+     * 
+     * @package org.zenmagick.misc
+     * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
+     * @return boolean <code>true</code> if the current page is a checkout page.
+     */
+    public static function isCheckout($includeCart=true) {
+        $page = ZMRequest::instance()->getPageName();
+        return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
+    }
+
+    /**
      * Check if we are running as admin.
      *
      * @return boolean <code>true</code> if code execution is in the context of an admin page,

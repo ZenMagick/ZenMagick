@@ -31,7 +31,7 @@
       <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image_link($zm_product) ?></a>
       <?php $html->encode($zm_product->getDescription()); ?>
     </div>
-    <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
+    <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
 
     <p id="author">

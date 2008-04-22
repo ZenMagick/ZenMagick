@@ -60,7 +60,7 @@ $language = ZMRuntime::getLanguage();
 <tr>
 <td><?php echo $orderItem->getQty() ?> x </td>
 <td><?php $html->encode($orderItem->getName()) ?></td>
-<td><?php zm_format_currency($orderItem->getCalculatedPrice()) ?></td>
+<td><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotals() as $orderTotal) { ?>

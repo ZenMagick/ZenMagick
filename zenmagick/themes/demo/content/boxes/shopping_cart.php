@@ -51,7 +51,7 @@
     };
 </script>
 
-<?php if (!zm_is_checkout_page()) { ?>
+<?php if (!ZMRequest::isCheckout()) { ?>
 <h3><a href="<?php $net->url(FILENAME_SHOPPING_CART, '', true) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if (ZMRequest::getShoppingCart()->isEmpty()) { ?>
@@ -61,6 +61,6 @@
             <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php $html->encode($item->getName()); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php zm_format_currency(ZMRequest::getShoppingCart()->getTotal()) ?></p>
+        <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php $utils->formatMoney(ZMRequest::getShoppingCart()->getTotal()) ?></p>
     </div>
 <?php } ?>

@@ -69,7 +69,7 @@ class ZMGVReceiver extends ZMModel {
         $this->name_ = ZMRequest::getParameter('to_name', '');
         $this->email_ = ZMRequest::getParameter('email', '');
         $this->amount_ = ZMRequest::getParameter('amount', 0);
-        $this->amount_ = zm_parse_money($this->amount_);
+        $this->amount_ = ZMTools::parseMoney($this->amount_);
         $this->message_ = ZMRequest::getParameter('message', '');
     }
 

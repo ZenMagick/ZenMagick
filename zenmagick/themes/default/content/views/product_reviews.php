@@ -30,7 +30,7 @@
       <?php zm_product_image_link($zm_product) ?>
       <?php $html->encode($zm_product->getDescription()); ?>
     </div>
-    <strong><?php zm_format_currency($zm_product->getPrice()); ?></strong>
+    <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
     <br /><br /><br /><br />
     <?php include('reviews.php'); ?>

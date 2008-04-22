@@ -533,11 +533,11 @@ class ZMShoppingCart extends ZMObject {
             return $this->cart_->get_quantity($productId);
         }
 
-        $baseProductId = zm_base_product_id($productId);
+        $baseProductId = ZMShoppingCart::base_product_id($productId);
 
         $qty = 0;
         foreach ($contents as $pid) {
-            $bpid = zm_base_product_id($pid);
+            $bpid = ZMShoppingCart::base_product_id($pid);
             if ($bpid == $baseProductId) {
                 $qty += $contents[$pid]['qty'];
             }
@@ -567,7 +567,7 @@ class ZMShoppingCart extends ZMObject {
 
         //TODO: zc: comp
         $attributes = (0 < count($attributes) ? $attributes : '');
-        $cartProductId = zm_product_variation_id($productId, $attributes);
+        $cartProductId = ZMShoppingCart::product_variation_id($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
         $cartQty = $this->getQty($cartProductId, $product->isQtyMixed());
@@ -618,7 +618,7 @@ class ZMShoppingCart extends ZMObject {
             }
 
 
-            $productId = zm_base_product_id($cartProductId);
+            $productId = ZMShoppingCart::base_product_id($cartProductId);
             $product = ZMProducts::instance()->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
@@ -787,6 +787,56 @@ class ZMShoppingCart extends ZMObject {
 
         return $attributes;
     }
+
+    /**
+     * Extract the base product id from a given string.
+     *
+     * @package org.zenmagick.misc
+     * @param string productId The full product id incl. attribute suffix.
+     * @return int The product id.
+     */
+    public static function base_product_id($productId) {
+        $arr = explode(':', $productId);
+        return (int) $arr[0];
+    }
+
+
+    /**
+     * Reverse of <code>base_product_id</code>.
+     *
+     * <p>Creates a unique id for the given product variation.</p>
+     *
+     * <p>Attributes are sorted using <code>krsort(..)</code> so to be compatible
+     * for different attribute orders.</p>
+     *
+     * @package org.zenmagick.misc
+     * @param string productId The full product id incl. attribute suffix.
+     * @param array attrbutes Additional product attributes.
+     * @return string The product id.
+     * @todo currently uses <code>zen_get_uprid(..)</code>...
+     */
+    public static function product_variation_id($productId, $attributes=array()) {
+return zen_get_uprid($productId, $attributes);
+        $fullProductId = $productId;
+
+        if (is_array($attributes) && 0 < count($attributes) && !strstr($productId, ':')) {
+            krsort($attributes);
+            $s = $productId;
+            foreach ($attributes as $id => $value) {
+	              if (is_array($value)) {
+                    foreach ($value as $vid => $vval) {
+                        $s .= '{' . $id . '}' . trim($vid);
+                    }
+                } else {
+                    $s .= '{' . $id . '}' . trim($value);
+                }
+            }
+            $fullProductId .= ':' . md5($s);
+        }
+
+        return $fullProductId;
+    }
+
 
 }
 

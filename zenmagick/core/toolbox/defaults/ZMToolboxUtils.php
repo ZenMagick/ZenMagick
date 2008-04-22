@@ -75,6 +75,27 @@ class ZMToolboxUtils extends ZMObject {
         return $s;
     }
 
+    /**
+     * Format the given amount according to the current currency.
+     *
+     * @param float amount The amount.
+     * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
+     *  convert before formatting.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string The formatted amount.
+     */
+    public function formatMoney($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
+        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
+        if (null == $currency) {
+            ZMObject::log('no currency found - using default currency', ZM_LOG_WARN);
+            $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+        }
+        $money = $currency->format($amount, $convert);
+
+        if ($echo) echo $money;
+        return $money;
+    }
+
 }
 
 ?>

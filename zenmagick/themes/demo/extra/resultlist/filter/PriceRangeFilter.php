@@ -109,11 +109,12 @@ class PriceRangeFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         $start = 0;
+        $toolbox = ZMToolbox::instance();
         for ($ii=0; $ii < 8; $ii++ ) {
             $from = $start;
             $to = $start + $diff;
             $start += $diff;
-            $name = zm_format_currency($from, false) . ' - ' . zm_format_currency($to, true, false);
+            $name = $toolbox->utils->formatMoney($from, true, false) . ' - ' . $toolbox->utils->formatMoney($to, true, false);
             $key = $from.'-'.$to;
             $option = ZMLoader::make("FilterOption", $name, $key, array_key_exists($key, $this->ranges_));
             $options[$option->getId()] = $option;

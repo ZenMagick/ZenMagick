@@ -30,5 +30,5 @@
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php $html->encode($address->getFullName()) ?></td>
     <td><?php zm_l10n($order->getStatus()) ?></td>
-    <td class="pprice"><?php zm_format_currency($order->getTotal()) ?></td>
+    <td class="pprice"><?php $utils->formatMoney($order->getTotal()) ?></td>
 </tr>

@@ -45,7 +45,7 @@
                     <?php } ?>
                 </td>
                 <td class="price">
-                    <?php zm_format_currency($item->getItemTotal()) ?>
+                    <?php $utils->formatMoney($item->getItemTotal()) ?>
                 </td>
             </tr>
         <?php } ?>

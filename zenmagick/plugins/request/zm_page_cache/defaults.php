@@ -42,7 +42,7 @@
      */
     function zm_page_cache_request_cacheable() {
         return !ZMRequest::isSecure() 
-          && !zm_is_checkout_page(true) 
+          && !ZMRequest::isCheckout(true) 
           && ZMRequest::getShoppingCart()->isEmpty() 
           && 'POST' != ZMRequest::getMethod()
           && !ZMMessages::instance()->hasMessages()

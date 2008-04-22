@@ -24,13 +24,13 @@
  */
 ?>
 
-<?php if (!ZMRequest::getShoppingCart()->isEmpty() && !zm_is_checkout_page()) { ?>
+<?php if (!ZMRequest::getShoppingCart()->isEmpty() && !ZMRequest::isCheckout()) { ?>
     <h3><?php zm_l10n("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php foreach (ZMRequest::getShoppingCart()->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php $html->encode($item->getName()) ?></a><br />
         <?php } ?>
         <hr/>
-        <p><?php zm_format_currency(ZMRequest::getShoppingCart()->getTotal()) ?></p>
+        <p><?php $utils->formatMoney(ZMRequest::getShoppingCart()->getTotal()) ?></p>
     </div>
 <?php } ?>

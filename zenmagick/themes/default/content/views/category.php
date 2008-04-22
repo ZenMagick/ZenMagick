@@ -51,7 +51,7 @@ echo $imageInfo;
           <p><?php zm_product_image_link($product) ?></p>
           <p><a href="<?php zm_product_href($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
           <?php $offers = $product->getOffers(); ?>
-          <p><?php zm_format_currency($offers->getCalculatedPrice()) ?></p>
+          <p><?php $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>
       <?php } ?>
     </div>

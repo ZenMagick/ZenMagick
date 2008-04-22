@@ -55,13 +55,13 @@
                     <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
                 </td>
                 <td class="price">
-                    <?php zm_format_currency($item->getItemTotal()) ?>
+                    <?php $utils->formatMoney($item->getItemTotal()) ?>
                 </td>
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">
             <td colspan="4" class="total"><?php zm_l10n("Subtotal") ?></td>
-            <td class="price"><?php zm_format_currency($zm_cart->getTotal()) ?></td>
+            <td class="price"><?php $utils->formatMoney($zm_cart->getTotal()) ?></td>
         </tr>
         </tbody>
     </table>

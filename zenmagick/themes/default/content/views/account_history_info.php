@@ -44,7 +44,7 @@
                     <?php } ?>
                 <?php } ?>
             </td>
-            <td class="price"><?php zm_format_currency($orderItem->getCalculatedPrice()) ?></td>
+            <td class="price"><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
         </tr>
     <?php } ?>
     <?php foreach ($zm_order->getOrderTotals() as $orderTotal) { ?>

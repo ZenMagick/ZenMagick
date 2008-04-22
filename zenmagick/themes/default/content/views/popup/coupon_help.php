@@ -29,7 +29,7 @@
   $restrictions = $coupon->getRestrictions();
   $fixed = 'This coupon entitles you to a %s discount against your order';
   if (ZM_COUPON_TYPPE_FIXED == $coupon->getType()) {
-      $discount = zm_l10n_get($fixed, zm_format_currency($coupon->getAmount(), true, false));
+      $discount = zm_l10n_get($fixed, $utils->formatMoney($coupon->getAmount(), true, false));
   } else if (ZM_COUPON_TYPPE_PERCENT == $coupon->getType()) {
       $discount = zm_l10n_get($fixed, number_format($coupon->getAmount(), ZMSettings::get('discountDecimals')).'%');
   } else {

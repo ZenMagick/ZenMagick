@@ -56,7 +56,7 @@
                             <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $zm_cart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php $html->encode($method->getName()) ?></td>
-                                <td class="smcost"><?php zm_format_currency($method->getCost()) ?></td>
+                                <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
                                 <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php zm_radio_state(true, $selected) ?> /></td>
                             </tr>
                         <?php } ?>
