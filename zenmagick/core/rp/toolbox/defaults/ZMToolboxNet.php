@@ -36,7 +36,7 @@ class ZMToolboxNet extends ZMObject {
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
-    private function _zm_zen_href_link($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    public function _zm_zen_href_link($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     //TODO:
     global $session_started, $http_domain, $https_domain;
 
