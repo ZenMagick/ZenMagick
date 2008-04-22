@@ -32,7 +32,8 @@
  * @version $Id$
  */
 class ZMCurrencies extends ZMObject {
-    var $currencies_;
+    public static $CURRENCIES_MAPPING = null;
+    private $currencies_;
 
 
     /**
@@ -41,7 +42,22 @@ class ZMCurrencies extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->currencies_ = array();
-        $this->_load();
+        if (null == ZMCurrencies::$CURRENCIES_MAPPING) {
+            ZMCurrencies::$CURRENCIES_MAPPING = array(
+              'id' => 'column=currencies_id;type=integer;key=true;primary=true',
+              'title' => 'column=title;type=string',
+              'code' => 'column=code;type=string',
+              'symbolLeft' => 'column=symbol_left;type=string',
+              'symbolRight' => 'column=symbol_right;type=string',
+              'decimalPoint' => 'column=decimal_point;type=string',
+              'thousandsPoint' => 'column=thousands_point;type=string',
+              'decimalPlaces' => 'column=decimal_places;type=integer',
+              'rate' => 'column=value;type=float'/*,
+              'lastUpdate' => 'column=last_updated;type=date'*/
+            );
+            ZMCurrencies::$CURRENCIES_MAPPING = ZMDbUtils::addCustomFields(ZMCurrencies::$CURRENCIES_MAPPING, TABLE_CURRENCIES);
+        }
+        $this->load();
     }
 
     /**
@@ -62,20 +78,14 @@ class ZMCurrencies extends ZMObject {
     /**
      * Load all currencies.
      */
-    function _load() {
-        $db = ZMRuntime::getDB();
-        $sql = "select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
-                from " . TABLE_CURRENCIES;
+    private function load() {
+        $sql = "SELECT currencies_id, code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CURRENCIES)."
+                FROM " . TABLE_CURRENCIES;
 
-        $db = ZMRuntime::getDB();
-        $results = $db->Execute($sql);
-
-        while (!$results->EOF) {
-            $currency = $this->_newCurrency($results->fields);
-            $this->currencies_[$currency->getId()] = $currency;
-            $results->MoveNext();
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), ZMCurrencies::$CURRENCIES_MAPPING, 'Currency') as $currency) {
+            $this->currencies_[$currency->getCode()] = $currency;
         }
-
     }
 
     /**
@@ -83,7 +93,7 @@ class ZMCurrencies extends ZMObject {
      *
      * @return array A list of <code>ZMCurrency</code> objects.
      */
-    function getCurrencies() { return $this->currencies_; }
+    public function getCurrencies() { return $this->currencies_; }
 
     /**
      * Get the currency for the given code.
@@ -91,7 +101,7 @@ class ZMCurrencies extends ZMObject {
      * @param string code The currency code.
      * @return ZMCurrency A currency or <code>null</code>.
      */
-    function getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
+    public function getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
 
     /**
      * Checks if a currency exists for the given code.
@@ -99,24 +109,8 @@ class ZMCurrencies extends ZMObject {
      * @param string code The currency code.
      * @return boolean <code>true</code> if a currency exists for the given code, <code>false</code> if not.
      */
-    function isValid($code) {
+    public function isValid($code) {
         return null !== $this->getCurrencyForId($code);
-    }
-
-    /**
-     * Create new currency instance.
-     */
-    function _newCurrency($fields) {
-        $currency = ZMLoader::make("Currency");
-        $currency->code_ = $fields['code'];
-        $currency->name_ = $fields['title'];
-        $currency->symbolLeft_ = $fields['symbol_left'];
-        $currency->symbolRight_ = $fields['symbol_right'];
-        $currency->decimalPoint_ = $fields['decimal_point'];
-        $currency->thousandsPoint_ = $fields['thousands_point'];
-        $currency->decimalPlaces_ = $fields['decimal_places'];
-        $currency->rate_ = $fields['value'];
-        return $currency;
     }
 
 }

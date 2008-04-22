@@ -252,6 +252,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'string':
                 $stmt->setString($index, $args[$name]);
                 break;
+            case 'float':
+                $stmt->setFloat($index, $args[$name]);
+                break;
             default:
                 ZMObject::backtrace('unsupported data type: '.$type);
                 break;
@@ -314,6 +317,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'string':
                 $value = $rs->getString($info['column']);
                 break;
+            case 'float':
+                $value = $rs->getFloat($info['column']);
+                break;
             case 'date':
                 $value = $rs->getDate($info['column']);
                 break;
@@ -329,7 +335,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $model->$setter($value);
                 } else {
                     // use general purpose method
-                    $model->set($key, $value);
+                    $model->set($field, $value);
                 }
             } else {
                 $model[$field] = $value;

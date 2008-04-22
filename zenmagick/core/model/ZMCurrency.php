@@ -32,14 +32,15 @@
  * @version $Id$
  */
 class ZMCurrency extends ZMModel {
-    var $code_;
-    var $name_;
-    var $symbolLeft_;
-    var $symbolRight_;
-    var $decimalPoint_;
-    var $thousandsPoint_;
-    var $decimalPlaces_;
-    var $rate_;
+    private $id_;
+    private $code_;
+    private $name_;
+    private $symbolLeft_;
+    private $symbolRight_;
+    private $decimalPoint_;
+    private $thousandsPoint_;
+    private $decimalPlaces_;
+    private $rate_;
 
 
     /**
@@ -48,6 +49,7 @@ class ZMCurrency extends ZMModel {
     function __construct() {
         parent::__construct();
 
+        $this->id_ = 0;
         $this->code_ = '';
         $this->name_ = '';
         $this->decimalPlaces_ = 2;
@@ -64,53 +66,60 @@ class ZMCurrency extends ZMModel {
 
 
     /**
+     * Get the currency id.
+     *
+     * @return int The currency id.
+     */
+    public function getId() { return $this->id_; }
+
+    /**
      * Get the currency code.
      *
      * @return string The currency code.
      */
-    function getId() { return $this->code_; }
+    public function getCode() { return $this->code_; }
 
     /**
      * Get the currency name.
      *
      * @return string The currency name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the currency symbox (left).
      *
      * @return string The currency symbol (left).
      */
-    function getSymbolLeft() { return $this->symbolLeft_; }
+    public function getSymbolLeft() { return $this->symbolLeft_; }
 
     /**
      * Get the currency symbox (right).
      *
      * @return string The currency symbol (right).
      */
-    function getSymbolRight() { return $this->symbolRight_; }
+    public function getSymbolRight() { return $this->symbolRight_; }
 
     /**
      * Get the currency decimal point.
      *
      * @return string The currency decimal point.
      */
-    function getDecimalPoint() { return $this->decimalPoint_; }
+    public function getDecimalPoint() { return $this->decimalPoint_; }
 
     /**
      * Get the currency thousands point.
      *
      * @return string The currency thousands point.
      */
-    function getThousandsPoint() { return $this->thousandsPoint_; }
+    public function getThousandsPoint() { return $this->thousandsPoint_; }
 
     /**
      * Get the currency decimal places.
      *
      * @return int The currency decimal places.
      */
-    function getDecimalPlaces() { return $this->decimalPlaces_; }
+    public function getDecimalPlaces() { return $this->decimalPlaces_; }
 
     /**
      * Get the currency rate.
@@ -119,7 +128,72 @@ class ZMCurrency extends ZMModel {
      *
      * @return double The currency rate.
      */
-    function getRate() { return $this->rate_; }
+    public function getRate() { return $this->rate_; }
+
+    /**
+     * Set the currency id.
+     *
+     * @param int id The currency id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the currency code.
+     *
+     * @param string code The currency code.
+     */
+    public function setCode($code) { $this->code_ = $code; }
+
+    /**
+     * Set the currency name.
+     *
+     * @param string name The currency name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the currency symbox (left).
+     *
+     * @param string symbol The currency symbol (left).
+     */
+    public function setSymbolLeft($symbol) { $this->symbolLeft_ = $symbol; }
+
+    /**
+     * Set the currency symbox (right).
+     *
+     * @param string symbol The currency symbol (right).
+     */
+    public function setSymbolRight($symbol) { return $this->symbolRight_ = $symbol; }
+
+    /**
+     * Set the currency decimal point.
+     *
+     * @param string point The currency decimal point.
+     */
+    public function setDecimalPoint($point) { $this->decimalPoint_ = $point; }
+
+    /**
+     * Set the currency thousands point.
+     *
+     * @param string point The currency thousands point.
+     */
+    public function setThousandsPoint($point) { $this->thousandsPoint_ = $point; }
+
+    /**
+     * Set the currency decimal places.
+     *
+     * @param int decimals The currency decimal places.
+     */
+    public function setDecimalPlaces($decimals) { $this->decimalPlaces_ = $decimals; }
+
+    /**
+     * Set the currency rate.
+     *
+     * <p>This is the rate in relation to the default currency.</p>
+     *
+     * @param double rate The currency rate.
+     */
+    public function setRate($rate) { $this->rate_ = $rate; }
 
     /**
      * Format the given amount according to this currency's rate and formatting rules.
