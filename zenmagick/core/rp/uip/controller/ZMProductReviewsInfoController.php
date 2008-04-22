@@ -67,7 +67,9 @@ class ZMProductReviewsInfoController extends ZMController {
         $review = ZMReviews::instance()->getReviewForId(ZMRequest::getReviewId());
         $this->exportGlobal("zm_review", $review);
 
-        ZMReviews::instance()->updateViewCount(ZMRequest::getReviewId());
+        if (ZMSettings::get('isLogPageStats')) {
+            ZMReviews::instance()->updateViewCount(ZMRequest::getReviewId());
+        }
 
         return $this->findView();
     }

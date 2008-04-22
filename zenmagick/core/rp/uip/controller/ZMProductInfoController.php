@@ -67,7 +67,9 @@ class ZMProductInfoController extends ZMController {
             return $this->findView('product_not_found');
         }
 
-        ZMProducts::instance()->updateViewCount($product);
+        if (ZMSettings::get('isLogPageStats')) {
+            ZMProducts::instance()->updateViewCount($product);
+        }
 
         // crumbtrail handling
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());

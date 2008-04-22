@@ -37,4 +37,7 @@
     // disable all patching
     //ZMSettings::set('isEnablePatching', false);
 
+    // disable view counts for product and review pages
+    //ZMSettings::set('isLogPageStats', false);
+
 ?>

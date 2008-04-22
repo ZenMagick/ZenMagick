@@ -88,6 +88,9 @@
         // customer approval default value
         'defaultCustomerApproval' => CUSTOMERS_APPROVAL_AUTHORIZATION,
 
+        // enable/disable web stats; this does not include login counts, etc, but product views and such
+        'isLogPageStats' => true,
+
 
 
     /**************************************
