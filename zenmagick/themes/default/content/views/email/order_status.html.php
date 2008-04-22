@@ -37,7 +37,7 @@ $language = ZMRuntime::getLanguage();
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?></p>
 
-<p><?php zm_l10n("This is to inform you that your order #%s has been update.", $zm_order->getId()) ?></p>
+<p><?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?></p>
 <?php $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>'; ?>
 <p><?php zm_l10n("More details can be found at the following URL: %s", $href) ?></p>
 
