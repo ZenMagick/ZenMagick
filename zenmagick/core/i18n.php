@@ -44,7 +44,7 @@ if (!function_exists('zen_date_raw')) {
      * @return string The provided date converted into the format <code>YYYYDDMM</code> or <code>MMDDYYYY</code>, respectivley.
      */
     function zen_date_raw($date, $reverse=false) {
-        $da = ZMToolbox::instance()->parseDate($date, UI_DATE_FORMAT);
+        $da = ZMToolbox::instance()->date->parseDate($date, UI_DATE_FORMAT);
         $raw = $reverse ? $da[1].$da[0].$da[2].$da[3] : $da[2].$da[3].$da[1].$da[0];
         return $raw;
     }
