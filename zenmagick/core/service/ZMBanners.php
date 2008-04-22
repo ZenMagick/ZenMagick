@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMBanners extends ZMObject {
-    var $banners_;
+    private $banners_;
 
 
     /**
@@ -40,7 +40,6 @@ class ZMBanners extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         $this->banners_ = array();
     }
 
@@ -68,8 +67,8 @@ class ZMBanners extends ZMObject {
      * @param integer index The zen-cart index.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    function getBannerForIndex($index) {
-        $list = $this->_getBannerForName(ZMSettings::get('bannerGroup'.$index));
+    public function getBannerForIndex($index) {
+        $list = $this->getBannerForName(ZMSettings::get('bannerGroup'.$index));
         return 0 < count($list) ? $list[0] : null;
     }
 
@@ -81,7 +80,7 @@ class ZMBanners extends ZMObject {
      *
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    function getAllBanners() { return $this->_getBannerForName(ZMSettings::get('bannerGroupAll'), true); }
+    public function getAllBanners() { return $this->getBannerForName(ZMSettings::get('bannerGroupAll'), true); }
 
 
     /**
@@ -95,7 +94,7 @@ class ZMBanners extends ZMObject {
      *  the configured sort order.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    function _getBannerForName($identifiers, $all=false) { 
+    private function getBannerForName($identifiers, $all=false) { 
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
@@ -138,7 +137,7 @@ class ZMBanners extends ZMObject {
      * @param integer id The banner id.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    function getBannerForId($id) { 
+    public function getBannerForId($id) { 
         $db = ZMRuntime::getDB();
         // filter the banners we are interested in
         $filter = '';
@@ -166,7 +165,7 @@ class ZMBanners extends ZMObject {
      *
      * @param int bannerId The banner id.
      */
-    function updateBannerDisplayCount($bannerId) {
+    public function updateBannerDisplayCount($bannerId) {
         $db = ZMRuntime::getDB();
 
         $sql = "select count(*) as count from " . TABLE_BANNERS_HISTORY . "
@@ -193,13 +192,13 @@ class ZMBanners extends ZMObject {
      *
      * @param int bannerId The banner id.
      */
-    function updateBannerClickCount($bannerId) {
+    public function updateBannerClickCount($bannerId) {
         $db = ZMRuntime::getDB();
 
         $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1
                 where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
-        $db->Execute(sprintf(SQL_BANNER_UPDATE_CLICK_COUNT, (int)$bannerId));
+        $db->Execute($sql);
     }
 
 
