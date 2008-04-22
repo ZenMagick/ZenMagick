@@ -49,7 +49,7 @@
                 <?php } else if (ZMRequest::getManufacturerId()) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo ZMRequest::getManufacturerId() ?>" />
                 <?php } else if (null != ZMRequest::getParameter("compareId")) { ?>
-                    <?php zm_hidden_list('compareId[]', ZMRequest::getParameter("compareId")) ?>
+                    <?php $form->hiddenList('compareId[]', ZMRequest::getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

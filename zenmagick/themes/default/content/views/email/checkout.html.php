@@ -51,7 +51,7 @@ $language = ZMRuntime::getLanguage();
 <h3><?php zm_l10n("Order Details") ?></h3>
 <p>
 <?php zm_l10n("Order Number: #%s", $order->getId()) ?><br>
-<?php zm_l10n("Order Date: %s", zm_date_short($order->getOrderDate(), false)) ?>
+<?php zm_l10n("Order Date: %s", $date->shortDate($order->getOrderDate(), false)) ?>
 </p>
 
 <h4><?php zm_l10n("Ordered Items") ?></h4>

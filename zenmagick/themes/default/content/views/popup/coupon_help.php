@@ -44,7 +44,7 @@
   <?php echo $discount ?>
 </p>
 
-<p><?php zm_l10n("The discount is valid between %s and %s.", zm_date_short($coupon->getStartDate(), false), zm_date_short($coupon->getExpiryDate(), false)) ?></p>
+<p><?php zm_l10n("The discount is valid between %s and %s.", $date->shortDate($coupon->getStartDate(), false), $date->shortDate($coupon->getExpiryDate(), false)) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php zm_l10n("Category Restrictions")?></h4>

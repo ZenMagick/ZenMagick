@@ -61,7 +61,7 @@
     <tbody>
     <?php foreach ($zm_order->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
-            <td><?php zm_date_short($orderStatus->getDateAdded()) ?></td>
+            <td><?php $date->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php $html->encode($orderStatus->getName()) ?></td>
             <td class="cmt"><?php $html->encode($orderStatus->getComment()) ?></td>
         </tr>
