@@ -164,7 +164,7 @@ class ZMToolboxForm extends ZMObject {
     }
 
     /**
-     * Create size and maxlength attributes for for input fields.
+     * Create size and maxlength attributes for input fields.
      *
      * @param string table The table name.
      * @param string col The column name.
