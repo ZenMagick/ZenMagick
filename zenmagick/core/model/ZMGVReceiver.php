@@ -66,7 +66,7 @@ class ZMGVReceiver extends ZMModel {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     function populate($req=null) {
-        $this->name_ = ZMRequest::getParameter('to_name', '');
+        $this->name_ = ZMRequest::getParameter('name', '');
         $this->email_ = ZMRequest::getParameter('email', '');
         $this->amount_ = ZMRequest::getParameter('amount', 0);
         $this->amount_ = ZMTools::parseMoney($this->amount_);

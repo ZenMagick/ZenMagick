@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'create_account', "post", "return validate(this);") ?>
+<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'create_account', 'onsubmit'=>'return validate(this);')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
@@ -48,9 +48,9 @@
                     <tr>
                         <td><?php zm_l10n("Title") ?><span>*</span></td>
                         <td>
-                            <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
+                            <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $zm_account->getGender()) ?> />
                             <label for="male"><?php zm_l10n("Mr.") ?></label>
-                            <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f' == $zm_account->getGender()) ?> />
+                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f' == $zm_account->getGender()) ?> />
                             <label for="female"><?php zm_l10n("Ms.") ?></label>
                         </td>
                     </tr>
@@ -96,15 +96,15 @@
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="street_address" value="<?php $html->encode($zm_address->getAddress()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="street_address" value="<?php $html->encode($zm_address->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php $html->encode($zm_address->getSuburb()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php $html->encode($zm_address->getSuburb()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php $html->encode($zm_address->getCity()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php $html->encode($zm_address->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
                     $country = $zm_address->getCountry(); 
@@ -112,7 +112,7 @@
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php $html->encode($zm_address->getPostcode()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php $html->encode($zm_address->getPostcode()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
@@ -144,9 +144,9 @@
                  <tr>
                     <td><?php zm_l10n("E-Mail Format") ?><span>*</span></td>
                     <td>
-                        <input type="radio" id="html" name="email_format" value="HTML"<?php zm_radio_state('HTML', $zm_account->getEmailFormat(), 'HTML') ?> />
+                        <input type="radio" id="html" name="email_format" value="HTML"<?php $form->checked('HTML', $zm_account->getEmailFormat(), 'HTML') ?> />
                         <label for="html"><?php zm_l10n("HTML") ?></label>
-                        <input type="radio" id="text" name="email_format" value="TEXT"<?php zm_radio_state('TEXT', $zm_account->getEmailFormat(), 'TEXT', true) ?> />
+                        <input type="radio" id="text" name="email_format" value="TEXT"<?php $form->checked('TEXT', $zm_account->getEmailFormat(), 'TEXT', true) ?> />
                         <label for="text"><?php zm_l10n("Text") ?></label>
                     </td>
                 </tr>

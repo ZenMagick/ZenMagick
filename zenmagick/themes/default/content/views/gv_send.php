@@ -25,11 +25,11 @@
 ?>
 
 <p><?php zm_l10n("Current available balance: <strong>%s</strong>", $utils->formatMoney(ZMRequest::getAccount()->getVoucherBalance(), true, false)) ?></p>
-<?php zm_secure_form(FILENAME_GV_SEND, '', 'gvreceiverObject', "post", "return validate(this);") ?>
+<?php $form->open(FILENAME_GV_SEND, '', true, array('id'=>'gvreceiverObject', 'onsubmit'=>'return validate(this);')) ?>
     <fieldset>
         <legend><?php zm_l10n("EMail Gift Certificate") ?></legend>
-        <label for="to_name"><?php zm_l10n("Receiver Name") ?></label><br />
-        <input type="text" id="to_name" name="to_name" size="40" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" /><br />
+        <label for="name"><?php zm_l10n("Receiver Name") ?></label><br />
+        <input type="text" id="name" name="name" size="40" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" /><br />
         <label for="email"><?php zm_l10n("Receiver EMail Address") ?><span>*</span></label><br />
         <input type="text" id="email" name="email" size="40" value="<?php $html->encode($zm_gvreceiver->getEmail()) ?>" /><br />
         <label for="amount"><?php zm_l10n("Gift Certificate Amount") ?><span>*</span></label><br />
@@ -43,6 +43,6 @@
 </form>
 
 <p class="rclear">
-    <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
+    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </p>

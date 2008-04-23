@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_secure_form(ZM_FILENAME_GUEST_HISTORY, "", 'guest_history', 'post', 'return validate(this);') ?>
+<?php $form->open(ZM_FILENAME_GUEST_HISTORY, '', true, array('id'=>'guest_history', 'onsubmit'=>'return validate(this);')) ?>
   <fieldset>
     <legend><?php zm_l10n("Find Guest Order") ?></legend>
     <div>

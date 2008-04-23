@@ -28,7 +28,7 @@
 <?php if ($zm_gvredeem->isRedeemed()) { ?>
   <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($zm_gvredeem->getAmount(), true, false)) ?></p>
 <?php } else { ?>
-  <?php zm_secure_form(FILENAME_GV_REDEEM, '', 'gv_redeem', 'post', 'return validate(this);') ?>
+  <?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem', 'onsubmit'=>'return validate(this);')) ?>
     <fieldset>
       <legend><?php zm_l10n("Coupon details") ?></legend>
       <div>

@@ -26,7 +26,7 @@
 
 <?php $currentAddress = $zm_cart->getShippingAddress(); ?>
 <?php if (0 < count($zm_addressList)) { ?>
-    <?php zm_secure_form(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', 'existing_address', "post") ?>
+    <?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', true, array('id'=>'existing_address')) ?>
         <h3><?php zm_l10n("Select an existing address") ?></h3>
         <fieldset>
             <legend><?php zm_l10n("Address Book") ?></legend>
@@ -37,7 +37,7 @@
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="address" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
                     <label for="address_<?php echo $address->getId() ?>"><?php $html->encode($address->getFullName()) ?></label>
                     <br/>
-                    <?php zm_format_address($address) ?>
+                    <?php $macro->formatAddress($address) ?>
                     <br/>
                 </p>
             <?php } ?>
@@ -47,7 +47,7 @@
     <h3><?php zm_l10n("... or create a new one") ?></h3>
 <?php } ?>
 
-<?php zm_secure_form(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', 'address', "post", "return validate(this);") ?>
+<?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', true, array('id'=>'address', 'onsubmit'=>'return validate(this);')) ?>
     <?php $address = $zm_address; ?>
     <?php include "address.php" ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

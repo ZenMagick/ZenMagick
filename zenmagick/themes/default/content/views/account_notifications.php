@@ -26,7 +26,7 @@
 
 <p><?php zm_l10n("The product notification list allows you to stay up to date on products you find of interest.") ?></p>
 <p><?php zm_l10n("To be up to date on all product changes, select <strong>Global Product Notifications</strong>.") ?></p>
-<?php zm_secure_form(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process") ?>
+<?php $form->open(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process", true, array('onsubmit'=>null)) ?>
     <fieldset>
         <legend><?php zm_l10n("Global Product Notifications") ?></legend>
         <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked($zm_account->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>

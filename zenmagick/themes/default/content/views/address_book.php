@@ -34,7 +34,7 @@
             <?php } ?>
             <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
-        <?php zm_format_address($address) ?>
+        <?php $macro->formatAddress($address) ?>
     </fieldset>
 <?php } ?>
 <div class="btn"><a href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>

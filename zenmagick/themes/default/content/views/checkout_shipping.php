@@ -29,10 +29,10 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
     </div>
-    <?php zm_format_address($zm_cart->getShippingAddress()) ?>
+    <?php $macro->formatAddress($zm_cart->getShippingAddress()) ?>
 </fieldset>
 
-<?php zm_secure_form(FILENAME_CHECKOUT_SHIPPING, "action=process") ?>
+<?php $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>
     <?php if ($zm_shipping->hasShippingProvider()) { ?>
         <fieldset>
             <legend><?php zm_l10n("Shipping Methods") ?></legend>
@@ -57,7 +57,7 @@
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php $html->encode($method->getName()) ?></td>
                                 <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
-                                <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php zm_radio_state(true, $selected) ?> /></td>
+                                <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                             </tr>
                         <?php } ?>
                     <?php } ?>

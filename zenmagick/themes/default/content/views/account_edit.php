@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_ACCOUNT_EDIT, "action=process", 'edit_account', "post", "return validate(this);") ?>
+<?php $form->open(FILENAME_ACCOUNT_EDIT, "action=process", true, array('id'=>'edit_account', 'onsubmit'=>'return validate(this);')) ?>
     <fieldset>
         <legend><?php zm_l10n("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">
@@ -39,9 +39,9 @@
                     <tr>
                         <td><?php zm_l10n("Title") ?><span>*</span></td>
                         <td>
-                            <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m', $zm_account->getGender()) ?> />
+                            <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $zm_account->getGender()) ?> />
                             <label for="male"><?php zm_l10n("Mr.") ?></label>
-                            <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f', $zm_account->getGender()) ?> />
+                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $zm_account->getGender()) ?> />
                             <label for="female"><?php zm_l10n("Ms.") ?></label>
                         </td>
                     </tr>
@@ -81,9 +81,9 @@
                  <tr>
                     <td><?php zm_l10n("E-Mail Format") ?><span>*</span></td>
                     <td>
-                        <input type="radio" id="html" name="email_format" value="HTML"<?php zm_radio_state('HTML', $zm_account->getEmailFormat(), 'HTML') ?> />
+                        <input type="radio" id="html" name="email_format" value="HTML"<?php $form->checked('HTML', $zm_account->getEmailFormat(), 'HTML') ?> />
                         <label for="html"><?php zm_l10n("HTML") ?></label>
-                        <input type="radio" id="text" name="email_format" value="TEXT"<?php zm_radio_state('TEXT', $zm_account->getEmailFormat(), 'TEXT', true) ?> />
+                        <input type="radio" id="text" name="email_format" value="TEXT"<?php $form->checked('TEXT', $zm_account->getEmailFormat(), 'TEXT', true) ?> />
                         <label for="text"><?php zm_l10n("Text") ?></label>
                     </td>
                 </tr>

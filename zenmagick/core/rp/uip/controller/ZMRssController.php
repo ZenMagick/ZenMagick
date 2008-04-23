@@ -233,7 +233,7 @@ class ZMRssController extends ZMController {
         foreach ($toc as $page) {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($page->getTitle());
-            $item->setLink(zm_ezpage_href($page, false));
+            $item->setLink(ZMToolbox::instance()->net->ezPage($page, false));
             $item->setDescription($page->getTitle());
             array_push($items, $item);
         }

@@ -42,9 +42,9 @@
                 <tr>
                     <td><?php zm_l10n("Title") ?><span>*</span></td>
                     <td>
-                        <input type="radio" id="male" name="gender" value="m"<?php zm_radio_state('m'==$address->getGender()) ?> />
+                        <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m'==$address->getGender()) ?> />
                         <label for="male"><?php zm_l10n("Mr.") ?></label>
-                        <input type="radio" id="female" name="gender" value="f"<?php zm_radio_state('f', $address->getGender()) ?> />
+                        <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $address->getGender()) ?> />
                         <label for="female"><?php zm_l10n("Ms.") ?></label>
                     </td>
                 </tr>
@@ -65,19 +65,19 @@
             <?php } ?>
             <tr>
                 <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                <td><input type="text" id="street_address" name="street_address" value="<?php $html->encode($address->getAddress()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                <td><input type="text" id="street_address" name="street_address" value="<?php $html->encode($address->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("Suburb") ?></td>
-                <td><input type="text" id="suburb" name="suburb" value="<?php $html->encode($address->getSuburb()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                <td><input type="text" id="suburb" name="suburb" value="<?php $html->encode($address->getSuburb()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("City") ?><span>*</span></td>
-                <td><input type="text" id="city" name="city" value="<?php $html->encode($address->getCity()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                <td><input type="text" id="city" name="city" value="<?php $html->encode($address->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="<?php $html->encode($address->getPostcode()) ?>" <?php zm_field_length(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                <td><input type="text" id="postcode" name="postcode" value="<?php $html->encode($address->getPostcode()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>

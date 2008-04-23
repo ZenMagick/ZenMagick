@@ -29,13 +29,13 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
     </div>
-    <?php zm_format_address($zm_cart->getBillingAddress()) ?>
+    <?php $macro->formatAddress($zm_cart->getBillingAddress()) ?>
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>
 <?php $zm_cart->getPaymentsJavaScript() ?>
 
-<?php zm_secure_form(FILENAME_CHECKOUT_CONFIRMATION, '', 'checkout_payment', 'post', 'return check_form();') ?>
+<?php $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment', 'onsubmit'=>'return check_form();')) ?>
   <fieldset>
       <legend><?php zm_l10n("Order Totals") ?></legend>
       <table id="ot" cellspacing="0" cellpadding="0">
@@ -83,7 +83,7 @@
         if ($single) {
           ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
         } else {
-          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php zm_radio_state($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
+          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
         }
         ?><label for="<?php echo $sptid ?>"><?php $html->encode($type->getName()) ?></label></p><?php
         $fields = $type->getFields();

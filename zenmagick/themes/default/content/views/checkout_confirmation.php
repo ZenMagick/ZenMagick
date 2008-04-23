@@ -96,7 +96,7 @@
         <div class="oadr">
             <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
             <h4><?php zm_l10n("Shipping Address") ?></h4>
-            <?php zm_format_address($zm_cart->getShippingAddress()) ?>
+            <?php $macro->formatAddress($zm_cart->getShippingAddress()) ?>
         </div>
     <?php } else { ?>
         <div class="oadr">
@@ -107,7 +107,7 @@
     <div class="oadr snd">
         <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
         <h4><?php zm_l10n("Billing Address") ?></h4>
-        <?php zm_format_address($zm_cart->getBillingAddress()) ?>
+        <?php $macro->formatAddress($zm_cart->getBillingAddress()) ?>
     </div>
 </fieldset>
 

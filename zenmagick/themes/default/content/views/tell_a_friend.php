@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . ZMRequest::getProductId(), 'tell_a_friend', 'post', 'return validate(this)'); ?>
+<?php $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . ZMRequest::getProductId(), true, array('id'=>'tell_a_friend', 'onsubmit'=>'return validate(this)')) ?>
    <fieldset>
       <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 
@@ -47,6 +47,6 @@
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
 </form>
 <div class="advisory">
-    <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
+    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
 </div>

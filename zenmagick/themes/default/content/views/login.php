@@ -24,34 +24,34 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_LOGIN, "action=process", 'login', 'post', 'return validate(this);') ?>
+<?php $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login', 'onsubmit'=>'return validate(this);')) ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>
     <div>
       <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-      <input type="text" id="email_address" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+      <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
     </div>
     <div>
       <label for="password"><?php zm_l10n("Password") ?></label>
-      <input type="password" id="password" name="password" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+      <input type="password" id="password" name="password" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
 </form>
 
 <p>
-  <a href="<?php zm_secure_href(FILENAME_PASSWORD_FORGOTTEN) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
-  <a href="<?php zm_secure_href(FILENAME_CREATE_ACCOUNT); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+  <a href="<?php $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
+  <a href="<?php $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
 <?php if (ZMSettings::get('isGuestCheckout') && !ZMRequest::getShoppingCart()->isEmpty() && ZMRequest::isAnonymous()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
-  <?php zm_secure_form(ZM_FILENAME_CHECKOUT_GUEST, "action=process", 'checkout_guest', 'post', 'return validate(this);') ?>
+  <?php  $form->open(ZM_FILENAME_CHECKOUT_GUEST, "action=process", true, array('id'=>'checkout_guest', 'onsubmit'=>'return validate(this);')) ?>
     <fieldset>
       <legend><?php zm_l10n("Checkout without registering") ?></legend>
       <div>
         <label for="email_address_guest"><?php zm_l10n("E-Mail Address") ?></label>
-        <input type="text" id="email_address_guest" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+        <input type="text" id="email_address_guest" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
         <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
       </div>
     </fieldset>

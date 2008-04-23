@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_add_product_form($zm_product->getId(), 1) ?>
+<?php $form->addProduct($zm_product->getId(), 1) ?>
   <div>  
     <div id="pinfo">
       <?php $imageInfo = $zm_product->getImageInfo() ?>

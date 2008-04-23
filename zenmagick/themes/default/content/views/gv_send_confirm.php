@@ -24,9 +24,9 @@
  */
 ?>
 
-<?php zm_secure_form(ZM_FILENAME_GV_SEND_CONFIRM, null, null, "post") ?>
+<?php $form->open(ZM_FILENAME_GV_SEND_CONFIRM, null, true, array('onsubmit'=>null)) ?>
     <div>
-        <input type="hidden" name="to_name" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" />
+        <input type="hidden" name="name" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" />
         <input type="hidden" name="email" value="<?php $html->encode($zm_gvreceiver->getEmail()) ?>" />
         <input type="hidden" name="amount" value="<?php $html->encode($zm_gvreceiver->getAmount()) ?>" />
         <input type="hidden" name="message" value="<?php $html->encode($zm_gvreceiver->getMessage()) ?>" />
@@ -50,7 +50,7 @@
     <div><input type="submit" class="btn" name="edit" value="<?php zm_l10n("Edit") ?>" /></div>
 </form>
 
-<p class="rclear">
-    <strong><?php zm_l10n("This message is included with all emails sent from this site:") ?></strong><br />
+<div class="advisory">
+    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
-</p>
+</div>

@@ -27,11 +27,11 @@
 <?php $manufacturer = $zm_product->getManufacturer() ?>
 <h2><?php $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php $html->encode($zm_product->getName()) ?></h2>
 
-<?php zm_add_product_form($zm_product->getId()) ?>
+<?php $form->addProduct($zm_product->getId()) ?>
   <?php $imageInfo = $zm_product->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php $html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
+          <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php $html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
           <?php $html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -39,10 +39,10 @@
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php $html->encode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
+      <p id="price"><?php $html->encode($zm_product->getModel()) ?>: <?php $macro->productPrice($zm_product) ?></p>
   </div>
 
-  <?php $attributes = zm_build_attribute_elements($zm_product); ?>
+  <?php $attributes = $macro->productAttributes($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
           <legend><?php $html->encode($attribute['name']) ?></legend>
@@ -77,10 +77,10 @@
       <fieldset>
           <legend><?php zm_l10n("Other Options") ?></legend>
           <?php if ($zm_product->hasReviews()) { ?>
-              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS_WRITE) ?>"><?php zm_l10n("Write a Review") ?></a>
+              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Write a Review") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('tell_a_friend')) { ?>
               <a class="btn" href="<?php $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>

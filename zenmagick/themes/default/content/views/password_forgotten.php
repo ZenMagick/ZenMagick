@@ -25,11 +25,11 @@
 ?>
 
 <p><?php zm_l10n("Enter your E-Mail address below and we'll send you an e-mail message containing your new password.") ?></p>
-<?php zm_secure_form(FILENAME_PASSWORD_FORGOTTEN, "action=process") ?>
+<?php $form->open(FILENAME_PASSWORD_FORGOTTEN, "action=process", true) ?>
   <fieldset>
     <legend><?php zm_l10n("Request new password") ?></legend>
     <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-    <input type="text" id="email_address" name="email_address" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+    <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
 </form>

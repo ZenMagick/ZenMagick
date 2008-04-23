@@ -48,7 +48,7 @@
         $id = (int)ZMRequest::getParameter('featureId');
         $zm_features->removeFeatureForId($id);
         // reload
-        ZMRequest::redirect(zm_secure_href('', $zm_nav_params));
+        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
         break;
 
       case 'update_feature':
@@ -59,7 +59,7 @@
         $session = ZMRequest::getSession();
         $zm_features->updateFeature($id, $session->getLanguageId(), $name, $description, $hidden);
         // reload
-        ZMRequest::redirect(zm_secure_href('', $zm_nav_params, false));
+        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
         break;
 
       case 'edit_feature':
@@ -81,7 +81,7 @@
         $session = ZMRequest::getSession();
         $zm_features->addFeature($type, $session->getLanguageId(), $name, $description, $hidden);
         // reload
-        ZMRequest::redirect(zm_secure_href('', $zm_nav_params, false));
+        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
         break;
 
       case 'update_feature_value':
@@ -91,7 +91,7 @@
         $index = ZMRequest::getParameter('index');
         $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
         // reload
-        ZMRequest::redirect(zm_secure_href('', $zm_nav_params, false));
+        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
         break;
 
       case 'edit_feature_value':
@@ -131,7 +131,7 @@
         if (!$invalid) {
           $zm_features->addFeatureForProduct($productId, $featureId, $value, $index);
           // reload
-          ZMRequest::redirect(zm_secure_href('', $zm_nav_params, false));
+          ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
         }
         break;
 
@@ -140,7 +140,7 @@
         $index = ZMRequest::getParameter('index');
         $zm_features->removeFeatureForProduct($productId, $featureId, $index);
         // reload
-       ZMRequest::redirect(zm_secure_href('', $zm_nav_params, false));
+       ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
        break;
 
     }

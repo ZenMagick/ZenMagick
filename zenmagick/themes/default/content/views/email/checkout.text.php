@@ -64,12 +64,12 @@ $language = ZMRuntime::getLanguage();
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
 <?php zm_l10n("N/A") ?>
 <?php } else { ?>
-<?php zm_format_address($shippingAddress, false) ?>
+<?php $macro->formatAddress($shippingAddress, false) ?>
 <?php } ?>
 
 
 <?php zm_l10n("Billing Address\n") ?>
-<?php zm_format_address($billingAddress, false) ?>
+<?php $macro->formatAddress($billingAddress, false) ?>
 
 
 <?php zm_l10n("Payment Details\n") ?>

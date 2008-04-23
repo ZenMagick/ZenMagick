@@ -76,11 +76,11 @@
         <?php if (!$zm_order->hasShippingAddress()) { ?>
             <?php zm_l10n("N/A") ?>
         <?php } else { ?>
-            <?php zm_format_address($zm_order->getShippingaddress()) ?>
+            <?php $macro->formatAddress($zm_order->getShippingaddress()) ?>
         <?php } ?>
     </div>
     <div id="baddr">
         <h4><?php zm_l10n("Billing Address") ?></h4>
-        <?php zm_format_address($zm_order->getBillingAddress()) ?>
+        <?php $macro->formatAddress($zm_order->getBillingAddress()) ?>
     </div>
 </div>

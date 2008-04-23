@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php zm_add_product_form($zm_product->getId(), 1) ?>
+<?php $form->addProduct($zm_product->getId(), 1) ?>
   <div>  
     <div id="pinfo">
       <?php $html->productImageLink($zm_product) ?>
@@ -36,7 +36,7 @@
   </div>
 </form>
 
-<?php zm_secure_form(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $zm_product->getId(), 'review', 'post', 'return validate(this)'); ?>
+<?php $form->open(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $zm_product->getId(), true, array('id'=>'review', 'onsubmit'=>'return validate(this)')) ?>
     <fieldset>
         <legend><?php zm_l10n("New Review") ?></legend>
         <p><?php zm_l10n("Choose a ranking for this item. 1 star is the worst and 5 stars is the best.") ?></p>

@@ -25,7 +25,7 @@
 ?>
 
 <?php if ($zm_resultList->hasFilters() || $zm_resultList->hasSorters()) { ?>
-    <?php zm_result_list_form() ?>
+    <?php $form->open(null, null, false, array('method'=>'get','onsubmit'=>null)) ?>
         <?php if ($zm_resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>

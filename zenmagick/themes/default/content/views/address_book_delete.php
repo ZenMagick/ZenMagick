@@ -25,10 +25,10 @@
 ?>
 
 <p><?php zm_l10n("Are you sure you would like to delete the selected address from your address book?") ?></p>
-<?php zm_secure_form(FILENAME_ADDRESS_BOOK_PROCESS, "action=deleteconfirm&delete=".$zm_address->getId()."&addressId=".$zm_address->getId(), 'address', "post") ?>
+<?php $form->open(FILENAME_ADDRESS_BOOK_PROCESS, "action=deleteconfirm&delete=".$zm_address->getId()."&addressId=".$zm_address->getId(), true, array('onsubmit'=>null)) ?>
     <fieldset>
         <legend><?php zm_l10n("Selected Address") ?></legend>
         <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Delete") ?>" /></div>
-        <?php zm_format_address($zm_address) ?>
+        <?php $macro->formatAddress($zm_address) ?>
     </fieldset>
 </form>

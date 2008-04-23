@@ -42,10 +42,10 @@
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php $html->encode($zm_product->getModel()) ?>: <?php zm_fmt_price($zm_product) ?></p>
+      <p id="price"><?php $html->encode($zm_product->getModel()) ?>: <?php $macro->productPrice($zm_product) ?></p>
   </div>
 
-  <?php $attributes = zm_build_attribute_elements($zm_product); ?>
+  <?php $attributes = $macro->productAttributes($zm_product); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
           <legend><?php $html->encode($attribute['name']) ?></legend>
@@ -80,7 +80,7 @@
       <fieldset>
           <legend><?php zm_l10n("Other Options") ?></legend>
           <?php if ($zm_product->hasReviews()) { ?>
-              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('reviews')) { ?>
               <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, '') ?>"><?php zm_l10n("Write a Review") ?></a>

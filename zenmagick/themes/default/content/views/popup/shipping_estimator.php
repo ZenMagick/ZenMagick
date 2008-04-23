@@ -41,10 +41,10 @@
     <?php if (null != $address) { ?>
         <h4><?php zm_l10n("Ship To") ?></h4>
         <div id="cadr">
-            <?php zm_format_address($address); ?>
+            <?php $macro->formatAddress($address); ?>
         </div>
     <?php } else { ?>
-        <?php zm_secure_form(FILENAME_POPUP_SHIPPING_ESTIMATOR) ?>
+        <?php $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php zm_l10n("Country") ?></td>

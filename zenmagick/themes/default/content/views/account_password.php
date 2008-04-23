@@ -24,20 +24,20 @@
  */
 ?>
 
-<?php zm_secure_form(FILENAME_ACCOUNT_PASSWORD, "action=process", 'account_password', "post", "return validate(this);") ?>
+<?php $form->open(FILENAME_ACCOUNT_PASSWORD, "action=process", true, array('id'=>'account_password', 'onsubmit'=>'return validate(this);')) ?>
     <fieldset>
         <legend><?php zm_l10n("Change Password") ?></legend>
         <p>
             <label for="password_current"><?php zm_l10n("Current Password") ?></label>
-            <input type="password" id="password_current" name="password_current" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+            <input type="password" id="password_current" name="password_current" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
         </p>
         <p>
             <label for="password_new"><?php zm_l10n("New Password") ?></label>
-            <input type="password" id="password_new" name="password_new" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+            <input type="password" id="password_new" name="password_new" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
         </p>
         <p>
             <label for="password_confirmation"><?php zm_l10n("Confirm Password") ?></label>
-            <input type="password" id="password_confirmation" name="password_confirmation" <?php zm_field_length(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+            <input type="password" id="password_confirmation" name="password_confirmation" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
         </p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
