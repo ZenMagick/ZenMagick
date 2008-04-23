@@ -23,22 +23,14 @@
  * $Id$
  */
 ?>
-<?php
 
-    /**
-     * Box contents for RSS box.
-     *
-     * 'RSS_ID' is replaced with a *real* one during code generation.
-     */
-
-?>
-<?php $zm_rss = ZMLoader::make("ZMRss", zm_rss_box('RSS_URL', false), null ); if ($zm_rss->hasContents()) { $channel = $zm_rss->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php zm_href_target() ?>><?php zm_l10n("[More]") ?></a><?php $html->encode($channel->getTitle()) ?></h3>
+<?php $rss = ZMLoader::make('Rss', 'http://localhost/rss.xml'); if ($rss->hasContents()) { $channel = $rss->getChannel(); ?>
+    <h3><a href="<?php echo $channel->getLink() ?>"<?php $html->hrefTarget() ?>><?php zm_l10n("[More]") ?></a><?php $html->encode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>
-            <?php foreach ($zm_rss->getItems() as $item) { ?>
+            <?php foreach ($rss->getItems() as $item) { ?>
                 <dt><?php echo $date->parseRssDate($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php zm_href_target() ?>><?php $html->encode($item->getTitle()); ?></a></dd>
+                <dd><a href="<?php echo $item->getLink() ?>"<?php $html->hrefTarget() ?>><?php $html->encode($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>
     </div>

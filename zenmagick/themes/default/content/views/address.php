@@ -81,7 +81,7 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php zm_idp_select('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), 1, $countryId) ?></td>
+                <td><?php $form->idpSelect('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
@@ -89,7 +89,7 @@
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                     <td>
                         <?php if (0 < count($zones)) { ?>
-                            <?php zm_idp_select('state', $zones, 1, $address->getZoneId()) ?>
+                            <?php $form->idpSelect('state', $zones, $address->getZoneId()) ?>
                         <?php } else { ?>
                             <input type="text" name="state" value="<?php $html->encode($address->getState()) ?>" />
                         <?php } ?>
@@ -100,7 +100,7 @@
                  <tr>
                     <td></td>
                     <td>
-                        <input type="checkbox" id="primary" name="primary" value="on" <?php zm_checkbox_state($address->isPrimary()) ?> />
+                        <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
                         <label for="primary"><?php zm_l10n("Use as primary address") ?></label>
                     </td>
                 </tr>

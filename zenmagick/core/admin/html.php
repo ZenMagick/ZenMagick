@@ -40,6 +40,7 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true, $path=null) {
+        $toolbox = ZMToolbox::instance();
         if ($root) { 
             ob_start(); 
             $path = ZMRequest::getCategoryPathArray();
@@ -67,13 +68,13 @@
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($active||0==$category->getId()) ? 'open' : '').'">';
             $url = $catUrls ? ZMToolbox::instance()->net->url('', $cparams, false, false) : '#';
-            echo '<a href="'.$url.'"><span class="folder">'.zm_htmlencode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
+            echo '<a href="'.$url.'"><span class="folder">'.$toolbox->html->encode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false, $path);
             } else if ($showProducts && $active) {
                 echo '<ul>';
                     foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
-                        echo '<li><a href="'.zm_href('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
+                        echo '<li><a href="'.$toolbox->net->url('', $cparams.'&productId='.$product->getId(), false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }
@@ -97,6 +98,7 @@
      * @return string The HTML.
      */
     function zm_product_resultlist($params='') {
+        $toolbox = ZMToolbox::instance();
         $resultList = null;
         $products = null;
 
@@ -120,7 +122,7 @@
             $odd = true; 
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
-                echo '<td class="first"><a href="'.zm_href(null, 'productId='.$product->getId().'&'.$params, false).'">'.$product->getName().'</a></td>';
+                echo '<td class="first"><a href="'.$toolbox->net->url(null, 'productId='.$product->getId().'&'.$params, false).'">'.$product->getName().'</a></td>';
                 echo '<td class="last status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
                 echo '</tr>';
                 $first = false; 

@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php $imageInfo = $zm_product->getImageInfo() ?>
-      <a href="<?php zm_product_href($zm_product->getId()) ?>"><?php zm_product_image_link($zm_product) ?></a>
+      <a href="<?php $net->product($zm_product->getId()) ?>"><?php $html->productImageLink($zm_product) ?></a>
       <?php $html->encode($zm_product->getDescription()); ?>
     </div>
     <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>

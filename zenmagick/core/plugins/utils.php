@@ -55,7 +55,7 @@
      *
      * <p>Format for <em>target</em> is as follows:</p>
      * <dl>
-     *   <dt>View only</dt><dd>Same as for <code>zm_href</code>.</dd>
+     *   <dt>View only</dt><dd>Same as for <code>ZMToolboxNet::url</code>.</dd>
      *   <dt>Admin only</dt><dd>Same as for <code>zm_plugin_admin_url</code> except that the function name is preceeded by <em>;</em>.</dd>
      *   <dt>View and function</dt><dd>Viewname and function separated by <em>;</em>; example: <code>wiki;zm_wiki_admin</code>.</dd>
      * </dl>

@@ -24,6 +24,7 @@
  */
 ?><?php
 
+    $toolbox = ZMToolbox::instance;
     // default
     $zm_server_names = array('' => '');
 
@@ -70,7 +71,7 @@
     }
 </script>
 
-<?php zm_form('', 'fkt=zm_site_switch_admin', 'site_switch_form') ?>
+<?php $toolbox->form->open('', 'fkt=zm_site_switch_admin', false, array('id'=>'site_switch_form')) ?>
     <?php $ii = 0; foreach ($zm_server_names as $hostname => $themeId) { ++$ii; ?>
         <fieldset id="site_<?php echo $ii ?>">
             <legend>Site #<?php echo $ii ?></legend>

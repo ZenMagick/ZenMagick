@@ -39,8 +39,8 @@
     <div id="featured">
       <?php foreach ($featured as $product) { ?>
         <div>
-          <p><?php zm_product_image_link($product) ?></p>
-          <p><a href="<?php zm_product_href($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
+          <p><?php $html->productImageLink($product) ?></p>
+          <p><a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
           <?php $offers = $product->getOffers(); ?>
           <p><?php $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>

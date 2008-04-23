@@ -23,12 +23,11 @@
  * $Id$
  */
 ?>
-
 <p><?php zm_l10n("Including store news, new products, special offers, and other promotional announcements.") ?></p>
 <?php zm_secure_form(FILENAME_ACCOUNT_NEWSLETTERS, "action=process") ?>
     <fieldset>
         <legend><?php zm_l10n("Store Newsletter") ?></legend>
-        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php zm_checkbox_state($zm_account->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general"><?php zm_l10n("Receive Store Newsletter") ?></label></p>
+        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php $form->checked($zm_account->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general"><?php zm_l10n("Receive Store Newsletter") ?></label></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
 </form>

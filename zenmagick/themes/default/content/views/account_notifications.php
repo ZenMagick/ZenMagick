@@ -29,7 +29,7 @@
 <?php zm_secure_form(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process") ?>
     <fieldset>
         <legend><?php zm_l10n("Global Product Notifications") ?></legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php zm_checkbox_state($zm_account->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked($zm_account->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>
     </fieldset>
 
     <?php if (!$zm_account->isGlobalProductSubscriber() && $zm_account->hasProductSubscriptions()) { ?>

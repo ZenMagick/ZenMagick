@@ -35,6 +35,7 @@
     global $zm_group_pricing, $zm_nav_params;
 
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
+        $toolbox = ZMToolbox::instance();
 
         $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
 
@@ -64,7 +65,7 @@
                 $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
             }
             $groupId = ZMRequest::getParameter('groupId', 0);
-            ZMRequest::redirect(zm_href('', $zm_nav_params.'&groupId='.$groupId));
+            ZMRequest::redirect($toolbox->net->url('', $zm_nav_params.'&groupId='.$groupId, false, false));
         }
 
 

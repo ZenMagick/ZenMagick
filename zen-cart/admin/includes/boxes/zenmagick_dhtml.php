@@ -13,6 +13,7 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
+    $toolbox = ZMToolbox::instance();
     $zm_heading = array();
     $zm_heading = array('text' => "ZenMagick", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
 
@@ -47,7 +48,7 @@ if (!defined('IS_ADMIN_FLAG')) {
             }
             $url = $item->getURL();
             if (0 === strpos($url, 'fkt:')) {
-                $url = zm_href('zmPluginPage.php', 'fkt=' . substr($url, 4), false);
+                $url = $toolbox->net->url('zmPluginPage.php', 'fkt=' . substr($url, 4), false, false);
             } else {
                 $url = zen_href_link($url);
             }

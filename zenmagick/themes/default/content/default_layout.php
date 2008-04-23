@@ -64,7 +64,7 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
+  <body id="b_<?php echo $zm_view->getName() ?>"<?php $html->onload() ?>>
     <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(1); if (null != $bannerBox) { ?>
         <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>

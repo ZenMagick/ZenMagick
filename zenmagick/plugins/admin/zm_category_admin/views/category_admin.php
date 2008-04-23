@@ -25,28 +25,29 @@
 ?>
 <?php
 
-  $currentLanguage = ZMRuntime::getLanguage();
-  $selectedLanguageId = ZMRequest::getParameter('languageId', $currentLanguage->getId());
+    $toolbox = ZMToolbox::instance();
+    $currentLanguage = ZMRuntime::getLanguage();
+    $selectedLanguageId = ZMRequest::getParameter('languageId', $currentLanguage->getId());
 
-  $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $selectedLanguageId);
-  if (null === $category) {
-      $category = ZMLoader::make("Category");
-      $category->setName('** new category **');
+    $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $selectedLanguageId);
+    if (null === $category) {
+        $category = ZMLoader::make("Category");
+        $category->setName('** new category **');
 
-      // set a few defaults from the default language category
-      $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
-      $defaultCategory = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $defaultLanguage->getId());
-      if (null != $defaultCategory) {
-          // only if exist (might not be the case if category is all new)
-          $category->setName($defaultCategory->getName());
-          $category->setSortOrder($defaultCategory->getSortOrder());
-          $category->setImage($defaultCategory->getImage());
-      }
-  }
+        // set a few defaults from the default language category
+        $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+        $defaultCategory = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $defaultLanguage->getId());
+        if (null != $defaultCategory) {
+            // only if exist (might not be the case if category is all new)
+            $category->setName($defaultCategory->getName());
+            $category->setSortOrder($defaultCategory->getSortOrder());
+            $category->setImage($defaultCategory->getImage());
+        }
+    }
 
 ?>
 
-  <?php zm_form('', $zm_nav_params, '', 'get') ?>
+  <?php $toolbox->form->open('', $zm_nav_params, false, array('method'=>'get')) ?>
     <div><input type="hidden" name="fkt" value="zm_category_admin"></div>
     <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onChange="this.form.submit();">
                 <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
@@ -56,10 +57,10 @@
               </select> )</h2>
   </form>
 
-  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+  <?php $toolbox->form->open('', $zm_nav_params) ?>
     <fieldset>
         <legend>General</legend>
-        <input type="checkbox" id="status" name="status" value="1" <?php zm_checkbox_state($category->isActive()) ?>> <label for="status">Status</label>
+        <input type="checkbox" id="status" name="status" value="1" <?php $toolbox->form->checked($category->isActive()) ?>> <label for="status">Status</label>
         <br><br>
         <label for="categoryName">Name</label>
         <input type="text" id="categoryName" name="categoryName" value="<?php echo htmlentities($category->getName()) ?>" size="30">
@@ -71,7 +72,7 @@
     <fieldset style="position:relative;">
         <legend>Image Options</legend>
         <div><input type="hidden" name="currentImage" value="<?php echo $category->getImage() ?>"></div>
-        <?php zm_image($category->getImageInfo(), PRODUCT_IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
+        <?php $toolbox->html->image($category->getImageInfo(), PRODUCT_IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
         <p class="opt"><label for="categoryImage">Upload Image</label><input type="file" id="categoryImage" name="categoryImage"></p>
         <p class="opt">
           <label for="imgDir">... to directory</label><select id="imgDir" name="imgDir">

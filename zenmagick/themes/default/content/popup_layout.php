@@ -48,7 +48,7 @@
     <?php } ?>
   </head>
 
-  <body id="pb_<?php echo $zm_view->getName() ?>"<?php zm_onload() ?>>
+  <body id="pb_<?php echo $zm_view->getName() ?>"<?php $html->onload() ?>>
     <?php include($zm_view->getViewFilename()) ?>
   </body>
 </html>

@@ -23,7 +23,6 @@
  * $Id$
  */
 ?>
-
 <?php zm_secure_form(FILENAME_CREATE_ACCOUNT, "action=process", 'create_account', "post", "return validate(this);") ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
@@ -117,7 +116,7 @@
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php zm_idp_select('zone_country_id', ZMCountries::instance()->getCountries(), 1, $countryId) ?></td>
+                    <td><?php $form->idpSelect('zone_country_id', ZMCountries::instance()->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
@@ -125,7 +124,7 @@
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
-                                <?php zm_idp_select('state', $zones, 1, $zm_address->getZoneId()) ?>
+                                <?php $form->idpSelect('state', $zones, $zm_address->getZoneId()) ?>
                             <?php } else { ?>
                                 <input type="text" name="state" value="<?php $html->encode($zm_address->getState()) ?>" />
                             <?php } ?>
@@ -154,7 +153,7 @@
                 <?php if (ZMSettings::get('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
-                        <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php zm_checkbox_state($zm_account->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
+                        <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php $form->checked($zm_account->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
                     </tr>
                 <?php } ?>
 

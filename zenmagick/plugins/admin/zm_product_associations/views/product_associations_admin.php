@@ -24,13 +24,13 @@
  */
 ?>
 <?php
-
-  $zm_product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+    $toolbox = ZMToolbox::instance();
+    $zm_product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
 ?>
 
   <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>
 
-  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+  <?php $toolbox->form->open('', $zm_nav_params) ?>
     <?php $types = ProductAssociationService::instance()->getAssociationTypes(); ?>
     <select name="type">
       <?php foreach ($types as $type => $name) { ?>

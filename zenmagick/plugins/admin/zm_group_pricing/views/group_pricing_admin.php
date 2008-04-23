@@ -23,11 +23,14 @@
  * $Id$
  */
 ?>
-  <?php zm_form('', $zm_nav_params, '', 'get') ?>
+<?php
+    $toolbox = ZMToolbox::instance();
+?>
+  <?php $toolbox->form->open('', $zm_nav_params, false, array('method'=>'get')) ?>
     <h2>Group Pricing ( <?php zm_idp_select('groupId', $priceGroups, 1, ZMRequest::getParameter('groupId'), 'this.form.submit()') ?> )</h2>
   </form>
 
-  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+  <?php $toolbox->form->open('', $zm_nav_params) ?>
     <fieldset>
       <?php $groupId = ZMRequest::getParameter('groupId', $priceGroups[0]->getId()); ?>
       <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
@@ -45,7 +48,7 @@
         </select>
       </p>
       <p>
-        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php zm_checkbox_state(ZMRequest::getParameter('regularPriceOnly')) ?>>
+        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php $toolbox->form->checked(ZMRequest::getParameter('regularPriceOnly')) ?>>
         <label for="regularPriceOnly">Do not allow discount on sale/special</label>
       </p>
       <p>
@@ -60,7 +63,7 @@
       <input type="hidden" name="fkt" value="zm_group_pricing_admin">
       <?php if (0 < ZMRequest::getParameter('groupPricingId')) { ?>
           <input type="submit" name="update" value="Update">
-          <a href="<?php zm_href('', $zm_nav_params.'&groupPricingId='.ZMRequest::getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+          <a href="<?php $toolbox->net->url('', $zm_nav_params.'&groupPricingId='.ZMRequest::getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
       <?php } else { ?>
           <input type="submit" name="create" value="Create">
       <?php } ?>

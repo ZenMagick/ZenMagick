@@ -25,51 +25,52 @@
 ?>
 <?php
 
-  // do show the not available image
-  ZMSettings::set('isShowNoPicture', false);
+    $toolbox = ZMToolbox::instance();
+    // do show the not available image
+    ZMSettings::set('isShowNoPicture', false);
 
-  $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
+    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
 
-  // allow to override with custom fields
-  if (function_exists('zm_quick_edit_field_list')) {
-      $zm_quick_edit_field_list = zm_quick_edit_field_list();
-  } else {
-      // default fields
-      $zm_quick_edit_field_list = array(
-          // title, form field name, getter/setter name
-          array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
-          array('title' => 'Model', 'field' => 'model', 'property' => 'model', 'size' => 14),
-          array('title' => 'Image', 'field' => 'image', 'property' => 'defaultImage', 'size' => 24),
-          array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4),
-          array('title' => 'Product Price', 'field' => 'productPrice', 'property' => 'productPrice', 'size' => 6),
-          array('title' => 'Status', 'field' => 'status', 'property' => 'status', 'size' => 2)
-      );
-  }
+    // allow to override with custom fields
+    if (function_exists('zm_quick_edit_field_list')) {
+        $zm_quick_edit_field_list = zm_quick_edit_field_list();
+    } else {
+        // default fields
+        $zm_quick_edit_field_list = array(
+            // title, form field name, getter/setter name
+            array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
+            array('title' => 'Model', 'field' => 'model', 'property' => 'model', 'size' => 14),
+            array('title' => 'Image', 'field' => 'image', 'property' => 'defaultImage', 'size' => 24),
+            array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4),
+            array('title' => 'Product Price', 'field' => 'productPrice', 'property' => 'productPrice', 'size' => 6),
+            array('title' => 'Status', 'field' => 'status', 'property' => 'status', 'size' => 2)
+        );
+    }
 
-  if (null != ZMRequest::getParameter('submit')) {
-      foreach ($productList as $ii => $product) {
-          foreach ($zm_quick_edit_field_list as $field) {
-              $fieldname = $field['field'].'_'.$product->getId();
-              $value = ZMRequest::getParameter($fieldname);
-              if (null != $field['property']) {
-                  $setMethod = 'set'.ucwords($field['property']);
-                  $product->$setMethod($value);
-              } else {
-                  $product->set($field['field'], $value);
-              }
+    if (null != ZMRequest::getParameter('submit')) {
+        foreach ($productList as $ii => $product) {
+            foreach ($zm_quick_edit_field_list as $field) {
+                $fieldname = $field['field'].'_'.$product->getId();
+                $value = ZMRequest::getParameter($fieldname);
+                if (null != $field['property']) {
+                    $setMethod = 'set'.ucwords($field['property']);
+                    $product->$setMethod($value);
+                } else {
+                    $product->set($field['field'], $value);
+                }
 
-          }
-          $productList[$ii] = ZMProducts::instance()->updateProduct($product);
-      }
-  }
+            }
+            $productList[$ii] = ZMProducts::instance()->updateProduct($product);
+        }
+    }
 
-  $lastIndex = count($zm_quick_edit_field_list) - 1;
+    $lastIndex = count($zm_quick_edit_field_list) - 1;
 
 ?>
 
   <h2>Quick Edit</h2>
 
-  <?php zm_form('', $zm_nav_params, '', 'post') ?>
+  <?php $toolbox->form->open('', $zm_nav_params) ?>
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
       <thead><tr>
         <th class="first">Id</th>
@@ -80,7 +81,7 @@
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="first" style="text-align:right;"><a href="<?php zm_href('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
+            <td class="first" style="text-align:right;"><a href="<?php $toolbox->net->url('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <?php foreach ($zm_quick_edit_field_list as $ii => $field) { 
               if (null != $field['property']) {
                 $getMethod = 'get'.ucwords($field['property']);

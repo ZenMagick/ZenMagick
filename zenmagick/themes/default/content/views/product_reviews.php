@@ -27,7 +27,7 @@
 <?php zm_add_product_form($zm_product->getId(), 1) ?>
   <div>  
     <div id="pinfo">
-      <?php zm_product_image_link($zm_product) ?>
+      <?php $html->productImageLink($zm_product) ?>
       <?php $html->encode($zm_product->getDescription()); ?>
     </div>
     <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>

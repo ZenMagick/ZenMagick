@@ -25,6 +25,8 @@
 ?>
 <?php
 
+    $toolbox = ZMToolbox::instance();
+
     $productId = ZMRequest::getProductId();
 
     $zm_features = ZMFeatures::instance();
@@ -170,15 +172,15 @@
           <td><?php echo $feature->getDescription() ?></td>
           <td><?php echo ($feature->isHidden()?'x':'') ?></td>
           <td>
-            <a class="btn" href="<?php zm_href(null, 'action=edit_feature&featureId='.$feature->getId()) ?>">Edit</a>
-            <a class="btn del" href="<?php zm_href(null, 'action=remove_feature&featureId='.$feature->getId()) ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($feature->getName())?>\' ?');">Delete</a>
+            <a class="btn" href="<?php $toolbox->net->url(null, 'action=edit_feature&featureId='.$feature->getId()) ?>">Edit</a>
+            <a class="btn del" href="<?php $toolbox->net->url(null, 'action=remove_feature&featureId='.$feature->getId()) ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($feature->getName())?>\' ?');">Delete</a>
           </td>
         </tr>
       <?php } ?>
     </tbody>
   </table>
   <h3><?php echo ($edit_feature ? "Edit" : "Add") ?> feature</h3>
-  <?php zm_form('', $zm_nav_params) ?>
+  <?php $toolbox->form->open('', $zm_nav_params) ?>
     <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
     <table cellspacing="0" cellpadding="2">
       <thead>
@@ -245,8 +247,8 @@
                 <td><?php echo $value ?></td>
                 <td><?php echo $index ?></td>
                 <td>
-                  <a class="btn" href="<?php zm_href(null, 'action=edit_feature_value&featureId='.$feature->getId().'&index='.$index) ?>">Edit</a>
-                  <a class="btn del" href="<?php zm_href(null, 'action=remove_feature_value&featureId='.$feature->getId().'&index='.$index) ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\' ?');">Delete</a>
+                  <a class="btn" href="<?php $toolbox->net->url(null, 'action=edit_feature_value&featureId='.$feature->getId().'&index='.$index) ?>">Edit</a>
+                  <a class="btn del" href="<?php $toolbox->net->url(null, 'action=remove_feature_value&featureId='.$feature->getId().'&index='.$index) ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\' ?');">Delete</a>
                 </td>
               </tr>
             <?php } ?>
@@ -255,7 +257,7 @@
         </table>
       <?php } ?>
         <h3><?php zm_l10n($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
-        <?php zm_form('', $zm_nav_params) ?>
+        <?php $toolbox->form->open('', $zm_nav_params) ?>
           <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
           <table cellspacing="0" cellpadding="2" border=1 width="100%">
             <thead>

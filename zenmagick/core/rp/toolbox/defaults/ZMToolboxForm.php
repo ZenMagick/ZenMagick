@@ -226,7 +226,7 @@ class ZMToolboxForm extends ZMObject {
      * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
-    public function idpSelect($name, $list, $attr=array(), $selectedId=null, $echo=ZM_ECHO_DEFAULT) {
+    public function idpSelect($name, $list, $selectedId=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
         $defaults = array('id' => $name, 'name' => $name, 'size' => 1);
         if (null === $attr) {
             $attr = $defaults;
