@@ -27,12 +27,16 @@ $newOrderStatus = $EMAIL_TEXT_NEW_STATUS;
 preg_match('/[^:]*:(.*)/ms', $EMAIL_TEXT_STATUS_COMMENTS, $matches);
 $comment = trim($matches[1]);
 ?>
-<?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?>
+<?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
 
 
 <?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?>
 
+<?php if (ZM_ACCOUNT_TYPE_REGISTERED == $zm_account->getType()) { ?>
 <?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
+<?php } else { ?>
+<?php zm_l10n("You can check the status of your order at: %s.", $net->url(ZM_FILENAME_GUEST_HISTORY, '', false, false)) ?>
+<?php } ?>
 
 <?php if ($newOrderStatus != $zm_order->getStatus()) { ?>
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
