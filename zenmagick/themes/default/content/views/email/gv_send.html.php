@@ -27,18 +27,18 @@ $language = ZMRuntime::getLanguage();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("A gift from %s", ZMRequest::getAccount()->getFullName()) ?></title>
+<title><?php zm_l10n("A gift from %s", $zm_account->getFullName()) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s,", $zm_gvreceiver->getName()) ?></p>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($zm_gvreceiver->getAmount(), false, false), ZMRequest::getAccount()->getFullName()) ?></p>
+<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($zm_gvreceiver->getAmount(), false, false), $zm_account->getFullName()) ?></p>
 <p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?></p>
 <?php if ($zm_gvreceiver->hasMessage()) { ?>
 <p>
-<?php zm_l10n("%s says:", ZMRequest::getAccount()->getFirstName()); ?><br>
+<?php zm_l10n("%s says:", $zm_account->getFirstName()); ?><br>
 <?php echo $html->text2html($zm_gvreceiver->getMessage()) ?>
 </p>
 <?php } ?>

@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s %s,", ZMRequest::getAccount()->getFirstName(), ZMRequest::getAccount()->getLastName()) ?>
+<?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
 
 
 <?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?>
