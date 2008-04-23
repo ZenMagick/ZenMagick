@@ -84,6 +84,9 @@ class ZMEmailView extends ZMPageView {
      * code.</p>
      */
     function generate() {
+        // TODO: give the template a storefront environment
+        $isAdmin = ZMSettings::get('isAdmin');
+        ZMSettings::set('isAdmin', false);
         $filename = $this->getViewFilename();
         if (!file_exists($filename)) {
             return "";
@@ -103,6 +106,7 @@ class ZMEmailView extends ZMPageView {
 
         ob_start();
         include($this->getViewFilename());
+        ZMSettings::set('isAdmin', $isAdmin);
         return ob_get_clean();
     }
 
