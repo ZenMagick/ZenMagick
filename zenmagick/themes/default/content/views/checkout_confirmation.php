@@ -118,7 +118,7 @@
 </fieldset>
 
 
-<?php $net->url($zm_cart->getOrderFormURL(), '', true) ?>
+<?php $form->open($zm_cart->getOrderFormURL(), '', true) ?>
     <?php $zm_cart->getOrderFormContent() ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Confirm to order") ?>" /></div>
 </form>
