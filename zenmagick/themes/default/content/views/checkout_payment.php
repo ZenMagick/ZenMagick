@@ -48,7 +48,7 @@
                       $tot = ' tot';
                   }
                   ?><tr>
-                      <td class="total"><?php $html->encode($total->getName()) ?></td>
+                      <td class="total"><?php $total->getName() ?></td>
                       <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
                   </tr><?php
               }
@@ -62,11 +62,11 @@
       <fieldset>
           <legend><?php zm_l10n("Credit Options") ?></legend>
           <?php foreach ($creditTypes as $type) { ?>
-              <p class="credittype"><?php $html->encode($type->getName()) ?></p>
-              <div class="instr"><?php $html->encode($type->getInstructions()) ?></div>
+              <p class="credittype"><?php echo $type->getName() ?></p>
+              <div class="instr"><?php echo $type->getInstructions() ?></div>
               <table class="pt" cellpadding="0" cellspacing="0"><tbody>
                   <?php foreach ($type->getFields() as $field) { ?>
-                     <tr><td><label><?php $html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
+                     <tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
                   <?php } ?>
               </tbody></table>
           <?php } ?>
@@ -85,12 +85,12 @@
         } else {
           ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
         }
-        ?><label for="<?php echo $sptid ?>"><?php $html->encode($type->getName()) ?></label></p><?php
+        ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
         $fields = $type->getFields();
         if (0 < count($fields)) {
             ?><table class="pt" cellpadding="0" cellspacing="0"><tbody><?php
             foreach ($fields as $field) {
-              ?><tr><td><label><?php $html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+              ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
             }
             ?></tbody></table><?php
           }
