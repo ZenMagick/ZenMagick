@@ -48,7 +48,6 @@ require_once('includes/application_top.php');
               $selectedFile = $newFile;
           } else {
               $editContents = $selectedTheme->staticPageContent($selectedFile, $selectedLanguageId, false);
-              echo 'edit....'.$selectedLanguageId;
               if (null == $editContents) {
                   // file does not exist, so create (new language?)
                   $editContents = '';
