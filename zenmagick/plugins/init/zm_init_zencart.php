@@ -57,25 +57,26 @@ class zm_init_zencart extends ZMPlugin {
         //TODO: this shouldn't be necessary (isAdmin)
         if (!function_exists('zen_exit') && !ZMSettings::get('isAdmin')) {
             // general functions
-            require(DIR_WS_FUNCTIONS . 'functions_general.php');
-            require(DIR_WS_FUNCTIONS . 'html_output.php');
-            require(DIR_WS_FUNCTIONS . 'functions_email.php');
-            require(DIR_WS_FUNCTIONS . 'functions_ezpages.php');
-            include(DIR_WS_MODULES . 'extra_functions.php');
+            require_once(DIR_WS_FUNCTIONS . 'functions_general.php');
+            require_once(DIR_WS_FUNCTIONS . 'html_output.php');
+            require_once(DIR_WS_FUNCTIONS . 'functions_email.php');
+            require_once(DIR_WS_FUNCTIONS . 'functions_ezpages.php');
+            include_once(DIR_WS_MODULES . 'extra_functions.php');
 
             // specials
-            require(DIR_WS_FUNCTIONS . 'whos_online.php');
-            require(DIR_WS_FUNCTIONS . 'password_funcs.php');
-            require(DIR_WS_FUNCTIONS . 'banner.php');
-            require(DIR_WS_FUNCTIONS . 'specials.php');
-            require(DIR_WS_FUNCTIONS . 'featured.php');
-            require(DIR_WS_FUNCTIONS . 'salemaker.php');
+            require_once(DIR_WS_FUNCTIONS . 'whos_online.php');
+            require_once(DIR_WS_FUNCTIONS . 'password_funcs.php');
+            require_once(DIR_WS_FUNCTIONS . 'banner.php');
+            require_once(DIR_WS_FUNCTIONS . 'specials.php');
+            require_once(DIR_WS_FUNCTIONS . 'featured.php');
+            require_once(DIR_WS_FUNCTIONS . 'salemaker.php');
 
             // classes that might be in session
-            require(DIR_WS_CLASSES . 'navigation_history.php');
+            require_once(DIR_WS_CLASSES . 'navigation_history.php');
+            require_once(DIR_WS_CLASSES . 'shopping_cart.php');
 
             // other
-            require(DIR_WS_FUNCTIONS . 'sessions.php');
+            require_once(DIR_WS_FUNCTIONS . 'sessions.php');
         }
     }
 
