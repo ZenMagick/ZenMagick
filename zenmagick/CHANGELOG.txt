@@ -167,6 +167,7 @@ Release 0.9.1
 - distinguish between guest and registered users on order status email
 - execute email views always with 'isAdmin' set to false to allow proper URL
   generation
+- clear advanced search default from/to date before executing a search
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

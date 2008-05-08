@@ -66,4 +66,15 @@
     if (isset($_POST['action']) && !isset($_GET['action'])) {
         $_GET['action'] = $_POST['action'];
     }
+
+    // fix default dates in advanced search (eventually, this should be done by the model or controller)
+    if ('advanced_search_result' == ZMRequest::getPageName()) {
+        if ($_GET['dfrom'] == UI_DATE_FORMAT) {
+            $_GET['dfrom'] = '';
+        }
+        if ($_GET['dto'] == UI_DATE_FORMAT) {
+            $_GET['dto'] = '';
+        }
+    }
+
 ?>
