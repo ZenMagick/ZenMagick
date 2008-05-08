@@ -64,7 +64,7 @@ class zm_page_stats extends ZMPlugin {
         $db = ZMRuntime::getDB();
         $info .= '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
-        $info .= '&nbsp;&nbsp;<strong>database</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
+        $info .= '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
         $info .= '</div>';
         if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
             $info .= '<div id="event-log">';
