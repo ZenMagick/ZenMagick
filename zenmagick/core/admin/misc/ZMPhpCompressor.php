@@ -398,11 +398,8 @@ class ZMPhpCompressor {
         }
         $files = $tmp;
 
-        if (!$handle = fopen($outfile, 'ab')) {
-            array_push($this->errors_, 'could not open file for writing ' . $outfile);
-            return;
-        }
-
+        // use ob to collect content
+        ob_start();
         $inpath = explode('/', $in);
         $currLevel = 0;
         while (0 < count($files)) {
@@ -421,20 +418,28 @@ class ZMPhpCompressor {
                     $source = file_get_contents($infile);
 
                     if (!$this->stripCode) {
-                        if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
-                            array_push($this->errors_, 'could not write to file ' . $outfile);
-                            return;
-                        }
+                        echo "<?php /* ".$infile." */ ?>\n";
                     }
-                    if (false === fwrite($handle, $source)) {
-                        array_push($this->errors_, 'could not write to file ' . $outfile);
-                        return;
-                    }
+                    echo $source;
                 }
             }
             if (0 == $processed) {
                 ++$currLevel;
             }
+        }
+
+        $content = ob_get_clean();
+
+        $content = str_replace("?><?php", '', $content);
+
+        if (!$handle = fopen($outfile, 'ab')) {
+            array_push($this->errors_, 'could not open file for writing ' . $outfile);
+            return;
+        }
+
+        if (false === fwrite($handle, $content)) {
+            array_push($this->errors_, 'could not write to file ' . $outfile);
+            return;
         }
 
         fclose($handle);
