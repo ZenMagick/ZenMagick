@@ -55,17 +55,17 @@ if (!defined('T_ML_COMMENT')) {
  * @version $Id$
  */
 class ZMPhpCompressor {
-    private $rootFolder;
-    private $outputFilename;
-    private $tempFolder;
-    private $errors;
+    protected $rootFolder;
+    protected $outputFilename;
+    protected $tempFolder;
+    protected $errors;
 
     //these two will be set once processing starts
-    private $strippedFolder;
-    private $flatFolder;
+    protected $strippedFolder;
+    protected $flatFolder;
 
     // some optiones
-    private $stripCode;
+    protected $stripCode;
 
 
     /**
@@ -381,12 +381,22 @@ class ZMPhpCompressor {
     }
 
     /**
+     * Empty callback to make final adjustments to the file list before compressing to a single file.
+     *
+     * @param array files List of files.
+     * @return array The final list.
+     */
+    protected function finalizeFiles($files) {
+        return $files;
+    }
+
+    /**
      * Compress all files into a single file
      *
      * @param string in The input directory.
      * @param string outfile The output file.
      */
-    private function compressToSingleFile($in, $outfile) {
+    protected function compressToSingleFile($in, $outfile) {
         //echo "** compress " . $in . " into " . $outfile . "\n";
         $files = ZMLoader::findIncludes($in.'/', true);
 
@@ -396,7 +406,7 @@ class ZMPhpCompressor {
             $off = strpos($file, $in);
             $tmp[substr($file, $off+strlen($in)+1)] = $file;
         }
-        $files = $tmp;
+        $files = $this->finalizeFiles($tmp);
 
         // use ob to collect content
         ob_start();
