@@ -155,7 +155,11 @@
 
             <!-- experimental stuff -->
             <fileset dir="${build.dir}" includes="zenmagick/bootstrap.php" />
-            <fileset dir="${build.dir}" includes="zenmagick/plugins/init/**" />
+            <fileset dir="${build.dir}">
+                <include name="zenmagick/plugins/init/**" />
+                <exclude name="zenmagick/plugins/init/zm_init_category_path.php" />
+                <exclude name="zenmagick/plugins/init/zm_init_language.php" />
+            </fileset>
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_group_pricing/**" />
         </delete>
     </target>
