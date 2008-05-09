@@ -57,6 +57,7 @@ class ZMLoader {
     private static $root_ = null;
     private $parent_;
     private $path_;
+    private static $classPrefix = 'ZM';
 
 
     /**
@@ -185,13 +186,13 @@ class ZMLoader {
     public static function resolve($name) {
         $rootLoader = ZMLoader::instance();
         $classfile = $rootLoader->getClassFile($name);
-        $zmname = "ZM".$name;
+        $zmname = ZMLoader::$classPrefix.$name;
         $zmclassfile = $rootLoader->getClassFile($zmname);
 
         // additional stuff for single core file, as there is no classpath!
         if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
             if (class_exists($name)) {
-                if (0 === strpos($name, 'ZM')) {
+                if (0 === strpos($name, ZMLoader::$classPrefix)) {
                     return $name;
                 } else {
                     // make sure we load a ZenMagick class; otherwise there is 
