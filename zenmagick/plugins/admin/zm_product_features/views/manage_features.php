@@ -25,6 +25,8 @@
 ?>
 <?php
 
+    $zm_nav_params .= '&fkt=zm_product_features_admin';
+
     $toolbox = ZMToolbox::instance();
 
     $productId = ZMRequest::getProductId();
@@ -181,7 +183,9 @@
   </table>
   <h3><?php echo ($edit_feature ? "Edit" : "Add") ?> feature</h3>
   <?php $toolbox->form->open('', $zm_nav_params) ?>
-    <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
+    <div>
+        <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
+    </div>
     <table cellspacing="0" cellpadding="2">
       <thead>
         <tr>
@@ -258,7 +262,9 @@
       <?php } ?>
         <h3><?php zm_l10n($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
         <?php $toolbox->form->open('', $zm_nav_params) ?>
-          <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
+          <div>
+            <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
+          </div>
           <table cellspacing="0" cellpadding="2" border=1 width="100%">
             <thead>
               <tr>

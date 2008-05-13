@@ -32,10 +32,12 @@
 
   <?php $toolbox->form->open('', $zm_nav_params) ?>
     <fieldset>
-      <?php $groupId = ZMRequest::getParameter('groupId', $priceGroups[0]->getId()); ?>
-      <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
-      <input type="hidden" name="groupPricingId" value="<?php echo ZMRequest::getParameter('groupPricingId') ?>">
       <legend>Discount</legend>
+      <div>
+        <?php $groupId = ZMRequest::getParameter('groupId', $priceGroups[0]->getId()); ?>
+        <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
+        <input type="hidden" name="groupPricingId" value="<?php echo ZMRequest::getParameter('groupPricingId') ?>">
+      </div>
       <p>
         <label for="discount">Discount</label> 
         <input type="text" id="discount" name="discount" value="<?php echo ZMRequest::getParameter('discount') ?>">
