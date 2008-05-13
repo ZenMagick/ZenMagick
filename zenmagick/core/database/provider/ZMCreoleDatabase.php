@@ -157,7 +157,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['key']) {
+            if ($field['key'] || $field['primary']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }

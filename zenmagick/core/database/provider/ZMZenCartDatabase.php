@@ -32,6 +32,7 @@
  * @version $Id$
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
+    private static $typeMap = array('boolean' => 'integer');
     private $db_;
     private $queriesCount;
     private $queriesTime;
@@ -82,6 +83,21 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     }
 
     /**
+     * Optional mappings.
+     *
+     * <p>Allows to use types not supported bb zen-cart, for example <em>boolean</em>.</p>
+     *
+     * @param string type The type.
+     * @return string A valid zen-cart data type.
+     */
+    private function getMappedType($type) {
+        if (isset(self::$typeMap[$type])) {
+            return self::$typeMap[$type];
+        }
+        return $type;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping) {
@@ -95,7 +111,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 if (!$firstSet) {
                     $sql .= ',';
                 }
-                $sql .= ' '.$field['column'].' = :'.$field['property'].';'.$field['type'];
+                $sql .= ' '.$field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
                 $firstSet = false;
             }
         }
@@ -128,7 +144,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $mapping = ZMDbUtils::parseMapping($mapping);
             // bind query parameter
             foreach ($data as $name => $value) {
-                $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
+                $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
             }
         } else if (is_object($data)) {
             $sql = ZMDbUtils::bindObject($sql, $data, false);
@@ -152,18 +168,18 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['key']) {
+            if ($field['key'] || $field['primary']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
-                $where .= $field['column'].' = :'.$field['property'].';'.$field['type'];
+                $where .= $field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
                 $firstWhere = false;
             } else {
                 if (!$field['readonly']) {
                     if (!$firstSet) {
                         $sql .= ',';
                     }
-                    $sql .= ' '.$field['column'].' = :'.$field['property'].';'.$field['type'];
+                    $sql .= ' '.$field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
                     $firstSet = false;
                 }
             }
@@ -196,7 +212,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         // bind query parameter
         foreach ($args as $name => $value) {
-            $sql = $this->db_->bindVars($sql, ':'.$name, $value, $mapping[$name]['type']);
+            $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
         }
 
         $results = array();
