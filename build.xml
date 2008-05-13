@@ -161,6 +161,7 @@
                 <exclude name="zenmagick/plugins/init/zm_init_language.php" />
             </fileset>
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_group_pricing/**" />
+            <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_associations/**" />
         </delete>
     </target>
 
