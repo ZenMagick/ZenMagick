@@ -54,14 +54,15 @@
     function zm_build_seo_href($view=null, $params='', $isSecure=false) {
     global $_zm_pretty_link_map;
 
-        $href = _zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
+        $toolbox = ZMToolbox::instance();
+        $href = $toolbox->net->_zm_zen_href_link($view, $params, $secure ? 'SSL' : 'NONSSL');
 
         if (null != ZMSettings::get('seoEnabledPagesList') && !ZMTools::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {
             return $href;
         }
 
         $url = parse_url($href);
-        $queryString = zm_htmlurldecode($url['query']);
+        $queryString = $toolbox->net->decode($url['query']);
         parse_str($queryString, $query);
         $path = dirname($url['path']);
         if (!ZMTools::endsWith($path, '/')) {

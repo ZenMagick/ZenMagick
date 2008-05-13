@@ -49,7 +49,7 @@ function isDate(elem, format) {
 var da = parseDate(elem.value, format); return ('' == elem.value || isValidDate(da[0], da[1], da[2]));
 }
 function isNotEmpty(elem) { 
-if (!elem) { return false; }
+if (!elem || undefined == elem) { return false; }
 if (elem.type) {
 switch (elem.type.toLowerCase()) {
 case 'text': case 'password': case 'textarea': return '' != elem.value; break;

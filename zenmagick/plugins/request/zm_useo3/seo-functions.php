@@ -28,10 +28,11 @@
  * ZenMagick SEO API function.
  */
 function zm_build_seo_href($view=null, $params='', $isSecure=false) {
+    if ($view == 'category') { $view = 'index'; }
     if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('seoEnabledPagesList') || ZMTools::inArray($view, ZMSettings::get('seoEnabledPagesList')))) {
         return $GLOBALS['SeoUrl']->buildHrefLink($view, $params, $isSecure ? 'SSL' : 'NONSSL');
     } else {
-        return _zm_zen_href_link($view, $params, $isSecure ? 'SSL' : 'NONSSL');
+        return ZMToolbox::instance()->net->_zm_zen_href_link($view, $params, $isSecure ? 'SSL' : 'NONSSL');
     }
 }
 
@@ -40,7 +41,7 @@ if (!function_exists(zen_href_link_stock)) {
      * This is the name of the renamed zen_href_link function in a vanilla USEO3 installation.
      */
     function zen_href_link_stock($page='', $params='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-        return _zm_zen_href_link($page, $params, $connection, $add_session_id, $seo_safe, $static, $use_dir_ws_catalog);
+        return ZMToolbox::instance()->net->_zm_zen_href_link($page, $params, $connection, $add_session_id, $seo_safe, $static, $use_dir_ws_catalog);
     }
 }
 

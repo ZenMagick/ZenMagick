@@ -19,6 +19,7 @@ $PAWFALIKI_FUNCTIONS_ONLY = true;
  */
 
 // setup some global storage
+global $pawfaliki_config;
 $pawfaliki_config = array();
 $pawfaliki_config['PAWFALIKI_VERSION'] = "0.5.1"; // Pawfaliki version
 $pawfaliki_config['GENERAL'] = array();

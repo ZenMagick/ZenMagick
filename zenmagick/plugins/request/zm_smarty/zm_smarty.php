@@ -89,7 +89,7 @@ class zm_smarty extends ZMPlugin {
      *
      * @return Smarty A <code>Smarty</code> instance.
      */
-    function &getSmarty() {
+    function getSmarty() {
         // use included version
         require_once(SMARTY_DIR.'Smarty.class.php');
 
@@ -107,7 +107,7 @@ class zm_smarty extends ZMPlugin {
         // plugins; add custom ZenMagick plugins
         $smarty->plugins_dir = array(
             'plugins', // the default under SMARTY_DIR
-            $this->getPluginDir().'zm_plugins',
+            $this->getPluginDir().'plugins',
             $theme->getRootDir().'plugins'
         );
 
@@ -115,8 +115,8 @@ class zm_smarty extends ZMPlugin {
         $smarty->assign('zm_setting', ZMSettings::getAll());
 
         // use callback for futher settings
-        if (function_exists('zms_smarty_config')) {
-            $smarty = zms_smarty_config($smarty);
+        if (function_exists('smarty_config')) {
+            $smarty = smarty_config($smarty);
         }
 
         return $smarty;
