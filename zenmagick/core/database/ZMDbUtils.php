@@ -248,7 +248,7 @@ class ZMDbUtils {
      * @return mixed The model instance.
      */
     public static function map2obj($clazz, $data, $fieldMap=null) {
-        $obj = ZMDbUtils::create($clazz);
+        $obj = ZMLoader::make($clazz);
         if (null === $fieldMap) {
             $fieldMap = ZMDbUtils::fieldMap_;
         }
