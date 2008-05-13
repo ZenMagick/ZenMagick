@@ -93,7 +93,7 @@ class ProductGroupPricingService extends ZMObject {
         $productGroupPricing = null;
         $results = $db->Execute($sql);
         if (!$results->EOF) {
-            $productGroupPricing = ZMDbUtils::map2obj('ProductGroupPricing', $results->fields);
+            $productGroupPricing = ZMDbUtils::map2obj('ProductGroupPricing', $results->fields, $this->fieldMap_);
         }
 
         return $productGroupPricing;
