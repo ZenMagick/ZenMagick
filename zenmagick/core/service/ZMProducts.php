@@ -185,8 +185,16 @@ class ZMProducts extends ZMObject {
      */
     function getProductIdsForCategoryId($categoryId, $active=true) {
         // asuming that if we do this once we might do this more often...
-        $keyPrefix = $active ? 'a:' : '';
-        if (null === $this->categoryProductMap_) {
+        $mainKey = $active ? 'active' : 'all';
+
+        if (null === $this->categoryProductMap_ || !isset($this->categoryProductMap_[$mainKey])) {
+            if (null === $this->categoryProductMap_) {
+                $this->categoryProductMap_ = array();
+            }
+            if (!isset($this->categoryProductMap_[$mainKey])) {
+                $this->categoryProductMap_[$mainKey] = array();
+            }
+
             $db = ZMRuntime::getDB();
             $query = "select p.products_id, p2c.categories_id
                       from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
@@ -197,20 +205,18 @@ class ZMProducts extends ZMObject {
             $query .= " p.products_id = p2c.products_id
                       order by p.products_sort_order";
 
-            $this->categoryProductMap_ = array();
             $results = $db->Execute($query);
             while (!$results->EOF) {
-                $categoryKey = $keyPrefix.$results->fields['categories_id'];
-                if (!isset($this->categoryProductMap_[$categoryKey])) {
-                    $this->categoryProductMap_[$categoryKey] = array();
+                $cId = $keyPrefix.$results->fields['categories_id'];
+                if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
+                    $this->categoryProductMap_[$mainKey][$cId] = array();
                 }
-                $this->categoryProductMap_[$categoryKey][] = $results->fields['products_id'];
+                $this->categoryProductMap_[$mainKey][$cId][] = $results->fields['products_id'];
                 $results->MoveNext();
             }
         }
 
-        $categoryKey = $keyPrefix.$categoryId;
-        return isset($this->categoryProductMap_[$categoryKey]) ? $this->categoryProductMap_[$categoryKey] : array();
+        return isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
     }
 
 
