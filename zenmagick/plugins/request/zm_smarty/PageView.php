@@ -67,6 +67,10 @@ class PageView extends ZMPageView {
 
         // function proxy 
         $smarty->assign('zm', ZMLoader::make('FunctionProxy'));
+        // toolbox tools
+        foreach (ZMToolbox::instance()->getTools() as $name => $tool) {
+            $smarty->assign($name, $tool);
+        }
 
         $template = $this->getLayout();
         if (null != $template) {

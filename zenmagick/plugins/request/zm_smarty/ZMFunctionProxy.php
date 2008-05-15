@@ -32,6 +32,55 @@
  * @version $Id$
  */
 class ZMFunctionProxy {
+    private $services;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        $this->services = array(
+            'ZMRequest' => new ZMRequest(),
+            'ZMSettings' => new ZMSettings(),
+            'ZMLoader' => ZMLoader::instance(),
+            'ZMRuntime' => ZMRuntime::instance(),
+            'ZMLayout' => ZMLayout::instance(),
+            'ZMProducts' => ZMProducts::instance(),
+            'ZMTaxRates' => ZMTaxRates::instance(),
+            'ZMReviews' => ZMReviews::instance(),
+            'ZMEZPages' => ZMEZPages::instance(),
+            'ZMCoupons' => ZMCoupons::instance(),
+            'ZMBanners' => ZMBanners::instance(),
+            'ZMOrders' => ZMOrders::instance(),
+            'ZMEvents' => ZMEvents::instance(),
+            'ZMAddresses' => ZMAddresses::instance(),
+            'ZMMessages' => ZMMessages::instance(),
+            'ZMValidator' => ZMValidator::instance(),
+            'ZMCategories' => ZMCategories::instance(),
+            'ZMManufacturers' => ZMManufacturers::instance(),
+            'ZMCrumbtrail' => ZMCrumbtrail::instance(),
+            'ZMMetaTags' => ZMMetaTags::instance(),
+            'ZMCurrencies' => ZMCurrencies::instance(),
+            'ZMLanguages' => ZMLanguages::instance(),
+            'ZMCountries' => ZMCountries::instance(),
+            'ZMAccounts' => ZMAccounts::instance(),
+            'ZMShoppingCart' => new ZMShoppingCart(),
+            'ZMUrlMapper' => ZMUrlMapper::instance(),
+            'ZMSacsMapper' => ZMSacsMapper::instance()
+        );
+    }
+
+    /**
+     * Allow access to services.
+     *
+     * @param string name The name.
+     */
+    public function __get($name) {
+        if (isset($this->services[$name])) {
+            return $this->services[$name];
+        }
+        return null;
+    }
 
     /**
      * Acts as proxy for all ZenMagick functions to be used by templates.
@@ -43,31 +92,7 @@ class ZMFunctionProxy {
         if (function_exists('zm_'.$method)) {
             $method = 'zm_'.$method;
         }
-        switch (count($args)) {
-            case 0:
-                return $method();
-                break;
-            case 1:
-                return $method($args[0]);
-                break;
-            case 2:
-                return $method($args[0], $args[1]);
-                break;
-            case 3:
-                return $method($args[0], $args[1], $args[2]);
-                break;
-            case 4:
-                return $method($args[0], $args[1], $args[2], $args[3]);
-                break;
-            case 5:
-                return $method($args[0], $args[1], $args[2], $args[3], $args[4]);
-                break;
-            case 6:
-                return $method($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
-                break;
-            default:
-                ZMObject::backtrace('unsupported number of arguments');
-        }
+        return call_user_func_array($method, $args);
     }
 
 }

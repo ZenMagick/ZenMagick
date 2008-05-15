@@ -26,6 +26,10 @@ appropriate patch from the ZenMagick installation screen (admin)
 5) Install the plugin using the ZenMagick Plugin Manager.
 6) Configure the path to your Smarty installation, for example '/usr/local/lib/php/Smarty'.
    If the path is left empty, the plugin will expect Smarty in '[PLUGIN_DIR]/smarty'
+7) With the current template provided you must set the value of the setting 'isLegacyAPI' to true.
+   This *must* be done in the global local.php.
+   Example:
+       ZMSettings::set('isLegacyAPI', true);
 
 You may either use the included theme for further development or take a copy and start your own.
 Smarty themes **do not support theme defaults**, so you'll have to include everything
