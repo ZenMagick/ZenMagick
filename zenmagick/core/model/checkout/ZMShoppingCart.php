@@ -558,9 +558,10 @@ class ZMShoppingCart extends ZMObject {
      * @param int quantity The quantity; default is <code>1</code>.
      * @param array attributes Optional list of attributes; key is the attribute id, the value can 
      *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
+     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
-    function addProduct($productId, $quantity=1, $attributes=array()) {
+    function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = ZMProducts::instance()->getProductForId($productId);
         $attributes = $this->sanitize_attributes($product, $attributes);
         $attributes = $this->prepare_uploads($product, $attributes);
@@ -584,7 +585,7 @@ class ZMShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        $this->cart_->add_cart($productId, $cartQty + $adjustedQty, $attributes);
+        $this->cart_->add_cart($productId, $cartQty + $adjustedQty, $attributes, $notify);
 
         return true;
     }
@@ -609,9 +610,10 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param string cartProductId The product id as used in the shopping cart (incl. the attributes suffix).
      * @param int quantity The quantity.
+     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    function updateProduct($cartProductId, $quantity) {
+    function updateProduct($cartProductId, $quantity, $notify=true) {
         if (null !== $cartProductId && null !== $quantity) {
             if (0 == $quantity) {
                 return $this->removeProduct($cartProductId);
@@ -635,7 +637,7 @@ class ZMShoppingCart extends ZMObject {
                 $adjustedQty = $maxOrderQty;
             }
 
-            $this->cart_->add_cart($cartProductId, $adjustedQty, $attributes);
+            $this->cart_->add_cart($cartProductId, $adjustedQty, $attributes, $notify);
 
             return true;
         }

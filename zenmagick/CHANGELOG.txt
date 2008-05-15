@@ -168,6 +168,8 @@ Release 0.9.1
 - execute email views always with 'isAdmin' set to false to allow proper URL
   generation
 - clear advanced search default from/to date before executing a search
+- add optional notify parameter to some cart methods (will be passed on to the
+  underlying zen-cart code); f:#1963535
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
