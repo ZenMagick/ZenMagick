@@ -36,7 +36,7 @@
 
   if (null != $source) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php 
-      echo htmlentities(file_get_contents($zm_theme->themeFile($source)));
+      ZMToolbox::instance()->html->encode(file_get_contents($zm_theme->themeFile($source)));
       ?></pre><?php 
       return;
   }

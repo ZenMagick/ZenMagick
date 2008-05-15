@@ -63,10 +63,10 @@
         <input type="checkbox" id="status" name="status" value="1" <?php $toolbox->form->checked($category->isActive()) ?>> <label for="status">Status</label>
         <br><br>
         <label for="categoryName">Name</label>
-        <input type="text" id="categoryName" name="categoryName" value="<?php echo htmlentities($category->getName()) ?>" size="30">
+        <input type="text" id="categoryName" name="categoryName" value="<?php $toolbox->html->encode($category->getName()) ?>" size="30">
         <br>
         <label for="categoryDescription" style="display:block;">Description</label>
-        <textarea id="categoryDescription" name="categoryDescription" rows="5" cols="80"><?php echo htmlentities($category->getDescription()) ?></textarea>
+        <textarea id="categoryDescription" name="categoryDescription" rows="5" cols="80"><?php $toolbox->html->encode($category->getDescription()) ?></textarea>
     </fieldset>
 
     <fieldset style="position:relative;">
