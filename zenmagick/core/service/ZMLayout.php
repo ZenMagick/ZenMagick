@@ -129,7 +129,8 @@ class ZMLayout extends ZMObject {
         $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
-            $box = $results->fields['layout_box_name'];
+            // boxes use .php
+            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $results->fields['layout_box_name']);
             if (file_exists($theme->getBoxesDir() . $box) 
               || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
 
@@ -162,7 +163,7 @@ class ZMLayout extends ZMObject {
         $theme = ZMRuntime::getTheme();
         $boxes = array();
         while (!$results->EOF) {
-            $box = $results->fields['layout_box_name'];
+            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $results->fields['layout_box_name']);
             if (file_exists($theme->getBoxesDir() . $box) 
               || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
                 array_push($boxes, $box);

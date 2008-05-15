@@ -55,8 +55,8 @@ class ZMToolboxHtml extends ZMObject {
             $imgSrc = $imageInfo->getLargeImage();
             break;
         case PRODUCT_IMAGE_MEDIUM:
+        default:
             $imgSrc = $imageInfo->getMediumImage();
-            break;
             break;
         case PRODUCT_IMAGE_SMALL:
             $imgSrc = $imageInfo->getDefaultImage();
