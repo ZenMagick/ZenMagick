@@ -143,7 +143,7 @@
         new ZMRequiredRule('confirmation', 'Please confirm the password.'),
         new ZMFieldMatchRule('password', 'confirmation', 'The password and confirm password must match.'),
         new ZMRequiredRule('street_address', 'Please enter your address.'),
-        new ZMMaxFieldLengthRule('address', TABLE_ADDRESS_BOOK, 'entry_street_address'),
+        new ZMMaxFieldLengthRule('street_address', TABLE_ADDRESS_BOOK, 'entry_street_address'),
         new ZMRequiredRule('city', 'Please enter a city.'),
         new ZMMaxFieldLengthRule('city', TABLE_ADDRESS_BOOK, 'entry_city'),
         new ZMRequiredRule('postcode', 'Please enter a postcode.'),
