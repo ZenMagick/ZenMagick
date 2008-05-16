@@ -200,6 +200,30 @@ class ZMTools extends ZMObject {
         return false;
     }
 
+    /**
+     * Sanitize the given value.
+     *
+     * @param mixed value A string or array.
+     * @return mixed A sanitized version.
+     */
+    public static function sanitize($value) {
+        if (is_string($value)) {
+            $value = ereg_replace(' +', ' ', $value);
+            $value = preg_replace("/[<>]/", '_', $value);
+            if (get_magic_quotes_gpc()) {
+                $value = stripslashes($value);
+            }
+            return trim($value);
+        } elseif (is_array($value)) {
+            reset($value);
+            while (list($key, $val) = each($value)) {
+                $value[$key] = self::sanitize($val);
+            }
+            return $value;
+        }
+
+        return $value;
+    }
 
 
 }

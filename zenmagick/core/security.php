@@ -26,6 +26,19 @@
 <?php
 
     /**
+     * Sanitize the given value.
+     *
+     * @package org.zenmagick.security
+     * @param mixed value A string or array.
+     * @return mixed A sanitixed version.
+     * @deprecated use ZMTools instead
+     */
+    function zm_sanitize($value) {
+        return ZMTools::sanitize($value);
+    }
+
+
+    /**
      * Encrypt the given password.
      *
      * @package org.zenmagick.security
@@ -68,32 +81,6 @@
      */
     function zm_new_password() { return zen_create_random_value(ZMSettings::get('minPasswordLength'), 'mixed'); }
 
-
-    /**
-     * Sanitize the given value.
-     *
-     * @package org.zenmagick.security
-     * @param mixed value A string or array.
-     * @return mixed A sanitixed version.
-     */
-    function zm_sanitize($value) {
-        if (is_string($value)) {
-            $value = ereg_replace(' +', ' ', $value);
-            $value = preg_replace("/[<>]/", '_', $value);
-            if (get_magic_quotes_gpc()) {
-                $value = stripslashes($value);
-            }
-            return trim($value);
-        } elseif (is_array($value)) {
-            reset($value);
-            while (list($key, $val) = each($value)) {
-                $value[$key] = zm_sanitize($val);
-            }
-            return $value;
-        }
-
-        return $value;
-    }
 
 
 ?>

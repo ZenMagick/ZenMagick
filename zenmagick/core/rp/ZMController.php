@@ -205,7 +205,7 @@ class ZMController extends ZMObject {
      */
     public function validate($id, $req=null) {
         if (null === $req) {
-            $req = zm_sanitize($_POST);
+            $req = ZMRequest::getParameterMap();
         }
 
         if (!ZMValidator::instance()->hasRuleSet($id)) {
