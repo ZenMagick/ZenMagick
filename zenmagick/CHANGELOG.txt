@@ -170,6 +170,9 @@ Release 0.9.1
 - clear advanced search default from/to date before executing a search
 - add optional notify parameter to some cart methods (will be passed on to the
   underlying zen-cart code); f:#1963535
+- change zm_page_cache to be opt-in rather out-out; re-organized settings,
+  updated Readme and simplified a couple things; f:#1937578
+- make zm_page_stats handle the new stats event fired by zm_page_cache
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin

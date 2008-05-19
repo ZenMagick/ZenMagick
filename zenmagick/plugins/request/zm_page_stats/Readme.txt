@@ -1,6 +1,6 @@
 This is a ZenMagick plugin adding page stats at the bottom of the page.
 
-This is maunly for testing and debugging.
+This is mainly for testing and debugging.
 
 
 Installation

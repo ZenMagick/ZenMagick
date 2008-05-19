@@ -52,12 +52,69 @@ class zm_page_stats extends ZMPlugin {
 
 
     /**
+     * Install this plugin.
+     */
+    function install() {
+        parent::install();
+
+        $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+    }
+
+    /**
+     * Init this plugin.
+     */
+    function init() {
+        parent::init();
+        if (defined('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS')) {
+            // page cache active
+            $this->zcoSubscribe();
+        }
+    }
+
+    /**
+     * Generate hidden stats.
+     */
+    private function hiddenStats() {
+        ob_start();
+        echo '<!--'."\n";
+        echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
+        echo '  total page execution: '.ZMRuntime::getExecutionTime().' secconds;'."\n";
+        $db = ZMRuntime::getDB();
+        echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
+        $stats = ZMRuntime::getDatabase()->getStats();
+        echo '  database ('.ZMSettings::get('dbProvider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
+        echo '-->'."\n";
+        if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
+            echo '<!--'."\n";
+            echo '  '.ZMRuntime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
+            foreach (ZMEvents::instance()->getEventLog() as $event) {
+                echo '  '.$event['time'].' '.$event['method'].' / '.$event['id']."\n";
+            }
+            echo '-->'."\n";
+        }
+        return ob_get_clean();
+    }
+
+    /**
+     * Event handler for page cache hits.
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMPluginsPageCacheStats($args=array()) {
+        echo $this->hiddenStats();
+    }
+
+    /**
      * Filter the response contents.
      *
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
+    public function filterResponse($contents) {
+        if (ZMTools::asBoolean($this->get('hideStats'))) {
+            return $contents.$this->hiddenStats();
+        }
+
         $info = '<div id="page-stats">';
         $info .= 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         $info .= '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br>';

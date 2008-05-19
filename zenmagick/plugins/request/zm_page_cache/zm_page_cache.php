@@ -23,6 +23,8 @@
 ?>
 <?php
 
+define('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS', 'plugins_page_cache_stats');
+
 
 /**
  * Plugin for page caching.
@@ -64,7 +66,7 @@ class zm_page_cache extends ZMPlugin {
 
         $this->zcoSubscribe();
 
-        $config = array('cacheTTL' => ZMSettings::get('pageCacheTTL', 300));
+        $config = array('cacheTTL' => ZMSettings::get('plugins.zm_page_cache.ttl', 300));
 
         // get one now to make cache admin work
         $this->pageCache_ = ZMCaches::instance()->getCache('pages', $config);
@@ -92,12 +94,13 @@ class zm_page_cache extends ZMPlugin {
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function isCacheable() {
-        $callback = ZMSettings::get('pageCacheStrategyCallback');
-        if (function_exists($callback)) {
-            return $callback();
+        $fkt = ZMSettings::get('plugins.zm_page_cache.strategy.callback', 'zm_page_cache_default_strategy');
+        $val = false;
+        if (function_exists($fkt)) {
+            $val = $fkt();
         }
 
-        return zm_page_cache_request_cacheable();
+        return $val;
     }
 
 
@@ -109,18 +112,15 @@ class zm_page_cache extends ZMPlugin {
      *
      * @param array args Contains the final theme (key: 'theme').
      */
-    function onZMThemeResolved($args) {
+    public function onZMThemeResolved($args) {
         // handle page caching
         if ($this->isEnabled()) {
             if (false !== ($contents = $this->pageCache_->get($this->getRequestKey())) && $this->isCacheable()) {
-                if (ZMTools::ifModifiedSince($this->pageCache_->lastModified())) {
-                    echo $contents;
-                    if (true) {
-                        $db = ZMRuntime::getDB();
-                        echo '<!-- zm_page_cache stats: ' . round($db->queryTime(), 4) . ' sec. for ' . $db->queryCount() . ' queries; ';
-                        echo 'page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';
-                        echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
-                    }
+                echo $contents;
+                if (ZMSettings::get('plugins.zm_page_cache.stats', true)) {
+                    ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS);
+                    echo '<!-- zm_page_cache stats: page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';
+                    echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
                 }
                 require('includes/application_bottom.php');
                 exit;
@@ -138,7 +138,7 @@ class zm_page_cache extends ZMPlugin {
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
+    public function filterResponse($contents) {
         if ($this->isEnabled() && $this->isCacheable()) {
             $this->pageCache_->save($contents, $this->getRequestKey());
         }

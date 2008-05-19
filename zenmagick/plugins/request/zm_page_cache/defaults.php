@@ -25,30 +25,27 @@
 ?>
 <?php
 
+define('ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
 
     /**
      * Default caching strategy for page caching.
      *
      * <p>The strategy is as follows:</p>
      * <ol>
-     *  <li>The request is not a secure request</li>
-     *  <li>The page is not a checkout page</li>
+     *  <li>The request is not a <em>POST</em> request</li>
      *  <li>The shoppingcart is empty</li>
      *  <li>There are no messages that need to be  displayed</li>
+     *  <li>The request's page name parameter is in the list of configured opt-in pages</li>
      * </ol>
      *
      * @package org.zenmagick.plugins.zm_page_cache
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
-    function zm_page_cache_request_cacheable() {
-        return !ZMRequest::isSecure() 
-          && !ZMRequest::isCheckout(true) 
+    function zm_page_cache_default_strategy() {
+        return 'POST' != ZMRequest::getMethod()
           && ZMRequest::getShoppingCart()->isEmpty() 
-          && 'POST' != ZMRequest::getMethod()
           && !ZMMessages::instance()->hasMessages()
-          && false === strpos(ZMRequest::getPageName(), 'ajax')
-          && false === strpos(ZMRequest::getPageName(), 'address_book')
-          && false === strpos(ZMRequest::getPageName(), 'account');
+          && ZMTools::inArray(ZMRequest::getPageName(), ZMSettings::get('plugins.zm_page_cache.strategy.opt-in', ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT));
     }
 
 ?>
