@@ -38,10 +38,9 @@
             $products = ZMProducts::instance()->getProductsForManufacturerId($id);
             $facet[$id] = array();
             $facet[$id]['name'] = $manufacturer->getName();
-            $facet[$id]['products'] = array();
-            $facet[$id]['productCount'] = count($products);
+            $facet[$id]['entries'] = array();
             foreach ($products as $product) {
-                $facet[$id]['products'][$product->getId()] = $product->getName();
+                $facet[$id]['entries'][$product->getId()] = $product->getName();
             }
         }
 
@@ -61,10 +60,9 @@
             $products = ZMProducts::instance()->getProductsForCategoryId($id);
             $facet[$id] = array();
             $facet[$id]['name'] = $category->getName();
-            $facet[$id]['products'] = array();
-            $facet[$id]['productCount'] = count($products);
+            $facet[$id]['entries'] = array();
             foreach ($products as $product) {
-                $facet[$id]['products'][$product->getId()] = $product->getName();
+                $facet[$id]['entries'][$product->getId()] = $product->getName();
             }
         }
 
@@ -112,14 +110,14 @@
 
         foreach ($brackets as $ii => $bracket) {
             $id = $ii;
-            $facet[$id]['products'] = array();
+            $facet[$id]['entries'] = array();
             $facet[$id] = array();
             if (0 == $ii) {
                 // first
                 $facet[$id]['name'] = zm_l10n_get("Less than %s", ZMToolbox::instance()->utils->formatMoney($bracket, true, false));
                     foreach ($products as $product) {
                         if ($product->getProductPrice() < $bracket) {
-                            $facet[$id]['products'][$product->getId()] = $product->getName();
+                            $facet[$id]['entries'][$product->getId()] = $product->getName();
                         }
                     }
             } else if (($ii+1) == $bracketLength) {
@@ -127,7 +125,7 @@
                 $facet[$id]['name'] = zm_l10n_get("More than %s", ZMToolbox::instance()->utils->formatMoney($prevBracket, true, false));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() > $prevBracket) {
-                        $facet[$id]['products'][$product->getId()] = $product->getName();
+                        $facet[$id]['entries'][$product->getId()] = $product->getName();
                     }
                 }
             } else {
@@ -136,11 +134,10 @@
                 $facet[$id]['name'] = zm_l10n_get("%s to %s", ZMToolbox::instance()->utils->formatMoney($prevBracket, true, false), ZMToolbox::instance()->utils->formatMoney($bracket, true, false));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() >= $prevBracket && $product->getProductPrice() <= $bracket) {
-                        $facet[$id]['products'][$product->getId()] = $product->getName();
+                        $facet[$id]['entries'][$product->getId()] = $product->getName();
                     }
                 }
             }
-            $facet[$id]['productCount'] = count($facet[$id]['products']);
         }
 
         return $facet;

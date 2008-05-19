@@ -32,11 +32,9 @@
  * @version $Id$
  */
 class ZMFacets extends ZMObject {
+    private $facetBuilder_;
     private $cache_;
-    // the facet
-    private $facet_;
-    // single facets as added
-    private $facets_;
+    private $facets_ = null;
 
 
     /**
@@ -44,13 +42,9 @@ class ZMFacets extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->facet_ = null;
-        $this->facets_ = array();
+        $this->facetBuilder_ = array();
         $this->cache_ = ZMCaches::instance()->getCache('facets', array('cacheTTL' => 300));
-        // register as singleton (just in case)
-        // this is to prevent leaking instances, as this plugin does not just resolve the class
-        // ProductFacets during init, but uses ZMLoader::make() in order to force cache registration...
-        ZMObject::singleton('Facets', $this);
+        $this->facets_ = null;
     }
 
     /**
@@ -69,12 +63,13 @@ class ZMFacets extends ZMObject {
 
 
     /**
-     * Add a facet.
+     * Add facet builder.
      *
-     * @param Facet facet The new facet.
+     * @param string type The facet type.
+     * @param string function A function name.
      */
-    public function addFacet($facet) {
-        $this->facets_[$facet->getId()] = $facet;
+    public function addFacetBuilder($type, $function) {
+        $this->facetBuilder_[$type] = $function;
     }
 
     /**
@@ -91,47 +86,49 @@ class ZMFacets extends ZMObject {
     /**
      * Get the facet map.
      *
-     * <p>This will build a facet grid based on the currently
-     * added facets.</p>
+     * <p>This will build an entries facet grid based on the currently
+     * configured builders.</p>
      * 
-     * @return array The facet.
+     * @return array The facets.
      */
-    public function getMap() {
-        if (null === $this->facet_) {
+    public function getFacets() {
+        if (null === $this->facets_) {
             $key = $this->getCacheKey();
 
-            if (false !== ($facet = $this->cache_->get($key))) {
-                $this->facet_ = unserialize($facet);
+            if (false !== ($facets = $this->cache_->get($key))) {
+                $this->facets_ = unserialize($facets);
             } else {
                 // build new
-                $this->facet_ = array();
-                foreach ($this->facets_ as $id => $facet) {
-                    $this->facet_[$id] = $facet->getMap();
+                $this->facets_ = array();
+                foreach ($this->facetBuilder_ as $type => $function) {
+                    if (null != ($facet = $function($type))) {
+                        $this->facets_[$type] = $facet;
+                    }
                 }
-                $this->cache_->save(serialize($this->facet_), $key);
+                $this->cache_->save(serialize($this->facets_), $key);
             }
         }
 
-        return $this->facet_;
+        return $this->facets_;
     }
 
     /**
      * Intersect facets.
      *
-     * @param array selected Map of selected facets and correspoding ids.
-     * @return array The resulting facet hits.
+     * @param array types Map of selected types and correspoding ids.
+     * @return array The resulting entries.
      */
-    protected function intersect($selected) {
-        $facet = $this->getMap();
+    protected function intersect($types) {
+        $facets = $this->getFacets();
 
         $all = array();
         $index = 0;
-        // merge hits for each facet
-        foreach ($selected as $facet => $ids) {
+        // merge entries for each facet
+        foreach ($types as $type => $ids) {
             $all[$index] = array();
             foreach ($ids as $id) {
-                foreach ($facets[$facet][$id]['hits'] as $hid => $hit) {
-                    $all[$index][$hid] = $hit;
+                foreach ($facets[$type][$id]['entries'] as $pid => $entry) {
+                    $all[$index][$pid] = $entry;
                 }
             }
             ++$index;
@@ -139,23 +136,23 @@ class ZMFacets extends ZMObject {
 
         $selected = array();
         $allCount = count($all);
-        foreach ($all as $ii => $hits) {
-            // iterate over each list of hits
-            foreach ($hits as $hid => $hit) {
-                if (isset($selected[$hid])) {
-                    // either hit is already selected 
+        foreach ($all as $ii => $entries) {
+            // iterate over each list of entries
+            foreach ($entries as $id => $entry) {
+                if (isset($selected[$id])) {
+                    // either entry is already selected 
                     continue;
                 }
                 // make sure it is in all selected facets
                 $matchCount = 0;
                 for ($jj=0; $jj < $allCount; ++$jj) {
-                    if (isset($all[$jj][$hid])) {
-                        // hit is in jj'th facet
+                    if (isset($all[$jj][$id])) {
+                        // entry is in jj'th facet
                         ++$matchCount;
                     }
                 }
                 if ($matchCount == $allCount) {
-                    $selected[$hid] = $hit;
+                    $selected[$id] = $entry;
                 }
             }
         }
@@ -170,17 +167,17 @@ class ZMFacets extends ZMObject {
      * @return array Result facets.
      */
     public function filterWithTypes($types) {
-        $hits = $this->intersect($types);
-        return $this->filterWithProducts($hits);
+        $entries = $this->intersect($types);
+        return $this->filterWithEntries($entries);
     }
 
     /**
      * Filter facets.
      *
-     * @param array hits Map of allowed hits.
+     * @param array entries Map of allowed entries.
      * @return array Result facets.
      */
-    public function filterWithProducts($hits) {
+    public function filterWithEntries($entries) {
         $facets = $this->getFacets();
 
         $filtered = array();
@@ -189,13 +186,12 @@ class ZMFacets extends ZMObject {
             foreach ($facet as $fid => $info) {
                 $filtered[$type][$fid] = array();
                 $filtered[$type][$fid]['name'] = $info['name'];
-                $filtered[$type][$fid]['hits'] = array();
-                foreach ($hits as $hid => $hit) {
-                    if (isset($info['hits'][$hid])) {
-                        $filtered[$type][$fid]['hits'][$hid] = $hit;
+                $filtered[$type][$fid]['entries'] = array();
+                foreach ($entries as $id => $entry) {
+                    if (isset($info['entries'][$id])) {
+                        $filtered[$type][$fid]['entries'][$id] = $entry;
                     }
                 }
-                $filtered[$type][$fid]['hitCount'] = count($filtered[$type][$fid]['hits']);
             }
         }
 

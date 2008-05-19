@@ -54,13 +54,13 @@ class zm_product_facets extends ZMPlugin {
         parent::init();
 
         // create as this will also init the underlying cache
-        ZMLoader::resolve("ProductFacets");
+        ZMLoader::resolve("Facets");
 ZMLoader::resolve("Facet");
 
         // load default facets
-        ZMProductFacets::instance()->addFacetBuilder('manufacturers', 'zm_build_manufacturer_facet');
-        ZMProductFacets::instance()->addFacetBuilder('categories', 'zm_build_category_facet');
-        ZMProductFacets::instance()->addFacetBuilder('prices', 'zm_build_pricerange_facet');
+        ZMFacets::instance()->addFacetBuilder('manufacturers', 'zm_build_manufacturer_facet');
+        ZMFacets::instance()->addFacetBuilder('categories', 'zm_build_category_facet');
+        ZMFacets::instance()->addFacetBuilder('prices', 'zm_build_pricerange_facet');
     }
 
 }
