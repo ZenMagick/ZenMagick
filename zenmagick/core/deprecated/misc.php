@@ -43,7 +43,7 @@
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->idpSelect($name, $list, array('size' => $size, 'onchange' => $onchange), $selectedId, $echo);
+        return ZMToolbox::instance()->form->idpSelect($name, $list, $selectedId, array('size' => $size, 'onchange' => $onchange), $echo);
     }
 
     /**
