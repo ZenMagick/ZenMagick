@@ -64,9 +64,15 @@ class ResultList extends ZMResultList {
         // we are only into products right now
         if ('Product' != $resultSource->getResultClass() || !($resultSource instanceof ZMObjectResultSource)) {
             parent::setResultSource($resultSource);
+            return;
         }
         if ('index' != ZMRequest::getPageName() && 'category' != ZMRequest::getPageName()) {
             parent::setResultSource($resultSource);
+            return;
+        }
+        if ('getProductsForSQL' == $resultSource->getMethod()) {
+            parent::setResultSource($resultSource);
+            return;
         }
 
         //**** START  prepare zen-cart environment
