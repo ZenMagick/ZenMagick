@@ -23,8 +23,8 @@ Supported settings
   Default: zm_page_cache_default_strategy
   The value is taken as function name to determine whether the current request is cacheable or not.
 
-* plugins.zm_page_cache.strategy.opt-in [array|comma separated string]
-  Default: ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT
+* plugins.zm_page_cache.strategy.allowed [array|comma separated string]
+  Default: ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT
   List of page names to be cached.
 
 

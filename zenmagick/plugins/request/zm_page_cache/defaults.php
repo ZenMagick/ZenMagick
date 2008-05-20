@@ -25,7 +25,7 @@
 ?>
 <?php
 
-define('ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
+define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
 
     /**
      * Default caching strategy for page caching.
@@ -45,7 +45,7 @@ define('ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT', 'index,category,product_info,page
         return 'POST' != ZMRequest::getMethod()
           && ZMRequest::getShoppingCart()->isEmpty() 
           && !ZMMessages::instance()->hasMessages()
-          && ZMTools::inArray(ZMRequest::getPageName(), ZMSettings::get('plugins.zm_page_cache.strategy.opt-in', ZM_PLUGINS_PAGE_CACHE_OPT_IN_DEFAULT));
+          && ZMTools::inArray(ZMRequest::getPageName(), ZMSettings::get('plugins.zm_page_cache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
 
 ?>
