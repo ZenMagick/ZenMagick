@@ -89,8 +89,10 @@ class ZMAccounts extends ZMObject {
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
                 c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
                 from " . TABLE_CUSTOMERS . " c
-                where customers_email_address = :emailAddress";
+                where customers_email_address = :emailAddress
+                and NOT customers_password = :emptyPassword";
         $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
+        $sql = $db->bindVars($sql, ":emptyPassword", '', "string");
         $results = $db->Execute($sql);
         $account = null;
         if (0 < $results->RecordCount()) {

@@ -173,6 +173,7 @@ Release 0.9.1
 - change zm_page_cache to be opt-in rather out-out; re-organized settings,
   updated Readme and simplified a couple things; f:#1937578
 - make zm_page_stats handle the new stats event fired by zm_page_cache
+- make ZMAccounts::getAccountForEmailAddress(..) find only registered accounts
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
