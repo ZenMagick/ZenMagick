@@ -99,7 +99,7 @@
         if ($merge) {
             // load existing mappings
             ZMRuntime::setThemeId($themeId);
-            zm_resolve_theme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $themeId);
+            ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $themeId);
             if (0 < count($GLOBALS['_zm_i18n_text'])) {
                 $l10nMap['inherited_mappings'] = $GLOBALS['_zm_l10n_text'];
             }
