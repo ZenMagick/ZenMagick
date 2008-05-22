@@ -77,4 +77,9 @@
         }
     }
 
+    // used by some zen-cart validation code
+    if (defined('UI_DATE_FORMAT')) {
+        define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
+    }
+
 ?>
