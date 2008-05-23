@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.0">
+<jmeterTestPlan version="1.2" properties="1.8">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="ZenMagick" enabled="true">
       <boolProp name="TestPlan.functional_mode">false</boolProp>
@@ -15,7 +14,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
-            <stringProp name="Argument.value">zenmagick.org.local</stringProp>
+            <stringProp name="Argument.value">localhost</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="defaultPort" elementType="Argument">
@@ -30,7 +29,7 @@
           </elementProp>
           <elementProp name="context" elementType="Argument">
             <stringProp name="Argument.name">context</stringProp>
-            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.value">zen-cart/</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
@@ -55,446 +54,411 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <stringProp name="ThreadGroup.ramp_time">60</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
         <longProp name="ThreadGroup.end_time">1162245163000</longProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
-          <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <collectionProp name="CookieManager.cookies"/>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Index" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-989961736">&lt;title&gt;ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="1110893868">Welcome to your new ZenMagick powered online store!</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Category 1_16" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/category/1_16</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/category/1_16</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1343683273">&lt;title&gt;Memory :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="-99454488">&lt;h2&gt;Memory&lt;/h2&gt;</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Category 1_4" enabled="true">
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Category 2_20" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/category/2_20</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/category/1_4</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="808847580">&lt;title&gt;Matrox G400 32MB </stringProp>
-              </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="7270508">&lt;title&gt;Strategy :: ZenMagick</stringProp>
+              </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Product 13" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/product/13</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/product/13</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="1409670825">&lt;title&gt;Lethal Weapon Linked </stringProp>
                 <stringProp name="-477682334">Warner Lethal Weapon Linked</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Review 19_1" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/reviews/19/1</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/reviews/19/1</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="595138644">&lt;title&gt;There&amp;#039;s Something About Mary Linked</stringProp>
                 <stringProp name="1917495835">his really is a very funny but old movie!</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Manufacturer 4" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/manufacturer/4</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/manufacturer/4</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="1230296557">&lt;title&gt;Fox :: ZenMagick&lt;/title&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Shipping Info" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/static/shippinginfo</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/static/shippinginfo</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="1290142067">Shipping &amp;amp; Returns :: ZenMagick</stringProp>
-                <stringProp name="-146944539">Shippingï¿½Sample Textï¿½...</stringProp>
-              </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1290142067">Shipping &amp;amp; Returns :: ZenMagick</stringProp>
+                <stringProp name="1956540874">&lt;strong&gt;Shipping Sample Text ...&lt;/strong&gt;</stringProp>
+              </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Privacy" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/static/privacy</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/static/privacy</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="2106257658">&lt;title&gt;Our Privacy Policy :: ZenMagick&lt;/title&gt;</stringProp>
-                <stringProp name="-472766212">Privacy Sample Textï¿½...</stringProp>
-              </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="2106257658">&lt;title&gt;Our Privacy Policy :: ZenMagick&lt;/title&gt;</stringProp>
+                <stringProp name="1563320619">Privacy Sample Text</stringProp>
+              </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Conditions" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/static/conditions</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/static/conditions</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="434775264">&lt;title&gt;Conditions :: ZenMagick&lt;/title&gt;</stringProp>
-                <stringProp name="1710081914">Conditions of Use Sample Textï¿½...</stringProp>
-              </collectionProp>
               <stringProp name="Assertion.assume_success">false</stringProp>
               <intProp name="Assertion.test_type">2</intProp>
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="434775264">&lt;title&gt;Conditions :: ZenMagick&lt;/title&gt;</stringProp>
+                <stringProp name="1114173097">Conditions of Use Sample Text</stringProp>
+              </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Shared (page 6)" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/page/6</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/page/6</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="27221075">&lt;title&gt;Shared :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="-932953842">This link is a &quot;shared&quot; link</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Sitemap" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/sitemap/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/sitemap/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-343302379">&lt;title&gt;Site Map :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="-1060186934">If you are having difficulty in locating something</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="RSS Reviews" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}//reviews/rss.xml</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}//reviews/rss.xml</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="87074141">&lt;rss version=&quot;2.0&quot;&gt;</stringProp>
                 <stringProp name="825169198">&lt;title&gt;Review: There&apos;s Something About Mary Linked&lt;/title&gt;</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="false"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Contact Us Form" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/contactus/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/contactus/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-406597478">&lt;title&gt;Contact Us :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="267656572">Full Name</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Contact Us Form Response" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/contactus/</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
@@ -534,35 +498,32 @@
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/contactus/</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="1288430775">&lt;title&gt;Contact Us Success :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="1780794085">Your message has been successfully sent.</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Advanced Search" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/search/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
@@ -573,36 +534,33 @@
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/search/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-994217834">&lt;title&gt;Advanced Search :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="896136829">Search For...</stringProp>
                 <stringProp name="-236885757">Restrict Search By...</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Search Results" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/search/results/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
@@ -616,35 +574,28 @@
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.name">keyword</stringProp>
-                  <stringProp name="Argument.value">foo</stringProp>
+                  <stringProp name="Argument.value">dvd</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/search/results/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="679788001">&lt;title&gt;Advanced Search Result :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="1508587072">class=&quot;odd first&quot;</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
@@ -655,38 +606,39 @@
           <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login" enabled="true"/>
           <hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Login Form" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/login/</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/login/</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-626888941">&lt;title&gt;Login :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="1658453779">E-Mail Address</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Login Form Response" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/login/</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -719,64 +671,54 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/login/</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="2133918367">&lt;title&gt;My Account :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="-2085488848">&lt;legend&gt;My Account&lt;/legend&gt;</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Account Edit" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/account/edit</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-            <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/account/edit</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="919125889">&lt;title&gt;Edit Account :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="1773344315">First Name</stringProp>
                 <stringProp name="-15561432">Date of Birth</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
@@ -784,6 +726,10 @@
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Checkout" enabled="true"/>
           <hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="ClearCart" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/cart?action=update_product</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -816,67 +762,61 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/cart?action=update_product</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="947817700">&lt;title&gt;Shopping Cart :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="-1489909364">Your Shopping Cart is empty</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="EmptyCart" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/cart</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/cart</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="947817700">&lt;title&gt;Shopping Cart :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="-1489909364">Your Shopping Cart is empty</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="AddToCart" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/product/13?action=add_product</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -902,69 +842,63 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/product/13?action=add_product</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="947817700">&lt;title&gt;Shopping Cart :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="1508587072">class=&quot;odd first&quot;</stringProp>
                   <stringProp name="-1995675356">Subtotal</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Checkout Shipping" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/checkout/shipping</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/checkout/shipping</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-515088759">&lt;title&gt;Shipping Method :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="-901028990">Shipping Address</stringProp>
                   <stringProp name="1202197312">Shipping Methods</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
             <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Select Shipping flat_flat" enabled="true">
+              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+              <stringProp name="HTTPSampler.path">${context}/checkout/shipping?action=process</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -997,70 +931,64 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">${context}/checkout/shipping?action=process</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.mimetype"></stringProp>
-              <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
               <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+              <stringProp name="HTTPSampler.mimetype"></stringProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <stringProp name="HTTPSampler.monitor">false</stringProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
             </HTTPSampler>
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <stringProp name="Assertion.assume_success">false</stringProp>
+                <intProp name="Assertion.test_type">2</intProp>
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-1930808180">&lt;title&gt;Checkout Payment :: ZenMagick&lt;/title&gt;</stringProp>
                   <stringProp name="2023489295">Billing Address</stringProp>
                   <stringProp name="235961089">Order Totals</stringProp>
                   <stringProp name="64895064">foo-comment</stringProp>
                 </collectionProp>
-                <stringProp name="Assertion.assume_success">false</stringProp>
-                <intProp name="Assertion.test_type">2</intProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Tell A Friend Form" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/tellafriend/3/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/tellafriend/3/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${defaultPort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="939178320">&lt;title&gt;Tell A Friend :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="1947229465">Tell a friend about</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Tell A Friend Form Response" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/tellafriend/3</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
@@ -1121,62 +1049,52 @@
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-            <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/tellafriend/3</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="1859346387">&lt;title&gt;Microsoft IntelliMouse Pro</stringProp>
                 <stringProp name="1538410310">Message send successfully</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Logoff" enabled="true">
+            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.path">${context}/logoff/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
-            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
-            <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">${context}/logoff/</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.mimetype"></stringProp>
-            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
             <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port">${securePort}</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <stringProp name="HTTPSampler.monitor">false</stringProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
           </HTTPSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <stringProp name="Assertion.assume_success">false</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-105685811">&lt;title&gt;Logoff :: ZenMagick&lt;/title&gt;</stringProp>
                 <stringProp name="-2069213860">You have been logged off your account.</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.assume_success">false</stringProp>
-              <intProp name="Assertion.test_type">2</intProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             </ResponseAssertion>
             <hashTree/>
@@ -1184,7 +1102,6 @@
         </hashTree>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <value class="SampleSaveConfiguration">
             <time>true</time>
@@ -1212,6 +1129,7 @@
           <name>saveConfig</name>
         </objProp>
         <stringProp name="filename"></stringProp>
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>
