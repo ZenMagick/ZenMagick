@@ -51,10 +51,12 @@ class ZMToolboxForm extends ZMObject {
      * <p>Default attributes are:</p>
      * <ul>
      *  <li>method - <em>post</em></li>
-     *  <li>onclick - <em>return validate(this);</em></li>
+     *  <li>onsubmit - <em>return validate(this);</em> (This will be applied only if the <em>id</em> attribute is also set)</li>
      * </ul>
      *
      * <p>To remove any default attributes, set a value of <code>null</code> in the <code>$attr</code> parameter.</p>
+     *
+     * <p>All attribute names are expected in lower case.</p>
      * 
      * @param string page The action page name.
      * @param string params Query string style parameter.
@@ -65,10 +67,16 @@ class ZMToolboxForm extends ZMObject {
      */
     public function open($page=null, $params='', $secure=true, $attr=null, $echo=ZM_ECHO_DEFAULT) {
         $defaults = array('method' => 'post', 'onsubmit' => 'return validate(this);');
+        $hasId = isset($attr['id']);
+        $hasOnsubmit = isset($attr['onsubmit']);
         if (null === $attr) {
             $attr = $defaults;
         } else {
             $attr = array_merge($defaults, $attr);
+        }
+        // this will allow custom onsubmit code even without id
+        if (!$hasId && !$hasOnsubmit) {
+            unset($attr['onsubmit']);
         }
 
         // set action attr
@@ -91,7 +99,7 @@ class ZMToolboxForm extends ZMObject {
         ob_start();
 
         // create JS validation code if all go
-        if (isset($attr['id']) && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
+        if ($hasId && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
             ZMValidator::instance()->insertJSValidation($attr['id']);
         }
 
