@@ -44,13 +44,17 @@ require_once('includes/application_top.php');
       $komma = false;
       $firstfile = true;
       foreach ($map as $file => $strings) {
+          if (null === $strings) {
+              continue;
+          }
           if (!$firstfile) echo ",\n\n";
           echo "        // " . $file . "\n";
           $nextfile = true;
           foreach ($strings as $key => $value) {
               if ($komma && !$nextfile) echo ",\n";
               $quote = '"';
-              if (false !== strpos($key, '\\\'')) { $quote = "'"; }
+              // either we have escaped single quotes or double quotes that are not escaped
+              if (false !== strpos($key, '\\\'') || (false !== strpos($key, '"') && false === strpos($key, '\\"'))) { $quote = "'"; }
               echo '        ' . $quote . $key . $quote . ' => ' . $quote . $value . $quote;
               $komma = true;
               $nextfile = false;
