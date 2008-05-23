@@ -176,6 +176,7 @@ Release 0.9.1
 - make ZMAccounts::getAccountForEmailAddress(..) find only registered accounts
 - initialize DOB_FORMAT_STRING with the value of UI_DATE_FORMAT; (moved to
   zc_fixes)
+- Change suggested filename for Language Tool downloads to l10n.php
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
