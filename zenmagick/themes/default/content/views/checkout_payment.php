@@ -48,7 +48,7 @@
                       $tot = ' tot';
                   }
                   ?><tr>
-                      <td class="total"><?php $total->getName() ?></td>
+                      <td class="total"><?php echo $total->getName() ?></td>
                       <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
                   </tr><?php
               }
