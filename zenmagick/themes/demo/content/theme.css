@@ -61,7 +61,7 @@ div#footer {background:url(images/img01.gif);color:#6A5F5F;}
 div#footer p#fpages {background:url(images/img01.gif);color:#6A5F5F;}
 
 /* side boxed */
-.box {background-color:#fefefe;border:1px solid #F5F5F5;}
+.box {background-color:#fefefe;border:1px solid #e5e5e5;border-top:none;}
 /* box header */
 #leftcol h3, #rightcol h3 {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;color:#549DC7;background-color:#efefef;border:none;}
 #leftcol h3 a, #rightcol h3 a {color:#549DC7;}
