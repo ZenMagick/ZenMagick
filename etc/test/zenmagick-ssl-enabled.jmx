@@ -65,7 +65,7 @@
           <collectionProp name="CookieManager.cookies"/>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Home" enabled="true"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Index" enabled="true">
             <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
@@ -97,7 +97,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Catalog" enabled="true"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Category 1_16" enabled="true">
             <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
@@ -243,7 +243,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Static Content Pages" enabled="true"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Shipping Info" enabled="true">
             <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
@@ -362,7 +362,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Misc" enabled="true"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Sitemap" enabled="true">
             <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
@@ -423,7 +423,7 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Anonymous Forms" enabled="true"/>
         <hashTree>
           <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Contact Us Form" enabled="true">
             <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
