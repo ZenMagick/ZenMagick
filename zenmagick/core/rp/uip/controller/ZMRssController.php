@@ -117,7 +117,7 @@ class ZMRssController extends ZMController {
           '    <title><![CDATA['.$toolbox->utils->encodeXML($channel->getTitle()).']]></title>',
           '    <link><![CDATA['.$channel->getLink().']]></link>',
           '    <description><![CDATA['.$toolbox->utils->encodeXML($channel->getDescription()).']]></description>',
-          '    <lastBuildDate>'.ZMToolbox::instance()->date->mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
+          '    <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
           );
 
         foreach ($lines as $line) {

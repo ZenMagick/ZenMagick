@@ -53,10 +53,10 @@ class ZMToolbox extends ZMModel {
      */
     public $macro;
     /** 
-     * @var ZMToolboxDate
-     * @return ZMToolboxDate
+     * @var ZMToolboxLocale
+     * @return ZMToolboxLocale
      */
-    public $date;
+    public $locale;
     /** 
      * @var ZMToolboxUtils
      * @return ZMToolboxUtils
@@ -75,7 +75,7 @@ class ZMToolbox extends ZMModel {
         $this->form = ZMLoader::make('ToolboxForm');
         $this->net = ZMLoader::make('ToolboxNet');
         $this->macro = ZMLoader::make('ToolboxMacro');
-        $this->date = ZMLoader::make('ToolboxDate');
+        $this->locale = ZMLoader::make('ZMToolboxLocale');
         $this->utils = ZMLoader::make('ToolboxUtils');
     }
 
@@ -105,7 +105,7 @@ class ZMToolbox extends ZMModel {
             'form' => $this->form, 
             'net' => $this->net, 
             'macro' => $this->macro, 
-            'date' => $this->date, 
+            'locale' => $this->locale, 
             'utils' => $this->utils), 
           $this->properties_);
     }

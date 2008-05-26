@@ -51,7 +51,7 @@ if (!function_exists('zen_href_link')) {
         return zen_get_attributes_price_final_onetime($arg1, $args2, $arg3);
     }
     function zm_get_discount_calc($arg1, $args2, $arg3) { return zen_get_discount_calc($arg1, $args2, $arg3); }
-    function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMToolbox::instance()->date->shortDate($date, $echo); }
+    function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMToolbox::instance()->locale->shortDate($date, $echo); }
 
     // get online counter
     function zm_get_online_counts() {

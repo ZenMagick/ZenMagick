@@ -31,10 +31,10 @@
      * @package org.zenmagick.misc
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
-     * @deprecated use ZMToolbox instead
+     * @deprecated use ZMTools instead
      */
     function zm_parse_rss_date($date) {
-        return ZMToolbox::instance()->date->parseRssDate($date);
+        return ZMTools::parseRssDate($date);
     } 
     /**
      * Convert date to RSS date format.
@@ -42,10 +42,10 @@
      * @package org.zenmagick.misc
      * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
      * @return string A date string formatted according to RSS date rules.
-     * @deprecated use ZMToolbox instead
+     * @deprecated use ZMTools instead
     */
     function zm_mk_rss_date($date=null) {
-        return ZMToolbox::instance()->date->mkRssDate($date);
+        return ZMTools::mkRssDate($date);
     } 
     /**
      * Parse a date according to a given format.
@@ -60,10 +60,10 @@
      * @param string format The date format
      * @param boolean reverse If <code>true</code>, the returned data will be reversed.
      * @return array The individual date components in the order dd, mm, cc, yy.
-     * @deprecated use ZMToolbox instead
+     * @deprecated use ZMTools instead
      */
     function zm_parse_date($date, $format) {
-        return ZMToolbox::instance()->date->parseDate($date, $format);
+        return ZMTools::parseDate($date, $format);
     }
     /**
      * Convert a UI date into the internal data format.
@@ -74,10 +74,10 @@
      * @package org.zenmagick.misc
      * @param string date The date as received via the UI.
      * @return string The formatted date.
-     * @deprecated use ZMToolbox instead
+     * @deprecated use ZMTools instead
      */
     function zm_ui2date($date) {
-        return ZMToolbox::instance()->date->ui2date($date);
+        return ZMTools::ui2date($date);
     }
     /**
      * Convert text based user input into HTML.

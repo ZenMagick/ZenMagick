@@ -23,6 +23,7 @@
 ?>
 <?php
 
+if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 
 /**
  * (System) Tools.
@@ -224,6 +225,103 @@ class ZMTools extends ZMObject {
 
         return $value;
     }
+
+    /**
+     * Convert a UI date into the internal data format.
+     *
+     * <p>This is typically used by controller/business code to convert user input before 
+     * storing it in the database.</p>
+     *
+     * @param string date The date as received via the UI.
+     * @return string The formatted date.
+     */
+    public static function ui2date($date) {
+        if (empty($date)) {
+            return '';
+        }
+        // The individual date components in the order dd, mm, cc, yy.
+        $da = self::parseDate($date, UI_DATE_FORMAT);
+        return date('Y-m-d 00:00:00', mktime(0, 0, 0, $da[1], $da[0], (int)($da[2].$da[3])));
+    }
+
+    /**
+     * Parse a date according to a given format.
+     *
+     * <p>This function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
+     * and <code>YYYY</code> in the format.</p>
+     *
+     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
+     *
+     * @param string date A date (usually provided by the user).
+     * @param string format The date format
+     * @param boolean reverse If <code>true</code>, the returned data will be reversed.
+     * @return array The individual date components in the order dd, mm, cc, yy.
+     */
+    public static function parseDate($date, $format) {
+        $dd = '??';
+        $mm = '??';
+        $cc = '??';
+        $yy = '??';
+
+        $format = strtoupper($format);
+
+        // parse
+        $dpos = strpos($format, 'DD');
+        if (false !== $dpos) {
+            $dd = substr($date, $dpos, 2);
+        }
+        $mpos = strpos($format, 'MM');
+        if (false !== $mpos) {
+            $mm = substr($date, $mpos, 2);
+        }
+        $cpos = strpos($format, 'CC');
+        if (false !== $cpos) {
+            $cc = substr($date, $cpos, 2);
+        }
+        $cypos = strpos($format, 'YYYY');
+        if (false !== $cypos) {
+            $cc = substr($date, $cypos, 2);
+            $yy = substr($date, $cypos+2, 2);
+        } else {
+            $ypos = strpos($format, 'YY');
+            if (false !== $ypos) {
+                $yy = substr($date, $ypos, 2);
+            }
+        }
+
+        return array($dd, $mm, $cc, $yy);
+    }
+
+    /**
+     * Parse RSS date.
+     * 
+     * @param string date The date.
+     * @return array An array with 3 elements in the order [day] [month] [year].
+     */
+    public static function parseRssDate($date) {
+        ereg("[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*", $date, $regs);
+        return $regs[1].'/'.$regs[2].'/'.$regs[3];
+    } 
+
+
+    /**
+     * Convert date to RSS date format.
+     * 
+     * @package org.zenmagick.misc
+     * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
+     * @return string A date string formatted according to RSS date rules.
+     */
+    public static function mkRssDate($date=null) {
+        if (null === $date) {
+            return date(DATE_RSS);
+        }
+
+        if (is_string($date)) {
+            $date = strtotime($date);
+        }
+
+        return date(DATE_RSS, $date);
+    } 
 
 
 }

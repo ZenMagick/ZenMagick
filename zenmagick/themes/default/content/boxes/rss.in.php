@@ -29,7 +29,7 @@
     <div id="sb_rss" class="box">
         <dl>
             <?php foreach ($zm_rss->getItems() as $item) { ?>
-                <dt><?php echo $date->parseRssDate($item->getPubDate()) ?></dt>
+                <dt><?php echo ZMTools::parseRssDate($item->getPubDate()) ?></dt>
                 <dd><a href="<?php echo $item->getLink() ?>"<?php $html->hrefTarget() ?>><?php $html->encode($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>

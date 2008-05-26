@@ -79,8 +79,8 @@ class ProductGroupPricing extends ZMModel {
         $this->type_ = ZMRequest::getParameter('type', '%');
         $this->regularPriceOnly_ = ZMRequest::getParameter('regularPriceOnly');
         $this->startDate_ = ZMRequest::getParameter('startDate');
-        $this->startDate_ = ZMToolbox::instance()->date->ui2date(empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_);
-        $this->endDate_ = ZMToolbox::instance()->date->ui2date(ZMRequest::getParameter('endDate'));
+        $this->startDate_ = ZMTools::ui2date(empty($this->startDate_) ? date(DATE_FORMAT) : $this->startDate_);
+        $this->endDate_ = ZMTools::ui2date(ZMRequest::getParameter('endDate'));
     }
 
 
