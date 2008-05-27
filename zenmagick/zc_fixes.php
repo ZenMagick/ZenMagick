@@ -82,4 +82,7 @@
         define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
     }
 
+    // do not check for valid product id
+    $_SESSION['check_valid'] = 'false';
+
 ?>

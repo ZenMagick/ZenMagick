@@ -180,6 +180,8 @@ Release 0.9.1
 - make the methods getProductsForCategoryId and getProductIdsForCategoryId in
   ZMProducts use the same logic to guarantee the same sort order, number of
 	results, etc.
+- disable zen-carts product id check to allow the error page (or product not
+  found, etc) to be displayed properly (and not only every second request!)
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
