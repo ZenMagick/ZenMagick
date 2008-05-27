@@ -143,7 +143,7 @@ class ZMTools extends ZMObject {
      * @param mixed value The value.
      * @return boolean The boolean value.
      */
-    public function asBoolean($value) {
+    public static function asBoolean($value) {
         if (is_integer($value)) {
             return $value;
         }
@@ -156,7 +156,7 @@ class ZMTools extends ZMObject {
      * @param string amount The amount probably formatted according to the sessions currency setting.
      * @return float The amount.
      */
-    public function parseMoney($money) {
+    public static function parseMoney($money) {
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         $amount = $currency->parse($money, false);
 
@@ -171,7 +171,7 @@ class ZMTools extends ZMObject {
      * @param boolean <code>true<code> <strong>if</strong> a body should be returned, 
      *  <code>false</code> if the resource changed.
      */
-    public function ifModifiedSince($timestamp) {
+    public static function ifModifiedSince($timestamp) {
         // A PHP implementation of conditional get, see 
         // http://fishbowl.pastiche.org/archives/001132.html
         $last_modified = substr(date('r', $timestamp), 0, -5).'GMT';
