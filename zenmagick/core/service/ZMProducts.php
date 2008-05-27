@@ -67,7 +67,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProducts($active=true, $languageId=null) {
+    public function getProducts($active=true, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -96,6 +96,61 @@ class ZMProducts extends ZMObject {
     }
 
     /**
+     * Get list of all active product ids for a given category.
+     *
+     * <p>This is a faster version of <code>getProductsForCategoryId(int)</code>. In addition,
+     * this will ignore language preferences.
+     *
+     * @param int categoryId The category id.
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array A list of product ids.
+     */
+    public function getProductIdsForCategoryId($categoryId, $active=true, $languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        // asuming that if we do this once we might do this more often...
+        $mainKey = $active ? 'active' : 'all';
+        $mainKey .= ':'.$languageId;
+
+        if (null === $this->categoryProductMap_ || !isset($this->categoryProductMap_[$mainKey])) {
+            if (null === $this->categoryProductMap_) {
+                $this->categoryProductMap_ = array();
+            }
+            if (!isset($this->categoryProductMap_[$mainKey])) {
+                $this->categoryProductMap_[$mainKey] = array();
+            }
+
+            $db = ZMRuntime::getDB();
+            $query = "select p.products_id, p2c.categories_id
+                    from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                    where ";
+            if ($active) {
+                $query .= " p.products_status = 1 and ";
+            }
+            $query .= " p.products_id = p2c.products_id and pd.products_id = p2c.products_id
+                    and pd.language_id = :languageId
+                    order by p.products_sort_order, pd.products_name";
+            $query = $db->bindVars($query, ":languageId", $languageId, "integer");
+
+            $results = $db->Execute($query);
+            while (!$results->EOF) {
+                $cId = $keyPrefix.$results->fields['categories_id'];
+                if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
+                    $this->categoryProductMap_[$mainKey][$cId] = array();
+                }
+                $this->categoryProductMap_[$mainKey][$cId][] = $results->fields['products_id'];
+                $results->MoveNext();
+            }
+        }
+
+        return isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
+    }
+
+    /**
      * Get all active products for the given category id.
      *
      * @param int categoryId The category id.
@@ -103,36 +158,9 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::getSession();
-            $languageId = $session->getLanguageId();
-        }
-
-        $db = ZMRuntime::getDB();
-        $query = "select p.products_id
-                from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                where ";
-        if ($active) {
-            $query .= " p.products_status = 1 and ";
-        }
-        $query .= " p.products_id = p2c.products_id and pd.products_id = p2c.products_id
-                and pd.language_id = :languageId and p2c.categories_id = :categoryId
-                order by p.products_sort_order, pd.products_name";
-        $query = $db->bindVars($query, ":languageId", $languageId, "integer");
-        $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
-
-        $results = $db->Execute($query);
-
-        $productIds = array();
-        while (!$results->EOF) {
-            $productIds[] = $results->fields['products_id'];
-            $results->MoveNext();
-        }
-
-        return $this->getProductsForIds($productIds, false, $languageId);
+    public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
+        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, $languageId));
     }
-
 
     /*
      * Get all active products for a manufacturer.
@@ -142,7 +170,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProductsForManufacturerId($manufacturerId, $active=true, $languageId=null) {
+    public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -174,53 +202,6 @@ class ZMProducts extends ZMObject {
 
 
     /**
-     * Get list of all active product ids for a given category.
-     *
-     * <p>This is a faster version of <code>getProductsForCategoryId(int)</code>. In addition,
-     * this will ignore language preferences.
-     *
-     * @param int categoryId The category id.
-     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
-     * @return array A list of (int)product ids.
-     */
-    function getProductIdsForCategoryId($categoryId, $active=true) {
-        // asuming that if we do this once we might do this more often...
-        $mainKey = $active ? 'active' : 'all';
-
-        if (null === $this->categoryProductMap_ || !isset($this->categoryProductMap_[$mainKey])) {
-            if (null === $this->categoryProductMap_) {
-                $this->categoryProductMap_ = array();
-            }
-            if (!isset($this->categoryProductMap_[$mainKey])) {
-                $this->categoryProductMap_[$mainKey] = array();
-            }
-
-            $db = ZMRuntime::getDB();
-            $query = "select p.products_id, p2c.categories_id
-                      from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                      where ";
-            if ($active) {
-                $query .= " p.products_status = 1 and ";
-            }
-            $query .= " p.products_id = p2c.products_id
-                      order by p.products_sort_order";
-
-            $results = $db->Execute($query);
-            while (!$results->EOF) {
-                $cId = $keyPrefix.$results->fields['categories_id'];
-                if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
-                    $this->categoryProductMap_[$mainKey][$cId] = array();
-                }
-                $this->categoryProductMap_[$mainKey][$cId][] = $results->fields['products_id'];
-                $results->MoveNext();
-            }
-        }
-
-        return isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
-    }
-
-
-    /**
      * Test if a given product type option is enabled for a given product.
      *
      * @param int productId The product id.
@@ -231,7 +212,7 @@ class ZMProducts extends ZMObject {
      * @param string fieldSuffix Optional field suffix; default is an empty string.
      * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
      */
-    function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
+    public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
         $db = ZMRuntime::getDB();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
                 where products_id = :productId";
@@ -276,7 +257,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
+    public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
         $db = ZMRuntime::getDB();
 
 		    $query = null;
@@ -306,7 +287,6 @@ class ZMProducts extends ZMObject {
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
-
     /**
      * Get random new products.
      *
@@ -317,7 +297,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
+    public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
         $timeLimit = null === $timeLimit ? ZMSettings::get('maxNewProducts') : $timeLimit;
 
         $db = ZMRuntime::getDB();
@@ -361,7 +341,6 @@ class ZMProducts extends ZMObject {
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
-
     /**
      * Get best seller products.
      *
@@ -370,7 +349,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getBestSellers($categoryId=null, $max=null, $languageId=null) {
+    public function getBestSellers($categoryId=null, $max=null, $languageId=null) {
         $max = null === $max ? ZMSettings::get('maxBestSellers') : $max;
 
         $db = ZMRuntime::getDB();
@@ -403,7 +382,6 @@ class ZMProducts extends ZMObject {
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
-
     /**
      * Get random products marked as specials.
      *
@@ -411,7 +389,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getSpecials($max=null, $languageId=null) {
+    public function getSpecials($max=null, $languageId=null) {
         $max = null === $max ? ZMSettings::get('maxSpecialProducts') : $max;
 
         $db = ZMRuntime::getDB();
@@ -425,7 +403,6 @@ class ZMProducts extends ZMObject {
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
-
     /**
      * Get a product for the given model name.
      *
@@ -433,7 +410,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
      */
-    function getProductForModel($model, $languageId=null) {
+    public function getProductForModel($model, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -465,7 +442,6 @@ class ZMProducts extends ZMObject {
         return $this->_newProduct($results->fields);
     }
 
-
     /**
      * Get a product for the given product id.
      *
@@ -473,7 +449,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
      */
-    function getProductForId($productId, $languageId=null) {
+    public function getProductForId($productId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -503,7 +479,6 @@ class ZMProducts extends ZMObject {
         return $this->_newProduct($results->fields);
     }
 
-
     /**
      * Load a list of products.
      *
@@ -513,7 +488,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
      */
-    function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
+    public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -579,7 +554,6 @@ class ZMProducts extends ZMObject {
         return $products;
     }
 
-
     /**
      * Update an existing product.
      *
@@ -588,7 +562,7 @@ class ZMProducts extends ZMObject {
      * @param ZMProduct product The product.
      * @return ZMProduct The updated product.
      */
-    function updateProduct($product) {
+    public function updateProduct($product) {
         $db = ZMRuntime::getDB();
         $sql = "update " . TABLE_PRODUCTS . " set
                 :customFields,
@@ -626,14 +600,13 @@ class ZMProducts extends ZMObject {
         return $product;
     }
 
-
     /**
      * Update the view count for a product.
      *
      * @param int productId The product id.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
-    function updateViewCount($productId, $languageId=null) {
+    public function updateViewCount($productId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -650,14 +623,13 @@ class ZMProducts extends ZMObject {
         $result = $db->Execute($sql);
     }
 
-
     /**
      * Execute the given SQL and extract the resulting product ids.
      *
      * @param string sql Some SQL.
      * @return array A list of product ids.
      */
-    function _getProductIds($sql) {
+    private function _getProductIds($sql) {
         $db = ZMRuntime::getDB();
         $results = $db->Execute($sql);
 
@@ -679,7 +651,7 @@ class ZMProducts extends ZMObject {
      * @param int max The maximum number of results; default is <em>0</em> for all.
      * @return array A list of product ids.
      */
-    function _getRandomProductIds($sql, $max=0) {
+    private function _getRandomProductIds($sql, $max=0) {
         $db = ZMRuntime::getDB();
         $productIds = array();
         $results = $db->Execute($sql);
@@ -705,7 +677,7 @@ class ZMProducts extends ZMObject {
      * @param int quantity The desired quantity.
      * @return boolean <code>true</code> if the requested quantity is available, <code>false</code> if not.
      */
-    function isQuantityAvailable($productId, $quantity) {
+    public function isQuantityAvailable($productId, $quantity) {
         $db = ZMRuntime::getDB();
         $sql = "SELECT products_quantity
                 from " . TABLE_PRODUCTS . "
@@ -728,7 +700,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    function getProductsForSQL($sql, $languageId=null) {
+    public function getProductsForSQL($sql, $languageId=null) {
         $db = ZMRuntime::getDB();
         $results = $db->Execute($sql);
         if (0 == $results->RecordCount()) {
@@ -748,7 +720,7 @@ class ZMProducts extends ZMObject {
     /**
      * Create new product instance.
      */
-    function _newProduct($fields) {
+    private function _newProduct($fields) {
         $product = ZMLoader::make("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
         $product->status_ = $fields['products_status'];
         $product->model_ = $fields['products_model'];
