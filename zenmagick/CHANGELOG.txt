@@ -182,6 +182,8 @@ Release 0.9.1
 	results, etc.
 - disable zen-carts product id check to allow the error page (or product not
   found, etc) to be displayed properly (and not only every second request!)
+- make ZenMagick resolve themes in admin too, as this is required to pick up
+  the appropriate email templates!
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
