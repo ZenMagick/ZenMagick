@@ -23,7 +23,7 @@ Installation
 
 Troubleshooting
 ===============
-The configured information is stored in a flat PHP file under includes/local/site_switch.php.
+The configured information is stored in a flat PHP file in the plugin directory.
 Additionally, a include for this file is added to includes/local/configure.php. If configure.php
 or the local folder itself do not exist they are created.
 
