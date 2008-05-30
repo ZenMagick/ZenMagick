@@ -175,12 +175,13 @@ class zm_site_switch extends ZMPlugin {
         if (0 < count($mappings)) {
             // update file
             $content = '<?php  
-/* added by zm_site_switch plugin */
-$zm_server_names = array([SERVER_NAMES]);
-$_zm_server_name = $_SERVER["HTTP_HOST"];
-if (isset($zm_server_names[$_zm_server_name])) {
-  define("HTTP_SERVER", "http://$_zm_server_name");
-  define("HTTPS_SERVER", "https://$_zm_server_name");
+if (!defined("HTTP_SERVER")) {
+    $zm_server_names = array([SERVER_NAMES]);
+    $_zm_server_name = $_SERVER["HTTP_HOST"];
+    if (isset($zm_server_names[$_zm_server_name])) {
+      define("HTTP_SERVER", "http://$_zm_server_name");
+      define("HTTPS_SERVER", "https://$_zm_server_name");
+    }
 }
 ?>';
             $server_names = '';
