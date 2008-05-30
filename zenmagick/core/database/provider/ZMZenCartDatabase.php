@@ -65,8 +65,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $stats = array();
         $stats['time'] = $this->queriesTime;
         $stats['queries'] = $this->queriesCount;
-        //$stats['time'] = $this->db_->queryTime();
-        //$stats['queries'] = $this->db_->queryCount();
         return $stats;
     }
 
@@ -117,6 +115,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
+        ZMObject::log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
 
@@ -151,6 +150,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         } else {
             ZMObject::backtrace('invalid data type');
         }
+        ZMObject::log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -190,6 +190,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
+        ZMObject::log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -216,6 +217,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $results = array();
+        ZMObject::log($sql, ZM_LOG_TRACE);
         $rs = $this->db_->Execute($sql);
         ++$this->queriesCount;
         while (!$rs->EOF) {
