@@ -50,6 +50,14 @@ class zm_site_switch extends ZMPlugin {
         parent::__destruct();
     }
 
+    /**
+     * Install this plugin.
+     */
+    function install() {
+        parent::install();
+        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/install.txt"), $this->messages_);
+    }
+
 
     /**
      * Init this plugin.
@@ -58,6 +66,8 @@ class zm_site_switch extends ZMPlugin {
     global $zm_server_names;
 
         parent::init();
+
+        $this->zcoSubscribe();
 
         define('ZM_FILE_SITE_SWITCHER', $this->getPluginDir().'config.php');
         define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(\''.$this->getPluginDir().'config.php\'); /* added by zm_site_switch plugin */ ?>');
@@ -82,6 +92,23 @@ class zm_site_switch extends ZMPlugin {
         $this->removeSwitcher(ZM_ADMIN_LOCAL_CONFIGURE);
     }
 
+    /**
+     * Event handler to tag orders with the original domain.
+     *
+     * @param array args Optional parameter.
+     */
+    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
+        $orderId = $_SESSION['order_number_created'];
+        $sql = 'UPDATE '.TABLE_ORDERS.'
+                SET order_site = :orderSite
+                WHERE orders_id = :orderId';
+        $database = ZMRuntime::getDatabase();
+        $database->update($sql, 
+                  array('orderId' => $orderId, 'orderSite' => ZMRequest::getHostname()),
+                  array('orderId' => 'column=orders_id;type=integer;key=true;primary=true',
+                      'orderSite' => 'column=order_site;type=string')
+        );
+    }
 
     /**
      * Check required permissions.
