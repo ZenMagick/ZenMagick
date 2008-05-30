@@ -175,6 +175,20 @@ class ZMRuntime extends ZMObject {
     }
 
     /**
+     * Get the default language.
+     *
+     * @return ZMLanguage The default language.
+     */
+    public static function getDefaultLanguage() {
+        // TODO: base this on store language??
+        $language = ZMLoader::make("Language");
+        $language->setId(1);
+        $language->setDirectory('english');
+        $language->setCode('en');
+        return $language;
+    }
+
+    /**
      * Get the current currency.
      *
      * @return ZMCurrency The current currency.

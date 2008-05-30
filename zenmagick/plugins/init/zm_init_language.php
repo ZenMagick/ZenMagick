@@ -67,11 +67,8 @@ class zm_init_language extends ZMPlugin {
                 }
             }
             if (null == $language) {
-                $language = ZMLoader::make("Language");
-                $language->setId(1);
-                $language->setDirectory('english');
-                $language->setCode('en');
-                ZMObject::log('invalid language - defaulting to en', ZM_LOG_WARN);
+                $language = ZMRuntime::getDefaultLanguage();
+                ZMObject::log('invalid or missing language - using default language', ZM_LOG_WARN);
             }
 
             $session->setLanguage($language);
