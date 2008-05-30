@@ -136,9 +136,9 @@ class ZMEvents extends ZMObject {
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>null</code>.
      */
-    public function update($notifier, $eventId, $args=null) {
+    public function update($notifier, $eventId, $args=array()) {
         $method = $this->event2method($eventId, 'on');
-        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime());
+        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         $this->log('fire zen-cart event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
@@ -161,7 +161,7 @@ class ZMEvents extends ZMObject {
      */
     public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
-        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime());
+        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         $args['source'] = $source;
         $this->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZM_LOG_DEBUG);
         foreach($this->subscriber_ as $obs) {

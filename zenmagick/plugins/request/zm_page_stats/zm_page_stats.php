@@ -88,7 +88,7 @@ class zm_page_stats extends ZMPlugin {
             echo '<!--'."\n";
             echo '  '.ZMRuntime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach (ZMEvents::instance()->getEventLog() as $event) {
-                echo '  '.$event['time'].' '.$event['method'].' / '.$event['id']."\n";
+                echo '  '.$event['time'].' '.$event['method'].' / '.$event['id'].' args: '.implode(',', array_keys($event['args']))."\n";
             }
             echo '-->'."\n";
         }
@@ -128,13 +128,14 @@ class zm_page_stats extends ZMPlugin {
             $info .= '<table border="1">';
             $info .= '<tr>';
             $info .= '<td style="text-align:right;padding:4px;">'.ZMRuntime::getExecutionTime(ZM_START_TIME).'</td>';
-            $info .= '<td colspan="2" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
+            $info .= '<td colspan="3" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             $info .= '</tr>';
             foreach (ZMEvents::instance()->getEventLog() as $event) {
                 $info .= '<tr>';
                 $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
                 $info .= '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
                 $info .= '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
+                $info .= '<td style="text-align:left;padding:4px;">'.implode(',', array_keys($event['args'])).'</td>';
                 $info .= '</tr>';
             }
             $info .= '</table>';
