@@ -77,6 +77,6 @@
         // default to random on pages that have products_id set
         'isReviewsDefaultToRandom' => true,
 
-    ));
+    ), false);
 
 ?>

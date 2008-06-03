@@ -89,9 +89,32 @@ class ZMSettings {
      * Add a map of settings.
      *
      * @param array settings Map of settings.
+     * @param boolean replace If <code>true</code> existing settings will be replaced; default is <code>true</code>.
      */
-    public static function addAll($settings) {
-        ZMSettings::$settings_ = array_merge(ZMSettings::$settings_, $settings);
+    public static function addAll($settings, $replace=true) {
+        if ($replace) {
+            ZMSettings::$settings_ = array_merge(ZMSettings::$settings_, $settings);
+        } else {
+            foreach ($settings as $name => $value) {
+                if (!isset(ZMSettings::$settings_[$name])) {
+                    ZMSettings::$settings_[$name] = $value;
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if a given setting exists.
+     *
+     * <p>This is useful in cases where <code>null</code> is a valid setting value. In that
+     * case, the <code>get</code> method will be ambiguous and <code>exists</code> should
+     * be used.</p>.
+     *
+     * @param string name The setting to check.
+     * @return boolean <code>true</code> if a setting with the given name exists.
+     */
+    public static function exists($name) {
+        return isset(ZMSettings::$settings_[$name]);
     }
 
 }

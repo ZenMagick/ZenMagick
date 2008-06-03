@@ -188,6 +188,8 @@ Release 0.9.1
   know that it exists!
 - added new setting 'storeDefaultLanguageId' to be used by
   ZMRuntime::getDefaultLanguage()
+- added ZMSettings::exists() method to allow for unambiguous checks for existence of
+  settings
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
