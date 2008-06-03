@@ -338,6 +338,7 @@
         'storeZone' => STORE_ZONE,
         'storeEmail' => STORE_OWNER_EMAIL_ADDRESS,
         'storeEmailFrom' => EMAIL_FROM,
+        'storeDefaultLanguageId' => 1,
 
 
 

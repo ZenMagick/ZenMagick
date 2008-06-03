@@ -180,11 +180,14 @@ class ZMRuntime extends ZMObject {
      * @return ZMLanguage The default language.
      */
     public static function getDefaultLanguage() {
-        // TODO: base this on store language??
-        $language = ZMLoader::make("Language");
-        $language->setId(1);
-        $language->setDirectory('english');
-        $language->setCode('en');
+        $language = ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
+        if (null == $language) {
+            ZMObject::log('no default language found - using en as fallback', ZM_LOG_WARN);
+            $language = ZMLoader::make("Language");
+            $language->setId(1);
+            $language->setDirectory('english');
+            $language->setCode('en');
+        }
         return $language;
     }
 

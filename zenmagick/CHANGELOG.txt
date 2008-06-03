@@ -186,6 +186,8 @@ Release 0.9.1
   the appropriate email templates!
 - add ZMRuntime::getDefaultLanguage() - right now this defaults to 'en' as we
   know that it exists!
+- added new setting 'storeDefaultLanguageId' to be used by
+  ZMRuntime::getDefaultLanguage()
 
 Release 0.9.0
 - move cache manager page from core to zm_page_cache plugin
