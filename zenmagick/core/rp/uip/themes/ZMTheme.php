@@ -385,9 +385,6 @@ class ZMTheme extends ZMObject {
      * @param ZMLanguage language The language.
      */
     function loadLocale($language) {
-        if (null == $language) {
-            $language = ZMRuntime::getDefaultLanguage();
-        }
         $path = $this->getLangDir().$language->getDirectory()."/";
         $l10n = $path . "l10n.php";
         if (file_exists($l10n)) {
