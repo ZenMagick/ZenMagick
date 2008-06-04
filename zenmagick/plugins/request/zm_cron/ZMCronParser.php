@@ -28,6 +28,12 @@
  *
  * <p>Based (loosely) on pseudo-cron (v1.3) by Kai Blankenhorn http://www.bitfolge.de/pseudocron</p>
  *
+ * <p>Restrictions:</p>
+ * <ul>
+ *  <li><em>7</em> for Sundays is not supported</li>
+ *  <li><em>wday</em> and <em>mday</em> are always both applied (merged)</li>
+ * </ul>
+ *
  * @author DerManoMann
  * @package org.zenmagick.plugins.zm_cron
  * @version $Id$
