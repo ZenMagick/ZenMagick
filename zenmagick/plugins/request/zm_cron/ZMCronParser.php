@@ -51,7 +51,8 @@ class ZMCronParser {
      */
     protected function parseDateTimeField($field, $size) {
         // convert dow to int, just in case...
-        $field = str_replace(array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'), array(0, 1, 2, 3, 4, 5, 6), $field);
+        $field = str_replace(array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'), array(0, 1, 2, 3, 4, 5, 6), strtolower($field));
+        $field = str_replace(array('jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'), array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), $field);
 
         $configured = array();
         // break down into list items
