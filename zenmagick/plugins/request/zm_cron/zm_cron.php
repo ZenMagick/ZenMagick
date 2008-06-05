@@ -57,14 +57,33 @@ class zm_cron extends ZMPlugin {
 
 
     /**
+     * Filter the response contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function filterResponse($contents) {
+        // TODO: check if configured to do so!
+        if ($this->isEnabled()) {
+            $slash = ZMSettings::get('isXHTML') ? '/' : '';
+            $img = '<img src="'.ZMToolbox::instance()->net->url('cron_image').'" alt=""'.$slash.'>';
+            $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
+        }
+
+        return $contents;
+    }
+
+    /**
      * Run cron.
      *
      * <p>This method is used by all methods to execute cron jobs.</p>
+     *
+     * <p>All output is captured and logged.</p>
      */
     public function runCron() {
-        //TODO: check for config options and CLI setting to avoid people running this via manual URL guessing
         //TODO: seet catchup via config
 
+        ob_start();
         $folder = $this->getPluginDir();
         $cron = ZMLoader::make('ZMCronJobs', $folder.'/etc/crontab.txt', $folder.'etc/cronhistory.txt');
         if ($cron->isTimeToRun()) {
@@ -72,6 +91,7 @@ class zm_cron extends ZMPlugin {
                 $cron->runJob($job);
             }
         }
+        ZMObject::log(ob_get_clean(), ZM_LOG_DEBUG);
     }
 
 }
