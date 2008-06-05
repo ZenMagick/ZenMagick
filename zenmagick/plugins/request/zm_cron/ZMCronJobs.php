@@ -20,8 +20,6 @@
 ?>
 <?php
 
-define('ZM_DEFAULT_CRONTAB', dirname(__FILE__).'/etc/crontab.txt');
-define('ZM_DEFAULT_CRONHISTORY', dirname(__FILE__).'/etc/cronhistory.txt');
 
 
 /**
@@ -41,13 +39,21 @@ class ZMCronJobs extends ZMObject {
     /**
      * Create a new instance.
      *
-     * @param string cronfile The crontab filename; default is <code>ZM_DEFAULT_CRONTAB</code>.
-     * @param string cronhistory The cron history filename; default is <code>ZM_DEFAULT_CRONHISTORY</code>.
+     * <p>Default files are expected/created in the same location as file containing this code.</p>
+     *
+     * @param string cronfile The crontab filename; default is <code>null</code> to use <em>crontab.txt</em>.
+     * @param string cronhistory The cron history filename; default is <code>null</code> to use <em>cronhistory.txt</em>.
      */
-    public function __construct($cronfile=ZM_DEFAULT_CRONTAB, $cronhistory=ZM_DEFAULT_CRONHISTORY) {
+    public function __construct($cronfile=null, $cronhistory=null) {
         parent::__construct();
         $this->cronfile = $cronfile;
+        if (null == $this->cronfile) {
+            $this->cronfile = dirname(__FILE__).'/crontab.txt';
+        }
         $this->cronhistory =  $cronhistory;
+        if (null == $this->cronhistory) {
+            $this->cronhistory = dirname(__FILE__).'/cronhistory.txt';
+        }
         // load on demand
         $this->history = null;
         $this->parser = ZMLoader::make('ZMCronParser');

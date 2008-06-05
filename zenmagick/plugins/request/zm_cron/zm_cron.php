@@ -55,6 +55,25 @@ class zm_cron extends ZMPlugin {
         parent::init();
     }
 
+
+    /**
+     * Run cron.
+     *
+     * <p>This method is used by all methods to execute cron jobs.</p>
+     */
+    public function runCron() {
+        //TODO: check for config options and CLI setting to avoid people running this via manual URL guessing
+        //TODO: seet catchup via config
+
+        $folder = $this->getPluginDir();
+        $cron = ZMLoader::make('ZMCronJobs', $folder.'/etc/crontab.txt', $folder.'etc/cronhistory.txt');
+        if ($cron->isTimeToRun()) {
+            foreach ($cron->getJobs(false, false) as $job) {
+                $cron->runJob($job);
+            }
+        }
+    }
+
 }
 
 ?>

@@ -30,7 +30,6 @@
  *
  * <p>Restrictions:</p>
  * <ul>
- *  <li><em>7</em> for Sundays is not supported</li>
  *  <li><em>wday</em> and <em>mday</em> are always both applied (merged)</li>
  * </ul>
  *
@@ -57,7 +56,7 @@ class ZMCronParser {
      */
     protected function parseDateTimeField($field, $size) {
         // convert dow to int, just in case...
-        $field = str_replace(array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'), array(0, 1, 2, 3, 4, 5, 6), strtolower($field));
+        $field = str_replace(array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', '7'), array(0, 1, 2, 3, 4, 5, 6, 0), strtolower($field));
         $field = str_replace(array('jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'), array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), $field);
 
         $configured = array();
