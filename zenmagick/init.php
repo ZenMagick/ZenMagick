@@ -25,6 +25,9 @@
 ?>
 <?php
 
+    // mark CLI calls
+    define('ZM_CLI_CALL', defined('STDIN'));
+
     define('ZM_START_TIME', microtime());
 
     error_reporting(E_ALL^E_NOTICE);
