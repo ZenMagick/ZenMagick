@@ -48,6 +48,18 @@ class zm_cron extends ZMPlugin {
         parent::__destruct();
     }
 
+
+    /**
+     * Install this plugin.
+     */
+    function install() {
+        parent::install();
+
+        $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+        $this->addConfigValue('Image trigger pages', 'triggerPages', 'index', 'List of pages (separated by comma \',\') to be used for imger trigger');
+        $this->addConfigValue('Missed run policy', 'missedRuns', 'ignore', 'Select what should happen when one or more runs have been missed', 'zen_cfg_select_option(array(\'ignore\',\'catch-up\'),');
+    }
+
     /**
      * Init this plugin.
      */
@@ -63,11 +75,13 @@ class zm_cron extends ZMPlugin {
      * @return string The modified contents.
      */
     function filterResponse($contents) {
-        // TODO: check if configured to do so!
-        if ($this->isEnabled()) {
-            $slash = ZMSettings::get('isXHTML') ? '/' : '';
-            $img = '<img src="'.ZMToolbox::instance()->net->url('cron_image').'" alt=""'.$slash.'>';
-            $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
+        if ($this->isEnabled() && ZMTools::asBoolean($this->get('image'))) {
+            $pages = $this->get('triggerPages');
+            if (empty($pages) || ZMTools::inArray(ZMRequest::getPageName(), $pages)) {
+                $slash = ZMSettings::get('isXHTML') ? '/' : '';
+                $img = '<img src="'.ZMToolbox::instance()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'>';
+                $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
+            }
         }
 
         return $contents;
@@ -81,17 +95,15 @@ class zm_cron extends ZMPlugin {
      * <p>All output is captured and logged.</p>
      */
     public function runCron() {
-        //TODO: seet catchup via config
-
-        ob_start();
+       ob_start();
         $folder = $this->getPluginDir();
         $cron = ZMLoader::make('ZMCronJobs', $folder.'/etc/crontab.txt', $folder.'etc/cronhistory.txt');
         if ($cron->isTimeToRun()) {
-            foreach ($cron->getJobs(false, false) as $job) {
+            foreach ($cron->getJobs(false, ZMTools::asBoolean($this->get('missedRuns'))) as $job) {
                 $cron->runJob($job);
             }
         }
-        ZMObject::log(ob_get_clean(), ZM_LOG_DEBUG);
+        ZMObject::log('ZMCron: '.ob_get_clean(), ZM_LOG_DEBUG);
     }
 
 }

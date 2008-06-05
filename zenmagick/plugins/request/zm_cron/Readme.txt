@@ -26,29 +26,26 @@ The plugin itself can be configured either from the Plugin Manager or via the pl
 own admin page (some options might only be available there).
 Possible options:
 * trigger
-  This configured how execution of cron jobs is triggered.
+  This configured if/how execution of cron jobs is triggered.
   Available options are:
-  + manually: 
-    Execution can be triggered by clicking the 'Run Now' button on the plugins admin page.
   + hidden image:
     This option will inject a img tag in storefront pages (all or selected). Requesting
     the image (transparent 1x1 px) will then trigger execution.
     The advantage here is that this will not affect the performance of the original requested
     page as execution is handled by a separate request.
-  + cron:
-    On *nix OS the systems cron job may be used. This creates a situation where a cron process
-    is executing another (the plugin).
-    The advantage here is that this doesn't affect storefront performance at all. Also, only a single
-    system cron job is required. All actual ZenMagick cron jobs can then be configured in the plugins
-    crontab.
-    You can also execute cron jobs manually on the command line:
-    [path-to-php]/php [path-to-zen-cart]/zenmagick/plugins/request/zm_cron/zm_cron.cli
-    Please note that the PHP file does *not* have a .php extension to exlcude it from being visible by
-    the loader (ZMLoader).
 
 * trigger pages
   For the 'hidden image' option a comma separated list of pages can be configured that should be used.
   If empty, all pages will be used.
+
+* missed run policy
+  This controls what happens if, for some reason, the execution of jobs has been missed. (This might happen when
+  using the image trigger and no activity on the storefront, or when only manually runnning jobs).
+  Options are ignore or catch-up. If ignored, jobs are only run when the are actually ready at the time the
+  plugin is triggered. If catch-up is selected, jobs that are not ready, but have missed at least one run, will
+  be run. 
+  Please note that the 'catch-up' option will result in all jobs being run once after being configured (as no 
+  history exists).
 
 
 The crontab.txt file
@@ -75,6 +72,16 @@ There is a sample class included in the jobs folder to illustrate this.
 
 Configuring a system cron job to use PHP CLI
 ============================================
+On *nix OS the systems cron job may be used to run ZenMagick cron jobs. This actually creates a 
+situation where a cron process is executing another (the plugin).
+The advantage here is that this doesn't affect storefront performance at all. Also, only a single
+system cron job is required. All actual ZenMagick cron jobs can then be configured in the plugins
+crontab.
+You can also execute cron jobs manually on the command line:
+[path-to-php]/php [path-to-zen-cart]/zenmagick/plugins/request/zm_cron/zm_cron.cli
+
+NOTE: The PHP CLI file does *not* have a .php extension to hide it from the loader (ZMLoader).
+
 There should be only one cron job required that triggers the plugin once every minute.
 
 Example (you'll have to adjust both the php executable path and the actual file path):
