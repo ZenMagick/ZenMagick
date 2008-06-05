@@ -114,6 +114,11 @@
             <param name="plugin.name" value="zm_multi_qty" />
             <param name="plugin.version" value="${plugins.zm_multi_qty.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_cron" />
+            <param name="plugin.version" value="${plugins.zm_cron.version}" />
+        </antcall>
     </target>
 
     
