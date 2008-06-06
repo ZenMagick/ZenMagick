@@ -80,6 +80,14 @@ class ZMCronJobs extends ZMObject {
     }
 
     /**
+     * Update the timestamp used to decide whether it is time to run or not.
+     */
+    public function updateTimestamp() {
+        $this->ensureHistory();
+        file_put_contents($this->cronhistory, serialize($this->history));
+    }
+
+    /**
      * Ensure the history is loaded and initialized.
      */
     private function ensureHistory() {

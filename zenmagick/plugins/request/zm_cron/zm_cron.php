@@ -95,10 +95,12 @@ class zm_cron extends ZMPlugin {
      * <p>All output is captured and logged.</p>
      */
     public function runCron() {
-       ob_start();
+        ob_start();
         $folder = $this->getPluginDir();
         $cron = ZMLoader::make('ZMCronJobs', $folder.'/etc/crontab.txt', $folder.'etc/cronhistory.txt');
         if ($cron->isTimeToRun()) {
+            // update timestamp to stop other instances from running
+            $cron->updateTimestamp();
             foreach ($cron->getJobs(false, ZMTools::asBoolean($this->get('missedRuns'))) as $job) {
                 $cron->runJob($job);
             }
