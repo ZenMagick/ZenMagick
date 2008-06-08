@@ -84,7 +84,7 @@
 
         <!-- add to main release, update md5 -->
         <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" basedir="${build.dir}" update="true" includes="zenmagick/etc/docs/${from.to}.html" />
-        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5"/>
+        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5" todir="${dist.dir}/md5" />
 
         <!-- incremental update -->
         <delete file="${diff.incr.filename}" />
@@ -96,7 +96,7 @@
                 <include name="${zenmagick.src.dir}/etc/docs/*.html" />
             </fileset>
         </zip>
-        <checksum file="${version.incr.filename}" fileext=".md5"/>
+        <checksum file="${version.incr.filename}" fileext=".md5" todir="${dist.dir}/md5" />
         <delete file="${diff.incr.filename}" />
         <delete file="${diff.xml.filename}" />
     </target>
@@ -196,7 +196,7 @@
                 <include name="$zenmagick.{src.dir}/etc/docs/*.html" />
             </fileset>
         </zip>
-        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5"/>
+        <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".md5" todir="${dist.dir}/md5" />
     </target>
 
 
