@@ -1,4 +1,4 @@
-Welcome to ZenMagick version ${zenmagick.version}
+Welcome to ZenMagick ${zenmagick.version}
 
 For more details about ZenMagick please check: http://www.zenmagick.org
 
