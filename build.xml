@@ -127,6 +127,7 @@
         <!-- copy default and demo theme -->
         <copy todir="${build.dir}/zenmagick/">
             <fileset dir="${zenmagick.src.dir}">
+                <include name="themes/.htaccess" />
                 <include name="themes/default/**" />
                 <include name="themes/demo/**" />
             </fileset>
@@ -137,6 +138,7 @@
             <fileset dir="${zencart.src.dir}">
                 <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
                 <include name="includes/init_includes/overrides/init_templates.php" />
+                <include name="includes/init_includes/overrides/init_languages.php" />
             </fileset>
         </copy>
 
