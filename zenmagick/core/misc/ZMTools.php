@@ -32,7 +32,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
  * @package org.zenmagick.misc
  * @version $Id$
  */
-class ZMTools extends ZMObject {
+class ZMTools {
 
     /**
      * Remove a directory (tree).
@@ -49,7 +49,7 @@ class ZMTools extends ZMObject {
                 if ('.' != $file && '..' != $file) {
                     $path = $dir.$file;
                     if (is_dir($path) && $recursive) {
-                        ZMTools::rmdir($path, $recursive);
+                        self::rmdir($path, $recursive);
                     } else {
                         unlink($path);
                     }
@@ -79,7 +79,7 @@ class ZMTools extends ZMObject {
 
         $parent = dirname($dir);
         if (!file_exists($parent) && $recursive) {
-            if(!ZMTools::mkdir($parent, $perms, $recursive))
+            if (!self::mkdir($parent, $perms, $recursive))
                 return false;
         }
         $result = mkdir($dir, octdec($perms));
@@ -147,7 +147,7 @@ class ZMTools extends ZMObject {
         if (is_integer($value)) {
             return $value;
         }
-        return ZMTools::inArray(strtolower($value), "on,true,yes,1");
+        return self::inArray(strtolower($value), "on,true,yes,1");
     }
 
     /**
