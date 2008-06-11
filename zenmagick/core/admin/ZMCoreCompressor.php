@@ -22,19 +22,6 @@
  */
 ?>
 <?php
-/*
- * T_ML_COMMENT does not exist in PHP 5.
- * The following three lines define it in order to
- * preserve backwards compatibility.
- *
- * The next two lines define the PHP 5 only T_DOC_COMMENT,
- * which we will mask as T_ML_COMMENT for PHP 4.
- */
-if (!defined('T_ML_COMMENT')) {
-   define('T_ML_COMMENT', T_COMMENT);
-} else {
-   define('T_DOC_COMMENT', T_ML_COMMENT);
-}
 
 
 /**
@@ -44,59 +31,25 @@ if (!defined('T_ML_COMMENT')) {
  * @package org.zenmagick.admin
  * @version $Id$
  */
-class ZMCoreCompressor extends ZMObject {
-    var $coreDirname_;
-    var $strippedDirname_;
-    var $flatDirname_;
-    var $coreFilename_;
-    var $errors_;
+ZMLoader::resolve('PhpCompressor');
+class ZMCoreCompressor extends ZMPhpCompressor {
+    private $pluginsPreparedFolder;
 
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
-
-        $this->coreDirname_ = ZMRuntime::getZMRootPath().'core';
-        $this->pluginsPreparedDirname_ = ZMRuntime::getZMRootPath().'plugins.prepared';
-        $this->strippedDirname_ = ZMRuntime::getZMRootPath().'core.stripped';
-        $this->flatDirname_ = ZMRuntime::getZMRootPath().'core.flat';
-        $this->coreFilename_ = ZMRuntime::getZMRootPath().'core.php';
-        $this->errors_ = array();
+        parent::__construct(ZMRuntime::getZMRootPath().'core', ZMRuntime::getZMRootPath().'core.php', ZMRuntime::getZMRootPath());
+        $this->pluginsPreparedFolder = ZMRuntime::getZMRootPath().'plugins.prepared';
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Get errors.
-     *
-     * @return array List of text messages.
-     */
-    function getErrors() {
-        return $this->errors_;
-    }
-
-    /**
-     * Check for errors.
-     *
-     * @return boolean <code>true</code> if errors exist.
-     */
-    function hasErrors() {
-        return 0 != count($this->errors_);
-    }
 
     /**
      * Disable / remove the core.php file, effectively disabling the use of it.
      */
-    function disable() {
-        @unlink($this->coreFilename_);
+    public function disable() {
+        @unlink($this->outputFilename);
     }
 
     /**
@@ -104,127 +57,55 @@ class ZMCoreCompressor extends ZMObject {
      *
      * @return boolean <code>true</code> if core.php exists, <code>false</code> if not.
      */
-    function isEnabled() {
-        return file_exists($this->coreFilename_);
+    public function isEnabled() {
+        return file_exists($this->outputFilename);
     }
 
     /**
      * Clean up all temp. files.
      */
-    function clean() {
-        ZMTools::rmdir($this->pluginsPreparedDirname_);
-        ZMTools::rmdir($this->strippedDirname_);
-        ZMTools::rmdir($this->flatDirname_);
+    public function clean() {
+        parent::clean();
+        ZMTools::rmdir($this->pluginsPreparedFolder);
     }
 
     /**
-     * Generate 'core.php'
+     * Compress accoding to the current settings.
+     *
+     * @return boolean <code>true</code> if successful, <code>false</code> on failure.
      */
-    function generate() {
+    public function compress() {
+        $this->strippedFolder = $this->tempFolder.'/stripped';
+        $this->flatFolder = $this->tempFolder.'/flat';
+
         $this->clean();
-        @unlink($this->coreFilename_);
+        @unlink($this->outputFilename);
 
         // add some levels to make plugins load last
-        $this->_preparePlugins($this->pluginsPreparedDirname_.'/1/2/3/4');
+        $this->preparePlugins($this->pluginsPreparedFolder.'/1/2/3/4');
 
-        if (ZMSettings::get('isStripCore')) {
-            $this->_stripPhpDir($this->coreDirname_, $this->strippedDirname_);
-            $this->_stripPhpDir($this->pluginsPreparedDirname_, $this->strippedDirname_);
+        if ($this->stripCode) {
+            $this->stripPhpDir($this->rootFolder, $this->strippedFolder);
+            $this->stripPhpDir($this->pluginsPreparedFolder, $this->strippedFolder);
         }
         if (!$this->hasErrors()) {
-            if (ZMSettings::get('isStripCore')) {
-                $this->_flattenDirStructure($this->strippedDirname_, $this->flatDirname_);
+            if ($this->stripCode) {
+                $this->flattenDirStructure($this->strippedFolder, $this->flatFolder);
             } else {
-                $this->_flattenDirStructure($this->coreDirname_, $this->flatDirname_);
-                $this->_flattenDirStructure($this->pluginsPreparedDirname_, $this->flatDirname_);
+                $this->flattenDirStructure($this->rootFolder, $this->flatFolder);
+                $this->flattenDirStructure($this->pluginsPreparedFolder, $this->flatFolder);
             }
             if (!$this->hasErrors()) {
-                $this->_createInitBootstrap($this->flatDirname_);
-                $this->_compressToSingleFile($this->flatDirname_, $this->coreFilename_);
+                $this->createInitBootstrap($this->flatFolder);
+                $this->compressToSingleFile($this->flatFolder, $this->outputFilename);
             }
         }
 
-        if (ZMSettings::get('isStripCore')) {
+        if ($this->stripCode) {
             $this->clean();
         }
-    }
 
-    /**
-     * Strip the given PHP source text.
-     *
-     * @param string source The PHP source code.
-     * @return string The stripped code.
-     */
-    function _stripPhpSource($source) {
-        $source = str_replace("<?php  ?>", '', $source);
-        $source = trim($source);
-        $tokens = token_get_all($source);
-
-        ob_start();
-        foreach ($tokens as $token) {
-           if (is_string($token)) {
-               // simple 1-character token
-               echo $token;
-           } else {
-               // token array
-               list($id, $text) = $token;
-         
-               switch ($id) {
-                   case T_COMMENT:
-                   case T_ML_COMMENT: // we've defined this
-                   case T_DOC_COMMENT: // and this
-                       // no action on comments
-                       break;
-                   case T_WHITESPACE:
-                       echo ' ';
-                       break;
-                   case T_END_HEREDOC:
-                       echo $text."\n";
-                       break;
-                   case T_OPEN_TAG:
-                       echo '<?php ';
-                       break;
-                   case T_CLOSE_TAG:
-                       echo '?>';
-                       break;
-
-                   default:
-                       // anything else -> output "as is"
-                       echo $text;
-                       break;
-               }
-           }
-        }
-        return ob_get_clean();
-    }
-
-    /**
-     * Strip a PHP file.
-     *
-     * @param string in The input filename.
-     * @param string out The output filename; if <code>null</code> just echo.
-     */
-    function _stripPhpFile($in, $out=null) {
-        $source = file_get_contents($in);
-        $source = $this->_stripPhpSource($source);
-        // strip empty PHP open/close tags
-        $source = $this->_stripPhpSource($source);
-        if (null !== $out) {
-            // write to file
-            if (!$handle = fopen($out, 'ab')) {
-                array_push($this->errors_, 'could not open file for writing ' . $out);
-                return;
-            }
-
-            if (false === fwrite($handle, $source)) {
-                array_push($this->errors_, 'could not write to file ' . $out);
-                return;
-            }
-      
-            fclose($handle);
-        } else {
-            echo $source;
-        }
+        return !$this->hasErrors();
     }
 
     /**
@@ -234,7 +115,7 @@ class ZMCoreCompressor extends ZMObject {
      *
      * @param string out The output directory.
      */
-    function _preparePlugins($out) {
+    private function preparePlugins($out) {
         if (!ZMTools::endsWith($out, '/')) $out .= '/';
 
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
@@ -287,119 +168,11 @@ class ZMCoreCompressor extends ZMObject {
     }
 
     /**
-     * Recursivley strip a directory.
-     *
-     * <p>Uses <code>ZMLoader::findIncludes()</code> to find files to process.</p>
-     *
-     * @param string in The input directory.
-     * @param string out The output directory.
-     * @param boolean recursive If true, strip recursivley.
-     */
-    function _stripPhpDir($in, $out=null, $recursive=true) {
-        //echo "** stripping " . $in . " into " . $out . "\n";
-        if (!ZMTools::endsWith($in, '/')) $in .= '/';
-        if (!ZMTools::endsWith($out, '/')) $out .= '/';
-
-        $files = ZMLoader::findIncludes($in, $recursive);
-
-        foreach ($files as $name => $infile) {
-            $name = basename($infile);
-            $dirbase = substr(dirname($infile), strlen($in));
-            $outdir = $out.$dirbase;
-            if (!ZMTools::endsWith($outdir, '/')) $outdir .= '/';
-            $outfile = $outdir.$name;
-            //echo $outfile."<BR>";
-            if (!file_exists($outdir)) {
-                if (!file_exists(dirname($outdir))) {
-                    ZMTools::mkdir(dirname($outdir), 755);
-                    if (!file_exists(dirname($outdir))) {
-                        array_push($this->errors_, 'could not create directory ' . dirname($outdir));
-                        return;
-                    }
-                }
-                ZMTools::mkdir($outdir, 755);
-                if (!file_exists($outdir)) {
-                    array_push($this->errors_, 'could not create directory ' . $outdir);
-                    return;
-                }
-            }
-            //echo $infile . " >> " . $outfile ."\n";
-            $this->_stripPhpFile($infile, $outfile);
-        }
-    }
-
-    /**
-     * Flatten the directory structure.
-     *
-     * @param string in The input directory.
-     * @param string out The output directory.
-     */
-    function _flattenDirStructure($in, $out) {
-        //echo "** flatten " . $in . " into " . $out . "\n";
-        $files = ZMLoader::findIncludes($in.'/', true);
-
-        if (!file_exists($out)) {
-            ZMTools::mkdir($out, 755);
-        }
-
-        $inpath = explode('/', $in);
-        foreach ($files as $name => $infile) {
-            $path = explode('/', $infile);
-            $level = count($path)-count($inpath)-1;
-            $outdir = $out;
-            for ($ii=1;$ii<=$level;++$ii) {
-                $outdir .= '/'.$ii;
-            }
-            if (!file_exists($outdir)) {
-                if (!file_exists(dirname($outdir))) {
-                    ZMTools::mkdir(dirname($outdir), 755);
-                    if (!file_exists(dirname($outdir))) {
-                        array_push($this->errors_, 'could not create directory ' . dirname($outdir));
-                        return;
-                    }
-                }
-                ZMTools::mkdir($outdir, 755);
-                if (!file_exists($outdir)) {
-                    array_push($this->errors_, 'could not create directory ' . $outdir);
-                    return;
-                }
-            }
-            $outfile = $outdir.'/'.basename($infile);
-            $sub = 1;
-            while (file_exists($outfile)) {
-                $outfile = $outdir.'/'.$sub.'-'.basename($infile);
-                ++$sub;
-            }
-            //echo $infile . " >> " . $outfile . "\n";
-            $source = file_get_contents($infile);
-
-            if (!$handle = fopen($outfile, 'ab')) {
-                rray_push($this->errors_, 'could not open file for writing ' . $outfile);
-                return;
-            }
-
-            if (!ZMSettings::get('isStripCore')) {
-                if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
-                    array_push($this->errors_, 'could not write to file ' . $outfile);
-                    return;
-                }
-            }
-
-            if (false === fwrite($handle, $source)) {
-                array_push($this->errors_, 'could not write to file ' . $outfile);
-                return;
-            }
-      
-            fclose($handle);
-        }
-    }
-
-    /**
      * Create init_bootstrap.php
      *
      * @param string out The output directory.
      */
-    function _createInitBootstrap($out) {
+    private function createInitBootstrap($out) {
         $outfile = $out.'/init_bootstrap.php';
         if (!$handle = fopen($outfile, 'ab')) {
             array_push($this->errors_, 'could not open file for writing ' . $outfile);
@@ -410,6 +183,7 @@ class ZMCoreCompressor extends ZMObject {
             return;
         }
         $lines = array(
+            "define('ZM_SINGLE_CORE', true);",
             'if (ZMSettings::get("isLegacyAPI")) {',
             '  $zm_loader = ZMLoader::instance();',
             '  $zm_runtime = ZMLoader::make("Runtime");',
@@ -430,23 +204,15 @@ class ZMCoreCompressor extends ZMObject {
     }
 
     /**
-     * Compress all files into a single file
+     * Empty callback to make final adjustments to the file list before compressing to a single file.
      *
-     * @param string in The input directory.
-     * @param string outfile The output file.
+     * @param array files List of files.
+     * @return array The final list.
      */
-    function _compressToSingleFile($in, $outfile) {
-        //echo "** compress " . $in . " into " . $outfile . "\n";
-        $files = ZMLoader::findIncludes($in.'/', true);
-
-        $tmp = array();
-        // mess around with results to find some files we need to add first...
-        foreach ($files as $name => $file) {
-            $off = strpos($file, $in);
-            $tmp[substr($file, $off+strlen($in)+1)] = $file;
-        }
+    protected function finalizeFiles($files) {
         // some need to be in order :/
         $loadFirst = array(
+            'ZMSettings.php',
             '1/zenmagick.php',
             '1/settings.php',
             'ZMObject.php',
@@ -457,61 +223,16 @@ class ZMCoreCompressor extends ZMObject {
         );
         $tmp2 = array();
         foreach ($loadFirst as $first) {
-            $tmp2[] = $tmp[$first];
+            $tmp2[] = $files[$first];
         }
         $firstLookup = array_flip($loadFirst);
-        foreach ($tmp as $key => $file) {
+        foreach ($files as $key => $file) {
             if (!isset($firstLookup[$key])) {
                 $tmp2[] = $file;
             }
         }
 
-        $files = $tmp2;
-
-        if (!$handle = fopen($outfile, 'ab')) {
-            array_push($this->errors_, 'could not open file for writing ' . $outfile);
-            return;
-        }
-        if (false === fwrite($handle, "<?php define('ZM_SINGLE_CORE', true); ?>\n")) {
-            array_push($this->errors_, 'could not write to file ' . $outfile);
-            return;
-        }
-
-        $inpath = explode('/', $in);
-        $currLevel = 0;
-        while (0 < count($files)) {
-            $processed = 0;
-            foreach ($files as $key => $infile) {
-                // leave here just in case...
-                if (empty($infile) || !file_exists($file)) {
-                    unset($files[$key]);
-                    continue;
-                }
-                $path = explode('/', $infile);
-                $level = count($path)-count($inpath)-1;
-                if ($level == $currLevel || $key < 4) {
-                    ++$processed;
-                    unset($files[$key]);
-                    $source = file_get_contents($infile);
-
-                    if (!ZMSettings::get('isStripCore')) {
-                        if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
-                            array_push($this->errors_, 'could not write to file ' . $outfile);
-                            return;
-                        }
-                    }
-                    if (false === fwrite($handle, $source)) {
-                        array_push($this->errors_, 'could not write to file ' . $outfile);
-                        return;
-                    }
-                }
-            }
-            if (0 == $processed) {
-                ++$currLevel;
-            }
-        }
-
-        fclose($handle);
+        return $tmp2;
     }
 
 }

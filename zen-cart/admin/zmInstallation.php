@@ -102,11 +102,11 @@ require_once('includes/application_top.php');
     if (isset($_POST)) {
         $didGenerate = false;
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
-            $coreCompressor->generate();
+            $coreCompressor->compress();
             $didGenerate = true;
         }
         if (array_key_exists('singleCoreGenerate', $_POST)) {
-            $coreCompressor->generate();
+            $coreCompressor->compress();
             $didGenerate = true;
         }
 

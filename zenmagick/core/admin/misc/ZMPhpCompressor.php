@@ -135,7 +135,6 @@ class ZMPhpCompressor {
                 $this->tempFolder = dirname(__FILE__);
             }
         }
-        echo $this->tempFolder;
     }
 
     /**
@@ -156,7 +155,7 @@ class ZMPhpCompressor {
     /**
      * Clean up all temp. files.
      */
-    function clean() {
+    public function clean() {
         ZMTools::rmdir($this->strippedFolder);
         ZMTools::rmdir($this->flatFolder);
     }
