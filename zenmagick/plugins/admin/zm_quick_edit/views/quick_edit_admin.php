@@ -89,7 +89,7 @@
               } else {
                 $value = $product->get($field['field']);
               }
-              $value = $toolbox->html->encode($value);
+              $value = $toolbox->html->encode($value, false);
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
                 <?php $method = isset($field['method']) ? $field['method'] : 'zm_quick_edit_input_field'; ?>
