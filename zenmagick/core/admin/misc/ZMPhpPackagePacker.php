@@ -81,9 +81,10 @@ class ZMPhpPackagePacker {
      * <p>Callback to manipulate the computed dependencies.</p>
      *
      * @param array dependencies The computed dependencies.
+     * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
      * @return array The final dependencies.
      */
-    public function finalizeDependencies($dependencies) {
+    public function finalizeDependencies($dependencies, $files) {
         return $dependencies;
     }
 
@@ -94,9 +95,10 @@ class ZMPhpPackagePacker {
      *
      * @param string class The class name.
      * @param int level The current inheritence level (nested folder depth).
-     * @param boolean <code>true</code>, if the class should be considered cleared of all dependencies.
+     * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
+     * @return boolean <code>true</code>, if the class should be considered cleared of all dependencies.
      */
-    public function isResolved($class, $level) {
+    public function isResolved($class, $level, $files) {
         return false;
     }
 
@@ -134,7 +136,8 @@ class ZMPhpPackagePacker {
 
         $fileMap = array();
         $dependsOn = array();
-        foreach (ZMLoader::findIncludes($this->rootFolder, true) as $file) {
+        $files = ZMLoader::findIncludes($this->rootFolder, true);
+        foreach ($files as $file) {
             $lines = $patch->getFileLines($file);
             $patched = false;
             $class = str_replace('.php', '', basename($file));
@@ -147,7 +150,7 @@ class ZMPhpPackagePacker {
             }
         }
 
-        $dependsOn = $this->finalizeDependencies($dependsOn);
+        $dependsOn = $this->finalizeDependencies($dependsOn, $files);
 
         $resolved = array();
 
@@ -172,8 +175,7 @@ class ZMPhpPackagePacker {
                     }
                 }
 
-                //TODO: check for circular references
-                if ($clear || $this->isResolved($class, $levelIndex)) {
+                if ($clear || $this->isResolved($class, $levelIndex, $files)) {
                     if ($this->debug) echo '<br>resolved: '.$class.' depending on';
                     if ($this->debug) print_r($dependencies);
                     $level[$class] = $class;

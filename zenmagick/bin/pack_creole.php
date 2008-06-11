@@ -35,7 +35,7 @@
         /**
          * {@inheritDoc}
          */
-        public function isResolved($class, $level) {
+        public function isResolved($class, $level, $files) {
             // Record does have circular references
             return ('Record' == $class && 1 == $level);
         }
@@ -43,7 +43,7 @@
         /**
          * {@inheritDoc}
          */
-        public function finalizeDependencies($dependencies) {
+        public function finalizeDependencies($dependencies, $files) {
             // there is no explicit include/require for this
             $dependencies['DebugConnection'][] = 'Connection';
             return $dependencies;
