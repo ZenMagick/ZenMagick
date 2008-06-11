@@ -125,6 +125,61 @@ class ZMPhpPackagePacker {
     }
 
     /**
+	   * Get next token of a certain type.
+     *
+	   * @param array tokens List of all token.
+	   * @param int key Key to start searching from.
+	   * @param int type Type of token to look for.
+	   * @return string Found token or <code>null</code>.
+	   */
+    private function getToken($tokens, $key, $type) {
+        ++$key;
+        if (!is_array($type)) $type = array($type);
+        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $type)) {
+            ++$key;
+            if (!isset($tokens[$key])) {
+                return null;
+            }
+        }
+        return $tokens[$key];
+    }
+
+    /**
+     * Get class info.
+     *
+     * @param string source The file source.
+     * @return array Two element array containing the list of implemented interfaces and parent class.
+     */
+    protected function getClassInfo($source) {
+        $info = array();
+        $info['interfaces'] = array();
+        $info['parent'] = null;
+        $info['class'] = false;
+        $tokens = token_get_all($source);
+        foreach ($tokens as $key => $token) {
+            if (!is_string($token)) {
+                // token array
+                list($id, $text) = $token;
+                switch ($id) {
+                case T_INTERFACE:
+                    $name = $this->getToken($tokens, $key, T_STRING);
+                    $info['interfaces'][] = $name[1];
+                    break;
+                case T_EXTENDS:
+                    $name = $this->getToken($tokens, $key, T_STRING);
+                    $info['parent'] = $name[1];
+                    break;
+                case T_CLASS:
+                    $name = $this->getToken($tokens, $key, T_STRING);
+                    $info['class'] = $name[1];
+                    break;
+                }
+            }
+        }
+        return $info;
+    }
+
+    /**
      * Prepare the original files to be processed by <code>ZMPhpCompressor</code>.
      */
     protected function prepareFiles() {
@@ -136,6 +191,7 @@ class ZMPhpPackagePacker {
 
         $fileMap = array();
         $dependsOn = array();
+        $classInfo = array();
         $files = ZMLoader::findIncludes($this->rootFolder, true);
         foreach ($files as $file) {
             $lines = $patch->getFileLines($file);
@@ -143,9 +199,13 @@ class ZMPhpPackagePacker {
             $class = str_replace('.php', '', basename($file));
             $fileMap[$class] = $file;
             $dependsOn[$class] = array();
-            foreach ($lines as $ii => $line) {
-                if (preg_match('/^\s*\/?\/?\s*(require_once|require|include_once|include){1}\s*\(?\s*[\'"](.*)[\'"]\s*\)?\s*;.*$/', $line, $matches)) {
-                    $dependsOn[$class][] = str_replace('.php', '', basename($matches[2]));
+            $classInfo[$class] = $this->getClassInfo(implode(' ', $lines));
+            if ($classInfo[$class]['class']) {
+                // only if class in file
+                foreach ($lines as $ii => $line) {
+                    if (preg_match('/^\s*\/?\/?\s*(require_once|require|include_once|include){1}\s*\(?\s*[\'"](.*)[\'"]\s*\)?\s*;.*$/', $line, $matches)) {
+                        $dependsOn[$class][] = str_replace('.php', '', basename($matches[2]));
+                    }
                 }
             }
         }
