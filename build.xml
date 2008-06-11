@@ -117,6 +117,7 @@
                 <exclude name="plugins/request/*/**" />
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
+                <exclude name="bin/**" />
            </fileset>
         </copy>
 
