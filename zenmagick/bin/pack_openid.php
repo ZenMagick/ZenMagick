@@ -47,9 +47,9 @@
     }
 
 
-    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/mods/php-openid-2.0.0/Auth/';
+    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/php-openid-2.1.0/Auth/';
     $packer = new OpenIDPacker($dir, dirname($dir).'/openid.packed.php');
     $packer->setDebug(false);
-    $packer->packFiles();
+    $packer->packFiles(true);
 
 ?>
