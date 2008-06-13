@@ -45,7 +45,7 @@ interface ZMDatabase {
      * @param array args Optional query args; default is an empty array.
      * @param array mapping The field mapping; default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
-     * @return array List of populated objects of class <code>$resultClass</code>.
+     * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null);
 
@@ -70,11 +70,12 @@ interface ZMDatabase {
     public function updateModel($table, $model, $mapping);
 
     /**
-     * Update a single row using the provided SQL and model data.
+     * Update using the provided SQL and data and model.
      *
      * @param string sql The update sql.
      * @param mixed data A model instance or array.
      * @param array mapping The field mappings.
+     * @return int The number of affected rows.
      */
     public function update($sql, $data, $mapping);
 

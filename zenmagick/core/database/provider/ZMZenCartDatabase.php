@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
-    private static $typeMap = array('boolean' => 'integer');
+    private static $typeMap = array('boolean' => 'integer', 'blob' => 'date');
     private $db_;
     private $queriesCount;
     private $queriesTime;
@@ -154,6 +154,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
+        return mysql_affected_rows($this->db_->link);
     }
 
     /**

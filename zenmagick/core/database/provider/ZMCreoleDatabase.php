@@ -139,9 +139,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $mapping = ZMDbUtils::parseMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
-        $stmt->executeUpdate();
+        $rows = $stmt->executeUpdate();
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
+        return $rows;
     }
 
     /**
@@ -255,6 +256,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'float':
                 $stmt->setFloat($index, $args[$name]);
                 break;
+            case 'blob':
+                $stmt->setBlob($index, $args[$name]);
+                break;
             default:
                 ZMObject::backtrace('unsupported data type: '.$type);
                 break;
@@ -322,6 +326,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'date':
                 $value = $rs->getDate($info['column']);
+                break;
+            case 'blob':
+                $blob = $rs->getBlob($info['column']);
+                $value = $blob->getContents();
                 break;
             default:
                 ZMObject::backtrace('unsupported data type: '.$info['type']);
