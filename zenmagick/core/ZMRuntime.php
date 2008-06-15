@@ -225,6 +225,20 @@ class ZMRuntime extends ZMObject {
         exit();
     }
 
+    /**
+     * Get the store base URL.
+     *
+     * @param boolean secure If set, return a secure URL (if configured); default is <code>false</code>.
+     * @return string The store base url.
+     */
+    public static function getBaseURL($secure=false) {
+        if ($secure && ZMSettings::get('isEnableSSL')) {
+            return HTTP_SERVER . DIR_WS_CATALOG;
+        } else {
+            return HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
+        }
+    }
+
 }
 
 ?>
