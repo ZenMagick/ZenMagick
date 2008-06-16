@@ -50,7 +50,7 @@
       <fieldset>
           <legend><?php $html->encode($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
-            <p><?php $option ?></p>
+            <p><?php echo $option ?></p>
           <?php } ?>
       </fieldset>
   <?php } ?>
