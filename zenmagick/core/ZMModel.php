@@ -60,7 +60,19 @@ class ZMModel extends ZMObject {
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
     public function populate($req=null) {
-        return;
+    }
+
+    /**
+     * Populate custom fields from the given request.
+     *
+     * @param string table The table name.
+     */
+    public function populateCustom($table) {
+        $fields = ZMDbUtils::getCustomFields($table);
+        foreach ($fields as $field) {
+            $name = $field[0];
+            $this->set($name, ZMRequest::getParameter($name));
+        }
     }
 
     /**

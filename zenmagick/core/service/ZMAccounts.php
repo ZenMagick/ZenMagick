@@ -66,6 +66,7 @@ class ZMAccounts extends ZMObject {
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
                 c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CUSTOMERS, 'c')."
                 from " . TABLE_CUSTOMERS . " c
                 where c.customers_id = :accountId";
         $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
@@ -88,6 +89,7 @@ class ZMAccounts extends ZMObject {
         $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
                 c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
                 c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
+                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CUSTOMERS, 'c')."
                 from " . TABLE_CUSTOMERS . " c
                 where customers_email_address = :emailAddress
                 and NOT customers_password = :emptyPassword";
@@ -246,6 +248,14 @@ class ZMAccounts extends ZMObject {
         $account->subscribedProducts_ = $this->getSubscribedProductIds($account->getId());
         $account->type_ = ('' != $fields['customers_password'] ? ZM_ACCOUNT_TYPE_REGISTERED : ZM_ACCOUNT_TYPE_GUEST);
         $account->priceGroupId_ = $fields['customers_group_pricing'];
+
+        // custom fields
+        foreach (ZMDbUtils::getCustomFields(TABLE_CUSTOMERS) as $field) {
+            if (isset($fields[$field[0]])) {
+                $account->set($field[0], $fields[$field[0]]);
+            }
+        }
+
         return $account;
     }
 

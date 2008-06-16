@@ -105,6 +105,9 @@ class ZMAccount extends ZMModel {
         $this->emailFormat_ = ZMRequest::getParameter('email_format', 'TEXT');
         $this->referral_ = ZMRequest::getParameter('referral', '');
         $this->newsletter_ = ZMRequest::getParameter('newsletter', false);
+        $this->newsletter_ = ZMRequest::getParameter('newsletter', false);
+        $this->populateCustom(TABLE_CUSTOMERS);
+        $this->populateCustom(TABLE_CUSTOMERS_INFO);
     }
 
 
