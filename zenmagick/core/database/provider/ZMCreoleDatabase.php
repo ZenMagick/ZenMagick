@@ -200,7 +200,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = ZMDbUtils::parseMapping($mapping);
 
-
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
         ++$this->queriesCount;
@@ -310,7 +309,12 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $model = array();
         }
 
+        $row = $rs->getRow();
         foreach ($mapping as $field => $info) {
+            if (!isset($row[$info['column']])) {
+                // field not in result set, so ignore
+                continue;
+            }
             switch ($info['type']) {
             case 'integer':
                 $value = $rs->getInt($info['column']);
