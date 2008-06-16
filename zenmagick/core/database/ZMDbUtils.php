@@ -214,7 +214,9 @@ class ZMDbUtils {
 
         $customFields = array();
         foreach (explode(',', $setting) as $field) {
-            $customFields[] = explode(';', trim($field));
+            if (!empty($field)) {
+                $customFields[] = explode(';', trim($field));
+            }
         }
 
         return $customFields;
@@ -231,8 +233,10 @@ class ZMDbUtils {
         $setting = ZMSettings::get(ZMDbUtils::getCustomFieldKey($table));
         if (!empty($setting)) {
             foreach (explode(',', $setting) as $field) {
-                $fieldInfo = explode(';', trim($field));
-                $mapping[$fieldInfo[0]] = $fieldInfo[0].':'.$fieldInfo[1];
+                if (!empty($field)) {
+                    $fieldInfo = explode(';', trim($field));
+                    $mapping[$fieldInfo[0]] = $fieldInfo[0].':'.$fieldInfo[1];
+                }
             }
         }
 
