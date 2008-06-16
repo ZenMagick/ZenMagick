@@ -47,7 +47,7 @@
         // generate response
         if (null != $view) {
             // make header match the template
-            header('Content-Type: text/html; charset='.HTML_CHARSET);
+            header('Content-Type: text/html; charset='.zm_i18n('HTML_CHARSET'));
 
             // common view variables
             $controller->exportGlobal('zm_view', $view);
