@@ -1,0 +1,200 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006-2008 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+<?php
+
+
+/**
+ * OpenID authentication controller.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.plugins.zm_openid
+ * @version $Id$
+ */
+class ZMOpenIDController extends ZMController {
+    private $returnTo;
+    private $sRegRequired;
+    private $sRegOptional;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        $this->returnTo = ZMToolbox::instance()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false);
+        $this->sRegRequired = array('email');
+        $this->sRegOptional = array('fullname', 'nickname');
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet() {
+        return $this->findView('login');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost() {
+    global $zm_openid;
+
+        $action = ZMRequest::getParameter('action');
+        $openid = ZMRequest::getParameter('openid');
+
+        $account = $zm_openid->getAccountForOpenID($openid);
+        if (null != $account) {
+            $session = ZMRequest::getSession();
+            if ('initAuth' == $action && null != $openid) {
+                // save to compare with response
+                $session->setValue('openid', $openid);
+                return $this->initAuthentication($openid);
+            } else if ('finishAuth' == $action) {
+                $info = $this->finishAuthentication($openid);
+                if (null !== $info) {
+                    if ($session->getValue('openid') == $info['openid']) {
+                        // as in ZMLoginController::processPost()
+                        $session->recreate();
+                        $session->setAccount($account);
+
+                        // update login stats
+                        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
+
+                        // restore cart contents
+                        $session->restoreCart();
+
+                        $followUpUrl = $session->getLoginFollowUp();
+                        return $this->findView('success', array('url' => $followUpUrl));
+                    }
+                }
+            }
+        } else {
+            ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
+        }
+
+        return $this->findView('login');
+    }
+
+
+    /**
+     * Initiate OpenID authentication.
+     *
+     * @param string openid The OpenID to authenticate.
+     */
+    private function initAuthentication($openid) {
+        $store = ZMLoader::make('ZMDatabaseOpenIDStore');
+        $consumer = new Auth_OpenID_Consumer($store);
+        $auth_request = $consumer->begin($openid);
+
+        if (!$auth_request) {
+            ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
+            return $this->findView('login');
+        }
+
+        // required, optional
+        $sreg_request = Auth_OpenID_SRegRequest::build($this->sRegRequired, $this->sRegOptional);
+        if ($sreg_request) {
+            $auth_request->addExtension($sreg_request);
+        }
+
+        $papePolicyUris = array(PAPE_AUTH_MULTI_FACTOR_PHYSICAL, PAPE_AUTH_MULTI_FACTOR, PAPE_AUTH_PHISHING_RESISTANT);
+        $pape_request = new Auth_OpenID_PAPE_Request($papePolicyUris);
+        if ($pape_request) {
+            $auth_request->addExtension($pape_request);
+        }
+
+        // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
+        // form to send a POST request to the server.
+        $realm = ZMRuntime::getBaseURL(true);
+        if ($auth_request->shouldSendRedirect()) {
+            $redirect_url = $auth_request->redirectURL($realm, $this->returnTo);
+
+            // If the redirect URL can't be built, display an error message.
+            if (Auth_OpenID::isFailure($redirect_url)) {
+                ZMMessages::instance()->error(zm_l10n_get('Could not redirect to server: %s', $redirect_url->message));
+                return $this->findView('login');
+            } else {
+                // send redirect.
+                header("Location: ".$redirect_url);
+            }
+        } else {
+            // generate form markup and render it
+            $form_id = 'openid_message';
+            $form_html = $auth_request->htmlMarkup($realm, $this->returnTo, false, array('id' => $form_id));
+
+            if (Auth_OpenID::isFailure($form_html)) {
+                ZMMessages::instance()->error(zm_l10n_get('Could not redirect to server: %s', $form_html->message));
+                return $this->findView('login');
+            } else {
+                // render the HTML form
+                print $form_html;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finish authentication.
+     *
+     * @return array OpenID details map or <code>null</code>.
+     */
+    private function finishAuthentication() {
+        $store = ZMLoader::make('ZMDatabaseOpenIDStore');
+        $consumer = new Auth_OpenID_Consumer($store);
+
+        // Complete the authentication process using the server's response.
+        $return_to = getReturnTo();
+        $response = $consumer->complete($this->returnTo);
+
+        if ($response->status == Auth_OpenID_SUCCESS) {
+            ZMMessages::instance()->msg('OpenID authentication failed: ' . $response->message);
+            $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
+            $sreg = $sreg_resp->contents();
+
+            $sreg['openid'] = $response->getDisplayIdentifier();
+            if ($response->endpoint->canonicalID) {
+                $sreg['xri'] = $response->endpoint->canonicalID;
+            }
+
+            return $sreg;            
+        } else if ($response->status == Auth_OpenID_CANCEL) {
+            ZMMessages::instance()->msg('Verification cancelled.');
+        } else if ($response->status == Auth_OpenID_FAILURE) {
+            ZMMessages::instance()->msg('OpenID authentication failed: ' . $response->message);
+            $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
+            $sreg = $sreg_resp->contents();
+
+            $sreg['openid'] = $response->getDisplayIdentifier();
+            if ($response->endpoint->canonicalID) {
+                $sreg['xri'] = $response->endpoint->canonicalID;
+            }
+        }
+
+        return null;
+    }
+
+}
+
+?>
