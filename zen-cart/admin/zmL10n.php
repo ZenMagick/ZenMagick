@@ -43,6 +43,7 @@ require_once('includes/application_top.php');
       echo '    zm_l10n_add(array('."\n";
       $komma = false;
       $firstfile = true;
+      $globalMap = array();
       foreach ($map as $file => $strings) {
           if (null === $strings) {
               continue;
@@ -55,8 +56,18 @@ require_once('includes/application_top.php');
               $quote = '"';
               // either we have escaped single quotes or double quotes that are not escaped
               if (false !== strpos($key, '\\\'') || (false !== strpos($key, '"') && false === strpos($key, '\\"'))) { $quote = "'"; }
-              echo '        ' . $quote . $key . $quote . ' => ' . $quote . $value . $quote;
-              $komma = true;
+              if (isset($globalMap[$key])) {
+                  // key exists!
+                  if ($globalMap[$key] != $value) {
+                      // same key different value!
+                      echo '        ' . '/*** WARNING: mapping mismatch ***/';
+                  }
+                  echo '        ' . '/* DUPLICATE */ //' . $quote . $key . $quote . ' => ' . $quote . $value . $quote;
+              } else {
+                  echo '        ' . $quote . $key . $quote . ' => ' . $quote . $value . $quote;
+                  $komma = true;
+                  $globalMap[$key] = $value;
+              }
               $nextfile = false;
           }
           $firstfile = false;
