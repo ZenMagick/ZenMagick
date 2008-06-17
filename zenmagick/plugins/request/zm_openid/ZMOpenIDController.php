@@ -74,6 +74,11 @@ class ZMOpenIDController extends ZMController {
                 $info = $this->finishAuthentication($openid);
                 if (null !== $info) {
                     if ($session->getValue('openid') == $info['openid']) {
+                        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+                            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+                            return $this->findView('login');
+                        }
+
                         // as in ZMLoginController::processPost()
                         $session->recreate();
                         $session->setAccount($account);

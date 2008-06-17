@@ -112,6 +112,11 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
+        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+            return $this->findView();
+        }
+
         // update session with valid account
         $session->recreate();
         $session->setAccount($account);

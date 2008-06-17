@@ -155,6 +155,12 @@
     define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
 
 
+    //** account authentication **//
+
+    define('ZM_ACCOUNT_AUTHORIZATION_ENABLED', 0);
+    define('ZM_ACCOUNT_AUTHORIZATION_BLOCKED', 4);
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

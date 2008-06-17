@@ -7,6 +7,7 @@ Release 0.9.2
 - make ZMToolboxHtml::encode() preserve exising entities in strings
 - make admin language tool mark duplicate mappings and add inline warnings if
   duplicate keys with different values exist; b:#1993788
+- add support for blocking accounts
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
