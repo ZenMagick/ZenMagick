@@ -32,25 +32,6 @@
  * @version $Id$
  */
 class ZMToolboxHtml extends ZMObject {
-    private static $ENTITY_MAP_PREFIX = '@#@';
-    private static $ENTITY_MAP = null;
-    private static $ENTITY_DUMMY_MAP = null;
-
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        if (null === self::$ENTITY_MAP) {
-            self::$ENTITY_MAP = array();
-            self::$ENTITY_DUMMY_MAP = array();
-            foreach (get_html_translation_table(HTML_ENTITIES, ENT_QUOTES) as $entity) {
-                self::$ENTITY_MAP[] = $entity;
-                self::$ENTITY_DUMMY_MAP[] = self::$ENTITY_MAP_PREFIX . substr($entity, 1);
-            }
-        }
-    }
-
 
     /**
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
@@ -103,11 +84,10 @@ class ZMToolboxHtml extends ZMObject {
     public function encode($s, $echo=ZM_ECHO_DEFAULT) {
         //TODO: get rid of
         if (1 === version_compare(PHP_VERSION, '5.2.3')) {
-            $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'), false);
+            $s = htmlentities($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'), false);
         } else {
-            $s = str_replace(self::$ENTITY_MAP, self::$ENTITY_DUMMY_MAP, $s);
-            $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
-            $s = str_replace(self::$ENTITY_MAP_PREFIX, '&', $s);
+            $s = html_entity_decode($s, ENT_QUOTES, zm_i18n('HTML_CHARSET')); 
+            $s = htmlentities($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
         }
 
         if ($echo) echo $s;
