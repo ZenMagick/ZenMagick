@@ -38,8 +38,8 @@ interface ZMDatabase {
     /**
      * Execute a query.
      *
-     * <p>If <code>$mapping</code> and <code>$resultClass</code> are <code>null</code>, the returned
-     * list will contain a map of <em>columns</em> =&gt; <em>value</em> for each result.</p>
+     * <p>If <code>$resultClass</code> is <code>null</code>, the returned
+     * list will contain a map of <em>columns</em> =&gt; <em>value</em> for each selected row.</p>
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
