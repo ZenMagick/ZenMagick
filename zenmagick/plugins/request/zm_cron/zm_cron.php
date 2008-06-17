@@ -79,7 +79,7 @@ class zm_cron extends ZMPlugin {
             $pages = $this->get('triggerPages');
             if (empty($pages) || ZMTools::inArray(ZMRequest::getPageName(), $pages)) {
                 $slash = ZMSettings::get('isXHTML') ? '/' : '';
-                $img = '<img src="'.ZMToolbox::instance()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'>';
+                $img = '<div><img src="'.ZMToolbox::instance()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'></div>';
                 $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
             }
         }
