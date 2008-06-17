@@ -4,6 +4,7 @@ Release 0.9.2
 - add ZMModel::populateCustom($table) to populate custom fields
 - add zm_openid
 - set content type for views as 'text/html; charset='.HTML_CHARSET
+- make ZMToolboxHtml::encode() preserve exising entities in strings
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

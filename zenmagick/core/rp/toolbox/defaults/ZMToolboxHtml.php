@@ -32,6 +32,22 @@
  * @version $Id$
  */
 class ZMToolboxHtml extends ZMObject {
+    private static $ENTITY_MAP_PREFIX = '@#@#@#@#@';
+    private $ENTITY_MAP;
+    private $ENTITY_MAP_KEYS;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        $this->ENTITY_MAP = array();
+        foreach (get_html_translation_table(HTML_ENTITIES, ENT_QUOTES) as $char => $entity) {
+            $this->ENTITY_MAP[$entity] = self::$ENTITY_MAP_PREFIX . ord($char) . ';';
+        }
+        $this->ENTITY_MAP_KEYS = array_keys($this->ENTITY_MAP);
+    }
+
 
     /**
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
@@ -82,7 +98,14 @@ class ZMToolboxHtml extends ZMObject {
      * @return string The encoded HTML.
      */
     public function encode($s, $echo=ZM_ECHO_DEFAULT) {
-        $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
+        //TODO: get rid of
+        if (false&&1 === version_compare(PHP_VERSION, '5.2.3')) {
+            $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'), false);
+        } else {
+            $s = str_replace($this->ENTITY_MAP_KEYS, $this->ENTITY_MAP, $s);
+            $s = htmlspecialchars($s, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
+            $s = str_replace(self::$ENTITY_MAP_PREFIX, '&#', $s);
+        }
 
         if ($echo) echo $s;
         return $s;
