@@ -62,6 +62,8 @@
     define('ZM_EVENT_CONTROLLER_PROCESS_END', 'controller_process_end');
     define('ZM_EVENT_THEME_RESOLVED', 'theme_resolved');
     define('ZM_EVENT_ALL_DONE', 'all_done');
+    define('ZM_EVENT_CREATE_ACCOUNT', 'create_account');
+    define('ZM_EVENT_CREATE_ACCOUNT_EMAIL', 'create_account_email');
 
 
     //** db **//
