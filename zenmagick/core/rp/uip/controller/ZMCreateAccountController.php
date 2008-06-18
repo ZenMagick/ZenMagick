@@ -111,6 +111,8 @@ class ZMCreateAccountController extends ZMController {
 
         // here we have a proper account, so time to let other know about it
         ZMEvents::instance()->fireEvent($this, ZM_EVENT_CREATE_ACCOUNT, array('controller' => $this, 'account' => $account));
+        // in case it got changed
+        ZMAccounts::instance()->updateAccount($account);
 
         $session = ZMRequest::getSession();
         $session->recreate();
