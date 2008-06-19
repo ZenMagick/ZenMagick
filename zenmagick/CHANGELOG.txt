@@ -9,6 +9,7 @@ Release 0.9.2
 - add support for blocking accounts
 - added new events to track account creation and welcome email
 - ZMDatabase phase II (well, the first part of that!)
+- make backtrace more readable
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

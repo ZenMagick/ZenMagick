@@ -97,7 +97,13 @@ class ZMObject {
                 }
             }
             echo "<pre>";
-            print_r(debug_backtrace());
+            foreach (debug_backtrace() as $level) {
+                echo ' ';
+                if (isset($level['class'])) {
+                    echo $level['class'].'::';
+                }
+                echo $level['function'].' (#'.$level['line'].':'.$level['file'].")\n";
+            }
             echo "</pre>";
             if (null !== $msg) {
                 die();
