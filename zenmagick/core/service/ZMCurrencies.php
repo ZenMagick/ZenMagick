@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMCurrencies extends ZMObject {
-    public static $CURRENCIES_MAPPING = null;
     private $currencies_;
 
 
@@ -42,21 +41,6 @@ class ZMCurrencies extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->currencies_ = array();
-        if (null == ZMCurrencies::$CURRENCIES_MAPPING) {
-            ZMCurrencies::$CURRENCIES_MAPPING = array(
-              'id' => 'column=currencies_id;type=integer;key=true;primary=true',
-              'title' => 'column=title;type=string',
-              'code' => 'column=code;type=string',
-              'symbolLeft' => 'column=symbol_left;type=string',
-              'symbolRight' => 'column=symbol_right;type=string',
-              'decimalPoint' => 'column=decimal_point;type=string',
-              'thousandsPoint' => 'column=thousands_point;type=string',
-              'decimalPlaces' => 'column=decimal_places;type=integer',
-              'rate' => 'column=value;type=float'/*,
-              'lastUpdate' => 'column=last_updated;type=date'*/
-            );
-            ZMCurrencies::$CURRENCIES_MAPPING = ZMDbUtils::addCustomFields(ZMCurrencies::$CURRENCIES_MAPPING, TABLE_CURRENCIES);
-        }
         $this->load();
     }
 
@@ -79,11 +63,8 @@ class ZMCurrencies extends ZMObject {
      * Load all currencies.
      */
     private function load() {
-        $sql = "SELECT currencies_id, code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CURRENCIES)."
-                FROM " . TABLE_CURRENCIES;
-
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), ZMCurrencies::$CURRENCIES_MAPPING, 'Currency') as $currency) {
+        $sql = "SELECT * FROM " . TABLE_CURRENCIES;
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'Currency') as $currency) {
             $this->currencies_[$currency->getCode()] = $currency;
         }
     }

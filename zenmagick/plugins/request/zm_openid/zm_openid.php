@@ -102,8 +102,7 @@ class zm_openid extends ZMPlugin {
         $sql = "SELECT customers_id from ".TABLE_CUSTOMERS."
                 WHERE openid = :openid";
         $args = array('openid' => $openid);
-        $mapping = array('accountId' => 'column=customers_id;type=integer', 'openid' => 'column=openid;type=string');
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, $mapping);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS);
         if (null != $result) {
             return ZMAccounts::instance()->getAccountForId($result['accountId']);
         }

@@ -36,6 +36,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private $db_;
     private $queriesCount;
     private $queriesTime;
+    private $mapper;
 
 
     /**
@@ -48,6 +49,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->db_ = $db;
         $this->queriesCount = 0;
         $this->queriesTime = 0;
+        $this->mapper = ZMLoader::make('DbTableMapper');
     }
 
     /**
@@ -98,14 +100,14 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function createModel($table, $model, $mapping) {
+    public function createModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping);
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
         foreach ($mapping as $field) {
-            if (!$field['readonly'] && !$field['primary']) {
+            if (!$field['key']) {
                 if (!$firstSet) {
                     $sql .= ',';
                 }
@@ -120,11 +122,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
-            if ($field['primary']) {
+            if ($field['auto']) {
                 $newId = $this->db_->Insert_ID();
                 $method = 'set'.ucwords($property);
                 if (!method_exists($model, $method)) {
-                    ZMObject::backtrace('missing primary key setter ' . $method);
+                    ZMObject::backtrace('missing auto key setter ' . $method);
                 }
                 $model->$method($newId);
             }
@@ -140,7 +142,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     public function update($sql, $data, $mapping) {
         $startTime = microtime();
         if (is_array($data)) {
-            $mapping = ZMDbUtils::parseMapping($mapping);
+            $mapping = $this->mapper->ensureMapping($mapping);
             // bind query parameter
             foreach ($data as $name => $value) {
                 $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
@@ -160,16 +162,16 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function updateModel($table, $model, $mapping) {
+    public function updateModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping);
 
         $sql = 'UPDATE '.$table.' SET';
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['key'] || $field['primary']) {
+            if ($field['key']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
@@ -210,7 +212,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping);
 
         // bind query parameter
         foreach ($args as $name => $value) {

@@ -36,6 +36,13 @@
 interface ZMDatabase {
 
     /**
+     * Get some stats about database usage.
+     *
+     * @return array A map with statistical data.
+     */
+    public function getStats();
+
+    /**
      * Execute a query.
      *
      * <p>If <code>$resultClass</code> is <code>null</code>, the returned
@@ -43,7 +50,7 @@ interface ZMDatabase {
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
-     * @param array mapping The field mapping; default is <code>null</code>.
+     * @param mixed mapping The field mappings or table name; default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      */
@@ -54,27 +61,18 @@ interface ZMDatabase {
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
-     * @param array mapping The field mapping; default is <code>null</code>.
+     * @param mixed mapping The field mappings or table name; default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null);
 
     /**
-     * Update a single row using the given model and mapping.
-     *
-     * @param string table The table to update.
-     * @param mixed model The model instance.
-     * @param array mapping The field mappings.
-     */
-    public function updateModel($table, $model, $mapping);
-
-    /**
      * Update using the provided SQL and data and model.
      *
      * @param string sql The update sql.
      * @param mixed data A model instance or array.
-     * @param array mapping The field mappings.
+     * @param mixed mapping The field mappings or table name.
      * @return int The number of affected rows.
      */
     public function update($sql, $data, $mapping);
@@ -84,17 +82,19 @@ interface ZMDatabase {
      *
      * @param string table The table to update.
      * @param mixed model The model instance.
-     * @param array mapping The field mappings.
+     * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
      */
-    public function createModel($table, $model, $mapping);
+    public function createModel($table, $model, $mapping=null);
 
     /**
-     * Get some stats about database usage.
+     * Update a single row using the given model and mapping.
      *
-     * @return array A map with statistical data.
+     * @param string table The table to update.
+     * @param mixed model The model instance.
+     * @param mixed mapping The field mappings; default is <code>null</code>.
      */
-    public function getStats();
+    public function updateModel($table, $model, $mapping=null);
 
 }
 

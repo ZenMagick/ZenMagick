@@ -36,6 +36,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
     private $queriesCount;
     private $queriesTime;
+    private $mapper;
 
 
     /**
@@ -51,6 +52,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                      'password' => DB_SERVER_PASSWORD,
                      'database' => DB_DATABASE);
         $this->conn_ = Creole::getConnection($dsn);
+        $this->mapper = ZMLoader::make('DbTableMapper');
         $this->queriesCount = 0;
         $this->queriesTime = 0;
     }
@@ -87,15 +89,15 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function createModel($table, $model, $mapping) {
+    public function createModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'INSERT INTO '.$table.' SET';
 
         $firstSet = true;
         foreach ($mapping as $field) {
-            if (!$field['readonly'] && !$field['primary']) {
+            if (!$field['key']) {
                 if (!$firstSet) {
                     $sql .= ',';
                 }
@@ -118,10 +120,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
-            if ($field['primary']) {
+            if ($field['auto']) {
                 $method = 'set'.ucwords($property);
                 if (!method_exists($model, $method)) {
-                    ZMObject::backtrace('missing primary key setter ' . $method);
+                    ZMObject::backtrace('missing auto key setter ' . $method);
                 }
                 $model->$method($newId);
             }
@@ -136,7 +138,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function update($sql, $data, $mapping) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
@@ -148,9 +150,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function updateModel($table, $model, $mapping) {
+    public function updateModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'UPDATE '.$table.' SET';
 
@@ -158,20 +160,18 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
-            if ($field['key'] || $field['primary']) {
+            if ($field['key']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';
                 }
                 $where .= $field['column'].' = :'.$field['property'];
                 $firstWhere = false;
             } else {
-                if (!$field['readonly']) {
-                    if (!$firstSet) {
-                        $sql .= ',';
-                    }
-                    $sql .= ' '.$field['column'].' = :'.$field['property'];
-                    $firstSet = false;
+                if (!$firstSet) {
+                    $sql .= ',';
                 }
+                $sql .= ' '.$field['column'].' = :'.$field['property'];
+                $firstSet = false;
             }
         }
         if (7 > strlen($where)) {
@@ -198,7 +198,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         $startTime = microtime();
-        $mapping = ZMDbUtils::parseMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
@@ -255,11 +255,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'float':
                 $stmt->setFloat($index, $args[$name]);
                 break;
+            case 'date':
+                $stmt->setDate($index, $args[$name]);
+                break;
             case 'blob':
                 $stmt->setBlob($index, $args[$name]);
                 break;
             default:
-                ZMObject::backtrace('unsupported data type: '.$type);
+                ZMObject::backtrace('unsupported data(prepare) type='.$type.' for name='.$name);
                 break;
             }
             ++$index;
@@ -310,6 +313,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         $row = $rs->getRow();
+        if (null === $mapping) {
+            return $row;
+        }
         foreach ($mapping as $field => $info) {
             if (!isset($row[$info['column']])) {
                 // field not in result set, so ignore
@@ -336,7 +342,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 $value = $blob->getContents();
                 break;
             default:
-                ZMObject::backtrace('unsupported data type: '.$info['type']);
+                ZMObject::backtrace('unsupported data(read) type='.$info['type'].' for field='.$field);
                 break;
             }
 

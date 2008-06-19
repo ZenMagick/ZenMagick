@@ -62,20 +62,12 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
      */
     function getAccountForId($accountId) {
-        $db = ZMRuntime::getDB();
-        $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
-                c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CUSTOMERS, 'c')."
-                from " . TABLE_CUSTOMERS . " c
-                where c.customers_id = :accountId";
-        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
-        $results = $db->Execute($sql);
-        $account = null;
-        if (0 < $results->RecordCount()) {
-            $account = $this->_newAccount($results->fields);
-        }
-        return $account;
+        $sql = "SELECT c.*, ci.*
+                FROM " . TABLE_CUSTOMERS . " c
+                  LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
+                WHERE c.customers_id = :id";
+        $args = array('id' => $accountId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
     /**
@@ -86,21 +78,13 @@ class ZMAccounts extends ZMObject {
      */
     function getAccountForEmailAddress($emailAddress) {
         $db = ZMRuntime::getDB();
-        $sql = "select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_default_address_id,
-                c.customers_email_address, c.customers_telephone, c.customers_fax, c.customers_email_format, c.customers_referral, c.customers_password,
-                c.customers_authorization, c.customers_newsletter, c.customers_nick, c.customers_group_pricing
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_CUSTOMERS, 'c')."
-                from " . TABLE_CUSTOMERS . " c
-                where customers_email_address = :emailAddress
-                and NOT customers_password = :emptyPassword";
-        $sql = $db->bindVars($sql, ":emailAddress", $emailAddress, "string");
-        $sql = $db->bindVars($sql, ":emptyPassword", '', "string");
-        $results = $db->Execute($sql);
-        $account = null;
-        if (0 < $results->RecordCount()) {
-            $account = $this->_newAccount($results->fields);
-        }
-        return $account;
+        $sql = "SELECT c.*, ci.*
+                FROM " . TABLE_CUSTOMERS . " c
+                  LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
+                WHERE customers_email_address = :email
+                AND NOT customers_password = ''";
+        $args = array('email' => $emailAddress);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
     /**
@@ -109,32 +93,28 @@ class ZMAccounts extends ZMObject {
      * @param int accountId The account id.
      */
     function updateAccountLoginStats($accountId) {
-        $db = ZMRuntime::getDB();
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
-                WHERE customers_info_id = :accountId";
-        $sql = $db->bindVars($sql, ':accountId',  $accountId, 'integer');
-        $db->Execute($sql);
+                WHERE customers_info_id = :id";
+        $args = array('id' => $accountId);
+        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
      * Checks if a given email address exists.
      *
-     * @param string email The email address.
+     * @param string emailAddress The email address.
      * @return boolean <code>true</code> if the email address exists, <code>false</code> if not.
      */
-    function emailExists($email) {
-        $db = ZMRuntime::getDB();
-        $sql = "select count(*) as total
-                from " . TABLE_CUSTOMERS . " c
-                where customers_email_address = :email
-                and NOT customers_password = :emptyPassword";
-        $sql = $db->bindVars($sql, ":email", $email, "string");
-        $sql = $db->bindVars($sql, ":emptyPassword", '', "string");
-
-        $results = $db->Execute($sql);
-        return $results->fields['total'] > 0;
+    function emailExists($emailAddress) {
+        $sql = "SELECT count(*) as total
+                FROM " . TABLE_CUSTOMERS . " c
+                WHERE customers_email_address = :email
+                AND NOT customers_password = ''";
+        $args = array('email' => $emailAddress);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, 'system'));
+        return 0 < $result['total'];
     }
 
     /**
@@ -144,25 +124,12 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The created account incl. the new account id.
      */
     function createAccount($account) {
-        $db = ZMRuntime::getDB();
-        $sql = "insert into " . TABLE_CUSTOMERS . "(
-                 customers_firstname, customers_lastname, customers_email_address, customers_nick, 
-                 customers_telephone, customers_fax, customers_newsletter, customers_email_format, 
-                 customers_default_address_id, customers_authorization, 
-                 customers_gender, customers_dob, customers_password, customers_referral, customers_group_pricing
-                ) values (:firstName;string, :lastName;string, :email;string, :nickName;string,
-                  :phone;string, :fax;string, :newsletterSubscriber;integer, :emailFormat;string,
-                  :defaultAddressId;integer, :authorization;integer,
-                  :gender;string, :dob;date, :password;string, :referral;string, :priceGroupId;integer)";
-        $sql = ZMDbUtils::bindObject($sql, $account);
-        $db->Execute($sql);
-        $account->id_ = $db->Insert_ID();
+        $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
 
-        $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
-                customers_info_id, customers_info_date_account_created
-                ) values (:accountId, now())";
-        $sql = $db->bindVars($sql, ':accountId',  $account->getId(), 'integer');
-        $db->Execute($sql);
+        $sql = "INSERT INTO " . TABLE_CUSTOMERS_INFO . 
+               "(customers_info_id, customers_info_date_account_created) 
+               VALUES (:id, now())";
+        ZMRuntime::getDatabase()->update($sql, array('id' => $account->getId(), TABLE_CUSTOMERS_INFO));
 
         return $account;
     }

@@ -69,7 +69,7 @@ class ZMAccount extends ZMModel {
         $this->phone_ = '';
         $this->fax_ = '';
         $this->emailFormat_ = 'TEXT';
-        $this->referrals_ = '';
+        $this->referral_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = '';
         $this->authorization_ = 0;
