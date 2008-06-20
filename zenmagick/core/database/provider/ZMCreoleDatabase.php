@@ -155,7 +155,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'UPDATE '.$table.' SET';
-
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';

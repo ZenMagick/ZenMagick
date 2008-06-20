@@ -117,13 +117,23 @@ class ZMDbUtils {
             }
         }
 
+        if ($obj instanceof ZMModel) {
+            foreach ($obj->getPropertyNames() as $name) {
+                $getter[strtolower($name)] = null;
+            }
+        }
+
         $db = ZMRuntime::getDB();
         foreach ($getter as $lcproperty => $method) {
             if (isset($labels[$lcproperty])) {
                 $label = $labels[$lcproperty];
 
                 // execute getXXX()
-                $value = call_user_func(array($obj, $method));
+                if (null != $method) {
+                    $value = call_user_func(array($obj, $method));
+                } else {
+                    $value = $obj->get($label[0]);
+                }
 
                 // bind
                 if ('date' == $label[1]) {

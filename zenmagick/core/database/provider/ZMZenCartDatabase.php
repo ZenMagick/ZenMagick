@@ -102,7 +102,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function createModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
@@ -164,7 +164,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function updateModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'UPDATE '.$table.' SET';
         $firstSet = true;
@@ -178,13 +178,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 $where .= $field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
                 $firstWhere = false;
             } else {
-                if (!$field['readonly']) {
-                    if (!$firstSet) {
-                        $sql .= ',';
-                    }
-                    $sql .= ' '.$field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
-                    $firstSet = false;
+                if (!$firstSet) {
+                    $sql .= ',';
                 }
+                $sql .= ' '.$field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
+                $firstSet = false;
             }
         }
         if (7 > strlen($where)) {
@@ -254,7 +252,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $mappedRow = array();
         foreach ($mapping as $field) {
-            if (isset($row[$field['column']])) {
+            if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
             }
         }
