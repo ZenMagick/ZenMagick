@@ -147,31 +147,12 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The updated account.
      */
     function updateAccount($account) {
-        $db = ZMRuntime::getDB();
-        $sql = "update " . TABLE_CUSTOMERS . " set
-                customers_firstname = :firstName;string,
-                customers_lastname = :lastName;string,
-                customers_email_address = :email;string,
-                customers_nick = :nickName;string, 
-                customers_telephone = :phone;string,
-                customers_fax = :fax;string,
-                customers_newsletter = :newsletterSubscriber;integer,
-                customers_email_format = :emailFormat;string, 
-                customers_default_address_id = :defaultAddressId;integer,
-                customers_password = :password;string,
-                customers_authorization = :authorization;integer, 
-                customers_gender = :gender;string,
-                customers_dob = :dob;date,
-                customers_referral = :referral;string,
-                customers_group_pricing = :priceGroupId;integer
-                where customers_id = :accountId";
-        $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-        $sql = ZMDbUtils::bindObject($sql, $account);
-        $db->Execute($sql);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
 
         // check for existence in case record does not exist...
         $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO ."
                 where customers_info_id = :accountId";
+        $db = ZMRuntime::getDB();
         $sql = $db->bindVars($sql, ':accountId',  $account->getId(), 'integer');
         $db->Execute($sql);
         $results = $db->Execute($sql);

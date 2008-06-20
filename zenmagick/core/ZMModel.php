@@ -119,6 +119,15 @@ class ZMModel extends ZMObject {
     }
 
     /**
+     * Get a list of all custom properties.
+     *
+     * @return array List of custom properties set on this object.
+     */
+    public function getPropertyNames() {
+        return array_keys($this->properties_);
+    }
+
+    /**
      * Handle generic getXXX()/setXXX()/isXXX() methods.
      *
      * @param string method The method name.

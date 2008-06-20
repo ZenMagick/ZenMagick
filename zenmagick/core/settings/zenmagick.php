@@ -163,6 +163,12 @@
     define('ZM_ACCOUNT_AUTHORIZATION_BLOCKED', 4);
 
 
+    //** dates **//
+
+    define('ZM_DATE_FORMAT', 'Y-m-d');
+    define('ZM_DATETIME_FORMAT', 'Y-m-d H:i:s');
+
+
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

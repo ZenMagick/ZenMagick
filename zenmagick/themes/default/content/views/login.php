@@ -57,3 +57,16 @@
     </fieldset>
   </form>
 <?php } ?>
+
+  <h3><?php zm_l10n("Use OpenID") ?></h3>
+  <?php  $form->open('openID', '', true, array('onsubmit'=>null)) ?>
+    <fieldset>
+      <div>
+        <label for="openid"><?php zm_l10n("OpenID") ?></label>
+        <input type="hidden" name="action" value="auth" /> 
+        <input type="text" id="openid" name="openid" /> 
+        <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
+      </div>
+    </fieldset>
+  </form>
+

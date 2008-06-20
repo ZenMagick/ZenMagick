@@ -224,7 +224,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     protected function prepareStatement($sql, $args, $mapping=null) {
         // make sure we are working on a map
         if (is_object($args)) {
-            $args = $this->obj2map($args, $mapping);
+            $args = $this->model2map($args, $mapping);
         }
 
         // find out the order of args
@@ -234,6 +234,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         foreach (explode('|', $regexp) as $key) {
             $sql = str_replace($key, '?', $sql);
         }
+
 
         // create statement
         $stmt = $this->conn_->prepareStatement($sql);
@@ -254,6 +255,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'float':
                 $stmt->setFloat($index, $args[$name]);
+                break;
+            case 'datetime':
+                $stmt->setTimestamp($index, $args[$name]);
                 break;
             case 'date':
                 $stmt->setDate($index, $args[$name]);
@@ -279,7 +283,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @return array A hash map of all extracted object properties.
      * @todo cleanup all bean related code
      */
-    protected function obj2map($obj, $mapping) {
+    protected function model2map($obj, $mapping) {
         $prefixList = array('get', 'is', 'has');
 
         $map = array();
@@ -291,6 +295,12 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $map[$name] = $obj->$getter();
                     break;
                 }
+            }
+        }
+
+        if ($obj instanceof ZMModel) {
+            foreach ($obj->getPropertyNames() as $name) {
+                $map[$name] = $obj->get($name);
             }
         }
 
@@ -317,7 +327,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             return $row;
         }
         foreach ($mapping as $field => $info) {
-            if (!isset($row[$info['column']])) {
+            if (!array_key_exists($info['column'], $row)) {
                 // field not in result set, so ignore
                 continue;
             }
@@ -334,8 +344,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             case 'float':
                 $value = $rs->getFloat($info['column']);
                 break;
+            case 'datetime':
+                $value = $rs->getTimestamp($info['column']);
+                break;
             case 'date':
-                $value = $rs->getDate($info['column']);
+                $value = $rs->getDate($info['column'], ZM_DATE_FORMAT);
                 break;
             case 'blob':
                 $blob = $rs->getBlob($info['column']);
