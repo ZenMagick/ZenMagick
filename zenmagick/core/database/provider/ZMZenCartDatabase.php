@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
-    private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datettime' => 'date');
+    private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');
     private $db_;
     private $queriesCount;
     private $queriesTime;
