@@ -17,6 +17,7 @@ Release 0.9.2
   than using a mixture of zen_date_raw, ZMTools and PHP functions; this means
 	date formats all use the same syntax (dd, mm, cc, yy (or yyyy), hh, ii, ss)
 - add 'dbMappings' setting
+- make date validation smarter
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
