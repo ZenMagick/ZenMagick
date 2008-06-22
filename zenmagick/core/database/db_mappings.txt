@@ -51,7 +51,7 @@ array(
         'gender' => 'column=customers_gender;type=string',
         'firstName' => 'column=customers_firstname;type=string',
         'lastName' => 'column=customers_lastname;type=string',
-        'dob' => 'column=customers_dob;type=date',
+        'dob' => 'column=customers_dob;type=datetime',
         'emailFormat' => 'column=customers_email_format;type=string',
         'email' => 'column=customers_email_address;type=string',
         'nickName' => 'column=customers_nick;type=string',

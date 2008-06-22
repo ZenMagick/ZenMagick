@@ -52,6 +52,9 @@
         // database provider class
         'dbProvider' => 'ZMZenCartDatabase',
 
+        // path to db mappings, relative to ZM root
+        'dbMappings' => 'core/database/db_mappings.txt',
+
         // default access level; same as anonymous
         'defaultAccessLevel' => null,
 

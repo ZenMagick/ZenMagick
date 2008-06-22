@@ -16,6 +16,7 @@ Release 0.9.2
 - make all date related operations use ZMTools::translateDateString, rather
   than using a mixture of zen_date_raw, ZMTools and PHP functions; this means
 	date formats all use the same syntax (dd, mm, cc, yy (or yyyy), hh, ii, ss)
+- add 'dbMappings' setting
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

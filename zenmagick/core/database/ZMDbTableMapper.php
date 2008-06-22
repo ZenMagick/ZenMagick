@@ -23,8 +23,6 @@
 ?>
 <?php
 
-define('ZM_DB_MAPPING_FILE', dirname(__FILE__).'/db_mappings.txt');
-
 
 /**
  * Database table mapping *service*.
@@ -79,8 +77,7 @@ class ZMDbTableMapper {
      * @param string configFolder The folder that contains the mapping files.
      */
     function __construct() {
-        //TODO: load from setting, avoid __FILE__ because of core.php!!
-        eval('$mappings = '.file_get_contents(ZM_DB_MAPPING_FILE));
+        eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('dbMappings')));
         $this->tableMap = array();
         foreach ($mappings as $table => $mapping) {
             $this->tableMap[$table] = $this->parseTable($mapping);
