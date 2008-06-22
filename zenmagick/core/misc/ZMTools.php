@@ -297,24 +297,24 @@ class ZMTools {
      *  <li><code>yyyy</code> - full year (if found both <em>cc</em> and <em>yy</em> will be populated accordingly</li>
      * </ul>
      *
-     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
-     *
      * @param string s A date (usually provided by the user).
      * @param string format The date format
+     * @param array defaults Optional defaults for components; default is <code>null</code> for none.
      * @return array The individual date components as map using the token as keys.
      */
-    public static function parseDateString($s, $format) {
+    public static function parseDateString($s, $format, $defaults=null) {
         $components = array(
               'hh' => '00', 'ii' => '00', 'ss' => '00',
               'dd' => '01', 'mm' => '01', 'cc' => '00', 'yy' => '00'
         );
-
-        $lcs = strtolower($s);
+        if (null !== $defaults) {
+            $components = array_merge($components, $defaults);
+        }
 
         foreach ($components as $token => $value) {
             $tpos = strpos($format, $token);
             if (false !== $tpos) {
-                $components[$token] = substr($lcs, $tpos, 2);
+                $components[$token] = substr($s, $tpos, 2);
             }
         }
 
