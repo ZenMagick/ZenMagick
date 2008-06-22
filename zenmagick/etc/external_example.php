@@ -100,7 +100,7 @@ require("../zen-cart/zenmagick/external.php");
             $view = $controller->processGet();
             $zm_order = $controller->getGlobal("zm_order");
             if ($zm_order) {
-                echo "ZenMagick order date: " . zm_date_short($zm_order->getOrderDate(), false);
+                echo "ZenMagick order date: " . ZMToolbox::instance()->locale->shortDate($zm_order->getOrderDate(), false);
             } else {
                 echo "order #8 not found";
             }

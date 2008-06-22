@@ -121,4 +121,10 @@
         return ZMToolbox::instance()->html->fieldMessages($name, $echo);
     }
 
+    /**
+     * Format a date in the short format.
+     * @deprecated use toolbox instead
+     */
+    function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMToolbox::instance()->locale->shortDate($date, $echo); }
+
 ?>

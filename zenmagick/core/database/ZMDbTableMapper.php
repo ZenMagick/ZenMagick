@@ -29,22 +29,48 @@ define('ZM_DB_MAPPING_FILE', dirname(__FILE__).'/db_mappings.txt');
 /**
  * Database table mapping *service*.
  *
+ * <p>This class will read and parse file(s) containing model-database mappings. The code can
+ * map a single model class to a database table. Mappings are configured using nested arrays and
+ * wll be parsed into something <code>ZMDatabase</code> implementations can understand and use.</p>
+ *
+ * <p>A simple mapping could look like this:</p>
+ * <code><pre>
+ *   'products_to_categories' => array(
+ *       'productId' => 'column=products_id;type=integer;key=true',
+ *       'categoryId' => 'column=categories_id;type=integer;key=true',
+ *    ),
+ * </pre></code>
+ *
+ * <p>Each mapping has the table name as key (without any prefix) and an array of field mappings as value.</p>
+ * <p>Each entry maps a single model property to a table column. The key is the model property name (starting lowercase).
+ * Available <em>*attributes*</em> are:/p>
+ * <dl>
+ *  <dt>column</dt>
+ *  <dd>The column in the table this model property is mapped to.</dd>
+ *  <dt>type</dt>
+ *  <dd>The data type. Supported types are:<br>
+ *   <ul>
+ *    <li>integer - an integer</li>
+ *    <li>boolean - a boolean</li>
+ *    <li>string - a string</li>
+ *    <li>float - a float</li>
+ *    <li>date - a date in the format <em>'yyyy-mm-dd'<em> (as defined by <code>ZM_DATE_FORMAT</code>)</li>
+ *    <li>datetime - a date and time value in the format <em>'yyyy-mm-dd hh:ii:ss'<em> (as defined by <code>ZM_DATETIME_FORMAT</code>)</li>
+ *    <li>blob - binary data</li>
+ *   </ul>
+ *  </dd>
+ *  <dt>key</dt>
+ *  <dd>If set to <code>true</code> this field is part of a table key.</dd>
+ *  <dt>auto</dt>
+ *  <dd>Indicates that this column is an auto-increment column, so new model instances will be updated with the new value on create.</dd>
+ * </dl>
+ *
  * @author mano
  * @package org.zenmagick.database
  * @version $Id$
  */
 class ZMDbTableMapper {
     private $tableMap;
-
-
-    /*
-    key: the data key/property name
-     =>
-      column: table column name
-      type: type as expected by ZMDatabase
-      key: if field is key for updates
-      auto: if field is auto_increment field, so insert id will be set after insert
-     */
 
 
     /**

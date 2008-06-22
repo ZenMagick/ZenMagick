@@ -55,9 +55,9 @@
       </p>
       <p>
         <label for="startDate">Start Date</label> 
-        <input type="text" id="startDate" name="startDate" value="<?php zm_date_short(ZMRequest::getParameter('startDate')) ?>">
+        <input type="text" id="startDate" name="startDate" value="<?php $toolbox->locale->shortDate(ZMRequest::getParameter('startDate')) ?>">
         <label for="endDate">End Date</label> 
-        <input type="text" id="endDate" name="endDate" value="<?php zm_date_short(ZMRequest::getParameter('endDate')) ?>">
+        <input type="text" id="endDate" name="endDate" value="<?php $toolbox->locale->shortDate(ZMRequest::getParameter('endDate')) ?>">
         <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
       </p>
     </fieldset>

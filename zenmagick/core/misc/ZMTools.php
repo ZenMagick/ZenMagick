@@ -35,6 +35,43 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 class ZMTools {
 
     /**
+     * Convert a UI date into the internal data format.
+     *
+     * <p>This is typically used by controller/business code to convert user input before 
+     * storing it in the database.</p>
+     *
+     * @param string date The date as received via the UI.
+     * @return string The formatted date.
+     * @deprecated use translateDateString instead
+     */
+    public static function ui2date($date) {
+        if (empty($date)) {
+            return '';
+        }
+        // The individual date components in the order dd, mm, cc, yy.
+        $da = self::parseDateString($date, UI_DATE_FORMAT);
+        return date(ZM_DATETIME_FORMAT, mktime(0, 0, 0, $da['mm'], $da['dd'], (int)($da['cc'].$da['yy'])));
+    }
+    /**
+     * Parse a date according to a given format.
+     *
+     * <p>This function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
+     * and <code>YYYY</code> in the format.</p>
+     *
+     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
+     *
+     * @param string date A date (usually provided by the user).
+     * @param string format The date format
+     * @return array The individual date components in the order dd, mm, cc, yy.
+     * @deprecated use parseDateString instead
+     */
+    public static function parseDate($date, $format) {
+        $c = self::parseDateString($date, $format);
+        return array($c['DD'], $c['MM'], $c['CC'], $c['YY']);
+    }
+
+
+    /**
      * Remove a directory (tree).
      *
      * @param string dir The directory name.
@@ -227,69 +264,71 @@ class ZMTools {
     }
 
     /**
-     * Convert a UI date into the internal data format.
+     * Convert a (UI) date from one format to another.
      *
-     * <p>This is typically used by controller/business code to convert user input before 
-     * storing it in the database.</p>
-     *
-     * @param string date The date as received via the UI.
-     * @return string The formatted date.
+     * @param string s The date as received via the UI.
+     * @param string from The current format of the date string.
+     * @param string to The target format.
+     * @return string The formatted date string or <code>''</code> (if <code>$s</code> is empty).
      */
-    public static function ui2date($date) {
-        if (empty($date)) {
+    public static function translateDateString($s, $from, $to) {
+        if (empty($s)) {
             return '';
         }
-        // The individual date components in the order dd, mm, cc, yy.
-        $da = self::parseDate($date, UI_DATE_FORMAT);
-        return date('Y-m-d 00:00:00', mktime(0, 0, 0, $da[1], $da[0], (int)($da[2].$da[3])));
+        $st = $to;
+        foreach (self::parseDateString($s, $from) as $token => $value) {
+            $st = str_replace($token, $value, $st);
+        }
+        return $st;
     }
 
     /**
-     * Parse a date according to a given format.
+     * Parse a date according to the given format.
      *
-     * <p>This function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
-     * and <code>YYYY</code> in the format.</p>
+     * <p>This function supports the following format token:</p>
+     * <ul>
+     *  <li><code>hh</code> - hours</li>
+     *  <li><code>ii</code> - minutes</li>
+     *  <li><code>ss</code> - seconds</li>
+     *  <li><code>dd</code> - day</li>
+     *  <li><code>mm</code> - month</li>
+     *  <li><code>cc</code> - century</li>
+     *  <li><code>yy</code> - year</li>
+     *  <li><code>yyyy</code> - full year (if found both <em>cc</em> and <em>yy</em> will be populated accordingly</li>
+     * </ul>
      *
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
-     * @param string date A date (usually provided by the user).
+     * @param string s A date (usually provided by the user).
      * @param string format The date format
-     * @param boolean reverse If <code>true</code>, the returned data will be reversed.
-     * @return array The individual date components in the order dd, mm, cc, yy.
+     * @return array The individual date components as map using the token as keys.
      */
-    public static function parseDate($date, $format) {
-        $dd = '??';
-        $mm = '??';
-        $cc = '??';
-        $yy = '??';
+    public static function parseDateString($s, $format) {
+        $components = array(
+              'hh' => '00', 'ii' => '00', 'ss' => '00',
+              'dd' => '01', 'mm' => '01', 'cc' => '00', 'yy' => '00'
+        );
 
-        $format = strtoupper($format);
+        $lcs = strtolower($s);
 
-        // parse
-        $dpos = strpos($format, 'DD');
-        if (false !== $dpos) {
-            $dd = substr($date, $dpos, 2);
-        }
-        $mpos = strpos($format, 'MM');
-        if (false !== $mpos) {
-            $mm = substr($date, $mpos, 2);
-        }
-        $cpos = strpos($format, 'CC');
-        if (false !== $cpos) {
-            $cc = substr($date, $cpos, 2);
-        }
-        $cypos = strpos($format, 'YYYY');
-        if (false !== $cypos) {
-            $cc = substr($date, $cypos, 2);
-            $yy = substr($date, $cypos+2, 2);
-        } else {
-            $ypos = strpos($format, 'YY');
-            if (false !== $ypos) {
-                $yy = substr($date, $ypos, 2);
+        foreach ($components as $token => $value) {
+            $tpos = strpos($format, $token);
+            if (false !== $tpos) {
+                $components[$token] = substr($lcs, $tpos, 2);
             }
         }
 
-        return array($dd, $mm, $cc, $yy);
+        // special case for YYYY
+        $cypos = strpos($format, 'yyyy');
+        if (false !== $cypos) {
+            $components['cc'] = substr($s, $cypos, 2);
+            $components['yy'] = substr($s, $cypos+2, 2);
+        }
+
+        $components['yyyy'] = $components['cc'].$components['yy']; 
+
+        // make yyy first to avoid wrong replacements later on
+        return array_reverse($components);
     }
 
     /**

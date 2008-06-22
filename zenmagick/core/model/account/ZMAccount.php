@@ -97,7 +97,7 @@ class ZMAccount extends ZMModel {
     function populate($req=null) {
         $this->firstName_ = ZMRequest::getParameter('firstname', '');
         $this->lastName_ = ZMRequest::getParameter('lastname', '');
-        $this->dob_ = ZMRequest::getParameter('dob', '01/01/1970');
+        $this->dob_ = ZMTools::translateDateString(ZMRequest::getParameter('dob'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
         $this->nickName_ = ZMRequest::getParameter('nick', '');
         $this->gender_ = ZMRequest::getParameter('gender', '');
         $this->email_ = trim(ZMRequest::getParameter('email_address', ''));

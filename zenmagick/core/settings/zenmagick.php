@@ -163,10 +163,10 @@
     define('ZM_ACCOUNT_AUTHORIZATION_BLOCKED', 4);
 
 
-    //** dates **//
+    //** date/time formats used internally by all models **//
 
-    define('ZM_DATE_FORMAT', 'Y-m-d');
-    define('ZM_DATETIME_FORMAT', 'Y-m-d H:i:s');
+    define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
+    define('ZM_DATETIME_FORMAT', 'yyyy-mm-dd hh:ii:ss');
 
 
     //** others **//

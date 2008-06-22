@@ -347,7 +347,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 $value = $rs->getTimestamp($info['column']);
                 break;
             case 'date':
-                $value = $rs->getDate($info['column'], ZM_DATE_FORMAT);
+                $value = $rs->getDate($info['column'], 'Y-m-d');
                 break;
             case 'blob':
                 $blob = $rs->getBlob($info['column']);

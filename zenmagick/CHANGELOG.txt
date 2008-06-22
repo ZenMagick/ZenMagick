@@ -13,6 +13,9 @@ Release 0.9.2
   * add support for date and datetime
   * define fixed format for ZMDatabase API date and datetime formats (this
     means all dates and datetimes will now have to follow that format.
+- make all date related operations use ZMTools::translateDateString, rather
+  than using a mixture of zen_date_raw, ZMTools and PHP functions; this means
+	date formats all use the same syntax (dd, mm, cc, yy (or yyyy), hh, ii, ss)
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
