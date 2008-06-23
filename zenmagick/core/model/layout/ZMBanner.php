@@ -32,12 +32,13 @@
  * @version $Id$
  */
 class ZMBanner extends ZMModel {
-    var $id_;
-    var $title_;
-    var $image_;
-    var $text_;
-    var $isNewWin_;
-    var $url_;
+    private $id_;
+    private $title_;
+    private $image_;
+    private $text_;
+    private $isNewWin_;
+    private $url_;
+    private $active_;
 
 
     /**
@@ -51,6 +52,7 @@ class ZMBanner extends ZMModel {
         $this->text_ = '';
         $this->isNewWin_ = false;
         $this->url_ = null;
+        $this->active_ = true;
     }
 
     /**
@@ -66,84 +68,98 @@ class ZMBanner extends ZMModel {
      *
      * @return int The banner id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the banner title.
      *
      * @return string The banner title.
      */
-    function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title_; }
 
     /**
      * Get the banner image.
      *
      * @return string The banner image.
      */
-    function getImage() { return $this->image_; }
+    public function getImage() { return $this->image_; }
 
     /**
      * Get the banner text.
      *
      * @return string The banner text.
      */
-    function getText() { return $this->text_; }
+    public function getText() { return $this->text_; }
 
     /**
      * Check if the banner click should open a new window.
      *
      * @return boolean <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    function isNewWin() { return $this->isNewWin_; }
+    public function isNewWin() { return $this->isNewWin_; }
+
+    /**
+     * Check if the banner is active.
+     *
+     * @return boolean <code>true</code> if the banner is active.
+     */
+    public function isActive() { return $this->active_; }
 
     /**
      * Get the banner URL.
      *
      * @return string The banner URL.
      */
-    function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url_; }
 
     /**
      * Set the banner id.
      *
      * @param int id The banner id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the banner title.
      *
      * @param string title The banner title.
      */
-    function setTitle($title) { $this->title_ = $title; }
+    public function setTitle($title) { $this->title_ = $title; }
 
     /**
      * Set the banner image.
      *
      * @param string image The banner image.
      */
-    function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image_ = $image; }
 
     /**
      * Set the banner text.
      *
      * @param string text The banner text.
      */
-    function setText($text) { $this->text_ = $text; }
+    public function setText($text) { $this->text_ = $text; }
 
     /**
      * Set if the banner click should open a new window.
      *
      * @param boolean newWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    function setNewWin($newWin) { $this->isNewWin_ = $newWin; }
+    public function setNewWin($newWin) { $this->isNewWin_ = $newWin; }
 
     /**
      * Set the banner URL.
      *
      * @param string url The banner URL.
      */
-    function setUrl($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url_ = $url; }
+
+    /**
+     * Set the banner status.
+     *
+     * @param boolean status The banner status.
+     */
+    public function setActive($status) { $this->active_ = $status; }
 
 }
 

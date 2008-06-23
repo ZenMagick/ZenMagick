@@ -232,16 +232,18 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $argOrder = $argOrder[0];
         // modify SQL replacing :key syntax with ?
         foreach (explode('|', $regexp) as $ii => $key) {
-            $pl = '?';
             $name = substr($key, 1);
-            if (array_key_exists($name, $args) && is_array($args[$name])) {
-                // expand $argOrder and placeholder
-                for ($ii=0; $ii < count($args[$name]); ++$ii) {
-                    array_splice($argOrder, $ii+1, 0, $key);
-                    $pl .= ',?';
+            if (!empty($name)) {
+                $pl = '?';
+                if (array_key_exists($name, $args) && is_array($args[$name])) {
+                    // expand $argOrder and placeholder
+                    for ($ii=0; $ii < count($args[$name]); ++$ii) {
+                        array_splice($argOrder, $ii+1, 0, $key);
+                        $pl .= ',?';
+                    }
                 }
+                $sql = str_replace($key, $pl, $sql);
             }
-            $sql = str_replace($key, $pl, $sql);
         }
 
         // create statement

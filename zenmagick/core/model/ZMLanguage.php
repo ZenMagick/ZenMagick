@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMLanguage extends ZMModel {
-    var $id_;
-    var $name_;
-    var $image_;
-    var $code_;
-    var $directory_;
+    private $id_;
+    private $name_;
+    private $image_;
+    private $code_;
+    private $directory_;
 
 
     /**
@@ -59,70 +59,70 @@ class ZMLanguage extends ZMModel {
      *
      * @return int The language id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the language name.
      *
      * @return string The language name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the language image.
      *
      * @return string The language image.
      */
-    function getImage() { return $this->image_; }
+    public function getImage() { return $this->image_; }
 
     /**
      * Get the language code.
      *
      * @return string The language code.
      */
-    function getCode() { return $this->code_; }
+    public function getCode() { return $this->code_; }
 
     /**
      * Get the language directory name.
      *
      * @return string The language directory name.
      */
-    function getDirectory() { return $this->directory_; }
+    public function getDirectory() { return $this->directory_; }
 
     /**
      * Set the language id.
      *
      * @param int id The language id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the language name.
      *
      * @param string name The language name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the language image.
      *
      * @param string image The language image.
      */
-    function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image_ = $image; }
 
     /**
      * Set the language code.
      *
      * @param string code The language code.
      */
-    function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code_ = $code; }
 
     /**
      * Set the language directory name.
      *
      * @param string directory The language directory name.
      */
-    function setDirectory($directory) { $this->directory_ = $directory; }
+    public function setDirectory($directory) { $this->directory_ = $directory; }
 
 }
 

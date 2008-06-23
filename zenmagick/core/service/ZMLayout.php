@@ -114,29 +114,25 @@ class ZMLayout extends ZMObject {
      * @return array Name of all boxes to be displayed.
      */
     public function getLeftColBoxNames() {
-        if (null != $this->leftColBoxes_)
+        if (null != $this->leftColBoxes_) {
             return $this->leftColBoxes_;
-
-        $db = ZMRuntime::getDB();
-        $sql = "select distinct layout_box_name from " . TABLE_LAYOUT_BOXES . "
-                where layout_box_location = 0
-                  and layout_box_status = '1'
-                  and layout_template = :themeId
-                order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', ZMObject::singleton('Themes')->getZCThemeId(), 'string');
-        $results = $db->Execute($sql);
+        }
 
         $theme = ZMRuntime::getTheme();
+
+        $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
+                WHERE layout_box_location = 0
+                  AND layout_box_status = '1'
+                  AND layout_template = :themeId
+                ORDER BY layout_box_sort_order";
         $boxes = array();
-        while (!$results->EOF) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getZCThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
-            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $results->fields['layout_box_name']);
+            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
               || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
-
-                array_push($boxes, $box);
+                $boxes[] = $box;
             }
-            $results->MoveNext();
         }
 
         return $boxes;
@@ -148,27 +144,25 @@ class ZMLayout extends ZMObject {
      * @return array Name of all boxes to be displayed.
      */
     public function getRightColBoxNames() {
-        if (null != $this->rightColBoxes_)
+        if (null != $this->rightColBoxes_) {
             return $this->rightColBoxes_;
-
-        $db = ZMRuntime::getDB();
-        $sql = "select distinct layout_box_name, layout_template from " . TABLE_LAYOUT_BOXES . "
-                where layout_box_location = 1
-                  and layout_box_status = '1'
-                  and layout_template = :themeId
-                order by layout_box_sort_order";
-        $sql = $db->bindVars($sql, ':themeId', ZMObject::singleton('Themes')->getZCThemeId(), 'string');
-        $results = $db->Execute($sql);
+        }
 
         $theme = ZMRuntime::getTheme();
+
+        $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
+                WHERE layout_box_location = 1
+                  AND layout_box_status = '1'
+                  AND layout_template = :themeId
+                ORDER BY layout_box_sort_order";
         $boxes = array();
-        while (!$results->EOF) {
-            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $results->fields['layout_box_name']);
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getZCThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+            // boxes use .php
+            $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
               || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
-                array_push($boxes, $box);
+                $boxes[] = $box;
             }
-            $results->MoveNext();
         }
 
         return $boxes;
