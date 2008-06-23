@@ -32,8 +32,7 @@
  * @version $Id$
  */
 class ZMCountries extends ZMObject {
-    var $countries_;
-    var $countriesById_;
+    private $countries_;
 
 
     /**
@@ -82,27 +81,13 @@ class ZMCountries extends ZMObject {
      * @return array A list of <code>ZMCountry</code> objects.
      */
     function getCountries() {
-        if (null != $this->countries_)
+        if (null !== $this->countries_)
             return $this->countries_;
 
-        $db = ZMRuntime::getDB();
-        $sql = "select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id
+        $sql = "select *
                 from " . TABLE_COUNTRIES . "
                 order by countries_name";
-
-        $this->countries_ = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            $country = ZMLoader::make("Country");
-            $country->id_ = $results->fields['countries_id'];
-            $country->name_ = $results->fields['countries_name'];
-            $country->isoCode2_ = $results->fields['countries_iso_code_2'];
-            $country->isoCode3_ = $results->fields['countries_iso_code_3'];
-            $country->addressFormatId_ = $results->fields['address_format_id'];
-            array_push($this->countries_, $country);
-            $results->MoveNext();
-        }
-
+        $this->countries_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_COUNTRIES, 'Country');
         return $this->countries_;
     }
 
@@ -133,20 +118,12 @@ class ZMCountries extends ZMObject {
      * @return string The zone code or the provided default value.
      */
     function getZoneCode($countryId, $zoneId, $defaultZone='') {
-        $db = ZMRuntime::getDB();
         $sql = "select zone_code
                 from " . TABLE_ZONES . "
                 where zone_country_id = :countryId
-                and zone_id = :zoneId";
-        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
-        $sql = $db->bindVars($sql, ":zoneId", $zoneId, "integer");
-
-        $results = $db->Execute($sql);
-        if ($results->RecordCount() > 0) {
-            return $results->fields['zone_code'];
-        } else {
-            return $defaultZone;
-        }
+                and zone_id = :id";
+        $zone = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
+        return null !== $zone ? $zone['code'] : $defaultZone;
     }
 
 
@@ -157,29 +134,15 @@ class ZMCountries extends ZMObject {
      * @return array List of <code>ZMZone</code> objects.
      */
     function getZonesForCountryId($countryId) {
-        if (null == $countryId || '' == $countryId) {
+        if (empty($countryId)) {
             return array();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "select distinct zone_id, zone_code, zone_name
+        $sql = "select distinct *
                   from " . TABLE_ZONES . "
                   where zone_country_id = :countryId
                   order by zone_name";
-        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
-        $results = $db->Execute($sql);
-
-        $zones = array();
-        while (!$results->EOF) {
-            $zone = ZMLoader::make("Zone");
-            $zone->setId($results->fields['zone_id']);
-            $zone->setCode($results->fields['zone_code']);
-            $zone->setName($results->fields['zone_name']);
-            //$zones[$zone->getCode()] = $zone;
-            $zones[] = $zone;
-            $results->MoveNext();
-        }
-
+        $zones = ZMRuntime::getDatabase()->query($sql, array('countryId' => $countryId), TABLE_ZONES, 'Zone');
         return $zones;
     }
 

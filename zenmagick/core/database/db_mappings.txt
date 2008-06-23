@@ -79,4 +79,17 @@ array(
         'accountId' => 'column=customers_id;type=integer;key=true',
         //'dateAdded' => 'column=date_added;type=datetime',
     ),
+    'countries' => array(
+        'id' => 'column=countries_id;type=integer;key=true;auto=true',
+        'name' => 'column=countries_name;type=string',
+        'isoCode2' => 'column=countries_iso_code_2;type=string',
+        'isoCode3' => 'column=countries_iso_code_3;type=string',
+        'addressFormatId' => 'column=address_format_id;type=integer',
+    ),
+    'zones' => array(
+        'id' => 'column=zone_id;type=integer;key=true;auto=true',
+        'countryId' => 'column=zone_country_id;type=integer',
+        'code' => 'column=zone_code;type=string',
+        'name' => 'column=zone_name;type=string',
+    ),
 );

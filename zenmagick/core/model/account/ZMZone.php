@@ -32,9 +32,9 @@
  * @version $Id$
  */
 class ZMZone extends ZMModel {
-    var $id_;
-    var $code_;
-    var $name_;
+    private $id_;
+    private $code_;
+    private $name_;
 
 
     /**
@@ -60,42 +60,42 @@ class ZMZone extends ZMModel {
      *
      * @return string The id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the code.
      *
      * @return string The code.
      */
-    function getCode() { return $this->code_; }
+    public function getCode() { return $this->code_; }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Set the id.
      *
      * @param string id The id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the code.
      *
      * @param string code The code.
      */
-    function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code_ = $code; }
 
     /**
      * Set the name.
      *
      * @param string name The name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
 }
 

@@ -65,35 +65,70 @@ class ZMCountry extends ZMModel {
      *
      * @return int The country id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the country name.
      *
      * @return string The country name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the country ISO code 2.
      *
      * @return string The country ISO code 2.
      */
-    function getIsoCode2() { return $this->isoCode2_; }
+    public function getIsoCode2() { return $this->isoCode2_; }
 
     /**
      * Get the country ISO code 3.
      *
      * @return string The country ISO code 3.
      */
-    function getIsoCode3() { return $this->isoCode3_; }
+    public function getIsoCode3() { return $this->isoCode3_; }
 
     /**
      * Get the address format id.
      *
      * @return int The address format id.
      */
-    function getAddressFormatId() { return $this->addressFormatId_; }
+    public function getAddressFormatId() { return $this->addressFormatId_; }
+
+    /**
+     * Set the country id.
+     *
+     * @param int id The country id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the country name.
+     *
+     * @param string name The country name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the country ISO code 2.
+     *
+     * @param string code The country ISO code 2.
+     */
+    public function setIsoCode2($code) { $this->isoCode2_ = $code; }
+
+    /**
+     * Set the country ISO code 3.
+     *
+     * @param string code The country ISO code 3.
+     */
+    public function setIsoCode3($code) { $this->isoCode3_ = $code; }
+
+    /**
+     * Set the address format id.
+     *
+     * @param int addressFormatId The address format id.
+     */
+    public function setAddressFormatId($addressFormatId) { $this->addressFormatId_ = $addressFormatId; }
 
 }
 
