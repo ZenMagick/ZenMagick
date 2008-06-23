@@ -24,10 +24,7 @@
  */
 ?>
 
-<?php 
-    $country = $address->getCountry();
-    $countryId = 0 != $country->getId() ? $country->getId() : ZMSettings::get('storeCountry');
-?>
+<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : zm_setting('storeCountry'); ?>
 <fieldset>
     <legend><?php zm_l10n("Address") ?></legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">

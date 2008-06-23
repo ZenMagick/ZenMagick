@@ -18,6 +18,9 @@ Release 0.9.2
 	date formats all use the same syntax (dd, mm, cc, yy (or yyyy), hh, ii, ss)
 - add 'dbMappings' setting
 - make date validation smarter
+- refactor some code in ZMAddress; this requires a simple change to
+  address.php, to get the countryId using $address->getCountryId() rather via
+  the country itself.
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
