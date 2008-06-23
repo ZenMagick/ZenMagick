@@ -79,7 +79,7 @@ class ZMPasswordForgottenController extends ZMController {
         $newEncrpytedPassword = zm_encrypt_password($newPassword);
 
         // update account password (encrypted)
-        ZMAccounts::instance()->_setAccountPassword($account->getId(), $newEncrpytedPassword);
+        ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         // send email (clear text)
         $context = array('newPassword' => $newPassword);
