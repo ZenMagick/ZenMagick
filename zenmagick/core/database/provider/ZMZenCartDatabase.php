@@ -214,7 +214,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         // bind query parameter
         foreach ($args as $name => $value) {
-            $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+            if (is_array($value)) {
+                $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+            } else {
+                $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+            }
         }
 
         $results = array();

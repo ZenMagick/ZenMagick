@@ -32,25 +32,25 @@
  * @version $Id$
  */
 class ZMAccount extends ZMModel {
-    var $id_;
-    var $firstName_;
-    var $lastName_;
-    var $dob_;
-    var $nickName_;
-    var $gender_;
-    var $email_;
-    var $phone_;
-    var $fax_;
-    var $emailFormat_;
-    var $referral_;
-    var $defaultAddressId_;
-    var $password_;
-    var $authorization_;
-    var $newsletter_;
-    var $globalSubscriber_;
-    var $subscribedProducts_;
-    var $type_;
-    var $priceGroupId_;
+    private $id_;
+    private $firstName_;
+    private $lastName_;
+    private $dob_;
+    private $nickName_;
+    private $gender_;
+    private $email_;
+    private $phone_;
+    private $fax_;
+    private $emailFormat_;
+    private $referral_;
+    private $defaultAddressId_;
+    private $password_;
+    private $authorization_;
+    private $newsletter_;
+    private $globalSubscriber_;
+    private $subscribedProducts_;
+    private $type_;
+    private $priceGroupId_;
 
 
     /**
@@ -75,7 +75,7 @@ class ZMAccount extends ZMModel {
         $this->authorization_ = 0;
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
-        $this->subscribedProducts_ = array();
+        $this->subscribedProducts_ = null;
         $this->type_ = ZM_ACCOUNT_TYPE_REGISTERED;
         $this->priceGroupId_ = 0;
         $this->authorization_ = ZM_ACCOUNT_AUTHORIZATION_ENABLED;
@@ -117,231 +117,231 @@ class ZMAccount extends ZMModel {
      *
      * @return int The account id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Set the account id.
      *
      * @param int id The account id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Get the first name.
      *
      * @return string The first name.
      */
-    function getFirstName() { return $this->firstName_; }
+    public function getFirstName() { return $this->firstName_; }
 
     /**
      * Set the first name.
      *
      * @param string firstName The first name.
      */
-    function setFirstName($firstName) { $this->firstName_ = $firstName; }
+    public function setFirstName($firstName) { $this->firstName_ = $firstName; }
 
     /**
      * Get the last name.
      *
      * @return string The last name.
      */
-    function getLastName() { return $this->lastName_; }
+    public function getLastName() { return $this->lastName_; }
 
     /**
      * Set the last name.
      *
      * @param string lastName The last name.
      */
-    function setLastName($lastName) { $this->lastName_ = $lastName; }
+    public function setLastName($lastName) { $this->lastName_ = $lastName; }
 
     /**
      * Get the date of birth.
      *
      * @return string The date of birth.
      */
-    function getDob() { return $this->dob_; }
+    public function getDob() { return $this->dob_; }
 
     /**
      * Set the date of birth.
      *
      * @param string dob The date of birth.
      */
-    function setDob($dob) { $this->dob_ = $dob; }
+    public function setDob($dob) { $this->dob_ = $dob; }
 
     /**
      * Get the nick name.
      *
      * @return string The nick name.
      */
-    function getNickName() { return $this->nickName_; }
+    public function getNickName() { return $this->nickName_; }
 
     /**
      * Set the nick name.
      *
      * @param string nickName The nick name.
      */
-    function setNickName($nickName) { $this->nickName_ = $nickName; }
+    public function setNickName($nickName) { $this->nickName_ = $nickName; }
 
     /**
      * Get the gender.
      *
      * @return string The gender ('f' or 'm').
      */
-    function getGender() { return $this->gender_; }
+    public function getGender() { return $this->gender_; }
 
     /**
      * Set the gender.
      *
      * @param string gender The gender ('f' or 'm').
      */
-    function setGender($gender) { $this->gender_ = $gender; }
+    public function setGender($gender) { $this->gender_ = $gender; }
 
     /**
      * Get the email address.
      *
      * @return string The email address.
      */
-    function getEmail() { return $this->email_; }
+    public function getEmail() { return $this->email_; }
 
     /**
      * Set the email address.
      *
      * @parm string email The email address.
      */
-    function setEmail($email) { $this->email_ = $email; }
+    public function setEmail($email) { $this->email_ = $email; }
 
     /**
      * Get the phone number.
      *
      * @return string The phone number.
      */
-    function getPhone() { return $this->phone_; }
+    public function getPhone() { return $this->phone_; }
 
     /**
      * Set the phone number.
      *
      * @param string phone The phone number.
      */
-    function setPhone($phone) { $this->phone_ = $phone; }
+    public function setPhone($phone) { $this->phone_ = $phone; }
 
     /**
      * Get the fax number.
      *
      * @return string The fax number.
      */
-    function getFax() { return $this->fax_; }
+    public function getFax() { return $this->fax_; }
 
     /**
      * Set the fax number.
      *
      * @param string fax The fax number.
      */
-    function setFax($fax) { $this->fax_ = $fax; }
+    public function setFax($fax) { $this->fax_ = $fax; }
 
     /**
      * Set the preferred email format.
      *
      * @param string emailFormat The selected email format.
      */
-    function setEmailFormat($emailFormat) { $this->emailFormat_ = $emailFormat; }
+    public function setEmailFormat($emailFormat) { $this->emailFormat_ = $emailFormat; }
 
     /**
      * Get the preferred email format.
      *
      * @return string The selected email format.
      */
-    function getEmailFormat() { return $this->emailFormat_; }
+    public function getEmailFormat() { return $this->emailFormat_; }
 
     /**
      * Check if the account is set up to receive HTML formatted emails.
      *
      * @return boolean <code>true</code> if HTML is selected as email format, <code>false</code> if not.
      */
-    function isHtmlEmail() { return 'HTML' == $this->emailFormat_; }
+    public function isHtmlEmail() { return 'HTML' == $this->emailFormat_; }
 
     /**
      * Check if email notification is disabled.
      *
      * @return boolean <code>true</code> if email notification is disabled, <code>false</code> if not.
      */
-    function isEmailDisabled() { return 'NONE' == $this->emailFormat_ || 'OUT' == $this->emailFormat_; }
+    public function isEmailDisabled() { return 'NONE' == $this->emailFormat_ || 'OUT' == $this->emailFormat_; }
 
     /**
      * Get the referral.
      *
      * @return string The referral.
      */
-    function getReferral() { return $this->referral_; }
+    public function getReferral() { return $this->referral_; }
 
     /**
      * Set the referral.
      *
      * @param string referral The referral.
      */
-    function setReferral($referral) { $this->referral_ = $referral; }
+    public function setReferral($referral) { $this->referral_ = $referral; }
 
     /**
      * Get the default address id (primary address).
      *
      * @return int The primary address id.
      */
-    function getDefaultAddressId() { return $this->defaultAddressId_; }
+    public function getDefaultAddressId() { return $this->defaultAddressId_; }
 
     /**
      * Set the default address id (primary address).
      *
      * @param int addressId The primary address id.
      */
-    function setDefaultAddressId($addressId) { $this->defaultAddressId_ = $addressId; }
+    public function setDefaultAddressId($addressId) { $this->defaultAddressId_ = $addressId; }
 
     /**
      * Get the password.
      *
      * @return string The password.
      */
-    function getPassword() { return $this->password_; }
+    public function getPassword() { return $this->password_; }
 
     /**
      * Set the password.
      *
      * @param string password The (encrypted) password.
      */
-    function setPassword($password) { $this->password_ = $password; }
+    public function setPassword($password) { $this->password_ = $password; }
 
     /**
      * Get authorization.
      *
      * @return string The authorization.
      */
-    function getAuthorization() { return $this->authorization_; }
+    public function getAuthorization() { return $this->authorization_; }
 
     /**
      * Set authorization.
      *
      * @param string authorization The authorization.
      */
-    function setAuthorization($authorization) { $this->authorization_ = $authorization; }
+    public function setAuthorization($authorization) { $this->authorization_ = $authorization; }
 
     /**
      * Returns <code>true</code> if the account has subscribed to newsletter.
      *
      * @return boolean <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
      */
-    function isNewsletterSubscriber() { return $this->newsletter_; }
+    public function isNewsletterSubscriber() { return $this->newsletter_; }
 
     /**
      * Set the newsletter subscription status.
      *
      * @param boolean newsletterSubscriber <code>true</code> if newsletter subsricption is selected, <code>false</code> if not.
      */
-    function setNewsletterSubscriber($newsletterSubscriber) { $this->newsletter_ = $newsletterSubscriber; }
+    public function setNewsletterSubscriber($newsletterSubscriber) { $this->newsletter_ = $newsletterSubscriber; }
 
     /**
      * Get the voucher balance.
      *
      * @return float The voucher balance.
      */
-    function getVoucherBalance() {
+    public function getVoucherBalance() {
         return ZMCoupons::instance()->getVoucherBalanceForAccountId($this->id_);
     }
 
@@ -350,14 +350,14 @@ class ZMAccount extends ZMModel {
      *
      * @return string The full name.
      */
-    function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
+    public function getFullName() { return $this->firstName_ . ' ' . $this->lastName_; }
 
     /**
      * Checks if the user is a global product subscriber.
      *
      * @return boolean <code>true</code> if the user is subscribed, <code>false</code> if not.
      */
-    function isGlobalProductSubscriber() { 
+    public function isGlobalProductSubscriber() { 
         return $this->globalSubscriber_;
     }
 
@@ -366,15 +366,15 @@ class ZMAccount extends ZMModel {
      *
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = $globalProductSubscriber; }
+    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = $globalProductSubscriber; }
 
     /**
      * Checks if the user has product subscriptions.
      *
      * @return boolean <code>true</code> if the user has product subscriptions, <code>false</code> if not.
      */
-    function hasProductSubscriptions() {
-        return 0 != count($this->subscribedProducts_); 
+    public function hasProductSubscriptions() {
+        return 0 != count($this->getSubscribedProducts()); 
     }
 
     /**
@@ -382,7 +382,10 @@ class ZMAccount extends ZMModel {
      *
      * @return array A list of product ids.
      */
-    function getSubscribedProducts() {
+    public function getSubscribedProducts() {
+        if (null === $this->subscribedProducts_) {
+            $this->subscribedProducts_ = ZMAccounts::instance()->getSubscribedProductIds($this->id_);
+        }
         return $this->subscribedProducts_;
     }
 
@@ -391,7 +394,7 @@ class ZMAccount extends ZMModel {
      *
      * @param array products A list of product ids.
      */
-    function setSubscribedProducts($products) {
+    public function setSubscribedProducts($products) {
         $this->subscribedProducts_ = $products;
     }
 
@@ -400,7 +403,7 @@ class ZMAccount extends ZMModel {
      *
      * @param char type The account type.
      */
-    function setType($type) {
+    public function setType($type) {
         $this->type_ = $type;
     }
 
@@ -409,7 +412,7 @@ class ZMAccount extends ZMModel {
      *
      * @return char The account type.
      */
-    function getType() {
+    public function getType() {
         return $this->type_;
     }
 
@@ -418,7 +421,7 @@ class ZMAccount extends ZMModel {
      *
      * @param int priceGroupId The price group id.
      */
-    function setPriceGroupId($priceGroupId) {
+    public function setPriceGroupId($priceGroupId) {
         $this->priceGroupId_ = $priceGroupId;
     }
 
@@ -427,7 +430,7 @@ class ZMAccount extends ZMModel {
      *
      * @return int The price group id.
      */
-    function getPriceGroupId() {
+    public function getPriceGroupId() {
         return $this->priceGroupId_;
     }
     /**
@@ -435,7 +438,7 @@ class ZMAccount extends ZMModel {
      *
      * @return ZMPriceGroup The group or <code>null</code>.
      */
-    function getPriceGroup() {
+    public function getPriceGroup() {
         return ZMGroupPricing::instance()->getPriceGroupForId($this->priceGroupId_);
     }
 

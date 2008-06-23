@@ -185,9 +185,9 @@ class ZMAccounts extends ZMObject {
      * @return boolean <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
      */
     public function isGlobalProductSubscriber($accountId) {
-        $sql = "select global_product_notifications
-                from " . TABLE_CUSTOMERS_INFO . "
-                where  customers_info_id = :id";
+        $sql = "SELECT global_product_notifications
+                FROM " . TABLE_CUSTOMERS_INFO . "
+                WHERE customers_info_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $accountId), TABLE_CUSTOMERS_INFO);
 
         return $result['globalProductSubscriber'];
@@ -199,10 +199,10 @@ class ZMAccounts extends ZMObject {
      * @param int accountId The account id.
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
-        $sql = "update " . TABLE_CUSTOMERS_INFO . "
-                set global_product_notifications = :globalProductSubscriber
-                where  customers_info_id = :id";
+    public function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
+        $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
+                SET global_product_notifications = :globalProductSubscriber
+                WHERE customers_info_id = :id";
         $args = array('id' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
         ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS_INFO);
     }
@@ -213,20 +213,14 @@ class ZMAccounts extends ZMObject {
      * @param int accountId The account id.
      * @return array A list of subscribed product ids.
      */
-    function getSubscribedProductIds($accountId) {
-        $db = ZMRuntime::getDB();
-        $sql = "select products_id
-                from " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                where  customers_id = :accountId";
-        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
-
+    public function getSubscribedProductIds($accountId) {
+        $sql = "SELECT products_id
+                FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                WHERE customers_id = :accountId";
         $productIds = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            array_push($productIds, $results->fields['products_id']);
-            $results->MoveNext();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
+            $productIds[] = $result['productId'];
         }
-
         return $productIds;
     }
 
@@ -237,7 +231,7 @@ class ZMAccounts extends ZMObject {
      * @param array productIds The new list of subscribed product ids.
      * @return ZMAccount The aupdated account.
      */
-    function setSubscribedProductIds($account, $productIds) {
+    public function setSubscribedProductIds($account, $productIds) {
         $currentList = array_flip($account->getSubscribedProducts());
         $newList = array_flip($productIds);
         $remove = array();
@@ -253,23 +247,18 @@ class ZMAccounts extends ZMObject {
             }
         }
 
-        $db = ZMRuntime::getDB();
         if (0 < count($remove)) {
             $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     where  customers_id = :accountId
-                    and products_id in (:productIdList)";
-            $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-            $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $remove, "integer");
-            $results = $db->Execute($sql);
+                    and products_id in (:productId)";
+            ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
         if (0 < count($add)) {
+            $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    (products_id, customers_id) values (:productId, :accountId)";
             foreach ($add as $id) {
-                $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                        (products_id, customers_id) values (:productId, :accountId)";
-                $sql = $db->bindVars($sql, ":productId", $id, "integer");
-                $sql = $db->bindVars($sql, ":accountId", $account->getId(), "integer");
-                $results = $db->Execute($sql);
+                ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
             }
         }
 

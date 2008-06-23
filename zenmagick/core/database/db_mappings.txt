@@ -112,4 +112,9 @@ array(
         'format' => 'column=address_format;type=string',
         'summary' => 'column=address_summary;type=string',
     ),
+    'products_notifications' => array(
+        'productId' => 'column=products_id;type=integer;key=true',
+        'accountId' => 'column=customers_id;type=integer;key=true',
+        'dateAdded' => 'column=date_added;type=datetime',
+    ),
 );

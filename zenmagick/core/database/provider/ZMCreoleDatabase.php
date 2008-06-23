@@ -229,46 +229,62 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         // find out the order of args
         $regexp = ':'.implode(array_keys($args), '|:');
         preg_match_all('/'.$regexp.'/', $sql, $argOrder);
+        $argOrder = $argOrder[0];
         // modify SQL replacing :key syntax with ?
-        foreach (explode('|', $regexp) as $key) {
-            $sql = str_replace($key, '?', $sql);
+        foreach (explode('|', $regexp) as $ii => $key) {
+            $pl = '?';
+            $name = substr($key, 1);
+            if (array_key_exists($name, $args) && is_array($args[$name])) {
+                // expand $argOrder and placeholder
+                for ($ii=0; $ii < count($args[$name]); ++$ii) {
+                    array_splice($argOrder, $ii+1, 0, $key);
+                    $pl .= ',?';
+                }
+            }
+            $sql = str_replace($key, $pl, $sql);
         }
-
 
         // create statement
         $stmt = $this->conn_->prepareStatement($sql);
         $index = 1;
         // set values by index
-        foreach ($argOrder[0] as $name) {
+        foreach ($argOrder as $name) {
             $name = substr($name, 1);
             $type = $mapping[$name]['type'];
-            switch ($type) {
-            case 'integer':
-                $stmt->setInt($index, $args[$name]);
-                break;
-            case 'boolean':
-                $stmt->setBoolean($index, $args[$name]);
-                break;
-            case 'string':
-                $stmt->setString($index, $args[$name]);
-                break;
-            case 'float':
-                $stmt->setFloat($index, $args[$name]);
-                break;
-            case 'datetime':
-                $stmt->setTimestamp($index, $args[$name]);
-                break;
-            case 'date':
-                $stmt->setDate($index, $args[$name]);
-                break;
-            case 'blob':
-                $stmt->setBlob($index, $args[$name]);
-                break;
-            default:
-                ZMObject::backtrace('unsupported data(prepare) type='.$type.' for name='.$name);
-                break;
+            $values = $args[$name];
+            if (!is_array($values)) {
+                // treat all values as value arrays
+                $values = array($values);
             }
-            ++$index;
+            foreach ($values as $value) {
+                switch ($type) {
+                case 'integer':
+                    $stmt->setInt($index, $value);
+                    break;
+                case 'boolean':
+                    $stmt->setBoolean($index, $value);
+                    break;
+                case 'string':
+                    $stmt->setString($index, $value);
+                    break;
+                case 'float':
+                    $stmt->setFloat($index, $value);
+                    break;
+                case 'datetime':
+                    $stmt->setTimestamp($index, $value);
+                    break;
+                case 'date':
+                    $stmt->setDate($index, $value);
+                    break;
+                case 'blob':
+                    $stmt->setBlob($index, $value);
+                    break;
+                default:
+                    ZMObject::backtrace('unsupported data(prepare) type='.$type.' for name='.$name);
+                    break;
+                }
+                ++$index;
+            }
         }
 
         return $stmt;

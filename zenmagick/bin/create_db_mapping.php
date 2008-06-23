@@ -29,7 +29,7 @@
         $name = str_replace(ZM_DB_PREFIX, '', $table);
         echo "'".$name."' => array(\n";
         foreach ($rows as $row) {
-            $typeMap = array('int'=>'integer','char'=>'string','varchar'=>'string', 'tinyint'=>'integer', 'datetime'=>'date', 'text'=>'string');
+            $typeMap = array('int'=>'integer','char'=>'string','varchar'=>'string', 'tinyint'=>'integer', 'text'=>'string');
             $type = preg_replace('/(.*)\(.*\)/', '\1', $row['Type']);
             if (isset($typeMap[$type])) {
                 $type=$typeMap[$type];
