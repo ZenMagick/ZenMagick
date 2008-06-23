@@ -110,7 +110,7 @@ class ZMLanguages extends ZMObject {
         }
 
         foreach ($this->languages as $language) {
-            if ($language->id_ == $id) {
+            if ($language->getId() == $id) {
                 return $language;
             }
         }
