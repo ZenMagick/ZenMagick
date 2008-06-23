@@ -289,7 +289,7 @@ class ZMTheme extends ZMObject {
             return $this->zcStaticPageContent($page, $languageId, $echo);
         }
 
-        if (null == $languageId) {
+        if (null === $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
         } else {
