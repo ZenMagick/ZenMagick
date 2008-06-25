@@ -49,7 +49,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->db_ = $db;
         $this->queriesCount = 0;
         $this->queriesTime = 0;
-        $this->mapper = ZMLoader::make('DbTableMapper');
+        $this->mapper = ZMDbTableMapper::instance();
     }
 
     /**

@@ -199,7 +199,7 @@ class ZMCategories extends ZMObject {
                 ORDER BY sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
-            $this->categories_[$languageId][$category->id_] = $category;
+            $this->categories_[$languageId][$category->getId()] = $category;
         }
     }
 

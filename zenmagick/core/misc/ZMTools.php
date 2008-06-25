@@ -273,7 +273,7 @@ class ZMTools {
      */
     public static function translateDateString($s, $from, $to) {
         if (empty($s)) {
-            return '';
+            return null;
         }
         $st = $to;
         foreach (self::parseDateString($s, $from) as $token => $value) {

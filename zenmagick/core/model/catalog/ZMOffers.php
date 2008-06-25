@@ -131,7 +131,7 @@ class ZMOffers extends ZMObject {
                 where products_id = :productId
                 and attributes_display_only != '1' and attributes_price_base_included='1'". "
                 order by options_id, price_prefix, options_values_price";
-        $sql = $db->bindVars($sql, ':productId', $this->product_->id_, 'integer');
+        $sql = $db->bindVars($sql, ':productId', $this->product_->getId(), 'integer');
         $results = $db->Execute($sql);
 
         // add attributes price to price

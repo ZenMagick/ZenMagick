@@ -67,7 +67,7 @@
  * @package org.zenmagick.database
  * @version $Id$
  */
-class ZMDbTableMapper {
+class ZMDbTableMapper extends ZMObject {
     private $tableMap;
 
 
@@ -77,12 +77,21 @@ class ZMDbTableMapper {
      * @param string configFolder The folder that contains the mapping files.
      */
     function __construct() {
+        parent::__construct();
         eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('dbMappings')));
         $this->tableMap = array();
         foreach ($mappings as $table => $mapping) {
             $this->tableMap[$table] = $this->parseTable($mapping);
         }
     }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return ZMObject::singleton('DbTableMapper');
+    }
+
 
     /**
      * Parse mapping for a single table.

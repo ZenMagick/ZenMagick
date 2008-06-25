@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMCountry extends ZMModel {
-    var $id_;
-    var $name_;
-    var $isoCode2_;
-    var $isoCode3_;
-    var $addressFormatId_;
+    private $id_;
+    private $name_;
+    private $isoCode2_;
+    private $isoCode3_;
+    private $addressFormatId_;
 
 
     /**

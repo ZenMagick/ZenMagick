@@ -23,6 +23,8 @@ Release 0.9.2
   the country itself.
 - add transparent support for using value lists to ZMDatabase (and
   implementations)
+- fix category admin plugin to update only if actually active
+- make db table mapper a proper service to allow dynamic additions (plugins)
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

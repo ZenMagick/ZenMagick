@@ -52,7 +52,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                      'password' => DB_SERVER_PASSWORD,
                      'database' => DB_DATABASE);
         $this->conn_ = Creole::getConnection($dsn);
-        $this->mapper = ZMLoader::make('DbTableMapper');
+        $this->mapper = ZMDbTableMapper::instance();
         $this->queriesCount = 0;
         $this->queriesTime = 0;
     }
