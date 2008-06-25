@@ -36,6 +36,7 @@ class ZMShoppingCart extends ZMObject {
     var $cart_;
     var $zenTotals_;
     var $payments_;
+    var $items_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMShoppingCart extends ZMObject {
         $this->cart_ = $_SESSION['cart'];
         $this->zenTotals_ = null;
         $this->payments_ = null;
+        $this->items_ = null;
     }
 
     /**
@@ -70,7 +72,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The number of different products in the cart.
      */
-    function getSize() { return isset($this->cart_) ? count($this->cart_->get_products()) : 0; }
+    function getSize() { return count($this->getItems()); }
 
     /**
      * Get the carts weight.
@@ -141,15 +143,17 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of <code>ZMShoppingCartItem</code>s.
      */
     function getItems() {
-        $items = array();
-        if (null != $this->cart_) {
-            $zenItems = $this->cart_->get_products();
-            foreach ($zenItems as $zenItem) {
-                $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
-                $items[] = $item;
+        if (null === $this->items_) {
+            $this->items_ = array();
+            if (null != $this->cart_) {
+                $zenItems = $this->cart_->get_products();
+                foreach ($zenItems as $zenItem) {
+                    $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
+                    $this->items_[] = $item;
+                }
             }
         }
-        return $items;
+        return $this->items_;
     }
 
     /**
