@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMCurrencies extends ZMObject {
-    private $currencies_;
+    private $currencies;
 
 
     /**
@@ -40,7 +40,6 @@ class ZMCurrencies extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->currencies_ = array();
         $this->load();
     }
 
@@ -64,8 +63,9 @@ class ZMCurrencies extends ZMObject {
      */
     private function load() {
         $sql = "SELECT * FROM " . TABLE_CURRENCIES;
+        $this->currencies = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'Currency') as $currency) {
-            $this->currencies_[$currency->getCode()] = $currency;
+            $this->currencies[$currency->getCode()] = $currency;
         }
     }
 
@@ -74,7 +74,7 @@ class ZMCurrencies extends ZMObject {
      *
      * @return array A list of <code>ZMCurrency</code> objects.
      */
-    public function getCurrencies() { return $this->currencies_; }
+    public function getCurrencies() { return $this->currencies; }
 
     /**
      * Get the currency for the given code.
@@ -82,7 +82,7 @@ class ZMCurrencies extends ZMObject {
      * @param string code The currency code.
      * @return ZMCurrency A currency or <code>null</code>.
      */
-    public function getCurrencyForCode($code) { return isset($this->currencies_[$code]) ? $this->currencies_[$code] : null; }
+    public function getCurrencyForCode($code) { return isset($this->currencies[$code]) ? $this->currencies[$code] : null; }
 
     /**
      * Checks if a currency exists for the given code.
