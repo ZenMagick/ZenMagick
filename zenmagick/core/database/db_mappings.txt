@@ -5,7 +5,7 @@ array(
     ),
     'currencies' => array(
         'id' => 'column=currencies_id;type=integer;key=true;auto=true',
-        'title' => 'column=title;type=string',
+        'name' => 'column=title;type=string',
         'code' => 'column=code;type=string',
         'symbolLeft' => 'column=symbol_left;type=string',
         'symbolRight' => 'column=symbol_right;type=string',
