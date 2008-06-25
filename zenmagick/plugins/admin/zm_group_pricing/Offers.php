@@ -25,10 +25,10 @@
 
 
 /**
- * All stuff related to product prices and offers.
+ * Add logic to transparently apply discounts.
  *
  * @author mano
- * @package org.zenmagick.service
+ * @package org.zenmagick.plugins.zm_group_pricing
  * @version $Id$
  */
 class Offers extends ZMOffers {
@@ -51,45 +51,96 @@ class Offers extends ZMOffers {
 
 
     /**
-     * Get the calculated price.
+     * Get the group pricing.
      *
-     * <p>This is the actual price, taking into account if sale or discount are available.</p>
-     *
-     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
-     * @param boolean groupDiscount Set to <code>true</code> to adjust prices according to product group discounts; default is <code>true</code>.
-     * @return float The calculated price.
+     * @return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
-    function getCalculatedPrice($tax=true, $groupDiscount=true) { 
-        if ($this->product_->isFree()) {
-            return 0;
-        }
-
+    private function getProductGroupPricing() {
         $account = ZMRequest::getAccount();
         if (null == $account) {
             // no account, no price group
-            return parent::getCalculatedPrice($tax);
+            return null;
         }
 
         $priceGroup = $account->getPriceGroup();
         if (null == $priceGroup) {
             // no price group
-            return parent::getCalculatedPrice($tax);
+            return null;
         }
 
-        $productGroupPricing = ProductGroupPricingService::instance()->getProductGroupPricing($this->product->id_, $priceGroup->getId(), true);
-        if (null == $productGroupPricing) {
-            // no product price group
-            return parent::getCalculatedPrice($tax);
+        return ProductGroupPricingService::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
+    }
+
+    /**
+     * Adjust price.
+     *
+     * @param string priceMethod The method to use for the price lookup.
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
+     * @param ProductGroupPricing productGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
+     */
+    private function adjustPrice($priceMethod, $tax, $productGroupPricing) {
+        // handle base price
+        $price = parent::$priceMethod(!$productGroupPricing->isBeforeTax());
+
+        // appy discount...
+        switch ($productGroupPricing->getType()) {
+            case '$':
+                $price = $price - $productGroupPricing->getDiscount();
+                break;
+            case '%':
+                $price = $price - (($price * $productGroupPricing->getDiscount()) / 100);
+                break;
         }
 
-        // now let's do everything without tax to avoi rounding issues
-        if (0 != ($salePrice = $this->getSalePrice($tax))) {
-            return $salePrice;
-        } else if (0 != ($specialPrice = $this->getSpecialPrice($tax))) {
-            return $specialPrice;
-        } else {
-            return $this->getBasePrice($tax); 
+        if ($tax && $productGroupPricing->isBeforeTax()) {
+            $price = $this->getTaxRate()->addTax($price);
         }
+
+        if (0 > $price) {
+            // just in case
+            $price = 0;
+        }
+
+        return $price;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSalePrice($tax=true) {
+        $productGroupPricing = $this->getProductGroupPricing();
+
+        if (null != $productGroupPricing && !$productGroupPricing->isRegularPriceOnly()) {
+            return $this->adjustPrice('getSalePrice', $tax, $productGroupPricing);
+        }
+
+        return parent::getSalePrice($tax);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSpecialPrice($tax=true) {
+        $productGroupPricing = $this->getProductGroupPricing();
+
+        if (null != $productGroupPricing && !$productGroupPricing->isRegularPriceOnly()) {
+            return $this->adjustPrice('getSpecialPrice', $tax, $productGroupPricing);
+        }
+
+        return parent::getSpecialPrice($tax);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBasePrice($tax=true) {
+        $productGroupPricing = $this->getProductGroupPricing();
+
+        if (null != $productGroupPricing) {
+            return $this->adjustPrice('getBasePrice', $tax, $productGroupPricing);
+        }
+
+        return parent::getBasePrice($tax);
     }
 
 }

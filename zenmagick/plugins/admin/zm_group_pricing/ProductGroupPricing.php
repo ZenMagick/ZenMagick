@@ -38,8 +38,9 @@ class ProductGroupPricing extends ZMModel {
     var $discount_;
     var $type_;
     var $regularPriceOnly_;
-    var $startDate;
-    var $endDate;
+    var $startDate_;
+    var $endDate_;
+    var $beforeTax_;
 
 
     /**
@@ -48,14 +49,15 @@ class ProductGroupPricing extends ZMModel {
     function __construct() {
         parent::__construct();
 
-        $id_ = 0;
-        $productId_ = 0;
-        $groupId_ = 0;
-        $discount_ = 0;
-        $type_ = '%';
-        $regularPriceOnly_ = true;
-        $startDate = null;
-        $endDate = null;
+        $this->id_ = 0;
+        $this->productId_ = 0;
+        $this->groupId_ = 0;
+        $this->discount_ = 0;
+        $this->type_ = '%';
+        $this->regularPriceOnly_ = true;
+        $this->startDate_ = null;
+        $this->endDate_ = null;
+        $this->beforeTax_ = true;
     }
 
     /**
@@ -77,10 +79,12 @@ class ProductGroupPricing extends ZMModel {
         $this->groupId_ = ZMRequest::getParameter('groupId', '0');
         $this->discount_ = ZMRequest::getParameter('discount', '0');
         $this->type_ = ZMRequest::getParameter('type', '%');
-        $this->regularPriceOnly_ = ZMRequest::getParameter('regularPriceOnly');
+        $this->regularPriceOnly_ = ZMRequest::getParameter('regularPriceOnly', 0);
         $startDate = ZMRequest::getParameter('startDate');
-        // default to current date
-        $startDate = empty($startDate) ? date(UI_DATE_FORMAT) : $startDate; 
+        if (empty($startDate)) {
+            // default to current date
+            $startDate = ZMTools::translateDateString(date('Y-m-d'), 'yyyy-mm-dd', UI_DATE_FORMAT);
+        }
         $this->startDate_ = ZMTools::translateDateString($startDate, UI_DATE_FORMAT, ZM_DATE_FORMAT);
         $this->endDate_ = ZMTools::translateDateString(ZMRequest::getParameter('endDate'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
     }
@@ -134,6 +138,20 @@ class ProductGroupPricing extends ZMModel {
      * @return float The discount.
      */
     function getDiscount() { return $this->discount_; }
+
+    /**
+     * Set the before tax flag.
+     *
+     * @param boolean value The new value.
+     */
+    function setBeforeTax($value) { $this->beforeTax_ = $value; }
+
+    /**
+     * Get the before tax flag.
+     *
+     * @return boolean If <code>true</code> apply the discount before tax, otherwise after.
+     */
+    function isBeforeTax() { return $this->beforeTax_; }
 
     /**
      * Set the discount.

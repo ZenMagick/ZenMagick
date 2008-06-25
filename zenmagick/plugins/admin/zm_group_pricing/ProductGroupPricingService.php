@@ -35,24 +35,22 @@ define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
  * @version $Id$
  */
 class ProductGroupPricingService extends ZMObject {
-    var $fieldMap_ = array(
-        // db column, model property name, data type
-        array('group_pricing_id', 'id', 'integer'),
-        array('products_id', 'productId', 'integer'),
-        array('group_id', 'groupId', 'integer'),
-        array('discount', 'discount', 'float'),
-        array('type', 'type', 'string'), 
-        array('regular_price_only', 'regularPriceOnly', 'integer'),
-        array('start_date', 'startDate', 'date'),
-        array('end_date', 'endDate', 'date')
-    );
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        ZMDbTableMapper::instance()->setMappingForTable('zm_group_pricing', array(
+            'id' => 'column=group_pricing_id;type=integer;key=true;auto=true',
+            'productId' => 'column=products_id;type=integer',
+            'groupId' => 'column=group_id;type=integer',
+            'discount' => 'column=discount;type=float',
+            'type' => 'column=type;type=string',
+            'regularPriceOnly' => 'column=regular_price_only;type=boolean',
+            'startDate' => 'column=start_date;type=datetime',
+            'endDate' => 'column=end_date;type=datetime',
+        ));
     }
 
     /**
@@ -79,24 +77,14 @@ class ProductGroupPricingService extends ZMObject {
      * return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
     function getProductGroupPricing($productId, $groupId, $active=true) {
-        $db = ZMRuntime::getDB();
-
         if ($active) {
-            $dateLimit = ' and start_date <= now() and (end_date > now() or end_date is NULL) ';
+            $dateLimit = ' AND start_date <= now() AND (end_date > now() or end_date is NULL) ';
         }
-        $sql = "select * from " . ZM_TABLE_GROUP_PRICING . "
-                where products_id = :productId
-                and group_id = :groupId".$dateLimit;
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":groupId", $groupId, "integer");
-
-        $productGroupPricing = null;
-        $results = $db->Execute($sql);
-        if (!$results->EOF) {
-            $productGroupPricing = ZMDbUtils::map2obj('ProductGroupPricing', $results->fields, $this->fieldMap_);
-        }
-
-        return $productGroupPricing;
+        $sql = "SELECT * FROM " . ZM_TABLE_GROUP_PRICING . "
+                WHERE products_id = :productId
+                AND group_id = :groupId".$dateLimit;
+        $args = array('productId' => $productId, 'groupId' => $groupId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_GROUP_PRICING, 'ProductGroupPricing');
     }
 
 
@@ -107,42 +95,17 @@ class ProductGroupPricingService extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     function createProductGroupPricing($groupPricing) {
-        $db = ZMRuntime::getDB();
-        $sql = "insert into " . ZM_TABLE_GROUP_PRICING . "(
-                 products_id, group_id,
-                 discount, type, regular_price_only,
-                 start_date, end_date
-                ) values (:productId;integer, :groupId;integer,
-                  :discount;float, :type;string, :regularPriceOnly;integer,
-                  :startDate;date, :endDate;date)";
-        $sql = ZMDbUtils::bindObject($sql, $groupPricing, false);
-        $db->Execute($sql);
-        $groupPricing->id_ = $db->Insert_ID();
-
-        return $groupPricing;
+        return ZMRuntime::getDatabase()->createModel(ZM_TABLE_GROUP_PRICING, $groupPricing);
     }
 
     /**
      * Update an existing product group pricing.
      *
      * @param ProductGroupPricing groupPricing The new product group pricing.
-     * @return ProductGroupPricing The created product group pricing incl. the id.
+     * @return ProductGroupPricing The updated product group pricing.
      */
     function updateProductGroupPricing($groupPricing) {
-        $db = ZMRuntime::getDB();
-        $sql = "update " . ZM_TABLE_GROUP_PRICING . " set
-                products_id = :productId;integer,
-                group_id = :groupId;integer,
-                discount = :discount;float,
-                type = :type;string, 
-                regular_price_only = :regularPriceOnly;integer,
-                start_date = :startDate;date,
-                end_date = :endDate;date
-                where group_pricing_id = :groupPricingId";
-        $sql = $db->bindVars($sql, ":groupPricingId", $groupPricing->getId(), "integer");
-        $sql = ZMDbUtils::bindObject($sql, $groupPricing, false);
-        $db->Execute($sql);
-
+        ZMRuntime::getDatabase()->updateModel(ZM_TABLE_GROUP_PRICING, $groupPricing);
         return $groupPricing;
     }
 

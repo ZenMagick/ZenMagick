@@ -45,106 +45,107 @@
     $value_index = 1;
     $value_text = '';
 
-    switch (ZMRequest::getParameter('action')) {
-      case 'remove_feature':
-        $id = (int)ZMRequest::getParameter('featureId');
-        $zm_features->removeFeatureForId($id);
-        // reload
-        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-        break;
-
-      case 'update_feature':
-        $id = (int)ZMRequest::getParameter('featureId');
-        $name = ZMRequest::getParameter('name');
-        $description = ZMRequest::getParameter('description');
-        $hidden = ZMRequest::getParameter('hidden');
-        $session = ZMRequest::getSession();
-        $zm_features->updateFeature($id, $session->getLanguageId(), $name, $description, $hidden);
-        // reload
-        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-        break;
-
-      case 'edit_feature':
-        $edit_feature = true;
-        $update_id = (int)ZMRequest::getParameter('featureId');
-        $feature = $zm_features->getFeatureForId($update_id);
-        $type = $feature->getType();
-        $editType = $type->getName();
-        $feature_name = $feature->getName();
-        $feature_description = $feature->getDescription();
-        $feature_hidden = $feature->isHidden();
-        break;
-
-      case 'add_feature':
-        $type = ZMRequest::getParameter('type');
-        $name = ZMRequest::getParameter('name');
-        $description = ZMRequest::getParameter('description');
-        $hidden = null != ZMRequest::getParameter('hidden') ? '1' : '0';
-        $session = ZMRequest::getSession();
-        $zm_features->addFeature($type, $session->getLanguageId(), $name, $description, $hidden);
-        // reload
-        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-        break;
-
-      case 'update_feature_value':
-        $featureId = (int)ZMRequest::getParameter('featureId');
-        $value = ZMRequest::getParameter('value');
-        $oldIndex = ZMRequest::getParameter('oldIndex');
-        $index = ZMRequest::getParameter('index');
-        $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
-        // reload
-        ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-        break;
-
-      case 'edit_feature_value':
-        $edit_product_feature = true;
-        $update_id = (int)ZMRequest::getParameter('featureId');
-        $value_index = (int)ZMRequest::getParameter('index');
-        $pFeatures = $zm_features->getFeaturesForProductId($productId);
-        foreach ($pFeatures as $feature) {
-          if ($feature->getId() == $update_id) {
-            break;
-          }
-        }
-        $editType = $feature->getName();
-        $values = $feature->getValues();
-        $value_text = $values[$value_index];
-        break;
-
-      case 'add_feature_value':
-        $featureId = ZMRequest::getParameter('featureId');
-        $value = ZMRequest::getParameter('value');
-        $index = ZMRequest::getParameter('index');
-
-        // stop duplicate index
-        $invalid = false;
-        $pFeatures = $zm_features->getFeaturesForProductId($productId);
-        foreach ($pFeatures as $feature) {
-          $values = $feature->getValues();
-          if (array_key_exists($index, $values) && $featureId == $feature->getId()) {
-            $invalid = true;
-            $messageStack->add('Duplicate index '.$index, 'error');
-            // preset
-            $value_index = $index;
-            $value_text = $value;
-            break;
-          }
-        }
-        if (!$invalid) {
-          $zm_features->addFeatureForProduct($productId, $featureId, $value, $index);
+    if ('zm_product_features_admin' == ZMRequest::getParameter('fkt')) {
+      switch (ZMRequest::getParameter('action')) {
+        case 'remove_feature':
+          $id = (int)ZMRequest::getParameter('featureId');
+          $zm_features->removeFeatureForId($id);
           // reload
           ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-        }
-        break;
+          break;
 
-      case 'remove_feature_value':
-        $featureId = ZMRequest::getParameter('featureId');
-        $index = ZMRequest::getParameter('index');
-        $zm_features->removeFeatureForProduct($productId, $featureId, $index);
-        // reload
-       ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
-       break;
+        case 'update_feature':
+          $id = (int)ZMRequest::getParameter('featureId');
+          $name = ZMRequest::getParameter('name');
+          $description = ZMRequest::getParameter('description');
+          $hidden = ZMRequest::getParameter('hidden');
+          $session = ZMRequest::getSession();
+          $zm_features->updateFeature($id, $session->getLanguageId(), $name, $description, $hidden);
+          // reload
+          ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          break;
 
+        case 'edit_feature':
+          $edit_feature = true;
+          $update_id = (int)ZMRequest::getParameter('featureId');
+          $feature = $zm_features->getFeatureForId($update_id);
+          $type = $feature->getType();
+          $editType = $type->getName();
+          $feature_name = $feature->getName();
+          $feature_description = $feature->getDescription();
+          $feature_hidden = $feature->isHidden();
+          break;
+
+        case 'add_feature':
+          $type = ZMRequest::getParameter('type');
+          $name = ZMRequest::getParameter('name');
+          $description = ZMRequest::getParameter('description');
+          $hidden = null != ZMRequest::getParameter('hidden') ? '1' : '0';
+          $session = ZMRequest::getSession();
+          $zm_features->addFeature($type, $session->getLanguageId(), $name, $description, $hidden);
+          // reload
+          ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          break;
+
+        case 'update_feature_value':
+          $featureId = (int)ZMRequest::getParameter('featureId');
+          $value = ZMRequest::getParameter('value');
+          $oldIndex = ZMRequest::getParameter('oldIndex');
+          $index = ZMRequest::getParameter('index');
+          $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
+          // reload
+          ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          break;
+
+        case 'edit_feature_value':
+          $edit_product_feature = true;
+          $update_id = (int)ZMRequest::getParameter('featureId');
+          $value_index = (int)ZMRequest::getParameter('index');
+          $pFeatures = $zm_features->getFeaturesForProductId($productId);
+          foreach ($pFeatures as $feature) {
+            if ($feature->getId() == $update_id) {
+              break;
+            }
+          }
+          $editType = $feature->getName();
+          $values = $feature->getValues();
+          $value_text = $values[$value_index];
+          break;
+
+        case 'add_feature_value':
+          $featureId = ZMRequest::getParameter('featureId');
+          $value = ZMRequest::getParameter('value');
+          $index = ZMRequest::getParameter('index');
+
+          // stop duplicate index
+          $invalid = false;
+          $pFeatures = $zm_features->getFeaturesForProductId($productId);
+          foreach ($pFeatures as $feature) {
+            $values = $feature->getValues();
+            if (array_key_exists($index, $values) && $featureId == $feature->getId()) {
+              $invalid = true;
+              $messageStack->add('Duplicate index '.$index, 'error');
+              // preset
+              $value_index = $index;
+              $value_text = $value;
+              break;
+            }
+          }
+          if (!$invalid) {
+            $zm_features->addFeatureForProduct($productId, $featureId, $value, $index);
+            // reload
+            ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          }
+          break;
+
+        case 'remove_feature_value':
+          $featureId = ZMRequest::getParameter('featureId');
+          $index = ZMRequest::getParameter('index');
+          $zm_features->removeFeatureForProduct($productId, $featureId, $index);
+          // reload
+         ZMRequest::redirect($toolbox->net->url('', $zm_nav_params, true, false));
+         break;
+      }
     }
 
     $product = null;
