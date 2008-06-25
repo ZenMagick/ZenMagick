@@ -73,24 +73,19 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select p.products_id
-                    from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
-                    where ";
+        $query = "SELECT p.products_id
+                  FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
+                  WHERE ";
         if ($active) {
             $query .= " p.products_status = 1 and ";
         }
         $query .= " pd.products_id = p.products_id
-                    and pd.language_id = :languageId
-                    order by p.products_sort_order, pd.products_name";
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-        $results = $db->Execute($query);
-
+                      AND pd.language_id = :languageId
+                    ORDER BY p.products_sort_order, pd.products_name";
+        $results = ZMRuntime::getDatabase()->query($sql, array('lanugageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
         $productIds = array();
-        while (!$results->EOF) {
-            $product = $this->_newProduct($results->fields);
-            $productIds[] = $results->fields['products_id'];
-            $results->MoveNext();
+        foreach ($results as $result) {
+            $productIds[] = $result['id'];
         }
         return $this->getProductsForIds($productIds, false, $languageId);
     }
@@ -124,26 +119,23 @@ class ZMProducts extends ZMObject {
                 $this->categoryProductMap_[$mainKey] = array();
             }
 
-            $db = ZMRuntime::getDB();
-            $query = "select p.products_id, p2c.categories_id
-                    from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-                    where ";
+            $sql = "SELECT p.products_id, p2c.categories_id
+                    FROM " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                    WHERE ";
             if ($active) {
-                $query .= " p.products_status = 1 and ";
+                $sql .= " p.products_status = 1 AND ";
             }
-            $query .= " p.products_id = p2c.products_id and pd.products_id = p2c.products_id
-                    and pd.language_id = :languageId
-                    order by p.products_sort_order, pd.products_name";
-            $query = $db->bindVars($query, ":languageId", $languageId, "integer");
-
-            $results = $db->Execute($query);
-            while (!$results->EOF) {
-                $cId = $keyPrefix.$results->fields['categories_id'];
+            $sql .= " p.products_id = p2c.products_id AND pd.products_id = p2c.products_id
+                        AND pd.language_id = :languageId
+                      ORDER BY p.products_sort_order, pd.products_name";
+            $args = array('languageId' => $languageId);
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
+            foreach ($results as $result) {
+                $cId = $keyPrefix.$result['categoryId'];
                 if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
                     $this->categoryProductMap_[$mainKey][$cId] = array();
                 }
-                $this->categoryProductMap_[$mainKey][$cId][] = $results->fields['products_id'];
-                $results->MoveNext();
+                $this->categoryProductMap_[$mainKey][$cId][] = $result['id'];
             }
         }
 
@@ -176,26 +168,21 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select p.products_id
-                    from " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
-                    where ";
+        $sql = "SELECT p.products_id
+                FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
+                WHERE ";
         if ($active) {
-            $query .= " p.products_status = 1 and ";
+            $sql .= " p.products_status = 1 AND ";
         }
-        $query .= " pd.products_id = p.products_id
-                    and pd.language_id = :languageId
-                    and p.manufacturers_id = m.manufacturers_id and p.manufacturers_id = :manufacturerId
-                    order by p.products_sort_order, pd.products_name";
-        $query = $db->bindVars($query, ":manufacturerId", $manufacturerId, 'integer');
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-        $results = $db->Execute($query);
-
+        $sql .= " pd.products_id = p.products_id
+                    AND pd.language_id = :languageId
+                    AND p.manufacturers_id = m.manufacturers_id AND p.manufacturers_id = :manufacturerId
+                  ORDER BY p.products_sort_order, pd.products_name";
+        $args = array('manufacturerId' => $manufacturerId, 'languageId' => $languageId);
+        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS));
         $productIds = array();
-        while (!$results->EOF) {
-            $product = $this->_newProduct($results->fields);
-            $productIds[] = $results->fields['products_id'];
-            $results->MoveNext();
+        foreach ($results as $result) {
+            $productIds[] = $result['id'];
         }
         return $this->getProductsForIds($productIds, false, $languageId);
     }
@@ -260,30 +247,29 @@ class ZMProducts extends ZMObject {
     public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
         $db = ZMRuntime::getDB();
 
-		    $query = null;
+		    $sql = null;
         if (null == $categoryId) {
-            $query = "select distinct p.products_id
-                      from " . TABLE_PRODUCTS . " p 
-                      left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
-                      where p.products_id = f.products_id 
+            $sql = "select distinct p.products_id
+                    from " . TABLE_PRODUCTS . " p 
+                    left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
+                    where p.products_id = f.products_id 
                       and p.products_status = '1'
                       and f.status = '1'";
         } else {
             $categoryCond = $includeChildren ? '(c.parent_id = :categoryId or c.categories_id = :categoryId)' : 'c.categories_id = :categoryId';
-            $query = "select distinct p.products_id
-                     from (" . TABLE_PRODUCTS . " p
-                     left join " . TABLE_FEATURED . " f on p.products_id = f.products_id), " .
-                      TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .
-                      TABLE_CATEGORIES . " c
-                     where p.products_id = p2c.products_id
-                     and p2c.categories_id = c.categories_id
-                     and " . $categoryCond . "
-                     and p.products_id = f.products_id
-                     and p.products_status = 1 and f.status = 1";
-            $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
+            $sql = "select distinct p.products_id
+                    from (" . TABLE_PRODUCTS . " p
+                    left join " . TABLE_FEATURED . " f on p.products_id = f.products_id), " .
+                     TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                    where p.products_id = p2c.products_id
+                      and p2c.categories_id = c.categories_id
+                      and " . $categoryCond . "
+                      and p.products_id = f.products_id
+                      and p.products_status = 1 and f.status = 1";
+            $sql = $db->bindVars($sql, ":categoryId", $categoryId, "integer");
         }
 
-        $productIds = 0 != $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
+        $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max) : $this->getProductIds($sql);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -337,7 +323,7 @@ class ZMProducts extends ZMObject {
         }
         $query .= " order by products_date_added";
 
-        $productIds = 0 !== $max ? $this->_getRandomProductIds($query, $max) : $this->_getProductIds($query);
+        $productIds = 0 !== $max ? $this->getRandomProductIds($query, $max) : $this->getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -378,7 +364,7 @@ class ZMProducts extends ZMObject {
 
         $results = $db->Execute($query);
 
-        $productIds = $this->_getProductIds($query);
+        $productIds = $this->getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -396,10 +382,10 @@ class ZMProducts extends ZMObject {
         $sql = "select distinct p.products_id
                 from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
                 where p.products_status = 1
-                and p.products_id = s.products_id
-                and s.status = 1";
+                  AND p.products_id = s.products_id
+                  AND s.status = 1";
 
-        $productIds = 0 !== $max ? $this->_getRandomProductIds($sql, $max) : $this->_getProductIds($sql);
+        $productIds = 0 !== $max ? $this->getRandomProductIds($sql, $max) : $this->getProductIds($sql);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -416,30 +402,14 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_image, pd.products_url, p.products_price,
-                    p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
-                    p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                    p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min, p.products_quantity_mixed,
-                    p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
-                 from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                 where p.products_status = '1'
-                 and p.products_model = :model
-                 and pd.products_id = p.products_id
-                 and pd.language_id = :languageId";
-        $sql = $db->bindVars($sql, ":model", $model, "string");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
-        $results = $db->Execute($sql);
-
-        if (0 == $results->RecordCount()) {
-            return null;
-        }
-
-        return $this->_newProduct($results->fields);
+        $sql = "SELECT *
+                FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                WHERE p.products_status = '1'
+                  AND p.products_model = :model
+                  AND pd.products_id = p.products_id
+                  AND pd.language_id = :languageId";
+        $args = array('model' => $model, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
     }
 
     /**
@@ -455,28 +425,13 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                    p.products_image, pd.products_url, p.products_price,
-                    p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
-                    p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                    p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
-                    p.products_quantity_order_min, p.products_quantity_mixed,
-                    p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                 ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
-                 from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                 where p.products_id = :productId
-                 and pd.products_id = p.products_id
-                 and pd.language_id = :languageId";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
-        $results = $db->Execute($sql);
-        if (0 == $results->RecordCount()) {
-            return null;
-        }
-
-        return $this->_newProduct($results->fields);
+        $sql = "SELECT *
+                FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                WHERE p.products_id = :id
+                  AND pd.products_id = p.products_id
+                  AND pd.language_id = :languageId";
+        $args = array('id' => $productId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
     }
 
     /**
@@ -510,33 +465,20 @@ class ZMProducts extends ZMObject {
         }
 
         if (0 < count($needLoadIds)) {
-            $db = ZMRuntime::getDB();
-            $sql = "select p.products_id, p.products_status, pd.products_name, pd.products_description, p.products_model,
-                        p.products_image, pd.products_url, p.products_price,
-                        p.products_tax_class_id, p.products_date_added, p.products_date_available, p.master_categories_id,
-                        p.manufacturers_id, p.products_quantity, p.products_weight, p.products_priced_by_attribute,
-                        p.product_is_call, p.product_is_free, p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
-                        p.products_quantity_order_min, p.products_quantity_mixed,
-                        p.products_discount_type, p.products_discount_type_from, p.products_sort_order, p.products_price_sorter
-                     ".ZMDbUtils::getCustomFieldsSQL(TABLE_PRODUCTS, 'p')."
-                     from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                     where p.products_id in (:productIdList)
-                     and pd.products_id = p.products_id
-                     and pd.language_id = :languageId";
+            $sql = "SELECT *
+                    FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                    WHERE p.products_id in (:id)
+                      AND pd.products_id = p.products_id
+                      AND pd.language_id = :languageId";
             if (!$preserveOrder) {
-                $sql .= " order by p.products_sort_order, pd.products_name";
+                $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
-            $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $needLoadIds, "integer");
-            $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
-            $results = $db->Execute($sql);
-
-            while (!$results->EOF) {
-                $product = $this->_newProduct($results->fields);
+            $args = array('id' => $needLoadIds, 'languageId' => $languageId);
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
+            foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
                 $this->cache_[$product->getId()] = $product;
-                $results->MoveNext();
             }
         }
 
@@ -557,42 +499,13 @@ class ZMProducts extends ZMObject {
     /**
      * Update an existing product.
      *
-     * <p><strong>NOTE: Currently not all properties are supported!</strong></p>
+     * <p><strong>NOTE: Currently only the products table is updated!</strong></p>
      *
      * @param ZMProduct product The product.
      * @return ZMProduct The updated product.
      */
     public function updateProduct($product) {
-        $db = ZMRuntime::getDB();
-        $sql = "update " . TABLE_PRODUCTS . " set
-                :customFields,
-                products_status = :status;integer,
-                products_model = :model;string,
-                products_image = :defaultImage;string,
-                products_quantity = :quantity;integer,
-                products_price = :productPrice;float,
-                products_tax_class_id = :taxClassId;integer,
-                products_date_added = :dateAdded;date,
-                products_date_available = :dateAvailable;date,
-                master_categories_id = :masterCategoryId;integer,
-                manufacturers_id = :manufacturerId;integer,
-                products_weight = :weight;float,
-                product_is_call = :call;integer,
-                product_is_free = :free;integer,
-                product_is_always_free_shipping = :alwaysFreeShipping;integer,
-                products_qty_box_status = :qtyBoxStatus;integer,
-                products_quantity_order_max = :maxOrderQty;integer,
-                products_quantity_order_min = :minOrderQty;integer,
-                products_quantity_mixed = :qtyMixed;integer,
-                products_discount_type = :discountType;integer,
-                products_discount_type_from = :discountTypeFrom;integer,
-                products_sort_order = :sortOrder;integer,
-                products_price_sorter = :priceSorter;integer
-                where products_id = :productId";
-        $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
-        $sql = ZMDbUtils::bindObject($sql, $product, false);
-        $sql = ZMDbUtils::bindCustomFields($sql, $product, TABLE_PRODUCTS);
-        $db->Execute($sql);
+        ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
 
         // update cache
         $this->cache_[$product->getId()] = $product;
@@ -612,15 +525,12 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "update " . TABLE_PRODUCTS_DESCRIPTION . "
-                set products_viewed = products_viewed+1
-                where products_id = :productId
-                and language_id = :languageId";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
-        $result = $db->Execute($sql);
+        $sql = "UPDATE " . TABLE_PRODUCTS_DESCRIPTION . "
+                SET products_viewed = products_viewed+1
+                WHERE products_id = :id
+                AND language_id = :languageId";
+        $args = array('id' => $productId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_PRODUCTS_DESCRIPTION);
     }
 
     /**
@@ -629,15 +539,11 @@ class ZMProducts extends ZMObject {
      * @param string sql Some SQL.
      * @return array A list of product ids.
      */
-    private function _getProductIds($sql) {
-        $db = ZMRuntime::getDB();
-        $results = $db->Execute($sql);
-
+    private function getProductIds($sql) {
         $productIds = array();
-        while (!$results->EOF) {
-            $productId = $results->fields['products_id'];
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS) as $result) {
+            $productId = $result['id'];
             $productIds[$productId] = $productId;
-            $results->MoveNext();
         }
 
         return $productIds;
@@ -651,14 +557,11 @@ class ZMProducts extends ZMObject {
      * @param int max The maximum number of results; default is <em>0</em> for all.
      * @return array A list of product ids.
      */
-    private function _getRandomProductIds($sql, $max=0) {
-        $db = ZMRuntime::getDB();
+    private function getRandomProductIds($sql, $max=0) {
         $productIds = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            // make sure we do not have duplicates
-            $productIds[$results->fields['products_id']] = $results->fields['products_id'];
-            $results->MoveNext();
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS) as $result) {
+            $productId = $result['id'];
+            $productIds[$productId] = $productId;
         }
 
         shuffle($productIds);
@@ -701,61 +604,8 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getProductsForSQL($sql, $languageId=null) {
-        $db = ZMRuntime::getDB();
-        $results = $db->Execute($sql);
-        if (0 == $results->RecordCount()) {
-            return null;
-        }
-
-        $productIds = array();
-        while (!$results->EOF) {
-            $productIds[] = $results->fields['products_id'];
-            $results->MoveNext();
-        }
-
+        $productIds = $this->getProductIds($sql);
         return $this->getProductsForIds($productIds, true, $languageId);
-    }
-
-
-    /**
-     * Create new product instance.
-     */
-    private function _newProduct($fields) {
-        $product = ZMLoader::make("Product", $fields['products_id'], $fields['products_name'], $fields['products_description']);
-        $product->status_ = $fields['products_status'];
-        $product->model_ = $fields['products_model'];
-        $product->image_ = $fields['products_image'];
-        $product->url_ = $fields['products_url'];
-        $product->dateAvailable_ = $fields['products_date_available'];
-        $product->dateAdded_ = $fields['products_date_added'];
-        $product->manufacturerId_ = $fields['manufacturers_id'];
-        $product->weight_ = $fields['products_weight'];
-        $product->quantity_ = $fields['products_quantity'];
-        $product->qtyMixed_ = $fields['products_quantity_mixed'] == '1';
-        $product->qtyBoxStatus_ = $fields['products_qty_box_status'];
-        $product->qtyOrderMin_ = $fields['products_quantity_order_min'];
-        $product->qtyOrderMax_ = $fields['products_quantity_order_max'];
-        $product->isFree_ = $fields['product_is_free'];
-        $product->isAlwaysFreeShipping_ = $fields['product_is_always_free_shipping'];
-        $product->isCall_ = $fields['product_is_call'];
-        $product->taxClassId_ = $fields['products_tax_class_id'];
-        $product->discountType_ = $fields['products_discount_type'];
-        $product->discountTypeFrom_ = $fields['products_discount_type_from'];
-        $product->priceSorter_ = $fields['products_price_sorter'];
-        $product->pricedByAttributes_ = $fields['products_priced_by_attribute'];
-        $product->masterCategoryId_ = $fields['master_categories_id'];
-        $product->sortOrder_ = $fields['products_sort_order'];
-        // the raw price
-        $product->productPrice_ = $fields['products_price'] ? $fields['products_price'] : 0;
-
-        // custom fields
-        foreach (ZMDbUtils::getCustomFields(TABLE_PRODUCTS) as $field) {
-            if (isset($fields[$field[0]])) {
-                $product->set($field[0], $fields[$field[0]]);
-            }
-        }
-
-        return $product;
     }
 
 }

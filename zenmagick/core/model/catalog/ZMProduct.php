@@ -74,7 +74,7 @@ class ZMProduct extends ZMModel {
      * @param string name The product name.
      * @param string description The product description.
      */
-    function __construct($id, $name, $description) {
+    function __construct($id=0, $name='', $description='') {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
@@ -101,60 +101,74 @@ class ZMProduct extends ZMModel {
     function getId() { return $this->id_; }
 
     /**
+     * Set the product id.
+     *
+     * @param int id The product id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
      * Get the product name.
      *
      * @return string The product name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Set the product name.
      *
      * @param string name The product name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Get the description.
      *
      * @return string The product description.
      */
-    function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description_; }
+
+    /**
+     * Set the description.
+     *
+     * @param string description The product description.
+     */
+    public function setDescription($description) { $this->description_ = $description; }
 
     /**
      * Get the product status.
      *
      * @return boolean The product status.
      */
-    function getStatus() { return $this->status_; }
+    public function getStatus() { return $this->status_; }
 
     /**
      * Set the product status.
      *
      * @param boolean status The product status.
      */
-    function setStatus($status) { $this->status_ = $status; }
+    public function setStatus($status) { $this->status_ = $status; }
 
     /**
      * Get the model.
      *
      * @return string The model.
      */
-    function getModel() { return $this->model_; }
+    public function getModel() { return $this->model_; }
 
     /**
      * Set the model.
      *
      * @param string model The model.
      */
-    function setModel($model) { $this->model_ = $model; }
+    public function setModel($model) { $this->model_ = $model; }
 
     /**
      * Get the product default image.
      *
      * @return string The default image.
      */
-    function getDefaultImage() { 
+    public function getDefaultImage() { 
         return (empty($this->image_) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image_;
     }
 
@@ -163,49 +177,55 @@ class ZMProduct extends ZMModel {
      *
      * @param string image The default image.
      */
-    function setDefaultImage($image) { $this->image_ = $image; }
+    public function setDefaultImage($image) { $this->image_ = $image; }
 
     /**
      * Get the product URL.
      *
      * @return string The product URL.
      */
-    function getURL() { return $this->url_; }
+    public function getURL() { return $this->url_; }
 
+    /**
+     * Set the product URL.
+     *
+     * @param string url The product URL.
+     */
+    public function setURL($url) { $this->url_ = $url; }
     /**
      * Get the available date.
      *
      * @return string The available date.
      */
-    function getDateAvailable() { return $this->dateAvailable_; }
+    public function getDateAvailable() { return $this->dateAvailable_; }
 
     /**
      * Get the date the product was added.
      *
      * @return string The product added date.
      */
-    function getDateAdded() { return $this->dateAdded_; }
+    public function getDateAdded() { return $this->dateAdded_; }
 
     /**
      * Get the manufacturer id.
      *
      * @return int The manufacturer id.
      */
-    function getManufacturerId() { return $this->manufacturerId_; }
+    public function getManufacturerId() { return $this->manufacturerId_; }
 
     /**
      * Set the manufacturer id.
      *
      * @param int manufacturerId The manufacturer id.
      */
-    function setManufacturerId($manufacturerId) { $this->manufacturerId_ = $manufacturerId; }
+    public function setManufacturerId($manufacturerId) { $this->manufacturerId_ = $manufacturerId; }
 
     /**
      * Get the manufacturer.
      *
      * @return ZMManufacturer The manufacturer.
      */
-    function getManufacturer() { 
+    public function getManufacturer() { 
         return ZMManufacturers::instance()->getManufacturerForProduct($this); 
     }
 
@@ -214,168 +234,188 @@ class ZMProduct extends ZMModel {
      *
      * @return float The weight.
      */
-    function getWeight() { return $this->weight_; }
+    public function getWeight() { return $this->weight_; }
 
     /**
      * Set the product weight.
      *
      * @param float weight The weight.
      */
-    function setWeight($weight) { $this->weight_ = $weight; }
+    public function setWeight($weight) { $this->weight_ = $weight; }
 
     /**
      * Get the quantity.
      *
      * @return int The quantity.
      */
-    function getQuantity() { return $this->quantity_; }
+    public function getQuantity() { return $this->quantity_; }
 
     /**
      * Set the quantity.
      *
      * @param int quantity The quantity.
      */
-    function setQuantity($quantity) { $this->quantity_ = $quantity; }
+    public function setQuantity($quantity) { $this->quantity_ = $quantity; }
 
     /**
      * Checks if the product quantity is calculated across product variations or not.
      *
      * @return boolean <code>true</code> if the quantity is calculated across variations, <code>false</code> if not.
      */
-    function isQtyMixed() { return $this->isQtyMixed_; }
+    public function isQtyMixed() { return $this->isQtyMixed_; }
 
     /**
      * Checks if the product is sold out.
      *
      * @return boolean <code>true</code> if the product is sold out, <code>false</code> if not.
      */
-    function isSoldOut() { return 0 >= $this->quantity_; }
+    public function isSoldOut() { return 0 >= $this->quantity_; }
 
     /**
      * Get the quantity box status.
      *
      * @return int The quantity box status.
      */
-    function getQtyBoxStatus() { return $this->qtyBoxStatus_; }
+    public function getQtyBoxStatus() { return $this->qtyBoxStatus_; }
 
     /**
      * Get the max quantity per order.
      *
      * @return int The max quantity per order.
      */
-    function getMaxOrderQty() { return $this->qtyOrderMax_; }
+    public function getMaxOrderQty() { return $this->qtyOrderMax_; }
 
     /**
      * Get the min quantity per order.
      *
      * @return int The min quantity per order.
      */
-    function getMinOrderQty() { return $this->qtyOrderMin_; }
+    public function getMinOrderQty() { return $this->qtyOrderMin_; }
 
     /**
      * Checks if the product is free.
      *
      * @return boolean <code>true</code> if the product is free, <code>false</code> if not.
      */
-    function isFree() { return $this->isFree_; }
+    public function isFree() { return $this->isFree_; }
+
+    /**
+     * Set the product is free flag.
+     *
+     * @param boolean value <code>true</code> if the product is free, <code>false</code> if not.
+     */
+    public function setFree($value) { $this->isFree_ = $value; }
 
     /**
      * Checks if the product is always free shipping
      *
      * @return boolean <code>true</code> if the product is free shipping, <code>false</code> if not.
      */
-    function isAlwaysFreeShipping() { return $this->isAlwaysFreeShipping_; }
+    public function isAlwaysFreeShipping() { return $this->isAlwaysFreeShipping_; }
 
     /**
      * Configure if the product is always free shipping
      *
      * @param boolean b <code>true</code> if the product is free shipping, <code>false</code> if not.
      */
-    function setAlwaysFreeShipping($b) { $this->isAlwaysFreeShipping_ = $b; }
+    public function setAlwaysFreeShipping($b) { $this->isAlwaysFreeShipping_ = $b; }
 
     /**
      * Checks if the user needs to call for this product.
      *
      * @return boolean <code>true</code> if the user must call, <code>false</code> if not.
      */
-    function isCall() { return $this->isCall_; }
+    public function isCall() { return $this->isCall_; }
 
+    /**
+     * Sets the flag to indicate that the user needs to call for this product.
+     *
+     * @param boolean value <code>true</code> if the user must call, <code>false</code> if not.
+     */
+    public function setCall($value) { $this->isCall_ = $value; }
     /**
      * Get the tax class id.
      *
      * @return int The tax class id.
      */
-    function getTaxClassId() { return $this->taxClassId_; }
+    public function getTaxClassId() { return $this->taxClassId_; }
 
     /**
      * Set the tax class id.
      *
      * @param int taxClassId The tax class id.
      */
-    function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
+    public function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
 
     /**
      * Get the discount type.
      *
      * @return int The discount type.
      */
-    function getDiscountType() { return $this->discountType_; }
+    public function getDiscountType() { return $this->discountType_; }
 
     /**
      * Get the discount start date.
      *
      * @return string The discount start date.
      */
-    function getDiscountTypeFrom() { return $this->discountTypeFrom_; }
+    public function getDiscountTypeFrom() { return $this->discountTypeFrom_; }
 
     /**
      * Get the tax rate.
      *
      * @return ZMTaxRate The tax rate.
      */
-    function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId_); }
+    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId_); }
 
     /**
      * Get the product price sorter.
      *
      * @return float The price sorter.
      */
-    function getPriceSorter() { return $this->priceSorter_; }
+    public function getPriceSorter() { return $this->priceSorter_; }
 
     /**
      * Get the master category id.
      *
      * @return int The master category id.
      */
-    function getMasterCategoryId() { return $this->masterCategoryId_; }
+    public function getMasterCategoryId() { return $this->masterCategoryId_; }
+
+    /**
+     * Set the master category id.
+     *
+     * @param int categoryId The master category id.
+     */
+    public function setMasterCategoryId($categoryId) { $this->masterCategoryId_ = $categoryId; }
 
     /**
      * Get the calculated product price.
      *
      * @return float The product price.
      */
-    function getPrice() { return $this->getOffers()->getCalculatedPrice(); }
+    public function getPrice() { return $this->getOffers()->getCalculatedPrice(); }
 
     /**
      * Get the product price.
      *
      * @return float The product price.
      */
-    function getProductPrice() { return $this->productPrice_; }
+    public function getProductPrice() { return $this->productPrice_; }
 
     /**
      * Set the product price.
      *
      * @param float productPrice The product price.
      */
-    function setProductPrice($productPrice) { $this->productPrice_ = $productPrice; }
+    public function setProductPrice($productPrice) { $this->productPrice_ = $productPrice; }
 
     /**
      * Get the product offers.
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    function getOffers() { 
+    public function getOffers() { 
         if (null == $this->offers_) {
             $this->offers_ = ZMLoader::make("Offers", $this); 
         }
@@ -388,7 +428,7 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    function hasAttributes() { return 0 < count($this->getAttributes()); }
+    public function hasAttributes() { return 0 < count($this->getAttributes()); }
 
     /**
      * Get the product attributes.
@@ -396,7 +436,7 @@ class ZMProduct extends ZMModel {
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
-    function getAttributes($languageId=null) { 
+    public function getAttributes($languageId=null) { 
         if (null == $this->attributes_) {
             $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this, $languageId);
         }
@@ -409,14 +449,21 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMImageInfo The product image info.
      */
-    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+
+    /**
+     * Set the product image.
+     *
+     * @param string image The product image.
+     */
+    public function setImage($image) { $this->image_ = $image; }
 
     /**
      * Get additional product images.
      *
      * @return array List of optional <code>ZMImageInfo</code> instances.
      */
-    function getAdditionalImages() { return ZMImageInfo::getAdditionalImages($this->image_); }
+    public function getAdditionalImages() { return ZMImageInfo::getAdditionalImages($this->image_); }
 
 
     /**
@@ -425,7 +472,7 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if the price is affected by attributes, <code>false</code> if not.
      * @deprecated use ZMOffers::isAttributePrice() instead
      */
-    function isAttributePrice() { return $this->getOffers()->isAttributePrice(); }
+    public function isAttributePrice() { return $this->getOffers()->isAttributePrice(); }
 
 
     /**
@@ -433,7 +480,7 @@ class ZMProduct extends ZMModel {
      *
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
-    function hasReviews() { 
+    public function hasReviews() { 
         return 0 < ZMReviews::instance()->getReviewCount($this->id_);
     }
 
@@ -442,7 +489,7 @@ class ZMProduct extends ZMModel {
      *
      * @return int The number of reviews.
      */
-    function getReviewCount() { 
+    public function getReviewCount() { 
         return ZMReviews::instance()->getReviewCount($this);
     }
 
@@ -454,7 +501,7 @@ class ZMProduct extends ZMModel {
      * @param string field The field name.
      * @return mixed The setting value.
      */
-    function getTypeSetting($field) { 
+    public function getTypeSetting($field) { 
         return ZMProducts::instance()->getProductTypeSetting($this->id_, $field);
     }
 
@@ -466,7 +513,7 @@ class ZMProduct extends ZMModel {
      *
      * @return ZMCategory The default category.
      */
-    function getDefaultCategory() {
+    public function getDefaultCategory() {
         return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_) :
             ZMCategories::instance()->getDefaultCategoryForProductId($this->id_);
     }
@@ -478,7 +525,7 @@ class ZMProduct extends ZMModel {
      *
      * @return float The average rating.
      */
-    function getAverageRating() {
+    public function getAverageRating() {
         return ZMReviews::instance()->getAverageRatingForProductId($this->id_);
     }
 
@@ -487,14 +534,14 @@ class ZMProduct extends ZMModel {
      *
      * @return int The sort order.
      */
-    function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder_; }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */
-    function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
 }
 

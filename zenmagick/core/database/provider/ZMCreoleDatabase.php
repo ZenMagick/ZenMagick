@@ -236,9 +236,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             if (!empty($name)) {
                 $pl = '?';
                 if (array_key_exists($name, $args) && is_array($args[$name])) {
-                    // expand $argOrder and placeholder
-                    for ($ii=0; $ii < count($args[$name]); ++$ii) {
-                        array_splice($argOrder, $ii+1, 0, $key);
+                    // expand placeholder
+                    for ($ii=1; $ii < count($args[$name]); ++$ii) {
                         $pl .= ',?';
                     }
                 }
