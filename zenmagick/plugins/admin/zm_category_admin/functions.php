@@ -34,7 +34,7 @@
     function zm_category_admin() {
     global $zm_category_admin, $zm_nav_params;
 
-        if (null != ZMRequest::getParameter('update')) {
+        if (null != ZMRequest::getParameter('update') && 'zm_category_admin' == ZMRequest::getParameter('fkt')) {
             // load from db to start with
             $languageId = ZMRequest::getParameter('languageId', ZMRuntime::getLanguage()->getId());
             $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $languageId);
