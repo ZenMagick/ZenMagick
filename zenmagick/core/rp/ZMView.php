@@ -64,7 +64,7 @@ class ZMView extends ZMObject {
      *
      * @return string The full view filename.
      */
-    function getViewFilename() {
+    public function getViewFilename() {
         return $this->_getViewFilename();
     }
 
@@ -73,7 +73,7 @@ class ZMView extends ZMObject {
      *
      * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
-    function isValid() {
+    public function isValid() {
         return file_exists($this->_getViewFilename());
     }
 
@@ -87,7 +87,7 @@ class ZMView extends ZMObject {
      *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
      * @return string The full view filename.
      */
-    function _getViewFilename($subdir=null, $prefixToDir=true) {
+    protected function _getViewFilename($subdir=null, $prefixToDir=true) {
         $filename = ZMRuntime::getTheme()->getViewsDir();
         $subdir = null != $subdir ? $subdir : $this->subdir_;
         if (null != $subdir) {
@@ -116,47 +116,54 @@ class ZMView extends ZMObject {
      *
      * @return string The view name.
      */
-    function getName() { return $this->page_; }
+    public function getName() { return $this->page_; }
 
     /**
      * Set the view name.
      *
      * @param string name The view name.
      */
-    function setName($name) { $this->page_ = $name; }
+    public function setName($name) { $this->page_ = $name; }
 
     /**
      * Set an optional subdir.
      *
      * @param string subdir The subdirectory.
      */
-    function setSubdir($subdir) { $this->subdir_ = $subdir; }
+    public function setSubdir($subdir) { $this->subdir_ = $subdir; }
+
+    /**
+     * Get optional subdir.
+     *
+     * @return subdir The subdirectory.
+     */
+    public function getSubdir() { return $this->subdir_; }
 
     /**
      * Generate view response.
      */
-    function generate() { die('not implemented'); }
+    public function generate() { die('not implemented'); }
 
     /**
      * Set the controller for this view.
      *
      * @param controller ZMController The corresponding controller.
      */
-    function setController($controller) { $this->controller_ = $controller; }
+    public function setController($controller) { $this->controller_ = $controller; }
 
     /**
      * Get the controller for this view.
      *
      * @return ZMController The corresponding controller.
      */
-    function getController() { return $this->controller_; }
+    public function getController() { return $this->controller_; }
 
     /**
      * Get the mapping id for this view.
      *
      * @return string The mapping id.
      */
-    function getMappingId() {
+    public function getMappingId() {
         return $this->mappingId_;
     }
 
@@ -165,7 +172,7 @@ class ZMView extends ZMObject {
      *
      * @param string mapping The mapping id.
      */
-    function setMappingId($mappingId) {
+    public function setMappingId($mappingId) {
         $this->mappingId_ = $mappingId;
     }
 
@@ -175,17 +182,21 @@ class ZMView extends ZMObject {
      * @return boolean <code>true</code> if the view content is generated
      *  by a function, <code>false</code> if not.
      */
-    function isViewFunction() {
+    public function isViewFunction() {
         return function_exists($this->page_);
     }
 
     /**
      * Call the function that generates the view contents.
+     *
+     * @return boolean <code>true</code> if the view was generated using a function.
      */
-    function callView() {
+    public function callView() {
         if ($this->isViewFunction()) {
             call_user_func($this->page_);
+            return true;
         }
+        return false;
     }
 }
 

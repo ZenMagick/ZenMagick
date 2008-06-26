@@ -41,9 +41,9 @@ class ZMPluginView extends ZMPageView {
      * Create new theme view view.
      *
      * @param string page The page (view) name.
-     * @param string plugin The plugin.
+     * @param ZMPlugin plugin The plugin; default is <code>null</code>.
      */
-    function __construct($page, $plugin) {
+    function __construct($page, $plugin=null) {
         parent::__construct($page);
         $this->plugin_ = $plugin;
     }
@@ -57,11 +57,20 @@ class ZMPluginView extends ZMPageView {
 
 
     /**
+     * Set the corresponding plugin.
+     *
+     * @param ZMPlugin plugin The plugin.
+     */
+    public function setPlugin($plugin) {
+        $this->plugin_ = $plugin;
+    }
+
+    /**
      * Check if this view is valid.
      *
      * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
-    function isValid() {
+    public function isValid() {
         return true;
     }
 
@@ -70,9 +79,16 @@ class ZMPluginView extends ZMPageView {
      *
      * @return string The full view filename.
      */
-    function getViewFilename() {
+    public function getViewFilename() {
         $plugin = $this->plugin_;
-        return $plugin->getPluginDir() . $this->getName() . ".php";
+        $subdir = $this->getSubdir();
+        if (null != $subdir) {
+            $subdir .= '/';
+        } else {
+            $subdir = '';
+        }
+
+        return $plugin->getPluginDir() . $subdir . $this->getName() . ".php";
     }
 
 }

@@ -31,6 +31,13 @@ Release 0.9.2
   files
 - fix potential issue with wrong shipping cost due to multiple order instances
   created
+- allow plugin property to be set on ZMPluginView - that allows to create
+  proper mappings rather than returning hardcoded view instances.
+- add support for subdir to ZMPluginView; now a plugin may generate view
+  contents by: 
+	a) have a view template in the plugin folder
+	b) have a view template in a subdirectory of the plugin folder
+	c) provide a function to generate the contents
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

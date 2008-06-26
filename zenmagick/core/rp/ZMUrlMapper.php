@@ -76,7 +76,7 @@ class ZMUrlMapper extends ZMObject {
      * @param string viewId The view id; this is the key the controller is using to lookup the view; default is <code>null</code>.
      * @param string view The mapped view name; default is <code>null</code> to default to the controller name.
      * @param string viewClass The class to be used; default is <code>PageView</code>
-     * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
+     * @param mixed parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      */
     function setMapping($controller, $viewId=null, $view=null, $viewClass='PageView', $parameter=null) {
         if (null == $controller && (null == $view || null == $viewId)) {
@@ -106,7 +106,7 @@ class ZMUrlMapper extends ZMObject {
      *
      * @param string controller The controller.
      * @param string viewId The viewId; defaults to <code>null</code> to use the controller.
-     * @param array parameter Optional map of name/value pairs (or URL query format string) 
+     * @param mixed parameter Optional map of name/value pairs (or URL query format string) 
      *  to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
