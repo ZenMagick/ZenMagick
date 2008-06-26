@@ -32,9 +32,10 @@
  * @version $Id$
  */
 class ZMView extends ZMObject {
-    var $controller_;
-    var $page_;
-    var $mappingId_;
+    private $controller_;
+    private $page_;
+    private $mappingId_;
+    private $subdir_;
 
 
     /**
@@ -47,6 +48,7 @@ class ZMView extends ZMObject {
         parent::__construct();
         $this->page_ = $page;
         $this->mapping_ = $mappingId;
+        $this->subdir_ = null;
     }
 
     /**
@@ -78,6 +80,8 @@ class ZMView extends ZMObject {
     /**
      * Returns the full view filename to be included by a template.
      *
+     * <p>The subdir parameter will override the subdir that might have previously set on the instance.</p>
+     *
      * @param string subdir Optional subdirectory name within the views directory.
      * @param boolean $prefixToDir If <code>true</code> the subdir is assumed to be the view filename prefix; eg: 'popup_'. If this is the case,
      *  it gets converted into an additional ssubdir instead. Example: <code>popup_cvv_help.php</code> = <code>popup/cvv_help.php</code>.
@@ -85,6 +89,7 @@ class ZMView extends ZMObject {
      */
     function _getViewFilename($subdir=null, $prefixToDir=true) {
         $filename = ZMRuntime::getTheme()->getViewsDir();
+        $subdir = null != $subdir ? $subdir : $this->subdir_;
         if (null != $subdir) {
             $filename .= $subdir.'/';
             if ($prefixToDir) {
@@ -119,6 +124,13 @@ class ZMView extends ZMObject {
      * @param string name The view name.
      */
     function setName($name) { $this->page_ = $name; }
+
+    /**
+     * Set an optional subdir.
+     *
+     * @param string subdir The subdirectory.
+     */
+    function setSubdir($subdir) { $this->subdir_ = $subdir; }
 
     /**
      * Generate view response.

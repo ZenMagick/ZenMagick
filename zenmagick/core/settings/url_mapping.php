@@ -52,10 +52,10 @@
 
 
         // popups
-        $urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PopupView');
-        $urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PopupView');
-        $urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PopupView');
-        $urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PopupView');
+        $urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PageView', 'subdir=popup');
+        $urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PageView', 'subdir=popup');
+        $urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PageView', 'subdir=popup');
+        $urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PageView', 'subdir=popup');
 
         // address_book_process
         $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
