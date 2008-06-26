@@ -124,6 +124,11 @@
             <param name="plugin.name" value="zm_openid" />
             <param name="plugin.version" value="${plugins.zm_openid.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_wordpress" />
+            <param name="plugin.version" value="${plugins.zm_wordpress.version}" />
+        </antcall>
     </target>
 
     
