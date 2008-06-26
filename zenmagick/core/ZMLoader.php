@@ -58,6 +58,7 @@ class ZMLoader {
     private $parent_;
     private $path_;
     private static $classPrefix = 'ZM';
+    private $global_;
 
 
     /**
@@ -66,6 +67,7 @@ class ZMLoader {
     public function __construct() {
         $this->parent_ = null;
         $this->path_ = array();
+        $this->global_ = array();
     }
 
 
@@ -116,6 +118,28 @@ class ZMLoader {
             $root = $tmp;
         }
         $root->parent_ = $parent;
+    }
+
+    /**
+     * Add a file to be loaded in global context.
+     *
+     * @param string filename The file to load.
+     */
+    public function addGlobal($filename) {
+        $this->global_[] = $filename;
+    }
+
+    /**
+     * Get files to be loaded in global context.
+     *
+     * @param array List of filenames.
+     */
+    public function getGlobal() {
+        $list = $this->global_;
+        if (null != $this->parent_) {
+            $list = array_merge($list, $this->parent_->getGlobal());
+        }
+        return $list;
     }
 
     /**

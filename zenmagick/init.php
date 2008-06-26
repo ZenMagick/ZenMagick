@@ -152,6 +152,11 @@
     // this is used as default value for the $echo parameter for HTML functions
     define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
 
+    // load stuff that really needs to be global!
+    foreach (ZMLoader::instance()->getGlobal() as $global) {
+        include $global;
+    }
+
     // start output buffering
     if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) { ob_start(); }
 

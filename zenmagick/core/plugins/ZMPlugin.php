@@ -97,6 +97,20 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
+     * Get optional files to be loaded in global scope.
+     *
+     * <p>Files returned here would typically have an extension different to <em>.php</em> as otherwise
+     * the loader will load them as static.</p> 
+     *
+     * <p>Global
+     *
+     * @return array List of filenames relative to the plugin location.
+     */
+    function getGlobal() {
+        return array();
+    }
+
+    /**
      * Support generic getter method for plugin config values.
      *
      * <p>Supports <code>getXXX()</code> methods for all keys returned by <code>getKeys()</code>.</p>

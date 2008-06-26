@@ -305,6 +305,9 @@ class ZMPlugins extends ZMObject {
                 } else if ('FOLDER' == $plugin->getLoaderSupport()) {
                     $pluginLoader->addPath($plugin->getPluginDir(), false);
                 }
+                foreach ($plugin->getGlobal() as $file) {
+                    $pluginLoader->addGlobal($plugin->getPluginDir().$file);
+                }
                 $pluginId = $plugin->getId();
                 // make plugin a global using the class name
                 global $$pluginId;
