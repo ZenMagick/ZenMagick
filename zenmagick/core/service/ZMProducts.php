@@ -543,7 +543,7 @@ class ZMProducts extends ZMObject {
         $productIds = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS) as $result) {
             $productId = $result['id'];
-            $productIds[$productId] = $productId;
+            $productIds[] = $productId;
         }
 
         return $productIds;
