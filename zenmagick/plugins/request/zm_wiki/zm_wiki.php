@@ -34,7 +34,7 @@ define ('ZM_FILENAME_WIKI', 'wiki');
  *
  * <p>This plugin is based on pawfaliki (http://www.pawfal.org/pawfaliki).</p>
  *
- * <p>Edit permission is based on the setting <em>plugin.zm_wiki.access.modify</em>.
+ * <p>Edit permission is based on the setting <em>plugins.zm_wiki.access.modify</em>.
  * Possible values are:</p>
  * <dl>
  *   <dt>ALL</dt><dd>Everyone is allowed to edit pages.</dd>
@@ -91,7 +91,7 @@ class zm_wiki extends ZMBoxPlugin {
         parent::init();
 
         // remember last strategy
-        ZMSettings::set('plugin.zm_wiki.last-page-caching-strategy', ZMSettings::get('pageCacheStrategyCallback'));
+        ZMSettings::set('plugins.zm_wiki.last-page-caching-strategy', ZMSettings::get('pageCacheStrategyCallback'));
         // replace with own implementation
         ZMSettings::set('pageCacheStrategyCallback', 'zm_wiki_is_page_cacheable');
         $this->addMenuItem('wiki', zm_l10n_get('Manage Wiki'), 'zm_wiki_admin');

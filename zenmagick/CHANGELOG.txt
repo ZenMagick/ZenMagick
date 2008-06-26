@@ -38,6 +38,8 @@ Release 0.9.2
 	a) have a view template in the plugin folder
 	b) have a view template in a subdirectory of the plugin folder
 	c) provide a function to generate the contents
+- changed all plugins to have plugin settings start with plugins. rather
+  plugin.
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

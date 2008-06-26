@@ -70,7 +70,7 @@
      * @package org.zenmagick.plugins.zm_wiki
      */
     function zm_wiki_is_page_cacheable() {
-        $lastPageCacheStrategy = ZMSettings::get('plugin.zm_wiki.last-page-caching-strategy');
+        $lastPageCacheStrategy = ZMSettings::get('plugins.zm_wiki.last-page-caching-strategy');
         return 'wiki' == ZMRequest::getPageName() ? false : $lastPageCacheStrategy();
     }
 
@@ -98,7 +98,7 @@
         displayPage($title, $mode);
 
         $canEdit = false;
-        switch(ZMSettings::get('plugin.zm_wiki.access.modify')) {
+        switch(ZMSettings::get('plugins.zm_wiki.access.modify')) {
         case 'ALL':
             $canEdit = true;
             break;

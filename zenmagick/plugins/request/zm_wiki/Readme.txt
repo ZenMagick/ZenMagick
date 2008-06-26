@@ -36,7 +36,7 @@ directories will not be deleted on uninstall:
 
 CONFIGURATION
 =============
-The plugin checks one ZenMagick setting with name 'plugin.zm_wiki.restriction'.
+The plugin checks one ZenMagick setting with name 'plugins.zm_wiki.restriction'.
 This controls which users are allowed to edit wiki pages. Valid settings are:
 
 'ALL'                      = everyone can edit
@@ -48,7 +48,7 @@ The setting can be configured using the global local.php file; for example, to
 give edit rights to registered users only, add the following line:
 
 
-    ZMSettings::set('plugin.zm_wiki.restriction', 'REGISTERED');
+    ZMSettings::set('plugins.zm_wiki.restriction', 'REGISTERED');
 
 
 SIDEBOX

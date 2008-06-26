@@ -84,7 +84,7 @@ class zm_page_stats extends ZMPlugin {
         $stats = ZMRuntime::getDatabase()->getStats();
         echo '  database ('.ZMSettings::get('dbProvider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
         echo '-->'."\n";
-        if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
+        if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             echo '<!--'."\n";
             echo '  '.ZMRuntime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach (ZMEvents::instance()->getEventLog() as $event) {
@@ -123,7 +123,7 @@ class zm_page_stats extends ZMPlugin {
         $stats = ZMRuntime::getDatabase()->getStats();
         $info .= '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
         $info .= '</div>';
-        if (ZMSettings::get('plugin.zm_page_stats.showEventLog', true)) {
+        if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             $info .= '<div id="event-log">';
             $info .= '<table border="1">';
             $info .= '<tr>';
