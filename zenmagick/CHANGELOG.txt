@@ -29,6 +29,8 @@ Release 0.9.2
 - make ZMPopupView obsolete by adding a new subdir property to ZMView
 - extend ZMLoader to allow plugins and other code to include truly global
   files
+- fix potential issue with wrong shipping cost due to multiple order instances
+  created
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

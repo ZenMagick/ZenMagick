@@ -131,8 +131,12 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     function isVirtual() {
-        ZMLoader::resolveZCClass('order');
-        $order = new order();
+    global $order;
+
+        if (!isset($order)) {
+            ZMLoader::resolveZCClass('order');
+            $order = new order();
+        }
 
         return $order->content_type == 'virtual';
     }
@@ -255,7 +259,11 @@ class ZMShoppingCart extends ZMObject {
      * @return mixed The zen-cart shipping method.
      */
     function getShippingMethod() {
-        $order = new order();
+    global $order;
+
+        if (!isset($order)) {
+            $order = new order();
+        }
         return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
     }
 
@@ -374,8 +382,10 @@ class ZMShoppingCart extends ZMObject {
                 //TODO:?????
                 $zenTotals = new order_total();
             }
-            ZMLoader::resolveZCClass('order');
-            $GLOBALS['order'] = new order();
+            if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
+                ZMLoader::resolveZCClass('order');
+                $GLOBALS['order'] = new order();
+            }
             $this->zenTotals_->process();
         }
 
