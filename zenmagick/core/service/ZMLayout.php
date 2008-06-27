@@ -194,17 +194,18 @@ class ZMLayout extends ZMObject {
         // default
         $template = 'product';
 
-        $db = ZMRuntime::getDB();
-        $sql = "SELECT products_type FROM " . TABLE_PRODUCTS . " WHERE products_id = :productId";
-        $sql = $db->bindVars($sql, ':productId', $productId, 'integer');
-        $results = $db->Execute($sql);
-        if (0 < $results->RecordCount()) {
-            $type = $results->fields['products_type'];
-            $sql = "SELECT type_handler FROM " . TABLE_PRODUCT_TYPES . " WHERE type_id = :type";
-            $sql = $db->bindVars($sql, ':type', $type, 'integer');
-            $results = $db->Execute($sql);
-            if (0 < $results->RecordCount()) {
-                $template = $results->fields['type_handler'];
+        $sql = "SELECT products_type 
+                FROM " . TABLE_PRODUCTS . "
+                WHERE products_id = :id";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $productId), TABLE_PRODUCTS);
+        if (null !== $result) {
+            $typeId = $result['type'];
+            $sql = "SELECT type_handler 
+                    FROM " . TABLE_PRODUCT_TYPES . "
+                    WHERE type_id = :id";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
+            if (null !== $result) {
+                $template = $result['handler'];
             }
         }
 

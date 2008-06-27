@@ -90,7 +90,8 @@ class ZMAddress extends ZMModel {
     public function populate($req=null) {
         $this->addressId_ = ZMRequest::getParameter('addressId', 0);
         // default to current
-        $this->accountId_ = ZMRequest::getParameter('accountId', ZMRequest::getAccount()->getId());
+        $current = ZMRequest::getAccount();
+        $this->accountId_ = ZMRequest::getParameter('accountId', (null != $current ? $current->getId() : 0));
         $this->firstName_ = ZMRequest::getParameter('firstname', '');
         $this->lastName_ = ZMRequest::getParameter('lastname', '');
         $this->companyName_ = ZMRequest::getParameter('company', '');

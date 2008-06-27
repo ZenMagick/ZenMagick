@@ -107,8 +107,8 @@
                     <td><input type="text" name="city" value="<?php $html->encode($zm_address->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
-                    $country = $zm_address->getCountry(); 
-                    $countryId = 0 != $country->getId() ? $country->getId() : ZMSettings::get('storeCountry');
+                    $countryId = $zm_address->getCountryId(); 
+                    $countryId = 0 != $countryId ? $countryId : ZMSettings::get('storeCountry');
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>

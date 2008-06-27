@@ -34,8 +34,8 @@
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
     function _zmp_is_not_duplicate_nickname($req) {
-    global $phpBB;
-
+        // use fresh instance to be sure the phpBB db is selected
+        $phpBB = new phpBB();
         return !$phpBB->phpbb_check_for_duplicate_nick($req['nick']) == 'already_exists';
     }
 
@@ -47,8 +47,8 @@
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     function _zmp_is_not_duplicate_email($req) {
-    global $phpBB;
-
+        // use fresh instance to be sure the phpBB db is selected
+        $phpBB = new phpBB();
         return !$phpBB->phpbb_check_for_duplicate_email($req['email_address']) == 'already_exists';
     }
 
