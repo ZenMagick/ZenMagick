@@ -79,6 +79,7 @@ class zm_wordpress extends ZMPlugin {
         ZMUrlMapper::instance()->setMapping(null, 'wp_page', 'page', $view, $parameter);
         ZMUrlMapper::instance()->setMapping(null, 'wp_archive', 'archive', $view, $parameter);
         ZMUrlMapper::instance()->setMapping(null, 'wp_archives', 'archives', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, 'wp_search', 'search', $view, $parameter);
     }
 
     /**

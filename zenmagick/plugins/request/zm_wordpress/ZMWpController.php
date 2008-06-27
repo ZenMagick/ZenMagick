@@ -70,6 +70,9 @@ class ZMWpController extends ZMController {
         } else if (null != ($m = ZMRequest::getParameter('m'))) {
             $viewName = 'wp_archive';
             $zm_wordpress->query_posts('m='.$m);
+        } else if (null != ($s = ZMRequest::getParameter('s'))) {
+            $viewName = 'wp_search';
+            $zm_wordpress->query_posts('s='.$s);
         } else if (null != ($tag = ZMRequest::getParameter('tag'))) {
             $viewName = 'wp_archive';
             $zm_wordpress->query_posts('tag='.$tag);
@@ -85,6 +88,7 @@ class ZMWpController extends ZMController {
         add_filter('category_link', array($this, 'link_filter'));
         add_filter('month_link', array($this, 'link_filter'));
         add_filter('comments_template', array($this, 'comments_template_filter'));
+        add_filter('search_template', array($this, 'link_filter'));
 
         return $this->findView($viewName);
     }

@@ -1,42 +1,37 @@
-<?php get_header(); ?>
+<?php if (have_posts()) : ?>
 
-	<div id="content" class="narrowcolumn">
+  <h2 style="text-align:left;" class="pagetitle">Search Results</h2>
 
-	<?php if (have_posts()) : ?>
+  <div class="navigation">
+    <div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
+    <div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
+  </div>
 
-		<h2 class="pagetitle">Search Results</h2>
+  <?php while (have_posts()) : the_post(); ?>
 
-		<div class="navigation">
-			<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-			<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-		</div>
+    <div class="post">
+      <h3 id="post-<?php the_ID(); ?>"><a style="float:none;" href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
+      <small><?php the_time('l, F jS, Y') ?></small>
 
+      <p class="postmetadata"><?php the_tags('Tags: ', ', ', '<br />'); ?> Posted in <?php the_category(', ') ?> | <?php edit_post_link('Edit', '', ' | '); ?>  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></p>
+    </div>
 
-		<?php while (have_posts()) : the_post(); ?>
+  <?php endwhile; ?>
 
-			<div class="post">
-				<h3 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-				<small><?php the_time('l, F jS, Y') ?></small>
+  <div class="navigation">
+    <div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
+    <div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
+  </div>
 
-				<p class="postmetadata"><?php the_tags('Tags: ', ', ', '<br />'); ?> Posted in <?php the_category(', ') ?> | <?php edit_post_link('Edit', '', ' | '); ?>  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></p>
-			</div>
+<?php else : ?>
 
-		<?php endwhile; ?>
+  <h2 style="text-align:left;">No posts found. Try a different search?</h2>
+  <form method="get" id="searchform" action="">
+      <div>
+          <input type="hidden" value="<?php echo FILENAME_WP ?>" name="main_page">
+          <input type="text" value="<?php the_search_query(); ?>" name="s" id="s">
+          <input type="submit" id="searchsubmit" value="Search">
+      </div>
+  </form>
 
-		<div class="navigation">
-			<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-			<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-		</div>
-
-	<?php else : ?>
-
-		<h2 class="center">No posts found. Try a different search?</h2>
-		<?php include (TEMPLATEPATH . '/searchform.php'); ?>
-
-	<?php endif; ?>
-
-	</div>
-
-<?php get_sidebar(); ?>
-
-<?php get_footer(); ?>
+<?php endif; ?>

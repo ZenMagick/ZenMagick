@@ -18,15 +18,29 @@ In templates it may be generated using the toolbox with:
 
   $net->url(FILENAME_WP)
 
+
+Views
+=====
 The view files are pretty much vanilla Wordpress theme files, so almost all Wordpress code should work.
 
 Please note that the comments form needs a custom hidden form field 'redirect_to' in order to return back
 to the ZenMagick view. If removed, the regular blog page will be displayed.
+Also, the action of the search form is not Wordpress standard and a hidden field 'main_page' has been added.
+
 
 Depending on your needs you might want to remove all Wordpress theme files in order to disable direct access (perhaps
 with the exception of the 404.php).
 
-
 NOTE: It is possible to configure the plugin to use the view files from the plugin folder. However this is not
 recommended as they might get overriden in subsequent releases.
 To configure this, the setting 'plugins.zm_wordpress.isUseOwnViews' needs to be set to true.
+
+
+Sidebar
+=======
+To only show wp-sidebar.php when in the blog add the following to your theme's local.php:
+
+    if (FILENAME_WP == ZMRequest::getPageName()) {
+        ZMLayout::instance()->setRightColBoxes(array('wp-sidebar.php'));
+    }
+
