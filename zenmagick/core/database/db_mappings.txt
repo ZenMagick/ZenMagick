@@ -281,4 +281,9 @@ array(
         'ssl' => 'column=page_is_ssl;type=integer',
         'tocChapter' => 'column=toc_chapter;type=integer',
     ),
+    'template_select' => array(
+        'id' => 'column=template_id;type=integer;key=true;auto=true',
+        'dir' => 'column=template_dir;type=string',
+        'languageId' => 'column=template_language;type=string',
+    ),
 );

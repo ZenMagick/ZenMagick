@@ -150,20 +150,18 @@ class ZMThemes extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "select template_dir
-                from " . TABLE_TEMPLATE_SELECT . "
-                where template_language = :languageId";
-        $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
-        $results = $db->Execute($sql);
-        if (0 < $results->RecordCount()) {
-            $themeId = $results->fields['template_dir'];
+        $sql = "SELECT template_dir
+                FROM " . TABLE_TEMPLATE_SELECT . "
+                WHERE template_language = :languageId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        if (null !== $result) {
+            $themeId = $result['dir'];
         } else {
-            $sql = "select template_dir
-                    from " . TABLE_TEMPLATE_SELECT . "
-                    where template_language = 0";
-            $results = $db->Execute($sql);
-            $themeId = $results->fields['template_dir'];
+            $sql = "SELECT template_dir
+                    FROM " . TABLE_TEMPLATE_SELECT . "
+                    WHERE template_language = 0";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            $themeId = $result['dir'];
         }
 
         $themeId = empty($themeId) ? ZM_DEFAULT_THEME : $themeId;
@@ -177,33 +175,25 @@ class ZMThemes extends ZMObject {
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
     public function updateZCThemeId($themeId, $languageId=0) {
-        $db = ZMRuntime::getDB();
-
         // update or insert?
-        $sql = "select *
-                from " . TABLE_TEMPLATE_SELECT . "
-                where template_language = :languageId";
-        $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
-        $results = $db->Execute($sql);
+        $sql = "SELECT template_id
+                FROM " . TABLE_TEMPLATE_SELECT . "
+                WHERE template_language = :languageId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
 
         $sql = '';
-        if (0 < $results->RecordCount()) {
-            // update
-            $sql = "update " . TABLE_TEMPLATE_SELECT . " set template_dir = :themeId
-                    where template_id = :templateId
-                    and template_language = :languageId";
-            $sql = $db->bindVars($sql, ":themeId", $themeId, 'string');
-            $sql = $db->bindVars($sql, ":templateId", $results->fields['template_id'], 'integer');
-            $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+        if (null !== $result) {
+            $sql = "UPDATE " . TABLE_TEMPLATE_SELECT . " 
+                    SET template_dir = :dir
+                    WHERE template_id = :id
+                      AND template_language = :languageId";
         } else {
-            // insert
-            $sql = "insert into " . TABLE_TEMPLATE_SELECT . " (template_dir, template_language)
-                    values (:themeId, :languageId)";
-            $sql = $db->bindVars($sql, ":themeId", $themeId, 'string');
-            $sql = $db->bindVars($sql, ":languageId", $languageId, 'integer');
+            $sql = "INSERT INTO " . TABLE_TEMPLATE_SELECT . " 
+                    (template_dir, template_language)
+                    values (:dir, :languageId)";
         }
-
-        $results = $db->Execute($sql);
+        $args = array('id' => $result['id'], 'dir' => $themeId, 'languageId' => $languageId);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
     }
 
     /**
