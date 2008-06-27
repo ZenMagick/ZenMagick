@@ -362,8 +362,6 @@ class ZMProducts extends ZMObject {
         }
         $query = $db->bindVars($query, ":limit", $max, "integer");
 
-        $results = $db->Execute($query);
-
         $productIds = $this->getProductIds($query);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
@@ -378,7 +376,6 @@ class ZMProducts extends ZMObject {
     public function getSpecials($max=null, $languageId=null) {
         $max = null === $max ? ZMSettings::get('maxSpecialProducts') : $max;
 
-        $db = ZMRuntime::getDB();
         $sql = "select distinct p.products_id
                 from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
                 where p.products_status = 1
@@ -581,16 +578,13 @@ class ZMProducts extends ZMObject {
      * @return boolean <code>true</code> if the requested quantity is available, <code>false</code> if not.
      */
     public function isQuantityAvailable($productId, $quantity) {
-        $db = ZMRuntime::getDB();
         $sql = "SELECT products_quantity
                 from " . TABLE_PRODUCTS . "
-                where products_id = :productId";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $results = $db->Execute($sql);
-
+                where products_id = :id";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $productid), TABLE_PRODUCTS);
         $available = 0;
-        if (0 < $results->RecordCount()) {
-            $available = (int)$results->fields['products_quantity'];
+        if (null != $result) {
+            $available = $result['quantity'];
         }
 
         return 0 <= ($available - $quantity);

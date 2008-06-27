@@ -32,31 +32,31 @@
  * @version $Id$
  */
 class ZMEZPage extends ZMModel {
-    var $id_;
-    var $title_;
-    var $altUrl_;
-    var $altUrlExternal_;
-    var $htmlText_;
-    var $isHeader_;
-    var $isSidebox_;
-    var $isFooter_;
-    var $isToc_;
-    var $headerSort_;
-    var $sidebarSort_;
-    var $footerSort_;
-    var $tocSort_;
-    var $isNewWin_;
-    var $isSSL_;
-    var $tocChapter_;
+    private $id_;
+    private $title_;
+    private $altUrl_;
+    private $altUrlExternal_;
+    private $htmlText_;
+    private $isHeader_;
+    private $isSidebox_;
+    private $isFooter_;
+    private $isToc_;
+    private $headerSort_;
+    private $sidebarSort_;
+    private $footerSort_;
+    private $tocSort_;
+    private $isNewWin_;
+    private $isSSL_;
+    private $tocChapter_;
 
 
     /**
      * Create new page.
      *
-     * @param int id The page id.
-     * @param string title The page title.
+     * @param int id The page id; default is <em>0</em>.
+     * @param string title The page title; default is <em>''</em>.
      */
-    function __construct($id, $title) {
+    function __construct($id=0, $title='') {
         parent::__construct();
 
         $this->id_ = $id;
@@ -84,23 +84,39 @@ class ZMEZPage extends ZMModel {
     }
 
 
-    // getter/setter
-    function getId() { return $this->id_; }
-    function getTitle() { return $this->title_; }
-    function getAltUrl() { return $this->altUrl_; }
-    function getAltUrlExternal() { return $this->altUrlExternal_; }
-    function getHtmlText() { return $this->htmlText_; }
-    function isHeader() { return $this->isHeader_; }
-    function isSidebox() { return $this->isSidebox_; }
-    function isFooter() { return $this->isFooter_; }
-    function isToc() { return $this->isToc_; }
-    function getHeaderSort() { return $this->headerSort_; }
-    function getSidebarSort() { return $this->sidebarSort_; }
-    function getFooterSort() { return $this->footerSort_; }
-    function getTocSort() { return $this->tocSort_; }
-    function isNewWin() { return $this->isNewWin_; }
-    function isSSL() { return $this->isSSL_; }
-    function getTocChapter() { return $this->tocChapter_; }
+    public function getId() { return $this->id_; }
+    public function getTitle() { return $this->title_; }
+    public function getAltUrl() { return $this->altUrl_; }
+    public function getAltUrlExternal() { return $this->altUrlExternal_; }
+    public function getHtmlText() { return $this->htmlText_; }
+    public function isHeader() { return $this->isHeader_; }
+    public function isSidebox() { return $this->isSidebox_; }
+    public function isFooter() { return $this->isFooter_; }
+    public function isToc() { return $this->isToc_; }
+    public function getHeaderSort() { return $this->headerSort_; }
+    public function getSidebarSort() { return $this->sidebarSort_; }
+    public function getFooterSort() { return $this->footerSort_; }
+    public function getTocSort() { return $this->tocSort_; }
+    public function isNewWin() { return $this->isNewWin_; }
+    public function isSSL() { return $this->isSSL_; }
+    public function getTocChapter() { return $this->tocChapter_; }
+
+    public function setId($id) { $this->id_ = $id; }
+    public function setTitle($title) { $this->title_ = $title; }
+    public function setAltUrl($url) { $this->altUrl_ = $url; }
+    public function setAltUrlExternal($url) { $this->altUrlExternal_ = $url; }
+    public function setHtmlText($text) { $this->htmlText_ = $text; }
+    public function setHeader($value) { $this->isHeader_ = $value; }
+    public function setSidebox($value) { $this->isSidebox_ = $value; }
+    public function setFooter($value) { $this->isFooter_ = $value; }
+    public function setToc($value) { $this->isToc_ = $value; }
+    public function setHeaderSort($sortOrder) { $this->headerSort_ = $sortOrder; }
+    public function setSidebarSort($sortOrder) { $this->sidebarSort_ = $sortOrder; }
+    public function setFooterSort($sortOrder) { $this->footerSort_ = $sortOrder; }
+    public function setTocSort($value) { $this->tocSort_ = $value; }
+    public function setNewWin($value) { $this->isNewWin_ = $value; }
+    public function setSSL($value) { $this->isSSL_ = $value; }
+    public function setTocChapter($chapter) { $this->tocChapter_ = $chapter; }
 
 }
 
