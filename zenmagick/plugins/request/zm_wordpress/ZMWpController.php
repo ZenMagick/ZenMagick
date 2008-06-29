@@ -32,12 +32,17 @@
  * @version $Id$
  */
 class ZMWpController extends ZMController {
+    private $plugin;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
+    global $zm_wordpress;
+
         parent::__construct();
+        $this->plugin = $zm_wordpress;
     }
 
     /**
@@ -55,31 +60,29 @@ class ZMWpController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_wordpress;
-
         $viewName = 'wp_index';
 
         if (null != ZMRequest::getParameter('p')) {
             $viewName = 'wp_single';
         } else if (null != ($pageId = ZMRequest::getParameter('page_id'))) {
             $viewName = 'wp_page';
-            $zm_wordpress->query_posts('page_id='.$pageId);
+            $this->plugin->query_posts('page_id='.$pageId);
         } else if (null != ($cat = ZMRequest::getParameter('cat'))) {
             $viewName = 'wp_archive';
-            $zm_wordpress->query_posts('cat='.$cat);
+            $this->plugin->query_posts('cat='.$cat);
         } else if (null != ($m = ZMRequest::getParameter('m'))) {
             $viewName = 'wp_archive';
-            $zm_wordpress->query_posts('m='.$m);
+            $this->plugin->query_posts('m='.$m);
         } else if (null != ($s = ZMRequest::getParameter('s'))) {
             $viewName = 'wp_search';
-            $zm_wordpress->query_posts('s='.$s);
+            $this->plugin->query_posts('s='.$s);
         } else if (null != ($tag = ZMRequest::getParameter('tag'))) {
             $viewName = 'wp_archive';
-            $zm_wordpress->query_posts('tag='.$tag);
+            $this->plugin->query_posts('tag='.$tag);
         }
 
         if ('wp_index' == $viewName) {
-            $zm_wordpress->query_posts();
+            $this->plugin->query_posts();
         }
 
         add_filter('tag_link', array($this, 'link_filter'));
@@ -105,7 +108,11 @@ class ZMWpController extends ZMController {
      * WP filter to adjust comments include.
      */
     public function comments_template_filter($arg) {
-        return ZMRuntime::getTheme()->themeFile('views/wp/comments.php');
+        if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
+            return $this->plugin->getPluginDir().'wp/comments.php';
+          } else {
+            return ZMRuntime::getTheme()->themeFile('views/wp/comments.php');
+          }
     }
 
 }
