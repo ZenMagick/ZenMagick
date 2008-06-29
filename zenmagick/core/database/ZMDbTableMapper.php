@@ -199,7 +199,8 @@ class ZMDbTableMapper extends ZMObject {
             foreach (explode(',', $setting) as $field) {
                 if (!empty($field)) {
                     $fieldInfo = explode(';', trim($field));
-                    $mapping[$fieldInfo[0]] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldInfo[0]);
+                    $fieldId = (count($fieldInfo) > 2 ? $fieldInfo[2] : $fieldInfo[0]);
+                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId);
                 }
             }
         }
