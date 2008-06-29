@@ -64,6 +64,8 @@
     define('ZM_EVENT_ALL_DONE', 'all_done');
     define('ZM_EVENT_CREATE_ACCOUNT', 'create_account');
     define('ZM_EVENT_CREATE_ACCOUNT_EMAIL', 'create_account_email');
+    define('ZM_EVENT_LOGIN_SUCCESS', 'login_success');
+    define('ZM_EVENT_LOGOFF_SUCCESS', 'logoff_success');
 
 
     //** db **//

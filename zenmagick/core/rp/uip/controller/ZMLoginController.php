@@ -117,6 +117,9 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
+        // info only
+        ZMEvents::instance()->fireEvent($this, ZM_EVENT_LOGIN_SUCCESS, array('controller' => $this, 'account' => $account));
+
         // update session with valid account
         $session->recreate();
         $session->setAccount($account);

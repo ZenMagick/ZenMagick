@@ -55,6 +55,9 @@ class ZMLogoffController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
+        // pre logoff account
+        $account = ZMRequest::getAccount();
+
         $session = ZMRequest::getSession();
         if (!$session->isAnonymous()) {
             // logged in
@@ -62,6 +65,9 @@ class ZMLogoffController extends ZMController {
             // redisplay to allow update of state
             return $this->findView('success');
         }
+
+        // info only
+        ZMEvents::instance()->fireEvent($this, ZM_EVENT_LOGOFF_SUCCESS, array('controller' => $this, 'account' => $account));
 
         // display page
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
