@@ -74,6 +74,10 @@ class zm_site_switch extends ZMPlugin {
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
 
+        // add site_id to mappings
+        ZMSettings::set('sql.customers.customFields', 'site_id;string;siteId');
+        ZMSettings::set('sql.orders.customFields', 'site_id;string;siteId');
+
         $hostname = ZMRequest::getHostname();
 
         if (isset($zm_server_names[$hostname])) {
@@ -100,13 +104,14 @@ class zm_site_switch extends ZMPlugin {
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
         $orderId = $_SESSION['order_number_created'];
         $sql = 'UPDATE '.TABLE_ORDERS.'
-                SET order_site = :orderSite
+                SET site_id = :siteId
                 WHERE orders_id = :orderId';
         $database = ZMRuntime::getDatabase();
+        // TODO: user orders mapping once there...
         $database->update($sql, 
-                  array('orderId' => $orderId, 'orderSite' => ZMRequest::getHostname()),
+                  array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()),
                   array('orderId' => 'column=orders_id;type=integer;key=true;primary=true',
-                      'orderSite' => 'column=order_site;type=string')
+                      'siteId' => 'column=site_id;type=string')
         );
     }
 

@@ -6,6 +6,13 @@ This could be useful for different branding (via different themes).
 
 This plugin is inspired by the zen-cart multisite mod.
 
+The plugin can also enforce that accounts are only valid for the domain name they were originally
+created for. This does not work when 'isLegacyAPI' is enabled.
+The default is to share accounts. To disable that, set 'plugins.zm_site_switch.isShareAccounts' to false;
+for example:
+
+    ZMSettings::set('plugins.zm_site_switch.isShareAccounts', false);
+
 
 Installation
 ============
@@ -30,12 +37,6 @@ or the local folder itself do not exist they are created.
 So, certain file permissions to create local and/or write/update files in the local folder are required.
 
 If in doubt, go into the Multi Site Admin page (Plugins -> Multi Site) and save the configured settings again.
-
-
-Compatibility
-=============
-The plugin will add a new column to the orders table in order to keep track of the origin of orders. This column
-is compatible with the mulitsite mod.
 
 
 Uninstall
