@@ -82,6 +82,24 @@ class zm_wordpress extends ZMPlugin {
         ZMUrlMapper::instance()->setMapping(null, 'wp_search', 'search', $view, $parameter);
     }
 
+
+    /**
+     * Filter the response contents.
+     *
+     * @param string contents The contents.
+     * @return string The modified contents.
+     */
+    function filterResponse($contents) {
+        if ('wp' == ZMRequest::getPageName()) {
+            ob_start();
+            wp_head();
+            $wp_head = ob_get_clean();
+            $contents = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
+        }
+
+        return $contents;
+    }
+
     /**
      * {@inheritDoc}
      */
