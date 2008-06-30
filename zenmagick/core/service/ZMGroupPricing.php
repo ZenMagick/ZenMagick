@@ -61,17 +61,9 @@ class ZMGroupPricing extends ZMObject {
      * @return array List of ZMPriceGroup objects.
      */
     function getPriceGroups() {
-        $db = ZMRuntime::getDB();
-        $sql = "select * from " . TABLE_GROUP_PRICING;
-
-        $groups = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            $groups[] = $this->_newPriceGroup($results->fields);
-            $results->MoveNext();
-        }
-
-        return $groups;
+        $sql = "SELECT * 
+                FROM " . TABLE_GROUP_PRICING;
+        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_GROUP_PRICING, 'PriceGroup');
     }
 
     /**
@@ -81,31 +73,10 @@ class ZMGroupPricing extends ZMObject {
      * @return ZMPriceGroup The group or <code>null</code>.
      */
     function getPriceGroupForId($priceGroupId) {
-        $db = ZMRuntime::getDB();
-        $sql = "select *
-                from " . TABLE_GROUP_PRICING . "
-                where  group_id = :priceGroupId";
-        $sql = $db->bindVars($sql, ":priceGroupId", $priceGroupId, "integer");
-
-        $results = $db->Execute($sql);
-        $priceGroup = null;
-        if (0 < $results->RecordCount()) {
-            $priceGroup = $this->_newPriceGroup($results->fields);
-        }
-        return $priceGroup;
-    }
-
-    /**
-     * Create new price group instance.
-     */
-    function _newPriceGroup($fields) {
-        $priceGroup = ZMLoader::make("PriceGroup");
-        $priceGroup->id_ = $fields['group_id'];
-        $priceGroup->name_ = $fields['group_name'];
-        $priceGroup->discount_ = $fields['group_percent'];
-        $priceGroup->dateAdded_ = $fields['date_added'];
-        $priceGroup->lastModified_ = $fields['last_modified'];
-        return $priceGroup;
+        $sql = "SELECT *
+                FROM " . TABLE_GROUP_PRICING . "
+                WHERE  group_id = :id";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), TABLE_GROUP_PRICING, 'PriceGroup');
     }
 
 }

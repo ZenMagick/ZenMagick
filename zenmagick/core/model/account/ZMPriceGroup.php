@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMPriceGroup extends ZMModel {
-    var $id_;
-    var $name_;
-    var $discount_;
-    var $dateAdded_;
-    var $lastModified_;
+    private $id_;
+    private $name_;
+    private $discount_;
+    private $dateAdded_;
+    private $lastModified_;
 
 
     /**
@@ -65,70 +65,70 @@ class ZMPriceGroup extends ZMModel {
      *
      * @return int The group id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the name.
      *
      * @return string The group name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the discount.
      *
      * @return float The discount.
      */
-    function getDiscount() { return $this->discount_; }
+    public function getDiscount() { return $this->discount_; }
 
     /**
      * Get the date the group was added.
      *
      * @return string The added date.
      */
-    function getDateAdded() { return $this->dateAdded_; }
+    public function getDateAdded() { return $this->dateAdded_; }
 
     /**
      * Get the last modified date.
      *
      * @return string The last modified date.
      */
-    function getLastModified() { return $this->lastModified_; }
+    public function getLastModified() { return $this->lastModified_; }
 
     /**
      * Set the group id.
      *
      * @param int id The group id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the name.
      *
      * @param string name The group name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the discount.
      *
      * @param float discount The discount.
      */
-    function setDiscount($discount) { $this->discount_ = $discount; }
+    public function setDiscount($discount) { $this->discount_ = $discount; }
 
     /**
      * Set the date the group was added.
      *
      * @param string dateAdded The added date.
      */
-    function setDateAdded($dateAdded) { $this->dateAdded_ = $dateAdded; }
+    public function setDateAdded($dateAdded) { $this->dateAdded_ = $dateAdded; }
 
     /**
      * Set the last modified date.
      *
      * @param string lastModified The last modified date.
      */
-    function setLastModified($lastModified) { $this->lastModified_ = $lastModified; }
+    public function setLastModified($lastModified) { $this->lastModified_ = $lastModified; }
 
 }
 

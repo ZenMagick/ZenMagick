@@ -95,39 +95,26 @@ class ZMBanners extends ZMObject {
      * @return array A list of <code>ZMBanner</code> instances.
      */
     private function getBannerForName($identifiers, $all=false) { 
-        $db = ZMRuntime::getDB();
-        // filter the banners we are interested in
-        $filter = '';
+        $sql = "SELECT *
+                FROM " . TABLE_BANNERS . "
+                WHERE status = 1";
+
         if (ZMRequest::isSecure()) {
-            $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
+            $sql .= " AND banners_on_ssl= :ssl";
         }
 
         // handle multiple identifiers
-        $identifierList = explode(':', $identifiers);
-        if (0 < count($identifierList)) {
-            $filter .= " and (";
-            $first = true;
-            foreach ($identifierList as $identifier) {
-                if (!$first) $filter .= " or ";
-                $filter .= $db->bindVars("banners_group = :identifier", ":identifier", $identifier, "string");
-                $first = false;
+        $groupList = array();
+        foreach (explode(':', $identifiers) as $group) {
+            if (!empty($group)) {
+                $groupList[] = $group;
             }
-            $filter .= ")";
         }
-        $orderBy = $all ? " order by banners_sort_order" : " order by rand()";
-        $query = "select banners_id, banners_title, banners_image, banners_html_text, banners_open_new_windows, banners_url
-                  from " . TABLE_BANNERS . "
-                  where status = 1 " .
-                  $filter . $orderBy;
-        $results = $db->Execute($query);
-
-        $banners = array();
-        while (!$results->EOF) {
-            array_push($banners, $this->_newBanner($results->fields));
-            $results->MoveNext();
+        if (0 < count($groupList) && !empty($groupList[0])) {
+            $sql .= " AND banners_group IN (:group)";
         }
-
-        return $banners;
+        $sql .= $all ? " ORDER BY banners_sort_order" : " ORDER BY rand()";
+        return ZMRuntime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
     }
 
 
@@ -138,26 +125,13 @@ class ZMBanners extends ZMObject {
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
     public function getBannerForId($id) { 
-        $db = ZMRuntime::getDB();
-        // filter the banners we are interested in
-        $filter = '';
+        $sql = "SELECT *
+                FROM " . TABLE_BANNERS . "
+                WHERE status = 1 AND banners_id = :id";
         if (ZMRequest::isSecure()) {
-            $filter = $db->bindVars(" and banners_on_ssl= :true ", ":true", 1, "integer");
+            $sql .= " AND banners_on_ssl= :sll";
         }
-
-        $query = "select banners_id, banners_title, banners_image, banners_html_text, banners_open_new_windows, banners_url
-                  from " . TABLE_BANNERS . "
-                  where status = 1 and banners_id = :id " .
-                  $filter;
-        $query = $db->bindVars($query, ":id", $id, "integer");
-        $results = $db->Execute($query);
-
-        $banner = null;
-        if (0 < $results->RecordCount()) {
-            $banner = $this->_newBanner($results->fields);
-        }
-
-        return $banner;
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), TABLE_BANNERS, 'Banner');
     }
 
     /**
@@ -166,24 +140,21 @@ class ZMBanners extends ZMObject {
      * @param int bannerId The banner id.
      */
     public function updateBannerDisplayCount($bannerId) {
-        $db = ZMRuntime::getDB();
+        $sql = "SELECT count(*) AS total
+                FROM " . TABLE_BANNERS_HISTORY . "
+                WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array(TABLE_BANNERS_HISTORY, 'system'));
 
-        $sql = "select count(*) as count from " . TABLE_BANNERS_HISTORY . "
-                where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
-        $results = $db->Execute($sql);
-
-        if ($results->fields['count'] > 0) {
-            $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_shown = banners_shown +1
-                    where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-            $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
-            $db->Execute($sql);
+        if (0 < $result['total']) {
+            $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
+                    SET banners_shown = banners_shown +1
+                    WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
+            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         } else {
-            $sql = "insert into " . TABLE_BANNERS_HISTORY . "
-                   (banners_id, banners_shown, banners_history_date)
-                  values (:bannerId, 1, now())";
-            $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
-            $db->Execute($sql);
+            $sql = "INSERT INTO " . TABLE_BANNERS_HISTORY . "
+                      (banners_id, banners_shown, banners_history_date)
+                    VALUES (:id, 1, now())";
+            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         }
     }
 
@@ -193,25 +164,10 @@ class ZMBanners extends ZMObject {
      * @param int bannerId The banner id.
      */
     public function updateBannerClickCount($bannerId) {
-        $db = ZMRuntime::getDB();
-
-        $sql = "update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1
-                where banners_id = :bannerId and date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        $sql = $db->bindVars($sql, ":bannerId", $bannerId, "integer");
-        $db->Execute($sql);
-    }
-
-
-    // build banner
-    function _newBanner($fields) {
-        $banner = ZMLoader::make("ZMBanner");
-        $banner->id_ = $fields['banners_id'];
-        $banner->title_ = $fields['banners_title'];
-        $banner->image_ = $fields['banners_image'];
-        $banner->text_ = $fields['banners_html_text'];
-        $banner->isNewWin_ = 1 == $fields['banners_open_new_windows'];
-        $banner->url_ = $fields['banners_url'];
-        return $banner;
+        $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
+                SET banners_clicked = banners_clicked + 1
+                WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
+        ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
 }

@@ -67,28 +67,28 @@ class ZMConfig extends ZMObject {
      * @param string setFunction The set function; defaults to <code>null</code>.
      * @param string useFunction The use function; defaults to <code>null</code>.
      */
-    function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0, $setFunction=null, $useFunction=null) {
+    public function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0, $setFunction=null, $useFunction=null) {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $db = ZMRuntime::getDB();
-        $sql = "insert into " . TABLE_CONFIGURATION . " (
+        $sql = "INSERT INTO " . TABLE_CONFIGURATION . " (
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
                   configuration_description, sort_order, 
                   date_added, use_function, set_function)
-                values (:title, :key, :value, :groupId,
+                VALUES (:title, :key, :value, :groupId,
                   :description, :sortOrder,
-                  :dateAdded, :useFunction, :setFunction)";
-        $sql = $db->bindVars($sql, ":title", $title, "string");
-        $sql = $db->bindVars($sql, ":key", $key, "string");
-        $sql = $db->bindVars($sql, ":value", $value, "string");
-        $sql = $db->bindVars($sql, ":groupId", $groupId, "integer");
-        $sql = $db->bindVars($sql, ":description", $description, "string");
-        $sql = $db->bindVars($sql, ":sortOrder", $sortOrder, "integer");
-        $sql = $db->bindVars($sql, ":dateAdded", 'now()', "passthru");
-        $sql = $db->bindVars($sql, ":useFunction", $useFunction, "string");
-        $sql = $db->bindVars($sql, ":setFunction", $setFunction, "string");
-        $results = $db->Execute($sql);
+                  now(), :useFunction, :setFunction)";
+        $args = array(
+            "title" => $title,
+            "key" => $key,
+            "value" => $value,
+            "groupId" => $groupId,
+            "description" => $description,
+            "sortOrder" => $sortOrder,
+            "useFunction" => $useFunction,
+            "setFunction" => $setFunction
+        );
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
     }
 
     /**
@@ -97,14 +97,12 @@ class ZMConfig extends ZMObject {
      * @param string key The config key.
      * @param string value The new value.
      */
-    function updateConfigValue($key, $value) {
-        $db = ZMRuntime::getDB();
-        $sql = "update " . TABLE_CONFIGURATION . "
-                set configuration_value = :value
-                where configuration_key = :key";
-        $sql = $db->bindVars($sql, ":key", $key, "string");
-        $sql = $db->bindVars($sql, ":value", $value, "string");
-        $results = $db->Execute($sql);
+    public function updateConfigValue($key, $value) {
+        $sql = "UPDATE " . TABLE_CONFIGURATION . "
+                SET configuration_value = :value
+                WHERE configuration_key = :key";
+        $args = array("key" => $key, "value" => $value);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
     }
 
     /**
@@ -113,24 +111,12 @@ class ZMConfig extends ZMObject {
      * @param string pattern The key pattern; for example 'foo_%'.
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
-    function getConfigValues($pattern) {
-        $db = ZMRuntime::getDB();
-        $sql = "select configuration_id, configuration_title, configuration_key, configuration_value,
-                configuration_description,
-                use_function, set_function
-                from " . TABLE_CONFIGURATION . " where configuration_key like :key
-                order by configuration_id";
-        $sql = $db->bindVars($sql, ":key", $pattern, "string");
-        $results = $db->Execute($sql);
-
-        $values = array();
-        while (!$results->EOF) {
-            $value = $this->_newConfigValue($results->fields);
-            array_push($values, $value);
-            $results->MoveNext();
-        }
-
-        return $values;
+    public function getConfigValues($pattern) {
+        $sql = "SELECT *
+                FROM " . TABLE_CONFIGURATION . "
+                WHERE configuration_key like :key
+                ORDER BY configuration_id";
+        return ZMRuntime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION, 'ConfigValue');
     }
 
     /**
@@ -138,11 +124,10 @@ class ZMConfig extends ZMObject {
      *
      * @param string key The config key.
      */
-    function removeConfigValue($key) {
-        $db = ZMRuntime::getDB();
-        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key = :key";
-        $sql = $db->bindVars($sql, ":key", $key, "string");
-        $results = $db->Execute($sql);
+    public function removeConfigValue($key) {
+        $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
+                WHERE configuration_key = :key";
+        ZMRuntime::getDatabase()->update($sql, array('key' => $key), TABLE_CONFIGURATION);
     }
 
     /**
@@ -150,11 +135,10 @@ class ZMConfig extends ZMObject {
      *
      * @param string pattern The key pattern; for example 'foo_%'.
      */
-    function removeConfigValues($pattern) {
-        $db = ZMRuntime::getDB();
-        $sql = "delete from " . TABLE_CONFIGURATION . " where configuration_key like :key";
-        $sql = $db->bindVars($sql, ":key", $pattern, "string");
-        $results = $db->Execute($sql);
+    public function removeConfigValues($pattern) {
+        $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
+                WHERE configuration_key like :key";
+        ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), TABLE_CONFIGURATION);
     }
 
     /**
@@ -162,47 +146,12 @@ class ZMConfig extends ZMObject {
      *
      * @return array List of ZMConfigGroup instances.
      */
-    function getConfigGroups() {
-        $db = ZMRuntime::getDB();
-        $sql = "select configuration_group_id, configuration_group_title
-                from " . TABLE_CONFIGURATION_GROUP . " 
-                where visible = '1' order by sort_order";
-        $results = $db->Execute($sql);
-
-        $groups = array();
-        while (!$results->EOF) {
-            $group = $this->_newConfigGroup($results->fields);
-            array_push($groups, $group);
-            $results->MoveNext();
-        }
-
-        return $groups;
-    }
-
-
-    /**
-     * Create new config group.
-     */
-    function _newConfigGroup($fields) {
-        $group = ZMLoader::make("ConfigGroup");
-        $group->setId($fields['configuration_group_id']);
-        $group->setName($fields['configuration_group_title']);
-        return $group;
-    }
-
-    /**
-     * Create new config value instance.
-     */
-    function _newConfigValue($fields) {
-        $value = ZMLoader::make("ConfigValue");
-        $value->id_ = $fields['configuration_id'];
-        $value->name_ = $fields['configuration_title'];
-        $value->key_ = $fields['configuration_key'];
-        $value->value_ = $fields['configuration_value'];
-        $value->description_ = $fields['configuration_description'];
-        $value->useFunction_ = $fields['use_function'];
-        $value->setFunction_ = $fields['set_function'];
-        return $value;
+    public function getConfigGroups() {
+        $sql = "SELECT *
+                FROM " . TABLE_CONFIGURATION_GROUP . " 
+                WHERE visible = '1'
+                ORDER BY sort_order";
+        return ZMRuntime::getDatabase()->query($sql, array('key' => $key), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
 
 }

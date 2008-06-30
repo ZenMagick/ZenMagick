@@ -32,8 +32,8 @@
  * @version $Id$
  */
 class ZMConfigGroup extends ZMModel {
-    var $id_;
-    var $name_;
+    private $id_;
+    private $name_;
 
 
     /**
@@ -42,6 +42,7 @@ class ZMConfigGroup extends ZMModel {
     function __construct() {
         parent::__construct();
 		    $this->id_ = 0;
+		    $this->name_ = '';
     }
 
     /**
@@ -57,28 +58,29 @@ class ZMConfigGroup extends ZMModel {
      *
      * @return string The id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Set the id.
      *
      * @param string id The id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the name.
      *
      * @param string name The name.
      */
-    function setName($name) {return $this->name_ = $name; }
+    public function setName($name) {return $this->name_ = $name; }
+
 }
 
 ?>

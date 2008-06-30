@@ -32,13 +32,13 @@
  * @version $Id$
  */
 class ZMConfigValue extends ZMModel {
-    var $id_;
-    var $name_;
-    var $key_;
-    var $value_;
-    var $description_;
-    var $useFunction_;
-    var $setFunction_;
+    private $id_;
+    private $name_;
+    private $key_;
+    private $value_;
+    private $description_;
+    private $useFunction_;
+    private $setFunction_;
 
 
     /**
@@ -47,6 +47,10 @@ class ZMConfigValue extends ZMModel {
     function __construct() {
         parent::__construct();
 		    $this->id_ = 0;
+		    $this->name_ = '';
+		    $this->description_ = '';
+		    $this->key_ = null;
+		    $this->value_ = null;
     }
 
     /**
@@ -62,35 +66,35 @@ class ZMConfigValue extends ZMModel {
      *
      * @return string The id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the key.
      *
      * @return string The key.
      */
-    function getKey() { return $this->key_; }
+    public function getKey() { return $this->key_; }
 
     /**
      * Get the value.
      *
      * @return mixed The value.
      */
-    function getValue() { return $this->value_; }
+    public function getValue() { return $this->value_; }
 
     /**
      * Get the description.
      *
      * @return string The description.
      */
-    function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description_; }
 
     /**
      * Get the use function.
@@ -98,7 +102,7 @@ class ZMConfigValue extends ZMModel {
      * @return string The use function.
      * @deprecated
      */
-    function getUseFunction() { return $this->useFunction_; }
+    public function getUseFunction() { return $this->useFunction_; }
 
     /**
      * Get the set function.
@@ -106,23 +110,67 @@ class ZMConfigValue extends ZMModel {
      * @return string The set function.
      * @deprecated
      */
-    function getSetFunction() { return $this->setFunction_; }
+    public function getSetFunction() { return $this->setFunction_; }
 
     /**
      * Check if a set function is set or not.
      *
      * @return boolean <code>true</code> if a set function is configured, <code>false<code> if not.
      */
-    function hasSetFunction() {
+    public function hasSetFunction() {
         return !empty($this->setFunction_);
     }
+
+    /**
+     * Set the id.
+     *
+     * @param string id The id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the name.
+     *
+     * @param string name The name.
+     */
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the key.
      *
      * @param string key The key.
      */
-    function setKey($key) { $this->key_ = $key; }
+    public function setKey($key) { $this->key_ = $key; }
+
+    /**
+     * Set the value.
+     *
+     * @param mixed value The value.
+     */
+    public function setValue($value) { $this->value_ = $value; }
+
+    /**
+     * Set the description.
+     *
+     * @param string description The description.
+     */
+    public function setDescription($description ) { $this->description_ = $description ; }
+
+    /**
+     * Set the use function.
+     *
+     * @param string function The use function.
+     * @deprecated
+     */
+    public function setUseFunction($function) { $this->useFunction_ = $function; }
+
+    /**
+     * Set the set function.
+     *
+     * @param string function The use function.
+     * @deprecated
+     */
+    public function setSetFunction($function) { $this->setFunction_ = $function; }
 
 }
 
