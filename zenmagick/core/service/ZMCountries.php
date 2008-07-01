@@ -67,7 +67,7 @@ class ZMCountries extends ZMObject {
     public function getCountryForName($name) {
         $this->getCountries();
         foreach ($this->countries_ as $country) {
-            if ($name == $country->name_) {
+            if ($name == $country->getName()) {
                 return $country;
             }
         }

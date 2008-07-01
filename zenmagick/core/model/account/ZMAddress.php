@@ -231,7 +231,7 @@ class ZMAddress extends ZMModel {
      *
      * @return int The countryId or <em>0</em>.
      */
-    public function getCountryId() { return $this->countryId_; }
+    public function getCountryId() { return null != $this->country_ ? $this->country_->getId() : $this->countryId_; }
 
     /**
      * Check if the address is the primary address.
@@ -246,6 +246,13 @@ class ZMAddress extends ZMModel {
      * @return string The format.
      */
     public function getFormat() { return $this->format_; }
+
+    /**
+     * Set the format.
+     *
+     * @param string format The format.
+     */
+    public function setFormat($format) { $this->format_ = $format; }
 
     /**
      * Get the full name.

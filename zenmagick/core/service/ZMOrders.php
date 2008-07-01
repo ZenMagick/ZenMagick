@@ -369,19 +369,11 @@ class ZMOrders extends ZMObject {
      */
     function _newAccount($fields) {
         $account = ZMLoader::make("Account");
-        $account->accountId_ = $fields['customers_id'];
-        //$account->firstName_ = $fields['customers_firstname'];
-        $account->lastName_ = $fields['customers_name'];
-        //$account->dob_ = $fields['customers_dob'];
-        //$account->gender_ = $fields['customers_gender'];
-        $account->email_ = $fields['customers_email_address'];
-        $account->phone_ = $fields['customers_telephone'];
-        //$account->fax_ = $fields['customers_fax'];
-        //$account->emailFormat_ = $fields['customers_email_format'];
-        //$account->referrals_ = $fields['customers_referral'];
-        //$account->defaultAddressId_ = $fields['customers_default_address_id'];
-        //XXX
-        $account->accounts_ = ZMLoader::make("Account");
+        $account->setAccountId($fields['customers_id']);
+        // orders has only name, not first/last...
+        $account->setLastName($fields['customers_name']);
+        $account->setEmail($fields['customers_email_address']);
+        $account->setPhone($fields['customers_telephone']);
         return $account;
     }
 
@@ -390,19 +382,17 @@ class ZMOrders extends ZMObject {
      */
     function _newAddress($fields, $prefix) {
         $address = ZMLoader::make("Address");
-        $address->addressId_ = 0;
-        //$address->firstName_ = $fields['entry_firstname'];
-        $address->lastName_ = $fields[$prefix.'_name'];
-        $address->companyName_ = $fields[$prefix.'_company'];
-        //$address->gender_ = $fields['entry_gender'];
-        $address->address_ = $fields[$prefix.'_street_address'];
-        $address->suburb_ = $fields[$prefix.'_suburb'];
-        $address->postcode_ = $fields[$prefix.'_postcode'];
-        $address->city_ = $fields[$prefix.'_city'];
-        $address->state_ = $fields[$prefix.'_state'];
-        //$address->zoneId_ = $fields['entry_zone_id'];
-        $address->country_ = ZMCountries::instance()->getCountryForName($fields[$prefix.'_country']);
-        $address->format_ = $fields[$prefix.'_address_format_id'];
+        $address->setAddressId(0);
+        // orders has only name, not first/last...
+        $address->setLastName($fields[$prefix.'_name']);
+        $address->setCompanyName($fields[$prefix.'_company']);
+        $address->setAddress($fields[$prefix.'_street_address']);
+        $address->setSuburb($fields[$prefix.'_suburb']);
+        $address->setPostcode($fields[$prefix.'_postcode']);
+        $address->setCity($fields[$prefix.'_city']);
+        $address->setState($fields[$prefix.'_state']);
+        $address->setCountry(ZMCountries::instance()->getCountryForName($fields[$prefix.'_country']));
+        $address->setFormat($fields[$prefix.'_address_format_id']);
         return $address;
     }
 
