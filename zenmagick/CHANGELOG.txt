@@ -47,6 +47,7 @@ Release 0.9.2
   eg: ZMSettings::set('sql.customers.customFields', 'site_id;string;siteId');
 - allow zm_mulit_site to enforce separate accounts per domain (for the same
   email address)
+- try to set owner/group of new theme files to something useful; f:#2002830
 
 
 Release 0.9.1

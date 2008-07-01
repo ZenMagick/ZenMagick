@@ -35,6 +35,7 @@ class ZMThemeBuilder extends ZMObject {
     var $name_;
     var $inheritDefaults_;
     var $messages_;
+    var $fsLog_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMThemeBuilder extends ZMObject {
         $this->name_ = '';
         $this->inheritDefaults_ = true;
         $this->messages_ = array();
+        $this->fsLog_ = array();
     }
 
     /**
@@ -117,6 +119,15 @@ class ZMThemeBuilder extends ZMObject {
             return false;
         }
 
+        // try to set group/owner
+        clearstatcache();
+        $owner = fileowner(ZMRuntime::getZMRootPath().'init.php');
+        $group = filegroup(ZMRuntime::getZMRootPath().'init.php');
+        foreach (array_reverse($this->fsLog_) as $file) {
+            @chgrp($file, $group);
+            @chown  ($file, $owner);
+        }
+
         array_push($this->messages_, 'Successfully created new theme "' . $this->name_ . '".');
         return true;
     }
@@ -144,6 +155,7 @@ class ZMThemeBuilder extends ZMObject {
 
         // try base dir
         ZMTools::mkdir($themeDir, 755);
+        $this->fsLog_[] = $themeDir;
         if (!file_exists($themeDir)) {
             array_push($this->messages_, 'Could not create theme dir "' . $themeDir . '".');
             return false;
@@ -151,10 +163,15 @@ class ZMThemeBuilder extends ZMObject {
 
         // do the common ones
         ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR, 755);
+        $this->fsLog_[] = $themeDir.ZM_THEME_CONTENT_DIR;
         ZMTools::mkdir($themeDir.ZM_THEME_EXTRA_DIR, 755);
+        $this->fsLog_[] = $themeDir.ZM_THEME_EXTRA_DIR;
         ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR.'views/', 755);
+        $this->fsLog_[] = $themeDir.ZM_THEME_CONTENT_DIR.'views/';
         ZMTools::mkdir($themeDir.ZM_THEME_BOXES_DIR, 755);
+        $this->fsLog_[] = $themeDir.ZM_THEME_BOXES_DIR;
         ZMTools::mkdir($themeDir.ZM_THEME_LANG_DIR, 755);
+        $this->fsLog_[] = $themeDir.ZM_THEME_LANG_DIR;
 
         return true;
     }
@@ -202,6 +219,8 @@ class '.$infoClass.' extends ZMThemeInfo {
   
         fclose($handle);
 
+        $this->fsLog_[] = $infoClassFile;
+
         return true;
     }
 
@@ -237,6 +256,9 @@ class '.$infoClass.' extends ZMThemeInfo {
         }
   
         fclose($handle);
+
+        $this->fsLog_[] = $localFile;
+
         return true;
     }
 
