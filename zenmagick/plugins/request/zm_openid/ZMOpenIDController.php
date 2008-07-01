@@ -32,6 +32,7 @@
  * @version $Id$
  */
 class ZMOpenIDController extends ZMController {
+    private $plugin;
     private $returnTo;
     private $sRegRequired;
     private $sRegOptional;
@@ -41,6 +42,9 @@ class ZMOpenIDController extends ZMController {
      * Create new instance.
      */
     function __construct() {
+    global $zm_openid;
+
+        $this->plugin = $zm_openid;
         $this->returnTo = ZMToolbox::instance()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false);
         $this->sRegRequired = array('email');
         $this->sRegOptional = array('fullname', 'nickname');
@@ -58,12 +62,10 @@ class ZMOpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost() {
-    global $zm_openid;
-
         $action = ZMRequest::getParameter('action');
         $openid = ZMRequest::getParameter('openid');
 
-        $account = $zm_openid->getAccountForOpenID($openid);
+        $account = $this->plugin->getAccountForOpenID($openid);
         if (null != $account) {
             $session = ZMRequest::getSession();
             if ('initAuth' == $action && null != $openid) {
@@ -128,6 +130,8 @@ class ZMOpenIDController extends ZMController {
         if ($pape_request) {
             $auth_request->addExtension($pape_request);
         }
+        //TODO: make configurable
+        $pape_request->addPolicyURI(ZMToolbox::instance()->net->staticPage(FILENAME_PRIVACY));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.

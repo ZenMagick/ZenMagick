@@ -8248,6 +8248,7 @@ class Auth_Yadis_ParanoidHTTPFetcher extends Auth_Yadis_HTTPFetcher {
                 Auth_OpenID::log(
                     "Successfully fetched '%s': GET response code %s",
                     $url, $code);
+
                 return new Auth_Yadis_HTTPResponse($url, $code,
                                                     $new_headers, $body);
             }
@@ -12138,6 +12139,7 @@ class Auth_OpenID_Consumer {
 
         $endpoint = $disco->getNextService($this->discoverMethod,
                                            $this->consumer->fetcher);
+
         // Reset the 'stale' attribute of the manager.
         $m =& $disco->getManager();
         if ($m) {

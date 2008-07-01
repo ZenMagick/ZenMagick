@@ -1,5 +1,5 @@
 A plugin to allow users to login using OpenID.
-The plugin uses the excellent library openidenabled by JainRain (http://www.openidenabled.com/)
+The plugin uses the excellent library openidenabled by JanRain (http://www.openidenabled.com/)
 
 
 Installation
