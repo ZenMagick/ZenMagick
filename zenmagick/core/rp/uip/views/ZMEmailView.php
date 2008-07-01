@@ -35,7 +35,7 @@
  * @version $Id$
  */
 class ZMEmailView extends ZMPageView {
-    var $args_ = null;
+    protected $args_ = null;
 
 
     /**
@@ -63,7 +63,7 @@ class ZMEmailView extends ZMPageView {
      *
      * @return string The full view filename.
      */
-    function getViewFilename() {
+    public function getViewFilename() {
         return $this->_getViewFilename('email');
     }
 
@@ -72,7 +72,7 @@ class ZMEmailView extends ZMPageView {
      *
      * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
-    function isValid() {
+    public function isValid() {
         return file_exists($this->_getViewFilename('email'));
     }
 
@@ -83,7 +83,7 @@ class ZMEmailView extends ZMPageView {
      * return the generated content in order to be captured and passed into the actual mail
      * code.</p>
      */
-    function generate() {
+    public function generate() {
         $isAdmin = ZMSettings::get('isAdmin');
         ZMSettings::set('isAdmin', false);
         $filename = $this->getViewFilename();

@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMView extends ZMObject {
-    private $controller_;
-    private $page_;
-    private $mappingId_;
-    private $subdir_;
+    protected $controller_;
+    protected $page_;
+    protected $mappingId_;
+    protected $subdir_;
 
 
     /**

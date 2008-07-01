@@ -34,7 +34,7 @@
  * @version $Id$
  */
 class ZMPluginView extends ZMPageView {
-    var $plugin_;
+    protected $plugin_;
 
 
     /**

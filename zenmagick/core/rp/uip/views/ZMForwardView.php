@@ -57,7 +57,7 @@ class ZMForwardView extends ZMView {
      *
      * @return boolean <code>true</code> if the forward url is not empty.
      */
-    function isValid() {
+    public function isValid() {
         return !empty($this->page_);
     }
 
@@ -71,7 +71,7 @@ class ZMForwardView extends ZMView {
      *  <li>call <code>zm_dispatch()</code></li>
      * </ul>
      */
-    function generate() { 
+    public function generate() { 
         ZMCrumbtrail::instance()->reset();
         // TODO: do not use name directly!
         ZMRequest::setParameter('main_page', $this->page_);

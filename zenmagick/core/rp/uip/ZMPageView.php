@@ -57,7 +57,7 @@ class ZMPageView extends ZMView {
      *
      * @return string The layout name or <code>null</code>.
      */
-    function getLayout() {
+    private function getLayout() {
         $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
         return $themeInfo->getLayoutFor($this->getName());
     }
@@ -66,7 +66,7 @@ class ZMPageView extends ZMView {
     /**
      * Generate view response.
      */
-    function generate() { 
+    public function generate() { 
         $controller = $this->getController();
         // *export* globals from controller into view space
         foreach ($controller->getGlobals() as $name => $instance) {

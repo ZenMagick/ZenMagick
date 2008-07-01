@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMRedirectView extends ZMView {
-    var $page_;
-    var $secure_;
-    var $url_;
-    var $parameter_;
+    protected $page_;
+    protected $secure_;
+    protected $url_;
+    protected $parameter_;
 
 
     /**
@@ -65,14 +65,14 @@ class ZMRedirectView extends ZMView {
      *
      * @return boolean <code>true</code> if the redirect url is not empty.
      */
-    function isValid() {
+    public function isValid() {
         return !empty($this->page_);
     }
 
     /**
      * Generate view response.
      */
-    function generate() { 
+    public function generate() { 
         $url = null;
         if (null != $this->url_) {
             $url = $this->url_;
@@ -88,7 +88,7 @@ class ZMRedirectView extends ZMView {
      *
      * @param string parameter Parameter string in URL query format.
      */
-    function setParameter($parameter) {
+    public function setParameter($parameter) {
         $this->parameter_ = $parameter;
     }
 
@@ -97,7 +97,7 @@ class ZMRedirectView extends ZMView {
      *
      * @param boolean secure <code>true</code> to create a secure redirect.
      */
-    function setSecure($secure) {
+    public function setSecure($secure) {
         $this->secure_ = ZMTools::asBoolean($secure);
     }
 
@@ -108,7 +108,7 @@ class ZMRedirectView extends ZMView {
      *
      * @param string url A full URL.
      */
-    function setUrl($url) {
+    public function setUrl($url) {
         $this->url_ = $url;
     }
 
