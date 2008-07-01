@@ -29,22 +29,6 @@ define('ZM_TABLE_OPENID_NONCES', ZM_DB_PREFIX . 'zm_openid_nonces');
 class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
     private $nonceLifetime;
 
-    // database table mapping
-    private static $OPENID_ASSOCIATION_MAPPING = array(
-              'server_url' => 'column=server_url;type=string;key=true;',
-              'handle' => 'column=handle;type=string;key=true',
-              'secret' => 'column=secret;type=blob',
-              'issued' => 'column=issued;type=integer',
-              'lifetime' => 'column=lifetime;type=integer',
-              'type' => 'column=assoc_type;type=string'
-    );
-    // database table mapping
-    private static $OPENID_NONCES_MAPPING = array(
-              'server_url' => 'column=server_url;type=string;key=true',
-              'issued' => 'column=issued;type=integer;key=true',
-              'salt' => 'column=assoc_type;type=string;key=true'
-    );
-
 
     /**
      * Create new instance.
@@ -53,11 +37,30 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
      */
     function __construct($nonceLifetime=0) {
         if (0 == $nonceLifetime) {
-		        global $Auth_OpenID_SKEW;
+	    global $Auth_OpenID_SKEW;
+
             $this->nonceLifetime = $Auth_OpenID_SKEW;
         } else {
             $this->nonceLifetime = $nonceLifetime;
         }
+
+        ZMDbTableMapper::instance()->setMappingForTable(ZM_TABLE_OPENID_ASSOCIATIONS,
+            array(
+                'server_url' => 'column=server_url;type=string;key=true',
+                'handle' => 'column=handle;type=string;key=true',
+                'secret' => 'column=secret;type=blob',
+                'issued' => 'column=issued;type=int unsigned',
+                'lifetime' => 'column=lifetime;type=int unsigned',
+                'assoc_type' => 'column=assoc_type;type=string',
+            )
+        );
+        ZMDbTableMapper::instance()->setMappingForTable(ZM_TABLE_OPENID_NONCES,
+            array(
+                'server_url' => 'column=server_url;type=string;key=true',
+                'issued' => 'column=issued;type=int unsigned;key=true',
+                'salt' => 'column=salt;type=string;key=true',
+            )
+        );
     }
 
 
@@ -79,7 +82,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             'lifetime' => $association->lifetime,
             'type' => $association->assoc_type
         );
-        ZMRuntime::getDatabase()->update($sql, $args, self::$OPENID_ASSOCIATION_MAPPING);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
 	
     /**
@@ -90,12 +93,12 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
      * @return Auth_OpenID_Association The association or <code>null</code>.
      */
     public function getAssociation($server_url, $handle=null) {
-        $associations	= array();		
+        $associations = array();		
         if ($handle != null) {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url AND handle = :handle";
-            $row = ZMRuntime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), self::$OPENID_ASSOCIATION_MAPPING);
+            $row = ZMRuntime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), ZM_TABLE_OPENID_ASSOCIATIONS);
             if (null != $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
@@ -103,7 +106,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url";
-            $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), self::$OPENID_ASSOCIATION_MAPPING);
+            $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
             foreach ($rows as $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
@@ -140,7 +143,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
-        ZMRuntime::getDatabase()->update($sql, $args, self::$OPENID_ASSOCIATION_MAPPING);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
         return true;
     }
 	
@@ -156,7 +159,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
                 (server_url, issued, salt) 
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
-        ZMRuntime::getDatabase()->update($sql, $args, self::$OPENID_NONCES_MAPPING);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
         return true;
     }
 	
@@ -169,7 +172,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_NONCES."
                 WHERE issued < :issued";
         $args = array('issued' => $timestamp);
-        return ZMRuntime::getDatabase()->update($sql, $args, self::$OPENID_NONCES_MAPPING);
+        return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
     }
 	
     /**
@@ -179,15 +182,15 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                 WHERE issued + lifetime < :timestamp";
         $args = array('timestamp' => time());
-        return ZMRuntime::getDatabase()->update($sql, $args, self::$OPENID_ASSOCIATION_MAPPING);
+        return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
 	
     /**
      * Reset.
      */
     public function reset() {
-        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS, array(), self::$OPENID_ASSOCIATION_MAPPING);
-        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_NONCES, array(), self::$OPENID_NONCES_MAPPING);
+        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS, array(), ZM_TABLE_OPENID_ASSOCIATIONS);
+        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_NONCES, array(), ZM_TABLE_OPENID_NONCES);
     }
 
 }

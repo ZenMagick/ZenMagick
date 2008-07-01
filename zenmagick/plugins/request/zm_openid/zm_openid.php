@@ -104,7 +104,7 @@ class zm_openid extends ZMPlugin {
         $args = array('openid' => $openid);
         $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS);
         if (null != $result) {
-            return ZMAccounts::instance()->getAccountForId($result['accountId']);
+            return ZMAccounts::instance()->getAccountForId($result['id']);
         }
         return null;
     }

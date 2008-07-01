@@ -74,6 +74,7 @@ class ZMOpenIDController extends ZMController {
                 return $this->initAuthentication($openid);
             } else if ('finishAuth' == $action) {
                 $info = $this->finishAuthentication($openid);
+                var_dump($info);die();
                 if (null !== $info) {
                     if ($session->getValue('openid') == $info['openid']) {
                         if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
