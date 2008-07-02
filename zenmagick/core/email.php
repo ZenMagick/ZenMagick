@@ -52,15 +52,17 @@
     function zm_email_formats($template) {
         $htmlView = ZMLoader::make("EmailView", $template, true);
         $textView = ZMLoader::make("EmailView", $template, false);
+
+        $formats = 'none';
         if ($htmlView->isValid() && $textView->isValid()) {
-            return "both";
-        } else if (!file_exists($htmlView->getViewFilename()) && !file_exists($textView->getViewFilename())) {
-            return "none";
-        } else if (file_exists($htmlView->getViewFilename())) {
-            return "html";
-        } else {
-            return "text";
+            $formats = 'both';
+        } else if ($htmlView->isValid()) {
+            $formats = 'html';
+        } else if ($textView->isValid()) {
+            $formats = 'text';
         }
+
+        return $formats;
     }
 
 
