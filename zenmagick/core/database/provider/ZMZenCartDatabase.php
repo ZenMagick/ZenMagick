@@ -141,6 +141,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function update($sql, $data, $mapping) {
         $startTime = microtime();
+
         if (is_array($data)) {
             $mapping = $this->mapper->ensureMapping($mapping);
             // bind query parameter

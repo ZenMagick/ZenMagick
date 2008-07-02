@@ -44,20 +44,20 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             $this->nonceLifetime = $nonceLifetime;
         }
 
-        ZMDbTableMapper::instance()->setMappingForTable(ZM_TABLE_OPENID_ASSOCIATIONS,
+        ZMDbTableMapper::instance()->setMappingForTable('zm_openid_associations',
             array(
                 'server_url' => 'column=server_url;type=string;key=true',
                 'handle' => 'column=handle;type=string;key=true',
                 'secret' => 'column=secret;type=blob',
-                'issued' => 'column=issued;type=int unsigned',
-                'lifetime' => 'column=lifetime;type=int unsigned',
-                'assoc_type' => 'column=assoc_type;type=string',
+                'issued' => 'column=issued;type=integer',
+                'lifetime' => 'column=lifetime;type=integer',
+                'type' => 'column=assoc_type;type=string',
             )
         );
-        ZMDbTableMapper::instance()->setMappingForTable(ZM_TABLE_OPENID_NONCES,
+        ZMDbTableMapper::instance()->setMappingForTable('zm_openid_nonces',
             array(
                 'server_url' => 'column=server_url;type=string;key=true',
-                'issued' => 'column=issued;type=int unsigned;key=true',
+                'issued' => 'column=issued;type=integer;key=true',
                 'salt' => 'column=salt;type=string;key=true',
             )
         );
@@ -107,13 +107,14 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url";
             $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
+            var_dump($rows);
             foreach ($rows as $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
         }
 
         $newest = null;
-        if (count($associations)) {
+        if (0 < count($associations)) {
             foreach ($associations as $assoc) {
                 if (!$assoc->getExpiresIn()) {
                     $this->removeAssociation($server_url, $assoc->handle);
@@ -180,8 +181,9 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
      */
     public function cleanupAssociations() {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
-                WHERE issued + lifetime < :timestamp";
-        $args = array('timestamp' => time());
+                WHERE (issued + lifetime) < :lifetime";
+        // use lifetime mapping to compare times...
+        $args = array('lifetime' => time());
         return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
 	
