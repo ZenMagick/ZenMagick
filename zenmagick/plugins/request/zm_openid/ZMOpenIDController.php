@@ -44,10 +44,18 @@ class ZMOpenIDController extends ZMController {
     function __construct() {
     global $zm_openid;
 
+        parent::__construct();
         $this->plugin = $zm_openid;
-        $this->returnTo = ZMToolbox::instance()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false);
+        $this->returnTo = str_replace('&amp;', '&', ZMToolbox::instance()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
         $this->sRegRequired = array('email');
         $this->sRegOptional = array('fullname', 'nickname');
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
     }
 
 
@@ -55,6 +63,34 @@ class ZMOpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet() {
+        $action = ZMRequest::getParameter('action');
+        if ('finishAuth' == $action) {
+            $info = $this->finishAuthentication($openid);
+            if (null !== $info) {
+                $session = ZMRequest::getSession();
+                if ($session->getValue('openid') == $info['openid']) {
+                    $account = $this->plugin->getAccountForOpenID($info['openid']);
+                    if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+                        ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+                        return $this->findView('login');
+                    }
+
+                    // as in ZMLoginController::processPost()
+                    $session->recreate();
+                    $session->setAccount($account);
+
+                    // update login stats
+                    ZMAccounts::instance()->updateAccountLoginStats($account->getId());
+
+                    // restore cart contents
+                    $session->restoreCart();
+
+                    $followUpUrl = $session->getLoginFollowUp();
+                    return $this->findView('success', array('url' => $followUpUrl));
+                }
+            }
+        }
+
         return $this->findView('login');
     }
 
@@ -72,30 +108,8 @@ class ZMOpenIDController extends ZMController {
                 // save to compare with response
                 $session->setValue('openid', $openid);
                 return $this->initAuthentication($openid);
-            } else if ('finishAuth' == $action) {
-                $info = $this->finishAuthentication($openid);
-                var_dump($info);die();
-                if (null !== $info) {
-                    if ($session->getValue('openid') == $info['openid']) {
-                        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-                            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
-                            return $this->findView('login');
-                        }
-
-                        // as in ZMLoginController::processPost()
-                        $session->recreate();
-                        $session->setAccount($account);
-
-                        // update login stats
-                        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
-
-                        // restore cart contents
-                        $session->restoreCart();
-
-                        $followUpUrl = $session->getLoginFollowUp();
-                        return $this->findView('success', array('url' => $followUpUrl));
-                    }
-                }
+            } else {
+                ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
             }
         } else {
             ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
@@ -131,8 +145,9 @@ class ZMOpenIDController extends ZMController {
         if ($pape_request) {
             $auth_request->addExtension($pape_request);
         }
+
         //TODO: make configurable
-        $pape_request->addPolicyURI(ZMToolbox::instance()->net->staticPage(FILENAME_PRIVACY));
+        //$pape_request->addPolicyURI(ZMToolbox::instance()->net->staticPage(FILENAME_PRIVACY));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.
@@ -175,11 +190,9 @@ class ZMOpenIDController extends ZMController {
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Complete the authentication process using the server's response.
-        $return_to = getReturnTo();
         $response = $consumer->complete($this->returnTo);
 
         if ($response->status == Auth_OpenID_SUCCESS) {
-            ZMMessages::instance()->msg('OpenID authentication failed: ' . $response->message);
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
             $sreg = $sreg_resp->contents();
 

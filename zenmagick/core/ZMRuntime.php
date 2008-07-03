@@ -233,9 +233,9 @@ class ZMRuntime extends ZMObject {
      */
     public static function getBaseURL($secure=false) {
         if ($secure && ZMSettings::get('isEnableSSL')) {
-            return HTTP_SERVER . DIR_WS_CATALOG;
-        } else {
             return HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
+        } else {
+            return HTTP_SERVER . DIR_WS_CATALOG;
         }
     }
 

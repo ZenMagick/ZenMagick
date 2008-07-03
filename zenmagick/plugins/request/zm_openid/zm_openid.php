@@ -90,6 +90,9 @@ class zm_openid extends ZMPlugin {
         ZMValidator::instance()->addRule('edit_account',
             ZMLoader::make('ZMUniqueOpenIDRule', 'openid')
         );
+
+        // add success URL mapping if none exists
+        ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');
     }
 
     /**
