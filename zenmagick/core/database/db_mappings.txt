@@ -230,7 +230,7 @@ array(
     ),
     'configuration' => array(
         'id' => 'column=configuration_id;type=integer;key=true;auto=true',
-        'title' => 'column=configuration_title;type=string',
+        'name' => 'column=configuration_title;type=string',
         'key' => 'column=configuration_key;type=string',
         'value' => 'column=configuration_value;type=string',
         'description' => 'column=configuration_description;type=string',

@@ -75,11 +75,11 @@ class ZMConfig extends ZMObject {
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
                   configuration_description, sort_order, 
                   date_added, use_function, set_function)
-                VALUES (:title, :key, :value, :groupId,
+                VALUES (:name, :key, :value, :groupId,
                   :description, :sortOrder,
                   now(), :useFunction, :setFunction)";
         $args = array(
-            "title" => $title,
+            "name" => $title,
             "key" => $key,
             "value" => $value,
             "groupId" => $groupId,
