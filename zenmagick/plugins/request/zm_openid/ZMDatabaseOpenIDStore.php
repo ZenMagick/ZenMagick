@@ -107,7 +107,6 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url";
             $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
-            var_dump($rows);
             foreach ($rows as $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
