@@ -59,6 +59,8 @@ class zm_openid extends ZMPlugin {
     function install() {
         parent::install();
         ZMDbUtils::executePatch(file($this->getPluginDir()."sql/install-openid.sql"), $this->messages_);
+
+        $this->addConfigValue('Allowed OpenID provider', 'openIDProvider', '', 'A list of allowed OpenID identity providers (separated by \'|\').');
     }
 
     /**
@@ -81,10 +83,14 @@ class zm_openid extends ZMPlugin {
         $key = 'sql.customers.customFields';
         ZMSettings::set($key, ZMSettings::get($key, '').',openid;string');
 
+        // initial rule
+        $rules = array(ZMLoader::make('RequiredRule', 'openid', 'Please enter your OpenID.'));
+        $providerList = trim($this->get('openIDProvider'));
+        if (!empty($providerList)) {
+            $rules[] = ZMLoader::make('ZMRegexpRule', 'openid', '/'.$providerList.'/', 'The provider of the entered OpenID is currently not supported.');
+        }
         // create new validation ruleset for login
-        ZMValidator::instance()->addRuleSet(new ZMRuleSet('openid_login', array(
-            new ZMRequiredRule('openid', 'Please enter your OpenID.')
-        )));
+        ZMValidator::instance()->addRuleSet(new ZMRuleSet('openid_login', $rules));
 
         // add validation rule for account edit
         ZMValidator::instance()->addRule('edit_account',

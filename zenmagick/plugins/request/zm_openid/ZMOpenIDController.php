@@ -98,6 +98,10 @@ class ZMOpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost() {
+        if (!$this->validate('openid_login')) {
+            return $this->findView('login');
+        }
+
         $action = ZMRequest::getParameter('action');
         $openid = ZMRequest::getParameter('openid');
 
