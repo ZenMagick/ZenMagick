@@ -7,7 +7,7 @@ Release 0.9.2
 - make admin language tool mark duplicate mappings and add inline warnings if
   duplicate keys with different values exist; b:#1993788
 - add missing support for blocking accounts
-- added new events to track account creation and welcome email
+- added new event to track account creation (ZM_EVENT_CREATE_ACCOUNT)
 - make backtrace more readable
 - ZMDatabase:
   * add support for date and datetime
@@ -48,7 +48,9 @@ Release 0.9.2
 - allow zm_mulit_site to enforce separate accounts per domain (for the same
   email address)
 - try to set owner/group of new theme files to something useful; f:#2002830
-
+- add generic event when generating emails: ZM_EVENT_GENERATE_EMAIL; this will
+  allow listeners to modify the eventual email view context
+- add gv_mail email templates and supporting code
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

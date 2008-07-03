@@ -123,7 +123,6 @@ class ZMCreateAccountController extends ZMController {
 
         // account email
         $context = array('zm_account' => $account, 'office_only_html' => '', 'office_only_text' => '');
-        ZMEvents::instance()->fireEvent($this, ZM_EVENT_CREATE_ACCOUNT_EMAIL, array('controller' => $this, 'account' => $account, 'context' => $context));
         zm_mail(zm_l10n_get("Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
         if (ZMSettings::get('isEmailAdminCreateAccount')) {
             // store copy

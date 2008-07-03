@@ -100,7 +100,11 @@
 
         // use text format unless only HTML available
         $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
-        $view->setController(ZMRequest::getController());
+
+        $controller = ZMRequest::getController();
+        $view->setController($controller);
+        // event to allow additions to context (via the controller as we need an object to pass stuff back)
+        ZMEvents::instance()->fireEvent(null, ZM_EVENT_GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller));
         $text = $view->generate();
 
         // call actual mail function; the name corresponds to the one used in the installation patch

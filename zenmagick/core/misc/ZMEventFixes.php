@@ -77,6 +77,28 @@ class ZMEventFixes extends ZMObject {
         }
     }
 
+
+    /**
+     * Fix email context for various emails.
+     */
+    public function onZMGenerateEmail($args=array()) {
+        $context = $args['context'];
+        $controller = $args['controller'];
+
+        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::getParameter('action')) {
+            // gv mail
+            if ($context['GV_REDEEM']) {
+                if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
+                    $couponCode = trim($matches[1]);
+                    $coupon = ZMCoupons::instance()->getCouponForCode($couponCode);
+                    $controller->exportGlobal('zm_coupon', $coupon);
+                }
+                $controller->exportGlobal('message', ZMRequest::getParameter('message', ''));
+                $controller->exportGlobal('htmlMessage', ZMRequest::getParameter('message_html', '', false));
+            }
+        }
+    }
+
 }
 
 ?>
