@@ -103,6 +103,9 @@ class ZMEmailView extends ZMPageView {
             $$name = $instance;
         }
 
+        // set for all
+        $language = ZMRuntime::getLanguage();
+
         ob_start();
         include($this->getViewFilename());
         ZMSettings::set('isAdmin', $isAdmin);

@@ -37,7 +37,6 @@ $order = ZMOrders::instance()->getOrderForId($INTRO_ORDER_NUMBER);
 $shippingAddress = $order->getShippingAddress();
 $billingAddress = $order->getBillingAddress();
 $paymentType = $order->getPaymentType();
-$language = ZMRuntime::getLanguage();
 ?><?php zm_l10n("%s Order Confirmation\n", ZMSettings::get('storeName')) ?>
 
 <?php zm_l10n("Thanks for shopping at %s,\n", ZMSettings::get('storeName')) ?>

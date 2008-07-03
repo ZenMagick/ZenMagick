@@ -22,11 +22,6 @@
  *
  * $Id$
  */
-?><?php
-preg_match('/$$\s+\w+$$/m', $EMAIL_MESSAGE_HTML, $matches);
-$password = trim($matches[0]);
-if (!empty($newPassword)) { $password = $newPassword; }
-$language = ZMRuntime::getLanguage();
 ?><?php zm_l10n("New Password Request\n") ?>
 
 <?php zm_l10n("This is in response to a request for a new password for your account at %s.\n", ZMSettings::get('storeName')) ?>

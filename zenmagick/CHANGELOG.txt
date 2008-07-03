@@ -51,6 +51,7 @@ Release 0.9.2
 - add generic event when generating emails: ZM_EVENT_GENERATE_EMAIL; this will
   allow listeners to modify the eventual email view context
 - add gv_mail email templates and supporting code
+- make $language available to all email tempalates
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
