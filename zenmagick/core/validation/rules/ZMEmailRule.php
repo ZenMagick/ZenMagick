@@ -84,7 +84,7 @@ class ZMEmailRule extends ZMRule {
 
         $email = $req[$this->getName()];
 
-        return empty($req[$this->getName()]) || eregi($this->_emailRegexp(), $email) && zen_validate_email($email);
+        return empty($req[$this->getName()]) || eregi($this->_emailRegexp(), $email);
     }
 
 
