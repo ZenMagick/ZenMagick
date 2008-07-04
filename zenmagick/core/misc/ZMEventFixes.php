@@ -122,13 +122,21 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('gv_queue' == $template) {
-          $queueId = ZMRequest::getParameter('gid');
-          $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
-          $controller->exportGlobal('zm_couponQueue', $couponQueue);
-          $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
-          $controller->exportGlobal('zm_account', $account);
-          $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
-          $controller->exportGlobal('zm_order', $order);
+            $queueId = ZMRequest::getParameter('gid');
+            $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
+            $controller->exportGlobal('zm_couponQueue', $couponQueue);
+            $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
+            $controller->exportGlobal('zm_account', $account);
+            $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
+            $controller->exportGlobal('zm_order', $order);
+        }
+
+        if ('coupon' == $template) {
+            $couponId = ZMRequest::getParameter('cid');
+            $coupon = ZMCoupons::instance()->getCouponForId($couponId);
+            $controller->exportGlobal('zm_coupon', $coupon);
+            $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
+            $controller->exportGlobal('zm_account', $account);
         }
     }
 

@@ -54,6 +54,8 @@ Release 0.9.2
 - make $language available to all email tempalates
 - move all code to extract template vars from email templates to ZMEventFixes
 - add qv_queue email templates (and supporting code)
+- add new patch to make coupon_admin mails usable
+- add new coupon email templates
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

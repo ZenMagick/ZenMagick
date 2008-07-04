@@ -43,6 +43,7 @@ require_once('includes/application_top.php');
         "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
         "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
         "customerEdit" => "Patch zen-cart to allow editing customers where email also exists as guest account",
+        "couponAdminMail" => "Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
