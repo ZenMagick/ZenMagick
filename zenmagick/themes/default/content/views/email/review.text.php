@@ -23,7 +23,6 @@
  * $Id$
  */
 ?>
-
 <?php zm_l10n("A Product Review for %s has been submitted and requires your approval.", $zm_product->getName()) ?>
 
 

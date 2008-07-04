@@ -22,21 +22,6 @@
  *
  * $Id$
  */
-?><?php
-  /**
-   * ZenMagick implementation of the order confirmation email.
-   * The original zen-cart template values are available under their
-   * respective names; eg. $INTRO_ORDER_NUMBER contains
-   * the order number.
-   *
-   * This version uses only INTRO_ORDER_NUMBER and PAYMENT_METHOD_FOOTER as
-   * there is currently no way to accessing this information otherwise.
-   */
-
-$order = ZMOrders::instance()->getOrderForId($INTRO_ORDER_NUMBER);
-$shippingAddress = $order->getShippingAddress();
-$billingAddress = $order->getBillingAddress();
-$paymentType = $order->getPaymentType();
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>

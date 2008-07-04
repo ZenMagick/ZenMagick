@@ -83,6 +83,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMGenerateEmail($args=array()) {
         $context = $args['context'];
+        $template = $args['template'];
         $controller = $args['controller'];
 
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::getParameter('action')) {
@@ -93,10 +94,33 @@ class ZMEventFixes extends ZMObject {
                     $coupon = ZMCoupons::instance()->getCouponForCode($couponCode);
                     $controller->exportGlobal('zm_coupon', $coupon);
                 }
+
                 $controller->exportGlobal('message', ZMRequest::getParameter('message', ''));
                 $controller->exportGlobal('htmlMessage', ZMRequest::getParameter('message_html', '', false));
             }
         }
+
+        if ('checkout' == $template) {
+            $order = ZMOrders::instance()->getOrderForId($context['INTRO_ORDER_NUMBER']);
+            $shippingAddress = $order->getShippingAddress();
+            $billingAddress = $order->getBillingAddress();
+            $paymentType = $order->getPaymentType();
+
+            $controller->exportGlobal('order', $order);
+            $controller->exportGlobal('shippingAddress', $shippingAddress);
+            $controller->exportGlobal('billingAddress', $billingAddress);
+            $controller->exportGlobal('paymentType', $paymentType);
+        }
+
+        if ('order_status' == $template) {
+            $newOrderStatus = $context['EMAIL_TEXT_NEW_STATUS'];
+            preg_match('/[^:]*:(.*)/ms', $context['EMAIL_TEXT_STATUS_COMMENTS'], $matches);
+            $comment = strip_tags(trim($matches[1]));
+
+            $controller->exportGlobal('newOrderStatus', $newOrderStatus);
+            $controller->exportGlobal('comment', $comment);
+        }
+
     }
 
 }

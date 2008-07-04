@@ -52,6 +52,7 @@ Release 0.9.2
   allow listeners to modify the eventual email view context
 - add gv_mail email templates and supporting code
 - make $language available to all email tempalates
+- move all code to extract template vars from email templates to ZMEventFixes
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

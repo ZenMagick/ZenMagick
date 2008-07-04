@@ -22,12 +22,7 @@
  *
  * $Id$
  */
-?><?php
-$newOrderStatus = $EMAIL_TEXT_NEW_STATUS;
-preg_match('/[^:]*:(.*)/ms', $EMAIL_TEXT_STATUS_COMMENTS, $matches);
-$comment = trim($matches[1]);
-?>
-<?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
+?><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
 
 
 <?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?>
