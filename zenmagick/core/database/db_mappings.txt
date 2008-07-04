@@ -460,4 +460,13 @@ array(
         'customerNotified' => 'column=customer_notified;type=integer',
         'comment' => 'column=comments;type=string',
     ),
+    'coupon_gv_queue' => array(
+        'id' => 'column=unique_id;type=integer;key=true;auto=true',
+        'accountId' => 'column=customer_id;type=integer',
+        'orderId' => 'column=order_id;type=integer',
+        'amount' => 'column=amount;type=integer',
+        'dateCreated' => 'column=date_created;type=datetime',
+        'ipAddr' => 'column=ipaddr;type=string',
+        'released' => 'column=release_flag;type=string',
+    ),
 );

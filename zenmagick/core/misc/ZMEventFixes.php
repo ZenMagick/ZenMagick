@@ -121,6 +121,15 @@ class ZMEventFixes extends ZMObject {
             $controller->exportGlobal('comment', $comment);
         }
 
+        if ('gv_queue' == $template) {
+          $queueId = ZMRequest::getParameter('gid');
+          $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
+          $controller->exportGlobal('zm_couponQueue', $couponQueue);
+          $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
+          $controller->exportGlobal('zm_account', $account);
+          $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
+          $controller->exportGlobal('zm_order', $order);
+        }
     }
 
 }

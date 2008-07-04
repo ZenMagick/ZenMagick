@@ -255,6 +255,19 @@ class ZMCoupons extends ZMObject {
     }
 
     /**
+     * Get a coupon queue entry.
+     *
+     * @param int queueId The coupon queue id.
+     * @return ZMCouponQueue A queue entry or <code>null</code>.
+     */
+    public function getCouponQueueEntryForId($queueId) {
+        $sql = "SELECT * 
+                FROM " . TABLE_COUPON_GV_QUEUE . "
+                WHERE unique_id = :id";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), TABLE_COUPON_GV_QUEUE, 'CouponQueue');
+    }
+
+    /**
      * Credit coupon for account.
      *
      * @param int couponId The coupon id.
