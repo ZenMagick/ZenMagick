@@ -581,7 +581,7 @@ class ZMProducts extends ZMObject {
         $sql = "SELECT products_quantity
                 from " . TABLE_PRODUCTS . "
                 where products_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $productid), TABLE_PRODUCTS);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $productId), TABLE_PRODUCTS);
         $available = 0;
         if (null != $result) {
             $available = $result['quantity'];
