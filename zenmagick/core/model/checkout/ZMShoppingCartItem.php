@@ -104,7 +104,7 @@ class ZMShoppingCartItem extends ZMModel {
      * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
      */
     function isStockAvailable() {
-        return ZMProducts::isQuantityAvailable($this->getId(), $this->getQty());
+        return ZMProducts::instance()->isQuantityAvailable($this->getId(), $this->getQty());
     }
 
 }
