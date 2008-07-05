@@ -75,8 +75,8 @@ class Offers extends ZMOffers {
      * Adjust price.
      *
      * @param string priceMethod The method to use for the price lookup.
-     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
-     * @param ProductGroupPricing productGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable).
+     * @param ProductGroupPricing productGroupPricing A <code>ProductGroupPricing</code>.
      */
     private function adjustPrice($priceMethod, $tax, $productGroupPricing) {
         // handle base price
