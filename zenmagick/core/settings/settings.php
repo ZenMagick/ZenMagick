@@ -25,10 +25,22 @@
 ?>
 <?php
 
+    function zm_mk_list($to, $from) {
+        $list = array();
+        if ($to < $from) {
+            return $list;
+        }
+        for (; $to >= $from; --$to) {
+            $list[] = $to;
+        }
+        return $list;
+    }
+
+
     ZMSettings::setAll(array(
 
     /**************************************
-     * System options.
+     * System settings.
      */
 
         // version
@@ -93,6 +105,9 @@
 
         // enable/disable web stats; this does not include login counts, etc, but product views and such
         'isLogPageStats' => true,
+
+        // download base folder
+        'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
 
 
@@ -168,7 +183,7 @@
 
 
     /**************************************
-     * Ajax checkout
+     * Ajax
      */
 
         // echo JSON response
@@ -308,6 +323,9 @@
         'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
         'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
         'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
+
+        // list of enabled order stati to show downloads
+        'downloadOrderStatusList' => zm_mk_list((int)DOWNLOADS_CONTROLLER_ORDERS_STATUS_END, (int)DOWNLOADS_CONTROLLER_ORDERS_STATUS),
 
         // TODO: (depends on sorter/filter?) sort default
         'defaultProductSortOrder' => 'price',

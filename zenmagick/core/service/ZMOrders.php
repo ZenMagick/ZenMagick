@@ -501,6 +501,31 @@ class ZMOrders extends ZMObject {
         return $order;
     }
 
+    /**
+     * Get downloads for order.
+     *
+     * @param int orderId The order id.
+     * @param array orderStatusList Optional array of order stati to check; default is null to use the configured range, (empty array will load all).
+     * @return array A list of <code>ZMDownload</code> instances.
+     */
+    public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
+        if (null === $orderStatusList) {
+            $orderStatusList = ZMSettings::get('downloadOrderStatusList');
+        }
+        $sql = "SELECT o.date_purchased, o.orders_status, opd.*
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
+                WHERE o.orders_id = :orderId
+                  AND o.orders_id = op.orders_id
+                  AND op.orders_products_id = opd.orders_products_id
+                  AND opd.orders_products_filename != ''";
+        if (0 < count($orderStatusList)) {
+            $sql .= ' AND o.orders_status in (:status)';
+        }
+
+        $mapping = array(TABLE_ORDERS_PRODUCTS_DOWNLOAD, TABLE_ORDERS_PRODUCTS, TABLE_ORDERS);
+        return ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId, 'status' => $orderStatusList), $mapping, 'Download');
+    }
+
 }
 
 ?>

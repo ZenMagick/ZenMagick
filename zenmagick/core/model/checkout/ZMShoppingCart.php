@@ -582,10 +582,10 @@ class ZMShoppingCart extends ZMObject {
 
         //TODO: zc: comp
         $attributes = (0 < count($attributes) ? $attributes : '');
-        $cartProductId = ZMShoppingCart::product_variation_id($productId, $attributes);
+        $sku = ZMShoppingCart::product_variation_id($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
-        $cartQty = $this->getQty($cartProductId, $product->isQtyMixed());
+        $cartQty = $this->getQty($sku, $product->isQtyMixed());
         $adjustedQty = $this->adjustQty($quantity);
 
         if (0 != $maxOrderQty && $cartQty >= $maxOrderQty) {
@@ -622,19 +622,19 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Update item.
      *
-     * @param string cartProductId The product id as used in the shopping cart (incl. the attributes suffix).
+     * @param string sku The product sku.
      * @param int quantity The quantity.
      * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    function updateProduct($cartProductId, $quantity, $notify=true) {
-        if (null !== $cartProductId && null !== $quantity) {
+    function updateProduct($sku, $quantity, $notify=true) {
+        if (null !== $sku && null !== $quantity) {
             if (0 == $quantity) {
-                return $this->removeProduct($cartProductId);
+                return $this->removeProduct($sku);
             }
 
 
-            $productId = ZMShoppingCart::base_product_id($cartProductId);
+            $productId = ZMShoppingCart::base_product_id($sku);
             $product = ZMProducts::instance()->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
@@ -651,7 +651,7 @@ class ZMShoppingCart extends ZMObject {
                 $adjustedQty = $maxOrderQty;
             }
 
-            $this->cart_->add_cart($cartProductId, $adjustedQty, $attributes, $notify);
+            $this->cart_->add_cart($sku, $adjustedQty, $attributes, $notify);
 
             return true;
         }
@@ -818,7 +818,7 @@ class ZMShoppingCart extends ZMObject {
 
 
     /**
-     * Reverse of <code>base_product_id</code>.
+     * Reverse of <code>base_product_id</code>, ie. the <em>sku</em>.
      *
      * <p>Creates a unique id for the given product variation.</p>
      *

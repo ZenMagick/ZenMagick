@@ -297,7 +297,7 @@ class ZMTools {
      *  <li><code>yyyy</code> - full year (if found both <em>cc</em> and <em>yy</em> will be populated accordingly</li>
      * </ul>
      *
-     * @param string s A date (usually provided by the user).
+     * @param string s A date; usually either provided by the user or a database date.
      * @param string format The date format
      * @param array defaults Optional defaults for components; default is <code>null</code> for none.
      * @return array The individual date components as map using the token as keys.
