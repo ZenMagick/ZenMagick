@@ -25,16 +25,15 @@
 
 
 /**
- * A validator.
+ * A validator framework.
  *
  * @author mano
  * @package org.zenmagick.validation
  * @version $Id$
  */
 class ZMValidator extends ZMObject {
-    // each set contains rules for a single form
-    var $sets_;
-    var $messages_;
+    private $sets_;
+    private $messages_;
 
 
     /**
@@ -62,51 +61,53 @@ class ZMValidator extends ZMObject {
 
 
     /**
-     * Add a new <code>ZMRuleSet</code>.
+     * Add a new rule for the given rule set id.
      *
-     * <p><strong>NOTE:</strong> If a rule set already exists (same id), the rules of the
-     * given set are added to the existing set.</p>
-     *
-     * @param ZMRuleSet set A new rule set.
+     * @param string id The rule set id.
+     * @param array rule A plain text rule.
      */
-    function addRuleSet($set) {
-        $ruleSet = $this->getRuleSet($set->getId());
-        if (null != $ruleSet) {
-            $ruleSet->addRules($set->getRules());
+    public function addRule($id, $rule) {
+        if (array_key_exists($id, $this->sets_)) {
+            $this->sets_[$id][] = $rule;
         } else {
-            $this->sets_[$set->getId()] = $set;
+            $this->sets_[$id] = array($rule);
         }
     }
 
     /**
-     * Add a new <code>ZMRule</code>.
+     * Add a list of new rules for the given rule set id.
      *
      * @param string id The rule set id.
-     * @param ZMRule rule A new rule.
+     * @param array rules A list of plain text rules.
      */
-    function addRule($id, $rule) {
-        $ruleSet = $this->getRuleSet($id);
-        if (null == $ruleSet) {
-            $ruleSet = ZMLoader::make("RuleSet", $id);
-            $this->addRuleSet($ruleSet);
-        }
-        if (null != $rule && null != $ruleSet) {
-            $ruleSet->addRule($rule);
+    public function addRules($id, $rules) {
+        if (array_key_exists($id, $this->sets_)) {
+            $this->sets_[$id] = array_merge($this->sets_[$id], $rules);
         } else {
-            $this->log("invalid set id ($id) or null rule");
+            $this->sets_[$id] = $rules;
         }
     }
+
 
     /**
      * Get a <code>ZMRuleSet</code> for the given id/name.
      *
      * @param string id The id/name of the set.
-     * @return ZMRuleSet A <code>ZMRuleSet</code> instance or <code>null</code>.
+     * @param boolean compile If set to <code>true</code>, evaluate the rule data (creating objects, etc); default is <code>false</code>.
+     * @return ZMRuleSet A <code>ZMRuleSet</code> instance, array or <code>null</code>.
      */
-    function getRuleSet($id) {
+    public function getRuleSet($id, $compile=false) {
         $ruleSet = null;
         if (array_key_exists($id, $this->sets_)) {
             $ruleSet = $this->sets_[$id];
+        }
+
+        if ($compile) {
+            $rules = $ruleSet;
+            $ruleSet = ZMLoader::make('RuleSet', $id);
+            foreach ($rules as $rule) {
+                $ruleSet->addRule(ZMLoader::make($rule));
+            }
         }
         return $ruleSet;
     }
@@ -117,7 +118,7 @@ class ZMValidator extends ZMObject {
      * @param string id The id/name of the set.
      * @return boolean <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
      */
-    function hasRuleSet($id) {
+    public function hasRuleSet($id) {
         return array_key_exists($id, $this->sets_);
     }
 
@@ -127,7 +128,7 @@ class ZMValidator extends ZMObject {
      *
      * @return array A list of localized messages.
      */
-    function getMessages() {
+    public function getMessages() {
         return $this->messages_;
     }
 
@@ -138,7 +139,7 @@ class ZMValidator extends ZMObject {
      * @param ZMRuleSet set The rule set.
      * @return array A name/value map.
      */
-    function obj2map($obj, $set) {
+    protected function obj2map($obj, $set) {
         $prefixList = array('get', 'is', 'has');
 
         $map = array();
@@ -167,10 +168,10 @@ class ZMValidator extends ZMObject {
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    function validate($req, $id) {
+    public function validate($req, $id) {
         $this->messages_ = array();
 
-        $set = array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
+        $set = $this->getRuleSet($id, true);
         if (null == $set) {
             return true;
         }
@@ -208,8 +209,8 @@ class ZMValidator extends ZMObject {
      * @param boolean echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
      * @return string Formatted JavaScript .
      */
-    function toJSString($id, $echo=ZM_ECHO_DEFAULT) {
-        $set = array_key_exists($id, $this->sets_) ? $this->sets_[$id] : null;
+    public function toJSString($id, $echo=ZM_ECHO_DEFAULT) {
+        $set = $this->getRuleSet($id, true);
 
         if (null == $set) {
             return '';
@@ -242,8 +243,9 @@ class ZMValidator extends ZMObject {
      *
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
      */
-    function insertJSValidation($id) {
+    public function insertJSValidation($id) {
         $this->toJSString($id);
+        // inline JS
         include_once ZMRuntime::getTheme()->themeFile("validation.js");
     }
 

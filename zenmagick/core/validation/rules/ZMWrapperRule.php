@@ -41,12 +41,14 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string name The field name.
      * @param string msg Optional message.
+     * @param string function The function name.
      */
-    function __construct($name, $msg=null) {
+    function __construct($name, $msg=null, $function) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
 
         $this->function_ = null;
         $this->javascript_ = '';
+        $this->function_ = $function;
     }
 
     /**
@@ -62,7 +64,7 @@ class ZMWrapperRule extends ZMRule {
      *
      * <p>The function must implement the same siganture as <code>validate($req)</code>.</p>
      *
-     * @param string fkt The function name.
+     * @param string function The function name.
      */
     function setFunction($function) {
         $this->function_ = $function;

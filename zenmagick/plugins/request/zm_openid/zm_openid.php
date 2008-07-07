@@ -84,18 +84,18 @@ class zm_openid extends ZMPlugin {
         ZMSettings::set($key, ZMSettings::get($key, '').',openid;string');
 
         // initial rule
-        $rules = array(ZMLoader::make('RequiredRule', 'openid', 'Please enter your OpenID.'));
+        $rules = array(
+            array('RequiredRule', 'openid', 'Please enter your OpenID.')
+        );
         $providerList = trim($this->get('openIDProvider'));
         if (!empty($providerList)) {
-            $rules[] = ZMLoader::make('ZMRegexpRule', 'openid', '/'.$providerList.'/', 'The provider of the entered OpenID is currently not supported.');
+            $rules[] = array('ZMRegexpRule', 'openid', '/'.$providerList.'/', 'The provider of the entered OpenID is currently not supported.');
         }
-        // create new validation ruleset for login
-        ZMValidator::instance()->addRuleSet(new ZMRuleSet('openid_login', $rules));
+        // validation rules for login
+        ZMValidator::instance()->addRules('openid_login', $rules);
 
         // add validation rule for account edit
-        ZMValidator::instance()->addRule('edit_account',
-            ZMLoader::make('ZMUniqueOpenIDRule', 'openid')
-        );
+        ZMValidator::instance()->addRule('edit_account', array('ZMUniqueOpenIDRule', 'openid'));
 
         // add success URL mapping if none exists
         ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');

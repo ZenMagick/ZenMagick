@@ -96,12 +96,14 @@ class zm_captcha extends ZMPlugin {
             $session->setValue('captcha_field', ZM_CAPTCHA_FIELD);
             $config = $this->pageConfig_[$page];
             if ('false' != $config[0]) {
+                $form = $this->pageConfig_[$page][1];
                 // active for this page
                 $this->captchaEnabled_ = true;
-                ZMValidator::instance()->addRule($config[1], new ZMRequiredRule(ZM_CAPTCHA_FIELD, 'Please enter the captcha.'));
-                $captchaRule = ZMLoader::make("WrapperRule", ZM_CAPTCHA_FIELD, 'The entered captcha is not correct.');
-                $captchaRule->setFunction('zm_captcha_validate');
-                ZMValidator::instance()->addRule($config[1], $captchaRule);
+                $rules = array(
+                    array('RequiredRule', ZM_CAPTCHA_FIELD, 'Please enter the captcha.'),
+                    array("WrapperRule", ZM_CAPTCHA_FIELD, 'The entered captcha is not correct.', 'zm_captcha_validate')
+                );
+                ZMValidator::instance()->addRules($form, $rules);
             }
         }
     }

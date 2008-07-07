@@ -73,6 +73,7 @@ class zm_init_session extends ZMPlugin {
          */
         $http_domain = zen_get_top_level_domain(HTTP_SERVER);
         $https_domain = zen_get_top_level_domain(HTTPS_SERVER);
+        //TODO: check for secure connection
         $current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
         if (SESSION_USE_FQDN == 'False') $current_domain = '.' . $current_domain;
         session_set_cookie_params(0, '/', (zen_not_null($current_domain) ? $current_domain : ''));
