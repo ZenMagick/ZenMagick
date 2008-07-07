@@ -9,6 +9,8 @@ Installation
 2) Install plugin using the ZenMagick Plugin Manager.
 3) Configure as required using the Plugin Manager
    * All that is required is to set the root folder of your Wordpress installation
+   * Optionally, you can configure a list of pages that can display WP content (empty means all)
+     CAUTION: Loading WP content does affect performance, so limiting it is usually a good idea!
 4) Copy the wp folder into your theme's views directory
 
 

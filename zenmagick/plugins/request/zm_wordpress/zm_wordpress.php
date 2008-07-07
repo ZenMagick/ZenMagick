@@ -56,6 +56,7 @@ class zm_wordpress extends ZMPlugin {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation');
+        $this->addConfigValue('WP enabled pages', 'wordpressEnabled', 'wp', 'Comma separated list of pages that can display WP content (leave empty for all).');
     }
 
     /**
@@ -104,10 +105,12 @@ class zm_wordpress extends ZMPlugin {
      * {@inheritDoc}
      */
     public function getGlobal() {
-        // load as proper global to make WP work - @#!!$&^ globals
-        return array('wp-blog-header.gphp');
+        $wordpressEnabled = $this->get('wordpressEnabled');
+        if (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+            // load as proper global to make WP work - @#!!$&^ globals
+            return array('wp-blog-header.gphp');
+        }
     }
-
 
     /**
      * Execute WP index init.
