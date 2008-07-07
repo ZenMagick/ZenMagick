@@ -41,7 +41,7 @@ class zm_openid extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ZenMagick OpenID', 'Allows to login using OpenID', '${plugin.version}');
+        parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
         $this->setLoaderSupport('ALL');
     }
 

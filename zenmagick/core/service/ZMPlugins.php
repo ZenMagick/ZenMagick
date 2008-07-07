@@ -112,6 +112,7 @@ class ZMPlugins extends ZMObject {
         }
         @closedir($handle);
 
+        asort($types);
         return $types;
     }
 
@@ -206,7 +207,12 @@ class ZMPlugins extends ZMObject {
         $ao = $a->getSortOrder();
         $bo = $b->getSortOrder();
         if ($ao == $bo) {
-            return 0;
+            $an = $a->getName();
+            $bn = $b->getName();
+            if ($an == $bn) {
+                return 0;
+            }
+            return ($an < $bn) ? -1 : 1;
         }
         return ($ao < $bo) ? -1 : 1;
     }

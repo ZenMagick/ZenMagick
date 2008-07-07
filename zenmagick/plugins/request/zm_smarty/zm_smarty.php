@@ -37,7 +37,7 @@ class zm_smarty extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ZenMagick Smarty', 'Support for Smarty based themes', '${plugin.version}');
+        parent::__construct('Smarty', 'Support for Smarty based themes', '${plugin.version}');
         $this->setLoaderSupport('FOLDER');
         $this->setKeys(array('smartyDir'));
     }

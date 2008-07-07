@@ -37,7 +37,7 @@ class zm_cron extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ZenMagick CronJobs', 'Allows to configure and execute cron jobs', '${plugin.version}');
+        parent::__construct('CronJobs', 'Allows to configure and execute cron jobs', '${plugin.version}');
         $this->setLoaderSupport('ALL');
     }
 

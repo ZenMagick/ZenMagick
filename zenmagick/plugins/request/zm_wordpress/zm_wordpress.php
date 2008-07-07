@@ -38,7 +38,7 @@ class zm_wordpress extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Wordpress for ZenMagick', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
+        parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('FOLDER');
     }
 

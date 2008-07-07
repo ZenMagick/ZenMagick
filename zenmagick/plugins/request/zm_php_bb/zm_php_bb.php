@@ -42,7 +42,7 @@ class zm_php_bb extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ZenMagick phpBB Plugin', 'phpBB for ZenMagick');
+        parent::__construct('phpBB', 'phpBB for ZenMagick');
         $this->setLoaderSupport('ALL');
         $this->phpBBEnabled_ = false;
         $this->page_ = '';
