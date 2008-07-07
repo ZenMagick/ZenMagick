@@ -37,8 +37,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
      */
     function __construct($nonceLifetime=0) {
         if (0 == $nonceLifetime) {
-	    global $Auth_OpenID_SKEW;
-
+	          global $Auth_OpenID_SKEW;
             $this->nonceLifetime = $Auth_OpenID_SKEW;
         } else {
             $this->nonceLifetime = $nonceLifetime;
