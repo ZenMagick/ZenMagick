@@ -42,15 +42,6 @@
 
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
-    /*****temp fixes for email generation.... ********/
-    // set up order for order_status email
-    if (null !== ZMRequest::getParameter("oID") && 'update_order' == ZMRequest::getParameter("action")) {
-        $orderId = ZMRequest::getParameter("oID");
-        $zm_order = ZMOrders::instance()->getOrderForId($orderId);
-        $zm_account = ZMAccounts::instance()->getAccountForId($zm_order->getAccountId());
-    }
-    /*****temp fixes for email generation.... ********/
-
     // simulate the number of uploads parameter for add to cart
     if ('add_product' == ZMRequest::getParameter('action')) {
         $uploads = 0;

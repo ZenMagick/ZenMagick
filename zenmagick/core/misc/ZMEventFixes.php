@@ -119,6 +119,15 @@ class ZMEventFixes extends ZMObject {
 
             $controller->exportGlobal('newOrderStatus', $newOrderStatus);
             $controller->exportGlobal('comment', $comment);
+
+            // from zc_fixes
+            if (null !== ZMRequest::getParameter("oID") && 'update_order' == ZMRequest::getParameter("action")) {
+                $orderId = ZMRequest::getParameter("oID");
+                $order = ZMOrders::instance()->getOrderForId($orderId);
+                $controller->exportGlobal('zm_order', $order);
+                $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+                $controller->exportGlobal('zm_account', $account);
+            }
         }
 
         if ('gv_queue' == $template) {
