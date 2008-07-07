@@ -245,6 +245,9 @@ class ZMLoader {
     /**
      * Shortcut for creating new class instances.
      *
+     * <p>Please note that is it also possible to pass just a single parameter (array) that contains the class name
+     * (first element) and optionally constructor arguments (second, third,..).</p>
+     *
      * @param string name The class name (without the <em>ZM</em> prefix).
      * @param var arg Optional constructor arguments.
      * @return mixed A new instance of the given class.
