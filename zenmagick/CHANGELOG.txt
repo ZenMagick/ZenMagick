@@ -52,7 +52,8 @@ Release 0.9.2
   allow listeners to modify the eventual email view context
 - add gv_mail email templates and supporting code
 - make $language available to all email tempalates
-- move all code to extract template vars from email templates to ZMEventFixes
+- move all code to extract template vars from email templates to ZMEventFixes;
+  this might need some changes to email templates (see default templates)
 - add qv_queue email templates (and supporting code)
 - add new patch to make coupon_admin mails usable
 - add new coupon email templates
