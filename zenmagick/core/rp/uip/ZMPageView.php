@@ -73,11 +73,15 @@ class ZMPageView extends ZMView {
             $$name = $instance;
         }
 
-        $template = $this->getLayout();
-        if (null != $template) {
-            include(ZMRuntime::getTheme()->themeFile($template.ZMSettings::get('templateSuffix')));
+        $layout = $this->getLayout();
+        if (null != $layout) {
+            include(ZMRuntime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix')));
         } else {
-            include(ZMRuntime::getTheme()->themeFile($this->getName().ZMSettings::get('templateSuffix')));
+            if ($this->isViewFunction()) { 
+                $this->callView(); 
+            } else {
+                include(ZMRuntime::getTheme()->themeFile($this->getName().ZMSettings::get('templateSuffix')));
+            }
         }
     }
 
