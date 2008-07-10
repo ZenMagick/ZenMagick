@@ -103,6 +103,18 @@ class ZMPhpPackagePacker {
     }
 
     /**
+     * Decide whether a ignore a file completely or not.
+     *
+     * <p>Callback to allow custom handling, for example exclusion of files or folders.</p>
+     *
+     * @param string file The file name.
+     * @return boolean <code>true</code>, if the file should be ignored.
+     */
+    public function ignoreFile($file) {
+        return false;
+    }
+
+    /**
      * Pack all.
      *
      * @param boolean strip If <code>true</code>, stript the files while compressing; default is <code>true</code>.
@@ -184,7 +196,7 @@ class ZMPhpPackagePacker {
      */
     protected function prepareFiles() {
         if ($this->debug) {
-            echo 'prepare '.$this->rootFolder.'<br>';
+            echo 'prepare '.$this->rootFolder."<br>\n";
         }
         ZMLoader::instance()->resolve('InstallationPatch');
         $patch = ZMLoader::make('FilePatch', 'patch');
@@ -194,6 +206,12 @@ class ZMPhpPackagePacker {
         $classInfo = array();
         $files = ZMLoader::findIncludes($this->rootFolder, true);
         foreach ($files as $file) {
+            if ($this->ignoreFile($file)) {
+                continue;
+            }
+            if ($this->debug) {
+                echo "preparing: ".$file."<BR>\n";
+            }
             $lines = $patch->getFileLines($file);
             $patched = false;
             $class = str_replace('.php', '', basename($file));
@@ -203,6 +221,7 @@ class ZMPhpPackagePacker {
             if ($classInfo[$class]['class']) {
                 // only if class in file
                 foreach ($lines as $ii => $line) {
+                    // this will only match if the filename is a simple string - that's the way PEAR files should be done...
                     if (preg_match('/^\s*\/?\/?\s*(require_once|require|include_once|include){1}\s*\(?\s*[\'"](.*)[\'"]\s*\)?\s*;.*$/', $line, $matches)) {
                         $dependsOn[$class][] = str_replace('.php', '', basename($matches[2]));
                     }
@@ -231,12 +250,12 @@ class ZMPhpPackagePacker {
                 foreach ($dependencies as $dclass) {
                     if (!isset($resolved[$dclass])) {
                         $clear = false;
-                        if ($this->debug) echo $class."; missing dep: ".$dclass."<BR>";
+                        if ($this->debug) echo $class."; missing dep: ".$dclass."<BR>\n";
                     }
                 }
 
                 if ($clear || $this->isResolved($class, $levelIndex, $files)) {
-                    if ($this->debug) echo '<br>resolved: '.$class.' depending on';
+                    if ($this->debug) echo "<br>\nresolved: ".$class.' depending on ';
                     if ($this->debug) print_r($dependencies);
                     $level[$class] = $class;
                 }
@@ -248,13 +267,13 @@ class ZMPhpPackagePacker {
             $levelIndex++;
 
             if ($this->debug) {
-                echo "<br><br>=======".$levelIndex."============<BR>";
+                echo "<br>\n<br>\n=======".$levelIndex."============<BR>\n";
                 if (10 == $levelIndex) { break; }
             }
         }
 
         if ($this->debug) {
-            echo  count($resolved) . ' - ' . count($dependsOn) . '<br>';
+            echo 'Got ' . count($resolved) . ' resolved classes - need:' . count($dependsOn) . "<br>\n";
             var_dump($treeMap);
         }
 
@@ -270,7 +289,8 @@ class ZMPhpPackagePacker {
                 $inFile = $fileMap[$class];
                 $lines = $patch->getFileLines($inFile);
                 foreach ($lines as $ii => $line) {
-                    if (preg_match('/^\s*\s*(require_once|require|include_once|include){1}\s*\(?\s*[\'"](.*)[\'"]\s*\)?\s*;.*$/', $line, $matches)) {
+                    // match all statements, regardless whether they match the PEAR style expected above or not
+                    if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {
                         $lines[$ii] = '//'.$line;
                     }
                 }
@@ -304,7 +324,7 @@ class ZMPhpPackagePacker {
         $compressor->compress();
         if ($this->debug) {
             foreach ($compressor->getErrors() as $error) {
-                echo $error.'<br>';
+                echo $error."<br>\n";
             }
         } else {
             $compressor->clean();
