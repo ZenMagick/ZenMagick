@@ -88,7 +88,7 @@ class ZMPluginView extends ZMPageView {
             $subdir = '';
         }
 
-        return $plugin->getPluginDir() . $subdir . $this->getName() . ".php";
+        return $plugin->getPluginDir() . $subdir . $this->getName() . ZMSettings::get('templateSuffix');
     }
 
 }
