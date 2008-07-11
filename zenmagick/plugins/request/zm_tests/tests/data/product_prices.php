@@ -1,5 +1,6 @@
 <?php
 
+global $product_prices;
 $product_prices = array(
     p34 => array(
         normal_price => 35.9900,
