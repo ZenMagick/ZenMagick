@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_wordpress
  * @version $Id$
  */
-class ZMWpController extends ZMController {
+class WpController extends ZMController {
     private $plugin;
 
 
