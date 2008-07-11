@@ -543,6 +543,20 @@ class ZMProduct extends ZMModel {
      */
     public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
+    /**
+     * Set the priced by attributes flag.
+     *
+     * @param boolean value The new value.
+     */
+    public function setPricedByAttributes($value) { $this->pricedByAttributes_ = $value; }
+
+    /**
+     * Check if the product is priced by attributes.
+     *
+     * @return boolean <code>true</code> if priced by attributes.
+     */
+    public function isPricedByAttributes() { return $this->pricedByAttributes_; }
+
 }
 
 ?>

@@ -97,7 +97,7 @@ class ZMOffers extends ZMObject {
      * @return float The product price.
      */
     public function getProductPrice($tax=true) {
-        return $tax ? $this->taxRate_->addTax($this->product_->productPrice_) : $this->product_->productPrice_;
+        return $tax ? $this->taxRate_->addTax($this->product_->getProductPrice()) : $this->product_->getProductPrice();
     }
 
     /**
@@ -120,12 +120,9 @@ class ZMOffers extends ZMObject {
      * Calculate the base price.
      */
     protected function doGetBasePrice() {
-        if (!$this->product_->pricedByAttributes_) {
-            return $this->product_->productPrice_;
-        }
-
         $db = ZMRuntime::getDB();
         // **non** display_only **but** attributes_price_base_included
+        // note that the sort order is relevant to calcuate the lowest possible attribute price
         $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
                 from " . TABLE_PRODUCTS_ATTRIBUTES . "
                 where products_id = :productId
@@ -135,17 +132,21 @@ class ZMOffers extends ZMObject {
         $results = $db->Execute($sql);
 
         // add attributes price to price
-        $basePrice = $this->product_->productPrice_;
-        if (0 < $results->RecordCount()) {
-            $options_id = 'x';
+        $basePrice = 0;
+        if ($this->product_->isPricedByAttributes() && 0 < $results->RecordCount()) {
+            $options_id = null;
             while (!$results->EOF) {
-                if ($options_id != $results->fields['options_id']) {
+                if ($options_id !== $results->fields['options_id']) {
                     $options_id = $results->fields['options_id'];
                     $basePrice += $results->fields['options_values_price'];
                 }
                 $results->MoveNext();
             }
         }
+
+        // this is for price factor based attributes (the lower limit is the set price [even though priced by attr])
+        $basePrice += $this->product_->getProductPrice();
+
         return $basePrice;
     }
 
@@ -209,7 +210,7 @@ class ZMOffers extends ZMObject {
         // get available sales
         $sql = "select sale_specials_condition, sale_deduction_value, sale_deduction_type
                 from " . TABLE_SALEMAKER_SALES . "
-                where sale_categories_all like '%," . $this->product_->masterCategoryId_ . ",%' and sale_status = '1'
+                where sale_categories_all like '%," . $this->product_->getMasterCategoryId() . ",%' and sale_status = '1'
                 and (sale_date_start <= now() or sale_date_start = '0001-01-01')
                 and (sale_date_end >= now() or sale_date_end = '0001-01-01')
                 and (sale_pricerange_from <= :basePrice  or sale_pricerange_from = '0')
@@ -218,7 +219,7 @@ class ZMOffers extends ZMObject {
         $results = $db->Execute($sql);
 
         if ($results->RecordCount() < 1) {
-           return 0;
+            return $specialPrice;
         }
 
         // read result
@@ -230,21 +231,21 @@ class ZMOffers extends ZMObject {
         $bestSpecialPrice = $specialPrice ? $specialPrice : $basePrice;
 
         switch ($saleType) {
-          case ZM_SALE_TYPE_AMOUNT:
-            $saleBasePrice = $basePrice - $saleValue;
-            $saleSpecialPrice = $bestSpecialPrice - $saleValue;
-            break;
-          case ZM_SALE_TYPE_PERCENT:
-            $saleBasePrice = $basePrice - (($basePrice * $saleValue) / 100);
-            $saleSpecialPrice = $bestSpecialPrice - (($bestSpecialPrice * $saleValue) / 100);
-            break;
-          case ZM_SALE_TYPE_PRICE:
-            $saleBasePrice = $saleValue;
-            $saleSpecialPrice = $saleValue;
-            break;
-          default:
-            // gosh, how'd we get here
-            return $bestSpecialPrice;
+            case ZM_SALE_TYPE_AMOUNT:
+                $saleBasePrice = $basePrice - $saleValue;
+                $saleSpecialPrice = $bestSpecialPrice - $saleValue;
+                break;
+            case ZM_SALE_TYPE_PERCENT:
+                $saleBasePrice = $basePrice - (($basePrice * $saleValue) / 100);
+                $saleSpecialPrice = $bestSpecialPrice - (($bestSpecialPrice * $saleValue) / 100);
+                break;
+            case ZM_SALE_TYPE_PRICE:
+                $saleBasePrice = $saleValue;
+                $saleSpecialPrice = $saleValue;
+                break;
+            default:
+                // gosh, how'd we get here??
+                return $bestSpecialPrice;
         }
 
         $calculationDecimals = ZMSettings::get('calculationDecimals');
