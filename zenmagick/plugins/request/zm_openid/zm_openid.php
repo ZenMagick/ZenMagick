@@ -83,6 +83,10 @@ class zm_openid extends ZMPlugin {
         $key = 'sql.customers.customFields';
         ZMSettings::set($key, ZMSettings::get($key, '').',openid;string');
 
+        // make openid_login use session token
+        $tokenSecuredForms = ZMSettings::get('tokenSecuredForms', '');
+        ZMSettings::set('tokenSecuredForms', $tokenSecuredForms.',openid_login');
+
         // initial rule
         $rules = array(
             array('RequiredRule', 'openid', 'Please enter your OpenID.')
