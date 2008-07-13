@@ -235,7 +235,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $name = substr($key, 1);
             if (!empty($name)) {
                 $pl = '?';
-                if (array_key_exists($name, $args) && is_array($args[$name])) {
+                if (isset($args[$name]) && is_array($args[$name])) {
                     // expand placeholder
                     for ($ii=1; $ii < count($args[$name]); ++$ii) {
                         $pl .= ',?';
@@ -343,7 +343,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             return $row;
         }
         foreach ($mapping as $field => $info) {
-            if (!array_key_exists($info['column'], $row)) {
+            if (!isset($row[$info['column']])) {
                 // field not in result set, so ignore
                 continue;
             }

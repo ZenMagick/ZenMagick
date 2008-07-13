@@ -257,7 +257,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $mappedRow = array();
         foreach ($mapping as $field) {
-            if (array_key_exists($field['column'], $row)) {
+            if (isset($row[$field['column']])) {
                 $mappedRow[$field['property']] = $row[$field['column']];
             }
         }
