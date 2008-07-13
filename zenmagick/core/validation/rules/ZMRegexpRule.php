@@ -62,7 +62,7 @@ class ZMRegexpRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        return array_key_exists($this->getName(), $req) && eregi($this->regexp_, $req[$this->getName()]);
+        return empty($req[$this->getName()]) || eregi($this->regexp_, $req[$this->getName()]);
     }
 
 
