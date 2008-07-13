@@ -65,7 +65,8 @@ Release 0.9.2
 - added zm_tests plugin
 - fix a few pricing regressions
 - added new setting 'tokenSecuredForms'
-- added support POST forms with session token
+- added support POST forms with session token (hidden field
+  with name ZM_SESSION_TOKEN_NAME)
 - make ZMRegexpRule pass if field is empty
 
 Release 0.9.1
