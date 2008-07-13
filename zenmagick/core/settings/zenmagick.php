@@ -174,5 +174,6 @@
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    define('ZM_SESSION_TOKEN_NAME', 'stoken');
 
 ?>

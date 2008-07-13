@@ -334,6 +334,21 @@ class ZMSession extends ZMObject {
      */
     public function getLanguageId() { return (int)$_SESSION['languages_id']; }
 
+    /**
+     * Get the session security token.
+     *
+     * <p>A new token will be created if none exists.</p>
+     *
+     * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
+     * @return string The security token.
+     */
+    public function getToken($renew=false) { 
+        if ($renew || !isset($_SESSION['securityToken'])) {
+            $_SESSION['securityToken'] = md5(uniqid(rand(), true));
+        }
+        return $_SESSION['securityToken'];
+    }
+
 }
 
 ?>

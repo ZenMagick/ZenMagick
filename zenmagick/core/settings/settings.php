@@ -292,6 +292,10 @@
 
         'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 
+        // comma separated list of forms to be secured by a session token
+        'tokenSecuredForms' => 'login',
+
+
 
 
     /**************************************

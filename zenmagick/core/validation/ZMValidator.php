@@ -183,8 +183,10 @@ class ZMValidator extends ZMObject {
             $map = $req;
         }
 
+        // initial status
+        $status = $this->validateSession($map, $id);
+
         // iterate over rules
-        $status = true;
         foreach ($set->getRules() as $rule) {
             if (!$rule->validate($map)) {
                 $status = false;
@@ -200,6 +202,28 @@ class ZMValidator extends ZMObject {
         }
 
         return $status;
+    }
+
+    /**
+     * Validate session token.
+     *
+     * @param mixed req A (request) map or an object.
+     * @param string id The ruleset id.
+     * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
+     */
+    protected function validateSession($req, $id) {
+        $valid = true;
+        if (ZMTools::inArray($id, ZMSettings::get('tokenSecuredForms'))) {
+            $valid = false;
+            if (isset($req[ZM_SESSION_TOKEN_NAME])) {
+                $valid = (ZMRequest::getSession()->getToken() == $req[ZM_SESSION_TOKEN_NAME]);
+            }
+        }
+
+        if (!$valid) {
+            $this->messages_[ZM_SESSION_TOKEN_NAME] = array(zm_l10n_get('Invalid session request.'));
+        }
+        return $valid;
     }
 
     /**
