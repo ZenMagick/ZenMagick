@@ -33,6 +33,7 @@
  */
 class ZMAttribute extends ZMModel {
     private $id_;
+    private $productId_;
     private $name_;
     private $type_;
     private $sortOrder_;
@@ -69,6 +70,13 @@ class ZMAttribute extends ZMModel {
      * @return int The attribute id.
      */
     public function getId() { return $this->id_; }
+
+    /**
+     * Get the product id.
+     *
+     * @return int The product id.
+     */
+    public function getProductId() { return $this->productId_; }
 
     /**
      * Get the attribute name.
@@ -111,6 +119,13 @@ class ZMAttribute extends ZMModel {
      * @param int id The attribute id.
      */
     public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the product id.
+     *
+     * @param int productId The product id.
+     */
+    public function setProductId($productId) { $this->productId_ = $productId; }
 
     /**
      * Set the attribute name.

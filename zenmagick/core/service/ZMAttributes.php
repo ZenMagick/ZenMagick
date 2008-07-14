@@ -107,19 +107,8 @@ class ZMAttributes extends ZMObject {
             $args = array('id' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
             $mapping = array(TABLE_PRODUCTS_ATTRIBUTES, TABLE_PRODUCTS_OPTIONS_VALUES);
             foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
-                // TODO: and now the funky stuff
-                if ($value->isDiscounted()) {
-                    $price = zm_get_attributes_price_final($value->getId(), 1, '', 'false');
-                    $value->setPrice(zm_get_discount_calc((int)$product->getId(), true, $price));
-                }
-                $taxRate = $product->getTaxRate();
-                $value->setPrice($taxRate->addTax($value->getPrice()));
-
-                if (0 != $value->getOneTimePrice() || $value->isPriceFactorOneTime()) {
-                    $onetimeCharges = zm_get_attributes_price_final_onetime($value->getId(), 1, '');
-                    $value->setOneTimePrice($taxRate->addTax($onetimeCharges));
-                }
-
+                $value->setAttribute($attribute);
+                $value->setTaxRate($product->getTaxRate());
                 $attribute->addValue($value);
             }
 

@@ -120,27 +120,23 @@ class ZMOffers extends ZMObject {
      * Calculate the base price.
      */
     protected function doGetBasePrice() {
-        $db = ZMRuntime::getDB();
-        // **non** display_only **but** attributes_price_base_included
-        // note that the sort order is relevant to calcuate the lowest possible attribute price
-        $sql = "select options_id, price_prefix, options_values_price, attributes_display_only, attributes_price_base_included
-                from " . TABLE_PRODUCTS_ATTRIBUTES . "
-                where products_id = :productId
-                and attributes_display_only != '1' and attributes_price_base_included='1'". "
-                order by options_id, price_prefix, options_values_price";
-        $sql = $db->bindVars($sql, ':productId', $this->product_->getId(), 'integer');
-        $results = $db->Execute($sql);
-
-        // add attributes price to price
         $basePrice = 0;
-        if ($this->product_->isPricedByAttributes() && 0 < $results->RecordCount()) {
-            $options_id = null;
-            while (!$results->EOF) {
-                if ($options_id !== $results->fields['options_id']) {
-                    $options_id = $results->fields['options_id'];
-                    $basePrice += $results->fields['options_values_price'];
+
+        $attributes = $this->product_->getAttributes();
+        if ($this->product_->isPricedByAttributes() && 0 < count($attributes)) {
+            // add minimum attributes price to price
+            foreach ($attributes as $attribute) {
+                $lowest = null;
+                foreach ($attribute->getValues() as $value) {
+                    if (!$value->isDisplayOnly() && $value->isIncludeInBasePrice()) {
+                        if (null == $lowest || $lowest->getValuePrice(false) > $value->getValuePrice(false)) {
+                            $lowest = $value;
+                        }
+                    }
                 }
-                $results->MoveNext();
+                if (null != $lowest) {
+                    $basePrice += $lowest->getValuePrice(false);
+                }
             }
         }
 

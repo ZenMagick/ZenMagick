@@ -35,6 +35,7 @@
  */
 class ZMAttributeValue extends ZMModel {
     private $id_;
+    private $attribute_;
     private $name_;
     private $price_;
     private $oneTimePrice_;
@@ -47,6 +48,8 @@ class ZMAttributeValue extends ZMModel {
     private $isDiscounted_;
     private $image_;
     private $isPriceFactorOneTime_;
+    private $isIncludeInBasePrice_;
+    private $taxRate_;
 
 
     /**
@@ -74,6 +77,13 @@ class ZMAttributeValue extends ZMModel {
     public function getId() { return $this->id_; }
 
     /**
+     * Get the parent attribute.
+     *
+     * @return ZMAttribute The attribute.
+     */
+    public function getAttribute() { return $this->attribute_; }
+
+    /**
      * Get the attribute value name.
      *
      * @return string The attribute value name.
@@ -81,18 +91,47 @@ class ZMAttributeValue extends ZMModel {
     public function getName() { return $this->name_; }
 
     /**
-     * Get the attribute price.
+     * Get the value price.
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The price.
      */
-    public function getPrice() { return $this->price_; }
+    public function getValuePrice($tax=true) { 
+        return $tax ? $this->taxRate_->addTax($this->price_) : $this->price_;
+    }
 
     /**
-     * Get the attributes one time price.
+     * Get the final value price.
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
+     * @return double The price.
+     */
+    public function getPrice($tax=true) { 
+        //TODO: cache value
+        $price = $this->price_;
+        if ($this->isDiscounted_) {
+            $price = zm_get_attributes_price_final($this->id_, 1, '', 'false');
+            $price = zm_get_discount_calc($this->attribute_->getProductId(), true, $price);
+        }
+
+        return $tax ? $this->taxRate_->addTax($price) : $price;
+    }
+
+    /**
+     * Get the values one time price.
+     *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The attributes one time price.
      */
-    public function getOneTimePrice() { return $this->oneTimePrice_; }
+    public function getOneTimePrice($tax=true) { 
+        //TODO: cache
+        $price = $this->oneTimePrice_;
+        if (0 != $price || $this->isPriceFactorOneTime_) {
+            $price = zm_get_attributes_price_final_onetime($this->id_, 1, '');
+        }
+
+        return $tax ? $this->taxRate_->addTax($price) : $price;
+    }
 
     /**
      * Get the price prefix.
@@ -151,6 +190,13 @@ class ZMAttributeValue extends ZMModel {
     public function hasImage() { return null !== $this->image_ && '' != $this->image_; }
 
     /**
+     * Check if the base price is included.
+     *
+     * @return boolean <code>true</code> if the base price is included, <code>false</code> if not.
+     */
+    public function isIncludeInBasePrice() { return $this->isIncludeInBasePrice_; }
+
+    /**
      * Get the attribute value image (if any).
      *
      * @return string The attribute value image name.
@@ -165,11 +211,25 @@ class ZMAttributeValue extends ZMModel {
     public function isPriceFactorOneTime() { return $this->isPriceFactorOneTime_; }
 
     /**
+     * Get the tax rate.
+     *
+     * @return ZMTaxRate The tax rate.
+     */
+    public function getTaxRate() { return $this->taxRate_; }
+
+    /**
      * Set the attribute value id.
      *
      * @param int id The attribute value id.
      */
     public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the parent attribute.
+     *
+     * @param ZMAttribute attribute The attribute.
+     */
+    public function setAttribute($attribute ) { $this->attribute_ = $attribute; }
 
     /**
      * Set the attribute value name.
@@ -179,14 +239,16 @@ class ZMAttributeValue extends ZMModel {
     public function setName($name) { $this->name_ = $name; }
 
     /**
-     * Set the attribute price.
+     * Set the value price.
      *
      * @param double price The price.
      */
-    public function setPrice($price) { $this->price_ = $price; }
+    public function setValuePrice($price) { 
+        $this->price_ = $price;
+    }
 
     /**
-     * Set the attributes one time price.
+     * Set the values one time price.
      *
      * @param double oneTimePrice The attributes one time price.
      */
@@ -254,6 +316,20 @@ class ZMAttributeValue extends ZMModel {
      * @param boolean value <code>true</code> if the price factor is one time only, <code>false</code> if not.
      */
     public function setPriceFactorOneTime($value) { $this->isPriceFactorOneTime_ = $value; }
+
+    /**
+     * Set the base price is included flag.
+     *
+     * @param boolean value <code>true</code> if the base price is included, <code>false</code> if not.
+     */
+    public function setIncludeInBasePrice($value) { $this->isIncludeInBasePrice_ = $value; }
+
+    /**
+     * Set the tax rate.
+     *
+     * @param ZMTaxRate taxRate The tax rate.
+     */
+    public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 
 }
 
