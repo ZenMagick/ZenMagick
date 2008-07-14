@@ -27,7 +27,7 @@
 <?php if (ZMRequest::isAnonymous() && 'login' != ZMRequest::getPageName() && 'time_out' != ZMRequest::getPageName()) { ?>
     <h3><?php zm_l10n("Login") ?></h3>
     <div id="sb_login" class="box">
-        <?php $form->open(FILENAME_LOGIN, "action=process", true) ?>
+        <?php $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
             <div>
                 <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
                 <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
