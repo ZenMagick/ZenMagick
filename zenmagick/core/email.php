@@ -107,7 +107,7 @@
         ZMEvents::instance()->fireEvent(null, ZM_EVENT_GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller));
         $text = $view->generate();
 
-        // call actual mail function; the name corresponds to the one used in the installation patch
+        // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
         $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $context, $template, $attparam);
     }
