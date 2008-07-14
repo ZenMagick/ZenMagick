@@ -61,6 +61,7 @@ class ZMProduct extends ZMModel {
 
     // raw price
     var $productPrice_;
+    var $specialPrice_;
 
     // funny bits
     var $attributes_;
@@ -80,6 +81,7 @@ class ZMProduct extends ZMModel {
         $this->name_ = $name;
         $this->description_ = $description;
         $this->productPrice_ = 0;
+        $this->specialPrice_ = 0;
         $this->sortOrder_ = 0;
         $this->attributes_ = null;
         $this->offers_ = null;
@@ -409,6 +411,20 @@ class ZMProduct extends ZMModel {
      * @param float productPrice The product price.
      */
     public function setProductPrice($productPrice) { $this->productPrice_ = $productPrice; }
+
+    /**
+     * Get the product special price.
+     *
+     * @return float The product special price.
+     */
+    public function getSpecialPrice() { return $this->specialPrice_; }
+
+    /**
+     * Set the product special price.
+     *
+     * @param float specialPrice The product special price.
+     */
+    public function setSpecialPrice($specialPrice) { $this->specialPrice_ = $specialPrice; }
 
     /**
      * Get the product offers.

@@ -399,14 +399,15 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "SELECT *
+        $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
                 WHERE p.products_status = '1'
                   AND p.products_model = :model
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
     }
 
     /**
@@ -422,13 +423,14 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "SELECT *
+        $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
                 WHERE p.products_id = :id
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('id' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
     }
 
     /**
@@ -462,8 +464,9 @@ class ZMProducts extends ZMObject {
         }
 
         if (0 < count($needLoadIds)) {
-            $sql = "SELECT *
+            $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                     FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                    LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
                     WHERE p.products_id in (:id)
                       AND pd.products_id = p.products_id
                       AND pd.language_id = :languageId";
@@ -471,7 +474,7 @@ class ZMProducts extends ZMObject {
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('id' => $needLoadIds, 'languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Product');
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache

@@ -156,27 +156,10 @@ class ZMOffers extends ZMObject {
      */
     public function getSpecialPrice($tax=true) {
         if (null === $this->specialPrice_) {
-            $this->specialPrice_ = $this->doGetSpecialPrice();
+            $this->specialPrice_ = $this->product_->getSpecialPrice();
         }
 
         return $tax ? $this->taxRate_->addTax($this->specialPrice_) : $this->specialPrice_;
-    }
-
-    /**
-     * Calculate the special price.
-     */
-    protected function doGetSpecialPrice() {
-        $db = ZMRuntime::getDB();
-        $sql = "select specials_new_products_price
-                from " . TABLE_SPECIALS .  "
-                where products_id = :productId and status='1'";
-        $sql = $db->bindVars($sql, ":productId", $this->product_->getId(), "integer");
-        $results = $db->Execute($sql);
-        $specialPrice = null;
-        if (0 < $results->RecordCount()) {
-    	      $specialPrice = $results->fields['specials_new_products_price'];
-        }
-        return !empty($specialPrice) ? $specialPrice : null;
     }
 
     /**

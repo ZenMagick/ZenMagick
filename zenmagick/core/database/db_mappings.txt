@@ -254,7 +254,7 @@ array(
     'specials' => array(
         'id' => 'column=specials_id;type=integer;key=true;auto=true',
         'productId' => 'column=products_id;type=integer',
-        'newProductsPrice' => 'column=specials_new_products_price;type=float',
+        'specialPrice' => 'column=specials_new_products_price;type=float',
         'dateAdded' => 'column=specials_date_added;type=datetime',
         'lastModified' => 'column=specials_last_modified;type=datetime',
         'expiryDate' => 'column=expires_date;type=date',

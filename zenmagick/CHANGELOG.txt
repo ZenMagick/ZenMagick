@@ -68,6 +68,8 @@ Release 0.9.2
 - added support POST forms with session token (hidden field
   with name ZM_SESSION_TOKEN_NAME); f:#2013028
 - make ZMRegexpRule pass if field is empty
+- reimplement SQL in ZMOffers using the already loaded product / attribute
+  data
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
