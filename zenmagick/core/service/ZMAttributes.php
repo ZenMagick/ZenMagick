@@ -55,42 +55,6 @@ class ZMAttributes extends ZMObject {
     }
 
 
-    /**
-     * Simple lookup to check for existing attributes.
-     *
-     * @param int productId The product id.
-     * @param int languageId The languageId; default is <code>null</code> for session language.
-     * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
-     */ 
-    function checkForAttributes($productId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::getSession();
-            $languageId = $session->getLanguageId();
-        }
-
-        $db = ZMRuntime::getDB();
-        $sql = "select count(*) as total
-                from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
-                where patrib.products_id = :productId
-                and patrib.options_id = popt.products_options_id
-                and popt.language_id = :languageId
-                limit 1";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-        $results = $db->Execute($sql);
-        return 0 < $results->fields['total'];
-    }
-
-
-    // create new attribute
-    function _newAttribute($fields) {
-        $attribute = ZMLoader::make("Attribute", $fields['products_options_id'], $fields['products_options_name'], $fields['products_options_type']);
-        $attribute->sortOrder_ = $fields['products_options_sort_order'];
-        $attribute->comment_ = $fields['products_options_comment'];
-        return $attribute;
-    }
-
-
     // create new attribute value
     function _newAttributeValue($fields, $product) {
         $value = ZMLoader::make("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
@@ -140,44 +104,42 @@ class ZMAttributes extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
+        // set up sort order SQL
         $attributesOrderBy= '';
         if (ZMSettings::get('isSortAttributesByName')) {
-            $attributesOrderBy= ' order by popt.products_options_name';
+            $attributesOrderBy= ' ORDER BY po.products_options_name';
         } else {
-            $attributesOrderBy= ' order by LPAD(popt.products_options_sort_order,11,"0")';
+            $attributesOrderBy= ' ORDER BY LPAD(po.products_options_sort_order, 11, "0")';
         }
 
+        $sql = "SELECT distinct po.products_options_id, po.products_options_name, po.products_options_sort_order,
+                po.products_options_type, po.products_options_length, po.products_options_comment, po.products_options_size,
+                po.products_options_images_per_row, po.products_options_images_style
+                FROM " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+                WHERE pa.products_id = :productId
+                  AND pa.options_id = po.products_options_id
+                  AND po.language_id = :languageId" .
+                $attributesOrderBy;
+        $args = array('productId' => $product->getId(), 'languageId' => $languageId);
+        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
+
+        // set up sort order SQL
         $valuesOrderBy= '';
         if (ZMSettings::get('isSortAttributeValuesByPrice')) {
-            $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pa.options_values_price';
+            $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pa.options_values_price';
         } else {
-            $valuesOrderBy= ' order by LPAD(pa.products_options_sort_order,11,"0"), pov.products_options_values_name';
+            $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pov.products_options_values_name';
         }
 
         $db = ZMRuntime::getDB();
-        $sql = "select distinct popt.products_options_id, popt.products_options_name, popt.products_options_sort_order,
-                popt.products_options_type, popt.products_options_length, popt.products_options_comment, popt.products_options_size,
-                popt.products_options_images_per_row, popt.products_options_images_style
-                from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
-                where patrib.products_id = :productId
-                and patrib.options_id = popt.products_options_id
-                and popt.language_id = :languageId" .
-                $attributesOrderBy;
-        $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-        $attributeResults = $db->Execute($sql);
-
         $attributes = array();
-        // iterate over all attributes
-        while (!$attributeResults->EOF) {
-            $attribute = $this->_newAttribute($attributeResults->fields);
-
-            $sql = "select pov.products_options_values_id, pov.products_options_values_name, pa.*
-                    from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
-                    where pa.products_id = :productId
-                    and pa.options_id = :attributeId
-                    and pa.options_values_id = pov.products_options_values_id
-                    and pov.language_id = :languageId " .
+        foreach ($results as $attribute) {
+            $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
+                    FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
+                    WHERE pa.products_id = :productId
+                      AND pa.options_id = :attributeId
+                      AND pa.options_values_id = pov.products_options_values_id
+                      AND pov.language_id = :languageId " .
                     $valuesOrderBy;
             $sql = $db->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
             $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
@@ -187,14 +149,12 @@ class ZMAttributes extends ZMObject {
             // get all values for the current attribute
             while (!$valueResults->EOF) {
                 $value = $this->_newAttributeValue($valueResults->fields, $product);
-                // add to attribute
-                array_push($attribute->values_, $value);
+                $attribute->addValue($value);
                 $valueResults->MoveNext();
             }
 
             // add to attributes
             $attributes[] = $attribute;
-            $attributeResults->MoveNext();
         }
 
         return $attributes;

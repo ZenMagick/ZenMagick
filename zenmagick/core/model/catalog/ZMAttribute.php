@@ -32,12 +32,12 @@
  * @version $Id$
  */
 class ZMAttribute extends ZMModel {
-    var $id_;
-    var $name_;
-    var $type_;
-    var $sortOrder_;
-    var $comment_;
-    var $values_;
+    private $id_;
+    private $name_;
+    private $type_;
+    private $sortOrder_;
+    private $comment_;
+    private $values_;
 
 
     /**
@@ -47,7 +47,7 @@ class ZMAttribute extends ZMModel {
      * @param string name The name.
      * @param string type The type.
      */
-    function __construct($id, $name, $type) {
+    function __construct($id=0, $name='', $type=null) {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
@@ -68,42 +68,84 @@ class ZMAttribute extends ZMModel {
      *
      * @return int The attribute id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the attribute name.
      *
      * @return string The attribute name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the attribute type.
      *
      * @return string The attribute type.
      */
-    function getType() { return $this->type_; }
+    public function getType() { return $this->type_; }
 
     /**
      * Get the attribute sort order.
      *
      * @return int The attribute sort order.
      */
-    function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder_; }
 
     /**
      * Get the attribute comment.
      *
      * @return string The attribute comment.
      */
-    function getComment() { return $this->comment_; }
+    public function getComment() { return $this->comment_; }
 
     /**
      * Get the attribute values.
      *
      * @return array A list of <code>ZMAttributeValue</code> objects.
      */
-    function getValues() { return $this->values_; }
+    public function getValues() { return $this->values_; }
+
+    /**
+     * Set the attribute id.
+     *
+     * @param int id The attribute id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the attribute name.
+     *
+     * @param string name The attribute name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the attribute type.
+     *
+     * @return string The attribute type.
+     */
+    public function setType($type) { $this->type_ = $type; }
+
+    /**
+     * Set the attribute sort order.
+     *
+     * @param int sortOrder The attribute sort order.
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+
+    /**
+     * Set the attribute comment.
+     *
+     * @param string comment The attribute comment.
+     */
+    public function setComment($comment) { $this->comment_ = $comment; }
+
+    /**
+     * Add an attribute value.
+     *
+     * @param ZMAttributeValue value A <code>ZMAttributeValue</code>.
+     */
+    public function addValue($value) { $this->values_[] = $value; }
 
 }
 
