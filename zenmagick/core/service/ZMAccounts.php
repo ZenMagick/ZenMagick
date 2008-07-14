@@ -81,7 +81,7 @@ class ZMAccounts extends ZMObject {
                 FROM " . TABLE_CUSTOMERS . " c
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE customers_email_address = :email
-                AND NOT customers_password = ''";
+                AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
