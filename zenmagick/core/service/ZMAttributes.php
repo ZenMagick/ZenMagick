@@ -55,42 +55,6 @@ class ZMAttributes extends ZMObject {
     }
 
 
-    // create new attribute value
-    function _newAttributeValue($fields, $product) {
-        $value = ZMLoader::make("AttributeValue", $fields['products_options_values_id'], $fields['products_options_values_name']);
-        // let's start with the easy ones
-        $value->pricePrefix_ = $fields['price_prefix'];
-        $value->isFree_ = ('1' == $fields['product_attribute_is_free']);
-        $value->weight_ = $fields['products_attributes_weight'];
-        $value->weightPrefix_ = $fields['products_attributes_weight_prefix'];
-        $value->isDisplayOnly_ = $fields['attributes_display_only'];
-        $value->isDefault_ = ('1' == $fields['attributes_default']);
-        $value->isDiscounted_ = $fields['attributes_discounted'];
-        $value->image_ = $fields['attributes_image'];
-        $value->isOneTime_ = $fields['attributes_price_onetime'];
-        $value->isPriceFactorOneTime_ = $fields['attributes_price_factor_onetime'];
-
-        // and now the funky stuff
-        if ($value->isDiscounted_) {
-            $price = zm_get_attributes_price_final($fields["products_attributes_id"], 1, '', 'false');
-            $value->price_ = zm_get_discount_calc((int)$product->getId(), true, $price);
-        } else {
-            $value->price_ = $fields['options_values_price'];
-        }
-        $taxRate = $product->getTaxRate();
-        $value->price_ = $taxRate->addTax($value->price_);
-
-        if ($value->isOneTime_ || $value->isPriceFactorOneTime_) {
-            $onetimeCharges = zm_get_attributes_price_final_onetime($fields["products_attributes_id"], 1, '');
-            $value->oneTimePrice_ = $taxRate->addTax($onetimeCharges);
-        } else {
-            $value->oneTimePrice_ = 0;
-        }
-
-        return $value;
-    }
-
-
     /**
      * Load attributes for the given product and language.
      *
@@ -105,7 +69,7 @@ class ZMAttributes extends ZMObject {
         }
 
         // set up sort order SQL
-        $attributesOrderBy= '';
+        $attributesOrderBy = '';
         if (ZMSettings::get('isSortAttributesByName')) {
             $attributesOrderBy= ' ORDER BY po.products_options_name';
         } else {
@@ -124,33 +88,39 @@ class ZMAttributes extends ZMObject {
         $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
 
         // set up sort order SQL
-        $valuesOrderBy= '';
+        $valuesOrderBy = '';
         if (ZMSettings::get('isSortAttributeValuesByPrice')) {
             $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pa.options_values_price';
         } else {
             $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pov.products_options_values_name';
         }
+        $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
+                FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
+                WHERE pa.products_id = :productId
+                  AND pa.options_id = :id
+                  AND pa.options_values_id = pov.products_options_values_id
+                  AND pov.language_id = :languageId " .
+                $valuesOrderBy;
 
-        $db = ZMRuntime::getDB();
         $attributes = array();
         foreach ($results as $attribute) {
-            $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
-                    FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
-                    WHERE pa.products_id = :productId
-                      AND pa.options_id = :attributeId
-                      AND pa.options_values_id = pov.products_options_values_id
-                      AND pov.language_id = :languageId " .
-                    $valuesOrderBy;
-            $sql = $db->bindVars($sql, ":attributeId", $attribute->getId(), "integer");
-            $sql = $db->bindVars($sql, ":productId", $product->getId(), "integer");
-            $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-            $valueResults = $db->Execute($sql);
+            $args = array('id' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
+            $mapping = array(TABLE_PRODUCTS_ATTRIBUTES, TABLE_PRODUCTS_OPTIONS_VALUES);
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
+                // TODO: and now the funky stuff
+                if ($value->isDiscounted()) {
+                    $price = zm_get_attributes_price_final($value->getId(), 1, '', 'false');
+                    $value->setPrice(zm_get_discount_calc((int)$product->getId(), true, $price));
+                }
+                $taxRate = $product->getTaxRate();
+                $value->setPrice($taxRate->addTax($value->getPrice()));
 
-            // get all values for the current attribute
-            while (!$valueResults->EOF) {
-                $value = $this->_newAttributeValue($valueResults->fields, $product);
+                if (0 != $value->getOneTimePrice() || $value->isPriceFactorOneTime()) {
+                    $onetimeCharges = zm_get_attributes_price_final_onetime($value->getId(), 1, '');
+                    $value->setOneTimePrice($taxRate->addTax($onetimeCharges));
+                }
+
                 $attribute->addValue($value);
-                $valueResults->MoveNext();
             }
 
             // add to attributes

@@ -34,20 +34,19 @@
  * @version $Id$
  */
 class ZMAttributeValue extends ZMModel {
-    var $id_;
-    var $name_;
-    var $price_;
-    var $oneTimePrice_;
-    var $pricePrefix_;
-    var $isFree_;
-    var $weight_;
-    var $weightPrefix_;
-    var $isDisplayOnly_;
-    var $isDefault_;
-    var $isDiscounted_;
-    var $image_;
-    var $isOneTime_;
-    var $isPriceFactorOneTime_;
+    private $id_;
+    private $name_;
+    private $price_;
+    private $oneTimePrice_;
+    private $pricePrefix_;
+    private $isFree_;
+    private $weight_;
+    private $weightPrefix_;
+    private $isDisplayOnly_;
+    private $isDefault_;
+    private $isDiscounted_;
+    private $image_;
+    private $isPriceFactorOneTime_;
 
 
     /**
@@ -159,13 +158,6 @@ class ZMAttributeValue extends ZMModel {
     public function getImage() { return $this->image_; }
 
     /**
-     * Check if this is a one time value.
-     *
-     * @return boolean <code>true</code> if this is a one time value, <code>false</code> if not.
-     */
-    public function isOneTime() { return $this->isOneTime_; }
-
-    /**
      * Check if the price factor is one time.
      *
      * @return boolean <code>true</code> if the price factor is one time only, <code>false</code> if not.
@@ -255,13 +247,6 @@ class ZMAttributeValue extends ZMModel {
      * @param string image The attribute value image name.
      */
     public function setImage($image) { $this->image_ = $image; }
-
-    /**
-     * Set the one time value flag.
-     *
-     * @param boolean value <code>true</code> if this is a one time value, <code>false</code> if not.
-     */
-    public function setOneTime($value) { $this->isOneTime_ = $value; }
 
     /**
      * Set the price factor is one time flag.
