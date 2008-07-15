@@ -70,20 +70,20 @@ package_comment_dir = ./
 
 ; Parse out global variables and/or global constants?
 
-;globals = off
+globals = off
 ;constants = off
 
 ; Generate documentation for all class members
 
-;private = on
+private = off
 
 ; Generate documentation for public and protected class members
 
-;protected = on
+protected = on
 
 ; Generate documentation for only public class members
 
-;public = on
+public = on
 
 ; Standard doclet settings
 ; -----------------------------------------------------------------------------
