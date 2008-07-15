@@ -28,7 +28,7 @@
     /**
      * Parse RSS date.
      * 
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
      * @deprecated use ZMTools instead
@@ -39,7 +39,7 @@
     /**
      * Convert date to RSS date format.
      * 
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
      * @return string A date string formatted according to RSS date rules.
      * @deprecated use ZMTools instead
@@ -55,7 +55,7 @@
      *
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string date A date (usually provided by the user).
      * @param string format The date format
      * @param boolean reverse If <code>true</code>, the returned data will be reversed.
@@ -71,7 +71,7 @@
      * <p>This is typically used by controller/business code to convert user input before 
      * storing it in the database.</p>
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string date The date as received via the UI.
      * @return string The formatted date.
      * @deprecated use ZMTools instead
@@ -82,7 +82,7 @@
     /**
      * Convert text based user input into HTML.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string s The input string.
      * @return string HTML formatted text.
      * @deprecated use ZMToolbox instead
@@ -93,7 +93,7 @@
     /**
      * Evaluate a string value as boolean.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param mixed value The value.
      * @return boolean The boolean value.
      * @deprecated use ZMTools instead
@@ -104,7 +104,7 @@
     /**
      * Encode XML control characters.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string s The input string.
      * @return string The encoded string.
      * @deprecated use ZMToolbox instead
@@ -115,7 +115,7 @@
     /**
      * Format the given amount according to the current currency.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param float amount The amount.
      * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
      *  convert before formatting.
@@ -129,7 +129,7 @@
     /**
      * Parse a money amount.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string amount The amount probably formatted according to the sessions currency setting.
      * @return float The amount.
      * @deprecated use ZMTools instead
@@ -140,7 +140,7 @@
     /**
      * Helper for conditional get support.
      *
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param string timestamp The last change date of whatever resource this is about.
      * @param boolean <code>true<code> if <strong>no</strong> body should be returned, 
      *  <code>false</code> if the resource changed.
@@ -152,7 +152,7 @@
     /**
      * Checks, if the current page is a checkout page.
      * 
-     * @package org.zenmagick.misc
+     * @package org.zenmagick.deprecated
      * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
      * @return boolean <code>true</code> if the current page is a checkout page.
      * @deprecated use ZMRequest instead

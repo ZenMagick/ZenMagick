@@ -32,7 +32,7 @@
      * <p>In constrast to the <code>..._href</code> functions, this one will
      * return a full HTML <code>&lt;img&gt;</code> tag.</p>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param ZMProduct product A product.
      * @param int categoryId Optional category id.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 

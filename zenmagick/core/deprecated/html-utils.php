@@ -29,7 +29,7 @@
     /**
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param ZMImageInfo imageInfo The image info.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
@@ -47,7 +47,7 @@
     /**
      * Encode a given string to valid HTML.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string s The string to decode.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The encoded HTML.
@@ -61,7 +61,7 @@
     /**
      * Strip HTML tags from the given text.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string text The text to clean up.
      * @param boolean echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
      * @return string The stripped text.
@@ -79,7 +79,7 @@
      *
      * <p>Behaviour is controlled with the <em>ZenMagick</em> setting <code>isJSTarget</code>.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
      * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return string A preformatted attribute in the form ' name="value"'
@@ -93,7 +93,7 @@
     /**
      * Encode a URL to valid HTML.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string url The url to encode.
      * @return string The URL encoded in valid HTM.
      * @deprecated use the new toolbox instead!
@@ -106,7 +106,7 @@
     /**
      * Decode a HTML encoded URL.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string url The url to decode.
      * @return string The decoded URL.
      * @deprecated use the new toolbox instead!
@@ -121,7 +121,7 @@
      *
      * <p>Convenience function for <code>zm_build_more</code>.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string s The text.
      * @param int max The number of allowed characters.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -135,7 +135,7 @@
     /**
      * Truncate text.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string s The text.
      * @param int max The number of allowed characters.
      * @param string more Optional string that will be appended to indicate that the text was truncated.
@@ -151,7 +151,7 @@
     /**
      * <code>phpinfo</code> wrapper.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param what What to display (see phpinfo manual for more)
      * @return boolean <code>true</code> on success.
      * @deprecated use the new toolbox instead!

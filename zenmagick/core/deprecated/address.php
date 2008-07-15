@@ -50,7 +50,7 @@
      *
      * <p>All output is HTML encoded.</p>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param ZMAddress address The address to format.
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.

@@ -34,7 +34,7 @@
      * The reason for adding to the action is the weiryd way zen-card is looking at
      * <code>$_GET</code> and <code>$_POST</code>.</p>
      * 
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string page The action page name.
      * @param string params Query string style parameter.
      * @param string id Optional HTML id; defaults to <code>null</code>
@@ -58,7 +58,7 @@
      *
      * <p>Query parameters in the <code>$page</code> url will be added (merged) too.</p>
      * 
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string page The action page name.
      * @param string params Query string style parameter.
      * @param string id Optional HTML id; defaults to <code>null</code>
@@ -79,7 +79,7 @@
      * <p>The calling page is responsible for adding a submit buttona and a closing <code>&lt;form&gt;</code>
      * tag.</p>
      * 
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -97,7 +97,7 @@
      * <p>The calling page is responsible for adding a submit buttona and a closing <code>&lt;form&gt;</code>
      * tag.</p>
      * 
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return A HTML form to handle result list options.
      * @deprecated use the new toolbox instead!
@@ -109,6 +109,7 @@
 
     /**
      * do/do not echo code for a selected radio button
+     * @package org.zenmagick.deprecated
      * @deprecated use the new toolbox instead!
      */
     function zm_radio_state($setting, $value=true, $default=false) {
@@ -117,6 +118,7 @@
 
     /**
      * do/do not echo code for a selected checkbox
+     * @package org.zenmagick.deprecated
      * @deprecated use the new toolbox instead!
      */
     function zm_checkbox_state($setting, $value=true, $default=false) {
@@ -124,7 +126,10 @@
     }
 
 
-    // create all required hidden fields for a shopping cart item
+    /**
+     * create all required hidden fields for a shopping cart item
+     * @package org.zenmagick.deprecated
+     */
     function zm_sc_product_hidden($scItem, $echo=ZM_ECHO_DEFAULT) {
         return ZMToolbox::instance()->form->hiddenCartFields($scItem, $echo);
     }
@@ -133,7 +138,7 @@
     /**
      * Create size and maxlength attributes for for input fields.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string context The table name.
      * @param string field The field name.
      * @param int max The size attribute; default is <em>40</em>.

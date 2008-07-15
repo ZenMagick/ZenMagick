@@ -39,7 +39,7 @@
      *  &lt;?php } ?&gt;
      * </pre></code>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param ZMProduct product A <code>ZMProduct</code> instance.
      * @return array An array containing HTML formatted attributes.
      * @deprecated use the new toolbox instead!
@@ -50,6 +50,7 @@
 
     /**
      * format offer price
+     * @package org.zenmagick.deprecated
      * @deprecated use the new toolbox instead!
      */
     function zm_fmt_price($product, $echo=ZM_ECHO_DEFAULT) {

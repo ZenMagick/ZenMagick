@@ -33,7 +33,7 @@
      * any array that contains class instances that provide <code>getId()</code> and
      * <code>getName()</code> getter methods.</p>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param string name The tag name.
      * @param array list A list of options.
      * @param int size Size of the select tag.
@@ -49,7 +49,7 @@
     /**
      * Simple title generator based on the page name.
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
      * @deprecated use toolbox instead
@@ -61,7 +61,7 @@
     /**
      * Format title based on the given page value.
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param string page The page name.
      * @return string A reasonable page title.
      * @deprecated use zm_title instead
@@ -80,7 +80,7 @@
      * <p>This is based on the <em>ZenMagick</em> theme architecture and not
      * compatible with <code>zen-card</code>.</p>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param string page The page name or <code>null<code> for the current page.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
@@ -93,7 +93,7 @@
     /**
      * Create  group of hidden form field with a common name (ie. <code>someId[]</code>).
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param string name The common name.
      * @param array values List of values.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -111,7 +111,7 @@
      * a class of <em>fieldMsg</em>.
      * Each <code>li</code> will have the type as class assigned.</p>
      *
-     * @package org.zenmagick.html.defaults
+     * @package org.zenmagick.deprecated
      * @param string name The field name.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
@@ -123,12 +123,14 @@
 
     /**
      * Format a date in the short format.
+     * @package org.zenmagick.deprecated
      * @deprecated use toolbox instead
      */
     function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMToolbox::instance()->locale->shortDate($date, $echo); }
 
     /**
      * get online counter
+     * @package org.zenmagick.deprecated
      * @deprecated use ZMOnlineStats instead.
      */
     function zm_get_online_counts() {
@@ -156,18 +158,21 @@
 
     /**
      * @deprecated
+     * @package org.zenmagick.deprecated
      */
     function zm_get_attributes_price_final($arg1, $args2, $arg3, $arg4) {
         return zen_get_attributes_price_final($arg1, $args2, $arg3, $arg4);
     }
     /**
      * @deprecated
+     * @package org.zenmagick.deprecated
      */
     function zm_get_attributes_price_final_onetime($arg1, $args2, $arg3) {
         return zen_get_attributes_price_final_onetime($arg1, $args2, $arg3);
     }
     /**
      * @deprecated
+     * @package org.zenmagick.deprecated
      */
     function zm_get_discount_calc($arg1, $args2, $arg3) { return zen_get_discount_calc($arg1, $args2, $arg3); }
 

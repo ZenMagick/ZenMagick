@@ -29,7 +29,7 @@
     /**
      * Simple <em>ZenMagick</em> logging function.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string msg The message to log.
      * @param int level Optional level (default: ZM_LOG_INFO).
      * @deprecated Use <code>ZMObject::log()</code> instead.
@@ -38,7 +38,7 @@
     /**
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string msg If set, die with the provided message.
      * @deprecated Use <code>ZMObject::backtrace()</code> instead.
      */
@@ -50,7 +50,7 @@
      *
      * <p>This functuon ensures that the given class is loaded.</p>
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string clazz The class name.
      * @deprecated Use <code>ZMLoader::resolveZCClass()</code> instead.
      */
@@ -58,7 +58,7 @@
     /**
      * Get the currently elapsed page execution time.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @return long The execution time in milliseconds.
      * @deprecated Use <code>ZMRuntime::getExecutionTime()</code> instead.
      */
@@ -69,7 +69,7 @@
      * <p>This can be used as argument for <code>eval(..)</code> to make all
      * ZenMagick globals available. Example: <code>eval(zm_globals());</code>.</p>
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @return string A valid PHP global directive including all ZenMagick globals.
      * @deprecated No replacement as globals are generally deprecated
      */
@@ -91,7 +91,7 @@
     /**
      * Configuration lookup.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string name The setting to check.
      * @param mixed default Optional default value to be returned if setting not found; default is <code>null</code>.
      * @return mixed The setting value or <code>null</code>.
@@ -101,7 +101,7 @@
     /**
      * Set configuration value.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string name The setting to check.
      * @param mixed value (New) value.
      * @return mixed The old setting value or <code>null</code>.
@@ -111,7 +111,7 @@
     /**
      * Get all settings.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @return array Map of all settings.
      * @deprecated Use <code>ZMSettings::getAll()</code> instead.
      */
@@ -119,7 +119,7 @@
     /**
      * Remove a directory (tree).
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string dir The directory name.
      * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
      * @deprecated use ZMTools instead.
@@ -130,7 +130,7 @@
     /**
      * Make dir.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string dir The folder name.
      * @param int perms The file permisssions; (default: 755)
      * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
@@ -143,7 +143,7 @@
     /**
      * Check if a given value or array is empty.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      * @deprecated use ZMTools instead.
@@ -154,7 +154,7 @@
     /**
      * Check if the given string starts with the provided string.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string s The haystack.
      * @param string start The needle.
      * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
@@ -167,7 +167,7 @@
     /**
      * Check if the given string ends with the provided string.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string s The haystack.
      * @param string end The needle.
      * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
@@ -180,7 +180,7 @@
     /**
      * Helper function to dump the ZenMagick environment.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @deprecated
      */
     function zm_env() {
@@ -229,7 +229,7 @@
     /**
      * Check if the given value exists in the array or comma separated list.
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string value The value to search for.
      * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
      * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
@@ -243,7 +243,7 @@
      *
      * <p>Calling this function will end all request handling in an ordered manner.</p>
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @deprecated use ZMRuntime instead.
      */
     function zm_exit() {
@@ -255,7 +255,7 @@
      * <p>This function wil also persist existing messages in the session in order to be
      * able to display them after the redirect.</p>
      *
-     * @package org.zenmagick
+     * @package org.zenmagick.deprecated
      * @param string url A fully qualified url.
      * @deprecated Use ZMRequest instead
      */

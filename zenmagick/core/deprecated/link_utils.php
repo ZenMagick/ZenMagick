@@ -32,7 +32,7 @@
      * <p>If the <code>view</code> argument is <code>null</code>, the current view will be
      * used. The provided parameter will be merged into the current query string.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -47,7 +47,7 @@
     /**
      * Secure version of {@link org.zenmagick.html#zm_href zm_href}.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -64,7 +64,7 @@
      * <p>Please note that in <em>ZenMagick</em> all product URLs use the same
      * view name. The actual view name gets resolved only when the href is used.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param int productId The product id.
      * @param int categoryId Optional category id.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -79,7 +79,7 @@
     /**
      * Convenience function.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string catName The static page name.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given static page.
@@ -95,7 +95,7 @@
      * <p>In constrast to the <code>..._href</code> functions, this one will
      * return a full HTML <code>&lt;a&gt;</code> tag.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string text The link text (can be plain text or HTML).
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
@@ -108,7 +108,7 @@
     /**
      * Build href for ez-page.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param ZMEZPage page A <code>ZMEZPage</code> instance.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given ez-page.
@@ -122,7 +122,7 @@
     /**
      * Create a full HTML &lt;a&gt; tag.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param integer id The EZ page id.
      * @param string text Optional link text.
      * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
@@ -137,7 +137,7 @@
     /**
      * Create an absolute image path for the given image.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string src The relative image name (relative to zen-cart's image folder).
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The image URI.
@@ -154,7 +154,7 @@
      * <p>All messages created up to this point during request handling will be saved and
      * restored with the next request handling cycle.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string action The redirect action.
      * @param string id The redirect id.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -169,7 +169,7 @@
     /**
      * Convert a given relative href/URL into a absolute one based on the current context.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string href The URL to convert..
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
@@ -184,7 +184,7 @@
      *
      * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string controller The controller name without the leading <em>ajax_</em>.
      * @param string method The name of the method to call.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
@@ -199,7 +199,7 @@
     /**
      * Convenience function.
      *
-     * @package org.zenmagick.html
+     * @package org.zenmagick.deprecated
      * @param string channel The channel.
      * @param string key Optional key, for example, 'new' for the product channel.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
