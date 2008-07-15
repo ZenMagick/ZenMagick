@@ -71,6 +71,8 @@ Release 0.9.2
 - reimplement SQL in ZMOffers using the already loaded product / attribute
   data
 - deprecate zm_get_online_counts()
+- moved remaining zm_ wrapper functions from zen_bridge to deprecated/misc
+- moved zen_href_link() replacement into zenmagick_zencart_overrides.php
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

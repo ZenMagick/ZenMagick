@@ -111,7 +111,6 @@ class ZMAttributeValue extends ZMModel {
         $price = $this->price_;
         if ($this->isDiscounted_) {
             $price = zen_get_attributes_price_final($this->id_, 1, '', 'false');
-//echo 'pid'.$this->attribute_->getProductId()."<BR>";
             $price = zen_get_discount_calc((int)$this->attribute_->getProductId(), true, $price);
         }
 
@@ -128,7 +127,7 @@ class ZMAttributeValue extends ZMModel {
         //TODO: cache
         $price = $this->oneTimePrice_;
         if (0 != $price || $this->isPriceFactorOneTime_) {
-            $price = zm_get_attributes_price_final_onetime($this->id_, 1, '');
+            $price = zen_get_attributes_price_final_onetime($this->id_, 1, '');
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;

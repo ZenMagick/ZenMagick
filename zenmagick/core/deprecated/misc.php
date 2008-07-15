@@ -153,4 +153,22 @@
 
         return array(($guests+$members), $guests, $members);
     }
+
+    /**
+     * @deprecated
+     */
+    function zm_get_attributes_price_final($arg1, $args2, $arg3, $arg4) {
+        return zen_get_attributes_price_final($arg1, $args2, $arg3, $arg4);
+    }
+    /**
+     * @deprecated
+     */
+    function zm_get_attributes_price_final_onetime($arg1, $args2, $arg3) {
+        return zen_get_attributes_price_final_onetime($arg1, $args2, $arg3);
+    }
+    /**
+     * @deprecated
+     */
+    function zm_get_discount_calc($arg1, $args2, $arg3) { return zen_get_discount_calc($arg1, $args2, $arg3); }
+
 ?>
