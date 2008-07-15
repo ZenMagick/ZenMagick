@@ -400,8 +400,8 @@ class ZMProducts extends ZMObject {
         }
 
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
+                FROM " . TABLE_PRODUCTS . " p LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE p.products_status = '1'
                   AND p.products_model = :model
                   AND pd.products_id = p.products_id
@@ -424,8 +424,8 @@ class ZMProducts extends ZMObject {
         }
 
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
+                FROM " . TABLE_PRODUCTS . " p LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE p.products_id = :id
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
@@ -465,8 +465,8 @@ class ZMProducts extends ZMObject {
 
         if (0 < count($needLoadIds)) {
             $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                    FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                    LEFT JOIN " . TABLE_SPECIALS . " s on (s.products_id = p.products_id AND s.status = 1)
+                    FROM " . TABLE_PRODUCTS . " p LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                    " . TABLE_PRODUCTS_DESCRIPTION . " pd
                     WHERE p.products_id in (:id)
                       AND pd.products_id = p.products_id
                       AND pd.language_id = :languageId";
