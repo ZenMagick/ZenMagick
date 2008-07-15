@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $counts = zm_get_online_counts(); ?>
+<?php $counts = ZMOnlineStats::instance()->getStats(); ?>
 <?php if (0 < $counts[0]) { ?>
     <h3><?php zm_l10n("Who's Online") ?></h3>
     <div id="sb_whos_online" class="box">
