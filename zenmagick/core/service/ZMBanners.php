@@ -129,9 +129,9 @@ class ZMBanners extends ZMObject {
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1 AND banners_id = :id";
         if (ZMRequest::isSecure()) {
-            $sql .= " AND banners_on_ssl= :sll";
+            $sql .= " AND banners_on_ssl= :ssl";
         }
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), TABLE_BANNERS, 'Banner');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
     }
 
     /**
