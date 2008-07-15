@@ -29,7 +29,7 @@
  * <p>This is assuming a properly configured zen cart.</p>
  *
  * @author mano
- * @package org.zenmagick
+ * @package org.zenmagick.model.checkout
  * @version $Id$
  */
 class ZMShoppingCart extends ZMObject {
@@ -807,7 +807,6 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Extract the base product id from a given string.
      *
-     * @package org.zenmagick.misc
      * @param string productId The full product id incl. attribute suffix.
      * @return int The product id.
      */
@@ -825,7 +824,6 @@ class ZMShoppingCart extends ZMObject {
      * <p>Attributes are sorted using <code>krsort(..)</code> so to be compatible
      * for different attribute orders.</p>
      *
-     * @package org.zenmagick.misc
      * @param string productId The full product id incl. attribute suffix.
      * @param array attrbutes Additional product attributes.
      * @return string The product id.

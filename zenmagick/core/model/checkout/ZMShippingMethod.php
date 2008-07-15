@@ -28,7 +28,7 @@
  * Shipping method.
  *
  * @author mano
- * @package org.zenmagick.model.order
+ * @package org.zenmagick.model.checkout
  * @version $Id$
  */
 class ZMShippingMethod extends ZMModel {

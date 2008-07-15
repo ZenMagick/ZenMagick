@@ -34,7 +34,7 @@
  * in combination with the new <code>ZMShippingProviders</code> service.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.model.order
+ * @package org.zenmagick.model.checkout
  * @version $Id$
  */
 class ZMShippingProviderWrapper extends ZMModel {

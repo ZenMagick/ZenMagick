@@ -28,7 +28,7 @@
  * A price group.
  *
  * @author mano
- * @package org.zenmagick.model.catalog
+ * @package org.zenmagick.model.account
  * @version $Id$
  */
 class ZMPriceGroup extends ZMModel {
