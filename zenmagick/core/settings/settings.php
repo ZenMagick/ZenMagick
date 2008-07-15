@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    function zm_mk_list($to, $from) {
+    function _zm_mk_list($to, $from) {
         $list = array();
         if ($to < $from) {
             return $list;
@@ -329,7 +329,7 @@
         'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
 
         // list of enabled order stati to show downloads
-        'downloadOrderStatusList' => zm_mk_list((int)DOWNLOADS_CONTROLLER_ORDERS_STATUS_END, (int)DOWNLOADS_CONTROLLER_ORDERS_STATUS),
+        'downloadOrderStatusList' => _zm_mk_list((int)DOWNLOADS_CONTROLLER_ORDERS_STATUS_END, (int)DOWNLOADS_CONTROLLER_ORDERS_STATUS),
 
         // TODO: (depends on sorter/filter?) sort default
         'defaultProductSortOrder' => 'price',
