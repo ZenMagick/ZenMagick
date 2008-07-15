@@ -101,7 +101,7 @@ class ZMAttributeValue extends ZMModel {
     }
 
     /**
-     * Get the final value price.
+     * Get the final (and discounted) value price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The price.
@@ -110,8 +110,9 @@ class ZMAttributeValue extends ZMModel {
         //TODO: cache value
         $price = $this->price_;
         if ($this->isDiscounted_) {
-            $price = zm_get_attributes_price_final($this->id_, 1, '', 'false');
-            $price = zm_get_discount_calc($this->attribute_->getProductId(), true, $price);
+            $price = zen_get_attributes_price_final($this->id_, 1, '', 'false');
+//echo 'pid'.$this->attribute_->getProductId()."<BR>";
+            $price = zen_get_discount_calc((int)$this->attribute_->getProductId(), true, $price);
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test calculated prices.
+ * Test calculated product prices.
  *
  * <p>This test requires a vanilla demo store database setup.</p>
  *
@@ -9,7 +9,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZenCartPricing extends UnitTestCase {
+class ProductPricing extends UnitTestCase {
     protected $zen_cart_product_price_info;
 
     /**

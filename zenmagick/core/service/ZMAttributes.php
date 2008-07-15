@@ -78,7 +78,7 @@ class ZMAttributes extends ZMObject {
 
         $sql = "SELECT distinct po.products_options_id, po.products_options_name, po.products_options_sort_order,
                 po.products_options_type, po.products_options_length, po.products_options_comment, po.products_options_size,
-                po.products_options_images_per_row, po.products_options_images_style
+                po.products_options_images_per_row, po.products_options_images_style, pa.products_id
                 FROM " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_ATTRIBUTES . " pa
                 WHERE pa.products_id = :productId
                   AND pa.options_id = po.products_options_id
