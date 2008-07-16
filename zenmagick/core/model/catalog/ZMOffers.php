@@ -52,7 +52,7 @@ class ZMOffers extends ZMObject {
         $this->specialPrice_ = null;
         $this->salePrice_ = null;
         $this->discountPercent_ = 0;
-        $this->taxRate_ = $product->getTaxRate();
+        $this->taxRate_ = null;
         $this->calculatePrice();
     }
 
@@ -97,7 +97,7 @@ class ZMOffers extends ZMObject {
      * @return float The product price.
      */
     public function getProductPrice($tax=true) {
-        return $tax ? $this->taxRate_->addTax($this->product_->getProductPrice()) : $this->product_->getProductPrice();
+        return $tax ? $this->getTaxRate()->addTax($this->product_->getProductPrice()) : $this->product_->getProductPrice();
     }
 
     /**
@@ -113,7 +113,7 @@ class ZMOffers extends ZMObject {
             $this->basePrice_ = $this->doGetBasePrice();
         }
 
-        return $tax ? $this->taxRate_->addTax($this->basePrice_) : $this->basePrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->basePrice_) : $this->basePrice_;
     }
 
     /**
@@ -159,7 +159,7 @@ class ZMOffers extends ZMObject {
             $this->specialPrice_ = $this->product_->getSpecialPrice();
         }
 
-        return $tax ? $this->taxRate_->addTax($this->specialPrice_) : $this->specialPrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->specialPrice_) : $this->specialPrice_;
     }
 
     /**
@@ -175,7 +175,7 @@ class ZMOffers extends ZMObject {
             $this->salePrice_ = $this->doGetSalePrice();
         }
 
-        return $tax ? $this->taxRate_->addTax($this->salePrice_) : $this->salePrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->salePrice_) : $this->salePrice_;
     }
 
     /**
@@ -301,7 +301,13 @@ class ZMOffers extends ZMObject {
      *
      * @return float The tax rate.
      */
-    public function getTaxRate() { return $this->taxRate_; }
+    public function getTaxRate() { 
+        if (null == $this->taxRate_) {
+            $this->taxRate_ = $this->product_->getTaxRate();
+        }
+
+        return $this->taxRate_; 
+    }
 
     /**
      * Checks if a special price is available.
