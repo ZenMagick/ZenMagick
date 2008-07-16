@@ -352,8 +352,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 // field not in result set, so ignore
                 continue;
             }
-            $value = $row[$info['column']];
-            /* TODO: performance
+
             switch ($info['type']) {
             case 'integer':
                 $value = $rs->getInt($info['column']);
@@ -381,7 +380,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 ZMObject::backtrace('unsupported data(read) type='.$info['type'].' for field='.$field);
                 break;
             }
-            */
 
             if (null != $modelClass) {
                 $setter = 'set'.$info['ucwp'];
