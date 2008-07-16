@@ -195,7 +195,7 @@ array(
         'metatagsProductsNameStatus' => 'column=metatags_products_name_status;type=integer',
         'metatagsModelStatus' => 'column=metatags_model_status;type=integer',
         'metatagsPriceStatus' => 'column=metatags_price_status;type=integer',
-        'metatagsTitletaglineStatus' => 'column=metatags_title_tagline_status;type=integer',
+        'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer',
     ),
     'products_description' => array(
         'id' => 'column=products_id;type=integer;key=true;auto=true',

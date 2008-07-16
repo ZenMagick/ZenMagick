@@ -201,7 +201,7 @@ class ZMDbTableMapper extends ZMObject {
                 if (!empty($field)) {
                     $fieldInfo = explode(';', trim($field));
                     $fieldId = (count($fieldInfo) > 2 ? $fieldInfo[2] : $fieldInfo[0]);
-                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId);
+                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId, 'ucwp' => ucwords($fieldId));
                 }
             }
         }
