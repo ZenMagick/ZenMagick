@@ -32,12 +32,15 @@
  * @version $Id$
  */
 class ZMManufacturers extends ZMObject {
+    private $cache;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->cache = ZMCaches::instance()->getCache('services', array(), 'memory');
     }
 
     /**
@@ -67,7 +70,13 @@ class ZMManufacturers extends ZMObject {
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
                 WHERE m.manufacturers_id = :id";
         $args = array('id' => $id, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+
+        if (null == ($manufacturer = $this->cache->get($sql))) {
+            $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+            $this->cache->save($manufacturer, $sql);
+        }
+
+        return $manufacturer;
     }
 
     /**
@@ -108,7 +117,13 @@ class ZMManufacturers extends ZMObject {
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+
+        if (null == ($manufacturers = $this->cache->get($sql))) {
+            $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+            $this->cache->save($manufacturers, $sql);
+        }
+
+        return $manufacturers;
     }
 
     /**

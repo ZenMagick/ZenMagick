@@ -362,6 +362,27 @@ class ZMTools {
         return date(DATE_RSS, $date);
     } 
 
+    /**
+     * Create a unique key from all given parameters.
+     *
+     * @param var arg Arguments.
+     * @return string a unique key based on the arguments.
+     */
+    public static function mkUnique() {
+        $args = func_get_args();
+        $key = '';
+        foreach ($args as $arg) {
+            if (is_array($arg)) {
+                asort($arg);
+                foreach ($arg as $ar) {
+                    $key .= '@'.$ar;
+                }
+            } else {
+                $key .= ':'.$arg;
+            }
+        }
+        return md5($key);
+    }
 
 }
 

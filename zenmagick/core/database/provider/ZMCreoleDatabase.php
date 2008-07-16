@@ -36,6 +36,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
     private $queriesCount;
     private $queriesTime;
+    private $queriesMap = array();
     private $mapper;
 
 
@@ -71,6 +72,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $stats = array();
         $stats['time'] = $this->queriesTime;
         $stats['queries'] = $this->queriesCount;
+        $stats['details'] = $this->queriesMap;
         return $stats;
     }
 
@@ -129,6 +131,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         $this->queriesTime += $this->getExecutionTime($startTime);
         return $model;
     }
@@ -143,6 +146,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
         ++$this->queriesCount;
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         $this->queriesTime += $this->getExecutionTime($startTime);
         return $rows;
     }
@@ -181,6 +185,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
         ++$this->queriesCount;
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         $this->queriesTime += $this->getExecutionTime($startTime);
     }
 
@@ -208,6 +213,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $results[] = self::rs2model($modelClass, $rs, $mapping);
         }
 
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         $this->queriesTime += $this->getExecutionTime($startTime);
         return $results;
     }

@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMBanners extends ZMObject {
-    private $banners_;
+    private $cache;
 
 
     /**
@@ -40,7 +40,7 @@ class ZMBanners extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->banners_ = array();
+        $this->cache = ZMCaches::instance()->getCache('services', array(), 'memory');
     }
 
     /**
@@ -113,8 +113,17 @@ class ZMBanners extends ZMObject {
         if (0 < count($groupList) && !empty($groupList[0])) {
             $sql .= " AND banners_group IN (:group)";
         }
-        $sql .= $all ? " ORDER BY banners_sort_order" : " ORDER BY rand()";
-        return ZMRuntime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
+        if ($all) {
+            $sql .= " ORDER BY banners_sort_order";
+        }
+        if (null == ($banner = $this->cache->get($sql))) {
+            $banner = ZMRuntime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
+            if (!$all) {
+                shuffle($banner);
+            }
+            $this->cache->save($banner, $sql);
+        }
+        return $banner;
     }
 
 
@@ -131,7 +140,13 @@ class ZMBanners extends ZMObject {
         if (ZMRequest::isSecure()) {
             $sql .= " AND banners_on_ssl= :ssl";
         }
-        return ZMRuntime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
+
+        if (null == ($banner = $this->cache->get($sql))) {
+            $banner = ZMRuntime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
+            $this->cache->save($banner, $sql);
+        }
+
+        return $banner;
     }
 
     /**
