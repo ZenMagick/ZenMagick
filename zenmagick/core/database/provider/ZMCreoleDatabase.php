@@ -127,7 +127,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 if (!method_exists($model, $method)) {
                     ZMObject::backtrace('missing auto key setter ' . $method);
                 }
-                $model->$method($newId);
+                call_user_func(array($model, $method), $newId); // $model->$method($newId);
             }
         }
 
@@ -309,12 +309,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $prefixList = array('get', 'is', 'has');
 
         $map = array();
-        foreach (array_keys($mapping) as $name) {
-            $ucName = ucwords($name);
+        foreach ($mapping as $name => $info) {
             foreach ($prefixList as $prefix) {
-                $getter = $prefix . $ucName;
+                $getter = $prefix . $info['ucwp'];
                 if (method_exists($obj, $getter)) {
-                    $map[$name] = $obj->$getter();
+                    $map[$name] = call_user_func(array($obj, $getter)); // $obj->$getter();
                     break;
                 }
             }
@@ -322,7 +321,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         if ($obj instanceof ZMModel) {
             foreach ($obj->getPropertyNames() as $name) {
-                $map[$name] = $obj->get($name);
+                $map[$name] = $obj->__get($name);
             }
         }
 
@@ -353,6 +352,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 // field not in result set, so ignore
                 continue;
             }
+            $value = $row[$info['column']];
+            /* TODO: performance
             switch ($info['type']) {
             case 'integer':
                 $value = $rs->getInt($info['column']);
@@ -380,15 +381,16 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 ZMObject::backtrace('unsupported data(read) type='.$info['type'].' for field='.$field);
                 break;
             }
+            */
 
             if (null != $modelClass) {
-                $setter = 'set' . ucwords($field);
+                $setter = 'set'.$info['ucwp'];
                 if (method_exists($model, $setter)) {
                     // specific method exists
-                    $model->$setter($value);
+                    call_user_func(array($model, $setter), $value); // $model->$setter($value);
                 } else {
                     // use general purpose method
-                    $model->set($field, $value);
+                    $model->__set($field, $value);
                 }
             } else {
                 $model[$field] = $value;

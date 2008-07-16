@@ -107,6 +107,7 @@ class ZMDbTableMapper extends ZMObject {
             parse_str(str_replace(';', '&', $info), $arr);
             $tableInfo[$property] = array_merge($defaults, $arr);
             $tableInfo[$property]['property'] = $property;
+            $tableInfo[$property]['ucwp'] = ucwords($property);
             // handle boolean values
             foreach ($tableInfo[$property] as $name => $value) {
                 if ('false' == $value) {
