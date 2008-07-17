@@ -103,12 +103,12 @@ $attribute_prices = array(
         'dicount_price' => 0
     ),
     p123 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 1,
+        'dicount_price' => 1
     ),
     p124 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 2,
+        'dicount_price' => 2
     ),
     p125 =>  array(
         'final_price' => 0,
@@ -199,12 +199,12 @@ $attribute_prices = array(
         'dicount_price' => 52.5
     ),
     p1093 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 20,
+        'dicount_price' => 20
     ),
     p1094 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 20,
+        'dicount_price' => 20
     ),
     p160 =>  array(
         'final_price' => 5,
@@ -347,16 +347,16 @@ $attribute_prices = array(
         'dicount_price' => 0
     ),
     p103 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 50,
+        'dicount_price' => 50
     ),
     p102 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 75,
+        'dicount_price' => 75
     ),
     p101 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p967 =>  array(
         'final_price' => 539,
@@ -375,16 +375,16 @@ $attribute_prices = array(
         'dicount_price' => 0
     ),
     p964 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 50,
+        'dicount_price' => 50
     ),
     p963 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 75,
+        'dicount_price' => 75
     ),
     p962 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p487 =>  array(
         'final_price' => 539,
@@ -403,24 +403,24 @@ $attribute_prices = array(
         'dicount_price' => 0
     ),
     p484 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 50,
+        'dicount_price' => 50
     ),
     p483 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 75,
+        'dicount_price' => 75
     ),
     p482 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p463 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 20,
+        'dicount_price' => 20
     ),
     p461 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 10,
+        'dicount_price' => 10
     ),
     p462 =>  array(
         'final_price' => 0,
@@ -431,16 +431,16 @@ $attribute_prices = array(
         'dicount_price' => 0
     ),
     p460 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 50,
+        'dicount_price' => 50
     ),
     p459 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 75,
+        'dicount_price' => 75
     ),
     p458 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p456 =>  array(
         'final_price' => 20,
@@ -715,16 +715,16 @@ $attribute_prices = array(
         'dicount_price' => 100
     ),
     p1097 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p1098 =>  array(
         'final_price' => 100,
         'dicount_price' => 83.333333333333
     ),
     p1099 =>  array(
-        'final_price' => 0,
-        'dicount_price' => 0
+        'final_price' => 100,
+        'dicount_price' => 100
     ),
     p1050 =>  array(
         'final_price' => 0,

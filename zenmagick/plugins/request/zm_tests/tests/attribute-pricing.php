@@ -26,6 +26,7 @@ class AttributePricing extends UnitTestCase {
      * Test product price.
      */
     public function testFinalPrice() {
+        //$ids = array(173, 36, 100, 74, 61, 175, 178); foreach ($ids as $pid) {
         foreach ($this->zen_cart_product_price_info as $pid => $info) {
             $productId = (int)str_replace('p', '', $pid);
             $product = ZMProducts::instance()->getProductForId($productId);
@@ -35,7 +36,7 @@ class AttributePricing extends UnitTestCase {
                 foreach ($attribute->getValues() as $value) {
                     $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getId()];
                     // case to (string) to make things like 83.3333 compare...
-                    $this->assertEqual((string)$priceInfo['dicount_price'], (string)$value->getPrice(false), '%s productId='.$productId.' $valueId='.$value->getId());
+                    $this->assertEqual((int)(10000*$priceInfo['dicount_price']), (int)(10000*$value->getPrice(false)), '%s productId='.$productId.' $valueId='.$value->getId());
                 }
             }
         }
