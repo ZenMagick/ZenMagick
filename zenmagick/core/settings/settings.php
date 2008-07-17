@@ -230,6 +230,9 @@
         // min length for coupon code generation
         'couponCodeLength' => SECURITY_CODE_LENGTH,
 
+        // base attribute price factor on discounted or regular price
+        'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
+
 
 
     /**************************************

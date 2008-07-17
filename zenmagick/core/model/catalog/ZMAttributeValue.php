@@ -101,6 +101,51 @@ class ZMAttributeValue extends ZMModel {
     }
 
     /**
+     * Get the price factor charge.
+     *
+     * <p>The setting <em>'isDiscountAttributePriceFactor'</em> will determine whether to use
+     * the discount or regular price.</p>
+     *
+     * @param float price The calculated price.
+     * @param float discountPrice The discounted price (if any).
+     * @return float The price factor price.
+     * @todo: proper handling of priceFactor and PriceFactorOffset properties
+     */
+    protected function getPriceFactorCharge($price, $discountPrice) {
+        if (ZMSettings::get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
+            return $discountPrice * ($this->getPriceFactor() - $this->getPriceFactorOffset());
+        } else {
+            return $price * ($this->getPriceFactor() - $this->getPriceFactorOffset());
+        }
+    }
+
+    /**
+     * Get the final attribute price without discount.
+     *
+     * @param int qty The quantity; default is <em>1</em>.
+     * @return float The price.
+     */
+    protected function getFinalPriceForQty($qty=1) {
+        $price = $this->price_;
+        if ('-' == $this->pricePrefix_) {
+            $price = -$this->price_;
+        }
+
+        // qty onetime discounts
+        $price += zen_get_attributes_qty_prices_onetime($this->getQtyPrices(), $qty);
+
+        // price factor
+        $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+        $offers = $product->getOffers();
+        $display_normal_price = $offers->getCalculatedPrice();
+        $discountPrice = $offers->isSale() ? $offers->getSalePrice() : $offers->getSpecialPrice();
+
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice);
+
+        return $price;
+    }
+
+    /**
      * Get the final (and discounted) value price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
@@ -110,8 +155,9 @@ class ZMAttributeValue extends ZMModel {
         //TODO: cache value
         $price = $this->price_;
         if ($this->isDiscounted_) {
-            $price = zen_get_attributes_price_final($this->id_, 1, '', 'false');
-            $price = zen_get_discount_calc((int)$this->attribute_->getProductId(), true, $price);
+            $price = $this->getFinalPriceForQty();
+            //$price = zen_get_attributes_price_final($this->id_, 1, '', 'false');
+            $price = zen_get_discount_calc($this->attribute_->getProductId(), true, $price);
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;

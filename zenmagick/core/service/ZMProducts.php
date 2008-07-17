@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMProducts extends ZMObject {
-    private $cache_;
+    private $cache;
     private $categoryProductMap_;
 
 
@@ -41,7 +41,7 @@ class ZMProducts extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->cache_ = array();
+        $this->cache = ZMCaches::instance()->getCache('services', array(), 'memory');
         $this->categoryProductMap_ = null;
     }
 
@@ -407,6 +407,9 @@ class ZMProducts extends ZMObject {
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
+
+        $this->cache->save($product, $product->getId());
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
     }
 
@@ -423,6 +426,10 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
+        if (null != ($product = $this->cache->get($id))) {
+            return $product;
+        }
+
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
@@ -430,7 +437,11 @@ class ZMProducts extends ZMObject {
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('id' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+
+        $this->cache->save($product, $id);
+
+        return $product;
     }
 
     /**
@@ -456,8 +467,8 @@ class ZMProducts extends ZMObject {
         // check cache first
         $needLoadIds = array();
         foreach ($productIds as $id) {
-            if (isset($this->cache_[$id])) {
-                $products[] = $this->cache_[$id];
+            if (null != ($product = $this->cache->get($id))) {
+                $products[] = $product;
             } else {
                 $needLoadIds[$id] = $id;
             }
@@ -478,7 +489,7 @@ class ZMProducts extends ZMObject {
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
-                $this->cache_[$product->getId()] = $product;
+                $this->cache->save($product, $product->getId());
             }
         }
 
@@ -508,7 +519,7 @@ class ZMProducts extends ZMObject {
         ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
 
         // update cache
-        $this->cache_[$product->getId()] = $product;
+        $this->cache->remove($product->getId());
 
         return $product;
     }
