@@ -344,6 +344,9 @@
         // show privacy message
         'isPrivacyMessage' => DISPLAY_PRIVACY_CONDITIONS == 'true',
 
+        // allow unsubscribe without logging in
+        'isAllowAnonymousUnsubscribe' => true,
+
         // optional account data
         'isAccountGender' => ACCOUNT_GENDER == 'true',
         'isAccountDOB' => ACCOUNT_DOB == 'true',

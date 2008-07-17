@@ -49,12 +49,42 @@ class ZMUnsubscribeController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     function processGet() {
+        return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    function processPost() {
+        if (!ZMSettings::get('isAllowAnonymousUnsubscribe')) {
+            ZMMessages::instance()->error(zm_l10n_get('In order to unsubscribe you need to login first.'));
+            return $this->findView();
+        }
+
+        if (!$this->validate('unsubscribe')) {
+            return $this->findView();
+        }
+
+        $emailAddress = ZMRequest::getParameter('email_address');
+        $account = ZMAccounts::getAccountForEmailAddress($emailAddress);
+
+        if (null == $account) {
+            ZMMessages::instance()->error(zm_l10n_get('Email address not found.'));
+        } else {
+            if ($account->isNewsletterSubscriber()) {
+                // unsubscribe
+                $account->setNewsletterSubscriber(false);
+                ZMAccounts::instance()->updateAccount($account);
+                ZMMessages::instance()->success(zm_l10n_get('Email %s unsubscribed.', $emailAddress));
+            } else {
+                ZMMessages::instance()->warn(zm_l10n_get('You are already unsubscribed.'));
+            }
+        }
+
+
         return $this->findView();
     }
 
