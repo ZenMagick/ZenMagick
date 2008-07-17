@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_ACCOUNT_EDIT, "action=process", true, array('id'=>'edit_account', 'onsubmit'=>'return validate(this);')) ?>
+<?php $form->open(FILENAME_ACCOUNT_EDIT, "action=process", true, array('id'=>'edit_account')) ?>
     <fieldset>
         <legend><?php zm_l10n("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">

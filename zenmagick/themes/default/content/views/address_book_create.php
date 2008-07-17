@@ -25,7 +25,7 @@
 ?>
 
 <?php $address = $zm_address; ?>
-<?php $form->open(FILENAME_ADDRESS_BOOK_PROCESS, "action=process", true, array('id'=>'address', 'onsubmit'=>'return validate(this);')) ?>
+<?php $form->open(FILENAME_ADDRESS_BOOK_PROCESS, "action=process", true, array('id'=>'address')) ?>
     <?php include "address.php" ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
 </form>

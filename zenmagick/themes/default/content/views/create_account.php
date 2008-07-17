@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'create_account', 'onsubmit'=>'return validate(this);')) ?>
+<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'create_account')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>

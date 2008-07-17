@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_ACCOUNT_PASSWORD, "action=process", true, array('id'=>'account_password', 'onsubmit'=>'return validate(this);')) ?>
+<?php $form->open(FILENAME_ACCOUNT_PASSWORD, "action=process", true, array('id'=>'account_password')) ?>
     <fieldset>
         <legend><?php zm_l10n("Change Password") ?></legend>
         <p>

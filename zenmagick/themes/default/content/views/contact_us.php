@@ -30,7 +30,7 @@
 
 <?php $zm_theme->staticPageContent("contact_us") ?>
 
-<?php $form->open(FILENAME_CONTACT_US, 'action=send', false, array('id' => 'contact_us', 'onsubmit' => 'return validate(this);')) ?>
+<?php $form->open(FILENAME_CONTACT_US, 'action=send', false, array('id' => 'contact_us')) ?>
     <fieldset>
         <legend><?php zm_l10n("Contact us") ?></legend>
         <label for="contactname"><?php zm_l10n("Full Name") ?><span>*</span></label>

@@ -47,7 +47,7 @@
     <h3><?php zm_l10n("... or create a new one") ?></h3>
 <?php } ?>
 
-<?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', true, array('id'=>'address', 'onsubmit'=>'return validate(this);')) ?>
+<?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=submit', true, array('id'=>'address')) ?>
     <?php $address = $zm_address; ?>
     <?php include "address.php" ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

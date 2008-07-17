@@ -35,7 +35,7 @@
 <script type="text/javascript">var submitter = 0;</script>
 <?php $zm_cart->getPaymentsJavaScript() ?>
 
-<?php $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment', 'onsubmit'=>'return check_form();')) ?>
+<?php $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
   <fieldset>
       <legend><?php zm_l10n("Order Totals") ?></legend>
       <table id="ot" cellspacing="0" cellpadding="0">
