@@ -101,6 +101,29 @@ class ZMAttributeValue extends ZMModel {
     }
 
     /**
+     * Get one time charge (if any) for the given range and quantity.
+     *
+     * @param string qtyPrices The qty/price mappings.
+     * @param int qty The quantity.
+     * @return float The one time charge.
+     */
+    protected function getOneTimeQtyPrice($qtyPrices, $qty) {
+        $qtyPriceMap = split("[:,]" , $qtyPrices);
+        $price = 0;
+        $size = count($qtyPriceMap);
+        if (1 < $size) {
+            for ($ii=0; $ii<$size; $ii+=2) {
+                $price = $qtyPriceMap[$ii+1];
+                if ($qty <= $qtyPriceMap[$ii]) {
+                    $price = $qtyPriceMap[$ii+1];
+                    break;
+                }
+            }
+        }
+        return $new_price;
+    }
+
+    /**
      * Get the price factor charge.
      *
      * <p>The setting <em>'isDiscountAttributePriceFactor'</em> will determine whether to use
@@ -108,39 +131,40 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param float price The calculated price.
      * @param float discountPrice The discounted price (if any).
+     * @param float priceFactor The price factor.
+     * @param int priceFactorOffset The price factopr offset.
      * @return float The price factor price.
      * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
-    protected function getPriceFactorCharge($price, $discountPrice) {
+    protected function getPriceFactorCharge($price, $discountPrice, $priceFactor, $priceFactorOffset) {
         if (ZMSettings::get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
-            return $discountPrice * ($this->getPriceFactor() - $this->getPriceFactorOffset());
+            return $discountPrice * ($priceFactor - $priceFactorOffset);
         } else {
-            return $price * ($this->getPriceFactor() - $this->getPriceFactorOffset());
+            return $price * ($priceFactor - $priceFactorOffset);
         }
     }
 
     /**
      * Get the final attribute price without discount.
      *
-     * @param int qty The quantity; default is <em>1</em>.
+     * @param int qty The quantity.
      * @return float The price.
      */
-    protected function getFinalPriceForQty($qty=1) {
+    protected function getFinalPriceForQty($qty) {
         $price = $this->price_;
         if ('-' == $this->pricePrefix_) {
             $price = -$this->price_;
         }
 
         // qty onetime discounts
-        $price += zen_get_attributes_qty_prices_onetime($this->getQtyPrices(), $qty);
+        $price += $this->getOneTimeQtyPrice($this->getQtyPrices(), $qty);
 
         // price factor
         $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
         $offers = $product->getOffers();
-        $display_normal_price = $offers->getCalculatedPrice();
         $discountPrice = $offers->isSale() ? $offers->getSalePrice() : $offers->getSpecialPrice();
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice);
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice ,$this->getPriceFactor(), $this->getPriceFactorOffset());
 
         return $price;
     }
@@ -155,16 +179,37 @@ class ZMAttributeValue extends ZMModel {
         //TODO: cache value
         $price = $this->price_;
         if ($this->isDiscounted_) {
-            $price = $this->getFinalPriceForQty();
-            //$price = zen_get_attributes_price_final($this->id_, 1, '', 'false');
-            $price = zen_get_discount_calc($this->attribute_->getProductId(), true, $price);
+            $price = $this->getFinalPriceForQty(1);
+            $price = _zm_get_discount_calc($this->attribute_->getProductId(), true, $price);
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;
     }
 
     /**
-     * Get the values one time price.
+     * Get the final one time attribute price.
+     *
+     * @param int qty The quantity.
+     * @return float The price.
+     */
+    protected function getFinalOneTimePriceForQty($qty) {
+        $price = $this->oneTimePrice_;
+
+        // qty onetime discounts
+        $price += $this->getOneTimeQtyPrice($this->getQtyPricesOneTime(), $qty);
+
+        // price factor
+        $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+        $offers = $product->getOffers();
+        $discountPrice = $offers->isSale() ? $offers->getSalePrice() : $offers->getSpecialPrice();
+
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice ,$this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
+
+        return $price;
+    }
+
+    /**
+     * Get the final one time price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The attributes one time price.
@@ -173,7 +218,7 @@ class ZMAttributeValue extends ZMModel {
         //TODO: cache
         $price = $this->oneTimePrice_;
         if (0 != $price || $this->isPriceFactorOneTime_) {
-            $price = zen_get_attributes_price_final_onetime($this->id_, 1, '');
+            $price = $this->getFinalOneTimePriceForQty(1);
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;
@@ -378,5 +423,322 @@ class ZMAttributeValue extends ZMModel {
     public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 
 }
+
+
+  // work in progress
+  function _zm_get_discount_calc($product_id, $attributes_id = false, $attributes_amount = false, $check_qty= false) {
+    // no charge
+    if ($attributes_id > 0 and $attributes_amount == 0) {
+      return 0;
+    }
+
+    $product = ZMProducts::instance()->getProductForId($product_id);
+    $offers = $product->getOffers();
+
+    $new_products_price = $offers->getBasePrice(false);
+    $new_special_price = $offers->getSpecialPrice(false);
+    $new_sale_price = $offers->getSalePrice(false);
+
+    $discount_type_id = zen_get_products_sale_discount_type($product_id);
+
+    if ($new_products_price != 0) {
+      $special_price_discount = ($new_special_price != 0 ? ($new_special_price/$new_products_price) : 1);
+    } else {
+      $special_price_discount = '';
+    }
+    $sale_maker_discount = zen_get_products_sale_discount_type($product_id, '', 'amount');
+
+    // percentage adjustment of discount
+    if (($discount_type_id == 120 or $discount_type_id == 1209) or ($discount_type_id == 110 or $discount_type_id == 1109)) {
+      $sale_maker_discount = ($sale_maker_discount != 0 ? (100 - $sale_maker_discount)/100 : 1);
+    }
+
+   $qty = $check_qty;
+
+// fix here
+// BOF: percentage discounts apply to price
+    switch (true) {
+      case (zen_get_discount_qty($product_id, $qty) and !$attributes_id):
+        // discount quanties exist and this is not an attribute
+        // $this->contents[$products_id]['qty']
+        $check_discount_qty_price = zen_get_products_discount_price_qty($product_id, $qty, $attributes_amount);
+//echo 'How much 1 ' . $qty . ' : ' . $attributes_amount . ' vs ' . $check_discount_qty_price . '<br />';
+//echo 'zen_get_discount_calc: qty1: '.$attributes_id.": ".$check_discount_qty_price."<BR>";
+        return $check_discount_qty_price;
+        break;
+
+      case (zen_get_discount_qty($product_id, $qty) and $product->isPricedByAttributes()):
+        // discount quanties exist and this is not an attribute
+        // $this->contents[$products_id]['qty']
+        $check_discount_qty_price = zen_get_products_discount_price_qty($product_id, $qty, $attributes_amount);
+//echo 'How much 2 ' . $qty . ' : ' . $attributes_amount . ' vs ' . $check_discount_qty_price . '<br />';
+
+//echo 'zen_get_discount_calc: qty2: '.$attributes_id.": ".$check_discount_qty_price."<BR>";
+        return $check_discount_qty_price;
+        break;
+
+      case ($discount_type_id == 5):
+        // No Sale and No Special
+//        $sale_maker_discount = 1;
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            if ($special_price_discount != 0) {
+              $calc = ($attributes_amount * $special_price_discount);
+            } else {
+              $calc = $attributes_amount;
+            }
+
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+//echo 'How much 3 - ' . $qty . ' : ' . $product_id . ' : ' . $qty . ' x ' .  $attributes_amount . ' vs ' . $check_discount_qty_price . ' - ' . $sale_maker_discount . '<br />';
+        break;
+      case ($discount_type_id == 59):
+        // No Sale and Special
+//        $sale_maker_discount = $special_price_discount;
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: percentage discount apply to price
+
+// BOF: percentage discounts apply to Sale
+      case ($discount_type_id == 120):
+        // percentage discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $sale_maker_discount);
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+      case ($discount_type_id == 1209):
+        // percentage discount on Sale and Special with a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $calc2 = $calc - ($calc * $sale_maker_discount);
+            $sale_maker_discount = $calc - $calc2;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: percentage discounts apply to Sale
+
+// BOF: percentage discounts skip specials
+      case ($discount_type_id == 110):
+        // percentage discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $sale_maker_discount);
+            $sale_maker_discount = $calc;
+          } else {
+//            $sale_maker_discount = $sale_maker_discount;
+            if ($attributes_amount != 0) {
+//            $calc = ($attributes_amount * $special_price_discount);
+//            $calc2 = $calc - ($calc * $sale_maker_discount);
+//            $sale_maker_discount = $calc - $calc2;
+              $calc = $attributes_amount - ($attributes_amount * $sale_maker_discount);
+              $sale_maker_discount = $calc;
+            } else {
+              $sale_maker_discount = $sale_maker_discount;
+            }
+          }
+        }
+        break;
+      case ($discount_type_id == 1109):
+        // percentage discount on Sale and Special with a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+//            $calc2 = $calc - ($calc * $sale_maker_discount);
+//            $sale_maker_discount = $calc - $calc2;
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: percentage discounts skip specials
+
+// BOF: flat amount discounts
+      case ($discount_type_id == 20):
+        // flat amount discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount - $sale_maker_discount);
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+      case ($discount_type_id == 209):
+        // flat amount discount on Sale and Special with a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $calc2 = ($calc - $sale_maker_discount);
+            $sale_maker_discount = $calc2;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: flat amount discounts
+
+// BOF: flat amount discounts Skip Special
+      case ($discount_type_id == 10):
+        // flat amount discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount - $sale_maker_discount);
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+      case ($discount_type_id == 109):
+        // flat amount discount on Sale and Special with a special
+        if (!$attributes_id) {
+          $sale_maker_discount = 1;
+        } else {
+          // compute attribute amount based on Special
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: flat amount discounts Skip Special
+
+// BOF: New Price amount discounts
+      case ($discount_type_id == 220):
+        // New Price amount discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $sale_maker_discount = $calc;
+//echo '<br />attr ' . $attributes_amount . ' spec ' . $special_price_discount . ' Calc ' . $calc . 'Calc2 ' . $calc2 . '<br />';
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+      case ($discount_type_id == 2209):
+        // New Price amount discount on Sale and Special with a special
+        if (!$attributes_id) {
+//          $sale_maker_discount = $sale_maker_discount;
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+//echo '<br />attr ' . $attributes_amount . ' spec ' . $special_price_discount . ' Calc ' . $calc . 'Calc2 ' . $calc2 . '<br />';
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: New Price amount discounts
+
+// BOF: New Price amount discounts - Skip Special
+      case ($discount_type_id == 210):
+        // New Price amount discount Sale and Special without a special
+        if (!$attributes_id) {
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+            $sale_maker_discount = $calc;
+//echo '<br />attr ' . $attributes_amount . ' spec ' . $special_price_discount . ' Calc ' . $calc . 'Calc2 ' . $calc2 . '<br />';
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+      case ($discount_type_id == 2109):
+        // New Price amount discount on Sale and Special with a special
+        if (!$attributes_id) {
+//          $sale_maker_discount = $sale_maker_discount;
+          $sale_maker_discount = $sale_maker_discount;
+        } else {
+          // compute attribute amount
+          if ($attributes_amount != 0) {
+            $calc = ($attributes_amount * $special_price_discount);
+//echo '<br />attr ' . $attributes_amount . ' spec ' . $special_price_discount . ' Calc ' . $calc . 'Calc2 ' . $calc2 . '<br />';
+            $sale_maker_discount = $calc;
+          } else {
+            $sale_maker_discount = $sale_maker_discount;
+          }
+        }
+        break;
+// EOF: New Price amount discounts - Skip Special
+
+      case ($discount_type_id == 0 or $discount_type_id == 9):
+      // flat discount
+//echo 'zen_get_discount_calc: sm1: '.$attributes_id.": ".$sale_maker_discount."<BR>";
+        return $sale_maker_discount;
+        break;
+      default:
+        $sale_maker_discount = 7000;
+        break;
+    }
+
+//echo 'zen_get_discount_calc: sm2: '.$attributes_id.": ".$sale_maker_discount."<BR>";
+    return $sale_maker_discount;
+  }
+
+
+
+
+
+
+
 
 ?>
