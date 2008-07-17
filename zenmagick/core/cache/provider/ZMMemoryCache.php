@@ -34,8 +34,8 @@
  * @version $Id: ZMFileCache.php 1061 2008-04-21 23:31:35Z DerManoMann $
  */
 class ZMMemoryCache extends ZMObject implements ZMCache {
-    var $group_;
-    var $cache_;
+    private $group_;
+    private $cache_;
 
 
     /**

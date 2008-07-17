@@ -25,8 +25,10 @@ class AttributePricing extends UnitTestCase {
     /**
      * Test attribute price.
      */
-    public function testPrice() {
+    public function testAttributeValuePrice() {
         //$ids = array(173, 36, 100, 74, 61, 175, 178); foreach ($ids as $pid) {
+        //$ids = array(155, 156, 157, 159); foreach ($ids as $pid) {
+        //$ids = array(159); foreach ($ids as $pid) {
         //$ids = array(2); foreach ($ids as $pid) {
         foreach ($this->zen_cart_product_price_info as $pid => $info) {
             $productId = (int)str_replace('p', '', $pid);
@@ -46,7 +48,7 @@ class AttributePricing extends UnitTestCase {
     /**
      * Test one time price.
      */
-    public function _testOneTimePrice() {
+    public function testAttributeValueOneTimePrice() {
         //$ids = array(173, 36, 100, 74, 61, 175, 178); foreach ($ids as $pid) {
         //$ids = array(2); foreach ($ids as $pid) {
         foreach ($this->zen_cart_product_price_info as $pid => $info) {

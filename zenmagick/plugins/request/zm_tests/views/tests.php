@@ -15,7 +15,7 @@
     $testsLoader->loadStatic();
 
     $suite = new TestSuite('ZenMagick Tests');
-    //$suite->addTestCase(new ProductPricing());
+    $suite->addTestCase(new ProductPricing());
     $suite->addTestCase(new AttributePricing());
     $suite->run(new HtmlReporter());
 

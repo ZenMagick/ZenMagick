@@ -107,7 +107,7 @@ class ZMAttributeValue extends ZMModel {
      * @param int qty The quantity.
      * @return float The one time charge.
      */
-    protected function getOneTimeQtyPrice($qtyPrices, $qty) {
+    protected function getQtyPrice($qtyPrices, $qty) {
         $qtyPriceMap = split("[:,]" , $qtyPrices);
         $price = 0;
         $size = count($qtyPriceMap);
@@ -120,7 +120,8 @@ class ZMAttributeValue extends ZMModel {
                 }
             }
         }
-        return $new_price;
+
+        return $price;
     }
 
     /**
@@ -134,7 +135,6 @@ class ZMAttributeValue extends ZMModel {
      * @param float priceFactor The price factor.
      * @param int priceFactorOffset The price factopr offset.
      * @return float The price factor price.
-     * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
     protected function getPriceFactorCharge($price, $discountPrice, $priceFactor, $priceFactorOffset) {
         if (ZMSettings::get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
@@ -149,6 +149,7 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param int qty The quantity.
      * @return float The price.
+     * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
     protected function getFinalPriceForQty($qty) {
         $price = $this->price_;
@@ -157,14 +158,14 @@ class ZMAttributeValue extends ZMModel {
         }
 
         // qty onetime discounts
-        $price += $this->getOneTimeQtyPrice($this->getQtyPrices(), $qty);
+        $price += $this->getQtyPrice($this->getQtyPrices(), $qty);
 
         // price factor
         $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
         $offers = $product->getOffers();
-        $discountPrice = $offers->isSale() ? $offers->getSalePrice() : $offers->getSpecialPrice();
+        $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice ,$this->getPriceFactor(), $this->getPriceFactorOffset());
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice ,$this->getPriceFactor(), $this->getPriceFactorOffset());
 
         return $price;
     }
@@ -191,19 +192,20 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param int qty The quantity.
      * @return float The price.
+     * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
     protected function getFinalOneTimePriceForQty($qty) {
         $price = $this->oneTimePrice_;
 
         // qty onetime discounts
-        $price += $this->getOneTimeQtyPrice($this->getQtyPricesOneTime(), $qty);
+        $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $qty);
 
         // price factor
         $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
         $offers = $product->getOffers();
-        $discountPrice = $offers->isSale() ? $offers->getSalePrice() : $offers->getSpecialPrice();
+        $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(), $discountPrice ,$this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice ,$this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
 
         return $price;
     }

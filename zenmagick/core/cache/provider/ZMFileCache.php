@@ -36,9 +36,9 @@ define('ZM_CACHE_BASE_DIR', DIR_FS_SQL_CACHE.'/zenmagick/');
  * @version $Id$
  */
 class ZMFileCache extends ZMObject implements ZMCache {
-    var $group_;
-    var $available_;
-    var $cache_;
+    private $group_;
+    private $available_;
+    private $cache_;
 
 
     /**

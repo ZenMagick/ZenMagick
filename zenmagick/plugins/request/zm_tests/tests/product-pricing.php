@@ -17,6 +17,11 @@ class ProductPricing extends UnitTestCase {
      */
     public function setUp() {
     global $product_prices;
+        $this->zen_cart_product_price_info = array();
+        foreach (array(155, 156, 157, 159) as $id) {
+            $pid = 'p'.$id;
+            $this->zen_cart_product_price_info[$pid] = $product_prices[$pid];
+        }
         $this->zen_cart_product_price_info = $product_prices;
     }
 

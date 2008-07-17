@@ -408,7 +408,7 @@ class ZMProducts extends ZMObject {
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $this->cache->save($product, $product->getId());
+        $this->cache->save($product, ZMTools::mkUnique($product->getId(), $product->getLanguageId()));
 
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
     }
@@ -426,7 +426,7 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        if (null != ($product = $this->cache->get($id))) {
+        if (null != ($product = $this->cache->get(ZMTools::mkUnique($productId, $languageId)))) {
             return $product;
         }
 
@@ -439,7 +439,7 @@ class ZMProducts extends ZMObject {
         $args = array('id' => $productId, 'languageId' => $languageId);
         $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
 
-        $this->cache->save($product, $id);
+        $this->cache->save($product, ZMTools::mkUnique($productId, $languageId));
 
         return $product;
     }
@@ -467,7 +467,7 @@ class ZMProducts extends ZMObject {
         // check cache first
         $needLoadIds = array();
         foreach ($productIds as $id) {
-            if (null != ($product = $this->cache->get($id))) {
+            if (null != ($product = $this->cache->get(ZMTools::mkUnique($id, $languageId)))) {
                 $products[] = $product;
             } else {
                 $needLoadIds[$id] = $id;
@@ -489,7 +489,7 @@ class ZMProducts extends ZMObject {
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
-                $this->cache->save($product, $product->getId());
+                $this->cache->save($product, ZMTools::mkUnique($product->getId(), $languageId));
             }
         }
 
@@ -519,7 +519,7 @@ class ZMProducts extends ZMObject {
         ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
 
         // update cache
-        $this->cache->remove($product->getId());
+        $this->cache->remove(ZMTools::mkUnique($product->getId(), $product->getLanguageId()));
 
         return $product;
     }
