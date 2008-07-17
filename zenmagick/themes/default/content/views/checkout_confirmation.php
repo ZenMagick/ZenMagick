@@ -74,7 +74,7 @@
           if (0 < count($fields)) {
               ?><table cellpadding="0" cellspacing="0"><tbody><?php
               foreach ($fields as $field) {
-                ?><tr><td><label><?php $html->encode($field->getLabel()) ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
+                ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
               }
               ?></table><?php
             }
