@@ -41,7 +41,7 @@
         $sacsMapper->setMapping('account_edit');
         $sacsMapper->setMapping('account_history');
         $sacsMapper->setMapping('account_history_info');
-        $sacsMapper->setMapping('account_newsletter');
+        $sacsMapper->setMapping('account_newsletters');
         $sacsMapper->setMapping('account_notifications');
         $sacsMapper->setMapping('account_password');
         $sacsMapper->setMapping('address_book');
