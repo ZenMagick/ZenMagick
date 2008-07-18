@@ -18,11 +18,12 @@ Release 0.9.2
 	date formats all use the same syntax (dd, mm, cc, yy (or yyyy), hh, ii, ss)
 	it is still possible to use PHP date/time functions on model date values,
 	though
-- add 'dbMappings' setting
+- add 'dbMappings' setting pointing to the db mapping file (relative to ZM
+  root)
 - make date validation smarter
 - refactor some code in ZMAddress; this requires a simple change to
   address.php, to get the countryId using $address->getCountryId() rather via
-  the country itself.create_account.php needs update, too.
+  the country itself; create_account.php needs update, too
 - add transparent support for using value lists to ZMDatabase (and
   implementations)
 - fix category admin plugin to update only if actually active
@@ -35,17 +36,17 @@ Release 0.9.2
   created
 - allow plugin property to be set on ZMPluginView - that allows to create
   proper mappings rather than returning hardcoded view instances.
-- add support for subdir to ZMPluginView; now a plugin may generate view
-  contents by: 
-	a) have a view template in the plugin folder
-	b) have a view template in a subdirectory of the plugin folder
-	c) provide a function to generate the contents
+- add support for subdir to ZMPluginView; now a plugin may generate storefront
+  view contents by: 
+	a) having a view template in the plugin folder
+	b) having a view template in a subdirectory of the plugin folder
+	c) providing a function to generate the contents
 - changed all plugins to have plugin settings start with plugins. rather
   plugin.
 - added two new events: ZM_EVENT_LOGIN_SUCCESS, ZM_EVENT_LOGOFF_SUCCESS
 - allow optional fieldName/property as third parameter for custom SQL fields;
   eg: ZMSettings::set('sql.customers.customFields', 'site_id;string;siteId');
-- allow zm_mulit_site to enforce separate accounts per domain (for the same
+- allow zm_site_switch to enforce separate accounts per domain (for the same
   email address)
 - try to set owner/group of new theme files to something useful; f:#2002830
 - add generic event when generating emails: ZM_EVENT_GENERATE_EMAIL; this will
@@ -58,13 +59,15 @@ Release 0.9.2
 - add qv_queue email templates (and supporting code)
 - add new patch to make coupon_admin mails usable
 - add new coupon email templates
-- add setting 'downloadOrderStatusList'
-- add ZMDownload
+- add setting 'downloadOrderStatusList' as list of enabled order stati to 
+  show downloads
+- add ZMDownload model class (not used yet)
 - make plugin order consistent (as per API docs ordered by sort_order/name)
 - add support for view functions even if layout is null
 - added zm_tests plugin
-- fix a few pricing regressions
-- added new setting 'tokenSecuredForms'
+- fix a few pricing regressions :/
+- added new setting 'tokenSecuredForms' to allow configuration of forms to
+  secure with session token
 - added support POST forms with session token (hidden field
   with name ZM_SESSION_TOKEN_NAME); f:#2013028
 - make ZMRegexpRule pass if field is empty
