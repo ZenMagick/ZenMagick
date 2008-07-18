@@ -83,7 +83,9 @@ Release 0.9.2
 	created;
 - change plugins so custom fields are set in c'tor to have all fields set up
   before any instances are created
-- make all plugins append custom fields, rather than just set!
+- make all plugins append custom fields, rather than just set! (openid,
+  site_switch)
+- add new plugin zm_dual_pricing to support the dual pricing mod
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
