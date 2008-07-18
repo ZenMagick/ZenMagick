@@ -113,10 +113,9 @@
         set_error_handler("zm_error_handler");
     }
 
-    // init and admin plugins
+    // upset plugins
     ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins('init', ZMRuntime::getScope());
-    ZMPlugins::initPlugins('admin', ZMRuntime::getScope());
+    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
 
     // load default mappings
     zm_set_default_url_mappings();
@@ -124,9 +123,6 @@
 
     // make sure to use SSL if required
     ZMSacsMapper::instance()->ensureAccessMethod();
-
-    // upset request plugins :)
-    ZMPlugins::initPlugins('request', ZMRuntime::getScope());
 
     // resolve theme to be used 
     if (ZMSettings::get('isEnableZenMagick')) {

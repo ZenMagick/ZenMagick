@@ -41,6 +41,16 @@ class zm_site_switch extends ZMPlugin {
     function __construct() {
         parent::__construct('Site Switch', 'Hostname based theme switching', '${plugin.version}');
         $this->setLoaderSupport('FOLDER');
+
+        // the new prices and customer flag
+        $customFields = array(
+            'customers' => 'site_id;string;siteId',
+            'orders' => 'site_id;string;siteId'
+        );
+        foreach ($customFields as $table => $fields) {
+            $key = 'sql.'.$table.'.customFields';
+            ZMSettings::set($key, ZMSettings::get($key, '').','.$fields);
+        }
     }
 
     /**
@@ -73,10 +83,6 @@ class zm_site_switch extends ZMPlugin {
         define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(\''.$this->getPluginDir().'config.php\'); /* added by zm_site_switch plugin */ ?>');
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
-
-        // add site_id to mappings
-        ZMSettings::set('sql.customers.customFields', 'site_id;string;siteId');
-        ZMSettings::set('sql.orders.customFields', 'site_id;string;siteId');
 
         $hostname = ZMRequest::getHostname();
 

@@ -78,6 +78,12 @@ Release 0.9.2
 - added setting 'isAllowAnonymousUnsubscribe' to allow unsubscribe without
   logging in
 - fix access setting for account_newsletters
+- changed plugin startup to first load all plugin types before calling init;
+  this allows plugins to safely override classes before any instances are
+	created;
+- change plugins so custom fields are set in c'tor to have all fields set up
+  before any instances are created
+- make all plugins append custom fields, rather than just set!
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

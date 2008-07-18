@@ -290,49 +290,60 @@ class ZMPlugins extends ZMObject {
     /**
      * Init all plugins of the given type and scope.
      *
-     * @param string type The type.
+     * @param mixed types The type or type array.
      * @param string scope The current scope.
      */
-    public static function initPlugins($type, $scope) {
+    public static function initPlugins($types, $scope) {
         // prepare environment
         if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
+
+        if (!is_array($types)) {
+            $types = array($types);
+        }
 
         // each type has it's own loader
         $pluginLoader = ZMLoader::make("Loader");
 
-        // get list
-        $pluginList = ZMPlugins::getPluginsForType($type, $scope);
+        $plugins = array();
+        foreach ($types as $type) {
+            // get list
+            $pluginList = ZMPlugins::getPluginsForType($type, $scope);
 
-        // instantiate, add to loader (if required) and make global
-        foreach ($pluginList as $plugin) {
-            if ($plugin->isEnabled()) {
-                if ('ALL' == $plugin->getLoaderSupport()) {
-                    $pluginLoader->addPath($plugin->getPluginDir());
-                } else if ('FOLDER' == $plugin->getLoaderSupport()) {
-                    $pluginLoader->addPath($plugin->getPluginDir(), false);
+            // instantiate, add to loader (if required) and make global
+            foreach ($pluginList as $plugin) {
+                if ($plugin->isEnabled()) {
+                    if ('ALL' == $plugin->getLoaderSupport()) {
+                        $pluginLoader->addPath($plugin->getPluginDir());
+                    } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                        $pluginLoader->addPath($plugin->getPluginDir(), false);
+                    }
+                    foreach ($plugin->getGlobal() as $file) {
+                        $pluginLoader->addGlobal($plugin->getPluginDir().$file);
+                    }
+                    $pluginId = $plugin->getId();
+                    // make plugin a global using the class name
+                    global $$pluginId;
+                    $$pluginId = $plugin;
                 }
-                foreach ($plugin->getGlobal() as $file) {
-                    $pluginLoader->addGlobal($plugin->getPluginDir().$file);
-                }
-                $pluginId = $plugin->getId();
-                // make plugin a global using the class name
-                global $$pluginId;
-                $$pluginId = $plugin;
             }
-        }
 
-        // use plugin loader to load static stuff
-        if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
-            $pluginLoader->loadStatic();
+            // use plugin loader to load static stuff
+            if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
+                $pluginLoader->loadStatic();
+            }
+            $plugins[$type] = $pluginList;
         }
 
         // plugins prevail over defaults, *and* themes
         ZMLoader::instance()->setParent($pluginLoader);
 
-        // call init only after everything set up
-        foreach ($pluginList as $plugin) {
-            if ($plugin->isEnabled()) {
-                $plugin->init();
+        // do the actual init
+        foreach ($plugins as $type => $pluginList) {
+            // call init only after everything set up
+            foreach ($pluginList as $plugin) {
+                if ($plugin->isEnabled()) {
+                    $plugin->init();
+                }
             }
         }
     }

@@ -43,6 +43,11 @@ class zm_openid extends ZMPlugin {
     function __construct() {
         parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
         $this->setLoaderSupport('ALL');
+
+        // add OpenID field to accounts fields list
+        $key = 'sql.customers.customFields';
+        ZMSettings::set($key, ZMSettings::get($key, '').',openid;string');
+
     }
 
     /**
@@ -78,10 +83,6 @@ class zm_openid extends ZMPlugin {
      */
     function init() {
         parent::init();
-
-        // add OpenID field to accounts fields list
-        $key = 'sql.customers.customFields';
-        ZMSettings::set($key, ZMSettings::get($key, '').',openid;string');
 
         // make openid_login use session token
         $tokenSecuredForms = ZMSettings::get('tokenSecuredForms', '');
