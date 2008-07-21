@@ -74,8 +74,13 @@ class ZMTaxRates extends ZMObject {
             $account = ZMRequest::getAccount();
             if (null != $account && ZM_ACCOUNT_TYPE_REGISTERED == $account->getType()) {
                 $defaultAddress = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
-                $zoneId = $defaultAddress->getZoneId();
-                $countryId = $defaultAddress->getCountryId();
+                if (null != $defaultAddress) {
+                    $zoneId = $defaultAddress->getZoneId();
+                    $countryId = $defaultAddress->getCountryId();
+                } else {
+                    $zoneId = ZMSettings::get('storeZone');
+                    $countryId = ZMSettings::get('storeCountry');
+                }
             } else {
                 $zoneId = ZMSettings::get('storeZone');
                 $countryId = ZMSettings::get('storeCountry');

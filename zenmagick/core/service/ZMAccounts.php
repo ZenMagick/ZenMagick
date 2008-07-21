@@ -96,7 +96,7 @@ class ZMAccounts extends ZMObject {
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
                 WHERE customers_info_id = :id";
-        $args = array('id' => $accountId);
+        $args = array('accountId' => $accountId);
         return ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
@@ -110,7 +110,7 @@ class ZMAccounts extends ZMObject {
         $sql = "SELECT count(*) as total
                 FROM " . TABLE_CUSTOMERS . " c
                 WHERE customers_email_address = :email
-                AND NOT customers_password = ''";
+                AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
         $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, 'system'));
         return 0 < $result['total'];
@@ -128,7 +128,7 @@ class ZMAccounts extends ZMObject {
         $sql = "INSERT INTO " . TABLE_CUSTOMERS_INFO . 
                "(customers_info_id, customers_info_date_account_created) 
                VALUES (:id, now())";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $account->getId(), TABLE_CUSTOMERS_INFO));
+        ZMRuntime::getDatabase()->update($sql, array('id' => $account->getId()), TABLE_CUSTOMERS_INFO);
 
         return $account;
     }
