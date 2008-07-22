@@ -32,11 +32,15 @@
  * @version $Id$
  */
 class TestsController extends ZMController {
+    private $plugin;
 
     /**
      * Create new instance.
      */
     function __construct() {
+    global $zm_tests;
+
+        $this->plugin = $zm_tests;
         parent::__construct();
     }
 
@@ -57,6 +61,35 @@ class TestsController extends ZMController {
     public function processGet() {
         // show test view only
         ZMRuntime::getTheme()->getThemeInfo()->setLayout('tests', null);
+
+        $testsLoader = ZMLoader::make("Loader");
+        $testsLoader->addPath($this->plugin->getPluginDir().'tests/');
+        // test data  is lower case
+        $testsLoader->loadStatic();
+
+        ZMLoader::instance()->setParent($testsLoader);
+
+        $tests = array();
+        foreach ($testsLoader->getClassPath() as $class => $file) {
+            if (ZMTools::startsWith($class, 'Test')) {
+                $tests[] = $class;
+            }
+        }
+
+        $this->exportGlobal('all_tests', $tests);
+
+        $run = ZMRequest::getParameter('tests', array());
+        if (0 < count($run)) {
+            // prepare selected tests
+            $suite = new TestSuite('ZenMagick Tests');
+            foreach ($run as $name) {
+                $testCase = ZMLoader::make($name);
+                if ($testCase instanceof UnitTestCase) {
+                    $suite->addTestCase($testCase);
+                }
+            }
+            $this->exportGlobal('test_suite', $suite);
+        }
 
         return $this->findView('tests');
     }
