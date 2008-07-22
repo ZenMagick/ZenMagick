@@ -98,7 +98,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $sql = 'INSERT INTO '.$table.' SET';
 
         $firstSet = true;
+        $properties = array_flip($model->getProperyNames());
         foreach ($mapping as $field) {
+            //TODO: limit to available data!
             if (!$field['key']) {
                 if (!$firstSet) {
                     $sql .= ',';
@@ -163,6 +165,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstWhere = true;
         $where = ' WHERE ';
         foreach ($mapping as $field) {
+            //TODO: limit to available data!
             if ($field['key']) {
                 if (!$firstWhere) {
                     $where .= ' AND ';

@@ -61,7 +61,7 @@ class Accounts extends ZMAccounts {
                 FROM " . TABLE_CUSTOMERS . " c
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE customers_email_address = :email
-                AND NOT customers_password = ''
+                AND NOT (customers_password = '')
                 AND site_id = :siteId";
         $args = array('email' => $emailAddress, 'siteId' => ZMRequest::getHostname());
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
@@ -78,7 +78,7 @@ class Accounts extends ZMAccounts {
         $sql = "SELECT count(*) as total
                 FROM " . TABLE_CUSTOMERS . " c
                 WHERE customers_email_address = :email
-                AND NOT customers_password = ''
+                AND NOT (customers_password = '')
                 AND site_id = :siteId";
         $args = array('email' => $emailAddress, 'siteId' => ZMRequest::getHostname());
         $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, 'system'));
@@ -89,7 +89,7 @@ class Accounts extends ZMAccounts {
      * {@inheritDoc}
      */
     public function createAccount($account) {
-        $account->set('store_id', ZMRequest::getHostname());
+        $account->set('siteId', ZMRequest::getHostname());
         return parent::createAccount($account);
     }
 
