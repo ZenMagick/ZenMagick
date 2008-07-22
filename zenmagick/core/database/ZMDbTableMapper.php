@@ -100,7 +100,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The parsed mapping.
      */
     protected function parseTable($mapping) {
-        $defaults = array('key' => false, 'auto' => false);
+        $defaults = array('key' => false, 'auto' => false, 'custom' => false);
         $tableInfo = array();
         foreach ($mapping as $property => $info) {
             $arr = array();
@@ -201,7 +201,7 @@ class ZMDbTableMapper extends ZMObject {
                 if (!empty($field)) {
                     $fieldInfo = explode(';', trim($field));
                     $fieldId = (count($fieldInfo) > 2 ? $fieldInfo[2] : $fieldInfo[0]);
-                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId, 'ucwp' => ucwords($fieldId));
+                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId, 'ucwp' => ucwords($fieldId), 'custom' => true);
                 }
             }
         }

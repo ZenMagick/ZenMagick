@@ -100,13 +100,15 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $properties = array_flip($model->getProperyNames());
         foreach ($mapping as $field) {
-            //TODO: limit to available data!
-            if (!$field['key']) {
-                if (!$firstSet) {
-                    $sql .= ',';
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (!$field['custom'] || isset($properties[$field['property']])) {
+                if (!$field['key']) {
+                    if (!$firstSet) {
+                        $sql .= ',';
+                    }
+                    $sql .= ' '.$field['column'].' = :'.$field['property'];
+                    $firstSet = false;
                 }
-                $sql .= ' '.$field['column'].' = :'.$field['property'];
-                $firstSet = false;
             }
         }
 
@@ -164,20 +166,23 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
+        $properties = array_flip($model->getProperyNames());
         foreach ($mapping as $field) {
-            //TODO: limit to available data!
-            if ($field['key']) {
-                if (!$firstWhere) {
-                    $where .= ' AND ';
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (!$field['custom'] || isset($properties[$field['property']])) {
+                if ($field['key']) {
+                    if (!$firstWhere) {
+                        $where .= ' AND ';
+                    }
+                    $where .= $field['column'].' = :'.$field['property'];
+                    $firstWhere = false;
+                } else {
+                    if (!$firstSet) {
+                        $sql .= ',';
+                    }
+                    $sql .= ' '.$field['column'].' = :'.$field['property'];
+                    $firstSet = false;
                 }
-                $where .= $field['column'].' = :'.$field['property'];
-                $firstWhere = false;
-            } else {
-                if (!$firstSet) {
-                    $sql .= ',';
-                }
-                $sql .= ' '.$field['column'].' = :'.$field['property'];
-                $firstSet = false;
             }
         }
         if (7 > strlen($where)) {
