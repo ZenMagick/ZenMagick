@@ -64,8 +64,8 @@ class TestZMAccounts extends UnitTestCase {
             $ids[] = $result['id'];
         }
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:id)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('id' => $ids), TABLE_CUSTOMERS_INFO);
+        $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
+        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:id)';
         $results = ZMRuntime::getDatabase()->update($sql, array('id' => $ids), TABLE_CUSTOMERS);
@@ -77,9 +77,24 @@ class TestZMAccounts extends UnitTestCase {
      */
     public function testCreateAccount() {
         $account = $this->createAccount($this->accountData1);
-        //$account->set('customers_whole', null);
         $account = ZMAccounts::instance()->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
+        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        foreach (array_keys($this->accountData1) as $key) {
+            $getter = 'get'.$key;
+            $this->assertEqual($account->$getter(), $reloaded->$getter());
+        }
+    }
+
+    /**
+     * Test update account.
+     */
+    public function testUpdateAccount() {
+        $account = $this->createAccount($this->accountData1);
+        $account = ZMAccounts::instance()->createAccount($account);
+        $this->assertNotEqual(0, $account->getId());
+        $account->setFirstName('foo');
+        ZMAccounts::instance()->updateAccount($account);
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.$key;
