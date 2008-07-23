@@ -68,7 +68,7 @@ array(
         //'paypalEc' => 'column=customers_paypal_ec;type=integer',
     ),
     'customers_info' => array(
-        'id' => 'column=customers_info_id;type=integer;key=true',
+        'accountId' => 'column=customers_info_id;type=integer;key=true',
         //'lastLogonDate' => 'column=customers_info_date_of_last_logon;type=datetime',
         //'numberOfLogons' => 'column=customers_info_number_of_logons;type=integer',
         'accountCreateDate' => 'column=customers_info_date_account_created;type=datetime',

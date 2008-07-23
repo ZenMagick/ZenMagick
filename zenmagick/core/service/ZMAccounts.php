@@ -127,8 +127,8 @@ class ZMAccounts extends ZMObject {
 
         $sql = "INSERT INTO `" . TABLE_CUSTOMERS_INFO . "`
                (customers_info_id, customers_info_date_account_created, global_product_notifications) 
-               VALUES (:id, now(), :globalProductSubscriber)";
-        $args = array('id' => $account->getId(), 'globalProductSubscriber' => $account->isGlobalProductSubscriber());
+               VALUES (:accountId, now(), :globalProductSubscriber)";
+        $args = array('accountId' => $account->getId(), 'globalProductSubscriber' => $account->isGlobalProductSubscriber());
         ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
 
         return $account;
@@ -151,18 +151,18 @@ class ZMAccounts extends ZMObject {
 
         // check for existence in case record does not exist...
         $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
-                where customers_info_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $account->getId()), array(TABLE_CUSTOMERS_INFO, 'system'));
+                where customers_info_id = :accountId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO, 'system'));
         if ($result['total'] > 0) {
             $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                     set customers_info_date_account_last_modified = now()
-                    where customers_info_id = :id";
+                    where customers_info_id = :accountId";
         } else {
             $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
                     customers_info_id, customers_info_date_account_created, customers_info_date_account_last_modified
-                    ) values (:id, now(), now())";
+                    ) values (:accountId, now(), now())";
         }
-        ZMRuntime::getDatabase()->update($sql, array('id' => $account->getId()), TABLE_CUSTOMERS_INFO);
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId()), TABLE_CUSTOMERS_INFO);
 
         return $account;
     }
@@ -188,8 +188,8 @@ class ZMAccounts extends ZMObject {
     public function isGlobalProductSubscriber($accountId) {
         $sql = "SELECT global_product_notifications
                 FROM " . TABLE_CUSTOMERS_INFO . "
-                WHERE customers_info_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $accountId), TABLE_CUSTOMERS_INFO);
+                WHERE customers_info_id = :accountId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_INFO);
 
         return $result['globalProductSubscriber'];
     }
@@ -203,8 +203,8 @@ class ZMAccounts extends ZMObject {
     public function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                 SET global_product_notifications = :globalProductSubscriber
-                WHERE customers_info_id = :id";
-        $args = array('id' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
+                WHERE customers_info_id = :accountId";
+        $args = array('accountId' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
         ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
