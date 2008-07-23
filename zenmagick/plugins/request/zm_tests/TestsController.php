@@ -79,6 +79,7 @@ class TestsController extends ZMController {
         $this->exportGlobal('all_tests', $tests);
 
         $run = ZMRequest::getParameter('tests', array());
+        $this->exportGlobal('all_selected_tests', $run);
         if (0 < count($run)) {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
