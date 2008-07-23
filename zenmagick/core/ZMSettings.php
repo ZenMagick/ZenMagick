@@ -117,6 +117,25 @@ class ZMSettings {
         return isset(ZMSettings::$settings_[$name]);
     }
 
+    /**
+     * Append configuration value.
+     *
+     * @param string name The setting to append to.
+     * @param mixed value The value to append.
+     * @param string delim Optional delimiter to be used if the value exists and is not empty; default is <em>''</em>.
+     * @return mixed The old setting value or <code>null</code>.
+     */
+    public static function append($name, $value, $delim='') {
+        $oldValue = ZMSettings::get($name);
+        if (isset(ZMSettings::$settings_[$name]) && !empty($oldValue)) {
+            ZMSettings::$settings_[$name] = $oldValue.$delim.$value;
+        } else {
+            ZMSettings::$settings_[$name] = $value;
+        }
+
+        return $oldValue;
+    }
+
 }
 
 ?>

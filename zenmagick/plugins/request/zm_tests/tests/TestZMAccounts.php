@@ -31,7 +31,7 @@ class TestZMAccounts extends UnitTestCase {
 
 
     /**
-     * Test create account.
+     * Create test account.
      */
     public function createAccount($data) {
         $account = ZMLoader::make('Account');

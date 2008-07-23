@@ -89,6 +89,8 @@ Release 0.9.2
 - make all plugins append custom fields, rather than just set! (openid,
   site_switch)
 - add new plugin zm_dual_pricing to support the dual pricing mod
+- add ZMSettings::append(..) which should be useful to set custom fields
+  without overriding others
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
