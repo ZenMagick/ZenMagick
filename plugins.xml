@@ -134,6 +134,11 @@
             <param name="plugin.name" value="zm_dual_pricing" />
             <param name="plugin.version" value="${plugins.zm_dual_pricing.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_tests" />
+            <param name="plugin.version" value="${plugins.zm_tests.version}" />
+        </antcall>
     </target>
 
     
