@@ -125,10 +125,11 @@ class ZMAccounts extends ZMObject {
     public function createAccount($account) {
         $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
 
-        $sql = "INSERT INTO " . TABLE_CUSTOMERS_INFO . 
-               "(customers_info_id, customers_info_date_account_created) 
-               VALUES (:id, now())";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $account->getId()), TABLE_CUSTOMERS_INFO);
+        $sql = "INSERT INTO `" . TABLE_CUSTOMERS_INFO . "`
+               (customers_info_id, customers_info_date_account_created, global_product_notifications) 
+               VALUES (:id, now(), :globalProductSubscriber)";
+        $args = array('id' => $account->getId(), 'globalProductSubscriber' => $account->isGlobalProductSubscriber());
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
 
         return $account;
     }
@@ -149,7 +150,7 @@ class ZMAccounts extends ZMObject {
         ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
 
         // check for existence in case record does not exist...
-        $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO ."
+        $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
                 where customers_info_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $account->getId()), array(TABLE_CUSTOMERS_INFO, 'system'));
         if ($result['total'] > 0) {

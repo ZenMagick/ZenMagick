@@ -97,7 +97,7 @@ class ZMAccount extends ZMModel {
     function populate($req=null) {
         $this->firstName_ = ZMRequest::getParameter('firstname', '');
         $this->lastName_ = ZMRequest::getParameter('lastname', '');
-        $this->dob_ = ZMTools::translateDateString(ZMRequest::getParameter('dob'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
+        $this->dob_ = ZMTools::translateDateString(ZMRequest::getParameter('dob'), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
         $this->nickName_ = ZMRequest::getParameter('nick', '');
         $this->gender_ = ZMRequest::getParameter('gender', '');
         $this->email_ = trim(ZMRequest::getParameter('email_address', ''));
@@ -105,7 +105,6 @@ class ZMAccount extends ZMModel {
         $this->fax_ = ZMRequest::getParameter('fax', '');
         $this->emailFormat_ = ZMRequest::getParameter('email_format', 'TEXT');
         $this->referral_ = ZMRequest::getParameter('referral', '');
-        $this->newsletter_ = ZMRequest::getParameter('newsletter', false);
         $this->newsletter_ = ZMRequest::getParameter('newsletter', false);
         $this->populateCustom(TABLE_CUSTOMERS);
         $this->populateCustom(TABLE_CUSTOMERS_INFO);
