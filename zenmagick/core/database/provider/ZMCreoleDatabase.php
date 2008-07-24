@@ -131,7 +131,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 if (!method_exists($model, $method)) {
                     ZMObject::backtrace('missing auto key setter ' . $method);
                 }
-                call_user_func(array($model, $method), $newId); // $model->$method($newId);
+                call_user_func(array($model, $method), $newId);
             }
         }
 
@@ -321,7 +321,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             foreach ($prefixList as $prefix) {
                 $getter = $prefix . $info['ucwp'];
                 if (method_exists($obj, $getter)) {
-                    $map[$name] = call_user_func(array($obj, $getter)); // $obj->$getter();
+                    $map[$name] = call_user_func(array($obj, $getter));
                     break;
                 }
             }
@@ -393,7 +393,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 $setter = 'set'.$info['ucwp'];
                 if (method_exists($model, $setter)) {
                     // specific method exists
-                    call_user_func(array($model, $setter), $value); // $model->$setter($value);
+                    call_user_func(array($model, $setter), $value);
                 } else {
                     // use general purpose method
                     $model->__set($field, $value);

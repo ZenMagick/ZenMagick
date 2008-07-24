@@ -272,7 +272,8 @@ class ZMOrders extends ZMObject {
      * Create new order instance.
      */
     function _newOrder($fields) {
-        $order = ZMLoader::make("Order", $fields['orders_id']);
+        $order = ZMLoader::make("Order");
+        $order->id_ = $fields['orders_id'];
         $order->status_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
         $order->accountId_ = $fields['customers_id'];
@@ -300,7 +301,6 @@ class ZMOrders extends ZMObject {
         fields['ip_address']
         */
 
-        $order->zmOrders_ = $this;
         return $order;
     }
 

@@ -44,20 +44,15 @@ class ZMOrder extends ZMModel {
 
     // ref to zen order
     var $zenOrder_;
-    // ref to ZMOrders
-    var $zmOrders_;
 
 
     /**
      * Create order.
-     *
-     * @param int id The order id.
      */
-    function __construct($id) {
+    function __construct() {
         parent::__construct();
-        $this->id_ = $id;
+        $this->id_ = 0;
         $this->zenOrder_ = null;
-        $this->zmOrders_ = null;
     }
 
     /**
@@ -73,63 +68,104 @@ class ZMOrder extends ZMModel {
      *
      * @return int The order id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
-     * Get the account id.
+     * Set the order id.
      *
-     * @return int The account id.
+     * @param int id The order id.
      */
-    function getAccountId() { return $this->accountId_; }
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the account id.
+     *
+     * @param int accountId The account id.
+     */
+    public function setAccountId($accountId) { $this->accountId_ = $accountId; }
 
     /**
      * Get the order status.
      *
      * @return int The order status.
      */
-    function getStatus() { return $this->status_; }
+    public function getStatus() { return $this->status_; }
 
     /**
      * Set the order status.
      *
      * @param int status The order status.
      */
-    function setStatus($status) { $this->status_ = $status; }
+    public function setStatus($status) { $this->status_ = $status; }
 
     /**
      * Get the order date.
      *
      * @return string The order date.
      */
-    function getOrderDate() { return $this->orderDate_; }
+    public function getOrderDate() { return $this->orderDate_; }
+
+    /**
+     * Set the order date.
+     *
+     * @param string date The order date.
+     */
+    public function setOrderDate($date) { $this->orderDate_ = $date; }
 
     /**
      * Get the account for this order.
      *
+     * <p><strong>NOTE: This contains the account information as of the time the order was placed. This might be
+     * different from the current account data.</strong></p>
+     *
      * @return ZMAccount The account.
      */
-    function getAccount() { return $this->account_; }
+    public function getAccount() { return $this->account_; }
+
+    /**
+     * Set the account for this order.
+     *
+     * <p><strong>NOTE: This contains the account information as of the time the order was placed. This might be
+     * different from the current account data.</strong></p>
+     *
+     * @param ZMAccount account The account.
+     */
+    public function setAccount($account) { $this->account_ = $account; }
 
     /**
      * Get the shipping address.
      *
      * @return ZMAddress The shipping address or <code>null</code>.
      */
-    function getShippingAddress() { return $this->shippingAddress_; }
+    public function getShippingAddress() { return $this->shippingAddress_; }
+
+    /**
+     * Set the shipping address.
+     *
+     * @param ZMAddress address The shipping address.
+     */
+    public function setShippingAddress($address) { $this->shippingAddress_ = $address; }
 
     /**
      * Get the billing address.
      *
      * @return ZMAddress The billing address or <code>null</code>.
      */
-    function getBillingAddress() { return $this->billingAddress_; }
+    public function getBillingAddress() { return $this->billingAddress_; }
+
+    /**
+     * Set the billing address.
+     *
+     * @param ZMAddress address The billing address.
+     */
+    public function setBillingAddress($address) { $this->billingAddress_ = $address; }
 
     /**
      * Checks if the order has a shipping address.
      *
      * @return boolean <code>true</code> if a shipping address exists, <code>false</code> if not.
      */
-    function hasShippingAddress() {
+    public function hasShippingAddress() {
         return !(ZMTools::isEmpty($this->shippingAddress_->lastName_) && ZMTools::isEmpty($this->shippingAddress_->address_));
     }
 
@@ -138,7 +174,7 @@ class ZMOrder extends ZMModel {
      *
      * @return array A list of <code>ZMOrderItem<code> instances.
      */
-    function getOrderItems() { return $this->zmOrders_->_getOrderItems($this); }
+    public function getOrderItems() { return ZMOrders::instance()->_getOrderItems($this); }
 
     /**
      * Get the order status history.
@@ -146,28 +182,35 @@ class ZMOrder extends ZMModel {
      * @return array A list of previous order stati.
      * @deprecated Use <code>getOrderStatusHistory</code> instead.
      */
-    function getOrderStati() { return $this->zmOrders_->getOrderStatusHistoryForId($this->id_); }
+    public function getOrderStati() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->id_); }
 
     /**
      * Get the order status history.
      *
      * @return array A list of previous order stati.
      */
-    function getOrderStatusHistory() { return $this->zmOrders_->getOrderStatusHistoryForId($this->id_); }
+    public function getOrderStatusHistory() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->id_); }
 
     /**
      * Get the order total.
      *
      * @return float The order total.
      */
-    function getTotal() { return $this->total_; }
+    public function getTotal() { return $this->total_; }
+
+    /**
+     * Set the order total.
+     *
+     * @param float total The order total.
+     */
+    public function setTotal($total) { $this->total_ = $total; }
 
     /**
      * Get all order totals.
      *
      * @return array A list of <code>ZMOrderTotal</code> instances.
      */
-    function getOrderTotals() { return $this->zmOrders_->getOrderTotals($this->id_); }
+    public function getOrderTotals() { return ZMOrders::instance()->getOrderTotals($this->id_); }
 
     /**
      * Get order total for the given name.
@@ -177,7 +220,7 @@ class ZMOrder extends ZMModel {
      *  does not contain the one requested.
      * @return ZMOrderTotal A <code>ZMOrderTotal</code> or <code>null</code>.
      */
-    function getOrderTotal($name, $force=false) { 
+    public function getOrderTotal($name, $force=false) { 
         $totals = $this->getOrderTotals();
         $type = 'ot_'.$name;
         foreach ($totals as $total) {
@@ -212,6 +255,7 @@ class ZMOrder extends ZMModel {
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
     function getPaymentType() {
+        print_r($this->properties_);
         $payments = ZMLoader::make("Payments");
         return $payments->getSelectedPaymentType();
     }
