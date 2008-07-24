@@ -65,7 +65,7 @@ class ZMBanners extends ZMObject {
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
     public function getBannerForIndex($index) {
-        $list = $this->getBannerForName(ZMSettings::get('bannerGroup'.$index));
+        $list = $this->getBannersForGroupName(ZMSettings::get('bannerGroup'.$index));
         return 0 < count($list) ? $list[0] : null;
     }
 
@@ -77,21 +77,24 @@ class ZMBanners extends ZMObject {
      *
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getAllBanners() { return $this->getBannerForName(ZMSettings::get('bannerGroupAll'), true); }
+    public function getAllBanners() { return $this->getBannersForGroupName(ZMSettings::get('bannerGroupAll'), true); }
 
 
     /**
      * Get one (random) or more banner based on the given banner group(s).
      *
      * <p>If <code>$all</code> is set to <code>true, all matching banners will be returned.</p>
-     * <p>Thus, <code>getAllBanner()</code> translates into <code>getBannerForName(SHOW_BANNERS_GROUP_SET_ALL, true)</code>.</p>
      *
      * @param string identifiers One ore more identifiers, separated by ':'.
      * @param boolean all If set to <code>true</code>, all banners will be returned, ordered in 
-     *  the configured sort order.
+     *  the configured sort order; default is <code>false</code> to shuffle results.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    private function getBannerForName($identifiers, $all=false) { 
+    private function getBannersForGroupName($identifiers, $all=false) { 
+        if (empty($identifiers)) {
+            return array();
+        }
+
         $sql = "SELECT *
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1";
