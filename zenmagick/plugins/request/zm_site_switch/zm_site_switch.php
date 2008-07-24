@@ -48,8 +48,7 @@ class zm_site_switch extends ZMPlugin {
             'orders' => 'site_id;string;siteId'
         );
         foreach ($customFields as $table => $fields) {
-            $key = 'sql.'.$table.'.customFields';
-            ZMSettings::set($key, ZMSettings::get($key, '').','.$fields);
+            ZMSettings::append('sql.'.$table.'.customFields', $fields, ',');
         }
     }
 

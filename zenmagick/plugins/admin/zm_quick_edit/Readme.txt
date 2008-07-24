@@ -44,5 +44,5 @@ by setting 'sql.products.customFields'.
 
 Example:
 
-    ZMSettings::set('sql.products.customFields', 'metatags_title_status;integer');
+    ZMSettings::append('sql.products.customFields', 'metatags_title_status;integer', ',');
 
