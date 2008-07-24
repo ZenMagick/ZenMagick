@@ -95,7 +95,7 @@ class ZMAccounts extends ZMObject {
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
-                WHERE customers_info_id = :id";
+                WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId);
         return ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
     }
