@@ -96,6 +96,23 @@ interface ZMDatabase {
      */
     public function updateModel($table, $model, $mapping=null);
 
+    /**
+     * Enable/disable automatic commits.
+     *
+     * @param boolean value The new value.
+     */
+    public function setAutoCommit($value);
+
+    /**
+     * Commits statements in a transaction.
+     */
+    public function commit();
+
+    /**
+     * Rollback changes in a transaction.
+     */
+    public function rollback();
+
 }
 
 ?>

@@ -63,6 +63,24 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function setAutoCommit($value) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function commit() {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rollback() {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getStats() {
         $stats = array();
         $stats['time'] = $this->queriesTime;
