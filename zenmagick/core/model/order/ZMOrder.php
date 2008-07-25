@@ -255,7 +255,6 @@ class ZMOrder extends ZMModel {
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
     function getPaymentType() {
-        print_r($this->properties_);
         $payments = ZMLoader::make("Payments");
         return $payments->getSelectedPaymentType();
     }
