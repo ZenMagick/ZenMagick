@@ -475,6 +475,13 @@ class ZMProduct extends ZMModel {
     public function setImage($image) { $this->image_ = $image; }
 
     /**
+     * Get the product image.
+     *
+     * @return image The product image.
+     */
+    public function getImage() { return $this->image_; }
+
+    /**
      * Get additional product images.
      *
      * @return array List of optional <code>ZMImageInfo</code> instances.
