@@ -132,7 +132,7 @@ class ZMDbUtils {
                 if (null != $method) {
                     $value = call_user_func(array($obj, $method));
                 } else {
-                    $value = $obj->get($label[0]);
+                    $value = $obj->get($lcproperty);
                 }
 
                 // bind
