@@ -94,6 +94,8 @@ Release 0.9.2
 - renamed ZMBanners::getBannerForName to getBannersForGroupName
 - make ZMBanners return no results if no identifiers are set for a group
 - add transaction support to ZMDatabase (not used, yet)
+- moved creole code into plugin (it's bloating the relase and not 100% ready
+  yet)
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

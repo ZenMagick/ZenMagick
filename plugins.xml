@@ -139,6 +139,11 @@
             <param name="plugin.name" value="zm_tests" />
             <param name="plugin.version" value="${plugins.zm_tests.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_creole" />
+            <param name="plugin.version" value="${plugins.zm_creole.version}" />
+        </antcall>
     </target>
 
     
