@@ -222,11 +222,11 @@ class ZMShoppingCart extends ZMObject {
 
             $attributeValue->pricePrefix_ = $results->fields['options_values_price'];
             $attributeValue->price_ = $results->fields['options_values_price'];
-            array_push($$atname->values_, $attributeValue);
+            $$atname->addValue($attributeValue);
         }
         $attributes = array();
         foreach ($attributesLookup as $name => $atname) {
-            array_push($attributes, $$atname);
+            $attributes[] = $$atname;
         }
 
         return $attributes;
