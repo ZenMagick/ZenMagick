@@ -1,8 +1,5 @@
 // TODO: use boolean where appropriate
 array(
-    'system' => array(
-        'total' => 'column=total;type=integer',
-    ),
     'currencies' => array(
         'id' => 'column=currencies_id;type=integer;key=true;auto=true',
         'name' => 'column=title;type=string',

@@ -254,10 +254,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         ++$this->queriesCount;
         while (!$rs->EOF) {
             $result = $rs->fields;
-            if (null != $mapping) {
+            if (null !== $mapping && ZM_DB_MODEL_RAW != $modelClass) {
                 $result = $this->translateRow($result, $mapping);
             }
-            if (null != $modelClass) {
+            if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
                 $result = ZMDbUtils::map2model($modelClass, $result, $mapping);
             }
 

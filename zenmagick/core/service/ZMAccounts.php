@@ -112,7 +112,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, 'system'));
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZM_DB_MODEL_RAW);
         return 0 < $result['total'];
     }
 

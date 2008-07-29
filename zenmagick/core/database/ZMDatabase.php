@@ -24,6 +24,10 @@
 <?php
 
 
+/** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
+define('ZM_DB_MODEL_RAW', '@raw');
+
+
 /**
  * ZenMagick database abstractation.
  *
@@ -48,6 +52,9 @@ interface ZMDatabase {
      * <p>If <code>$resultClass</code> is <code>null</code>, the returned
      * list will contain a map of <em>columns</em> =&gt; <em>value</em> for each selected row.</p>
      *
+     * <p><code>$modelClass</code> may be set to the magic value of <code>ZM_DB_MODEL_RAW</code> to force
+     * returning the raw data without applying any mappings or conversions.</p>
+     *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
      * @param mixed mapping The field mappings or table name; default is <code>null</code>.
@@ -58,6 +65,9 @@ interface ZMDatabase {
 
     /**
      * Execute a query expecting a single result.
+     *
+     * <p><code>$modelClass</code> may be set to the magic value of <code>ZM_DB_MODEL_RAW</code> to force
+     * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.

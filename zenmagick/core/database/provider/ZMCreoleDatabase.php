@@ -366,14 +366,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @return mixed The model instance or array (if modelClass is <code>null</code>).
      */
     protected static function rs2model($modelClass, $rs, $mapping=null) {
-        if (null != $modelClass) {
+        if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
             $model = ZMLoader::make($modelClass);
         } else {
             $model = array();
         }
 
         $row = $rs->getRow();
-        if (null === $mapping) {
+        if (null === $mapping || ZM_DB_MODEL_RAW == $modelClass) {
             return $row;
         }
         foreach ($mapping as $field => $info) {
