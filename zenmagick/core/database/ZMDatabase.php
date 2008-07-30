@@ -60,6 +60,7 @@ interface ZMDatabase {
      * @param mixed mapping The field mappings or table name; default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
+     * @throws ZMDatabaseException
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null);
 
@@ -74,6 +75,7 @@ interface ZMDatabase {
      * @param mixed mapping The field mappings or table name; default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
+     * @throws ZMDatabaseException
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null);
 
@@ -84,6 +86,7 @@ interface ZMDatabase {
      * @param mixed data A model instance or array.
      * @param mixed mapping The field mappings or table name.
      * @return int The number of affected rows.
+     * @throws ZMDatabaseException
      */
     public function update($sql, $data, $mapping);
 
@@ -94,6 +97,7 @@ interface ZMDatabase {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
+     * @throws ZMDatabaseException
      */
     public function createModel($table, $model, $mapping=null);
 
@@ -103,6 +107,7 @@ interface ZMDatabase {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
+     * @throws ZMDatabaseException
      */
     public function updateModel($table, $model, $mapping=null);
 
