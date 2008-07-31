@@ -42,7 +42,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_product_image_link($product, $categoryId=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->productImageLink($product, $categoryId, $format, $echo);
+        return ZMToolbox::instance()->html->productImageLink($product, $categoryId, null, $format, $echo);
     }
 
 

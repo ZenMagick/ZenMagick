@@ -102,7 +102,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_back_link($text, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->backLink($text, $echo);
+        return ZMToolbox::instance()->html->backLink($text, array(), $echo);
     }
 
     /**
@@ -130,7 +130,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_ezpage_link($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->ezpageLink($id, $text, $echo);
+        return ZMToolbox::instance()->html->ezpageLink($id, $text, array(), $echo);
     }
 
 

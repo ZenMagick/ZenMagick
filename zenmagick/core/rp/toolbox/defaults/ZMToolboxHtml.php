@@ -140,11 +140,18 @@ class ZMToolboxHtml extends ZMObject {
      * <p>Since the link text may be HTML, no HTML escaping is done in this method.</p>
      *
      * @param string text The link text (can be plain text or HTML).
+     * @param array attr Optional HTML attribute map; default is an empty array().
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function backLink($text, $echo=ZM_ECHO_DEFAULT) {
-        $link = zen_back_link() . $text . '</a>';
+    public function backLink($text, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
+        $link = substr(zen_back_link(), 0, -1);
+        foreach ($attr as $name => $value) {
+            if (null !== $value) {
+                $link .= ' '.$name.'="'.$value.'"';
+            }
+        }
+        $link .= '>' .  $text . '</a>';
 
         if ($echo) echo $link;
         return $link;
@@ -157,14 +164,20 @@ class ZMToolboxHtml extends ZMObject {
      *
      * @param integer id The EZ page id.
      * @param string text Optional link text; default is <code>null</code> to use the ezpage title as link text.
+     * @param array attr Optional HTML attribute map; default is an empty array().
      * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
      * @return string A full HTML link.
      */
-    public function ezpageLink($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
+    public function ezpageLink($id, $text=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
         $toolbox = ZMToolbox::instance();
         $page = ZMEZPages::instance()->getPageForId($id);
-        $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false) . '>' . 
-                    (null == $text ? $this->encode($page->getTitle(), false) : $text) . '</a>';
+        $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false);
+        foreach ($attr as $name => $value) {
+            if (null !== $value) {
+                $link .= ' '.$name.'="'.$value.'"';
+            }
+        }
+        $link .=  '>' . (null == $text ? $this->encode($page->getTitle(), false) : $text) . '</a>';
 
         if ($echo) echo $link;
         return $link;
@@ -178,15 +191,28 @@ class ZMToolboxHtml extends ZMObject {
      *
      * @param ZMProduct product A product.
      * @param int categoryId Optional category id.
+     * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
      *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function productImageLink($product, $categoryId=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+    public function productImageLink($product, $categoryId=null, $attr=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+        $defaults = array('class' => 'product');
+        if (null === $attr) {
+            $attr = $defaults;
+        } else {
+            $attr = array_merge($defaults, $attr);
+        }
+
         $toolbox = ZMToolbox::instance();
-        $html = '<a href="'.$toolbox->net->product($product->getId(), $categoryId, false).'" class="product">';
-        $html .= $this->image($product->getImageInfo(), $format, '', false);
+        $html = '<a href="'.$toolbox->net->product($product->getId(), $categoryId, false).'"';
+        foreach ($attr as $name => $value) {
+            if (null !== $value) {
+                $link .= ' '.$name.'="'.$value.'"';
+            }
+        }
+        $html .= '>'.$this->image($product->getImageInfo(), $format, '', false);
         $html .= '</a>';
 
         if ($echo) echo $html;
