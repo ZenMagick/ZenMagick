@@ -62,7 +62,7 @@ class ZMAccount extends ZMModel {
         $this->id_ = 0;
         $this->firstName_ = '';
         $this->lastName_ = '';
-        $this->dob_ = '';
+        $this->dob_ = null;
         $this->nickName_ = '';
         $this->gender_ = '';
         $this->email_ = '';

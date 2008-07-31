@@ -142,8 +142,8 @@ class ZMDbUtils {
                     } else {
                         // if not empty nothing, otherwise assume NULL
                         if (empty($value)) {
-                            $value = 'NULL';
-                            $label[1] = 'passthru';
+                            $value = ZM_DB_NULL_DATETIME;
+                            $label[1] = 'date';
                         }
                     }
                 }

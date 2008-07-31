@@ -307,9 +307,15 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $stmt->setFloat($index, $value);
                     break;
                 case 'datetime':
+                    if (null === $value) {
+                        $value = ZM_DB_NULL_DATETIME;
+                    }
                     $stmt->setTimestamp($index, $value);
                     break;
                 case 'date':
+                    if (null === $value) {
+                        $value = ZM_DB_NULL_DATE;
+                    }
                     $stmt->setDate($index, $value);
                     break;
                 case 'blob':
@@ -396,10 +402,26 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 $value = $rs->getFloat($info['column']);
                 break;
             case 'datetime':
-                $value = $rs->getTimestamp($info['column']);
+                try {
+                    // TODO: creole will throw a fit as strtotime doesn't like ZM_DB_NULL_DATETIME
+                    $value = $rs->getTimestamp($info['column']);
+                    if (ZM_DB_NULL_DATETIME == $value) {
+                        $value = null;
+                    }
+                } catch (SQLException $e) {
+                    $value = null;
+                }
                 break;
             case 'date':
-                $value = $rs->getDate($info['column'], 'Y-m-d');
+                try {
+                    // TODO: creole will throw a fit as strtotime doesn't like ZM_DB_NULL_DATETIME
+                    $value = $rs->getDate($info['column']);
+                    if (ZM_DB_NULL_DATE == $value) {
+                        $value = null;
+                    }
+                } catch (SQLException $e) {
+                    $value = null;
+                }
                 break;
             case 'blob':
                 $blob = $rs->getBlob($info['column']);

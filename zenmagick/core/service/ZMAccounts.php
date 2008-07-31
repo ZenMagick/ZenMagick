@@ -152,7 +152,7 @@ class ZMAccounts extends ZMObject {
         // check for existence in case record does not exist...
         $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
                 where customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO, 'system'));
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZM_DB_MODEL_RAW);
         if ($result['total'] > 0) {
             $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                     set customers_info_date_account_last_modified = now()

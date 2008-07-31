@@ -285,6 +285,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         foreach ($mapping as $field) {
             if (isset($row[$field['column']])) {
                 $mappedRow[$field['property']] = $row[$field['column']];
+                if ('date' == $this->getMappedType($field['type'])) {
+                    if (ZM_DB_NULL_DATETIME == $mappedRow[$field['property']]) {
+                        $mappedRow[$field['property']] = null;
+                    }
+                }
             }
         }
 

@@ -87,6 +87,21 @@ class TestZMAccounts extends UnitTestCase {
     }
 
     /**
+     * Test create account no DOB.
+     */
+    public function testCreateAccountNoDOB() {
+        $account = $this->createAccount($this->accountData1);
+        $account->setDob(null);
+        $account = ZMAccounts::instance()->createAccount($account);
+        $this->assertNotEqual(0, $account->getId());
+        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        foreach (array_keys($this->accountData1) as $key) {
+            $getter = 'get'.$key;
+            $this->assertEqual($account->$getter(), $reloaded->$getter());
+        }
+    }
+
+    /**
      * Test update account.
      */
     public function testUpdateAccount() {
