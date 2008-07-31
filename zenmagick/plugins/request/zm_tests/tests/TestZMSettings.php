@@ -13,14 +13,14 @@ class TestZMSettings extends UnitTestCase {
      * Test append.
      */
     public function testAppendNew() {
-        $key = '@@';
+        $key = 'n@@';
         $value = 'doh';
         $oldValue = ZMSettings::append($key, $value);
         $this->assertNull($oldValue);
         $this->assertEqual($value, ZMSettings::get($key));
 
         // and with delim
-        $key = '@@@';
+        $key = 'n@@@';
         $delim = '!';
         $oldValue = ZMSettings::append($key, $value, $delim);
         $this->assertEqual($old, $oldValue);
@@ -31,7 +31,7 @@ class TestZMSettings extends UnitTestCase {
      * Test append old.
      */
     public function testAppendOld() {
-        $key = '@@';
+        $key = 'o@@';
         $old = 'yo';
         ZMSettings::set($key, $old);
         $oldValue = ZMSettings::append($key, $value);
@@ -39,7 +39,7 @@ class TestZMSettings extends UnitTestCase {
         $this->assertEqual($old.$value, ZMSettings::get($key));
 
         // and with delim
-        $key = '@@@';
+        $key = 'o@@@';
         $delim = '!';
         ZMSettings::set($key, $old);
         $oldValue = ZMSettings::append($key, $value, $delim);
