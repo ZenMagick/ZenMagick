@@ -119,7 +119,8 @@ class ZMDbUtils {
 
         if ($obj instanceof ZMModel) {
             foreach ($obj->getPropertyNames() as $name) {
-                $getter[strtolower($name)] = null;
+                // we need the name as is for mapped columns
+                $getter[strtolower($name)] = '@@'.$name;
             }
         }
 
@@ -129,10 +130,10 @@ class ZMDbUtils {
                 $label = $labels[$lcproperty];
 
                 // execute getXXX()
-                if (null != $method) {
+                if (null != $method && false === strpos($method, '@@')) {
                     $value = call_user_func(array($obj, $method));
                 } else {
-                    $value = $obj->get($lcproperty);
+                    $value = $obj->get(str_replace('@@', '', $method));
                 }
 
                 // bind
