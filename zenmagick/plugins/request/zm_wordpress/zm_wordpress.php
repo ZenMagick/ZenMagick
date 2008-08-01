@@ -110,6 +110,7 @@ class zm_wordpress extends ZMPlugin {
             // load as proper global to make WP work - @#!!$&^ globals
             return array('wp-blog-header.gphp');
         }
+        return parent::getGlobal();
     }
 
     /**

@@ -135,7 +135,10 @@ class zm_page_stats extends ZMPlugin {
                 $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
                 $info .= '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
                 $info .= '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
-                $info .= '<td style="text-align:left;padding:4px;">'.implode(',', array_keys($event['args'])).'</td>';
+                $args = is_array($event['args']) ? $event['args'] : array($event['args']);
+                $argsInfo = implode(',', $args);
+                $argsInfo = empty($argsInfo) ? '&nbsp;' : $argsInfo;
+                $info .= '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
                 $info .= '</tr>';
             }
             $info .= '</table>';
