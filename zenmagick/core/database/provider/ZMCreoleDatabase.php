@@ -386,7 +386,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             return $row;
         }
         foreach ($mapping as $field => $info) {
-            if (!isset($row[$info['column']])) {
+            if (!array_key_exists($info['column'], $row)) {
                 // field not in result set, so ignore
                 continue;
             }

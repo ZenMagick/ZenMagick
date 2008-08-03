@@ -14,7 +14,7 @@ class TestZMProducts extends UnitTestCase {
      */
     public function setUp() {
         ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
-        ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
+        //ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
     }
 
 
