@@ -13,8 +13,8 @@ class TestZMProducts extends UnitTestCase {
      * Set up.
      */
     public function setUp() {
-        //ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
-        ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
+        ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
+        //ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
     }
 
 
@@ -40,14 +40,12 @@ class TestZMProducts extends UnitTestCase {
             foreach ($prefixList as $prefix) {
                 $getter = $prefix . $key;
                 if (method_exists($product, $getter)) {
-//echo 'testing: '.$key."<BR>";
                     $this->assertEqual($product->$getter(), $reloaded->$getter());
                     $done = true;
                     break;
                 }
             }
             if (!$done) {
-//echo 'testing prop: '.$key."<BR>";
                 $this->assertEqual($product->get($key), $reloaded->get($key));
             }
         }
