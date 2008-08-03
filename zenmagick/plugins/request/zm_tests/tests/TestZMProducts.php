@@ -40,15 +40,13 @@ class TestZMProducts extends UnitTestCase {
             foreach ($prefixList as $prefix) {
                 $getter = $prefix . ucwords($key);
                 if (method_exists($product, $getter)) {
-                    //echo 'testing(g): '.$getter.': '.$product->$getter()."<BR>";
-                    $this->assertEqual($product->$getter(), $reloaded->$getter());
+                    $this->assertEqual($product->$getter(), $reloaded->$getter(), '%s getter='.$getter);
                     $done = true;
                     break;
                 }
             }
             if (!$done) {
-                //echo 'testing(k): '.$key.': '.$product->get($key)."<BR>";
-                $this->assertEqual($product->get($key), $reloaded->get($key));
+                $this->assertEqual($product->get($key), $reloaded->get($key), '%s key='.$key);
             }
         }
         // revert name change

@@ -82,7 +82,7 @@ class TestZMAccounts extends UnitTestCase {
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.$key;
-            $this->assertEqual($account->$getter(), $reloaded->$getter());
+            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
@@ -97,7 +97,7 @@ class TestZMAccounts extends UnitTestCase {
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.$key;
-            $this->assertEqual($account->$getter(), $reloaded->$getter());
+            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
@@ -113,7 +113,7 @@ class TestZMAccounts extends UnitTestCase {
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.$key;
-            $this->assertEqual($account->$getter(), $reloaded->$getter());
+            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
