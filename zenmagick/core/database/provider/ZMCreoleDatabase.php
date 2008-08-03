@@ -262,7 +262,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         // find out the order of args
-        $regexp = ':'.implode(array_keys($args), '|:');
+        // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
+        $argKeys = array_keys($args);
+        rsort($argKeys);
+        $regexp = ':'.implode($argKeys, '|:');
         preg_match_all('/'.$regexp.'/', $sql, $argOrder);
         $argOrder = $argOrder[0];
         // modify SQL replacing :key syntax with ?
