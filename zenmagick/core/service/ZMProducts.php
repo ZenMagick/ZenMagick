@@ -517,6 +517,7 @@ class ZMProducts extends ZMObject {
      */
     public function updateProduct($product) {
         ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
+        ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS_DESCRIPTION, $product);
 
         // update cache
         $this->cache->remove(ZMTools::mkUnique($product->getId(), $product->getLanguageId()));

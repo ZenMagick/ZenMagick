@@ -14,7 +14,7 @@ class TestZMProducts extends UnitTestCase {
      */
     public function setUp() {
         ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
-        //ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
+        ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
     }
 
 
@@ -31,24 +31,29 @@ class TestZMProducts extends UnitTestCase {
     public function testUpdateProduct() {
         $product = ZMProducts::instance()->getProductForId(2);
         $this->assertNotNull($product);
-        $product->set('qtyOrderUnits', 1);
+        $product->setName($product->getName().'@@@');
         ZMProducts::instance()->updateProduct($product);
         $reloaded = ZMProducts::instance()->getProductForId($product->getId());
-        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(TABLE_PRODUCTS)) as $key) {
+        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION))) as $key) {
             $prefixList = array('get', 'is', 'has');
             $done = false;
             foreach ($prefixList as $prefix) {
-                $getter = $prefix . $key;
+                $getter = $prefix . ucwords($key);
                 if (method_exists($product, $getter)) {
+                    //echo 'testing(g): '.$getter.': '.$product->$getter()."<BR>";
                     $this->assertEqual($product->$getter(), $reloaded->$getter());
                     $done = true;
                     break;
                 }
             }
             if (!$done) {
+                //echo 'testing(k): '.$key.': '.$product->get($key)."<BR>";
                 $this->assertEqual($product->get($key), $reloaded->get($key));
             }
         }
+        // revert name change
+        $product->setName(str_replace('@@@', '', $product->getName()));
+        ZMProducts::instance()->updateProduct($product);
     }
 
 }
