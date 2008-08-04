@@ -63,7 +63,8 @@ class TestsController extends ZMController {
         ZMRuntime::getTheme()->getThemeInfo()->setLayout('tests', null);
 
         $testsLoader = ZMLoader::make("Loader");
-        $testsLoader->addPath($this->plugin->getPluginDir().'tests/');
+        $testBaseDir = $this->plugin->getPluginDir().'tests/';
+        $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();
 
@@ -85,7 +86,7 @@ class TestsController extends ZMController {
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($run as $name) {
                 $testCase = ZMLoader::make($name);
-                if ($testCase instanceof UnitTestCase) {
+                if ($testCase instanceof SimpleTestCase) {
                     $suite->addTestClass($name);
                 }
             }
