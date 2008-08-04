@@ -430,8 +430,8 @@ class ZMAttributeValue extends ZMModel {
   // work in progress
   function _zm_get_discount_calc($product_id, $attributes_id = false, $attributes_amount = false, $check_qty= false) {
     // no charge
-    if ($attributes_id > 0 and $attributes_amount == 0) {
-      return 0;
+    if ($attributes_id > 0 && 0 == $attributes_amount) {
+        return 0;
     }
 
     $product = ZMProducts::instance()->getProductForId($product_id);
@@ -441,14 +441,14 @@ class ZMAttributeValue extends ZMModel {
     $new_special_price = $offers->getSpecialPrice(false);
     $new_sale_price = $offers->getSalePrice(false);
 
-    $discount_type_id = zen_get_products_sale_discount_type($product_id);
+    $discount_type_id = _zm_get_products_sale_discount_type($product_id);
 
     if ($new_products_price != 0) {
       $special_price_discount = ($new_special_price != 0 ? ($new_special_price/$new_products_price) : 1);
     } else {
       $special_price_discount = '';
     }
-    $sale_maker_discount = zen_get_products_sale_discount_type($product_id, '', 'amount');
+    $sale_maker_discount = _zm_get_products_sale_discount_type($product_id, '', 'amount');
 
     // percentage adjustment of discount
     if (($discount_type_id == 120 or $discount_type_id == 1209) or ($discount_type_id == 110 or $discount_type_id == 1109)) {
@@ -739,8 +739,98 @@ class ZMAttributeValue extends ZMModel {
 
 
 
+  function _zm_get_products_sale_discount_type($product_id = false, $categories_id = false, $return_value = false) {
+    global $db;
 
+/*
 
+0 = flat amount off base price with a special
+1 = Percentage off base price with a special
+2 = New Price with a special
 
+5 = No Sale or Skip Products with Special
+
+special options + option * 10
+0 = Ignore special and apply to Price
+1 = Skip Products with Specials switch to 5
+2 = Apply to Special Price
+
+If a special exist * 10+9
+
+0*100 + 0*10 = flat apply to price = 0 or 9
+0*100 + 1*10 = flat skip Specials = 5 or 59
+0*100 + 2*10 = flat apply to special = 20 or 209
+
+1*100 + 0*10 = Percentage apply to price = 100 or 1009
+1*100 + 1*10 = Percentage skip Specials = 110 or 1109 / 5 or 59
+1*100 + 2*10 = Percentage apply to special = 120 or 1209
+
+2*100 + 0*10 = New Price apply to price = 200 or 2009
+2*100 + 1*10 = New Price skip Specials = 210 or 2109 / 5 or 59
+2*100 + 2*10 = New Price apply to Special = 220 or 2209
+
+*/
+
+    $product = ZMProducts::instance()->getProductForId($product_id);
+
+// get products category
+    if ($categories_id == true) {
+      $check_category = $categories_id;
+    } else {
+      //$check_category = zen_get_products_category_id($product_id);
+      $check_category = $product->getDefaultCategory()->getId();
+    }
+/*
+    $deduction_type_array = array(array('id' => '0', 'text' => DEDUCTION_TYPE_DROPDOWN_0),
+                                  array('id' => '1', 'text' => DEDUCTION_TYPE_DROPDOWN_1),
+                                  array('id' => '2', 'text' => DEDUCTION_TYPE_DROPDOWN_2));
+*/
+    $sale_exists = 'false';
+    $sale_maker_discount = '';
+    $sale_maker_special_condition = '';
+    $salemaker_sales = $db->Execute("select sale_id, sale_status, sale_name, sale_categories_all, sale_deduction_value, sale_deduction_type, sale_pricerange_from, sale_pricerange_to, sale_specials_condition, sale_categories_selected, sale_date_start, sale_date_end, sale_date_added, sale_date_last_modified, sale_date_status_change from " . TABLE_SALEMAKER_SALES . " where sale_status='1'");
+    while (!$salemaker_sales->EOF) {
+      $categories = explode(',', $salemaker_sales->fields['sale_categories_all']);
+  	  while (list($key,$value) = each($categories)) {
+	      if ($value == $check_category) {
+          $sale_exists = 'true';
+  	      $sale_maker_discount = $salemaker_sales->fields['sale_deduction_value'];
+  	      $sale_maker_special_condition = $salemaker_sales->fields['sale_specials_condition'];
+	        $sale_maker_discount_type = $salemaker_sales->fields['sale_deduction_type'];
+	        break;
+        }
+      }
+      $salemaker_sales->MoveNext();
+    }
+
+    //$check_special = zen_get_products_special_price($product_id, true);
+    $offers = $product->getOffers();
+    $special_price = $offers->getSpecialPrice(false);
+
+    if ($sale_exists == 'true' and $sale_maker_special_condition != 0) {
+      $sale_maker_discount_type = (($sale_maker_discount_type * 100) + ($sale_maker_special_condition * 10));
+    } else {
+      $sale_maker_discount_type = 5;
+    }
+
+    //if (!$check_special) {
+    if (!$special_price) {
+      // do nothing
+    } else {
+      $sale_maker_discount_type = ($sale_maker_discount_type * 10) + 9;
+    }
+
+    switch (true) {
+      case (!$return_value):
+        return $sale_maker_discount_type;
+        break;
+      case ($return_value == 'amount'):
+        return $sale_maker_discount;
+        break;
+      default:
+        return 'Unknown Request';
+        break;
+    }
+  }
 
 ?>

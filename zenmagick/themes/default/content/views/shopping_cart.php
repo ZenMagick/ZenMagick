@@ -75,4 +75,4 @@
 
 </form>
 
-<?php echo zen_back_link()."Continue Shopping</a>" ?>
+<?php $html->backLink('Continue Shopping') ?>
