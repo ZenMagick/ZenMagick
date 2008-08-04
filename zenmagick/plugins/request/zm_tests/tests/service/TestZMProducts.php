@@ -54,6 +54,85 @@ class TestZMProducts extends UnitTestCase {
         ZMProducts::instance()->updateProduct($product);
     }
 
+    /**
+     * Test product type settings.
+     */
+    public function testProductTypeSettings() {
+        $fieldData = array(
+            'starting_at' => true,
+            'reviews' => true,
+            'tell_a_friend' => true
+        );
+        $product = ZMProducts::instance()->getProductForId(2);
+        foreach ($fieldData as $field => $value) {
+            $this->assertEqual($value, $product->getTypeSetting($field), '%s field='.$field);
+        }
+    }
+
+    /**
+     * Test featured products on homepage.
+     */
+    public function testFeaturedProductsHome() {
+        $featuredIds = array_flip(array(34, 40, 12, 27, 26, 168, 169, 171, 172));
+        $products = ZMProducts::instance()->getFeaturedProducts();
+        $this->assertEqual(9, count($products));
+        foreach ($products as $product) {
+            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+        }
+    }
+
+    /**
+     * Test featured products on category page.
+     */
+    public function testFeaturedProductsCategory() {
+        $featuredIds = array_flip(array(12));
+        $products = ZMProducts::instance()->getFeaturedProducts(3, 4, true);
+        $this->assertEqual(1, count($products));
+        foreach ($products as $product) {
+            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+        }
+    }
+
+    /**
+     * Test new products on home page.
+     */
+    public function testNewProductsHome() {
+        $products = ZMProducts::instance()->getNewProducts();
+        $this->assertEqual(124, count($products));
+    }
+
+    /**
+     * Test new products on category page.
+     */
+    public function testNewProductsCategory() {
+        $featuredIds = array_flip(array(1, 2));
+        $products = ZMProducts::instance()->getNewProducts(4, 0, '0');
+        $this->assertEqual(2, count($products));
+        foreach ($products as $product) {
+            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+        }
+    }
+
+    /**
+     * Test bestseller products on home page.
+     */
+    public function testBestsellerProductsHome() {
+        $products = ZMProducts::instance()->getBestSellers(null, 999);
+        $this->assertEqual(52, count($products));
+    }
+
+    /**
+     * Test bestseller products on category page.
+     */
+    public function testBestsellerProductsCategory() {
+        $featuredIds = array_flip(array(1, 2));
+        $products = ZMProducts::instance()->getBestSellers(4, 999);
+        $this->assertEqual(2, count($products));
+        foreach ($products as $product) {
+            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+        }
+    }
+
 }
 
 ?>

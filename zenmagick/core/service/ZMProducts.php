@@ -200,36 +200,32 @@ class ZMProducts extends ZMObject {
      * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
      */
     public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
-        $db = ZMRuntime::getDB();
+        $database = ZMRuntime::getDatabase();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
-                where products_id = :productId";
-        $sql = $db->bindVars($sql, ":productId", $productId, 'integer');
-        $typeResults = $db->Execute($sql);
+                where products_id = :id";
+        $typeResult = $database->querySingle($sql, array('id' => $productId), TABLE_PRODUCTS, ZM_DB_MODEL_RAW);
 
         $sql = "select type_handler from " . TABLE_PRODUCT_TYPES . "
-                where type_id = :typeId";
-        $sql = $db->bindVars($sql, ":typeId", $typeResults->fields['products_type'], 'integer');
-        $keyResults = $db->Execute($sql);
+                where type_id = :id";
+        $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), TABLE_PRODUCT_TYPES, ZM_DB_MODEL_RAW);
 
-        $key = strtoupper($keySuffix . $keyResults->fields['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
+        $key = strtoupper($keySuffix . $keyResult['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
 
         $sql = "select configuration_value from " . TABLE_PRODUCT_TYPE_LAYOUT . "
                 where configuration_key = :key";
-        $sql = $db->bindVars($sql, ":key", $key, 'string');
-        $valueResults = $db->Execute($sql);
+        $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_PRODUCT_TYPE_LAYOUT, ZM_DB_MODEL_RAW);
 
-        if ($valueResults->RecordCount() > 0) {
+        if (null !== $valueResult) {
             // type result
-            return 1 == $valueResults->fields['configuration_value'];
+            return 1 == $valueResult['configuration_value'];
         } else {
             // fallback general configuration
             $sql = "select configuration_value from " . TABLE_CONFIGURATION . "
                     where configuration_key = :key";
-            $sql = $db->bindVars($sql, ":typeId", $key, 'string');
-            $valueResults = $db->Execute($sql);
+            $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_CONFIGURATION, ZM_DB_MODEL_RAW);
 
-            if ($valueResults->RecordCount() > 0) {
-                return 1 == $valueResults->fields['configuration_value'];
+            if (null !== $valueResult) {
+                return 1 == $valueResult['configuration_value'];
             }
         }
         return false;
@@ -245,8 +241,6 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
-        $db = ZMRuntime::getDB();
-
 		    $sql = null;
         if (null == $categoryId) {
             $sql = "select distinct p.products_id
@@ -266,10 +260,11 @@ class ZMProducts extends ZMObject {
                       and " . $categoryCond . "
                       and p.products_id = f.products_id
                       and p.products_status = 1 and f.status = 1";
-            $sql = $db->bindVars($sql, ":categoryId", $categoryId, "integer");
         }
 
-        $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max) : $this->getProductIds($sql);
+        $args =  array('categoryId' => $categoryId);
+        $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
+        $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max, $args, $tables) : $this->getProductIds($sql, $args, $tables);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -286,7 +281,6 @@ class ZMProducts extends ZMObject {
     public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
         $timeLimit = null === $timeLimit ? ZMSettings::get('maxNewProducts') : $timeLimit;
 
-        $db = ZMRuntime::getDB();
         $queryLimit = '';
         switch ($timeLimit) {
             case '0':
@@ -296,34 +290,35 @@ class ZMProducts extends ZMObject {
             case '1':
                 // this month
                 $date = date('Ym', time()) . '01';
-                $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
+                $queryLimit = ' and p.products_date_added >= :dateAdded';
                 break;
             default:
                 // X days; 24 hours; 60 mins; 60secs
                 $dateRange = time() - ($timeLimit * 24 * 60 * 60);
                 $date = date('Ymd', $dateRange);
-                $queryLimit = $db->bindVars(' and p.products_date_added >= :date', ':date', $date, "date");
+                $queryLimit = ' and p.products_date_added >= :dateAdded';
                 break;
         }
 
-        $query = null;
+        $sql = null;
         if (null == $categoryId) {
-            $query = "select p.products_id
+            $sql = "select p.products_id
                       from " . TABLE_PRODUCTS . " p
                       where p.products_status = 1" . $queryLimit;
         } else {
-            $query = "select distinct p.products_id
-                      from " . TABLE_PRODUCTS . " p
-                      on p.products_id = s.products_id, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
-                      where p.products_id = p2c.products_id
-                      and p2c.categories_id = c.categories_id
-                      and c.categories_id = :categoryId
-                      and p.products_status = 1" . $queryLimit;
-            $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
+            $sql = "select distinct p.products_id
+                    from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                    where p.products_id = p2c.products_id
+                    and p2c.categories_id = c.categories_id
+                    and c.categories_id = :categoryId
+                    and p.products_status = 1" . $queryLimit;
+            //$sql = $db->bindVars($sql, ":categoryId", $categoryId, "integer");
         }
-        $query .= " order by products_date_added";
+        $sql .= " order by products_date_added";
 
-        $productIds = 0 !== $max ? $this->getRandomProductIds($query, $max) : $this->getProductIds($query);
+        $args =  array('categoryId' => $categoryId, 'dateAdded' => $date);
+        $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
+        $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max, $args, $tables) : $this->getProductIds($sql, $args, $tables);
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -338,31 +333,31 @@ class ZMProducts extends ZMObject {
     public function getBestSellers($categoryId=null, $max=null, $languageId=null) {
         $max = null === $max ? ZMSettings::get('maxBestSellers') : $max;
 
-        $db = ZMRuntime::getDB();
-        $query = null;
+        $sql = null;
         if (null !== $categoryId) {
-            $query = "select distinct p.products_id
-                      from " . TABLE_PRODUCTS . " p, "
-                      . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c 
-                      where p.products_status = '1'
-                      and p.products_ordered > 0
-                      and p.products_id = p2c.products_id
-                      and p2c.categories_id = c.categories_id
-                      and :categoryId in (c.categories_id, c.parent_id)
-                      order by p.products_ordered desc
-                      limit :limit";
-            $query = $db->bindVars($query, ":categoryId", $categoryId, "integer");
+            $sql = "select distinct p.products_id
+                    from " . TABLE_PRODUCTS . " p, "
+                    . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c 
+                    where p.products_status = '1'
+                    and p.products_ordered > 0
+                    and p.products_id = p2c.products_id
+                    and p2c.categories_id = c.categories_id
+                    and :categoryId in (c.categories_id, c.parent_id)
+                    order by p.products_ordered desc";
         } else {
-            $query = "select distinct p.products_id, p.products_ordered
-                      from " . TABLE_PRODUCTS . " p
-                      where p.products_status = '1'
-                      and p.products_ordered > 0
-                      order by p.products_ordered desc
-                      limit :limit";
+            $sql = "select distinct p.products_id, p.products_ordered
+                    from " . TABLE_PRODUCTS . " p
+                    where p.products_status = '1'
+                    and p.products_ordered > 0
+                    order by p.products_ordered desc";
         }
-        $query = $db->bindVars($query, ":limit", $max, "integer");
 
-        $productIds = $this->getProductIds($query);
+        $args =  array('categoryId' => $categoryId);
+        $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
+        $productIds = $this->getProductIds($sql, $args, $tables);
+        if (count($productIds) > $max) {
+            $productIds = array_splice($productIds, $max);
+        }
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -549,11 +544,13 @@ class ZMProducts extends ZMObject {
      * Execute the given SQL and extract the resulting product ids.
      *
      * @param string sql Some SQL.
+     * @param array args Optional query args; default is an empty array.
+     * @param mixed tables Optional list of mapping table(s); default is <code>TABLE_PRODUCTS</code>.
      * @return array A list of product ids.
      */
-    private function getProductIds($sql) {
+    private function getProductIds($sql, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
             $productId = $result['id'];
             $productIds[] = $productId;
         }
@@ -567,11 +564,13 @@ class ZMProducts extends ZMObject {
      *
      * @param string sql Some SQL.
      * @param int max The maximum number of results; default is <em>0</em> for all.
+     * @param array args Optional query args; default is an empty array.
+     * @param mixed tables Optional list of mapping table(s); default is <code>TABLE_PRODUCTS</code>.
      * @return array A list of product ids.
      */
-    private function getRandomProductIds($sql, $max=0) {
+    private function getRandomProductIds($sql, $max=0, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
             $productId = $result['id'];
             $productIds[$productId] = $productId;
         }
