@@ -29,6 +29,7 @@
     $zm_server_names = array('' => '');
 
     // include the actual config
+    global $zm_server_names;
     if (file_exists(ZM_FILE_SITE_SWITCHER)) {
        include(ZM_FILE_SITE_SWITCHER);
     }
