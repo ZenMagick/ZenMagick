@@ -73,11 +73,28 @@ class TestsController extends ZMController {
         $tests = array();
         foreach ($testsLoader->getClassPath() as $class => $file) {
             if (ZMTools::startsWith($class, 'Test')) {
-                $tests[] = $class;
+                $tests[$class] = $file;
             }
         }
 
-        $this->exportGlobal('all_tests', $tests);
+        // group tests
+        $allTests = array();
+        foreach ($tests as $class => $file) {
+            $dir = $file;
+            $group = '@default';
+            do {
+                $dir = dirname($dir).'/';
+                if ($dir != $testBaseDir) {
+                    $group = basename($dir);
+                }
+            } while ($dir != $testBaseDir);
+            if (!array_key_exists($group, $allTests)) {
+                $allTests[$group] = array();
+            }
+            $allTests[$group][] = $class;
+        }
+
+        $this->exportGlobal('all_tests', $allTests);
 
         $run = ZMRequest::getParameter('tests', array());
         $this->exportGlobal('all_selected_tests', $run);
