@@ -98,7 +98,7 @@ class TestZMProducts extends UnitTestCase {
      */
     public function testNewProductsHome() {
         $products = ZMProducts::instance()->getNewProducts();
-        $this->assertEqual(124, count($products));
+        $this->assertEqual(125, count($products));
     }
 
     /**
@@ -118,7 +118,7 @@ class TestZMProducts extends UnitTestCase {
      */
     public function testBestsellerProductsHome() {
         $products = ZMProducts::instance()->getBestSellers(null, 999);
-        $this->assertEqual(52, count($products));
+        $this->assertEqual(51, count($products));
     }
 
     /**
