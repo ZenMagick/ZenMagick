@@ -86,7 +86,7 @@ class TestsController extends ZMController {
             foreach ($run as $name) {
                 $testCase = ZMLoader::make($name);
                 if ($testCase instanceof UnitTestCase) {
-                    $suite->addTestCase($testCase);
+                    $suite->addTestClass($name);
                 }
             }
             $this->exportGlobal('test_suite', $suite);
