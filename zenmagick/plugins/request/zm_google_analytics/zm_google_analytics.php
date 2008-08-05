@@ -48,7 +48,7 @@ class zm_google_analytics extends ZMPlugin {
      */
     public function __construct() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
-        $this->setKeys(array('uacct', 'affiliation',/*'target', */ 'identifier', "debug"));
+        $this->setKeys(array('uacct', 'affiliation', 'conversionId', 'conversionLang', 'identifier', 'usePagename', 'address', 'debug'));
         $this->eol_ = "\n";
     }
 
@@ -66,18 +66,24 @@ class zm_google_analytics extends ZMPlugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Google Analytics Account', 'uacct', 'UA-XXXXXX-X', 'Your Google Analytics account number');
-        $this->addConfigValue('Google Analytics Account', 'affiliation', '', 'Optional partner or store affiliation');
-        /*
-        $this->addConfigValue('Target Address', 'target', 'customers',
-            'Which order adress (City/State/Country) should be used to correlate the transaction with?',
-            'zen_cfg_select_option(array(\'Customer\', \'Delivery\', \'Billing\'),');
-         */
-        $this->addConfigValue('Configure product identifier', 'identifier', 'ProductId', 'Select whether to use productId or model to identify products',
+        $this->addConfigValue('Account', 'uacct', 'UA-XXXXXX-X', 'Your Google Analytics account number');
+
+        $this->addConfigValue('Store affiliation', 'affiliation', '', 'Optional partner or store affiliation');
+
+        $this->addConfigValue('AdWords Conversion id', 'conversionId', '', 'Optional AdWords conversion id (leave empty to ignore)');
+        $this->addConfigValue('AdWords Conversion language', 'conversionLang', 'en_US', 'Optional AdWords conversion language');
+
+        $this->addConfigValue('Product identifier', 'identifier', 'ProductId', 'Select whether to use productId or model to identify products',
            'zen_cfg_select_option(array(\'ProductId\', \'Model\'),');
 
-        $this->addConfigValue('Debug', "debug", 'Disabled', 'Generate code, but make inactive.',
-          'zen_cfg_select_option(array(\''.'Enabled'.'\', \''.'Disabled'.'\'), ');
+        $this->addConfigValue('Track pagenames', 'usePagename', 'true', 'Select whether to use pagenames to track individual URLs',
+           'zen_cfg_select_option(array(\'true\', \'false\'),');
+
+        $this->addConfigValue('Transaction Address', 'address', 'shipping', 'Select which address to use for transaction (order) logging',
+           'zen_cfg_select_option(array(\'shipping\', \'billing\'),');
+
+        $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
+          'zen_cfg_select_option(array(\''.'true'.'\', \''.'false'.'\'), ');
     }
 
 
@@ -96,14 +102,13 @@ class zm_google_analytics extends ZMPlugin {
             $checkoutCode = $this->getCheckoutCodeGa();
         }
         $code = !empty($checkoutCode) ? $checkoutCode : $trackerCode;
-        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
-    }
+        $code .= $this->getConversionCode();
 
-    /**
-     * Check for debug flag.
-     */
-    public function isDebug() {
-        return 'Enabled' == $this->get('debug');
+        if (ZMTools::asBoolean($this->get('debug'))) {
+            $code = str_replace('script', 'debug-script', $code);
+        }
+
+        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
     }
 
     /**
@@ -121,12 +126,29 @@ class zm_google_analytics extends ZMPlugin {
         $code = '<script src="' . $url . '" type="text/javascript"></script>' . $this->eol_;
         $code .= '<script type="text/javascript">';
         $code .= '_uacct = "' . $this->get('uacct') . '";';
-        if ($this->isDebug()) {
-            $code .= '//';
-        }
         $code .= 'urchinTracker(); </script>' . $this->eol_;
 
         return $code;
+    }
+
+    /**
+     * Get the address object to be used for order logging.
+     *
+     * @return mixed Either a <code>ZMAddress</code> or <code>ZMAccound</code> instance.
+     */
+    protected function getAddress($order) {
+        $address = $order->hasShippingAddress() ? $order->getShippingAddress() : $order->getBillingAddress();
+        switch ($this->get('address')) {
+        case 'shipping':
+            if ($order->hasShippingAddress()) {
+                $address = $order->getShippingAddress();
+            }
+            break;
+        case 'billing':
+            $address = $order->getBillingAddress();
+            break;
+        }
+        return $address;
     }
 
     /**
@@ -141,7 +163,7 @@ class zm_google_analytics extends ZMPlugin {
             return '';
         }
 
-        $address = $zm_order->hasShippingAddress() ? $zm_order->getShippingAddress() : $zm_order->getBillingAddress();
+        $address = $this->getAddress($zm_order);
         $country = $address->getCountry();
         // totals
         $total = $zm_order->getOrderTotal('total', true);
@@ -166,12 +188,36 @@ class zm_google_analytics extends ZMPlugin {
 
         $code .= '</textarea></form>' . $this->eol_;
         $code .= '<script type="text/javascript">';
-        if ($this->isDebug()) {
-            $code .= '//';
-        }
         $code .= '__utmSetTrans();</script>' . $this->eol_;
         
         return $code;
+    }
+
+    /**
+     * Generate usable pageview identifiers.
+     *
+     * @return string A string.
+     */
+    protected function getPageview() {
+        $view = '';
+        if (ZMTools::asBoolean($this->get('usePagename'))) {
+            $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
+            $view = ZMRequest::getPageName();
+            foreach ($args as $name) {
+                $attr = '[';
+                if (null != ($value = ZMRequest::getParameter($name))) {
+                    if ('[' != $attr) {
+                        $attr .= ',';
+                    }
+                    $attr .= $name.'='.$value;
+                }
+                $attr .= ']';
+            }
+            if ('[]' != $attr) {
+                $view .= $attr;
+            }
+        }
+        return $view;
     }
 
     /**
@@ -181,6 +227,7 @@ class zm_google_analytics extends ZMPlugin {
      */
     protected function getTrackerCodeGa() {
         $tracker = $this->get('uacct');
+        $pageview = $this->getPageview();
 
         $code = <<<EOT
 <script type="text/javascript">
@@ -190,13 +237,10 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("$tracker");
 pageTracker._initData();
-pageTracker._trackPageview();
+pageTracker._trackPageview("$pageview");
 </script>
 EOT;
 
-        if ($this->isDebug()) {
-            $code = '<!-- DEBUG: '.$code.' -->';
-        }
         return $code;
     }
 
@@ -213,10 +257,11 @@ EOT;
         }
 
         $tracker = $this->get('uacct');
+        $pageview = $this->getPageview();
         $affiliation = $this->get('affiliation');
 
         // order
-        $address = $zm_order->hasShippingAddress() ? $zm_order->getShippingAddress() : $zm_order->getBillingAddress();
+        $address = $this->getAddress($zm_order);
         $city = $address->getCity();
         $state = $address->getState();
         $country = $address->getCountry();
@@ -242,7 +287,7 @@ document.write(unescape("%3Cscript src='" + gaJsHost +
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("$tracker");
 pageTracker._initData();
-pageTracker._trackPageview();
+pageTracker._trackPageview("$pageview");
 pageTracker._addTrans(
 "${orderId}", // order ID - required
 "${affiliation}", // affiliation or store name
@@ -278,8 +323,41 @@ pageTracker._trackTrans();
 </script>
 EOT;
 
-        if ($this->isDebug()) {
-            $code = '<!-- DEBUG: '.$code.' -->';
+        return $code;
+    }
+
+    protected function getConversionCode() {
+    global $zm_order;
+
+        $code = '';
+        if ('checkout_success' == ZMRequest::getPageName()) {
+            $conversionId = $this->get('conversionId');
+            if (!empty($conversionId)) {
+                if (ZMRequest::isSecure()) {
+                    $baseUrl = "https://www.googleadservices.com/pagead";
+                } else {
+                    $baseUrl = "http://www.googleadservices.com/pagead";
+                }
+                $total = $zm_order->getOrderTotal('total', true);
+                if (0 >= $total) {
+                    $total = 1;
+                }
+                $totalValue = number_format($total->getAmount(), 2, '.', '');
+                $conversionLang = $this->get('conversionLang');
+                $code = <<<EOT
+<script type="text/javascript">
+var google_conversion_id = "$conversionId";
+var google_conversion_language = "$conversionLang";
+var google_conversion_format = "1";
+var google_conversion_color = "FFFFFF";
+var google_conversion_value = "$totalValue";
+var google_conversion_label = "Purchase";
+</script>
+<script type="text/javascript" src="$url/conversion.js">
+</script>
+<noscript><img height=1 width=1 border=0 src="$baseUrl/conversion$conversionId/?value=$totalValue&label=Purchase&script=0'; ?>" /></noscript>
+EOT;
+            }
         }
 
         return $code;

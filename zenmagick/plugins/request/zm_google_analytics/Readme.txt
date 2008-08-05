@@ -20,5 +20,7 @@ INSTALLAION
 * Install the plugin via the ZenMagick plugins admin page
 
 * Configure using your Google Analytics details.
+  NOTE: As per default the plugin is configured for debug; that means the code is not really active.
+  You'll have to change that once you are happy with the configuration.
 
 * Enjoy!

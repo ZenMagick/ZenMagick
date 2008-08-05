@@ -100,6 +100,7 @@ Release 0.9.2
 - start with exceptions (database)
 - allow to set arbitrary attributes on generated HTML; f:#2033441
 - fix zm_site_switch (missing global...)
+- extend zm_google_analytics
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
