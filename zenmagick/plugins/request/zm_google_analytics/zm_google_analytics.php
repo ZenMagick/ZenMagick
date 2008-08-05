@@ -105,7 +105,8 @@ class zm_google_analytics extends ZMPlugin {
         $code .= $this->getConversionCode();
 
         if (ZMTools::asBoolean($this->get('debug'))) {
-            $code = str_replace('script', 'debug-script', $code);
+            $code = str_replace('<script', '<!--script', $code);
+            $code = str_replace('</script>', '/script-->', $code);
         }
 
         return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
