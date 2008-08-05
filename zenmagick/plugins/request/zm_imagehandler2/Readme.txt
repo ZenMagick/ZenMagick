@@ -4,8 +4,8 @@ This is the ZenMagick plugin for ImageHandler2 support
 
 Installation
 ============
-1) Download, unpack and install ImageHandler2
-2) Unzip the plugin package into the zenmagick/plugins directory.
+1) Download, unpack and install the zen-cart ImageHandler2 mod.
+2) Unzip this plugin package into the zenmagick/plugins directory.
 3) Install plugin using the ZenMagick Plugin Manager.
 4) Configure ImageHandler2 options
 
