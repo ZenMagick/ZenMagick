@@ -55,7 +55,7 @@ class PopupView extends PageView {
      *
      * @return string The full view filename.
      */
-    function getViewFilename() {
+    public function getViewFilename() {
         return $this->_getViewFilename('popup');
     }
 
@@ -64,7 +64,7 @@ class PopupView extends PageView {
      *
      * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
      */
-    function isValid() {
+    public function isValid() {
         return file_exists($this->_getViewFilename('popup'));
     }
 

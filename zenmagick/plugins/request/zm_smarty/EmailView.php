@@ -62,7 +62,7 @@ class EmailView extends ZMEmailView {
      * return the generated content in order to be captured and passed into the actual mail
      * code.</p>
      */
-    function generate() {
+    public function generate() {
     global $zm_smarty;
 
         // first, check for file

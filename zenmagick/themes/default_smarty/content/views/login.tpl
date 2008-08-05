@@ -44,7 +44,7 @@
   <a href="{$zm->secure_href($smarty.const.FILENAME_CREATE_ACCOUNT)}">{$zm->l10n("Not registered yet?")}</a>
 </p>
 
-{if (ZMSettings::get('isGuestCheckout') && !$zm_cart->isEmpty())}
+{if ($zm->ZMSettings->get('isGuestCheckout') && !$zm_cart->isEmpty())}
   <h3>{$zm->l10n("Don't need an account?")}</h3>
   {$zm->secure_form($smarty.const.ZM_FILENAME_CHECKOUT_GUEST, "action=process", 'checkout_guest', 'post', 'return validate(this);')}
     <fieldset>

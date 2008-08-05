@@ -57,7 +57,7 @@ class ZMPageView extends ZMView {
      *
      * @return string The layout name or <code>null</code>.
      */
-    private function getLayout() {
+    protected function getLayout() {
         $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
         return $themeInfo->getLayoutFor($this->getName());
     }

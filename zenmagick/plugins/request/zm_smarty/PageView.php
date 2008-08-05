@@ -53,7 +53,7 @@ class PageView extends ZMPageView {
     /**
      * Generate view response.
      */
-    function generate() { 
+    public function generate() { 
     global $zm_smarty;
 
         // get smarty instance
