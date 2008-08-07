@@ -48,7 +48,6 @@ class zm_google_analytics extends ZMPlugin {
      */
     public function __construct() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
-        $this->setKeys(array('uacct', 'affiliation', 'conversionId', 'conversionLang', 'identifier', 'usePagename', 'address', 'debug'));
         $this->eol_ = "\n";
     }
 
