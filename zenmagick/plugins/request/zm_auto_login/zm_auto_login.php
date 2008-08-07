@@ -80,25 +80,11 @@ class zm_auto_login extends ZMPlugin {
                 if (null != ($account = ZMAccounts::instance()->getAccountForId($cookie[0]))) {
                     // TODO: use hash
                     if ($cookie[1] == $account->getPassword()) {
-                        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-                            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+                        if (!$session->registerAccount($account, $this)) {
                             return;
                         }
 
-                        // info only
-                        ZMEvents::instance()->fireEvent($this, ZM_EVENT_LOGIN_SUCCESS, array('controller' => $this, 'account' => $account));
-
-                        // update session with valid account
-                        $session->recreate();
-                        $session->setAccount($account);
-
-                        // update login stats
-                        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
-
-                        // restore cart contents
-                        $session->restoreCart();
-
-                        ZMRequest::redirect(ZMToolbox::instance()->net->url(null));
+                        ZMRequest::redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::isSecure()));
                     }
                 }
             }

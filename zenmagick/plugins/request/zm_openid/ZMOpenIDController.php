@@ -70,20 +70,10 @@ class ZMOpenIDController extends ZMController {
                 $session = ZMRequest::getSession();
                 if ($session->getValue('openid') == $info['openid']) {
                     $account = $this->plugin->getAccountForOpenID($info['openid']);
-                    if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-                        ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+
+                    if (!$session->registerAccount($account, $this)) {
                         return $this->findView('login');
                     }
-
-                    // as in ZMLoginController::processPost()
-                    $session->recreate();
-                    $session->setAccount($account);
-
-                    // update login stats
-                    ZMAccounts::instance()->updateAccountLoginStats($account->getId());
-
-                    // restore cart contents
-                    $session->restoreCart();
 
                     $followUpUrl = $session->getLoginFollowUp();
                     return $this->findView('success', array('url' => $followUpUrl));

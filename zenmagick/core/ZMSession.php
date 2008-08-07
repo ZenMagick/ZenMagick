@@ -350,6 +350,37 @@ class ZMSession extends ZMObject {
         return $_SESSION['securityToken'];
     }
 
+    /**
+     * Register an account as user for this session.
+     *
+     * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
+     *
+     * @param ZMAccount account The account.
+     * @param mixed source The event source.
+     * @return boolean <code>true</code> if ok, <code>false</code> if not.
+     */
+    public function registerAccount($account, $source) {
+        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+            return false;
+        }
+
+        // info only
+        ZMEvents::instance()->fireEvent($source, ZM_EVENT_LOGIN_SUCCESS, array('controller' => $source, 'account' => $account));
+
+        // update session with valid account
+        $this->recreate();
+        $this->setAccount($account);
+
+        // update login stats
+        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
+
+        // restore cart contents
+        $this->restoreCart();
+
+        return true;
+    }
+
 }
 
 ?>

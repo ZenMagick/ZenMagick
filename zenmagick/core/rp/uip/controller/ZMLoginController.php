@@ -55,7 +55,7 @@ class ZMLoginController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function process() { 
+    public function process() { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         return parent::process();
@@ -67,7 +67,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         $session = ZMRequest::getSession();
         if ($session->isRegistered()) {
             // can't get any better than this!
@@ -84,7 +84,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         $session = ZMRequest::getSession();
         if (!$session->isValid()) {
             return $this->findView('cookie_usage');
@@ -112,23 +112,9 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+        if (!$session->registerAccount($account, $this)) {
             return $this->findView();
         }
-
-        // info only
-        ZMEvents::instance()->fireEvent($this, ZM_EVENT_LOGIN_SUCCESS, array('controller' => $this, 'account' => $account));
-
-        // update session with valid account
-        $session->recreate();
-        $session->setAccount($account);
-
-        // update login stats
-        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
-
-        // restore cart contents
-        $session->restoreCart();
 
         $followUpUrl = $session->getLoginFollowUp();
         return $this->findView('success', array('url' => $followUpUrl));
