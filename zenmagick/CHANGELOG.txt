@@ -101,6 +101,7 @@ Release 0.9.2
 - allow to set arbitrary attributes on generated HTML; f:#2033441
 - fix zm_site_switch (missing global...)
 - extend zm_google_analytics
+- added auto_login plugin
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
