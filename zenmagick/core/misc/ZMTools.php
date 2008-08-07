@@ -327,6 +327,14 @@ class ZMTools {
 
         $components['yyyy'] = $components['cc'].$components['yy']; 
 
+        // ensure all components are digits only
+        foreach ($components as $key => $component) {
+            if (!ctype_digit($component)) {
+                $format = '%0'.strlen($component).'s';
+                $components[$key] = sprintf($format, '0');
+            }
+        }
+
         // make yyy first to avoid wrong replacements later on
         return array_reverse($components);
     }
