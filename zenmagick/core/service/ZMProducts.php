@@ -356,7 +356,7 @@ class ZMProducts extends ZMObject {
         $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
         $productIds = $this->getProductIds($sql, $args, $tables);
         if (count($productIds) > $max) {
-            $productIds = array_splice($productIds, $max);
+            $productIds = array_splice($productIds, 0, $max);
         }
         return $this->getProductsForIds($productIds, false, $languageId);
     }
