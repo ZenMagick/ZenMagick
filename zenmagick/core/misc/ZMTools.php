@@ -392,6 +392,52 @@ class ZMTools {
         return md5($key);
     }
 
+    /**
+     * Compare URLs.
+     *
+     * <p>This is defined only for URLs within the store.</p>
+     *
+     * @param string url1 The first URL to compare.
+     * @param string url2 Optional second URL; default is <code>null</code> to compare to the current URL.
+     * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
+     */
+    public static function compareStoreUrl($url1, $url2=null) {
+        $url1Token = parse_url($url1);
+        parse_str($url1Token['query'], $query1);
+
+        if (null != $url2) {
+            $url2Token = parse_url($url2);
+            parse_str($url2Token['query'], $query2);
+        } else {
+            parse_str(ZMRequest::getQueryString(), $query2);
+        }
+
+        $equal = $query1['main_page'] == $query2['main_page'];
+        // additional test for sub parameter
+        if ($equal) {
+            $subArgs = array(
+                'static' => array('cat'),
+                'page' => array('id'),
+                'index' => array('cPath', 'manufacturers_id'),
+                'category' => array('cPath', 'manufacturers_id'),
+                'products_info' => array('products_id'),
+                'account_history_info' => array('order_id'),
+                'product_reviews' => array('products_id'),
+                'product_reviews_info' => array('products_id', 'reviews_id')
+            );
+            if (isset($subArgs[$query1['main_page']])) {
+                foreach ($subArgs[$query1['main_page']] as $sub) {
+                    $equal = $query1[$sub] === $query2[$sub];
+                    if (!$equal) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return $equal;
+    }
+
 }
 
 ?>
