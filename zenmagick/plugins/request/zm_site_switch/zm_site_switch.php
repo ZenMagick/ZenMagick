@@ -23,8 +23,10 @@
 ?>
 <?php
 
-define('ZM_STORE_LOCAL_CONFIGURE', DIR_FS_CATALOG.'includes/local/configure.php');
-define('ZM_ADMIN_LOCAL_CONFIGURE', DIR_FS_ADMIN.'includes/local/configure.php');
+if (ZMSettings::get('isAdmin')) {
+    define('ZM_STORE_LOCAL_CONFIGURE', DIR_FS_CATALOG.'includes/local/configure.php');
+    define('ZM_ADMIN_LOCAL_CONFIGURE', DIR_FS_ADMIN.'includes/local/configure.php');
+}
 
 /**
  * Plugin that allows to switch themes based on the hostname.

@@ -429,9 +429,11 @@ class ZMTools {
             );
             if (isset($subArgs[$query1['main_page']])) {
                 foreach ($subArgs[$query1['main_page']] as $sub) {
-                    $equal = $query1[$sub] === $query2[$sub];
-                    if (!$equal) {
-                        return false;
+                    if (array_key_exists($sub, $query1) || array_key_exists($sub, $query2)) {
+                        $equal = array_key_exists($sub, $query1) && array_key_exists($sub, $query2) && $query1[$sub] === $query2[$sub];
+                        if (!$equal) {
+                            return false;
+                        }
                     }
                 }
             }

@@ -110,7 +110,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
                     array_push($patchedLines, $line);
                     if (false !== strpos($line, "function notify(")) {
                         // need to insert after the matched line
-                        array_push($patchedLines, '    if(class_exists(ZMEvents)) { ZMEvents::instance()->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
+                        array_push($patchedLines, '    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
                     }
                 }
 

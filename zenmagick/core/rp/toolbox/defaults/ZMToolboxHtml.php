@@ -209,7 +209,7 @@ class ZMToolboxHtml extends ZMObject {
         $html = '<a href="'.$toolbox->net->product($product->getId(), $categoryId, false).'"';
         foreach ($attr as $name => $value) {
             if (null !== $value) {
-                $link .= ' '.$name.'="'.$value.'"';
+                $html .= ' '.$name.'="'.$value.'"';
             }
         }
         $html .= '>'.$this->image($product->getImageInfo(), $format, '', false);
