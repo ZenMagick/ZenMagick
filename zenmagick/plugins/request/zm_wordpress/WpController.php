@@ -62,8 +62,9 @@ class WpController extends ZMController {
     function processGet() {
         $viewName = 'wp_index';
 
-        if (null != ZMRequest::getParameter('p')) {
+        if (null != ($p = ZMRequest::getParameter('p'))) {
             $viewName = 'wp_single';
+            $this->plugin->query_posts('p='.$p);
         } else if (null != ($pageId = ZMRequest::getParameter('page_id'))) {
             $viewName = 'wp_page';
             $this->plugin->query_posts('page_id='.$pageId);
