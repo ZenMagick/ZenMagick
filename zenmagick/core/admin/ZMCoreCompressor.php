@@ -42,6 +42,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
     function __construct() {
         parent::__construct(ZMRuntime::getZMRootPath().'core', ZMRuntime::getZMRootPath().'core.php', ZMRuntime::getZMRootPath());
         $this->pluginsPreparedFolder = ZMRuntime::getZMRootPath().'plugins.prepared';
+        $this->stripCode = ZMSettings::get('isStripCore');
     }
 
 
