@@ -411,6 +411,8 @@ class ZMTools {
         } else {
             parse_str(ZMRequest::getQueryString(), $query2);
         }
+        $query1['main_page'] = (isset($query1['main_page']) && !empty($query1['main_page'])) ? $query1['main_page'] : 'index';
+        $query2['main_page'] = (isset($query2['main_page']) && !empty($query2['main_page'])) ? $query2['main_page'] : 'index';
 
         $equal = $query1['main_page'] == $query2['main_page'];
         // additional test for sub parameter

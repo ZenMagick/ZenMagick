@@ -25,6 +25,14 @@ class TestCompareUrls extends UnitTestCase {
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=static&cat=foo', 'http://localhost/index.php?main_page=static&cat=foo'));
     }
 
+    /**
+     * Test incomplete.
+     */
+    public function testIncomplete() {
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?main_page=index'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=', 'index.php?main_page=index'));
+    }
+
 }
 
 ?>
