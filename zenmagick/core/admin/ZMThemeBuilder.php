@@ -125,7 +125,7 @@ class ZMThemeBuilder extends ZMObject {
         $group = filegroup(ZMRuntime::getZMRootPath().'init.php');
         foreach (array_reverse($this->fsLog_) as $file) {
             @chgrp($file, $group);
-            @chown  ($file, $owner);
+            @chown($file, $owner);
         }
 
         array_push($this->messages_, 'Successfully created new theme "' . $this->name_ . '".');

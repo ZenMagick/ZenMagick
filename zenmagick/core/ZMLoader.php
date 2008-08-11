@@ -331,8 +331,9 @@ class ZMLoader {
 
         $handle = @opendir($dir);
         while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file)
+            if ("." == $file || ".." == $file) {
                 continue;
+            }
             $file = $dir.$file;
             if (is_dir($file)) {
                 $dirs[] = $file;

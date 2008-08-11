@@ -33,6 +33,8 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
  * @version $Id$
  */
 class ZMTools {
+    private static $fileOwner = null;
+    private static $fileGroup = null;
 
     /**
      * Convert a UI date into the internal data format.
@@ -440,6 +442,52 @@ class ZMTools {
         }
 
         return $equal;
+    }
+
+    /**
+     * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
+     *
+     * <p>
+     * @param mixed files Either a single filename or list of files.
+     * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
+     * @param array perms Optional file permissions; defaults are to use <em>755</em> for folder, <em>644</em> for files.
+     */
+    public static function setFilePerms($files, $recursive=false, $perms=array()) {
+        if (null == self::$fileOwner || null == self::$fileGroup) {
+            clearstatcache();
+            $referenceFile = ZMRuntime::getZMRootPath().'init.php';
+            self::$fileOwner = fileowner($referenceFile);
+            self::$fileGroup = filegroup($referenceFile);
+        }
+
+        if (!is_array($files)) {
+            $files = array($files);
+        }
+        $filePerms = array_merge(array('file' => 0644, 'folder' => 0755), $perms);
+
+        foreach ($files as $file) {
+            @chgrp($file, self::$fileOwner);
+            @chown($file, self::$fileGroup);
+            $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
+            @chmod($file, octdec($mode));
+
+            if (is_dir($file) && $recursive) {
+                $dir = $file;
+                if (!self::endsWith($dir, '/')) {
+                    $dir .= '/';
+                }
+                $subfiles = array();
+                $handle = @opendir($dir);
+                while (false !== ($file = readdir($handle))) { 
+                    if ("." == $file || ".." == $file) {
+                        continue;
+                    }
+                    $subfiles[] = $dir.$file;
+                }
+                @closedir($handle);
+                self::setFilePerms($subfiles, $recursive, $perms);
+            }
+        }
     }
 
 }
