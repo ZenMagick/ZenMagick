@@ -10,12 +10,6 @@
 class TestDateHandling extends UnitTestCase {
 
     /**
-     * Load expected prices.
-     */
-    public function setUp() {
-    }
-
-    /**
      * Test parsing.
      */
     public function testParser() {

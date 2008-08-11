@@ -1,4 +1,11 @@
 <?php
+/**
+ * Storefront testing.
+ *
+ * @package org.zenmagick.plugins.zm_tests.tests
+ * @author DerManoMann
+ * @version $Id$
+ */
 
 class TestBrowsing extends WebTestCase {
     protected $secure = false;
