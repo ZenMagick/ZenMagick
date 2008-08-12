@@ -162,6 +162,7 @@
     //** account authentication **//
 
     define('ZM_ACCOUNT_AUTHORIZATION_ENABLED', 0);
+    define('ZM_ACCOUNT_AUTHORIZATION_PENDING', 1);
     define('ZM_ACCOUNT_AUTHORIZATION_BLOCKED', 4);
 
 

@@ -141,6 +141,7 @@
                 <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
                 <include name="includes/init_includes/overrides/init_templates.php" />
                 <include name="includes/init_includes/overrides/init_languages.php" />
+                <include name="includes/init_includes/overrides/init_authorization.php" />
             </fileset>
         </copy>
 
