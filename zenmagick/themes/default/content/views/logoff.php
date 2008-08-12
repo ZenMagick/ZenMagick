@@ -24,6 +24,6 @@
  */
 ?>
 
-<p>You have been logged off your account. It is now safe to leave the computer.</p>
-<p>Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.</p>
+<p><?php zm_l10n('You have been logged off your account. It is now safe to leave the computer.') ?></p>
+<p><?php zm_l10n('Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.') ?></p>
 <?php zm_back_link(zm_l10n_get("continue")) ?>

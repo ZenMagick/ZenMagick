@@ -138,7 +138,7 @@ class zm_geo_ip extends ZMPlugin {
             $result->set('code3', $code3);
             $result->set('regionCode', $region);
             $result->set('region', $GEOIP_REGION_NAME[$code3][$region]);
-        } else if(!empty($this->get('licenceKey')) {
+        } else if (!ZMTools::isEmpty($this->get('licenceKey'))) {
             $str = getdnsattributes($this->get('licenceKey'), $ip);
             $r = getrecordwithdnsservice($str);
             $result->set('countryCode', $r->country_code);
