@@ -131,7 +131,7 @@ class ZMProducts extends ZMObject {
             $args = array('languageId' => $languageId);
             $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
             foreach ($results as $result) {
-                $cId = $mainKey.$result['categoryId'];
+                $cId = $result['categoryId'];
                 if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
                     $this->categoryProductMap_[$mainKey][$cId] = array();
                 }
