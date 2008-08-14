@@ -220,8 +220,8 @@ class ZMShoppingCart extends ZMObject {
             }
             $attributeValue = ZMLoader::make("AttributeValue", $type, $value);
 
-            $attributeValue->pricePrefix_ = $results->fields['options_values_price'];
-            $attributeValue->price_ = $results->fields['options_values_price'];
+            $attributeValue->setPricePrefix($results->fields['options_values_price']);
+            $attributeValue->setValuePrice($results->fields['options_values_price']);
             $$atname->addValue($attributeValue);
         }
         $attributes = array();
