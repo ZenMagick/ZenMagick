@@ -34,6 +34,7 @@
 class TestsController extends ZMController {
     private $plugin;
 
+
     /**
      * Create new instance.
      */
@@ -81,7 +82,7 @@ class TestsController extends ZMController {
         $allTests = array();
         foreach ($tests as $class => $file) {
             $dir = $file;
-            $group = '@default';
+            $group = ZM_TESTS_GROUP_DEFAULT;
             do {
                 $dir = dirname($dir).'/';
                 if ($dir != $testBaseDir) {
@@ -93,6 +94,9 @@ class TestsController extends ZMController {
             }
             $allTests[$group][] = $class;
         }
+
+        // merge in all custom registered tests
+        $allTests = array_merge($allTests, $this->plugin->getTests());
 
         $this->exportGlobal('all_tests', $allTests);
 

@@ -23,6 +23,11 @@
 ?>
 <?php
 
+
+define('ZM_TESTS_GROUP_DEFAULT', '@default');
+define('ZM_TESTS_GROUP_OTHER', '@other');
+
+
 /**
  * Unit testing.
  *
@@ -31,6 +36,7 @@
  * @version $Id$
  */
 class zm_tests extends ZMPlugin {
+    private $tests;
 
     /**
      * Create new instance.
@@ -38,6 +44,7 @@ class zm_tests extends ZMPlugin {
     function __construct() {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
         $this->setLoaderSupport('FOLDER');
+        $this->tests = array();
     }
 
     /**
@@ -60,6 +67,29 @@ class zm_tests extends ZMPlugin {
 
         ZMUrlMapper::instance()->setMapping(null, 'tests', 'tests', 'PluginView', array('plugin' => $this, 'subdir' => 'views'));
     }
+
+    /**
+     * Add test.
+     *
+     * @param string clazz The test class name.
+     * @param string group Optional group name; default is <code>ZM_TESTS_GROUP_OTHER</code>.
+     */
+    public function addTest($clazz, $group=ZM_TESTS_GROUP_OTHER) {
+        if (!array_key_exists($group, $this->tests)) {
+            $this->tests[$group] = array();
+        }
+        $this->tests[$group][] = $clazz;
+    }
+
+    /**
+     * Get other tests.
+     *
+     * @return array List of other tests.
+     */
+    public function getTests() {
+        return $this->tests;
+    }
+
 
 }
 
