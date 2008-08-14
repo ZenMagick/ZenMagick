@@ -40,7 +40,7 @@ class zm_geo_ip extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Geo IP mapping', 'Allow to resolve a users IP address to a geographic location', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderSupport('FOLDER');
         $this->gi = null;
         $this->type = null;
     }
@@ -88,6 +88,13 @@ class zm_geo_ip extends ZMPlugin {
             }
             $this->gi = geoip_open($database, $flags);
         }
+
+        // register tests
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+            // add class path only now to avoid errors due to missing UnitTestCase
+            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            $tests->addTest('TestGeoIP');
+        }
     }
 
     /**
@@ -112,7 +119,6 @@ class zm_geo_ip extends ZMPlugin {
         if (!$this->isEnabled() || null === $this->gi) {
             return null;
         }
-        echo 'trying...'.$this->type."<BR>";
 
         //TODO: make type detection smarter
         $result = ZMLoader::make('ZMModel');
