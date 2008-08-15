@@ -33,6 +33,8 @@ define('FILENAME_WP', 'wp');
  * @version $Id$
  */
 class zm_wordpress extends ZMPlugin {
+    private $requestHandler;
+
 
     /**
      * Create new instance.
@@ -40,6 +42,7 @@ class zm_wordpress extends ZMPlugin {
     function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('FOLDER');
+        $this->requestHandler = null;
     }
 
     /**
@@ -56,7 +59,7 @@ class zm_wordpress extends ZMPlugin {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation');
-        $this->addConfigValue('WP enabled pages', 'wordpressEnabled', 'wp', 'Comma separated list of pages that can display WP content (leave empty for all).');
+        $this->addConfigValue('WP enabled pages', 'wordpressEnabled', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
     }
 
     /**
@@ -64,23 +67,47 @@ class zm_wordpress extends ZMPlugin {
      */
     public function init() {
         parent::init();
+
+        if ($this->isEnabled()) {
+            $this->zcoSubscribe();
+        }
+
         // use API
         define('WP_USE_THEMES', false);
 
         // set up view mappings used by the wp controller
         $view = 'PageView';
-        $parameter = 'subdir=wp';
+        $parameter = 'subdir='.FILENAME_WP;
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
             $view = 'PluginView';
-            $parameter = array('plugin' => $this, 'subdir' => 'wp');
+            $parameter = array('plugin' => $this, 'subdir' => FILENAME_WP);
         }
 
-        ZMUrlMapper::instance()->setMapping(null, 'wp_index', 'index', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, 'wp_single', 'single', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, 'wp_page', 'page', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, 'wp_archive', 'archive', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, 'wp_archives', 'archives', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, 'wp_search', 'search', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_index', 'index', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_single', 'single', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_page', 'page', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_archive', 'archive', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_archives', 'archives', $view, $parameter);
+        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_search', 'search', $view, $parameter);
+    }
+
+    /**
+     * Handle init done event.
+     *
+     * <p>Code in here can't be executed in <code>init()</code>, as it depends on the global
+     * WP stuff being loaded first.</p>
+     *
+     * @param array args Optional event args.
+     */
+    public function onZMInitDone($args=null) {
+        // create single request handler
+        $this->requestHandler = ZMLoader::make('WpRequestHandler', $this);
+        $wordpressEnabled = $this->get('wordpressEnabled');
+        if (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+            // need to do this on all enabled pages, not just wp
+            $this->requestHandler->handleRequest();
+            $this->requestHandler->register();
+        }
     }
 
 
@@ -91,7 +118,7 @@ class zm_wordpress extends ZMPlugin {
      * @return string The modified contents.
      */
     function filterResponse($contents) {
-        if ('wp' == ZMRequest::getPageName()) {
+        if (FILENAME_WP == ZMRequest::getPageName()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
@@ -123,6 +150,15 @@ class zm_wordpress extends ZMPlugin {
 
         $wpdb->select(DB_NAME);
         query_posts($query);
+    }
+
+    /**
+     * Get the request handler.
+     *
+     * @return WpRequestHandler The single request handler for this request.
+     */
+    public function getRequestHandler() {
+        return $this->requestHandler;
     }
 
 }

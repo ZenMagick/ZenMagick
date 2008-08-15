@@ -60,60 +60,8 @@ class WpController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-        $viewName = 'wp_index';
-
-        if (null != ($p = ZMRequest::getParameter('p'))) {
-            $viewName = 'wp_single';
-            $this->plugin->query_posts('p='.$p);
-        } else if (null != ($pageId = ZMRequest::getParameter('page_id'))) {
-            $viewName = 'wp_page';
-            $this->plugin->query_posts('page_id='.$pageId);
-        } else if (null != ($cat = ZMRequest::getParameter('cat'))) {
-            $viewName = 'wp_archive';
-            $this->plugin->query_posts('cat='.$cat);
-        } else if (null != ($m = ZMRequest::getParameter('m'))) {
-            $viewName = 'wp_archive';
-            $this->plugin->query_posts('m='.$m);
-        } else if (null != ($s = ZMRequest::getParameter('s'))) {
-            $viewName = 'wp_search';
-            $this->plugin->query_posts('s='.$s);
-        } else if (null != ($tag = ZMRequest::getParameter('tag'))) {
-            $viewName = 'wp_archive';
-            $this->plugin->query_posts('tag='.$tag);
-        }
-
-        if ('wp_index' == $viewName) {
-            $this->plugin->query_posts();
-        }
-
-        add_filter('tag_link', array($this, 'link_filter'));
-        add_filter('post_link', array($this, 'link_filter'));
-        add_filter('page_link', array($this, 'link_filter'));
-        add_filter('category_link', array($this, 'link_filter'));
-        add_filter('month_link', array($this, 'link_filter'));
-        add_filter('comments_template', array($this, 'comments_template_filter'));
-        add_filter('search_template', array($this, 'link_filter'));
-
+        $viewName = $this->plugin->getRequestHandler()->handleRequest();
         return $this->findView($viewName);
-    }
-
-    /**
-     * WP filter to adjust links.
-     */
-    public function link_filter($arg) {
-        $urlToken = parse_url($arg);
-        return ZMToolbox::instance()->net->url(FILENAME_WP, $urlToken['query'], false, false);
-    }
-
-    /**
-     * WP filter to adjust comments include.
-     */
-    public function comments_template_filter($arg) {
-        if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
-            return $this->plugin->getPluginDir().'wp/comments.php';
-          } else {
-            return ZMRuntime::getTheme()->themeFile('views/wp/comments.php');
-          }
     }
 
 }
