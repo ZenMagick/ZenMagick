@@ -27,7 +27,7 @@
 /**
  * Filter products by a single category.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist.filter
  * @version $Id$
  */

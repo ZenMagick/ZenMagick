@@ -27,7 +27,7 @@
 /**
  * Single installation patch.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation
  * @version $Id$
  */

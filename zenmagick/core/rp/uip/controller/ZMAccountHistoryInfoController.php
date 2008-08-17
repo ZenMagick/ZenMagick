@@ -27,7 +27,7 @@
 /**
  * Request controller for account history info page.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

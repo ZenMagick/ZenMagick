@@ -27,7 +27,7 @@
  * Sample plugin to illustrate a few key points of the ZenMagick plugin architecture.
  *
  * @package org.zenmagick.plugins
- * @author mano
+ * @author DerManoMann
  * @version $Id$
  */
 class sample_plugin extends ZMPlugin {

@@ -27,7 +27,7 @@
 /**
  * Request controller for product details.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

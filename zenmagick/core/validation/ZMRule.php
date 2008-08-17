@@ -27,7 +27,7 @@
 /**
  * Base class for validation rules.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation
  * @version $Id$
  */

@@ -29,7 +29,7 @@
  *
  * <p>The content is either a full page or a layout using the page specified in the request.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * Request controller for gv redeem page.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

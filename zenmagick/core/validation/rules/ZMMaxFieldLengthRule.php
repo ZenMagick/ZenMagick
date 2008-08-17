@@ -27,7 +27,7 @@
 /**
  * Max field length validation rule based on the database column length.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules
  * @version $Id$
  */

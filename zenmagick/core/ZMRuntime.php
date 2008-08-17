@@ -28,7 +28,7 @@
  * A central place for all runtime stuff.
  *
  * <p>This is kind of the <em>application context</em>.</p>
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

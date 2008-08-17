@@ -29,7 +29,7 @@
  *
  * <p>This will forward the request to the given controller without a redirect.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */

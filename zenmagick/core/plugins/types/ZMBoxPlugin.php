@@ -29,7 +29,7 @@ define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
 /**
  * (Side-)box plugin.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.plugins.types
  * @version $Id$
  */

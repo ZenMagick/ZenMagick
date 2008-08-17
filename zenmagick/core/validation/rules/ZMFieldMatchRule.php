@@ -29,7 +29,7 @@
  *
  * <p>This is mostly to match new and confirm password.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules
  * @version $Id$
  */

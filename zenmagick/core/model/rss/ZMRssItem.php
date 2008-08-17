@@ -30,7 +30,7 @@
  *
  * <p>ZenMagick wrapper around <code>lastRSS</code>.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.rss
  * @version $Id$
  */

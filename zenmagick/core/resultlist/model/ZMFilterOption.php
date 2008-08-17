@@ -27,7 +27,7 @@
 /**
  * A single filter option.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist.model
  * @version $Id$
  */

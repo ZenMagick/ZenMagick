@@ -27,7 +27,7 @@
 /**
  * SQL/database utils.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.database
  * @version $Id$
  */

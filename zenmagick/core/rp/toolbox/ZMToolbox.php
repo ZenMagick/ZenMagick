@@ -27,7 +27,7 @@
 /**
  * Container for template related utilities.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.toolbox
  * @version $Id$
  */

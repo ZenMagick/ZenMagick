@@ -27,7 +27,7 @@
 /**
  * Simple id/name container.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

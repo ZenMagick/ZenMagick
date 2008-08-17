@@ -27,7 +27,7 @@
 /**
  * A central place for all request/session stuff.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
  */

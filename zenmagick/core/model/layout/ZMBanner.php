@@ -27,7 +27,7 @@
 /**
  * A single banner.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.layout
  * @version $Id$
  */

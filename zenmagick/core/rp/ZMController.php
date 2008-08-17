@@ -27,7 +27,7 @@
 /**
  * Request controller base class.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
  */

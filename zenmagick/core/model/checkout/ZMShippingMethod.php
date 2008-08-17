@@ -27,7 +27,7 @@
 /**
  * Shipping method.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */

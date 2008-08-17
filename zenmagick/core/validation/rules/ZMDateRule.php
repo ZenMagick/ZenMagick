@@ -27,7 +27,7 @@
 /**
  * Date validation rule.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules
  * @version $Id$
  */

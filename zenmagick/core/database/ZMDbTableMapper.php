@@ -63,7 +63,7 @@
  *  <dd>Indicates that this column is an auto-increment column, so new model instances will be updated with the new value on create.</dd>
  * </dl>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.database
  * @version $Id$
  */

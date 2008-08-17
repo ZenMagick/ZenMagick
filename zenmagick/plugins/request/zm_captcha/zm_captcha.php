@@ -30,7 +30,7 @@ define('ZM_CAPTCHA_FIELD', 'captcha');
  * Plugin to enable support for CAPTCHA in ZenMagick.
  *
  * @package org.zenmagick.plugins.zm_captcha
- * @author mano
+ * @author DerManoMann
  * @version $Id$
  */
 class zm_captcha extends ZMPlugin {

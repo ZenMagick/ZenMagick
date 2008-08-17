@@ -37,7 +37,7 @@
  *  <li><code>msg</code> (this is the default if no type specified)</li>
  * </ul>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
  */

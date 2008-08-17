@@ -28,7 +28,7 @@
 /**
  * Product sorter.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist.sorter
  * @version $Id$
  */

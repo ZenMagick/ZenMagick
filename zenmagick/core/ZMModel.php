@@ -30,7 +30,7 @@
  * <p>This class provides generic support for properties via <code>get($name)</code>, <code>set($name, $value)</code>
  * and, for PHP5, via the corresponding methods <code>__get($name)</code> and <code>__set($name,$value)</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

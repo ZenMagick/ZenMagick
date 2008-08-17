@@ -27,7 +27,7 @@
 /**
  * Ajax controller for JSON catalog data.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.ajax.controller
  * @version $Id$
  */

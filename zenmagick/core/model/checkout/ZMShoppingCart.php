@@ -28,7 +28,7 @@
  * Shopping cart.
  * <p>This is assuming a properly configured zen cart.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * Redirect view.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */

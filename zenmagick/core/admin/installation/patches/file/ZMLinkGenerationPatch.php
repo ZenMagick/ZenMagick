@@ -28,7 +28,7 @@ define('_ZM_ZEN_FUNCTIONS_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'html_outpu
 /**
  * Patch to enable replace zen_href_link to allow full pretty link support.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */

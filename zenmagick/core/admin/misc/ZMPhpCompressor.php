@@ -47,7 +47,7 @@ if (!defined('T_ML_COMMENT')) {
  *
  * <p>Depends on <code>ZMLoader</code> and <code>ZMTools</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin
  * @version $Id$
  */

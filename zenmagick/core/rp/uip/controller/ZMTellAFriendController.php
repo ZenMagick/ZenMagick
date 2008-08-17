@@ -27,7 +27,7 @@
 /**
  * Request controller for tell a friend form.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

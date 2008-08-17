@@ -27,7 +27,7 @@
 /**
  * Min max length validation rules.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules
  * @version $Id$
  */

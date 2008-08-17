@@ -29,7 +29,7 @@
  * <p>If a <code>parent</code> is set, configuration, layout and a few other settings 
  * will be merged.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.themes
  * @version $Id$
  */

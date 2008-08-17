@@ -27,7 +27,7 @@
 /**
  * A single payment type including all required information and settings.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
  */

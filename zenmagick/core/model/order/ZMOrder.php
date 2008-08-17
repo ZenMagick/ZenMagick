@@ -27,7 +27,7 @@
 /**
  * A single order.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.order
  * @version $Id$
  */

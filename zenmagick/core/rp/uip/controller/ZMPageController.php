@@ -27,7 +27,7 @@
 /**
  * Request controller for ez-pages.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

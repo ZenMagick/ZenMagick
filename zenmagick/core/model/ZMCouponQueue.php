@@ -27,7 +27,7 @@
 /**
  * A single coupon queue entry.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

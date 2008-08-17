@@ -28,7 +28,7 @@
 /**
  * A RSS feed.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.rss
  * @version $Id$
  */

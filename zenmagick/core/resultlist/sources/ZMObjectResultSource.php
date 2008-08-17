@@ -27,7 +27,7 @@
 /**
  * A result source based on calling a method on an object.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist
  * @version $Id$
  */

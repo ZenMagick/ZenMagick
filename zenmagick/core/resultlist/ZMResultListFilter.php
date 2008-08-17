@@ -27,7 +27,7 @@
 /**
  * Base result list filter.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist
  * @version $Id$
  */

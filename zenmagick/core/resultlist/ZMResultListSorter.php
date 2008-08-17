@@ -27,7 +27,7 @@
 /**
  * Base result list sorter.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist
  * @version $Id$
  */

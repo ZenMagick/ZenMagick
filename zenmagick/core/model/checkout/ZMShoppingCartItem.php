@@ -27,7 +27,7 @@
 /**
  * A single shopping cart item.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */

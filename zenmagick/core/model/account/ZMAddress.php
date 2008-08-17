@@ -30,7 +30,7 @@
  * <p>An address can have either a zoneId or a state; state is the manually entered
  * value and zoneId is the state selected from a dropdown.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.account
  * @version $Id$
  */

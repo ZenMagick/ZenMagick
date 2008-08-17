@@ -27,7 +27,7 @@
 /**
  * Request controller for checkout billing address change page.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

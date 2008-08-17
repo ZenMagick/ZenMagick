@@ -27,7 +27,7 @@
 /**
  * Request controller for checkout shipping address change page.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

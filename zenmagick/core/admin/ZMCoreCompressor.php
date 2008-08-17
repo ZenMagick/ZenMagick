@@ -27,7 +27,7 @@
 /**
  * Compress core into a single file 'core.php'.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin
  * @version $Id$
  */

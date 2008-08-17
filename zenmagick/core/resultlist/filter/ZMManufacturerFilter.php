@@ -27,7 +27,7 @@
 /**
  * Filter products by manufacturer.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist.filter
  * @version $Id$
  */

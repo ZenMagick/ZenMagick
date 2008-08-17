@@ -27,7 +27,7 @@
 /**
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */

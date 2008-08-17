@@ -37,7 +37,7 @@ define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
  *
  * <p>A generic, lightweight database layer.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.database
  * @version $Id$
  */

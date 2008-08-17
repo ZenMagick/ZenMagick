@@ -27,7 +27,7 @@
 /**
  * Handle patches for a single file.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.misc
  * @version $Id$
  */

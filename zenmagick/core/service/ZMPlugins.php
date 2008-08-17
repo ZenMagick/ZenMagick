@@ -56,7 +56,7 @@
  *  <dt>request</dt><dd>created for each request</dd>
  * </dl>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
  */

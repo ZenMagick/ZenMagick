@@ -27,7 +27,7 @@
 /**
  * General access class for shipping provider.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
  */

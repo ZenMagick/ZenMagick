@@ -27,7 +27,7 @@
 /**
  * Single Feature.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * Simple wrapper around <code>$_SESSION</code> to centralise access.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

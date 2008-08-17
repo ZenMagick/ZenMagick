@@ -30,7 +30,7 @@
  * <p>This rule will only work if the address object is validated rather than
  * just the request map.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */

@@ -29,7 +29,7 @@
  *
  * <p>This controller will generate the actual captcha image.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.plugins.zm_captcha
  * @version $Id$
  */

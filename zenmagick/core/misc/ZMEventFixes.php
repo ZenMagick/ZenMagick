@@ -27,7 +27,7 @@
 /**
  * Fixes that are event driven.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.misc
  * @version $Id$
  */

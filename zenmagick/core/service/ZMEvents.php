@@ -34,7 +34,7 @@
  * <p>Any class can subscribe. Any method of the subscriber class that matches a method
  * name derived from a zen-cart event will be called automatically.</p>.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
  */

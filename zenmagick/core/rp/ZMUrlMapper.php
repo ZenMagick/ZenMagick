@@ -31,7 +31,7 @@
  * is finished with its part of the request processing. The mapping is used
  * by the controller method <code>findView(...)</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
  */

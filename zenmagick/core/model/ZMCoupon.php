@@ -31,7 +31,7 @@
  * be set.</p>
  * <p>For example, gift vouchers do only have a <em>code</em> and <em>amount</em>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

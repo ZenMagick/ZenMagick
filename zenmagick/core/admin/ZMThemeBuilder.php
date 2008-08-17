@@ -27,7 +27,7 @@
 /**
  * Build the skelton of a new theme.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin
  * @version $Id$
  */

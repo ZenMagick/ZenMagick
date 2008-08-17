@@ -29,7 +29,7 @@ define('_ZM_HTACCESS', DIR_FS_CATALOG.".htaccess");
 /**
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */

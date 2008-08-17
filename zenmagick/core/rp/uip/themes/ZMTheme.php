@@ -27,7 +27,7 @@
 /**
  * A theme.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.themes
  * @version $Id$
  */

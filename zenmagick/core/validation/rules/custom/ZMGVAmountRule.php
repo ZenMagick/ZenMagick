@@ -30,7 +30,7 @@
  * <p><strong>NOTE:</strong> The amount is expected to be of type float and must not
  * contains any currency formatting.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */

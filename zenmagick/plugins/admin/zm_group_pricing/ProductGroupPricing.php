@@ -27,7 +27,7 @@
 /**
  * A product price group.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.plugins.zm_group_pricing
  * @version $Id$
  */

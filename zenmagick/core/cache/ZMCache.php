@@ -29,7 +29,7 @@
  *
  * <p>Instances may be obtained by using <code>ZMCaches::instance()->getCache(..)</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.cache
  * @version $Id$
  */

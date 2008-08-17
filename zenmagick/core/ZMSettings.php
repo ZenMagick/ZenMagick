@@ -27,7 +27,7 @@
 /**
  * Settings (ZenMagick's configuration).
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

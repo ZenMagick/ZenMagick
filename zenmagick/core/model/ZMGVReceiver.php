@@ -29,7 +29,7 @@
  *
  * <p><strong>NOTE:</strong> The amount is always in the sessions current currency.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

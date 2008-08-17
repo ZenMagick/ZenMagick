@@ -27,7 +27,7 @@
 /**
  * Shipping estimator.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.misc
  * @version $Id$
  */

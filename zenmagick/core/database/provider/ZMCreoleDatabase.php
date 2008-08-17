@@ -28,7 +28,7 @@
  * Implementation of the ZenMagick database layer using <em>Creole</em>.
  *
  * @see http://creole.phpdb.org/trac/
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.database.provider
  * @version $Id$
  */

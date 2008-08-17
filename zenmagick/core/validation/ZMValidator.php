@@ -27,7 +27,7 @@
 /**
  * A validator framework.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation
  * @version $Id$
  */

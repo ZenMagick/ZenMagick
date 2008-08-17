@@ -33,7 +33,7 @@
  * <p>Controller/resources marked as secure will force redirects using SSL (if enabled), if
  * non secure HTTP is used to access them.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
  */

@@ -35,7 +35,7 @@
  * <p>All other pages will get served default values base on the store configuration.
  * Only exception is the homepage where the keywords will include the top categories.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id: ZMMetaTags.php 803 2008-03-02 09:13:21Z dermanomann $
  */

@@ -27,7 +27,7 @@
 /**
  * A generic email message container.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

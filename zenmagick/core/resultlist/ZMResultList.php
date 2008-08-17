@@ -36,7 +36,7 @@
  *  <li>A result source</li>
  * </ul>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist
  * @version $Id$
  */

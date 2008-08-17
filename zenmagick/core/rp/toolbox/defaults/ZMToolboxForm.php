@@ -27,7 +27,7 @@
 /**
  * Form related functions.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.toolbox.defaults
  * @version $Id$
  */

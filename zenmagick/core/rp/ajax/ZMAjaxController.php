@@ -29,7 +29,7 @@
  *
  * <p>Requires PEAR Json for JSON support.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.ajax
  * @version $Id$
  */

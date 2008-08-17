@@ -27,7 +27,7 @@
 /**
  * Implementation of the ZenMagick database layer using zen-cart's <code>$db</code>.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.database.provider
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * A form field for a payment type;
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id: ZMPaymentField.php 954 2008-03-29 10:12:29Z DerManoMann $
  */

@@ -31,7 +31,7 @@
  *
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.plugins
  * @version $Id$
  */

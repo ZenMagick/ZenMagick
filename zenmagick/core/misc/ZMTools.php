@@ -28,7 +28,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
 /**
  * (System) Tools.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.misc
  * @version $Id$
  */

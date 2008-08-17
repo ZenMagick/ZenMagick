@@ -27,7 +27,7 @@
 /**
  * Empty validation rules that can be used to wrap custom logic.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules
  * @version $Id$
  */

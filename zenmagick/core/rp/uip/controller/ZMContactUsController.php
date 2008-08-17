@@ -27,7 +27,7 @@
 /**
  * Controller for contact us age.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

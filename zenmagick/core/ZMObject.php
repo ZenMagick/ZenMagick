@@ -30,7 +30,7 @@
  * <p>This is the base class for all ZenMagick classes and contains some very basic
  * stuff that might be usefull for most/all classes.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  */
 class ZMObject {

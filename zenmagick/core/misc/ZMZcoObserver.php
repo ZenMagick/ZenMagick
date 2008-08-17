@@ -27,7 +27,7 @@
 /**
  * Container class for all zen-cart observations we'll hopefully never need.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.misc
  * @version $Id$
  */

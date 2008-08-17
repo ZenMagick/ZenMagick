@@ -33,7 +33,7 @@
  * <p>The item method is expected to return the last modified date of the channel.</p>
  *
  * @todo Support for custom/additional channel/item properties.
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

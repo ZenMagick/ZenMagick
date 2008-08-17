@@ -27,7 +27,7 @@
 /**
  * A single country.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * Container for all data/information related to a plugin admin page.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.plugins
  * @version $Id$
  */

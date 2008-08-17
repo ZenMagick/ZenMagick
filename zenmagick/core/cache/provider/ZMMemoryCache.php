@@ -29,7 +29,7 @@
  *
  * <p>Memocy caching using <code>PEAR:Cache_Lite</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.cache.provider
  * @version $Id: ZMFileCache.php 1061 2008-04-21 23:31:35Z DerManoMann $
  */

@@ -27,7 +27,7 @@
 /**
  * Generic SQL patch.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches
  * @version $Id$
  */

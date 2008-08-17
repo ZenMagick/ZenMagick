@@ -27,7 +27,7 @@
 /**
  * Patch to create ZenMagick config basics.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches.sql
  * @version $Id$
  */

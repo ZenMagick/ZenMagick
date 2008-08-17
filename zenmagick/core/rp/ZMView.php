@@ -27,7 +27,7 @@
 /**
  * A view.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
  */

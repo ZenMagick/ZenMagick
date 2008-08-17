@@ -27,7 +27,7 @@
 /**
  * Email sender class.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

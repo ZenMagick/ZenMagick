@@ -29,7 +29,7 @@ define('_ZM_ZEN_ADMIN_FILE', DIR_FS_ADMIN . DIR_WS_BOXES . "extras_dhtml.php");
 /**
  * Admin menu patch.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation.patches.file
  * @version $Id$
  */

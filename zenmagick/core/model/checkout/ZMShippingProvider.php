@@ -30,7 +30,7 @@
  * <p>A shipping provider may offer 1-n shipping methods, depending on the
  * address, etc.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */

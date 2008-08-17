@@ -27,7 +27,7 @@
 /**
  * A address zone.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.account
  * @version $Id$
  */

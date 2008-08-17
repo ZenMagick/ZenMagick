@@ -29,7 +29,7 @@
  *
  * <p>Expects a number of product ids in the request parameter <code>compareId</code>.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */

@@ -27,7 +27,7 @@
 /**
  * A single user account.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.model.account
  * @version $Id$
  */

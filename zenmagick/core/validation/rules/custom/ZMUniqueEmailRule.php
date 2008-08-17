@@ -27,7 +27,7 @@
 /**
  * Check for unique email address.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.validation.rules.custom
  * @version $Id$
  */

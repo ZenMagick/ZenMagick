@@ -30,7 +30,7 @@
  * <p>Email template are expected in the directory <code>[theme-views-dir]/emails</code>.
  * Filenames follow the pattern <code>[$template].[html|text].php</code>.<p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
  */

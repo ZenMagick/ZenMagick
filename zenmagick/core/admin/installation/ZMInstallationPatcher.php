@@ -27,7 +27,7 @@
 /**
  * Provides support for all file patching of zen-cart files ZenMagick might need.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin.installation
  * @version $Id$
  */

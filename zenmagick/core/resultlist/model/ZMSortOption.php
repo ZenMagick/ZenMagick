@@ -30,7 +30,7 @@
  * <p>The returned id will automatically reflect the current status, the id the sort
  * order.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.resultlist.model
  * @version $Id$
  */

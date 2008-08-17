@@ -49,7 +49,7 @@
  *
  * <p>Static methods operate on the root loader.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick
  * @version $Id$
  */

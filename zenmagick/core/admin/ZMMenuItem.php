@@ -29,7 +29,7 @@
  *
  * <p>This may be either a ZenMagick system page or a plugin options page or other.</p>
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.admin
  * @version $Id$
  */

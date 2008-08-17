@@ -27,7 +27,7 @@
 /**
  * Crumbtrail.
  *
- * @author mano
+ * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id: ZMCrumbtrail.php 803 2008-03-02 09:13:21Z dermanomann $
  */
