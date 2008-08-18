@@ -45,7 +45,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     function __construct() {
         parent::__construct();
-        // avoid creole dot notation as that does not work here
+        // avoid creole dot notation as that does not work with the compressed version
         Creole::registerDriver('mysql', 'MySQLConnection');
         $dsn = array('phptype' => 'mysql',
                      'hostspec' => DB_SERVER,
