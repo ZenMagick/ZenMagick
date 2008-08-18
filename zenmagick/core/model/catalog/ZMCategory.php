@@ -249,6 +249,24 @@ class ZMCategory extends ZMModel {
      */
     function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
+    /**
+     * Get a list of all child category ids.
+     *
+     * @param boolean includeSelf Optional flag to include this category in the list; default is <code>true</code>.
+     * @return array A list of category ids.
+     */
+    public function getChildIds($includeSelf=true) {
+        $ids = array();
+        if ($includeSelf) {
+            $ids[] = $this->id_;
+        }
+        foreach ($this->getChildren() as $child) {
+            $childIds = $child->getChildIds(true);
+            $ids = array_merge($ids, $childIds);
+        }
+        return $ids;
+    }
+
 }
 
 ?>
