@@ -1,0 +1,35 @@
+<?php
+
+    /**
+     * Get all category ids of a given category Id substree.
+     *
+     * @param int categoryId The (sub-)tree root category id.
+     * @return array List of cagegory ids.
+     */
+    function zm_category_tree_ids($categoryId) {
+        $ids = array($categoryId);
+        foreach (ZMCategories::instance()->getCategoryForId($categoryId)->getChildren() as $child) {
+            $childIds = zm_category_tree_ids($child->getId());
+            $ids = array_merge($ids, $childIds);
+        }
+        return $ids;
+    }
+
+    $category = ZMCategories::instance()->getCategoryForId(3);
+    //$current = ZMFacets::instance()->filterWithTypes(array('manufacturers' => array(3)));
+    $current = ZMFacets::instance()->filterWithTypes(array('manufacturers' => array(4), 'categories' => $category->getChildIds()));
+    //$current = ZMFacets::instance()->getFacets();
+
+    foreach ($current as $type => $facet) {
+        echo '<h3>'.$type.'</h3>';
+        foreach ($facet as $id => $info) {
+            if (0 < count($info['entries'])) {
+                echo "<BR><u>".$info['name']." (".count($info['entries']).")</u><BR>";
+                foreach ($info['entries'] as $id => $name) {
+                    echo "&nbsp;&nbsp;".$name."<BR>";
+                }
+            }
+        }
+    }
+
+?>

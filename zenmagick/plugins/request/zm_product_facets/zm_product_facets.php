@@ -37,7 +37,7 @@ class zm_product_facets extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Product Facets', 'Facets view on products', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderSupport('FOLDER');
     }
 
     /**
@@ -54,13 +54,16 @@ class zm_product_facets extends ZMPlugin {
         parent::init();
 
         // create as this will also init the underlying cache
-        ZMLoader::resolve("Facets");
-ZMLoader::resolve("Facet");
+        ZMLoader::make("Facets");
 
         // load default facets
         ZMFacets::instance()->addFacetBuilder('manufacturers', 'zm_build_manufacturer_facet');
         ZMFacets::instance()->addFacetBuilder('categories', 'zm_build_category_facet');
         ZMFacets::instance()->addFacetBuilder('prices', 'zm_build_pricerange_facet');
+
+        // add view to play around with
+        $parameter = array('plugin' => $this, 'subdir' => 'views');
+        ZMUrlMapper::instance()->setMapping(null, 'facets', 'facets', 'PluginView', array('plugin' => $this, 'subdir' => 'views'));
     }
 
 }
