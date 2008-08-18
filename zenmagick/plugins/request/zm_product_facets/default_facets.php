@@ -37,6 +37,7 @@
             $id = $manufacturer->getId();
             $products = ZMProducts::instance()->getProductsForManufacturerId($id);
             $facet[$id] = array();
+            $facet[$id]['id'] = $manufacturer->getId();
             $facet[$id]['name'] = $manufacturer->getName();
             $facet[$id]['entries'] = array();
             foreach ($products as $product) {
@@ -59,6 +60,7 @@
             $id = $category->getId();
             $products = ZMProducts::instance()->getProductsForCategoryId($id);
             $facet[$id] = array();
+            $facet[$id]['id'] = $category->getId();
             $facet[$id]['name'] = $category->getName();
             $facet[$id]['entries'] = array();
             foreach ($products as $product) {
@@ -112,6 +114,7 @@
             $id = $ii;
             $facet[$id]['entries'] = array();
             $facet[$id] = array();
+            $facet[$id]['id'] = $ii;
             if (0 == $ii) {
                 // first
                 $facet[$id]['name'] = zm_l10n_get("Less than %s", ZMToolbox::instance()->utils->formatMoney($bracket, true, false));
