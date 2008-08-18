@@ -89,13 +89,14 @@ class ZMFacets extends ZMObject {
      * <p>This will build an entries facet grid based on the currently
      * configured builders.</p>
      * 
+     * @param boolean rebuild Optional flag to rebuild all facets; default is <code>false</code>.
      * @return array The facets.
      */
-    public function getFacets() {
-        if (null === $this->facets_) {
+    public function getFacets($rebuild=false) {
+        if (null === $this->facets_ || $rebuild) {
             $key = $this->getCacheKey();
 
-            if (false !== ($facets = $this->cache_->get($key))) {
+            if (!$rebuild && false !== ($facets = $this->cache_->get($key))) {
                 $this->facets_ = unserialize($facets);
             } else {
                 // build new
