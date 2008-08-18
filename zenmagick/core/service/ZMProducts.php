@@ -73,16 +73,16 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $query = "SELECT p.products_id
-                  FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
-                  WHERE ";
+        $sql = "SELECT p.products_id
+                FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
+                WHERE ";
         if ($active) {
-            $query .= " p.products_status = 1 and ";
+            $sql .= " p.products_status = 1 AND ";
         }
-        $query .= " pd.products_id = p.products_id
-                      AND pd.language_id = :languageId
-                    ORDER BY p.products_sort_order, pd.products_name";
-        $results = ZMRuntime::getDatabase()->query($sql, array('lanugageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
+        $sql .= " pd.products_id = p.products_id
+                    AND pd.language_id = :languageId
+                  ORDER BY p.products_sort_order, pd.products_name";
+        $results = ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['id'];
