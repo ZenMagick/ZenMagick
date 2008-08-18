@@ -34,7 +34,7 @@
  */
 class ZMProductSorter extends ZMResultListSorter {
     // supported sorts
-    var $methods_ = array(
+    private $methods_ = array(
         'model' => '_cmpModel',
         'name' => '_cmpName',
         'manufacturer' => '_cmpManufacturerName',
@@ -42,7 +42,7 @@ class ZMProductSorter extends ZMResultListSorter {
         'weight' => '_cmpWeight'
     );
     // as options
-    var $options_ = array(
+    private $options_ = array(
         'model' => 'Model',
         'name' => 'Name',
         'manufacturer' => 'Manufacturer',

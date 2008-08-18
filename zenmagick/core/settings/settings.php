@@ -212,6 +212,9 @@
 
         // result list 
         'defaultResultListPagination' => 10,
+        // comma separated lists
+        'resultListProductFilter' => 'CategoryFilter,ManufacturerFilter',
+        'resultListProductSorter' => 'ProductSorter',
 
         // cart form constants
         'textOptionPrefix' => TEXT_PREFIX,

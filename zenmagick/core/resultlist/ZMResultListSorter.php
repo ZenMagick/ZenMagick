@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMResultListSorter extends ZMObject {
-    var $id_;
-    var $name_;
-    var $defaultSortId_;
-    var $sortId_;
-    var $decending_;
+    protected $id_;
+    protected $name_;
+    protected $defaultSortId_;
+    protected $sortId_;
+    protected $decending_;
 
 
     /**

@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMResultListFilter extends ZMObject {
-    var $list_;
-    var $id_;
-    var $name_;
-    var $filterValues_;
+    protected $list_;
+    protected $id_;
+    protected $name_;
+    protected $filterValues_;
 
 
     /**
