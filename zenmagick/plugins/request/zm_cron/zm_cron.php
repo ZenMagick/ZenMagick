@@ -65,6 +65,13 @@ class zm_cron extends ZMPlugin {
      */
     function init() {
         parent::init();
+
+        // register tests
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+            // add class path only now to avoid errors due to missing UnitTestCase
+            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            $tests->addTest('TestZMCronParser');
+        }
     }
 
 
