@@ -37,6 +37,22 @@ define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
  *
  * <p>A generic, lightweight database layer.</p>
  *
+ * <p>As a convention, implementation classes must support an array as single constructor argument. 
+ * This array (or map) will contain the connection details.</p>
+ * <p>Support for the following array keys is required:</p>
+ * <dl>
+ *  <dt>driver</dt>
+ *  <dd>The database type; typical values would be: <em>mysql</em>, <em>sqlite</em> or <em>pgsql</em>.</dd>
+ *  <dt>host</dt>
+ *  <dd>The database host name (and port).</dd>
+ *  <dt>username</dt>
+ *  <dd>The database username.</dd>
+ *  <dt>password</dt>
+ *  <dd>The password for the database user.</dd>
+ *  <dt>database</dt>
+ *  <dd>The name of the database to connect to.</dd>
+ * </dl>
+ *
  * @author DerManoMann
  * @package org.zenmagick.database
  * @version $Id$

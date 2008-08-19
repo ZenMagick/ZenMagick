@@ -42,17 +42,29 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
     /**
      * Create a new instance.
+     *
+     * @param array conf Configuration properties.
      */
-    function __construct() {
+    function __construct($conf) {
         parent::__construct();
+        $drivers = array(
+            'mysql' => 'MySQLConnection',
+            'mysqli' => 'MySQLiConnection',
+            'pgsql' => 'PgSQLConnection',
+            'sqlite' => 'SQLiteConnection',
+            'oracle' => 'OCI8Connection',
+            'mssql' => 'MSSQLConnection',
+            'odbc' => 'ODBCConnection'
+        );
+        if (!array_key_exists($conf['driver'], $drivers)) {
+            throw ZMLoader::make('DatabaseException', 'invalid driver: ' . $conf['driver']);
+        }
         // avoid creole dot notation as that does not work with the compressed version
-        Creole::registerDriver('mysql', 'MySQLConnection');
-        $dsn = array('phptype' => 'mysql',
-                     'hostspec' => DB_SERVER,
-                     'username' => DB_SERVER_USERNAME,
-                     'password' => DB_SERVER_PASSWORD,
-                     'database' => DB_DATABASE);
-        $this->conn_ = Creole::getConnection($dsn);
+        Creole::registerDriver($conf['driver'], $drivers[$conf['driver']]);
+        // map some things that are named differently
+        $conf['phptype'] = $conf['driver'];
+        $conf['hostspec'] = $conf['host'];
+        $this->conn_ = Creole::getConnection($conf);
         $this->mapper = ZMDbTableMapper::instance();
         $this->queriesCount = 0;
         $this->queriesTime = 0;

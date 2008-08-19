@@ -41,8 +41,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
     /**
      * Create a new instance.
+     *
+     * <p>Since this is just a wrapper around the existing global <code>$db</code>, the parameters
+     * in <code>$conf</code> are ignored.</p>
+     *
+     * @param array conf Configuration properties.
      */
-    function __construct() {
+    function __construct($conf=null) {
     global $db;
 
         parent::__construct();

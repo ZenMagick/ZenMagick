@@ -33,9 +33,10 @@
  * @version $Id$
  */
 class ZMRuntime extends ZMObject {
-    private static $themeId_;
-    private static $theme_;
-    private static $db_;
+    private static $themeId_ = null;
+    private static $theme_ = null;
+    private static $db_ = null;
+    private static $database_ = array();
 
 
     /**
@@ -64,9 +65,26 @@ class ZMRuntime extends ZMObject {
     /**
      * Get the database (provider).
      *
+     * <p><code>ZMDatabase</code> instances are cached, based on the given <code>$conf</code> data.</p>
+     *
+     * @param array conf Optional configuration; default is <code>null</code> to use zen-cart settings.
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
-    public static function getDatabase() { return ZMObject::singleton(ZMSettings::get('dbProvider')); }
+    public static function getDatabase($conf=null) { 
+        if (null === $conf) {
+            $conf = array('driver' => 'mysql',
+                          'host' => DB_SERVER,
+                          'username' => DB_SERVER_USERNAME,
+                          'password' => DB_SERVER_PASSWORD,
+                          'database' => DB_DATABASE);
+        }
+        ksort($conf);
+        $key = serialize($conf);
+        if (!array_key_exists($key, ZMRuntime::$database_)) {
+            ZMRuntime::$database_[$key] = ZMLoader::make(ZMSettings::get('dbProvider'), $conf);
+        }
+        return ZMRuntime::$database_[$key];
+    }
 
     /**
      * Return the directory containing all themes.
