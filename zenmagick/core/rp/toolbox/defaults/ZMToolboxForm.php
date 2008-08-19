@@ -140,17 +140,20 @@ class ZMToolboxForm extends ZMObject {
      * 
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
+     * @param array attr Optional HTML attribute map; default is an empty array.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A HTML form to add the given productId to the shopping cart.
      */
-    public function addProduct($productId, $quantity=0, $echo=ZM_ECHO_DEFAULT) {
+    public function addProduct($productId, $quantity=0, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
         $params = 'action=add_product&products_id='.$productId;
         if (0 < $quantity) {
             $param .= 'cart_quantity='.$quantity;
         }
+        // merge with defaults
+        $attr = array_merge(array('enctype' => 'multipart/form-data', 'onsubmit' => null), $attr);
 
         // make multipart in case there are uploads
-        return $this->open(null, $params, true, array('enctype' => 'multipart/form-data', 'onsubmit' => null), $echo);
+        return $this->open(null, $params, true, $attr, $echo);
     }
 
     /**
