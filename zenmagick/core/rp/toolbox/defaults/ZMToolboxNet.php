@@ -361,6 +361,49 @@ class ZMToolboxNet extends ZMObject {
         return $s;
     }
 
+    /**
+     * Build a result list URL pointing to the previous page.
+     *
+     * @param ZMResultList resultList The current result list.
+     * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
+     *  request state.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A URL pointing to the previous page or <code>null</code>.
+     */
+    public function resultListBack($resultList, $secure=null, $echo=ZM_ECHO_DEFAULT) {
+        if (!$resultList->hasPreviousPage()) {
+            return null;
+        }
+
+        $secure = null !== $secure ? $secure : ZMRequest::isSecure();
+        $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure, false);
+
+        if ($echo) echo $url;
+        return $url;
+    }
+
+    /**
+     * Build a URL pointing to the next page.
+     *
+     * @param ZMResultList resultList The current result list.
+     * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
+     *  request state.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A URL pointing to the next page or <code>null</code>.
+     */
+    public function resultListNext($resultList, $secure=null, $echo=ZM_ECHO_DEFAULT) {
+        if (!$resultList->hasNextPage()) {
+            return null;
+        }
+
+        $secure = null !== $secure ? $secure : ZMRequest::isSecure();
+        $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure, false);
+
+        if ($echo) echo $url;
+        return $url;
+    }
+
+
 }
 
 ?>

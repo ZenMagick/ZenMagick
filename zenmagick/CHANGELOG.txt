@@ -107,6 +107,7 @@ Release 0.9.2
 - replace ZMSearch with ZMSearchCriteria in preparation for a replacement of
   zen-cart's search code (refactored to fit into the updated result list
 	system); required template changes to advanced_search.php
+- move result list back/next url generation into the toolbox
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!
