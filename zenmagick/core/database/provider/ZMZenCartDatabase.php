@@ -132,7 +132,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $properties = array_flip($model->getPropertyNames());
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || isset($properties[$field['property']])) {
+            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
                 if (!$field['key']) {
                     if (!$firstSet) {
                         $sql .= ',';
@@ -201,7 +201,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $properties = array_flip($model->getPropertyNames());
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || isset($properties[$field['property']])) {
+            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -288,7 +288,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $mappedRow = array();
         foreach ($mapping as $field) {
-            if (isset($row[$field['column']])) {
+            if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
                 if ('date' == $this->getMappedType($field['type'])) {
                     if (ZM_DB_NULL_DATETIME == $mappedRow[$field['property']]) {
