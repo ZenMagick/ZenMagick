@@ -251,7 +251,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $results = array();
         while ($rs->next()) {
-            $results[] = self::rs2model($modelClass, $rs, $mapping);
+            $results[] = $this->rs2model($modelClass, $rs, $mapping);
         }
 
         $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
@@ -386,7 +386,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @param array mapping The field mapping.
      * @return mixed The model instance or array (if modelClass is <code>null</code>).
      */
-    protected static function rs2model($modelClass, $rs, $mapping=null) {
+    protected function rs2model($modelClass, $rs, $mapping=null) {
         if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
             $model = ZMLoader::make($modelClass);
         } else {

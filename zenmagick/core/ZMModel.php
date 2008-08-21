@@ -84,8 +84,8 @@ class ZMModel extends ZMObject {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-    public function __get($name) {
-        if (isset($this->properties_[$name])) {
+   public function __get($name) {
+        if (array_key_exists($name, $this->properties_)) {
             return $this->properties_[$name];
         }
         return null;
@@ -95,10 +95,14 @@ class ZMModel extends ZMObject {
      * Support to access property values by name.
      *
      * @param string name The property name.
+     * @param mixed default A default value; default value is <code>null</code>.
      * @return mixed The value or <code>null</code>.
      */
-    public function get($name) {
-        return $this->__get($name);
+    public function get($name, $default=null) {
+        if (array_key_exists($name, $this->properties_)) {
+            return $this->properties_[$name];
+        }
+        return $default;
     }
 
     /**
@@ -118,7 +122,7 @@ class ZMModel extends ZMObject {
      * @param mixed value The value.
      */
     public function set($name, $value) {
-        $this->__set($name, $value);
+        $this->properties_[$name] = $value;
     }
 
     /**
