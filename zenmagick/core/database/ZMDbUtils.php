@@ -34,18 +34,6 @@
 class ZMDbUtils {
     private static $MAPPING_CACHE = array();
 
-    /**
-     * Bind data to a given SQL query.
-     *
-     * @param string sql The SQL statement.
-     * @param mixed data The data; can be either of <em>Object</em>, <em>Array</em> or <em>Scalar</em>.
-     * @param mixed tag The tag to bind on; default is <code>null</code> (for binding objects).
-     * @param string type The data type; default is <code>null</code> to use whatever type is defined inline (the SQL).
-     * @return string The bound SQL.
-     * @todo implement!
-     */
-    public static function bind($sql, $data, $tag=null, $type=null) { return null; }
-
 
     /**
      * Bind a list of values to a given SQL query.
