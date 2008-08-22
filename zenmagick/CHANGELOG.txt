@@ -110,6 +110,7 @@ Release 0.9.2
 - move result list back/next url generation into the toolbox
 - strip dash '-' from class names; b:#2063126
 - add inital refactoring of result list code
+- fix price sorting; b:#2019589
 
 Release 0.9.1
 - zm_custom_validate_password in zm_master_password does not return a reference!

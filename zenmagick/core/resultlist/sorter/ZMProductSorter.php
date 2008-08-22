@@ -87,7 +87,7 @@ class ZMProductSorter extends ZMResultListSorter {
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    function isActive() { return array_key_exists($this->sortId_, $this->methods_); }
+    public function isActive() { return array_key_exists($this->sortId_, $this->methods_); }
 
     /**
      * Sort the given list according to this sorters criteria.
@@ -95,13 +95,13 @@ class ZMProductSorter extends ZMResultListSorter {
      * @param array list The list to sort.
      * @return array The sorted list.
      */
-    function sort($list) {
+    public function sort($list) {
         if (!$this->isActive() || !is_array($list)) {
             return $list;
         }
 
         $method = $this->methods_[$this->sortId_];
-        uasort($list, array($this, $method));
+        usort($list, array($this, $method));
         if ($this->isDecending()) {
             $list = array_reverse($list);
         }
@@ -114,11 +114,11 @@ class ZMProductSorter extends ZMResultListSorter {
      *
      * @return array An array of one or more <code>ZMSortOption</code> instances.
      */
-    function getOptions() {
+    public function getOptions() {
         $options = array();
         foreach ($this->options_ as $id => $name) {
             $option = ZMLoader::make("SortOption", $name, $id, $id == $this->sortId_, $this->isDecending());
-            array_push($options, $option);
+            $options[] = $option;
         }
 
         return $options;

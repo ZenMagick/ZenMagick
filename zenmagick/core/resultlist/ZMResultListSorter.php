@@ -66,31 +66,18 @@ class ZMResultListSorter extends ZMObject {
 
 
     /**
-     * Set the default sort id.
-     *
-     * @param string sortId The default sort id.
-     */
-    function setDefaultSortId($sortId) {
-        $this->defaultSortId_ = $sortId;
-        if (null === $this->sortId_) {
-            $this->sortId_ = $this->defaultSortId_;
-        }
-    }
-
-
-    /**
      * Returns true if the current sort order is descending.
      *
      * @return boolean <code>true</code> if the current sort order is decending.
      */
-    function isDecending() { return $this->decending_; }
+    public function isDecending() { return $this->decending_; }
 
     /**
      * Returns one or more <code>ZMSortOption</code>s supported by this sorter.
      *
      * @return array An array of one or more <code>ZMSortOption</code> instances.
      */
-    function getOptions() { $values = array(); return $values; }
+    public function getOptions() { $values = array(); return $values; }
 
     /**
      * Sort the given list according to this sorters criteria.
@@ -98,7 +85,7 @@ class ZMResultListSorter extends ZMObject {
      * @param array list The list to sort.
      * @return array The sorted list.
      */
-    function sort($list) { return $list; }
+    public function sort($list) { return $list; }
 
     /**
      * Returns <code>true</code> if this sorter is currently active.
@@ -107,14 +94,14 @@ class ZMResultListSorter extends ZMObject {
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    function isActive() { return false; }
+    public function isActive() { return false; }
 
     /**
      * Returns the sorters unique id.
      *
      * @return string The sorter id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
 
     /**
@@ -122,7 +109,8 @@ class ZMResultListSorter extends ZMObject {
      *
      * @return string The sorter name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
+
 }
 
 ?>
