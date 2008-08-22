@@ -94,7 +94,7 @@ class ZMCategoryController extends ZMController {
             $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
             $resultList = ZMLoader::make("ResultList");
             $resultList->setResultSource($resultSource);
-        foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
+            foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(ZMLoader::make($filter));
             }
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
