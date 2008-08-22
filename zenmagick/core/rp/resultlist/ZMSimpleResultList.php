@@ -90,8 +90,10 @@ class ZMSimpleResultList extends ZMObject {
      * @param ZMResultListFilter filter The new filter.
      */
     public function addFilter($filter) {
-        $this->filters_[] = $filter;
-        $this->results_ = null;
+        if ($filter instanceof ZMResultListFilter) {
+            $this->filters_[] = $filter;
+            $this->results_ = null;
+        }
     }
 
     /**
@@ -100,8 +102,10 @@ class ZMSimpleResultList extends ZMObject {
      * @param ZMResultListSorter sorter The new sorter.
      */
     public function addSorter($sorter) {
-        $this->sorters_[] = $sorter;
-        $this->results_ = null;
+        if ($sorter instanceof ZMResultListSorter) {
+            $this->sorters_[] = $sorter;
+            $this->results_ = null;
+        }
     }
 
     /**
@@ -251,9 +255,14 @@ class ZMSimpleResultList extends ZMObject {
             $results = $this->getAllResults();
 
             //TODO: apply filters and sorters
+            foreach ($this->sorters_ as $sorter) {
+                if ($sorter->isActive()) {
+                    $results = $sorter->sort($results);
+                }
+            }
 
             $end = $this->page_ * $this->pagination_;
-	          $end = $end > count($results) ? count($results) : $end;
+	        $end = $end > count($results) ? count($results) : $end;
             $start = ((int)($end / $this->pagination_)) * $this->pagination_;
             $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
 
