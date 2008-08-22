@@ -388,7 +388,7 @@ class ZMLoader {
         // strip potential file extension and dir
         $classname = str_replace('.php', '', basename($filename));
         // '_' == word boundary
-        $classname = str_replace('_', ' ', $classname);
+        $classname = str_replace(array('_', '-'), ' ', $classname);
         // capitalise words
         $classname = ucwords($classname);
         // cuddle together :)
