@@ -147,7 +147,7 @@ class ZMToolboxForm extends ZMObject {
     public function addProduct($productId, $quantity=0, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
         $params = 'action=add_product&products_id='.$productId;
         if (0 < $quantity) {
-            $param .= 'cart_quantity='.$quantity;
+            $params .= '&cart_quantity='.$quantity;
         }
         // merge with defaults
         $attr = array_merge(array('enctype' => 'multipart/form-data', 'onsubmit' => null), $attr);
