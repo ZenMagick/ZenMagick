@@ -326,7 +326,7 @@ array(
         //'rows' => 'column=products_options_rows;type=integer',
     ),
     'products_options_values' => array(
-        'id' => 'column=products_options_values_id;type=integer;key=true',
+        'attributeValueId' => 'column=products_options_values_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_options_values_name;type=string',
         'sortOrder' => 'column=products_options_values_sort_order;type=integer',
