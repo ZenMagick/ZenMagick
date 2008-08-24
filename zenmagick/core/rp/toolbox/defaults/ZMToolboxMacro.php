@@ -374,7 +374,7 @@ class ZMToolboxMacro extends ZMObject {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$attribute->getId().']';
             $checked = $value->isDefault() ? ' checked="checked"' : '';
-            $radio = '<input type="radio" id="'.$id.'" name="'.$name.'" value="'.$value->getAttributeValueId().'"'.$checked.$slash.'>';
+            $radio = '<input type="radio" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
             $radio .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             array_push($elements, $radio);
         }
@@ -399,9 +399,9 @@ class ZMToolboxMacro extends ZMObject {
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
-            $name = 'id['.$attribute->getId().']['.$value->getAttributeValueId().']';
+            $name = 'id['.$attribute->getId().']['.$value->getId().']';
             $checked = $value->isDefault() ? ' checked="checked"' : '';
-            $checkbox = '<input type="checkbox" id="'.$id.'" name="'.$name.'" value="'.$value->getAttributeValueId().'"'.$checked.$slash.'>';
+            $checkbox = '<input type="checkbox" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
             $checkbox .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             array_push($elements, $checkbox);
         }
@@ -499,7 +499,7 @@ class ZMToolboxMacro extends ZMObject {
         $html = '<select name="id['.$attribute->getId().']">';
         foreach ($attribute->getValues() as $value) {
             $selected = $value->isDefault() ? ' selected="selected"' : '';
-            $html .= '<option value="'.$value->getAttributeValueId().'"'.$selected.'>'.$this->buildAttributeValueLabel($product, $value, false).'</option>';
+            $html .= '<option value="'.$value->getId().'"'.$selected.'>'.$this->buildAttributeValueLabel($product, $value, false).'</option>';
         }
         $html .= '</select>';
         array_push($elements, $html);

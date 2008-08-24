@@ -340,9 +340,9 @@ class ZMOrders extends ZMObject {
                     $attributesLookup[$name] = $atname;
                 }
                 $attributeValue = ZMLoader::make("AttributeValue", 0, $zenAttribute['value']);
-                $attributeValue->pricePrefix_ = $zenAttribute['prefix'];
-                $attributeValue->price_ = $zenAttribute['price'];
-                array_push($$atname->values_, $attributeValue);
+                $attributeValue->setPricePrefix($zenAttribute['prefix']);
+                $attributeValue->setPrice($zenAttribute['price']);
+                $$atname->addValue($attributeValue);
             }
         }
 

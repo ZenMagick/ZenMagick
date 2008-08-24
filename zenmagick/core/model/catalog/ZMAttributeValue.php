@@ -34,7 +34,6 @@
  * @version $Id$
  */
 class ZMAttributeValue extends ZMModel {
-    private $attributeValueId_;
     private $attribute_;
     private $name_;
     private $price_;
@@ -57,7 +56,7 @@ class ZMAttributeValue extends ZMModel {
      */
     function __construct($id=0, $name='') {
         parent::__construct();
-        $this->attributeValueId_ = $id;
+        $this->set('attributeValueId', $id);
         $this->name_ = $name;
     }
 
@@ -74,7 +73,7 @@ class ZMAttributeValue extends ZMModel {
      *
      * @return int The attribute value id.
      */
-    public function getAttributeValueId() { return $this->attributeValueId_; }
+    public function getId() { return $this->get('attributeValueId'); }
 
     /**
      * Get the parent attribute.
@@ -315,7 +314,7 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param int id The attribute value id.
      */
-    public function setAttributeValueId($id) { $this->attributeValueId_ = $id; }
+    public function setId($id) { $this->set('attributeValueId', $id); }
 
     /**
      * Set the parent attribute.
