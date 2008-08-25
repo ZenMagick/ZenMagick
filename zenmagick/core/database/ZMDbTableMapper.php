@@ -209,6 +209,15 @@ class ZMDbTableMapper extends ZMObject {
         return $mapping;
     }
 
+    /**
+     * Get a list of all available tables.
+     *
+     * @return array List of table names.
+     */
+    public function getTableNames() {
+        return array_keys($this->tableMap);
+    }
+
 }
 
 ?>
