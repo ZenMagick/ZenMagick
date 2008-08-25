@@ -87,7 +87,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_add_product_form($productId, $quantity=0, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->addProduct($productId, $quantity, $echo);
+        return ZMToolbox::instance()->form->addProduct($productId, $quantity, array(), $echo);
     }
 
 
