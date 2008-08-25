@@ -56,6 +56,7 @@ class ZMProductSorter extends ZMResultListSorter {
      */
     function __construct() {
         parent::__construct('psort');
+        $this->defaultSortId_ = ZMSettings::get('defaultProductSortOrder');
     }
 
     /**
