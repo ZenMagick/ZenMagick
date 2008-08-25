@@ -16,7 +16,7 @@
 
 
 # allow all files
-<Files>
+<Files *>
   order deny,allow
   allow from all
 </Files>
