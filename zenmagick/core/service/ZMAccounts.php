@@ -87,6 +87,21 @@ class ZMAccounts extends ZMObject {
     }
 
     /**
+     * Get all accounts (guest and registered( for the given email address.
+     *
+     * @param string emailAddress The email address.
+     * @return array A <st of code>ZMAccount</code> instances.
+     */
+    public function getAccountsForEmailAddress($emailAddress) {
+        $sql = "SELECT c.*, ci.*
+                FROM " . TABLE_CUSTOMERS . " c
+                  LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
+                WHERE customers_email_address = :email";
+        $args = array('email' => $emailAddress);
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+    }
+
+    /**
      * Update account login stats.
      *
      * @param int accountId The account id.
