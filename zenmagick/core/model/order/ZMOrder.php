@@ -85,6 +85,13 @@ class ZMOrder extends ZMModel {
     public function setAccountId($accountId) { $this->accountId_ = $accountId; }
 
     /**
+     * Get the account id.
+     *
+     * @return int The account id.
+     */
+    public function getAccountId() { return $this->accountId_; }
+
+    /**
      * Get the order status.
      *
      * @return int The order status.
