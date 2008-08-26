@@ -153,9 +153,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 $newId = $this->db_->Insert_ID();
                 $method = 'set'.$field['ucwp'];
                 if (!method_exists($model, $method)) {
-                    ZMObject::backtrace('missing auto key setter ' . $method);
+                    $model->set($property, $newId);
+                } else {
+                    $model->$method($newId);
                 }
-                $model->$method($newId);
             }
         }
 

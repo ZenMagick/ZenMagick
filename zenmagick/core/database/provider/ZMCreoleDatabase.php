@@ -162,9 +162,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             if ($field['auto']) {
                 $method = 'set'.ucwords($property);
                 if (!method_exists($model, $method)) {
-                    ZMObject::backtrace('missing auto key setter ' . $method);
+                    $model->set($property, $newId);
+                } else {
+                    call_user_func(array($model, $method), $newId);
                 }
-                call_user_func(array($model, $method), $newId);
             }
         }
 
