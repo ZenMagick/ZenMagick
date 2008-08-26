@@ -167,7 +167,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function update($sql, $data, $mapping) {
+    public function update($sql, $data=array(), $mapping=null) {
         $startTime = microtime();
 
         if (is_array($data)) {
