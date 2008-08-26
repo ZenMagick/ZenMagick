@@ -117,6 +117,22 @@ class TestZMAccounts extends UnitTestCase {
         }
     }
 
+    /**
+     * Test get accounts.
+     */
+    public function testGetAccountsForEmail() {
+        // gets us at least two guest accounts
+        $account1 = $this->createAccount($this->accountData1);
+        $account1->setType(ZM_ACCOUNT_TYPE_GUEST);
+        $account1 = ZMAccounts::instance()->createAccount($account1);
+        $account2 = $this->createAccount($this->accountData1);
+        $account2->setType(ZM_ACCOUNT_TYPE_GUEST);
+        $account2 = ZMAccounts::instance()->createAccount($account2);
+
+        $accounts = ZMAccounts::instance()->getAccountsForEmailAddress($account2->getEmail());
+        $this->assertTrue(2 == count($accounts));
+    }
+
 }
 
 ?>
