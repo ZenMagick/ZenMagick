@@ -149,6 +149,11 @@
             <param name="plugin.name" value="zm_geo_ip" />
             <param name="plugin.version" value="${plugins.zm_geo_ip.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_token" />
+            <param name="plugin.version" value="${plugins.zm_token.version}" />
+        </antcall>
     </target>
 
     
