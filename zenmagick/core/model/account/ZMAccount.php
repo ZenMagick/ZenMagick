@@ -72,7 +72,7 @@ class ZMAccount extends ZMModel {
         $this->referral_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = '';
-        $this->authorization_ = 0;
+        $this->authorization_ = ZMSettings::get('defaultCustomerApproval');
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = null;
