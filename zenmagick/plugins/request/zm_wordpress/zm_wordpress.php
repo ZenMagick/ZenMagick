@@ -59,6 +59,7 @@ class zm_wordpress extends ZMPlugin {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation');
+        $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabled', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
     }
 
@@ -117,7 +118,7 @@ class zm_wordpress extends ZMPlugin {
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
+    public function filterResponse($contents) {
         if (FILENAME_WP == ZMRequest::getPageName()) {
             ob_start();
             wp_head();
@@ -129,11 +130,29 @@ class zm_wordpress extends ZMPlugin {
     }
 
     /**
+     * Check if permalinks are configured.
+     *
+     * @return boolean <code>true</code> if permalink support is enabled, <code>false</code> if not.
+     */
+    public function isPermalinksEnabled() {
+        return !ZMTools::isEmpty($this->get('permaPrefix'));
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getGlobal() {
         $wordpressEnabled = $this->get('wordpressEnabled');
         if (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+            if ($this->isPermalinksEnabled()) {
+                $path = ZMRuntime::getContext().$this->get('permaPrefix');
+                if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
+                    // simulate empty query arg to make WP homepage work
+                    $_SERVER['REQUEST_URI'] .= '?';
+                }
+                // make WP permalink parsing work
+                $_SERVER['REQUEST_URI'] = str_replace($path, '', $_SERVER['REQUEST_URI']);
+            }
             // load as proper global to make WP work - @#!!$&^ globals
             return array('wp-blog-header.gphp');
         }
@@ -148,8 +167,10 @@ class zm_wordpress extends ZMPlugin {
     public function query_posts($query='') {
     global $wpdb;
 
-        $wpdb->select(DB_NAME);
-        query_posts($query);
+        if (!$this->isPermalinksEnabled()) {
+            $wpdb->select(DB_NAME);
+            query_posts($query);
+        }
     }
 
     /**

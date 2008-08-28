@@ -1,6 +1,6 @@
 A ZenMagick plugin to display Wordpress content from within a ZenMagick template.
 
-This plugin has been tested with Wordpress 2.5.
+This plugin has been tested with Wordpress 2.5 and 2.6.
 
 
 Installation
@@ -46,3 +46,26 @@ To only show wp-sidebar.php when in the blog add the following to your theme's l
         ZMLayout::instance()->setRightColBoxes(array('wp-sidebar.php'));
     }
 
+
+Permalinks
+==========
+If you want to use Wordpress permalinks (Apache httpd only), you can do so by following these instructions:
+
+1) Configure a URL path prefix.
+   This is required to make the redirect rules work. These instructions will assume a value of 'blog'
+
+2) Add the following redirect rules to the main .htaccess file (replace 'blog' with whatever
+   you configured as path prefix):
+
+      RewriteRule ^blog/?$ index.php?main_page=wp [QSA,L]
+      RewriteRule ^blog/.*$ index.php?main_page=wp [QSA,L]
+      RewriteRule ^blog\?(.*)$ index.php?main_page=wp?$1 [QSA,L]
+
+3) Enable permalinks in Wordpress
+
+NOTE: This will only work if wordpress is *not* installed in the document root, but in a subfolder.
+
+
+Limitations
+===========
+RSS URLs are not rewritten. This means those will point to the original Wordpress installation.

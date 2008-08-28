@@ -113,7 +113,19 @@ class WpRequestHandler extends ZMController {
      */
     public function link_filter($arg) {
         $urlToken = parse_url($arg);
-        return ZMToolbox::instance()->net->url(FILENAME_WP, $urlToken['query'], false, false);
+        if ($this->plugin->isPermalinksEnabled()) {
+            $path = ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/';
+            // does url path start with WP installation folder?
+            $wpDir = basename($this->plugin->get('wordpressDir'));
+            if (!ZMTools::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
+                return str_replace('/'.$wpDir.'/', $path, $arg);
+            } else {
+                //TODO:
+                //$_SERVER['REQUEST_URI'] = str_replace(ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
+            }
+        } else {
+            return ZMToolbox::instance()->net->url(FILENAME_WP, $urlToken['query'], false, false);
+        }
     }
 
     /**
