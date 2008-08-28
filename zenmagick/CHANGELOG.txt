@@ -1,3 +1,8 @@
+Release 0.9.3
+- prefix all variables used in init.php and store.php with _zm_, as some might
+  conflict with zm_wordpress
+- add support for permalinks to zm_wordpress (Apache httpd only)
+
 Release 0.9.2
 - add database support for data type blob
 - add ZMModel::populateCustom($table) to populate custom fields

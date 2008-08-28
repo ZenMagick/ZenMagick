@@ -40,26 +40,26 @@
     if (!IS_ADMIN_FLAG && file_exists(dirname(__FILE__).'/core.php')) {
         require(dirname(__FILE__).'/core.php');
     } else {
-        $coreDir = dirname(__FILE__).'/core/';
-        require($coreDir."settings/zenmagick.php");
-        require($coreDir."ZMSettings.php");
-        require($coreDir."settings/settings.php");
-        require($coreDir."ZMObject.php");
-        require($coreDir."ZMLoader.php");
+        $_zm_coreDir = dirname(__FILE__).'/core/';
+        require($_zm_coreDir."settings/zenmagick.php");
+        require($_zm_coreDir."ZMSettings.php");
+        require($_zm_coreDir."settings/settings.php");
+        require($_zm_coreDir."ZMObject.php");
+        require($_zm_coreDir."ZMLoader.php");
 
         // prepare loader
-        ZMLoader::instance()->addPath($coreDir);
+        ZMLoader::instance()->addPath($_zm_coreDir);
         ZMLoader::instance()->loadStatic();
 
         // preload some stuff
-        foreach (ZMLoader::instance()->getClassPath() as $name => $file) {
-            if ($name == $file) { continue; } // this is static stuff
+        foreach (ZMLoader::instance()->getClassPath() as $_zm_name => $_zm_file) {
+            if ($_zm_name == $_zm_file) { continue; } // this is static stuff
             // exclude some stuff that gets resolved dynamically
-            if ((false === strpos($file, '/controller/')
-                  && false === strpos($file, '/admin/')
-                  && false === strpos($file, '/settings/'))
-                || (false !== strpos($file, '/admin/') && ZMSettings::get('isAdmin'))) {
-                require_once($file);
+            if ((false === strpos($_zm_file, '/controller/')
+                  && false === strpos($_zm_file, '/admin/')
+                  && false === strpos($_zm_file, '/settings/'))
+                || (false !== strpos($_zm_file, '/admin/') && ZMSettings::get('isAdmin'))) {
+                require_once($_zm_file);
             }
         }
     }
@@ -69,10 +69,11 @@
         require(dirname(__FILE__).'/local.php');
     }
 
+
     // now we can check for a static homepage
     if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
         && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
-        require(ZMSettings::get('staticHome'));
+        require ZMSettings::get('staticHome');
         exit;
     }
 
@@ -126,8 +127,8 @@
 
     // resolve theme to be used 
     if (ZMSettings::get('isEnableZenMagick')) {
-        $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
-        ZMRuntime::setTheme($theme);
+        $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
+        ZMRuntime::setTheme($_zm_theme);
     }
 
     if (ZMSettings::get('isLegacyAPI')) {
@@ -149,8 +150,8 @@
     define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
 
     // load stuff that really needs to be global!
-    foreach (ZMLoader::instance()->getGlobal() as $global) {
-        include $global;
+    foreach (ZMLoader::instance()->getGlobal() as $_zm_global) {
+        include $_zm_global;
     }
 
     // start output buffering

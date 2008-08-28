@@ -37,9 +37,9 @@
         require('includes/application_bottom.php');
 
         // allow plugins to filter/modify the final contents
-        $contents = ob_get_clean();
-        $contents = ZMPlugins::filterResponse($contents);
-        echo $contents;
+        $_zm_contents = ob_get_clean();
+        $_zm_contents = ZMPlugins::filterResponse($_zm_contents);
+        echo $_zm_contents;
 
         // clear messages if not redirect...
         ZMRequest::getSession()->clearMessages();
