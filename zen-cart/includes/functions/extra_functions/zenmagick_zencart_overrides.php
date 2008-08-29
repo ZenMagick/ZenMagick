@@ -57,6 +57,9 @@ if (!function_exists('zen_mail')) {
         if ('none' != zm_email_formats($module)) {
             // call ZenMagick implementation
             // NOTE: zm_mail will eventually call zen_mail_org to actually send the generated email...
+            
+            // preserve original text
+            $block['text_msg'] = $text;
             zm_mail($subject, $module, $block, $toAddress, $toName, $fromAddress, $fromName);
         } else {
             // call renamed original function
