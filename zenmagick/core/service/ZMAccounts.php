@@ -65,8 +65,8 @@ class ZMAccounts extends ZMObject {
         $sql = "SELECT c.*, ci.*
                 FROM " . TABLE_CUSTOMERS . " c
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
-                WHERE c.customers_id = :id";
-        $args = array('id' => $accountId);
+                WHERE c.customers_id = :accountId";
+        $args = array('accountId' => $accountId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
@@ -189,8 +189,8 @@ class ZMAccounts extends ZMObject {
     public function setAccountPassword($accountId, $password) {
         $sql = "UPDATE " . TABLE_CUSTOMERS . "
                 SET customers_password = :password
-                WHERE customers_id = :id";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
+                WHERE customers_id = :accountId";
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
     }
 
 

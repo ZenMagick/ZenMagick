@@ -61,14 +61,14 @@ class TestZMAccounts extends UnitTestCase {
         $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS);
         $ids = array();
         foreach ($results as $result) {
-            $ids[] = $result['id'];
+            $ids[] = $result['accountId'];
         }
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:id)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('id' => $ids), TABLE_CUSTOMERS);
+        $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
+        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
     }
 
 

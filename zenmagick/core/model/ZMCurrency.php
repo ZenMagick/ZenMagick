@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMCurrency extends ZMModel {
-    private $id_;
     private $code_;
     private $name_;
     private $symbolLeft_;
@@ -49,7 +48,7 @@ class ZMCurrency extends ZMModel {
     function __construct() {
         parent::__construct();
 
-        $this->id_ = 0;
+        $this->setId(0);
         $this->code_ = '';
         $this->name_ = '';
         $this->decimalPlaces_ = 2;
@@ -70,7 +69,7 @@ class ZMCurrency extends ZMModel {
      *
      * @return int The currency id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('currencyId'); }
 
     /**
      * Get the currency code.
@@ -135,7 +134,7 @@ class ZMCurrency extends ZMModel {
      *
      * @param int id The currency id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('currencyId', $id); }
 
     /**
      * Set the currency code.

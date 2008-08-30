@@ -56,7 +56,7 @@ class ZMAttributeValue extends ZMModel {
      */
     function __construct($id=0, $name='') {
         parent::__construct();
-        $this->set('attributeValueId', $id);
+        $this->setId($id);
         $this->name_ = $name;
     }
 

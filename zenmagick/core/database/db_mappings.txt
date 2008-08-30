@@ -1,7 +1,7 @@
 // TODO: use boolean where appropriate
 array(
     'currencies' => array(
-        'id' => 'column=currencies_id;type=integer;key=true;auto=true',
+        'currencyId' => 'column=currencies_id;type=integer;key=true;auto=true',
         'name' => 'column=title;type=string',
         'code' => 'column=code;type=string',
         'symbolLeft' => 'column=symbol_left;type=string',
@@ -13,7 +13,7 @@ array(
         'lastUpdate' => 'column=last_updated;type=datetime',
     ),
     'categories' => array(
-        'id' => 'column=categories_id;type=integer;key=true;auto=true',
+        'categoryId' => 'column=categories_id;type=integer;key=true;auto=true',
         'image' => 'column=categories_image;type=string',
         'parentId' => 'column=parent_id;type=integer',
         'sortOrder' => 'column=sort_order;type=integer',
@@ -22,7 +22,7 @@ array(
         'active' => 'column=categories_status;type=integer',
     ),
     'categories_description' => array(
-        'id' => 'column=categories_id;type=integer;key=true',
+        'categoryId' => 'column=categories_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=categories_name;type=string',
         'description' => 'column=categories_description;type=string',
@@ -32,20 +32,20 @@ array(
         'categoryId' => 'column=categories_id;type=integer;key=true',
     ),
     'manufacturers' => array(
-        'id' => 'column=manufacturers_id;type=integer;key=true;auto=true',
+        'manufacturerId' => 'column=manufacturers_id;type=integer;key=true;auto=true',
         'name' => 'column=manufacturers_name;type=string',
         'image' => 'column=manufacturers_image;type=string',
         //'dateAdded' => 'column=date_added;type=datetime',
         //'lastModified' => 'column=last_modified;type=datetime',
     ),
     'manufacturers_info' => array(
-        'id' => 'column=manufacturers_id;type=integer;key=true',
+        'manufacturerId' => 'column=manufacturers_id;type=integer;key=true',
         'languageId' => 'column=languages_id;type=integer;key=true',
         'url' => 'column=manufacturers_url;type=string',
         'lastClick' => 'column=date_last_click;type=datetime',
     ),
     'customers' => array(
-        'id' => 'column=customers_id;type=integer;key=true;auto=true',
+        'accountId' => 'column=customers_id;type=integer;key=true;auto=true',
         'gender' => 'column=customers_gender;type=string',
         'firstName' => 'column=customers_firstname;type=string',
         'lastName' => 'column=customers_lastname;type=string',

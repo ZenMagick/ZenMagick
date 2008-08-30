@@ -34,15 +34,14 @@
  * @version $Id$
  */
 class ZMCategory extends ZMModel {
-    var $id_;
-    var $parentId_;
-    var $name_;
-    var $active_;
-    var $childrenIds_;
-    var $description_;
-    var $sortOrder_;
-    var $image_;
-    var $languageId_;
+    private $parentId_;
+    private $name_;
+    private $active_;
+    private $childrenIds_;
+    private $description_;
+    private $sortOrder_;
+    private $image_;
+    private $languageId_;
 
 
     /**
@@ -50,7 +49,7 @@ class ZMCategory extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
+        $this->setId(0);
         $this->parentId_ = 0;
         $this->name_ = '';
         $this->active_ = false;
@@ -72,14 +71,14 @@ class ZMCategory extends ZMModel {
      *
      * @return int The category id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->get('categoryId'); }
 
     /**
      * Get the parent category (if any).
      *
      * @return ZMCategory The parent category or <code>null</code>.
      */
-    function getParent() { 
+    public function getParent() { 
         return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_) : null;
     }
 
@@ -88,50 +87,63 @@ class ZMCategory extends ZMModel {
      *
      * @return int The parent category id or <code>0</code>.
      */
-    function getParentId() { return $this->parentId_; }
+    public function getParentId() { return $this->parentId_; }
 
     /**
      * Checks if the catgory has a parent.
      *
      * @return boolean <code>true</code> if this category has a parent, <code>false</code> if not.
      */
-    function hasParent() { return 0 != $this->parentId_; }
+    public function hasParent() { return 0 != $this->parentId_; }
 
     /**
      * Get the category name.
      *
      * @return string The category name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Checks if this category is active; ie. visible in the storefront.
      *
      * @return boolean <code>true</code> if this category is active, <code>false</code> if not.
      */
-    function isActive() { return $this->active_; }
+    public function isActive() { return $this->active_; }
 
     /**
      * Set the active flag.
      *
      * @param boolean active <code>true</code> if this category is active, <code>false</code> if not.
      */
-    function setActive($active) { $this->active_ = $active; }
+    public function setActive($active) { $this->active_ = $active; }
 
     /**
      * Checks if this category has children.
      *
      * @return boolean <code>true</code> if this category has children, <code>false</code> if not.
      */
-    function hasChildren() { return 0 < count($this->childrenIds_); }
+    public function hasChildren() { return 0 < count($this->childrenIds_); }
 
     /**
      * Get the child categories of this category.
      *
      * @return array A list of <code>ZMcategory</code> instances.
      */
-    function getChildren() { 
+    public function getChildren() { 
         return ZMCategories::instance()->getCategories($this->childrenIds_);
+    }
+
+    /**
+     * Add a child category.
+     *
+     * @param mixed child Either a category or category id.
+     */
+    public function addChild($child) { 
+        if ($child instanceof ZMCategory) {
+            $this->childrenIds_[] = $child->getId();
+        } else {
+            $this->childrenIds_[] = $child;
+        }
     }
 
     /**
@@ -139,28 +151,28 @@ class ZMCategory extends ZMModel {
      *
      * @return string The description.
      */
-    function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description_; }
 
     /**
      * Get the sort order.
      *
      * @return int The sort order.
      */
-    function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder_; }
 
     /**
      * Get the category image (if any).
      *
      * @return string The image name.
      */
-    function getImage() { return $this->image_; }
+    public function getImage() { return $this->image_; }
 
     /**
      * Get the categories image ino instance (if any).
      *
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
-    function getImageInfo() { 
+    public function getImageInfo() { 
         return !empty($this->image_) ? ZMLoader::make("ImageInfo", $this->image_, $this->name_) : null;
     }
 
@@ -169,12 +181,12 @@ class ZMCategory extends ZMModel {
      *
      * @return array The category path as array of categories with the last element being the products category.
      */
-    function getPathArray() {
+    public function getPathArray() {
         $path = array();
-        array_push($path, $this->id_);
+        array_push($path, $this->properties_['categoryId']);
         $parent = $this->getParent();
         while (null !== $parent) {
-            array_push($path, $parent->id_);
+            array_push($path, $parent->getId());
             $parent = $parent->getParent();
         }
         return array_reverse($path);
@@ -188,7 +200,7 @@ class ZMCategory extends ZMModel {
      *
      * @return string The category path in the form <code>cPath=[PATH]</code>.
      */
-    function getPath() {
+    public function getPath() {
         $path = implode('_', $this->getPathArray());
         return "cPath=".$path;
     }
@@ -198,56 +210,56 @@ class ZMCategory extends ZMModel {
      *
      * @param int id The category id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('categoryId', $id); }
 
     /**
      * Set the parent category id.
      *
      * @param int parentId The parent category id.
      */
-    function setParentId($parentId) { $this->parentId_ = $parentId; }
+    public function setParentId($parentId) { $this->parentId_ = $parentId; }
 
     /**
      * Set the category name.
      *
      * @param string name The category name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the category description.
      *
      * @param string description The description.
      */
-    function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description_ = $description; }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */
-    function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
     /**
      * Set the category image (if any).
      *
      * @param string image The image name.
      */
-    function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image_ = $image; }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    function getLanguageId() { return $this->languageId_; }
+    public function getLanguageId() { return $this->languageId_; }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+    public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
     /**
      * Get a list of all child category ids.
@@ -258,7 +270,7 @@ class ZMCategory extends ZMModel {
     public function getChildIds($includeSelf=true) {
         $ids = array();
         if ($includeSelf) {
-            $ids[] = $this->id_;
+            $ids[] = $this->properties_['categoryId'];
         }
         foreach ($this->getChildren() as $child) {
             $childIds = $child->getChildIds(true);

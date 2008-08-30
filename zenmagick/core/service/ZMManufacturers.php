@@ -68,8 +68,8 @@ class ZMManufacturers extends ZMObject {
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
-                WHERE m.manufacturers_id = :id";
-        $args = array('id' => $id, 'languageId' => $languageId);
+                WHERE m.manufacturers_id = :manufacturerId";
+        $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
         if (null == ($manufacturer = $this->cache->get($sql))) {
             $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
@@ -140,9 +140,9 @@ class ZMManufacturers extends ZMObject {
 
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
                 SET url_clicked = url_clicked+1, date_last_click = now() 
-                WHERE manufacturers_id = :id 
+                WHERE manufacturers_id = :manufacturerId 
                 AND languages_id = :languageId";
-        $args = array('id' => $id, 'languageId' => $languageId);
+        $args = array('manufacturerId' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->update($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
     }
 

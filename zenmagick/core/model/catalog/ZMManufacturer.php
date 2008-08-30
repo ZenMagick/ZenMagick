@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMManufacturer extends ZMModel {
-    private $id_;
     private $name_;
     private $image_;
     private $languageId_;
@@ -46,7 +45,7 @@ class ZMManufacturer extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
+        $this->setId(0);
         $this->name_ = '';
         $this->image_ = null;
         $this->languageId_ = 0;
@@ -68,112 +67,112 @@ class ZMManufacturer extends ZMModel {
      *
      * @return int The manufacturer id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->get('manufacturerId'); }
 
     /**
      * Get the manufacturer name.
      *
      * @return string The manufacturer name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the manufacturer image.
      *
      * @return string The manufacturer image.
      */
-    function getImage() { return $this->image_; }
+    public function getImage() { return $this->image_; }
 
     /**
      * Check if a manufacturer image exists.
      *
      * @return boolean <code>true</code> if an image exists, <code>false</code> if not.
      */
-    function hasImage() { return !empty($this->image_); }
+    public function hasImage() { return !empty($this->image_); }
 
     /**
      * Get the manufacturer image info.
      *
      * @return ZMImageInfo The image info.
      */
-    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
 
     /**
      * Get the manufacturer URL.
      *
      * @return string The manufacturer URL.
      */
-    function getURL() { return $this->url_; }
+    public function getURL() { return $this->url_; }
 
     /**
      * Set the manufacturer id.
      *
      * @param int id The manufacturer id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('manufacturerId', $id); }
 
     /**
      * Set the manufacturer name.
      *
      * @param string name The manufacturer name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the manufacturer image.
      *
      * @param string image The manufacturer image.
      */
-    function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image_ = $image; }
 
     /**
      * Set the manufacturer URL.
      *
      * @param string url The manufacturer URL.
      */
-    function setURL($url) { $this->url_ = $url; }
+    public function setURL($url) { $this->url_ = $url; }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    function getLanguageId() { return $this->languageId_; }
+    public function getLanguageId() { return $this->languageId_; }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+    public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
     /**
      * Get the click counter.
      *
      * @return int The click count for this manufactuer and language.
      */
-    function getClickCount() { return $this->clickCount_; }
+    public function getClickCount() { return $this->clickCount_; }
 
     /**
      * Set the click counter.
      *
      * @param int clickCount The click count for this manufactuer and language.
      */
-    function setClickCount($clickCount) { $this->clickCount_ = $clickCount; }
+    public function setClickCount($clickCount) { $this->clickCount_ = $clickCount; }
 
     /**
      * Get the date of the last click.
      *
      * @return date The last click date.
      */
-    function getLastClick() { return $this->lastClick_; }
+    public function getLastClick() { return $this->lastClick_; }
 
     /**
      * Set the date of the last click.
      *
      * @param date lastClick The last click date.
      */
-    function setLastClick($lastClick) { $this->lastClick_ = $lastClick; }
+    public function setLastClick($lastClick) { $this->lastClick_ = $lastClick; }
 
 }
 

@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMAccount extends ZMModel {
-    private $id_;
     private $firstName_;
     private $lastName_;
     private $dob_;
@@ -59,7 +58,7 @@ class ZMAccount extends ZMModel {
     function __construct() {
         parent::__construct();
 
-        $this->id_ = 0;
+        $this->setId(0);
         $this->firstName_ = '';
         $this->lastName_ = '';
         $this->dob_ = null;
@@ -116,14 +115,14 @@ class ZMAccount extends ZMModel {
      *
      * @return int The account id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('accountId'); }
 
     /**
      * Set the account id.
      *
      * @param int id The account id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('accountId', $id); }
 
     /**
      * Get the first name.
@@ -341,7 +340,7 @@ class ZMAccount extends ZMModel {
      * @return float The voucher balance.
      */
     public function getVoucherBalance() {
-        return ZMCoupons::instance()->getVoucherBalanceForAccountId($this->id_);
+        return ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getId());
     }
 
     /**
@@ -383,7 +382,7 @@ class ZMAccount extends ZMModel {
      */
     public function getSubscribedProducts() {
         if (null === $this->subscribedProducts_) {
-            $this->subscribedProducts_ = ZMAccounts::instance()->getSubscribedProductIds($this->id_);
+            $this->subscribedProducts_ = ZMAccounts::instance()->getSubscribedProductIds($this->getId());
         }
         return $this->subscribedProducts_;
     }
