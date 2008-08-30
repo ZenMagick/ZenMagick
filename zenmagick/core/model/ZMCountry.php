@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMCountry extends ZMModel {
-    private $id_;
     private $name_;
     private $isoCode2_;
     private $isoCode3_;
@@ -45,7 +44,7 @@ class ZMCountry extends ZMModel {
     function __construct() {
         parent::__construct();
 
-        $this->id_ = 0;
+        $this->setId(0);
         $this->name_ = '';
         $this->isoCode2_ = '';
         $this->isoCode3_ = '';
@@ -65,7 +64,7 @@ class ZMCountry extends ZMModel {
      *
      * @return int The country id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('countryId'); }
 
     /**
      * Get the country name.
@@ -100,7 +99,7 @@ class ZMCountry extends ZMModel {
      *
      * @param int id The country id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('countryId', $id); }
 
     /**
      * Set the country name.

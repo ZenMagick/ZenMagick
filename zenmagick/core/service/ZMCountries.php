@@ -119,8 +119,8 @@ class ZMCountries extends ZMObject {
         $sql = "SELECT zone_code
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
-                 AND zone_id = :id";
-        $zone = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
+                 AND zone_id = :zoneId";
+        $zone = ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
         return null !== $zone ? $zone['code'] : $defaultZone;
     }
 

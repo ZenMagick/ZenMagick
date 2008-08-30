@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMProduct extends ZMModel {
-    var $id_;
     var $name_;
     var $description_;
     var $status_;
@@ -77,7 +76,7 @@ class ZMProduct extends ZMModel {
      */
     function __construct($id=0, $name='', $description='') {
         parent::__construct();
-        $this->id_ = $id;
+        $this->setId($id);
         $this->name_ = $name;
         $this->description_ = $description;
         $this->productPrice_ = 0;
@@ -100,14 +99,14 @@ class ZMProduct extends ZMModel {
      *
      * @return int The product id.
      */
-    function getId() { return $this->id_; }
+    function getId() { return $this->get('productId'); }
 
     /**
      * Set the product id.
      *
      * @param int id The product id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('productId', $id); }
 
     /**
      * Get the product name.
@@ -504,7 +503,7 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
     public function hasReviews() { 
-        return 0 < ZMReviews::instance()->getReviewCount($this->id_);
+        return 0 < ZMReviews::instance()->getReviewCount($this->getId());
     }
 
     /**
@@ -525,7 +524,7 @@ class ZMProduct extends ZMModel {
      * @return mixed The setting value.
      */
     public function getTypeSetting($field) { 
-        return ZMProducts::instance()->getProductTypeSetting($this->id_, $field);
+        return ZMProducts::instance()->getProductTypeSetting($this->getId(), $field);
     }
 
     /**
@@ -538,7 +537,7 @@ class ZMProduct extends ZMModel {
      */
     public function getDefaultCategory() {
         return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_) :
-            ZMCategories::instance()->getDefaultCategoryForProductId($this->id_);
+            ZMCategories::instance()->getDefaultCategoryForProductId($this->getId());
     }
 
     /**
@@ -549,7 +548,7 @@ class ZMProduct extends ZMModel {
      * @return float The average rating.
      */
     public function getAverageRating() {
-        return ZMReviews::instance()->getAverageRatingForProductId($this->id_);
+        return ZMReviews::instance()->getAverageRatingForProductId($this->getId());
     }
 
     /**

@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMLanguage extends ZMModel {
-    private $id_;
     private $name_;
     private $image_;
     private $code_;
@@ -59,7 +58,7 @@ class ZMLanguage extends ZMModel {
      *
      * @return int The language id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('languageId'); }
 
     /**
      * Get the language name.
@@ -94,7 +93,7 @@ class ZMLanguage extends ZMModel {
      *
      * @param int id The language id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('lanugageId', $id); }
 
     /**
      * Set the language name.

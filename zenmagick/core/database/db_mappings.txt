@@ -78,14 +78,14 @@ array(
         //'dateAdded' => 'column=date_added;type=datetime',
     ),
     'countries' => array(
-        'id' => 'column=countries_id;type=integer;key=true;auto=true',
+        'countryId' => 'column=countries_id;type=integer;key=true;auto=true',
         'name' => 'column=countries_name;type=string',
         'isoCode2' => 'column=countries_iso_code_2;type=string',
         'isoCode3' => 'column=countries_iso_code_3;type=string',
         'addressFormatId' => 'column=address_format_id;type=integer',
     ),
     'zones' => array(
-        'id' => 'column=zone_id;type=integer;key=true;auto=true',
+        'zoneId' => 'column=zone_id;type=integer;key=true;auto=true',
         'countryId' => 'column=zone_country_id;type=integer',
         'code' => 'column=zone_code;type=string',
         'name' => 'column=zone_name;type=string',
@@ -140,7 +140,7 @@ array(
         'historyDate' => 'column=banners_history_date;type=datetime',
     ),
     'languages' => array(
-        'id' => 'column=languages_id;type=integer;key=true;auto=true',
+        'languageId' => 'column=languages_id;type=integer;key=true;auto=true',
         'name' => 'column=name;type=string',
         'code' => 'column=code;type=string',
         'image' => 'column=image;type=string',
@@ -158,7 +158,7 @@ array(
         'singleStatus' => 'column=layout_box_status_single;type=integer',
     ),
     'products' => array(
-        'id' => 'column=products_id;type=integer;key=true;auto=true',
+        'productId' => 'column=products_id;type=integer;key=true;auto=true',
         'type' => 'column=products_type;type=integer',
         'quantity' => 'column=products_quantity;type=float',
         'model' => 'column=products_model;type=string',
@@ -195,7 +195,7 @@ array(
         'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer',
     ),
     'products_description' => array(
-        'id' => 'column=products_id;type=integer;key=true;auto=true',
+        'productId' => 'column=products_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_name;type=string',
         'description' => 'column=products_description;type=string',
