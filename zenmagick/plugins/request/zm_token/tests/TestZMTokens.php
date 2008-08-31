@@ -58,6 +58,31 @@ class TestZMTokens extends UnitTestCase {
         ZMTokens::instance()->clearExpired();
     }
 
+    /**
+     * Test update.
+     */
+    public function testUpdateToken() {
+        $resource = 'abc';
+        $lifetime = 24*60*60; // 1 day
+
+        // create token
+        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $this->assertNotNull($token);
+
+        // make sure it is valid (do not expire)
+        $this->assertNotNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), false));
+
+        // copy as update will update $token
+        $tokenExpiry = $token->getExpires();
+        ZMTokens::instance()->updateToken($token, 7*$lifetime);
+        $update = ZMTokens::instance()->validateHash($resource, $token->getHash(), false);
+        $this->assertNotNull($update);
+        $this->assertEqual($update->getHash(), $token->getHash());
+        $this->assertEqual($update->getResource(), $token->getResource());
+        $updateExpiry = $update->getExpires();
+        $this->assertTrue($tokenExpiry < $updateExpiry);
+    }
+
 }
 
 ?>

@@ -27,8 +27,12 @@
 /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
 define('ZM_DB_MODEL_RAW', '@raw');
 
+/** Internal date format. */
+define('ZM_DB_DATETIME_FORMAT', 'Y-m-d H:i:s');
+
 /** NULL date. */
 define('ZM_DB_NULL_DATE', '0001-01-01');
+/** NULL datetime. */
 define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
 
 
