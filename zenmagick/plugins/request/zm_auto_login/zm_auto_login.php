@@ -36,6 +36,7 @@ define('ZM_AUTO_LOGIN_OPT_IN', 'autoLogin');
  * @version $Id$
  */
 class zm_auto_login extends ZMPlugin {
+    private $cookieUpdated;
 
     /**
      * Create new instance.
@@ -43,6 +44,8 @@ class zm_auto_login extends ZMPlugin {
     function __construct() {
         parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
         $this->setLoaderSupport('ALL');
+        $this->setScope(ZM_SCOPE_STORE);
+        $this->cookieUpdated = false;
     }
 
     /**
@@ -68,12 +71,10 @@ class zm_auto_login extends ZMPlugin {
     function init() {
         parent::init();
 
-        if ($this->isEnabled()) {
-            $this->zcoSubscribe();
-        }
+        $this->zcoSubscribe();
 
         $session = ZMRequest::getSession();
-        if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getPageName() && $session->isAnonymous() && $this->isEnabled()) {
+        if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getPageName() && $session->isAnonymous()) {
             // try to login
             if (isset($_COOKIE[ZM_AUTO_LOGIN_COOKIE])) {
 			          $cookie = explode('~~~', $_COOKIE[ZM_AUTO_LOGIN_COOKIE]);
@@ -103,6 +104,21 @@ class zm_auto_login extends ZMPlugin {
             //TODO: use hash
             $cookie = implode('~~~', array($account->getId(), $account->getPassword()));
             setcookie(ZM_AUTO_LOGIN_COOKIE, $cookie, time()+60*60*24*$this->get('lifetime'));
+            $this->cookieUpdated = true;
+        }
+    }
+
+    /**
+     * Event handler to update the cookie if required.
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMAllDone($args=array()) {
+        $session = ZMRequest::getSession();
+        if ('GET' == ZMRequest::getMethod() && $session->isRegistered()) {
+            if (!$this->cookieUpdated) {
+                $this->onOptIn(ZMRequest::getAccount(), true);
+            }
         }
     }
 
@@ -132,6 +148,7 @@ class zm_auto_login extends ZMPlugin {
     public function onZMLogoffSuccess($args=array()) {
         if (array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE)) {
             setcookie(ZM_AUTO_LOGIN_COOKIE, 'expired', time() - 3600);
+            $this->cookieUpdated = true;
         }
     }
 
