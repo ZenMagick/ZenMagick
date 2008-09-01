@@ -50,7 +50,7 @@
       </fieldset>
       <p>
         <input type="checkbox" id="@all" onclick="sync_all(this)"> <label for="@all">Select All</label><br>
-        <input type="submit" value="Run">
+        <input type="submit" value="Run Tests">
       </p>
     </form>
 
