@@ -196,8 +196,8 @@ class ZMLayout extends ZMObject {
 
         $sql = "SELECT products_type 
                 FROM " . TABLE_PRODUCTS . "
-                WHERE products_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $productId), TABLE_PRODUCTS);
+                WHERE products_id = :productId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
         if (null !== $result) {
             $typeId = $result['type'];
             $sql = "SELECT type_handler 
