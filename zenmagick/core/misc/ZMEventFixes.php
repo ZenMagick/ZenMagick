@@ -92,6 +92,13 @@ class ZMEventFixes extends ZMObject {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
                     $couponCode = trim($matches[1]);
                     $coupon = ZMCoupons::instance()->getCouponForCode($couponCode);
+                    if (null == $coupon) {
+                        // coupon gets created only *after* the email is sent!
+                        $coupon = ZMLoader::make('Coupon', 0, $couponCode, ZM_COUPON_TYPPE_GV);
+                        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+                        // XXX: update with setter
+                        $coupon->amount_ = $currency->parse($context['GV_WORTH']);
+                    }
                     $controller->exportGlobal('zm_coupon', $coupon);
                 }
 
