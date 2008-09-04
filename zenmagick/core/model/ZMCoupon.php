@@ -36,31 +36,32 @@
  * @version $Id$
  */
 class ZMCoupon extends ZMModel {
-    var $id_;
-    var $code_;
-    var $type_;
-    var $amount_;
-    var $name_;
-    var $description_;
-    var $minimumOrder_;
-    var $startDate_;
-    var $expiryDate_;
-    var $usesPerCoupon_;
-    var $usesPerUser_;
+    private $code_;
+    private $type_;
+    private $amount_;
+    private $name_;
+    private $description_;
+    private $minimumOrder_;
+    private $startDate_;
+    private $expiryDate_;
+    private $usesPerCoupon_;
+    private $usesPerUser_;
+    private $active_;
 
 
     /**
      * Create new instance
      *
-     * @param int id The coupon id.
-     * @param string code The coupon code.
-     * @param string type The coupon type; default is blank.
+     * @param int id The coupon id; default is <em>0</em>.
+     * @param string code The coupon code; default is <em>''</em>.
+     * @param string type The coupon type; default is <em>''</em>.
      */
-    function __construct($id, $code, $type='') {
+    function __construct($id=0, $code='', $type='') {
         parent::__construct();
-        $this->id_ = $id;
+        $this->setId($id);
         $this->code_ = $code;
         $this->type_ = $type;
+        $this->active_ = 'Y';
     }
 
     /**
@@ -76,107 +77,198 @@ class ZMCoupon extends ZMModel {
      *
      * @return int The coupon id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->get('couponId'); }
 
     /**
      * Get the coupon code.
      *
      * @return string The coupon code.
      */
-    function getCode() { return $this->code_; }
+    public function getCode() { return $this->code_; }
 
     /**
      * Get the coupon type.
      *
      * @return string The coupon type.
      */
-    function getType() { return $this->type_; }
+    public function getType() { return $this->type_; }
 
     /**
      * Get the amount.
      *
      * @return float The coupon amount.
      */
-    function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount_; }
 
     /**
      * Get the coupon name.
      *
      * @return string The coupon name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the coupon description.
      *
      * @return string The coupon description.
      */
-    function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description_; }
 
     /**
      * Get the minimum order value.
      *
      * @return float The minimum order value.
      */
-    function getMinimumOrder() { return $this->minimumOrder_; }
+    public function getMinimumOrder() { return $this->minimumOrder_; }
 
     /**
      * Get the coupon start date.
      *
      * @return string The coupon start date.
      */
-    function getStartDate() { return $this->startDate_; }
+    public function getStartDate() { return $this->startDate_; }
 
     /**
      * Get the coupon expiry date.
      *
      * @return string The coupon expiry date.
      */
-    function getExpiryDate() { return $this->expiryDate_; }
+    public function getExpiryDate() { return $this->expiryDate_; }
 
     /**
      * Get the uses per coupon.
      *
      * @return int The uses per coupon.
      */
-    function getUsesPerCoupon() { return $this->usesPerCoupon_; }
+    public function getUsesPerCoupon() { return $this->usesPerCoupon_; }
 
     /**
      * Get the uses per coupon.
      *
      * @return int The uses per coupon.
      */
-    function getUsesPerUser() { return $this->usesPerUser_; }
+    public function getUsesPerUser() { return $this->usesPerUser_; }
 
     /**
      * Check if this coupon qualifies for free shipping.
      *
      * @return boolean <code>true</code> if this coupon qualifies for free shipping, <code>false</code> if not.
      */
-    function isFreeShipping() { return 'S' == $this->type_; }
+    public function isFreeShipping() { return 'S' == $this->type_; }
+
+    /**
+     * Check if this coupon is active.
+     *
+     * @return boolean <code>true</code> if this coupon is active.
+     */
+    public function isActive() { return 'Y' == $this->active_; }
 
     /**
      * Check if this a fixed amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a fixed amount assigned, <code>false</code> if not.
      */
-    function isFixedAmount() { return 'F' == $this->type_; }
+    public function isFixedAmount() { return 'F' == $this->type_; }
 
     /**
      * Check if this a percentage amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a percentage amount assigned, <code>false</code> if not.
      */
-    function isPercentage() { return 'P' == $this->type_; }
+    public function isPercentage() { return 'P' == $this->type_; }
 
     /**
      * Get coupon restrictions.
      *
      * @return array An array of <code>ZMCouponRestriction</code> instances.
      */
-    function getRestrictions() {
-        return ZMCoupons::instance()->_getRestrictionsForId($this->id_);
+    public function getRestrictions() {
+        return ZMCoupons::instance()->getRestrictionsForCouponId($this->get('couponId'));
     }
+
+    /**
+     * Set the coupon id.
+     *
+     * @param int id The coupon id.
+     */
+    public function setId($id) { $this->set('couponId', $id); }
+
+    /**
+     * Set the coupon code.
+     *
+     * @param string code The coupon code.
+     */
+    public function setCode($code) { $this->code_ = $code; }
+
+    /**
+     * Set the coupon type.
+     *
+     * @param string type The coupon type.
+     */
+    public function setType($type) { $this->type_ = $type; }
+
+    /**
+     * Set the amount.
+     *
+     * @param float amount The coupon amount.
+     */
+    public function setAmount($amount) { $this->amount_ = $amount; }
+
+    /**
+     * Set the coupon name.
+     *
+     * @param string name The coupon name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the coupon description.
+     *
+     * @param string description The coupon description.
+     */
+    public function setDescription($description) { $this->description_ = $description; }
+
+    /**
+     * Set the minimum order value.
+     *
+     * @param float min The minimum order value.
+     */
+    public function setMinimumOrder($min) { $this->minimumOrder_ = $min; }
+
+    /**
+     * Set the coupon start date.
+     *
+     * @param string date The coupon start date.
+     */
+    public function setStartDate($date) { $this->startDate_ = $date; }
+
+    /**
+     * Set the coupon expiry date.
+     *
+     * @param string date The coupon expiry date.
+     */
+    public function setExpiryDate($date) { $this->expiryDate_ = $date; }
+
+    /**
+     * Set the uses per coupon.
+     *
+     * @param int uses The uses per coupon.
+     */
+    public function setUsesPerCoupon($uses) { $this->usesPerCoupon_ = $uses; }
+
+    /**
+     * Set the uses per user.
+     *
+     * @param int uses The uses per user.
+     */
+    public function setUsesPerUser($uses) { $this->usesPerUser_ = $uses; }
+
+    /**
+     * Set the active flag.
+     *
+     * @param string active The new flag.
+     */
+    public function setActive($active) { $this->active_ = $active; }
 
 }
 

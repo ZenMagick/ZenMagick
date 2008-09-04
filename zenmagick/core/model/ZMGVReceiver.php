@@ -65,7 +65,7 @@ class ZMGVReceiver extends ZMModel {
      *
      * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
      */
-    function populate($req=null) {
+    public function populate($req=null) {
         $this->name_ = ZMRequest::getParameter('name', '');
         $this->email_ = ZMRequest::getParameter('email', '');
         $this->amount_ = ZMRequest::getParameter('amount', 0);
@@ -79,63 +79,63 @@ class ZMGVReceiver extends ZMModel {
      *
      * @return string The receiver name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the receiver email.
      *
      * @return string The receiver email.
      */
-    function getEmail() { return $this->email_; }
+    public function getEmail() { return $this->email_; }
 
     /**
      * Get the amount.
      *
      * @return string The (formatted) amount.
      */
-    function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount_; }
 
     /**
      * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    function hasMessage() { return !empty($this->message_); }
+    public function hasMessage() { return !empty($this->message_); }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    function getMessage() { return $this->message_; }
+    public function getMessage() { return $this->message_; }
 
     /**
      * Set the receiver name.
      *
      * @param string name The receiver name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the receiver email.
      *
      * @param string email The receiver email.
      */
-    function setEmail($email) { $this->email_ = $email; }
+    public function setEmail($email) { $this->email_ = $email; }
 
     /**
      * Set the amount.
      *
      * @param string amount The (formatted) amount.
      */
-    function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount_ = $amount; }
 
     /**
      * Set the message.
      *
      * @param string message The message.
      */
-    function setMessage($message) { $this->message_ = $message; }
+    public function setMessage($message) { $this->message_ = $message; }
 
 }
 
