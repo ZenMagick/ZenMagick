@@ -81,7 +81,7 @@ class Accounts extends ZMAccounts {
                 AND NOT (customers_password = '')
                 AND site_id = :siteId";
         $args = array('email' => $emailAddress, 'siteId' => ZMRequest::getHostname());
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, 'system'));
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZM_DB_MODEL_RAW);
         return 0 < $result['total'];
     }
 

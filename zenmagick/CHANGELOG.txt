@@ -4,6 +4,7 @@ Release 0.9.3
 - add support for permalinks to zm_wordpress (Apache httpd only)
 - set authorization flag properly for new accounts
 - fix broken gv_mail emails; b:#2090853
+- zM_site_switch: improve db access code, fix view warning
 
 Release 0.9.2
 - add database support for data type blob

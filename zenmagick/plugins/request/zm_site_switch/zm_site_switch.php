@@ -114,15 +114,7 @@ class zm_site_switch extends ZMPlugin {
         $sql = 'UPDATE '.TABLE_ORDERS.'
                 SET site_id = :siteId
                 WHERE orders_id = :orderId';
-        // TODO: user orders mapping once there...
-        // set up mapping for fake table
-        ZMDbTableMapper::instance()->setMappingForTable('zm_site_switch_orders', 
-                    array(
-                      'orderId' => 'column=orders_id;type=integer;key=true;primary=true',
-                      'siteId' => 'column=site_id;type=string'
-                    )
-        );
-        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()), 'zm_site_switch_orders');
+        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()), TABLE_ORDERS);
     }
 
     /**
