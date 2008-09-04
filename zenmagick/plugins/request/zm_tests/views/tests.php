@@ -9,7 +9,7 @@
          pre {background-color:lightgray;color:inherit;}
          legend {color:#467aa7;font-weight:bold;padding:3px;}
          .all {margin-top:5px;border-top:1px dotted #467aa7;position:absolute;bottom:2em;}
-         fieldset {width:12em;height:6em;float:left;position:relative;margin-right:5px;}
+         fieldset {width:12em;height:9em;float:left;position:relative;margin-right:5px;}
          fieldset div {width:11em;}
          form p {clear:left;padding:7px;}
     </style>
