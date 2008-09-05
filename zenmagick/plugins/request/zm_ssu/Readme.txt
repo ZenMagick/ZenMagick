@@ -1,4 +1,5 @@
-This is the ZenMagick plugin for Simple SEO URL support.
+This is the ZenMagick plugin for Simple SEO URL support as found at:
+http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=231
 
 
 Installation
