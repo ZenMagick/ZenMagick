@@ -32,12 +32,12 @@
  * @version $Id$
  */
 class ZMOffers extends ZMObject {
-    var $product_;
-    var $basePrice_;
-    var $specialPrice_;
-    var $salePrice_;
-    var $taxRate_;
-    var $discountPercent_;
+    private $product_;
+    private $basePrice_;
+    private $specialPrice_;
+    private $salePrice_;
+    private $taxRate_;
+    private $discountPercent_;
 
 
     /**
@@ -185,26 +185,25 @@ class ZMOffers extends ZMObject {
   	    $basePrice = $this->getBasePrice(false);
   	    $specialPrice = $this->getSpecialPrice(false);
 
-        $db = ZMRuntime::getDB();
         // get available sales
-        $sql = "select sale_specials_condition, sale_deduction_value, sale_deduction_type
-                from " . TABLE_SALEMAKER_SALES . "
-                where sale_categories_all like '%," . $this->product_->getMasterCategoryId() . ",%' and sale_status = '1'
-                and (sale_date_start <= now() or sale_date_start = '0001-01-01')
-                and (sale_date_end >= now() or sale_date_end = '0001-01-01')
-                and (sale_pricerange_from <= :basePrice  or sale_pricerange_from = '0')
-                and (sale_pricerange_to >= :basePrice or sale_pricerange_to = '0')";
-        $sql = $db->bindVars($sql, ":basePrice", $basePrice, "currency");
-        $results = $db->Execute($sql);
+        $sql = "SELECT sale_specials_condition, sale_deduction_value, sale_deduction_type
+                FROM " . TABLE_SALEMAKER_SALES . "
+                WHERE sale_categories_all LIKE '%," . $this->product_->getMasterCategoryId() . ",%' AND sale_status = '1'
+                AND (sale_date_start <= now() OR sale_date_start = '0001-01-01')
+                AND (sale_date_end >= now() OR sale_date_end = '0001-01-01')
+                AND (sale_pricerange_from <= :priceFrom  OR sale_pricerange_from = '0')
+                AND (sale_pricerange_to >= :priceFrom OR sale_pricerange_to = '0')";
+        $args = array('priceFrom' => $basePrice, 'categoriesAll' => '%,'.$this->product_->getMasterCategoryId().',%');
+        $results = ZMRuntime::getDatabase()->query($sql, $args, TABLE_SALEMAKER_SALES);
 
-        if ($results->RecordCount() < 1) {
+        if (0 == count($results)) {
             return $specialPrice;
         }
 
-        // read result
-        $saleType = $results->fields['sale_deduction_type'];
-        $saleValue = $results->fields['sale_deduction_value'];
-        $saleCondition = $results->fields['sale_specials_condition'];
+        // read first result
+        $saleType = $results[0]['deductionType'];
+        $saleValue = $results[0]['deductionValue'];
+        $saleCondition = $results[0]['specialsCondition'];
 
         // best special price available
         $bestSpecialPrice = $specialPrice ? $specialPrice : $basePrice;
