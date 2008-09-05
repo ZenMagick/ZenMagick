@@ -33,6 +33,15 @@ class TestCompareUrls extends UnitTestCase {
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=', 'index.php?main_page=index'));
     }
 
+    /**
+     * Test some more.
+     */
+    public function testSomeMore() {
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', ''));
+        $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', 'main_page=login'));
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=wp', 'main_page=login'));
+    }
+
 }
 
 ?>

@@ -404,17 +404,25 @@ class ZMTools {
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
      */
     public static function compareStoreUrl($url1, $url2=null) {
-        $url1Token = parse_url($url1);
-        parse_str($url1Token['query'], $query1);
+        if (false !== strpos($url1, '?')) {
+            $url1Token = parse_url($url1);
+            parse_str($url1Token['query'], $query1);
+        } else {
+            parse_str($url1, $query1);
+        }
 
-        if (null != $url2) {
-            $url2Token = parse_url($url2);
-            parse_str($url2Token['query'], $query2);
+        if (null !== $url2) {
+            if (false !== strpos($url2, '?')) {
+                $url2Token = parse_url($url2);
+                parse_str($url2Token['query'], $query2);
+            } else {
+                parse_str($url2, $query2);
+            }
         } else {
             parse_str(ZMRequest::getQueryString(), $query2);
         }
-        $query1['main_page'] = (isset($query1['main_page']) && !empty($query1['main_page'])) ? $query1['main_page'] : 'index';
-        $query2['main_page'] = (isset($query2['main_page']) && !empty($query2['main_page'])) ? $query2['main_page'] : 'index';
+        $query1['main_page'] = (array_key_exists('main_page', $query1) && !empty($query1['main_page'])) ? $query1['main_page'] : 'index';
+        $query2['main_page'] = (array_key_exists('main_page', $query2) && !empty($query2['main_page'])) ? $query2['main_page'] : 'index';
 
         $equal = $query1['main_page'] == $query2['main_page'];
         // additional test for sub parameter
