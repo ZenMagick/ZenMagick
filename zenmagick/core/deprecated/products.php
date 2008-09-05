@@ -31,7 +31,7 @@
      * <p>Usage sample:</p>
      *
      * <code><pre>
-     *  &lt;?php $attributes = zm_buildAttributeElements($zm_product); ?&gt;
+     *  &lt;?php $attributes = zm_buildAttributeElements($product); ?&gt;
      *  &lt;?php foreach ($attributes as $attribute) { ?&gt;
      *  &nbsp;&nbsp;  &lt;?php foreach ($attribute['html'] as $option) { ?&gt;
      *  &nbsp;&nbsp;&nbsp;&nbsp;    &lt;p&gt;&lt;?php echo $option ?&gt;&lt;/p&gt;
