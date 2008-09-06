@@ -66,6 +66,7 @@
     define('ZM_EVENT_LOGIN_SUCCESS', 'login_success');
     define('ZM_EVENT_LOGOFF_SUCCESS', 'logoff_success');
     define('ZM_EVENT_GENERATE_EMAIL', 'generate_email');
+    define('ZM_EVENT_CREATE_ORDER', 'create_order');
 
 
     //** db **//
