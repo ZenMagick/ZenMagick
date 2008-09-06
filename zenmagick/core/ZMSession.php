@@ -85,6 +85,17 @@ class ZMSession extends ZMObject {
     }
 
     /**
+     * Remove a session value.
+     *
+     * @param string name The field name.
+     */
+    public function removeValue($name) {
+        if (isset($_SESSION[$name])) {
+            unset($_SESSION[$name]);
+        }
+    }
+
+    /**
      * Recreate session.
      *
      * @param boolean force If <code>true</code>, force recreation of the session, even if this is disabled.
