@@ -14,15 +14,15 @@ class TestZMOrders extends UnitTestCase {
      */
     public function testUpdateOrderStatus() {
         $order = ZMOrders::instance()->getOrderForId(1);
-        $order->setStatus(4);
+        $order->setOrderStatusId(4);
         ZMOrders::instance()->updateOrder($order);
         $order = ZMOrders::instance()->getOrderForId(1);
-        $this->assertEqual(4, $order->getStatus());
+        $this->assertEqual(4, $order->getOrderStatusId());
         $this->assertEqual('Update', $order->getStatusName());
-        $order->setStatus(2);
+        $order->setOrderStatusId(2);
         ZMOrders::instance()->updateOrder($order);
         $order = ZMOrders::instance()->getOrderForId(1);
-        $this->assertEqual(2, $order->getStatus());
+        $this->assertEqual(2, $order->getOrderStatusId());
         $this->assertEqual('Processing', $order->getStatusName());
     }
 

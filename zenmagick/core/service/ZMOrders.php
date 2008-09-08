@@ -130,13 +130,13 @@ class ZMOrders extends ZMObject {
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.*, s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.orders_status = :status
+                where o.orders_status = :orderStatusId
                 and o.orders_id = ot.orders_id
                 and ot.class = 'ot_total'
                 and o.orders_status = s.orders_status_id
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
-        $args = array('status' => $statusId, 'languageId' => $languageId);
+        $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
         $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 
         return $orders;
@@ -307,7 +307,7 @@ class ZMOrders extends ZMObject {
         $sql = "update " . TABLE_ORDERS . " set
                 :customFields,
                 customers_id = :accountId;integer,
-                orders_status = :status;integer
+                orders_status = :orderStatusId;integer
                 where orders_id = :orderId";
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
         $sql = ZMDbUtils::bindObject($sql, $order, false);
@@ -336,11 +336,11 @@ class ZMOrders extends ZMObject {
                   AND op.orders_products_id = opd.orders_products_id
                   AND opd.orders_products_filename != ''";
         if (0 < count($orderStatusList)) {
-            $sql .= ' AND o.orders_status in (:status)';
+            $sql .= ' AND o.orders_status in (:orderStatusId)';
         }
 
         $mapping = array(TABLE_ORDERS_PRODUCTS_DOWNLOAD, TABLE_ORDERS_PRODUCTS, TABLE_ORDERS);
-        return ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId, 'status' => $orderStatusList), $mapping, 'Download');
+        return ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'Download');
     }
 
 }

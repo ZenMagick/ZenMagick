@@ -426,7 +426,7 @@ array(
         'cc_cvv' => 'column=cc_cvv;type=blob',
         'last_modified' => 'column=last_modified;type=datetime',
         'orderDate' => 'column=date_purchased;type=datetime',
-        'status' => 'column=orders_status;type=integer',
+        'orderStatusId' => 'column=orders_status;type=integer',
         'orders_date_finished' => 'column=orders_date_finished;type=datetime',
         'currency' => 'column=currency;type=string',
         'currency_value' => 'column=currency_value;type=integer',

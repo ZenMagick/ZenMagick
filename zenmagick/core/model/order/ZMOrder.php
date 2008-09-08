@@ -33,7 +33,7 @@
  */
 class ZMOrder extends ZMModel {
     var $accountId_;
-    var $status_;
+    private $orderStatusId_;
     var $orderDate_;
     var $totalValue_;
     private $account_;
@@ -98,7 +98,7 @@ class ZMOrder extends ZMModel {
      *
      * @return int The order status [id].
      */
-    public function getStatus() { return $this->status_; }
+    public function getOrderStatusId() { return $this->orderStatusId_; }
 
     /**
      * Get the order status name [read only]
@@ -110,9 +110,9 @@ class ZMOrder extends ZMModel {
     /**
      * Set the order status [id].
      *
-     * @param int status The order status [id].
+     * @param int statusId The order status [id].
      */
-    public function setStatus($status) { $this->status_ = $status; }
+    public function setOrderStatusId($statusId) { $this->orderStatusId_ = $statusId; }
 
     /**
      * Get the order date.
