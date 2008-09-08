@@ -29,6 +29,6 @@
     <td><?php $locale->shortDate($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php $html->encode($address->getFullName()) ?></td>
-    <td><?php zm_l10n($order->getStatus()) ?></td>
+    <td><?php zm_l10n($order->getStatusName()) ?></td>
     <td class="pprice"><?php $utils->formatMoney($order->getTotal()) ?></td>
 </tr>

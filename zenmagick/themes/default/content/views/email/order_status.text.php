@@ -33,7 +33,7 @@
 <?php zm_l10n("You can check the status of your order at: %s.", $net->url(ZM_FILENAME_GUEST_HISTORY, '', false, false)) ?>
 <?php } ?>
 
-<?php if ($newOrderStatus != $zm_order->getStatus()) { ?>
+<?php if ($newOrderStatus != $zm_order->getStatusName()) { ?>
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 

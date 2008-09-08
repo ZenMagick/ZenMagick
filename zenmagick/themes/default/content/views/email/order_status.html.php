@@ -40,7 +40,7 @@
 } ?>
 <p><?php zm_l10n("More details can be found at the following URL: %s", $href) ?></p>
 
-<?php if ($newOrderStatus != $zm_order->getStatus()) { ?>
+<?php if ($newOrderStatus != $zm_order->getStatusName()) { ?>
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 
