@@ -69,36 +69,46 @@ class ZMOrders extends ZMObject {
         }
         
         $db = ZMRuntime::getDB();
-        $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
-                o.customers_street_address, o.customers_suburb, o.customers_city,
-                o.customers_postcode, o.customers_state, o.customers_country,
-                o.customers_telephone, o.customers_email_address, o.customers_address_format_id,
-                o.delivery_name, o.delivery_company, o.delivery_street_address, o.delivery_suburb,
-                o.delivery_city, o.delivery_postcode, o.delivery_state, o.delivery_country,
-                o.delivery_address_format_id, o.billing_name, o.billing_company,
-                o.billing_street_address, o.billing_suburb, o.billing_city, o.billing_postcode,
-                o.billing_state, o.billing_country, o.billing_address_format_id,
-                o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
-                o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
-                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
-                s.orders_status_name
-                from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.orders_id = :orderId
-                and o.orders_id = ot.orders_id
-                and ot.class = 'ot_total'
-                and o.orders_status = s.orders_status_id
-                and s.language_id = :languageId";
-        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
+        $sql = "SELECT o.*, s.orders_status_name
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                WHERE o.orders_id = :orderId
+                  AND o.orders_id = ot.orders_id
+                  AND ot.class = 'ot_total'
+                  AND o.orders_status = s.orders_status_id
+                  AND s.language_id = :languageId";
+        $args = array('orderId' => $orderId, 'languageId' => $languageId);
+        $order = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        if (null != $order) {
+            $order->account_ = ZMLoader::make("Account");
+            $order->account_->setAccountId($order->get('customers_id'));
+            // orders has only name, not first/last...
+            $order->account_->setLastName($order->get('customers_name'));
+            $order->account_->setEmail($order->get('customers_email_address'));
+            $order->account_->setPhone($order->get('customers_telephone'));
 
-        $results = $db->Execute($sql);
-
-        $order = null;
-        if (!$results->EOF) {
-            $order = $this->_newOrder($results->fields);
+            $order->shippingAddress_ = $this->_xxNewAddress($order, 'delivery');
+            $order->billingAddress_ = $this->_xxNewAddress($order, 'billing');
         }
 
         return $order;
+    }
+    /**
+     * Create new address instance.
+     */
+    function _xxNewAddress($order, $prefix) {
+        $address = ZMLoader::make("Address");
+        $address->setAddressId(0);
+        // orders has only name, not first/last...
+        $address->setLastName($order->get($prefix.'_name'));
+        $address->setCompanyName($order->get($prefix.'_company'));
+        $address->setAddress($order->get($prefix.'_street_address'));
+        $address->setSuburb($order->get($prefix.'_suburb'));
+        $address->setPostcode($order->get($prefix.'_postcode'));
+        $address->setCity($order->get($prefix.'_city'));
+        $address->setState($order->get($prefix.'_state'));
+        $address->setCountry(ZMCountries::instance()->getCountryForName($order->get($prefix.'_country')));
+        $address->setFormat($order->get($prefix.'_address_format_id'));
+        return $address;
     }
 
     /**
@@ -118,19 +128,7 @@ class ZMOrders extends ZMObject {
         $db = ZMRuntime::getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
-        $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
-                o.customers_street_address, o.customers_suburb, o.customers_city,
-                o.customers_postcode, o.customers_state, o.customers_country,
-                o.customers_telephone, o.customers_email_address, o.customers_address_format_id,
-                o.delivery_name, o.delivery_company, o.delivery_street_address, o.delivery_suburb,
-                o.delivery_city, o.delivery_postcode, o.delivery_state, o.delivery_country,
-                o.delivery_address_format_id, o.billing_name, o.billing_company,
-                o.billing_street_address, o.billing_suburb, o.billing_city, o.billing_postcode,
-                o.billing_state, o.billing_country, o.billing_address_format_id,
-                o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
-                o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
-                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
-                s.orders_status_name
+        $sql = "select o.*, s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 where o.customers_id = :accountId
                 and o.orders_id = ot.orders_id
@@ -168,19 +166,7 @@ class ZMOrders extends ZMObject {
         $db = ZMRuntime::getDB();
         // order only
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
-        $sql = "select o.orders_id, o.customers_id, o.customers_name, o.customers_company,
-                o.customers_street_address, o.customers_suburb, o.customers_city,
-                o.customers_postcode, o.customers_state, o.customers_country,
-                o.customers_telephone, o.customers_email_address, o.customers_address_format_id,
-                o.delivery_name, o.delivery_company, o.delivery_street_address, o.delivery_suburb,
-                o.delivery_city, o.delivery_postcode, o.delivery_state, o.delivery_country,
-                o.delivery_address_format_id, o.billing_name, o.billing_company,
-                o.billing_street_address, o.billing_suburb, o.billing_city, o.billing_postcode,
-                o.billing_state, o.billing_country, o.billing_address_format_id,
-                o.payment_method, o.payment_module_code, o.shipping_method, o.shipping_module_code,
-                o.coupon_code, o.cc_type, o.cc_owner, o.cc_number, o.cc_expires, o.currency, o.currency_value,
-                o.date_purchased, o.orders_status, o.last_modified, o.order_total, o.order_tax, o.ip_address,
-                s.orders_status_name
+        $sql = "select o.*, s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 where o.orders_status = :statusId
                 and o.orders_id = ot.orders_id
@@ -223,7 +209,6 @@ class ZMOrders extends ZMObject {
                   order by osh.date_added";
         $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-
         $results = $db->Execute($sql);
 
         $stati = array();
@@ -273,34 +258,15 @@ class ZMOrders extends ZMObject {
      */
     function _newOrder($fields) {
         $order = ZMLoader::make("Order");
-        $order->id_ = $fields['orders_id'];
-        $order->status_ = $fields['orders_status_name'];
+        $order->setId($fields['orders_id']);
+        $order->status_ = $fields['orders_status'];
+        $order->statusName_ = $fields['orders_status_name'];
         $order->orderDate_ = $fields['date_purchased'];
         $order->accountId_ = $fields['customers_id'];
-        $order->id_ = $fields['orders_id'];
         $order->total_ = $fields['order_total'];
         $order->account_ = $this->_newAccount($fields);
         $order->shippingAddress_ = $this->_newAddress($fields, 'delivery');
         $order->billingAddress_ = $this->_newAddress($fields, 'billing');
-
-        /*
-        fields['currency'],
-        fields['currency_value'],
-        fields['payment_method'],
-        fields['payment_module_code'],
-        fields['shipping_method'],
-        fields['shipping_module_code'],
-        fields['coupon_code'],
-        fields['cc_type'],
-        fields['cc_owner'],
-        fields['cc_number'],
-        fields['cc_expires'],
-        fields['date_purchased'],
-        fields['last_modified'],
-        fields['order_tax'],
-        fields['ip_address']
-        */
-
         return $order;
     }
 
@@ -433,61 +399,6 @@ class ZMOrders extends ZMObject {
     function updateOrder($order) {
         $db = ZMRuntime::getDB();
 
-/*
-                customers_name = :customers_name;string,
-                customers_company = :customers_company;string,
-                customers_street_address = :customers_street_address;string,
-                customers_suburb = :customers_suburb;string,
-                customers_city = :customers_city;string,
-                customers_postcode = :customers_postcode;string,
-                customers_state = :customers_state;string,
-                customers_country = :customers_country;string,
-                customers_telephone = :customers_telephone;string,
-                customers_email_address = :customers_email_address;string,
-                customers_address_format_id = :customers_address_format_id;string,
-
-                delivery_name = :delivery_name;string,
-                delivery_company = :delivery_company;string,
-                delivery_street_address = :delivery_street_address;string,
-                delivery_suburb = :delivery_suburb;string,
-                delivery_city = :delivery_city;string,
-                delivery_postcode = :delivery_postcode;string,
-                delivery_state = :delivery_state;string,
-                delivery_country = :delivery_country;string,
-                delivery_address_format_id = :delivery_address_format_id;string,
-
-                billing_name = :billing_name;string,
-                billing_company = :billing_company;string,
-                billing_street_address = :billing_street_address;string,
-                billing_suburb = :billing_suburb;string,
-                billing_city = :billing_city;string,
-                billing_postcode = :billing_postcode;string,
-                billing_state = :billing_state;string,
-                billing_country = :billing_country;string,
-                billing_address_format_id = :billing_address_format_id;string,
-
-                payment_method = :payment_method;string,
-                payment_module_code = :payment_module_code;string,
-
-                shipping_method = :shipping_method;string,
-                shipping_module_code = :shipping_module_code;string,
-
-                coupon_code = :coupon_code;string,
-
-                cc_type = :cc_type;string,
-                cc_owner = :cc_owner;string,
-                cc_number = :cc_number;string,
-                cc_expires = :cc_expires;string,
-
-                currency = :currency;string,
-                currency_value = :currency_value;string,
-
-                date_purchased = :date_purchased;string,
-                last_modified = :last_modified;string,
-                order_total = :order_total;string,
-                order_tax = :order_tax;string,
-
-*/
         $sql = "update " . TABLE_ORDERS . " set
                 :customFields,
                 customers_id = :accountId;integer,
@@ -496,6 +407,7 @@ class ZMOrders extends ZMObject {
         $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
         $sql = ZMDbUtils::bindObject($sql, $order, false);
         $sql = ZMDbUtils::bindCustomFields($sql, $order, TABLE_ORDERS);
+
         $db->Execute($sql);
 
         return $order;

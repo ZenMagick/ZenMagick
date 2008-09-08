@@ -1,4 +1,4 @@
-<?php
+nd<?php
 /*
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
@@ -167,6 +167,9 @@ class ZMDbUtils {
         foreach ($fields as $field) {
             $name = $field[0];
             $type = $field[1];
+            if (2 < count($field)) {
+                $name = $field[2];
+            }
             $fragment .= $db->bindVars($field[0]." = :value, ", ":value", $obj->get($name), $type);
         }
 

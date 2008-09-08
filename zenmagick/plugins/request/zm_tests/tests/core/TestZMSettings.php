@@ -47,6 +47,26 @@ class TestZMSettings extends UnitTestCase {
         $this->assertEqual($old.$delim.$value, ZMSettings::get($key));
     }
 
+    /**
+     * Test append multiple.
+     */
+    public function testAppendMultiple() {
+        $key = 'o@@@@';
+        $old = null;
+
+        $oldValue = ZMSettings::append($key, 'yo', ',');
+        $this->assertEqual(null, $oldValue);
+        $this->assertEqual('yo', ZMSettings::get($key));
+
+        $oldValue = ZMSettings::append($key, 'yo', ',');
+        $this->assertEqual('yo', $oldValue);
+        $this->assertEqual('yo,yo', ZMSettings::get($key));
+
+        $oldValue = ZMSettings::append($key, 'yo', ',');
+        $this->assertEqual('yo,yo', $oldValue);
+        $this->assertEqual('yo,yo,yo', ZMSettings::get($key));
+    }
+
 }
 
 ?>

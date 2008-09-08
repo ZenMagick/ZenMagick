@@ -475,7 +475,7 @@ array(
     'orders_status' => array(
         'orderStatusId' => 'column=orders_status_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
-        'name' => 'column=orders_status_name;type=string',
+        'statusName' => 'column=orders_status_name;type=string',
     ),
     'orders_status_history' => array(
         'id' => 'column=orders_status_history_id;type=integer;key=true;auto=true',

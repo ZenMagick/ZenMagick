@@ -7,6 +7,12 @@ Release 0.9.3
 - zm_site_switch: improve db access code, fix view warning
 - fix broken use of deprecated $zm_xxx global
 - add support for new ZM_EVENT_CREATE_ORDER event
+- fixed some confusion about ZMOrder::status - needs template changes to:
+  * resultlist/order.php
+	* emails/order_status.html.php
+	* emails/order_status.text.php
+	getStatus() changed to getStatusName() [read only]
+- make custom fields work properly on orders table
 
 Release 0.9.2
 - add database support for data type blob

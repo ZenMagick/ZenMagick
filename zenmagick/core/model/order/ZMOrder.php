@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMOrder extends ZMModel {
-    var $id_;
     var $accountId_;
     var $status_;
     var $orderDate_;
@@ -51,7 +50,7 @@ class ZMOrder extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
+        $this->setId(0);
         $this->zenOrder_ = null;
     }
 
@@ -68,14 +67,14 @@ class ZMOrder extends ZMModel {
      *
      * @return int The order id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('orderId'); }
 
     /**
      * Set the order id.
      *
      * @param int id The order id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('orderId', $id); }
 
     /**
      * Set the account id.
@@ -92,16 +91,23 @@ class ZMOrder extends ZMModel {
     public function getAccountId() { return $this->accountId_; }
 
     /**
-     * Get the order status.
+     * Get the order status [id].
      *
-     * @return int The order status.
+     * @return int The order status [id].
      */
     public function getStatus() { return $this->status_; }
 
     /**
-     * Set the order status.
+     * Get the order status name [read only]
      *
-     * @param int status The order status.
+     * @return string The order status name.
+     */
+    public function getStatusName() { return $this->get('statusName'); }
+
+    /**
+     * Set the order status [id].
+     *
+     * @param int status The order status [id].
      */
     public function setStatus($status) { $this->status_ = $status; }
 
@@ -189,14 +195,14 @@ class ZMOrder extends ZMModel {
      * @return array A list of previous order stati.
      * @deprecated Use <code>getOrderStatusHistory</code> instead.
      */
-    public function getOrderStati() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->id_); }
+    public function getOrderStati() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId()); }
 
     /**
      * Get the order status history.
      *
      * @return array A list of previous order stati.
      */
-    public function getOrderStatusHistory() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->id_); }
+    public function getOrderStatusHistory() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId()); }
 
     /**
      * Get the order total.
@@ -217,7 +223,7 @@ class ZMOrder extends ZMModel {
      *
      * @return array A list of <code>ZMOrderTotal</code> instances.
      */
-    public function getOrderTotals() { return ZMOrders::instance()->getOrderTotals($this->id_); }
+    public function getOrderTotals() { return ZMOrders::instance()->getOrderTotals($this->getId()); }
 
     /**
      * Get order total for the given name.
