@@ -478,7 +478,7 @@ array(
         'statusName' => 'column=orders_status_name;type=string',
     ),
     'orders_status_history' => array(
-        'id' => 'column=orders_status_history_id;type=integer;key=true;auto=true',
+        'orderStatusHistoryId' => 'column=orders_status_history_id;type=integer;key=true;auto=true',
         'orderId' => 'column=orders_id;type=integer',
         'orderStatusId' => 'column=orders_status_id;type=integer',
         'dateAdded' => 'column=date_added;type=datetime',

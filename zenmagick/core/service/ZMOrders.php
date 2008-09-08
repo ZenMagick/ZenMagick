@@ -62,7 +62,7 @@ class ZMOrders extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMOrder A order or <code>null</code>.
      */
-    function getOrderForId($orderId, $languageId=null) {
+    public function getOrderForId($orderId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -78,37 +78,8 @@ class ZMOrders extends ZMObject {
                   AND s.language_id = :languageId";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
         $order = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
-        if (null != $order) {
-            $order->account_ = ZMLoader::make("Account");
-            $order->account_->setAccountId($order->get('customers_id'));
-            // orders has only name, not first/last...
-            $order->account_->setLastName($order->get('customers_name'));
-            $order->account_->setEmail($order->get('customers_email_address'));
-            $order->account_->setPhone($order->get('customers_telephone'));
-
-            $order->shippingAddress_ = $this->_xxNewAddress($order, 'delivery');
-            $order->billingAddress_ = $this->_xxNewAddress($order, 'billing');
-        }
 
         return $order;
-    }
-    /**
-     * Create new address instance.
-     */
-    function _xxNewAddress($order, $prefix) {
-        $address = ZMLoader::make("Address");
-        $address->setAddressId(0);
-        // orders has only name, not first/last...
-        $address->setLastName($order->get($prefix.'_name'));
-        $address->setCompanyName($order->get($prefix.'_company'));
-        $address->setAddress($order->get($prefix.'_street_address'));
-        $address->setSuburb($order->get($prefix.'_suburb'));
-        $address->setPostcode($order->get($prefix.'_postcode'));
-        $address->setCity($order->get($prefix.'_city'));
-        $address->setState($order->get($prefix.'_state'));
-        $address->setCountry(ZMCountries::instance()->getCountryForName($order->get($prefix.'_country')));
-        $address->setFormat($order->get($prefix.'_address_format_id'));
-        return $address;
     }
 
     /**
@@ -119,33 +90,24 @@ class ZMOrders extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
+    public function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
         
-        $db = ZMRuntime::getDB();
         // order only
-        $sqlLimit = 0 != $limit ? " limit ".$limit : "";
-        $sql = "select o.*, s.orders_status_name
-                from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.customers_id = :accountId
-                and o.orders_id = ot.orders_id
-                and ot.class = 'ot_total'
-                and o.orders_status = s.orders_status_id
-                and s.language_id = :languageId
-                order by orders_id desc".$sqlLimit;
-        $sql = $db->bindVars($sql, ":accountId", $accountId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-        $results = $db->Execute($sql);
-
-        $orders = array();
-        while (!$results->EOF) {
-            $order = $this->_newOrder($results->fields);
-            array_push($orders, $order);
-            $results->MoveNext();
-        }
+        $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
+        $sql = "SELECT o.*, s.orders_status_name
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                WHERE o.customers_id = :accountId
+                  AND o.orders_id = ot.orders_id
+                  AND ot.class = 'ot_total'
+                  AND o.orders_status = s.orders_status_id
+                  AND s.language_id = :languageId
+                  ORDER BY orders_id desc".$sqlLimit;
+        $args = array('accountId' => $accountId, 'languageId' => $languageId);
+        $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 
         return $orders;
     }
@@ -157,7 +119,7 @@ class ZMOrders extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    function getOrdersForStatusId($statusId, $languageId=null) {
+    public function getOrdersForStatusId($statusId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -168,22 +130,14 @@ class ZMOrders extends ZMObject {
         $sqlLimit = 0 != $limit ? " limit ".$limit : "";
         $sql = "select o.*, s.orders_status_name
                 from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.orders_status = :statusId
+                where o.orders_status = :status
                 and o.orders_id = ot.orders_id
                 and ot.class = 'ot_total'
                 and o.orders_status = s.orders_status_id
                 and s.language_id = :languageId
                 order by orders_id desc".$sqlLimit;
-        $sql = $db->bindVars($sql, ":statusId", $statusId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-        $results = $db->Execute($sql);
-
-        $orders = array();
-        while (!$results->EOF) {
-            $order = $this->_newOrder($results->fields);
-            array_push($orders, $order);
-            $results->MoveNext();
-        }
+        $args = array('status' => $statusId, 'languageId' => $languageId);
+        $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 
         return $orders;
     }
@@ -254,23 +208,6 @@ class ZMOrders extends ZMObject {
     }
 
     /**
-     * Create new order instance.
-     */
-    function _newOrder($fields) {
-        $order = ZMLoader::make("Order");
-        $order->setId($fields['orders_id']);
-        $order->status_ = $fields['orders_status'];
-        $order->statusName_ = $fields['orders_status_name'];
-        $order->orderDate_ = $fields['date_purchased'];
-        $order->accountId_ = $fields['customers_id'];
-        $order->total_ = $fields['order_total'];
-        $order->account_ = $this->_newAccount($fields);
-        $order->shippingAddress_ = $this->_newAddress($fields, 'delivery');
-        $order->billingAddress_ = $this->_newAddress($fields, 'billing');
-        return $order;
-    }
-
-    /**
      * Get order items
      */
     function _getOrderItems($order) {
@@ -328,38 +265,6 @@ class ZMOrders extends ZMObject {
         }
 
         return $orderItem;
-    }
-
-    /**
-     * Create new account instance.
-     */
-    function _newAccount($fields) {
-        $account = ZMLoader::make("Account");
-        $account->setAccountId($fields['customers_id']);
-        // orders has only name, not first/last...
-        $account->setLastName($fields['customers_name']);
-        $account->setEmail($fields['customers_email_address']);
-        $account->setPhone($fields['customers_telephone']);
-        return $account;
-    }
-
-    /**
-     * Create new address instance.
-     */
-    function _newAddress($fields, $prefix) {
-        $address = ZMLoader::make("Address");
-        $address->setAddressId(0);
-        // orders has only name, not first/last...
-        $address->setLastName($fields[$prefix.'_name']);
-        $address->setCompanyName($fields[$prefix.'_company']);
-        $address->setAddress($fields[$prefix.'_street_address']);
-        $address->setSuburb($fields[$prefix.'_suburb']);
-        $address->setPostcode($fields[$prefix.'_postcode']);
-        $address->setCity($fields[$prefix.'_city']);
-        $address->setState($fields[$prefix.'_state']);
-        $address->setCountry(ZMCountries::instance()->getCountryForName($fields[$prefix.'_country']));
-        $address->setFormat($fields[$prefix.'_address_format_id']);
-        return $address;
     }
 
     /**

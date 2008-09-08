@@ -26,6 +26,23 @@ class TestZMOrders extends UnitTestCase {
         $this->assertEqual('Processing', $order->getStatusName());
     }
 
+    /**
+     * Test get orders for status.
+     */
+    public function testGetOrdersForStatusId() {
+        $orders = ZMOrders::instance()->getOrdersForStatusId(2);
+        $this->assertNotNull($orders);
+        $this->assertTrue(0 < count($orders));
+    }
+
+    /**
+     * Test order account.
+     */
+    public function testGetAccount() {
+        $order = ZMOrders::instance()->getOrderForId(1);
+        $this->assertNotNull($order->getAccount());
+    }
+
 }
 
 ?>

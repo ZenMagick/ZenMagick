@@ -36,9 +36,9 @@ class ZMOrder extends ZMModel {
     var $status_;
     var $orderDate_;
     var $totalValue_;
-    var $account_;
-    var $shippingAddress_;
-    var $billingAddress_;
+    private $account_;
+    private $shippingAddress_;
+    private $billingAddress_;
     var $total_;
 
     // ref to zen order
@@ -51,6 +51,9 @@ class ZMOrder extends ZMModel {
     function __construct() {
         parent::__construct();
         $this->setId(0);
+        $this->account_ = null;
+        $this->shippingAddress_ = null;
+        $this->billingAddress_ = null;
         $this->zenOrder_ = null;
     }
 
@@ -133,7 +136,18 @@ class ZMOrder extends ZMModel {
      *
      * @return ZMAccount The account.
      */
-    public function getAccount() { return $this->account_; }
+    public function getAccount() { 
+        if (null === $this->account_) {
+            $this->account_ = ZMLoader::make("Account");
+            $this->account_->setAccountId($this->get('customers_id'));
+            // orders has only name, not first/last...
+            $this->account_->setLastName($this->get('customers_name'));
+            $this->account_->setEmail($this->get('customers_email_address'));
+            $this->account_->setPhone($this->get('customers_telephone'));
+        }
+
+        return $this->account_;
+    }
 
     /**
      * Set the account for this order.
@@ -146,11 +160,36 @@ class ZMOrder extends ZMModel {
     public function setAccount($account) { $this->account_ = $account; }
 
     /**
+     * Create address instance.
+     */
+    private function mkAddress($prefix) {
+        $address = ZMLoader::make("Address");
+        $address->setAddressId(0);
+        // orders has only name, not first/last...
+        $address->setLastName($this->get($prefix.'_name'));
+        $address->setCompanyName($this->get($prefix.'_company'));
+        $address->setAddress($this->get($prefix.'_street_address'));
+        $address->setSuburb($this->get($prefix.'_suburb'));
+        $address->setPostcode($this->get($prefix.'_postcode'));
+        $address->setCity($this->get($prefix.'_city'));
+        $address->setState($this->get($prefix.'_state'));
+        $address->setCountry(ZMCountries::instance()->getCountryForName($this->get($prefix.'_country')));
+        $address->setFormat($this->get($prefix.'_address_format_id'));
+        return $address;
+    }
+
+
+    /**
      * Get the shipping address.
      *
      * @return ZMAddress The shipping address or <code>null</code>.
      */
-    public function getShippingAddress() { return $this->shippingAddress_; }
+    public function getShippingAddress() { 
+        if (null === $this->shippingAddress_) {
+            $this->shippingAddress_ = $this->mkAddress('delivery');
+        }
+        return $this->shippingAddress_;
+    }
 
     /**
      * Set the shipping address.
@@ -164,7 +203,12 @@ class ZMOrder extends ZMModel {
      *
      * @return ZMAddress The billing address or <code>null</code>.
      */
-    public function getBillingAddress() { return $this->billingAddress_; }
+    public function getBillingAddress() { 
+        if (null === $this->billingAddress_) {
+            $this->billingAddress_ = $this->mkAddress('billing');
+        }
+        return $this->billingAddress_;
+    }
 
     /**
      * Set the billing address.
@@ -179,7 +223,8 @@ class ZMOrder extends ZMModel {
      * @return boolean <code>true</code> if a shipping address exists, <code>false</code> if not.
      */
     public function hasShippingAddress() {
-        return !(ZMTools::isEmpty($this->shippingAddress_->lastName_) && ZMTools::isEmpty($this->shippingAddress_->address_));
+        $address = $this->getShippingAddress();
+        return !(ZMTools::isEmpty($address->getLastName()) && ZMTools::isEmpty($address->getAddress()));
     }
 
     /**
