@@ -1,4 +1,4 @@
-nd<?php
+<?php
 /*
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
