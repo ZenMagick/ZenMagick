@@ -23,6 +23,9 @@
 ?>
 <?php
 
+define('ZM_FILENAME_SUBSCRIPTION_CANCEL', 'cancel_subscription');
+
+
 /**
  * Subscriptions.
  *
@@ -41,13 +44,17 @@ class zm_subscriptions extends ZMPlugin {
 
         // the new prices and customer flag
         $customFields = array(
-            'orders' => 'subscription;integer',
-            'orders' => 'last_order;date;lastOrder',
-            'orders' => 'subscription_schedule;string;schedule',
-            'orders' => 'subscription_order_id;date;subscriptionOrderId'
+            'orders' => array(
+                'subscription;integer',
+                'last_order;date;lastOrder',
+                'subscription_schedule;string;schedule',
+                'subscription_order_id;date;subscriptionOrderId'
+            )
         );
         foreach ($customFields as $table => $fields) {
-            ZMSettings::append('sql.'.$table.'.customFields', $fields, ',');
+            foreach ($fields as $field) {
+                ZMSettings::append('sql.'.$table.'.customFields', $field, ',');
+            }
         }
     }
 
@@ -96,6 +103,7 @@ class zm_subscriptions extends ZMPlugin {
             $tests->addTest('TestSubscriptions');
         }
 
+        ZMUrlMapper::instance()->setMapping(null, 'cancel_subscription', 'account', 'RedirectView', 'secure=true');
     }
 
     /**
@@ -143,12 +151,26 @@ class zm_subscriptions extends ZMPlugin {
     }
 
     /**
+     * Does the current shopping cart qualify for subscription.
+     * 
+     * @return boolean <code>true</code> if a subscription is allowed.
+     */
+    public function canSubscribe() {
+        $cart = ZMRequest::getShoppingCart();
+        return $this->get('minAmount') <= $cart->getTotal();
+    }
+
+    /**
      * Order created event handler.
      */
     public function onZMCreateOrder($args=array()) {
         $orderId = $args['orderId'];
         if (null != ($schedule = $this->getSelectedSchedule())) {
-            // TODO: update order to set up as proper subscription
+            $order = ZMOrders::instance()->getOrderForId($orderId);
+            $order->set('subscription', true);
+            $order->set('lastOrder', date(ZM_DB_DATETIME_FORMAT));
+            $order->set('schedule', $schedule);
+            ZMOrders::instance()->updateOrder($order);
         }
     }
 

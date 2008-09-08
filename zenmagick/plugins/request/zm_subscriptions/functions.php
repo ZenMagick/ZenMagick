@@ -33,7 +33,7 @@
  * @param int orderId The order to copy.
  * @param int The new order id.
  */
-public function copyOrder($orderId) {
+function copyOrder($orderId) {
     $tables = array(
         TABLE_ORDERS, // date_purchased, orders_status
         TABLE_ORDERS_PRODUCTS, // orders_id
@@ -89,7 +89,7 @@ public function copyOrder($orderId) {
  * @package org.zenmagick.plugins.zm_subscriptions
  * @return array List of order ids.
  */
-public function findScheduledOrders() {
+function findScheduledOrders() {
     //$schedule = str_replace(array('d', 'w', 'm', array(' DAY', ' WEEK', ' MONTH'), $schedule);
     $sql = "SELECT * FROM " . TABLE_ORDERS . "
             WHERE (DATE_ADD(last_order, INTERVAL 1 MONTH) >= now() OR last_order = '0001-01-01 00:00:00') AND subscription = 1";
