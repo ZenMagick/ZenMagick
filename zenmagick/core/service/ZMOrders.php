@@ -127,15 +127,15 @@ class ZMOrders extends ZMObject {
         
         $db = ZMRuntime::getDB();
         // order only
-        $sqlLimit = 0 != $limit ? " limit ".$limit : "";
-        $sql = "select o.*, s.orders_status_name
-                from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
-                where o.orders_status = :orderStatusId
-                and o.orders_id = ot.orders_id
-                and ot.class = 'ot_total'
-                and o.orders_status = s.orders_status_id
-                and s.language_id = :languageId
-                order by orders_id desc".$sqlLimit;
+        $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
+        $sql = "SELECT o.*, s.orders_status_name
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                WHERE o.orders_status = :orderStatusId
+                  AND o.orders_id = ot.orders_id
+                  AND ot.class = 'ot_total'
+                  AND o.orders_status = s.orders_status_id
+                  AND s.language_id = :languageId
+                  ORDER BY orders_id desc".$sqlLimit;
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
         $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 
@@ -155,12 +155,12 @@ class ZMOrders extends ZMObject {
         }
 
         $db = ZMRuntime::getDB();
-        $sql = "select os.orders_status_id, os.orders_status_name, osh.date_added, osh.comments, osh.orders_id, osh.customer_notified
-                  from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
-                  where osh.orders_id = :orderId
-                  and osh.orders_status_id = os.orders_status_id
-                  and os.language_id = :languageId
-                  order by osh.date_added";
+        $sql = "SELECT os.*
+                FROM " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
+                WHERE osh.orders_id = :orderId
+                  AND osh.orders_status_id = os.orders_status_id
+                  AND os.language_id = :languageId
+                  ORDER BY osh.date_added";
         $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
         $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
         $results = $db->Execute($sql);
