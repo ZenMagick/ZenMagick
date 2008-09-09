@@ -178,6 +178,22 @@ class ZMOrder extends ZMModel {
         return $address;
     }
 
+    /**
+     * Load address details.
+     */
+    private function loadAddress($address, $prefix) {
+        // orders has only name, not first/last...
+        $this->set($prefix.'_name', $address->getFullName());
+        $this->set($prefix.'_company', $address->getCompanyName());
+        $this->set($prefix.'_street_address', $address->getAddress());
+        $this->set($prefix.'_suburb', $address->getSuburb());
+        $this->set($prefix.'_postcode', $address->getPostcode());
+        $this->set($prefix.'_city', $address->getCity());
+        $this->set($prefix.'_state', $address->getState());
+        $this->set($prefix.'_country', $address->getCountry()->getName());
+        $this->set($prefix.'_address_format_id', $address->getAddressFormatId());
+    }
+
 
     /**
      * Get the shipping address.
@@ -196,7 +212,10 @@ class ZMOrder extends ZMModel {
      *
      * @param ZMAddress address The shipping address.
      */
-    public function setShippingAddress($address) { $this->shippingAddress_ = $address; }
+    public function setShippingAddress($address) { 
+        $this->shippingAddress_ = $address;
+        $this->loadAddress($address, 'delivery');
+    }
 
     /**
      * Get the billing address.
@@ -215,7 +234,10 @@ class ZMOrder extends ZMModel {
      *
      * @param ZMAddress address The billing address.
      */
-    public function setBillingAddress($address) { $this->billingAddress_ = $address; }
+    public function setBillingAddress($address) { 
+        $this->billingAddress_ = $address;
+        $this->loadAddress($address, 'billing');
+    }
 
     /**
      * Checks if the order has a shipping address.

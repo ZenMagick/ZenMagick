@@ -43,6 +43,29 @@ class TestZMOrders extends UnitTestCase {
         $this->assertNotNull($order->getAccount());
     }
 
+    /**
+     * Test change address.
+     */
+    public function testChangeAddress() {
+        $order = ZMOrders::instance()->getOrderForId(1);
+        $this->assertNotNull($order);
+
+        $address = ZMLoader::make('Address');
+        $address->setFirstName('foo');
+        $address->setLastName('bar');
+        $address->setCompanyName('dooh inc.');
+        $address->setAddress('street 1');
+        $address->setSuburb('sub');
+        $address->setPostcode('12345');
+        $address->setCity('Christchurch');
+        $address->setState('Canterbury');
+        $address->setCountryId(153);
+        //address format is derived from country
+
+        $order->setBillingAddress($address);
+        var_dump($order);
+    }
+
 }
 
 ?>
