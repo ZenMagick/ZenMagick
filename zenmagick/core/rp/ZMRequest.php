@@ -291,7 +291,7 @@ class ZMRequest extends ZMObject {
      *
      * @return int The current order id or <code>0</code>.
      */
-    public static function getOrderId() { return ZMRequest::instance()->getParameter('order_id', 0); }
+    public static function getOrderId() { return ZMRequest::instance()->getParameter('order_id',  ZMRequest::instance()->getParameter('orderId', 0)); }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
