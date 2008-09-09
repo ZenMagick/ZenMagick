@@ -66,7 +66,7 @@ class zm_product_facets extends ZMPlugin {
         ZMUrlMapper::instance()->setMapping(null, 'facets', 'facets', 'PluginView', array('plugin' => $this, 'subdir' => 'views'));
 
         // if zm_cron available, load cron job
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_cron'))) {
+        if (null != ZMPlugins::instance()->getPluginForId('zm_cron')) {
             // add class path only now to avoid errors due to missing ZMCronJob
             ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
         }
