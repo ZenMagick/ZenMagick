@@ -166,7 +166,7 @@ class ZMDbUtils {
         $fragment = '';
         foreach ($fields as $field) {
             $name = $field[0];
-            $type = $field[1];
+            $type = ZMZenCartDatabase::getMappedType($field[1]);
             if (2 < count($field)) {
                 $name = $field[2];
             }

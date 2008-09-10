@@ -113,7 +113,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * @param string type The type.
      * @return string A valid zen-cart data type.
      */
-    private function getMappedType($type) {
+    public static function getMappedType($type) {
         if (isset(self::$typeMap[$type])) {
             return self::$typeMap[$type];
         }
