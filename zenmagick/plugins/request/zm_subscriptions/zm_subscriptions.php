@@ -48,7 +48,7 @@ class zm_subscriptions extends ZMPlugin {
                 'is_subscription;integer;subscription',
                 'subscription_next_order;datetime;nextOrder',
                 'subscription_schedule;string;schedule',
-                'subscription_order_id;integer;subscriptionOrderid'
+                'subscription_order_id;integer;subscriptionOrderId'
             )
         );
         foreach ($customFields as $table => $fields) {

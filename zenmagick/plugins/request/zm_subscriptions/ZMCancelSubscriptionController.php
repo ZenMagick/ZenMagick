@@ -55,8 +55,50 @@ class ZMCancelSubscriptionController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet() {
-        ZMMessages::instance()->error(zm_l10n_get('Yo!'));
+        $orderId = ZMRequest::getOrderId();
+        $plugin = $this->getPlugin();
+
+        // check for number of scheduled orders
+        $sql = "SELECT COUNT(orders_id) AS total FROM " . TABLE_ORDERS . "
+                WHERE subscription_order_id = :subscriptionOrderId";
+        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZM_DB_MODEL_RAW);
+
+        if ($results['total'] < $plugin->get('minOrders')) {
+            ZMMessages::instance()->error(zm_l10n_get("This subscription can only be canceled after a minimum of %s orders", $plugin->get('minOrders')));
+            return $this->findView();
+        }
+
+        //TODO: check min das before schedule (cancelDeadline)
+        $cancelDeadline = $plugin->get('cancelDeadline');
+        if (0 < $cancelDeadline) {
+            // this will return only a result if subscription_next_order is more than $cancelDeadline days in the future
+            $sql = "SELECT orders_id
+                    FROM " . TABLE_ORDERS . "
+                    WHERE orders_id = :orderId
+                      AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZM_DB_MODEL_RAW);
+            if (null == $result) {
+                ZMMessages::instance()->error(zm_l10n_get("Can't cancel less than %s days before next subscription", $cancelDeadline));
+                return $this->findView();
+            }
+        }
+
+        $sql = "UPDATE " . TABLE_ORDERS . "
+                SET subscription = :subscription
+                WHERE orders_id = :orderId";
+        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscription' => false), TABLE_ORDERS);
+        ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
+
         return $this->findView();
+    }
+
+    /**
+     * Get the plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    protected function getPlugin() {
+        return ZMPlugins::instance()->getPluginForId('zm_subscriptions');
     }
 
 }

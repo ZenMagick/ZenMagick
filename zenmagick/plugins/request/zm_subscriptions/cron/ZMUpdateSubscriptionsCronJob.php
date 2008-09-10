@@ -33,6 +33,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * {@inheritDoc}
      */
     public function execute() {
+        $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
         foreach ($scheduledOrders as $orderId) {
             // 1) copy
@@ -42,9 +43,14 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
             // 3) update subscription specific data
             $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET subscription_order_id = :subscriptionOrderid, is_subscription = :subscription
+                    SET subscription_order_id = :subscriptionOrderid, is_subscription = :subscription, orders_status = :orderStatusId
                     WHERE orders_id = :orderId";
-            $args = array('orderId' => $newOrder->getOrderId(), 'subscriptionOrderid' => $orderId, 'subscription' => false);
+            $args = array(
+                'orderId' => $newOrder->getOrderId(), 
+                'subscriptionOrderid' => $orderId, 
+                'subscription' => false, 
+                'orderStatusId' => $plugin->get('orderStatus')
+            );
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             // 4) Update subscription order with next schedule date
@@ -56,6 +62,15 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         }
 
         return true;
+    }
+
+    /**
+     * Get the plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    protected function getPlugin() {
+        return ZMPlugins::instance()->getPluginForId('zm_subscriptions');
     }
 
     /**
