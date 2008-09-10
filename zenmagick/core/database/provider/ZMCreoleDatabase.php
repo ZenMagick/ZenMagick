@@ -441,7 +441,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'blob':
                 $blob = $rs->getBlob($info['column']);
-                $value = $blob->getContents();
+                $value = null != $blob ? $blob->getContents() : null;
                 break;
             default:
                 ZMObject::backtrace('unsupported data(read) type='.$info['type'].' for field='.$field);
