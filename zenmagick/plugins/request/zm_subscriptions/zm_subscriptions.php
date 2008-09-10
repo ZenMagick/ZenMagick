@@ -45,10 +45,10 @@ class zm_subscriptions extends ZMPlugin {
         // the new prices and customer flag
         $customFields = array(
             'orders' => array(
-                'subscription;integer',
-                'last_order;date;lastOrder',
+                'is_subscription;integer;subscription',
+                'subscription_next_order;datetime;nextOrder',
                 'subscription_schedule;string;schedule',
-                'subscription_order_id;date;subscriptionOrderId'
+                'subscription_order_id;integer;subscriptionOrderid'
             )
         );
         foreach ($customFields as $table => $fields) {
@@ -103,6 +103,12 @@ class zm_subscriptions extends ZMPlugin {
             $tests->addTest('TestSubscriptions');
         }
 
+        // if zm_cron available, load cron job
+        if (null != ZMPlugins::instance()->getPluginForId('zm_cron')) {
+            // add class path only now to avoid errors due to missing ZMCronJob
+            ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
+        }
+
         ZMUrlMapper::instance()->setMapping(null, 'cancel_subscription', 'account', 'RedirectView', 'secure=true');
     }
 
@@ -143,7 +149,6 @@ class zm_subscriptions extends ZMPlugin {
         $defaults = array(
             '1w' => 'Weekly',
             '10d' => 'Every 10 days',
-            '10d' => 'Every 10 days',
             '4w' => 'Every four weeks',
             '1m' => 'Once a month'
         );
@@ -166,12 +171,24 @@ class zm_subscriptions extends ZMPlugin {
     public function onZMCreateOrder($args=array()) {
         $orderId = $args['orderId'];
         if (null != ($schedule = $this->getSelectedSchedule())) {
-            $order = ZMOrders::instance()->getOrderForId($orderId);
-            $order->set('subscription', true);
-            $order->set('lastOrder', date(ZM_DB_DATETIME_FORMAT));
-            $order->set('schedule', $schedule);
-            ZMOrders::instance()->updateOrder($order);
+            $sql = "UPDATE " . TABLE_ORDERS . "
+                    SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
+                      is_subscription = :subscription, subscription_schedule = :schedule
+                    WHERE orders_id = :orderId";
+            $args = array('orderId' => $orderId, 'subscription' => true, 'schedule' => $schedule);
+            ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
         }
+    }
+
+    /**
+     * Convert UI schedule value into something useful for SQL.
+     *
+     * @param string schedule The schedule value.
+     * @return string A string that can be used in SQL <em>DATE_ADD</em>.
+     */
+    public static function schedule2SQL($schedule) {
+        $schedule = preg_replace('/[^0-9dwm]/', '', $schedule); 
+        return str_replace(array('d', 'w', 'm'), array(' DAY', ' WEEK', ' MONTH'), $schedule);
     }
 
 }
