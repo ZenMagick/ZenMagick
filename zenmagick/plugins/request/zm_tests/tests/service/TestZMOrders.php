@@ -63,7 +63,8 @@ class TestZMOrders extends UnitTestCase {
         //address format is derived from country
 
         $order->setBillingAddress($address);
-        var_dump($order);
+
+        $this->assertEqual('12345', $order->get('billing_postcode'));
     }
 
 }
