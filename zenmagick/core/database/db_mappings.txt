@@ -306,6 +306,7 @@ array(
         'dir' => 'column=template_dir;type=string',
         'languageId' => 'column=template_language;type=string',
     ),
+    // attribute value details; price, discounts, etc
     'products_attributes' => array(
         'attributeValueDetailsId' => 'column=products_attributes_id;type=integer;key=true;auto=true',
         'productId' => 'column=products_id;type=integer',
@@ -335,6 +336,7 @@ array(
         //'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
         'required' => 'column=attributes_required;type=integer',
     ),
+    // attribute; model, size, memory, etc
     'products_options' => array(
         'attributeId' => 'column=products_options_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
@@ -348,6 +350,7 @@ array(
         //'imageStyle' => 'column=products_options_images_style;type=integer',
         //'rows' => 'column=products_options_rows;type=integer',
     ),
+    // attribute value name; 4mb, XXL, etc
     'products_options_values' => array(
         'attributeValueId' => 'column=products_options_values_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
