@@ -25,14 +25,26 @@ If used, the code should be aware of the fact that the service might not be avai
 Templates
 =========
 The plugin requires/allows additions/changes to a few templates.
-
-To flag orders as subscriptions in the account history, you can use the following code in
-resultlist/order.php
+See the templates folder for some sample code.
 
 
-        <?php if ($order->isSubscription()) { ?>
-            <?php zm_l10n("(S)") ?>
-        <?php } ?>
+Payments
+========
+This plugin is not concerned about payments. One model of handling payments would be to allow the offline CC payment
+type for subscriptions and other for regular orders.
+A simple way of doing this would be to modify the checkout_payments.php template in the following fashion:
 
 
-Also, see the templates folder for some sample code.
+      ....
+      $schedule = $zm_subscriptions->getSelectedSchedule();
+      $paymentTypes = $zm_cart->getPaymentTypes();
+      $single = 1 == count($paymentTypes);
+      foreach ($paymentTypes as $type) {
+        // check against list of allowed subscription payment types
+        $isSubscriptionPaytype = ZMTools::inArray($type->getId(), 'cc');
+        if ((null != $schedule && !$isSubscriptionPaytype) || (null == $schedule && $isSubscriptionPaytype)) {
+            continue;
+        }
+        ...
+      }
+
