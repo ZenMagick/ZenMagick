@@ -97,14 +97,14 @@ class ZMAttributes extends ZMObject {
         $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
                 FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
                 WHERE pa.products_id = :productId
-                  AND pa.options_id = :id
+                  AND pa.options_id = :attributeId
                   AND pa.options_values_id = pov.products_options_values_id
                   AND pov.language_id = :languageId " .
                 $valuesOrderBy;
 
         $attributes = array();
         foreach ($results as $attribute) {
-            $args = array('id' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
+            $args = array('attributeId' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
             $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
             foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
                 $value->setAttribute($attribute);

@@ -37,7 +37,7 @@ class TestAttributePricing extends UnitTestCase {
 
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
-                    $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getAttributeValueId()];
+                    $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getAttributeValueDetailsId()];
                     // default is 4 decimal digits...
                     $this->assertEqual((int)(10000*$priceInfo['dicount_price']), (int)(10000*$value->getPrice(false)), '%s productId='.$productId.' $valueId='.$value->getAttributeValueId());
                 }
@@ -58,7 +58,7 @@ class TestAttributePricing extends UnitTestCase {
 
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
-                    $zprice = zen_get_attributes_price_final_onetime($value->getAttributeValueId(), 1, '');
+                    $zprice = zen_get_attributes_price_final_onetime($value->getAttributeValueDetailsId(), 1, '');
                     $this->assertEqual($zprice, $value->getOneTimePrice(false), '%s productId='.$productId.' $valueId='.$value->getAttributeValueId());
                 }
             }

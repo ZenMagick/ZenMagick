@@ -25,7 +25,10 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><a href="<?php $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a></td>
+    <td>
+        <a href="<?php $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
+        <?php include $zm_subscriptions->getPluginDir().'templates/resultlist_order.php'; ?>
+    </td>
     <td><?php $locale->shortDate($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php $html->encode($address->getFullName()) ?></td>

@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMAttribute extends ZMModel {
-    private $id_;
     private $productId_;
     private $name_;
     private $type_;
@@ -50,7 +49,7 @@ class ZMAttribute extends ZMModel {
      */
     function __construct($id=0, $name='', $type=null) {
         parent::__construct();
-        $this->id_ = $id;
+        $this->set('attributeId', $id);
         $this->name_ = $name;
         $this->type_ = $type;
         $this->values_ = array();
@@ -69,7 +68,7 @@ class ZMAttribute extends ZMModel {
      *
      * @return int The attribute id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->get('attributeId'); }
 
     /**
      * Get the product id.
@@ -118,7 +117,7 @@ class ZMAttribute extends ZMModel {
      *
      * @param int id The attribute id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->set('attributeId', $id); }
 
     /**
      * Set the product id.

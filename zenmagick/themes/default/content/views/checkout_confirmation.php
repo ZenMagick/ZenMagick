@@ -111,6 +111,8 @@
     </div>
 </fieldset>
 
+<?php include $zm_subscriptions->getPluginDir().'templates/checkout_confirmation.php'; ?>
+
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>

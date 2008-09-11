@@ -307,10 +307,10 @@ array(
         'languageId' => 'column=template_language;type=string',
     ),
     'products_attributes' => array(
-        'id' => 'column=products_attributes_id;type=integer;key=true;auto=true',
+        'attributeValueDetailsId' => 'column=products_attributes_id;type=integer;key=true;auto=true',
         'productId' => 'column=products_id;type=integer',
-        'optionId' => 'column=options_id;type=integer',
-        'valueId' => 'column=options_values_id;type=integer',
+        'attributeId' => 'column=options_id;type=integer',
+        'attributeValueId' => 'column=options_values_id;type=integer',
         'valuePrice' => 'column=options_values_price;type=float',
         'pricePrefix' => 'column=price_prefix;type=string',
         'sortOrder' => 'column=products_options_sort_order;type=integer',
@@ -336,7 +336,7 @@ array(
         'required' => 'column=attributes_required;type=integer',
     ),
     'products_options' => array(
-        'id' => 'column=products_options_id;type=integer;key=true',
+        'attributeId' => 'column=products_options_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_options_name;type=string',
         'sortOrder' => 'column=products_options_sort_order;type=integer',
