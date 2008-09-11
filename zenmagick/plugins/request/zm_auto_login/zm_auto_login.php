@@ -117,7 +117,7 @@ class zm_auto_login extends ZMPlugin {
         $session = ZMRequest::getSession();
         if ('GET' == ZMRequest::getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
-                $this->onOptIn(ZMRequest::getAccount(), true);
+                $this->onOptIn(ZMRequest::getAccount(), array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE));
             }
         }
     }
