@@ -48,3 +48,8 @@ A simple way of doing this would be to modify the checkout_payments.php template
         ...
       }
 
+
+Emails
+======
+If the name of an email template is configured, the plugin will send an customer notification email for each scheduled
+order. The email context is the same as for the 'checkout' template.

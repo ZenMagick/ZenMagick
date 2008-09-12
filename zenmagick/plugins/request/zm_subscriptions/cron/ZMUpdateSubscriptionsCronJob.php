@@ -35,6 +35,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
     public function execute() {
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
+        $emailTemplate = $plugin->get('emailTemplate');
         foreach ($scheduledOrders as $orderId) {
             // 1) copy
             $newOrder = self::copyOrder($orderId);
@@ -59,9 +60,32 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
+            if (!ZMTools::isEmpty($emailTemplate)) {
+                $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId());
+                $this->sendOrderEmail($order, $emailTemplate);
+            }
         }
 
         return true;
+    }
+
+    /**
+     * Email.
+     *
+     * @param ZMOrder order The order.
+     */
+    protected function sendOrderEmail($order, $template) {
+        $shippingAddress = $order->getShippingAddress();
+        $billingAddress = $order->getBillingAddress();
+        $paymentType = $order->getPaymentType();
+
+        $context['order'] = $order;
+        $context['shippingAddress'] = $shippingAddress;
+        $context['billingAddress'] = $billingAddress;
+        $context['paymentType'] = $paymentType;
+
+        $account = $order->getAccount();
+        zm_mail(zm_l10n_get("%s: Order Subscription Notification", ZMSettings::get('storeName')), $template, $context, ZMSettings::get('storeEmail'), null, $account->getEmail());
     }
 
     /**
