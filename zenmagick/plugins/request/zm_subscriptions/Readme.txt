@@ -53,3 +53,4 @@ Emails
 ======
 If the name of an email template is configured, the plugin will send an customer notification email for each scheduled
 order. The email context is the same as for the 'checkout' template.
+So, the simplest way is to just re-use that.

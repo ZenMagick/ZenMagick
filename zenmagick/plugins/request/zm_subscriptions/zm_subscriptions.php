@@ -39,7 +39,7 @@ class zm_subscriptions extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Subscriptions', 'All users to subscribe products/orders', '${plugin.version}');
+        parent::__construct('Subscriptions', 'Allow users to subscribe products/orders', '${plugin.version}');
         $this->setLoaderSupport('FOLDER');
 
         // the new prices and customer flag
@@ -76,7 +76,12 @@ class zm_subscriptions extends ZMPlugin {
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amoout to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
         $this->addConfigValue('Cancel dealline', 'cancelDeadline', '0', 'Days before the next order the user can cancel the subscription');
-        $this->addConfigValue('Notification email template name', 'emailTemplate', '', 'Name of an email template to notify customers of new subscription orders; leave empty for none');
+        $this->addConfigValue('Notification email template name', 'emailTemplate', '',
+            'Name of an email template to notify customers of new subscription orders; leave empty for none');
+        $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+        $this->addConfigValue('Shipping Address', 'addressPolicy', 'order', 'use either the original shipping addres, or the current default address',
+            "zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
         $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders', 'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
     }
 

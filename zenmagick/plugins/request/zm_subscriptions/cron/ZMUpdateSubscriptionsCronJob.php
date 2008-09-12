@@ -36,32 +36,43 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
         $emailTemplate = $plugin->get('emailTemplate');
-        foreach ($scheduledOrders as $orderId) {
+        foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
-            $newOrder = self::copyOrder($orderId);
+            $newOrder = self::copyOrder($scheduledOrderId);
+            $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId());
 
-            // 2) TODO: update shipping/billing from account to avoid stale addresses
+            // 2) update shipping/billing from account to avoid stale addresses
+            if ('account' == $plugin->get('addressPolicy')) {
+                $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+                $defaultAddressId = $account->getDefaultAddressId();
+                $defaultAddress = ZMAddresses::instance()->getAddressForId($defaultAddressId);
+                $order->setShippingAddress($defaultAddress);
+                ZMOrders::instance()->updateOrder($order);
+            }
 
             // 3) update subscription specific data
-            $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET subscription_order_id = :subscriptionOrderid, is_subscription = :subscription, orders_status = :orderStatusId
-                    WHERE orders_id = :orderId";
-            $args = array(
-                'orderId' => $newOrder->getOrderId(), 
-                'subscriptionOrderid' => $orderId, 
-                'subscription' => false, 
-                'orderStatusId' => $plugin->get('orderStatus')
-            );
-            ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
+            $order->set('subscriptionOrderId', $scheduledOrderId);
+            $order->set('subscription', false);
+            $order->setStatus($plugin->get('orderStatus'));
+            ZMOrders::instance()->updateOrder($order);
 
-            // 4) Update subscription order with next schedule date
+            // 4) Create history entry if enabled
+            if (ZMTools::asBoolean($plugin->get('orderHistory'))) {
+                $status = ZMLoader::make('OrderStatus');
+                $status->setId($plugin->get('orderStatus'));
+                $status->setOrderId($order->getId());
+                $status->setCustomerNotified(!ZMTools::isEmpty($emailTemplate));
+                $status->setComment(zm_l10n_get('Scheduled order for subscription #%s', $scheduledOrderId));
+                ZMOrders::instance()->createOrderStatusHistory($status);
+            }
+
+            // 5) Update subscription order with next schedule date
             $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET subscription_next_order = DATE_ADD(now(), INTERVAL " . zm_subscriptions::schedule2SQL($newOrder->getSchedule()) . ")
+                    SET subscription_next_order = DATE_ADD(now(), INTERVAL " . zm_subscriptions::schedule2SQL($order->get('schedule')) . ")
                     WHERE orders_id = :orderId";
-            $args = array('orderId' => $orderId);
+            $args = array('orderId' => $scheduledOrderId);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
             if (!ZMTools::isEmpty($emailTemplate)) {
-                $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId());
                 $this->sendOrderEmail($order, $emailTemplate);
             }
         }
@@ -79,13 +90,17 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $billingAddress = $order->getBillingAddress();
         $paymentType = $order->getPaymentType();
 
+        $context = array();
         $context['order'] = $order;
         $context['shippingAddress'] = $shippingAddress;
         $context['billingAddress'] = $billingAddress;
         $context['paymentType'] = $paymentType;
+        // for comaptibility when using the checkout template
+        $context['INTRO_ORDER_NUMBER'] = $order->getId();
 
         $account = $order->getAccount();
-        zm_mail(zm_l10n_get("%s: Order Subscription Notification", ZMSettings::get('storeName')), $template, $context, ZMSettings::get('storeEmail'), null, $account->getEmail());
+        zm_mail(zm_l10n_get("%s: Order Subscription Notification", ZMSettings::get('storeName')), $template, $context, 
+            ZMSettings::get('storeEmail'), null, $account->getEmail());
     }
 
     /**
@@ -161,7 +176,12 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
                   AND subscription_next_order <= now() AND NOT (subscription_next_order = '0001-01-01 00:00:00')";
-        return ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $tmp = array();
+        foreach ($results as $row) {
+            $tmp[] = $row['orderId'];
+        }
+        return $tmp;
     }
 
 }
