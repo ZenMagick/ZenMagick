@@ -296,26 +296,13 @@ class ZMOrders extends ZMObject {
     /**
      * Update an existing order.
      *
-     * <p><strong>NOTE: Currently not all properties are supported!</strong></p>
+     * <p><strong>NOTE: Currently this will update the orders table only!</strong></p>
      *
      * @param ZMOrder The order.
      * @return ZMOrder The updated order.
      */
-    function updateOrder($order) {
-        $db = ZMRuntime::getDB();
-
-        $sql = "update " . TABLE_ORDERS . " set
-                :customFields,
-                customers_id = :accountId;integer,
-                orders_status = :orderStatusId;integer
-                where orders_id = :orderId";
-        $sql = $db->bindVars($sql, ":orderId", $order->getId(), "integer");
-        $sql = ZMDbUtils::bindObject($sql, $order, false);
-        $sql = ZMDbUtils::bindCustomFields($sql, $order, TABLE_ORDERS);
-
-        $db->Execute($sql);
-
-        return $order;
+    public function updateOrder($order) {
+        return ZMRuntime::getDatabase()->updateModel(TABLE_ORDERS, $order);
     }
 
     /**
