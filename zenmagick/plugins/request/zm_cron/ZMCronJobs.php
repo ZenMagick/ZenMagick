@@ -91,7 +91,7 @@ class ZMCronJobs extends ZMObject {
      * Ensure the history is loaded and initialized.
      */
     private function ensureHistory() {
-        $this->history = unserialize(file_get_contents($this->cronhistory));
+        $this->history = unserialize(@file_get_contents($this->cronhistory));
         if (!is_array($this->history)) {
             $this->history = array();
         }
