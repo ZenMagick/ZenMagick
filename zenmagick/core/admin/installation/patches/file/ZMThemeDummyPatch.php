@@ -125,7 +125,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     fwrite($handle, '?>');
                     fclose($handle);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZM_LOG_ERROR);
+                    ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZMLogging::ERROR);
                     return false;
                 }
             }

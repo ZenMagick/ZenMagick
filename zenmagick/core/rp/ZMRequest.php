@@ -247,7 +247,7 @@ class ZMRequest extends ZMObject {
         if (is_array($cPath)) {
             ZMRequest::instance()->setParameter('cPath', implode('_', $cPath));
         } else {
-            ZMLogging::instance()->log('invalid cPath: ' . $cPath, ZM_LOG_ERROR);
+            ZMLogging::instance()->log('invalid cPath: ' . $cPath, ZMLogging::ERROR);
         }
     }
 

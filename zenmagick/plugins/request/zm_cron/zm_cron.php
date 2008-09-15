@@ -113,7 +113,7 @@ class zm_cron extends ZMPlugin {
                 $cron->runJob($job);
             }
         }
-        ZMLogging::instance()->log('ZMCron: '.ob_get_clean(), ZM_LOG_DEBUG);
+        ZMLogging::instance()->log('ZMCron: '.ob_get_clean(), ZMLogging::DEBUG);
     }
 
 }

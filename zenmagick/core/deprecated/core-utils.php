@@ -31,10 +31,10 @@
      *
      * @package org.zenmagick.deprecated
      * @param string msg The message to log.
-     * @param int level Optional level (default: ZM_LOG_INFO).
+     * @param int level Optional level (default: ZMLogging::INFO).
      * @deprecated Use <code>ZMObject::log()</code> instead.
      */
-    function zm_log($msg, $level=ZM_LOG_INFO) { ZMLogging::instance()->log($msg, $leve); }
+    function zm_log($msg, $level=ZMLogging::INFO) { ZMLogging::instance()->log($msg, $leve); }
     /**
      * Simple wrapper around <code>debug_backtrace()</code>.
      *

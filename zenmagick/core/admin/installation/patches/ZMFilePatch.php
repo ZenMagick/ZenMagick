@@ -200,7 +200,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file), ZM_LOG_ERROR);
+                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file), ZMLogging::ERROR);
                     $patchOk = false;
                 }
             }
@@ -238,7 +238,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZM_LOG_ERROR);
+                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
                     $undoOk = false;
                 }
             }

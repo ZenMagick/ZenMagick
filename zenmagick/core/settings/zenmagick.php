@@ -107,18 +107,6 @@
     define('ZM_SCOPE_ALL', 'all');
 
 
-    //** loglevel **//
-    // deprecated
-
-    define('ZM_LOG_NONE', 0);
-    define('ZM_LOG_ERROR', 1);
-    define('ZM_LOG_WARN', 2);
-    define('ZM_LOG_INFO', 3);
-    define('ZM_LOG_DEBUG', 4);
-    define('ZM_LOG_TRACE', 5);
-    define('ZM_LOG_ALL', 99999);
-
-
     //** fixed product images sizes **//
 
     define('PRODUCT_IMAGE_SMALL', 'small');

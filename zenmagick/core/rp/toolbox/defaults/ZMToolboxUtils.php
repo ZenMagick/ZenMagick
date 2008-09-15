@@ -87,7 +87,7 @@ class ZMToolboxUtils extends ZMObject {
     public function formatMoney($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         if (null == $currency) {
-            ZMLogging::instance()->log('no currency found - using default currency', ZM_LOG_WARN);
+            ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
             $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);

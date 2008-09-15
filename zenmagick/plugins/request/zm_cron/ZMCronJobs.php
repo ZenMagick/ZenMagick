@@ -146,7 +146,7 @@ class ZMCronJobs extends ZMObject {
             $lines = file($this->cronfile);
             $jobs = $this->parser->parseCrontab($lines);
         } else {
-            ZMLogging::instance()->log('crontab not found: '.$this->crontab, ZM_LOG_ERROR);
+            ZMLogging::instance()->log('crontab not found: '.$this->crontab, ZMLogging::ERROR);
             return array();
         }
 
@@ -190,7 +190,7 @@ class ZMCronJobs extends ZMObject {
         try {
             // make sure we can inherit from ZMCronJob
             ZMLoader::resolve('ZMCronJob');
-            ZMLogging::instance()->log("ZMCronJobs: Running ".$job['line'], ZM_LOG_DEBUG);
+            ZMLogging::instance()->log("ZMCronJobs: Running ".$job['line'], ZMLogging::DEBUG);
             $obj = ZMLoader::make($job['task']);
             if ($obj instanceof ZMCronJob) {
                 $status = $obj->execute();
