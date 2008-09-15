@@ -18,6 +18,8 @@ Release 0.9.3
 - zm_cron: fix broken 'Missed run policy' setting
 - zm_cron: supress warning if history file is not found (which will happen the
   first time the plugin is run)
+- switch to proper logging service; add new setting to allow to configure the
+  actual implementation: 'loggingProvider'
 
 Release 0.9.2
 - add database support for data type blob
