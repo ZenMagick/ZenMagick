@@ -36,13 +36,24 @@
         if (null == $controller) {
             $controller = ZMLoader::make("DefaultController");
         }
-
         ZMRequest::setController($controller);
 
         if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
 
-        // execute controller
-        $view = $controller->process();
+        try {
+            // execute controller
+            $view = $controller->process();
+        } catch (Exception $e) {
+            // TODO: extract somewhere into method/function??
+            ZMLogging::instance()->dump($e, ZMLogging::WARN);
+            $controller = ZMLoader::make("DefaultController");
+            $controller->exportGlobal('exception', $e);
+            $view = $controller->findView('error');
+            // uguu!
+            $view->setController($controller);
+            $controller->setView($view);
+            ZMRequest::setController($controller);
+        }
 
         // generate response
         if (null != $view) {
@@ -54,6 +65,7 @@
             $controller->exportGlobal('zm_theme', ZMRuntime::getTheme());
 
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' => $view));
+            // TODO: catch exceptions
             $view->generate();
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE, array('view' => $view));
         }

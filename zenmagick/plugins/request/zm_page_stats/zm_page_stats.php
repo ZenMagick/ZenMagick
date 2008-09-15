@@ -83,6 +83,11 @@ class zm_page_stats extends ZMPlugin {
         echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
         echo '  database ('.ZMSettings::get('dbProvider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
+
+        if (null !== ($exception = ZMRequest::getController()->getGlobal('exception'))) {
+            echo "\n".$exception."\n\n";
+        }
+
         echo '-->'."\n";
         if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             echo '<!--'."\n";
@@ -92,6 +97,7 @@ class zm_page_stats extends ZMPlugin {
             }
             echo '-->'."\n";
         }
+
         return ob_get_clean();
     }
 
@@ -115,35 +121,44 @@ class zm_page_stats extends ZMPlugin {
             return $contents.$this->hiddenStats();
         }
 
-        $info = '<div id="page-stats">';
-        $info .= 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
-        $info .= '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br>';
+        ob_start();
+        echo '<div id="page-stats">';
+        echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
+        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br>';
         $db = ZMRuntime::getDB();
-        $info .= '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
+        echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
-        $info .= '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
-        $info .= '</div>';
+        echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
+        echo '</div>';
         if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
-            $info .= '<div id="event-log">';
-            $info .= '<table border="1">';
-            $info .= '<tr>';
-            $info .= '<td style="text-align:right;padding:4px;">'.ZMRuntime::getExecutionTime(ZM_START_TIME).'</td>';
-            $info .= '<td colspan="3" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
-            $info .= '</tr>';
+            echo '<div id="event-log">';
+            echo '<table border="1">';
+            echo '<tr>';
+            echo '<td style="text-align:right;padding:4px;">'.ZMRuntime::getExecutionTime(ZM_START_TIME).'</td>';
+            echo '<td colspan="3" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
+            echo '</tr>';
             foreach (ZMEvents::instance()->getEventLog() as $event) {
-                $info .= '<tr>';
-                $info .= '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
-                $info .= '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
-                $info .= '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
+                echo '<tr>';
+                echo '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
                 $args = is_array($event['args']) ? $event['args'] : array($event['args']);
                 $argsInfo = implode(',', $args);
                 $argsInfo = empty($argsInfo) ? '&nbsp;' : $argsInfo;
-                $info .= '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
-                $info .= '</tr>';
+                echo '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
+                echo '</tr>';
             }
-            $info .= '</table>';
-            $info .= '</div>';
+            echo '</table>';
+            echo '</div>';
         }
+
+        echo '<pre>';
+        if (null !== ($exception = ZMRequest::getController()->getGlobal('exception'))) {
+            echo $exception;
+        }
+        echo '</pre>';
+
+        $info = ob_get_clean();
 
         return preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
     }

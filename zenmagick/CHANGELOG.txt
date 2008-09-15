@@ -20,6 +20,8 @@ Release 0.9.3
   first time the plugin is run)
 - switch to proper logging service; add new setting to allow to configure the
   actual implementation: 'loggingProvider'
+- catch controller exceptions
+- zm_page_stats: handle exception if available
 
 Release 0.9.2
 - add database support for data type blob

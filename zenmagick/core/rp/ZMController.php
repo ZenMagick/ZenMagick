@@ -234,6 +234,15 @@ class ZMController extends ZMObject {
     }
 
     /**
+     * Set the current view.
+     *
+     * @param ZMView view The view or <code>null</code>.
+     */
+    public function setView($view) {
+        $this->view_ = $view;
+    }
+
+    /**
      * Get the controller id.
      *
      * @return string The id (page name).
