@@ -138,7 +138,7 @@ class ZMRuntime extends ZMObject {
         ZMRuntime::$themeId_ = ZMThemes::instance()->getZCThemeId();
         $path = ZMRuntime::getThemesDir().ZMRuntime::$themeId_;
         if (!@file_exists($path) || !@is_dir($path)) {
-            ZMObject::log("invalid theme id: '".ZMRuntime::$themeId_.'"');
+            ZMLogging::instance()->log("invalid theme id: '".ZMRuntime::$themeId_.'"');
             ZMRuntime::$themeId_ = null;
             return ZM_DEFAULT_THEME;
         }
@@ -200,7 +200,7 @@ class ZMRuntime extends ZMObject {
     public static function getDefaultLanguage() {
         $language = ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
         if (null == $language) {
-            ZMObject::log('no default language found - using en as fallback', ZM_LOG_WARN);
+            ZMLogging::instance()->log('no default language found - using en as fallback', ZM_LOG_WARN);
             $language = ZMLoader::make("Language");
             $language->setId(1);
             $language->setDirectory('english');

@@ -31,14 +31,14 @@
  * @package org.zenmagick.database
  * @version $Id$
  */
-class ZMDatabaseException extends Exception {
+class ZMDatabaseException extends ZMException {
     
     /**
      * Create new instance.
      *
-     * @param string msg The message.
+     * @param string msg The message; default is <code>null</code>.
      */
-    function __construct($msg) {
+    function __construct($msg=null) {
         parent::__construct($msg);
     }
     

@@ -69,7 +69,7 @@ class zm_init_language extends ZMPlugin {
             }
             if (null == $language) {
                 $language = ZMRuntime::getDefaultLanguage();
-                ZMObject::log('invalid or missing language - using default language', ZM_LOG_WARN);
+                ZMLogging::instance()->log('invalid or missing language - using default language', ZM_LOG_WARN);
             }
 
             $session->setLanguage($language);

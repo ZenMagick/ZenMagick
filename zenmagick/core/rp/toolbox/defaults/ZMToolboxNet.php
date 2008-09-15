@@ -55,7 +55,7 @@ class ZMToolboxNet extends ZMObject {
             $useContext = false;
             $isStatic = true;
         } else if (empty($page)) {
-            ZMObject::backtrace('missing page parameter');
+            throw ZMLoader::make('ZMException', 'missing page parameter');
         }
 
         // default to non ssl

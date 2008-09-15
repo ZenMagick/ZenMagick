@@ -92,18 +92,18 @@ class ZMAdminMenuPatch extends ZMFilePatch {
             if ((ZMSettings::get('isEnablePatching')) || $force) {
                 // patch
                 if ($this->isReady()) {
-                    $this->log("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu", ZM_LOG_ERROR);
+                    ZMLogging::instance()->log("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu", ZM_LOG_ERROR);
                     $handle = fopen(_ZM_ZEN_ADMIN_FILE, "ab");
                     fwrite($handle, "\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
                     fclose($handle);
                     return true;
                 } else {
-                    $this->log("** ZenMagick: no permission to patch zen-cart admin extras_dhtml.php", ZM_LOG_ERROR);
+                    ZMLogging::instance()->log("** ZenMagick: no permission to patch zen-cart admin extras_dhtml.php", ZM_LOG_ERROR);
                     return false;
                 }
             } else {
                 // disabled
-                $this->log("** ZenMagick: rebuild admin disabled - skipping");
+                ZMLogging::instance()->log("** ZenMagick: rebuild admin disabled - skipping");
                 return false;
             }
         }

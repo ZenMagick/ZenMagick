@@ -59,58 +59,9 @@ class ZMObject {
      * @deprecated Use <code>ZMLoader::make(..)</code> instead.
      */
     public static function create() {
-        ZMObject::backtrace('deprecated');
+        ZMLogging::instance()->trace('deprecated');
         $args = func_get_args();
         return ZMLoader::make($args);
-    }
-
-    /**
-     * Simple <em>ZenMagick</em> logging function.
-     *
-     * @param string msg The message to log.
-     * @param int level Optional level (default: ZM_LOG_INFO).
-     */
-    public static function log($msg, $level=ZM_LOG_INFO) {
-        if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
-            if (ZMSettings::get('isZMErrorHandler')) {
-                trigger_error($msg, E_USER_NOTICE);
-            } else {
-                error_log($msg);
-            }
-        }
-    }
-
-    /**
-     * Simple wrapper around <code>debug_backtrace()</code>.
-     *
-     * @param string msg If set, die with the provided message.
-     */
-    public static function backtrace($msg=null) {
-        if (ZMSettings::get('isShowBacktrace')) {
-            if (null !== $msg) {
-                if (is_array($msg)) {
-                    echo "<pre>";
-                    print_r($msg);
-                    echo "</pre>";
-                } else {
-                    echo '<h3>'.$msg.'</h3>';
-                }
-            }
-            echo "<pre>";
-            foreach (debug_backtrace() as $level) {
-                echo ' ';
-                if (isset($level['class'])) {
-                    echo $level['class'].'::';
-                }
-                echo $level['function'].' (#'.$level['line'].':'.$level['file'].")\n";
-            }
-            echo "</pre>";
-            if (null !== $msg) {
-                die();
-            }
-        } else {
-            ZMObject::log('BACKTRACE: '.$msg, ZM_LOG_ERROR);
-        }
     }
 
     /**

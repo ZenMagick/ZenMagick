@@ -101,7 +101,7 @@ class ZMEmailPatch extends ZMFilePatch {
             return $this->patchFilesFkt($this->fktFilesCfg_);
         } else {
             // disabled
-            $this->log("** ZenMagick: Email patch support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: Email patch support disabled - skipping");
             return false;
         }
 

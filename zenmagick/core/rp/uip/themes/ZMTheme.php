@@ -369,7 +369,7 @@ class ZMTheme extends ZMObject {
             $this->themeInfo_ = ZMThemes::instance()->getThemeInfoForId($this->themeId_);
         }
         if (null == $this->themeInfo_) {
-            ZMObject::backtrace('could not instantiate theme info class for theme: '.$this->themeId_);
+            throw ZMLoader::make('ZMException', 'could not instantiate theme info class for theme: '.$this->themeId_);
         }
 
         return $this->themeInfo_;

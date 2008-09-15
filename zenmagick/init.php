@@ -69,6 +69,11 @@
         require(dirname(__FILE__).'/local.php');
     }
 
+    // register custom error handler
+    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
+        error_reporting(E_ALL);
+        set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
+    }
 
     // now we can check for a static homepage
     if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
@@ -106,12 +111,6 @@
         $zm_cart = new ZMShoppingCart();
         $zm_urlMapper = ZMUrlMapper::instance();
         $zm_sacsMapper = ZMSacsMapper::instance();
-    }
-
-    // register custom error handler
-    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
-        error_reporting(E_ALL);
-        set_error_handler("zm_error_handler");
     }
 
     // upset plugins

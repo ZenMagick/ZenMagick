@@ -6,9 +6,6 @@
     // report ALL errors, warnings and info messages (that might be a lot)
     //error_reporting(E_ALL);
 
-    // show backtrace (and potentially die) using ZMObejct::backtrace(..) - not recommended for production
-    //ZMSettings::set('isShowBacktrace', true);
-
     // log missing settiongs
     //ZMSettings::set('isLogMissingSettings', true);
 

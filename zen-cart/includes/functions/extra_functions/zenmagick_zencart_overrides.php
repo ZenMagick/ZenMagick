@@ -37,7 +37,7 @@ if (!function_exists('zen_href_link')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else {
-            ZMObject::backtrace("can't find zen_href_link implementation");
+            throw ZMLoader::make('ZMException', "can't find zen_href_link implementation");
         }
     }
 
@@ -51,7 +51,7 @@ if (!function_exists('zen_mail')) {
      */
     function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
         // uncomment to trace mail calls and figure out module names (ie template names)
-        //zm_backtrace('mail: '.$module);
+        //ZMLogging::instance()->trace('mail: '.$module);
 
         // use zen_mail_org as fallback for emails without ZenMagick template
         if ('none' != zm_email_formats($module)) {

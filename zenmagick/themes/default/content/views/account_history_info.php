@@ -56,6 +56,8 @@
     </tbody>
 </table>
 
+<?php include $zm_subscriptions->getPluginDir().'templates/account_history_info.php'; ?>
+
 <h3><?php zm_l10n("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>

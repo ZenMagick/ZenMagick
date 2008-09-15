@@ -108,6 +108,7 @@
 
 
     //** loglevel **//
+    // deprecated
 
     define('ZM_LOG_NONE', 0);
     define('ZM_LOG_ERROR', 1);

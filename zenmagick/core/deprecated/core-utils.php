@@ -34,16 +34,16 @@
      * @param int level Optional level (default: ZM_LOG_INFO).
      * @deprecated Use <code>ZMObject::log()</code> instead.
      */
-    function zm_log($msg, $level=ZM_LOG_INFO) { ZMObject::log($msg, $leve); }
+    function zm_log($msg, $level=ZM_LOG_INFO) { ZMLogging::instance()->log($msg, $leve); }
     /**
      * Simple wrapper around <code>debug_backtrace()</code>.
      *
      * @package org.zenmagick.deprecated
      * @param string msg If set, die with the provided message.
-     * @deprecated Use <code>ZMObject::backtrace()</code> instead.
+     * @deprecated Use <code>ZMLogging::trace()</code> instead.
      */
     function zm_backtrace($msg=null) {
-        ZMObject::backtrace($msg);
+        ZMLogging::instance()->trace($msg);
     }
     /**
      * Resolve the given zen-cart class.

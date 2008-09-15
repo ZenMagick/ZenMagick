@@ -678,7 +678,7 @@ class ZMShoppingCart extends ZMObject {
             return $address;
         }
 
-        $this->log('invalid productTaxBase!', ZM_LOG_ERROR);
+        ZMLogging::instance()->log('invalid productTaxBase!', ZM_LOG_ERROR);
         return null;
     }
 

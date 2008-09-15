@@ -66,7 +66,7 @@ abstract class ZMRule extends ZMObject {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     public function validate($req) {
-        ZMObject::backtrace("can't use ZMRule directly");
+        throw ZMLoader::make('ZMException', "can't use ZMRule directly");
     }
 
 
@@ -103,7 +103,7 @@ abstract class ZMRule extends ZMObject {
      * @return string Formatted JavaScript .
      */
     public function toJSString() {
-        ZMObject::backtrace("not implemented");
+        throw ZMLoader::make('ZMException', "not implemented");
     }
 
 

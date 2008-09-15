@@ -100,7 +100,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
             return $this->patchFilesFkt($this->fktFilesCfg_);
         } else {
             // disabled
-            $this->log("** ZenMagick: Pretty Link patch support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: Pretty Link patch support disabled - skipping");
             return false;
         }
 

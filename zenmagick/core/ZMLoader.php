@@ -298,9 +298,7 @@ class ZMLoader {
                 $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
                 break;
             default:
-                ZMObject::log('unsupported number of arguments ' . $clazz);
-                ZMObkect::backtrace('unsupported number of arguments ' . $clazz);
-                break;
+                throw ZMLoader::make('ZMException', 'unsupported number of constructor arguments ' . $clazz);
             }
             return $obj;
 

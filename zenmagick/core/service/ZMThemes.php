@@ -85,7 +85,7 @@ class ZMThemes extends ZMObject {
         // load
         if (!class_exists($infoClass)) {
             if (!file_exists($infoFile)) {
-                $this->log('skipping "' . $themeId . '" - no theme info class found', ZM_LOG_WARN);
+                ZMLogging::instance()->log('skipping "' . $themeId . '" - no theme info class found', ZM_LOG_WARN);
                 return null;
             }
             require_once($infoFile);

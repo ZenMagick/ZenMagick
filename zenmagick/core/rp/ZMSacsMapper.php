@@ -81,7 +81,7 @@ class ZMSacsMapper extends ZMObject {
      */
     function setMapping($controller, $authentication=ZM_ACCOUNT_TYPE_REGISTERED, $secure=true) {
         if (null == $controller) {
-            ZMObject::backtrace("invalid sacs mapping");
+            throw ZMLoader::make('ZMException', "invalid sacs mapping (null controller)");
         }
         $this->mapping_[$controller] = array('level' => $authentication, 'secure' => $secure);
     }

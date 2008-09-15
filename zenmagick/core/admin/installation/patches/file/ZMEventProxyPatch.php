@@ -116,12 +116,12 @@ class ZMEventProxyPatch extends ZMFilePatch {
 
                 return $this->putFileLines(_ZM_ZEN_BASE_PHP, $patchedLines);
             } else {
-                $this->log("** ZenMagick: no permission to patch event proxy support into class.base.php", ZM_LOG_ERROR);
+                ZMLogging::instance()->log("** ZenMagick: no permission to patch event proxy support into class.base.php", ZM_LOG_ERROR);
                 return false;
             }
         } else {
             // disabled
-            $this->log("** ZenMagick: patch event proxy support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: patch event proxy support disabled - skipping");
             return false;
         }
 
@@ -150,7 +150,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_BASE_PHP, $unpatchedLines);
         } else {
-            $this->log("** ZenMagick: no permission to patch class.base.php for uninstall", ZM_LOG_ERROR);
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch class.base.php for uninstall", ZM_LOG_ERROR);
             return false;
         }
 

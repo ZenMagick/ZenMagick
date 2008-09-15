@@ -144,7 +144,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
-        ZMObject::log($sql, ZM_LOG_TRACE);
+        ZMLogging::instance()->log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
 
@@ -183,9 +183,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         } else if (is_object($data)) {
             $sql = ZMDbUtils::bindObject($sql, $data, false);
         } else {
-            ZMObject::backtrace('invalid data type');
+            throw ZMLoader::make('ZMException', 'invalid data type');
         }
-        ZMObject::log($sql, ZM_LOG_TRACE);
+        ZMLogging::instance()->log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -223,12 +223,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            ZMObject::backtrace('missing key');
+            ZMLoggin::instance()->trace('missing key');
+            die();
         }
         $sql .= $where;
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
-        ZMObject::log($sql, ZM_LOG_TRACE);
+        ZMLogging::instance()->log($sql, ZM_LOG_TRACE);
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -259,7 +260,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $results = array();
-        ZMObject::log($sql, ZM_LOG_TRACE);
+        ZMLogging::instance()->log($sql, ZM_LOG_TRACE);
         $rs = $this->db_->Execute($sql);
         ++$this->queriesCount;
         while (!$rs->EOF) {

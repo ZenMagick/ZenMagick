@@ -126,7 +126,7 @@
 
         // get localized text or default to provided default
         $format = isset($l10n[$text]) ? $l10n[$text] : $default;
-        //!isset($l10n[$text]) && ZMObject::log("can't resolve l10n: '".$text."'", ZM_LOG_DEBUG);
+        //!isset($l10n[$text]) && ZMLogging::instance()->log("can't resolve l10n: '".$text."'", ZM_LOG_DEBUG);
 
         if (null == $args) {
             // no need for expensive printf!

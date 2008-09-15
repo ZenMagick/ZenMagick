@@ -75,7 +75,7 @@ class ZMAccountPasswordController extends ZMController {
 
         $account = ZMRequest::getAccount();
         if (null == $account) {
-            $this->log('could not access session account', ZM_LOG_ERROR);
+            ZMLogging::instance()->log('could not access session account', ZM_LOG_ERROR);
             return $this->findView('error');
         }
 

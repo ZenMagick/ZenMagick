@@ -156,7 +156,7 @@ class ZMModel extends ZMObject {
             $property = strtolower($property[0]).substr($property, 1);
             return $this->set($property, $args[0]);
         } else {
-            ZMObject::backtrace('invalid method: '.$method);
+            throw ZMLoader::make('ZMException', 'invalid method: '.$method);
         }
         return $null;
     }

@@ -115,8 +115,11 @@
      * Logging options.
      */
 
+        // logging provider
+        'loggingProvider' => 'Logging',
+
         // overal log leve
-        'logLevel' => ZM_LOG_INFO,
+        'logLevel' => 3,
 
         // enable/disable loggin
         'isLogEnabled' => false,
@@ -129,9 +132,6 @@
 
         // whether to log missing settings
         'isLogMissingSettings' => false,
-
-        // whether to show backtrace and die or just log
-        'isShowBacktrace' => false,
 
 
 
