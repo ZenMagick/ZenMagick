@@ -67,8 +67,6 @@
         </fieldset>
     <?php } ?>
 
-    <?php include $zm_subscriptions->getPluginDir().'templates/checkout_shipping.php'; ?>
-
     <fieldset>
         <legend><?php zm_l10n("Comments") ?></legend>
         <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
