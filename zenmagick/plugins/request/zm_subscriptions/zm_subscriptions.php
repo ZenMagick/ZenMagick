@@ -134,6 +134,16 @@ class zm_subscriptions extends ZMPlugin {
     }
 
     /**
+     * Check if the given cart can be used as subscription.
+     *
+     * @param ZMShoppingCart cart The cart.
+     * @return boolean <code>true</code> if the cart qualifies for a subscription.
+     */
+    public function qualifies($cart) {
+        return $this->get('minAmount') <= $cart->getTotal();
+    }
+
+    /**
      * Check if currently subscription is selected.
      *
      * @return string The subscription schedule key or <code>null</code>.
@@ -158,16 +168,6 @@ class zm_subscriptions extends ZMPlugin {
             '1m' => 'Once a month'
         );
         return ZMSettings::get('plugins.zm_subscriptions.schedules', $defaults);
-    }
-
-    /**
-     * Does the current shopping cart qualify for subscription.
-     * 
-     * @return boolean <code>true</code> if a subscription is allowed.
-     */
-    public function canSubscribe() {
-        $cart = ZMRequest::getShoppingCart();
-        return $this->get('minAmount') <= $cart->getTotal();
     }
 
     /**
