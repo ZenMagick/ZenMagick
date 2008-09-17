@@ -84,7 +84,7 @@ class ZMCancelSubscriptionController extends ZMController {
         }
 
         $sql = "UPDATE " . TABLE_ORDERS . "
-                SET subscription = :subscription
+                SET is_subscription = :subscription
                 WHERE orders_id = :orderId";
         ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscription' => false), TABLE_ORDERS);
         ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
