@@ -31,9 +31,6 @@
         ZMRuntime::setThemeId(ZM_DEFAULT_THEME);
     }
 
-    // use theme static pages rather than zen-cart's define pages
-    ZMSettings::set('isZMDefinePages', true);
-
     // add custom filter
     ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter', ',');
 
