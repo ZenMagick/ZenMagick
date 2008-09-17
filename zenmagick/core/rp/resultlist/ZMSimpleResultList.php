@@ -262,7 +262,7 @@ class ZMSimpleResultList extends ZMObject {
             }
 
             $end = $this->page_ * $this->pagination_;
-	        $end = $end > count($results) ? count($results) : $end;
+            $end = $end > count($results) ? count($results) : $end;
             $start = ((int)($end / $this->pagination_)) * $this->pagination_;
             $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
 

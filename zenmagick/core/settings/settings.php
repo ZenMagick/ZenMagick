@@ -337,8 +337,6 @@
         // list of enabled order stati to show downloads
         'downloadOrderStatusList' => _zm_mk_list((int)DOWNLOADS_CONTROLLER_ORDERS_STATUS_END, (int)DOWNLOADS_CONTROLLER_ORDERS_STATUS),
 
-        // TODO: (depends on sorter/filter?) sort default
-        'defaultProductSortOrder' => 'price',
         // sort attributes by name rather than the sort order
         'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',
         // sort attribute values by name rather than sort order

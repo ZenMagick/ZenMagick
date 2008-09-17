@@ -34,7 +34,6 @@
 class ZMResultListSorter extends ZMObject {
     protected $id_;
     protected $name_;
-    protected $defaultSortId_;
     protected $sortId_;
     protected $decending_;
 
@@ -49,7 +48,6 @@ class ZMResultListSorter extends ZMObject {
         parent::__construct();
 
         $this->id_ = $id;
-        $this->defaultSortId_ = null;
         $this->sortId_ = ZMRequest::getSortId();
         $this->decending_ = ZMTools::endsWith($this->sortId_, '_d');
         if (ZMTools::endsWith($this->sortId_, '_a') || $this->decending_) {
@@ -103,13 +101,26 @@ class ZMResultListSorter extends ZMObject {
      */
     public function getId() { return $this->id_; }
 
-
     /**
      * Returns the sorter name.
      *
      * @return string The sorter name.
      */
     public function getName() { return $this->name_; }
+
+    /**
+     * Set the sorters unique id.
+     *
+     * @param string id The sorter id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the sorter name.
+     *
+     * @param string name The sorter name.
+     */
+    public function setName($name) { $this->name_ = $name; }
 
 }
 
