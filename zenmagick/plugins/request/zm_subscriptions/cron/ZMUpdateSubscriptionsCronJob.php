@@ -35,7 +35,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
     public function execute() {
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
-        $emailTemplate = $plugin->get('emailTemplate');
+        $scheduleEmailTemplate = $plugin->get('scheduleEmailTemplate');
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
@@ -61,7 +61,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 $status = ZMLoader::make('OrderStatus');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());
-                $status->setCustomerNotified(!ZMTools::isEmpty($emailTemplate));
+                $status->setCustomerNotified(!ZMTools::isEmpty($scheduleEmailTemplate));
                 $status->setComment(zm_l10n_get('Scheduled order for subscription #%s', $scheduledOrderId));
                 ZMOrders::instance()->createOrderStatusHistory($status);
             }
@@ -72,8 +72,8 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $scheduledOrderId);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
-            if (!ZMTools::isEmpty($emailTemplate)) {
-                $this->sendOrderEmail($order, $emailTemplate);
+            if (!ZMTools::isEmpty($scheduleEmailTemplate)) {
+                $this->sendOrderEmail($order, $scheduleEmailTemplate);
             }
         }
 

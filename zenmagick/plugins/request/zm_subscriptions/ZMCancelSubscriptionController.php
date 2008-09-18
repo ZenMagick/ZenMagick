@@ -56,6 +56,15 @@ class ZMCancelSubscriptionController extends ZMController {
      */
     public function processGet() {
         $orderId = ZMRequest::getOrderId();
+        $order = ZMOrders::instance()->getOrderForId($orderId);
+        $account = $order->getAccount();
+
+        // make sure this is an allowed order
+        if ($order->getAccountId() != $order->getAccountId()) {
+            ZMMessages::instance()->error(zm_l10n_get("Invalid order selected"));
+            return $this->findView();
+        }
+
         $plugin = $this->getPlugin();
 
         // check for number of scheduled orders
@@ -89,7 +98,30 @@ class ZMCancelSubscriptionController extends ZMController {
         ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscription' => false), TABLE_ORDERS);
         ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
 
+        $cancelEmailTemplate = $plugin->get('cancelEmailTemplate');
+        if (!ZMTools::isEmpty($cancelEmailTemplate)) {
+            $this->sendCancelEmail($order, $cancelEmailTemplate, $account->getEmail());
+            $adminEmail = $plugin->get('cancelAdminEmail');
+            if (!ZMTools::isEmpty($adminEmail)) {
+                $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
+            }
+        }
+
         return $this->findView();
+    }
+
+    /**
+     * Send cancel email.
+     *
+     * @param ZMOrder order The order.
+     * @param string template The template.
+     * @param string email The email address.
+     */
+    protected function sendCancelEmail($order, $template, $email) {
+        $context = array();
+        $context['order'] = $order;
+        zm_mail(zm_l10n_get("%s: Order Subscription Canceled", ZMSettings::get('storeName')), $template, $context, 
+            ZMSettings::get('storeEmail'), null, $email);
     }
 
     /**

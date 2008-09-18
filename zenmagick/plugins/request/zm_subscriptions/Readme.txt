@@ -49,6 +49,22 @@ A simple way of doing this would be to modify the checkout_payments.php template
       }
 
 
+Schedule options
+================
+The defauls may be changed by configuring a plugin setting 'plugins.zm_subscriptions.schedules':
+Example:
+
+    ZMSettings::set('plugins.zm_subscriptions.schedules', array(
+        '1w' => 'Weekly',
+        '2w' => 'Two Weekly',
+        '10d' => 'Every 10 days',
+        '4w' => 'Every four weeks',
+        '1m' => 'Once a month',
+        '3m' => 'Every three month'
+    ));
+
+
+
 Emails
 ======
 If the name of an email template is configured, the plugin will send an customer notification email for each scheduled

@@ -76,13 +76,20 @@ class zm_subscriptions extends ZMPlugin {
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amoout to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
         $this->addConfigValue('Cancel dealline', 'cancelDeadline', '0', 'Days before the next order the user can cancel the subscription');
-        $this->addConfigValue('Notification email template name', 'emailTemplate', '',
+        $this->addConfigValue('Notification email template name', 'scheduleEmailTemplate', '',
             'Name of an email template to notify customers of new subscription orders; leave empty for none');
+        $this->addConfigValue('Cancel confirmation email template name', 'cancelEmailTemplate', '',
+            'Name of an email template to confirm subscription canceled (reused if admin email set)');
+        $this->addConfigValue('Cancel confirmation admin email address', 'cancelAdminEmail', '',
+            'Email address for admin notification about canceled subscription');
         $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+        $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
         $this->addConfigValue('Shipping Address', 'addressPolicy', 'order', 'use either the original shipping addres, or the current default address',
             "zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
         $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders', 'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
+        $this->addConfigValue('Schedule offset', 'scheduleOffset', '0', 'Optional offset (in days) to schedule subscription earlier that actually required');
     }
 
     /**
@@ -114,6 +121,8 @@ class zm_subscriptions extends ZMPlugin {
             ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
         }
 
+        // set mapping and make secure
+        ZMSacsMapper::instance()->setMapping('cancel_subscription');
         ZMUrlMapper::instance()->setMapping(null, 'cancel_subscription', 'account', 'RedirectView', 'secure=true');
     }
 
@@ -182,6 +191,17 @@ class zm_subscriptions extends ZMPlugin {
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId, 'subscription' => true, 'schedule' => $schedule);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
+
+            if (ZMTools::asBoolean($this->get('subscriptionComment'))) {
+                $order = ZMOrders::instance()->getOrderForId($orderId);
+                $status = ZMLoader::make('OrderStatus');
+                $status->setId($order->getOrderStatusId());
+                $status->setOrderId($order->getId());
+                $status->setCustomerNotified(false);
+                $schedules = $this->getSchedules();
+                $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]));
+                ZMOrders::instance()->createOrderStatusHistory($status);
+            }
         }
     }
 
@@ -192,8 +212,8 @@ class zm_subscriptions extends ZMPlugin {
      * @return string A string that can be used in SQL <em>DATE_ADD</em>.
      */
     public static function schedule2SQL($schedule) {
-        $schedule = preg_replace('/[^0-9dwm]/', '', $schedule); 
-        return str_replace(array('d', 'w', 'm'), array(' DAY', ' WEEK', ' MONTH'), $schedule);
+        $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule); 
+        return str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', 'YEAR'), $schedule);
     }
 
 }
