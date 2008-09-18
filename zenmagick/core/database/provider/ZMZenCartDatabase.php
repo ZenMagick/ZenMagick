@@ -37,6 +37,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private $queriesCount;
     private $queriesTime;
     private $mapper;
+    private $debug;
 
 
     /**
@@ -55,6 +56,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->queriesCount = 0;
         $this->queriesTime = 0;
         $this->mapper = ZMDbTableMapper::instance();
+        $this->debug = false;
     }
 
     /**
@@ -144,7 +146,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
-        ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
         $this->db_->Execute($sql);
         ++$this->queriesCount;
 
@@ -185,7 +189,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         } else {
             throw ZMLoader::make('ZMException', 'invalid data type');
         }
-        ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -229,7 +235,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         $sql = ZMDbUtils::bindObject($sql, $model, false);
-        ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
@@ -260,7 +268,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $results = array();
-        ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
         $rs = $this->db_->Execute($sql);
         ++$this->queriesCount;
         while (!$rs->EOF) {
