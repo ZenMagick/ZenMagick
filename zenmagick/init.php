@@ -64,14 +64,14 @@
         }
     }
 
-    // upset plugins
-    ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
-
     // load global settings
     if (file_exists(dirname(__FILE__).'/local.php')) {
         require(dirname(__FILE__).'/local.php');
     }
+
+    // upset plugins
+    ZMLoader::make("Plugins");
+    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
 
     // register custom error handler
     if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {

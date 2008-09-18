@@ -142,28 +142,16 @@ class ZMLogging extends ZMObject {
     }
 
     /**
-     * PHP error handler callback.
-     *
-     * <p>if configured, this method will append all messages to the file
-     * configured with <em>zmLogFilename</em>.</p>
-     * 
-     * <p>If no file is configured, the regular webserver error file will be used.</p>
+     * Format error handler log line.
      *
      * @param int errno The error level.
      * @param string errstr The error message.
      * @param string errfile The source filename.
      * @param int errline The line number.
      * @param array errcontext All variables of scope when error triggered.
+     * @return string A formatted log line.
      */
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) { 
-        // get current level
-        $level = error_reporting(E_ALL);
-        error_reporting($level);
-        // disabled or not configured?
-        if (0 == $level || $errno != ($errno&$level)) {
-            return;
-        }
-
+    protected function formatLog($errno, $errstr, $errfile, $errline, $errcontext) {
         $time = date("d M Y H:i:s"); 
         // Get the error type from the error number 
         $errtypes = array (1    => "Error",
@@ -188,13 +176,48 @@ class ZMLogging extends ZMObject {
             $errlevel = "Unknown";
         }
 
-        $line = "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"; 
+        return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"; 
+    }
+
+    /**
+     * A callback function that can be overriden to implement custom logging.
+     *
+     * @param string line The log line.
+     */
+    public function logError($line) {
         if (null != ($handle = fopen(ZMSettings::get('zmLogFilename'), "a"))) {
             fputs($handle, $line); 
             fclose($handle); 
         } else {
             error_log($line);
         }
+    }
+
+    /**
+     * PHP error handler callback.
+     *
+     * <p>if configured, this method will append all messages to the file
+     * configured with <em>zmLogFilename</em>.</p>
+     * 
+     * <p>If no file is configured, the regular webserver error file will be used.</p>
+     *
+     * @param int errno The error level.
+     * @param string errstr The error message.
+     * @param string errfile The source filename.
+     * @param int errline The line number.
+     * @param array errcontext All variables of scope when error triggered.
+     */
+    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) { 
+        // get current level
+        $level = error_reporting(E_ALL);
+        error_reporting($level);
+        // disabled or not configured?
+        if (0 == $level || $errno != ($errno & $level)) {
+            return;
+        }
+
+        $line = $this->formatLog($errno, $errstr, $errfile, $errline, $errcontext);
+        $this->logError($line);
     } 
 
 }
