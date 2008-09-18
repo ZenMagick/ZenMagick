@@ -64,6 +64,10 @@
         }
     }
 
+    // upset plugins
+    ZMLoader::make("Plugins");
+    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+
     // load global settings
     if (file_exists(dirname(__FILE__).'/local.php')) {
         require(dirname(__FILE__).'/local.php');
@@ -112,10 +116,6 @@
         $zm_urlMapper = ZMUrlMapper::instance();
         $zm_sacsMapper = ZMSacsMapper::instance();
     }
-
-    // upset plugins
-    ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
 
     // load default mappings
     zm_set_default_url_mappings();

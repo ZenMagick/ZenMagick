@@ -23,6 +23,8 @@ Release 0.9.3
 - catch controller exceptions
 - zm_page_stats: handle exception if available
 - removed unused setting 'defaultProductSortOrder'
+- move plugin init further up; this means plugins can't use the legacy globals
+  any more
 
 Release 0.9.2
 - add database support for data type blob
