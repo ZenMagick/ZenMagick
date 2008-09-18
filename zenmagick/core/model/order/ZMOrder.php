@@ -139,7 +139,7 @@ class ZMOrder extends ZMModel {
     public function getAccount() { 
         if (null === $this->account_) {
             $this->account_ = ZMLoader::make("Account");
-            $this->account_->setAccountId($this->get('customers_id'));
+            $this->account_->setAccountId($this->accountId_);
             // orders has only name, not first/last...
             $this->account_->setLastName($this->get('customers_name'));
             $this->account_->setEmail($this->get('customers_email_address'));
