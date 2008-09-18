@@ -25,6 +25,7 @@ Release 0.9.3
 - removed unused setting 'defaultProductSortOrder'
 - move plugin init further up; this means plugins can't use the legacy globals
   any more
+- add class loader support for filesnames a la [class name].class.php
 
 Release 0.9.2
 - add database support for data type blob

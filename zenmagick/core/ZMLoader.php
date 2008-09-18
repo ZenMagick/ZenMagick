@@ -277,6 +277,9 @@ class ZMLoader {
         }
         $clazz = ZMLoader::resolve($name);
         if (null != $clazz) {
+            if (!class_exists($clazz)) {
+                throw ZMLoader::make('ZMException', 'class not found ' . $clazz);
+            }
             $obj = null;
             switch (count($args)) {
             case 0:
@@ -364,6 +367,8 @@ class ZMLoader {
         $map = array();
         foreach ($files as $file) {
             $name = str_replace('.php', '', basename($file));
+            // support for Name.class.php style
+            $name = str_replace('.class', '', $name);
             if ($name == strtolower($name)) {
                 // static, so make it unique
                 $name = $file;
