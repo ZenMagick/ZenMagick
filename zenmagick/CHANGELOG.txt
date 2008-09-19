@@ -29,6 +29,7 @@ Release 0.9.3
 - improve logging
 - add exception handler to ZMLogging
 - change ZMRegexpRule to use preg_match and be case sensitive
+- add licence files for compressed 3rd party libraries
 
 Release 0.9.2
 - add database support for data type blob
