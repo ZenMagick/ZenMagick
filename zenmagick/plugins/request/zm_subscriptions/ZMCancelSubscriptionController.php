@@ -77,7 +77,6 @@ class ZMCancelSubscriptionController extends ZMController {
             return $this->findView();
         }
 
-        //TODO: check min das before schedule (cancelDeadline)
         $cancelDeadline = $plugin->get('cancelDeadline');
         if (0 < $cancelDeadline) {
             // this will return only a result if subscription_next_order is more than $cancelDeadline days in the future
@@ -121,7 +120,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $context = array();
         $context['order'] = $order;
         zm_mail(zm_l10n_get("%s: Order Subscription Canceled", ZMSettings::get('storeName')), $template, $context, 
-            ZMSettings::get('storeEmail'), null, $email);
+            $email, ZMSettings::get('storeEmail'), null);
     }
 
     /**

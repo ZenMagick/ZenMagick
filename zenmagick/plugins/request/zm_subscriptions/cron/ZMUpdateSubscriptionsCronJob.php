@@ -44,6 +44,10 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             // 2) update shipping/billing from account to avoid stale addresses
             if ('account' == $plugin->get('addressPolicy')) {
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+                if (null === $account) {
+                    ZMLogging::instance()->log('invalid accountId on order: '.$order->getId(), ZMLogging::ERROR);
+                    continue;
+                }
                 $defaultAddressId = $account->getDefaultAddressId();
                 $defaultAddress = ZMAddresses::instance()->getAddressForId($defaultAddressId);
                 $order->setShippingAddress($defaultAddress);
@@ -100,7 +104,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
         $account = $order->getAccount();
         zm_mail(zm_l10n_get("%s: Order Subscription Notification", ZMSettings::get('storeName')), $template, $context, 
-            ZMSettings::get('storeEmail'), null, $account->getEmail());
+            $account->getEmail(), ZMSettings::get('storeEmail'), null);
     }
 
     /**

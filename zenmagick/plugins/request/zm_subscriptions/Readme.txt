@@ -16,6 +16,11 @@ Installation
 ============
 1) Unzip the plugin package into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
+3) Configure the zm_cron plugin to execute the cron job ZMUpdateSubscriptionsCronJob once a day
+Example configuration:
+#mi  h    d    m    dow      job                                  comment
+0    5    *    *    *        ZMUpdateSubscriptionsCronJob         # every sunday at 5 am
+
 
 
 This plugin doesn't do anything itself, but provides a service for other plugins or core logic.

@@ -130,7 +130,7 @@ class zm_subscriptions extends ZMPlugin {
      * Event handler to pick up subscription cehckout options.
      */
     public function onZMInitDone($args=array()) {
-        if ('checkout_shipping' == ZMRequest::getPageName() && 'POST' == ZMRequest::getMethod()) {
+        if ('checkout_shipping' == ZMRequest::getPageName()) {
             if (ZMTools::asBoolean(ZMRequest::getParameter('subscription'))) {
                 ZMRequest::getSession()->setValue('subscription_schedule', ZMRequest::getParameter('schedule'));
             } else {
@@ -184,7 +184,8 @@ class zm_subscriptions extends ZMPlugin {
      */
     public function onZMCreateOrder($args=array()) {
         $orderId = $args['orderId'];
-        if (null != ($schedule = $this->getSelectedSchedule())) {
+        if (1||null != ($schedule = $this->getSelectedSchedule())) {
+            $schedule='1w';
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
                       is_subscription = :subscription, subscription_schedule = :schedule
