@@ -44,8 +44,9 @@
             // execute controller
             $view = $controller->process();
         } catch (Exception $e) {
+            ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
+
             // TODO: extract somewhere into method/function??
-            ZMLogging::instance()->dump($e, ZMLogging::WARN);
             $controller = ZMLoader::make("DefaultController");
             $controller->exportGlobal('exception', $e);
             $view = $controller->findView('error');

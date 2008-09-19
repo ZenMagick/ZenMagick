@@ -75,8 +75,8 @@
 
     // register custom error handler
     if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
-        error_reporting(E_ALL);
         set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
+        set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
     }
 
     // now we can check for a static homepage

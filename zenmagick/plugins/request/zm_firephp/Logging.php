@@ -65,13 +65,7 @@ class Logging extends ZMLogging {
 
 
     /**
-     * Simple logging function.
-     *
-     * <p>Messages will either be appended to the webserver's error log or, if a custom
-     * error handler is installed, trigger a <em>E_USER_NOTICE</em> error.</p>
-     *
-     * @param string msg The message to log.
-     * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
+     * {@inheritDoc}
      */
     public function log($msg, $level=ZMLogging::INFO) {
         if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
@@ -80,23 +74,20 @@ class Logging extends ZMLogging {
     }
 
     /**
-     * Simple dump function.
-     *
-     * @param mixed obj The object to dump.
-     * @param string msg An optional message.
-     * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
+     * {@inheritDoc}
      */
     public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
         if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
-            FirePHP::getInstance(true)->fb($obj, $msg, FirePHP::DUMP);
+            if ($obj instanceof Exception) {
+                FirePHP::getInstance(true)->fb($obj);
+            } else {
+                FirePHP::getInstance(true)->fb($obj, $msg, FirePHP::DUMP);
+            }
         }
     }
 
     /**
-     * Create a simple stack trace.
-     *
-     * @param mixed msg An optional string or array.
-     * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
+     * {@inheritDoc}
      */
     public function trace($msg=null, $level=ZMLogging::DEBUG) {
         if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
@@ -129,6 +120,13 @@ class Logging extends ZMLogging {
 
         FirePHP::getInstance(true)->fb($line, $errTypes[$info['errno']]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function exceptionHandler($e) { 
+        FirePHP::getInstance(true)->fb($e);
+    } 
 
 }
 

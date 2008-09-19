@@ -226,6 +226,15 @@ class ZMLogging extends ZMObject {
         $this->logError($line, $info);
     } 
 
+    /**
+     * PHP exception handler callback.
+     *
+     * @param Exception e The exception.
+     */
+    public function exceptionHandler($e) { 
+        $this->logError('Uncaught exception: '.$e->getMessage(), array('errno' => E_ERROR, 'context' => array('exception' => $e)));
+    } 
+
 }
 
 ?>
