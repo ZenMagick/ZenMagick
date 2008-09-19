@@ -201,9 +201,6 @@ class ZMLogging extends ZMObject {
      * 
      * <p>If no file is configured, the regular webserver error file will be used.</p>
      *
-     * <p>A side effect of the way this method determines the current error reporting level
-     * is that <code>E_ALL</code> will be activated as of the first call to this method.</p>
-     *
      * @param int errno The error level.
      * @param string errstr The error message.
      * @param string errfile The source filename.
@@ -213,6 +210,7 @@ class ZMLogging extends ZMObject {
     public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) { 
         // get current level
         $level = error_reporting(E_ALL);
+        // set back
         error_reporting($level);
         // disabled or not configured?
         if (0 == $level || $errno != ($errno & $level)) {
