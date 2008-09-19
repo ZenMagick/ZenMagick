@@ -59,10 +59,10 @@ class ZMRegexpRule extends ZMRule {
      * Validate the given request data.
      *
      * @param array req The request data.
-     * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
+     * @return boolean <code>true</code> if the regular expression does match.
      */
     function validate($req) {
-        return empty($req[$this->getName()]) || eregi($this->regexp_, $req[$this->getName()]);
+        return empty($req[$this->getName()]) || preg_match($this->regexp_, $req[$this->getName()]);
     }
 
 
