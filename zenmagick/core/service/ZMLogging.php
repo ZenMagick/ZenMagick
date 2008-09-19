@@ -154,7 +154,7 @@ class ZMLogging extends ZMObject {
     protected function formatLog($errno, $errstr, $errfile, $errline, $errcontext) {
         $time = date("d M Y H:i:s"); 
         // Get the error type from the error number 
-        $errtypes = array (1    => "Error",
+        $errTypes = array (1    => "Error",
                            2    => "Warning",
                            4    => "Parsing Error",
                            8    => "Notice",
@@ -170,8 +170,8 @@ class ZMLogging extends ZMObject {
         ); 
 
 
-        if (isset($errtypes[$errno])) {
-            $errlevel = $errtypes[$errno]; 
+        if (isset($errTypes[$errno])) {
+            $errlevel = $errTypes[$errno]; 
         } else {
             $errlevel = "Unknown";
         }
@@ -200,6 +200,9 @@ class ZMLogging extends ZMObject {
      * configured with <em>zmLogFilename</em>.</p>
      * 
      * <p>If no file is configured, the regular webserver error file will be used.</p>
+     *
+     * <p>A side effect of the way this method determines the current error reporting level
+     * is that <code>E_ALL</code> will be activated as of the first call to this method.</p>
      *
      * @param int errno The error level.
      * @param string errstr The error message.

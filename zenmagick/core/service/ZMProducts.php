@@ -286,6 +286,7 @@ class ZMProducts extends ZMObject {
             case '0':
                 // no global limit
                 $queryLimit = '';
+                $date = '';
                 break;
             case '1':
                 // this month
@@ -312,7 +313,6 @@ class ZMProducts extends ZMObject {
                     and p2c.categories_id = c.categories_id
                     and c.categories_id = :categoryId
                     and p.products_status = 1" . $queryLimit;
-            //$sql = $db->bindVars($sql, ":categoryId", $categoryId, "integer");
         }
         $sql .= " order by products_date_added";
 

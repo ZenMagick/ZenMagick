@@ -195,6 +195,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The updated mapping
      */
     protected function addCustomFields($mapping, $table) {
+        $defaults = array('key' => false, 'auto' => false, 'custom' => false);
         $setting = ZMSettings::get($this->getCustomFieldKey($table));
         if (!empty($setting)) {
             foreach (explode(',', $setting) as $field) {
@@ -202,6 +203,8 @@ class ZMDbTableMapper extends ZMObject {
                     $fieldInfo = explode(';', trim($field));
                     $fieldId = (count($fieldInfo) > 2 ? $fieldInfo[2] : $fieldInfo[0]);
                     $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId, 'ucwp' => ucwords($fieldId), 'custom' => true);
+                    // merge in defaults
+                    $mapping[$fieldId] = array_merge($defaults, $mapping[$fieldId]);
                 }
             }
         }

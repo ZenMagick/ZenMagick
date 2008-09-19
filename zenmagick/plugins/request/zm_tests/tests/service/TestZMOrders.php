@@ -40,7 +40,10 @@ class TestZMOrders extends UnitTestCase {
      */
     public function testGetAccount() {
         $order = ZMOrders::instance()->getOrderForId(1);
-        $this->assertNotNull($order->getAccount());
+        $account = $order->getAccount();
+        $this->assertNotNull($account);
+        $this->assertNotNull($account->getLastName());
+        $this->assertNotNull($account->getEmail());
     }
 
     /**

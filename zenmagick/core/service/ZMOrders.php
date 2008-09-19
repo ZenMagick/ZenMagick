@@ -127,7 +127,6 @@ class ZMOrders extends ZMObject {
         
         $db = ZMRuntime::getDB();
         // order only
-        $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 WHERE o.orders_status = :orderStatusId
@@ -135,7 +134,7 @@ class ZMOrders extends ZMObject {
                   AND ot.class = 'ot_total'
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId
-                  ORDER BY orders_id desc".$sqlLimit;
+                  ORDER BY orders_id desc";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
         $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 

@@ -4,6 +4,7 @@
     <title>ZenMagick Unit Testing</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <style type="text/css">
+        h1 {width:100%;border-bottom:1px solid gray;}
         .fail {background-color:inherit;color:red;}
         .pass {background-color:inherit;color:green;}
          pre {background-color:lightgray;color:inherit;}

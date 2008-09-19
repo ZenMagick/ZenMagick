@@ -69,26 +69,27 @@ class ZMCronParser {
 
         // parse and handle each item
         foreach ($items as $item) {
-            if (preg_match("~^(\\*|([0-9]{1,2})(-([0-9]{1,2}))?)(/([0-9]{1,2}))?$~", $item, $matches)) {
-                if ('*' == $matches[1]) {
+            if (false !== ($hits = preg_match("~^(\\*|([0-9]{1,2})(-([0-9]{1,2}))?)(/([0-9]{1,2}))?$~", $item, $tokens)) && 0 < $hits) {
+                $tokenCount = count($tokens);
+                if ('*' == $tokens[1]) {
                     // from
-                    $matches[2] = 0;
+                    $tokens[2] = 0;
                     //to
-                    $matches[4] = $size;
-                } elseif ('' == $matches[4]) {
+                    $tokens[4] = $size;
+                } elseif (5 > $tokenCount || '' == $tokens[4]) {
                     // single number
-                    $matches[4] = $matches[2];
+                    $tokens[4] = $tokens[2];
                 }
-                if ('/' == $matches[5][0]) {
+                if (5 < $tokenCount && '/' == $tokens[5][0]) {
                     // increment to size
-                    $matches[4] = $size;
+                    $tokens[4] = $size;
                 } else {
                     // not a step, so increment by 1
-                    $matches[6] = 1;
+                    $tokens[6] = 1;
                 }
-                $from = intval($matches[2]);
-                $to = intval($matches[4]);
-                $increment = intval($matches[6]);
+                $from = intval($tokens[2]);
+                $to = intval($tokens[4]);
+                $increment = intval($tokens[6]);
                 for ($jj=$from; $jj<=$to; $jj+=$increment) {
                     $configured[$jj] = true;
                 }
@@ -134,7 +135,7 @@ class ZMCronParser {
                     $job['task'] = trim($token[7]);
                     // id is all date/time values plus the task
                     $job['id'] = md5(implode('|', $job));
-                    $job['comment'] = trim(substr($job[8], 1));
+                    $job['comment'] = 8 < count($job) ? trim(substr($job[8], 1)) : '';
                     $job['line'] = $line;
                     $job['schedule'] = $schedule;
                     $jobs[] = $job;

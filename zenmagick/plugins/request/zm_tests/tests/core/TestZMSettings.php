@@ -22,9 +22,10 @@ class TestZMSettings extends UnitTestCase {
         // and with delim
         $key = 'n@@@';
         $delim = '!';
+        $old = null;
         $oldValue = ZMSettings::append($key, $value, $delim);
         $this->assertEqual($old, $oldValue);
-        $this->assertEqual($old.$value, ZMSettings::get($key));
+        $this->assertEqual($value, ZMSettings::get($key));
     }
 
     /**
@@ -33,6 +34,7 @@ class TestZMSettings extends UnitTestCase {
     public function testAppendOld() {
         $key = 'o@@';
         $old = 'yo';
+        $value = 'doh';
         ZMSettings::set($key, $old);
         $oldValue = ZMSettings::append($key, $value);
         $this->assertEqual($old, $oldValue);

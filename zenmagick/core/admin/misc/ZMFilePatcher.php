@@ -134,7 +134,7 @@ class ZMFilePatcher extends ZMObject {
                     // line matches patch pattern
                     switch ($info['action']) {
                     case 'insert-before':
-                        if (-1 < $lastData && false === strpos($lines[$ii-1], $data[$lastData])) {
+                        if (-1 < $lastData && (0 == $ii || false === strpos($lines[$ii-1], $data[$lastData]))) {
                             $modified = true;
                             // prepend data
                             foreach ($data as $dataLine) {

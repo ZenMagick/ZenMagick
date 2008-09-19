@@ -97,8 +97,13 @@ class TestZMProducts extends UnitTestCase {
      * Test new products on home page.
      */
     public function testNewProductsHome() {
+        $sql = "UPDATE " . TABLE_PRODUCTS . " SET products_date_added = :dateAdded";
+        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => date(ZM_DB_DATETIME_FORMAT)), TABLE_PRODUCTS);
+
         $products = ZMProducts::instance()->getNewProducts();
         $this->assertEqual(125, count($products));
+
+        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => '2003-11-03 12:32:17'), TABLE_PRODUCTS);
     }
 
     /**
