@@ -153,22 +153,24 @@ class ZMLogging extends ZMObject {
      */
     protected function formatLog($errno, $errstr, $errfile, $errline, $errcontext) {
         $time = date("d M Y H:i:s"); 
-        // Get the error type from the error number 
-        $errTypes = array (1    => "Error",
-                           2    => "Warning",
-                           4    => "Parsing Error",
-                           8    => "Notice",
-                           16   => "Core Error",
-                           32   => "Core Warning",
-                           64   => "Compile Error",
-                           128  => "Compile Warning",
-                           256  => "User Error",
-                           512  => "User Warning",
-                           1024 => "User Notice",
-                           2048 => "Strict",
-                           4096 => "Recoverable Error"
+        // Get the error names from the error number 
+        $errTypes = array (
+            1 => "Error",
+            2 => "Warning",
+            4 => "Parsing Error",
+            8 => "Notice",
+            16 => "Core Error",
+            32 => "Core Warning",
+            64 => "Compile Error",
+            128 => "Compile Warning",
+            256 => "User Error",
+            512 => "User Warning",
+            1024 => "User Notice",
+            2048 => "Strict",
+            4096 => "Recoverable Error",
+            8192 => "Deprecated",
+            16384 => "User Deprecated",
         ); 
-
 
         if (isset($errTypes[$errno])) {
             $errlevel = $errTypes[$errno]; 
@@ -182,9 +184,10 @@ class ZMLogging extends ZMObject {
     /**
      * A callback function that can be overriden to implement custom logging.
      *
-     * @param string line The log line.
+     * @param string line The pre-fromatted log line.
+     * @param array info All available log information.
      */
-    public function logError($line) {
+    public function logError($line, $info) {
         if (null != ($handle = fopen(ZMSettings::get('zmLogFilename'), "a"))) {
             fputs($handle, $line); 
             fclose($handle); 
@@ -216,9 +219,11 @@ class ZMLogging extends ZMObject {
         if (0 == $level || $errno != ($errno & $level)) {
             return;
         }
+        // convert all into an easy to handle array
+        $info = array('errno' => $errno, 'msg' => $errstr, 'file' => $errfile, 'line' => $errline, 'context' => $errcontext);
 
         $line = $this->formatLog($errno, $errstr, $errfile, $errline, $errcontext);
-        $this->logError($line);
+        $this->logError($line, $info);
     } 
 
 }

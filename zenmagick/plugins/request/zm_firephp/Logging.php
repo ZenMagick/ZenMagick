@@ -107,8 +107,27 @@ class Logging extends ZMLogging {
     /**
      * {@inheritDoc}
      */
-    public function logError($line) {
-        FirePHP::getInstance(true)->fb($line, FirePHP::INFO);
+    public function logError($line, $info) {
+        // map error type to log level
+        $errTypes = array (
+            1 => FirePHP::ERROR,
+            2 => FirePHP::WARN,
+            4 => FirePHP::ERROR,
+            8 => FirePHP::INFO,
+            16 => FirePHP::ERROR,
+            32 => FirePHP::WARN,
+            64 => FirePHP::ERROR,
+            128 => FirePHP::WARN,
+            256 => FirePHP::ERROR,
+            512 => FirePHP::WARN,
+            1024 => FirePHP::LOG,
+            2048 => FirePHP::LOG,
+            4096 => FirePHP::ERROR,
+            8192 => FirePHP::LOG,
+            16384 => FirePHP::LOG,
+        ); 
+
+        FirePHP::getInstance(true)->fb($line, $errTypes[$info['errno']]);
     }
 
 }
