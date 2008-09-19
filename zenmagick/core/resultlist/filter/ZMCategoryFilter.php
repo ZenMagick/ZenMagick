@@ -63,7 +63,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
     /**
      * Return <code>true</code> if the given object is to be excluded.
      *
-     * @param mixed obj The obecjt to examine.
+     * @param mixed obj The object to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     function exclude($obj) {
