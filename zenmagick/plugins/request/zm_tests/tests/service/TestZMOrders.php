@@ -70,6 +70,18 @@ class TestZMOrders extends UnitTestCase {
         $this->assertEqual('12345', $order->get('billing_postcode'));
     }
 
+    /**
+     * Test downloads.
+     */
+    public function testDownloads() {
+        $downloads = ZMOrders::instance()->getDownloadsForOrderId(62, array(1));
+        foreach ($downloads as $dl) {
+            echo $dl->getId().': isd:'.$dl->isDownloadable()."<BR>";
+            echo $dl->getId().': isl:'.$dl->isLimited()."<BR>";
+            echo $dl->getId().': size:'.$dl->getFileSize()."<BR>";
+        }
+    }
+
 }
 
 ?>
