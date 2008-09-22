@@ -30,6 +30,8 @@ Release 0.9.3
 - add exception handler to ZMLogging
 - change ZMRegexpRule to use preg_match and be case sensitive
 - add licence files for compressed 3rd party libraries
+- add new optional parameter to ZMToolboxMacro::productPrice() that allows to
+  explicitely enable/disable tax
 
 Release 0.9.2
 - add database support for data type blob
