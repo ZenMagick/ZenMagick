@@ -6,9 +6,6 @@
     // report ALL errors, warnings and info messages (that might be a lot)
     //error_reporting(E_ALL);
 
-    // log missing settiongs
-    //ZMSettings::set('isLogMissingSettings', true);
-
     // disable ZenMagick themes
     //ZMSettings::set('isEnableZenMagick', false);
 
