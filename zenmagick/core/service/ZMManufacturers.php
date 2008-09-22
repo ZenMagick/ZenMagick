@@ -71,9 +71,10 @@ class ZMManufacturers extends ZMObject {
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
-        if (null == ($manufacturer = $this->cache->get($sql))) {
+        $cacheKey = $id.'-'.$languageId;
+        if (null == ($manufacturer = $this->cache->get($cacheKey))) {
             $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
-            $this->cache->save($manufacturer, $sql);
+            $this->cache->save($manufacturer, $cacheKey);
         }
 
         return $manufacturer;
@@ -118,9 +119,10 @@ class ZMManufacturers extends ZMObject {
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
 
-        if (null == ($manufacturers = $this->cache->get($sql))) {
+        $cacheKey = $id.'-'.$languageId;
+        if (null == ($manufacturers = $this->cache->get($cacheKey))) {
             $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
-            $this->cache->save($manufacturers, $sql);
+            $this->cache->save($manufacturers, $cacheKey);
         }
 
         return $manufacturers;
@@ -137,6 +139,10 @@ class ZMManufacturers extends ZMObject {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
+
+        // remove from cache
+        $cacheKey = $id.'-'.$languageId;
+        $this->cache->remove($cacheKey);
 
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
                 SET url_clicked = url_clicked+1, date_last_click = now() 

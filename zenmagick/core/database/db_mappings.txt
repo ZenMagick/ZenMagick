@@ -58,13 +58,14 @@ array(
         'manufacturerId' => 'column=manufacturers_id;type=integer;key=true;auto=true',
         'name' => 'column=manufacturers_name;type=string',
         'image' => 'column=manufacturers_image;type=string',
-        //'dateAdded' => 'column=date_added;type=datetime',
-        //'lastModified' => 'column=last_modified;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime',
+        'lastModified' => 'column=last_modified;type=datetime',
     ),
     'manufacturers_info' => array(
         'manufacturerId' => 'column=manufacturers_id;type=integer;key=true',
         'languageId' => 'column=languages_id;type=integer;key=true',
         'url' => 'column=manufacturers_url;type=string',
+        'clickCount' => 'column=url_clicked;type=integer',
         'lastClick' => 'column=date_last_click;type=datetime',
     ),
     'customers' => array(
