@@ -9,8 +9,7 @@
         .pass {background-color:inherit;color:green;}
          pre {background-color:lightgray;color:inherit;}
          legend {color:#467aa7;font-weight:bold;padding:3px;}
-         fieldset {width:12em;min-height:8em;height:8em;float:left;position:relative;margin-right:5px;}
-         fieldset div {width:11em;}
+         fieldset {width:14em;min-height:8em;height:9.5em;float:left;margin-right:5px;padding:8px;}
          form p {clear:left;padding:7px;}
     </style>
     <script type="text/javascript">

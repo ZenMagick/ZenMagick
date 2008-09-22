@@ -102,6 +102,13 @@ class zm_openid extends ZMPlugin {
 
         // add success URL mapping if none exists
         ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');
+
+        // register tests
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+            // add class path only now to avoid errors due to missing UnitTestCase
+            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            $tests->addTest('TestZMDatabaseOpenIDStore');
+        }
     }
 
     /**
