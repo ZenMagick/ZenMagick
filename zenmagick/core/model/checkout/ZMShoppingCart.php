@@ -63,7 +63,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is empty, <code>false</code> if the cart is not empty.
      */
-    function isEmpty() { return 0 == $this->getSize(); }
+    public function isEmpty() { return 0 == $this->getSize(); }
 
     /**
      * Get the size of the cart.
@@ -72,14 +72,14 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The number of different products in the cart.
      */
-    function getSize() { return count($this->getItems()); }
+    public function getSize() { return count($this->getItems()); }
 
     /**
      * Get the carts weight.
      *
      * @return float The weight if the shopping cart.
      */
-    function getWeight() { return $this->cart_->show_weight(); }
+    public function getWeight() { return $this->cart_->show_weight(); }
 
     /**
      * Checks if there are only gift vouchers in the cart.
@@ -130,7 +130,7 @@ class ZMShoppingCart extends ZMObject {
      * 
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
-    function isVirtual() {
+    public function isVirtual() {
     global $order;
 
         if (!isset($order)) {
@@ -146,7 +146,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMShoppingCartItem</code>s.
      */
-    function getItems() {
+    public function getItems() {
         if (null === $this->items_) {
             $this->items_ = array();
             if (null != $this->cart_) {
@@ -165,7 +165,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return float The cart total.
      */
-    function getTotal() { return $this->cart_->show_total(); }
+    public function getTotal() { return $this->cart_->show_total(); }
 
     /**
      * Get product attributes for the given item.
@@ -237,28 +237,32 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return string The customer comment.
      */
-    function getComment() { return isset($_SESSION['comments']) ?  $_SESSION['comments'] : ''; }
+    public function getComment() { return isset($_SESSION['comments']) ?  $_SESSION['comments'] : ''; }
 
     /**
      * Get the selected shipping method id.
      *
      * @return int The shipping method id.
      */
-    function getShippingMethodId() { return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null; }
+    public function getShippingMethodId() { 
+        return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null;
+    }
 
     /**
      * Get the id of the selected payment method.
      *
      * @return int The payment method id.
      */
-    function getPaymentMethodId() { return isset($_SESSION['payment']) ? $_SESSION['payment'] : null; }
+    public function getPaymentMethodId() { 
+        return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
+    }
 
     /**
      * Get the selected shipping method.
      *
      * @return mixed The zen-cart shipping method.
      */
-    function getShippingMethod() {
+    public function getShippingMethod() {
     global $order;
 
         if (!isset($order)) {
@@ -272,7 +276,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return ZMPaymentType The payment type.
      */
-    function getPaymentType() {
+    public function getPaymentType() {
         $payments = ZMLoader::make("Payments");
         return $payments->getSelectedPaymentType();
     }
@@ -282,21 +286,21 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
-    function hasShippingAddress() { return !empty($_SESSION['sendto']); }
+    public function hasShippingAddress() { return !empty($_SESSION['sendto']); }
 
     /**
      * Checks if the cart has a billing address.
      *
      * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
-    function hasBillingAddress() { return !empty($_SESSION['billto']); }
+    public function hasBillingAddress() { return !empty($_SESSION['billto']); }
 
     /**
      * Get the current shipping address.
      *
      * @return ZMAddress The shipping address.
      */
-    function getShippingAddress() {
+    public function getShippingAddress() {
         return ZMAddresses::instance()->getAddressForId($_SESSION['sendto']);
     }
 
@@ -305,7 +309,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param int addressId The new shipping address id.
      */
-    function setShippingAddressId($addressId) {
+    public function setShippingAddressId($addressId) {
         $_SESSION['sendto'] = $addressId;
         $_SESSION['shipping'] = '';
     }
@@ -315,7 +319,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return ZMAddress The billing address.
      */
-    function getBillingAddress() {
+    public function getBillingAddress() {
         return ZMAddresses::instance()->getAddressForId($_SESSION['billto']);
     }
 
@@ -324,7 +328,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param int addressId The billing address id.
      */
-    function setBillingAddressId($addressId) {
+    public function setBillingAddressId($addressId) {
         if (isset($_SESSION['billto']) && $_SESSION['billto'] != $addressId) {
             $_SESSION['payment'] = '';
         }
@@ -372,7 +376,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get zen-cart order totals.
      */
-    function _getZenTotals() {
+    protected function _getZenTotals() {
     global $order_total_modules;
 
         if (null == $this->zenTotals_) {
@@ -398,7 +402,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMOrderTotal</code> instances.
      */
-    function getTotals() {
+    public function getTotals() {
         $zenTotals = $this->_getZenTotals();
         $totals = array();
         foreach ($zenTotals->modules as $module) {
@@ -415,7 +419,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get payments.
      */
-    function _getPayments() {
+    protected function _getPayments() {
         if (null == $this->payments_) {
             $this->payments_ = ZMLoader::make("Payments");
         }
@@ -575,7 +579,7 @@ class ZMShoppingCart extends ZMObject {
      * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
-    function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
+    public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = ZMProducts::instance()->getProductForId($productId);
         $attributes = $this->sanitize_attributes($product, $attributes);
         $attributes = $this->prepare_uploads($product, $attributes);
@@ -610,7 +614,7 @@ class ZMShoppingCart extends ZMObject {
      * @param string productId The product id.
      * @return boolean <code>true</code> if the product was removed, <code>false</code> if not.
      */
-    function removeProduct($productId) {
+    public function removeProduct($productId) {
         if (null !== $productId) {
             $this->cart_->remove($productId);
             return true;
@@ -627,7 +631,7 @@ class ZMShoppingCart extends ZMObject {
      * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    function updateProduct($sku, $quantity, $notify=true) {
+    public function updateProduct($sku, $quantity, $notify=true) {
         if (null !== $sku && null !== $quantity) {
             if (0 == $quantity) {
                 return $this->removeProduct($sku);
@@ -664,7 +668,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return ZMAddress The tax address.
      */
-    function getTaxAddress() {
+    public function getTaxAddress() {
         switch (ZMSettings::get('productTaxBase')) {
         case ZM_PRODUCT_TAX_BASE_SHIPPING:
             return $this->getShippingAddress();
