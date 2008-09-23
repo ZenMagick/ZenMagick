@@ -97,6 +97,7 @@ class TestsController extends ZMController {
 
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin->getTests());
+        ksort($allTests);
 
         $this->exportGlobal('all_tests', $allTests);
 
