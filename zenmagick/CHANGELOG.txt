@@ -32,6 +32,7 @@ Release 0.9.3
 - add licence files for compressed 3rd party libraries
 - add new optional parameter to ZMToolboxMacro::productPrice() that allows to
   explicitely enable/disable tax
+- add/improve unit tests
 
 Release 0.9.2
 - add database support for data type blob
