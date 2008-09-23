@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMCountries extends UnitTestCase {
+class TestZMCountries extends ZMTestCase {
 
     /**
      * Test load country.

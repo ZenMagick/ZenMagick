@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestGeoIP extends UnitTestCase {
+class TestGeoIP extends ZMTestCase {
 
     /**
      * Get plugin.

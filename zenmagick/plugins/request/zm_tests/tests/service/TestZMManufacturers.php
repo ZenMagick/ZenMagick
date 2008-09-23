@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMManufacturers extends UnitTestCase {
+class TestZMManufacturers extends ZMTestCase {
 
     /**
      * Test update manufacturer.

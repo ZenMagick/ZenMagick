@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMShippingProviders extends UnitTestCase {
+class TestZMShippingProviders extends ZMTestCase {
 
     /**
      * Test get provider.

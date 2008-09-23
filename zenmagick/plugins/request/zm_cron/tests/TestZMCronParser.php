@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMCronParser extends UnitTestCase {
+class TestZMCronParser extends ZMTestCase {
     protected static $TEXT_CRONTAB = array(
         '0    5    0    *    Sun      ZMSimpleCronJob         # every sunday at 5 am',
         '40   5    2    *    -        ZMSimpleCronJob         # 5:40 am on the second day of each month',

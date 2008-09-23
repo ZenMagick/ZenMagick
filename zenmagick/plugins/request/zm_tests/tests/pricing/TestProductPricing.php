@@ -9,7 +9,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestProductPricing extends UnitTestCase {
+class TestProductPricing extends ZMTestCase {
     protected $zen_cart_product_price_info;
 
     /**

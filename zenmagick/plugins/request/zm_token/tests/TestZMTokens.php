@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMTokens extends UnitTestCase {
+class TestZMTokens extends ZMTestCase {
 
     /**
      * Test get new token.

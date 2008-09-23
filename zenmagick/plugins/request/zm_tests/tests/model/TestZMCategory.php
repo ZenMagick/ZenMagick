@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMCategory extends UnitTestCase {
+class TestZMCategory extends ZMTestCase {
 
     /**
      * Test childIds

@@ -105,7 +105,7 @@ class zm_openid extends ZMPlugin {
 
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
-            // add class path only now to avoid errors due to missing UnitTestCase
+            // add class path only now to avoid errors due to missing ZMTestCase
             ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
             $tests->addTest('TestZMDatabaseOpenIDStore');
         }

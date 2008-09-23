@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMProducts extends UnitTestCase {
+class TestZMProducts extends ZMTestCase {
 
     /**
      * Set up.

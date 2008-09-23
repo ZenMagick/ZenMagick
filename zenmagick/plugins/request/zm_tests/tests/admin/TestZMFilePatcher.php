@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMFilePatcher extends UnitTestCase {
+class TestZMFilePatcher extends ZMTestCase {
 
     /**
      * Clean up.

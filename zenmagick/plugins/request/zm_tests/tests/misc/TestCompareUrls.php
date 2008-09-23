@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestCompareUrls extends UnitTestCase {
+class TestCompareUrls extends ZMTestCase {
 
     /**
      * Test current.

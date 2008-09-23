@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestSubscriptions extends UnitTestCase {
+class TestSubscriptions extends ZMTestCase {
 
     /**
      * Get the plugin.
@@ -21,7 +21,7 @@ class TestSubscriptions extends UnitTestCase {
     /**
      * Test update order.
      */
-    public function_testUpdateOrder() {
+    public function testUpdateOrder() {
         $order = ZMOrders::instance()->getOrderForId(78);
         $this->assertNotNull($order);
         $order->set('subscription', true);

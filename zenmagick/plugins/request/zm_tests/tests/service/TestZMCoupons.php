@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMCoupons extends UnitTestCase {
+class TestZMCoupons extends ZMTestCase {
 
     /**
      * Test create coupon code.

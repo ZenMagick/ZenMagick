@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestUIDateHandling extends UnitTestCase {
+class TestUIDateHandling extends ZMTestCase {
 
     /**
      * Test date handling.

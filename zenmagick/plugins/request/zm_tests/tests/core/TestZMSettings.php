@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMSettings extends UnitTestCase {
+class TestZMSettings extends ZMTestCase {
 
     /**
      * Test append.

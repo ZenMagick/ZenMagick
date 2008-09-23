@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestDateHandling extends UnitTestCase {
+class TestDateHandling extends ZMTestCase {
 
     /**
      * Test parsing.

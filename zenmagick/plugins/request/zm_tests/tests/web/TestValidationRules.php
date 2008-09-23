@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestValidationRules extends UnitTestCase {
+class TestValidationRules extends ZMTestCase {
 
     /**
      * Test regexp.

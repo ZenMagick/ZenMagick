@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMAccounts extends UnitTestCase {
+class TestZMAccounts extends ZMTestCase {
     // test account data
     protected $accountData1 = array(
             'FirstName' => 'john',

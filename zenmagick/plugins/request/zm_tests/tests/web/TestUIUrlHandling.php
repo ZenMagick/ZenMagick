@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestUIUrlHandling extends UnitTestCase {
+class TestUIUrlHandling extends ZMTestCase {
 
     /**
      * Test zen_href_link.

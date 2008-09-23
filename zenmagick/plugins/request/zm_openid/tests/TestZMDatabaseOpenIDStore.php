@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMDatabaseOpenIDStore extends UnitTestCase {
+class TestZMDatabaseOpenIDStore extends ZMTestCase {
 
     /**
      * Test store.

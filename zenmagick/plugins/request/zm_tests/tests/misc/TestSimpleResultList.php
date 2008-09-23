@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestSimpleResultList extends UnitTestCase {
+class TestSimpleResultList extends ZMTestCase {
 
     /**
      * Callback to *create* results.

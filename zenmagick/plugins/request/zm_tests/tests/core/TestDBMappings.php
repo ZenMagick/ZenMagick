@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestDBMappings extends UnitTestCase {
+class TestDBMappings extends ZMTestCase {
 
     /**
      * Test duplicate fields.
