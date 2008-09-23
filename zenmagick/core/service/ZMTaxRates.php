@@ -62,7 +62,7 @@ class ZMTaxRates extends ZMObject {
      * Get tax for the given parameter.
      *
      * <p>If neither <code>countryId</code> nor <code>zoneId</code> are specified, the customers default address
-     * details will be used, or if not available, the store defaults.</p>
+     * details will be used, or, if not available, the store defaults.</p>
      *
      * @param int classId The tax class id.
      * @param int countryId Optional country id; default is <em>0</em>.
