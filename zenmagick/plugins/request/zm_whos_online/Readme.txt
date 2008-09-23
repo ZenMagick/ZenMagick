@@ -11,3 +11,5 @@ Installation
 
 Sidebox sample
 ==============
+There are two sideobx samples included with the plugin; one is a more elaborate one that is harder
+to translate and secondly a simpler version that just shows the numbers.

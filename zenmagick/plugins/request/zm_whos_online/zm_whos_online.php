@@ -77,8 +77,8 @@ class zm_whos_online extends ZMPlugin {
     /**
      * Get stats about currently online users.
      *
-     * <p>The returned array has three elements. The first contains the  count of anonymous users,
-     the second the number of registered users online and the third the total number of online users.</p>
+     * <p>The returned array map has three elements. One for the number of anonymous users (<em>anonymous</em>),
+     on for the number of registered users online (<em>registered</em>) and the third the total number of online users (<em>total</em>).</p>
      *
      * @param boolean expire Optional expire flag to delete old entries; default is <code>true</code>.
      * @return array Online user stats.
@@ -104,7 +104,7 @@ class zm_whos_online extends ZMPlugin {
             }
         }
 
-        return array($anonymous, $registered, ($anonymous+$registered));
+        return array('anonymous' => $anonymous, 'registered' => $registered, 'total' => ($anonymous+$registered));
     }
 
 }
