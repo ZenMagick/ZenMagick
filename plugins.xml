@@ -164,6 +164,11 @@
             <param name="plugin.name" value="zm_firephp" />
             <param name="plugin.version" value="${plugins.zm_firephp.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_whos_online" />
+            <param name="plugin.version" value="${plugins.zm_whos_online.version}" />
+        </antcall>
     </target>
 
     
