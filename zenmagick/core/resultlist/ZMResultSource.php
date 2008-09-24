@@ -34,6 +34,13 @@
 interface ZMResultSource {
 
     /**
+     * Set the corresponding result list.
+     *
+     * @param ZMResultList resultList The *parent* result list.
+     */
+    public function setResultList($resultList);
+
+    /**
      * Get the results.
      *
      * @return array List of results.

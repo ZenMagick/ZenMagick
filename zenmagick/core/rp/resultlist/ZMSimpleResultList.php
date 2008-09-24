@@ -81,6 +81,7 @@ class ZMSimpleResultList extends ZMObject {
      */
     public function setResultSource($resultSource) {
         $this->resultSource_ = $resultSource;
+        $this->resultSource_->setResultList($this);
         $this->results_ = null;
     }
 

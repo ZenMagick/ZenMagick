@@ -27,6 +27,8 @@
 /**
  * Base result list sorter.
  *
+ * <p>Right now, result lists may be sorted with a single sorter only.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.resultlist
  * @version $Id$

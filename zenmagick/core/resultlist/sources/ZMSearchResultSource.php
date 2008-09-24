@@ -25,33 +25,23 @@
 
 
 /**
- * A result source based on calling a method on an object.
+ * A product search source.
+ *
+ * <p>This is a wrapper around the <code>ZMProductFinder</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.resultlist.sources
  * @version $Id$
  */
-class ZMObjectResultSource extends ZMObject implements ZMResultSource {
-    private $resultClass_;
-    private $object_;
-    private $method_;
-    private $args_;
+class ZMSearchResultSource extends ZMObject implements ZMResultSource {
+    private $resultList_;
 
 
     /**
      * Create a new instance.
-     *
-     * @param string resultClass The class of the results.
-     * @param mixed object The object to be used.
-     * @param string method The method to call on the object.
-     * @param array args Optional method parameter.
      */
-    public function __construct($resultClass, $object, $method, $args=array()) {
+    public function __construct() {
         parent::__construct();
-        $this->resultClass_ = $resultClass;
-        $this->object_ = $object;
-        $this->method_ = $method;
-        $this->args_ = $args;
     }
 
     /**
@@ -66,38 +56,22 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) { /* not used */ }
+    public function setResultList($resultList) { 
+        $this->resultList_ = $resultList;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function getResults() {
-        return call_user_func_array(array($this->object_, $this->method_), $this->args_);
+        return array();
     }
 
     /**
      * {@inheritDoc}
      */
     public function getResultClass() {
-        return $this->resultClass_;
-    }
-
-    /**
-     * Get the method name.
-     *
-     * @return string The method name.
-     */
-    public function getMethod() {
-        return $this->method_;
-    }
-
-    /**
-     * Get the method parameter.
-     *
-     * @return array The method parameter.
-     */
-    public function getArgs() {
-        return $this->args_;
+        return 'ZMProduct';
     }
 
 }

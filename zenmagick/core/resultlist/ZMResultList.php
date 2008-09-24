@@ -92,6 +92,7 @@ class ZMResultList extends ZMObject {
      */
     function setResultSource($resultSource) {
         $this->resultSource_ = $resultSource;
+        $this->resultSource_->setResultList($this);
         $this->results_ = $resultSource->getResults();
         $this->refresh();
     }
@@ -125,6 +126,8 @@ class ZMResultList extends ZMObject {
                 continue;
 
             $list = $sorter->sort($list);
+            // can do only one
+            break;
         }
 
         return $list;
