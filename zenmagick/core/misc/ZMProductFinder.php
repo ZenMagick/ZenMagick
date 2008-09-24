@@ -85,7 +85,12 @@ class ZMProductFinder {
      */
     public function execute() {
         $sql = $this->buildSQL($this->criteria_);
-        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS);
+        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS);
+        $productIds = array();
+        foreach ($results as $result) {
+            $productIds[] = $result['productId'];
+        }
+        return $productIds;
     }
 
     /**
