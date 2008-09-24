@@ -151,7 +151,7 @@ class ZMConfig extends ZMObject {
                 FROM " . TABLE_CONFIGURATION_GROUP . " 
                 WHERE visible = '1'
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->query($sql, array('key' => $key), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
+        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
 
 }
