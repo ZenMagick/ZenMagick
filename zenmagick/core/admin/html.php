@@ -54,7 +54,7 @@
             $rootCategories = ZMCategories::instance()->getCategoryTree();
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
-                $root->childrenIds_[] = $rc->getId();
+                $root->addChild($rc);
             }
             $categories = array($root);
             echo '<div id="'.$id.'" class="filetree">';
