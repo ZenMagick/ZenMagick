@@ -43,7 +43,7 @@
         <?php } ?>
         <?php if ($zm_resultList->hasSorters()) { ?>
             <div>
-                <input type="hidden" name="page" value="<?php echo $zm_resultList->getCurrentPageNumber() ?>" />
+                <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
                 <?php if (ZMRequest::getCategoryPath()) { ?>
                     <input type="hidden" name="cPath" value="<?php echo ZMRequest::getCategoryPath() ?>" />
                 <?php } else if (ZMRequest::getManufacturerId()) { ?>

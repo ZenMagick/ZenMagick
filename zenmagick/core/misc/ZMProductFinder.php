@@ -36,7 +36,7 @@
 class ZMProductFinder {
     protected $criteria_;
     protected $sortId_;
-    protected $decending_;
+    protected $descending_;
 
 
     /**
@@ -47,7 +47,7 @@ class ZMProductFinder {
     function __construct($criteria=null) {
         $this->criteria_ = $criteria;
         $this->sortId_ = null;
-        $this->decending_ = false;
+        $this->descending_ = false;
     }
 
 
@@ -63,10 +63,10 @@ class ZMProductFinder {
     /**
      * Set the descending flag.
      *
-     * @param boolean decending The new value.
+     * @param boolean descending The new value.
      */
-    public function setDecending($decending) {
-        $this->decending_ = $decending;
+    public function setDescending($descending) {
+        $this->descending_ = $descending;
     }
 
     /**
@@ -223,19 +223,19 @@ class ZMProductFinder {
         if (null !== $this->sortId_) {
             switch ($this->sortId_) {
             case 'model':
-                $sort .= " p.products_model " . ($this->decending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_model " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'name':
-                $sort .= " pd.products_name " . ($this->decending_ ? "DESC" : "");
+                $sort .= " pd.products_name " . ($this->descending_ ? "DESC" : "");
                 break;
             case 'manufacturer':
-                $sort .= " m.manufacturers_name " . ($this->decending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " m.manufacturers_name " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'price':
-                $sort .= " p.products_price_sorter " . ($this->decending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_price_sorter " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'weight':
-                $sort .= " p.products_weight " . ($this->decending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_weight " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             default:
                 ZMLogging::instance()->log('invalid sort id: ' . $this->sortId_, ZMLogging::WARN);

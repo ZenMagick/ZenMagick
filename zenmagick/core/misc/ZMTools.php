@@ -455,7 +455,8 @@ class ZMTools {
     /**
      * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
      *
-     * <p>
+     * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
+     *
      * @param mixed files Either a single filename or list of files.
      * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
      * @param array perms Optional file permissions; defaults are to use <em>755</em> for folder, <em>644</em> for files.
@@ -474,7 +475,9 @@ class ZMTools {
         $filePerms = array_merge(array('file' => 0644, 'folder' => 0755), $perms);
 
         foreach ($files as $file) {
-            @chgrp($file, self::$fileOwner);
+            if (0 < count($perms)) {
+                @chgrp($file, self::$fileOwner);
+            }
             @chown($file, self::$fileGroup);
             $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
             @chmod($file, octdec($mode));

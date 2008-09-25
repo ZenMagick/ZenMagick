@@ -28,7 +28,7 @@
  * Filter products by manufacturer.
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist.filter
+ * @package org.zenmagick.rp.resultlist.filter
  * @version $Id$
  */
 class ZMManufacturerFilter extends ZMResultListFilter {

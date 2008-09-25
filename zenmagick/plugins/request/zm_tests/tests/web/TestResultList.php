@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestSimpleResultList extends ZMTestCase {
+class TestResultList extends ZMTestCase {
 
     /**
      * Callback to *create* results.
@@ -44,7 +44,7 @@ class TestSimpleResultList extends ZMTestCase {
      * Test plain.
      */
     public function testPlain() {
-        $resultList = ZMLoader::make('SimpleResultList');
+        $resultList = ZMLoader::make('ZMResultList');
         $resultList->setResultSource($this->getResultListSource(13));
         $this->assertEqual(10, $resultList->getPagination());
         $this->assertEqual(13, $resultList->getNumberOfResults());
@@ -68,7 +68,7 @@ class TestSimpleResultList extends ZMTestCase {
      * Test short.
      */
     public function testShort() {
-        $resultList = ZMLoader::make('SimpleResultList');
+        $resultList = ZMLoader::make('ZMResultList');
         $resultList->setResultSource($this->getResultListSource(3));
         $this->assertEqual(10, $resultList->getPagination());
         $this->assertEqual(3, $resultList->getNumberOfResults());
@@ -80,7 +80,7 @@ class TestSimpleResultList extends ZMTestCase {
      * Test single page edge.
      */
     public function testSinglePageEdge() {
-        $resultList = ZMLoader::make('SimpleResultList');
+        $resultList = ZMLoader::make('ZMResultList');
         $resultList->setResultSource($this->getResultListSource(10));
         $this->assertEqual(10, $resultList->getPagination());
         $this->assertEqual(10, $resultList->getNumberOfResults());
@@ -92,7 +92,7 @@ class TestSimpleResultList extends ZMTestCase {
      * Test multi page edge.
      */
     public function testMultiPageEdge() {
-        $resultList = ZMLoader::make('SimpleResultList');
+        $resultList = ZMLoader::make('ZMResultList');
         $resultList->setResultSource($this->getResultListSource(30));
         $resultList->setPageNumber(3);
         $this->assertEqual(10, $resultList->getPagination());
@@ -105,7 +105,7 @@ class TestSimpleResultList extends ZMTestCase {
      * Test empty.
      */
     public function testEmpty() {
-        $resultList = ZMLoader::make('SimpleResultList');
+        $resultList = ZMLoader::make('ZMResultList');
         $resultList->setResultSource($this->getResultListSource(0));
         $this->assertEqual(10, $resultList->getPagination());
         $this->assertEqual(0, $resultList->getNumberOfResults());

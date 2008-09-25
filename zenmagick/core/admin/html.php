@@ -130,7 +130,7 @@
             }
             if (1 < $resultList->getNumberOfPages()) {
                 echo '<tr class="rnav"><td colspan="2">';
-                echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getCurrentPageNumber(), $resultList->getNumberOfPages()).'</span>';
+                echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()).'</span>';
                 if ($resultList->hasPreviousPage()) {
                     echo '<a href="'.$resultList->getPreviousURL(ZMRequest::isSecure(), false).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
                 } else {

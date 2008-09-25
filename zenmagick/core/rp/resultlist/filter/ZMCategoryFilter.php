@@ -28,7 +28,7 @@
  * Filter products by a single category.
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist.filter
+ * @package org.zenmagick.rp.resultlist.filter
  * @version $Id$
  */
 class ZMCategoryFilter extends ZMResultListFilter {

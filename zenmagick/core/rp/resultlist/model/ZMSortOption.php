@@ -31,7 +31,7 @@
  * order.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist.model
+ * @rp.package org.zenmagick.rp.resultlist.model
  * @version $Id$
  */
 class ZMSortOption extends ZMModel {

@@ -29,7 +29,7 @@
  * Product sorter.
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist.sorter
+ * @package org.zenmagick.rp.resultlist.sorter
  * @version $Id$
  */
 class ZMProductSorter extends ZMResultListSorter {
@@ -102,7 +102,7 @@ class ZMProductSorter extends ZMResultListSorter {
 
         $method = $this->methods_[$this->sortId_];
         usort($list, array($this, $method));
-        if ($this->isDecending()) {
+        if ($this->isDescending()) {
             $list = array_reverse($list);
         }
 
@@ -117,7 +117,7 @@ class ZMProductSorter extends ZMResultListSorter {
     public function getOptions() {
         $options = array();
         foreach ($this->options_ as $id => $name) {
-            $option = ZMLoader::make("SortOption", $name, $id, $id == $this->sortId_, $this->isDecending());
+            $option = ZMLoader::make("SortOption", $name, $id, $id == $this->sortId_, $this->isDescending());
             $options[] = $option;
         }
 

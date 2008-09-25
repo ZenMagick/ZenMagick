@@ -69,7 +69,6 @@ class ZMSpecialsController extends ZMController {
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(ZMLoader::make($sorter));
         }
-        $resultList->refresh();
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

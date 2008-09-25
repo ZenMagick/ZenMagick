@@ -28,7 +28,7 @@
  * A single filter option.
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist.model
+ * @package org.zenmagick.rp.resultlist.model
  * @version $Id$
  */
 class ZMFilterOption extends ZMModel {

@@ -37,6 +37,10 @@ Release 0.9.3
 - add ZMTestCase base class to allow comparing arrays
 - add first draft of a product finder (not yet used)
 - fix broken catalog manager category tree
+- reworked the result list classes and related code; this requires a simple
+  template change, as ZMResultList::getCurrentPageNumber() changed to
+  ZMResultList::getPageNumber()
+- made resultlist package a sub-package of rp
 
 Release 0.9.2
 - add database support for data type blob

@@ -30,14 +30,14 @@
  * <p>Right now, result lists may be sorted with a single sorter only.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.resultlist
+ * @package org.zenmagick.rp.resultlist
  * @version $Id$
  */
 class ZMResultListSorter extends ZMObject {
     protected $id_;
     protected $name_;
     protected $sortId_;
-    protected $decending_;
+    protected $descending_;
 
 
     /**
@@ -51,8 +51,8 @@ class ZMResultListSorter extends ZMObject {
 
         $this->id_ = $id;
         $this->sortId_ = ZMRequest::getSortId();
-        $this->decending_ = ZMTools::endsWith($this->sortId_, '_d');
-        if (ZMTools::endsWith($this->sortId_, '_a') || $this->decending_) {
+        $this->descending_ = ZMTools::endsWith($this->sortId_, '_d');
+        if (ZMTools::endsWith($this->sortId_, '_a') || $this->descending_) {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
     }
@@ -68,9 +68,9 @@ class ZMResultListSorter extends ZMObject {
     /**
      * Returns true if the current sort order is descending.
      *
-     * @return boolean <code>true</code> if the current sort order is decending.
+     * @return boolean <code>true</code> if the current sort order is descending.
      */
-    public function isDecending() { return $this->decending_; }
+    public function isDescending() { return $this->descending_; }
 
     /**
      * Returns one or more <code>ZMSortOption</code>s supported by this sorter.
@@ -123,6 +123,29 @@ class ZMResultListSorter extends ZMObject {
      * @param string name The sorter name.
      */
     public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Returns the sorters sort id.
+     *
+     * @return string The sortid.
+     */
+    public function getSortId() { return $this->sortId_; }
+
+    /**
+     * Set the sorters sorter id.
+     *
+     * @param string id The sort id.
+     */
+    public function setSortId($sortId) { $this->sortId_ = $sortId; }
+
+    /**
+     * Set the descending flag.
+     *
+     * @param boolean descending The new value.
+     */
+    public function setDescending($descending) {
+        $this->descending_ = $descending;
+    }
 
 }
 
