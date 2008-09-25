@@ -81,6 +81,7 @@
     define ('ZM_FILENAME_GUEST_HISTORY', 'guest_history');
     define ('ZM_FILENAME_GV_SEND_CONFIRM', 'gv_send_confirm');
     define ('ZM_FILENAME_CATEGORY', 'category');
+    define ('ZM_FILENAME_SEARCH', 'search');
 
 
     //** admin **//

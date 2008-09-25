@@ -299,7 +299,10 @@ class ZMResultList extends ZMObject {
      * @return array List of result objects.
      */
     protected function buildResults() {
-        return $this->resultSource_->getResults();
+        if (null !== $this->resultSource_) {
+            return $this->resultSource_->getResults();
+        }
+        return array();
     }
 
 }

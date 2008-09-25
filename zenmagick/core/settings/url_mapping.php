@@ -57,6 +57,7 @@
         $urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PageView', 'subdir=popup');
         $urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PageView', 'subdir=popup');
 
+
         // address_book_process
         $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
         $urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
@@ -164,6 +165,9 @@
         // redirect
         $urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
         $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
+
+        // search
+        $urlMapper->setMapping('search');
     }
 
 ?>
