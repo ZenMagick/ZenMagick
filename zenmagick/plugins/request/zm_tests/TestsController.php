@@ -115,6 +115,7 @@ class TestsController extends ZMController {
                 }
             }
             $this->exportGlobal('test_suite', $suite);
+            set_time_limit(300);
         }
 
         return $this->findView('tests');
