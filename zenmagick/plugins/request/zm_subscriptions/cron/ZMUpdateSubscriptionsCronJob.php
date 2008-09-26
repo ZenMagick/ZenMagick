@@ -145,6 +145,20 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
         $newOrder = ZMRuntime::getDatabase()->createModel(TABLE_ORDERS, $orderData[TABLE_ORDERS][0]);
 
+        // do products by using zen-cart's order class to include all stock taking, etc
+        // some requirements first..
+        ZMLoader::resolveZCClass('order');
+        ZMLoader::resolveZCClass('order_total');
+        global $order_total_modules;
+        $order_total_modules = new order_total();
+
+        // load existing order
+        $zcOrder = new order($orderId);
+        // create new order products for the new order id
+        $zcOrder->create_add_products($newOrder->getOrderId());
+
+        /*
+        // products
         foreach ($orderData[TABLE_ORDERS_PRODUCTS] as $orderItem) {
             $orderItem->setOrderId($newOrder->getOrderId());
             $orderProductId = $orderItem->getOrderProductId();
@@ -166,6 +180,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $attribute);
             }
         }
+        */
 
         foreach ($orderData[TABLE_ORDERS_TOTAL] as $orderTotal) {
             $orderTotal->setOrderId($newOrder->getOrderId());

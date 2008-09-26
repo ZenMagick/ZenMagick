@@ -21,7 +21,7 @@ class TestSubscriptions extends ZMTestCase {
     /**
      * Test update order.
      */
-    public function testUpdateOrder() {
+    public function _testUpdateOrder() {
         $order = ZMOrders::instance()->getOrderForId(78);
         $this->assertNotNull($order);
         $order->set('subscription', true);
@@ -40,7 +40,7 @@ class TestSubscriptions extends ZMTestCase {
     /**
      * Test update subscription order.
      */
-    public function testUpdateSubscriptionOrder() {
+    public function _testUpdateSubscriptionOrder() {
         $plugin = $this->getPlugin();
 
         // fake subscription checkout
