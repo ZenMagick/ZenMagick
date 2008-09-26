@@ -77,7 +77,7 @@ class ZMLogging extends ZMObject {
     public function log($msg, $level=ZMLogging::INFO) {
         if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
             if (ZMSettings::get('isZMErrorHandler')) {
-                trigger_error($msg, E_USER_NOTICE);
+                @trigger_error($msg, E_USER_NOTICE);
             } else {
                 error_log($msg);
             }
