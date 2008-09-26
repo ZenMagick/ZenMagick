@@ -45,7 +45,8 @@ class zm_subscriptions extends ZMPlugin {
         // the new prices and customer flag
         $customFields = array(
             'orders' => array(
-                'is_subscription;integer;subscription',
+                'is_subscription;boolean;subscription',
+                'is_subscription_canceled;boolean;subscriptionCanceled',
                 'subscription_next_order;datetime;nextOrder',
                 'subscription_schedule;string;schedule',
                 'subscription_order_id;integer;subscriptionOrderId'
@@ -188,9 +189,9 @@ class zm_subscriptions extends ZMPlugin {
             $schedule='1w';
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
-                      is_subscription = :subscription, subscription_schedule = :schedule
+                      is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
-            $args = array('orderId' => $orderId, 'subscription' => true, 'schedule' => $schedule);
+            $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             if (ZMTools::asBoolean($this->get('subscriptionComment'))) {

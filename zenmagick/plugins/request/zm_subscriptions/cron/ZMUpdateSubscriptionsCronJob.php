@@ -197,9 +197,9 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      */
     public static function findScheduledOrders() {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
-                WHERE  is_subscription = :subscription
+                WHERE  is_subscription = :subscription AND is_subscription_canceled = :subscriptionCanceled
                   AND subscription_next_order <= now() AND NOT (subscription_next_order = '0001-01-01 00:00:00')";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true, 'subscriptionCanceled' => false), TABLE_ORDERS);
         $tmp = array();
         foreach ($results as $row) {
             $tmp[] = $row['orderId'];
