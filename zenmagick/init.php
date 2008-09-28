@@ -57,6 +57,9 @@
             // exclude some stuff that gets resolved dynamically
             if ((false === strpos($_zm_file, '/controller/')
                   && false === strpos($_zm_file, '/admin/')
+                  && false === strpos($_zm_file, '/model/')
+                  && false === strpos($_zm_file, '/rules/')
+                  && false === strpos($_zm_file, '/provider/')
                   && false === strpos($_zm_file, '/settings/'))
                 || (false !== strpos($_zm_file, '/admin/') && ZMSettings::get('isAdmin'))) {
                 require_once($_zm_file);
