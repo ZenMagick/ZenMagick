@@ -49,7 +49,7 @@ with this call to hover3_product_image_link():
       <?php hover3_product_image_link($product, $imageInfo) ?>
 
 
-For additional images, change the line ( around line #71):
+For additional images, change the line (around line #71):
 
       <a href="<?php zm_absolute_href($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
 
