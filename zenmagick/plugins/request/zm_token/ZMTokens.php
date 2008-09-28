@@ -114,7 +114,7 @@ class ZMTokens extends ZMObject {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
         $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash'=>$hash, 'resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
-        if ($expire) {
+        if ($expire && null !== $token) {
             $sql = "DELETE FROM " . ZM_TABLE_TOKEN . "
                     WHERE hash = :hash AND resource = :resource";
             ZMRuntime::getDatabase()->update($sql, array('hash'=>$hash, 'resource'=>$resource), ZM_TABLE_TOKEN);
@@ -123,11 +123,30 @@ class ZMTokens extends ZMObject {
     }
 
     /**
-     * Clear all expired token.
+     * Check if a unique token exists for the given resource.
+     *
+     * @param string resource The resource.
+     * @return ZMToken A valid token or <code>null</code>.
      */
-    public function clearExpired() {
-        $sql = "DELETE FROM " . ZM_TABLE_TOKEN . "
-                WHERE expires < now()";
+    public function findUnique($resource) {
+        $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
+                WHERE resource = :resource AND expires >= now()";
+        $results = ZMRuntime::getDatabase()->query($sql, array('resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
+        return 1 == count($results) ? $results[0] : null;
+    }
+
+    /**
+     * Clear all expired token.
+     *
+     * @param boolean all Optional flag to clear all token; default is false.
+     */
+    public function clear($all) {
+        if ($all) {
+            $sql = "DELETE FROM " . ZM_TABLE_TOKEN;
+        } else {
+            $sql = "DELETE FROM " . ZM_TABLE_TOKEN . "
+                    WHERE expires < now()";
+        }
         ZMRuntime::getDatabase()->update($sql);
     }
 

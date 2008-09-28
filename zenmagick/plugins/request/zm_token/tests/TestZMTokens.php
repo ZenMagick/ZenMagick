@@ -55,7 +55,7 @@ class TestZMTokens extends ZMTestCase {
      * Test clear expired.
      */
     public function testClearExpired() {
-        ZMTokens::instance()->clearExpired();
+        ZMTokens::instance()->clear(false);
     }
 
     /**
@@ -81,6 +81,28 @@ class TestZMTokens extends ZMTestCase {
         $this->assertEqual($update->getResource(), $token->getResource());
         $updateExpiry = $update->getExpires();
         $this->assertTrue($tokenExpiry < $updateExpiry);
+    }
+
+    /**
+     * Test find unique.
+     */
+    public function testFindUnique() {
+        ZMTokens::instance()->clear(true);
+
+        $resource = 'abc';
+        $lifetime = 24*60*60; // 1 day
+
+        // create single 
+        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $this->assertNotNull($token);
+
+        $this->assertNotNull(ZMTokens::instance()->findUnique($resource));
+
+        // create second 
+        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $this->assertNotNull($token);
+
+        $this->assertNull(ZMTokens::instance()->findUnique($resource));
     }
 
 }
