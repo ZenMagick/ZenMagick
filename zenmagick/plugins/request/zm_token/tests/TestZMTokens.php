@@ -84,9 +84,9 @@ class TestZMTokens extends ZMTestCase {
     }
 
     /**
-     * Test find unique.
+     * Test get token for resource.
      */
-    public function testFindUnique() {
+    public function testgetTokenForResource() {
         ZMTokens::instance()->clear(true);
 
         $resource = 'abc';
@@ -96,13 +96,33 @@ class TestZMTokens extends ZMTestCase {
         $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
-        $this->assertNotNull(ZMTokens::instance()->findUnique($resource));
+        $this->assertEqual(1, count(ZMTokens::instance()->getTokenForResource($resource)));
 
         // create second 
         $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
-        $this->assertNull(ZMTokens::instance()->findUnique($resource));
+        $this->assertEqual(2, count(ZMTokens::instance()->getTokenForResource($resource)));
+    }
+
+    /**
+     * Test get token for hash.
+     */
+    public function testgetTokenForHash() {
+        ZMTokens::instance()->clear(true);
+
+        $resource = 'abc';
+        $lifetime = 24*60*60; // 1 day
+
+        // create single 
+        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $this->assertNotNull($token);
+
+        $this->assertNotNull(ZMTokens::instance()->getTokenForHash($token->getHash()));
+
+        // clear all
+        ZMTokens::instance()->clear(true);
+        $this->assertNull(ZMTokens::instance()->getTokenForHash($token->getHash()));
     }
 
 }

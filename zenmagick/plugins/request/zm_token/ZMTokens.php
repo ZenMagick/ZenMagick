@@ -123,15 +123,30 @@ class ZMTokens extends ZMObject {
     }
 
     /**
-     * Check if a unique token exists for the given resource.
+     * Get all token for a given resource.
      *
      * @param string resource The resource.
-     * @return ZMToken A valid token or <code>null</code>.
+     * @return array A list of <code>ZMToken</code>.
      */
-    public function findUnique($resource) {
+    public function getTokenForResource($resource) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE resource = :resource AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->query($sql, array('resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
+        return ZMRuntime::getDatabase()->query($sql, array('resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
+    }
+
+    /**
+     * Get a token for the given hash.
+     *
+     * @param string hash The hash.
+     * @return ZMToken A <code>ZMToken</code> or <code>null</code>.
+     */
+    public function getTokenForHash($hash) {
+        $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
+                WHERE hash = :hash AND expires >= now()";
+        $results = ZMRuntime::getDatabase()->query($sql, array('hash'=>$hash), ZM_TABLE_TOKEN, 'Token');
+        if (1 < count($results)) {
+            throw new ZMException('duplicate hash');
+        }
         return 1 == count($results) ? $results[0] : null;
     }
 
