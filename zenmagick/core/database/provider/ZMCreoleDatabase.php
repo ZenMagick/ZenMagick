@@ -463,6 +463,35 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         return $model;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getMetaData($table=null) {
+        //TODO: where do we put this??
+        $typeMap = array('int'=>'integer','char'=>'string','varchar'=>'string', 'tinyint'=>'integer', 'text'=>'string', 'mediumtext' => 'string', 'smallint' => 'integer', 'int unsigned' => 'integer', 'tinytext' => 'string', 'mediumblob', 'blob');
+        if (null !== $table) {
+            $info = $this->conn_->getDatabaseInfo();
+            foreach ($info->getTables() as $tbl) {
+                if ($tbl->getName() == $table) {
+                    $meta = array();
+                    foreach ($tbl->getColumns() as $col) {
+                        $type = $col->getNativeType();
+                        if (isset($typeMap[$type])) {
+                            $type=$typeMap[$type];
+                        } 
+                        $meta[$col->getName()] = array(
+                            'type' => $type,
+                            'maxLen' => $col->getSize()
+                        );
+                    }
+                }
+            }
+            return $meta;
+        }
+
+        return array();
+    }
+
 }
 
 ?>

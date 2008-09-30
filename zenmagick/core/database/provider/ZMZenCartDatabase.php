@@ -317,6 +317,27 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         return $mappedRow;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getMetaData($table=null) {
+        if (null !== $table) {
+            $res = @mysql_query("select * from " . $table . " limit 1", $this->db_->link);
+            $fieldCount = @mysql_num_fields($res);
+            $meta = array();
+            for ($ii=0; $ii < $fieldCount; ++$ii) {
+                $field = @mysql_field_name($res, $ii);
+                $meta[$field] = array(
+                    'type' => @mysql_field_type($res, $ii),
+                    'maxLen' => @mysql_field_len($res, $ii)
+                );
+            }
+            return $meta;
+        }
+
+        return array();
+    }
+
 }
 
 ?>

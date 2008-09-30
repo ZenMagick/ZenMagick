@@ -152,6 +152,17 @@ interface ZMDatabase {
      */
     public function rollback();
 
+    /**
+     * Get meta data.
+     *
+     * <p>Meta data is available for either the current database or, if specified, an individual table.</p>
+     *
+     * @param string table Optional table; if no table is provided, database meta data will be returned;
+     *  default is <code>null</code>.
+     * @return array Context dependant met a data.
+     */
+    public function getMetaData($table=null);
+
 }
 
 ?>

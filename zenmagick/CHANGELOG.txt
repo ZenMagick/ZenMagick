@@ -41,6 +41,7 @@ Release 0.9.3
   template change, as ZMResultList::getCurrentPageNumber() changed to
   ZMResultList::getPageNumber()
 - made resultlist package a sub-package of rp
+- add simple meta data support to ZMDatabase
 
 Release 0.9.2
 - add database support for data type blob
