@@ -67,21 +67,39 @@ class ZMRuntime extends ZMObject {
      *
      * <p><code>ZMDatabase</code> instances are cached, based on the given <code>$conf</code> data.</p>
      *
+     * <p>Supported keys for <em>$conf</em> are:</p>
+     * <dl>
+     *  <dt>driver</dt>
+     *  <dd>The database driver/type; default is <code>mysql</code>.</dd>
+     *  <dt>host</dt>
+     *  <dd>The database host; default is <code>DB_SERVER</code>.</dd>
+     *  <dt>username</dt>
+     *  <dd>The database username; default is <code>DB_SERVER_USERNAME</code>.</dd>
+     *  <dt>password</dt>
+     *  <dd>The database password; default is <code>DB_SERVER_PASSWORD</code>.</dd>
+     *  <dt>database</dt>
+     *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
+     *  <dt>provider</dt>
+     *  <dd>The requested implementation class; default is <code>ZMSettings::get('dbProvider')</code>.</dd>
+     * </dl>
+     *
      * @param array conf Optional configuration; default is <code>null</code> to use zen-cart settings.
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
     public static function getDatabase($conf=null) { 
-        if (null === $conf) {
-            $conf = array('driver' => 'mysql',
-                          'host' => DB_SERVER,
-                          'username' => DB_SERVER_USERNAME,
-                          'password' => DB_SERVER_PASSWORD,
-                          'database' => DB_DATABASE);
-        }
-        ksort($conf);
-        $key = serialize($conf);
+        $defaults = array('driver' => 'mysql',
+                      'host' => DB_SERVER,
+                      'username' => DB_SERVER_USERNAME,
+                      'password' => DB_SERVER_PASSWORD,
+                      'database' => DB_DATABASE);
+
+        $dbconf = null === $conf ? array() : $conf;
+        $dbconf = array_merge($defaults, $dbconf);
+        ksort($dbconf);
+        $key = serialize($dbconf);
         if (!array_key_exists($key, ZMRuntime::$database_)) {
-            ZMRuntime::$database_[$key] = ZMLoader::make(ZMSettings::get('dbProvider'), $conf);
+            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('dbProvider');
+            ZMRuntime::$database_[$key] = ZMLoader::make($provider, $dbconf);
         }
         return ZMRuntime::$database_[$key];
     }
