@@ -1,7 +1,11 @@
 <?php
  
 if (!function_exists('zen_hoverbox_IH2_url')) {
-  //Test for the use of Image Handler to correctly format the image URL
+ /**
+  * Test for the use of Image Handler to correctly format the image URL
+  *
+  * @package org.zenmagick.plugins.zm_hoverbox3
+  */
  function zen_hoverbox_IH2_url($src, $alt = '', $width = '', $height = '', $parameters = '') {
     global $template_dir;
 
@@ -32,7 +36,11 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
 }
 
 
-  // product image function
+ /**
+  * product image function
+  *
+  * @package org.zenmagick.plugins.zm_hoverbox3
+  */
   function hover3_product_image_link($product, $imageInfo, $showLargerImage=true) {
       if(HOVERBOX_ENABLED == 'true'){
         if(HOVERBOX_DISPLAY_TITLE == 'true'){

@@ -28,7 +28,7 @@
  * A product.
  *
  * @author DerManoMann
- * @package org.zenmagick.model.catalog
+ * @package org.zenmagick.plugins.zm_dual_pricing
  * @version $Id$
  */
 class Product extends ZMProduct {

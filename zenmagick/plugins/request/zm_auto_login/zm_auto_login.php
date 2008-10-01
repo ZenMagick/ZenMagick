@@ -63,6 +63,7 @@ class zm_auto_login extends ZMPlugin {
 
         $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in', 'zen_cfg_select_option(array(\'true\',\'false\'),');
         $this->addConfigValue('Lifetime', 'lifetime', '7', 'Cookie/hash lifetime in days');
+        $this->addConfigValue('Token support', 'useToken', 'false', 'Use the token service if installed', 'zen_cfg_select_option(array(\'true\',\'false\'),');
     }
 
     /**
@@ -77,14 +78,35 @@ class zm_auto_login extends ZMPlugin {
         if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getPageName() && $session->isAnonymous()) {
             // try to login
             if (isset($_COOKIE[ZM_AUTO_LOGIN_COOKIE])) {
+                // prepare cookie data
 			          $cookie = explode('~~~', $_COOKIE[ZM_AUTO_LOGIN_COOKIE]);
-                if (null != ($account = ZMAccounts::instance()->getAccountForId($cookie[0]))) {
-                    // TODO: use hash
-                    if ($cookie[1] == $account->getPassword()) {
-                        if (!$session->registerAccount($account, $this)) {
-                            return;
-                        }
+                // need account to login
+                $account = null;
 
+                // validate using token or plain password hash in cookie
+                if ($this->useTokenService()) {
+                    // cookie contains token hash only
+                    $token = ZMTokens::instance()->getTokenForHash($cookie[0]);
+                    if (null != $token) {
+                        // resource = auto_login/id/[accountId]
+                        $bits = explode('/', $token->getResource());
+                        if (3 == count($bits)) {
+                            $account = ZMAccounts::instance()->getAccountForId((int)$bits[2]);
+                            // renew cookie 
+                        }
+                    }
+                } else {
+                    // cookie contains accountId and password hash
+                    if (null != ($account = ZMAccounts::instance()->getAccountForId($cookie[0]))) {
+                        if ($cookie[1] != $account->getPassword()) {
+                            // invalid password hash
+                            $account = null;
+                        }
+                    }
+                }
+
+                if (null != $account) {
+                    if ($session->registerAccount($account, $this)) {
                         ZMRequest::redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::isSecure()));
                     }
                 }
@@ -92,6 +114,15 @@ class zm_auto_login extends ZMPlugin {
         }
     }
 
+
+    /**
+     * Check if we should be using the token service.
+     *
+     * @return boolean <code>true</code> if the token service should be used.
+     */
+    protected function useTokenService() {
+        return ZMTools::asBoolean($this->get('useToken') && class_exists('ZMTokens'));
+    }
 
     /**
      * Set auto login cookie depending on optIn.

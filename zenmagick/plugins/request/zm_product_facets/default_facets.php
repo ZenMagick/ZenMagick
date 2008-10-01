@@ -28,6 +28,7 @@
     /**
      * Build manufacturer facet.
      *
+     * @package org.zenmagick.plugins.zm_product_facets
      * @param string type The type.
      */
     function zm_build_manufacturer_facet($type=null) {
@@ -51,6 +52,7 @@
     /**
      * Build category facet.
      *
+     * @package org.zenmagick.plugins.zm_product_facets
      * @param string type The type.
      */
     function zm_build_category_facet($type=null) {
@@ -74,6 +76,7 @@
     /**
      * Build price range facet.
      *
+     * @package org.zenmagick.plugins.zm_product_facets
      * @param string type The type.
      */
     function zm_build_pricerange_facet($type=null) {

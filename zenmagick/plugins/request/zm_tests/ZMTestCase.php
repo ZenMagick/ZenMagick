@@ -46,6 +46,9 @@ class ZMTestCase extends UnitTestCase {
 
 /**
  * Simple expectation class to compare arrays.
+ *
+ * @package org.zenmagick.plugins.zm_tests
+ * @author DerManoMann
  */
 class ArrayEqualExpectation extends EqualExpectation {
 

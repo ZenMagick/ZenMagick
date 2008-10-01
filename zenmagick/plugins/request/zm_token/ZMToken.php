@@ -28,7 +28,6 @@
  * Token model class.
  *
  * @package org.zenmagick.plugins.zm_token
- * @package org.zenmagick.model
  * @version $Id$
  */
 class ZMToken extends ZMModel {

@@ -1,9 +1,9 @@
 <?php
 
-    function show_cat_path($category) {
+    function _show_cat_path($category) {
         $path = '';
         if (null != ($parent = $category->getParent())) {
-            $path .= show_cat_path($parent) . ' :: ';
+            $path .= _show_cat_path($parent) . ' :: ';
         }
         $path .= $category->getName();
         return $path;
@@ -20,7 +20,7 @@
             if (0 < count($info['entries'])) {
                 $name = $info['id'].'/'.$info['name'];
                 if ('categories' == $type) {
-                    $name = show_cat_path(ZMCategories::instance()->getCategoryForId($info['id']));
+                    $name = _show_cat_path(ZMCategories::instance()->getCategoryForId($info['id']));
                 }
                 echo "<BR><u>".$name." (".count($info['entries']).")</u><BR>";
                 /*

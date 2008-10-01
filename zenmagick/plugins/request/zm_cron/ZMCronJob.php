@@ -24,7 +24,7 @@
  * A simple cron job interface.
  *
  * @author DerManoMann
- * @package org.zenmagick
+ * @package org.zenmagick.plugins.zm_cron
  * @version $Id$
  */
 interface ZMCronJob {

@@ -22,6 +22,7 @@ define('ZM_TABLE_OPENID_NONCES', ZM_DB_PREFIX . 'zm_openid_nonces');
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * @package org.zenmagick.plugins.zm_openid
  * @author S. Alexandre Lemaire, saeven.net consulting inc. saeven@saeven.net
  * @author DerManoMann
  * @version $Id$
