@@ -72,23 +72,6 @@
         require(dirname(__FILE__).'/local.php');
     }
 
-    // upset plugins
-    ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
-
-    // register custom error handler
-    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
-        set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
-        set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
-    }
-
-    // now we can check for a static homepage
-    if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
-        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
-        require ZMSettings::get('staticHome');
-        exit;
-    }
-
     if (ZMSettings::get('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_request = new ZMRequest();
@@ -115,9 +98,26 @@
         $zm_countries = ZMCountries::instance();
         $zm_accounts = ZMAccounts::instance();
         $zm_account = ZMRequest::getAccount();
-        $zm_cart = new ZMShoppingCart();
+        $zm_cart = ZMLoader::make('ZMShoppingCart');
         $zm_urlMapper = ZMUrlMapper::instance();
         $zm_sacsMapper = ZMSacsMapper::instance();
+    }
+
+    // upset plugins
+    ZMLoader::make("Plugins");
+    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+
+    // register custom error handler
+    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
+        set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
+        set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
+    }
+
+    // now we can check for a static homepage
+    if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
+        require ZMSettings::get('staticHome');
+        exit;
     }
 
     // load default mappings
