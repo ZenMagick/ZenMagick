@@ -76,9 +76,9 @@ class TestZMOrders extends ZMTestCase {
     public function testDownloads() {
         $downloads = ZMOrders::instance()->getDownloadsForOrderId(62, array(1));
         foreach ($downloads as $dl) {
-            echo $dl->getId().': isd:'.$dl->isDownloadable()."<BR>";
-            echo $dl->getId().': isl:'.$dl->isLimited()."<BR>";
-            echo $dl->getId().': size:'.$dl->getFileSize()."<BR>";
+            echo $dl->getId().': isDownloadable:'.$dl->isDownloadable()."<BR>";
+            echo $dl->getId().': isLimited:'.$dl->isLimited()."<BR>";
+            echo $dl->getId().': getFileSize:'.$dl->getFileSize()."<BR>";
         }
     }
 

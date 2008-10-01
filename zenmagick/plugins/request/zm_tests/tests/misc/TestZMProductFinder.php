@@ -36,7 +36,7 @@ class TestZMProductFinder extends ZMTestCase {
 
         $search->setCriteria($criteria);
         $search->setSortId('name');
-        $search->setDecending(true);
+        $search->setDescending(true);
         $productIds = $search->execute();
         $expected = array(7, 9, 10, 19, 4, 6, 17, 18, 14, 13, 15, 11, 12, 16, 5, 20, 8);
         $this->assertEqual($expected, $productIds);
