@@ -131,7 +131,7 @@ class zm_subscriptions extends ZMPlugin {
      * Event handler to pick up subscription cehckout options.
      */
     public function onZMInitDone($args=array()) {
-        if ('checkout_shipping' == ZMRequest::getPageName()) {
+        if ('checkout_shipping' == ZMRequest::getPageName() && 'POST' == ZMRequest::getMethod()) {
             if (ZMTools::asBoolean(ZMRequest::getParameter('subscription'))) {
                 ZMRequest::getSession()->setValue('subscription_schedule', ZMRequest::getParameter('schedule'));
             } else {
