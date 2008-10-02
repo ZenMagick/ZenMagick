@@ -76,8 +76,8 @@
         </antcall>
 
         <antcall target="plugin-release">
-            <param name="plugin.name" value="zm_php_bb" />
-            <param name="plugin.version" value="${plugins.zm_php_bb.version}" />
+            <param name="plugin.name" value="zm_phpbb2" />
+            <param name="plugin.version" value="${plugins.zm_phpbb2.version}" />
         </antcall>
 
         <antcall target="plugin-release">

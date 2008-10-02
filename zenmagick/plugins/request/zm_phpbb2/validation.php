@@ -29,7 +29,7 @@
     /**
      * Check for duplicate nickname.
      *
-     * @package org.zenmagick.plugins.zm_php_bb
+     * @package org.zenmagick.plugins.zm_phpbb2
      * @param array req The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -42,7 +42,7 @@
     /**
      * Check for duplicate email address.
      *
-     * @package org.zenmagick.plugins.zm_php_bb
+     * @package org.zenmagick.plugins.zm_phpbb2
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -55,7 +55,7 @@
     /**
      * Check for duplicate nickname if changed
      *
-     * @package org.zenmagick.plugins.zm_php_bb
+     * @package org.zenmagick.plugins.zm_phpbb2
      * @param array req The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -74,7 +74,7 @@
     /**
      * Check for duplicate email address if changed
      *
-     * @package org.zenmagick.plugins.zm_php_bb
+     * @package org.zenmagick.plugins.zm_phpbb2
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */

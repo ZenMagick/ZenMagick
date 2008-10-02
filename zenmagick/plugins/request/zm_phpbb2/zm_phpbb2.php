@@ -27,11 +27,11 @@
 /**
  * Plugin to enable phpBB support in ZenMagick.
  *
- * @package org.zenmagick.plugins.zm_php_bb
+ * @package org.zenmagick.plugins.zm_phpbb2
  * @author mano
  * @version $Id$
  */
-class zm_php_bb extends ZMPlugin {
+class zm_phpbb2 extends ZMPlugin {
     var $phpBBEnabled_;
     var $page_;
     // account before changes

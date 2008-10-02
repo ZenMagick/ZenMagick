@@ -1,4 +1,4 @@
-This plugin adds phpBB integration to ZenMagick as exists in zen-cart.
+This plugin adds phpBB2 integration to ZenMagick as exists in zen-cart.
 
 Originally, this code was part of the ZenMagick core, but got extracted into a 
 separate plugin as it is considered optional.
