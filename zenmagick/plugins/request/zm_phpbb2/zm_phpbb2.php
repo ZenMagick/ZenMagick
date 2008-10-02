@@ -25,7 +25,7 @@
 
 
 /**
- * Plugin to enable phpBB support in ZenMagick.
+ * Plugin to enable phpBB2 support in ZenMagick.
  *
  * @package org.zenmagick.plugins.zm_phpbb2
  * @author mano
@@ -42,7 +42,7 @@ class zm_phpbb2 extends ZMPlugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('phpBB', 'phpBB for ZenMagick');
+        parent::__construct('phpBB2', 'phpBB2 for ZenMagick');
         $this->setLoaderSupport('ALL');
         $this->phpBBEnabled_ = false;
         $this->page_ = '';
