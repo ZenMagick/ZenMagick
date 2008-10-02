@@ -46,6 +46,7 @@ Release 0.9.3
 - rename zm_php_bb to zm_phpbb2
 - allow array($obj, "method") as function parameter for ZMWrapperRule
 - improve for custom database connections
+- make nickname read-only in account_edit
 
 Release 0.9.2
 - add database support for data type blob
