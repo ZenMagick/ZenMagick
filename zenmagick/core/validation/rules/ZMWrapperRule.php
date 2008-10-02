@@ -41,7 +41,7 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string name The field name.
      * @param string msg Optional message.
-     * @param string function The function name.
+     * @param mixed function The function name or array.
      */
     function __construct($name, $msg=null, $function) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
@@ -86,7 +86,12 @@ class ZMWrapperRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     function validate($req) {
-        if (function_exists($this->function_)) {
+        if (is_array($this->function_) && 2 == count($this->function_) && is_object($this->function_[0]) && is_string($this->function_[1])) {
+            // expect object, method name
+            $obj = $this->function_[0];
+            $method = $this->function_[1];
+            return $obj->$method($req);
+        } else if (function_exists($this->function_)) {
             return call_user_func($this->function_, $req);
         }
 

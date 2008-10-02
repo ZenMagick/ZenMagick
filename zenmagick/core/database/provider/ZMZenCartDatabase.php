@@ -52,7 +52,12 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     global $db;
 
         parent::__construct();
-        $this->db_ = $db;
+        if ($conf['database'] == DB_DATABASE) {
+            $this->db_ = $db;
+        } else {
+            $this->db_ = new queryFactory();
+            $this->db_->connect($conf['host'], $conf['username'], $conf['password'], $conf['database'], USE_PCONNECT, false);
+        }
         $this->queriesCount = 0;
         $this->queriesTime = 0;
         $this->mapper = ZMDbTableMapper::instance();
