@@ -183,10 +183,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $mapping = $this->mapper->ensureMapping($mapping);
             // find out the order of args
             // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
-            $argKeys = array_keys($args);
+            $argKeys = array_keys($data);
             rsort($argKeys);
             foreach ($argKeys as $name) {
-                $value = $args[$name];
+                $value = $data[$name];
                 // bind query parameter
                 if (is_array($value)) {
                     $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
