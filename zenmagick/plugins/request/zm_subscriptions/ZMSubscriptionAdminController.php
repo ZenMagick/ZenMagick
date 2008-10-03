@@ -54,11 +54,10 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
     public function processGet() {
         $page = parent::processGet();
 
-        // process...
         $context = array();
 
+        // process...
         $canceled = ZMTools::asBoolean(ZMRequest::getParameter('canceled', false));
-
         // get all subscription orders
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription AND is_subscription_canceled = :subscriptionCanceled
@@ -66,11 +65,14 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true, 'subscriptionCanceled' => $canceled), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
-            $orderIds[] = $result['orderId'];
+            if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
+                $orders[] = $order;
+            }
         }
-        $resultSource = ZMLoader::make('ArrayResultSource', 'Integer', $orderIds);
+        $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orders);
         $resultList = ZMLoader::make('ResultList');
         $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber(ZMRequest::getPageIndex());
 
         $context['zm_resultList'] = $resultList;
 
