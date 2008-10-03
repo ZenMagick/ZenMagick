@@ -32,7 +32,7 @@
        "http://www.w3.org/TR/html4/loose.dtd">
 <html <?php echo HTML_PARAMS; ?>>
   <head>
-    <title><?php zm_l10n("ZenMagick Admin") ?></title>
+    <title><?php zm_l10n("Admin :: ZenMagick") ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">

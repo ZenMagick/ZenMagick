@@ -66,7 +66,7 @@ require('includes/application_top.php');
 <html <?php echo HTML_PARAMS; ?>>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title><?php zm_l10n("ZenMagick Catalog Manager :: %s", (null != $title ? $title : '')) ?></title>
+    <title><?php zm_l10n("Catalog Manager :: ZenMagick %s", (null != $title ? ':: '.$title : '')) ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="includes/zenmagick.css">
     <link rel="stylesheet" type="text/css" href="includes/jquery/jquery.treeview.css">
