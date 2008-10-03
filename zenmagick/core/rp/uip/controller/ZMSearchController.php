@@ -70,6 +70,7 @@ class ZMSearchController extends ZMController {
 
             $source = ZMLoader::make('SearchResultSource', $criteria);
             $resultList->setResultSource($source);
+            $resultList->setPageNumber(ZMRequest::getPageIndex());
             $this->exportGlobal("zm_resultList", $resultList);
         }
 

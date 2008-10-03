@@ -70,6 +70,7 @@ class ZMProductReviewsController extends ZMController {
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId()));
         $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber(ZMRequest::getPageIndex());
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();

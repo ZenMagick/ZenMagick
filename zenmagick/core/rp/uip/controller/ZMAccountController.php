@@ -61,6 +61,7 @@ class ZMAccountController extends ZMController {
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array(ZMRequest::getAccountId()));
         $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber(ZMRequest::getPageIndex());
         $this->exportGlobal("zm_resultList", $resultList);
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
 

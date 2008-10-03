@@ -69,6 +69,7 @@ class ZMProductsNewController extends ZMController {
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(ZMLoader::make($sorter));
         }
+        $resultList->setPageNumber(ZMRequest::getPageIndex());
         $this->exportGlobal("zm_resultList", $resultList);
 
         return $this->findView();
