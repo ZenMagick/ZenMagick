@@ -130,9 +130,20 @@ class ZMPluginPageController extends ZMObject {
      * @return string The page contents.
      */
     protected function getPageContents($context, $viewDir='views') {
+        // make toolbox available too
+        $toolbox = ZMToolbox::instance();
+        foreach ($toolbox->getTools() as $name => $tool) {
+            $$name = $tool;
+        }
+
+        // custom context variables
         foreach ($context as $name => $value) {
             $$name = $value;
         }
+
+        // the plugin
+        $plugin = $this->plugin_;
+
         $template = file_get_contents($this->getPlugin()->getPluginDir().'/'.$viewDir.'/'.$this->getId().'.php');
         ob_start();
         eval('?>'.$template);
