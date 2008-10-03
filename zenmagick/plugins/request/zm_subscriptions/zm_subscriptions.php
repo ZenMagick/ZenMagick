@@ -125,6 +125,9 @@ class zm_subscriptions extends ZMPlugin {
         // set mapping and make secure
         ZMSacsMapper::instance()->setMapping('cancel_subscription');
         ZMUrlMapper::instance()->setMapping(null, 'cancel_subscription', 'account', 'RedirectView', 'secure=true');
+
+        // add admin page
+        $this->addMenuItem('zm_subscriptions', zm_l10n_get('Subscriptions'), 'ZMSubscriptionAdminController');
     }
 
     /**
