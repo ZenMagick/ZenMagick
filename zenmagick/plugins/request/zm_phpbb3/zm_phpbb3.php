@@ -110,13 +110,8 @@ class zm_phpbb3 extends ZMPlugin {
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
-                array("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedNickname')),
                 array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
-            // optionally, make nickname required
-            if ($this->get('requireNickname')) {
-                $rules[] = array('RequiredRule', 'nick', 'Please enter a nickname.');
-            }
             ZMValidator::instance()->addRules('edit_account', $rules);
             $this->zcoSubscribe();
         }
