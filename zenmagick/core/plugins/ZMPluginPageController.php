@@ -142,7 +142,7 @@ class ZMPluginPageController extends ZMObject {
         }
 
         // the plugin
-        $plugin = $this->plugin_;
+        $plugin = $this->getPlugin();
 
         $template = file_get_contents($this->getPlugin()->getPluginDir().'/'.$viewDir.'/'.$this->getId().'.php');
         ob_start();
