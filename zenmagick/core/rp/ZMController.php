@@ -90,7 +90,7 @@ class ZMController extends ZMObject {
                 $view = $this->processPost();
                 break;
             default:
-                die('Unsupported request method: ' . $_SERVER['REQUEST_METHOD']);
+                throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
         }
 
         if (null != $view) {

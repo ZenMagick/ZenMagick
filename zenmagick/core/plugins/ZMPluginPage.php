@@ -46,7 +46,7 @@ class ZMPluginPage extends ZMObject {
      * @param string contents The page contents.
      * @param string header Optional code to be injected into the header; default is <code>null</code>.
      */
-    function __construct($Id, $title, $contents=null, $header='') {
+    function __construct($id, $title, $contents=null, $header='') {
         parent::__construct();
 
         $this->id_ = $id;

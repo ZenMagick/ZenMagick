@@ -26,12 +26,16 @@
 require_once('includes/application_top.php');
 
   $fkt = ZMRequest::getParameter('fkt');
-  if (function_exists($fkt)) {
+  // try to resolve plugin page controller
+  ZMLoader::resolve($fkt);
+  if (class_exists($fkt)) {
+      $controller = ZMLoader::make($fkt);
+      $page = $controller->process();
+  } else if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 
       $_zm_pcontents = ob_get_clean();
   }
-
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -47,7 +51,7 @@ require_once('includes/application_top.php');
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
     <script type="text/javascript" src="includes/jquery/jquery-1.2.1.pack.js"></script>
-    <?php if (null!= $page) { echo $page->getHeader(); } ?>
+    <?php if (null != $page) { echo $page->getHeader(); } ?>
   </head>
   <body id="b_plugin_page">
 
