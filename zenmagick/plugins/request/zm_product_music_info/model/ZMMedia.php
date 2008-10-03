@@ -29,7 +29,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.zm_product_music_info.model
- * @version $Id: ZMMedia.php 158 2007-04-05 07:35:49Z DerManoMann $
+ * @version $Id$
  */
 class ZMMedia extends ZMModel {
     var $id_;

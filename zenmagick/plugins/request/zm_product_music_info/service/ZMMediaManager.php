@@ -29,7 +29,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.zm_product_music_info.service
- * @version $Id: ZMMediaManager.php 177 2007-05-19 12:01:32Z DerManoMann $
+ * @version $Id$
  */
 class ZMMediaManager extends ZMObject {
 

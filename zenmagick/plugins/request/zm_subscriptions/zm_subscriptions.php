@@ -31,7 +31,7 @@ define('ZM_FILENAME_SUBSCRIPTION_CANCEL', 'cancel_subscription');
  *
  * @package org.zenmagick.plugins.zm_subscriptions
  * @author DerManoMann
- * @version $Id: zm_token.php 1460 2008-08-26 01:37:31Z DerManoMann $
+ * @version $Id$
  */
 class zm_subscriptions extends ZMPlugin {
 

@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: functions.php 676 2008-02-01 02:14:28Z DerManoMann $
+ * $Id$
  */
 ?>
 <?php

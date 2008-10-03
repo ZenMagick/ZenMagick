@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @version $Id: views.php 426 2007-10-25 23:01:11Z DerManoMann $
+ * @version $Id$
  */
 ?>
 <?php
