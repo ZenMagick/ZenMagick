@@ -43,6 +43,9 @@
         <?php } ?>
         <?php if ($zm_resultList->hasSorters()) { ?>
             <div>
+                <?php if (ZMRequest::getParameter('keyword')) { ?>
+                    <input type="hidden" name="keyword" value="<?php echo ZMRequest::getParameter('keyword') ?>" />
+                <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
                 <?php if (ZMRequest::getCategoryPath()) { ?>
                     <input type="hidden" name="cPath" value="<?php echo ZMRequest::getCategoryPath() ?>" />

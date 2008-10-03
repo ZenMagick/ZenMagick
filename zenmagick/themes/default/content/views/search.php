@@ -35,25 +35,27 @@
     <a class="clear" href="<?php $net->url(FILENAME_ADVANCED_SEARCH, '&keyword='.$zm_searchCriteria->getKeywords()) ?>"><?php zm_l10n("Advanced Search") ?></a>
 </form>
 
-<?php if (isset($zm_resultList) && $zm_resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
-        <?php include('resultlist/options.php') ?>
-    </div>
-
-    <?php $form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
-        <div class="rlist">
-            <table cellspacing="0" cellpadding="0"><tbody>
-                <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>
-                  <?php include('resultlist/product.php') ?>
-                <?php $first = false; $odd = !$odd; } ?>
-            </tbody></table>
-        </div>
+<?php if (isset($zm_resultList)) { ?>
+    <?php if ($zm_resultList->hasResults()) { ?>
         <div class="rnblk">
-            <?php include('resultlist/compare.php') ?>
             <?php include('resultlist/nav.php') ?>
+            <?php include('resultlist/options.php') ?>
         </div>
-    </form>
-<?php } else { ?>
-    <h2><?php zm_l10n("No products found") ?></h2>
+
+        <?php $form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
+            <div class="rlist">
+                <table cellspacing="0" cellpadding="0"><tbody>
+                    <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>
+                      <?php include('resultlist/product.php') ?>
+                    <?php $first = false; $odd = !$odd; } ?>
+                </tbody></table>
+            </div>
+            <div class="rnblk">
+                <?php include('resultlist/compare.php') ?>
+                <?php include('resultlist/nav.php') ?>
+            </div>
+        </form>
+    <?php } else { ?>
+        <h2><?php zm_l10n("No products found") ?></h2>
+    <?php } ?>
 <?php } ?>
