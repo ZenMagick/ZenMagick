@@ -181,8 +181,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         if (is_array($data)) {
             $mapping = $this->mapper->ensureMapping($mapping);
-            // bind query parameter
-            foreach ($data as $name => $value) {
+            // find out the order of args
+            // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
+            $argKeys = array_keys($args);
+            rsort($argKeys);
+            foreach ($argKeys as $name) {
+                $value = $args[$name];
+                // bind query parameter
                 if (is_array($value)) {
                     $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
                 } else {
@@ -263,8 +268,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping($mapping);
 
-        // bind query parameter
-        foreach ($args as $name => $value) {
+        // find out the order of args
+        // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
+        $argKeys = array_keys($args);
+        rsort($argKeys);
+        foreach ($argKeys as $name) {
+            $value = $args[$name];
+            // bind query parameter
             if (is_array($value)) {
                 $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
             } else {
