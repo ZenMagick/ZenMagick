@@ -52,6 +52,9 @@ Release 0.9.3
 - add support for keyword to views/resultlist/options.php to make the new
   simple search page work
 - rearrange page title of all admin pages
+- refactored bits of order status handling; this changes the meaning of the id
+  property on ZMOrderStatus! instead of setId() to set the order status type
+	you'll have to use setOrderStatusId() instead
 
 Release 0.9.2
 - add database support for data type blob

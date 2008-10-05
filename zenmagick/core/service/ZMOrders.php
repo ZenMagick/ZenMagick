@@ -68,7 +68,6 @@ class ZMOrders extends ZMObject {
             $languageId = $session->getLanguageId();
         }
         
-        $db = ZMRuntime::getDB();
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 WHERE o.orders_id = :orderId
@@ -107,9 +106,7 @@ class ZMOrders extends ZMObject {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
-
-        return $orders;
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
     }
 
     /**
@@ -125,7 +122,6 @@ class ZMOrders extends ZMObject {
             $languageId = $session->getLanguageId();
         }
         
-        $db = ZMRuntime::getDB();
         // order only
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
@@ -146,32 +142,22 @@ class ZMOrders extends ZMObject {
      *
      * @param int orderId The order id.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMOrderStatus</code> instances.
      */
-    function getOrderStatusHistoryForId($orderId, $languageId=null) {
+    public function getOrderStatusHistoryForId($orderId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "SELECT os.*
+        $sql = "SELECT os.orders_status_name, osh.*
                 FROM " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                 WHERE osh.orders_id = :orderId
                   AND osh.orders_status_id = os.orders_status_id
                   AND os.language_id = :languageId
                   ORDER BY osh.date_added";
-        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
-        $sql = $db->bindVars($sql, ":languageId", $languageId, "integer");
-        $results = $db->Execute($sql);
-
-        $stati = array();
-        while (!$results->EOF) {
-            $status = $this->_newOrderStatus($results->fields);
-            array_push($stati, $status);
-            $results->MoveNext();
-        }
-
-        return $stati;
+        $args = array('orderId' => $orderId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'OrderStatus');
     }
 
     /**
@@ -180,30 +166,11 @@ class ZMOrders extends ZMObject {
      * @param ZMOrderStatus orderStatus The new order status.
      * @return ZMOrderStatus The created order status (incl id).
      */
-    function createOrderStatusHistory($orderStatus) {
-        $db = ZMRuntime::getDB();
-        $sql = "INSERT INTO " .  TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments)
-                VALUES (:orderId;integer, :id;integer, now(), :customerNotified;integer, :comment;string)";
-        $sql = ZMDbUtils::bindObject($sql, $orderStatus, false);
-
-        $results = $db->Execute($sql);
-        $orderStatus->id_ = $db->Insert_ID();
-
-        return $orderStatus;
-    }
-
-    /**
-     * Create new order status instance.
-     */
-    function _newOrderStatus($fields) {
-        $status = ZMLoader::make("OrderStatus");
-        $status->id_ = $fields['orders_status_id'];
-        $status->orderId_ = $fields['orders_id'];
-        $status->name_ = $fields['orders_status_name'];
-        $status->dateAdded_ = $fields['date_added'];
-        $status->customerNotified_ = 1 == $fields['customer_notified'];
-        $status->comment_ = $fields['comments'];
-        return $status;
+    public function createOrderStatusHistory($orderStatus) {
+        if (null == $orderStatus->getDateAdded()) {
+            $orderStatus->setDateAdded(date(ZM_DB_DATETIME_FORMAT));
+        }
+        return ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_STATUS_HISTORY, $orderStatus);
     }
 
     /**
@@ -270,23 +237,15 @@ class ZMOrders extends ZMObject {
      * Get order totals.
      *
      * @param int orderId The order id.
-     * @return array List of <code>ZMOrderItem</code> instances.
+     * @return array Map of <code>ZMOrderItem</code> instances with the type as key.
      */
-    function getOrderTotals($orderId) {
-        $db = ZMRuntime::getDB();
-        $sql = "select * from " . TABLE_ORDERS_TOTAL . "
-                where orders_id = :orderId
-                order by sort_order";
-        $sql = $db->bindVars($sql, ":orderId", $orderId, "integer");
-
-        $results = $db->Execute($sql);
-
+    public function getOrderTotals($orderId) {
+        $sql = "SELECT * FROM " . TABLE_ORDERS_TOTAL . "
+                WHERE orders_id = :orderId
+                ORDER BY sort_order";
         $totals = array();
-        while (!$results->EOF) {
-            $fields = $results->fields;
-            $total = ZMLoader::make("OrderTotal", $fields['title'], $fields['text'], $fields['value'], $fields['class']);
+        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotal') as $total) {
             $totals[$total->getType()] = $total;
-            $results->MoveNext();
         }
 
         return $totals;

@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMOrderTotal extends ZMModel {
-    var $name_;
-    var $value_;
-    var $amount_;
-    var $type_;
+    private $name_;
+    private $value_;
+    private $amount_;
+    private $type_;
 
 
     /**
@@ -46,8 +46,9 @@ class ZMOrderTotal extends ZMModel {
      * @param float amount The total amount.
      * @param string type The total type.
      */
-    function __construct($name, $value, $amount, $type) {
+    function __construct($name='', $value='', $amount=0, $type='') {
         parent::__construct();
+        $this->setId(0);
         $this->name_ = $name;
         $this->value_ = $value;
         $this->amount_ = $amount;
@@ -63,32 +64,74 @@ class ZMOrderTotal extends ZMModel {
 
 
     /**
+     * Get the order total id.
+     *
+     * @return int The order total id.
+     */
+    public function getId() { return $this->get('orderTotalId'); }
+
+    /**
      * Get the order total name.
      *
      * @return string The order total name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the order total value.
      *
      * @return string The formatted order total value.
      */
-    function getValue() { return $this->value_; }
+    public function getValue() { return $this->value_; }
 
     /**
      * Get the order total amount.
      *
      * @return float The order total amount.
      */
-    function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount_; }
 
     /**
      * Get the order total type.
      *
      * @return string The order total type.
      */
-    function getType() { return $this->type_; }
+    public function getType() { return $this->type_; }
+
+    /**
+     * Set the order total id.
+     *
+     * @param int id The order total id.
+     */
+    public function setId($id) { return $this->set('orderTotalId', $id); }
+
+    /**
+     * Set the order total name.
+     *
+     * @oparam string name The order total name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the order total value.
+     *
+     * @param string value The formatted order total value.
+     */
+    public function setValue($value) { $this->value_ = $value; }
+
+    /**
+     * Set the order total amount.
+     *
+     * @param float amount The order total amount.
+     */
+    public function setAmount($amount) { $this->amount_ = $amount; }
+
+    /**
+     * Set the order total type.
+     *
+     * @param string type The order total type.
+     */
+    public function setType($type) { $this->type_ = $type; }
 
 }
 

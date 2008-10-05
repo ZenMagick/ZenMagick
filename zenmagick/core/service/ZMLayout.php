@@ -177,11 +177,10 @@ class ZMLayout extends ZMObject {
      */
     public function getFieldLength($table, $field) {
         if (!isset($this->tableMeta[$table])) {
-            $db = ZMRuntime::getDB();
-            $this->tableMeta[$table] = $db->MetaColumns($table);
+            $this->tableMeta[$table] = ZMRuntime::getDatabase()->getMetaData($table);
         }
 
-        return $this->tableMeta[$table][strtoupper($field)]->max_length;
+        return $this->tableMeta[$table][$field]['maxLen'];
     }
 
     /**

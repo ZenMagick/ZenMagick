@@ -82,6 +82,81 @@ class TestZMOrders extends ZMTestCase {
         }
     }
 
+    /**
+     * Test get order status history.
+     */
+    public function testGetOrderStatusHistory() {
+        $order = ZMOrders::instance()->getOrderForId(1);
+        $this->assertNotNull($order);
+
+        $orderStatusHistory = $order->getOrderStatusHistory();
+        $this->assertNotNull($orderStatusHistory);
+        $this->assertTrue(is_array($orderStatusHistory));
+        $this->assertEqual(1, count($orderStatusHistory));
+
+        // check first entry
+        $orderStatus = $orderStatusHistory[0];
+        $this->assertEqual(1, $orderStatus->getId());
+        $this->assertEqual(1, $orderStatus->getOrderId());
+        $this->assertEqual('Pending', $orderStatus->getName());
+        $this->assertEqual(true, $orderStatus->isCustomerNotified());
+        $this->assertEqual(null, $orderStatus->getComment());
+    }
+
+    /**
+     * Test create order status history.
+     */
+    public function testCreateOrderStatusHistory() {
+        $order = ZMOrders::instance()->getOrderForId(1);
+        $this->assertNotNull($order);
+
+        $orderStatusHistory = $order->getOrderStatusHistory();
+        $this->assertNotNull($orderStatusHistory);
+        $this->assertTrue(is_array($orderStatusHistory));
+        $this->assertEqual(1, count($orderStatusHistory));
+
+        $newOrderStatus = ZMLoader::make('OrderStatus');
+        $newOrderStatus->setOrderId(1);
+        $newOrderStatus->setOrderStatusId(2);
+        $newOrderStatus = ZMOrders::instance()->createOrderStatusHistory($newOrderStatus);
+        // check for new primary key
+        $this->assertTrue(0 != $newOrderStatus->getId());
+
+        $orderStatusHistory = $order->getOrderStatusHistory();
+        $this->assertNotNull($orderStatusHistory);
+        $this->assertTrue(is_array($orderStatusHistory));
+        $this->assertEqual(2, count($orderStatusHistory));
+        // check created entry
+        $createdOrderStatus = $orderStatusHistory[1];
+        // make sure this is set
+        $this->assertEqual('Processing', $createdOrderStatus->getName());
+        $this->assertNotNull($createdOrderStatus->getDateAdded());
+
+        // clean up
+        $sql = "DELETE FROM ".TABLE_ORDERS_STATUS_HISTORY." WHERE orders_status_history_id = :orderStatusHistoryId";
+        ZMRuntime::getDatabase()->update($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), TABLE_ORDERS_STATUS_HISTORY);
+    }
+
+    /**
+     * Test get order totals.
+     */
+    public function testGetOrderTotals() {
+        $order = ZMOrders::instance()->getOrderForId(1);
+        $this->assertNotNull($order);
+
+        $totals = $order->getOrderTotals();
+        $this->assertNotNull($totals);
+        $this->assertTrue(is_array($totals));
+        $this->assertEqual(3, count($totals));
+        
+        // test total total
+        $total = $totals['ot_total'];
+        $this->assertEqual('Total:', $total->getName());
+        $this->assertEqual('$52.49', $total->getValue());
+        $this->assertEqual(52.49, $total->getAmount());
+        $this->assertEqual('ot_total', $total->getType());
+    }
+
 }
 
 ?>
