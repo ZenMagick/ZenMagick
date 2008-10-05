@@ -24,6 +24,7 @@
 <?php
 
 define('ZM_FILENAME_SUBSCRIPTION_CANCEL', 'cancel_subscription');
+define('ZM_FILENAME_SUBSCRIPTION_REQUEST', 'subscription_request');
 
 
 /**
@@ -81,8 +82,10 @@ class zm_subscriptions extends ZMPlugin {
             'Name of an email template to notify customers of new subscription orders; leave empty for none');
         $this->addConfigValue('Cancel confirmation email template name', 'cancelEmailTemplate', '',
             'Name of an email template to confirm subscription canceled (reused if admin email set)');
-        $this->addConfigValue('Cancel confirmation admin email address', 'cancelAdminEmail', '',
-            'Email address for admin notification about canceled subscription');
+        $this->addConfigValue('Admin notification email address', 'adminEmail', '',
+            'Email address for admin notifications (use store email if empty)');
+        $this->addConfigValue('Customer enquiry email', 'requestEmailTemplate', '',
+            'Name of an email template to notify customer care about a new subscription enquiry');
         $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
         $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
@@ -91,6 +94,8 @@ class zm_subscriptions extends ZMPlugin {
             "zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
         $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders', 'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
         $this->addConfigValue('Schedule offset', 'scheduleOffset', '0', 'Optional offset (in days) to schedule subscription earlier that actually required');
+        $this->addConfigValue('Customer cancel', 'customerCancel', false, 'Allow customers to cancel subscriptions directly',
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
     }
 
     /**
@@ -122,9 +127,17 @@ class zm_subscriptions extends ZMPlugin {
             ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
         }
 
-        // set mapping and make secure
+        // set mappings and permissions of custom pages
         ZMSacsMapper::instance()->setMapping('cancel_subscription');
         ZMUrlMapper::instance()->setMapping(null, 'cancel_subscription', 'account', 'RedirectView', 'secure=true');
+        ZMSacsMapper::instance()->setMapping('subscription_request');
+        ZMUrlMapper::instance()->setMapping('subscription_request', 'success', 'subscription_request', 'RedirectView', 'secure=true');
+
+        // set up request form validation
+        ZMValidator::instance()->addRules('subscription_request', array(
+            array('ZMRequiredRule', 'type'),
+            array('ZMRequiredRule', 'message', zm_l10n_get("Please enter a message")),
+        ));
 
         // add admin page
         $this->addMenuItem('zm_subscriptions', zm_l10n_get('Subscriptions'), 'ZMSubscriptionAdminController');

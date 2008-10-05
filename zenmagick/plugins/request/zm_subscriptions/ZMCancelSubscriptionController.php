@@ -55,6 +55,10 @@ class ZMCancelSubscriptionController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet() {
+        if (!ZMTools::asBoolean($this->getPlugin()->get('customerCancel'))) {
+            ZMMessages::instance()->error(zm_l10n_get("Insufficient permission"));
+            return $this->findView();
+        }
         $orderId = ZMRequest::getOrderId();
         $order = ZMOrders::instance()->getOrderForId($orderId);
         $account = $order->getAccount();
@@ -100,7 +104,10 @@ class ZMCancelSubscriptionController extends ZMController {
         $cancelEmailTemplate = $plugin->get('cancelEmailTemplate');
         if (!ZMTools::isEmpty($cancelEmailTemplate)) {
             $this->sendCancelEmail($order, $cancelEmailTemplate, $account->getEmail());
-            $adminEmail = $plugin->get('cancelAdminEmail');
+            $adminEmail = $plugin->get('adminEmail');
+            if (empty($adminEmail)) {
+                $adminEmail = ZMSettings::get('storeEmail');
+            }
             if (!ZMTools::isEmpty($adminEmail)) {
                 $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
             }
@@ -121,6 +128,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $context['order'] = $order;
         zm_mail(zm_l10n_get("%s: Order Subscription Canceled", ZMSettings::get('storeName')), $template, $context, 
             $email, ZMSettings::get('storeEmail'), null);
+        $email = ZMSettings::get('storeEmail');
     }
 
     /**
