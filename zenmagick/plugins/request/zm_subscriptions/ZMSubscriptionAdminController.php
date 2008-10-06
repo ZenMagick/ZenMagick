@@ -69,6 +69,14 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
                 $orders[] = $order;
             }
         }
+
+        /*
+         *TODO: group count per subscription
+         *
+SELECT count( orders_id ) , customers_id
+FROM `zen_orders`
+GROUP BY customers_id
+         */
         $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orders);
         $resultList = ZMLoader::make('ResultList');
         $resultList->setResultSource($resultSource);
