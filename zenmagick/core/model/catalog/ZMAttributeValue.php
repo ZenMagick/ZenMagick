@@ -148,7 +148,6 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param int qty The quantity.
      * @return float The price.
-     * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
     protected function getFinalPriceForQty($qty) {
         $price = $this->price_;
@@ -191,7 +190,6 @@ class ZMAttributeValue extends ZMModel {
      *
      * @param int qty The quantity.
      * @return float The price.
-     * @todo: proper handling of priceFactor and PriceFactorOffset properties
      */
     protected function getFinalOneTimePriceForQty($qty) {
         $price = $this->oneTimePrice_;
@@ -426,7 +424,7 @@ class ZMAttributeValue extends ZMModel {
 }
 
 
-  // work in progress
+  // TODO: work in progress
   function _zm_get_discount_calc($product_id, $attributes_id = false, $attributes_amount = false, $check_qty= false) {
     // no charge
     if ($attributes_id > 0 && 0 == $attributes_amount) {
@@ -738,6 +736,7 @@ class ZMAttributeValue extends ZMModel {
 
 
 
+//TODO: work in progress
   function _zm_get_products_sale_discount_type($product_id = false, $categories_id = false, $return_value = false) {
     global $db;
 

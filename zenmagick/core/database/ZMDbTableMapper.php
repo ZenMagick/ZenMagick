@@ -140,8 +140,7 @@ class ZMDbTableMapper extends ZMObject {
             if (!isset($this->tableMap[$table])) {
                 return null;
             }
-            //TODO: do only once?
-            // add the current custom fields
+            // add the current custom fields at RT as they might change
             $tableMap = $this->addCustomFields($this->tableMap[$table], $table);
             $mappings = array_merge($mappings, $tableMap);
         }

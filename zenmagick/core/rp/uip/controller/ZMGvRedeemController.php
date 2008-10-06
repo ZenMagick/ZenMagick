@@ -70,8 +70,6 @@ class ZMGvRedeemController extends ZMController {
                 // TODO: remote address
                 ZMCoupons::instance()->redeemCoupon($coupon->getId(), ZMRequest::getAccountId());
                 $gvredeem->setRedeemed(true);
-                // TODO: only for PHP4 and weak references
-                $this->exportGlobal("zm_gvredeem", $gvredeem);
             } else {
                 // not redeemable
                 ZMMessages::instance()->error(zm_l10n_get('The provided gift voucher code seems to be invalid!'));

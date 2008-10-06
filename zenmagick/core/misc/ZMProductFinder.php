@@ -31,7 +31,6 @@
  *
  * @author DerManoMann
  * @version $Id$
- * @todo additional filter
  */
 class ZMProductFinder {
     protected $criteria_;

@@ -256,7 +256,7 @@ class ZMResultList extends ZMObject {
         if (null === $this->results_) {
             $results = $this->getAllResults();
 
-            //TODO: apply filters and sorters
+            //TODO: apply filters
             foreach ($this->sorters_ as $sorter) {
                 if ($sorter->isActive()) {
                     $results = $sorter->sort($results);
@@ -270,7 +270,7 @@ class ZMResultList extends ZMObject {
 
             // use this as array_slice might reorder the array if keys are not in order
             $this->results_ = array();
-            for ($ii=0; $ii <($end-$start); ++$ii) {
+            for ($ii=0; $ii<($end-$start); ++$ii) {
                 $this->results_[] = $results[$start+$ii];
             }
         }
