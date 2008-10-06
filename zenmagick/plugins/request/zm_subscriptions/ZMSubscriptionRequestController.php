@@ -75,15 +75,13 @@ class ZMSubscriptionRequestController extends ZMController {
         $request->set('message', ZMRequest::getParameter('message'));
         $this->exportGlobal('zm_subscriptionRequest', $request);
 
-        // TODO: validate
         if (!$this->validate('subscription_request')) {
             return $this->findView();
         }
 
-
-        // TODO: email notification
         $plugin = $this->getPlugin();
-        $this->sendNotificationEmail(, $plugin->get('requestEmailTemplate'), $plugin->get('adminEmail'));
+        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.request', ZM_TEMPLATE_SUBSCRIPTION_REQUEST_NOTIFICATION);
+        $this->sendNotificationEmail(ZMRequest::getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
 
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 

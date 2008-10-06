@@ -20,13 +20,21 @@
 <?php $schedules = $plugin->getSchedules(); ?>
 
 <div class="rlist">
-    <table cellspacing="0" cellpadding="0" border="1"><tbody>
+    <table cellspacing="0" cellpadding="0" border="1"><thead>
+        <tr>
+            <th>Order Number</th>
+            <th>Frequency</th>
+            <th>Next Order</th>
+        </tr>
+    </thead><tbody>
         <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
                     <a href="<?php $net->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()] ?></td>
+                <td><?php $locale->shortDate($order->getNextOrder()) ?></td>
+                
             </tr>
         <?php $first = false; $odd = !$odd; } ?>
     </tbody></table>

@@ -75,6 +75,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             }
 
             // 5) Update subscription order with next schedule date
+            // NOTE: we don't add/subtract the offset again, this is done only once!
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET subscription_next_order = DATE_ADD(now(), INTERVAL " . zm_subscriptions::schedule2SQL($order->get('schedule')) . ")
                     WHERE orders_id = :orderId";
@@ -196,12 +197,15 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * @return array List of order ids.
      */
     public static function findScheduledOrders() {
-        $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
-                WHERE  is_subscription = :subscription AND is_subscription_canceled = :subscriptionCanceled
+        $sql = "SELECT orders_id, is_subscription_canceled FROM " . TABLE_ORDERS . "
+                WHERE  is_subscription = :subscription
                   AND subscription_next_order <= now() AND NOT (subscription_next_order = '0001-01-01 00:00:00')";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true, 'subscriptionCanceled' => false), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $tmp = array();
         foreach ($results as $row) {
+            if ($row['subscriptionCanceled'] && $plugin->get('minOrders') <= count($plugin->getScheduledOrderIdsForSubscriptionOrderId($row['orderId']))) {
+                continue;
+            }
             $tmp[] = $row['orderId'];
         }
         return $tmp;

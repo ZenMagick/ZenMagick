@@ -22,18 +22,22 @@ class TestSubscriptions extends ZMTestCase {
      * Test update order.
      */
     public function testUpdateOrder() {
-        $order = ZMOrders::instance()->getOrderForId(78);
+        $order = ZMOrders::instance()->getOrderForId(1);
         $this->assertNotNull($order);
-        $order->set('subscription', true);
-        $order->set('nextOrder', date(ZM_DB_DATETIME_FORMAT));
-        $order->set('schedule', '1m');
-        ZMOrders::instance()->updateOrder($order);
-        $updated = ZMOrders::instance()->getOrderForId(78);
-        $this->assertNotNull($updated);
+        if (null != $order) {
+            $order->set('subscription', true);
+            $order->set('nextOrder', date(ZM_DB_DATETIME_FORMAT));
+            $order->set('schedule', '1m');
+            ZMOrders::instance()->updateOrder($order);
+            $updated = ZMOrders::instance()->getOrderForId(1);
+            $this->assertNotNull($updated);
 
-        $properties = array('status', 'subscription', 'nextOrder', 'schedule');
-        foreach ($properties as $property) {
-            $this->assertEqual($order->get($property), $updated->get($property));
+            $properties = array('status', 'subscription', 'nextOrder', 'schedule');
+            foreach ($properties as $property) {
+                $this->assertEqual($order->get($property), $updated->get($property));
+            }
+        } else {
+            $this->fail('no order to update');
         }
     }
 
@@ -46,7 +50,7 @@ class TestSubscriptions extends ZMTestCase {
         // fake subscription checkout
         ZMRequest::getSession()->setValue('subscription_schedule', '1d');
 
-        $args = array('orderId' => 157);
+        $args = array('orderId' => 1);
         $plugin->onZMCreateOrder($args);
     }
 
@@ -63,6 +67,15 @@ class TestSubscriptions extends ZMTestCase {
         $this->assertNotNull($job);
         $status = $job->execute();
         $this->assertTrue($status);
+    }
+
+    /**
+     * Test getScheduledOrderIdsForSubscriptionOrderId
+     */
+    public function testGetScheduledOrderIdsForSubscriptionOrderId() {
+        $orderIds = $this->getPlugin()->getScheduledOrderIdsForSubscriptionOrderId(1);
+        $this->assertTrue(is_array($orderIds));
+        $this->assertTrue(0 < count($orderIds));
     }
 
 }

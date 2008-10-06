@@ -29,6 +29,21 @@ If used, the code should be aware of the fact that the service might not be avai
 
 Templates
 =========
+Email templates
+---------------
+The plugin will try to use two different email templates, depending on the configuration:
+a) subscription_request.[text|html].php
+A notification email to the store owner (or other configured email address) about a subscription form request.
+The name may be overridden with the setting 'plugins.zm_subscriptions.email.templates.request'.
+
+b) subscription_cancel.[text|html].php
+Confirmation email for customer (and admin) about a canceled order
+The name may be overridden with the setting 'plugins.zm_subscriptions.email.templates.cancel'.
+
+
+
+store templates
+---------------
 The plugin requires/allows additions/changes to a few templates.
 See the templates folder for some sample code.
 

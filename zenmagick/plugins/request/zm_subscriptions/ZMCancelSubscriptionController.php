@@ -101,16 +101,14 @@ class ZMCancelSubscriptionController extends ZMController {
         ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
         ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
 
-        $cancelEmailTemplate = $plugin->get('cancelEmailTemplate');
-        if (!ZMTools::isEmpty($cancelEmailTemplate)) {
-            $this->sendCancelEmail($order, $cancelEmailTemplate, $account->getEmail());
-            $adminEmail = $plugin->get('adminEmail');
-            if (empty($adminEmail)) {
-                $adminEmail = ZMSettings::get('storeEmail');
-            }
-            if (!ZMTools::isEmpty($adminEmail)) {
-                $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
-            }
+        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION);
+        $this->sendCancelEmail($order, $emailTemplate, $account->getEmail());
+        $adminEmail = $plugin->get('adminEmail');
+        if (empty($adminEmail)) {
+            $adminEmail = ZMSettings::get('storeEmail');
+        }
+        if (!ZMTools::isEmpty($adminEmail)) {
+            $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
         }
 
         return $this->findView();

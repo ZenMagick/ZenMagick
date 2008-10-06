@@ -25,6 +25,8 @@
 
 define('ZM_FILENAME_SUBSCRIPTION_CANCEL', 'cancel_subscription');
 define('ZM_FILENAME_SUBSCRIPTION_REQUEST', 'subscription_request');
+define('ZM_TEMPLATE_SUBSCRIPTION_REQUEST_NOTIFICATION', 'subscription_request');
+define('ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION', 'subscription_cancel');
 
 
 /**
@@ -78,22 +80,18 @@ class zm_subscriptions extends ZMPlugin {
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amoout to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
         $this->addConfigValue('Cancel dealline', 'cancelDeadline', '0', 'Days before the next order the user can cancel the subscription');
-        $this->addConfigValue('Notification email template name', 'scheduleEmailTemplate', '',
-            'Name of an email template to notify customers of new subscription orders; leave empty for none');
-        $this->addConfigValue('Cancel confirmation email template name', 'cancelEmailTemplate', '',
-            'Name of an email template to confirm subscription canceled (reused if admin email set)');
-        $this->addConfigValue('Admin notification email address', 'adminEmail', '',
+        $this->addConfigValue('Admin notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
             'Email address for admin notifications (use store email if empty)');
-        $this->addConfigValue('Customer enquiry email', 'requestEmailTemplate', '',
-            'Name of an email template to notify customer care about a new subscription enquiry');
-        $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
         $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+        $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
         $this->addConfigValue('Shipping Address', 'addressPolicy', 'order', 'use either the original shipping addres, or the current default address',
             "zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
-        $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders', 'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
-        $this->addConfigValue('Schedule offset', 'scheduleOffset', '0', 'Optional offset (in days) to schedule subscription earlier that actually required');
+        $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders',
+            'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
+        $this->addConfigValue('Schedule offset', 'scheduleOffset', '0',
+            'Optional offset (in days) to schedule subscription earlier that actually required');
         $this->addConfigValue('Customer cancel', 'customerCancel', false, 'Allow customers to cancel subscriptions directly',
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
     }
@@ -201,24 +199,25 @@ class zm_subscriptions extends ZMPlugin {
      */
     public function onZMCreateOrder($args=array()) {
         $orderId = $args['orderId'];
-        if (1||null != ($schedule = $this->getSelectedSchedule())) {
-            $schedule='1w';
+        if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
+                    SET subscription_next_order = 
+                      DATE_ADD(DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "), INTERVAL -". $this->get('scheduleOffset'). " DAY),
                       is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             if (ZMTools::asBoolean($this->get('subscriptionComment'))) {
-                $order = ZMOrders::instance()->getOrderForId($orderId);
-                $status = ZMLoader::make('OrderStatus');
-                $status->setId($order->getOrderStatusId());
-                $status->setOrderId($order->getId());
-                $status->setCustomerNotified(false);
-                $schedules = $this->getSchedules();
-                $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]));
-                ZMOrders::instance()->createOrderStatusHistory($status);
+                if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
+                    $status = ZMLoader::make('OrderStatus');
+                    $status->setOrderStatusId($order->getOrderStatusId());
+                    $status->setOrderId($order->getId());
+                    $status->setCustomerNotified(false);
+                    $schedules = $this->getSchedules();
+                    $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]));
+                    ZMOrders::instance()->createOrderStatusHistory($status);
+                }
             }
         }
     }
@@ -232,6 +231,24 @@ class zm_subscriptions extends ZMPlugin {
     public static function schedule2SQL($schedule) {
         $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule); 
         return str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', 'YEAR'), $schedule);
+    }
+
+    /**
+     * Get the scheduled orderIds for a given subscription order id.
+     *
+     * @param int orderId The original subscription order.
+     * @return array List of order ids.
+     */
+    public function getScheduledOrderIdsForSubscriptionOrderId($orderId) {
+        $sql = "SELECT orders_id
+                FROM " . TABLE_ORDERS . "
+                WHERE subscription_order_id = :subscriptionOrderId";
+        $results = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS) as $result) {
+            $results[] = $result['orderId'];
+        }
+
+        return $results;
     }
 
 }
