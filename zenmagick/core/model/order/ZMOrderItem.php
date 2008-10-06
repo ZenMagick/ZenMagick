@@ -46,6 +46,7 @@ class ZMOrderItem extends ZMModel {
      */
     function __construct() {
         parent::__construct();
+        $this->taxRate_ = null;
         $this->attributes_ = array();
     }
 
@@ -62,14 +63,21 @@ class ZMOrderItem extends ZMModel {
      *
      * @return int The order item id.
      */
-    function getProductId() { return $this->productId_; }
+    public function getId() { return $this->get('orderItemId'); }
+
+    /**
+     * Get the order item product id.
+     *
+     * @return int The order item product id.
+     */
+    public function getProductId() { return $this->productId_; }
 
     /**
      * Get the product this item is associated to.
      *
      * @return ZMProduct The product.
      */
-    function getProduct() {
+    public public function getProduct() {
         return ZMProducts::instance()->getProductForId($this->getProductId());
     }
 
@@ -78,49 +86,119 @@ class ZMOrderItem extends ZMModel {
      *
      * @return int The quantity for this item.
      */
-    function getQty() { return $this->qty_; }
+    public function getQty() { return $this->qty_; }
 
     /**
      * Get the item name.
      *
      * @return string The item name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the model.
      *
      * @return string The item model.
      */
-    function getModel() { return $this->model_; }
+    public function getModel() { return $this->model_; }
 
     /**
      * Get the tax rate.
      *
      * @return float The tax rate.
      */
-    function getTaxRate() { return $this->taxRate_; }
+    public function getTaxRate() { 
+        if (null == $this->taxRate_) {
+            $this->taxRate_ = ZMLoader::make('TaxRate');
+            $this->taxRate_->setRate($this->get('taxValue'));
+        }
+
+        return $this->taxRate_;
+    }
 
     /**
      * Get the calculated price.
      *
      * @return float The calculated price.
      */
-    function getCalculatedPrice() { return $this->calculatedPrice_; }
+    public function getCalculatedPrice() { return $this->calculatedPrice_; }
 
     /**
      * Checks if the item has associated attributes.
      *
      * @return boolean </code>true</code> if attributes exist, <code>false</code> if not.
      */
-    function hasAttributes() { return 0 < count($this->attributes_); }
+    public function hasAttributes() { return 0 < count($this->attributes_); }
 
     /**
      * Get the item attributes.
      *
      * @return array A list of <code>ZMAttribute</code> instances.
      */
-    function getAttributes() { return $this->attributes_; }
+    public function getAttributes() { return $this->attributes_; }
+
+    /**
+     * Set the order item id.
+     *
+     * @param int id The order item id.
+     */
+    public function setId($id) { $this->set('orderItemId', $id); }
+
+    /**
+     * Set the order item product id.
+     *
+     * @param int productId The order item product id.
+     */
+    public function setProductId($productId) { $this->productId_ = $productId; }
+
+    /**
+     * Set the quantity.
+     *
+     * @param int qty The quantity for this item.
+     */
+    public function setQty($qty) { $this->qty_ = $qty; }
+
+    /**
+     * Set the item name.
+     *
+     * @param string name The item name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the model.
+     *
+     * @param string model The item model.
+     */
+    public function setModel($model) { $this->model_ = $model; }
+
+    /**
+     * Set the tax rate.
+     *
+     * @param float taxRate The tax rate.
+     */
+    public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
+
+    /**
+     * Set the calculated price.
+     *
+     * @param float price The calculated price.
+     */
+    public function setCalculatedPrice($price) { $this->calculatedPrice_ = $price; }
+
+    /**
+     * Add an item attribute.
+     *
+     * @param ZMAttribute attribute A <code>ZMAttribute</code>.
+     */
+    public function addAttribute($attribute) { $this->attributes_[] = $attribute; }
+
+    /**
+     * Set item attributes.
+     *
+     * @param array attributes A list of <code>ZMAttribute</code> instances.
+     */
+    public function setAttributes($attributes) { $this->attributes_ = $attributes; }
 
 }
 

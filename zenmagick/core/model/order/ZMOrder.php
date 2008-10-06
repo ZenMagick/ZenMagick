@@ -254,7 +254,9 @@ class ZMOrder extends ZMModel {
      *
      * @return array A list of <code>ZMOrderItem<code> instances.
      */
-    public function getOrderItems() { return ZMOrders::instance()->_getOrderItems($this); }
+    public function getOrderItems() { 
+        return ZMOrders::instance()->getOrderItems($this->getId());
+    }
 
     /**
      * Get the order status history.

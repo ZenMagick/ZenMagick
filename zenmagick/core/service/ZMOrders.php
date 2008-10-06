@@ -174,63 +174,40 @@ class ZMOrders extends ZMObject {
     }
 
     /**
-     * Get order items
+     * Get order items.
+     *
+     * @param int orderId The order id.
+     * @return array List of <code>ZMOrderItem</code> instances.
      */
-    function _getOrderItems($order) {
-        $orderItems = array();
-
-        ZMLoader::resolveZCClass('order');
-        $zenOrder = new order($order->getId());
-        // keep ref for further use
-        $order->zenOrder_ = $zenOrder;
-        foreach ($zenOrder->products as $zenItem) {
-            $orderItem = $this->_newOrderItem($zenItem);
-            array_push($orderItems, $orderItem);
-        }
-
-        return $orderItems;
-    }
-
-    /**
-     * Create new order item instance.
-     */
-    function _newOrderItem($zenItem) {
-        // keep reference of used variables
-        $attributesLookup = array();
-
-        if (isset($zenItem['attributes']) && 0 < sizeof($zenItem['attributes'])) {
-            foreach ($zenItem['attributes'] as $zenAttribute) {
-                $name = $zenAttribute['option'];
-                if (array_key_exists($name, $attributesLookup)) {
-                    $atname = $attributesLookup[$name];
-                } else {
-                    $atname = str_replace(' ', '', $name);
-                    $$atname = ZMLoader::make("Attribute", 0, $name, null);
-                    $attributesLookup[$name] = $atname;
+    public function getOrderItems($orderId) {
+        $sql = "SELECT *
+                FROM " . TABLE_ORDERS_PRODUCTS . "
+                WHERE orders_id = :orderId
+                ORDER BY orders_products_id";
+        $items = array();
+        $attributes = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'OrderItem') as $item) {
+            // lookup attributes as well
+            $sql = "SELECT *
+                    FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
+                    WHERE orders_id = :orderId
+                      AND orders_products_id = :orderItemId";
+            $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'AttributeValue') as $value) {
+                if (!array_key_exists($value->getAttributeId(), $attributes)) {
+                    $attribute = ZMLoader::make("Attribute");
+                    $attribute->setName($value->getAttributeName());
+                    $attributes[$value->getAttributeId()] = $attribute;
                 }
-                $attributeValue = ZMLoader::make("AttributeValue", 0, $zenAttribute['value']);
-                $attributeValue->setPricePrefix($zenAttribute['prefix']);
-                $attributeValue->setPrice($zenAttribute['price']);
-                $$atname->addValue($attributeValue);
+                $attributes[$value->getAttributeId()]->addValue($value);
             }
+            foreach ($attributes as $attribute) {
+                $item->addAttribute($attribute);
+            }
+            $items[] = $item;
         }
 
-        $orderItem = ZMLoader::make("OrderItem");
-        $orderItem->productId_ = $zenItem['id'];
-        $orderItem->qty_ = $zenItem['qty'];
-        $orderItem->name_ = $zenItem['name'];
-        $orderItem->model_ = $zenItem['model'];
-        $taxRate = ZMLoader::make("TaxRate");
-        $taxRate->setRate($zenItem['tax']);
-        $orderItem->taxRate_ = $taxRate;
-        $taxRate = ZMLoader::make("TaxRate");
-        $taxRate->setRate($zenItem['tax']);
-        $orderItem->calculatedPrice_ = $taxRate->addTax($zenItem['final_price']);
-        foreach ($attributesLookup as $name => $atname) {
-            array_push($orderItem->attributes_, $$atname);
-        }
-
-        return $orderItem;
+        return $items;
     }
 
     /**

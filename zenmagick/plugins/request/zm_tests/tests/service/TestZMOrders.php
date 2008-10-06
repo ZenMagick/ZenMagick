@@ -157,6 +157,56 @@ class TestZMOrders extends ZMTestCase {
         $this->assertEqual('ot_total', $total->getType());
     }
 
+    /*
+     * Test order items.
+     */
+    public function testOrderItems() {
+        $order = ZMOrders::instance()->getOrderForId(109);
+        $this->assertNotNull($order);
+
+        $items = $order->getOrderItems();
+        $this->assertEqual(1, count($items));
+        $item = $items[0];
+        $this->assertEqual(1, $item->getProductId());
+        $this->assertEqual(1, $item->getQty());
+        $this->assertNotNull($item->getTaxRate());
+        $this->assertEqual(10.00, $item->getTaxRate()->getRate());
+        $this->assertEqual(2, count($item->getAttributes()));
+    }
+
+    /*
+     * Test order item attributes.
+     */
+    public function testOrderItemAttributes() {
+        $order = ZMOrders::instance()->getOrderForId(109);
+        $this->assertNotNull($order);
+
+        $items = $order->getOrderItems();
+        $this->assertEqual(1, count($items));
+        $item = $items[0];
+        $attributes = $item->getAttributes();
+        $this->assertEqual(2, count($attributes));
+
+        if (2 == count($attributes)) {
+            // expect productId 1 with model:premium and memory:16MB
+            $attribute = $attributes[0];
+            $this->assertEqual('Model', $attribute->getName());
+            $values = $attribute->getValues();
+            $this->assertEqual(1, count($values));
+            $value = $values[0];
+            $this->assertEqual('Premium', $value->getName());
+
+            $attribute = $attributes[1];
+            $this->assertEqual('Memory', $attribute->getName());
+            $values = $attribute->getValues();
+            $this->assertEqual(1, count($values));
+            $value = $values[0];
+            $this->assertEqual('16 mb', $value->getName());
+        } else {
+            $this->fail('missing attributes');
+        }
+    }
+
 }
 
 ?>

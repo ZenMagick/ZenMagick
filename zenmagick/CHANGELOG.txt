@@ -55,6 +55,7 @@ Release 0.9.3
 - refactored bits of order status handling; this changes the meaning of the id
   property on ZMOrderStatus! instead of setId() to set the order status type
 	you'll have to use setOrderStatusId() instead
+- remove dependency on zen-cart's order class from ZMOrders
 
 Release 0.9.2
 - add database support for data type blob

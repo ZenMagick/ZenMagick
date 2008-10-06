@@ -34,7 +34,7 @@
 class ZMDownload extends ZMModel {
     private $id;
     private $orderId;
-    private $orderProductId;
+    private $orderItemId;
     private $productId;
     private $orderDate;
     private $maxDays;
@@ -73,11 +73,11 @@ class ZMDownload extends ZMModel {
     public function getOrderId() { return $this->orderId; }
 
     /**
-     * Get the order product id.
+     * Get the order item id.
      *
-     * @return int The order product id.
+     * @return int The order item id.
      */
-    public function getOrderProductId() { return $this->orderProductId; }
+    public function getOrderItemId() { return $this->orderItemId; }
 
     /**
      * Get the product id.
@@ -136,11 +136,11 @@ class ZMDownload extends ZMModel {
     public function setOrderId($orderId ) { $this->orderId = $orderId; }
 
     /**
-     * Set the order product id.
+     * Set the order item id.
      *
-     * @param int orderProductId The order product id.
+     * @param int orderItemId The order item id.
      */
-    public function setOrderProductId($orderProductId) { $this->orderProductId = $orderProductId; }
+    public function setOrderProductId($orderItemId) { $this->orderItemId = $orderItemId; }
 
     /**
      * Set the product id.
