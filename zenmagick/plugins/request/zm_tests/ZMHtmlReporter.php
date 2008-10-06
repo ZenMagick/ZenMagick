@@ -55,6 +55,14 @@ class ZMHtmlReporter extends HtmlReporter {
         echo str_replace("</body>\n</html>", '', $html);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    function paintException($exception) {
+        parent::paintException($exception);
+        //var_dump($exception);
+    }
+
 }
 
 ?>
