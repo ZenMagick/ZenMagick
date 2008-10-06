@@ -256,10 +256,18 @@ class ZMResultList extends ZMObject {
         if (null === $this->results_) {
             $results = $this->getAllResults();
 
-            //TODO: apply filters
+            foreach ($this->filters_ as $filter) {
+                if (!$filter->isActive())
+                    continue;
+
+                $results = $filter->filter($results);
+            }
+
             foreach ($this->sorters_ as $sorter) {
                 if ($sorter->isActive()) {
                     $results = $sorter->sort($results);
+                    // can't have more than one sorter active
+                    break;
                 }
             }
 

@@ -71,7 +71,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
         $finder = ZMLoader::make('ProductFinder');
         $finder->setCriteria($this->criteria_);
         if (null !== $this->resultList_) {
-            // try to set sorter
+            // try to set the first active sorter
             foreach ($this->resultList_->getSorters() as $sorter) {
                 if ($sorter->isActive()) {
                     $finder->setSortId($sorter->getSortId());
