@@ -174,11 +174,12 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of product attributes.
      */
     function _getItemAttributes($item) {
+        if (!isset($item->zenItem_['attributes']) || !is_array($item->zenItem_['attributes'])) {
+            return array();
+        }
+
         // collect attribute values for same attribute
         $attributesLookup = array();
-
-        if (!isset($item->zenItem_['attributes']) || !is_array($item->zenItem_['attributes']))
-            return $attributesLookup;
 
         $session = ZMRequest::getSession();
         $languageId = $session->getLanguageId();
