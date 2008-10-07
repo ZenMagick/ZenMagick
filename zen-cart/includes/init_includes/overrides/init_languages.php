@@ -29,7 +29,7 @@
 
     if (isset($zm_is_init)) {
         // called by ZenMagick
-        require(dirname(dirname(__FILE__)) . "/init_languages.php");
+        require dirname(dirname(__FILE__)) . "/init_languages.php";
     }
 
 ?>
