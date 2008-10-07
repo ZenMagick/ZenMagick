@@ -90,9 +90,9 @@ class zm_auto_login extends ZMPlugin {
                     if (null != $token) {
                         // resource = auto_login/id/[accountId]
                         $bits = explode('/', $token->getResource());
-                        if (3 == count($bits)) {
+                        if (3 == count($bits) && 'auto_login' == $bits[0] && 'id' == $bits[1]) {
                             $account = ZMAccounts::instance()->getAccountForId((int)$bits[2]);
-                            // renew cookie 
+                            // TODO: renew cookie if required
                         }
                     }
                 } else {
@@ -109,6 +109,9 @@ class zm_auto_login extends ZMPlugin {
                     if ($session->registerAccount($account, $this)) {
                         ZMRequest::redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::isSecure()));
                     }
+                } else {
+                    // remove cookie
+                    setcookie(ZM_AUTO_LOGIN_COOKIE, 'expired', time() - 3600);
                 }
             }
         }
@@ -121,7 +124,17 @@ class zm_auto_login extends ZMPlugin {
      * @return boolean <code>true</code> if the token service should be used.
      */
     protected function useTokenService() {
-        return ZMTools::asBoolean($this->get('useToken') && class_exists('ZMTokens'));
+        return ZMTools::asBoolean($this->get('useToken')) && class_exists('ZMTokens');
+    }
+
+    /**
+     * Make a resource string based on the given account.
+     *
+     * @param ZMAccount account The current account.
+     * @return string The string.
+     */
+    protected function getResource($account) {
+        return 'auto_login/id/'.$account->getId();
     }
 
     /**
@@ -132,8 +145,22 @@ class zm_auto_login extends ZMPlugin {
      */
     protected function onOptIn($account, $optIn) {
         if (!ZMTools::asBoolean($this->get('optIn')) || ZMTools::asBoolean($optIn)) {
-            //TODO: use hash
-            $cookie = implode('~~~', array($account->getId(), $account->getPassword()));
+
+            if ($this->useTokenService()) {
+                // cookie contains token hash only
+                $resource = $this->getResource($account);
+                $tokens = ZMTokens::instance()->getTokenForResource($resource);
+                if (0 == count($tokens)) {
+                    $token = ZMTokens::instance()->getNewToken($resource, 60*60*24*$this->get('lifetime'));
+                } else {
+                    $token = $tokens[0];
+                }
+                $data = array($token->getHash());
+            } else {
+                $data = array($account->getId(), $account->getPassword());
+            }
+
+            $cookie = implode('~~~', $data);
             setcookie(ZM_AUTO_LOGIN_COOKIE, $cookie, time()+60*60*24*$this->get('lifetime'));
             $this->cookieUpdated = true;
         }

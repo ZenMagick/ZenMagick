@@ -69,6 +69,7 @@ class zm_token extends ZMPlugin {
      */
     public function init() {
         parent::init();
+
         define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'zm_token');
         ZMDbTableMapper::instance()->setMappingForTable('zm_token', 
             array(
@@ -87,9 +88,9 @@ class zm_token extends ZMPlugin {
             $tests->addTest('TestZMTokens');
         }
 
-        // load service
+        // make service available
         ZMLoader::resolve('ZMTokens');
-    }
+   }
 
 }
 

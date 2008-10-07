@@ -39,10 +39,13 @@ Token support
 If the zm_token plugin is installed, it is possible to issue token rather than storing the original password hash
 in the cookie.
 
+NOTE: It is important to have the token plugin a lower sort order than this plugin in order for the token service being
+available when required.
+
 
 Cookie name
 ===========
 The code uses a different cookie name compared to the original zen-cart mod. If you require full compatibility,
-you can do so by adding the following line to your local.php file:
+you can do so by adding the following line to your local.php file (and token support disabled):
 
   define('ZM_AUTO_LOGIN_COOKIE', 'zencart_cookie_permlogin');
