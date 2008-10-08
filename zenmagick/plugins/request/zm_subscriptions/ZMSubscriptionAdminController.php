@@ -61,23 +61,16 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         // get all subscription orders
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription AND is_subscription_canceled = :subscriptionCanceled
-                ORDER BY date_purchased";
+                ORDER BY subscription_next_order DESC";
         $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true, 'subscriptionCanceled' => $canceled), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
-                $orders[] = $order;
+                $orderIds[] = $order;
             }
         }
 
-        /*
-         *TODO: group count per subscription
-         *
-SELECT count( orders_id ) , customers_id
-FROM `zen_orders`
-GROUP BY customers_id
-         */
-        $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orders);
+        $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orderIds);
         $resultList = ZMLoader::make('ResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber(ZMRequest::getPageIndex());
@@ -85,6 +78,16 @@ GROUP BY customers_id
         $context['zm_resultList'] = $resultList;
 
         $page->setContents($this->getPageContents($context));
+        return $page;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost() {
+        $page = self::processGet();
+        var_dump(ZMRequest::getParameterMap());
+
         return $page;
     }
 

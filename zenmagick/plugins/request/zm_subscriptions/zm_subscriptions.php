@@ -201,8 +201,7 @@ class zm_subscriptions extends ZMPlugin {
         $orderId = $args['orderId'];
         if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET subscription_next_order = 
-                      DATE_ADD(DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "), INTERVAL -". $this->get('scheduleOffset'). " DAY),
+                    SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
                       is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
@@ -226,11 +225,19 @@ class zm_subscriptions extends ZMPlugin {
      * Convert UI schedule value into something useful for SQL.
      *
      * @param string schedule The schedule value.
+     * @param int factor Optional factor to get multiple of the single interval; default is <em>1</em>.
      * @return string A string that can be used in SQL <em>DATE_ADD</em>.
      */
-    public static function schedule2SQL($schedule) {
+    public static function schedule2SQL($schedule, $factor=1) {
         $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule); 
-        return str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', 'YEAR'), $schedule);
+        $schedule = str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', ' YEAR'), $schedule);
+        if (1 < $factor) {
+            // multiply
+            $bits = explode(' ', $schedule);
+            $schedule = ($factor * (int)$bits[0]) . ' ' . $bits[1];
+
+        }
+        return $schedule;
     }
 
     /**
@@ -249,6 +256,34 @@ class zm_subscriptions extends ZMPlugin {
         }
 
         return $results;
+    }
+
+    /**
+     * Get the minimum last order date for a subscription (the earliest cancel date).
+     *
+     * @param int orderId The original subscription order id.
+     * @return string The date or <code>null</code> (if not canceled).
+     */
+    public function getMinLastOrderDate($orderId) {
+        $order = ZMOrders::instance()->getOrderForId($orderId);
+
+        // let's find out how many more orders need to be shipped to pass the minOrders restriction
+        $scheduledOrderIds = $this->getScheduledOrderIdsForSubscriptionOrderId($orderId);
+        $missing = $this->get('minOrders') - count($scheduledOrderIds);
+        if (0 >= $missing) {
+            // in the case of old orders this should be the date of the last actually shipped order
+            return $order->getNextOrder();
+        }
+        // multiply the schedule by missing
+        $distance = self::schedule2SQL($order->getSchedule(), $missing);
+
+        // use SQL to calculate the last date
+        $sql = "SELECT DATE_ADD(subscription_next_order, INTERVAL " . $distance . ") as subscription_next_order
+                FROM " . TABLE_ORDERS . "
+                WHERE orders_id = :orderId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS);
+
+        return $result['nextOrder'];
     }
 
 }

@@ -78,6 +78,41 @@ class TestSubscriptions extends ZMTestCase {
         $this->assertTrue(0 < count($orderIds));
     }
 
+    /**
+     * Test schedule2SQL.
+     */
+    public function testSchedule2SQL() {
+        $simple_tests = array(
+            // schedule, expected
+            array('1d', '1 DAY'),
+            array('1w', '1 WEEK'),
+            array('1m', '1 MONTH'),
+            array('1y', '1 YEAR'),
+        );
+        foreach ($simple_tests as $test) {
+            $this->assertEqual($test[1], zm_subscriptions::schedule2SQL($test[0]));
+        }
+
+        $factor_tests = array(
+            // schedule, expected, factor
+            array('1d', '2 DAY', 2),
+            array('1w', '3 WEEK', 3),
+            array('1m', '-1 MONTH', -1),
+            array('1y', '1 YEAR', 1),
+        );
+        foreach ($simple_tests as $test) {
+            $this->assertEqual($test[1], zm_subscriptions::schedule2SQL($test[0], $test[2]));
+        }
+    }
+
+    /**
+     * Test getMinLastOrderDate
+     */
+    public function testGetMinLastOrderDate() {
+        $date = $this->getPlugin()->getMinLastOrderDate(1);
+        //echo $date;
+    }
+
 }
 
 ?>
