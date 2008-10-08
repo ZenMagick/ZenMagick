@@ -12,6 +12,8 @@
          fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
          form p {clear:left;padding:7px;}
     </style>
+    <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery-1.2.1.pack.js'); ?>"></script>
+    <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery.treeview.pack.js'); ?>"></script>
     <script type="text/javascript">
       // select/unselect all
       function sync_all(box) {
@@ -26,6 +28,7 @@
   </head>
   <body>
     <h1>ZenMagick Unit Testing</h1>
+
 
     <h2>Select from the following test cases to run</h2>
     <?php $all_selected_tests = array_flip($all_selected_tests); ?>
