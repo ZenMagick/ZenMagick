@@ -126,6 +126,13 @@ class ZMRuntime extends ZMObject {
     public static function getThemesPathPrefix() { return ZMRuntime::getContext().ZM_THEMES_DIR; }
 
     /**
+     * Return the base path for plugin URIs.
+     *
+     * @return string The URL path prefix for all plugins.
+     */
+    public static function getPluginPathPrefix() { return ZMRuntime::getContext().ZM_PLUGINS_DIR; }
+
+    /**
      * Get the full ZenMagick installation path.
      *
      * @return string The ZenMagick installation folder.

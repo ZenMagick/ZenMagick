@@ -92,7 +92,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return array List of <code>ZMMessage</code> instances.
      */
-    function getMessages() {
+    public function getMessages() {
         return $this->messages_;
     }
 
@@ -106,7 +106,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return array List of filenames relative to the plugin location.
      */
-    function getGlobal() {
+    public function getGlobal() {
         return array();
     }
 
@@ -132,7 +132,7 @@ class ZMPlugin extends ZMObject {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-    function get($name) {
+    public function get($name) {
         return $this->__get($name);
     }
 
@@ -157,7 +157,7 @@ class ZMPlugin extends ZMObject {
      * @param string name The property name.
      * @param mixed value The value.
      */
-    function set($name, $value) {
+    public function set($name, $value) {
         $this->__set($name, $value);
     }
 
@@ -166,7 +166,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return string A unique id.
      */
-    function getId() {
+    public function getId() {
         return $this->id_;
     }
 
@@ -175,7 +175,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return string The name.
      */
-    function getName() {
+    public function getName() {
         return $this->title_;
     }
 
@@ -184,7 +184,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return string The description.
      */
-    function getDescription() {
+    public function getDescription() {
         return $this->description_;
     }
 
@@ -193,7 +193,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return string The version.
      */
-    function getVersion() {
+    public function getVersion() {
         return $this->version_;
     }
 
@@ -202,7 +202,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return boolean <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
      */
-    function isTraditional() {
+    public function isTraditional() {
         return $this->traditional_;
     }
 
@@ -211,7 +211,7 @@ class ZMPlugin extends ZMObject {
      *
      * @param boolean traditional <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
      */
-    function setTraditional($traditional) {
+    public function setTraditional($traditional) {
         $this->traditional_ = $traditional;
     }
 
@@ -220,7 +220,7 @@ class ZMPlugin extends ZMObject {
      *
      * @param int sortOrder The preferred sort order.
      */
-    function setPreferredSortOrder($sortOrder) {
+    public function setPreferredSortOrder($sortOrder) {
         $this->preferredSortOrder_ = $sortOrder;
     }
 
@@ -233,7 +233,7 @@ class ZMPlugin extends ZMObject {
      *  <li>Sort Order</li>
      * </ul>
      */
-    function install() {
+    public function install() {
         $this->addConfigValue('Plugin Status', $this->enabledKey_, true,
             zm_l10n_get('Enable/disable this plugin.'),
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
@@ -246,7 +246,7 @@ class ZMPlugin extends ZMObject {
      *
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
-    function remove($keepSettings=false) {
+    public function remove($keepSettings=false) {
         $config = ZMConfig::instance();
 
         // always remove enable/disable key
@@ -264,7 +264,7 @@ class ZMPlugin extends ZMObject {
      * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
      * <p>Code to set up internal resources should be placed here, rather than in the * constructor.</p>
      */
-    function init() {
+    public function init() {
     }
 
     /**
@@ -272,7 +272,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
-    function isInstalled() {
+    public function isInstalled() {
         return null !== $this->__get(ZM_PLUGIN_ENABLED_SUFFIX);
     }
 
@@ -281,7 +281,7 @@ class ZMPlugin extends ZMObject {
      *
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
-    function isEnabled() {
+    public function isEnabled() {
         $enabled = $this->get(ZM_PLUGIN_ENABLED_SUFFIX);
         return null !== $enabled && 0 != $enabled;
     }
@@ -291,21 +291,21 @@ class ZMPlugin extends ZMObject {
      *
      * @return int The sort order index.
      */
-    function getSortOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
+    public function getSortOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order index.
      */
-    function setSortOrder($sortOrder) { $this->set(ZM_PLUGIN_ORDER_SUFFIX, $sortOrder); }
+    public function setSortOrder($sortOrder) { $this->set(ZM_PLUGIN_ORDER_SUFFIX, $sortOrder); }
 
     /**
      * Get a list of configuration keys used by this plugin.
      *
      * @return array List of configuration keys.
      */
-    function getKeys() {
+    public function getKeys() {
         return $this->keys_;
     }
 
@@ -314,7 +314,7 @@ class ZMPlugin extends ZMObject {
      *
      * @param array keys List of configuration keys with or without the config prefix.
      */
-    function setKeys($keys) {
+    public function setKeys($keys) {
         foreach ($keys as $key) {
             if (!ZMTools::startsWith($key, $this->configPrefix_)) {
                 $key = strtoupper($this->configPrefix_ . $key);
@@ -338,14 +338,14 @@ class ZMPlugin extends ZMObject {
      *
      * @return string The type.
      */
-    function getType() { return $this->type_; }
+    public function getType() { return $this->type_; }
 
     /**
      * Set the plugin type.
      *
      * @param string type The type.
      */
-    function setType($type) { 
+    public function setType($type) { 
         $this->type_ = $type; 
         $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
         $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
@@ -357,14 +357,14 @@ class ZMPlugin extends ZMObject {
      *
      * @param string pluginDir The directory.
      */
-    function setPluginDir($pluginDir) { $this->pluginDir_ = $pluginDir; }
+    public function setPluginDir($pluginDir) { $this->pluginDir_ = $pluginDir; }
 
     /**
      * Get the plugin directory.
      *
      * @return string The directory or <code>null</code> if this plugin is single file only.
      */
-    function getPluginDir() { return $this->pluginDir_; }
+    public function getPluginDir() { return $this->pluginDir_; }
 
     /**
      * Add a configuration value.
@@ -381,7 +381,7 @@ class ZMPlugin extends ZMObject {
      * @param string useFunction The use function; defaults to <code>null</code>.
      * @param int sortOrder The sort order; defaults to <code>0</code>.
      */
-    function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
+    public function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
         $groupId = ZENMAGICK_PLUGIN_GROUP_ID;
         if (!ZMTools::startsWith($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
@@ -398,7 +398,7 @@ class ZMPlugin extends ZMObject {
      * @param boolean prefix If <code>true</code>, the plugin prefix will be kept, otherwise it will be stripped.
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
-    function getConfigValues($prefix=true) {
+    public function getConfigValues($prefix=true) {
         $values = ZMConfig::instance()->getConfigValues($this->configPrefix_.'%');
         if (!$prefix) {
             foreach ($values as $name => $value) {
@@ -413,14 +413,14 @@ class ZMPlugin extends ZMObject {
     /**
      * Register this plugin as zen-cart zco subscriber.
      */
-    function zcoSubscribe() {
+    public function zcoSubscribe() {
         ZMEvents::instance()->attach($this);
     }
 
     /**
      * Un-register this plugin as zen-cart zco subscriber.
      */
-    function zcoUnsubscribe() {
+    public function zcoUnsubscribe() {
         ZMEvents::instance()->detach($this);
     }
 
@@ -443,7 +443,7 @@ class ZMPlugin extends ZMObject {
      * @param string function The function to render the contents.
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZM_MENU_PLUGINS</em>.
      */
-    function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
+    public function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
         if (ZMRequest::isAdmin()) {
             zm_add_menu_item(ZMLoader::make("MenuItem", $menuKey, $id, $title, null, $function));
         }
@@ -463,14 +463,14 @@ class ZMPlugin extends ZMObject {
      *
      * @return string The loader support flag.
      */
-    function getLoaderSupport() { return $this->loaderSupport_; }
+    public function getLoaderSupport() { return $this->loaderSupport_; }
 
     /**
      * Set the loader support flag for this plugin.
      *
      * @param string loaderSupport The loader support flag.
      */
-    function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
+    public function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
 
     /**
      * Set the scope.
@@ -495,14 +495,14 @@ class ZMPlugin extends ZMObject {
      * <p>The default scope is <li><code>ZM_SCOPE_ALL</code></li>.</p>
      * @param string scope The scope.
      */
-    function setScope($scope) { $this->scope_ = $scope; }
+    public function setScope($scope) { $this->scope_ = $scope; }
 
     /**
      * Get this plugins scope.
      *
      * @return string The scope.
      */
-    function getScope() { return $this->scope_; }
+    public function getScope() { return $this->scope_; }
 
     /**
      * Filter the response contents.
@@ -510,8 +510,29 @@ class ZMPlugin extends ZMObject {
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
+    public function filterResponse($contents) {
         return $contents;
+    }
+
+    /**
+     * Resolve a plugin relative URI.
+     *
+     * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>
+     *
+     * @param string uri The relative URI.
+     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
+     * @return string An absolute URL or <code>null</code>.
+     */
+    public function pluginURL($uri, $echo=ZM_ECHO_DEFAULT) {
+        if (null == $this->pluginDir_) {
+            throw ZMLoader::make('ZMException', 'pluginDir missing');
+        }
+
+        $type = basename(dirname($this->pluginDir_));
+        $url = ZMToolbox::instance()->html->encode(ZMRuntime::getPluginPathPrefix() . $type . '/' . $this->id_ . '/' . $uri, false);
+
+        if ($echo) echo $url;
+        return $url;
     }
 
 }

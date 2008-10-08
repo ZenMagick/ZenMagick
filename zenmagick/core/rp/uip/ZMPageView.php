@@ -62,7 +62,6 @@ class ZMPageView extends ZMView {
         return $themeInfo->getLayoutFor($this->getName());
     }
 
-
     /**
      * Generate view response.
      */

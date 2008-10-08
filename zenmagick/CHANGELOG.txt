@@ -58,6 +58,7 @@ Release 0.9.3
 - remove dependency on zen-cart's order class from ZMOrders
 - prepare zm_tests to allow to display single tests (methods), run tests in
   controller rather than view, prepare ZMHtmlReporter to allow excluding tests
+- add support for content files in plugins [ZMPlugin::pluginURL(..)]
 
 Release 0.9.2
 - add database support for data type blob
