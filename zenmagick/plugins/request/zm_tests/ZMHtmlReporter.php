@@ -61,7 +61,7 @@ class ZMHtmlReporter extends HtmlReporter {
      */
     public function shouldInvoke($test, $method) {
         //TODO: manage exclusions
-        echo $test.": ".$method."<BR>";
+        //echo $test.": ".$method."<BR>";
         return true;
     }
 
