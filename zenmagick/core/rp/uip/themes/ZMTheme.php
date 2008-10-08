@@ -32,8 +32,8 @@
  * @version $Id$
  */
 class ZMTheme extends ZMObject {
-    var $themeId_;
-    var $themeInfo_;
+    private $themeId_;
+    private $themeInfo_;
 
 
     /**
@@ -60,7 +60,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string The theme id.
      */
-    function getThemeId() { return $this->themeId_; }
+    public function getThemeId() { return $this->themeId_; }
 
     /**
      * Check if a layout is configured for the given page.
@@ -68,7 +68,7 @@ class ZMTheme extends ZMObject {
      * @param string page The page name.
      * @return boolean <code>true</code> if a layout file is configured for the given page.
      */
-    function hasLayout($page) {
+    public function hasLayout($page) {
         // layouts reside in the content directory
         return file_exists($this->getContentDir().$page.ZMSettings::get('templateSuffix'));
     }
@@ -85,7 +85,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string An absolute URL.
      */
-    function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
+    public function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
         $url = ZMRuntime::getThemesPathPrefix().$this->themeId_."/".ZM_THEME_CONTENT_DIR.$uri;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
             if (file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_CONTENT_DIR.$uri)) {
@@ -105,7 +105,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string The themes root directory.
      */
-    function getRootDir() {
+    public function getRootDir() {
         return ZMRuntime::getThemesDir() . $this->themeId_ . '/';
     }
 
@@ -114,7 +114,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string A full filename denoting the themes extra directory.
      */
-    function getExtraDir() {
+    public function getExtraDir() {
         return $this->getRootDir() . ZM_THEME_EXTRA_DIR;
     }
 
@@ -123,7 +123,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string A full filename denoting the themes boxes directory.
      */
-    function getBoxesDir() {
+    public function getBoxesDir() {
         return $this->getRootDir() . ZM_THEME_BOXES_DIR;
     }
 
@@ -132,7 +132,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string A full filename denoting the themes content directory.
      */
-    function getContentDir() {
+    public function getContentDir() {
         return $this->getRootDir() . ZM_THEME_CONTENT_DIR;
     }
 
@@ -141,7 +141,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string A full filename denoting the themes views directory.
      */
-    function getViewsDir() {
+    public function getViewsDir() {
         $themeInfo = $this->getThemeInfo();
         return $themeInfo->getViewsDir();
     }
@@ -151,7 +151,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string A full filename denoting the themes lang directory.
      */
-    function getLangDir() {
+    public function getLangDir() {
         return $this->getRootDir() . ZM_THEME_LANG_DIR;
     }
 
@@ -166,7 +166,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A fully qualified filename.
      */
-    function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
+    public function themeFile($name, $baseDir=ZM_THEME_CONTENT_DIR, $echo=false) {
         $file = $this->getRootDir().$baseDir.$name;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
@@ -187,7 +187,7 @@ class ZMTheme extends ZMObject {
      * @param string baseDir An optional base directory; default is <code>ZM_THEME_CONTENT_DIR</code>
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    function themeFileExists($name, $baseDir=ZM_THEME_CONTENT_DIR) {
+    public function themeFileExists($name, $baseDir=ZM_THEME_CONTENT_DIR) {
 		    return file_exists($this->themeFile($name, $baseDir));
     }
 
@@ -198,7 +198,7 @@ class ZMTheme extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @return array List of available static page names.
      */
-    function getStaticPageList($includeDefaults=false, $languageId=null) {
+    public function getStaticPageList($includeDefaults=false, $languageId=null) {
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
@@ -246,7 +246,7 @@ class ZMTheme extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for current language.
      * @return boolean The status.
      */
-    function saveStaticPageContent($page, $contents, $languageId=null) {
+    public function saveStaticPageContent($page, $contents, $languageId=null) {
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
@@ -284,7 +284,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
+    public function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
         if (!ZMSettings::get('isZMDefinePages')) {
             return $this->zcStaticPageContent($page, $languageId, $echo);
         }
@@ -323,7 +323,7 @@ class ZMTheme extends ZMObject {
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
+    public function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
         if (null == $languageId) {
             $session = ZMRequest::getSession();
             $language = $session->getLanguage();
@@ -355,7 +355,7 @@ class ZMTheme extends ZMObject {
      * @param string file The filename.
      * @return string The eval'ed content.
      */
-    function themeFileContents($file) {
+    public function themeFileContents($file) {
         return eval('?>'.file_get_contents($this->themeFile($file)));
     }
 
@@ -364,7 +364,7 @@ class ZMTheme extends ZMObject {
      *
      * @return ZMThemeInfo A <code>ZMThemeInfo</code> instance.
      */
-    function getThemeInfo() {
+    public function getThemeInfo() {
         if (null == $this->themeInfo_) {
             $this->themeInfo_ = ZMThemes::instance()->getThemeInfoForId($this->themeId_);
         }
@@ -384,7 +384,7 @@ class ZMTheme extends ZMObject {
      *
      * @param ZMLanguage language The language.
      */
-    function loadLocale($language) {
+    public function loadLocale($language) {
         if (null === $language) {
             // this may happen if the i18n patch hasn't been updated
             $language = ZMRuntime::getDefaultLanguage();
