@@ -25,7 +25,7 @@
 ?>
 <?php
 
-require_once('includes/application_top.php');
+require_once 'includes/application_top.php';
 
 if ('true' == ZMRequest::getRequestParameter('remove', 'false')) {
     // destry myself
@@ -74,7 +74,7 @@ if ('' == $code) {
     </script>
   </head>
   <body id="b_console" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <div id="main">
       <div id="content">
@@ -97,3 +97,4 @@ if ('' == $code) {
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

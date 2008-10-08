@@ -25,7 +25,7 @@
 ?>
 <?php
     define('ZM_ADMIN_PAGE', true);
-    require_once('includes/application_top.php');
+    require_once 'includes/application_top.php';
     $zmPage = ZMRequest::getParameter('zmPage', 'index.php');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -57,8 +57,9 @@
   </head>
   <body onload="resizeIframe('content')">
     <div id="wrapper">
-      <?php require(DIR_WS_INCLUDES . 'zenmagick_header.php'); ?>
+      <?php require DIR_WS_INCLUDES . 'zenmagick_header.php'; ?>
       <iframe id="content" src="<?php echo $zmPage ?>">
     </div>
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

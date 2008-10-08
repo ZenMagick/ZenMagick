@@ -24,7 +24,7 @@
  */
 ?>
 <?php  
-require_once('includes/application_top.php');
+require_once 'includes/application_top.php';
 
   $themePath = '';
   $defaults = isset($_POST['defaults']) || isset($_GET['defaults']);
@@ -98,7 +98,7 @@ require_once('includes/application_top.php');
     </script>
   </head>
   <body id="b_l10n" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <div id="main">
       <div id="content">
@@ -141,3 +141,4 @@ require_once('includes/application_top.php');
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

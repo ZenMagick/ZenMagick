@@ -26,8 +26,8 @@
 <?php
 // dismiss sqlpatch output as we do only want to use the code...
 define('GZIP_LEVEL', 0);
-ob_start(); require('sqlpatch.php'); ob_end_clean();
-require_once('includes/application_top.php');
+ob_start(); require 'sqlpatch.php'; ob_end_clean();
+require_once 'includes/application_top.php';
 
     $pluginLoader = new ZMLoader("pluginLoader");
 
@@ -44,7 +44,7 @@ require_once('includes/application_top.php');
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
                 foreach ($pluginLoader->getStatic() as $static) {
-                    require_once($static);
+                    require_once $static;
                 }
                 // plugins prevail over defaults, but not themes
                 ZMLoader::instance()->setParent($pluginLoader);
@@ -62,7 +62,7 @@ require_once('includes/application_top.php');
             if ('ALL' == $plugin->getLoaderSupport()) {
                 $pluginLoader->addPath($plugin->getPluginDir());
                 foreach ($pluginLoader->getStatic() as $static) {
-                    require_once($static);
+                    require_once $static;
                 }
                 // plugins prevail over defaults, but not themes
                 ZMLoader::instance()->setParent($pluginLoader);
@@ -130,7 +130,7 @@ require_once('includes/application_top.php');
     </script>
   </head>
   <body id="b_plugins" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -206,3 +206,4 @@ require_once('includes/application_top.php');
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

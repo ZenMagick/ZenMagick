@@ -23,7 +23,7 @@
  * $Id$
  */
 ?><?php
-require_once('includes/application_top.php');
+require_once 'includes/application_top.php';
 
   $fkt = ZMRequest::getParameter('fkt');
   // try to resolve plugin page controller
@@ -55,7 +55,7 @@ require_once('includes/application_top.php');
   </head>
   <body id="b_plugin_page">
 
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -71,9 +71,12 @@ require_once('includes/application_top.php');
             echo $_zm_pcontents;
         } else if (null != $page) {
             echo $page->getContents();
-        } else { ?><h2>Invalid Contents Function: <?php echo $fkt ?></h2><?php } ?>
+        } else { ?>
+            <h2>Invalid Contents Function: <?php echo $fkt ?></h2>
+        <?php } ?>
       </div>
     </div>
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

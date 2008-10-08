@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-require_once('includes/application_top.php');
+require_once 'includes/application_top.php';
 
   // get selections and defaults
   $selectedThemeId = ZMRequest::getParameter('themeId', ZM_DEFAULT_THEME);
@@ -86,7 +86,7 @@ require_once('includes/application_top.php');
     <?php if ($editor_handler != '') include ($editor_handler); ?>
   </head>
   <body id="b_sp_editor" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <div id="main">
       <div id="content">
@@ -169,4 +169,4 @@ require_once('includes/application_top.php');
 
   </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    require_once('includes/application_top.php');
+    require_once 'includes/application_top.php';
 
     if ('POST' == ZMRequest::getMethod()) {
         $name = ZMRequest::getParameter('name');
@@ -67,7 +67,7 @@
     <script type="text/javascript" src="includes/zenmagick.js"></script>
   </head>
   <body id="b_theme_builder">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -115,3 +115,4 @@
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

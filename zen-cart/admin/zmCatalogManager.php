@@ -24,7 +24,7 @@
  */
 ?>
 <?php  
-require('includes/application_top.php');
+require 'includes/application_top.php';
 
   // active fkt
   $selectedFkt = ZMRequest::getParameter('fkt', '');
@@ -90,7 +90,7 @@ require('includes/application_top.php');
     </script>
   </head>
   <body id="b_catalog_manager" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -143,5 +143,5 @@ require('includes/application_top.php');
 
   </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>
 <?php ob_end_flush(); ?>

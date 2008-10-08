@@ -27,8 +27,8 @@
 
 // dismiss sqlpatch output as we do only want to use the code...
 define('GZIP_LEVEL', 0);
-ob_start(); require('sqlpatch.php'); ob_end_clean();
-require_once('includes/application_top.php');
+ob_start(); require 'sqlpatch.php'; ob_end_clean();
+require_once 'includes/application_top.php';
 
     $needRefresh = false;
 
@@ -195,7 +195,7 @@ require_once('includes/application_top.php');
     </script>
   </head>
   <body id="b_installation">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -272,3 +272,4 @@ require_once('includes/application_top.php');
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

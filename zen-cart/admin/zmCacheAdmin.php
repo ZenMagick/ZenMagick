@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-require('includes/application_top.php');
+require 'includes/application_top.php';
 
   $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) {
       if ('x' == ZMRequest::getParameter('cache_'.++$ii)) {
@@ -47,7 +47,7 @@ require('includes/application_top.php');
     <script type="text/javascript" src="includes/zenmagick.js"></script>
   </head>
   <body id="b_cache">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <?php if (ZMMessages::instance()->hasMessages()) { ?>
         <ul id="messages">
@@ -96,3 +96,4 @@ require('includes/application_top.php');
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

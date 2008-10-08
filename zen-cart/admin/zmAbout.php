@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-require_once('includes/application_top.php');
+require_once 'includes/application_top.php';
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -49,7 +49,7 @@ require_once('includes/application_top.php');
     </script>
   </head>
   <body id="b_about" onload="init()">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
     <div id="main">
       <div id="content">
@@ -68,3 +68,4 @@ require_once('includes/application_top.php');
 
   </body>
 </html>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>

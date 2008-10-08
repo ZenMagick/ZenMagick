@@ -24,9 +24,10 @@
  */
 ?><?php
 
-    require_once('includes/application_top.php');
+    require_once 'includes/application_top.php';
 
     $controller = ZMLoader::make(ZMLoader::makeClassname(ZMRequest::getParameter('controller')).'Controller');
     $controller->process();
 
+    require_once 'includes/application_bottom.php';
 ?>
