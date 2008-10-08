@@ -99,13 +99,21 @@ class TestsController extends ZMController {
         $allTests = array_merge($allTests, $this->plugin->getTests());
         ksort($allTests);
 
+        // make ZMTestCase available
+        ZMLoader::resolve('ZMTestCase');
+
+        // create instances rather than just class names
+        foreach ($allTests as $group => $tests) {
+            foreach ($tests as $key => $clazz) {
+                $allTests[$group][$key] = ZMLoader::make($clazz);
+            }
+        }
+
         $this->exportGlobal('all_tests', $allTests);
 
         $run = ZMRequest::getParameter('tests', array());
         $this->exportGlobal('all_selected_tests', $run);
         if (0 < count($run)) {
-            // make ZMTestCase available
-            ZMLoader::resolve('ZMTestCase');
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($run as $name) {
@@ -114,9 +122,21 @@ class TestsController extends ZMController {
                     $suite->addTestClass($name);
                 }
             }
-            $this->exportGlobal('test_suite', $suite);
+
+            // allow for more time to run tests
             set_time_limit(300);
+
+            // run tests
+            $reporter = ZMLoader::make('ZMHtmlReporter');
+            //TODO: exclude unselected test methods
+            ob_start();
+            $suite->run($reporter);
+            $results = ob_get_clean();
+        } else {
+            $results = '';
         }
+
+        $this->exportGlobal('test_results', $results);
 
         return $this->findView('tests');
     }

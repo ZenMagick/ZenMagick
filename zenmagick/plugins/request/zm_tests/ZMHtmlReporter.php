@@ -42,13 +42,14 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
-    function paintHeader($name) {
+    public function paintHeader($name) {
     }
 
     /**
      * {@inheritDoc}
      */
-    function paintFooter($test_name) {
+    public function paintFooter($test_name) {
+        // paint, but we only want the actual view contents
         ob_start();
         parent::paintFooter($test_name);
         $html = ob_get_clean();
@@ -58,7 +59,16 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
-    function paintException($exception) {
+    public function shouldInvoke($test, $method) {
+        //TODO: manage exclusions
+        echo $test.": ".$method."<BR>";
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintException($exception) {
         parent::paintException($exception);
         //var_dump($exception);
     }

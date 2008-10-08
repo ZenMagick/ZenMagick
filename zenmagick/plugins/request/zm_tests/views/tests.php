@@ -30,17 +30,27 @@
     <h2>Select from the following test cases to run</h2>
     <?php $all_selected_tests = array_flip($all_selected_tests); ?>
     <?php $form->open(null, '', false, array('method'=>'get')); ?>
-      <?php $lastGroup = null; foreach ($all_tests as $group => $cases) { $idGroup = str_replace('@', '', $group); ?>
+      <?php $lastGroup = null; foreach ($all_tests as $group => $testCases) { $idGroup = str_replace('@', '', $group); ?>
         <?php if ($group != $lastGroup) { ?>
           <?php if (null != $lastGroup) { ?>
             </fieldset>
           <?php } ?>
           <?php $lastGroup = $group; ?>
           <fieldset>
-            <legend><input type="checkbox" id="<?php echo $idGroup ?>" onclick="sync_all(this)"> <label for="<?php echo $idGroup ?>"><?php echo $group ?></label></legend>
+            <legend>
+              <input type="checkbox" id="<?php echo $idGroup ?>" onclick="sync_all(this)"> 
+              <label for="<?php echo $idGroup ?>"><?php echo $group ?></label>
+            </legend>
         <?php } ?>
-            <?php foreach ($cases as $case) { ?>
-            <div><input type="checkbox" name="tests[]" id="<?php echo $idGroup.'_'.$case ?>" value="<?php echo $case ?>" <?php echo (isset($all_selected_tests[$case]) ? 'checked' : '') ?>> <label for="<?php echo $idGroup.'_'.$case ?>"><?php echo $case ?></label></div>
+            <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); ?>
+                <div>
+                  <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'_'.$label ?>"
+                       value="<?php echo $label ?>" <?php echo (isset($all_selected_tests[$label]) ? 'checked' : '') ?>> 
+                  <label for="<?php echo $idGroup.'_'.$label ?>"><?php echo $label ?></label>
+                  <?php /* TODO: we need a tree! */foreach ($tests as $test) { continue; ?>
+                    &nbsp;&nbsp;<?php echo $test ?><br>
+                  <?php } ?>
+                </div>
             <?php } ?>
       <?php } ?>
       </fieldset>
@@ -49,10 +59,6 @@
       </p>
     </form>
 
-    <?php
-        if (isset($test_suite)) {
-            $test_suite->run(ZMLoader::make('ZMHtmlReporter'));
-        }
-    ?>
+    <?php echo $test_results ?>
   </body>
 </html>
