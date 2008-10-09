@@ -9,7 +9,7 @@
         .fail {background-color:inherit;color:red;}
         .pass {background-color:inherit;color:green;}
          pre {background-color:lightgray;color:inherit;}
-         label strong {color:#467aa7;font-weight:bold;}
+         label strong {color:black;font-weight:bold;}
          fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
          form p {clear:left;padding:7px;}
          #root {margin-left:3px;}
@@ -45,9 +45,9 @@
         </div>
         <ul>
           <?php foreach ($all_tests as $group => $testCases) { $idGroup = str_replace('@', '', $group); ?>
-            <?php $open = true; foreach ($testCases as $testCase) { if (isset($all_selected_testCases[$testCase->getLabel()])) { $open = true; break; } } ?>
+            <?php $open = false; foreach ($testCases as $testCase) { if (isset($all_selected_testCases[$testCase->getLabel()])) { $open = true; break; } } ?>
             <li<?php if ($open) { echo ' class="open"'; } ?>>
-              <div class="folder">
+              <div class="">
                 <input type="checkbox" id="<?php echo $idGroup ?>" onclick="sync_all(this)"> 
                 <label for="<?php echo $idGroup ?>"><strong><?php echo $group ?></strong></label>
               </div>
@@ -55,25 +55,25 @@
                 <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = $all_results[$label]; ?>
                   <?php $selected = isset($all_selected_testCases[$label]); ?>
                   <li<?php echo (($selected && !$result['status']) ? ' class="open"' : '') ?>>
-                    <div class="folder">
-                      <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
-                           value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
-                      <label for="<?php echo $idGroup.'-'.$label ?>"><?php echo $label ?></label>
+                    <div class="">
                       <?php if ($selected) { ?>
                         <img src="<?php $plugin->pluginURL('images/'.($result['status'] ? 'tick.gif' : 'cross.gif')) ?>">
                       <?php } ?>
+                      <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
+                           value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
+                      <label for="<?php echo $idGroup.'-'.$label ?>"><?php echo $label ?></label>
                     </div>
                     <ul>
                       <?php foreach ($tests as $test) { ?>
                           <?php $selected = isset($all_selected_tests[$label.'-'.$test]); ?>
                           <li>
-                            <span class="file">
-                              <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'-'.$label.'-'.$test ?>"
-                                   value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>> 
-                              <label for="<?php echo $idGroup.'-'.$label.'-'.$test ?>"><?php echo $test ?></label>
+                            <span class="">
                               <?php if ($selected) { ?>
                                 <img src="<?php $plugin->pluginURL('images/'.($result['tests'][$test] ? 'tick.gif' : 'cross.gif')) ?>">
                               <?php } ?>
+                              <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'-'.$label.'-'.$test ?>"
+                                   value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>> 
+                              <label for="<?php echo $idGroup.'-'.$label.'-'.$test ?>"><?php echo $test ?></label>
                             </span>
                           </li>
                       <?php } ?>
