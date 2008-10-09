@@ -59,6 +59,7 @@ Release 0.9.3
 - prepare zm_tests to allow to display single tests (methods), run tests in
   controller rather than view, prepare ZMHtmlReporter to allow excluding tests
 - add support for content files in plugins [ZMPlugin::pluginURL(..)]
+- use treeview to display unit tests
 
 Release 0.9.2
 - add database support for data type blob

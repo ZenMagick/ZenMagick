@@ -31,12 +31,43 @@
  * @version $Id$
  */
 class ZMHtmlReporter extends HtmlReporter {
+    private $currentCase_;
+    private $currentTest_;
+    private $results_;
+    private $enabled_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         $this->HtmlReporter('ISO-8859-1');
+        $this->currentCase_ = null;
+        $this->currentTest_ = null;
+        $this->results_ = array();
+        $this->enabled_ = array();
+    }
+
+    /**
+     * Get all results.
+     *
+     * @return array A map of all results.
+     */
+    public function getResults() {
+        return $this->results_;
+    }
+
+    /**
+     * Add a selected test for the given test case.
+     *
+     * @param string testCase The test case.
+     * @param string test The test.
+     */
+    public function enableTest($testCase, $test) {
+        if (!array_key_exists($testCase, $this->enabled_)) {
+            $this->enabled_[$testCase] = array();
+        }
+        $this->enabled_[$testCase][$test] = true;
     }
 
     /**
@@ -59,18 +90,75 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function shouldInvoke($test, $method) {
-        //TODO: manage exclusions
-        //echo $test.": ".$method."<BR>";
-        return true;
+    public function shouldInvoke($testCase, $test) {
+        return array_key_exists($testCase, $this->enabled_) && array_key_exists($test, $this->enabled_[$testCase]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintCaseStart($testCase) {
+        parent::paintCaseStart($testCase);
+        $this->currentCase_ = $testCase;
+        $this->results_[$testCase] = array();
+        $this->results_[$testCase]['tests'] = array();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintCaseEnd($testCase) {
+        parent::paintCaseEnd($testCase);
+        $result = true;
+        foreach ($this->results_[$testCase]['tests'] as $test => $status) {
+            if (!$status) {
+                $result = false;
+                break;
+            }
+        }
+        $this->results_[$testCase]['status'] = $result;
+        $this->currentCase_ = null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintMethodStart($test) {
+        parent::paintMethodStart($test);
+        $this->currentTest_ = $test;
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintMethodEnd($test) {
+        parent::paintMethodEnd($test);
+        $this->currentTest_ = null;
     }
 
     /**
      * {@inheritDoc}
      */
     public function paintException($exception) {
-        parent::paintException($exception);
-        //var_dump($exception);
+        ob_start(); parent::paintException($exception); $html = ob_get_clean();
+        echo $html;
+        //TODO: improve: var_dump($exception);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintPass($message) {
+        parent::paintPass($message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paintFail($message) {
+        parent::paintFail($message);
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = false;
     }
 
 }

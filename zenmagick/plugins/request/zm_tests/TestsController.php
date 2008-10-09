@@ -111,12 +111,26 @@ class TestsController extends ZMController {
 
         $this->exportGlobal('all_tests', $allTests);
 
-        $run = ZMRequest::getParameter('tests', array());
-        $this->exportGlobal('all_selected_tests', $run);
-        if (0 < count($run)) {
+        $testCases = ZMRequest::getParameter('testCases', array());
+        $tests = ZMRequest::getParameter('tests', array());
+        // build testCases from tests as there might be tests selected, but not the testCase
+        $testCaseMap = array();
+        foreach ($tests as $id) {
+            // XXX: this should not be handled by the reporter
+            list($testCase, $test) = explode('-', $id);
+            $testCaseMap[$testCase] = $testCase;
+        }
+        $testCases = array();
+        foreach ($testCaseMap as $testCase) {
+            $testCases[] = $testCase;
+        }
+        
+        $this->exportGlobal('all_selected_testCases', array_flip($testCases));
+        $this->exportGlobal('all_selected_tests', array_flip($tests));
+        if (0 < count($testCases)) {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
-            foreach ($run as $name) {
+            foreach ($testCases as $name) {
                 $testCase = ZMLoader::make($name);
                 if ($testCase instanceof SimpleTestCase) {
                     $suite->addTestClass($name);
@@ -128,15 +142,21 @@ class TestsController extends ZMController {
 
             // run tests
             $reporter = ZMLoader::make('ZMHtmlReporter');
-            //TODO: exclude unselected test methods
+            // enable all selected tests
+            foreach ($tests as $id) {
+                // XXX: this should not be handled by the reporter
+                list($testCase, $test) = explode('-', $id);
+                $reporter->enableTest($testCase, $test);
+            }
             ob_start();
             $suite->run($reporter);
-            $results = ob_get_clean();
+            $report = ob_get_clean();
+            $this->exportGlobal('all_results', $reporter->getResults());
         } else {
-            $results = '';
+            $report = '';
         }
 
-        $this->exportGlobal('test_results', $results);
+        $this->exportGlobal('html_report', $report);
 
         return $this->findView('tests');
     }
