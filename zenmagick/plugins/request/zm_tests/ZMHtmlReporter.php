@@ -110,8 +110,8 @@ class ZMHtmlReporter extends HtmlReporter {
     public function paintCaseEnd($testCase) {
         parent::paintCaseEnd($testCase);
         $result = true;
-        foreach ($this->results_[$testCase]['tests'] as $test => $status) {
-            if (!$status) {
+        foreach ($this->results_[$testCase]['tests'] as $test => $details) {
+            if (!$details['status']) {
                 $result = false;
                 break;
             }
@@ -126,7 +126,9 @@ class ZMHtmlReporter extends HtmlReporter {
     public function paintMethodStart($test) {
         parent::paintMethodStart($test);
         $this->currentTest_ = $test;
-        $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = true;
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = array();
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = true;
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'] = array();
     }
 
     /**
@@ -143,6 +145,7 @@ class ZMHtmlReporter extends HtmlReporter {
     public function paintException($exception) {
         ob_start(); parent::paintException($exception); $html = ob_get_clean();
         echo $html;
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
         //TODO: improve: var_dump($exception);
     }
 
@@ -157,8 +160,24 @@ class ZMHtmlReporter extends HtmlReporter {
      * {@inheritDoc}
      */
     public function paintFail($message) {
-        parent::paintFail($message);
-        $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = false;
+        ob_start(); parent::paintFail($message); $html = ob_get_clean();
+        //echo $html;
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function zmPaintFail($info) {
+        $cmp = $info['expectation']->overlayMessage($info['compare'], $this->getDumper());
+        $msg = sprintf('line %s: %s; %s', $info['line'], $cmp, $info['message']);
+        if (!array_key_exists($msg, $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'])) {
+            $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'][$msg] = $msg;
+        }
+        if (1 == count($this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'])) {
+            echo '<div class="fail">'.$this->currentCase_.'::'.$this->currentTest_.':</div>';
+        }
+        echo '<div class="msg">'.$msg.'</div>';
     }
 
 }

@@ -42,6 +42,24 @@ class ZMTestCase extends UnitTestCase {
         return parent::assertEqual($first, $second, $message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function assert($expectation, $compare, $message='%s') {
+        $result = parent::assert($expectation, $compare, $message);
+        if (!$result) {
+            $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
+            $details = array(
+                'line' => $location[3], 
+                'message' => trim(str_replace('%s', '', $message)),
+                'expectation' => $expectation,
+                'compare' => $compare
+            );
+            $this->_reporter->zmPaintFail($details);
+        }
+        return $result;
+    }
+
 }
 
 /**
