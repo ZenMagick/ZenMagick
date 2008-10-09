@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="<?php $plugin->pluginURL('js/jquery.treeview.css') ?>">
     <style type="text/css">
         h1 {width:100%;border-bottom:1px solid gray;}
-        .fail {background-color:inherit;color:red;}
-        .pass {background-color:inherit;color:green;}
+        .fail {background-color:inherit;color:red;font-weight:bold;}
+        .pass {background-color:inherit;color:green;font-weight:bold;}
          pre {background-color:lightgray;color:inherit;}
          label strong {color:black;font-weight:bold;}
          fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
@@ -55,10 +55,7 @@
                 <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = $all_results[$label]; ?>
                   <?php $selected = isset($all_selected_testCases[$label]); ?>
                   <li<?php echo (($selected && !$result['status']) ? ' class="open"' : '') ?>>
-                    <div class="">
-                      <?php if ($selected) { ?>
-                        <img src="<?php $plugin->pluginURL('images/'.($result['status'] ? 'tick.gif' : 'cross.gif')) ?>">
-                      <?php } ?>
+                    <div class="<?php if ($selected) { echo (($result['status']) ? "pass" : "fail"); } ?>">
                       <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
                            value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
                       <label for="<?php echo $idGroup.'-'.$label ?>"><?php echo $label ?></label>
@@ -67,10 +64,7 @@
                       <?php foreach ($tests as $test) { ?>
                           <?php $selected = isset($all_selected_tests[$label.'-'.$test]); ?>
                           <li>
-                            <span class="">
-                              <?php if ($selected) { ?>
-                                <img src="<?php $plugin->pluginURL('images/'.($result['tests'][$test] ? 'tick.gif' : 'cross.gif')) ?>">
-                              <?php } ?>
+                            <span class="<?php if ($selected) { echo (($result['tests'][$test]) ? "pass" : "fail"); } ?>">
                               <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'-'.$label.'-'.$test ?>"
                                    value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>> 
                               <label for="<?php echo $idGroup.'-'.$label.'-'.$test ?>"><?php echo $test ?></label>
