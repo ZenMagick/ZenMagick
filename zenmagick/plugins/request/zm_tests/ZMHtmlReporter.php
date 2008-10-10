@@ -129,6 +129,7 @@ class ZMHtmlReporter extends HtmlReporter {
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = array();
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = true;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'] = array();
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['exceptions'] = array();
     }
 
     /**
@@ -140,13 +141,39 @@ class ZMHtmlReporter extends HtmlReporter {
     }
 
     /**
+     * Display the test header if required.
+     */
+    protected function ensureTestHeader() {
+        $info = $this->results_[$this->currentCase_]['tests'][$this->currentTest_];
+        if (1 == (count($info['messages']) + count($info['exceptions']))) {
+            echo '<div class="fail">'.$this->currentCase_.'::'.$this->currentTest_.':</div>';
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function paintException($exception) {
         ob_start(); parent::paintException($exception); $html = ob_get_clean();
-        echo $html;
+        //echo $html;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
-        //TODO: improve: var_dump($exception);
+
+        $msg = $exception->getMessage();
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['exceptions'][$msg] = $msg;
+
+        $this->ensureTestHeader();
+
+        echo '<div class="exception"><div class="msg"><strong>Exception: '.$msg.'</strong></div>';
+        echo "<pre>";
+        $root = ZMTools::nomalizeFilename(ZMRuntime::getZMRootPath());
+        foreach ($exception->getTrace() as  $level) {
+            $file = ZMTools::nomalizeFilename($level['file']);
+            $file = str_replace($root, '', $file);
+            $class = array_key_exists('class', $level) ? $level['class'].'::' : '';
+            echo $class.$level['function'].' (#'.$level['line'].':'.$file.")\n";
+        }
+        echo "</pre>";
+        echo "</div>";
     }
 
     /**
@@ -166,17 +193,15 @@ class ZMHtmlReporter extends HtmlReporter {
     }
 
     /**
-     * {@inheritDoc}
+     * Custom method to gain access to the fail info.
      */
     public function zmPaintFail($info) {
         $cmp = $info['expectation']->overlayMessage($info['compare'], $this->getDumper());
         $msg = sprintf('line %s: %s; %s', $info['line'], $cmp, $info['message']);
-        if (!array_key_exists($msg, $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'])) {
-            $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'][$msg] = $msg;
-        }
-        if (1 == count($this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'])) {
-            echo '<div class="fail">'.$this->currentCase_.'::'.$this->currentTest_.':</div>';
-        }
+
+        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'][$msg] = $msg;
+
+        $this->ensureTestHeader();
         echo '<div class="msg">'.$msg.'</div>';
     }
 

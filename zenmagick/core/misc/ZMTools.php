@@ -501,6 +501,21 @@ class ZMTools {
         }
     }
 
+    /**
+     * Normalize filename.
+     *
+     * @param string filename The filename.
+     * @return string The normalized filename.
+     */
+    public static function nomalizeFilename($filename) {
+        if (strpos($filename, '\\')) {
+            $filename = preg_replace('/\\\\+/', '\\', $filename);
+            $filename = str_replace('\\', '/', $filename);
+        }
+
+        return $filename;
+    }
+
 }
 
 ?>

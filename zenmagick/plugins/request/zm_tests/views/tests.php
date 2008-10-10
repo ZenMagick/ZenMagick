@@ -9,7 +9,7 @@
         .fail {background-color:inherit;color:red;font-weight:bold;}
         .pass {background-color:inherit;color:green;font-weight:bold;}
         .msg {margin-left:1em;}
-         pre {background-color:lightgray;color:inherit;}
+         pre {background-color:#eaeaea;color:inherit;}
          label strong {color:black;font-weight:bold;}
          fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
          form p {clear:left;padding:7px;}

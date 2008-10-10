@@ -50,7 +50,7 @@ class ZMTestCase extends UnitTestCase {
         if (!$result) {
             $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
             $details = array(
-                'line' => $location[3], 
+                'line' => array_pop($location), 
                 'message' => trim(str_replace('%s', '', $message)),
                 'expectation' => $expectation,
                 'compare' => $compare
