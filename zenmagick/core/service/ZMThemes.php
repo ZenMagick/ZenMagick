@@ -239,7 +239,7 @@ class ZMThemes extends ZMObject {
         }
 
         // check for theme switching
-        if (ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
+        if (null != $themeInfo && ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
             return $this->resolveTheme(ZMRuntime::getThemeId());
         }
 
