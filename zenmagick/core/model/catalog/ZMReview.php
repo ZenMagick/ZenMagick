@@ -32,14 +32,11 @@
  * @version $Id$
  */
 class ZMReview extends ZMModel {
-    var $id_;
-    var $rating_;
-    var $productId_;
-    var $productName_;
-    var $productImage_;
-    var $text_;
-    var $dateAdded_;
-    var $author_;
+    private $rating_;
+    private $productId_;
+    private $text_;
+    private $dateAdded_;
+    private $author_;
 
 
     /**
@@ -47,14 +44,14 @@ class ZMReview extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
+        $this->setId(0);
         $this->rating_ = 0;
         $this->productId_ = 0;
-        $this->productName_ = '';
-        $this->productImage_ = null;
         $this->text_ = '';
         $this->dateAdded_ = '';
         $this->author_ = '';
+        $this->setStatus(true);
+        $this->setViewCount(0);
     }
 
     /**
@@ -82,63 +79,147 @@ class ZMReview extends ZMModel {
      *
      * @return int The review id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->get('reviewId'); }
 
     /**
      * Get the rating.
      *
      * @return int The review rating.
      */
-    function getRating() { return $this->rating_; }
+    public function getRating() { return $this->rating_; }
+
+    /**
+     * Get the view counter.
+     *
+     * @return int The view counter.
+     */
+    public function getViewCount() { return $this->get('viewCount'); }
 
     /**
      * Get the review product id.
      *
      * @return int The review product id.
      */
-    function getProductId() { return $this->productId_; }
+    public function getProductId() { return $this->productId_; }
+
+    /**
+     * Check if this review is active.
+     *
+     * @return boolean <code>true</code> if the review is active.
+     */
+    public function isActive() { return $this->get('status'); }
 
     /**
      * Get the review product name.
      *
-     * @return int The review product name.
+     * @return string The review product name.
      */
-    function getProductName() { return $this->productName_; }
+    public function getProductName() { return $this->get('name'); }
 
     /**
      * Get the review product image.
      *
      * @return string The review product image.
      */
-    function getProductImage() { return $this->productImage_; }
+    public function getProductImage() { return $this->get('image'); }
 
     /**
      * Get the review product image info.
      *
      * @return ZMProductInfo The product image info.
      */
-    function getProductImageInfo() { return ZMLoader::make("ImageInfo", $this->productImage_, $this->productname_); }
+    public function getProductImageInfo() { return ZMLoader::make("ImageInfo", $this->productImage_, $this->productname_); }
 
     /**
      * Get the review text.
      *
      * @return string The review text.
      */
-    function getText() { return $this->text_; }
+    public function getText() { return $this->text_; }
 
     /**
      * Get the date the review was added.
      *
      * @return string The added date.
      */
-    function getDateAdded() { return $this->dateAdded_; }
+    public function getDateAdded() { return $this->dateAdded_; }
 
     /**
      * Get the review author.
      *
      * @return string The name of the author.
      */
-    function getAuthor() { return $this->author_; }
+    public function getAuthor() { return $this->author_; }
+
+    /**
+     * Set the review id.
+     *
+     * @param int id The review id.
+     */
+    public function setId($id) { $this->set('reviewId', $id); }
+
+    /**
+     * Set the rating.
+     *
+     * @param int rating The review rating.
+     */
+    public function setRating($rating) { $this->rating_ = $rating; }
+
+    /**
+     * Set the view counter.
+     *
+     * @param int viewCount The view counter.
+     */
+    public function setViewCount($viewCount) { $this->set('viewCount', $viewCount); }
+
+    /**
+     * Set the review product id.
+     *
+     * @param int productId The review product id.
+     */
+    public function setProductId($productId) { $this->productId_ = $productId; }
+
+    /**
+     * Set the reviews active state.
+     *
+     * @param boolean value <code>true</code> if the review is active.
+     */
+    public function setActive($value) { $this->get('status', $value); }
+
+    /**
+     * Set the review product name.
+     *
+     * @param string name The review product name.
+     */
+    public function setProductName($name) { $this->set('name', $name); }
+
+    /**
+     * Set the review product image.
+     *
+     * @param string image The review product image.
+     */
+    public function setProductImage($image) { $this->set('image', $image); }
+
+    /**
+     * Set the review text.
+     *
+     * @param string text The review text.
+     */
+    public function setText($text) { $this->text_ = $text; }
+
+    /**
+     * Set the date the review was added.
+     *
+     * @param string date The added date.
+     */
+    public function setDateAdded($date) { $this->dateAdded_ = $date; }
+
+    /**
+     * Set the review author.
+     *
+     * @param string author The name of the author.
+     */
+    public function setAuthor($author) { $this->author_ = $author; }
 
 }
 

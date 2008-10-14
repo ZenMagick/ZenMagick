@@ -62,24 +62,21 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return int The number of published reviews for the product.
      */
-    function getReviewCount($productId, $languageId=null) {
+    public function getReviewCount($productId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select count(*) as count
-                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
-                where r.products_id = :productId
-                  and r.reviews_id = rd.reviews_id
-                  and rd.languages_id = :languageId
-                  and r.status = '1'";
-        $query = $db->bindVars($query, ":productId", $productId, 'integer');
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-
-        $results = $db->Execute($query);
-        return $results->fields['count'];
+        $sql = "SELECT COUNT(*) AS count
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+                WHERE r.products_id = :productId
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND r.status = 1";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZM_DB_MODEL_RAW);
+        return null != $result ? $result['count'] : 0;
     }
 
     /**
@@ -98,42 +95,46 @@ class ZMReviews extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
-                rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
-                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+        $sql = "SELECT r.reviews_id
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                where p.products_status = '1'
-                and p.products_id = r.products_id
-                and r.reviews_id = rd.reviews_id
-                and rd.languages_id = :languageId
-                and p.products_id = pd.products_id
-                and pd.language_id = :languageId
-                and r.status = '1'";
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-
+                WHERE p.products_status = 1
+                  AND p.products_id = r.products_id
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND p.products_id = pd.products_id
+                  AND pd.language_id = :languageId
+                  AND r.status = 1";
         if (null != $productId) {
-            $query .= $db->bindVars(" and p.products_id = :productId", ":productId", $productId, 'integer');
+            $sql .= " AND p.products_id = :productId";
         }
-        $query .= " order by date_added DESC";
-
-        $reviews = array();
-        while ($max > count($reviews)) {
-            $lastCount = count($reviews);
-            $results = $db->ExecuteRandomMulti($query, $max);
-            while (!$results->EOF) {
-                $review = $this->_newReview($results->fields);
-                array_push($reviews, $review);
-                $results->MoveNext();
-                if ($max == count($reviews))
-                    break;
-            }
-            if (count($reviews) == $lastCount) {
-                break;
-            }
+        $sql .= " ORDER BY date_added DESC";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        $reviewIds = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
+            $reviewIds[] = $result['reviewId'];
         }
 
-        return $reviews;
+        shuffle($reviewIds);
+
+        if (0 < $max && count($productIds) > $max) {
+            $reviewIds = array_slice($reviewIds, 0, $max);
+        }
+
+        $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                WHERE p.products_status = 1
+                  AND p.products_id = r.products_id
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND p.products_id = pd.products_id
+                  AND pd.language_id = :languageId
+                  AND r.status = 1
+                  AND r.reviews_id in (:reviewId)
+                ORDER BY date_added DESC";
+        $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -143,25 +144,21 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return float The average rating or <code>null</code> if no ratnig exists.
      */
-    function getAverageRatingForProductId($productId, $languageId=null) {
+    public function getAverageRatingForProductId($productId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
-        $query = "select avg(reviews_rating) as average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
-                  where r.products_id = :productId
-                  and r.reviews_id = rd.reviews_id
-                  and rd.languages_id = :languageId
-                  and r.status = '1'";
-        $query = $db->bindVars($query, ":productId", $productId, 'integer');
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-
-        $results = $db->Execute($query);
-
-        return $results->EOF ? null : $results->fields['average_rating'];
+        $sql = "SELECT AVG(reviews_rating) AS average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+                WHERE r.products_id = :productId
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND r.status = 1";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZM_DB_MODEL_RAW);
+        return null != $result ? $result['average_rating'] : 0;
     }
 
     /**
@@ -171,37 +168,26 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getReviewsForProductId($productId, $languageId=null) {
+    public function getReviewsForProductId($productId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
-                rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
-                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+        $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                where p.products_status = '1'
-                and p.products_id = r.products_id
-                and r.reviews_id = rd.reviews_id
-                and rd.languages_id = :languageId
-                and p.products_id = pd.products_id
-                and pd.language_id = :languageId
-                and r.status = '1'
-                and p.products_id = :productId
-                order by date_added DESC";
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-        $query = $db->bindVars($query, ":productId", $productId, 'integer');
-
-        $reviews = array();
-        $results = $db->Execute($query);
-        while (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
-            array_push($reviews, $review);
-            $results->MoveNext();
-        }
-        return $reviews;
+                WHERE p.products_status = 1
+                  AND p.products_id = r.products_id
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND p.products_id = pd.products_id
+                  AND pd.language_id = :languageId
+                  AND r.status = 1
+                  AND p.products_id = :productId
+                ORDER BY date_added DESC";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -210,35 +196,25 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getAllReviews($languageId=null) {
+    public function getAllReviews($languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
-                rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
-                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+        $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                where p.products_status = '1'
-                and p.products_id = r.products_id
-                and r.reviews_id = rd.reviews_id
-                and rd.languages_id = :languageId
-                and p.products_id = pd.products_id
-                and pd.language_id = :languageId
-                and r.status = '1'
-                order by date_added DESC";
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-
-        $reviews = array();
-        $results = $db->Execute($query);
-        while (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
-            array_push($reviews, $review);
-            $results->MoveNext();
-        }
-        return $reviews;
+                WHERE p.products_status = 1
+                  AND p.products_id = r.products_id
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND p.products_id = pd.products_id
+                  AND pd.language_id = :languageId
+                  AND r.status = 1
+                ORDER BY date_added DESC";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -248,34 +224,25 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
-    function getReviewForId($reviewId, $languageId=null) {
+    public function getReviewForId($reviewId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $query = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name,
-                rd.reviews_text, r.date_added, r.customers_name, r.reviews_read
-                from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
+        $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
+                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-                where p.products_status = '1'
-                and p.products_id = r.products_id
-                and r.reviews_id = rd.reviews_id
-                and rd.languages_id = :languageId
-                and p.products_id = pd.products_id
-                and pd.language_id = :languageId
-                and r.status = '1'
-                and r.reviews_id = :reviewId";
-        $query = $db->bindVars($query, ":languageId", $languageId, 'integer');
-        $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
-
-        $results = $db->Execute($query);
-        $review = null;
-        if (!$results->EOF) {
-            $review = $this->_newReview($results->fields);
-        }
-        return $review;
+                WHERE p.products_status = 1
+                  AND p.products_id = r.products_id
+                  AND r.reviews_id = rd.reviews_id
+                  AND rd.languages_id = :languageId
+                  AND p.products_id = pd.products_id
+                  AND pd.language_id = :languageId
+                  AND r.status = 1
+                  AND r.reviews_id = :reviewId";
+        $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -283,14 +250,11 @@ class ZMReviews extends ZMObject {
      *
      * @param int reviewId The id of the review.
      */
-    function updateViewCount($reviewId) {
-        $db = ZMRuntime::getDB();
-        $query = "update " . TABLE_REVIEWS . "
-                  set reviews_read = reviews_read+1
-                  where reviews_id = :reviewId";
-        $query = $db->bindVars($query, ":reviewId", $reviewId, 'integer');
-
-        $result = $db->Execute($query);
+    public function updateViewCount($reviewId) {
+        $sql = "UPDATE " . TABLE_REVIEWS . "
+                SET reviews_read = reviews_read+1
+                WHERE reviews_id = :reviewId";
+        ZMRuntime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
     }
 
     /**
@@ -301,48 +265,20 @@ class ZMReviews extends ZMObject {
      * @param int languageId The language for this review; default is <code>null</code>.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    function createReview($review, $account, $languageId=null) {
+    public function createReview($review, $account, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "INSERT INTO " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added, status)
-                VALUES (:productsId, :customersId, :customersName, :rating, now(), :status)";
-        $sql = $db->bindVars($sql, ':productsId', $review->getProductId(), 'integer');
-        $sql = $db->bindVars($sql, ':customersId', $account->getId(), 'integer');
-        $sql = $db->bindVars($sql, ':customersName', $account->getFullName(), 'string');
-        $sql = $db->bindVars($sql, ':rating', $review->getRating(), 'string');
-        $status = ZMSettings::get('isApproveReviews') ? '0' : '1';
-        $sql = $db->bindVars($sql, ':status', $status, 'integer');
-        $db->Execute($sql);
+        $review->setAuthor($account->getFullName());
+        $review->setAccountId($account->getId());
+        $review->setLastModified(date(ZM_DB_DATETIME_FORMAT));
+        $review->setDateAdded(date(ZM_DB_DATETIME_FORMAT));
+        $review->setActive(ZMSettings::get('isApproveReviews') ? false : true);
 
-        $review->id_ = $db->Insert_ID();
-
-        $sql = "INSERT INTO " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text)
-                VALUES (:insertId, :languagesId, :reviewText)";
-        $sql = $db->bindVars($sql, ':insertId', $review->getId(), 'integer');
-        $sql = $db->bindVars($sql, ':languagesId', $languageId, 'integer');
-        $sql = $db->bindVars($sql, ':reviewText', $review->getText(), 'string');
-        $db->Execute($sql);
-
-        return $review;
-    }
-
-    /**
-     * Create new review.
-     */
-    function _newReview($fields) {
-        $review = ZMLoader::make("Review");
-        $review->id_ = $fields['reviews_id'];
-        $review->rating_ = $fields['reviews_rating'];
-        $review->text_ = $fields['reviews_text'];
-        $review->dateAdded_ = $fields['date_added'];
-        $review->productId_ = $fields['products_id'];
-        $review->productName_ = $fields['products_name'];
-        $review->productImage_ = $fields['products_image'];
-        $review->author_ = $fields['customers_name'];
+        $review = ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);
+        ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);
         return $review;
     }
 

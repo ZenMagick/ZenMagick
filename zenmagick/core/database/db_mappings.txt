@@ -592,4 +592,20 @@ array(
         'dateLastModified' => 'column=sale_date_last_modified;type=date',
         'dateStatusChange' => 'column=sale_date_status_change;type=date',
     ),
+    'reviews' => array(
+        'reviewId' => 'column=reviews_id;type=integer;key=true;auto=true',
+        'productId' => 'column=products_id;type=integer',
+        'accountId' => 'column=customers_id;type=integer',
+        'author' => 'column=customers_name;type=string',
+        'rating' => 'column=reviews_rating;type=integer',
+        'dateAdded' => 'column=date_added;type=datetime',
+        'lastModified' => 'column=last_modified;type=datetime',
+        'viewCount' => 'column=reviews_read;type=integer',
+        'active' => 'column=status;type=boolean',
+    ),
+    'reviews_description' => array(
+        'reviewId' => 'column=reviews_id;type=integer;key=true',
+        'languageId' => 'column=languages_id;type=integer;key=true',
+        'text' => 'column=reviews_text;type=string',
+    ),
 );

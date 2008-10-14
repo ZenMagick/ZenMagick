@@ -129,13 +129,12 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
 
         $sql = 'INSERT INTO '.$table.' SET';
-
         $firstSet = true;
         $properties = array_flip($model->getPropertyNames());
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
             if (!$field['custom'] || isset($properties[$field['property']])) {
-                if (!$field['key']) {
+                if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
                     }

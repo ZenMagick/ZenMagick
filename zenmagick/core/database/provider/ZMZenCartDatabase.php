@@ -140,7 +140,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
             if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
-                if (!$field['key']) {
+                if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
                     }
