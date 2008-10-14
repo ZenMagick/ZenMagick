@@ -108,7 +108,6 @@ class ZMTaxRates extends ZMObject {
             }
         }
 
-        $db = ZMRuntime::getDB();
         $sql = "SELECT SUM(tax_rate) AS tax_rate
                 FROM (" . TABLE_TAX_RATES . " tr
                 LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
