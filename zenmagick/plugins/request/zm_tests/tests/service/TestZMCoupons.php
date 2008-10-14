@@ -79,10 +79,14 @@ class TestZMCoupons extends ZMTestCase {
      */
     public function testRestrictions() {
         $coupon = ZMCoupons::instance()->getCouponForId(9);
-        $restrictions = $coupon->getRestrictions();
-        $this->assertNotNull($restrictions);
-        $direct = ZMCoupons::instance()->getRestrictionsForCouponId(9);
-        $this->assertNotNull($direct);
+        if (null != $coupon) {
+            $restrictions = $coupon->getRestrictions();
+            $this->assertNotNull($restrictions);
+            $direct = ZMCoupons::instance()->getRestrictionsForCouponId(9);
+            $this->assertNotNull($direct);
+        } else {
+            $this->fail('test coupon not found');
+        }
     }
 
     /**

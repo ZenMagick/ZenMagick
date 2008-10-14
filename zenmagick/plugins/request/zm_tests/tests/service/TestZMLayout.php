@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMlayout extends ZMTestCase {
+class TestZMLayout extends ZMTestCase {
 
     /**
      * Test field length.
