@@ -27,6 +27,8 @@
 /**
  * Tax rates.
  *
+ * <p>Rate values will have a precision that is 2 digits more than <em>ZMSettings::get('calculationDecimals')</em>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
@@ -64,12 +66,12 @@ class ZMTaxRates extends ZMObject {
      * <p>If neither <code>countryId</code> nor <code>zoneId</code> are specified, the customers default address
      * details will be used, or, if not available, the store defaults.</p>
      *
-     * @param int classId The tax class id.
+     * @param int taxClassId The tax class id.
      * @param int countryId Optional country id; default is <em>0</em>.
      * @param int zoneId Optional zoneId; default is <em>0</em>.
      * @return ZMTaxRate The tax rate.
      */
-    function getTaxRateForClassId($classId, $countryId=0, $zoneId=0) {
+    public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0) {
         if (0 == $countryId && 0 == $zoneId) {
             $account = ZMRequest::getAccount();
             if (null != $account && ZM_ACCOUNT_TYPE_REGISTERED == $account->getType()) {
@@ -87,7 +89,7 @@ class ZMTaxRates extends ZMObject {
             }
         }
 
-        $taxRateId = $classId.'_'.$countryId.'_'.$zoneId;
+        $taxRateId = $taxClassId.'_'.$countryId.'_'.$zoneId;
         if (isset($this->taxRates_[$taxRateId])) {
             // cache hit
             return $this->taxRates_[$taxRateId];
@@ -97,7 +99,7 @@ class ZMTaxRates extends ZMObject {
             if (ZMSettings::get('storeZone') != $zoneId) {
                 $taxRate = ZMLoader::make("TaxRate");
                 $taxRate->setId($taxRateId);
-                $taxRate->setClassId($classId);
+                $taxRate->setClassId($taxClassId);
                 $taxRate->setCountryId($countryId);
                 $taxRate->setZoneId($zoneId);
                 $taxRate->setRate(0);
@@ -107,33 +109,26 @@ class ZMTaxRates extends ZMObject {
         }
 
         $db = ZMRuntime::getDB();
-        $sql = "select sum(tax_rate) as tax_rate
-                from (" . TABLE_TAX_RATES . " tr
-                left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id)
-                left join " . TABLE_GEO_ZONES . " tz on (tz.geo_zone_id = tr.tax_zone_id))
-                where (za.zone_country_id is null
-                  or za.zone_country_id = 0
-                  or za.zone_country_id = :countryId)
-                and (za.zone_id is null
-                  or za.zone_id = 0
-                  or za.zone_id = :zoneId)
-                and tr.tax_class_id = :classId
-                group by tr.tax_priority";
-        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
-        $sql = $db->bindVars($sql, ":zoneId", $zoneId, "integer");
-        $sql = $db->bindVars($sql, ":classId", $classId, "integer");
-        $results = $db->Execute($sql);
+        $sql = "SELECT SUM(tax_rate) AS tax_rate
+                FROM (" . TABLE_TAX_RATES . " tr
+                LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
+                LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id))
+                WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
+                  AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
+                  AND tr.tax_class_id = :taxClassId
+                GROUP BY tr.tax_priority";
+        $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
+        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
 
-        if ($results->RecordCount() > 0) {
+        if (0 < count($results)) {
             $multiplier = 1.0;
-            while (!$results->EOF) {
-                $multiplier *= 1.0 + ($results->fields['tax_rate'] / 100);
-                $results->MoveNext();
+            foreach ($results as $result) {
+                $multiplier *= 1.0 + ($result['rate'] / 100);
             }
 
             $taxRate = ZMLoader::make("TaxRate");
             $taxRate->setId($taxRateId);
-            $taxRate->setClassId($classId);
+            $taxRate->setClassId($taxClassId);
             $taxRate->setCountryId($countryId);
             $taxRate->setZoneId($zoneId);
             $taxRate->setRate(($multiplier - 1.0) * 100);
@@ -143,7 +138,7 @@ class ZMTaxRates extends ZMObject {
 
         $taxRate = ZMLoader::make("TaxRate");
         $taxRate->setId($taxRateId);
-        $taxRate->setClassId($classId);
+        $taxRate->setClassId($taxClassId);
         $taxRate->setCountryId($countryId);
         $taxRate->setZoneId($zoneId);
         $taxRate->setRate(0);
@@ -154,43 +149,27 @@ class ZMTaxRates extends ZMObject {
     /**
      * Get the tax description for the give tax details.
      *
-     * @param int classId The tax class id.
+     * @param int taxClassId The tax class id.
      * @param int countryId The country id.
      * @param int zoneId The zoneId.
      * @return string The decription or <code>null</code>.
      */
-    function getTaxDescription($classId, $countryId, $zoneId) {
-        $db = ZMRuntime::getDB();
-        $sql = "select tax_description
-                from (" . TABLE_TAX_RATES . " tr
-                left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id)
-                left join " . TABLE_GEO_ZONES . " tz on (tz.geo_zone_id = tr.tax_zone_id) )
-                where (za.zone_country_id is null
-                  or za.zone_country_id = 0
-                  or za.zone_country_id = :countryId)
-                and (za.zone_id is null
-                  or za.zone_id = 0
-                  or za.zone_id = :zoneId)
-                and tr.tax_class_id = :classId
-                order by tr.tax_priority";
-        $sql = $db->bindVars($sql, ":countryId", $countryId, "integer");
-        $sql = $db->bindVars($sql, ":zoneId", $zoneId, "integer");
-        $sql = $db->bindVars($sql, ":classId", $classId, "integer");
-
-        $results = $db->Execute($sql);
-        if ($tax->RecordCount() > 0) {
-            $description = '';
-            $first = true;
-            while (!$results->EOF) {
-                if (!$first) { $description .= _zm_l10n_lookup('tax.delim', ' + '); }
-                $description .= $tax->fields['tax_description'];
-                $results->MoveNext();
-                $first = false;
-            }
-            return $description;
+    public function getTaxDescription($taxClassId, $countryId, $zoneId) {
+        $sql = "SELECT tax_description
+                FROM (" . TABLE_TAX_RATES . " tr
+                LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
+                LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
+                WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
+                  AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
+                  AND tr.tax_class_id = :taxClassId
+                ORDER BY tr.tax_priority";
+        $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
+        $description = null;
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
+            if (null !== $description) { $description .= _zm_l10n_lookup('tax.delim', ' + '); }
+            $description .= $result['description'];
         }
-
-        return null;
+        return $description;
     }
 
     /**
@@ -199,20 +178,21 @@ class ZMTaxRates extends ZMObject {
      * @param string description The tax description.
      * @return float The tax rate.
      */
-    function getTaxRateForDescription($description) {
+    public function getTaxRateForDescription($description) {
         $rate = 0.00;
         $descriptions = explode(_zm_l10n_lookup('tax.delim', ' + '), $description);
-
-        $db = ZMRuntime::getDB();
-        foreach ($descriptions as $desc) {
-            $sql = "SELECT tax_rate FROM " . TABLE_TAX_RATES . "
-                    WHERE tax_description = :desc";
-            $sql = $db->bindVars($sql, ':desc', $desc, 'string'); 
-            $results = $db->Execute($sql);
-            $rate += $tax->fields['tax_rate'];
+        foreach ($descriptions as $description) {
+            $sql = "SELECT tax_rate 
+                    FROM " . TABLE_TAX_RATES . "
+                    WHERE tax_description = :description";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), TABLE_TAX_RATES);
+            if (null != $result) {
+                $rate += $result['rate'];
+            }
         }
 
-        return $rate;
+        // round 2 better as calculations use
+        return round($rate, ZMSettings::get('calculationDecimals') + 2);
     }
 
 }

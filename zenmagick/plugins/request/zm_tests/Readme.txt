@@ -12,3 +12,11 @@ The code is based on version 1.0.1 with a single patch to pass $method into the 
 jquery treeview
 ===============
 The included treeview plugin has some custom CSS rules to allow for the checkobxes in the tree to work as expected.
+
+
+Test data
+=========
+The included tests require the demo store data (tested with zen-cart 1.3.8).
+In addition to that, the following configuration changes need to be done:
+
+* In table reviews, change the customers_id of the single review from 0 to 1

@@ -103,7 +103,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testCouponTracker() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
-        $account = ZMAccounts::instance()->getAccountForId(377);
+        $account = ZMAccounts::instance()->getAccountForId(1);
         $gvReceiver = ZMLoader::make('GVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
@@ -123,7 +123,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testFinalizeCoupon() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
-        ZMCoupons::instance()->finalizeCoupon($coupon->getId(), 377, '127.0.0.1');
+        ZMCoupons::instance()->finalizeCoupon($coupon->getId(), 1, '127.0.0.1');
 
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "

@@ -108,7 +108,7 @@ class ZMTaxRate extends ZMModel {
      *
      * @param float rate The tax rate.
      */
-    function setRate($rate) { $this->rate_ = $rate; }
+    function setRate($rate) { $this->rate_ = round($rate, ZMSettings::get('calculationDecimals') + 2); }
 
     /**
      * Get the tax class id.
