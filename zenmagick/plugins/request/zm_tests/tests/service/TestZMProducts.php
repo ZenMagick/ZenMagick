@@ -10,15 +10,6 @@
 class TestZMProducts extends ZMTestCase {
 
     /**
-     * Set up.
-     */
-    public function setUp() {
-        ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
-        //ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
-    }
-
-
-    /**
      * Test create product.
      */
     public function testCreateProduct() {

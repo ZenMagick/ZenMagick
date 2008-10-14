@@ -46,14 +46,6 @@ class TestZMAccounts extends ZMTestCase {
     }
 
     /**
-     * Set up.
-     */
-    public function setUp() {
-        ZMSettings::set('dbProvider', 'ZMCreoleDatabase');
-        //ZMSettings::set('dbProvider', 'ZMZenCartDatabase');
-    }
-
-    /**
      * Clean up.
      */
     public function tearDown() {
