@@ -20,3 +20,10 @@ The included tests require the demo store data (tested with zen-cart 1.3.8).
 In addition to that, the following configuration changes need to be done:
 
 * In table reviews, change the customers_id of the single review from 0 to 1
+
+
+Disclamer
+=========
+EVEN THOUGH IT IS THE INTENTION TO REMOVE ALL CREATED TEST DATA, THERE IS NO GUARANTEE THAT THIS PLUGIN
+WILL NOT CREATE DATA OR MODIFY EXISTING DATA. 
+THIS PLUGIN IS FOR TESTING AND DEVELOPMENT ONLY AND SHOULD NOT BE USED ON PRODUCTION SYSTEMS.
