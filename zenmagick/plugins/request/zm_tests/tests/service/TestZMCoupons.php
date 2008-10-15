@@ -108,7 +108,6 @@ class TestZMCoupons extends ZMTestCase {
         ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 39);
         $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId(1);
         $this->assertEqual(39, $balance);
-        ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 141);
     }
 
     /**
