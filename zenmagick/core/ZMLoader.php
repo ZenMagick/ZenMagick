@@ -318,10 +318,11 @@ class ZMLoader {
      *
      * @package org.zenmagick
      * @param string dir The name of the root directory to scan.
+     * @param string ext Optional file suffix/extension; default is <em>.php</em>.
      * @param boolean recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
-    public static function findIncludes($dir, $recursive=false) {
+    public static function findIncludes($dir, $ext='.php', $recursive=false) {
         $includes = array();
         if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
             return $includes;
@@ -338,7 +339,7 @@ class ZMLoader {
             $file = $dir.$file;
             if (is_dir($file)) {
                 $dirs[] = $file;
-            } else if ('.php' == substr($file, -4)) {
+            } else if ($ext == substr($file, -strlen($ext))) {
                 $includes[] = $file;
             }
         }
@@ -347,7 +348,7 @@ class ZMLoader {
         // process folders last
         if ($recursive) {
             foreach ($dirs as $dir) {
-                $includes = array_merge($includes, ZMLoader::findIncludes($dir."/", $recursive));
+                $includes = array_merge($includes, ZMLoader::findIncludes($dir."/", $ext, $recursive));
             }
         }
 
@@ -363,7 +364,7 @@ class ZMLoader {
      * @return array A file map for the given path.
      */
     protected function scan($path, $recursive=true) {
-        $files = ZMLoader::findIncludes($path, $recursive);
+        $files = ZMLoader::findIncludes($path, '.php', $recursive);
         $map = array();
         foreach ($files as $file) {
             $name = str_replace('.php', '', basename($file));

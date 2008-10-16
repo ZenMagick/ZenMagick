@@ -282,7 +282,7 @@ class ZMPhpCompressor {
         if (!ZMTools::endsWith($in, '/')) $in .= '/';
         if (!ZMTools::endsWith($out, '/')) $out .= '/';
 
-        $files = ZMLoader::findIncludes($in, $recursive);
+        $files = ZMLoader::findIncludes($in, '.php', $recursive);
 
         foreach ($files as $name => $infile) {
             $name = basename($infile);
@@ -318,7 +318,7 @@ class ZMPhpCompressor {
      */
     protected function flattenDirStructure($in, $out) {
         //echo "** flatten " . $in . " into " . $out . "\n";
-        $files = ZMLoader::findIncludes($in.'/', true);
+        $files = ZMLoader::findIncludes($in.'/', '.php', true);
 
         if (!file_exists($out)) {
             ZMTools::mkdir($out, 755);
@@ -394,7 +394,7 @@ class ZMPhpCompressor {
      */
     protected function compressToSingleFile($in, $outfile) {
         //echo "** compress " . $in . " into " . $outfile . "\n";
-        $files = ZMLoader::findIncludes($in.'/', true);
+        $files = ZMLoader::findIncludes($in.'/', '.php', true);
 
         $tmp = array();
         // mess around with results ...

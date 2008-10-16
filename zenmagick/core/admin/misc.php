@@ -105,7 +105,7 @@
             }
         }
 
-        $includes = ZMLoader::findIncludes($root.'/', true);
+        $includes = ZMLoader::findIncludes($root.'/', '.php', true);
         foreach ($includes as $include) {
             $strings = array();
             $contents = file_get_contents($include);

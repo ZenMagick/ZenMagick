@@ -204,7 +204,7 @@ class ZMPhpPackagePacker {
         $fileMap = array();
         $dependsOn = array();
         $classInfo = array();
-        $files = ZMLoader::findIncludes($this->rootFolder, true);
+        $files = ZMLoader::findIncludes($this->rootFolder, '.php', true);
         foreach ($files as $file) {
             if ($this->ignoreFile($file)) {
                 continue;
