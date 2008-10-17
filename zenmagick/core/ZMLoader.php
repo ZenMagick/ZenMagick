@@ -110,6 +110,16 @@ class ZMLoader {
     }
 
     /**
+     * Manually register a class.
+     *
+     * @param string clazz The class name.
+     * @param string filename The filename.
+     */
+    public function registerClass($clazz, $filename) {
+        $this->path_[$clazz] = $filename;
+    }
+
+    /**
      * Set the parent loader.
      */
     public function setParent($parent) {
@@ -203,7 +213,7 @@ class ZMLoader {
     /**
      * Resolve and load the class code for the given class name.
      *
-     * @param string name The class name without the <em>ZM</em> prefix.
+     * @param string name The class name (without the <em>ZM</em> prefix).
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
