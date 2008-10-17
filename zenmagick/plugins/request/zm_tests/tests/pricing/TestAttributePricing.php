@@ -25,7 +25,7 @@ class TestAttributePricing extends ZMTestCase {
     /**
      * Test attribute price.
      */
-    public function testAttributeValuePrice() {
+    public function testValuePrice() {
         //$ids = array(173, 36, 100, 74, 61, 175, 178); foreach ($ids as $pid) {
         //$ids = array(155, 156, 157, 159); foreach ($ids as $pid) {
         //$ids = array(159); foreach ($ids as $pid) {
@@ -48,7 +48,7 @@ class TestAttributePricing extends ZMTestCase {
     /**
      * Test one time price.
      */
-    public function testAttributeValueOneTimePrice() {
+    public function testValueOneTimePrice() {
         //$ids = array(173, 36, 100, 74, 61, 175, 178); foreach ($ids as $pid) {
         //$ids = array(2); foreach ($ids as $pid) {
         foreach ($this->zen_cart_product_price_info as $pid => $info) {

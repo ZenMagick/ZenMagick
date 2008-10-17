@@ -72,7 +72,7 @@ class TestSubscriptions extends ZMTestCase {
     /**
      * Test getScheduledOrderIdsForSubscriptionOrderId
      */
-    public function testGetScheduledOrderIdsForSubscriptionOrderId() {
+    public function testScheduledOrdersIds() {
         $orderIds = $this->getPlugin()->getScheduledOrderIdsForSubscriptionOrderId(1);
         $this->assertTrue(is_array($orderIds));
         $this->assertTrue(0 < count($orderIds));

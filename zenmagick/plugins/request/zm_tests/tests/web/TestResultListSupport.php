@@ -37,7 +37,7 @@ class TestResultListSupport extends ZMTestCase {
     /**
      * Test search source with result list.
      */
-    public function testSearchSourceWithResultList() {
+    public function testSourceWithList() {
         $criteria = ZMLoader::make('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
@@ -64,7 +64,7 @@ class TestResultListSupport extends ZMTestCase {
     /**
      * Test search source with result list and sorter.
      */
-    public function testSearchSourceWithResultListAndSorter() {
+    public function testSourceWithListAndSorter() {
         $criteria = ZMLoader::make('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
