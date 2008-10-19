@@ -115,6 +115,10 @@ class ZMReviews extends ZMObject {
             $reviewIds[] = $result['reviewId'];
         }
 
+        if (0 == count($reviewUds)) {
+            return array();
+        }
+
         shuffle($reviewIds);
 
         if (0 < $max && count($productIds) > $max) {
