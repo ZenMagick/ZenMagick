@@ -54,6 +54,22 @@ class zm_crossell extends ZMPlugin {
         parent::__destruct();
     }
 
+    /**
+     * Init this plugin.
+     */
+    function init() {
+        parent::init();
+
+        ZMDbTableMapper::instance()->setMappingForTable('products_xsell', 
+            array(
+                'xSellId' => 'column=ID;type=integer;key=true;auto=true',
+                'productId' => 'column=products_id;type=integer',
+                'xsProductId' => 'column=xsell_id;type=integer',
+                'sortOrder' => 'column=sort_order;type=integer',
+              )
+        );
+    }
+
 
     /**
      * Get x-sell products for the given productId.
@@ -68,23 +84,18 @@ class zm_crossell extends ZMPlugin {
      * @param boolean ignoreMinLimit If set to true, the minimum limit will be ignored; default is false
      * @return array List of <code>ZMProduct</code> objects.
      */
-    function getXSellForProductId($productId, $ignoreMinLimit=false) {
+    public function getXSellForProductId($productId, $ignoreMinLimit=false) {
+        $productIds = array();
         if (!$this->isEnabled()) {
-            return array();
+            return $productIds;
         }
 
-        $db = ZMRuntime::getDB();
-        $sql = "select distinct xp.xsell_id from " . TABLE_PRODUCTS_XSELL . " xp
-                where xp.products_id = :productId
-                order by xp.sort_order asc limit :limit";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":limit", MAX_DISPLAY_XSELL, "integer");
+        $sql = "SELECT DISTINCT xp.xsell_id from " . TABLE_PRODUCTS_XSELL . " xp
+                WHERE xp.products_id = :productId
+                ORDER BY xp.sort_order ASC limit ".(int)MAX_DISPLAY_XSELL;
 
-        $productIds = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            array_push($productIds, $results->fields['xsell_id']);
-            $results->MoveNext();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('productId' => $productId), TABLE_PRODUCTS_XSELL, ZM_DB_MODEL_RAW) as $result) {
+            $productIds[] = $result['xsell_id'];
         }
 
         if (!$ignoreMinLimit && count(productIds) < MIN_DISPLAY_XSELL) {
