@@ -25,6 +25,7 @@
             <th>Order</th>
             <th>Frequency</th>
             <th>Next Order</th>
+            <th>Earliest Cancel Date</th>
             <th>Status</th>
             <th>Options</th>
         </tr>
@@ -36,6 +37,7 @@
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()] ?></td>
                 <td><?php $locale->shortDate($order->getNextOrder()) ?></td>
+                <td><?php $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?></td>
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>
@@ -43,6 +45,8 @@
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">
                         </form>
+                    <?php } else { ?>
+                        &nbsp;
                     <?php } ?>
                 </td>
             </tr>

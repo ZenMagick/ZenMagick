@@ -60,9 +60,9 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $canceled = ZMTools::asBoolean(ZMRequest::getParameter('canceled', false));
         // get all subscription orders
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
-                WHERE  is_subscription = :subscription AND is_subscription_canceled = :subscriptionCanceled
+                WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true, 'subscriptionCanceled' => $canceled), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
@@ -86,7 +86,15 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
      */
     public function processPost() {
         $page = self::processGet();
-        var_dump(ZMRequest::getParameterMap());
+        $orderId = ZMRequest::getOrderId();
+        $cancel = ZMRequest::getParameter('cancel');
+        if (0 != $orderId && 'cancel' == $cancel) {
+            $sql = "UPDATE " . TABLE_ORDERS . "
+                    SET is_subscription_canceled = :subscriptionCanceled
+                    WHERE orders_id = :orderId";
+            ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
+            ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
+        }
 
         return $page;
     }

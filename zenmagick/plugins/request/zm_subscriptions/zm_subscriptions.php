@@ -168,6 +168,15 @@ class zm_subscriptions extends ZMPlugin {
     }
 
     /**
+     * Check if customer can cancel subscriptions directly.
+     *
+     * @return boolean <code>true</code> if direct cancel is allowed.
+     */
+    public function isCustomerCancel() {
+        return $this->get('customerCancel');
+    }
+
+    /**
      * Check if currently subscription is selected.
      *
      * @return string The subscription schedule key or <code>null</code>.

@@ -49,15 +49,27 @@ class ZMSubscriptionRequestController extends ZMController {
 
 
     /**
+     * Create the model from the current request.
+     *
+     * @return ZMModel The model.
+     */
+    protected function createModel() {
+        $request = ZMLoader::make('Model');
+        $request->set('type', ZMRequest::getParameter('type'));
+        $request->set('orderId', ZMRequest::getParameter('orderId'));
+        $request->set('message', ZMRequest::getParameter('message'));
+        return $request;
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     public function processGet() {
-        // create empty model
-        $request = ZMLoader::make('Model');
-        $this->exportGlobal('zm_subscriptionRequest', $request);
+        // create model
+        $this->exportGlobal('zm_subscriptionRequest', $this->createModel());
         return $this->findView();
     }
 
@@ -69,10 +81,6 @@ class ZMSubscriptionRequestController extends ZMController {
      */
     public function processPost() {
         // create model
-        $request = ZMLoader::make('Model');
-        $request->set('type', ZMRequest::getParameter('type'));
-        $request->set('orderId', ZMRequest::getParameter('orderId'));
-        $request->set('message', ZMRequest::getParameter('message'));
         $this->exportGlobal('zm_subscriptionRequest', $request);
 
         if (!$this->validate('subscription_request')) {

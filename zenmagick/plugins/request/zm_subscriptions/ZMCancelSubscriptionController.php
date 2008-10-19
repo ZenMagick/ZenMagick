@@ -52,7 +52,8 @@ class ZMCancelSubscriptionController extends ZMController {
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     *  if the controller generates the contents itself.
+     * @todo allow cancel at any time
      */
     public function processGet() {
         if (!ZMTools::asBoolean($this->getPlugin()->get('customerCancel'))) {
