@@ -37,7 +37,6 @@ class TestZMCategory extends ZMTestCase {
         }
     }
 
-
 }
 
 ?>

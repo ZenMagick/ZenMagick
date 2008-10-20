@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMQuantityDiscount extends ZMModel {
-    private $quantityDiscountId_;
     private $productId_;
     private $quantity_;
     private $value_;
