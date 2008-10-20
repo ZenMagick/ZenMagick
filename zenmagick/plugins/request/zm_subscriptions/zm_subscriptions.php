@@ -133,8 +133,8 @@ class zm_subscriptions extends ZMPlugin {
 
         // set up request form validation
         ZMValidator::instance()->addRules('subscription_request', array(
-            array('ZMRequiredRule', 'type'),
-            array('ZMRequiredRule', 'message', zm_l10n_get("Please enter a message")),
+            array('ListRule', 'type', array_keys($this->getRequestTypes())),
+            array('RequiredRule', 'message', zm_l10n_get("Please enter a message")),
         ));
 
         // add admin page
@@ -184,6 +184,22 @@ class zm_subscriptions extends ZMPlugin {
     public function getSelectedSchedule() {
         $schedule = ZMRequest::getSession()->getValue('subscription_schedule');
         return empty($schedule) ? null : $schedule;
+    }
+
+    /**
+     * Get all available request types as map.
+     * 
+     * <p>This can be configured/changed via the setting <em>plugins.zm_subscriptions.request.types</em>.</p>
+     *
+     * @return array Hash map of schedule key => name.
+     */
+    public function getRequestTypes() {
+        $defaults = array(
+                'cancel' => zm_l10n_get("Cancel Subscription"),
+                'enquire' => zm_l10n_get("Enquire order status"),
+                'other' => zm_l10n_get("Other"),
+        );
+        return ZMSettings::get('plugins.zm_subscriptions.request.types', $defaults);
     }
 
     /**

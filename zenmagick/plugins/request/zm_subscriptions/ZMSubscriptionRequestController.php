@@ -58,6 +58,8 @@ class ZMSubscriptionRequestController extends ZMController {
         $request->set('type', ZMRequest::getParameter('type'));
         $request->set('orderId', ZMRequest::getParameter('orderId'));
         $request->set('message', ZMRequest::getParameter('message'));
+        $request->set('types', $this->getPlugin()->getRequestTypes());
+
         return $request;
     }
 
@@ -81,7 +83,7 @@ class ZMSubscriptionRequestController extends ZMController {
      */
     public function processPost() {
         // create model
-        $this->exportGlobal('zm_subscriptionRequest', $request);
+        $this->exportGlobal('zm_subscriptionRequest', $this->createModel());
 
         if (!$this->validate('subscription_request')) {
             return $this->findView();

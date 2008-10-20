@@ -26,17 +26,12 @@
 
 <h3><?php zm_l10n("Subscription Enqiries") ?></h3>
 
-<?php $form->open(ZM_FILENAME_SUBSCRIPTION_REQUEST, null, true, array('method' => 'POST', 'id' => 'subscription_request')) ?>
+<?php $form->open(ZM_FILENAME_SUBSCRIPTION_REQUEST, null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
     <fieldset>
         <legend><?php zm_l10n("Subscription Enquiries") ?></legend>
         <label for="type"><?php zm_l10n("Request Type") ?><span>*</span></label>
-        <?php $types = array(
-                'cancel' => zm_l10n_get("Cancel Subscription"),
-                'enquire' => zm_l10n_get("Enquire order status"),
-                'other' => zm_l10n_get("Other"),
-            ); ?>
         <select id="type" name="type">
-            <?php foreach ($types as $type => $name) { ?>
+            <?php foreach ($zm_subscriptions->getRequestTypes() as $type => $name) { ?>
                 <?php $selected = $zm_subscriptionRequest->getType() == $type ? ' selected' : ''; ?>
                 <option value="<?php echo $type ?>"<?php echo $selected ?>><?php $html->encode($name) ?>  </option>
             <?php } ?>

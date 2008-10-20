@@ -84,6 +84,17 @@ Example:
     ));
 
 
+Subscription request types
+==========================
+Similar to the schedule options, the enquiry types can be configured via a setting, namely 'plugins.zm_subscriptions.request.types':
+Example:
+
+    ZMSettings::set('plugins.zm_subscriptions.request.types', array(
+        'cancel' => "Cancel Subscription",
+        'enquire' => "Enquire order status",
+        'other' => "Other",
+    ));
+
 
 Emails
 ======
