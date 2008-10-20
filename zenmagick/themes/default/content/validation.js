@@ -64,6 +64,7 @@ function isMinLength(elem, min) { return ('' == elem.value || elem.value.length 
 function isMaxLength(elem, max) { return ('' == elem.value || elem.value.length <= max); }
 function isRegexp(elem, expr) { return ('' == elem.value || elem.value.match(expr)); }
 function isFieldMatch(elem1, elem2) { return elem1.value == elem2.value; }
+function inArray(elem, arr) { for (key in arr) { if (elem.value == arr[key]) { return true; } } return false;; }
 
 // stop duplicate form submits
 var _zm_submitted = false;
@@ -80,6 +81,7 @@ case 'min': if (!isMinLength(form.elements[rule[1]], rule[3])) { isValid = false
 case 'max': if (!isMaxLength(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'regexp': if (!isRegexp(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'fieldMatch': if (!isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
+case 'list': if (!inArray(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'date': if (!isDate(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 default: alert('unknown validation rule: ' + rule[0]); break;
 }
