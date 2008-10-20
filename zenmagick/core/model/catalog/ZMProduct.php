@@ -351,14 +351,28 @@ class ZMProduct extends ZMModel {
     /**
      * Get the discount type.
      *
+     * <p>Legal values:</p>
+     * <ul>
+     *  <li><em>ZM_DISCOUNT_TYPE_NONE</em> - no discount</li>
+     *  <li><em>ZM_DISCOUNT_TYPE_PERCENT</em> - value is percent value</li>
+     *  <li><em>ZM_DISCOUNT_TYPE_PRICE</em> - value is fixed price</li>
+     *  <li><em>ZM_DISCOUNT_TYPE_AMOUNT</em> - value to be subtracted from base/special price</li>
+     * </ul>
+     *
      * @return int The discount type.
      */
     public function getDiscountType() { return $this->discountType_; }
 
     /**
-     * Get the discount start date.
+     * Get the discount type from.
+     * 
+     * <p>Legal values:</p>
+     * <ul>
+     *  <li><em>ZM_DISCOUNT_FROM_BASE_PRICE</em> - use base price to calculate discount pricing</li>
+     *  <li><em>ZM_DISCOUNT_FROM_SPECIAL_PRICE</em> - use special price to calculate discount pricing</li>
+     * </ul>
      *
-     * @return string The discount start date.
+     * @return int The discount type from.
      */
     public function getDiscountTypeFrom() { return $this->discountTypeFrom_; }
 
@@ -578,6 +592,20 @@ class ZMProduct extends ZMModel {
      * @return boolean <code>true</code> if priced by attributes.
      */
     public function isPricedByAttributes() { return $this->pricedByAttributes_; }
+
+    /**
+     * Set the discount type.
+     *
+     * @param int type The discount type.
+     */
+    public function setDiscountType($type) { $this->discountType_ = $type; }
+
+    /**
+     * Set the discount type from.
+     *
+     * @param int The discount type from.
+     */
+    public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom_ = $typeFrom; }
 
 }
 

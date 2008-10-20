@@ -137,6 +137,16 @@
     define('ZM_SALE_TYPE_PRICE', 2);
 
 
+    //** discount types **//
+
+    define('ZM_DISCOUNT_TYPE_NONE', 0);
+    define('ZM_DISCOUNT_TYPE_PERCENT', 1);
+    define('ZM_DISCOUNT_TYPE_PRICE', 2);
+    define('ZM_DISCOUNT_TYPE_AMOUNT', 3);
+    define('ZM_DISCOUNT_FROM_BASE_PRICE', 0);
+    define('ZM_DISCOUNT_FROM_SPECIAL_PRICE', 1);
+
+
     //** tax base **//
 
     define('ZM_PRODUCT_TAX_BASE_STORE', 'Store');

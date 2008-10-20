@@ -345,15 +345,50 @@ class ZMOffers extends ZMObject {
     /**
      * Get quantity discounts, if any.
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return array A list of <code>ZMQuantityDiscount</code> instances.
      */
-    public function getQuantityDiscounts() {
+    public function getQuantityDiscounts($tax=true) {
         $discounts = array();
         $sql = "SELECT * FROM " . TABLE_PRODUCTS_DISCOUNT_QUANTITY . "
                 WHERE products_id = :productId
+                  AND discount_qty != 0
                 ORDER BY discount_qty";
+
         $args = array('productId' => $this->product_->getId());
-        return ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
+        $discounts = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
+
+        if (0 < count($discounts)) {
+            $product = $this->product_;
+            $basePrice = $this->getBasePrice($tax);
+            if (ZM_DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && $this->isSpecial()) {
+                $basePrice = $this->getSpecialPrice($tax);
+            }
+
+            foreach ($discounts as $discount) {
+                $price = 0;
+                switch ($product->getDiscountType()) {
+                    case ZM_DISCOUNT_TYPE_NONE:
+                        $price = 0; // WTF???
+                        break;
+                    case ZM_DISCOUNT_TYPE_PERCENT:
+                        $price = $basePrice - ($basePrice * ($discount->getValue() / 100));
+                        break;
+                    case ZM_DISCOUNT_TYPE_PRICE:
+                        $price = $discount->getValue();
+                        break;
+                    case ZM_DISCOUNT_TYPE_AMOUNT:
+                        $price = $basePrice - $discount->getValue();
+                        break;
+                    default:
+                        throw ZMLoader::make('ZMException', ' invalid discount type: '.$product->getDiscountType());
+                        break;
+                }
+                $discount->setPrice($price);
+            }
+        }
+
+        return $discounts;
     }
 
 }

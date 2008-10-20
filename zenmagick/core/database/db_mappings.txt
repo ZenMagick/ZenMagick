@@ -644,6 +644,6 @@ array(
         'quantityDiscountId' => 'column=discount_id;type=integer',
         'productId' => 'column=products_id;type=integer',
         'quantity' => 'column=discount_qty;type=float',
-        'price' => 'column=discount_price;type=float',
+        'value' => 'column=discount_price;type=float',
     ),
 );

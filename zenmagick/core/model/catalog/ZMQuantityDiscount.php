@@ -35,6 +35,7 @@ class ZMQuantityDiscount extends ZMModel {
     private $quantityDiscountId_;
     private $productId_;
     private $quantity_;
+    private $value_;
     private $price_;
 
 
@@ -46,6 +47,7 @@ class ZMQuantityDiscount extends ZMModel {
         $this->setId(0);
         $this->productId_ = 0;
         $this->quantity_ = 0;
+        $this->value_ = 0;
         $this->price_ = 0;
     }
 
@@ -79,9 +81,16 @@ class ZMQuantityDiscount extends ZMModel {
     public function getQuantity() { return $this->quantity_; }
 
     /**
-     * Get the discount price.
+     * Get the discount value (amount, percent, etc).
      *
-     * @return float The discount price.
+     * @return float The discount value.
+     */
+    public function getValue() { return $this->value_; }
+
+    /**
+     * Get the calculated discount price.
+     *
+     * @return float The discounted price.
      */
     public function getPrice() { return $this->price_; }
 
@@ -107,9 +116,16 @@ class ZMQuantityDiscount extends ZMModel {
     public function setQuantity($quantity) { $this->quantity_ = $quantity; }
 
     /**
-     * Set the discount price.
+     * Set the discount value (amount, percent, etc).
      *
-     * @param float price The discount price.
+     * @param float value The discount value.
+     */
+    public function setValue($value) { $this->value_ = $value; }
+
+    /**
+     * Set the calculated discount price.
+     *
+     * @param float price The discounted price.
      */
     public function setPrice($price) { $this->price_ = $price; }
 
