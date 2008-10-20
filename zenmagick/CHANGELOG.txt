@@ -64,6 +64,7 @@ Release 0.9.3
 - change ZMLoader::findIncludes() to allow controlling the filename suffix
 - allow to manually register classes
 - convert zm_cross_sell to using ZMDatabase
+- add ZMOffers::getQuantityDiscounts()
 
 Release 0.9.2
 - add database support for data type blob

@@ -640,4 +640,10 @@ array(
         'lastModified' => 'column=last_modified;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
     ),
+    'products_discount_quantity' => array(
+        'quantityDiscountId' => 'column=discount_id;type=integer',
+        'productId' => 'column=products_id;type=integer',
+        'quantity' => 'column=discount_qty;type=float',
+        'price' => 'column=discount_price;type=float',
+    ),
 );

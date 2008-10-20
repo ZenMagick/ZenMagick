@@ -342,6 +342,20 @@ class ZMOffers extends ZMObject {
         }
     }
 
+    /**
+     * Get quantity discounts, if any.
+     *
+     * @return array A list of <code>ZMQuantityDiscount</code> instances.
+     */
+    public function getQuantityDiscounts() {
+        $discounts = array();
+        $sql = "SELECT * FROM " . TABLE_PRODUCTS_DISCOUNT_QUANTITY . "
+                WHERE products_id = :productId
+                ORDER BY discount_qty";
+        $args = array('productId' => $this->product_->getId());
+        return ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
+    }
+
 }
 
 ?>
