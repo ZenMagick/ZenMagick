@@ -66,6 +66,7 @@ Release 0.9.3
 - convert zm_cross_sell to using ZMDatabase
 - add ZMOffers::getQuantityDiscounts()
 - add new ZMListRule class to validate against a list of values
+- add first draft of ZMBeanUtils class
 
 Release 0.9.2
 - add database support for data type blob
