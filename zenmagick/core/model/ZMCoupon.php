@@ -62,6 +62,9 @@ class ZMCoupon extends ZMModel {
         $this->code_ = $code;
         $this->type_ = $type;
         $this->active_ = 'Y';
+        $this->minimumOrder_ = 0;
+        $this->usesPerCoupon_ = 1;
+        $this->usesPerUser_ = 0;
     }
 
     /**

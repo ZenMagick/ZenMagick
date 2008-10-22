@@ -98,11 +98,11 @@ class ZMManufacturer extends ZMModel {
     public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
 
     /**
-     * Get the manufacturer URL.
+     * Get the manufacturer url.
      *
-     * @return string The manufacturer URL.
+     * @return string The manufacturer url.
      */
-    public function getURL() { return $this->url_; }
+    public function getUrl() { return $this->url_; }
 
     /**
      * Set the manufacturer id.
@@ -126,11 +126,11 @@ class ZMManufacturer extends ZMModel {
     public function setImage($image) { $this->image_ = $image; }
 
     /**
-     * Set the manufacturer URL.
+     * Set the manufacturer url.
      *
-     * @param string url The manufacturer URL.
+     * @param string url The manufacturer url.
      */
-    public function setURL($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url_ = $url; }
 
     /**
      * Get the language id.

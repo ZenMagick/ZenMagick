@@ -35,12 +35,12 @@
                 if ($manufacturer->hasImage()) {
                     $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
-                    if (!ZMTools::isEmpty($manufacturer->getURL())) {
+                    if (!ZMTools::isEmpty($manufacturer->getUrl())) {
                         $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php $html->image($manufacturer->getImageInfo()) ?></a><?php
-                    if (!ZMTools::isEmpty($manufacturer->getURL())) {
+                    if (!ZMTools::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
@@ -48,13 +48,13 @@
                     $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     $text = zm_l10n_get("Other Products");
-                    if (!ZMTools::isEmpty($manufacturer->getURL())) {
+                    if (!ZMTools::isEmpty($manufacturer->getUrl())) {
                         $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                         $text = zm_l10n_get("Manufacturer Homepage");
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
-                    if (!ZMTools::isEmpty($manufacturer->getURL())) {
+                    if (!ZMTools::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }

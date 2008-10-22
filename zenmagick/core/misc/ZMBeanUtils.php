@@ -96,9 +96,9 @@ class ZMBeanUtils {
         // special case for ZMModel instances
         if ($obj instanceof ZMModel) {
             foreach ($obj->getPropertyNames() as $property) {
-                if (!array_key_exists($property, $map) && (null === $properties || array_key_exists($property, $properties))) {
+                //if (!array_key_exists($property, $map) && (null === $properties || array_key_exists($property, $properties))) {
                     $map[$property] = $obj->get($property);
-                }
+                //}
             }
         }
 

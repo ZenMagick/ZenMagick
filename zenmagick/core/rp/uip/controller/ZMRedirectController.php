@@ -78,7 +78,7 @@ class ZMRedirectController extends ZMController {
             if (0 < $manufacturerId) {
                 $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
 
-                if (null == $manufacturer || null == $manufacturer->getURL()) {
+                if (null == $manufacturer || null == $manufacturer->getUrl()) {
                     // try default language if different from session language
                     if (ZMSettings::get('defaultLanguageCode') != ZMRequest::getSession()->getLanguageCode()) {
                         $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
@@ -86,7 +86,7 @@ class ZMRedirectController extends ZMController {
                     }
                 }
 
-                if (null != $manufacturer && null != $manufacturer->getURL()) {
+                if (null != $manufacturer && null != $manufacturer->getUrl()) {
                     ZMManufacturers::instance()->updateManufacturerClickCount($manufacturerId);
                     return $this->findView('success', array('url' => $manufacturer->getUrl()));
                 }

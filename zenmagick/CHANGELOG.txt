@@ -67,6 +67,8 @@ Release 0.9.3
 - add ZMOffers::getQuantityDiscounts()
 - add new ZMListRule class to validate against a list of values
 - add first draft of ZMBeanUtils class
+- change product and manufactuer URL methods to use Url (getUrl()/setUrl())
+- various db related improvements/fixes that affect ZMCreoleDatabase
 
 Release 0.9.2
 - add database support for data type blob

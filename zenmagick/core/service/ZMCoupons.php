@@ -200,7 +200,7 @@ class ZMCoupons extends ZMObject {
         $tracker->set('accountId', $accountId);
         $tracker->set('redeemDate', date(ZM_DB_DATETIME_FORMAT));
         $tracker->set('redeemIp', $remoteIp);
-        $tracker->set('orderid', 0);
+        $tracker->set('orderId', 0);
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_REDEEM_TRACK, $tracker);
 
         $sql = "UPDATE " . TABLE_COUPONS . " 

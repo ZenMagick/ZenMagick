@@ -84,6 +84,9 @@ class ZMProduct extends ZMModel {
         $this->sortOrder_ = 0;
         $this->attributes_ = null;
         $this->offers_ = null;
+        $this->isQtyMixed_ = false;
+        $this->qtyBoxStatus_ = 1;
+        $this->priceSorter_ = 0;
     }
 
     /**
@@ -181,18 +184,18 @@ class ZMProduct extends ZMModel {
     public function setDefaultImage($image) { $this->image_ = $image; }
 
     /**
-     * Get the product URL.
+     * Get the product url.
      *
-     * @return string The product URL.
+     * @return string The product url.
      */
-    public function getURL() { return $this->url_; }
+    public function getUrl() { return $this->url_; }
 
     /**
-     * Set the product URL.
+     * Set the product url.
      *
-     * @param string url The product URL.
+     * @param string url The product url.
      */
-    public function setURL($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url_ = $url; }
     /**
      * Get the available date.
      *
