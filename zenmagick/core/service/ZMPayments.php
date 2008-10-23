@@ -120,7 +120,10 @@ class ZMPayments extends ZMObject {
             $paymentType = ZMLoader::make("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
             return $paymentType;
         }
-        $confirmation = $zenModule->confirmation();
+        //XXX: doh!
+        if ('checkout_confirmation' == ZMRequest::getPageName()) {
+            $confirmation = $zenModule->confirmation();
+        }
 
         $paymentType = ZMLoader::make("PaymentType", $zenModule->code, $zenModule->title);
         if (is_array($confirmation) && array_key_exists('fields', $confirmation)) {
