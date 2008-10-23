@@ -361,8 +361,8 @@ class ZMOffers extends ZMObject {
         if (0 < count($discounts)) {
             $product = $this->product_;
             $basePrice = $this->getBasePrice($tax);
-            if (ZM_DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && $this->isSpecial()) {
-                $basePrice = $this->getSpecialPrice($tax);
+            if (ZM_DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {
+                $basePrice = $specialPrice;
             }
 
             foreach ($discounts as $discount) {

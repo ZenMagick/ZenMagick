@@ -571,6 +571,50 @@ class ZMToolboxMacro extends ZMObject {
         return $html;
     }
 
+    /**
+     * Build quantity discounts details.
+     *
+     * @param ZMProduct product The product.
+     * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
+     * @return array Discount details.
+     */
+    public function buildQuantityDiscounts($product, $tax=true) {
+        $offers = $product->getOffers();
+        $discounts = $offers->getQuantityDiscounts();
+
+        // build info map
+        $details = array();
+        for ($ii=0, $n=count($discounts); $ii<$n; ++$ii) {
+            if (0 == $ii) {
+                // regular
+                $low = $product->getQtyOrderMin();
+                $high = $discounts[0]->getQuantity() - 1;
+                if ($low == $high) {
+                    $high = $low;
+                }
+                if ($low != $high) {
+                    $qty = zm_l10n_get("%s-%s", $low, $high);
+                } else {
+                    $qty = $low;
+                }
+                $details[] = array('qty' => $qty, 'price' => ($offers->isSpecial() ? $offers->getSpecialPrice() : $offers->getCalculatedPrice()));
+            }
+
+            if ($ii == ($n - 1)) {
+                $qty = zm_l10n_get("%s+", $discounts[$ii]->getQuantity());
+            } else {
+                if ($discounts[$ii]->getQuantity() == ($discounts[$ii+1]->getQuantity() - 1)) {
+                    $qty = $discounts[$ii]->getQuantity();
+                } else {
+                    $qty = zm_l10n_get("%s-%s", $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
+                }
+            }
+            $details[] = array('qty' => $qty, 'price' => $discounts[$ii]->getPrice());
+        }
+
+        return $details;
+    }
+
 }
 
 ?>

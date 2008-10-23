@@ -69,6 +69,7 @@ Release 0.9.3
 - add first draft of ZMBeanUtils class
 - change product and manufactuer URL methods to use Url (getUrl()/setUrl())
 - various db related improvements/fixes that affect ZMCreoleDatabase
+- add ZMToolboxMacro::buildQuantityDiscounts
 
 Release 0.9.2
 - add database support for data type blob
