@@ -142,7 +142,7 @@ class zm_subscriptions extends ZMPlugin {
     }
 
     /**
-     * Event handler to pick up subscription cehckout options.
+     * Event handler to pick up subscription checkout options.
      */
     public function onZMInitDone($args=array()) {
         if ('checkout_shipping' == ZMRequest::getPageName() && 'POST' == ZMRequest::getMethod()) {
@@ -235,6 +235,9 @@ class zm_subscriptions extends ZMPlugin {
             if (ZMTools::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
                     $status = ZMLoader::make('OrderStatus');
+                    var_dump($order);
+                    ZMLogging::trace();
+                    die();
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);

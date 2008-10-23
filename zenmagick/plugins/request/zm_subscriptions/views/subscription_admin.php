@@ -1,6 +1,6 @@
 <h1>All Subsctiptions</h1>
 
-<?php $zm_resultList->setpagination(4); ?>
+<?php $zm_resultList->setpagination(10); ?>
 <?php if (1 < $zm_resultList->getNumberOfPages()) { ?>
     <div class="rnav">
         <span class="pno"><?php zm_l10n("Page %s/%s", $zm_resultList->getPageNumber(), $zm_resultList->getNumberOfPages()) ?></span>

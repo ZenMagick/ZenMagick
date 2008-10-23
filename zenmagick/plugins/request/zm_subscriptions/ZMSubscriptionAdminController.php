@@ -98,13 +98,9 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
 
         $order = ZMOrders::instance()->getOrderForId($orderId);
         $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION);
-        $this->sendCancelEmail($order, $emailTemplate, $account->getEmail());
-        $adminEmail = $plugin->get('adminEmail');
-        if (empty($adminEmail)) {
-            $adminEmail = ZMSettings::get('storeEmail');
-        }
-        if (!ZMTools::isEmpty($adminEmail)) {
-            $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
+        $email = $order->getAccount()->getEmail();
+        if (!ZMTools::isEmpty($email)) {
+            $this->sendCancelEmail($order, $emailTemplate, $email);
         }
 
         return $page;
@@ -120,6 +116,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
     protected function sendCancelEmail($order, $template, $email) {
         $context = array();
         $context['order'] = $order;
+        $context['plugin'] = $this->getPlugin();
         zm_mail(zm_l10n_get("%s: Order Subscription Canceled", ZMSettings::get('storeName')), $template, $context, 
             $email, ZMSettings::get('storeEmail'), null);
         $email = ZMSettings::get('storeEmail');
