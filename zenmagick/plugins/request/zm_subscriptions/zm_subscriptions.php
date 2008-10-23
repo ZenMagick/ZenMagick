@@ -235,9 +235,6 @@ class zm_subscriptions extends ZMPlugin {
             if (ZMTools::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
                     $status = ZMLoader::make('OrderStatus');
-                    var_dump($order);
-                    ZMLogging::trace();
-                    die();
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
