@@ -114,6 +114,13 @@ class WpRequestHandler extends ZMController {
     public function link_filter($arg) {
         $urlToken = parse_url($arg);
         if ($this->plugin->isPermalinksEnabled()) {
+            // make sure we stay on the same server
+            $selfUrlToken = parse_url(ZMRuntime::getBaseURL());
+            if ($urlToken['host'] != $selfUrlToken['host']) {
+                $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
+            }
+
+            // fix path
             $path = ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin->get('wordpressDir'));
