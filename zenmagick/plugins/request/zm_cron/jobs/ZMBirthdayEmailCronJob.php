@@ -51,7 +51,6 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
         $this->offset_ = ZMSettings::get('plugins.zm_cron.jobs.birthday.offset', '');
         $this->template_ = ZMSettings::get('plugins.zm_cron.jobs.birthday.template', 'birthday');
     }
@@ -66,7 +65,8 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
         $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS, 'Account');
         foreach ($results as $account) {
             $context = array('account' => $account);
-            zm_mail(zm_l10n_get("It's your birthday, %s", $account->getFirstName()), $this->template_, $context, $account->getEmail(), $account->getFullName());
+            zm_mail(zm_l10n_get("It's your birthday, %s", $account->getFirstName()), $this->template_, $context, 
+                  $account->getEmail(), $account->getFullName());
         }
 
         return true;
