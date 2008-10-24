@@ -104,7 +104,7 @@ class zm_wordpress extends ZMPlugin {
         // create single request handler
         $this->requestHandler = ZMLoader::make('WpRequestHandler', $this);
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+        if ($this->initWP() && (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
             $this->requestHandler->handleRequest();
             $this->requestHandler->register();
@@ -167,10 +167,21 @@ class zm_wordpress extends ZMPlugin {
     public function query_posts($query='') {
     global $wpdb;
 
-        if (!$this->isPermalinksEnabled()) {
+        if ($this->initWP() && !$this->isPermalinksEnabled()) {
             $wpdb->select(DB_NAME);
             query_posts($query);
         }
+    }
+
+    /**
+     * Check if wp is available.
+     *
+     * @return boolean <code>true</code> if Wordpress is initialized.
+     */
+    public function initWP() {
+    global $wpdb;
+
+        return isset($wpdb);
     }
 
     /**
