@@ -218,41 +218,36 @@ class ZMLoader {
      *  implementation or <code>null</code>.
      */
     public static function resolve($name) {
-        // fallback is classname with ZenMagick prefix
-        $zmname = ZMLoader::$classPrefix.$name;
         $rootLoader = ZMLoader::instance();
+        $classfile = $rootLoader->getClassFile($name);
+        $zmname = ZMLoader::$classPrefix.$name;
+        $zmclassfile = $rootLoader->getClassFile($zmname);
 
-        if (!class_exists($name)) {
-            // check for name first
-            $classfile = $rootLoader->getClassFile($name);
-            if (null != $classfile && !class_exists($name)) { require_once $classfile; }
-        }
-
-        // first check if already loaded!
-        if (class_exists($name)) {
-            if (0 === strpos($name, ZMLoader::$classPrefix)) {
-                // has ZenMagick prefix, so let's assume this is what we want...
-                return $name;
-            } else {
-                // TODO: can we avoid this??
-                // make sure we load a ZenMagick class; otherwise there is 
-                // overlap with zen-cart class names
-                $parent = $name;
-                while (false !== ($parent = get_parent_class($parent))) {
-                    if ('ZMObject' == $parent) {
-                        return $name;
+        // additional stuff for single core file, as there is no classpath!
+        if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
+            if (class_exists($name)) {
+                if (0 === strpos($name, ZMLoader::$classPrefix)) {
+                    return $name;
+                } else {
+                    // make sure we load a ZenMagick class; otherwise there is 
+                    // overlap with zen-cart class names
+                    $parent = $name;
+                    while (false !== ($parent = get_parent_class($parent))) {
+                        if ('ZMObject' == $parent) {
+                            return $name;
+                        }
                     }
                 }
+            } 
+            // this is not the else case, as we need it as fallback if $name
+            // does not get resolved
+            if (class_exists($zmname)) {
+                return $zmname;
             }
-        } 
-
-        // has ZenMagick prefix, so let's assume this is what we want...
-        if (class_exists($zmname)) {
-            return $zmname;
         }
 
-        $zmclassfile = $rootLoader->getClassFile($zmname);
         if (null != $zmclassfile && !class_exists($zmname)) { require_once $zmclassfile; }
+        if (null != $classfile && !class_exists($name)) { require_once $classfile; }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }
