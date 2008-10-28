@@ -220,6 +220,13 @@ class ZMLoader {
     public static function resolve($name) {
         // fallback is classname with ZenMagick prefix
         $zmname = ZMLoader::$classPrefix.$name;
+        $rootLoader = ZMLoader::instance();
+
+        if (!class_exists($name)) {
+            // check for name first
+            $classfile = $rootLoader->getClassFile($name);
+            if (null != $classfile && !class_exists($name)) { require_once $classfile; }
+        }
 
         // first check if already loaded!
         if (class_exists($name)) {
@@ -238,17 +245,14 @@ class ZMLoader {
                 }
             }
         } 
+
         // has ZenMagick prefix, so let's assume this is what we want...
         if (class_exists($zmname)) {
             return $zmname;
         }
 
-        $rootLoader = ZMLoader::instance();
-        $classfile = $rootLoader->getClassFile($name);
         $zmclassfile = $rootLoader->getClassFile($zmname);
-
         if (null != $zmclassfile && !class_exists($zmname)) { require_once $zmclassfile; }
-        if (null != $classfile && !class_exists($name)) { require_once $classfile; }
 
         return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
     }
