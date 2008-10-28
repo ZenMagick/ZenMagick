@@ -150,7 +150,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $sql = ZMDbUtils::bindObject($sql, $model, false);
+        $sql = ZMDbUtils::bindObject($sql, $model);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -159,13 +159,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
-                $newId = $this->db_->Insert_ID();
-                $method = 'set'.$field['ucwp'];
-                if (!method_exists($model, $method)) {
-                    $model->set($property, $newId);
-                } else {
-                    $model->$method($newId);
-                }
+                ZMBeanUtils::setAll($model, array($property => $this->db_->Insert_ID()));
             }
         }
 
@@ -195,7 +189,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 }
             }
         } else if (is_object($data)) {
-            $sql = ZMDbUtils::bindObject($sql, $data, false);
+            $sql = ZMDbUtils::bindObject($sql, $data);
         } else {
             throw ZMLoader::make('ZMException', 'invalid data type');
         }
@@ -239,12 +233,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            ZMLoggin::instance()->trace('missing key');
-            die();
+            throw ZMLoader::make('ZMException', 'missing key');
         }
         $sql .= $where;
 
-        $sql = ZMDbUtils::bindObject($sql, $model, false);
+        $sql = ZMDbUtils::bindObject($sql, $model);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -294,7 +287,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 $result = $this->translateRow($result, $mapping);
             }
             if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
-                $result = ZMDbUtils::map2model($modelClass, $result, $mapping);
+                $result = ZMBeanUtils::map2obj($modelClass, $result);
             }
 
             $results[] = $result;

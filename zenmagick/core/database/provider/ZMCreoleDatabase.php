@@ -159,12 +159,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
-                $method = 'set'.ucwords($property);
-                if (!method_exists($model, $method)) {
-                    $model->set($property, $newId);
-                } else {
-                    call_user_func(array($model, $method), $newId);
-                }
+                ZMBeanUtils::setAll($model, array($property => $newId));
             }
         }
 
@@ -270,7 +265,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     protected function prepareStatement($sql, $args, $mapping=null) {
         // make sure we are working on a map
         if (is_object($args)) {
-            $args = $this->model2map($args, $mapping);
+            $args = ZMBeanUtils::obj2map($args, array_keys($mapping));
         }
 
         // find out the order of args
@@ -347,37 +342,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     }
 
     /**
-     * Create a hash map based on the properties of the given object.
-     *
-     * @param obj The object.
-     * @param array mapping The mapping.
-     * @return array A hash map of all extracted object properties.
-     * @todo cleanup all bean related code
-     */
-    protected function model2map($obj, $mapping) {
-        $prefixList = array('get', 'is', 'has');
-
-        $map = array();
-        foreach ($mapping as $name => $info) {
-            foreach ($prefixList as $prefix) {
-                $getter = $prefix . $info['ucwp'];
-                if (method_exists($obj, $getter)) {
-                    $map[$name] = call_user_func(array($obj, $getter));
-                    break;
-                }
-            }
-        }
-
-        if ($obj instanceof ZMModel) {
-            foreach ($obj->getPropertyNames() as $name) {
-                $map[$name] = $obj->__get($name);
-            }
-        }
-
-        return $map;
-    }
-
-    /**
      * Create model and populate using the given rs and field map.
      *
      * @param string modelClass The model class.
@@ -386,16 +350,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * @return mixed The model instance or array (if modelClass is <code>null</code>).
      */
     protected function rs2model($modelClass, $rs, $mapping=null) {
-        if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
-            $model = ZMLoader::make($modelClass);
-        } else {
-            $model = array();
-        }
-
         $row = $rs->getRow();
         if (null === $mapping || ZM_DB_MODEL_RAW == $modelClass) {
             return $row;
         }
+
+        // build typed data map
+        $data = array();
+
         foreach ($mapping as $field => $info) {
             if (!array_key_exists($info['column'], $row)) {
                 // field not in result set, so ignore
@@ -445,21 +407,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 throw ZMLoader::make('ZMException', 'unsupported data(read) type='.$info['type'].' for field='.$field);
             }
 
-            if (null != $modelClass) {
-                $setter = 'set'.$info['ucwp'];
-                if (method_exists($model, $setter)) {
-                    // specific method exists
-                    call_user_func(array($model, $setter), $value);
-                } else {
-                    // use general purpose method
-                    $model->__set($field, $value);
-                }
-            } else {
-                $model[$field] = $value;
-            }
+            $data[$field] = $value;
         }
 
-        return $model;
+        // either data map or model instance
+        return null == $modelClass ? $data : ZMBeanUtils::map2obj($modelClass, $data);
     }
 
     /**

@@ -47,7 +47,9 @@ class ZMBeanUtils {
      */
     protected function getPropertyMap($obj, $properties=null) {
         $clazz = get_class($obj);
-        if (!array_key_exists($clazz, self::$propertyMap_)) {
+        // key depends on both class and properties
+        $cacheKey = $clazz.serialize($properties);
+        if (!array_key_exists($cacheKey, self::$propertyMap_)) {
             $propertiesMap = array();
             if (null === $properties) {
                 foreach (get_class_methods($obj) as $method) {
@@ -71,10 +73,10 @@ class ZMBeanUtils {
                     }
                 }
             }
-            self::$propertyMap_[$clazz] = $propertiesMap;
+            self::$propertyMap_[$cacheKey] = $propertiesMap;
         }
 
-        return self::$propertyMap_[$clazz];
+        return self::$propertyMap_[$cacheKey];
     }
 
     /**
@@ -96,9 +98,7 @@ class ZMBeanUtils {
         // special case for ZMModel instances
         if ($obj instanceof ZMModel) {
             foreach ($obj->getPropertyNames() as $property) {
-                //if (!array_key_exists($property, $map) && (null === $properties || array_key_exists($property, $properties))) {
-                    $map[$property] = $obj->get($property);
-                //}
+                $map[$property] = $obj->get($property);
             }
         }
 

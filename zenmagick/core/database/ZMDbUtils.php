@@ -32,8 +32,6 @@
  * @version $Id$
  */
 class ZMDbUtils {
-    private static $MAPPING_CACHE = array();
-
 
     /**
      * Bind a list of values to a given SQL query.
@@ -78,279 +76,39 @@ class ZMDbUtils {
      *
      * @param string sql The sql to work on.
      * @param mixed obj The data object instance.
-     * @param boolean isRead Optional flag to indicate read or write; default is <code>true</code> for reads.
      * @return string The updated SQL query.
      */
-    public static function bindObject($sql, $obj, $isRead=true) {
+    public static function bindObject($sql, $obj) {
         // prepare label
         preg_match_all('/:\w+;\w+/m', $sql, $matches);
         $labels = array();
         foreach ($matches[0] as $name) {
             $label = explode(';', $name);
-            $labels[strtolower(str_replace(':', '', $label[0]))] = array($name, $label[1]);
+            $labels[str_replace(':', '', $label[0])] = array($name, $label[1]);
         }
 
-        // prepare methods
-        $methods = get_class_methods($obj);
-
-        // strip 'get' prefix and ignore other
-        $getter = array();
-        foreach ($methods as $method) {
-            if (0 === strpos($method, 'get')) {
-                $lcproperty = substr(strtolower($method), 3);
-                $getter[$lcproperty] = $method;
-            } else if (0 === strpos($method, 'is')) {
-                $lcproperty = substr(strtolower($method), 2);
-                $getter[$lcproperty] = $method;
-            }
-        }
-
-        if ($obj instanceof ZMModel) {
-            foreach ($obj->getPropertyNames() as $name) {
-                // we need the name as is for mapped columns
-                $getter[strtolower($name)] = '@@'.$name;
-            }
-        }
+        $data = ZMBeanUtils::obj2map($obj, array_keys($labels));
 
         $db = ZMRuntime::getDB();
-        foreach ($getter as $lcproperty => $method) {
-            if (isset($labels[$lcproperty])) {
-                $label = $labels[$lcproperty];
-
-                // execute getXXX()
-                if (null != $method && false === strpos($method, '@@')) {
-                    $value = call_user_func(array($obj, $method));
-                } else {
-                    $value = $obj->get(str_replace('@@', '', $method));
-                }
-
-                // bind
-                if ('date' == $label[1]) {
-                    if ($isRead) {
-                        $value = zen_date_raw($value);
-                    } else {
-                        // if not empty nothing, otherwise assume NULL
-                        if (empty($value)) {
-                            $value = ZM_DB_NULL_DATETIME;
-                            $label[1] = 'date';
-                        }
-                    }
-                }
-                $sql = $db->bindVars($sql, $label[0], $value, $label[1]);
-
-                // unset so we end up with unmapped properties and/or labels ...
-                unset($labels[$lcproperty]);
-                unset($getter[$lcproperty]);
+        foreach ($labels as $property => $info) {
+            $value = null;
+            if (array_key_exists($property, $data)) {
+                $value = $data[$property];
             }
+            
+            // bind
+            if ('date' == $info[1]) {
+                // if not empty nothing, otherwise assume NULL
+                if (empty($value)) {
+                    $value = ZM_DB_NULL_DATETIME;
+                    $info[1] = 'date';
+                }
+            }
+            $sql = $db->bindVars($sql, $info[0], $value, $info[1]);
         }
 
         return $sql;
     }
-
-    /**
-     * Bind custom fields to a given sql query.
-     * 
-     * @param string sql The sql to work on.
-     * @param mixed obj The data object instance.
-     * @param string table The table name.
-     * @param string valueMarker The string to be replaced with custom values; default is <em>:customFields</em>.
-     * @return string The updated SQL query.
-     */
-    public static function bindCustomFields($sql, $obj, $table, $valueMarker=':customFields') {
-        $fields = ZMDbUtils::getCustomFields($table);
-        if (0 == count($fields)) {
-            return str_replace($valueMarker.',', '', $sql);
-        }
-
-        $db = ZMRuntime::getDB();
-        $fragment = '';
-        foreach ($fields as $field) {
-            $name = $field[0];
-            $type = ZMZenCartDatabase::getMappedType($field[1]);
-            if (2 < count($field)) {
-                $name = $field[2];
-            }
-            $fragment .= $db->bindVars($field[0]." = :value, ", ":value", $obj->get($name), $type);
-        }
-
-        return str_replace($valueMarker.',', $fragment, $sql);
-    }
-
-    /**
-     * Get the setting name for custom fields for the given table name.
-     *
-     * @param string table The table name.
-     * @return string The name of the ZenMagick setting to be used to lookup
-     *  custom fields for the table.
-     */
-    public static function getCustomFieldKey($table) {
-        $table = str_replace(ZM_DB_PREFIX, '', $table);
-        return 'sql.'.$table.'.customFields';
-    }
-
-    /**
-     * Get a SQL field list of custom fields for the given table.
-     *
-     * @param string table The table name.
-     * @param string prefix Optional fieldname prefix; default is blank <em>''</em>.
-     * @return string A field list or empty string.
-     */
-    public static function getCustomFieldsSQL($table, $prefix='') {
-        $fields = ZMDbUtils::getCustomFields($table);
-        if (0 == count($fields)) {
-            return '';
-        }
-
-        $customFields = '';
-        if (!empty($prefix) && !ZMTools::endsWith($prefix, '.')) {
-            $prefix .= '.';
-        }
-        foreach ($fields as $field) {
-            $customFields .= ', '.$prefix.$field[0];
-        }
-        return $customFields;
-    }
-
-    /**
-     * Get a field list of custom fields for the given table.
-     *
-     * <p>The returned list of field information consists of two element arrays. The
-     * first element is the field name and the second the field type.</p>
-     *
-     * @param string table The table name.
-     * @return array A list of field lists (may be empty).
-     */
-    public static function getCustomFields($table) {
-        $setting = ZMSettings::get(ZMDbUtils::getCustomFieldKey($table));
-        if (empty($setting)) {
-            return array();
-        }
-
-        $customFields = array();
-        foreach (explode(',', $setting) as $field) {
-            if (!empty($field)) {
-                $customFields[] = explode(';', trim($field));
-            }
-        }
-
-        return $customFields;
-    }
-
-    /**
-     * Add a field list of custom fields for the given table.
-     *
-     * @param array mapping The existing mapping.
-     * @param string table The table name.
-     * @return array The updated mapping
-     */
-    public static function addCustomFields($mapping, $table) {
-        $setting = ZMSettings::get(ZMDbUtils::getCustomFieldKey($table));
-        if (!empty($setting)) {
-            foreach (explode(',', $setting) as $field) {
-                if (!empty($field)) {
-                    $fieldInfo = explode(';', trim($field));
-                    $mapping[$fieldInfo[0]] = $fieldInfo[0].':'.$fieldInfo[1];
-                }
-            }
-        }
-
-        return $mapping;
-    }
-
-    /**
-     * Create model and populate using the given data and field map.
-     *
-     * @param string clazz The model class.
-     * @param array data The data (keys are object property names)
-     * @param array fieldMap The field mapping; default is <code>null</code> which will default to this service <code>fieldMap_</code>.
-     * @return mixed The model instance.
-     */
-    public static function map2obj($clazz, $data, $fieldMap=null) {
-        $obj = ZMLoader::make($clazz);
-        if (null === $fieldMap) {
-            $fieldMap = ZMDbUtils::fieldMap_;
-        }
-        // create col => property mapping
-        $map = array();
-        foreach ($fieldMap as $field) {
-            $map[$field[0]] = $field[1];
-        }
-
-        foreach ($data as $key => $value) {
-            if (isset($map[$key])) {
-                // got mapping
-                $name = $map[$key];
-                $ucName = ucwords($name);
-                $setter = 'set' . $ucName;
-                if (method_exists($obj, $setter)) {
-                    $obj->$setter($value);
-                }
-            }
-        }
-
-        return $obj;
-    }
-
-    /**
-     * Parse mapping.
-     *
-     * @param array mapping The mapping table.
-     */
-    public static function parseMapping($mapping) {
-        // cache mapping if possible
-        ksort($mapping); 
-        $mapKey = crc32(serialize($mapping));
-        if (isset(ZMDbUtils::$MAPPING_CACHE[$mapKey])) {
-            return ZMDbUtils::$MAPPING_CACHE[$mapKey];
-        }
-
-        $tableInfo = array();
-        $defaults = array('primary' => false, 'readonly' => false, 'key' => false);
-        foreach ($mapping as $property => $info) {
-            $arr = array();
-            parse_str(str_replace(';', '&', $info), $arr);
-            $tableInfo[$property] = array_merge($defaults, $arr);
-            $tableInfo[$property]['property'] = $property;
-            // handle boolean values
-            foreach ($tableInfo[$property] as $name => $value) {
-                if ('false' == $value) {
-                    $tableInfo[$property][$name] = false;
-                } else if ('true' == $value) {
-                    $tableInfo[$property][$name] = true;
-                } 
-            }
-        }
-
-        ZMDbUtils::$MAPPING_CACHE[$mapKey] = $tableInfo;
-
-        return $tableInfo;
-    }
-
-    /**
-     * Create model and populate using the given data and field map.
-     *
-     * @param string modelClass The model class.
-     * @param array data The data (keys are object property names)
-     * @param array mapping The field mapping.
-     * @return mixed The model instance.
-     */
-    public static function map2model($modelClass, $data, $mapping=null) {
-        $model = ZMLoader::make($modelClass);
-
-        foreach ($data as $key => $value) {
-            $setter = 'set' . ucwords($key);
-            if (method_exists($model, $setter)) {
-                // specific method exists
-                $model->$setter($value);
-            } else {
-                // use general purpose method
-                $model->set($key, $value);
-            }
-        }
-
-        return $model;
-    }
-
 
     /**
      * Execute a SQL patch.

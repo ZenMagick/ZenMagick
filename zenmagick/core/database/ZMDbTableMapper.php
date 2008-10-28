@@ -107,7 +107,6 @@ class ZMDbTableMapper extends ZMObject {
             parse_str(str_replace(';', '&', $info), $arr);
             $tableInfo[$property] = array_merge($defaults, $arr);
             $tableInfo[$property]['property'] = $property;
-            $tableInfo[$property]['ucwp'] = ucwords($property);
             // handle boolean values
             foreach ($tableInfo[$property] as $name => $value) {
                 if ('false' == $value) {
@@ -147,6 +146,7 @@ class ZMDbTableMapper extends ZMObject {
 
         return $mappings;
     }
+
     /**
      * Handle mixed mapping values.
      *
@@ -175,15 +175,31 @@ class ZMDbTableMapper extends ZMObject {
     }
 
     /**
-     * Get the setting name for custom fields for the given table name.
+     * Get field info map about custom fields for the given table.
+     *
+     * <p>The returned array is a map with the property as key and an info map as value.</p>
      *
      * @param string table The table name.
-     * @return string The name of the ZenMagick setting to be used to lookup
-     *  custom fields for the table.
+     * @return array A map of custom field details (if any)
      */
-    protected function getCustomFieldKey($table) {
-        $table = str_replace(ZM_DB_PREFIX, '', $table);
-        return 'sql.'.$table.'.customFields';
+    public static function getCustomFieldInfo($table) {
+        $customFieldKey = 'sql.'.str_replace(ZM_DB_PREFIX, '', $table).'.customFields';
+        $setting = ZMSettings::get($customFieldKey);
+        if (empty($setting)) {
+            return array();
+        }
+
+        $customFields = array();
+        foreach (explode(',', $setting) as $field) {
+            // process single fields
+            if (!empty($field)) {
+                $info = explode(';', trim($field));
+                $fieldId = (count($info) > 2 ? $info[2] : $info[0]);
+                $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId);
+            }
+        }
+
+        return $customFields;
     }
 
     /**
@@ -194,18 +210,10 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The updated mapping
      */
     protected function addCustomFields($mapping, $table) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => false);
-        $setting = ZMSettings::get($this->getCustomFieldKey($table));
-        if (!empty($setting)) {
-            foreach (explode(',', $setting) as $field) {
-                if (!empty($field)) {
-                    $fieldInfo = explode(';', trim($field));
-                    $fieldId = (count($fieldInfo) > 2 ? $fieldInfo[2] : $fieldInfo[0]);
-                    $mapping[$fieldId] = array('column' => $fieldInfo[0], 'type' => $fieldInfo[1], 'property' => $fieldId, 'ucwp' => ucwords($fieldId), 'custom' => true);
-                    // merge in defaults
-                    $mapping[$fieldId] = array_merge($defaults, $mapping[$fieldId]);
-                }
-            }
+        $defaults = array('key' => false, 'auto' => false, 'custom' => true);
+        foreach (self::getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
+            // merge in defaults
+            $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
         }
 
         return $mapping;
