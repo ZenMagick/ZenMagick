@@ -124,14 +124,14 @@ class ZMLogging extends ZMObject {
                     echo '<h3>'.$msg.":</h3>\n";
                 }
             }
-            $root = ZMTools::nomalizeFilename(ZMRuntime::getZMRootPath());
+            $root = ZMTools::normalizeFilename(ZMRuntime::getZMRootPath());
             echo "<pre>";
             foreach (debug_backtrace() as $line) {
                 echo ' ';
                 if (isset($line['class'])) {
                     echo $line['class'].'::';
                 }
-                $file = ZMTools::nomalizeFilename($line['file']);
+                $file = ZMTools::normalizeFilename($line['file']);
                 $file = str_replace($root, '', $file);
                 $class = array_key_exists('class', $line) ? $line['class'].'::' : '';
                 echo $class.$line['function'].' (#'.$line['line'].':'.$file.")\n";
