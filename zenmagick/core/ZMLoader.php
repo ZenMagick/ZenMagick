@@ -229,9 +229,16 @@ class ZMLoader {
      *  implementation or <code>null</code>.
      */
     public function resolveClass($name) {
-        // try plain name first
+        // plain name
         $classfile = $this->getClassFile($name);
+        // prefixed class
+        $zmname = ZMLoader::$classPrefix.$name;
+
         if (!class_exists($name) && !interface_exists($name) && null != $classfile) {
+            if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
+                // ensure the prefixed class is loaded for inheritence
+                require_once $zmclassfile;
+            }
             require_once $classfile;
         }
 
@@ -252,18 +259,15 @@ class ZMLoader {
         } 
 
         // fallback to prefixed class
-        $zmname = ZMLoader::$classPrefix.$name;
+        if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
+            require_once $zmclassfile;
+        }
 
         if (class_exists($zmname) || interface_exists($zmname)) {
             return $zmname;
         }
 
-        if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
-            require_once $zmclassfile;
-        }
-
-        // prefixed if class file exists, null otherwise
-        return null != $zmclassfile ? $zmname : null;
+        return null;
     }
 
     /**
