@@ -25,13 +25,14 @@
 
 
 /**
- * Request controller for logins.
+ * Request controller for login.
  *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMLoginController extends ZMController {
+    private static $KEY_REDIRECT = 'loginRedirect';
 
     /**
      * Create new instance.
@@ -74,6 +75,11 @@ class ZMLoginController extends ZMController {
             return $this->findView('index');
         }
 
+        $redirect = ZMRequest::getParameter('redirect');
+        if (null != $redirect) {
+            $session->setValue(self::$KEY_REDIRECT, $redirect);
+        }
+
         return parent::processGet();
 
     }
@@ -86,12 +92,15 @@ class ZMLoginController extends ZMController {
      */
     public function processPost() {
         $session = ZMRequest::getSession();
+
         if (!$session->isValid()) {
+            $session->removeValue(self::$KEY_REDIRECT);
             return $this->findView('cookie_usage');
         }
 
         if ($session->isRegistered()) {
             // already logged in
+            $session->removeValue(self::$KEY_REDIRECT);
             return $this->findView('account');
         }
 
@@ -117,6 +126,10 @@ class ZMLoginController extends ZMController {
         }
 
         $followUpUrl = $session->getLoginFollowUp();
+        if (null == $followUpUrl) {
+            $followUpUrl = $session->getValue(self::$KEY_REDIRECT);
+            $session->removeValue(self::$KEY_REDIRECT);
+        }
         return $this->findView('success', array('url' => $followUpUrl));
     }
 

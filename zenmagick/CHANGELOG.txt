@@ -73,7 +73,7 @@ Release 0.9.3
 - refactor some of ZMLoader; remove dependency on ZM_SINGLE_CORE define,
   soften inheritence requirement from extending ZMObject to at least one
 	parent starting with the set prefix ('ZM'), add some tests
-
+- allow to set login redirect URL as request parameter (redirect=)
 
 Release 0.9.2
 - add database support for data type blob
