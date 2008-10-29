@@ -115,7 +115,7 @@ class ZMReviews extends ZMObject {
             $reviewIds[] = $result['reviewId'];
         }
 
-        if (0 == count($reviewUds)) {
+        if (0 == count($reviewIds)) {
             return array();
         }
 
