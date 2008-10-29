@@ -103,10 +103,14 @@ require_once 'includes/application_top.php';
     if (isset($_POST)) {
         $didGenerate = false;
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
+            // allow for more time to run tests
+            set_time_limit(300);
             $coreCompressor->compress();
             $didGenerate = true;
         }
         if (array_key_exists('singleCoreGenerate', $_POST)) {
+            // allow for more time to run tests
+            set_time_limit(300);
             $coreCompressor->compress();
             $didGenerate = true;
         }
