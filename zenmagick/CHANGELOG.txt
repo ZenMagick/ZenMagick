@@ -70,6 +70,10 @@ Release 0.9.3
 - change product and manufactuer URL methods to use Url (getUrl()/setUrl())
 - various db related improvements/fixes that affect ZMCreoleDatabase
 - add ZMToolboxMacro::buildQuantityDiscounts
+- refactor some of ZMLoader; remove dependency on ZM_SINGLE_CORE define,
+  soften inheritence requirement from extending ZMObject to at least one
+	parent starting with the set prefix ('ZM'), add some tests
+
 
 Release 0.9.2
 - add database support for data type blob

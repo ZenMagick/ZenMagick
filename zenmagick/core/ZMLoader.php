@@ -40,14 +40,14 @@
  *    For example a custom index controller would extend <code>ZMIndexController</code> and
  *    be named <code>IndexController</code>
  *  </li>
- *  <li>Classes are created using the class loader's <code>create(..)</code> method</li>
+ *  <li>Classes are created using the class loader's <code>makeClass(..)</code> method</li>
  *  <li>Parent classes following the above conventions will be automatically resolved</li>
  * </ul>
  *
  * <p><strong>Note:</strong> This is not as scalable as Java code and does not handle more than on
  * level of inheritance.</p>
  *
- * <p>Static methods operate on the root loader.</p>
+ * <p><strong>Static methods operate all on the root loader.</strong></p>
  *
  * @author DerManoMann
  * @package org.zenmagick
@@ -100,6 +100,21 @@ class ZMLoader {
     }
 
     /**
+     * Get the class file for the given class name.
+     *
+     * @param string name The class name without the <em>ZM</em> prefix.
+     * @return string The class filename that or <code>null</code>.
+     */
+    protected function getClassFile($name) {
+        $filename = null;
+        if (null != $this->parent_) {
+            $filename = $this->parent_->getClassFile($name);
+        }
+
+        return null != $filename ? $filename : (isset($this->path_[$name]) ? $this->path_[$name] : null);
+    }
+
+    /**
      * Add a given path to the loaders path.
      *
      * @param string path The path to add.
@@ -123,11 +138,11 @@ class ZMLoader {
      * Set the parent loader.
      */
     public function setParent($parent) {
-        $root = $this;
-        while (null != $root && null != ($tmp = $root->parent_)) {
-            $root = $tmp;
+        $last = $this;
+        while (null != $last->parent_) {
+            $last = $last->parent_;
         }
-        $root->parent_ = $parent;
+        $last->parent_ = $parent;
     }
 
     /**
@@ -196,18 +211,14 @@ class ZMLoader {
     }
 
     /**
-     * Get the class file for the given class name.
+     * Shortcut version of <code>ZMLoader::instance()->resolveClass($name)</code>.
      *
-     * @param string name The class name without the <em>ZM</em> prefix.
-     * @return string The class filename that or <code>null</code>.
+     * @param string name The class name (without the <em>ZM</em> prefix).
+     * @return string The resolved class name; this is either the given name, the ZenMagick default
+     *  implementation or <code>null</code>.
      */
-    protected function getClassFile($name) {
-        $filename = null;
-        if (null != $this->parent_) {
-            $filename = $this->parent_->getClassFile($name);
-        }
-
-        return null != $filename ? $filename : (isset($this->path_[$name]) ? $this->path_[$name] : null);
+    public static function resolve($name) {
+        return ZMLoader::instance()->resolveClass($name);
     }
 
     /**
@@ -217,39 +228,42 @@ class ZMLoader {
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public static function resolve($name) {
-        $rootLoader = ZMLoader::instance();
-        $classfile = $rootLoader->getClassFile($name);
-        $zmname = ZMLoader::$classPrefix.$name;
-        $zmclassfile = $rootLoader->getClassFile($zmname);
-
-        // additional stuff for single core file, as there is no classpath!
-        if (defined('ZM_SINGLE_CORE') && null == $classfile && null == $zmclassfile) {
-            if (class_exists($name)) {
-                if (0 === strpos($name, ZMLoader::$classPrefix)) {
-                    return $name;
-                } else {
-                    // make sure we load a ZenMagick class; otherwise there is 
-                    // overlap with zen-cart class names
-                    $parent = $name;
-                    while (false !== ($parent = get_parent_class($parent))) {
-                        if ('ZMObject' == $parent) {
-                            return $name;
-                        }
-                    }
-                }
-            } 
-            // this is not the else case, as we need it as fallback if $name
-            // does not get resolved
-            if (class_exists($zmname)) {
-                return $zmname;
-            }
+    public function resolveClass($name) {
+        // try plain name first
+        $classfile = $this->getClassFile($name);
+        if (!class_exists($name) && !interface_exists($name) && null != $classfile) {
+            require_once $classfile;
         }
 
-        if (null != $zmclassfile && !class_exists($zmname)) { require_once $zmclassfile; }
-        if (null != $classfile && !class_exists($name)) { require_once $classfile; }
+        if (class_exists($name) || interface_exists($name)) {
+            if (0 === strpos($name, ZMLoader::$classPrefix) || null != $classfile) {
+                // resolved && starts with prefix or resolved via classpath (which suggests a ZenMagick class) - as good as it gets
+                return $name;
+            } else {
+                // make sure we load a ZenMagick class
+                // there might be name clashes with non ZenMagick classes
+                $parent = $name;
+                while (false !== ($parent = get_parent_class($parent))) {
+                    if (0 === strpos($parent, ZMLoader::$classPrefix)) {
+                        return $name;
+                    }
+                }
+            }
+        } 
 
-        return null != $classfile ? $name : (null != $zmclassfile ? $zmname : null);
+        // fallback to prefixed class
+        $zmname = ZMLoader::$classPrefix.$name;
+
+        if (class_exists($zmname) || interface_exists($zmname)) {
+            return $zmname;
+        }
+
+        if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
+            require_once $zmclassfile;
+        }
+
+        // prefixed if class file exists, null otherwise
+        return null != $zmclassfile ? $zmname : null;
     }
 
     /**
@@ -266,7 +280,7 @@ class ZMLoader {
         if (!is_array($args)) {
             $args = func_get_args();
         }
-        return ZMLoader::instance()->create($args);
+        return ZMLoader::instance()->makeClass($args);
     }
 
     /**
@@ -276,7 +290,7 @@ class ZMLoader {
      * @param var arg Optional constructor arguments.
      * @return mixed A new instance of the given class.
      */
-    protected function create($name) {
+    protected function makeClass($name) {
         if (is_array($name)) {
             $tmp = $name;
             $name = array_shift($tmp);

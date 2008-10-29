@@ -60,6 +60,15 @@ class ZMTestCase extends UnitTestCase {
         return $result;
     }
 
+    /**
+     * Get the test plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    public function getTestPlugin() {
+        return ZMPlugins::instance()->getPluginForId('zm_tests');
+    }
+
 }
 
 /**
