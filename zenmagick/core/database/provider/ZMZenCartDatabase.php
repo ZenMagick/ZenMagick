@@ -49,10 +49,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * @param array conf Configuration properties.
      */
     function __construct($conf=null) {
-    global $db;
-
         parent::__construct();
         if ($conf['database'] == DB_DATABASE) {
+        global $db;
             $this->db_ = $db;
         } else {
             $this->db_ = new queryFactory();
