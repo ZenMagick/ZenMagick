@@ -28,6 +28,9 @@
     // mark external
     define('ZM_EXTERNAL_CALL', true);
 
+    // disable gzip compression
+    define('GZIP_LEVEL', 0);
+
     // get current dir
     $_zm_ext_cwd = getcwd();
 
