@@ -180,16 +180,13 @@ class TestZMCoupons extends ZMTestCase {
      * Test credit coupon.
      */
     public function testCreditCoupon() {
-        // set known balance (test balance update)
-        ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 141);
-
         // new coupon worth $5
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
         ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
-        $this->assertEqual(146, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
+        $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
 
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
@@ -203,9 +200,6 @@ class TestZMCoupons extends ZMTestCase {
 
         ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
         $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
-
-        // set known balance (test balance update)
-        ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 141);
     }
 }
 

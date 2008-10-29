@@ -106,7 +106,7 @@ class TestZMOrders extends ZMTestCase {
             $orderStatusHistory = $order->getOrderStatusHistory();
             $this->assertNotNull($orderStatusHistory);
             $this->assertTrue(is_array($orderStatusHistory));
-            $this->assertEqual(1, count($orderStatusHistory));
+            $this->assertEqual(2, count($orderStatusHistory));
 
             // check first entry
             $orderStatus = $orderStatusHistory[0];
@@ -131,7 +131,7 @@ class TestZMOrders extends ZMTestCase {
             $orderStatusHistory = $order->getOrderStatusHistory();
             $this->assertNotNull($orderStatusHistory);
             $this->assertTrue(is_array($orderStatusHistory));
-            $this->assertEqual(1, count($orderStatusHistory));
+            $this->assertEqual(2, count($orderStatusHistory));
 
             $newOrderStatus = ZMLoader::make('OrderStatus');
             $newOrderStatus->setOrderId(1);
@@ -143,11 +143,11 @@ class TestZMOrders extends ZMTestCase {
             $orderStatusHistory = $order->getOrderStatusHistory();
             $this->assertNotNull($orderStatusHistory);
             $this->assertTrue(is_array($orderStatusHistory));
-            $this->assertEqual(2, count($orderStatusHistory));
+            $this->assertEqual(3, count($orderStatusHistory));
             // check created entry
             $createdOrderStatus = $orderStatusHistory[1];
             // make sure this is set
-            $this->assertEqual('Processing', $createdOrderStatus->getName());
+            $this->assertEqual('Pending', $createdOrderStatus->getName());
             $this->assertNotNull($createdOrderStatus->getDateAdded());
 
             // clean up
@@ -163,9 +163,7 @@ class TestZMOrders extends ZMTestCase {
      */
     public function testGetOrderTotals() {
         $order = ZMOrders::instance()->getOrderForId(1);
-        $this->assertNotNull($order);
-
-        if (null != $order) {
+        if ($this->assertNotNull($order)) {
             $totals = $order->getOrderTotals();
             $this->assertNotNull($totals);
             $this->assertTrue(is_array($totals));
@@ -174,8 +172,8 @@ class TestZMOrders extends ZMTestCase {
             // test total total
             $total = $totals['ot_total'];
             $this->assertEqual('Total:', $total->getName());
-            $this->assertEqual('$52.49', $total->getValue());
-            $this->assertEqual(52.49, $total->getAmount());
+            $this->assertEqual('$42.49', $total->getValue());
+            $this->assertEqual(42.49, $total->getAmount());
             $this->assertEqual('ot_total', $total->getType());
         } else {
             $this->fail('test order not found');
@@ -186,18 +184,18 @@ class TestZMOrders extends ZMTestCase {
      * Test order items.
      */
     public function testOrderItems() {
-        $order = ZMOrders::instance()->getOrderForId(109);
+        $order = ZMOrders::instance()->getOrderForId(1);
         $this->assertNotNull($order);
 
         if (null != $order) {
             $items = $order->getOrderItems();
             $this->assertEqual(1, count($items));
             $item = $items[0];
-            $this->assertEqual(1, $item->getProductId());
+            $this->assertEqual(12, $item->getProductId());
             $this->assertEqual(1, $item->getQty());
             $this->assertNotNull($item->getTaxRate());
-            $this->assertEqual(10.00, $item->getTaxRate()->getRate());
-            $this->assertEqual(2, count($item->getAttributes()));
+            $this->assertEqual(0, $item->getTaxRate()->getRate());
+            $this->assertEqual(0, count($item->getAttributes()));
         } else {
             $this->fail('test order not found');
         }
@@ -207,7 +205,7 @@ class TestZMOrders extends ZMTestCase {
      * Test order item attributes.
      */
     public function testOrderItemAttributes() {
-        $order = ZMOrders::instance()->getOrderForId(109);
+        $order = ZMOrders::instance()->getOrderForId(1);
         $this->assertNotNull($order);
 
         if (null != $order) {
@@ -215,9 +213,7 @@ class TestZMOrders extends ZMTestCase {
             $this->assertEqual(1, count($items));
             $item = $items[0];
             $attributes = $item->getAttributes();
-            $this->assertEqual(2, count($attributes));
-
-            if (2 == count($attributes)) {
+            if ($this->assertEqual(2, count($attributes))) {
                 // expect productId 1 with model:premium and memory:16MB
                 $attribute = $attributes[0];
                 $this->assertEqual('Model', $attribute->getName());
