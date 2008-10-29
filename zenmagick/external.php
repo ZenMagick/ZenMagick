@@ -42,6 +42,6 @@
     require('includes/application_top.php');
 
     // change back
-    chdir($_zm__ext_cwd);
+    chdir($_zm_ext_cwd);
 
 ?>
