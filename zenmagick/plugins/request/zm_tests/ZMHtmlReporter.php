@@ -155,7 +155,6 @@ class ZMHtmlReporter extends HtmlReporter {
      */
     public function paintException($exception) {
         ob_start(); parent::paintException($exception); $html = ob_get_clean();
-        //echo $html;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
 
         $msg = $exception->getMessage();
@@ -188,7 +187,6 @@ class ZMHtmlReporter extends HtmlReporter {
      */
     public function paintFail($message) {
         ob_start(); parent::paintFail($message); $html = ob_get_clean();
-        //echo $html;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
     }
 

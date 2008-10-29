@@ -69,7 +69,6 @@ class ZMModel extends ZMObject {
      */
     public function populateCustom($table) {
         $fields = array_keys(ZMDbTableMapper::getCustomFieldInfo($table));
-        var_dump($fields);
         $parameter = ZMRequest::getParameterMap();
         ZMBeanUtils::setAll($this, ZMRequest::getParameterMap(), $fields);
     }
