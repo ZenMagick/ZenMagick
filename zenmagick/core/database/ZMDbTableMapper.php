@@ -68,7 +68,10 @@
  * @version $Id$
  */
 class ZMDbTableMapper extends ZMObject {
-    private $tableMap;
+    const CACHE_KEY = "ZMDbTableMapper::mappings";
+    private $tableMap_;
+    private $cache_;
+    private $isCached_;
 
 
     /**
@@ -78,11 +81,17 @@ class ZMDbTableMapper extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('dbMappings')));
-        $this->tableMap = array();
-        foreach ($mappings as $table => $mapping) {
-            $this->tableMap[$table] = $this->parseTable($mapping);
+echo ZMRuntime::getExecutionTime()."<BR>";
+        $this->tableMap_ = array();
+        $this->isCached_ = false;
+        $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
+        if (ZMSettings::get('isCacheDbMappings') && null != ($cachedMap = $this->cache_->get(CACHE_KEY))) {
+            $this->tableMap_ = $cachedMap;
+            $this->isCached_ = true;
+        } else {
+            $this->loadMappingFile();
         }
+echo ZMRuntime::getExecutionTime()."<BR>";
     }
 
     /**
@@ -92,6 +101,42 @@ class ZMDbTableMapper extends ZMObject {
         return ZMObject::singleton('DbTableMapper');
     }
 
+
+    /**
+     * Load mappings from file.
+     */
+    protected function loadMappingFile() {
+        // load from file
+        eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('dbMappings')));
+        foreach ($mappings as $table => $mapping) {
+            $this->tableMap_[$table] = $this->parseTable($mapping);
+        }
+    }
+
+    /**
+     * Check if cached mappings are used.
+     *
+     * @return boolean <code>true</code> if mappings have been loaded from cache.
+     */
+    public function isCached() {
+        return $this->isCached_;
+    }
+
+    /**
+     * Create/update cache.
+     */
+    public function updateCache() {
+        if ($this->isCached_) {
+            $this->cache_->remove(CACHE_KEY);
+            $this->isCached_ = false;
+        }
+        $cachedMap = array();
+        foreach (array_keys($this->tableMap_) as $table) {
+            $cachedMap[$table] = $this->getMapping($table);
+        }
+        $this->cache_->save($cachedMap, CACHE_KEY);
+        $this->isCached_ = false;
+    }
 
     /**
      * Parse mapping for a single table.
@@ -136,11 +181,16 @@ class ZMDbTableMapper extends ZMObject {
 
         $mappings = array();
         foreach (array_reverse($tables) as $table) {
-            if (!isset($this->tableMap[$table])) {
+            if (!isset($this->tableMap_[$table])) {
                 return null;
             }
-            // add the current custom fields at RT as they might change
-            $tableMap = $this->addCustomFields($this->tableMap[$table], $table);
+            if ($this->isCached_) {
+                // assume all is good
+                $tableMap = $this->tableMap_[$table];
+            } else {
+                // add the current custom fields at Runtime as they might change
+                $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
+            }
             $mappings = array_merge($mappings, $tableMap);
         }
 
@@ -171,7 +221,7 @@ class ZMDbTableMapper extends ZMObject {
      * @param array The new mapping.
      */
     public function setMappingForTable($table, $mapping) {
-        $this->tableMap[$table] = $this->parseTable($mapping);
+        $this->tableMap_[$table] = $this->parseTable($mapping);
     }
 
     /**
@@ -225,7 +275,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array List of table names.
      */
     public function getTableNames() {
-        return array_keys($this->tableMap);
+        return array_keys($this->tableMap_);
     }
 
 }

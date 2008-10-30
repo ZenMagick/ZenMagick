@@ -34,4 +34,7 @@
     // disable view counts for product and review pages
     //ZMSettings::set('isLogPageStats', false);
 
+    // enable database mapping caching
+    //ZMSettings::set('isCacheDbMappings', true);
+
 ?>

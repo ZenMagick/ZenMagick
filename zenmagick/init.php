@@ -159,6 +159,12 @@
     // start output buffering
     if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) { ob_start(); }
 
+    // handle db table mapping caching
+    $tableMapper = ZMDbTableMapper::instance();
+    if (ZMSettings::get('isCacheDbMappings') && !$tableMapper->isCached()) {
+        $tableMapper->updateCache();
+    }
+
     ZMEvents::instance()->fireEvent(null, ZM_EVENT_INIT_DONE);
 
 ?>

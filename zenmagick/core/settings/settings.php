@@ -109,6 +109,9 @@
         // download base folder
         'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
+        // cache database mappings
+        'isCacheDbMappings' => false,
+
 
 
     /**************************************
