@@ -81,7 +81,6 @@ class ZMDbTableMapper extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-echo ZMRuntime::getExecutionTime()."<BR>";
         $this->tableMap_ = array();
         $this->isCached_ = false;
         $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
@@ -91,7 +90,6 @@ echo ZMRuntime::getExecutionTime()."<BR>";
         } else {
             $this->loadMappingFile();
         }
-echo ZMRuntime::getExecutionTime()."<BR>";
     }
 
     /**
