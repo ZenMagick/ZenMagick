@@ -27,10 +27,6 @@
 /**
  * Plugins.
  *
- * <p>Plugins are similar to zen-cart modules. Basically, <code>ZMPlugin</code> can be used as
- * base class for a zen-cart module (zen-cart will use the properties and methods marked
- * <em>deprecated</em>...).</p>
- *
  * <p>The plugin type is controlled by the base directory within the plugins directory.
  * Please note that even though it is valid to create payment, shipping and order_total
  * directories/plugins, zen-cart will not (yet) recognize them as such.</p>
@@ -53,6 +49,8 @@
  * <p>Plugins are grouped according to the way they are used/required. Valid groups (subdirectories)
  * are:</p>
  * <dl>
+ *  <dt>init</dt><dd>system plugins</dd>
+ *  <dt>admin</dt><dd>admin plugins</dd>
  *  <dt>request</dt><dd>created for each request</dd>
  * </dl>
  *
