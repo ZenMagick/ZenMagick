@@ -26,19 +26,6 @@
 <?php
 
     /**
-     * Sanitize the given value.
-     *
-     * @package org.zenmagick.security
-     * @param mixed value A string or array.
-     * @return mixed A sanitixed version.
-     * @deprecated use ZMTools instead
-     */
-    function zm_sanitize($value) {
-        return ZMTools::sanitize($value);
-    }
-
-
-    /**
      * Encrypt the given password.
      *
      * @package org.zenmagick.security
