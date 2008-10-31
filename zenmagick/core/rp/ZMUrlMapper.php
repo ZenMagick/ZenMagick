@@ -133,8 +133,8 @@ class ZMUrlMapper extends ZMObject {
 
         $view = ZMLoader::make($viewInfo['class'], $viewInfo['view']);
         $view->setMappingId($viewId);
-        $parameterMap = $this->_toArray($viewInfo['parameter']);
-        $parameterMap = array_merge($parameterMap, $this->_toArray($parameter));
+        $parameterMap = ZMTools::toArray($viewInfo['parameter']);
+        $parameterMap = array_merge($parameterMap, ZMTools::toArray($parameter));
         if (0 < count($parameterMap)) {
             foreach ($parameterMap as $name => $value) {
                 $method = 'set'.ucwords($name);
@@ -145,23 +145,6 @@ class ZMUrlMapper extends ZMObject {
         }
 
         return $view;
-    }
-
-    /**
-     * Little helper to handle either string or array.
-     *
-     * @param mixed value The value to convert; either already an array or a URL query form string.
-     * @return array The value as array.
-     */
-    function _toArray($value) {
-        if (null == $value) {
-            return array();
-        }
-        if (is_array($value)) {
-            return $value;
-        }
-        parse_str($value, $map);
-        return $map;
     }
 
 }

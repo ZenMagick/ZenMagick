@@ -517,6 +517,23 @@ class ZMTools {
         return $filename;
     }
 
+    /**
+     * Convert values to array where reasonable.
+     *
+     * @param mixed value The value to convert; either already an array or a URL query form string.
+     * @return array The value as array.
+     */
+    public function toArray($value) {
+        if (null === $value) {
+            return array();
+        }
+        if (is_array($value)) {
+            return $value;
+        }
+        parse_str($value, $map);
+        return $map;
+    }
+
 }
 
 ?>
