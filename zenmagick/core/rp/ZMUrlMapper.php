@@ -117,9 +117,9 @@ class ZMUrlMapper extends ZMObject {
      */
     public function findController($page) {
         $clazz = null;
-        if (isset($this->controllerViews_[$page])) {
+        if (isset($this->controllerViews_[$page]) && isset($this->controllerViews_[$page][$page])) {
             // class configured
-            $clazz = $this->controllerViews_[$page]['controller'];
+            $clazz = $this->controllerViews_[$page][$page]['controller'];
         } else {
             $clazz = ZMLoader::makeClassname($page.'Controller');
         }
