@@ -75,6 +75,7 @@ Release 0.9.3
 	parent starting with the set prefix ('ZM'), add some tests
 - allow to set login redirect URL as request parameter (redirect=)
 - optionally cache parsed database mappings
+- allow to configure controller class for page (name)
 
 Release 0.9.2
 - add database support for data type blob

@@ -32,10 +32,7 @@
      * @return boolean Always <code>true</code>.
      */
     function zm_dispatch() {
-        $controller = ZMLoader::make(ZMLoader::makeClassname(ZMRequest::getPageName().'Controller'));
-        if (null == $controller) {
-            $controller = ZMLoader::make("DefaultController");
-        }
+        $controller = ZMUrlMapper::instance()->findController(ZMRequest::getPageName());
         ZMRequest::setController($controller);
 
         if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
@@ -66,8 +63,12 @@
             $controller->exportGlobal('zm_theme', ZMRuntime::getTheme());
 
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_START, array('view' => $view));
-            // TODO: catch exceptions
-            $view->generate();
+            try {
+                $view->generate();
+            } catch (Exception $e) {
+                ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
+                //TODO: what to do?
+            } 
             ZMEvents::instance()->fireEvent(null, ZM_EVENT_VIEW_DONE, array('view' => $view));
         }
 
