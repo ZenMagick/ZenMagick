@@ -89,7 +89,11 @@ class ZMFormHandlerController extends ZMController {
         }
 
         $plugin = $this->getPlugin();
-        $this->sendNotificationEmail(ZMRequest::getParameterMap(), $this->getId(), $plugin->get('adminEmail'));
+        $template = $plugin->get('emailTemplate');
+        if (empty($emailTemplate)) {
+            $emailTemplate = $this->getId();
+        }
+        $this->sendNotificationEmail(ZMRequest::getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 
         return $this->findView('success');
@@ -98,14 +102,15 @@ class ZMFormHandlerController extends ZMController {
     /**
      * Send notification email.
      *
+     * @param array data The form data.
      * @param string template The template.
      * @param string email The email address.
      */
-    protected function sendNotificationEmail($context, $template, $email) {
+    protected function sendNotificationEmail($data, $template, $email) {
         if (empty($email)) {
             $email = ZMSettings::get('storeEmail');
         }
-        zm_mail(zm_l10n_get("Form Handler notification: %s", $this->getId()), $template, $context, 
+        zm_mail(zm_l10n_get("Form Handler notification: %s", $this->getId()), $template, array('data' => $data, 'id' => $this->getId()), 
             $email, ZMSettings::get('storeEmail'), null);
     }
 

@@ -55,6 +55,11 @@ class zm_form_handler extends ZMPlugin {
         parent::install();
 
         // options: page name(s);form_name?, email address
+        $this->addConfigValue('Pages', 'pages', '', 'Comma separated list of page names that should be handled');
+        $this->addConfigValue('Notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
+            'Email address for admin notifications (use store email if empty)');
+        $this->addConfigValue('Notification template', 'emailTemplate', 'form_handler', 'Name of common notification email template (empty will use the page name as template)');
+        $this->addConfigValue('Secure', 'secure', 'false', 'Flag *all* form urls as secure','zen_cfg_select_option(array(\'true\',\'false\'),');
     }
 
     /**
@@ -64,13 +69,24 @@ class zm_form_handler extends ZMPlugin {
         parent::init();
 
         // mappings
-        ZMUrlMapper::instance()->setMapping('foo', 'foo', 'foo', 'PageView', null, 'ZMFormHandlerController');
-        ZMUrlMapper::instance()->setMapping('foo', 'success', 'foo', 'RedirectView', null, 'ZMFormHandlerController');
+        $pages = $this->get('pages');
+        if (0 < strlen($pages)) {
+            $pages = explode(',', $pages);
+            $secure = ZMTools::asBoolean($this->get('secure'));
+            foreach ($pages as $page) {
+                ZMUrlMapper::instance()->setMapping($page, $page, $page, 'PageView', null, 'ZMFormHandlerController');
+                ZMUrlMapper::instance()->setMapping($page, 'success', $page, 'RedirectView', ($secure ? 'secure=true' : ''), 'ZMFormHandlerController');
+            }
 
-        ZMValidator::instance()->addRules('foo', array(
-            array('RequiredRule', 'foo', zm_l10n_get("Please enter a foo"))
-        ));
+            if ($secure) {
+                // mark as secure
+                foreach ($pages as $page) {
+                    ZMSacsMapper::instance()->setMapping($page, ZM_ACCOUNT_TYPE_ANONYMOUS);
+                }
+            }
 
+            // XXX: authorization, form id?
+        }
     }
 
 }
