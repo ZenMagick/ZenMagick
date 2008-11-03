@@ -223,6 +223,11 @@ class zm_subscriptions extends ZMPlugin {
      * Order created event handler.
      */
     public function onZMCreateOrder($args=array()) {
+        if ($args['source'] instanceof ZMUpdateSubscriptionsCronJob) {
+            // do not process orders created by our cron job
+            return;
+        }
+
         $orderId = $args['orderId'];
         if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE " . TABLE_ORDERS . "

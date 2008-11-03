@@ -39,6 +39,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
+            // load the new order as proper ZMOrder instance for further use
             $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId());
             if (null === $order) {
                 ZMLogging::instance()->log('copy order failed for scheduled order: '.$scheduledOrderId, ZMLogging::ERROR);
@@ -84,6 +85,9 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             if (!ZMTools::isEmpty($scheduleEmailTemplate)) {
                 $this->sendOrderEmail($order, $scheduleEmailTemplate);
             }
+
+            // event
+            ZMEvents::instance()->fireEvent($this, ZM_EVENT_CREATE_ORDER, array('orderId' => $order->getId()));
         }
 
         return true;
