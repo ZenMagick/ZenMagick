@@ -42,7 +42,7 @@
         $urlMapper->setMapping(null, 'product_not_found', 'error');
         $urlMapper->setMapping(null, 'category_not_found', 'error');
         $urlMapper->setMapping(null, 'index', 'index');
-        $urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure="true');
+        $urlMapper->setMapping(null, 'login', 'login', 'RedirectView', 'secure=true');
 
         // checkout states
         $urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView', 'secure=true');
