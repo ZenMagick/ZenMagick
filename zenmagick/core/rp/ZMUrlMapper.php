@@ -90,7 +90,7 @@ class ZMUrlMapper extends ZMObject {
         $viewInfo['view'] = (null != $view ? $view : $page);
         $viewInfo['class'] = $viewClass;
         $viewInfo['parameter'] = $parameter;
-        $viewInfo['controller'] = (null != $controller ? $controller : $page);
+        $viewInfo['controller'] = $controller;
 
         if (null === $page) {
             // global mapping
@@ -117,12 +117,13 @@ class ZMUrlMapper extends ZMObject {
      */
     public function findController($page) {
         $clazz = null;
-        if (isset($this->controllerViews_[$page]) && isset($this->controllerViews_[$page][$page])) {
+        if (isset($this->controllerViews_[$page]) && null != $this->controllerViews_[$page][$page]['controller']) {
             // class configured
             $clazz = $this->controllerViews_[$page][$page]['controller'];
         } else {
             $clazz = ZMLoader::makeClassname($page.'Controller');
         }
+
         if (null == ($controller = ZMLoader::make($clazz))) {
             $controller = ZMLoader::make("DefaultController");
         }
