@@ -143,12 +143,10 @@ class ZMUrlMapper extends ZMObject {
     public function findView($page, $viewId=null, $parameter=null) {
         $viewInfo = null;
 
-        $viewId = null != $viewId ? $viewId : $page;
-
         // check controller
         if (isset($this->controllerViews_[$page])) {
-            $page = $this->controllerViews_[$page];
-            $viewInfo = (isset($page[$viewId]) ? $page[$viewId] : null);
+            $view = $this->controllerViews_[$page];
+            $viewInfo = (isset($view[$viewId]) ? $view[$viewId] : null);
         }
 
         if (null == $viewInfo) {
