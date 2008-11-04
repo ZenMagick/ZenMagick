@@ -38,9 +38,8 @@
 class ZMUrlMapper extends ZMObject {
     // global views; key is viewId
     private $globalViews_;
-    // controller specific views; key is controller
-    private $controllerViews_;
-    private $mapping_;
+    // page specific views; key is page
+    private $pageViews_;
 
 
     /**
@@ -48,10 +47,8 @@ class ZMUrlMapper extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
-        $this->mapping_ = array();
         $this->globalViews_ = array();
-        $this->controllerViews_ = array();
+        $this->pageViews_ = array();
     }
 
     /**
@@ -68,6 +65,47 @@ class ZMUrlMapper extends ZMObject {
         return ZMObject::singleton('UrlMapper');
     }
 
+    /**
+     * Set a mapping.
+     *
+     * <p>Supported <code>$viewInfo</code> keys:</p>
+     * <dl>
+     *  <dt>viewId</dt><dd>The view id. This is the key the controller will use to lookup a view; default is the value of <code>$page</code>.</dd>
+     *  <dt>view</dt><dd>The corresponding view template; this is the name of the view filename without the file extension.</dd>
+     *  <dt>class</dt><dd>The actual <code>ZMView</code> implementation class name to use; default is <em>PageView</em>.</dd>
+     *  <dt>controller</dt><dd>The class name for the controller to handle this page; default is <code>null</code> 
+     *   to use <code>$page</code> to build a classname (see <code>ZMLoader::makeClassname(string)</code> for details).</dd>
+     *  <dt>formId</dt><dd>Optional name of the form for automatic request validation; default is <code>null</code> for none.</dd>
+     *  <dt>parameter</dt><dd>Optional URL arg style string or array map with additional parameters for the view class; default is <code>null</code>.</dd>
+     * </dl>
+     *
+     * <p>In the case of <code>$page</code> being <code>null</code>, both <em>view</em> and <em>viewId</em> are required.</p>
+     *
+     * @param string page The page name; <code>null</code> may be used to lookup shared mappings.
+     * @param array viewInfo View details.
+     */
+    public function setMappingInfo($page, $viewInfo) {
+        $defaults = array('view' => $page, 'viewId' => $page, 'controller' => null, 'class' => 'PageView', 'formId' => null, 'parameter' => null);
+        // merge with defaults
+        $viewInfo = array_merge($defaults, $viewInfo);
+        // need this to store the data
+        $viewId = $viewInfo['viewId'];
+        // sanity check
+        if (null == $page && (null == $viewInfo['view'] || null == $viewid)) {
+            $msg = zm_l10n_get("invalid url mapping; page=%s, view=%s, viewId=%s", $page, $viewInfo['view'], $viewInfo['viewId']);
+            throw ZMLoader::make('ZMException', $msg);
+        }
+
+        if (null === $page) {
+            // global mapping
+            $this->globalViews_[$viewId] = $viewInfo;
+        } else {
+            if (!isset($this->pageViews_[$page])) {
+                $this->pageViews_[$page] = array();
+            }
+            $this->pageViews_[$page][$viewId] = $viewInfo;
+        }
+    }
 
     /**
      * Set a mapping.
@@ -78,6 +116,7 @@ class ZMUrlMapper extends ZMObject {
      * @param string viewClass The view class to be used; default is <code>PageView</code>
      * @param mixed parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @param string controller Optional controller name; default is the value of the parameter <em>page</em>.
+     * @deprecated Use setMappingInfo instead.
      */
     public function setMapping($page, $viewId=null, $view=null, $viewClass='PageView', $parameter=null, $controller=null) {
         if (null == $page && (null == $view || null == $viewId)) {
@@ -96,10 +135,10 @@ class ZMUrlMapper extends ZMObject {
             // global mapping
             $this->globalViews_[$viewId] = $viewInfo;
         } else {
-            if (!isset($this->controllerViews_[$page])) {
-                $this->controllerViews_[$page] = array();
+            if (!isset($this->pageViews_[$page])) {
+                $this->pageViews_[$page] = array();
             }
-            $this->controllerViews_[$page][$viewId] = $viewInfo;
+            $this->pageViews_[$page][$viewId] = $viewInfo;
         }
     }
 
@@ -117,9 +156,9 @@ class ZMUrlMapper extends ZMObject {
      */
     public function findController($page) {
         $clazz = null;
-        if (isset($this->controllerViews_[$page]) && null != $this->controllerViews_[$page][$page]['controller']) {
+        if (isset($this->pageViews_[$page]) && null != $this->pageViews_[$page][$page]['controller']) {
             // class configured
-            $clazz = $this->controllerViews_[$page][$page]['controller'];
+            $clazz = $this->pageViews_[$page][$page]['controller'];
         } else {
             $clazz = ZMLoader::makeClassname($page.'Controller');
         }
@@ -144,8 +183,8 @@ class ZMUrlMapper extends ZMObject {
         $viewInfo = null;
 
         // check controller
-        if (isset($this->controllerViews_[$page])) {
-            $view = $this->controllerViews_[$page];
+        if (isset($this->pageViews_[$page])) {
+            $view = $this->pageViews_[$page];
             $viewInfo = (isset($view[$viewId]) ? $view[$viewId] : null);
         }
 
@@ -163,15 +202,7 @@ class ZMUrlMapper extends ZMObject {
         $view->setMappingId($viewId);
         $parameterMap = ZMTools::toArray($viewInfo['parameter']);
         $parameterMap = array_merge($parameterMap, ZMTools::toArray($parameter));
-        if (0 < count($parameterMap)) {
-            foreach ($parameterMap as $name => $value) {
-                $method = 'set'.ucwords($name);
-                if (method_exists($view, $method)) {
-                    $view->$method($value);
-                }
-            }
-        }
-
+        ZMBeanUtils::setAll($view, $parameterMap);
         return $view;
     }
 

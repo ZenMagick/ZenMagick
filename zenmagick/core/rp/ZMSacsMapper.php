@@ -38,8 +38,8 @@
  * @version $Id$
  */
 class ZMSacsMapper extends ZMObject {
-    var $mapping_;
-    var $levelMap_;
+    private $mapping_;
+    private $levelMap_;
 
 
     /**
@@ -75,24 +75,24 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Set a mapping.
      *
-     * @param string controller The controller.
+     * @param string page The page [ie. the request name].
      * @param string authentication The level of authentication required; default is <code>ZM_ACCOUNT_TYPE_REGISTERED</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      */
-    function setMapping($controller, $authentication=ZM_ACCOUNT_TYPE_REGISTERED, $secure=true) {
-        if (null == $controller) {
+    public function setMapping($page, $authentication=ZM_ACCOUNT_TYPE_REGISTERED, $secure=true) {
+        if (null == $page) {
             throw ZMLoader::make('ZMException', "invalid sacs mapping (null controller)");
         }
-        $this->mapping_[$controller] = array('level' => $authentication, 'secure' => $secure);
+        $this->mapping_[$page] = array('level' => $authentication, 'secure' => $secure);
     }
 
     /**
      * Authorize the current request.
      *
-     * @param string controller The controller; default is <code>null</code> to use the current page name.
+     * @param string page The page; default is <code>null</code> to use the current page name.
      */
-    function ensureAuthorization($controller=null) {
-        $requiredLevel = $this->getMappingValue($controller, 'level', ZMSettings::get('defaultAccessLevel'));
+    public function ensureAuthorization($page=null) {
+        $requiredLevel = $this->getMappingValue($page, 'level', ZMSettings::get('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
         }
@@ -121,10 +121,10 @@ class ZMSacsMapper extends ZMObject {
      * <p>If a page is requested using HTTP and the page is mapped as <em>secure</code>, a
      * redirect using SSL will be performed.</p>
      *
-     * @param string controller The controller; default is <code>null</code> to use the current page name.
+     * @param string page The page; default is <code>null</code> to use the current page name.
      */
-    function ensureAccessMethod($controller=null) {
-        $secure = $this->getMappingValue($controller, 'level', false);
+    public function ensureAccessMethod($page=null) {
+        $secure = $this->getMappingValue($page, 'level', false);
         if ($secure && !ZMRequest::isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
             ZMRequest::redirect(ZMToolbox::instance()->net->url(null, null, true, false));
         }
@@ -133,21 +133,31 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Get mapping value.
      *
-     * @param string controller The controller; default is <code>null</code> to use the current page name.
+     * @param string page The page [name].
      * @param string key The mapping key.
      * @param mixed default The mapping key.
      * @return mixed The value or the provided default value; default is <code>null</code>.
      */
-    function getMappingValue($controller, $key, $default=null) {
-        if (null == $controller) {
-            $controller = ZMRequest::getPageName();
+    protected function getMappingValue($page, $key, $default=null) {
+        if (null == $page) {
+            $page = ZMRequest::getPageName();
         }
 
-        if (!isset($this->mapping_[$controller])) {
+        if (!isset($this->mapping_[$page])) {
             return $default;
         }
 
-        return $this->mapping_[$controller][$key];
+        return $this->mapping_[$page][$key];
+    }
+
+    /**
+     * Check if a request to the given page [name] is required to be secure.
+     *
+     * @param string page The page [name].
+     * @return boolean <code>true</code> if a secure conenction is required.
+     */
+    public function secureRequired($page) {
+        return $this->getMappingValue($page, 'level', false);
     }
 
 }

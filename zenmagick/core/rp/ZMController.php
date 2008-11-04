@@ -193,6 +193,12 @@ class ZMController extends ZMObject {
         // page and controller name *must* be the same as the logic to 
         // build the controller name is based on that fact!
         $view = ZMUrlMapper::instance()->findView($this->id_, $id, $parameter);
+
+        // ensure secure option is set
+        if (ZMSacsmapper::instance()->secureRequired($this->id_)) {
+            ZMBeanUtils::setAll($view, array('secure' => true));
+        }
+
         return $view;
     }
 
