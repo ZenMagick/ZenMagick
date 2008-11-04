@@ -96,7 +96,7 @@ class ZMBeanUtils {
         }
 
         // special case for ZMModel instances
-        if ($obj instanceof ZMModel) {
+        if ($obj instanceof ZMObject) {
             foreach ($obj->getPropertyNames() as $property) {
                 $map[$property] = $obj->get($property);
             }
@@ -116,7 +116,7 @@ class ZMBeanUtils {
         if (null !== $keys) {
             $keys = array_flip($keys);
         }
-        $isModel = ($obj instanceof ZMModel);
+        $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
             if (null === $keys || array_key_exists($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);

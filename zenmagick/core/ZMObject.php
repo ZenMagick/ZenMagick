@@ -30,17 +30,22 @@
  * <p>This is the base class for all ZenMagick classes and contains some very basic
  * stuff that might be usefull for most/all classes.</p>
  *
+ * <p>Included is generic support for properties via <code>get($name)</code>, <code>set($name, $value)</code>
+ * and, via the corresponding methods <code>__get($name)</code> and <code>__set($name,$value)</code>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick
  */
 class ZMObject {
     private static $singletons_ = array();
+    protected $properties_;
 
 
     /**
      * Create new instance.
      */
     function __construct() {
+        $this->properties_ = array();
     }
 
     /**
@@ -81,6 +86,87 @@ class ZMObject {
         return ZMObject::$singletons_[$name];
     }
 
+
+    /**
+     * Support generic getter method for additional properties.
+     *
+     * @param string name The property name.
+     * @return mixed The value or <code>null</code>.
+     */
+   public function __get($name) {
+        if (array_key_exists($name, $this->properties_)) {
+            return $this->properties_[$name];
+        }
+        return null;
+    }
+
+    /**
+     * Support to access property values by name.
+     *
+     * @param string name The property name.
+     * @param mixed default A default value; default value is <code>null</code>.
+     * @return mixed The value or <code>null</code>.
+     */
+    public function get($name, $default=null) {
+        if (array_key_exists($name, $this->properties_)) {
+            return $this->properties_[$name];
+        }
+        return $default;
+    }
+
+    /**
+     * Support generic setter method for additional properties.
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    public function __set($name, $value) {
+        $this->properties_[$name] = $value;
+    }
+
+    /**
+     * Support to set property values by name.
+     *
+     * @param string name The property name.
+     * @param mixed value The value.
+     */
+    public function set($name, $value) {
+        $this->properties_[$name] = $value;
+    }
+
+    /**
+     * Get a list of all custom properties.
+     *
+     * @return array List of custom properties set on this object.
+     */
+    public function getPropertyNames() {
+        return array_keys($this->properties_);
+    }
+
+    /**
+     * Handle generic getXXX()/setXXX()/isXXX() methods.
+     *
+     * @param string method The method name.
+     * @param array args Optional arguments.
+     * @return mixed The result of the supported method or null.
+     */
+    public function __call($method, $args) {
+        if (0 === strpos($method, 'get') && 0 == count($args)) {
+            $property = str_replace('get', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->get($property);
+        } else if (0 === strpos($method, 'is') && 0 == count($args)) {
+            $property = str_replace('is', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->get($property);
+        } else if (0 === strpos($method, 'set') && 1 == count($args)) {
+            $property = str_replace('set', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->set($property, $args[0]);
+        }
+
+        throw ZMLoader::make('ZMException', 'invalid method: '.$method);
+    }
 
     /**
      * {@inheritDoc}
