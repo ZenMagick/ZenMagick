@@ -76,6 +76,7 @@ class ZMUrlMapper extends ZMObject {
      *  <dt>controller</dt><dd>The class name for the controller to handle this page; default is <code>null</code> 
      *   to use <code>$page</code> to build a classname (see <code>ZMLoader::makeClassname(string)</code> for details).</dd>
      *  <dt>formId</dt><dd>Optional name of the form for automatic request validation; default is <code>null</code> for none.</dd>
+     *  <dt>formClass</dt><dd>Optional form model class; default is <code>null</code> for none.</dd>
      *  <dt>parameter</dt><dd>Optional URL arg style string or array map with additional parameters for the view class; default is <code>null</code>.</dd>
      * </dl>
      *
@@ -85,7 +86,7 @@ class ZMUrlMapper extends ZMObject {
      * @param array viewInfo View details.
      */
     public function setMappingInfo($page, $viewInfo) {
-        $defaults = array('view' => $page, 'viewId' => $page, 'controller' => null, 'class' => 'PageView', 'formId' => null, 'parameter' => null);
+        $defaults = array('view' => $page, 'viewId' => $page, 'controller' => null, 'class' => 'PageView', 'formId' => null, 'formClass' => null, 'parameter' => null);
         // merge with defaults
         $viewInfo = array_merge($defaults, $viewInfo);
         // need this to store the data
