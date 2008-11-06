@@ -42,6 +42,7 @@ class ZMEvents extends ZMObject {
     private $subscriber_;
     private $eventLog;
 
+
     /**
      * Create new instance.
      */
