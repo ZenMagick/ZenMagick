@@ -68,6 +68,4 @@
      */
     function zm_new_password() { return zen_create_random_value(ZMSettings::get('minPasswordLength'), 'mixed'); }
 
-
-
 ?>
