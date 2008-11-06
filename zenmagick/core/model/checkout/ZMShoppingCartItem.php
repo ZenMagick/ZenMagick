@@ -32,10 +32,8 @@
  * @version $Id$
  */
 class ZMShoppingCartItem extends ZMModel {
-    var $cart_;
-    var $zenItem_;
-    var $taxRate_;
-    var $attributes_;
+    private $cart_;
+    private $zenItem_;
 
 
     /**
@@ -48,7 +46,6 @@ class ZMShoppingCartItem extends ZMModel {
         parent::__construct();
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
-        $this->attributes_ = null;
     }
 
     /**
@@ -65,37 +62,80 @@ class ZMShoppingCartItem extends ZMModel {
     function getImage() { return $this->zenItem_['image']; }
     function getImageInfo() { return ZMLoader::make("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
-    function getItemPrice() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']); }
-    function getItemTotal() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }
+    function getItemPrice() { return $this->getTaxRate()->addTax($this->zenItem_['final_price']); }
+    function getItemTotal() { return $this->getTaxRate()->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }
     function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
+    function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
+    function getOneTimeCharges() { return $this->getTaxRate()->addTax($this->zenItem_['onetime_charges']); }
+
 
     /**
      * Get the tax rate for this item.
      *
      * @return ZMTaxRate The tax rate or <code>null</code>.
      */
-    function getTaxRate() {
+    public function getTaxRate() {
         return ZMTaxRates::instance()->getTaxRateForClassId($this->zenItem_['tax_class_id']);
     }
 
     /**
-     * Get the product this item is associated to.
+     * Get the product this item is associated with.
      *
      * @return ZMProduct The product.
      */
-    function getProduct() { 
+    public function getProduct() { 
         return ZMProducts::instance()->getProductForId($this->getId());
     }
 
-    function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
-    function getOneTimeCharges() { $taxRate = $this->getTaxRate(); return $taxRate->addTax($this->zenItem_['onetime_charges']); }
+    /**
+     * Check if this cart item has attributes or not.
+     *
+     * @return boolean <code>true</code> if there are attributes (values) available,
+     *  <code>false</code> if not.
+     */
+    function hasAttributes() { 
+        return 0 != $this->getAttributes();
+    }
 
-    function hasAttributes() { return 0 != $this->getAttributes(); }
-    function getAttributes() { 
-        if (null == $this->attributes_) {
-            $this->attributes_ = $this->cart_->_getItemAttributes($this);
+    /**
+     * Get selected attributes for this cart item.
+     *
+     * @return array List of product attributes.
+     */
+    public function getAttributes() { 
+        if (!isset($this->zenItem_['attributes']) || !is_array($this->zenItem_['attributes'])) {
+            return array();
         }
-        return $this->attributes_;
+
+        // build attribute => value list map
+        $attrMap = array();
+        foreach ($this->zenItem_['attributes'] as $option => $valueId) {
+            $tmp = explode('_', $option);
+            $attributeId = $tmp[0];
+            if (!array_key_exists($attributeId, $attrMap)) {
+                $attrMap[$attributeId] = array();
+            }
+            $attrMap[$attributeId][$valueId] = $valueId;
+        }
+
+        // now get all attributes and strip the not selected stuff
+        $productAttributes = $this->getProduct()->getAttributes();
+        $attributes = array();
+        foreach ($productAttributes as $productAttribute) {
+            // drop optional attributes and unselected values
+            if (array_key_exists($productAttribute->getId(), $attrMap)) {
+                $attribute = clone $productAttribute;
+                $valueIds = $attrMap[$productAttribute->getId()];
+                foreach ($productAttribute->getValues() as $value) {
+                    if (!array_key_exists($value->getId(), $valueIds)) {
+                        $attribute->removeValue($value);
+                    }
+                }
+                $attributes[] = $attribute;
+            }
+        }
+
+        return $attributes;
     }
 
     /**
@@ -103,7 +143,7 @@ class ZMShoppingCartItem extends ZMModel {
      *
      * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
      */
-    function isStockAvailable() {
+    public function isStockAvailable() {
         return ZMProducts::instance()->isQuantityAvailable($this->getId(), $this->getQty());
     }
 

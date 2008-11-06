@@ -34,7 +34,7 @@
  * @version $Id$
  */
 class ZMTaxRates extends ZMObject {
-    var $taxRates_;
+    private $taxRates_;
 
 
     /**
