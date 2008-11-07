@@ -10,9 +10,30 @@
 class TestAuthentication extends ZMTestCase {
 
     /**
-     * Test manager.
+     * Test manager single provider.
      */
-    public function testManager() {
+    public function testManagerSingle() {
+        $manager = ZMLoader::make('ZMAuthenticationManager');
+        $this->assertNull($manager->getDefaultProvider());
+        $manager->addProvider('ZMZenCartAuthentication');
+        $this->assertNotNull($manager->getDefaultProvider());
+
+        // check zc encryypted password
+        $zcProvider = ZMLoader::make('ZMZenCartAuthentication');
+        $zcpwd = 'foobar';
+        $zcenc = $zcProvider->encryptPassword($zcpwd);
+        $this->assertTrue($manager->validatePassword($zcpwd, $zcenc));
+
+        // check that manager uses proper default provider to encrypt
+        $manpwd = 'dohbar';
+        $manenc = $manager->encryptPassword($manpwd);
+        $this->assertTrue($zcProvider->validatePassword($manpwd, $manenc));
+    }
+
+    /**
+     * Test manager multi provider.
+     */
+    public function testManagerMulti() {
         $manager = ZMLoader::make('ZMAuthenticationManager');
         $this->assertNull($manager->getDefaultProvider());
         $manager->addProvider('ZMZenCartAuthentication');
