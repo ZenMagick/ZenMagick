@@ -80,6 +80,7 @@ Release 0.9.3
   that information should be taken from the sacs mapping
 - change ZMController to use sacs mapper to ensure views have the correct
   secure flag value set
+- add autehntication manager
 
 Release 0.9.2
 - add database support for data type blob
