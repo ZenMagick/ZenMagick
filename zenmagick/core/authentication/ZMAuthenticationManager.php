@@ -37,6 +37,7 @@
  * @version $Id$
  */
 class ZMAuthenticationManager extends ZMObject {
+    private static $seedDone = false;
     const RANDOM_DIGITS = 'digits';
     const RANDOM_CHARS = 'chars';
     const RANDOM_MIXED = 'mixed';
@@ -85,7 +86,7 @@ class ZMAuthenticationManager extends ZMObject {
             if (!is_object($implementation)) {
                 $implementation = ZMLoader::make($key);
                 if (!($implementation instanceof ZMAuthentication)) {
-                    throw ZMLoader::make('ZMException', 'invalid auth provider: '. $class);
+                    throw ZMLoader::make('ZMException', 'invalid auth provider: '. get_class($implementation));
                 }
                 $this->providers_[$key] = $implementation;
             }
@@ -155,6 +156,7 @@ class ZMAuthenticationManager extends ZMObject {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -169,19 +171,23 @@ class ZMAuthenticationManager extends ZMObject {
     public static function random($length, $type='mixed') { 
         static $types	=	array(
             self::RANDOM_DIGITS => '0123456789', 
-            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyz',
-            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyz',
+            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
         );
+
+        if (!self::$seedDone) {
+            mt_srand((double)microtime() * 1000200);
+            self::$seedDone = true;
+        }
 
         $chars = array_key_exists($type, $types) ? $types[$type] : $type;
         $max=	strlen($chars) - 1;
         $token = '';
-        $name = session_name();
         for ($ii=0; $ii < $length; ++$ii) {
             $token .=	$chars[(rand(0, $max))];
         }
 
-        return md5($token.$name);
+        return $token;
     }
 
     /**

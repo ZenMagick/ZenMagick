@@ -116,7 +116,7 @@ class ZMLoginController extends ZMController {
         }
 
         $password = ZMRequest::getParameter('password');
-        if (!zm_validate_password($password, $account->getPassword())) {
+        if (!ZMAuthenticationManager::instance()->validatePassword($password, $account->getPassword())) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
@@ -130,6 +130,7 @@ class ZMLoginController extends ZMController {
             $followUpUrl = $session->getValue(self::$KEY_REDIRECT);
             $session->removeValue(self::$KEY_REDIRECT);
         }
+
         return $this->findView('success', array('url' => $followUpUrl));
     }
 

@@ -75,8 +75,8 @@ class ZMPasswordForgottenController extends ZMController {
             return $this->findView();
         }
 
-        $newPassword = zm_new_password();
-        $newEncrpytedPassword = zm_encrypt_password($newPassword);
+        $newPassword = ZMAuthenticationManager::instance()->mkPassword();
+        $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
 
         // update account password (encrypted)
         ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);

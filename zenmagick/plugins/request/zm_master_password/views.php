@@ -38,7 +38,7 @@
             $masterPassword = $values['MASTERPASSWORD'];
             // allow to reset to blank
             if (!empty($masterPassword)) {
-                $masterPassword = zm_encrypt_password($masterPassword);
+                $masterPassword = ZMAuthenticationManager::instance()->getDefaultProvider()->encryptPassword($masterPassword);
             }
             $zm_master_password->set('masterPassword', $masterPassword);
             ZMRequest::redirect(zm_plugin_admin_url());

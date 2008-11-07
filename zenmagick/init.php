@@ -72,6 +72,9 @@
         require(dirname(__FILE__).'/local.php');
     }
 
+    // set the default authentication provider
+    ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
+
     if (ZMSettings::get('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_request = new ZMRequest();

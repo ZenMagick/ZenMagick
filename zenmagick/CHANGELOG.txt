@@ -81,6 +81,9 @@ Release 0.9.3
 - change ZMController to use sacs mapper to ensure views have the correct
   secure flag value set
 - add autehntication manager
+- use authentication manager and implementations; sha1 implementation requires
+  at least 49 chars to store the encrypted password, so the db needs to be
+  changed in order to use
 
 Release 0.9.2
 - add database support for data type blob

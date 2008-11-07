@@ -37,4 +37,52 @@
         return ZMTools::sanitize($value);
     }
 
+
+    /**
+     * Encrypt the given password.
+     *
+     * @package org.zenmagick.security
+     * @param string clear The clear text password to encrypt.
+     * @return string The encrypted password.
+     * @deprecated use ZMAuthenticationManager instead
+     */
+    function zm_encrypt_password($clear) { return zen_encrypt_password($clear); }
+
+
+    /**
+     * Validate the given clear text password against the encrypted one.
+     *
+     * @package org.zenmagick.security
+     * @param string clear The clear text password to encrypt.
+     * @param string encrypted The encrypted password.
+     * @return boolean <code>true</code> if the passwords match, <code>false</code> if not.
+     * @deprecated use ZMAuthenticationManager instead
+     */
+    function zm_validate_password($clear, $encrypted) { 
+        return zen_validate_password($clear, $encrypted) 
+            || (function_exists('zm_custom_validate_password') && zm_custom_validate_password($clear, $encrypted));
+    }
+
+
+    /**
+     * Generate a random value.
+     *
+     * @package org.zenmagick.security
+     * @param int length The length of the random value.
+     * @param string type Optional type; valid values are: 'mixed', 'chars' and 'digits'.
+     * @return string The random string.
+     * @deprecated use ZMAuthenticationManager instead
+     */
+    function zm_random_value($length, $type='mixed') { return zen_create_random_value($length, $type); }
+
+
+    /**
+     * Generate a new random password.
+     *
+     * @package org.zenmagick.security
+     * @return string The new password.
+     * @deprecated use ZMAuthenticationManager instead
+     */
+    function zm_new_password() { return zen_create_random_value(ZMSettings::get('minPasswordLength'), 'mixed'); }
+
 ?>

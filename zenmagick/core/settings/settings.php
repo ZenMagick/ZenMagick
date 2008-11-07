@@ -112,6 +112,9 @@
         // cache database mappings
         'isCacheDbMappings' => false,
 
+        // default authentication provider
+        'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
+
 
 
     /**************************************
