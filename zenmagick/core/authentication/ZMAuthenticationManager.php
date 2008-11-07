@@ -69,18 +69,44 @@ class ZMAuthenticationManager extends ZMObject {
 
 
     /**
+     * Get instances of all registered providers.
+     *
+     * <p>This method is part of the internal optimizations to allow to register class names,
+     * rather than actual instances.</p>
+     *
+     * @param string class Optional parameter if only a specific implementation is required; default is <code>null</code>.
+     * @return array List of <code>ZMAuthentication</code> instances.
+     */
+    protected function getImplementations($class=null) {
+        $keys = null != $class ? array($class) : array_keys($this->providers_);
+        $implementations = array();
+        foreach ($keys as $key) {
+            $implementation = $this->providers_[$key];
+            if (!is_object($implementation)) {
+                $implementation = ZMLoader::make($key);
+                if (!($implementation instanceof ZMAuthentication)) {
+                    throw ZMLoader::make('ZMException', 'invalid auth provider: '. $class);
+                }
+                $this->providers_[$key] = $implementation;
+            }
+            $implementations[] = $implementation;
+        }
+
+        return $implementations;
+    }
+
+    /**
      * Add an authentication provider (class).
      *
-     * @param ZMAuthentication auth The authentication implementation.
+     * @param string auth The authentication implementation class.
      * @param boolean default Optional flag make <em>auth</em> the default provider; default is <code>false</code>.
      */
     public function addProvider($auth, $default=false) {
-        $class = get_class($auth);
-        if (!($auth instanceof ZMAuthentication)) {
-            throw ZMLoader::make('ZMException', 'invalid auth provider: '. $class);
+        if (!array_key_exists($auth, $this->providers_)) {
+            // keep them unique
+            $this->providers_[$auth] = $auth;
         }
 
-        $this->providers_[$class] = $auth;
         if ($default) {
             $this->default_ = $auth;
         }
@@ -92,12 +118,17 @@ class ZMAuthenticationManager extends ZMObject {
      * @return ZMAuthentication A provider or <code>null</code> if none are configured.
      */
     public function getDefaultProvider() {
-        if (null == $this->default_ && 0 < count($this->providers_)) {
-            $keys = array_keys($this->providers_);
-            $this->default_ = $this->providers_[$keys[0]];
+        if (0 < count($this->providers_)) {
+            $key = $this->default_;
+            if (null == $key) {
+                $keys = array_keys($this->providers_);
+                $key = $keys[0];
+            }
+            $arr = $this->getImplementations($key);
+            return $arr[0];
         }
 
-        return $this->default_;
+        return null;
     }
 
     /**
@@ -119,7 +150,7 @@ class ZMAuthenticationManager extends ZMObject {
      * @return boolean <code>true</code> if the plain text password matches the encrypted, <code>false</code> if not.
      */
     public function validatePassword($plaintext, $encrypted) {
-        foreach ($this->providers_ as $provider) {
+        foreach ($this->getImplementations() as $provider) {
             if ($provider->validatePassword($plaintext, $encrypted)) {
                 return true;
             }
@@ -141,6 +172,7 @@ class ZMAuthenticationManager extends ZMObject {
             self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyz',
             self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyz',
         );
+
         $chars = array_key_exists($type, $types) ? $types[$type] : $type;
         $max=	strlen($chars) - 1;
         $token = '';

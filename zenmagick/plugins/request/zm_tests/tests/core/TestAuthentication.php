@@ -15,9 +15,9 @@ class TestAuthentication extends ZMTestCase {
     public function testManager() {
         $manager = ZMLoader::make('ZMAuthenticationManager');
         $this->assertNull($manager->getDefaultProvider());
-        $manager->addProvider(ZMLoader::make('ZMZenCartAuthentication'));
+        $manager->addProvider('ZMZenCartAuthentication');
         $this->assertNotNull($manager->getDefaultProvider());
-        $manager->addProvider(ZMLoader::make('ZMSha1Authentication'), true);
+        $manager->addProvider('ZMSha1Authentication', true);
         $this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
 
         // check zc encryypted password
