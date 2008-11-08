@@ -99,7 +99,7 @@ class ZMProductFinder {
      * @return string The search SQL.
      */
     protected function buildSQL($criteria) {
-    global $db;
+        $db = ZMRuntime::getDB();
 
         $select = "SELECT DISTINCT p.products_id";
         if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
