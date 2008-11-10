@@ -95,7 +95,7 @@ class ZMBeanUtils {
             $map[$property] = $obj->$method();
         }
 
-        // special case for ZMModel instances
+        // special case for ZMObject instances
         if ($obj instanceof ZMObject) {
             foreach ($obj->getPropertyNames() as $property) {
                 $map[$property] = $obj->get($property);
