@@ -29,8 +29,6 @@
     // do show the not available image
     ZMSettings::set('isShowNoPicture', false);
 
-    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
-
     // allow to override with custom fields
     if (function_exists('zm_quick_edit_field_list')) {
         $zm_quick_edit_field_list = zm_quick_edit_field_list();
@@ -48,21 +46,37 @@
     }
 
     if (null != ZMRequest::getParameter('submit')) {
-        foreach ($productList as $ii => $product) {
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(ZMRequest::getCategoryId(), false);
+        foreach ($productIdList as $productId) {
+            // build a data map for each submitted product
+            $formData = array();
             foreach ($zm_quick_edit_field_list as $field) {
-                $fieldname = $field['field'].'_'.$product->getId();
+                $fieldname = $field['field'].'_'.$productId;
                 $value = ZMRequest::getParameter($fieldname);
                 if (null != $field['property']) {
-                    $setMethod = 'set'.ucwords($field['property']);
-                    $product->$setMethod($value);
+                    $formData[$field['property']] = $value;
                 } else {
-                    $product->set($field['field'], $value);
+                    $formData[$field['field']] = $value;
                 }
-
             }
-            $productList[$ii] = ZMProducts::instance()->updateProduct($product);
+            // load product, convert to map and compare with the submitted form data
+            $product = ZMProducts::instance()->getProductForId($productId);
+            $productData = ZMBeanUtils::obj2map($product, array_keys($formData));
+            $isUpdate = false;
+            foreach ($formData as $key => $value) {
+                if (array_key_exists($key, $productData) && $value != $productData[$key]) {
+                    $isUpdate = true;
+                    break;
+                }
+            }
+            if ($isUpdate) {
+                ZMBeanUtils::setAll($product, $formData);
+                ZMProducts::instance()->updateProduct($product);
+            }
         }
     }
+
+    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
 
     $lastIndex = count($zm_quick_edit_field_list) - 1;
 

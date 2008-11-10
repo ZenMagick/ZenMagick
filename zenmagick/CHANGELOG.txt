@@ -84,6 +84,9 @@ Release 0.9.3
 - use authentication manager and implementations; sha1 implementation requires
   at least 49 chars to store the encrypted password, so the db needs to be
   changed in order to use
+- improve update bahavior of the quick edit plugin; update only product that
+  actually changed, load immediately before update to keep the time window for
+	stale data as small as possible
 
 Release 0.9.2
 - add database support for data type blob
