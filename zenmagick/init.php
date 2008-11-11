@@ -27,7 +27,7 @@
 
     // mark CLI calls
     define('ZM_CLI_CALL', defined('STDIN'));
-
+    // start time for stats
     define('ZM_START_TIME', microtime());
 
     error_reporting(E_ALL^E_NOTICE);
@@ -75,6 +75,36 @@
     // set the default authentication provider
     ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
 
+    // upset plugins
+    ZMLoader::make("Plugins");
+    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+
+    // register custom error handler
+    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
+        set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
+        set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
+    }
+
+    // load default mappings
+    zm_set_default_url_mappings();
+    zm_set_default_sacs_mappings();
+
+    // make sure to use SSL if required
+    ZMSacsMapper::instance()->ensureAccessMethod();
+
+    // now we can check for a static homepage
+    if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
+        require ZMSettings::get('staticHome');
+        exit;
+    }
+
+    // resolve theme to be used 
+    if (ZMSettings::get('isEnableZenMagick')) {
+        $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
+        ZMRuntime::setTheme($_zm_theme);
+    }
+
     if (ZMSettings::get('isLegacyAPI')) {
         // deprecated legacy globals
         $zm_request = new ZMRequest();
@@ -104,40 +134,7 @@
         $zm_cart = ZMLoader::make('ZMShoppingCart');
         $zm_urlMapper = ZMUrlMapper::instance();
         $zm_sacsMapper = ZMSacsMapper::instance();
-    }
 
-    // upset plugins
-    ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
-
-    // register custom error handler
-    if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {
-        set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
-        set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
-    }
-
-    // now we can check for a static homepage
-    if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
-        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
-        require ZMSettings::get('staticHome');
-        exit;
-    }
-
-    // load default mappings
-    zm_set_default_url_mappings();
-    zm_set_default_sacs_mappings();
-
-    // make sure to use SSL if required
-    ZMSacsMapper::instance()->ensureAccessMethod();
-
-    // resolve theme to be used 
-    if (ZMSettings::get('isEnableZenMagick')) {
-        $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
-        ZMRuntime::setTheme($_zm_theme);
-    }
-
-    if (ZMSettings::get('isLegacyAPI')) {
-        // deprecated legacy globals
         $zm_theme = ZMRuntime::getTheme();
         $zm_themeInfo = $zm_theme->getThemeInfo();
     }
@@ -145,9 +142,6 @@
     if (ZMSettings::get('isEnableZenMagick')) {
         require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
     }
-
-    // manually set toolbox for admin
-    if (ZMSettings::get('isAdmin')) { $_t = ZMToolbox::instance(); }
 
     // always echo in admin
     if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
