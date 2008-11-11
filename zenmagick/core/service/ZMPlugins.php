@@ -292,9 +292,6 @@ class ZMPlugins extends ZMObject {
      * @param string scope The current scope.
      */
     public static function initPlugins($types, $scope) {
-        // prepare environment
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
-
         if (!is_array($types)) {
             $types = array($types);
         }

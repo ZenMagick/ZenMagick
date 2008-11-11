@@ -35,8 +35,6 @@
         $controller = ZMUrlMapper::instance()->findController(ZMRequest::getPageName());
         ZMRequest::setController($controller);
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
-
         try {
             // execute controller
             $view = $controller->process();

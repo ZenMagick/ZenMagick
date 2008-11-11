@@ -91,6 +91,8 @@ Release 0.9.3
 - move account type constants into ZMAccounts
 - move event constants into ZMEvents
 - remove code to handle setting 'isLogMissingSettings'
+- remove legacy support for plugins - seeing that I maintain all plugins I
+  guess that should be ok
 
 Release 0.9.2
 - add database support for data type blob

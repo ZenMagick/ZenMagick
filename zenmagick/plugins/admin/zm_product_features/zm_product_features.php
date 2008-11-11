@@ -87,13 +87,6 @@ class zm_product_features extends ZMPlugin {
         // make ZMFeatures available by pre-loading it
         ZMLoader::resolve("Features");
 
-        if (ZMSettings::get('isLegacyAPI')) {
-        global $zm_features;
-            // we are not doing this for all plugins that include services, but this used to be 
-            // part of core, so not doing this might break stuff
-            $zm_features = ZMFeatures::instance();
-        }
-
         if (0 < ZMRequest::getProductId()) {
             // only available if product selected
             $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZM_MENU_CATALOG_ADMIN);

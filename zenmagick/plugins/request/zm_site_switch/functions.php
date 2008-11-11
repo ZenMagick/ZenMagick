@@ -35,7 +35,6 @@
     function zm_site_switch_admin() {
     global $zm_site_switch;
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_site_switch->getPluginDir().'/views/site_switch_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_site_switch_admin', zm_l10n_get('Site Switch'), null);

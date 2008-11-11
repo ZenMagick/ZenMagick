@@ -34,7 +34,6 @@
     function zm_pa_admin() {
     global $zm_product_associations, $zm_nav_params;
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_product_associations->getPluginDir().'/views/product_associations_admin.php');
         eval('?>'.$template);
 

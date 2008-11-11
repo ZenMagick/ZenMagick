@@ -34,7 +34,6 @@
     function zm_quick_edit_admin() {
     global $zm_quick_edit, $zm_nav_params;
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
         $template = file_get_contents($zm_quick_edit->getPluginDir().'views/quick_edit_admin.php');
         eval('?>'.$template);
 
