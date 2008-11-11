@@ -39,6 +39,7 @@
  * @version $Id$
  */
 class ZMEvents extends ZMObject {
+    const BOOTSTRAP_DONE = 'bootstrap_done';
     const INIT_DONE = 'init_done';
     const DISPATCH_START = 'dispatch_start';
     const DISPATCH_DONE = 'dispatch_done';
