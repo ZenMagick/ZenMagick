@@ -259,7 +259,7 @@ class ZMLoader {
         } 
 
         // fallback to prefixed class
-        if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
+        if (null != ($zmclassfile = $this->getClassFile($zmname)) && !class_exists($zmname)) { 
             require_once $zmclassfile;
         }
 
