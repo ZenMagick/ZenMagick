@@ -104,7 +104,7 @@
         $controller = ZMRequest::getController();
         $view->setController($controller);
         // event to allow additions to context (via the controller as we need an object to pass stuff back)
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller));
+        ZMEvents::instance()->fireEvent(null, ZMEvents::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller));
         $text = $view->generate();
 
         // call actual mail function; the name must match the one used in the installation patch

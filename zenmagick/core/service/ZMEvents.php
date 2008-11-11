@@ -39,6 +39,21 @@
  * @version $Id$
  */
 class ZMEvents extends ZMObject {
+    const INIT_DONE = 'init_done';
+    const DISPATCH_START = 'dispatch_start';
+    const DISPATCH_DONE = 'dispatch_done';
+    const VIEW_START = 'view_start';
+    const VIEW_DONE = 'view_done';
+    const CONTROLLER_PROCESS_START = 'controller_process_start';
+    const CONTROLLER_PROCESS_END = 'controller_process_end';
+    const THEME_RESOLVED = 'theme_resolved';
+    const ALL_DONE = 'all_done';
+    const CREATE_ACCOUNT = 'create_account';
+    const LOGIN_SUCCESS = 'login_success';
+    const LOGOFF_SUCCESS = 'logoff_success';
+    const GENERATE_EMAIL = 'generate_email';
+    const CREATE_ORDER = 'create_order';
+
     private $subscriber_;
     private $eventLog;
 

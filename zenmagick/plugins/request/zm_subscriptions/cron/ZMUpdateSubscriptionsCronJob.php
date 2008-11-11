@@ -87,7 +87,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             }
 
             // event
-            ZMEvents::instance()->fireEvent($this, ZM_EVENT_CREATE_ORDER, array('orderId' => $order->getId()));
+            ZMEvents::instance()->fireEvent($this, ZMEvents::CREATE_ORDER, array('orderId' => $order->getId()));
         }
 
         return true;

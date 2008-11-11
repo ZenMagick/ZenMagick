@@ -30,9 +30,9 @@
 
     // main request processor
     if (ZMSettings::get('isEnableZenMagick')) {
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_START);
+        ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START);
         zm_dispatch();
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_DISPATCH_DONE);
+        ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
 
         require('includes/application_bottom.php');
 
@@ -44,7 +44,7 @@
         // clear messages if not redirect...
         ZMRequest::getSession()->clearMessages();
 
-        ZMEvents::instance()->fireEvent(null, ZM_EVENT_ALL_DONE);
+        ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
 
         exit;
     }

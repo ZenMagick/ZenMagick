@@ -26,16 +26,16 @@
 <?php
 
 
-    // ** ZenMagick setup **//
+    // ** ZenMagick constants **//
 
     /**
-     * If changing ZM_ROOT, make sure to update 
+     * When changing ZM_ROOT, make sure to update 
      * ..\zen-cart\includes\init_includes\overrides\init_templates.php
      * and
      * ..\zen-cart\admin\includes\init_includes\overrides\init_templates.php
      *
      * The full order of action is:
-     * 1) Uninstall all ZenMagick patches as some use this value
+     * 1) Uninstall all ZenMagick patches (as some use this value)
      * 2) Rename directory
      * 3) Update ZM_ROOT
      * 4) Update the files mentioned above
@@ -51,7 +51,12 @@
     define('ZM_THEME_STATIC_DIR', 'static/');
 
 
-    //** events **//
+    //** db **//
+
+    define('ZM_DB_PREFIX', DB_PREFIX);
+
+
+    //** events; deprecated **//
 
     define('ZM_EVENT_INIT_DONE', 'init_done');
     define('ZM_EVENT_DISPATCH_START', 'dispatch_start');
@@ -67,11 +72,6 @@
     define('ZM_EVENT_LOGOFF_SUCCESS', 'logoff_success');
     define('ZM_EVENT_GENERATE_EMAIL', 'generate_email');
     define('ZM_EVENT_CREATE_ORDER', 'create_order');
-
-
-    //** db **//
-
-    define('ZM_DB_PREFIX', DB_PREFIX);
 
 
     //** files **//
@@ -115,7 +115,7 @@
     define('PRODUCT_IMAGE_LARGE', 'large');
 
 
-    //** accounts **//
+    //** accounts; deprecated **//
 
     define('ZM_ACCOUNT_TYPE_REGISTERED', 'registered');
     define('ZM_ACCOUNT_TYPE_GUEST', 'guest');

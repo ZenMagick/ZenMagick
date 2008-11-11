@@ -79,7 +79,7 @@ class ZMController extends ZMObject {
      */
     public function process() { 
         ZMSacsMapper::instance()->ensureAuthorization($this->id_);
-        ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_START, array('controller' => $this));
+        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
 
         $view = null;
         switch (ZMRequest::getMethod()) {
@@ -102,7 +102,7 @@ class ZMController extends ZMObject {
             $this->view_ = $view;
         }
 
-        ZMEvents::instance()->fireEvent($this, ZM_EVENT_CONTROLLER_PROCESS_END, array('controller' => $this, 'view' => $this->view_));
+        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controller' => $this, 'view' => $this->view_));
 
         return $view;
     }

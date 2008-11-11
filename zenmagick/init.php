@@ -168,6 +168,6 @@
         $tableMapper->updateCache();
     }
 
-    ZMEvents::instance()->fireEvent(null, ZM_EVENT_INIT_DONE);
+    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE);
 
 ?>

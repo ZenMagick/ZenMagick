@@ -377,7 +377,7 @@ class ZMSession extends ZMObject {
         }
 
         // info only
-        ZMEvents::instance()->fireEvent($source, ZM_EVENT_LOGIN_SUCCESS, array('controller' => $source, 'account' => $account));
+        ZMEvents::instance()->fireEvent($source, ZMEvents::LOGIN_SUCCESS, array('controller' => $source, 'account' => $account));
 
         // update session with valid account
         $this->recreate();
