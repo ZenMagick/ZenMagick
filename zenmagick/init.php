@@ -85,6 +85,9 @@
         set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
     }
 
+    // core and plugins loaded
+    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTAP_DONE);
+
     // load default mappings
     zm_set_default_url_mappings();
     zm_set_default_sacs_mappings();
