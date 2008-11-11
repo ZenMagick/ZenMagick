@@ -43,10 +43,7 @@ class ZMSettings {
      * @return mixed The setting value or <code>null</code>.
      */
     public static function get($name, $default=null) {
-        if (!isset(ZMSettings::$settings_[$name])) {
-            if (isset(ZMSettings::$settings_['isLogMissingSettings']) && ZMSettings::$settings_['isLogMissingSettings']) {
-                ZMLogging::instance()->log("can't find setting: '".$name."'", ZMLogging::WARN);
-            }
+        if (!array_key_exists($name, ZMSettings::$settings_)) {
             return $default;
         }
 

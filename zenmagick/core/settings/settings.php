@@ -136,9 +136,6 @@
         // whether to use ZenMagick error handler for logging (using the filename)
         'isZMErrorHandler' => false,
 
-        // whether to log missing settings
-        'isLogMissingSettings' => false,
-
 
 
     /**************************************
