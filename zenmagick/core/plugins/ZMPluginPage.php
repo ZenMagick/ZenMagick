@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMPluginPage extends ZMObject {
-    var $id_;
-    var $title_;
-    var $contents_;
-    var $header_;
+    private $id_;
+    private $title_;
+    private $contents_;
+    private $header_;
 
 
     /**
@@ -48,7 +48,6 @@ class ZMPluginPage extends ZMObject {
      */
     function __construct($id, $title, $contents=null, $header='') {
         parent::__construct();
-
         $this->id_ = $id;
         $this->title_ = $title;
         $this->contents_ = $contents;
@@ -68,56 +67,56 @@ class ZMPluginPage extends ZMObject {
      *
      * @return string The page id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the title.
      *
      * @return string The page title.
      */
-    function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title_; }
 
     /**
      * Get the contents.
      *
      * @return string The page contents.
      */
-    function getContents() { return $this->contents_; }
+    public function getContents() { return $this->contents_; }
 
     /**
      * Get the header code.
      *
      * @return string The header code.
      */
-    function getHeader() { return $this->header_; }
+    public function getHeader() { return $this->header_; }
 
     /**
      * Set the id.
      *
      * @param string id The page id.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Set the title.
      *
      * @param string title The page title.
      */
-    function setTitle($title) { $this->title_ = $title; }
+    public function setTitle($title) { $this->title_ = $title; }
 
     /**
      * Set the contents.
      *
      * @param string contents The page contents.
      */
-    function setContents($contents) { $this->contents_ = $contents; }
+    public function setContents($contents) { $this->contents_ = $contents; }
 
     /**
      * Set the header code.
      *
      * @param string header The header code.
      */
-    function setHeader($header) { $this->header_ = $header; }
+    public function setHeader($header) { $this->header_ = $header; }
 
 }
 

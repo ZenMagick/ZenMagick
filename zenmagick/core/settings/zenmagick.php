@@ -122,7 +122,7 @@
     define('ZM_ACCOUNT_TYPE_ANONYMOUS', 'anonymous');
 
 
-    //** coupons **//
+    //** coupon types **//
 
     define('ZM_COUPON_TYPPE_GV', 'G');
     define('ZM_COUPON_TYPPE_FIXED', 'F');

@@ -51,9 +51,9 @@ class ZMSacsMapper extends ZMObject {
         $this->mapping_ = array();
         // which level allows what
         $this->levelMap_ = array(
-            ZM_ACCOUNT_TYPE_ANONYMOUS => array(ZM_ACCOUNT_TYPE_ANONYMOUS, ZM_ACCOUNT_TYPE_GUEST, ZM_ACCOUNT_TYPE_REGISTERED),
-            ZM_ACCOUNT_TYPE_GUEST => array(ZM_ACCOUNT_TYPE_GUEST, ZM_ACCOUNT_TYPE_REGISTERED),
-            ZM_ACCOUNT_TYPE_REGISTERED => array(ZM_ACCOUNT_TYPE_REGISTERED)
+            ZMAccounts::ANONYMOUS => array(ZMAccounts::ANONYMOUS, ZMAccounts::GUEST, ZMAccounts::REGISTERED),
+            ZMAccounts::GUEST => array(ZMAccounts::GUEST, ZMAccounts::REGISTERED),
+            ZMAccounts::REGISTERED => array(ZMAccounts::REGISTERED)
         );
     }
 
@@ -76,10 +76,10 @@ class ZMSacsMapper extends ZMObject {
      * Set a mapping.
      *
      * @param string page The page [ie. the request name].
-     * @param string authentication The level of authentication required; default is <code>ZM_ACCOUNT_TYPE_REGISTERED</code>.
+     * @param string authentication The level of authentication required; default is <code>ZMAccounts::REGISTERED</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      */
-    public function setMapping($page, $authentication=ZM_ACCOUNT_TYPE_REGISTERED, $secure=true) {
+    public function setMapping($page, $authentication=ZMAccounts::REGISTERED, $secure=true) {
         if (null == $page) {
             throw ZMLoader::make('ZMException', "invalid sacs mapping (null controller)");
         }
@@ -98,7 +98,7 @@ class ZMSacsMapper extends ZMObject {
         }
 
         $account = ZMRequest::getAccount();
-        $level = ZM_ACCOUNT_TYPE_ANONYMOUS;
+        $level = ZMAccounts::ANONYMOUS;
         if (null != $account) {
             $level = $account->getType();
         }

@@ -128,7 +128,7 @@ class ZMSession extends ZMObject {
      *
      * @return char The session type.
      */
-    public function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZM_ACCOUNT_TYPE_ANONYMOUS; }
+    public function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZMAccounts::ANONYMOUS; }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
@@ -137,7 +137,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
-    public function isAnonymous() { return !array_key_exists('account_type', $_SESSION) || ZM_ACCOUNT_TYPE_ANONYMOUS == $_SESSION['account_type']; }
+    public function isAnonymous() { return !array_key_exists('account_type', $_SESSION) || ZMAccounts::ANONYMOUS == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
@@ -146,7 +146,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    public function isGuest() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_GUEST == $_SESSION['account_type']; }
+    public function isGuest() { return array_key_exists('account_type', $_SESSION) && ZMAccounts::GUEST == $_SESSION['account_type']; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
@@ -155,7 +155,7 @@ class ZMSession extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
-    public function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZM_ACCOUNT_TYPE_REGISTERED == $_SESSION['account_type']; }
+    public function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZMAccounts::REGISTERED == $_SESSION['account_type']; }
 
     /**
      * Set the account for the current session.

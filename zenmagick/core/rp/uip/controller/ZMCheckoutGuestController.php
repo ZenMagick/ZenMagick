@@ -90,7 +90,7 @@ class ZMCheckoutGuestController extends ZMController {
         $account->setEmail(ZMRequest::getParameter('email_address'));
         $account->setPassword('');
         $account->setDob(ZM_DB_NULL_DATETIME);
-        $account->setType(ZM_ACCOUNT_TYPE_GUEST);
+        $account->setType(ZMAccounts::GUEST);
         $account = ZMAccounts::instance()->createAccount($account);
 
         // update session with valid account

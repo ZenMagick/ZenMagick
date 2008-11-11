@@ -438,9 +438,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 }
             }
             return $meta;
+        } else {
+            $info = $this->conn_->getDatabaseInfo();
+            $tables = array();
+            foreach ($info->getTables() as $tbl) {
+                $tables[] = $tbl->getName();
+            }
+            return array('tables' => $tables);
         }
-
-        return array();
     }
 
 }

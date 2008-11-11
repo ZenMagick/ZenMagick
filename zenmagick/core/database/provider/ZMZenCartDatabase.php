@@ -329,7 +329,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getMetaData($table=null) {
         if (null !== $table) {
-            $res = @mysql_query("select * from " . $table . " limit 1", $this->db_->link);
+            $res = @mysql_query("SELECT * FROM " . $table . " LIMIT 1", $this->db_->link);
             $fieldCount = @mysql_num_fields($res);
             $meta = array();
             for ($ii=0; $ii < $fieldCount; ++$ii) {
@@ -340,9 +340,15 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 );
             }
             return $meta;
+        } else {
+            $results = $this->db_->Execute("SHOW TABLES");
+            $tables = array();
+            while (!$results->EOF) {
+                $tables[] = array_pop($results->fields);
+                $results->MoveNext();
+            }
+            return array('tables' => $tables);
         }
-
-        return array();
     }
 
 }

@@ -35,6 +35,7 @@ class ZMPluginPageController extends ZMObject {
     private $id_;
     private $title_;
     private $plugin_;
+    private $ext_;
 
 
     /**
@@ -43,12 +44,14 @@ class ZMPluginPageController extends ZMObject {
      * @param string id The id.
      * @param string title The page title.
      * @param string plugin The parent plugin name.
+     * @param string ext Optional template file extension; default is <em>.php</em>.
      */
-    function __construct($id, $title=null, $plugin) {
+    function __construct($id, $title=null, $plugin, $ext='.php') {
         parent::__construct();
         $this->id_ = $id;
         $this->title_ = null != $title ? $title : $id;
         $this->plugin_ = $plugin;
+        $this->ext_ = $ext;
     }
 
     /**
@@ -126,7 +129,7 @@ class ZMPluginPageController extends ZMObject {
      * Evaluate template and return contents.
      *
      * @param array context The page context.
-     * @param string viewDir Optional view folder relative to the plugin dir; default is <code>views</code>.
+     * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
      * @return string The page contents.
      */
     protected function getPageContents($context, $viewDir='views') {
@@ -144,7 +147,7 @@ class ZMPluginPageController extends ZMObject {
         // the plugin
         $plugin = $this->getPlugin();
 
-        $template = file_get_contents($this->getPlugin()->getPluginDir().'/'.$viewDir.'/'.$this->getId().'.php');
+        $template = file_get_contents($this->getPlugin()->getPluginDir().$viewDir.'/'.$this->getId().$this->ext_);
         ob_start();
         eval('?>'.$template);
         return ob_get_clean();

@@ -32,6 +32,10 @@
  * @version $Id$
  */
 class ZMAccounts extends ZMObject {
+    const REGISTERED = 'registered';
+    const GUEST = 'guest';
+    const ANONYMOUS = 'anonymous';
+
 
     /**
      * Create new instance.
