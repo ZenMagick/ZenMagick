@@ -58,7 +58,7 @@ class ZMManufacturers extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    function getManufacturerForId($id, $languageId=null) {
+    public function getManufacturerForId($id, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -86,7 +86,7 @@ class ZMManufacturers extends ZMObject {
      * @param ZMProduct product The product.
      * @return ZMManufacturer The manufacturer or </code>null</code>.
      */
-    function getManufacturerForProduct($product) {
+    public function getManufacturerForProduct($product) {
 		    return $this->getManufacturerForId($product->manufacturerId_);
     }
 
@@ -96,7 +96,7 @@ class ZMManufacturers extends ZMObject {
      * @param ZMManufacturer manufacturer The manufacturer.
      * @return ZMManufacturer The updated manufacturer.
      */
-    function updateManufacturer($manufacturer) {
+    public function updateManufacturer($manufacturer) {
         ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
         ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
     }
@@ -107,7 +107,7 @@ class ZMManufacturers extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMManufacturer</code> instances.
      */
-    function getManufacturers($languageId=null) {
+    public function getManufacturers($languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -134,7 +134,7 @@ class ZMManufacturers extends ZMObject {
      * @param int id The manufacturer id.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      */
-    function updateManufacturerClickCount($id, $languageId=null) {
+    public function updateManufacturerClickCount($id, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

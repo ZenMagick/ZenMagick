@@ -62,7 +62,7 @@ class ZMAttributes extends ZMObject {
      * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */ 
-    function getAttributesForProduct($product, $languageId=null) {
+    public function getAttributesForProduct($product, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();

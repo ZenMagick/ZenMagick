@@ -469,7 +469,7 @@ class ZMProduct extends ZMModel {
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
     public function getAttributes($languageId=null) { 
-        if (null == $this->attributes_) {
+        if (null === $this->attributes_) {
             $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this, $languageId);
         }
 

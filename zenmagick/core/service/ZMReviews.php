@@ -87,7 +87,7 @@ class ZMReviews extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    function getRandomReviews($productId=null, $max=null, $languageId=null) {
+    public function getRandomReviews($productId=null, $max=null, $languageId=null) {
         $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
         
         if (null === $languageId) {

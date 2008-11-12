@@ -86,7 +86,7 @@
     }
 
     // core and plugins loaded
-    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTAP_DONE);
+    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
 
     // load default mappings
     zm_set_default_url_mappings();

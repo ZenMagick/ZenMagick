@@ -166,7 +166,7 @@ class ZMCategories extends ZMObject {
      * @param ZMCategory category The category.
      * @return Category The updated category.
      */
-    function updateCategory($category) {
+    public function updateCategory($category) {
         ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
         ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
     }
@@ -177,7 +177,7 @@ class ZMCategories extends ZMObject {
      * @param ZMCategory category The category.
      * @return Category The updated category.
      */
-    function createCategory($category) {
+    public function createCategory($category) {
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
         return $category;
