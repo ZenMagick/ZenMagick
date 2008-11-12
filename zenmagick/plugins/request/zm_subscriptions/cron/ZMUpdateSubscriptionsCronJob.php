@@ -70,6 +70,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 $status = ZMLoader::make('OrderStatus');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());
+                $status->setOrderStatusId($order->getOrderStatusId());
                 $status->setCustomerNotified(!ZMTools::isEmpty($scheduleEmailTemplate));
                 $status->setComment(zm_l10n_get('Scheduled order for subscription #%s', $scheduledOrderId));
                 ZMOrders::instance()->createOrderStatusHistory($status);
