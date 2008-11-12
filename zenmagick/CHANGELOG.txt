@@ -93,6 +93,8 @@ Release 0.9.3
 - remove code to handle setting 'isLogMissingSettings'
 - remove legacy support for plugins - seeing that I maintain all plugins I
   guess that should be ok
+- make quick edit detect stale data and skip affected products/updates
+- show tab related error messages in catalog manager
 
 Release 0.9.2
 - add database support for data type blob

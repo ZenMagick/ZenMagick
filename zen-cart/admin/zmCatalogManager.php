@@ -124,6 +124,17 @@ require 'includes/application_top.php';
                         $page = $fkt(); 
                         $contents = ob_get_clean();
                     } ?>
+                    <?php 
+                        /* TODO: duplicate id! */
+                        /* XXX: evaluate only when tab selected or already active: ajax? */
+                    ?>
+                    <?php if (ZMMessages::instance()->hasMessages()) { ?>
+                        <ul id="messages" style="margin-left:0">
+                        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+                            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+                        <?php } ?>
+                        </ul>
+                    <?php } ?>
                     <?php if (!ZMTools::isEmpty($contents)) {
                         echo $contents;
                     } else if (null != $page) {

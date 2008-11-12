@@ -50,13 +50,18 @@
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();
+            // and one with the original value to compare and detect state data
+            $_formData = array();
             foreach ($zm_quick_edit_field_list as $field) {
                 $fieldname = $field['field'].'_'.$productId;
                 $value = ZMRequest::getParameter($fieldname);
+                $_value = ZMRequest::getParameter('_'.$fieldname);
                 if (null != $field['property']) {
                     $formData[$field['property']] = $value;
+                    $_formData[$field['property']] = $_value;
                 } else {
                     $formData[$field['field']] = $value;
+                    $_formData[$field['field']] = $_value;
                 }
             }
             // load product, convert to map and compare with the submitted form data
@@ -65,7 +70,12 @@
             $isUpdate = false;
             foreach ($formData as $key => $value) {
                 if (array_key_exists($key, $productData) && $value != $productData[$key]) {
-                    $isUpdate = true;
+                    if ($_formData[$key] == $productData[$key]) {
+                        $isUpdate = true;
+                    } else {
+                        $isUpdate = false;
+                        ZMMessages::instance()->warn('Found stale data for productId '.$productId. ' - skipping update');
+                    }
                     break;
                 }
             }
@@ -108,6 +118,7 @@
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
                 <?php $method = isset($field['method']) ? $field['method'] : 'zm_quick_edit_input_field'; ?>
                 <?php echo $method($field, $field['field'].'_'.$product->getId(), $value, $product); ?>
+              <input type="hidden" name="_<?php echo ($field['field'].'_'.$product->getId()) ?>" value="<?php echo $value ?>">
               </td>
             <?php } ?>
           </tr>
