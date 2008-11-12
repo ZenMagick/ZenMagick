@@ -175,7 +175,7 @@
 
     function zm_adm_cmp_redirect($view, $params) {
         ob_end_clean();
-        zen_redirect(zen_href_link(ZM_ADMINFN_CATALOG_MANAGER . "?view=".$view.$params));
+        zen_redirect(ZMToolbox::instance()->net->url(ZM_ADMINFN_CATALOG_MANAGER . "?view=".$view.$params));
     }
 
 ?>

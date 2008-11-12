@@ -38,7 +38,7 @@
         if (null == $function) {
             $function = ZMRequest::getParameter('fkt');
         }
-        $url = zen_href_link('zmPluginPage', 'fkt='.$function.'&'.$params, 'SSL');
+        $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, 'SSL');
 
         if ($echo) echo $url;
         return $url;

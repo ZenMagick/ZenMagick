@@ -129,7 +129,7 @@ class ZMDbUtils {
         if ($debug) {
             $_GET['debug'] = 'ON';
         }
-        $sql = zen_db_prepare_input($sql);
+        $sql = ZMTools::sanitize($sql);
         if (!empty($sql)) {
             $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
