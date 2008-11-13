@@ -33,6 +33,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
  * @version $Id$
  */
 class ZMTools {
+    private static $seedDone = false;
     private static $fileOwner = null;
     private static $fileGroup = null;
 
@@ -523,7 +524,7 @@ class ZMTools {
      * @param mixed value The value to convert; either already an array or a URL query form string.
      * @return array The value as array.
      */
-    public function toArray($value) {
+    public static function toArray($value) {
         if (null === $value) {
             return array();
         }
@@ -532,6 +533,37 @@ class ZMTools {
         }
         parse_str($value, $map);
         return $map;
+    }
+
+    /**
+     * Generate a random value.
+     *
+     * @param int length The length of the random value.
+     * @param string type Optional type; predefined values are: <em>mixed</em>, <em>chars</em>, <em>digits</em> or <em>hex</em>; default is <em>mixed</em>.
+     *  Any other value will be used as the valid character range.
+     * @return string The random string.
+     */
+    public static function random($length, $type='mixed') { 
+        static $types	=	array(
+            self::RANDOM_DIGITS => '0123456789', 
+            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+            self::RANDOM_HEX => '0123456789abcdef',
+        );
+
+        if (!self::$seedDone) {
+            mt_srand((double)microtime() * 1000200);
+            self::$seedDone = true;
+        }
+
+        $chars = array_key_exists($type, $types) ? $types[$type] : $type;
+        $max=	strlen($chars) - 1;
+        $token = '';
+        for ($ii=0; $ii < $length; ++$ii) {
+            $token .=	$chars[(rand(0, $max))];
+        }
+
+        return $token;
     }
 
 }

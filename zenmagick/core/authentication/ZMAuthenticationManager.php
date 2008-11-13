@@ -37,10 +37,10 @@
  * @version $Id$
  */
 class ZMAuthenticationManager extends ZMObject {
-    private static $seedDone = false;
     const RANDOM_DIGITS = 'digits';
     const RANDOM_CHARS = 'chars';
     const RANDOM_MIXED = 'mixed';
+    const RANDOM_HEX = 'hex';
     private $providers_;
     private $default_;
 
@@ -161,42 +161,12 @@ class ZMAuthenticationManager extends ZMObject {
     }
 
     /**
-     * Generate a random value.
-     *
-     * @param int length The length of the random value.
-     * @param string type Optional type; predefined values are: <em>mixed</em>, <em>chars</em> and <em>digits</em>; default is <em>mixed</em>.
-     *  Any other value will be used as the valid character range.
-     * @return string The random string.
-     */
-    public static function random($length, $type='mixed') { 
-        static $types	=	array(
-            self::RANDOM_DIGITS => '0123456789', 
-            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-        );
-
-        if (!self::$seedDone) {
-            mt_srand((double)microtime() * 1000200);
-            self::$seedDone = true;
-        }
-
-        $chars = array_key_exists($type, $types) ? $types[$type] : $type;
-        $max=	strlen($chars) - 1;
-        $token = '';
-        for ($ii=0; $ii < $length; ++$ii) {
-            $token .=	$chars[(rand(0, $max))];
-        }
-
-        return $token;
-    }
-
-    /**
      * Generate a new random password.
      *
      * @return string The new password.
      */
     public function mkPassword() {
-        return self::random(ZMSettings::get('minPasswordLength'), self::RANDOM_MIXED);
+        return ZMTools::random(ZMSettings::get('minPasswordLength'), self::RANDOM_MIXED);
     }
 
 }
