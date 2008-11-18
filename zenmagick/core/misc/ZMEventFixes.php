@@ -159,7 +159,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * Create ZenMagick order created event that contains the order id.
      */
-    public function onNotifyHeaderEndCheckoutProcess($args=array()) {
+    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
         ZMEvents::instance()->fireEvent(null, ZMEvents::CREATE_ORDER, array('orderId' => $_SESSION['order_number_created']));
     }
 
