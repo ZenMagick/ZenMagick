@@ -110,7 +110,7 @@ class ZMCheckoutShippingController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-
+        return parent::processPost();
     }
 
 }
