@@ -123,7 +123,7 @@ class ZMTools {
             if (!self::mkdir($parent, $perms, $recursive))
                 return false;
         }
-        $result = mkdir($dir, octdec($perms));
+        $result = @mkdir($dir, octdec($perms));
         return $result;
     }
 
