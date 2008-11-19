@@ -74,7 +74,7 @@
                         $isUpdate = true;
                     } else {
                         $isUpdate = false;
-                        ZMMessages::instance()->warn('Found stale data for productId '.$productId. ' - skipping update');
+                        ZMMessages::instance()->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
                     }
                     break;
                 }
