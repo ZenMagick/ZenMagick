@@ -81,11 +81,6 @@
         return $obsolete;
     }
 
-    // make zen-cart relative
-    function zm_mk_relative($file) {
-      return ZMTools::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
-    }
-
     // find all l10n strings
     function zm_build_theme_l10n_map($root, $defaults=false, $merge=false) {
         $themeId = basename($root);
@@ -170,12 +165,6 @@
         }
 
         return $l10nMap;
-    }
-
-
-    function zm_adm_cmp_redirect($view, $params) {
-        ob_end_clean();
-        zen_redirect(ZMToolbox::instance()->net->url(ZM_ADMINFN_CATALOG_MANAGER . "?view=".$view.$params));
     }
 
 ?>
