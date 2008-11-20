@@ -124,6 +124,9 @@ class ZMTools {
                 return false;
         }
         $result = @mkdir($dir, octdec($perms));
+        if (!$result) {
+            ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', ZMLogging::WARN);
+        }
         return $result;
     }
 
