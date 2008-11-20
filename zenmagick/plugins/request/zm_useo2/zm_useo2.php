@@ -38,6 +38,7 @@ class zm_useo2 extends ZMPlugin {
     function __construct() {
         parent::__construct('Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
+        $this->setScope(ZM_SCOPE_STORE);
     }
 
     /**

@@ -156,7 +156,8 @@ class ZMToolboxNet extends ZMObject {
         // default to current view
         $page = $page === null ? ZMRequest::getPageName() : $page;
         $href = null;
-        if (function_exists('zm_build_seo_href')) {
+        // no SEO in admin
+        if (function_exists('zm_build_seo_href') && !ZMSettings::get('isAdmin')) {
             // use custom SEO builder function
             $href = zm_build_seo_href($page, $params, $secure);
         } else {
