@@ -8,8 +8,8 @@
             <p>
               <label for="schedule">Order Interval</label>
               <select name="schedule" id="schedule">
-                <?php foreach ($zm_subscriptions->getSchedules() as $key => $name) { ?>
-                    <option value="<?php echo $key ?>"><?php zm_l10n($name) ?></option>
+                <?php foreach ($zm_subscriptions->getSchedules() as $key => $schedule) { if (!$schedule['active']) { continue; } ?>
+                    <option value="<?php echo $key ?>"><?php zm_l10n($schedule['name']) ?></option>
                 <?php } ?>
               </select> 
             </p>

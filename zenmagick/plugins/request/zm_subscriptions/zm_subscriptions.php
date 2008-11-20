@@ -211,10 +211,10 @@ class zm_subscriptions extends ZMPlugin {
      */
     public function getSchedules() {
         $defaults = array(
-            '1w' => 'Weekly',
-            '10d' => 'Every 10 days',
-            '4w' => 'Every four weeks',
-            '1m' => 'Once a month'
+            '1w' => array('name' => 'Weekly', 'active' => true),
+            '10d' => array('name' => 'Every 10 days', 'active' => true),
+            '4w' => array('name' => 'Every four weeks', 'active' => true),
+            '1m' => array('name' => 'Once a month', 'active' => true)
         );
         return ZMSettings::get('plugins.zm_subscriptions.schedules', $defaults);
     }
@@ -244,7 +244,7 @@ class zm_subscriptions extends ZMPlugin {
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
                     $schedules = $this->getSchedules();
-                    $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]));
+                    $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]['name']));
                     ZMOrders::instance()->createOrderStatusHistory($status);
                 }
             }

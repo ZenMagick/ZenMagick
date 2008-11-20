@@ -75,12 +75,10 @@ The defauls may be changed by configuring a plugin setting 'plugins.zm_subscript
 Example:
 
     ZMSettings::set('plugins.zm_subscriptions.schedules', array(
-        '1w' => 'Weekly',
-        '2w' => 'Two Weekly',
-        '10d' => 'Every 10 days',
-        '4w' => 'Every four weeks',
-        '1m' => 'Once a month',
-        '3m' => 'Every three month'
+        '1w' => array('name' => 'Weekly', 'active' => true),
+        '10d' => array('name' => 'Every 10 days', 'active' => true),
+        '4w' => array('name' => 'Every four weeks', 'active' => true),
+        '1m' => array('name' => 'Once a month', 'active' => true)
     ));
 
 

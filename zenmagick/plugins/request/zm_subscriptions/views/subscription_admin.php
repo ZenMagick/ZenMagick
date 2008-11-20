@@ -35,7 +35,7 @@
                 <td>
                     <a href="<?php $net->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
                 </td>
-                <td><?php echo $schedules[$order->getSchedule()] ?></td>
+                <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
                 <td><?php $locale->shortDate($order->getNextOrder()) ?></td>
                 <td><?php $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?></td>
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>"></td>
