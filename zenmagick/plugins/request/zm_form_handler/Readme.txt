@@ -24,9 +24,7 @@ INSTALLAION
 
 4) Create form views and either the shared email template or individual templates for each configured form.
 
-
-Using the example form
-======================
+Using the example form:
 a) Set 'Pages' value to foo.
 b) Copy templates/foo.php into zenmagick/themes/[YOUR_THEME]/content/views
 c) Copy templates/form_handler.text.php to zenmagick/themes/[YOUR_THEME]/content/views/email
