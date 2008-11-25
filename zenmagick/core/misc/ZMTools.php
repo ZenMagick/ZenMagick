@@ -409,6 +409,12 @@ class ZMTools {
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
      */
     public static function compareStoreUrl($url1, $url2=null) {
+        // just in case
+        $url1 = str_replace('&amp;', '&', $url1);
+        if (null !== $url2) {
+            $url2 = str_replace('&amp;', '&', $url2);
+        }
+
         if ($url1 == $url2) {
             return true;
         }
@@ -428,7 +434,7 @@ class ZMTools {
                 parse_str($url2, $query2);
             }
         } else {
-            parse_str(ZMRequest::getQueryString(), $query2);
+            parse_str(str_replace('&amp;', '&', ZMRequest::getQueryString()), $query2);
         }
         $query1['main_page'] = (array_key_exists('main_page', $query1) && !empty($query1['main_page'])) ? $query1['main_page'] : 'index';
         $query2['main_page'] = (array_key_exists('main_page', $query2) && !empty($query2['main_page'])) ? $query2['main_page'] : 'index';

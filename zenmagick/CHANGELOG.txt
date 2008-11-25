@@ -1,3 +1,5 @@
+Release 0.9.4
+
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
   conflict with zm_wordpress

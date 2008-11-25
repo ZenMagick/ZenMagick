@@ -40,6 +40,10 @@ class TestCompareUrls extends ZMTestCase {
         $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', ''));
         $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', 'main_page=login'));
         $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=wp', 'main_page=login'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?main_page=page&id=6', 'http://localhost/zen-cart/index.php?main_page=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=page&id=6', 'http://localhost/zen-cart/index.php?main_page=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?main_page=page&id=6', 'index.php?main_page=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=page&id=6', 'index.php?main_page=page&amp;id=6'));
     }
 
 }
