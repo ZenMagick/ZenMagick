@@ -409,6 +409,10 @@ class ZMTools {
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
      */
     public static function compareStoreUrl($url1, $url2=null) {
+        if ($url1 == $url2) {
+            return true;
+        }
+
         if (false !== strpos($url1, '?')) {
             $url1Token = parse_url($url1);
             parse_str($url1Token['query'], $query1);
