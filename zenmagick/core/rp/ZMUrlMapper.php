@@ -157,7 +157,8 @@ class ZMUrlMapper extends ZMObject {
      */
     public function findController($page) {
         $clazz = null;
-        if (isset($this->pageViews_[$page]) && null != $this->pageViews_[$page][$page]['controller']) {
+        if (array_key_exists($page, $this->pageViews_) 
+            && array_key_exists($page, $this->pageViews_[$page]) && null != $this->pageViews_[$page][$page]['controller']) {
             // class configured
             $clazz = $this->pageViews_[$page][$page]['controller'];
         } else {
@@ -181,6 +182,8 @@ class ZMUrlMapper extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($page, $viewId=null, $parameter=null) {
+        ZMLogging::instance()->log('find view: page='.$page.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+
         $viewId = null != $viewId ? $viewId : $page;
 
         $viewInfo = null;

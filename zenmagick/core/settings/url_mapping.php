@@ -75,6 +75,7 @@
         $urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
 
         // login [form]
+        $urlMapper->setMappingInfo('login', array());
         $urlMapper->setMappingInfo('login', array('viewId' => 'success', 'view' => 'account', 'class' => 'RedirectView'));
         $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'class' => 'RedirectView'));
 

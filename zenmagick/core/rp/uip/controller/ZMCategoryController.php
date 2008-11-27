@@ -104,13 +104,14 @@ class ZMCategoryController extends ZMController {
             $this->exportGlobal("zm_resultList", $resultList);
         }
 
+        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
+
         if ($viewName == "category_list" 
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
                 && ZMSettings::get('isUseCategoryPage'))) {
             $viewName = 'category';
         }
 
-        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
         if (null != $category) {
             $this->exportGlobal("zm_category", $category);
         }

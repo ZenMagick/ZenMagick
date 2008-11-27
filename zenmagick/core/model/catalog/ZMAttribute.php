@@ -175,7 +175,7 @@ class ZMAttribute extends ZMModel {
      */
     public function removeValue($value) { 
         for ($ii=0, $size=count($this->values_); $ii < $size; ++$ii) {
-            if ((is_object($value) && $value === $this->values_[$ii] ) || (int)$value == $this->values_[$ii]->getId()) {
+            if ((is_object($value) && $value === $this->values_[$ii] ) || (is_numeric($value) && (int)$value == $this->values_[$ii]->getId())) {
                 array_splice($this->values_, $ii, 1);
                 break;
             }
