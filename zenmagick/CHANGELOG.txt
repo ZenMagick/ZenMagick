@@ -1,4 +1,5 @@
 Release 0.9.4
+- prepend log messages with log level labels
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

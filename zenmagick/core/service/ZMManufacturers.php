@@ -119,7 +119,7 @@ class ZMManufacturers extends ZMObject {
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
 
-        $cacheKey = $id.'-'.$languageId;
+        $cacheKey = '-'.$languageId;
         if (null == ($manufacturers = $this->cache->get($cacheKey))) {
             $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturers, $cacheKey);
