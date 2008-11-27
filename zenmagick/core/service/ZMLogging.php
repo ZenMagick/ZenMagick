@@ -36,6 +36,7 @@
  * @package org.zenmagick.service
  */
 class ZMLogging extends ZMObject {
+    private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
     const NONE = 0;
     const ERROR = 1;
     const WARN = 2;
@@ -49,19 +50,21 @@ class ZMLogging extends ZMObject {
      * Create new instance.
      */
     function __construct() {
+        parent::__construct();
     }
 
     /**
      * Destruct instance.
      */
     function __destruct() {
+        parent::__destruct();
     }
 
     /**
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton(ZMSettings::get('loggingProvider'));
+        return ZMObject::singleton(ZMSettings::get('loggingProvider', 'Logging'));
     }
 
 
@@ -76,6 +79,9 @@ class ZMLogging extends ZMObject {
      */
     public function log($msg, $level=ZMLogging::INFO) {
         if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel')) {
+            if (array_key_exists($level, self::$LABEL)) {
+                $msg = self::$LABEL[$level] . ': ' . $msg;
+            }
             if (ZMSettings::get('isZMErrorHandler')) {
                 @trigger_error($msg, E_USER_NOTICE);
             } else {

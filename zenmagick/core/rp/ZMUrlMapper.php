@@ -181,6 +181,8 @@ class ZMUrlMapper extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($page, $viewId=null, $parameter=null) {
+        $viewId = null != $viewId ? $viewId : $page;
+
         $viewInfo = null;
 
         // check controller
