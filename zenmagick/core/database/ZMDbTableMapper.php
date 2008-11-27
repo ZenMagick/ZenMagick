@@ -84,7 +84,7 @@ class ZMDbTableMapper extends ZMObject {
         $this->tableMap_ = array();
         $this->isCached_ = false;
         $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
-        if (ZMSettings::get('isCacheDbMappings') && null != ($cachedMap = $this->cache_->get(self::CACHE_KEY))) {
+        if (ZMSettings::get('isCacheDbMappings') && null != ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
             $this->tableMap_ = $cachedMap;
             $this->isCached_ = true;
         } else {

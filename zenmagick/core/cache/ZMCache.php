@@ -63,7 +63,7 @@ interface ZMCache {
      * @param string id The cache id.
      * @return string Data of the cache (else : false)
      */
-    public function get($id);
+    public function lookup($id);
 
     /**
      * Remove the cache entry for the given id.
