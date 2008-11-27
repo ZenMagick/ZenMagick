@@ -1,6 +1,7 @@
 <?php
-    $types = array('categories' => 'Categories', 'manufacturers' => 'Manufacturers', 'prices' => 'Price Range');
+    $FACET_TYPES = array('categories' => 'Categories', 'manufacturers' => 'Manufacturers', 'prices' => 'Price Range');
 
+    // ***
     function _show_cat_path($category) {
         $path = '';
         if (null != ($parent = $category->getParent())) {
@@ -10,77 +11,78 @@
         return $path;
     }
 
-    function _req_parms($type, $id) {
-    global $types;
-
+    // ***
+    function _req_parms($type, $ids, $FACET_TYPES) {
         $params = array();
-        foreach ($types as $type => $name) {
-            $params[$type] = ZMRequest::getParameter($type);
+        foreach ($FACET_TYPES as $ftype => $name) {
+            $params[$ftype] = ZMRequest::getParameter($ftype, array());
         }
-        $add = true;
+        $merge = array();
         foreach ($params[$type] as $rid) {
-            if ($rid == $id) {
-                $add = false;
-                break;
-            }
+            $merge[$rid] = $rid;
         }
-        if ($add) {
-            $params[$type][] = $id;
+        foreach ($ids as $id) {
+            $merge[$id] = $id;
         }
+        $params[$type] = $merge;
 
         $s = '';
-        foreach ($params as $type => $ids) {
+        foreach ($params as $ptype => $ids) {
             foreach ($ids as $pid) {
-                $s .= '&'.$type.'[]='.$pid;
+                $s .= '&'.$ptype.'[]='.$pid;
             }
         }
         return $s;
     }
 
+    // ***
+    function zm_category_tree_ids($categoryId) {
+        $ids = array($categoryId);
+        foreach (ZMCategories::instance()->getCategoryForId($categoryId)->getChildren() as $child) {
+            $childIds = zm_category_tree_ids($child->getId());
+            $ids = array_merge($ids, $childIds);
+        }
+        return $ids;
+    }
+
+
     $query = array();
-    foreach ($types as $type => $name) {
-        if (null !== ($value = ZMRequest::getParameter($type))) {
-            $query[$type] = $value;
+    foreach ($FACET_TYPES as $ftype => $name) {
+        if (null !== ($value = ZMRequest::getParameter($ftype))) {
+            $query[$ftype] = $value;
         }
     }
 
-    //$category = ZMCategories::instance()->getCategoryForId(3);
-    //$current = ZMFacets::instance()->filterWithTypes(array('manufacturers' => array(3)));
-    //$current = ZMFacets::instance()->filterWithTypes(array('manufacturers' => array(4), 'categories' => $category->getChildIds()));
     if (0 < count($query)) {
         $current = ZMFacets::instance()->filterWithTypes($query);
     } else {
         $current = ZMFacets::instance()->getFacets();
     }
 
+    /*
+     * With categories, we want to display only the selected level (or root categories if
+     * none selected).
+     * Also, it helps to have aggregated counts for a category sub-tree...
+     */
+    $categories = ZMRequest::getParameter('categories');
+    if (null === $categories) {
+        $categories = array();
+        foreach (ZMCategories::instance()->getCategoryTree() as $cat) {
+            $categories[] = $cat->getId();
+        }
+    }
+    //var_dump($categories);
 ?>
 
-<?php foreach ($types as $type => $name) { $facet = $current[$type]; ?>
+<?php foreach ($FACET_TYPES as $type => $name) { $facet = $current[$type]; ?>
   <div>
     <h5><?php echo $name ?></h5>
     <?php foreach ($facet as $id => $info) { ?>
-      <a href="<?php $net->url(null, _req_parms($type, $info['id']), false) ?>"><?php echo $info['name'] ?> (<?php echo count($info['entries']) ?>)</a><br>
+      <?php $noOfEntries = count($info['entries']); ?>
+      <?php $ids = array($info['id']); ?>
+      <?php if ('categories' == $type || 0 < $noOfEntries) { ?>
+        <a href="<?php $net->url(null, _req_parms($type, $ids, $FACET_TYPES), false) ?>"><?php echo $info['name'] ?> (<?php echo $noOfEntries ?>)</a><br>
+      <?php } ?>
     <?php } ?>
   </div>
 <?php } ?>
-
-<?php 
-if (false)
-    foreach ($current as $type => $facet) {
-        echo '<h3>'.$type.'</h3>';
-        foreach ($facet as $id => $info) {
-            if (0 < count($info['entries'])) {
-                $name = $info['id'].'/'.$info['name'];
-                if ('categories' == $type) {
-                    $name = _show_cat_path(ZMCategories::instance()->getCategoryForId($info['id']));
-                }
-                echo "<BR><u>".$name." (".count($info['entries']).")</u><BR>";
-                /*
-                foreach ($info['entries'] as $id => $name) {
-                    echo "&nbsp;&nbsp;".$name."<BR>";
-                }
-                 */
-            }
-        }
-    }
-?>

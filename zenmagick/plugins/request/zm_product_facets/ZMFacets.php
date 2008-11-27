@@ -164,33 +164,41 @@ class ZMFacets extends ZMObject {
     /**
      * Filter facets by type.
      *
-     * @param array types Map of type/type ids.
+     * @param array filter Map of type/type ids.
      * @return array Result facets.
      */
-    public function filterWithTypes($types) {
-        $entries = $this->intersect($types);
-        return $this->filterWithEntries($entries);
+    public function filterWithTypes($filter) {
+        $entries = $this->intersect($filter);
+        return $this->filterWithEntries($filter, $entries);
     }
 
     /**
      * Filter facets.
      *
+     * @param array filter Map of type/type ids.
      * @param array entries Map of allowed entries.
      * @return array Result facets.
      */
-    public function filterWithEntries($entries) {
-        $facets = $this->getFacets();
-
+    public function filterWithEntries($filter, $entries) {
         $filtered = array();
+        $facets = $this->getFacets();
         foreach ($facets as $type => $facet) {
             $filtered[$type] = array();
+            $fids = null;
+            if (array_key_exists($type, $filter)) {
+                $fids = array_flip($filter[$type]);
+            }
             foreach ($facet as $fid => $info) {
-                $filtered[$type][$fid] = array();
-                $filtered[$type][$fid]['name'] = $info['name'];
-                $filtered[$type][$fid]['entries'] = array();
-                foreach ($entries as $id => $entry) {
-                    if (isset($info['entries'][$id])) {
-                        $filtered[$type][$fid]['entries'][$id] = $entry;
+                // if filter set, make sure only selected get through
+                if (null === $fids || array_key_exists($fid, $fids)) {
+                    $filtered[$type][$fid] = array();
+                    $filtered[$type][$fid]['id'] = $info['id'];
+                    $filtered[$type][$fid]['name'] = $info['name'];
+                    $filtered[$type][$fid]['entries'] = array();
+                    foreach ($entries as $id => $entry) {
+                        if (isset($info['entries'][$id])) {
+                            $filtered[$type][$fid]['entries'][$id] = $entry;
+                        }
                     }
                 }
             }
