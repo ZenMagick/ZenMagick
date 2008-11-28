@@ -404,6 +404,8 @@ class ZMTools {
      *
      * <p>This is defined only for URLs within the store.</p>
      *
+     * <p><strong>NOTE: This function may not work with SEO solutions.</strong></p>
+     *
      * @param string url1 The first URL to compare.
      * @param string url2 Optional second URL; default is <code>null</code> to compare to the current URL.
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
