@@ -157,6 +157,7 @@ class ZMToolboxNet extends ZMObject {
         $page = $page === null ? ZMRequest::getPageName() : $page;
         $href = null;
         // no SEO in admin
+        // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
         if (function_exists('zm_build_seo_href') && !ZMSettings::get('isAdmin')) {
             // use custom SEO builder function
             $href = zm_build_seo_href($page, $params, $secure);
