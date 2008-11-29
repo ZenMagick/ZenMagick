@@ -23,7 +23,40 @@
       </form>
         
       <!-- Menu Tabs -->
-      <?php include $zm_theme->themeFile("top-menu.php") ?>
+      <ul>
+        <?php
+          $menu = array();
+          $menu[] = array($net->url(FILENAME_DEFAULT, '', false, false), zm_l10n_get("Home"));
+          if (ZMRequest::isAnonymous()) {
+              $menu[] = array($net->url(FILENAME_LOGIN, '', true, false), zm_l10n_get("Login"));
+          }
+          if (ZMRequest::isRegistered()) {
+              $menu[] = array($net->url(FILENAME_ACCOUNT, '', true, false), zm_l10n_get("Account"));
+          }
+          if (!ZMRequest::isAnonymous()) {
+              $menu[] = array($net->url(FILENAME_LOGOFF, '', true, false), zm_l10n_get("Logoff"));
+          }
+          if (!ZMRequest::getShoppingCart()->isEmpty() && !ZMRequest::isCheckout()) {
+              $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true, false), zm_l10n_get("Cart"));
+              $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
+          }
+          foreach (ZMEZPages::instance()->getPagesForHeader() as $page) {
+              $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle(), false).'</span>', array(), false));
+          }
+          foreach ($menu as $item) {
+              if (2 == count($item)) { 
+                $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
+                ?><li<?php echo $current ?>><a href="<?php echo $item[0] ?>"><span><?php echo $item[1] ?></span></a></li><?php
+              } else {
+                $current = '';
+                //TODO:
+                //preg_match('/.*href=[\'"]([^\'"]*)[\'"].*/', $item[0], $matches);
+                //$current = ZMTools::compareStoreUrl($matches[1]) ? ' id="current"' : '';
+                ?><li<?php echo $current ?>><?php echo $item[0] ?></li><?php 
+              }
+          }
+        ?>
+      </ul>	
     </div>	
           
     <!-- content-wrap starts here -->
