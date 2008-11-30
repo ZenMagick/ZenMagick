@@ -179,6 +179,11 @@
             <param name="plugin.name" value="zm_form_handler" />
             <param name="plugin.version" value="${plugins.zm_form_handler.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_theme_switch" />
+            <param name="plugin.version" value="${plugins.zm_theme_switch.version}" />
+        </antcall>
     </target>
 
     
