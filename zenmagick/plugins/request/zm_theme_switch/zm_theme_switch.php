@@ -78,11 +78,14 @@ class zm_theme_switch extends ZMPlugin {
                     // default
                     $details[1] = $details[0];
                 }
-                $links .= '<a href="'.ZMToolbox::instance()->net->url(null, 'themeId='.$details[0], ZMRequest::isSecure(), false).'">'.$details[1].'</a> ';
+                if (!empty($links)) {
+                    $links .= '&nbsp;|&nbsp;';
+                }
+                $links .= '<a href="'.ZMToolbox::instance()->net->url(null, 'themeId='.$details[0], ZMRequest::isSecure(), false).'">'.$details[1].'</a>';
             }
         }
         if (!ZMTools::isEmpty($links)) {
-            $switch =  '<div style="text-align:right;padding:2px 8px;">' . zm_l10n_get('Switch theme: ') . $links . '</div>';
+            $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . zm_l10n_get('Switch theme: ') . $links . '</div>';
             $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
         }
         return $contents;
