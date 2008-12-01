@@ -190,6 +190,7 @@
     <!-- Create release for a single plugin -->
     <target name="plugin-release" description="Create release for a single plugin.">
         <mkdir dir="${build.dir}/plugins" />
+        <mkdir dir="${dist.dir}/plugins/md5" />
 
         <copy todir="${build.dir}/plugins">
           <fileset dir="${zenmagick.src.dir}/plugins">
@@ -202,13 +203,13 @@
         <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
         <replaceregexp match="\$$\{plugin.version\}" replace="${plugin.version}" flags="g"><fileset dir="${build.dir}/plugins" /></replaceregexp>
 
-        <zip zipfile="${dist.dir}/plugin-${plugin.name}-${plugin.version}.zip">
+        <zip zipfile="${dist.dir}/plugins/plugin-${plugin.name}-${plugin.version}.zip">
             <fileset dir="${build.dir}/plugins">
                 <include name="request/${plugin.name}.php" />
                 <include name="request/${plugin.name}/**" />
             </fileset>
         </zip>
-        <checksum file="${dist.dir}/plugin-${plugin.name}-${plugin.version}.zip" fileext=".md5" todir="${dist.dir}/md5" />
+        <checksum file="${dist.dir}/plugins/plugin-${plugin.name}-${plugin.version}.zip" fileext=".md5" todir="${dist.dir}/plugins/md5" />
     </target>
 
 </project>

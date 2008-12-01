@@ -1,0 +1,48 @@
+<project name="zenmagick-themes" default="theme-releases" basedir=".">
+
+    <!-- Plugins properties -->
+    <property file="themes.properties" />
+
+    <!-- Build theme releases -->
+    <target name="theme-releases" depends="clean,init" description="Build theme releases.">
+        <antcall target="theme-release">
+            <param name="theme.name" value="brightsideoflife" />
+            <param name="theme.version" value="${themes.brightsideoflife.version}" />
+        </antcall>
+
+        <antcall target="theme-release">
+            <param name="theme.name" value="KeepItSimple" />
+            <param name="theme.version" value="${themes.KeepItSimple.version}" />
+        </antcall>
+
+        <antcall target="theme-release">
+            <param name="theme.name" value="PixelGreen" />
+            <param name="theme.version" value="${themes.PixelGreen.version}" />
+        </antcall>
+    </target>
+
+    
+    <!-- Create release for a single theme -->
+    <target name="theme-release" description="Create release for a single theme.">
+        <mkdir dir="${build.dir}/themes" />
+        <mkdir dir="${dist.dir}/themes/md5" />
+
+        <copy todir="${build.dir}/themes">
+          <fileset dir="${zenmagick.src.dir}/themes">
+                <include name="${theme.name}/**" />
+            </fileset>
+        </copy>
+
+        <echo message="Versioning ${build.dir}/themes/** ..." />
+        <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
+        <replaceregexp match="\$$\{theme.version\}" replace="${theme.version}" flags="g"><fileset dir="${build.dir}/themes" /></replaceregexp>
+
+        <zip zipfile="${dist.dir}/themes/theme-${theme.name}-${theme.version}.zip">
+            <fileset dir="${build.dir}/themes">
+                <include name="${theme.name}/**" />
+            </fileset>
+        </zip>
+        <checksum file="${dist.dir}/themes/theme-${theme.name}-${theme.version}.zip" fileext=".md5" todir="${dist.dir}/themes/md5" />
+    </target>
+
+</project>
