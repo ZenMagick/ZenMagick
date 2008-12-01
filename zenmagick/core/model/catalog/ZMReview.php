@@ -128,7 +128,7 @@ class ZMReview extends ZMModel {
      *
      * @return ZMProductInfo The product image info.
      */
-    public function getProductImageInfo() { return ZMLoader::make("ImageInfo", $this->productImage_, $this->productname_); }
+    public function getProductImageInfo() { return ZMProducts::instance()->getProductForId($this->productId_)->getImageInfo(); }
 
     /**
      * Get the review text.
