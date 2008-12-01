@@ -25,7 +25,7 @@
 ?>
 
 <?php if ($zm_resultList->hasFilters() || $zm_resultList->hasSorters()) { ?>
-    <?php $form->open(null, null, false, array('method'=>'get','onsubmit'=>null)) ?>
+    <?php $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
         <?php if ($zm_resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
@@ -42,7 +42,7 @@
             </div>
         <?php } ?>
         <?php if ($zm_resultList->hasSorters()) { ?>
-            <div>
+            <div class="rls">
                 <?php if (ZMRequest::getParameter('keyword')) { ?>
                     <input type="hidden" name="keyword" value="<?php echo ZMRequest::getParameter('keyword') ?>" />
                 <?php } ?>
