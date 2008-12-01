@@ -1,4 +1,4 @@
-img, a img {border:none;}
+img {border:none;}
 
 #footer .footer-left{width:48%;}
 #footer .footer-right{width:50%;}
@@ -19,3 +19,18 @@ img, a img {border:none;}
 #sb_manufacturers select {width:100%;}
 
 #sb_banner_box {padding-left:15px;}
+
+#featured div {float:left;width:150px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}
+
+/* result lists */
+form.ropt {text-align:right;padding:2px;}
+form.ropt div {display:inline;}
+div.rnav {text-align:right;padding:6px;}
+.rlist table td {vertical-align:top;}
+
+/* general */
+fieldset {padding:5px;}
+legend {margin-left:1em;padding:0 3px;}
+label {display:inline;padding:0 5px;}
+
+.rlist table td {padding:3px 3px 5px;border-top:1px dotted gray;}

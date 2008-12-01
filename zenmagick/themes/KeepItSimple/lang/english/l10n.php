@@ -26,7 +26,7 @@
 <?php
 
     zm_l10n_add(array(
-        'Sort / Reverse / Filter' => 'Sort'
+        'Sort / Reverse / Filter' => 'Go'
       ));
 
 ?>

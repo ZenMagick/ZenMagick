@@ -19,3 +19,6 @@ label {display:inline;padding:0 5px;}
 form.ropt {text-align:right;}
 form.ropt div {display:inline;}
 div.rnav {text-align:right;padding:6px;}
+
+/* homepage featured */
+#featured div {float:left;width:150px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}

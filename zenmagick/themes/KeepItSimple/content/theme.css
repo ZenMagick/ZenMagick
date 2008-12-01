@@ -22,3 +22,17 @@ div#header {height:240px;}
 div.alpha {display:none;}
 div#left-columns {width:240px;}
 div#main {width:680px;}
+
+/* general */
+fieldset {padding:5px;}
+legend {margin-left:1em;padding:0 3px;}
+label {display:inline;padding:0 5px;}
+
+/* result lists */
+form.ropt {text-align:right;padding:2px;}
+form.ropt div {display:inline;}
+div.rnav {text-align:right;padding:6px;}
+.rlist table td {vertical-align:top;}
+
+/* homepage featured */
+#featured div {float:left;width:210px;min-height:220px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}
