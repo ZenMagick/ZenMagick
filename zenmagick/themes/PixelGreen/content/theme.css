@@ -9,3 +9,13 @@
 #sb_categories ul ul {display:none;}
 #sb_categories ul.act {display:block;}
 #sb_categories a.curr {text-decoration:underline;}
+
+/* general */
+fieldset {padding:5px;}
+legend {margin-left:1em;padding:0 3px;}
+label {display:inline;padding:0 5px;}
+
+/* result lists */
+form.ropt {text-align:right;}
+form.ropt div {display:inline;}
+div.rnav {text-align:right;padding:6px;}

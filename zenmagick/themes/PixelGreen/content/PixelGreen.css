@@ -144,7 +144,7 @@ textarea {
 	display:block;
 	color:#777;
 }
-input.button { 
+input.button, input.btn { 
 	margin: 0; 
 	font: bold 1em Arial, Sans-serif; 
 	background: #FFF url(images/gradientbg.jpg) repeat-x; 

@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("PixelGreen.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
 
+    <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
+
     <title>Pixel Green</title>
   </head>
 
@@ -21,7 +23,7 @@
 
       <div id="header"><div id="header-content">	
         
-        <h1 id="logo"><a href="<?php $net->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magic</span></a></h1>	
+        <h1 id="logo"><a href="<?php $net->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magick</span></a></h1>	
         <h2 id="slogan">As simple as that!</h2>		
         
         <!-- Menu Tabs -->
@@ -85,7 +87,7 @@
       
         <div class="col2 float-right">
         <p>
-        Powered by <strong>ZenMagick</strong>
+        Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong>
         <br /> 
         Design by: <a href="index.html"><strong>styleshout</strong></a> &nbsp; &nbsp;
         Valid <a href="http://jigsaw.w3.org/css-validator/check/referer"><strong>CSS</strong></a> | 
