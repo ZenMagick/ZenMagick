@@ -1,3 +1,5 @@
+img, a img {border:none;}
+
 #footer .footer-left{width:48%;}
 #footer .footer-right{width:50%;}
 
@@ -12,3 +14,8 @@
 #sb_categories ul ul {display:none;}
 #sb_categories ul.act {display:block;}
 #sb_categories a.curr {text-decoration:underline;}
+
+#sb_search form, #sb_search form div {margin:6px 8px 6px;}
+#sb_manufacturers select {width:100%;}
+
+#sb_banner_box {padding-left:15px;}
