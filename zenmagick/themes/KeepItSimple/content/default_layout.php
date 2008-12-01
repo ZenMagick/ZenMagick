@@ -10,6 +10,11 @@
     <meta name="googlebot" content="noarchive" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("css/screen.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
+    <?php $pageCSS = "css/".$zm_view->getName().".css"; ?>
+    <?php /* page specific CSS */ ?>
+    <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
+      <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
+    <?php } ?>
   </head>
   <body>
     <!-- header starts-->

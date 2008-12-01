@@ -1,3 +1,9 @@
+.box form {margin:3px;padding:5px 8px;}
+
+.alpha h3 a, .omega h3 a {font-size:74%;float:right;}
+
+div#header {height:240px;}
+
 #sb_categories ul {margin:0;}
 #sb_categories li {list-style:none;display:block;padding:2px;margin-bottom:1px;}
 #sb_categories li a {font-weight:bold;text-decoration:none;padding:3px;color:#339900;}
@@ -9,3 +15,10 @@
 #sb_categories ul ul {display:none;}
 #sb_categories ul.act {display:block;}
 #sb_categories a.curr {text-decoration:underline;}
+
+#sb_manufacturers select {width:100%;}
+
+/* default is to hide the 'left' column */
+div.alpha {display:none;}
+div#left-columns {width:240px;}
+div#main {width:680px;}
