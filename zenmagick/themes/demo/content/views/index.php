@@ -26,56 +26,39 @@
 
 <h1>Welcome to the ZenMagick demo store</h1>
 
-<h2>About ZenMagick</h2>
 <p>Running on top of a standard <a href="http://www.zen-cart.com">zen-cart</a> installation,
-  <a href="http://www.zenmagick.org">ZenMagick</a> is a replacement of the zen-cart templating system. Also included is an
-  object oriented <a href="http://wiki.zenmagick.org/index.php/ZenMagick_API">API</a> to access all storefront relevant database
-  data in a structured way.</p>
+  <a href="http://www.zenmagick.org">ZenMagick</a> provides access to most of zen-cart's data via an object oriented
+    <a href="http://wiki.zenmagick.org/index.php/ZenMagick_API">API</a>.</p>
+  <p>Also included is a replacement of the zen-cart storefront templating system 
+    (<a href="http://en.wikipedia.org/wiki/Model-view-controller">MVC</a>),
+    build on top of that API.</p>
  
-<h2>demo features</h2>
-<p>In addition to the ZenMagick default theme, the following things are demo'ed here:</p>
-<dl>
-  <dt>Ajax</dt>
-  <dd>
-    <ul>
-      <li>The <a href="<?php $net->url('ajax_demo') ?>">Ajax demo page</a> shows a few Ajax things possible with ZenMagick.</li>
-      <li>Drag/Drop Ajax cart demo in <a href="<?php $net->url(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
-        (drag the product image onto the shopping cart on ther right...)</li>
-    </ul>
-  </dd>
+<p><strong>In addition to the default ZenMagick features, the following non default options and plugins are installed:</strong></p>
 
-  <dt>Page specific CSS</dt>
-  <dd>ZenMagick easily allows custom CSS per page; for example, this page - the homepage - is modified by custom CSS 
-      (main header text in <span style="color:red;">red</span>)</dd>
+<h2>Ajax</h2>
+<ul>
+  <li>The <a href="<?php $net->url('ajax_demo') ?>">Ajax demo page</a> shows a few Ajax things possible with ZenMagick.</li>
+  <li>Drag/Drop Ajax cart demo in <a href="<?php $net->url(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
+    (drag the product image onto the shopping cart on ther right...)</li>
+</ul>
 
-  <dt>Coding examples</dt>
-  <dd>
-    The demo theme includes some custom classes (in the <code>extra</code> folder), that change the default ZenMagick behaviour or extend it;
-    for example:
-    <ul>
-      <li>Additional product filter (alpha and price-range filter [experimental])</li>
-      <li>Custom default controller that modifies the crumbtrail of all affected pages (for example,
-          the <a href="<?php $net->url(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
-    </ul>
-  </dd>
+<h2>Plugins</h2>
+<ul>
+  <li>Theme switching; </li>
+  <li>Page caching; </li>
+  <li>Google analytics; </li>
+  <li>Google Maps Store Locator; </li>
+  <li>Page Stats; </li>
+  <li>Unit Tests; </li>
+</ul>
 
-  <dt>Theme switching</dt>
-  <dd>
-    This can be done either by:
-    <ul>
-      <li>Request based Theme switching  - the <a href="<?php $net->url(FILENAME_CONTACT_US) ?>">contact us page</a> will always use the default theme</li>
-      <li>User theme switching; the new <code>zm_theme_switch</code> plugin allows users to switch themes (per session); see the theme switcher links at
-          the top of the page</li>
-    </ul>
-  </dd>
 
-  <dt>Field specific error messages</dt>
-  <dd>Try an invalid email or blank password (using the demo theme!) to see field specific error messages being displayed [needs JavaScript disabled]</dd>
-
-  <dt><a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a></dt>
-  <dd>Large image display using <a href="http://www.huddletogether.com/projects/lightbox2/">Lightbox JS</a></dd>
-
-  <dt>Custom sideboxes</dt>
-  <dd>A social bookmarking sidebox that lets you bookmark any page (based on the 
-      <a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;cPath=40_60&amp;products_id=315">Social Bookmarking</a> mod)</dd>
-</dl>
+<h2>Other</h2>
+<ul>
+  <li>[Experimental] product filter (alpha and price range)</li>
+  <li>A customized default controller to illustrate extending controller code; in this example, the crubtrail is modified. This affects
+    all pages handled by the default controller, for example the <a href="<?php $net->url(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
+  <li>Programmatical theme switching - the <a href="<?php $net->url(FILENAME_CONTACT_US) ?>">contact us page</a> will always use the default theme</li>
+  <li>Field specific error messages; Try an invalid email or blank password (using the demo theme!) to see field specific error messages
+     being displayed [needs JavaScript disabled]</li>
+</ul>
