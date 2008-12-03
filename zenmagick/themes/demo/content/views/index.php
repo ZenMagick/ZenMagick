@@ -47,7 +47,7 @@
   <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_theme_switch">Theme switching</a> - see the theme options at the top of this page</li>
   <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_page_cache">Page caching</a> - Check the HTML source - if the content came from the cache, there should be something like this as the last line: <em>&lt;!-- zm_page_cache stats: page: 0.3247 sec.; lastModified: 1228186954 --&gt;</em></li>
   <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_google_analytics">Google analytics</a> - automatically injected into the returned HTML</li>
-  <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_store_locator">Google Maps Store Locator</a> - there is a <a ref="<?php $net->url('store_locator') ?>">demo</a> right here!</li>
+  <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_store_locator">Google Maps Store Locator</a> - there is a <a href="<?php $net->url('store_locator') ?>">demo</a> right here!</li>
   <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zmpage_stats">Page Stats</a> - at the bottom of the page </li>
   <li><a href="http://wiki.zenmagick.org/index.php/Plugins::zm_tests">Unit Tests</a> - check out this <a href="<?php $net->url('tests') ?>">demo version</a> </li>
 </ul>
