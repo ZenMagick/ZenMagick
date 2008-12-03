@@ -1,6 +1,7 @@
 Release 0.9.4
 - prepend log messages with log level labels
 - change ZMCache signature; updated all cache using plugnis!
+- fix zm_site_switch: sql created different column than code expects!
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
