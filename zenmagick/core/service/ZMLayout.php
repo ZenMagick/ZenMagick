@@ -126,7 +126,7 @@ class ZMLayout extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getZCThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMRuntime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
@@ -156,7 +156,7 @@ class ZMLayout extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getZCThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMRuntime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 

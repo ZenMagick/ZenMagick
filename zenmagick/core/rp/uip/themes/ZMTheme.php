@@ -331,7 +331,7 @@ class ZMTheme extends ZMObject {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
         }
         $languageDir = $language->getDirectory();
-        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.ZMThemes::instance()->getZCThemeId().'/define_' . $page . '.php';
+        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.ZMRuntime::getThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
             $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
         }
