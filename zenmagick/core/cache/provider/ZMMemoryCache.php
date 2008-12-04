@@ -25,9 +25,9 @@
 
 
 /**
- * Memocy caching.
+ * Memory caching.
  *
- * <p>Memocy caching using <code>PEAR:Cache_Lite</code>.</p>
+ * <p>Memory caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.cache.provider

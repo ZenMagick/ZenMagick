@@ -5,6 +5,8 @@ Release 0.9.4
 - use configured themeId to lookup static contents and boxes layout info;
   [this will make a difference only if the theme id is explicitely set using
 	ZMRuntime::seThemeId(...)]
+- decouple cache type from actual implementation
+- add memcache cache provider
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

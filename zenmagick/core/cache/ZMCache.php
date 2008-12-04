@@ -34,6 +34,9 @@
  * @version $Id$
  */
 interface ZMCache {
+    const PERSISTENT = 'persistent';
+    const TRANSIENT = 'transient';
+
 
     /**
      * Init the instance.

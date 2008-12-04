@@ -124,6 +124,9 @@
             // default authentication provider
             'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
 
+            // persistent / transient implementation mappings
+            'cacheMapping' => array(),
+
 
             /**************************************
              * Logging options.

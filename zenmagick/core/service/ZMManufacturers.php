@@ -40,7 +40,7 @@ class ZMManufacturers extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->cache = ZMCaches::instance()->getCache('services', array(), 'memory');
+        $this->cache = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
     }
 
     /**

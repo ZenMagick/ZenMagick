@@ -39,7 +39,9 @@
  * @version $Id$
  */
 class ZMCaches extends ZMObject {
+    private static $DEFAULT_TYPES = array(ZMCache::PERSISTENT => 'file', ZMCache::TRANSIENT => 'memory');
     private $caches_;
+    private $types_;
 
 
     /**
@@ -48,6 +50,7 @@ class ZMCaches extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->caches_ = array();
+        $this->types_ = array_merge(self::$DEFAULT_TYPES, ZMSettings::get('cacheMapping', array()));
     }
 
     /**
@@ -70,12 +73,14 @@ class ZMCaches extends ZMObject {
      *
      * @param string group The cache group.
      * @param array config Configuration; default is an empty array.
-     * @param string type Optional cache type; default is <em>file</em>.
+     * @param string type Optional cache type; default is <code>ZMCache::PERSISTENT</code>.
      * @return ZMCache A cache instance or null.
+     * @see ZMCache::PERSISTENT
+     * @see ZMCache::TRANSIENT
      */
-    public function getCache($group, $config=array(), $type='file') {
+    public function getCache($group, $config=array(), $type=ZMCache::PERSISTENT) {
         ksort($config);
-        $class = ucwords($type).'Cache';
+        $class = ucwords($this->types_[$type]).'Cache';
         $key = $group.':'.$class.':'.serialize($config);
 
         $instance = null;
