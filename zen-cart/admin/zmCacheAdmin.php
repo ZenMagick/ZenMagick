@@ -67,17 +67,18 @@ require 'includes/application_top.php';
               <table cellspacing="0" cellpadding="0">
                 <thead>
                   <tr>
-                    <th></th>
                     <th>Group</th>
                     <th>Type</th>
                     <th>Config</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) { ?>
+                  <?php $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) { ++$ii; ?>
                     <tr>
-                      <td><input type="checkbox" name="cache_<?php echo ++$ii ?>" value="x"></td>
-                      <td><?php echo $cacheInfo['group'] ?></td>
+                      <td>
+                          <input type="checkbox" id="cache_<?php echo $ii ?>" name="cache_<?php echo $ii ?>" value="x">
+                          <label for="cache_<?php echo $ii ?>"><?php echo $cacheInfo['group'] ?></label>
+                      </td>
                       <td><?php echo $cacheInfo['type'] ?></td>
                       <td><?php print_r($cacheInfo['config']) ?></td>
                     </tr>

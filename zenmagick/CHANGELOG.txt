@@ -7,6 +7,7 @@ Release 0.9.4
 	ZMRuntime::seThemeId(...)]
 - decouple cache type from actual implementation
 - add memcache cache provider
+- make group text clickable in cache admin
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
