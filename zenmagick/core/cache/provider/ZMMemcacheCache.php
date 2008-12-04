@@ -73,13 +73,65 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { return class_exists('Memcache'); }
+    public function isAvailable() { 
+        return class_exists('Memcache');
+    }
+
+    /**
+     * Add the given id to this instance's group.
+     *
+     * @param string id The id.
+     */
+    protected function addToGroup($id) {
+        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        if (!isset($groupCache)) {
+            $groupCache = array();
+        }
+        if (!isset($groupCache[$this->group_])) {
+            $groupCache[$this->group_] = array();
+        }
+        $groupCache[$this->group_][$id] = $id;
+        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
+    }
+
+    /**
+     * Remove the given id from this instance's group.
+     *
+     * @param string id The id; default is <code>null</code> to remove all.
+     */
+    protected function removeFromGroup($id=null) {
+        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        if (!isset($groupCache)) {
+            return;
+        }
+        if (!isset($groupCache[$this->group_])) {
+            return;
+        }
+        if (null === $id) {
+            $groupCache[$this->group_] = array();
+        } else {
+            unset($groupCache[$this->group_][$id]);
+        }
+        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
+    }
 
     /**
      * {@inheritDoc}
      */
     public function clear() {
-        //return $this->memcache_->clean($this->group_);
+        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        if (!isset($groupCache)) {
+            return;
+        }
+        if (!isset($groupCache[$this->group_])) {
+            return;
+        }
+        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        foreach ($groupCache[$this->group_] as $id) {
+            $this->memcache_->delete($this->group_.'/'.$id);
+        }
+        $this->removeFromGroup();
+        return true;
     }
 
     /**
@@ -93,6 +145,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function remove($id) {
+        $this->removeFromGroup($id);
         return $this->memcache_->delete($this->group_.'/'.$id);
     }
 
@@ -100,6 +153,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function save($data, $id) {
+        $this->addToGroup($id);
         $this->lastModified_ = time();
         return $this->memcache_->set($this->group_.'/'.$id, $data, 0, $this->lifetime_);
     }
