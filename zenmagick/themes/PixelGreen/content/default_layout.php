@@ -89,7 +89,7 @@
         <p>
         Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong>
         <br /> 
-        Design by: <a href="index.html"><strong>styleshout</strong></a> &nbsp; &nbsp;
+        Design by: <a href="http://www.styleshout.com/"><strong>styleshout</strong></a> &nbsp; &nbsp;
         Valid <a href="http://jigsaw.w3.org/css-validator/check/referer"><strong>CSS</strong></a> | 
               <a href="http://validator.w3.org/check/referer"><strong>XHTML</strong></a>
         </p>
