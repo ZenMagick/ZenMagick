@@ -1,13 +1,15 @@
 Release 0.9.4
 - prepend log messages with log level labels
 - change ZMCache signature; updated all cache using plugnis!
-- fix zm_site_switch: sql created different column than code expects!
+- fix zm_site_switch: sql created different column than code expects! b:#2384579
 - use configured themeId to lookup static contents and boxes layout info;
   [this will make a difference only if the theme id is explicitely set using
 	ZMRuntime::seThemeId(...)]
 - decouple cache type from actual implementation
 - add memcache cache provider
 - make group text clickable in cache admin
+- fix missing review sidebox image; b:#2384599
+- fix b:#2387935; display configured site switch data
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
