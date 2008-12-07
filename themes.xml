@@ -19,6 +19,11 @@
             <param name="theme.name" value="PixelGreen" />
             <param name="theme.version" value="${themes.PixelGreen.version}" />
         </antcall>
+
+        <antcall target="theme-release">
+            <param name="theme.name" value="precision" />
+            <param name="theme.version" value="${themes.precision.version}" />
+        </antcall>
     </target>
 
     
