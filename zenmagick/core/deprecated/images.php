@@ -35,13 +35,13 @@
      * @package org.zenmagick.deprecated
      * @param ZMProduct product A product.
      * @param int categoryId Optional category id.
-     * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
-     *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
+     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
+     *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>ZMProducts::IMAGE_SMALL</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      * @deprecated use the new toolbox instead!
      */
-    function zm_product_image_link($product, $categoryId=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+    function zm_product_image_link($product, $categoryId=null, $format=ZMProducts::IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
         return ZMToolbox::instance()->html->productImageLink($product, $categoryId, null, $format, $echo);
     }
 

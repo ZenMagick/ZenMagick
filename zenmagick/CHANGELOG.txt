@@ -10,6 +10,7 @@ Release 0.9.4
 - make group text clickable in cache admin
 - fix missing review sidebox image; b:#2384599
 - fix b:#2387935; display configured site switch data
+- more define/const refactoring
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

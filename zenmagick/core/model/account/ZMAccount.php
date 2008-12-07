@@ -77,7 +77,7 @@ class ZMAccount extends ZMModel {
         $this->subscribedProducts_ = null;
         $this->type_ = ZMAccounts::REGISTERED;
         $this->priceGroupId_ = 0;
-        $this->authorization_ = ZM_ACCOUNT_AUTHORIZATION_ENABLED;
+        $this->authorization_ = ZMAccounts::AUTHORIZATION_ENABLED;
     }
 
     /**

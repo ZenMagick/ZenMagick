@@ -117,11 +117,11 @@ class ZMPlugins extends ZMObject {
     /**
      * Get all plugins.
      *
-     * @param string scope The plugin scope; default is <code>ZM_SCOPE_ALL</code>.
+     * @param string scope The plugin scope; default is <code>ZMPlugin::SCOPE_ALL</code>.
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
-    function getAllPlugins($scope=ZM_SCOPE_ALL, $configured=true) {
+    function getAllPlugins($scope=ZMPlugin::SCOPE_ALL, $configured=true) {
         $plugins = array();
         foreach (ZMPlugins::getPluginTypes() as $type => $typeDir) {
             $plugins[$type] = ZMPlugins::getPluginsForType($type, $scope, $configured);
@@ -157,17 +157,17 @@ class ZMPlugins extends ZMObject {
      * Get all plugins for the given type.
      *
      * @param string type The plugin type.
-     * @param string scope The plugin scope; default is <code>ZM_SCOPE_ALL</code>.
+     * @param string scope The plugin scope; default is <code>ZMPlugin::SCOPE_ALL</code>.
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    public static function getPluginsForType($type, $scope=ZM_SCOPE_ALL, $configured=true) {
+    public static function getPluginsForType($type, $scope=ZMPlugin::SCOPE_ALL, $configured=true) {
         $idList = array();
         if ($configured) {
             // use plugin status to select plugins
             foreach (ZMPlugins::$pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
-                    if (ZM_SCOPE_ALL == $status['scope'] || $status['scope'] == $scope) {
+                    if (ZMPlugin::SCOPE_ALL == $status['scope'] || $status['scope'] == $scope) {
                         $idList[] = $id;
                     }
                 }
@@ -276,7 +276,7 @@ class ZMPlugins extends ZMObject {
             $$name = $instance;
         }
 
-        foreach (ZMPlugins::getPluginsForType('request', ZM_SCOPE_STORE) as $plugin) {
+        foreach (ZMPlugins::getPluginsForType('request', ZMPlugin::SCOPE_STORE) as $plugin) {
             if ($plugin->isEnabled() && method_exists($plugin, 'filterResponse')) {
                 $contents = $plugin->filterResponse($contents);
             }
@@ -323,7 +323,7 @@ class ZMPlugins extends ZMObject {
             }
 
             // use plugin loader to load static stuff
-            if (ZM_SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
+            if (ZMPlugin::SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
                 $pluginLoader->loadStatic();
             }
             $plugins[$type] = $pluginList;

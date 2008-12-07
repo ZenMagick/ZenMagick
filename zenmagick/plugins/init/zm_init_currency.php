@@ -37,7 +37,7 @@ class zm_init_currency extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Currency', 'Set the session currency');
-        $this->setScope(ZM_SCOPE_STORE);
+        $this->setScope(ZMPlugin::SCOPE_STORE);
         $this->setPreferredSortOrder(20);
     }
 

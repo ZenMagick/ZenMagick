@@ -371,7 +371,7 @@ class ZMSession extends ZMObject {
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */
     public function registerAccount($account, $source=null) {
-        if (ZM_ACCOUNT_AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+        if (ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
             ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
             return false;
         }

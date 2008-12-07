@@ -32,6 +32,11 @@
  * @version $Id$
  */
 class ZMCoupons extends ZMObject {
+    const TYPPE_GV = 'G';
+    const TYPPE_FIXED = 'F';
+    const TYPPE_PERCENT = 'P';
+    const TYPPE_SHIPPING = 'S';
+
 
     /**
      * Create new instance.

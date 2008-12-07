@@ -36,6 +36,16 @@
  * @version $Id$
  */
 class ZMPlugin extends ZMObject {
+    // internal key constants
+    const KEY_PREFIX = 'PLUGIN_';
+    const KEY_ENABLED_SUFFIX = 'ENABLED';
+    const KEY_ORDER_SUFFIX = 'ORDER';
+
+    // scope constants
+    const SCOPE_STORE = 'store';
+    const SCOPE_ADMIN = 'admin';
+    const SCOPE_ALL =  'all';
+
     var $id_;
     var $title_;
     var $description_;
@@ -76,7 +86,7 @@ class ZMPlugin extends ZMObject {
         $this->handler_ = null;
         $this->traditional_ = true;
         $this->preferredSortOrder_ = 0;
-        $this->scope_ = ZM_SCOPE_ALL;
+        $this->scope_ = self::SCOPE_ALL;
     }
 
     /**
@@ -273,7 +283,7 @@ class ZMPlugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
     public function isInstalled() {
-        return null !== $this->__get(ZM_PLUGIN_ENABLED_SUFFIX);
+        return null !== $this->__get(self::KEY_ENABLED_SUFFIX);
     }
 
     /**
@@ -282,7 +292,7 @@ class ZMPlugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        $enabled = $this->get(ZM_PLUGIN_ENABLED_SUFFIX);
+        $enabled = $this->get(self::KEY_ENABLED_SUFFIX);
         return null !== $enabled && 0 != $enabled;
     }
 
@@ -291,14 +301,14 @@ class ZMPlugin extends ZMObject {
      *
      * @return int The sort order index.
      */
-    public function getSortOrder() { return (int)$this->get(ZM_PLUGIN_ORDER_SUFFIX); }
+    public function getSortOrder() { return (int)$this->get(self::KEY_ORDER_SUFFIX); }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order index.
      */
-    public function setSortOrder($sortOrder) { $this->set(ZM_PLUGIN_ORDER_SUFFIX, $sortOrder); }
+    public function setSortOrder($sortOrder) { $this->set(self::KEY_ORDER_SUFFIX, $sortOrder); }
 
     /**
      * Get a list of configuration keys used by this plugin.
@@ -347,9 +357,9 @@ class ZMPlugin extends ZMObject {
      */
     public function setType($type) { 
         $this->type_ = $type; 
-        $this->configPrefix_ = strtoupper(ZM_PLUGIN_PREFIX . $this->type_ . '_'. $this->id_ . '_');
-        $this->enabledKey_ = $this->configPrefix_.ZM_PLUGIN_ENABLED_SUFFIX;
-        $this->orderKey_ = $this->configPrefix_.ZM_PLUGIN_ORDER_SUFFIX;
+        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $this->type_ . '_'. $this->id_ . '_');
+        $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED_SUFFIX;
+        $this->orderKey_ = $this->configPrefix_.self::KEY_ORDER_SUFFIX;
     }
 
     /**
@@ -487,12 +497,12 @@ class ZMPlugin extends ZMObject {
      *
      * <p>Please note that there are constants that may be used intead of plain strings:</p>
      * <ul>
-     *  <li><code>ZM_SCOPE_STORE</code></li>
-     *  <li><code>ZM_SCOPE_ADMIN</code></li>
-     *  <li><code>ZM_SCOPE_ALL</code></li>
+     *  <li><code>self::SCOPE_STORE</code></li>
+     *  <li><code>self::SCOPE_ADMIN</code></li>
+     *  <li><code>self::SCOPE_ALL</code></li>
      * </ul>
      *
-     * <p>The default scope is <li><code>ZM_SCOPE_ALL</code></li>.</p>
+     * <p>The default scope is <li><code>self::SCOPE_ALL</code></li>.</p>
      * @param string scope The scope.
      */
     public function setScope($scope) { $this->scope_ = $scope; }

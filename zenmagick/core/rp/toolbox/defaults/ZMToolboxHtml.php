@@ -37,28 +37,28 @@ class ZMToolboxHtml extends ZMObject {
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
      * @param ZMImageInfo imageInfo The image info.
-     * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
-     *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
+     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
+     *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>>ZMProducts::IMAGE_SMALL</code>.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    public function image($imageInfo, $format=PRODUCT_IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
+    public function image($imageInfo, $format=ZMProducts::IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
         if (null === $imageInfo) {
             return;
         }
 
         $imageInfo->setParameter($parameter);
         switch ($format) {
-        case PRODUCT_IMAGE_LARGE:
+        case ZMProducts::IMAGE_LARGE:
             $imgSrc = $imageInfo->getLargeImage();
             break;
-        case PRODUCT_IMAGE_MEDIUM:
+        case ZMProducts::IMAGE_MEDIUM:
         default:
             $imgSrc = $imageInfo->getMediumImage();
             break;
-        case PRODUCT_IMAGE_SMALL:
+        case ZMProducts::IMAGE_SMALL:
             $imgSrc = $imageInfo->getDefaultImage();
             break;
         default:
@@ -194,12 +194,12 @@ class ZMToolboxHtml extends ZMObject {
      * @param ZMProduct product A product.
      * @param int categoryId Optional category id.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
-     * @param string format Can be either of <code>PRODUCT_IMAGE_SMALL</code>, <code>PRODUCT_IMAGE_MEDIUM</code> 
-     *  or <code>PRODUCT_IMAGE_LARGE</code>; default is <code>>PRODUCT_IMAGE_SMALL</code>.
+     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
+     *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>ZMProducts::IMAGE_SMALL</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function productImageLink($product, $categoryId=null, $attr=null, $format=PRODUCT_IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+    public function productImageLink($product, $categoryId=null, $attr=null, $format=ZMProducts::IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
         $defaults = array('class' => 'product');
         if (null === $attr) {
             $attr = $defaults;

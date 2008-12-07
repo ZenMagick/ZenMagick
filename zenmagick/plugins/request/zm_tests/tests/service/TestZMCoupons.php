@@ -57,7 +57,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testCreateCoupon() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $this->assertNotNull($coupon);
         $this->assertEqual($couponCode, $coupon->getCode());
@@ -70,7 +70,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testGetCouponForCode() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $loaded = ZMCoupons::instance()->getCouponForCode($couponCode);
         $this->assertEqual($coupon->getId(), $loaded->getId());
@@ -84,7 +84,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testGetCouponForId() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $loaded = ZMCoupons::instance()->getCouponForId($coupon->getId());
         $this->assertEqual($coupon->getId(), $loaded->getId());
@@ -138,7 +138,7 @@ class TestZMCoupons extends ZMTestCase {
      */
     public function testCouponTracker() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $account = ZMAccounts::instance()->getAccountForId(1);
         $gvReceiver = ZMLoader::make('GVReceiver');
@@ -159,7 +159,7 @@ class TestZMCoupons extends ZMTestCase {
      */
     public function testFinalizeCoupon() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         ZMCoupons::instance()->finalizeCoupon($coupon->getId(), 1, '127.0.0.1');
 
@@ -182,7 +182,7 @@ class TestZMCoupons extends ZMTestCase {
     public function testCreditCoupon() {
         // new coupon worth $5
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
         ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
@@ -195,7 +195,7 @@ class TestZMCoupons extends ZMTestCase {
 
         // new coupon worth $5
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZM_COUPON_TYPPE_GV);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
         ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);

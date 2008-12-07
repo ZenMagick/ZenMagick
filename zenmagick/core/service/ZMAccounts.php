@@ -32,9 +32,15 @@
  * @version $Id$
  */
 class ZMAccounts extends ZMObject {
+    // account type constants
     const REGISTERED = 'registered';
     const GUEST = 'guest';
     const ANONYMOUS = 'anonymous';
+
+    // authorization status constants
+    const AUTHORIZATION_ENABLED = 0;
+    const AUTHORIZATION_PENDING = 1;
+    const AUTHORIZATION_BLOCKED = 4;
 
 
     /**

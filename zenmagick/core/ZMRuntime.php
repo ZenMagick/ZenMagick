@@ -49,10 +49,10 @@ class ZMRuntime extends ZMObject {
     /**
      * Get the application scope.
      *
-     * @return string Either <code>ZM_SCOPE_STORE</code> or <code>ZM_SCOPE_ADMIN</code>.
+     * @return string Either <code>ZMPlugin::SCOPE_STORE</code> or <code>ZMPlugin::SCOPE_ADMIN</code>.
      */
     public static function getScope() {
-        return ZMSettings::get('isAdmin') ? ZM_SCOPE_ADMIN : ZM_SCOPE_STORE;
+        return ZMSettings::get('isAdmin') ? ZMPlugin::SCOPE_ADMIN : ZMPlugin::SCOPE_STORE;
     }
 
     /**

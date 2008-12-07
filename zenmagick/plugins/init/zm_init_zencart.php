@@ -37,7 +37,7 @@ class zm_init_zencart extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('zen-cart', 'Set up zen-cart dependencies');
-        $this->setScope(ZM_SCOPE_STORE);
+        $this->setScope(ZMPlugin::SCOPE_STORE);
         $this->setPreferredSortOrder(0);
     }
 

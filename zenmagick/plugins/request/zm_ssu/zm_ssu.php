@@ -38,7 +38,7 @@ class zm_ssu extends ZMPlugin {
     function __construct() {
         parent::__construct('Simple SEO URL', 'Simple SEO URL for ZenMagick', '${plugin.version}');
         $this->setLoaderSupport('ALL');
-        $this->setScope(ZM_SCOPE_STORE);
+        $this->setScope(ZMPlugin::SCOPE_STORE);
     }
 
     /**

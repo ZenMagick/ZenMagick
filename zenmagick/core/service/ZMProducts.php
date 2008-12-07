@@ -32,6 +32,11 @@
  * @version $Id$
  */
 class ZMProducts extends ZMObject {
+    // image size constants
+    const IMAGE_SMALL = 'small';
+    const IMAGE_MEDIUM = 'medium';
+    const IMAGE_LARGE = 'large';
+
     private $cache;
     private $categoryProductMap_;
 

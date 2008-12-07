@@ -117,7 +117,7 @@ class ZMGvSendConfirmController extends ZMController {
 
         // create the new voucher
         $couponCode = $coupons->createCouponCode($account->getEmail());
-        $coupon = $coupons->createCoupon($couponCode, $amount, ZM_COUPON_TYPPE_GV);
+        $coupon = $coupons->createCoupon($couponCode, $amount, ZMCoupons::TYPPE_GV);
 
         // create coupon tracker
         $coupons->createCouponTracker($coupon, $account, $gvreceiver);

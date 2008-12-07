@@ -97,7 +97,7 @@
     define('ZM_ADMINFN_CACHE', 'zmCacheAdmin.php');
 
 
-    //** plugins/modules **//
+    //** plugins/modules; deprecated **//
 
     define('ZM_PLUGIN_PREFIX', 'PLUGIN_');
     define('ZM_PLUGIN_ENABLED_SUFFIX', 'ENABLED');
@@ -108,7 +108,7 @@
     define('ZM_SCOPE_ALL', 'all');
 
 
-    //** fixed product images sizes **//
+    //** fixed product images sizes; deprecated **//
 
     define('PRODUCT_IMAGE_SMALL', 'small');
     define('PRODUCT_IMAGE_MEDIUM', 'medium');
@@ -122,7 +122,7 @@
     define('ZM_ACCOUNT_TYPE_ANONYMOUS', 'anonymous');
 
 
-    //** coupon types **//
+    //** coupon types; deprecated **//
 
     define('ZM_COUPON_TYPPE_GV', 'G');
     define('ZM_COUPON_TYPPE_FIXED', 'F');
@@ -160,7 +160,7 @@
     define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
 
 
-    //** account authentication **//
+    //** account authentication; deprecated **//
 
     define('ZM_ACCOUNT_AUTHORIZATION_ENABLED', 0);
     define('ZM_ACCOUNT_AUTHORIZATION_PENDING', 1);

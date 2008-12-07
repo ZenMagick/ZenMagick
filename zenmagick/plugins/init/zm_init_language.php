@@ -37,7 +37,7 @@ class zm_init_language extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Language', 'Set the session language');
-        $this->setScope(ZM_SCOPE_STORE);
+        $this->setScope(ZMPlugin::SCOPE_STORE);
         $this->setPreferredSortOrder(15);
     }
 
