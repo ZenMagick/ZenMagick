@@ -122,13 +122,14 @@ class zm_page_stats extends ZMPlugin {
         }
 
         ob_start();
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br>';
+        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
         $db = ZMRuntime::getDB();
         echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
-        echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br>';
+        echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br'.$slash.'>';
         echo '</div>';
         if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             echo '<div id="event-log">';
@@ -152,11 +153,11 @@ class zm_page_stats extends ZMPlugin {
             echo '</div>';
         }
 
-        echo '<pre>';
         if (null !== ($exception = ZMRequest::getController()->getGlobal('exception'))) {
+            echo '<pre>';
             echo $exception;
+            echo '</pre>';
         }
-        echo '</pre>';
 
         $info = ob_get_clean();
 
