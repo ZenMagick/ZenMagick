@@ -454,6 +454,35 @@ class ZMAttributeValue extends ZMModel {
 
    $qty = $check_qty;
 
+/*
+
+0 = flat amount off base price with a special
+1 = Percentage off base price with a special
+2 = New Price with a special
+
+5 = No Sale or Skip Products with Special
+
+special options + option * 10
+0 = Ignore special and apply to Price
+1 = Skip Products with Specials switch to 5
+2 = Apply to Special Price
+
+If a special exist * 10+9
+
+0*100 + 0*10 = flat apply to price = 0 or 9
+0*100 + 1*10 = flat skip Specials = 5 or 59
+0*100 + 2*10 = flat apply to special = 20 or 209
+
+1*100 + 0*10 = Percentage apply to price = 100 or 1009
+1*100 + 1*10 = Percentage skip Specials = 110 or 1109 / 5 or 59
+1*100 + 2*10 = Percentage apply to special = 120 or 1209
+
+2*100 + 0*10 = New Price apply to price = 200 or 2009
+2*100 + 1*10 = New Price skip Specials = 210 or 2109 / 5 or 59
+2*100 + 2*10 = New Price apply to Special = 220 or 2209
+
+*/
+
 // fix here
 // BOF: percentage discounts apply to price
     switch (true) {

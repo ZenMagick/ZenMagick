@@ -15,6 +15,7 @@ Release 0.9.4
 - add ZMPlugin::getConfigPath() to allow plugins to store user/config data in
   a separate area
 - try to ber good with file permissions
+- add Salemaker service
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

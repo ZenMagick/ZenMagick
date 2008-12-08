@@ -1,0 +1,102 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006-2008 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+<?php
+
+
+/**
+ * Sale maker.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.service
+ * @version $Id$
+ */
+class ZMSaleMaker extends ZMObject {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return ZMObject::singleton('SaleMaker');
+    }
+
+
+    /**
+     * Get sale discount type info.
+     *
+     * @param int productId The product id.
+     * @param int categoryId Optional category id; default is <code>null</code> to use the default category.
+     * @return array Discount type info.
+     */
+    public function getSaleDiscountTypeInfo($productId, $categoryId=null) {
+        $product = ZMProducts::instance()->getProductForId($productId);
+
+        if (null === $categoryId) {
+            $categoryId = $product->getDefaultCategory()->getId();
+        }
+
+        $hasSale = false;
+        $saleDiscount = 0;
+        $saleCondition = 0;
+        $saleDiscountType = 5; //No Sale or Skip Products with Special
+        $sql = "SELECT * 
+                FROM " . TABLE_SALEMAKER_SALES . "
+                WHERE sale_status = '1'";
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZM_DB_MODEL_RAW) as $result) {
+            $categories = array_flip(explode(',', $result['sale_categories_all']));
+            if (array_key_exists($categoryId, $categories)) {
+                $hasSale = true;
+                $saleDiscount = $result['sale_deduction_value'];
+                $saleCondition = $result['sale_specials_condition'];
+                $saleDiscountType = $result['sale_deduction_type'];
+            }
+        }
+
+        if ($hasSale && 0 != $saleCondition) {
+            $saleDiscountType = (($saleDiscountType * 100) + ($saleCondition * 10));
+        }
+
+        if (!$product->getOffers()->isSpecial()) {
+            $saleDiscountType = ($saleDiscountType * 10) + 9;
+        }
+
+        return array('type' => $saleDiscountType, 'amount' => $saleDiscount);
+    }
+
+}
+
+?>
