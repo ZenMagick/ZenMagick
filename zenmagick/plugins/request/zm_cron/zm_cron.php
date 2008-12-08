@@ -104,8 +104,7 @@ class zm_cron extends ZMPlugin {
      */
     public function runCron() {
         ob_start();
-        $folder = $this->getPluginDir();
-        $cron = ZMLoader::make('ZMCronJobs', $folder.'/etc/crontab.txt', $folder.'etc/cronhistory.txt');
+        $cron = ZMLoader::make('ZMCronJobs', $this->getConfigPath('etc/crontab.txt'), $this->getConfigPath('etc/cronhistory.txt', true));
         if ($cron->isTimeToRun()) {
             // update timestamp to stop other instances from running
             $cron->updateTimestamp();
