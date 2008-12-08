@@ -80,7 +80,12 @@ class zm_site_switch extends ZMPlugin {
 
         $this->zcoSubscribe();
 
-        define('ZM_FILE_SITE_SWITCHER', $this->getConfigPath('config.php'));
+        $config = $this->getConfigPath('config.php');
+        if (!file_exists($config)) {
+            // make sure we use the new location
+            $config = $this->getConfigPath('config.php', true);
+        }
+        define('ZM_FILE_SITE_SWITCHER', $config);
         define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include("'.ZM_FILE_SITE_SWITCHER.'"); /* added by zm_site_switch plugin */ ?>');
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
@@ -125,6 +130,8 @@ class zm_site_switch extends ZMPlugin {
     public function checkPermissions() {
         $localDir = dirname(ZM_FILE_SITE_SWITCHER);
         if (!file_exists($localDir)) {
+            // try to create
+            ZMTools::mkdir($localDir);
             // can we create folder than all ok...
             if (is_writeable(dirname($localDir))) {
                 return true;
@@ -165,6 +172,7 @@ class zm_site_switch extends ZMPlugin {
             if ($handle = fopen($localConfig, 'wb')) {
                 $ok = fwrite($handle, ZM_SITE_SWITCHER_CONFIGURE_LINE);
                 fclose($handle);
+                ZMTools::setFilePerms($localConfig);
             } else {
                 ZMMessages::instance()->error('could not create file: \''.ZM_SITE_SWITCHER_CONFIGURE_LINE.'\'');
                 return;
@@ -188,6 +196,7 @@ class zm_site_switch extends ZMPlugin {
                         fwrite($handle, rtrim($line).$eol);
                     }
                     fclose($handle);
+                    ZMTools::setFilePerms($$localConfig.'.tmp');
                     if (file_exists($localConfig)) {
                         unlink($localConfig);
                     }
@@ -230,6 +239,7 @@ if (!defined("HTTP_SERVER")) {
             if ($handle = fopen(ZM_FILE_SITE_SWITCHER.'.tmp', 'wb')) {
                 $ok = fwrite($handle, $content);
                 fclose($handle);
+                ZMTools::setFilePerms($ZM_FILE_SITE_SWITCHER.'.tmp');
                 if (false !== $ok) {
                     if (file_exists(ZM_FILE_SITE_SWITCHER)) {
                         unlink(ZM_FILE_SITE_SWITCHER);
@@ -266,6 +276,7 @@ if (!defined("HTTP_SERVER")) {
                     fwrite($handle, $line.$eol);
                 }
                 fclose($handle);
+                ZMTools::setFilePerms($localConfig.'.tmp');
                 if (file_exists($localConfig)) {
                     unlink($localConfig);
                 }

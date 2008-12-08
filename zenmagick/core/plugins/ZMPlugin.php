@@ -391,6 +391,7 @@ class ZMPlugin extends ZMObject {
         $configFile = $configPath.$this->id_.'/'.$file;
 
         if ($force || file_exists($configFile)) {
+echo $configFile;
             return $configFile;
         }
 
