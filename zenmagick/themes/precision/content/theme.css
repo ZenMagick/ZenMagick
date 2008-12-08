@@ -13,6 +13,17 @@
 #categories ul.act {display:block;}
 #categories a.curr {text-decoration:underline;}
 
+#sb_manufacturers {padding:4px 6px;background: #F9F3DF;}
+#sb_manufacturers select {width:100%;}
+
+.sidebar h2 {position:relative;}
+.sidebar h2 a {position:absolute;top:0;right:5px;font-size:76%;}
+
+.box {border:1px solid #c0c0c0;background-color:#fafbfc;color:#505050;width:90%;padding:3px;overflow:hidden;}
+
+#sb_featured {text-align:center;margin:0 auto;}
+#sb_featured p {margin:0;padding:1px;}
+
 /* general */
 fieldset {padding:5px;}
 legend {margin-left:1em;padding:0 3px;}
