@@ -80,8 +80,8 @@ class zm_site_switch extends ZMPlugin {
 
         $this->zcoSubscribe();
 
-        define('ZM_FILE_SITE_SWITCHER', $this->getPluginDir().'config.php');
-        define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include(\''.$this->getPluginDir().'config.php\'); /* added by zm_site_switch plugin */ ?>');
+        define('ZM_FILE_SITE_SWITCHER', $this->getConfigPath('config.php'));
+        define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include("'.ZM_FILE_SITE_SWITCHER.'"); /* added by zm_site_switch plugin */ ?>');
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
 

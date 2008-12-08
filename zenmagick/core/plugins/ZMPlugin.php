@@ -377,6 +377,27 @@ class ZMPlugin extends ZMObject {
     public function getPluginDir() { return $this->pluginDir_; }
 
     /**
+     * Get a plugin config file path.
+     *
+     * <p>This will look first in the configured user config folder and as a default in the plugin dir.</p>
+     *
+     * @param string file The filename.
+     * @param boolean force Optional flag to force using the path configured via <code>ZM_USER_CONFIG</code>;
+     *  default is <code>false</code>.
+     * @return string A fully qualified filename.
+     */
+    public function getConfigPath($file, $force=false) { 
+        $configPath = ZMRuntime::getZMRootPath().ZM_USER_CONFIG;
+        $configFile = $configPath.$this->id_.'/'.$file;
+
+        if ($force || file_exists($configFile)) {
+            return $configFile;
+        }
+
+        return $this->pluginDir_.$file;
+    }
+
+    /**
      * Add a configuration value.
      *
      * <p>If no sort order is specified, entries will be listed in the order they are added. Effectively,

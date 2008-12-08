@@ -49,6 +49,7 @@
     define('ZM_THEME_BOXES_DIR', 'content/boxes/');
     define('ZM_THEME_LANG_DIR', 'lang/');
     define('ZM_THEME_STATIC_DIR', 'static/');
+    define('ZM_USER_CONFIG', ZM_ROOT.'config/');
 
 
     //** db **//

@@ -75,7 +75,7 @@ class zm_geo_ip extends ZMPlugin {
 
         $database = $this->get('database');
         if (!file_exists($database)) {
-            $database = $this->getPluginDir().$database;
+            $database = $this->getConfigPath($database);
         }
         if (file_exists($database)) {
             // decide type based on filename

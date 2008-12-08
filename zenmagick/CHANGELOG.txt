@@ -12,6 +12,8 @@ Release 0.9.4
 - fix b:#2387935; display configured site switch data
 - more define/const refactoring
 - make zm_page_stats create valid HTML/XHTML
+- add ZMPlugin::getConfigPath() to allow plugins to store user/config data in
+  a separate area
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
