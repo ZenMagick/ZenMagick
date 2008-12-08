@@ -81,6 +81,7 @@ class zm_wiki extends ZMBoxPlugin {
             $handle = fopen($wikiNav, 'ab');
             fwrite($handle, 'zm_wiki sidebox nav');
             fclose($handle);
+            ZMTools::setFilePerms($wikiNav);
         }
     }
 

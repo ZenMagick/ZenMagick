@@ -269,6 +269,7 @@ class ZMTheme extends ZMObject {
         $handle = fopen($filename, 'w');
         fwrite($handle, $contents, strlen($contents));
         fclose($handle);
+        ZMTools::setFilePerms($filename);
 
         return file_exists($filename);
     }

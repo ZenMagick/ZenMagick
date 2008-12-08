@@ -263,6 +263,7 @@ class ZMPhpCompressor {
             }
       
             fclose($handle);
+            ZMTools::setFilePerms($out);
         } else {
             echo $source;
         }
@@ -356,7 +357,7 @@ class ZMPhpCompressor {
             $source = file_get_contents($infile);
 
             if (!$handle = fopen($outfile, 'ab')) {
-                rray_push($this->errors_, 'could not open file for writing ' . $outfile);
+                array_push($this->errors_, 'could not open file for writing ' . $outfile);
                 return;
             }
 
@@ -373,6 +374,7 @@ class ZMPhpCompressor {
             }
       
             fclose($handle);
+            ZMTools::setFilePerms($outfile);
         }
     }
 
@@ -449,6 +451,7 @@ class ZMPhpCompressor {
         }
 
         fclose($handle);
+        ZMTools::setFilePerms($outfile);
     }
 
 }

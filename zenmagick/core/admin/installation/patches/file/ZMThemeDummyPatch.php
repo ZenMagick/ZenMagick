@@ -124,6 +124,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     fwrite($handle, '  $template_description = ' . "'" . addslashes($themeInfo->getDescription()) . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
+                    ZMTools::setFilePerms(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php");
                 } else {
                     ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZMLogging::ERROR);
                     return false;

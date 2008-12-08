@@ -106,6 +106,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                             $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
                             fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                             fclose($handle);
+                            ZMTools::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
                         }
                     } else {
                         ZMLogging::instance()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);

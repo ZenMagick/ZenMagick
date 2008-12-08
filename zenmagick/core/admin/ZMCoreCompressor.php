@@ -162,6 +162,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                         }
                   
                         fclose($handle);
+                        ZMTools::setFilePerms($outfile);
                     }
                 }
             }
@@ -202,6 +203,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
             return;
         }
         fclose($handle);
+        ZMTools::setFilePerms($outfile);
     }
 
     /**
