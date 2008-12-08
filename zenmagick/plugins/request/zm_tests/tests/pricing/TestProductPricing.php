@@ -10,32 +10,15 @@
  * @version $Id$
  */
 class TestProductPricing extends ZMTestCase {
-    protected $zen_cart_product_price_info;
 
     /**
-     * Load expected prices.
+     * Test product base price.
      */
-    public function setUp() {
-    global $product_prices;
-        $this->zen_cart_product_price_info = array();
-        foreach (array(155, 156, 157, 159) as $id) {
-            $pid = 'p'.$id;
-            $this->zen_cart_product_price_info[$pid] = $product_prices[$pid];
-        }
-        $this->zen_cart_product_price_info = $product_prices;
-    }
-
-    /**
-     * Test product price.
-     */
-    public function testProductPrice() {
-        foreach ($this->zen_cart_product_price_info as $pid => $info) {
-            $productId = (int)str_replace('p', '', $pid);
-            $product = ZMProducts::instance()->getProductForId($productId);
-            $this->assertNotNull($product);
+    public function testBasePrice() {
+        foreach (ZMProducts::instance()->getProducts(false) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual($info['normal_price'], $offers->getBasePrice(false), '%s productId='.$productId);
+            $this->assertEqual(zen_get_products_base_price($product->getId()), $offers->getBasePrice(false), '%s productId='.$product->getId());
         }
     }
 
@@ -43,13 +26,10 @@ class TestProductPricing extends ZMTestCase {
      * Test special price.
      */
     public function testSpecialPrice() {
-        foreach ($this->zen_cart_product_price_info as $pid => $info) {
-            $productId = (int)str_replace('p', '', $pid);
-            $product = ZMProducts::instance()->getProductForId($productId);
-            $this->assertNotNull($product);
+        foreach (ZMProducts::instance()->getProducts(false) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual($info['special_price'], $offers->getSpecialPrice(false), '%s productId='.$productId);
+            $this->assertEqual(zen_get_products_special_price($product->getId(), true), $offers->getSpecialPrice(false), '%s productId='.$product->getId());
         }
     }
 
@@ -57,13 +37,10 @@ class TestProductPricing extends ZMTestCase {
      * Test sale price.
      */
     public function testSalePrice() {
-        foreach ($this->zen_cart_product_price_info as $pid => $info) {
-            $productId = (int)str_replace('p', '', $pid);
-            $product = ZMProducts::instance()->getProductForId($productId);
-            $this->assertNotNull($product);
+        foreach (ZMProducts::instance()->getProducts(false) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual($info['sale_price'], $offers->getSalePrice(false), '%s productId='.$productId);
+            $this->assertEqual(zen_get_products_special_price($product->getId(), false), $offers->getSalePrice(false), '%s productId='.$product->getId());
         }
     }
 

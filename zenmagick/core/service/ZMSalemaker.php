@@ -32,12 +32,15 @@
  * @version $Id$
  */
 class ZMSaleMaker extends ZMObject {
+    private $sales_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->sales_ = null;
     }
 
     /**
@@ -69,14 +72,18 @@ class ZMSaleMaker extends ZMObject {
             $categoryId = $product->getDefaultCategory()->getId();
         }
 
+        if (null === $this->sales_) {
+            $sql = "SELECT * 
+                    FROM " . TABLE_SALEMAKER_SALES . "
+                    WHERE sale_status = '1'";
+            $this->sales_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZM_DB_MODEL_RAW);
+        }
+
         $hasSale = false;
         $saleDiscount = 0;
         $saleCondition = 0;
         $saleDiscountType = 5; //No Sale or Skip Products with Special
-        $sql = "SELECT * 
-                FROM " . TABLE_SALEMAKER_SALES . "
-                WHERE sale_status = '1'";
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZM_DB_MODEL_RAW) as $result) {
+        foreach ($this->sales_ as $result) {
             $categories = array_flip(explode(',', $result['sale_categories_all']));
             if (array_key_exists($categoryId, $categories)) {
                 $hasSale = true;
@@ -88,9 +95,12 @@ class ZMSaleMaker extends ZMObject {
 
         if ($hasSale && 0 != $saleCondition) {
             $saleDiscountType = (($saleDiscountType * 100) + ($saleCondition * 10));
+        } else {
+            $saleDiscountType = 5; //No Sale or Skip Products with Special
         }
 
-        if (!$product->getOffers()->isSpecial()) {
+        $offers = $product->getOffers();
+        if (0 != $offers->getSpecialPrice(false)) {
             $saleDiscountType = ($saleDiscountType * 10) + 9;
         }
 

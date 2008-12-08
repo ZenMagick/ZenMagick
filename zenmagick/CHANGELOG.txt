@@ -16,6 +16,7 @@ Release 0.9.4
   a separate area
 - try to ber good with file permissions
 - add Salemaker service
+- get a bit further with rebuilding the price lookup code
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
