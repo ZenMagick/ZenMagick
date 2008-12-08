@@ -196,7 +196,7 @@ class zm_site_switch extends ZMPlugin {
                         fwrite($handle, rtrim($line).$eol);
                     }
                     fclose($handle);
-                    ZMTools::setFilePerms($$localConfig.'.tmp');
+                    ZMTools::setFilePerms($localConfig.'.tmp');
                     if (file_exists($localConfig)) {
                         unlink($localConfig);
                     }
