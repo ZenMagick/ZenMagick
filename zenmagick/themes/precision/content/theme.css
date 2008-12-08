@@ -22,6 +22,9 @@ label {display:inline;padding:0 5px;}
 form.ropt {text-align:right;}
 form.ropt div {display:inline;}
 div.rnav {text-align:right;padding:6px;}
+div.rlist td {padding:4px 5px 6px 2px;border-top:1px solid #dedede;}
+td.pprice {font-weight:bold;vertical-align:top;}
+td.pinfo {vertical-align:top;}
 
 /* homepage featured */
 #featured div {float:left;width:200px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}
