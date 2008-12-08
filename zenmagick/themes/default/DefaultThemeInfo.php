@@ -36,9 +36,9 @@ class DefaultThemeInfo extends ZMThemeInfo {
     function __construct() {
         parent::__construct();
 
-        $this->setName('Default');
+        $this->setName('ZenMagick Default');
         $this->setVersion('${zenmagick.version}');
-        $this->setAuthor('ZenMagick 2006-2007');
+        $this->setAuthor('ZenMagick 2006-2008');
         $this->setDescription('ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates');
 
         $this->setErrorPage('error');
