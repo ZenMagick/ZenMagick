@@ -18,6 +18,7 @@ Release 0.9.4
 - add Salemaker service
 - get a bit further with rebuilding the price lookup code
 - create theme dummy for ZenMagick default theme
+- add xcache based cache provider
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

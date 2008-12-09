@@ -25,18 +25,17 @@
 
 
 /**
- * Memcache caching.
+ * xcache caching.
  *
- * <p>Persistent caching using <code>memcache</code>.</p>
+ * <p>Persistent caching using <code>xcache</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.cache.provider
  * @version $Id$
  */
-class ZMMemcacheCache extends ZMObject implements ZMCache {
-    private static $GROUP_KEY = 'org.zenmagick.cache.provider.ZMMemcacheCache';
+class ZMXcacheCache extends ZMObject implements ZMCache {
+    private static $GROUP_KEY = 'org.zenmagick.cache.provider.ZMXcacheCache';
     private $group_;
-    private $memcache_;
     private $lifetime_;
     private $lastModified_;
 
@@ -48,6 +47,11 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
         parent::__construct();
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
+        if (false) {
+            for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; $ii++) {
+                xcache_clear_cache(XC_TYPE_VAR, $ii);
+            }
+        }
     }
 
     /**
@@ -63,10 +67,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     public function init($group, $config) {
         $this->group_ = $group;
-        $this->memcache_ = new Memcache();
-        $config = array_merge(array('host' => 'localhost', 'port' => 11211, 'cacheTTL' => 0), $config);
         $this->lifetime_ = $config['cacheTTL'];
-        $this->memcache_->connect($config['host'], $config['port']);
     }
 
 
@@ -74,7 +75,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function isAvailable() { 
-        return class_exists('Memcache');
+        return function_exists('xcache_info');
     }
 
     /**
@@ -83,7 +84,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * @param string id The id.
      */
     protected function addToGroup($id) {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        $groupCache = xcache_get(self::$GROUP_KEY);
         if (!isset($groupCache)) {
             $groupCache = array();
         }
@@ -91,7 +92,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
             $groupCache[$this->group_] = array();
         }
         $groupCache[$this->group_][$id] = $id;
-        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
+        xcache_set(self::$GROUP_KEY, $groupCache, 0);
     }
 
     /**
@@ -100,7 +101,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * @param string id The id; default is <code>null</code> to remove all.
      */
     protected function removeFromGroup($id=null) {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        $groupCache = xcache_get(self::$GROUP_KEY);
         if (!isset($groupCache)) {
             return;
         }
@@ -112,14 +113,14 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
         } else {
             unset($groupCache[$this->group_][$id]);
         }
-        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
+        xcache_set(self::$GROUP_KEY, $groupCache, 0);
     }
 
     /**
      * {@inheritDoc}
      */
     public function clear() {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
+        $groupCache = xcache_get(self::$GROUP_KEY);
         if (!isset($groupCache)) {
             return;
         }
@@ -127,7 +128,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
             return;
         }
         foreach ($groupCache[$this->group_] as $id) {
-            $this->memcache_->delete($this->group_.'/'.$id);
+            xcache_unset($this->group_.'/'.$id);
         }
         $this->removeFromGroup();
         return true;
@@ -137,7 +138,10 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function lookup($id) {
-        return $this->memcache_->get($this->group_.'/'.$id);
+        if (!xcache_isset($this->group_.'/'.$id)) {
+            return false;
+        }
+        return xcache_get($this->group_.'/'.$id);
     }
 
     /**
@@ -145,7 +149,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     public function remove($id) {
         $this->removeFromGroup($id);
-        return $this->memcache_->delete($this->group_.'/'.$id);
+        return xcache_unset($this->group_.'/'.$id);
     }
 
     /**
@@ -154,7 +158,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     public function save($data, $id) {
         $this->addToGroup($id);
         $this->lastModified_ = time();
-        return $this->memcache_->set($this->group_.'/'.$id, $data, 0, $this->lifetime_);
+        return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
     }
 
     /**

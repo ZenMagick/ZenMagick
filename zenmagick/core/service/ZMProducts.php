@@ -426,7 +426,7 @@ class ZMProducts extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        if (null != ($product = $this->cache->lookup(ZMTools::mkUnique($productId, $languageId)))) {
+        if (false !== ($product = $this->cache->lookup(ZMTools::mkUnique($productId, $languageId)))) {
             return $product;
         }
 
@@ -467,7 +467,7 @@ class ZMProducts extends ZMObject {
         // check cache first
         $needLoadIds = array();
         foreach ($productIds as $id) {
-            if (null != ($product = $this->cache->lookup(ZMTools::mkUnique($id, $languageId)))) {
+            if (false !== ($product = $this->cache->lookup(ZMTools::mkUnique($id, $languageId)))) {
                 $products[] = $product;
             } else {
                 $needLoadIds[$id] = $id;
