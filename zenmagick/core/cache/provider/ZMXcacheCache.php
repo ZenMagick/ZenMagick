@@ -34,7 +34,6 @@
  * @version $Id$
  */
 class ZMXcacheCache extends ZMObject implements ZMCache {
-    private static $GROUP_KEY = 'org.zenmagick.cache.provider.ZMXcacheCache';
     private $group_;
     private $lifetime_;
     private $lastModified_;
@@ -47,11 +46,6 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
         parent::__construct();
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
-        if (false) {
-            for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; $ii++) {
-                xcache_clear_cache(XC_TYPE_VAR, $ii);
-            }
-        }
     }
 
     /**
@@ -79,58 +73,21 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
     }
 
     /**
-     * Add the given id to this instance's group.
-     *
-     * @param string id The id.
-     */
-    protected function addToGroup($id) {
-        $groupCache = xcache_get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            $groupCache = array();
-        }
-        if (!isset($groupCache[$this->group_])) {
-            $groupCache[$this->group_] = array();
-        }
-        $groupCache[$this->group_][$id] = $id;
-        xcache_set(self::$GROUP_KEY, $groupCache, 0);
-    }
-
-    /**
-     * Remove the given id from this instance's group.
-     *
-     * @param string id The id; default is <code>null</code> to remove all.
-     */
-    protected function removeFromGroup($id=null) {
-        $groupCache = xcache_get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            return;
-        }
-        if (!isset($groupCache[$this->group_])) {
-            return;
-        }
-        if (null === $id) {
-            $groupCache[$this->group_] = array();
-        } else {
-            unset($groupCache[$this->group_][$id]);
-        }
-        xcache_set(self::$GROUP_KEY, $groupCache, 0);
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function clear() {
-        $groupCache = xcache_get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            return;
+        // iterate over all entries and match the group prefix
+        $groupPrefix = $this->group_.'/';
+        for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; ++$ii) {
+            $block = xcache_list(XC_TYPE_VAR, $ii);
+            foreach ($block as $entries) {
+                foreach ($entries as $entry) {
+                    if (0 === strpos($entry['name'], $groupPrefix)) {
+                        xcache_unset($entry['name']);
+                    }
+                }
+            }
         }
-        if (!isset($groupCache[$this->group_])) {
-            return;
-        }
-        foreach ($groupCache[$this->group_] as $id) {
-            xcache_unset($this->group_.'/'.$id);
-        }
-        $this->removeFromGroup();
         return true;
     }
 
@@ -148,7 +105,6 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function remove($id) {
-        $this->removeFromGroup($id);
         return xcache_unset($this->group_.'/'.$id);
     }
 
@@ -156,7 +112,6 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function save($data, $id) {
-        $this->addToGroup($id);
         $this->lastModified_ = time();
         return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
     }
