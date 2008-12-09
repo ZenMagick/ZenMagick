@@ -116,6 +116,7 @@ class zm_page_cache extends ZMPlugin {
         // handle page caching
         if ($this->isEnabled()) {
             if (false !== ($contents = $this->pageCache_->lookup($this->getRequestKey())) && $this->isCacheable()) {
+                echo $contents;
                 if (ZMSettings::get('plugins.zm_page_cache.stats', true)) {
                     ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS);
                     echo '<!-- zm_page_cache stats: page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';
