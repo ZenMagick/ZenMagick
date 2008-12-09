@@ -34,7 +34,6 @@
  * @version $Id$
  */
 class ZMMemcacheCache extends ZMObject implements ZMCache {
-    private static $GROUP_KEY = 'org.zenmagick.cache.provider.ZMMemcacheCache';
     private $group_;
     private $memcache_;
     private $lifetime_;
@@ -78,58 +77,22 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     }
 
     /**
-     * Add the given id to this instance's group.
-     *
-     * @param string id The id.
-     */
-    protected function addToGroup($id) {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            $groupCache = array();
-        }
-        if (!isset($groupCache[$this->group_])) {
-            $groupCache[$this->group_] = array();
-        }
-        $groupCache[$this->group_][$id] = $id;
-        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
-    }
-
-    /**
-     * Remove the given id from this instance's group.
-     *
-     * @param string id The id; default is <code>null</code> to remove all.
-     */
-    protected function removeFromGroup($id=null) {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            return;
-        }
-        if (!isset($groupCache[$this->group_])) {
-            return;
-        }
-        if (null === $id) {
-            $groupCache[$this->group_] = array();
-        } else {
-            unset($groupCache[$this->group_][$id]);
-        }
-        $this->memcache_->set(self::$GROUP_KEY, $groupCache, 0, 0);
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function clear() {
-        $groupCache = $this->memcache_->get(self::$GROUP_KEY);
-        if (!isset($groupCache)) {
-            return;
+        // iterate over all entries and match the group prefix
+        $groupPrefix = $this->group_.'/';
+        foreach ($this->memcache_->getExtendedStats('items') as $host => $hostSummary) {
+            foreach ($hostSummary['items'] as $slabId => $details) {
+                $slabItems = $this->memcache_->getExtendedStats('cachedump', $slabId, $details['number']);
+                $keys = array_keys($slabItems[$host]);
+                foreach ($keys as $key) {
+                    if (0 === strpos($key, $groupPrefix)) {
+                        $this->memcache_->delete($key);
+                    }
+                }
+            }
         }
-        if (!isset($groupCache[$this->group_])) {
-            return;
-        }
-        foreach ($groupCache[$this->group_] as $id) {
-            $this->memcache_->delete($this->group_.'/'.$id);
-        }
-        $this->removeFromGroup();
         return true;
     }
 
@@ -144,7 +107,6 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function remove($id) {
-        $this->removeFromGroup($id);
         return $this->memcache_->delete($this->group_.'/'.$id);
     }
 
@@ -152,7 +114,6 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function save($data, $id) {
-        $this->addToGroup($id);
         $this->lastModified_ = time();
         return $this->memcache_->set($this->group_.'/'.$id, $data, 0, $this->lifetime_);
     }
