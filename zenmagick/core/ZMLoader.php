@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -344,7 +341,6 @@ class ZMLoader {
      * <p>It is worth mentioning that directories will always be processed only after
      * all plain files in a directory are done.</p>
      *
-     * @package org.zenmagick
      * @param string dir The name of the root directory to scan.
      * @param string ext Optional file suffix/extension; default is <em>.php</em>.
      * @param boolean recursive If <code>true</code>, scan recursively.
@@ -429,19 +425,6 @@ class ZMLoader {
     }
 
     /**
-     * Resolve the given zen-cart class.
-     *
-     * <p>This functuon ensures that the given class is loaded.</p>
-     *
-     * @param string clazz The class name.
-     */
-    public static function resolveZCClass($clazz) {
-        if (!class_exists($clazz)) {
-            require_once DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php';
-        }
-    }
-
-    /**
      * Get class hierachy for the given class/object.
      *
      * @param mixed object The object or class name.
@@ -449,10 +432,11 @@ class ZMLoader {
      */
     public static function getClassHierachy($object) {
         $hierachy = array($object);
-        while($object = get_parent_class($object)) { $hierachy[] = $object; }
+        while($object = get_parent_class($object)) { 
+            $hierachy[] = $object;
+        }
         return $hierachy;
     }
-
 
 }
 

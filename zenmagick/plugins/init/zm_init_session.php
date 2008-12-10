@@ -60,7 +60,7 @@ class zm_init_session extends ZMPlugin {
         }
 
         // needed to load existing sessions
-        ZMLoader::resolveZCClass('shopping_cart');
+        ZMTools::resolveZCClass('shopping_cart');
 
         //TODO:
         /**

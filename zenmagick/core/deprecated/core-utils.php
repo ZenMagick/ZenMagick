@@ -52,9 +52,9 @@
      *
      * @package org.zenmagick.deprecated
      * @param string clazz The class name.
-     * @deprecated Use <code>ZMLoader::resolveZCClass()</code> instead.
+     * @deprecated Use <code>ZMTools::resolveZCClass()</code> instead.
      */
-    function zm_resolve_zc_class($clazz) { ZMLoader::resolveZCClass($clazz); }
+    function zm_resolve_zc_class($clazz) { ZMTools::resolveZCClass($clazz); }
     /**
      * Get the currently elapsed page execution time.
      *

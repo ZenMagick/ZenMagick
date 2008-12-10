@@ -134,7 +134,7 @@ class ZMShoppingCart extends ZMObject {
     global $order;
 
         if (!isset($order)) {
-            ZMLoader::resolveZCClass('order');
+            ZMTools::resolveZCClass('order');
             $order = new order();
         }
 
@@ -317,12 +317,12 @@ class ZMShoppingCart extends ZMObject {
         if (null == $this->zenTotals_) {
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
-                ZMLoader::resolveZCClass('order_total');
+                ZMTools::resolveZCClass('order_total');
                 //TODO:?????
                 $zenTotals = new order_total();
             }
             if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
-                ZMLoader::resolveZCClass('order');
+                ZMTools::resolveZCClass('order');
                 $GLOBALS['order'] = new order();
             }
             $this->zenTotals_->process();

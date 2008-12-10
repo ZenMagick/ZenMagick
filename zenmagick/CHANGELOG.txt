@@ -19,6 +19,8 @@ Release 0.9.4
 - get a bit further with rebuilding the price lookup code
 - create theme dummy for ZenMagick default theme
 - add xcache based cache provider
+- move resolveZCClass from ZMLoader to ZMTools
+- update copyright / author note of pure ZenMagick files (not complete)
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

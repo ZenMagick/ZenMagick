@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -27,7 +24,7 @@
 /**
  * Field match rule.
  *
- * <p>This is mostly to match new and confirm password.
+ * <p>This is mostly to match new and confirm password.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.validation.rules

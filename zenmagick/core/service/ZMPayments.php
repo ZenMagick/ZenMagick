@@ -44,7 +44,7 @@ class ZMPayments extends ZMObject {
         parent::__construct();
 
         if (!isset($payment_modules)) {
-            ZMLoader::resolveZCClass('payment');
+            ZMTools::resolveZCClass('payment');
             $this->zenModules_ = new payment;
         } else {
             $this->zenModules_ = $payment_modules;

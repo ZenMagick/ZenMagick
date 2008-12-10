@@ -21,8 +21,8 @@
 <?php
 
     // load ZenMagick core
+    require dirname(dirname(__FILE__)) . '/external.php';
     $coreDir = dirname(dirname(__FILE__)) . '/core/';
-    require $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
     ZMLoader::resolve('ZMObject');
     ZMLoader::resolve('ZMPhpPackagePacker');
@@ -51,9 +51,10 @@
     }
 
     // pack; ideally path/version should be CLI args...
-    $creoleVersion = 'creole-1.1.0';
-    $packer = new CreolePacker('c:/temp/'.$creoleVersion.'/classes/', 'c:/temp/'.$creoleVersion.'.packed.php');
-    $packer->setDebug(false);
+    $creoleVersion = 'creole-1.2';
+    //$packer = new CreolePacker('c:/temp/'.$creoleVersion.'/classes/', 'c:/temp/'.$creoleVersion.'.packed.php');
+    $packer = new CreolePacker('C:/webserver/creole/classes/', 'c:/webserver/creole/'.$creoleVersion.'.packed.php');
+    $packer->setDebug(true);
     $packer->packFiles();
 
 ?>

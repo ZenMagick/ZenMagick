@@ -45,7 +45,7 @@ class ZMShipping extends ZMObject {
 
         $this->provider_ = array();
         if (!class_exists('shipping')) {
-            ZMLoader::resolveZCClass('shipping');
+            ZMTools::resolveZCClass('shipping');
             $zenShipping = new shipping();
         } else {
             $zenShipping = $shipping_modules;

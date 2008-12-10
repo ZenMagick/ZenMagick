@@ -168,7 +168,7 @@ class ZMShippingEstimator extends ZMObject {
               global $shipping;
               $shipping='';
               // include the order class (uses the sendto !)
-              ZMLoader::resolveZCClass('order');
+              ZMTools::resolveZCClass('order');
               $order = new order;
           } else {
               $order->delivery = $this->getZCAddress();

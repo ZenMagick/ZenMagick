@@ -589,6 +589,19 @@ class ZMTools {
         return $token;
     }
 
+    /**
+     * Resolve the given zen-cart class.
+     *
+     * <p>This function ensures that the given class is loaded.</p>
+     *
+     * @param string clazz The class name.
+     */
+    public static function resolveZCClass($clazz) {
+        if (!class_exists($clazz)) {
+            require_once DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php';
+        }
+    }
+
 }
 
 ?>

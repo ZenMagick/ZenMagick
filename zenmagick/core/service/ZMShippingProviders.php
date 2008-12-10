@@ -69,7 +69,7 @@ class ZMShippingProviders extends ZMObject {
             return $this->provider_[$configured];
         }
 
-        ZMLoader::resolveZCClass('http_client');
+        ZMTools::resolveZCClass('http_client');
 
         $this->provider_[$configured] = array();
 
@@ -104,7 +104,7 @@ class ZMShippingProviders extends ZMObject {
         // TODO: create fake environment
         global $template;
         if (!isset($template)) {
-            ZMLoader::resolveZCClass('template_func');
+            ZMTools::resolveZCClass('template_func');
             $template = new template_func();
         }
 
