@@ -25,18 +25,6 @@
 ?>
 <?php
 
-    function _zm_mk_list($to, $from) {
-        $list = array();
-        if ($to < $from) {
-            return $list;
-        }
-        for (; $to >= $from; --$to) {
-            $list[] = $to;
-        }
-        return $list;
-    }
-
-
     /**
      * Set up default SACS mappings.
      *
@@ -333,8 +321,8 @@
             'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
             'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
 
-            // list of enabled order stati to show downloads
-            'downloadOrderStatusList' => _zm_mk_list((int)DOWNLOADS_CONTROLLER_ORDERS_STATUS_END, (int)DOWNLOADS_CONTROLLER_ORDERS_STATUS),
+            // range of enabled order stati to show downloads
+            'downloadOrderStatusRange' => DOWNLOADS_CONTROLLER_ORDERS_STATUS.'-'.DOWNLOADS_CONTROLLER_ORDERS_STATUS_END,
 
             // sort attributes by name rather than the sort order
             'isSortAttributesByName' => PRODUCTS_OPTIONS_SORT_ORDER != '0',

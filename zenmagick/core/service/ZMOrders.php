@@ -250,7 +250,8 @@ class ZMOrders extends ZMObject {
      */
     public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
         if (null === $orderStatusList) {
-            $orderStatusList = ZMSettings::get('downloadOrderStatusList');
+            // build default list
+            $orderStatusList = ZMTools::parseRange(ZMSettings::get('downloadOrderStatusRange'));
         }
         $sql = "SELECT o.date_purchased, o.orders_status, opd.*
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd

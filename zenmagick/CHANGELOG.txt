@@ -22,6 +22,7 @@ Release 0.9.4
 - move resolveZCClass from ZMLoader to ZMTools
 - update copyright / author note of pure ZenMagick files (not complete)
 - create and use new plugin loader policy constants
+- refactor setting downloadOrderStatusList to downloadOrderStatusRange
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
