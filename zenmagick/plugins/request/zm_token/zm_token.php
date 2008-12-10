@@ -37,7 +37,7 @@ class zm_token extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Token', 'Optional secure token service', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

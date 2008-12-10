@@ -47,7 +47,7 @@ class zm_product_features extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Product Features', 'Comparable product features', '${zenmagick.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(100);
     }
 

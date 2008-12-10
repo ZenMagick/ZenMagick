@@ -38,7 +38,7 @@ class zm_whos_online extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Who\'s online', 'Provide inormation about current site users', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

@@ -37,7 +37,7 @@ class zm_hoverbox3 extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Hover Box3', 'Hover Box3 support for ZenMagick', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->setScope(ZMPlugin::SCOPE_STORE);
     }
 

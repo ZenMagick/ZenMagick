@@ -37,7 +37,7 @@ class zm_split_page_result_list extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Split Page Result List', 'Result list based on zen-cart\'s split_page_results class', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

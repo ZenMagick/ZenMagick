@@ -37,7 +37,7 @@ class zm_product_facets extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Product Facets', 'Facets view on products', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

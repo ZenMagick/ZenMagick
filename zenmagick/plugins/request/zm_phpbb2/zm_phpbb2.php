@@ -43,7 +43,7 @@ class zm_phpbb2 extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('phpBB2', 'phpBB2 for ZenMagick');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->phpBBEnabled_ = false;
         $this->page_ = '';
         $this->prePostAccount_ = null;

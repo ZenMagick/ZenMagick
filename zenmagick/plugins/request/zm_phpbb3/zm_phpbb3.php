@@ -45,7 +45,7 @@ class zm_phpbb3 extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('phpBB3', 'phpBB3 for ZenMagick');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->page_ = '';
         $this->prePostAccount_ = null;
         $this->phpBB3_ = null;

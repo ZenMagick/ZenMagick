@@ -38,7 +38,7 @@ class zm_smarty extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Smarty', 'Support for Smarty based themes', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

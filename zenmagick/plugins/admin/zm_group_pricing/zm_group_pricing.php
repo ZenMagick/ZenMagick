@@ -38,7 +38,7 @@ class zm_group_pricing extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Group Pricing', 'Group Pricing', '${zenmagick.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(15);
     }
 

@@ -37,7 +37,7 @@ class zm_pretty_links extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Pretty Links', 'Pretty Links (SEO) for ZenMagick', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

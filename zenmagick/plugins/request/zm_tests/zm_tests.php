@@ -43,7 +43,7 @@ class zm_tests extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->tests = array();
     }
 

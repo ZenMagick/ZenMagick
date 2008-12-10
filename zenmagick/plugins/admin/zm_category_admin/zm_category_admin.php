@@ -38,7 +38,7 @@ class zm_category_admin extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Category Maintenance', 'Category Management', '${zenmagick.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(5);
         $this->setScope(ZMPlugin::SCOPE_ADMIN);
     }

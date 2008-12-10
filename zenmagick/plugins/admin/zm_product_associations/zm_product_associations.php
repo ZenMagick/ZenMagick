@@ -39,7 +39,7 @@ class zm_product_associations extends ZMPlugin {
     function __construct() {
         parent::__construct('Product Associations', 'ZenMagick product associations');
         $this->setPreferredSortOrder(12);
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

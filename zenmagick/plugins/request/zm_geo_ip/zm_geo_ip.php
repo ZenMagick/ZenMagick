@@ -40,7 +40,7 @@ class zm_geo_ip extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Geo IP mapping', 'Allow to resolve a users IP address to a geographic location', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->gi = null;
         $this->type = null;
     }

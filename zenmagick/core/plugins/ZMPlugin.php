@@ -46,6 +46,12 @@ class ZMPlugin extends ZMObject {
     const SCOPE_ADMIN = 'admin';
     const SCOPE_ALL =  'all';
 
+    // loader policy flags
+    const LP_NONE = 'NONE';
+    const LP_PLUGIN = 'PLUGIN';
+    const LP_FOLDER = 'FOLDER';
+    const LP_ALL = 'ALL';
+
     var $id_;
     var $title_;
     var $description_;
@@ -59,7 +65,7 @@ class ZMPlugin extends ZMObject {
     var $type_;
     var $messages_ = null;
     var $pluginDir_ = null;
-    var $loaderSupport_;
+    var $loaderPolicy_;
     var $handler_;
     var $traditional_;
     var $scope_;
@@ -82,7 +88,7 @@ class ZMPlugin extends ZMObject {
         $this->keys_ = array();
         $this->messages_ = array();
         $this->pluginDir_ = null;
-        $this->loaderSupport_ = 'PLUGIN';
+        $this->loaderPolicy_ = ZMPlugin::LP_PLUGIN;
         $this->handler_ = null;
         $this->traditional_ = true;
         $this->preferredSortOrder_ = 0;
@@ -486,22 +492,47 @@ class ZMPlugin extends ZMObject {
      * <p>This flag tells the core compresser the extend of support for adding this plugin
      * to a compressed version of <code>core.php</code>. Valid values are:</p>
      * <dl>
-     *   <dt>NONE</dt><dd>Not supported.</dd>
-     *   <dt>PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
-     *   <dt>FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
-     *   <dt>ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
+     *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
+     *   <dt>ZMPlugin::LP_PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
+     *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
+     *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
      * </dl>
      *
      * @return string The loader support flag.
+     * @deprecated use loaderPolicy instead
      */
-    public function getLoaderSupport() { return $this->loaderSupport_; }
+    public function getLoaderSupport() { return $this->loaderPolicy_; }
 
     /**
      * Set the loader support flag for this plugin.
      *
      * @param string loaderSupport The loader support flag.
+     * @deprecated use loaderPolicy instead
      */
-    public function setLoaderSupport($loaderSupport) { $this->loaderSupport_ = $loaderSupport; }
+    public function setLoaderSupport($loaderSupport) { $this->loaderPolicy_ = $loaderSupport; }
+
+    /**
+     * Get this plugin's loader policy.
+     *
+     * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requests.</p>
+     * <p>It also affects the code included in <code>core.php</code>. Valid values are:</p>
+     * <dl>
+     *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
+     *   <dt>ZMPlugin::LP_PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
+     *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
+     *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
+     * </dl>
+     *
+     * @return string The loader policy.
+     */
+    public function getLoaderPolicy() { return $this->loaderPolicy_; }
+
+    /**
+     * Set the loader policy for this plugin.
+     *
+     * @param string loaderPolicy The loader policy.
+     */
+    public function setLoaderPolicy($loaderPolicy) { $this->loaderPolicy_ = $loaderPolicy; }
 
     /**
      * Set the scope.

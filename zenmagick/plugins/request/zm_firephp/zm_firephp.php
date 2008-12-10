@@ -38,7 +38,7 @@ class zm_firephp extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('FirePHP', 'Adds FirePHP support to ZenMagick', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

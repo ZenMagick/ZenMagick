@@ -42,7 +42,7 @@ class zm_site_switch extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Site Switch', 'Hostname based theme switching', '${plugin.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
 
         // the new prices and customer flag
         $customFields = array(

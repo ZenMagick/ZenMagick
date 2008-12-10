@@ -38,7 +38,7 @@ class zm_cron extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('CronJobs', 'Allows to configure and execute cron jobs', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

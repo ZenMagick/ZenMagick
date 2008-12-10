@@ -43,7 +43,7 @@ class zm_product_music_info extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Music Product Extras', 'Code for product_music_info product template.', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

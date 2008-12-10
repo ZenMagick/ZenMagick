@@ -45,7 +45,7 @@ class zm_page_cache extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->setPreferredSortOrder(9999);
         $this->pageCache_ = null;
     }

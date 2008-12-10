@@ -51,7 +51,7 @@ class zm_recaptcha extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('ReCAPTCHA Plugin', 'ReCAPTCHA for ZenMagick');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->captchaEnabled_ = false;
         $this->error_ = null;
     }

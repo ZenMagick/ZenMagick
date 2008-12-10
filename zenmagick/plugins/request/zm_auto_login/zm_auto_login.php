@@ -43,7 +43,7 @@ class zm_auto_login extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->setScope(ZMPlugin::SCOPE_STORE);
         $this->cookieUpdated = false;
     }

@@ -42,7 +42,7 @@ class zm_openid extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
 
         // add OpenID field to accounts fields list
         ZMSettings::append('sql.customers.customFields', 'openid;string', ',');

@@ -39,7 +39,7 @@ class zm_page_stats extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Page Stats', 'Show page stats', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->pageCache_ = null;
     }
 

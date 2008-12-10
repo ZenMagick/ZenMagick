@@ -37,7 +37,7 @@ class zm_dual_pricing extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Dual Pricing', 'Support for zen-cart dual pricing mod', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
 
         // the new prices and customer flag
         $customFields = array(

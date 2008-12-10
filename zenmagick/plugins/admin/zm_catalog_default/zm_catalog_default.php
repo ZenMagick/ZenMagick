@@ -38,7 +38,7 @@ class zm_catalog_default extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${zenmagick.version}');
-        $this->setLoaderSupport('FOLDER');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(0);
         $this->setScope(ZMPlugin::SCOPE_ADMIN);
     }

@@ -54,7 +54,7 @@ class zm_wiki extends ZMBoxPlugin {
      */
     function __construct() {
         parent::__construct('Pawfaliki Wiki', 'Adds a simple wiki based on pawfaliki.', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

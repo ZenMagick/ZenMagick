@@ -41,7 +41,7 @@ class zm_multi_qty extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Multi Quantity', 'Multi Quantity "Add Product" on a single attribute', '${plugin.version}');
-        $this->setLoaderSupport('ALL');
+        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**
