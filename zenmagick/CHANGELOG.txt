@@ -26,6 +26,7 @@ Release 0.9.4
 - deprecate ZM_FILENAME_xxx defines
 - deprecate ZM_ADMINFN_xxx defines
 - retire ZM_THEME_xxx defines
+- show PayPal Express Checkout button on shopping cart; b:#2415830
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

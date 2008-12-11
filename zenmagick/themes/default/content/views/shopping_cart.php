@@ -73,6 +73,11 @@
         <a class="btn" href="<?php $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
     </div>
 
+    <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
+        global $order, $db, $currencies;
+        include(DIR_FS_CATALOG . DIR_WS_MODULES .  'payment/paypal/tpl_ec_button.php');
+    } ?>
+
 </form>
 
 <?php $html->backLink('Continue Shopping') ?>
