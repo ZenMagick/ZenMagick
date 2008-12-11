@@ -168,7 +168,7 @@ class ZMOrders extends ZMObject {
      */
     public function createOrderStatusHistory($orderStatus) {
         if (null == $orderStatus->getDateAdded()) {
-            $orderStatus->setDateAdded(date(ZM_DB_DATETIME_FORMAT));
+            $orderStatus->setDateAdded(date(ZMDatabase::DATETIME_FORMAT));
         }
         return ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_STATUS_HISTORY, $orderStatus);
     }

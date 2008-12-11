@@ -85,8 +85,8 @@ class ZMTokens extends ZMObject {
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = mktime();
-        $token->setIssued(date(ZM_DB_DATETIME_FORMAT, $now));
-        $token->setExpires(date(ZM_DB_DATETIME_FORMAT, $now+$lifetime));
+        $token->setIssued(date(ZMDatabase::DATETIME_FORMAT, $now));
+        $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
         return ZMRuntime::getDatabase()->createModel(ZM_TABLE_TOKEN, $token);
     }
 
@@ -98,7 +98,7 @@ class ZMTokens extends ZMObject {
      */
     public function updateToken($token, $lifetime) {
         $now = mktime();
-        $token->setExpires(date(ZM_DB_DATETIME_FORMAT, $now+$lifetime));
+        $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
         ZMRuntime::getDatabase()->updateModel(ZM_TABLE_TOKEN, $token);
     }
 

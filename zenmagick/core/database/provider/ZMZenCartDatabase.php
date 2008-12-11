@@ -282,10 +282,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         ++$this->queriesCount;
         while (!$rs->EOF) {
             $result = $rs->fields;
-            if (null !== $mapping && ZM_DB_MODEL_RAW != $modelClass) {
+            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
                 $result = $this->translateRow($result, $mapping);
             }
-            if (null != $modelClass && ZM_DB_MODEL_RAW != $modelClass) {
+            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
                 $result = ZMBeanUtils::map2obj($modelClass, $result);
             }
 
@@ -314,7 +314,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
                 if ('date' == $this->getMappedType($field['type'])) {
-                    if (ZM_DB_NULL_DATETIME == $mappedRow[$field['property']]) {
+                    if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
                     }
                 }

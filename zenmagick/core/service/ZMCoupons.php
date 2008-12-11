@@ -161,7 +161,7 @@ class ZMCoupons extends ZMObject {
         $tracker->set('firstName', $account->getFirstName());
         $tracker->set('lastName', $account->getLastName());
         $tracker->set('emailTo', $gvreceiver->getEmail());
-        $tracker->set('dateSent', date(ZM_DB_DATETIME_FORMAT));
+        $tracker->set('dateSent', date(ZMDatabase::DATETIME_FORMAT));
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_EMAIL_TRACK, $tracker);
     }
 
@@ -174,7 +174,7 @@ class ZMCoupons extends ZMObject {
     public function isCouponRedeemable($couponId) {
         $sql = "SELECT coupon_id FROM ". TABLE_COUPON_REDEEM_TRACK . "
                 WHERE coupon_id = :couponId";
-        $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_REDEEM_TRACK, ZM_DB_MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_REDEEM_TRACK, ZMDatabase::MODEL_RAW);
         return 0 == count($results);
     }
 
@@ -203,7 +203,7 @@ class ZMCoupons extends ZMObject {
         $tracker = ZMLoader::make('Model');
         $tracker->set('couponId', $couponId);
         $tracker->set('accountId', $accountId);
-        $tracker->set('redeemDate', date(ZM_DB_DATETIME_FORMAT));
+        $tracker->set('redeemDate', date(ZMDatabase::DATETIME_FORMAT));
         $tracker->set('redeemIp', $remoteIp);
         $tracker->set('orderId', 0);
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_REDEEM_TRACK, $tracker);
@@ -282,7 +282,7 @@ class ZMCoupons extends ZMObject {
             $sql = "SELECT coupon_code
                     FROM " . TABLE_COUPONS . "
                     WHERE coupon_code = :code";
-            $results = ZMRuntime::getDatabase()->query($sql, array('code' => $code), TABLE_COUPONS, ZM_DB_MODEL_RAW);
+            $results = ZMRuntime::getDatabase()->query($sql, array('code' => $code), TABLE_COUPONS, ZMDatabase::MODEL_RAW);
             if (0 == count($results)) {
                 return $code;
             }

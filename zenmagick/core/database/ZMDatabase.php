@@ -24,15 +24,15 @@
 <?php
 
 
-/** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
+/** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc); deprecated */
 define('ZM_DB_MODEL_RAW', '@raw');
 
-/** Internal date format. */
+/** Internal date format; deprecated */
 define('ZM_DB_DATETIME_FORMAT', 'Y-m-d H:i:s');
 
-/** NULL date. */
+/** NULL date; deprecated */
 define('ZM_DB_NULL_DATE', '0001-01-01');
-/** NULL datetime. */
+/** NULL datetime; deprecated */
 define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
 
 
@@ -62,6 +62,17 @@ define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
  * @version $Id$
  */
 interface ZMDatabase {
+    /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
+    const MODEL_RAW = '@raw';
+
+    /** Internal date format. */
+    const DATETIME_FORMAT = 'Y-m-d H:i:s';
+
+    /** NULL date. */
+    const NULL_DATE = '0001-01-01';
+    /** NULL datetime. */
+    const NULL_DATETIME = '0001-01-01 00:00:00';
+
 
     /**
      * Get some stats about database usage.
@@ -76,7 +87,7 @@ interface ZMDatabase {
      * <p>If <code>$resultClass</code> is <code>null</code>, the returned
      * list will contain a map of <em>columns</em> =&gt; <em>value</em> for each selected row.</p>
      *
-     * <p><code>$modelClass</code> may be set to the magic value of <code>ZM_DB_MODEL_RAW</code> to force
+     * <p><code>$modelClass</code> may be set to the magic value of <code>ZMDatabase::MODEL_RAW</code> to force
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
@@ -91,7 +102,7 @@ interface ZMDatabase {
     /**
      * Execute a query expecting a single result.
      *
-     * <p><code>$modelClass</code> may be set to the magic value of <code>ZM_DB_MODEL_RAW</code> to force
+     * <p><code>$modelClass</code> may be set to the magic value of <code>ZMDatabase::MODEL_RAW</code> to force
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.

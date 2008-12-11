@@ -154,7 +154,7 @@ class ZMBanners extends ZMObject {
         $sql = "SELECT count(*) AS total
                 FROM " . TABLE_BANNERS_HISTORY . "
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array(TABLE_BANNERS_HISTORY), ZM_DB_MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array(TABLE_BANNERS_HISTORY), ZMDatabase::MODEL_RAW);
 
         if (0 < $result['total']) {
             $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "

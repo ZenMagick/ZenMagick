@@ -208,17 +208,17 @@ class ZMProducts extends ZMObject {
         $database = ZMRuntime::getDatabase();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
                 where products_id = :productId";
-        $typeResult = $database->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS, ZM_DB_MODEL_RAW);
+        $typeResult = $database->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS, ZMDatabase::MODEL_RAW);
 
         $sql = "select type_handler from " . TABLE_PRODUCT_TYPES . "
                 where type_id = :id";
-        $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), TABLE_PRODUCT_TYPES, ZM_DB_MODEL_RAW);
+        $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), TABLE_PRODUCT_TYPES, ZMDatabase::MODEL_RAW);
 
         $key = strtoupper($keySuffix . $keyResult['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
 
         $sql = "select configuration_value from " . TABLE_PRODUCT_TYPE_LAYOUT . "
                 where configuration_key = :key";
-        $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_PRODUCT_TYPE_LAYOUT, ZM_DB_MODEL_RAW);
+        $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_PRODUCT_TYPE_LAYOUT, ZMDatabase::MODEL_RAW);
 
         if (null !== $valueResult) {
             // type result
@@ -227,7 +227,7 @@ class ZMProducts extends ZMObject {
             // fallback general configuration
             $sql = "select configuration_value from " . TABLE_CONFIGURATION . "
                     where configuration_key = :key";
-            $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_CONFIGURATION, ZM_DB_MODEL_RAW);
+            $valueResult = $database->querySingle($sql, array('key' => $key), TABLE_CONFIGURATION, ZMDatabase::MODEL_RAW);
 
             if (null !== $valueResult) {
                 return 1 == $valueResult['configuration_value'];

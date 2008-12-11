@@ -26,7 +26,7 @@ class TestSubscriptions extends ZMTestCase {
         $this->assertNotNull($order);
         if (null != $order) {
             $order->set('subscription', true);
-            $order->set('nextOrder', date(ZM_DB_DATETIME_FORMAT));
+            $order->set('nextOrder', date(ZMDatabase::DATETIME_FORMAT));
             $order->set('schedule', '1m');
             ZMOrders::instance()->updateOrder($order);
             $updated = ZMOrders::instance()->getOrderForId(1);

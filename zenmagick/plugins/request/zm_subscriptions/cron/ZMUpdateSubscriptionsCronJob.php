@@ -146,7 +146,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             $orderData[$table] = ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), $table, 'Model');
         }
 
-        $orderData[TABLE_ORDERS][0]->setOrderDate(date(ZM_DB_DATETIME_FORMAT));
+        $orderData[TABLE_ORDERS][0]->setOrderDate(date(ZMDatabase::DATETIME_FORMAT));
         $orderData[TABLE_ORDERS][0]->setOrderStatusId(2);
 
         $newOrder = ZMRuntime::getDatabase()->createModel(TABLE_ORDERS, $orderData[TABLE_ORDERS][0]);

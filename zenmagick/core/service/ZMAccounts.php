@@ -137,7 +137,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZM_DB_MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZMDatabase::MODEL_RAW);
         return 0 < $result['total'];
     }
 
@@ -177,7 +177,7 @@ class ZMAccounts extends ZMObject {
         // check for existence in case record does not exist...
         $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
                 where customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZM_DB_MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZMDatabase::MODEL_RAW);
         if ($result['total'] > 0) {
             $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                     set customers_info_date_account_last_modified = now()

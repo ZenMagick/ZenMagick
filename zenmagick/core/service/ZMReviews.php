@@ -75,7 +75,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZM_DB_MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
         return null != $result ? $result['count'] : 0;
     }
 
@@ -161,7 +161,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZM_DB_MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
         return null != $result ? $result['average_rating'] : 0;
     }
 
@@ -277,8 +277,8 @@ class ZMReviews extends ZMObject {
 
         $review->setAuthor($account->getFullName());
         $review->setAccountId($account->getId());
-        $review->setLastModified(date(ZM_DB_DATETIME_FORMAT));
-        $review->setDateAdded(date(ZM_DB_DATETIME_FORMAT));
+        $review->setLastModified(date(ZMDatabase::DATETIME_FORMAT));
+        $review->setDateAdded(date(ZMDatabase::DATETIME_FORMAT));
         $review->setActive(ZMSettings::get('isApproveReviews') ? false : true);
 
         $review = ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);

@@ -318,13 +318,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     break;
                 case 'datetime':
                     if (null === $value) {
-                        $value = ZM_DB_NULL_DATETIME;
+                        $value = ZMDatabase::NULL_DATETIME;
                     }
                     $stmt->setTimestamp($index, $value);
                     break;
                 case 'date':
                     if (null === $value) {
-                        $value = ZM_DB_NULL_DATE;
+                        $value = ZMDatabase::NULL_DATE;
                     }
                     $stmt->setDate($index, $value);
                     break;
@@ -351,7 +351,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     protected function rs2model($modelClass, $rs, $mapping=null) {
         $row = $rs->getRow();
-        if (null === $mapping || ZM_DB_MODEL_RAW == $modelClass) {
+        if (null === $mapping || ZMDatabase::MODEL_RAW == $modelClass) {
             return $row;
         }
 
@@ -379,9 +379,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'datetime':
                 try {
-                    // TODO: creole will throw a fit as strtotime doesn't like ZM_DB_NULL_DATETIME
+                    // TODO: creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
                     $value = $rs->getTimestamp($info['column']);
-                    if (ZM_DB_NULL_DATETIME == $value) {
+                    if (ZMDatabase::NULL_DATETIME == $value) {
                         $value = null;
                     }
                 } catch (SQLException $e) {
@@ -390,9 +390,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'date':
                 try {
-                    // TODO: creole will throw a fit as strtotime doesn't like ZM_DB_NULL_DATETIME
+                    // TODO: creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
                     $value = $rs->getDate($info['column']);
-                    if (ZM_DB_NULL_DATE == $value) {
+                    if (ZMDatabase::NULL_DATE == $value) {
                         $value = null;
                     }
                 } catch (SQLException $e) {

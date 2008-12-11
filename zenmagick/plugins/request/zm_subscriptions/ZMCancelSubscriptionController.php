@@ -75,7 +75,7 @@ class ZMCancelSubscriptionController extends ZMController {
         // check for number of scheduled orders
         $sql = "SELECT COUNT(orders_id) AS total FROM " . TABLE_ORDERS . "
                 WHERE subscription_order_id = :subscriptionOrderId";
-        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZM_DB_MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
             ZMMessages::instance()->error(zm_l10n_get("This subscription can only be canceled after a minimum of %s orders", $plugin->get('minOrders')));
@@ -89,7 +89,7 @@ class ZMCancelSubscriptionController extends ZMController {
                     FROM " . TABLE_ORDERS . "
                     WHERE orders_id = :orderId
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZM_DB_MODEL_RAW);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
             if (null == $result) {
                 ZMMessages::instance()->error(zm_l10n_get("Can't cancel less than %s days before next subscription", $cancelDeadline));
                 return $this->findView();

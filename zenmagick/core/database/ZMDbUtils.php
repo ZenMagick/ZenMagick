@@ -100,7 +100,7 @@ class ZMDbUtils {
             if ('date' == $info[1]) {
                 // if not empty nothing, otherwise assume NULL
                 if (empty($value)) {
-                    $value = ZM_DB_NULL_DATETIME;
+                    $value = ZMDatabase::NULL_DATETIME;
                     $info[1] = 'date';
                 }
             }

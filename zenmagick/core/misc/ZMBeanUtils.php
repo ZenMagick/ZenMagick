@@ -30,7 +30,6 @@
  * @author DerManoMann
  * @package org.zenmagick.misc
  * @version $Id$
- * @todo caching
  */
 class ZMBeanUtils {
     private static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
