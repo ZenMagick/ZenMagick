@@ -25,11 +25,6 @@
 ?>
 <?php
 
-    // make zen-cart relative
-    function zm_mk_relative($file) {
-      return ZMTools::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
-    }
-
     // dismiss sqlpatch output as we do only want to use the code...
     define('GZIP_LEVEL', 0);
     ob_start(); require 'sqlpatch.php'; ob_end_clean();
