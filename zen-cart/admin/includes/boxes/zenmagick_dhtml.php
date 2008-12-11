@@ -20,20 +20,20 @@ if (!defined('IS_ADMIN_FLAG')) {
     $zm_contents = array();
 
     $installer = new ZMInstallationPatcher();
-    $zm_contents[] = array('text' => zm_l10n_get("Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
-    $zm_contents[] = array('text' => zm_l10n_get("Plugin Manager"), 'link' => zen_href_link(ZM_ADMINFN_PLUGINS, '', 'NONSSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Installation"), 'link' => zen_href_link('zmInstallation.php', '', 'NONSSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Plugin Manager"), 'link' => zen_href_link('zmPlugins.php', '', 'NONSSL'));
 
-    $zm_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link(ZM_ADMINFN_CATALOG_MANAGER, '', 'NONSSL'));
-    $zm_contents[] = array('text' => zm_l10n_get("Cache Admin"), 'link' => zen_href_link(ZM_ADMINFN_CACHE, '', 'NONSSL'));
-    $zm_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(ZM_ADMINFN_L10N, '', 'NONSSL'));
-    if (file_exists(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE)) {
-        $zm_contents[] = array('text' => zm_l10n_get("Console"), 'link' => zen_href_link(ZM_ADMINFN_CONSOLE, '', 'SSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Catalog Manager"), 'link' => zen_href_link('zmCatalogManager.php', '', 'NONSSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Cache Admin"), 'link' => zen_href_link('zmCacheAdmin.php', '', 'NONSSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Language Tool"), 'link' => zen_href_link(i'zmL10n.php', '', 'NONSSL'));
+    if (file_exists(DIR_FS_ADMIN.'zmConsole.php')) {
+        $zm_contents[] = array('text' => zm_l10n_get("Console"), 'link' => zen_href_link('zmConsole.php', '', 'SSL'));
     }
-    $zm_contents[] = array('text' => zm_l10n_get("Theme Builder"), 'link' => zen_href_link(ZM_ADMINFN_THEME_BUILDER, '', 'SSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("Theme Builder"), 'link' => zen_href_link('zmThemeBuilder.php', '', 'SSL'));
     if (ZMSettings::get('isZMDefinePages')) {
-        $zm_contents[] = array('text' => zm_l10n_get("Static Page Editor"), 'link' => zen_href_link(ZM_ADMINFN_SP_EDITOR, '', 'SSL'));
+        $zm_contents[] = array('text' => zm_l10n_get("Static Page Editor"), 'link' => zen_href_link('zmStaticPageEditor.php', '', 'SSL'));
     }
-    $zm_contents[] = array('text' => zm_l10n_get("About"), 'link' => zen_href_link(ZM_ADMINFN_ABOUT, '', 'NONSSL'));
+    $zm_contents[] = array('text' => zm_l10n_get("About"), 'link' => zen_href_link('zmAbout.php', '', 'NONSSL'));
     echo zen_draw_admin_box($zm_heading, $zm_contents);
 
     if (0 < count($_zm_menu)) {

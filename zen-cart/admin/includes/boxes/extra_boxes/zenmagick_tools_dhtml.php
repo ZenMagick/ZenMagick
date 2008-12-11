@@ -35,7 +35,7 @@ if (class_exists('ZMInstallationPatcher')) {
      * display installation menu item for manual installation.
      */
 
-    $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], ZM_ADMINFN_INSTALLATION);
+    $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], 'zmInstallation.php');
     $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
     $installer = new ZMInstallationPatcher();
     if (!$duringUninstall && !$isInstallation && $installer->isPatchesOpen()) {
@@ -46,7 +46,7 @@ if (class_exists('ZMInstallationPatcher')) {
     $adminMenuPatch = $installer->getPatchForId('adminMenu');
     if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
         // only if no ZenMagick menu item
-        $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link(ZM_ADMINFN_INSTALLATION, '', 'NONSSL'));
+        $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link('zmInstallation.php', '', 'NONSSL'));
     }
 }
     

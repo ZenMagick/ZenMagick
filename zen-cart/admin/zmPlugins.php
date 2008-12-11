@@ -88,7 +88,7 @@ require_once 'includes/application_top.php';
     }
 
     if ($needRefresh) {
-        ZMRequest::redirect(ZM_ADMINFN_PLUGINS.'?select='.$refresh);
+        ZMRequest::redirect('zmPlugins.php'.'?select='.$refresh);
     }
 
     // build/update plugin status for all plugins
@@ -145,7 +145,7 @@ require_once 'includes/application_top.php';
 
         <?php foreach (ZMPlugins::getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
-        <form action="<?php echo ZM_ADMINFN_PLUGINS ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
+        <form action="<?php echo 'zmPlugins.php' ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0"> 
             <thead>
               <tr>
@@ -165,16 +165,16 @@ require_once 'includes/application_top.php';
                   <td><?php echo $plugin->getSortOrder() ?></td>
                   <td>
                     <?php if ($plugin->isInstalled()) { ?>
-                        <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
+                        <a href="<?php echo 'zmPlugins.php' ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
                         <?php if ($isEdit) { ?>
                           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
                           <input type="hidden" name="type" value="<?php echo $plugin->getType() ?>">
                           <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                         <?php } else { ?>
-                            <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?edit=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                            <a href="<?php echo 'zmPlugins.php' ?>?edit=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
                         <?php } ?>
                     <?php } else { ?>
-                        <a href="<?php echo ZM_ADMINFN_PLUGINS ?>?install=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                        <a href="<?php echo 'zmPlugins.php' ?>?install=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
                     <?php } ?>
                   </td>
                 </tr>

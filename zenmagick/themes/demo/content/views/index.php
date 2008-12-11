@@ -38,7 +38,7 @@
 <h2>Ajax</h2>
 <ul>
   <li>The <a href="<?php $net->url('ajax_demo') ?>">Ajax demo page</a> shows a few Ajax things possible with ZenMagick.</li>
-  <li>Drag/Drop Ajax cart demo in <a href="<?php $net->url(ZM_FILENAME_CATEGORY, 'cPath=22') ?>">category list pages</a> 
+  <li>Drag/Drop Ajax cart demo in <a href="<?php $net->url('category', 'cPath=22') ?>">category list pages</a> 
     (drag the product image onto the shopping cart on ther right...)</li>
 </ul>
 
@@ -62,8 +62,8 @@
   <li>Field specific error messages; Try an invalid email or blank password (using the demo theme!) to see field specific error messages
      being displayed [needs JavaScript disabled]</li>
   <li>Check out the actual used template files (
-     <a href="<?php $net->url(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">layout</a>
+     <a href="<?php $net->url('source_view', 'template_name='.$zm_view->getLayout()) ?>">layout</a>
       and
-     <a href="<?php $net->url(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">view</a>
+     <a href="<?php $net->url('source_view', 'view_name='.$zm_view->getName()) ?>">view</a>
     ) on this site! (there are links in the footer on all other pages)</li>
 </ul>

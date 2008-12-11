@@ -252,7 +252,7 @@ class ZMToolboxMacro extends ZMObject {
             $class = trim($class);
             $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        $toolbox->net->url(ZM_FILENAME_CATEGORY, '&'.$category->getPath(), '', false, false) .
+                        $toolbox->net->url('category', '&'.$category->getPath(), '', false, false) .
                         '">'.$toolbox->html->encode($category->getName(), false).'</a>';
             if (0 < $noOfProducts) {
                 echo '('.$noOfProducts.')';

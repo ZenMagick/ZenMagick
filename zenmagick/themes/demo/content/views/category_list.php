@@ -74,7 +74,7 @@
         <?php include($zm_theme->themeFile('views/resultlist/options.php')) ?>
     </div>
 
-    <?php $form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
+    <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
         <div class="rlist">
             <table cellspacing="0" cellpadding="0"><tbody>
                 <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>

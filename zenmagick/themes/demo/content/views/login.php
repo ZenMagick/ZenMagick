@@ -48,7 +48,7 @@
 
 <?php if (ZMSettings::get('isGuestCheckout') && !ZMRequest::getShoppingCart()->isEmpty()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
-  <?php $form->open(ZM_FILENAME_CHECKOUT_GUEST, "action=process", true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
+  <?php $form->open('checkout_guest', "action=process", true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
     <fieldset>
       <legend><?php zm_l10n("Checkout without registering") ?></legend>
       <div>

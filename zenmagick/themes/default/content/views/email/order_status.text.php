@@ -30,7 +30,7 @@
 <?php if (ZMAccounts::REGISTERED == $zm_account->getType()) { ?>
 <?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
 <?php } else { ?>
-<?php zm_l10n("You can check the status of your order at: %s.", $net->url(ZM_FILENAME_GUEST_HISTORY, '', false, false)) ?>
+<?php zm_l10n("You can check the status of your order at: %s.", $net->url('guest_history', '', false, false)) ?>
 <?php } ?>
 
 <?php if ($newOrderStatus != $zm_order->getStatusName()) { ?>

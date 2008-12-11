@@ -66,7 +66,7 @@
         <fieldset>
             <legend><?php zm_l10n("Order Status Check") ?></legend>
             <p>
-                <?php $lookupLink = '<a href="' . $net->url(ZM_FILENAME_GUEST_HISTORY, '', false, false) . '">' . zm_l10n_get("order status check") . '</a>'; ?>
+                <?php $lookupLink = '<a href="' . $net->url('guest_history', '', false, false) . '">' . zm_l10n_get("order status check") . '</a>'; ?>
                 <?php zm_l10n("You can check the status of your order using the %s.", $lookupLink) ?>
             </p>
         </fieldset>

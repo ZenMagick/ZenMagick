@@ -127,7 +127,7 @@ class ZMCrumbtrail extends ZMObject {
             if (null == $category) {
                 return;
             }
-            $this->addCrumb($category->getName(), ZMToolbox::instance()->net->url(ZM_FILENAME_CATEGORY, $category->getPath(), false, false));
+            $this->addCrumb($category->getName(), ZMToolbox::instance()->net->url('category', $category->getPath(), false, false));
         }
     }
 
@@ -142,7 +142,7 @@ class ZMCrumbtrail extends ZMObject {
 
         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), ZMToolbox::instance()->net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id=' . $manufacturerId, false, false));
+            $this->addCrumb($manufacturer->getName(), ZMToolbox::instance()->net->url('category', 'manufacturers_id=' . $manufacturerId, false, false));
         }
     }
 

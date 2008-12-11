@@ -42,8 +42,6 @@
      */
     define('ZM_ROOT', 'zenmagick/');
     define('ZM_DEFAULT_THEME', 'default');
-    define('ZM_THEMES_DIR', ZM_ROOT.'themes/');
-    define('ZM_PLUGINS_DIR', ZM_ROOT.'plugins/');
     define('ZM_THEME_CONTENT_DIR', 'content/');
     define('ZM_THEME_EXTRA_DIR', 'extra/');
     define('ZM_THEME_BOXES_DIR', 'content/boxes/');
@@ -75,7 +73,7 @@
     define('ZM_EVENT_CREATE_ORDER', 'create_order');
 
 
-    //** files **//
+    //** files;deprecated **//
 
     define ('ZM_FILENAME_RSS', 'rss');
     define ('ZM_FILENAME_CHECKOUT_GUEST', 'checkout_guest');
@@ -85,7 +83,7 @@
     define ('ZM_FILENAME_SEARCH', 'search');
 
 
-    //** admin **//
+    //** admin;deprecated **//
 
     define('ZM_ADMINFN_INSTALLATION', 'zmInstallation.php');
     define('ZM_ADMINFN_CATALOG_MANAGER', 'zmCatalogManager.php');
@@ -155,7 +153,7 @@
     define('ZM_PRODUCT_TAX_BASE_BILLING', 'Billing');
 
 
-    //** menyu keys **//
+    //** menu keys **//
 
     define('ZM_MENU_PLUGINS', 'plugins');
     define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');

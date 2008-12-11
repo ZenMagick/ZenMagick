@@ -29,7 +29,7 @@ require_once 'includes/application_top.php';
 
 if ('true' == ZMRequest::getRequestParameter('remove', 'false')) {
     // destry myself
-    unlink(DIR_FS_ADMIN.ZM_ADMINFN_CONSOLE);
+    unlink(DIR_FS_ADMIN.'zmConsole.php');
   	zen_redirect(zen_href_link(FILENAME_DEFAULT));
 }
 
@@ -78,7 +78,7 @@ if ('' == $code) {
 
     <div id="main">
       <div id="content">
-          <form action="<?php echo ZM_ADMINFN_CONSOLE ?>" method="post">
+          <form action="<?php echo 'zmConsole.php' ?>" method="post">
               <fieldset>
                   <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
                   <label for="code"><?php zm_l10n("Code:") ?></label>
@@ -91,7 +91,7 @@ if ('' == $code) {
                   <?php } ?>
               </fieldset>
           </form>
-          <a href="<?php echo ZM_ADMINFN_CONSOLE ?>?remove=true" onclick="return zm_user_confirm('Remove console ?');"><?php zm_l10n("Remove Console from admin menu") ?></a>
+          <a href="<?php echo 'zmConsole.php' ?>?remove=true" onclick="return zm_user_confirm('Remove console ?');"><?php zm_l10n("Remove Console from admin menu") ?></a>
       </div>
     </div>
 

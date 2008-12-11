@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(ZM_FILENAME_GV_SEND_CONFIRM, null, true, array('onsubmit'=>null)) ?>
+<?php $form->open('gv_send_confirm', null, true, array('onsubmit'=>null)) ?>
     <div>
         <input type="hidden" name="name" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" />
         <input type="hidden" name="email" value="<?php $html->encode($zm_gvreceiver->getEmail()) ?>" />

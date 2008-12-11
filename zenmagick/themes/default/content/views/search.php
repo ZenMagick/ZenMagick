@@ -25,7 +25,7 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php $form->open(ZM_FILENAME_SEARCH, '', false, array('method' => 'get')) ?>
+<?php $form->open('search', '', false, array('method' => 'get')) ?>
     <div>
         <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
@@ -42,7 +42,7 @@
             <?php include('resultlist/options.php') ?>
         </div>
 
-        <?php $form->open(ZM_FILENAME_COMPARE_PRODUCTS, '', false, array('method' => 'get')) ?>
+        <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
             <div class="rlist">
                 <table cellspacing="0" cellpadding="0"><tbody>
                     <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>

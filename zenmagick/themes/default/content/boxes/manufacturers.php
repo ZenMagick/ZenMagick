@@ -28,7 +28,7 @@
 <?php if (0 < count($manufacturers)) { ?>
     <h3><?php zm_l10n("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">
-        <?php $form->open(ZM_FILENAME_CATEGORY, '', false, array('method' => 'get', 'onsubmit'=>null)) ?>
+        <?php $form->open('category', '', false, array('method' => 'get', 'onsubmit'=>null)) ?>
             <div>
                 <?php $form->idpSelect('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Please Select"))), $manufacturers), ZMRequest::getManufacturerId(), array('size'=>3, 'onchange'=>'this.form.submit()')) ?>
                 <noscript>

@@ -33,7 +33,7 @@
             <div id="sb_manufacturer_info" class="box">
                 <?php 
                 if ($manufacturer->hasImage()) {
-                    $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
+                    $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     if (!ZMTools::isEmpty($manufacturer->getUrl())) {
                         $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
@@ -41,11 +41,11 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!ZMTools::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
+                        $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } else {
-                    $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
+                    $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     $text = zm_l10n_get("Other Products");
                     if (!ZMTools::isEmpty($manufacturer->getUrl())) {
@@ -55,7 +55,7 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
                     if (!ZMTools::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url(ZM_FILENAME_CATEGORY, 'manufacturers_id='.$manufacturer->getId(), false, false);
+                        $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } ?>

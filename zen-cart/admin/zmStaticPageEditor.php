@@ -90,7 +90,7 @@ require_once 'includes/application_top.php';
 
     <div id="main">
       <div id="content">
-        <form action="<?php echo ZM_ADMINFN_SP_EDITOR ?>" method="get">
+        <form action="<?php echo 'zmStaticPageEditor.php' ?>" method="get">
           <h2>ZenMagick Static Page Editor (
                   <select id="languageId" name="languageId" onChange="this.form.submit();">
                     <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
@@ -136,7 +136,7 @@ require_once 'includes/application_top.php';
         </form>
 
         <?php if (null !== $editContents) { ?>
-          <form action="<?php echo ZM_ADMINFN_SP_EDITOR ?>" method="post">
+          <form action="<?php echo 'zmStaticPageEditor.php' ?>" method="post">
             <?php echo zen_hide_session_id() ?>
             <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
             <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
@@ -155,7 +155,7 @@ require_once 'includes/application_top.php';
 
             <br><br>
             <input type="submit" name="save" value="Save">
-            <a href="<?php echo zen_href_link(ZM_ADMINFN_SP_EDITOR, "themeId=".$selectedThemeId."&amp;languageId=".$selectedLanguageId) ?>">Cancel</a>
+            <a href="<?php echo zen_href_link('zmStaticPageEditor.php', "themeId=".$selectedThemeId."&amp;languageId=".$selectedLanguageId) ?>">Cancel</a>
             <a href="#" onclick="preview();return false;">Preview</a>
           </form>
         <?php } ?>

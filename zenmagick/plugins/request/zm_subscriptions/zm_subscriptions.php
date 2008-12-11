@@ -23,11 +23,6 @@
 ?>
 <?php
 
-define('ZM_FILENAME_SUBSCRIPTION_CANCEL', 'cancel_subscription');
-define('ZM_FILENAME_SUBSCRIPTION_REQUEST', 'subscription_request');
-define('ZM_TEMPLATE_SUBSCRIPTION_REQUEST_NOTIFICATION', 'subscription_request');
-define('ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION', 'subscription_cancel');
-
 
 /**
  * Subscriptions.

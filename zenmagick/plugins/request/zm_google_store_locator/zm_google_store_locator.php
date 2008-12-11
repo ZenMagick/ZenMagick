@@ -24,7 +24,6 @@
 <?php
 
 
-define ('ZM_FILENAME_STORE_LOCATOR', 'store_locator');
 
 /**
  * Plugin adding a Google Maps based store locator.
@@ -74,7 +73,7 @@ class zm_google_store_locator extends ZMPlugin {
 
         $this->addMenuItem('store_locator', zm_l10n_get('Store Locator'), 'zm_store_locator_admin');
         if (function_exists('zm_pretty_links_set_mapping')) {
-            zm_pretty_links_set_mapping(ZM_FILENAME_STORE_LOCATOR);
+            zm_pretty_links_set_mapping('store_locator');
         }
         // subscribe to events to set the JS onload event
         $this->zcoSubscribe();
@@ -84,7 +83,7 @@ class zm_google_store_locator extends ZMPlugin {
      * Update theme once init is done.
      */
     function onZMInitDone($args) {
-        ZMRuntime::getTheme()->getThemeInfo()->setPageEventHandler('onload', ZM_FILENAME_STORE_LOCATOR, "load_locator_map()");
+        ZMRuntime::getTheme()->getThemeInfo()->setPageEventHandler('onload', 'store_locator', "load_locator_map()");
     }
 
 }

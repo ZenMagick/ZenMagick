@@ -333,7 +333,7 @@ class ZMToolboxNet extends ZMObject {
         if (null !== $key) {
             $params .= "&key=".$key;
         }
-        $url = $this->url(ZM_FILENAME_RSS, $params, false, false);
+        $url = $this->url('rss', $params, false, false);
 
         if ($echo) echo $url;
         return $url;

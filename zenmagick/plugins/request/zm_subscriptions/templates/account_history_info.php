@@ -5,6 +5,6 @@
     <p><?php zm_l10n("Order schedule: '%s.'", $schedules[$schedule]['name']) ?></p>
 
     <?php if ($zm_order->isSubscription()) { ?>
-        <a href="<?php $net->url(ZM_FILENAME_SUBSCRIPTION_CANCEL, 'orderId='.$zm_order->getId()) ?>"><?php zm_l10n("Cancel Subscription") ?></a>
+        <a href="<?php $net->url('cancel_subscription', 'orderId='.$zm_order->getId()) ?>"><?php zm_l10n("Cancel Subscription") ?></a>
     <?php } ?>
 <?php } ?>

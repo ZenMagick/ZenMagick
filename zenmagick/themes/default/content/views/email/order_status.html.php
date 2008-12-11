@@ -36,7 +36,7 @@
 <?php if (ZMAccounts::REGISTERED == $zm_account->getType()) {
     $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
 } else {
-    $href = '<a href="'.$net->url(ZM_FILENAME_GUEST_HISTORY, '', false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
+    $href = '<a href="'.$net->url('guest_history', '', false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
 } ?>
 <p><?php zm_l10n("More details can be found at the following URL: %s", $href) ?></p>
 

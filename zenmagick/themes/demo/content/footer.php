@@ -36,8 +36,8 @@
     <?php } ?>
 
     <p id="sview">
-        <a href="<?php $net->url(ZM_FILENAME_SOURCE_VIEW, 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
-        <a href="<?php $net->url(ZM_FILENAME_SOURCE_VIEW, 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
+        <a href="<?php $net->url('source_view', 'template_name='.$zm_view->getLayout()) ?>">Template: '<?php echo basename($zm_view->getLayout()) ?>'</a>
+        <a href="<?php $net->url('source_view', 'view_name='.$zm_view->getName()) ?>">View: '<?php echo basename($zm_view->getName()) ?>'</a>
     </p>
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
     <p>&copy; 2006-2008  <a href="http://www.zenmagick.org">ZenMagick</a> | 
