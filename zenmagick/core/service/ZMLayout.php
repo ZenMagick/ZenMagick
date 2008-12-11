@@ -130,7 +130,7 @@ class ZMLayout extends ZMObject {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }
@@ -160,7 +160,7 @@ class ZMLayout extends ZMObject {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.ZM_THEME_BOXES_DIR.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }

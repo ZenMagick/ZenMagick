@@ -605,16 +605,16 @@ class ZMShoppingCart extends ZMObject {
      */
     public function getTaxAddress() {
         switch (ZMSettings::get('productTaxBase')) {
-        case ZM_PRODUCT_TAX_BASE_SHIPPING:
-            return $this->getShippingAddress();
-        case ZM_PRODUCT_TAX_BASE_BILLING:
-            return $this->getBillingAddress();
-        case ZM_PRODUCT_TAX_BASE_STORE:
-            $address = $this->getBillingAddress();
-            if ($address->getZoneId() != ZMSettings::get('storeZone')) {
+            case ZMTaxRates::TAX_BASE_SHIPPING:
                 return $this->getShippingAddress();
-            }
-            return $address;
+            case ZMTaxRates::TAX_BASE_BILLING:
+                return $this->getBillingAddress();
+            case ZMTaxRates::TAX_BASE_STORE:
+                $address = $this->getBillingAddress();
+                if ($address->getZoneId() != ZMSettings::get('storeZone')) {
+                    return $this->getShippingAddress();
+                }
+                return $address;
         }
 
         ZMLogging::instance()->log('invalid productTaxBase!', ZMLogging::ERROR);

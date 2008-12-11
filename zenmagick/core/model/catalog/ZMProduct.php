@@ -356,10 +356,10 @@ class ZMProduct extends ZMModel {
      *
      * <p>Legal values:</p>
      * <ul>
-     *  <li><em>ZM_DISCOUNT_TYPE_NONE</em> - no discount</li>
-     *  <li><em>ZM_DISCOUNT_TYPE_PERCENT</em> - value is percent value</li>
-     *  <li><em>ZM_DISCOUNT_TYPE_PRICE</em> - value is fixed price</li>
-     *  <li><em>ZM_DISCOUNT_TYPE_AMOUNT</em> - value to be subtracted from base/special price</li>
+     *  <li><em>ZMOffers::DISCOUNT_TYPE_NONE</em> - no discount</li>
+     *  <li><em>ZMOffers::DISCOUNT_TYPE_PERCENT</em> - value is percent value</li>
+     *  <li><em>ZMOffers::DISCOUNT_TYPE_PRICE</em> - value is fixed price</li>
+     *  <li><em>ZMOffers::DISCOUNT_TYPE_AMOUNT</em> - value to be subtracted from base/special price</li>
      * </ul>
      *
      * @return int The discount type.
@@ -371,8 +371,8 @@ class ZMProduct extends ZMModel {
      * 
      * <p>Legal values:</p>
      * <ul>
-     *  <li><em>ZM_DISCOUNT_FROM_BASE_PRICE</em> - use base price to calculate discount pricing</li>
-     *  <li><em>ZM_DISCOUNT_FROM_SPECIAL_PRICE</em> - use special price to calculate discount pricing</li>
+     *  <li><em>ZMOffers::DISCOUNT_FROM_BASE_PRICE</em> - use base price to calculate discount pricing</li>
+     *  <li><em>ZMOffers::DISCOUNT_FROM_SPECIAL_PRICE</em> - use special price to calculate discount pricing</li>
      * </ul>
      *
      * @return int The discount type from.

@@ -74,10 +74,10 @@
         $language = $session->getLanguage();
 
         $file = $language->getDirectory().'/'.$name.'.txt';
-        if (ZMRuntime::getTheme()->themeFileExists($file, ZM_THEME_LANG_DIR)) {
+        if (ZMRuntime::getTheme()->themeFileExists($file, 'lang/')) {
             $args = func_get_args();
             array_shift($args);
-            $contents = file_get_contents(ZMRuntime::getTheme()->themeFile($file, ZM_THEME_LANG_DIR));
+            $contents = file_get_contents(ZMRuntime::getTheme()->themeFile($file, 'lang/'));
             if (null == $args) {
                 // no need for expensive printf!
                 return $contents;

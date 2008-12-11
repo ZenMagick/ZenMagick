@@ -32,6 +32,19 @@
  * @version $Id$
  */
 class ZMOffers extends ZMObject {
+    // sale type constants
+    const SALE_TYPE_AMOUNT = 0;
+    const SALE_TYPE_PERCENT = 1;
+    const SALE_TYPE_PRICE = 2;
+
+    // discount constants
+    const DISCOUNT_TYPE_NONE = 0;
+    const DISCOUNT_TYPE_PERCENT = 1;
+    const DISCOUNT_TYPE_PRICE = 2;
+    const DISCOUNT_TYPE_AMOUNT = 3;
+    const DISCOUNT_FROM_BASE_PRICE = 0;
+    const DISCOUNT_FROM_SPECIAL_PRICE = 1;
+
     private $product_;
     private $basePrice_;
     private $specialPrice_;
@@ -209,15 +222,15 @@ class ZMOffers extends ZMObject {
         $bestSpecialPrice = $specialPrice ? $specialPrice : $basePrice;
 
         switch ($saleType) {
-            case ZM_SALE_TYPE_AMOUNT:
+            case ZMOffers::SALE_TYPE_AMOUNT:
                 $saleBasePrice = $basePrice - $saleValue;
                 $saleSpecialPrice = $bestSpecialPrice - $saleValue;
                 break;
-            case ZM_SALE_TYPE_PERCENT:
+            case ZMOffers::SALE_TYPE_PERCENT:
                 $saleBasePrice = $basePrice - (($basePrice * $saleValue) / 100);
                 $saleSpecialPrice = $bestSpecialPrice - (($bestSpecialPrice * $saleValue) / 100);
                 break;
-            case ZM_SALE_TYPE_PRICE:
+            case ZMOffers::SALE_TYPE_PRICE:
                 $saleBasePrice = $saleValue;
                 $saleSpecialPrice = $saleValue;
                 break;
@@ -361,23 +374,23 @@ class ZMOffers extends ZMObject {
         if (0 < count($discounts)) {
             $product = $this->product_;
             $basePrice = $this->getBasePrice($tax);
-            if (ZM_DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {
+            if (ZMOffers::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {
                 $basePrice = $specialPrice;
             }
 
             foreach ($discounts as $discount) {
                 $price = 0;
                 switch ($product->getDiscountType()) {
-                    case ZM_DISCOUNT_TYPE_NONE:
+                    case ZMOffers::DISCOUNT_TYPE_NONE:
                         $price = 0; // WTF???
                         break;
-                    case ZM_DISCOUNT_TYPE_PERCENT:
+                    case ZMOffers::DISCOUNT_TYPE_PERCENT:
                         $price = $basePrice - ($basePrice * ($discount->getValue() / 100));
                         break;
-                    case ZM_DISCOUNT_TYPE_PRICE:
+                    case ZMOffers::DISCOUNT_TYPE_PRICE:
                         $price = $discount->getValue();
                         break;
-                    case ZM_DISCOUNT_TYPE_AMOUNT:
+                    case ZMOffers::DISCOUNT_TYPE_AMOUNT:
                         $price = $basePrice - $discount->getValue();
                         break;
                     default:

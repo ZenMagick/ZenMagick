@@ -34,6 +34,10 @@
  * @version $Id$
  */
 class ZMTaxRates extends ZMObject {
+    const TAX_BASE_STORE = 'Store';
+    const TAX_BASE_SHIPPING = 'Shipping';
+    const TAX_BASE_BILLING = 'Billing';
+
     private $taxRates_;
 
 
@@ -95,7 +99,7 @@ class ZMTaxRates extends ZMObject {
             return $this->taxRates_[$taxRateId];
         }
 
-        if (ZM_PRODUCT_TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
+        if (ZMTaxRates::TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
             if (ZMSettings::get('storeZone') != $zoneId) {
                 $taxRate = ZMLoader::make("TaxRate");
                 $taxRate->setId($taxRateId);

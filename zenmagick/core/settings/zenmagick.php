@@ -42,12 +42,6 @@
      */
     define('ZM_ROOT', 'zenmagick/');
     define('ZM_DEFAULT_THEME', 'default');
-    define('ZM_THEME_CONTENT_DIR', 'content/');
-    define('ZM_THEME_EXTRA_DIR', 'extra/');
-    define('ZM_THEME_BOXES_DIR', 'content/boxes/');
-    define('ZM_THEME_LANG_DIR', 'lang/');
-    define('ZM_THEME_STATIC_DIR', 'static/');
-    define('ZM_USER_CONFIG', 'config/');
 
 
     //** db **//
@@ -129,14 +123,14 @@
     define('ZM_COUPON_TYPPE_SHIPPING', 'S');
 
 
-    //** sale types **//
+    //** sale types; deprecated **//
 
     define('ZM_SALE_TYPE_AMOUNT', 0);
     define('ZM_SALE_TYPE_PERCENT', 1);
     define('ZM_SALE_TYPE_PRICE', 2);
 
 
-    //** discount types **//
+    //** discount types; deprecated **//
 
     define('ZM_DISCOUNT_TYPE_NONE', 0);
     define('ZM_DISCOUNT_TYPE_PERCENT', 1);
@@ -146,7 +140,7 @@
     define('ZM_DISCOUNT_FROM_SPECIAL_PRICE', 1);
 
 
-    //** tax base **//
+    //** tax base; deprecated **//
 
     define('ZM_PRODUCT_TAX_BASE_STORE', 'Store');
     define('ZM_PRODUCT_TAX_BASE_SHIPPING', 'Shipping');

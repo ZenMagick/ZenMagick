@@ -162,16 +162,16 @@ class ZMThemeBuilder extends ZMObject {
         }
 
         // do the common ones
-        ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR, 755);
-        $this->fsLog_[] = $themeDir.ZM_THEME_CONTENT_DIR;
-        ZMTools::mkdir($themeDir.ZM_THEME_EXTRA_DIR, 755);
-        $this->fsLog_[] = $themeDir.ZM_THEME_EXTRA_DIR;
-        ZMTools::mkdir($themeDir.ZM_THEME_CONTENT_DIR.'views/', 755);
-        $this->fsLog_[] = $themeDir.ZM_THEME_CONTENT_DIR.'views/';
-        ZMTools::mkdir($themeDir.ZM_THEME_BOXES_DIR, 755);
-        $this->fsLog_[] = $themeDir.ZM_THEME_BOXES_DIR;
-        ZMTools::mkdir($themeDir.ZM_THEME_LANG_DIR, 755);
-        $this->fsLog_[] = $themeDir.ZM_THEME_LANG_DIR;
+        ZMTools::mkdir($themeDir.'content/', 755);
+        $this->fsLog_[] = $themeDir.'content/';
+        ZMTools::mkdir($themeDir.'extra/', 755);
+        $this->fsLog_[] = $themeDir.'extra/';
+        ZMTools::mkdir($themeDir.'content/'.'views/', 755);
+        $this->fsLog_[] = $themeDir.'content/'.'views/';
+        ZMTools::mkdir($themeDir.'content/boxes/', 755);
+        $this->fsLog_[] = $themeDir.'content/boxes/';
+        ZMTools::mkdir($themeDir.'lang/', 755);
+        $this->fsLog_[] = $themeDir.'lang/';
 
         return true;
     }
