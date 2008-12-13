@@ -107,10 +107,10 @@
         } else if (null != ZMRequest::getManufacturerId()) {
             $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::getManufacturerId(), false);
         }
-
         if (null != $products) {
-            $resultList = ZMLoader::make("ResultList", $products);
+            $resultList = ZMLoader::make("ResultList");
             $resultList->setPagination(16);
+            $resultList->setResultSource(ZMLoader::make('ArrayResultSource', 'Product', $products));
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';
             echo '<thead><tr>';

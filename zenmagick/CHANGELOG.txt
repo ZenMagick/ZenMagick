@@ -28,6 +28,8 @@ Release 0.9.4
 - retire ZM_THEME_xxx defines
 - show PayPal Express Checkout button on shopping cart; b:#2415830
 - deprecate ZM_DB_xxx defines except for ZM_DB_PREFIX
+- fix broken zm_product_resultlist() function (drives the products list in
+  CatalogManager)
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
