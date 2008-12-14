@@ -37,6 +37,8 @@ class ZMPhpPackagePacker {
     protected $outputFilename;
     protected $tempFolder;
     private $debug;
+    protected $treeMap;
+
     
     /**
      * Create new instance.
@@ -196,7 +198,7 @@ class ZMPhpPackagePacker {
      */
     protected function prepareFiles() {
         if ($this->debug) {
-            echo 'prepare '.$this->rootFolder."<br>\n";
+            echo 'preparing '.$this->rootFolder."<br>\n";
         }
         ZMLoader::instance()->resolve('InstallationPatch');
         $patch = ZMLoader::make('FilePatch', 'patch');
@@ -208,9 +210,6 @@ class ZMPhpPackagePacker {
         foreach ($files as $file) {
             if ($this->ignoreFile($file)) {
                 continue;
-            }
-            if ($this->debug) {
-                echo "preparing: ".$file."<BR>\n";
             }
             $lines = $patch->getFileLines($file);
             $patched = false;
@@ -234,9 +233,12 @@ class ZMPhpPackagePacker {
         $resolved = array();
 
         $levelIndex = 0;
-        $treeMap = array();
+        $this->treeMap = array();
         // while not all resolved
         while (count($resolved) < count($dependsOn)) {
+            if ($this->debug && 5 < $levelIndex) {
+                echo "<br>\n<br>\n=======".$levelIndex."============<BR>\n";
+            }
             $level = array();
             // iterate through all classes
             foreach ($dependsOn as $class => $dependencies) {
@@ -250,35 +252,31 @@ class ZMPhpPackagePacker {
                 foreach ($dependencies as $dclass) {
                     if (!isset($resolved[$dclass])) {
                         $clear = false;
-                        if ($this->debug) echo $class."; missing dep: ".$dclass."<BR>\n";
+                        if ($this->debug) echo '['.$class."] missing dep: ".$dclass."<BR>\n";
                     }
                 }
 
                 if ($clear || $this->isResolved($class, $levelIndex, $files)) {
-                    if ($this->debug) echo "<br>\nresolved: ".$class.' depending on ';
-                    if ($this->debug) print_r($dependencies);
                     $level[$class] = $class;
                 }
             }
 
-            $treeMap[$levelIndex] = $level;
+            $this->treeMap[$levelIndex] = $level;
             $resolved = array_merge($resolved, $level);
 
             $levelIndex++;
 
-            if ($this->debug) {
-                echo "<br>\n<br>\n=======".$levelIndex."============<BR>\n";
-                if (10 == $levelIndex) { break; }
+            if (10 == $levelIndex) { 
+                break;
             }
         }
 
         if ($this->debug) {
-            echo 'Got ' . count($resolved) . ' resolved classes - need:' . count($dependsOn) . "<br>\n";
-            var_dump($treeMap);
+            echo count($resolved) . ' of ' . count($dependsOn) . " classes resolved<br>\n";
         }
 
         $currentDir = $this->outputFilename.'.prep/';
-        foreach ($treeMap as $level => $classes) {
+        foreach ($this->treeMap as $level => $classes) {
             if (0 < $level) {
                 $currentDir .= $level.'/';
             }
