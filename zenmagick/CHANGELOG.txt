@@ -32,6 +32,7 @@ Release 0.9.4
   CatalogManager)
 - replace rating star images with contributed from
   http://www.zenflavor.com/category/free-images
+- update to latest creole version (1.2.0 svn snapshot)
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
