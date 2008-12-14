@@ -30,6 +30,8 @@ Release 0.9.4
 - deprecate ZM_DB_xxx defines except for ZM_DB_PREFIX
 - fix broken zm_product_resultlist() function (drives the products list in
   CatalogManager)
+- replace rating star images with contributed from
+  http://www.zenflavor.com/category/free-images
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
