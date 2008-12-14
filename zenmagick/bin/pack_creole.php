@@ -37,7 +37,14 @@
          */
         public function isResolved($class, $level, $files) {
             // Record does have circular references
-            return ('Record' == $class && 1 == $level);
+            if ('Record' == $class && 1 == $level) {
+                return true;
+            }
+            // uses dynamic include
+            if ('MySQLDatabaseInfoBase' == $class && 3 == $level) {
+                return true;
+            }
+            return false;
         }
 
         /**
@@ -54,7 +61,7 @@
     $creoleVersion = 'creole-1.2';
     //$packer = new CreolePacker('c:/temp/'.$creoleVersion.'/classes/', 'c:/temp/'.$creoleVersion.'.packed.php');
     $packer = new CreolePacker('C:/webserver/creole/classes/', 'c:/webserver/creole/'.$creoleVersion.'.packed.php');
-    $packer->setDebug(true);
+    $packer->setDebug(false);
     $packer->packFiles();
 
 ?>
