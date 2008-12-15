@@ -48,7 +48,9 @@ define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
  *  <dt>driver</dt>
  *  <dd>The database type; typical values would be: <em>mysql</em>, <em>sqlite</em> or <em>pgsql</em>.</dd>
  *  <dt>host</dt>
- *  <dd>The database host name (and port).</dd>
+ *  <dd>The database host (and port).</dd>
+ *  <dt>port</dt>
+ *  <dd>The database port.</dd>
  *  <dt>username</dt>
  *  <dd>The database username.</dd>
  *  <dt>password</dt>
