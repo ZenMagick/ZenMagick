@@ -115,6 +115,8 @@
             // persistent / transient implementation mappings
             'cacheMapping' => array(),
 
+            'isSetFilePerms' => false,
+
 
             /**************************************
              * Logging options.

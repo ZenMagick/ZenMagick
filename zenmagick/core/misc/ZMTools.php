@@ -521,6 +521,9 @@ class ZMTools {
      * @param array perms Optional file permissions; defaults are to use <em>755</em> for folder, <em>644</em> for files.
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
+        if (!ZMSettings::get('isSetFilePerms')) {
+            return;
+        }
         if (null == self::$fileOwner || null == self::$fileGroup) {
             clearstatcache();
             $referenceFile = ZMRuntime::getZMRootPath().'init.php';
