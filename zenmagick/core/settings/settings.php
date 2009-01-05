@@ -115,7 +115,11 @@
             // persistent / transient implementation mappings
             'cacheMapping' => array(),
 
+            // fix file permissions of created files to allow FTP access
             'isSetFilePerms' => false,
+
+            // enable/disable transaction support in request processing
+            'isEnableTransactions' => false,
 
 
             /**************************************

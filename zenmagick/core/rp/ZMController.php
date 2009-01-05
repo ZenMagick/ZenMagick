@@ -81,16 +81,35 @@ class ZMController extends ZMObject {
         ZMSacsMapper::instance()->ensureAuthorization($this->id_);
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
 
+        $enableTransactions = ZMSettings::get('isEnableTransactions');
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->setAutoCommit(false);
+        }
+
         $view = null;
-        switch (ZMRequest::getMethod()) {
-            case 'GET':
-                $view = $this->processGet();
-                break;
-            case 'POST':
-                $view = $this->processPost();
-                break;
-            default:
-                throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
+        try {
+            switch (ZMRequest::getMethod()) {
+                case 'GET':
+                    $view = $this->processGet();
+                    break;
+                case 'POST':
+                    $view = $this->processPost();
+                    break;
+                default:
+                    throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
+            }
+        } catch (Exception $e) {
+            if ($enableTransactions) {
+                ZMRuntime::getDatabase()->rollback();
+                // re-throw
+                throw $e;
+            }
+        }
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->commit();
+            ZMRuntime::getDatabase()->setAutoCommit(true);
         }
 
         if (null != $view) {
