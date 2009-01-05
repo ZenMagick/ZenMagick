@@ -408,9 +408,12 @@ class ZMProducts extends ZMObject {
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $this->cache->save($product, ZMTools::mkUnique($product->getId(), $product->getLanguageId()));
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        if (null != $product) {
+            $this->cache->save($product, ZMTools::mkUnique($product->getId(), $product->getLanguageId()));
+        }
 
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        return $product;
     }
 
     /**
