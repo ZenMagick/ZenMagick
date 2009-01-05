@@ -221,7 +221,7 @@
         <copy todir="admin">
             <fileset dir="${zencart.src.dir}">
                 <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
-                <include name="includes/init_includes/overrides/init_templates.php" />
+                <include name="includes/init_includes/overrides/*.php" />
             </fileset>
         </copy>
 
