@@ -34,6 +34,7 @@
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');
     private $db_;
+    private $config_;
     private $queriesCount;
     private $queriesTime;
     private $mapper;
@@ -57,6 +58,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $this->db_ = new queryFactory();
             $this->db_->connect($conf['host'], $conf['username'], $conf['password'], $conf['database'], USE_PCONNECT, false);
         }
+        $this->config_ = $conf;
         $this->queriesCount = 0;
         $this->queriesTime = 0;
         $this->mapper = ZMDbTableMapper::instance();
@@ -70,6 +72,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getConfig() {
+        return $this->config_;
+    }
 
     /**
      * {@inheritDoc}

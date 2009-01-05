@@ -34,6 +34,7 @@
  */
 class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
+    private $config_;
     private $queriesCount;
     private $queriesTime;
     private $queriesMap = array();
@@ -64,6 +65,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         // map some things that are named differently
         $conf['phptype'] = $conf['driver'];
         $conf['hostspec'] = $conf['host'];
+        $this->config_ = $conf;
         $this->conn_ = Creole::getConnection($conf);
         $this->mapper = ZMDbTableMapper::instance();
         $this->queriesCount = 0;
@@ -75,6 +77,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getConfig() {
+        return $this->config_;
     }
 
     /**

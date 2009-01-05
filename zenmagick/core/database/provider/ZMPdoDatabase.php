@@ -32,7 +32,8 @@
  * @version $Id$
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
-    public $pdo_;
+    private $pdo_;
+    private $config_;
     private $autoCommit_;
     private $inTransaction_;
     private $queriesCount;
@@ -68,6 +69,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         if (isset($conf['persistent']) && $conf['persistent']) {
             $params[PDO::ATTR_PERSISTENT] = true;
         }
+        $this->config_ = $conf;
         $this->pdo_ = new PDO($url, $conf['username'], $conf['password'], $params);
         $this->mapper = ZMDbTableMapper::instance();
         $this->queriesCount = 0;
@@ -81,6 +83,14 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getConfig() {
+        return $this->config_;
     }
 
     /**

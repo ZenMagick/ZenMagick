@@ -149,7 +149,7 @@ interface ZMDatabase {
     public function updateModel($table, $model, $mapping=null);
 
     /**
-     * Enable/disable automatic commits.
+     * Enable/disable automatic commits for this instance.
      *
      * @param boolean value The new value.
      */
@@ -172,9 +172,16 @@ interface ZMDatabase {
      *
      * @param string table Optional table; if no table is provided, database meta data will be returned;
      *  default is <code>null</code>.
-     * @return array Context dependant met a data.
+     * @return array Context dependent meta data.
      */
     public function getMetaData($table=null);
+
+    /**
+     * Get the configuration settings for this instance.
+     *
+     * @return array Configuration settings as set via the constructor.
+     */
+    public function getConfig();
 
 }
 

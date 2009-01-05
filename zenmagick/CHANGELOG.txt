@@ -1,5 +1,9 @@
 Release 0.9.5
 - add support for DB transactions in controller code [ZMController::process()]
+- add ZMDatabase::getConfig() to allow to retreive the db configuration
+- add ZMDbUtils::resolveSQLFilename(..) to allow loading of DB driver specific
+  SQL from files following the convention [name]-[driver].sql; example:
+	install-mysql.sql
 
 Release 0.9.4
 - prepend log messages with log level labels
