@@ -142,7 +142,7 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
 
             // force init
             if (class_exists('SEO_URL_INSTALLER')) {
-                $seoInstaller = &new SEO_URL_INSTALLER();
+                $seoInstaller = new SEO_URL_INSTALLER();
                 $seoInstaller->init();
             }
 
@@ -229,7 +229,7 @@ class ZMUltimateSeoSupportPatch extends ZMFilePatch {
         }
 
         if (class_exists('SEO_URL_INSTALLER')) {
-            $seoInstaller = &new SEO_URL_INSTALLER();
+            $seoInstaller = new SEO_URL_INSTALLER();
             $seoInstaller->uninstall_settings();
         }
 
