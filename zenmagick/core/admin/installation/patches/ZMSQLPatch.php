@@ -76,7 +76,7 @@ class ZMSQLPatch extends ZMInstallationPatch {
      * @param string sql Some sql.
      */
     function _runSQL($sql) {
-        $sql = ZMTools::sanitze($sql);
+        $sql = ZMTools::sanitize($sql);
         if (!empty($sql)) {
             $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
             $this->_processSQLMessages($results);
