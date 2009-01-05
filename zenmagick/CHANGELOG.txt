@@ -4,6 +4,8 @@ Release 0.9.5
 - add ZMDbUtils::resolveSQLFilename(..) to allow loading of DB driver specific
   SQL from files following the convention [name]-[driver].sql; example:
 	install-mysql.sql
+- fix SQL patch spelling mistake that breaks installing ZenMagick SQL; b:#2487507
+- fix broken ZMProducts::getProductForModel(); b:#2487519
 
 Release 0.9.4
 - prepend log messages with log level labels
