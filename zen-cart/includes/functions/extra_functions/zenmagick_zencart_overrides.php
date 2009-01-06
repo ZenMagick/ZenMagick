@@ -31,8 +31,8 @@ if (!function_exists('zen_href_link')) {
      * zen_href_link wrapper that delegates to the Zenmagick implementation.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (function_exists('_zm_build_href')) {
-            return _zm_build_href($page, $params, $transport == 'SSL', false);
+        if (class_exists('ZMToolbox')) {
+            return ZMToolbox::instance()->net->url($page, $params, $transport == 'SSL', false);
         } else if (function_exists('zen_href_link_DISABLED')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
