@@ -53,7 +53,7 @@ class zm_token extends ZMPlugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/install.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/install.sql")), $this->messages_);
     }
 
     /**
@@ -61,7 +61,7 @@ class zm_token extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/uninstall.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**

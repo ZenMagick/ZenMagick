@@ -66,7 +66,7 @@ class zm_site_switch extends ZMPlugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/install.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/install.sql")), $this->messages_);
     }
 
 
@@ -101,7 +101,7 @@ class zm_site_switch extends ZMPlugin {
         parent::remove($keepSettings);
         $this->removeSwitcher(ZM_STORE_LOCAL_CONFIGURE);
         $this->removeSwitcher(ZM_ADMIN_LOCAL_CONFIGURE);
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/uninstall.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**

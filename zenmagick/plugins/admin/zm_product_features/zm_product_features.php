@@ -61,7 +61,7 @@ class zm_product_features extends ZMPlugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/features.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/features.sql")), $this->messages_);
     }
 
     /**
@@ -71,7 +71,7 @@ class zm_product_features extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/features_undo.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/features_undo.sql")), $this->messages_);
     }
 
 

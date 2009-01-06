@@ -55,7 +55,7 @@ class zm_product_associations extends ZMPlugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/associations_install.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/associations_install.sql")), $this->messages_);
     }
 
     /**
@@ -65,7 +65,7 @@ class zm_product_associations extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/associations_remove.sql"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/associations_remove.sql")), $this->messages_);
     }
 
 

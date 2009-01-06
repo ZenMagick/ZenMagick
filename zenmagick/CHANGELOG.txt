@@ -6,6 +6,7 @@ Release 0.9.5
 	install-mysql.sql
 - fix SQL patch spelling mistake that breaks installing ZenMagick SQL; b:#2487507
 - fix broken ZMProducts::getProductForModel(); b:#2487519
+- use new ZMDbUtils::resolveSQLFilename() method in plugins that require SQL
 
 Release 0.9.4
 - prepend log messages with log level labels

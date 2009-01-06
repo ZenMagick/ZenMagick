@@ -54,7 +54,7 @@ class zm_hoverbox3 extends ZMPlugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/use-sql-patch-tool-to-install.txt"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/use-sql-patch-tool-to-install.txt")), $this->messages_);
     }
 
     /**
@@ -64,7 +64,7 @@ class zm_hoverbox3 extends ZMPlugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file($this->getPluginDir()."sql/uninstall-HoverBox-sql.txt"), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall-HoverBox-sql.txt")), $this->messages_);
     }
 
     /**
