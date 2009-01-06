@@ -79,13 +79,14 @@ class ZMController extends ZMObject {
      */
     public function process() { 
         ZMSacsMapper::instance()->ensureAuthorization($this->id_);
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->setAutoCommit(false);
         }
+
+        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
 
         $view = null;
         try {
@@ -107,11 +108,6 @@ class ZMController extends ZMObject {
             }
         }
 
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
-            ZMRuntime::getDatabase()->setAutoCommit(true);
-        }
-
         if (null != $view) {
             if (!$view->isValid()) {
                 ZMLogging::instance()->log('invalid view: '.$view->getName(), ZMLogging::WARN);
@@ -122,6 +118,11 @@ class ZMController extends ZMObject {
         }
 
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controller' => $this, 'view' => $this->view_));
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->commit();
+            ZMRuntime::getDatabase()->setAutoCommit(true);
+        }
 
         return $view;
     }
