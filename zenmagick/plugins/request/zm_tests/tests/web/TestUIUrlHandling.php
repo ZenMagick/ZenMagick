@@ -14,7 +14,7 @@ class TestUIUrlHandling extends ZMTestCase {
      */
     public function testZenCartHref() {
         $href = zen_href_link('ipn_main_handler.php', '', 'SSL', false, false, true);
-        $expected = 'https://localhost/zen-cart/ipn_main_handler.php';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'ipn_main_handler.php';
         $this->assertEqual($expected, $href);
     }
 
@@ -24,7 +24,7 @@ class TestUIUrlHandling extends ZMTestCase {
     public function testZenCartAdminHref() {
         ZMSettings::set('isAdmin', true);
         $href = zen_href_link('ipn_main_handler.php', '', 'SSL', false, false, true);
-        $expected = 'https://localhost/zen-cart/ipn_main_handler.php';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'ipn_main_handler.php';
         $this->assertEqual($expected, $href);
         ZMSettings::set('isAdmin', false);
     }
@@ -34,7 +34,7 @@ class TestUIUrlHandling extends ZMTestCase {
      */
     public function testZenCartSEOHref() {
         $href = zen_href_link('ipn_main_handler.php', '', 'SSL', false, false, true);
-        $expected = 'https://localhost/zen-cart/ipn_main_handler.php';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'ipn_main_handler.php';
         $this->assertEqual($expected, $href);
     }
 
