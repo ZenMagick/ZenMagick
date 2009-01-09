@@ -40,17 +40,37 @@
 
   </form>
 
-  <a href="#TB_inline?height=355&amp;width=600&amp;inlineId=productPicker&amp;modal=true" class="thickbox">Show hidden modal content.</a>
+  <a href="#TB_inline?height=455&amp;width=660&amp;inlineId=product-picker&amp;modal=true" class="thickbox">Show hidden modal content.</a>
 
-  <div id="productPicker" style="display:none;">
-    <div style="float:left;width:35%;"><?php  echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
-    <div id="picker-prod-list" style="border:1px solid black;margin:0 5px 0 35%;;width:60%;min-height:200px;">
-    </div>
-    <div style="clear:both;text-align:right;padding:5px;">
-      <a class="btn" href="#" onclick="tb_remove();return false;">OK</a>
+  <div id="product-picker" style="display:none;">
+    <div style="float:left;width:35%;overflow:scroll;height:400px;"><?php  echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
+    <div style="margin:0 5px 0 36%;;width:60%;height:400px;">
+      <div id="picker-prod-list" style="border:1px solid black;margin:5px;height:320px;">
+      </div>
+      <div id="picker-selected">
+      </div>
+      <div style="text-align:right;padding:5px;">
+        <a class="btn" href="#" onclick="picker_close();return false;">OK</a>
+      </div>
     </div>
   </div>
   <script type="text/javascript">
+      // XXX: wrap in class
+      var select_single = true;
+
+      function picker_close() {
+        tb_remove();
+        $('#picker-prod-list').html('');
+      }
+
+      function picker_picked(id) {
+        alert(id);
+        if (select_single) {
+          //TODO: handle selection
+          picker_close();
+        }
+      }
+
       $(document).ready(function() {
         $('#picker-tree a.tree-cat-url').each(function (i) {
           var classes = this.className.split(' ');
@@ -58,7 +78,7 @@
             if (0 == classes[ii].indexOf('c:')) {
               var token = classes[ii].split(':');
               if (0 < token[1]) {
-                $(this).unbind().click(function() {
+                $(this).click(function() {
                   var url = '<?php $toolbox->net->ajax('catalog', 'getProductsForCategoryId') ?>'+'&categoryId='+token[1];
                   prodList = $('#picker-prod-list');
                   prodList.html('Loading...');
@@ -72,7 +92,7 @@
                           var html = '';
                           for (var jj=0; jj < json.length; ++jj) {
                               var item = json[jj];
-                              html += "Id: "+item.id+", Name: "+item.name  + '<br>';
+                              html += '<a href="#" onclick="picker_picked('+item.id+')">'+item.name+'</a><br>';
                           }
                           prodList.html(html);
                       }
