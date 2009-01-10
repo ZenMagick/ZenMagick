@@ -41,5 +41,12 @@
         <?php include('resultlist/nav.php') ?>
     </div>
 <?php } else { ?>
+    <?php if ($zm_category->hasChildren()) { ?>
+        <h3><?php zm_l10n("Available Sub-categories") ?></h3>
+        <?php foreach ($zm_category->getChildren() as $category) { ?>
+            <?php $html->encode($category->getName()) ?><br />
+        <?php } ?>
+    <?php } ?>
+
     <h2><?php zm_l10n("There are no products in this category") ?></h2>
 <?php } ?>

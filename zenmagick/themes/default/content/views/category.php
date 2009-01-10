@@ -26,7 +26,7 @@
 <h2><?php $html->encode($zm_category->getName()) ?></h2>
 
 <?php if ($zm_category->hasChildren()) { ?>
-    <h3><?php zm_l10n("Available Categories") ?></h3>
+    <h3><?php zm_l10n("Available Sub-categories") ?></h3>
     <?php foreach ($zm_category->getChildren() as $category) { ?>
         <?php $html->encode($category->getName()) ?><br />
     <?php } ?>
