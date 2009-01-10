@@ -54,7 +54,9 @@ if (!defined('IS_ADMIN_FLAG')) {
             }
             $zp_contents[] = array('text' => $item->getTitle(), 'link' => $url, '', 'NONSSL');
         }
-        echo zen_draw_admin_box($zp_heading, $zp_contents);
+        if (0 < count($zp_contents)) {
+            echo zen_draw_admin_box($zp_heading, $zp_contents);
+        }
     }
 
 ?>

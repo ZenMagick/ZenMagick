@@ -10,6 +10,9 @@ Release 0.9.5
 - fix catalog manager's product list
 - fix zen_href_link override to use the toolbox if available to re-enable SEO
   for code that still uses this function
+- fix catalog manager warning that shows up if no plugins installed; b:#2497431
+- fix getManufacturerForId broken if id parameter empty or null; b:#2497461
+- do not show Plugins menu item for catalog manager plugins; b:#2497486
 
 Release 0.9.4
 - prepend log messages with log level labels

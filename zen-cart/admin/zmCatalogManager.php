@@ -52,6 +52,9 @@ require 'includes/application_top.php';
 
   $catalog_menu = array();
   // show available tabs...
+  if (!isset($_zm_menu) || null === $_zm_menu) {
+      $_zm_menu = array();
+  }
   foreach ($_zm_menu as $item) {
       if (null == $item || 'catalog_plugins' != $item->getParent()) {
           continue;

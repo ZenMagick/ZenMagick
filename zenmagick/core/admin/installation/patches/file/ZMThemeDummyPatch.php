@@ -166,9 +166,11 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
             while (false !== ($file = readdir($handle))) {
                 if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !ZMTools::startsWith($file, '.')) {
-                    $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
-                    if (false !== strpos($contents, 'created by ZenMagick')) {
-                        array_push($dummies, DIR_FS_CATALOG_TEMPLATES.$file);
+                    if (file_exists(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php")) {
+                        $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
+                        if (false !== strpos($contents, 'created by ZenMagick')) {
+                            array_push($dummies, DIR_FS_CATALOG_TEMPLATES.$file);
+                        }
                     }
                 }
             }

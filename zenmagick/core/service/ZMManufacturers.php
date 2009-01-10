@@ -71,7 +71,7 @@ class ZMManufacturers extends ZMObject {
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
-        $cacheKey = $id.'-'.$languageId;
+        $cacheKey = ZMTools::mkUnique($id, $languageId);
         if (false === ($manufacturer = $this->cache->lookup($cacheKey))) {
             $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturer, $cacheKey);
