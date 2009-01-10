@@ -27,7 +27,7 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td class="cpt"><input type="checkbox" name="compareId[]" value="<?php echo $product->getId() ?>" /></td>
     <!-- need id on link to identify the product -->
-    <td><a href="<?php $net->product($product->getId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
+    <td><a href="<?php $net->product($product->getId(), ZMRequest::getCategoryId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
         <a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a><br/>
         <?php $html->more($html->strip($product->getDescription(), false), 120) ?>
