@@ -149,6 +149,16 @@ interface ZMDatabase {
     public function updateModel($table, $model, $mapping=null);
 
     /**
+     * Remove a single row using the given model and mapping.
+     *
+     * @param string table The table to update.
+     * @param mixed model The model instance.
+     * @param mixed mapping The field mappings; default is <code>null</code>.
+     * @throws ZMDatabaseException
+     */
+    public function removeModel($table, $model, $mapping=null);
+
+    /**
      * Enable/disable automatic commits for this instance.
      *
      * @param boolean value The new value.

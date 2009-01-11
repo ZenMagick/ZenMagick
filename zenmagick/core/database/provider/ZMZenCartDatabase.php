@@ -257,6 +257,43 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function removeModel($table, $model, $mapping=null) {
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+
+        $sql = 'DELETE FROM '.$table;
+        $firstWhere = true;
+        $where = ' WHERE ';
+        $properties = array_flip($model->getPropertyNames());
+        foreach ($mapping as $field) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
+                if ($field['key']) {
+                    if (!$firstWhere) {
+                        $where .= ' AND ';
+                    }
+                    $where .= $field['column'].' = :'.$field['property'].';'.self::getMappedType($field['type']);
+                    $firstWhere = false;
+                }
+            }
+        }
+        if (7 > strlen($where)) {
+            throw ZMLoader::make('ZMException', 'missing key');
+        }
+        $sql .= $where;
+
+        $sql = ZMDbUtils::bindObject($sql, $model);
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
+        $this->db_->Execute($sql);
+        ++$this->queriesCount;
+        $this->queriesTime += $this->getExecutionTime($startTime);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
         $results = $this->query($sql, $args, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;

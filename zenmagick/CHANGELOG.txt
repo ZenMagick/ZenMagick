@@ -154,6 +154,8 @@ Release 0.9.3
   defaults.php and constants.php, respectively
 - rename local.in.php to local.php.in to make it clearer that the file needs
   to be renamed in order to be useful
+- removed incomplete ZMPdoDatabase
+- add ZMDatabase::removeModel(..)
 
 Release 0.9.2
 - add database support for data type blob
