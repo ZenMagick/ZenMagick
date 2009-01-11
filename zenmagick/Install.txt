@@ -43,6 +43,15 @@ You may also consult the forums for similar topics or ask for help.
 * When using ZenMagick themes, the missing page check must be disabled using zen-cart
   admin (Configuration -> My Store: 'Missing Page Check'). 
 
+3.4) Additional configuration
+This release includes a sample ZenMagick config file named local.php.in. If required,
+rename to local.php and uncomment the settings you need.
+To learn more about available settings, check zenmagick/core/settings/defaults.php.
+A lot of the settings can be configured via the admin interface, some are ZenMagick
+specific and require to use local.php.
+Also, keep in mind that you can also create a local.php file in your theme's extra folder
+if you are using multiple themes and need theme specific configuration.
+
 4) Further information
 For more information and help please check http://www.zenmagic.org. The wiki and help
 forum would probably be the best places to start.
