@@ -40,12 +40,14 @@ class TestUIUrlHandling extends ZMTestCase {
 
 }
 
-/**
- * Simulate SEO skipping page.
- * @package org.zenmagick.plugins.zm_tests.tests
- */
-function zm_build_seo_href($page, $parameters, $isSecure) {
-    return ZMToolbox::instance()->net->_zm_zen_href_link($page, $parameters, $isSecure ? 'SSL' : 'NONSSL');
+if (!function_exists('zm_build_seo_href')) {
+    /**
+     * Simulate SEO skipping page.
+     * @package org.zenmagick.plugins.zm_tests.tests
+     */
+    function zm_build_seo_href($page, $parameters, $isSecure) {
+        return ZMToolbox::instance()->net->_zm_zen_href_link($page, $parameters, $isSecure ? 'SSL' : 'NONSSL');
+    }
 }
 
 ?>

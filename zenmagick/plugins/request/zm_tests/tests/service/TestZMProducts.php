@@ -129,6 +129,16 @@ class TestZMProducts extends ZMTestCase {
         }
     }
 
+    /**
+     * Test getProductForModel.
+     */
+    public function testGetProductForModel() {
+        $product = ZMProducts::instance()->getProductForModel('MG200MMS');
+        $this->assertNotNull($product);
+        $this->assertTrue($product instanceof ZMProduct);
+        $this->assertEqual(1, $product->getId());
+    }
+
 }
 
 ?>

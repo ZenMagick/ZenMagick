@@ -43,6 +43,26 @@ class TestZMManufacturers extends ZMTestCase {
         $this->assertEqual(($oldClickCount+1), $manufacturer->getClickCount());
     }
 
+    /**
+     * Test manufacturer without info record.
+     */
+    public function testNoInfo() {
+        // create new manufacturer without info record
+        $newManufacturer = ZMLoader::make('Manufacturer');
+        $newManufacturer->setName('Foo');
+        $newManufacturer->setDateAdded(ZMDatabase::NULL_DATETIME);
+        $newManufacturer->setLastModified(ZMDatabase::NULL_DATETIME);
+        $newManufacturer = ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $newManufacturer);
+
+        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($newManufacturer->getId());
+        if ($this->assertNotNull($manufacturer)) {
+            $this->assertEqual('Foo', $manufacturer->getName());
+        }
+
+        // remove again
+        ZMRuntime::getDatabase()->removeModel(TABLE_MANUFACTURERS, $newManufacturer);
+    }
+
 }
 
 ?>

@@ -140,8 +140,11 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
+        // clear global cache
+        $cacheKey = ZMTools::mkUnique('manufacturer', $languageId);
+        $this->cache->remove($cacheKey);
         // remove from cache
-        $cacheKey = $id.'-'.$languageId;
+        $cacheKey = ZMTools::mkUnique('manufacturer', $id, $languageId);
         $this->cache->remove($cacheKey);
 
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
