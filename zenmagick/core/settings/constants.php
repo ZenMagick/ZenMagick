@@ -29,16 +29,17 @@
     // ** ZenMagick constants **//
 
     /**
-     * When changing ZM_ROOT, make sure to update 
+     * If you are changing ZM_ROOT, make sure to update 
      * ..\zen-cart\includes\init_includes\overrides\init_templates.php
      * and
      * ..\zen-cart\admin\includes\init_includes\overrides\init_templates.php
      *
      * The full order of action is:
-     * 1) Uninstall all ZenMagick patches (as some use this value)
+     * 1) Uninstall all ZenMagick patches (as some use this value to generate code)
      * 2) Rename directory
      * 3) Update ZM_ROOT
      * 4) Update the files mentioned above
+     * 5) Re-install plugins
      */
     define('ZM_ROOT', 'zenmagick/');
     define('ZM_DEFAULT_THEME', 'default');
@@ -47,6 +48,24 @@
     //** db **//
 
     define('ZM_DB_PREFIX', DB_PREFIX);
+
+
+    //** menu keys **//
+
+    define('ZM_MENU_PLUGINS', 'plugins');
+    define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
+
+
+    //** date/time formats used internally by all models **//
+
+    define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
+    define('ZM_DATETIME_FORMAT', 'yyyy-mm-dd hh:ii:ss');
+
+
+    //** others **//
+
+    define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    define('ZM_SESSION_TOKEN_NAME', 'stoken');
 
 
     //** events; deprecated **//
@@ -147,28 +166,10 @@
     define('ZM_PRODUCT_TAX_BASE_BILLING', 'Billing');
 
 
-    //** menu keys **//
-
-    define('ZM_MENU_PLUGINS', 'plugins');
-    define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
-
-
     //** account authentication; deprecated **//
 
     define('ZM_ACCOUNT_AUTHORIZATION_ENABLED', 0);
     define('ZM_ACCOUNT_AUTHORIZATION_PENDING', 1);
     define('ZM_ACCOUNT_AUTHORIZATION_BLOCKED', 4);
-
-
-    //** date/time formats used internally by all models **//
-
-    define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
-    define('ZM_DATETIME_FORMAT', 'yyyy-mm-dd hh:ii:ss');
-
-
-    //** others **//
-
-    define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
-    define('ZM_SESSION_TOKEN_NAME', 'stoken');
 
 ?>

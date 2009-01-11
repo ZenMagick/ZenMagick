@@ -216,8 +216,8 @@ class ZMCoreCompressor extends ZMPhpCompressor {
         // some need to be in order :/
         $loadFirst = array(
             'ZMSettings.php',
-            '1/zenmagick.php',
-            '1/settings.php',
+            '1/constants.php',
+            '1/defaults.php',
             'ZMObject.php',
             'ZMLoader.php',
             'ZMRuntime.php',

@@ -41,9 +41,9 @@
         require(dirname(__FILE__).'/core.php');
     } else {
         $_zm_coreDir = dirname(__FILE__).'/core/';
-        require($_zm_coreDir."settings/zenmagick.php");
+        require($_zm_coreDir."settings/constants.php");
         require($_zm_coreDir."ZMSettings.php");
-        require($_zm_coreDir."settings/settings.php");
+        require($_zm_coreDir."settings/defaults.php");
         require($_zm_coreDir."ZMObject.php");
         require($_zm_coreDir."ZMLoader.php");
 
