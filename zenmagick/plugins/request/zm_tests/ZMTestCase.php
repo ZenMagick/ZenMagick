@@ -35,7 +35,18 @@ class ZMTestCase extends UnitTestCase {
     /**
      * {@inheritDoc}
      */
-    function assertEqual($first, $second, $message = '%s') {
+    public function setUp() {
+        $session = ZMRequest::getSession();
+        if (!$session->isAnonymous()) {
+            // logged in
+            $session->clear();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
             return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
