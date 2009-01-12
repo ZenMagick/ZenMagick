@@ -1,4 +1,4 @@
-Release 0.9.5
+Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]
 - add ZMDatabase::getConfig() to allow to retreive the db configuration
 - add ZMDbUtils::resolveSQLFilename(..) to allow loading of DB driver specific
