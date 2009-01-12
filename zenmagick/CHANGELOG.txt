@@ -16,6 +16,7 @@ Release 0.9.5
 - use preg_xxx instead of ereg_xxx
  -remove unused and undocumented parameter from ZMAjaxController::toJSON()
  - remove core/ext/JSON.php and use native 5.2.x json methods instead
+ - upgrade zm_firephp to FirePHP 0.2.1
 
 Release 0.9.4
 - prepend log messages with log level labels
