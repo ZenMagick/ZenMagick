@@ -56,6 +56,7 @@ class TestZMManufacturers extends ZMTestCase {
 
         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($newManufacturer->getId());
         if ($this->assertNotNull($manufacturer)) {
+            $this->assertEqual($newManufacturer->getId(), $manufacturer->getId());
             $this->assertEqual('Foo', $manufacturer->getName());
         }
 
