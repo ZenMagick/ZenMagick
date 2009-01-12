@@ -157,6 +157,7 @@ Release 0.9.3
 - removed incomplete ZMPdoDatabase
 - add ZMDatabase::removeModel(..)
 - populate manufacturerId in case there istn't a info record; b:#2500202
+- fix broken currency selection box; b:#2497530
 
 Release 0.9.2
 - add database support for data type blob

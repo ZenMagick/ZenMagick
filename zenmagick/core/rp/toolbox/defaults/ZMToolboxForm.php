@@ -228,11 +228,16 @@ class ZMToolboxForm extends ZMObject {
      * any array that contains class instances that provide <code>getId()</code> and
      * <code>getName()</code> getter methods.</p>
      *
+     * <p>Please note that there are two special attribute keys that can be used to control
+     * the method names used to populate option value and text.</p>
+     *
      * <p>Default attributes are:</p>
      * <ul>
      *  <li>id - <em>$name</em></li>
      *  <li>name - <em>$name</em></li>
      *  <li>size - <em>1</em></li>
+     *  <li>oValue - <em>getId</em></li>
+     *  <li>oText - <em>getName</em></li>
      * </ul>
      *
      * @param string name The name.
@@ -243,25 +248,27 @@ class ZMToolboxForm extends ZMObject {
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     public function idpSelect($name, $list, $selectedId=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
-        $defaults = array('id' => $name, 'name' => $name, 'size' => 1);
+        $defaults = array('id' => $name, 'name' => $name, 'size' => 1, 'oValue' => 'getId', 'oText' => 'getName');
         if (null === $attr) {
             $attr = $defaults;
         } else {
             $attr = array_merge($defaults, $attr);
         }
+        $oValue = $attr['oValue'];
+        $oText = $attr['oText'];
 
         $html = '<select';
         foreach ($attr as $name => $value) {
-            if (null !== $value) {
+            if (null !== $value && 'oValue' != $name && 'oText' != $name) {
                 $html .= ' '.$name.'="'.$value.'"';
             }
         }
         $html .= '>';
         foreach ($list as $item) {
-            $selected = $item->getId() == $selectedId;
-            $html .= '<option value="' . $item->getId() . '"';
+            $selected = $item->$oValue() == $selectedId;
+            $html .= '<option value="' . $item->$oValue() . '"';
             $html .= ($selected ? ' selected="selected"' : '');
-            $html .= '>' . $item->getName() . '</option>';
+            $html .= '>' . $item->$oText() . '</option>';
         }
         $html .= '</select>';
 
