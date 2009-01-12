@@ -113,7 +113,7 @@ class ZMManufacturers extends ZMObject {
             $languageId = $session->getLanguageId();
         }
 
-        $sql = "SELECT m.*, mi.*
+        $sql = "SELECT mi.*, m.* 
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
                   ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
