@@ -534,7 +534,7 @@ class ZMTools {
         if (!is_array($files)) {
             $files = array($files);
         }
-        $filePerms = array_merge(array('file' => 0644, 'folder' => 0755), $perms);
+        $filePerms = array_merge(array('file' => 0664, 'folder' => 0755), $perms);
 
         foreach ($files as $file) {
             if (0 < count($perms)) {
