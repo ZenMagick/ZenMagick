@@ -11,4 +11,4 @@ Installation
 
 Version
 =======
-The included FirePHP version is FirePHPCore 0.1.2
+The included FirePHP version is FirePHPCore 0.2.1
