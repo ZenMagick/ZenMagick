@@ -57,10 +57,10 @@ class zm_init_defaults extends ZMPlugin {
         $parameter = ZMRequest::getParameterMap();
 
         /** sanitize common parameter **/
-        if (isset($parameter['products_id'])) $parameter['products_id'] = ereg_replace('[^0-9a-f:]', '', $parameter['products_id']);
-        if (isset($parameter['manufacturers_id'])) $parameter['manufacturers_id'] = ereg_replace('[^0-9]', '', $parameter['manufacturers_id']);
-        if (isset($parameter['cPath'])) $parameter['cPath'] = ereg_replace('[^0-9_]', '', $parameter['cPath']);
-        if (isset($parameter['main_page'])) $parameter['main_page'] = ereg_replace('[^0-9a-zA-Z_]', '', $parameter['main_page']);
+        if (isset($parameter['products_id'])) $parameter['products_id'] = preg_replace('/[^0-9a-f:]/', '', $parameter['products_id']);
+        if (isset($parameter['manufacturers_id'])) $parameter['manufacturers_id'] = preg_replace('/[^0-9]/', '', $parameter['manufacturers_id']);
+        if (isset($parameter['cPath'])) $parameter['cPath'] = preg_replace('/[^0-9_]/', '', $parameter['cPath']);
+        if (isset($parameter['main_page'])) $parameter['main_page'] = preg_replace('/[^0-9a-zA-Z_]/', '', $parameter['main_page']);
 
         /** sanitize other stuff **/
         $_SERVER['REMOTE_ADDR'] = preg_replace('/[^0-9.%]/', '', $_SERVER['REMOTE_ADDR']);

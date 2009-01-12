@@ -192,7 +192,7 @@ class ZMImageInfo extends ZMModel {
         // filename without suffix
         $basename = '';
         if ('' != $image) {
-            $basename = ereg_replace($ext, '', $image);
+            $basename = preg_replace('/'.$ext.'/', '', $image);
         }
 
         return array($subdir, $ext, $basename);
@@ -221,7 +221,7 @@ class ZMImageInfo extends ZMModel {
                     if (ZMTools::endsWith($file, $ext)) {
                         if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
                             if ($file != basename($image)) {
-                                if ($realImageBase . ereg_replace($realImageBase, '', $file) == $file) {
+                                if ($realImageBase . preg_replace('/'.$realImageBase.'/', '', $file) == $file) {
                                     array_push($imageList, $file);
                                 }
                             }

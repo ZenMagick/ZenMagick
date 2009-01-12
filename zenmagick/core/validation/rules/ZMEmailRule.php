@@ -55,7 +55,7 @@ class ZMEmailRule extends ZMRule {
      * @return string regexp for email matching.
      */
     function _emailRegexp() {
-        $atom = '[-a-zA-Z0-9!#$%&\'*+/=?^_`{|}~]';
+        $atom = '[-a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~]';
         $domain = '([a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9]+)?)';
 
         $regexp = '^' . $atom . '+' .              // One or more atom characters.
@@ -81,7 +81,7 @@ class ZMEmailRule extends ZMRule {
 
         $email = $req[$this->getName()];
 
-        return empty($req[$this->getName()]) || eregi($this->_emailRegexp(), $email);
+        return empty($req[$this->getName()]) || 1 == preg_match('/'.$this->_emailRegexp().'/i', $email);
     }
 
 

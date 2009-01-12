@@ -287,8 +287,8 @@ class ZMTools {
      */
     public static function sanitize($value) {
         if (is_string($value)) {
-            $value = ereg_replace(' +', ' ', $value);
-            $value = preg_replace("/[<>]/", '_', $value);
+            $value = preg_replace('/ +/', ' ', $value);
+            $value = preg_replace('/[<>]/', '_', $value);
             if (get_magic_quotes_gpc()) {
                 $value = stripslashes($value);
             }
@@ -387,7 +387,7 @@ class ZMTools {
      * @return array An array with 3 elements in the order [day] [month] [year].
      */
     public static function parseRssDate($date) {
-        ereg("[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*", $date, $regs);
+        preg_match("/[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*/", $date, $regs);
         return $regs[1].'/'.$regs[2].'/'.$regs[3];
     } 
 
