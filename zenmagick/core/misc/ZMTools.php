@@ -529,7 +529,7 @@ class ZMTools {
             $referenceFile = ZMRuntime::getZMRootPath().'init.php';
             self::$fileOwner = fileowner($referenceFile);
             self::$fileGroup = filegroup($referenceFile);
-            if (0 == self::$fileOwner && 0 == self:fileGroup) {
+            if (0 == self::$fileOwner && 0 == self::$fileGroup) {
                 return;
             }
         }
