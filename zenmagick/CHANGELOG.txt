@@ -1,3 +1,9 @@
+Release 0.9.5
+- improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
+  handling of hasXXX() properties
+- allow to ignore generic ZMObject properties in ZMBeanUtils::obj2map() by
+  adding a new optional parameter
+
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]
 - add ZMDatabase::getConfig() to allow to retreive the db configuration

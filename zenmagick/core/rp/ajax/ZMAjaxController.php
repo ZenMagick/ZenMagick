@@ -34,8 +34,7 @@
  * @version $Id$
  */
 class ZMAjaxController extends ZMController {
-    var $method_;
-    var $jason_;
+    private $method_;
 
     /**
      * Create new instance.
@@ -57,7 +56,7 @@ class ZMAjaxController extends ZMController {
      *
      * <p>Just return <code>null</code>.</p>
      */
-    function processGet() {
+    public function processGet() {
         echo "Invalid Ajax request - method '".$this->method_."' not found!";
         return null;
     }
@@ -76,7 +75,7 @@ class ZMAjaxController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function process() {
+    public function process() {
         $method = $this->method_;
         if (!method_exists($this, $this->method_) && method_exists($this, $this->method_.ZMSettings::get('ajaxFormat'))) {
             $method = $this->method_.ZMSettings::get('ajaxFormat');
@@ -96,7 +95,7 @@ class ZMAjaxController extends ZMController {
      *
      * @param string json The JSON data.
      */
-    function setJSONHeader($json) {
+    public function setJSONHeader($json) {
         $this->setContentType('text/plain');
         if (ZMSettings::get('isJSONHeader')) { header("X-JSON: ".$json); }
         if (ZMSettings::get('isJSONEcho')) { echo $json; }
@@ -106,7 +105,7 @@ class ZMAjaxController extends ZMController {
      * Flattens any given object.
      *
      * <p>Criteria for the included data is the ZenMagick naming convention that access methods start with
-     * either <code>get</code> or <code>is/has</code>.</p>
+     * either <code>get</code>, <code>is</code> or <code>has</code>.</p>
      *
      * <p>If the given object is an array, all elements will be converted, too. Generally speaking, this method works
      * recursively. Arrays are preserved, array values, in turn, will be flattened.</p>
@@ -119,13 +118,13 @@ class ZMAjaxController extends ZMController {
      * @param function formatter Optional formatting method for all values; signature is <code>formatter($obj, $name, $value)</code>.
      * @return array Associative array of methods values.
      */
-    function flattenObject($obj, $methods=null, $formatter=null) {
+    protected function flattenObject($obj, $properties=null, $formatter=null) {
         $props = null;
 
         if (is_array($obj)) {
             $props = array();
             foreach ($obj as $k => $o) {
-                $props[$k] = $this->flattenObject($o, $methods, $formatter);
+                $props[$k] = $this->flattenObject($o, $properties, $formatter);
             }
             return $props;
         }
@@ -135,46 +134,19 @@ class ZMAjaxController extends ZMController {
             return $obj;
         }
 
-        if (null == $methods) {
-            // all get and is methods
-            $all = get_class_methods($obj);
-            $methods = array();
-            $prefixList = array('get', 'is', 'has');
-            foreach ($all as $method) {
-                foreach ($prefixList as $prefix) {
-                    if (ZMTools::startsWith($method, $prefix)) {
-                        array_push($methods, substr($method, strlen($prefix)));
-                    }
-                }
-            }
+        // properties may be a mix of numeric and string key - ugh!
+        $beanProperties = array();
+        foreach ($properties as $key => $value) {
+            $beanProperties[] = is_array($value) ? $key : $value;
         }
-
-        $props = array();
-        foreach ($methods as $key => $value) {
-            $method = $value;
-            $sub = null;
-            if (is_array($method)) {
-                // use key to allow for recursive mappings
-                $method = $key;
-                // use value array for recursive mappings
-                $sub = $value;
+        $props = ZMBeanUtils::obj2map($obj, $beanProperties, false);
+        foreach ($props as $key => $value) {
+            if (is_object($value) || is_array($value)) {
+                $sub = is_array($properties[$key]) ? $properties[$key] : null;
+                $value = $this->flattenObject($value, $sub, $formatter);
             }
-            $getter = 'get'.ucfirst($method);
-            if (method_exists($obj, $getter)) {
-                $prop = $obj->$getter();
-                if (is_object($prop) || is_array($prop)) {
-                    $prop = $this->flattenObject($prop, $sub, $formatter);
-                }
-                $props[$method] = null != $formatter ? $formatter($obj, $method, $prop) : $prop;
-            } else {
-                $getter = 'is'.ucfirst($method);
-                if (method_exists($obj, $getter)) {
-                    $prop = $obj->$getter();
-                    $props[$method] = null != $formatter ? $formatter($obj, $method, $prop) : $prop;
-                }
-            }
+            $props[$key] = null != $formatter ? $formatter($obj, $key, $value) : $value;
         }
-
         return $props;
     }
 
@@ -184,7 +156,7 @@ class ZMAjaxController extends ZMController {
      * @param mixed obj The object to serialize; can also be an array of objects.
      * @return string The given object as JSON.
      */
-    function toJSON($obj) {
+    protected function toJSON($obj) {
         return json_encode($obj);
     }
 

@@ -53,7 +53,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @param int productd The product id.
      * @return void
      */
-    function getProductForIdJSON() {
+    public function getProductForIdJSON() {
         $productId = ZMRequest::getParameter('productId', 0);
 
         $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId),
@@ -74,20 +74,39 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @param boolean all Admin only parameter to allow to retrieve inactive products also.
      * @return void
      */
-    function getProductsForCategoryIdJSON() {
+    public function getProductsForCategoryIdJSON() {
         $categoryId = ZMRequest::getParameter('categoryId', 0);
         $activeOnly = true;
         if (ZMSettings::get('isAdmin')) {
             $activeOnly = ZMRequest::getParameter('active', true);
         }
 
-        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $active),
-            array('id', 'name', 'description', 'model', 
-                'attributes' => array('id', 'type', 'name',
-                    'values' => array('id', 'name', 'default')
-                )
-            )
+        $productProperties = array(
+            'id', 'name', 'description', 'model', 
+            'attributes' => array('id', 'type', 'name', 'values' => array('id', 'name', 'default'))
         );
+
+        $resultListProperties = array(
+            'pageNumber', 'numberOfResults', 'pagination', 'numberOfPages', 'previousPage', 'nextPage', 'previousPageNumber', 'nextPageNumber',
+            'results' => $productProperties
+        );
+
+        if (null === ($page = ZMRequest::getParameter('page'))) {
+            // return all
+            $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $active), $productProperties);
+        } else {
+            // use result list to paginate
+            $args = array($categoryId, $active);
+            $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForCategoryId", $args);
+            $resultList = ZMLoader::make("ResultList");
+            $resultList->setResultSource($resultSource);
+            $resultList->setPageNumber($page);
+            if (null !== ($pagination = ZMRequest::getParameter('pagination'))) {
+                $resultList->setPagination($pagination);
+            }
+            $flatObj = $this->flattenObject($resultList, $resultListProperties);
+        }
+
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

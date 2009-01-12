@@ -83,9 +83,11 @@ class ZMBeanUtils {
      *
      * @param mixed obj The class instance.
      * @param array properties Optional list of properties to use; default is <code>null</code> for all.
+     * @param addGeneric Optional flag to indicate whether generic <code>ZMObject</code> properties should be
+     *  included or not; default is <code>true</code> to include generic properties.
      * @return array The object data as map.
      */
-    public static function obj2map($obj, $properties=null) {
+    public static function obj2map($obj, $properties=null, $addGeneric=true) {
         $propertiesMap = self::getPropertyMap($obj, $properties);
 
         // now run all methods and build the map
@@ -95,7 +97,7 @@ class ZMBeanUtils {
         }
 
         // special case for ZMObject instances
-        if ($obj instanceof ZMObject) {
+        if ($addGeneric && $obj instanceof ZMObject) {
             foreach ($obj->getPropertyNames() as $property) {
                 $map[$property] = $obj->get($property);
             }
