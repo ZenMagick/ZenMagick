@@ -14,6 +14,8 @@ Release 0.9.5
 - fix getManufacturerForId broken if id parameter empty or null; b:#2497461
 - do not show Plugins menu item for catalog manager plugins; b:#2497486
 - use preg_xxx instead of ereg_xxx
+ -remove unused and undocumented parameter from ZMAjaxController::toJSON()
+ - remove core/ext/JSON.php and use native 5.2.x json methods instead
 
 Release 0.9.4
 - prepend log messages with log level labels

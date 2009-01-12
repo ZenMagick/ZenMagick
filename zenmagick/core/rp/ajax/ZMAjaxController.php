@@ -27,7 +27,7 @@
 /**
  * Request controller for ajax requests.
  *
- * <p>Requires PEAR Json for JSON support.</p>
+ * <p>Uses native PHP function <code>json_encode</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.rp.ajax
@@ -43,7 +43,6 @@ class ZMAjaxController extends ZMController {
     function __construct() {
         parent::__construct();
         $this->method_ = ZMRequest::getParameter('method', null);
-        $this->json_ = new Services_JSON();
     }
 
     /**
@@ -185,8 +184,8 @@ class ZMAjaxController extends ZMController {
      * @param mixed obj The object to serialize; can also be an array of objects.
      * @return string The given object as JSON.
      */
-    function toJSON($obj, $methods=null, $formatter=null) {
-        return $this->json_->encode($obj);
+    function toJSON($obj) {
+        return json_encode($obj);
     }
 
 }
