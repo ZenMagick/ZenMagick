@@ -31,7 +31,7 @@
   <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>
 
   <?php $toolbox->form->open('', $zm_nav_params) ?>
-    <?php $types = ZMProductAssociationService::instance()->getAssociationTypes(); ?>
+    <?php $types = ZMProductAssociations::instance()->getAssociationTypes(); ?>
     <select name="type">
       <?php foreach ($types as $type => $name) { ?>
         <option value="<?php echo $type ?>"><?php echo $name ?></option>
@@ -42,13 +42,14 @@
 
   <a href="#TB_inline?height=455&amp;width=660&amp;inlineId=product-picker&amp;modal=true" class="thickbox">Show hidden modal content.</a>
 
+  <!-- XXX: extract all stles into CSS -->
   <div id="product-picker" style="display:none;">
-    <div style="float:left;width:35%;overflow:scroll;height:400px;"><?php  echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
-    <div style="margin:0 5px 0 36%;;width:60%;height:400px;">
+    <div id="picker-tree" style="float:left;width:35%;overflow:scroll;height:400px;"><?php  echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
+    <div id="picker-data" style="margin:0 5px 0 36%;;width:60%;height:400px;">
       <div id="picker-prod-list" style="border:1px solid black;margin:5px;height:320px;"></div>
       <div id="picker-pages"></div>
       <div id="picker-selected"></div>
-      <div style="text-align:right;padding:5px;">
+      <div id="picker-buttons" style="text-align:right;padding:5px;">
         <a class="btn" href="#" onclick="productPicker.cancel();return false;">Cancel</a>
         <a class="btn" href="#" onclick="productPicker.close();return false;">OK</a>
       </div>
@@ -90,9 +91,19 @@
               //XXX: mark elem as selected?
               //XXX: get product object from cache and store? flag as selected?
            		this.products.push(productId);
+              $(elem).css('background-color', 'blue').css('color', 'white');
               if (this.selectSingle) {
                   this.close();
               }
+          },
+
+          isSelected: function(productId) {
+              for (var ii=0; ii<this.products.length; ++ii) {
+                  if (this.products[ii] == productId) {
+                      return true;
+                  }
+              }
+              return false;
           },
 
           displayResults: function(resultList, categoryId) {
@@ -101,7 +112,11 @@
               var html = '';
               for (var jj=0; jj < resultList.results.length; ++jj) {
                   var item = resultList.results[jj];
-                  html += '<a href="#" onclick="productPicker.picked(this, '+item.id+')">'+item.name+'</a><br>';
+                  var style = ' style="display:block;';
+                  if (this.isSelected(item.id)) {
+                      style = ' style="color:white;background-color:blue;display:block;"';
+                  }
+                  html += '<a '+style+'href="#" onclick="productPicker.picked(this, '+item.id+')">'+item.name+'</a>';
               }
               prodList.html(html);
               var pages = 'Page ' + resultList.pageNumber + ' of ' + resultList.numberOfPages+':&nbsp;&nbsp;&nbsp;';
