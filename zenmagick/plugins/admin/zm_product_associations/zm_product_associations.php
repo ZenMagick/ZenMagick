@@ -76,7 +76,7 @@ class zm_product_associations extends ZMPlugin {
         parent::init();
 
         ZMLoader::resolve("ProductAssociationService");
-        $associations = ProductAssociationService::instance();
+        $associations = ZMProductAssociationService::instance();
         if ($associations && $associations->isInstalled()) {
             $associations->prepareAssociationTypes();
         }

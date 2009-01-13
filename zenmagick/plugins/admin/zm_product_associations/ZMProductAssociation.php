@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_product_associations
  * @version $Id$
  */
-class ProductAssociation extends ZMModel {
+class ZMProductAssociation extends ZMModel {
     var $id_;
     var $type_;
     var $sourceId_;

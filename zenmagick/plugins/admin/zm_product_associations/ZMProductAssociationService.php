@@ -35,7 +35,7 @@ define('ZM_TABLE_PRODUCT_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_product_associations'
  * @package org.zenmagick.plugins.zm_product_associations
  * @version $Id$
  */
-class ProductAssociationService extends ZMObject {
+class ZMProductAssociationService extends ZMObject {
     private $associationTypes_;
 
     /**
@@ -127,7 +127,7 @@ class ProductAssociationService extends ZMObject {
      * @param int productId The source product id.
      * @param int type The association type.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
-     * return array A list of <code>ProductAssociation</code> instances.
+     * return array A list of <code>ZMProductAssociation</code> instances.
      */
     function getProductAssociationsForProductId($productId, $type, $all=false) {
         $dateLimit = '';
