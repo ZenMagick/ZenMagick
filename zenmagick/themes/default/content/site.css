@@ -73,7 +73,7 @@ code {font-size:130%;}
 
 #leftcol {float:left;width:150px;margin:0;padding:1em;}
 #rightcol {float:right;width:150px;margin:0;padding:1em;}
-#content {margin-left:180px;margin-right:180px;margin-top:1em;padding:.7em .7em 3em .7em;max-width:54em;min-height:34em;}
+#content {margin-left:180px;margin-right:180px;margin-top:1em;padding:.7em .7em 3em .7em;min-height:34em;}
 
 #crumbtrail {margin-bottom:12px;color:black;font-weight:bold;font-size:90%;}
 #content h2 {display:block;margin:0 0 22px 0;font-size:1.7em;font-weight:normal;letter-spacing:-1px;color:#505050;text-align:center;}

@@ -32,8 +32,13 @@
  * @version $Id$
  */
 class ZMCategories extends ZMObject {
-    // flat list
-    private $categories_;
+    /** 
+     * Flat list of <code>ZMCategory</code> instances.
+     *
+     * <p>This gets loaded on demand, so subclasses have to ensure this is populated before
+     * using it.</p>
+     */
+    protected $categories_;
     private $treeFlag_;
 
 
@@ -194,7 +199,7 @@ class ZMCategories extends ZMObject {
         // load all straight away - should be faster to sort them later on
         $sql = "SELECT c.*, cd.*
                 FROM " . TABLE_CATEGORIES . " c
-                LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                  LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
                 WHERE cd.language_id = :languageId
                 ORDER BY sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
