@@ -3,6 +3,9 @@ Release 0.9.5
   handling of hasXXX() properties
 - allow to ignore generic ZMObject properties in ZMBeanUtils::obj2map() by
   adding a new optional parameter
+- upgrade admin to jquery 1.2.6
+- extract JSON properties of products, cartItems, countries, zones into class
+  properties to allow to modify them in subclasses
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]

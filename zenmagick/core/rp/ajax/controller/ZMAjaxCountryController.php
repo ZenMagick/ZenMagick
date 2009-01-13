@@ -32,12 +32,17 @@
  * @version $Id$
  */
 class ZMAjaxCountryController extends ZMAjaxController {
+    protected $countryProperties_;
+    protected $zoneProperties_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->countryProperties_ = array('id', 'name');
+        $this->zoneProperties_ = array('id', 'name');
     }
 
     /**
@@ -53,7 +58,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
      * @return void
      */
     public function getCountryListJSON() {
-        $flatObj = $this->flattenObject(ZMCountries::instance()->getCountries(), array('id', 'name'));
+        $flatObj = $this->flattenObject(ZMCountries::instance()->getCountries(), $this->countryProperties_);
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -67,7 +72,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
     public function getZonesForCountryIdJSON() {
         $countryId = ZMRequest::getParameter('countryId', null);
 
-        $flatObj = $this->flattenObject(ZMCountries::instance()->getZonesForCountryId($countryId), array('id', 'name'));
+        $flatObj = $this->flattenObject(ZMCountries::instance()->getZonesForCountryId($countryId), $this->zoneProperties_);
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

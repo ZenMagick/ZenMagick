@@ -32,12 +32,25 @@
  * @version $Id$
  */
 class ZMAjaxCatalogController extends ZMAjaxController {
+    protected $productProperties_;
+    protected $resultListProperties_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->productProperties_ = array(
+            'id', 'name', 'description', 'model', 
+            'attributes' => array('id', 'type', 'name', 
+                'values' => array('id', 'name', 'default')
+            )
+        );
+        $this->resultListProperties_ = array(
+            'pageNumber', 'numberOfResults', 'pagination', 'numberOfPages', 'previousPage', 'nextPage', 'previousPageNumber', 'nextPageNumber',
+            'results' => $this->productProperties_
+        );
     }
 
     /**
@@ -56,13 +69,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     public function getProductForIdJSON() {
         $productId = ZMRequest::getParameter('productId', 0);
 
-        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId),
-            array('id', 'name', 'description', 'model', 
-                'attributes' => array('id', 'type', 'name',
-                    'values' => array('id', 'name', 'default')
-                )
-            )
-        );
+        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId), $this->productProperties_);
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -81,19 +88,9 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             $activeOnly = ZMRequest::getParameter('active', true);
         }
 
-        $productProperties = array(
-            'id', 'name', 'description', 'model', 
-            'attributes' => array('id', 'type', 'name', 'values' => array('id', 'name', 'default'))
-        );
-
-        $resultListProperties = array(
-            'pageNumber', 'numberOfResults', 'pagination', 'numberOfPages', 'previousPage', 'nextPage', 'previousPageNumber', 'nextPageNumber',
-            'results' => $productProperties
-        );
-
         if (null === ($page = ZMRequest::getParameter('page'))) {
             // return all
-            $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $active), $productProperties);
+            $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $active), $this->productProperties_);
         } else {
             // use result list to paginate
             $args = array($categoryId, $active);
@@ -104,7 +101,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             if (null !== ($pagination = ZMRequest::getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = $this->flattenObject($resultList, $resultListProperties);
+            $flatObj = $this->flattenObject($resultList, $this->resultListProperties_);
         }
 
         $json = $this->toJSON($flatObj);
