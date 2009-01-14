@@ -25,13 +25,13 @@
 
 
 /**
- * Request controller for gv redeem page.
+ * Request controller for gv faq.
  *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
-class ZMGvRedeemController extends ZMController {
+class ZMGvFaqController extends ZMController {
 
     /**
      * Create new instance.
@@ -60,21 +60,6 @@ class ZMGvRedeemController extends ZMController {
         $gvredeem = ZMLoader::make('GVRedeem');
         $gvredeem->populate();
         $this->exportGlobal("zm_gvredeem", $gvredeem);
-
-        if (!ZMTools::isEmpty($gvredeem->getCode())) {
-            // only try to redeem if code given - people might browse the page without code parameter...
-            $coupon = ZMCoupons::instance()->getCouponForCode($gvredeem->getCode());
-            if (null != $coupon && ZMCoupons::TYPPE_GV == $coupon->getType() && ZMCoupons::instance()->isCouponRedeemable($coupon->getId())) {
-                // all good, set amount
-                $gvredeem->setAmount($coupon->getAmount());
-                // TODO: remote address
-                ZMCoupons::instance()->redeemCoupon($coupon->getId(), ZMRequest::getAccountId());
-                $gvredeem->setRedeemed(true);
-            } else {
-                // not redeemable
-                ZMMessages::instance()->error(zm_l10n_get('The provided gift voucher code seems to be invalid!'));
-            }
-        }
 
         return $this->findView();
     }

@@ -30,13 +30,14 @@
 <?php } else { ?>
   <?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
-      <legend><?php zm_l10n("Coupon details") ?></legend>
+      <legend><?php zm_l10n("Redemption code details") ?></legend>
       <div>
-        <label for="couponCode"><?php zm_l10n("Coupon Code") ?></label>
-        <input type="text" id="couponCode" name="couponCode" value="<?php $html->encode($zm_gvredeem->getCode()) ?>" /> 
+        <label for="gvCode"><?php zm_l10n("Redemption Code") ?></label>
+        <input type="text" id="gvCode" name="couponCode" value="<?php $html->encode($zm_gvredeem->getCode()) ?>" /> 
       </div>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>
   </form>
 <?php } ?>
-<p><?php zm_l10n("For more information regarding Gift Certificate, please see the Gift Certificate FAQ.") ?></p>
+<?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ, '', false, false).'">'.zm_l10n_get("Gift Certificate FAQ").'</a>'; ?>
+<p><?php zm_l10n("For more information regarding Gift Certificate, please see the %s.", $faqLink) ?></p>

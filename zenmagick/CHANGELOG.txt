@@ -10,6 +10,7 @@ Release 0.9.5
   resolutions
 - change internal category cache in ZMCategories to protected to allow
   sublcasses access
+- add GV FAQ; b:#2508343
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]
