@@ -35,6 +35,7 @@
  */
 class ZMObject {
     private static $singletons_ = array();
+    private static $methods_ = array();
     protected $properties_;
 
 
@@ -85,19 +86,6 @@ class ZMObject {
 
 
     /**
-     * Support generic getter method for additional properties.
-     *
-     * @param string name The property name.
-     * @return mixed The value or <code>null</code>.
-     */
-   public function __get($name) {
-        if (array_key_exists($name, $this->properties_)) {
-            return $this->properties_[$name];
-        }
-        return null;
-    }
-
-    /**
      * Support to access property values by name.
      *
      * @param string name The property name.
@@ -112,12 +100,27 @@ class ZMObject {
     }
 
     /**
+     * Support generic getter method for additional properties.
+     *
+     * @param string name The property name.
+     * @return mixed The value or <code>null</code>.
+     */
+   public function __get($name) {
+        ZMLogging::instance()->trace('accessing undeclated class property(get): '.$name, ZMLogging::WARN);
+        if (array_key_exists($name, $this->properties_)) {
+            return $this->properties_[$name];
+        }
+        return null;
+    }
+
+    /**
      * Support generic setter method for additional properties.
      *
      * @param string name The property name.
      * @param mixed value The value.
      */
     public function __set($name, $value) {
+        ZMLogging::instance()->trace('accessing undeclated class property(set): '.$name, ZMLogging::WARN);
         $this->properties_[$name] = $value;
     }
 
@@ -141,7 +144,24 @@ class ZMObject {
     }
 
     /**
-     * Handle generic getXXX()/setXXX()/isXXX() methods.
+     * Attach a dynamic method to objects.
+     *
+     * <p>Target functions/methods have the follwoing signature: <code>($ref, ...)</code>. <code>$ref</code> is
+     * the current instance (<code>$this</code>), and the remaining arguments are the actual call parameter.</p>
+     *
+     * @param string method The method name.
+     * @param string className Name of the class to allow the method.
+     * @param mixed target The target function or method.
+     */
+    public function attachMethod($method, $className, $target) {
+        if (!isset(ZMObject::$methods_[$method])) {
+            ZMObject::$methods_[$method] = array();
+        }
+        ZMObject::$methods_[$method][$className] = $target;
+    }
+
+    /**
+     * Handle dynamic methods incl. generic setXXX(), getXXX(), isXXX() and hasXXX().
      *
      * @param string method The method name.
      * @param array args Optional arguments.
@@ -156,10 +176,27 @@ class ZMObject {
             $property = str_replace('is', '', $method);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->get($property);
+        } else if (0 === strpos($method, 'has') && 0 == count($args)) {
+            $property = str_replace('has', '', $method);
+            $property = strtolower($property[0]).substr($property, 1);
+            return $this->get($property);
         } else if (0 === strpos($method, 'set') && 1 == count($args)) {
             $property = str_replace('set', '', $method);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->set($property, $args[0]);
+        } else {
+            // dynamic methods
+            if (isset(ZMObject::$methods_[$method])) {
+                // method found, so check if there is a class match
+                foreach (array_keys(ZMObject::$methods_[$method]) as $className) {
+                    //XXX: use the best match
+                    if ($this instanceof $className) {
+                        $margs = array_merge(array($this), $args);
+                        $target = ZMObject::$methods_[$method][$className]; 
+                        return call_user_func_array($target, $margs);
+                    }
+                }
+            }
         }
 
         throw ZMLoader::make('ZMException', 'invalid method: '.$method);
