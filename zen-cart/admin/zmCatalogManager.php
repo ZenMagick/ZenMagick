@@ -75,6 +75,7 @@ require 'includes/application_top.php';
     <link rel="stylesheet" type="text/css" href="includes/jquery/jquery.treeview.css">
     <link rel="stylesheet" type="text/css" href="includes/jquery/ui.tabs.css">
     <link rel="stylesheet" type="text/css" href="includes/jquery/thickbox.css">
+    <link rel="stylesheet" type="text/css" href="includes/jquery/productPicker.css">
     <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
