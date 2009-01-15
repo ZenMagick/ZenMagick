@@ -48,6 +48,7 @@ class ZMAddress extends ZMModel {
     private $state_;
     private $zoneId_;
     private $country_;
+    private $countryId_;
     private $isPrimary_;
     private $format_;
 
