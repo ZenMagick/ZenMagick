@@ -47,7 +47,7 @@ class ZMView extends ZMObject {
     function __construct($page, $mappingId=null) {
         parent::__construct();
         $this->page_ = $page;
-        $this->mapping_ = $mappingId;
+        $this->mappingId_ = $mappingId;
         $this->subdir_ = null;
     }
 

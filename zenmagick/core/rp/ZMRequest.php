@@ -37,6 +37,7 @@ class ZMRequest extends ZMObject {
     private $parameter_;
     private $categoryPathArray_;
     private $shoppingCart_;
+    private $cart_;
 
 
     /**

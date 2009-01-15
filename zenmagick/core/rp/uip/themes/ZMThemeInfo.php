@@ -34,13 +34,14 @@
  * @version $Id$
  */
 class ZMThemeInfo extends ZMObject {
-    var $id_;
-    var $info_;
-    var $config_;
-    var $layout_;
-    var $js_default_events_;
-    var $js_events_;
-    var $parent_;
+    private $id_;
+    private $info_;
+    private $config_;
+    private $layout_;
+    private $js_default_events_;
+    private $js_events_;
+    private $parent_;
+    private $themeId_;
 
 
     /**
