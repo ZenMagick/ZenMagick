@@ -32,15 +32,12 @@
  * @version $Id$
  */
 class ZMModel extends ZMObject {
-    protected $properties_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->properties_ = array();
     }
 
     /**
