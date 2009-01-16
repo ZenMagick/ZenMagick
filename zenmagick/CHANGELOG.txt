@@ -14,6 +14,7 @@ Release 0.9.5
 - change ZMObject's bean behaviour to report undeclared class properties as
   warning
 - add ZMObject::attachMethod(..) to allow dynamic method resolution/injection
+- fix broken edit-new-file in static page editor; b:#2511994
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]
