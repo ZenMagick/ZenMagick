@@ -15,6 +15,7 @@ Release 0.9.5
   warning
 - add ZMObject::attachMethod(..) to allow dynamic method resolution/injection
 - fix broken edit-new-file in static page editor; b:#2511994
+- upgrade zm_openid to use version php-openid-2.1.2
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]
