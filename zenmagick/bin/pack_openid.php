@@ -21,8 +21,8 @@
 <?php
 
     // load ZenMagick core
+    require dirname(dirname(__FILE__)) . '/external.php';
     $coreDir = dirname(dirname(__FILE__)) . '/core/';
-    require $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
     ZMLoader::resolve('ZMObject');
     ZMLoader::resolve('ZMPhpPackagePacker');
@@ -47,7 +47,7 @@
     }
 
 
-    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/php-openid-2.1.0/Auth/';
+    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/php-openid-2.1.2/Auth/';
     $packer = new OpenIDPacker($dir, dirname($dir).'/openid.packed.php');
     $packer->setDebug(false);
     $packer->packFiles(true);
