@@ -33,6 +33,7 @@
  */
 class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     private $list_;
+    private $resultClass_;
 
 
     /**
