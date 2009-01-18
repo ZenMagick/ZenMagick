@@ -40,6 +40,8 @@ class ZMBeanUtils {
     /**
      * Get the property mapping for a given class/object.
      *
+     * <p>If explicitely set (via <code>$properties</code>), generic properties will be considered too.</p>
+     *
      * @param mixed obj The class instance.
      * @param array properties Optional list of properties to use; default is <code>null</code> for all.
      * @return array A property / method map.
@@ -62,10 +64,11 @@ class ZMBeanUtils {
                 }
             } else {
                 // convert into the expected 'property' => method format
+                $generic = ($obj instanceof ZMObject) ? $obj->getPropertyNames() : array();
                 foreach ($properties as $property) {
                     foreach (self::$GETTER_PREFIX_LIST as $prefix) {
                         $method = $prefix.ucfirst($property);
-                        if (method_exists($obj, $method)) {
+                        if (method_exists($obj, $method) || in_array($property, $generic)) {
                             $propertiesMap[$property] = $method;
                             break;
                         }
@@ -80,6 +83,9 @@ class ZMBeanUtils {
 
     /**
      * Convert an object into a map.
+     *
+     * <p>If explicitely set (via <code>$properties</code>), generic properties will be considered, even if
+     * <code>$addGeneric</code> is set to <code>false</code>.</p>
      *
      * @param mixed obj The class instance.
      * @param array properties Optional list of properties to use; default is <code>null</code> for all.

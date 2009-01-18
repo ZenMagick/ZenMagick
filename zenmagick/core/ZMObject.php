@@ -153,11 +153,31 @@ class ZMObject {
      * @param string className Name of the class to allow the method.
      * @param mixed target The target function or method.
      */
-    public function attachMethod($method, $className, $target) {
+    public static function attachMethod($method, $className, $target) {
         if (!isset(ZMObject::$methods_[$method])) {
             ZMObject::$methods_[$method] = array();
         }
         ZMObject::$methods_[$method][$className] = $target;
+    }
+
+    /**
+     * Get all attached methods for this instance.
+     *
+     * @param array List of attached method names.
+     */
+    public function getAttachedMethods() {
+        $methods = array();
+        foreach (ZMObject::$methods_ as $method => $classInfo) {
+            foreach (array_keys($classInfo) as $className) {
+                //XXX: use the best match
+                if ($this instanceof $className) {
+                    $methods[] = $method;
+                    break;
+                }
+            }
+        }
+
+        return $methods;
     }
 
     /**
@@ -168,35 +188,33 @@ class ZMObject {
      * @return mixed The result of the supported method or null.
      */
     public function __call($method, $args) {
-        if (0 === strpos($method, 'get') && 0 == count($args)) {
-            $property = str_replace('get', '', $method);
+        // start with dynamic methods to allow attaching methods that start with 'get', etc...
+        if (isset(ZMObject::$methods_[$method])) {
+            // method found, so check if there is a class match
+            foreach (array_keys(ZMObject::$methods_[$method]) as $className) {
+                //XXX: use the best match
+                if ($this instanceof $className) {
+                    $margs = array_merge(array($this), $args);
+                    $target = ZMObject::$methods_[$method][$className]; 
+                    return call_user_func_array($target, $margs);
+                }
+            }
+        } else if (0 === strpos($method, 'get') && 0 == count($args)) {
+            $property = substr($method, 3);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->get($property);
         } else if (0 === strpos($method, 'is') && 0 == count($args)) {
-            $property = str_replace('is', '', $method);
+            $property = substr($method, 2);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->get($property);
         } else if (0 === strpos($method, 'has') && 0 == count($args)) {
-            $property = str_replace('has', '', $method);
+            $property = substr($method, 3);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->get($property);
         } else if (0 === strpos($method, 'set') && 1 == count($args)) {
-            $property = str_replace('set', '', $method);
+            $property = substr($method, 3);
             $property = strtolower($property[0]).substr($property, 1);
             return $this->set($property, $args[0]);
-        } else {
-            // dynamic methods
-            if (isset(ZMObject::$methods_[$method])) {
-                // method found, so check if there is a class match
-                foreach (array_keys(ZMObject::$methods_[$method]) as $className) {
-                    //XXX: use the best match
-                    if ($this instanceof $className) {
-                        $margs = array_merge(array($this), $args);
-                        $target = ZMObject::$methods_[$method][$className]; 
-                        return call_user_func_array($target, $margs);
-                    }
-                }
-            }
         }
 
         throw ZMLoader::make('ZMException', 'invalid method: '.$method);

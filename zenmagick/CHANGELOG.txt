@@ -16,6 +16,10 @@ Release 0.9.5
 - add ZMObject::attachMethod(..) to allow dynamic method resolution/injection
 - fix broken edit-new-file in static page editor; b:#2511994
 - upgrade zm_openid to use version php-openid-2.1.2
+- add code to ZMAjaxController to allow using method injection
+- handle generic properties (ZMObject) in BeanUtils::obj2map if properties are
+  explicitely set
+- fix bug in generic getXXX()/setXXX() code in ZMObject
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]

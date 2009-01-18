@@ -77,11 +77,11 @@ class ZMAjaxController extends ZMController {
      */
     public function process() {
         $method = $this->method_;
-        if (!method_exists($this, $this->method_) && method_exists($this, $this->method_.ZMSettings::get('ajaxFormat'))) {
+        if (!method_exists($this, $this->method_)) {
             $method = $this->method_.ZMSettings::get('ajaxFormat');
         }
 
-        if (method_exists($this, $method)) {
+        if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
             call_user_func(array($this, $method));
             return null;
         }
@@ -118,7 +118,7 @@ class ZMAjaxController extends ZMController {
      * @param function formatter Optional formatting method for all values; signature is <code>formatter($obj, $name, $value)</code>.
      * @return array Associative array of methods values.
      */
-    protected function flattenObject($obj, $properties=null, $formatter=null) {
+    public function flattenObject($obj, $properties=null, $formatter=null) {
         $props = null;
 
         if (is_array($obj)) {
@@ -156,7 +156,7 @@ class ZMAjaxController extends ZMController {
      * @param mixed obj The object to serialize; can also be an array of objects.
      * @return string The given object as JSON.
      */
-    protected function toJSON($obj) {
+    public function toJSON($obj) {
         return json_encode($obj);
     }
 
