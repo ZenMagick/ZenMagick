@@ -32,17 +32,14 @@
  * @version $Id$
  */
 class ZMAjaxShoppingCartController extends ZMAjaxController {
-    protected $addressProperties_;
-    protected $cartItemProperties_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->addressProperties_ = array('firstName', 'lastName', 'address', 'suburb', 'postcode', 'city', 'state', 'country');
-        $this->cartItemProperties_ = array('id', 'name', 'qty', 'itemTotal');
+        $this->set('ajaxAddressMap', array('firstName', 'lastName', 'address', 'suburb', 'postcode', 'city', 'state', 'country'));
+        $this->set('ajaxCartItemMap', array('id', 'name', 'qty', 'itemTotal'));
     }
 
     /**
@@ -63,7 +60,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $address = $shippingEstimator->getAddress();
         if (null != $address) {
-            $response['address'] = $this->flattenObject($address, $this->addressProperties_);
+            $response['address'] = $this->flattenObject($address, $this->get('ajaxAddressMap'));
         }
 
         $methods = array();
@@ -101,7 +98,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMToolbox::instance()->utils->formatMoney($value, true, false) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
-            array_push($items, $this->flattenObject($item, $this->cartItemProperties_, $formatter));
+            array_push($items, $this->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }
         $cart['items'] = $items;
         $cart['total'] = ZMToolbox::instance()->utils->formatMoney($shoppingCart->getTotal(), true, false);
