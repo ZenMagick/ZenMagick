@@ -28,17 +28,16 @@
     /**
      * Simple function to check if we need zen-cart...
      */
-    function zm_needs_zc() {
+    function _zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
         return (ZMRequest::isCheckout() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName) 
             || ZMTools::inArray($pageName, 'advanced_search_result');
     }
 
     // skip more zc request handling
-    if (!zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
+    if (!_zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
         $code_page_directory = 'zenmagick';
     }
-
 
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
