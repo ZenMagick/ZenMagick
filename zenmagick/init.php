@@ -88,63 +88,65 @@
     // core and plugins loaded
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
 
-    // load default mappings
-    zm_set_default_url_mappings();
-    zm_set_default_sacs_mappings();
+    if (ZMSettings::get('isEnableZMThemes') || ZM_CLI_CALL) {
+        // load default mappings
+        zm_set_default_url_mappings();
+        zm_set_default_sacs_mappings();
 
-    // make sure to use SSL if required
-    ZMSacsMapper::instance()->ensureAccessMethod();
+        // make sure to use SSL if required
+        ZMSacsMapper::instance()->ensureAccessMethod();
 
-    // now we can check for a static homepage
-    if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
-        && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
-        require ZMSettings::get('staticHome');
-        exit;
-    }
+        // now we can check for a static homepage
+        if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+            && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
+            require ZMSettings::get('staticHome');
+            exit;
+        }
 
-    // resolve theme to be used 
-    if (ZMSettings::get('isEnableZenMagick')) {
+        // resolve theme to be used 
         $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
         ZMRuntime::setTheme($_zm_theme);
+
+        if (ZMSettings::get('isLegacyAPI')) {
+            // deprecated legacy globals
+            $zm_request = new ZMRequest();
+            $zm_loader = ZMLoader::instance();
+            $zm_runtime = ZMRuntime::instance();
+            $zm_layout = ZMLayout::instance();
+            $zm_products = ZMProducts::instance();
+            $zm_taxes = ZMTaxRates::instance();
+            $zm_reviews = ZMReviews::instance();
+            $zm_pages = ZMEZPages::instance();
+            $zm_coupons = ZMCoupons::instance();
+            $zm_banners = ZMBanners::instance();
+            $zm_orders = ZMOrders::instance();
+            $zm_events = ZMEvents::instance();
+            $zm_addresses = ZMAddresses::instance();
+            $zm_messages = ZMMessages::instance();
+            $zm_validator = ZMValidator::instance();
+            $zm_categories = ZMCategories::instance();
+            $zm_manufacturers = ZMManufacturers::instance();
+            $zm_crumbtrail = ZMCrumbtrail::instance();
+            $zm_meta = ZMMetaTags::instance();
+            $zm_currencies = ZMCurrencies::instance();
+            $zm_languages = ZMLanguages::instance();
+            $zm_countries = ZMCountries::instance();
+            $zm_accounts = ZMAccounts::instance();
+            $zm_account = ZMRequest::getAccount();
+            $zm_cart = ZMLoader::make('ZMShoppingCart');
+            $zm_urlMapper = ZMUrlMapper::instance();
+            $zm_sacsMapper = ZMSacsMapper::instance();
+
+            $zm_theme = ZMRuntime::getTheme();
+            $zm_themeInfo = $zm_theme->getThemeInfo();
+        }
+
+        // start output buffering
+        // XXX: handle admin?
+        if (!ZMSettings::get('isAdmin')) { ob_start(); }
     }
 
-    if (ZMSettings::get('isLegacyAPI')) {
-        // deprecated legacy globals
-        $zm_request = new ZMRequest();
-        $zm_loader = ZMLoader::instance();
-        $zm_runtime = ZMRuntime::instance();
-        $zm_layout = ZMLayout::instance();
-        $zm_products = ZMProducts::instance();
-        $zm_taxes = ZMTaxRates::instance();
-        $zm_reviews = ZMReviews::instance();
-        $zm_pages = ZMEZPages::instance();
-        $zm_coupons = ZMCoupons::instance();
-        $zm_banners = ZMBanners::instance();
-        $zm_orders = ZMOrders::instance();
-        $zm_events = ZMEvents::instance();
-        $zm_addresses = ZMAddresses::instance();
-        $zm_messages = ZMMessages::instance();
-        $zm_validator = ZMValidator::instance();
-        $zm_categories = ZMCategories::instance();
-        $zm_manufacturers = ZMManufacturers::instance();
-        $zm_crumbtrail = ZMCrumbtrail::instance();
-        $zm_meta = ZMMetaTags::instance();
-        $zm_currencies = ZMCurrencies::instance();
-        $zm_languages = ZMLanguages::instance();
-        $zm_countries = ZMCountries::instance();
-        $zm_accounts = ZMAccounts::instance();
-        $zm_account = ZMRequest::getAccount();
-        $zm_cart = ZMLoader::make('ZMShoppingCart');
-        $zm_urlMapper = ZMUrlMapper::instance();
-        $zm_sacsMapper = ZMSacsMapper::instance();
-
-        $zm_theme = ZMRuntime::getTheme();
-        $zm_themeInfo = $zm_theme->getThemeInfo();
-    }
-
-    if (ZMSettings::get('isEnableZenMagick')) {
-        require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
-    }
+    require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
 
     // always echo in admin
     if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
@@ -156,9 +158,7 @@
         include $_zm_global;
     }
 
-    // start output buffering
-    if (ZMSettings::get('isEnableZenMagick') && !ZMSettings::get('isAdmin')) { ob_start(); }
-
+    // XXX: move to ZMDbTableMapper
     // handle db table mapping caching
     $tableMapper = ZMDbTableMapper::instance();
     if (ZMSettings::get('isCacheDbMappings') && !$tableMapper->isCached()) {

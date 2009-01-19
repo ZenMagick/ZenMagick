@@ -20,6 +20,9 @@ Release 0.9.5
 - handle generic properties (ZMObject) in BeanUtils::obj2map if properties are
   explicitely set
 - fix bug in generic getXXX()/setXXX() code in ZMObject
+- change setting isEnableZenMagick to isEnableZMThemes to make it clearer what
+  the setting actually does; also some code changes to exclude more code and
+	leave admin working ;)
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]

@@ -43,8 +43,8 @@
             // version
             'ZenMagickVersion' => '${zenmagick.version}',
 
-            // use ZenMagick templating
-            'isEnableZenMagick' => true,
+            // use ZenMagick themes
+            'isEnableZMThemes' => true,
 
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,

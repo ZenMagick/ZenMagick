@@ -35,7 +35,7 @@
     }
 
     // skip more zc request handling
-    if (ZMSettings::get('isEnableZenMagick') && !zm_needs_zc()) {
+    if (!zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
         $code_page_directory = 'zenmagick';
     }
 

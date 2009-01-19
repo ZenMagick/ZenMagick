@@ -29,7 +29,8 @@
     ZMMessages::instance()->_loadMessageStack();
 
     // main request processor
-    if (ZMSettings::get('isEnableZenMagick')) {
+    if (ZMSettings::get('isEnableZMThemes')) {
+
         ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START);
         zm_dispatch();
         ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
@@ -48,7 +49,5 @@
 
         exit;
     }
-
-    // default to zen-cart
 
 ?>
