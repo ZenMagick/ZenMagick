@@ -25,48 +25,32 @@
 
 
 /**
- * Product association.
+ * Ajax controller for product associations.
  *
- * <p>Generic properties:</p>
- * <ul>
- *  <li>id</li>
- *  <li>type</li>
- *  <li>sourceId</li>
- *  <li>targetId</li>
- *  <li>startDate</li>
- *  <li>endDate</li>
- *  <li>defaultQty</li>
- *  <li>sortOrder</li>
- * </ul>
- * 
  * @author DerManoMann
  * @package org.zenmagick.plugins.zm_product_associations
  * @version $Id$
  */
-class ZMProductAssociation extends ZMModel {
+class ZMProductAssociationAjaxHandler {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Get the target product.
+     * Get product associations for the given product and type.
      *
-     * @return ZMProduct The associated product.
+     * @param mixed target The target Ajax controller (here <code>ZMAjaxCatalogController</code>).
      */
-    public function getTargetProduct() {
-        return ZMProducts::instance()->getProductForId($this->get('targetId'));
+    public function getProductAssociationsForProductIdJSON($target) {
+        $productId = ZMRequest::getParameter('productId', 0);
+        $type = ZMRequest::getParameter('type', 0);
+        $activeOnly = true;
+        if (ZMSettings::get('isAdmin')) {
+            $activeOnly = ZMRequest::getParameter('active', true);
+        }
+
+        $flatObj = $target->flattenObject(ZMProductAssociations::instance()->getProductAssociationsForProductId($productId, $type, $activeOnly), 
+                array('sourceId', 'targetId', 'targetProduct' => $target->get('ajaxProductMap')));
+
+        $json = $target->toJSON($flatObj);
+        $target->setJSONHeader($json);
     }
 
 }

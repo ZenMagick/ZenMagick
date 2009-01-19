@@ -25,10 +25,10 @@ Usage
 To display associated products, for example, cross sells, the following code could be used
 in your template:
 
-    $crossSells = ProductAssociationService::instance()->getProductAssociations($product->getId(), ZM_PA_CROSS_SELL);
-    foreach ($crossSells as $crossSell) {
-        $product = $crossSell->getTargetProduct();
-        echo $product->getName()."<BR>";
+    $crossSells = ZMProductAssociations::instance()->getProductAssociationsForProductId($product->getId(), ZM_PA_CROSS_SELL);
+    foreach ($crossSells as $productAssociation) {
+        $crossSell = $productAssociation->getTargetProduct();
+        echo $crossSell->getName()."<BR>";
     }
 
 

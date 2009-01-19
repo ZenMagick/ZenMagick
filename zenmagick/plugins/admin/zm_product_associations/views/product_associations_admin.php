@@ -51,14 +51,15 @@
       <div id="picker-pages"></div>
       <div id="picker-selected"></div>
       <div id="picker-buttons">
-        <a class="btn" href="#" onclick="productPicker.cancel();return false;">Cancel</a>
         <a class="btn" href="#" onclick="productPicker.close();return false;">OK</a>
+        <a class="btn" href="#" onclick="productPicker.cancel();return false;">Cancel</a>
       </div>
     </div>
   </div>
   <script type="text/javascript" src="includes/jquery/productPicker.js"></script>
   <script type="text/javascript">
-      var productPicker = new ProductPicker('picker-tree', false, '<?php $toolbox->net->ajax('catalog', 'getProductsForCategoryId') ?>', function(productIds) {
+      var ajaxCatalogBaseUrl = '<?php $toolbox->net->ajax('catalog', 'getProductsForCategoryId') ?>';
+      var productPicker = new ProductPicker('picker-tree', false, ajaxCatalogBaseUrl, function(productIds) {
           alert('selected: ' + productIds);
       });
       productPicker.init();

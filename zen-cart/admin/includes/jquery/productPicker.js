@@ -76,11 +76,12 @@ ProductPicker.prototype = {
             if (0 < ii) {
                 list += ', ';
             }
-            list += this.products[ii];
+            list += '<span>'+this.products[ii]+'</span>';
         }
         $('#picker-selected').html(list);
     },
 
+    // is product already selected?
     isSelected: function(productId) {
         for (var ii=0; ii<this.products.length; ++ii) {
             if (this.products[ii] == productId) {
@@ -90,21 +91,23 @@ ProductPicker.prototype = {
         return false;
     },
 
+    // show/hide loading throbber
     loading: function(on) {
         $('#picker-prod-loading').css('display', on ? 'block' : 'none');
     },
 
+    // display products
     displayResults: function(resultList, categoryId) {
         prodList = $('#picker-prod-list');
         prodList.html('');
         var html = '';
         for (var jj=0; jj < resultList.results.length; ++jj) {
             var item = resultList.results[jj];
-            var style = ' style="display:block;';
+            var attr = '';
             if (this.isSelected(item.id)) {
-                style = ' style="color:white;background-color:blue;display:block;"';
+                attr = ' class="selected"';
             }
-            html += '<a '+style+'href="#" onclick="productPicker.picked(this, '+item.id+')">'+item.name+'</a>';
+            html += '<a '+attr+'href="#" onclick="productPicker.picked(this, '+item.id+')">'+item.name+'</a>';
         }
         prodList.html(html);
         var pages = 'Page ' + resultList.pageNumber + ' of ' + resultList.numberOfPages+':&nbsp;&nbsp;&nbsp;';
@@ -112,7 +115,7 @@ ProductPicker.prototype = {
             // display/update page links
             for (var kk=1; kk <= resultList.numberOfPages; ++kk) {
                 if (kk == resultList.pageNumber) {
-                    pages += '['+kk+']&nbsp;';
+                    pages += '<span class="current">['+kk+']</span>';
                 } else {
                     // XXX: how to avoid using productPicker??
                     pages += '<a href="#" onclick="productPicker.categoryClick('+categoryId+', '+kk+');return false;" >'+kk+'</a>&nbsp;';

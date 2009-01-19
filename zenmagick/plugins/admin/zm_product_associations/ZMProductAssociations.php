@@ -38,12 +38,26 @@ define('ZM_TABLE_PRODUCT_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_product_associations'
 class ZMProductAssociations extends ZMObject {
     private $associationTypes_;
 
+
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
         $this->associationTypes_ = array();
+
+        ZMDbTableMapper::instance()->setMappingForTable('zm_product_associations',
+            array(
+                'id' => 'column=association_id;type=integer;key=true;auto=true',
+                'type' => 'column=association_type;type=integer',
+                'sourceId' => 'column=source_product_id;type=integer',
+                'targetId' => 'column=target_product_id;type=integer',
+                'startDate' => 'column=start_date;type=datetime',
+                'endDate' => 'column=end_date;type=datetime',
+                'defaultQuantity' => 'column=default_quantity;type=float',
+                'sortOrder' => 'column=sort_order;type=integer'
+            )
+        );
     }
 
     /**
@@ -88,7 +102,7 @@ class ZMProductAssociations extends ZMObject {
      *  <li>convert to uppercase</li>
      *  <li>prefix with <code>ZM_PA_</code></li>
      * </ol>
-     *
+     *zm_product_association_types
      */
     public function prepareAssociationTypes() {
         $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATION_TYPES;
@@ -121,27 +135,16 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ZMProductAssociation</code> instances.
      */
-    function getProductAssociationsForProductId($productId, $type, $all=false) {
+    public function getProductAssociationsForProductId($productId, $type, $all=false) {
         $dateLimit = '';
         if (!$all) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date IS NULL) ';
         }
-        $db = ZMRuntime::getDB();
         $sql = "SELECT DISTINCT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
-                WHERE source_product_id = :productId
+                WHERE source_product_id = :sourceId
                   AND association_type =:type" . $dateLimit . "
                 ORDER BY sort_order ASC";
-        $sql = $db->bindVars($sql, ":productId", $productId, "integer");
-        $sql = $db->bindVars($sql, ":type", $type, "integer");
-
-        $associations = array();
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            $associations[] = $this->_newProductAssociation($results->fields);
-            $results->MoveNext();
-        }
-
-        return $associations;
+        return ZMRuntime::getDatabase()->query($sql, array('sourceId' => $productId, 'type' => $type), ZM_TABLE_PRODUCT_ASSOCIATIONS, 'ProductAssociation');
     }
 
     /**
@@ -152,7 +155,7 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ProductAssociation</code> instances.
      */
-    function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
+    public function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
         $associations = array();
 
         $productIds = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all);
@@ -164,21 +167,11 @@ class ZMProductAssociations extends ZMObject {
         if (!$all) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date IS NULL) ';
         }
-        $db = ZMRuntime::getDB();
         $sql = "SELECT DISTINCT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
-                WHERE source_product_id in (:productIdList)
+                WHERE source_product_id in (:sourceId)
                   AND association_type =:type" . $dateLimit . "
                 ORDER BY sort_order ASC";
-        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
-        $sql = $db->bindVars($sql, ":type", $type, "integer");
-
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            $associations[] = $this->_newProductAssociation($results->fields);
-            $results->MoveNext();
-        }
-
-        return $associations;
+        return ZMRuntime::getDatabase()->query($sql, array('sourceId' => $productIds, 'type' => $type), ZM_TABLE_PRODUCT_ASSOCIATIONS, 'ProductAssociation');
     }
 
     /**
@@ -189,7 +182,7 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc.
      * return array A list of <code>ProductAssociation</code> instances.
      */
-    function getProductAssociationsForShoppingCart($shoppingCart, $type, $all=false) {
+    public function getProductAssociationsForShoppingCart($shoppingCart, $type, $all=false) {
 
         $associations = array();
         $productIds = array();
@@ -205,37 +198,11 @@ class ZMProductAssociations extends ZMObject {
         if (!$all) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date IS NULL) ';
         }
-        $db = ZMRuntime::getDB();
         $sql = "SELECT DISTINCT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATIONS . "
                 WHERE source_product_id in (:productIdList)
                   AND association_type =:type" . $dateLimit . "
                 ORDER BY sort_order ASC";
-        $sql = ZMDbUtils::bindValueList($sql, ":productIdList", $productIds, "integer");
-        $sql = $db->bindVars($sql, ":type", $type, "integer");
-
-        $results = $db->Execute($sql);
-        while (!$results->EOF) {
-            $associations[] = $this->_newProductAssociation($results->fields);
-            $results->MoveNext();
-        }
-
-        return $associations;
-    }
-
-    /**
-     * Create new product association.
-     */
-    function _newProductAssociation($fields) {
-        $productAssociation = ZMLoader::make("ProductAssociation");
-        $productAssociation->id_ = $fields['association_id'];
-        $productAssociation->type_ = $fields['association_type'];
-        $productAssociation->sourceId_ = $fields['source_product_id'];
-        $productAssociation->targetId_ = $fields['target_product_id'];
-        $productAssociation->startDate_ = $fields['start_date'];
-        $productAssociation->endDate_ = empty($fields['end_date']) ? null : $fields['end_date'];
-        $productAssociation->defaultQty_ = $fields['default_quantity'];
-        $productAssociation->sortOrder_ = $fields['sort_order'];
-        return $productAssociation;
+        return ZMRuntime::getDatabase()->query($sql, array('sourceId' => $productIds, 'type' => $type), ZM_TABLE_PRODUCT_ASSOCIATIONS, 'ProductAssociation');
     }
 
 }
