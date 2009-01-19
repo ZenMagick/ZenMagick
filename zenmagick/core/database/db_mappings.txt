@@ -33,7 +33,7 @@ array(
         'thousandsPoint' => 'column=thousands_point;type=string',
         'decimalPlaces' => 'column=float;type=string',
         'rate' => 'column=value;type=float',
-        'lastUpdate' => 'column=last_updated;type=datetime',
+        'lastUpdate' => 'column=last_updated;type=datetime'
     ),
     'categories' => array(
         'categoryId' => 'column=categories_id;type=integer;key=true;auto=true',
@@ -42,31 +42,31 @@ array(
         'sortOrder' => 'column=sort_order;type=integer',
         'dateAdded' => 'column=date_added;type=datetime',
         'lastModified' => 'column=last_modified;type=datetime',
-        'active' => 'column=categories_status;type=integer',
+        'active' => 'column=categories_status;type=integer'
     ),
     'categories_description' => array(
         'categoryId' => 'column=categories_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=categories_name;type=string',
-        'description' => 'column=categories_description;type=string',
+        'description' => 'column=categories_description;type=string'
     ),
     'products_to_categories' => array(
         'productId' => 'column=products_id;type=integer;key=true',
-        'categoryId' => 'column=categories_id;type=integer;key=true',
+        'categoryId' => 'column=categories_id;type=integer;key=true'
     ),
     'manufacturers' => array(
         'manufacturerId' => 'column=manufacturers_id;type=integer;key=true;auto=true',
         'name' => 'column=manufacturers_name;type=string',
         'image' => 'column=manufacturers_image;type=string',
         'dateAdded' => 'column=date_added;type=datetime',
-        'lastModified' => 'column=last_modified;type=datetime',
+        'lastModified' => 'column=last_modified;type=datetime'
     ),
     'manufacturers_info' => array(
         'manufacturerId' => 'column=manufacturers_id;type=integer;key=true',
         'languageId' => 'column=languages_id;type=integer;key=true',
         'url' => 'column=manufacturers_url;type=string',
         'clickCount' => 'column=url_clicked;type=integer',
-        'lastClick' => 'column=date_last_click;type=datetime',
+        'lastClick' => 'column=date_last_click;type=datetime'
     ),
     'customers' => array(
         'accountId' => 'column=customers_id;type=integer;key=true;auto=true',
@@ -86,7 +86,7 @@ array(
         'authorization' => 'column=customers_authorization;type=integer',
         'referral' => 'column=customers_referral;type=string',
         //'paypalPayerId' => 'column=customers_paypal_payerid;type=string',
-        //'paypalEc' => 'column=customers_paypal_ec;type=integer',
+        //'paypalEc' => 'column=customers_paypal_ec;type=integer'
     ),
     'customers_info' => array(
         'accountId' => 'column=customers_info_id;type=integer;key=true',
@@ -94,25 +94,25 @@ array(
         //'numberOfLogons' => 'column=customers_info_number_of_logons;type=integer',
         'accountCreateDate' => 'column=customers_info_date_account_created;type=datetime',
         //'lastModifiedDate' => 'column=customers_info_date_account_last_modified;type=datetime',
-        'globalProductSubscriber' => 'column=global_product_notifications;type=integer',
+        'globalProductSubscriber' => 'column=global_product_notifications;type=integer'
     ),
     'products_notifications' => array(
         'productId' => 'column=products_id;type=integer;key=true',
         'accountId' => 'column=customers_id;type=integer;key=true',
-        //'dateAdded' => 'column=date_added;type=datetime',
+        //'dateAdded' => 'column=date_added;type=datetime'
     ),
     'countries' => array(
         'countryId' => 'column=countries_id;type=integer;key=true;auto=true',
         'name' => 'column=countries_name;type=string',
         'isoCode2' => 'column=countries_iso_code_2;type=string',
         'isoCode3' => 'column=countries_iso_code_3;type=string',
-        'addressFormatId' => 'column=address_format_id;type=integer',
+        'addressFormatId' => 'column=address_format_id;type=integer'
     ),
     'zones' => array(
         'zoneId' => 'column=zone_id;type=integer;key=true;auto=true',
         'countryId' => 'column=zone_country_id;type=integer',
         'code' => 'column=zone_code;type=string',
-        'name' => 'column=zone_name;type=string',
+        'name' => 'column=zone_name;type=string'
     ),
     'address_book' => array(
         'id' => 'column=address_book_id;type=integer;key=true;auto=true',
@@ -127,17 +127,17 @@ array(
         'city' => 'column=entry_city;type=string',
         'state' => 'column=entry_state;type=string',
         'countryId' => 'column=entry_country_id;type=integer',
-        'zoneId' => 'column=entry_zone_id;type=integer',
+        'zoneId' => 'column=entry_zone_id;type=integer'
     ),
     'address_format' => array(
         'id' => 'column=address_format_id;type=integer;key=true;auto=true',
         'format' => 'column=address_format;type=string',
-        'summary' => 'column=address_summary;type=string',
+        'summary' => 'column=address_summary;type=string'
     ),
     'products_notifications' => array(
         'productId' => 'column=products_id;type=integer;key=true',
         'accountId' => 'column=customers_id;type=integer;key=true',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'languages' => array(
         'languageId' => 'column=languages_id;type=integer;key=true;auto=true',
@@ -145,7 +145,7 @@ array(
         'code' => 'column=code;type=string',
         'image' => 'column=image;type=string',
         'directory' => 'column=directory;type=string',
-        //'sortOrder' => 'column=sort_order;type=integer',
+        //'sortOrder' => 'column=sort_order;type=integer'
     ),
     'layout_boxes' => array(
         'id' => 'column=layout_id;type=integer;key=true;auto=true',
@@ -155,7 +155,7 @@ array(
         'location' => 'column=layout_box_location;type=integer',
         'sortOrder' => 'column=layout_box_sort_order;type=integer',
         'singleSortOrder' => 'column=layout_box_sort_order_single;type=integer',
-        'singleStatus' => 'column=layout_box_status_single;type=integer',
+        'singleStatus' => 'column=layout_box_status_single;type=integer'
     ),
     'products' => array(
         'productId' => 'column=products_id;type=integer;key=true;auto=true',
@@ -192,7 +192,7 @@ array(
         'metatagsProductsNameStatus' => 'column=metatags_products_name_status;type=integer',
         'metatagsModelStatus' => 'column=metatags_model_status;type=integer',
         'metatagsPriceStatus' => 'column=metatags_price_status;type=integer',
-        'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer',
+        'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer'
     ),
     'products_description' => array(
         'productId' => 'column=products_id;type=integer;key=true',
@@ -200,7 +200,7 @@ array(
         'name' => 'column=products_name;type=string',
         'description' => 'column=products_description;type=string',
         'url' => 'column=products_url;type=string',
-        //'viewed' => 'column=products_viewed;type=integer',
+        //'viewed' => 'column=products_viewed;type=integer'
     ),
     'product_types' => array(
         'id' => 'column=type_id;type=integer;key=true;auto=true',
@@ -210,7 +210,7 @@ array(
         'addToCart' => 'column=allow_add_to_cart;type=string',
         'defaultImage' => 'column=default_image;type=string',
         'dateAdded' => 'column=date_added;type=datetime',
-        'lastModified' => 'column=last_modified;type=datetime',
+        'lastModified' => 'column=last_modified;type=datetime'
     ),
     'product_type_layout' => array(
         'id' => 'column=configuration_id;type=integer;key=true;auto=true',
@@ -223,7 +223,7 @@ array(
         'lastModified' => 'column=last_modified;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
         'useFunction' => 'column=use_function;type=string',
-        'setFunction' => 'column=set_function;type=string',
+        'setFunction' => 'column=set_function;type=string'
     ),
     'configuration' => array(
         'id' => 'column=configuration_id;type=integer;key=true;auto=true',
@@ -236,7 +236,7 @@ array(
         'lastModified' => 'column=last_modified;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
         'useFunction' => 'column=use_function;type=string',
-        'setFunction' => 'column=set_function;type=string',
+        'setFunction' => 'column=set_function;type=string'
     ),
     'featured' => array(
         'id' => 'column=featured_id;type=integer;key=true;auto=true',
@@ -246,7 +246,7 @@ array(
         'expiryDate' => 'column=expires_date;type=date',
         'statusChangeDate' => 'column=date_status_change;type=datetime',
         'status' => 'column=status;type=integer',
-        'availableDate' => 'column=featured_date_available;type=date',
+        'availableDate' => 'column=featured_date_available;type=date'
     ),
     'specials' => array(
         'id' => 'column=specials_id;type=integer;key=true;auto=true',
@@ -257,7 +257,7 @@ array(
         'expiryDate' => 'column=expires_date;type=date',
         'statusChangeDate' => 'column=date_status_change;type=datetime',
         'status' => 'column=status;type=integer',
-        'availableDate' => 'column=specials_date_available;type=date',
+        'availableDate' => 'column=specials_date_available;type=date'
     ),
     'ezpages' => array(
         'id' => 'column=pages_id;type=integer;key=true;auto=true',
@@ -276,12 +276,12 @@ array(
         'tocSort' => 'column=toc_sort_order;type=integer',
         'newWin' => 'column=page_open_new_window;type=integer',
         'ssl' => 'column=page_is_ssl;type=integer',
-        'tocChapter' => 'column=toc_chapter;type=integer',
+        'tocChapter' => 'column=toc_chapter;type=integer'
     ),
     'template_select' => array(
         'id' => 'column=template_id;type=integer;key=true;auto=true',
         'dir' => 'column=template_dir;type=string',
-        'languageId' => 'column=template_language;type=string',
+        'languageId' => 'column=template_language;type=string'
     ),
     // attribute value details; price, discounts, etc
     'products_attributes' => array(
@@ -311,7 +311,7 @@ array(
         //'priceWordsFree' => 'column=attributes_price_words_free;type=integer',
         //'priceLetters' => 'column=attributes_price_letters;type=integer',
         //'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
-        'required' => 'column=attributes_required;type=integer',
+        'required' => 'column=attributes_required;type=integer'
     ),
     // attribute; model, size, memory, etc
     'products_options' => array(
@@ -325,21 +325,21 @@ array(
         'size' => 'column=products_options_size;type=integer',
         //'imagesPerRow' => 'column=products_options_images_per_row;type=integer',
         //'imageStyle' => 'column=products_options_images_style;type=integer',
-        //'rows' => 'column=products_options_rows;type=integer',
+        //'rows' => 'column=products_options_rows;type=integer'
     ),
     // attribute value name; 4mb, XXL, etc
     'products_options_values' => array(
         'attributeValueId' => 'column=products_options_values_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_options_values_name;type=string',
-        'sortOrder' => 'column=products_options_values_sort_order;type=integer',
+        'sortOrder' => 'column=products_options_values_sort_order;type=integer'
     ),
     'group_pricing' => array(
         'id' => 'column=group_id;type=integer;key=true;auto=true',
         'name' => 'column=group_name;type=string',
         'discount' => 'column=group_percentage;type=integer',
         'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'configuration' => array(
         'id' => 'column=configuration_id;type=integer;key=true;auto=true',
@@ -352,14 +352,14 @@ array(
         'lastModified' => 'column=last_modified;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
         'useFunction' => 'column=use_function;type=string',
-        'setFunction' => 'column=set_function;type=string',
+        'setFunction' => 'column=set_function;type=string'
     ),
     'configuration_group' => array(
         'id' => 'column=configuration_group_id;type=integer;key=true;auto=true',
         'name' => 'column=configuration_group_title;type=string',
         //'description' => 'column=configuration_group_description;type=string',
         //'sortOrder' => 'column=sort_order;type=integer',
-        //'visible' => 'column=visible;type=integer',
+        //'visible' => 'column=visible;type=integer'
     ),
     'banners' => array(
         'id' => 'column=banners_id;type=integer;key=true;auto=true',
@@ -376,14 +376,14 @@ array(
         'status' => 'column=status;type=integer',
         'newWin' => 'column=banners_open_new_windows;type=integer',
         'ssl' => 'column=banners_on_ssl;type=integer',
-        'sortOrder' => 'column=banners_sort_order;type=integer',
+        'sortOrder' => 'column=banners_sort_order;type=integer'
     ),
     'banners_history' => array(
         'id' => 'column=banners_history_id;type=integer;key=true;auto=true',
         'bannerId' => 'column=banners_id;type=integer',
         'shown' => 'column=banners_shown;type=integer',
         'clicked' => 'column=banners_clicked;type=integer',
-        'historyDate' => 'column=banners_history_date;type=datetime',
+        'historyDate' => 'column=banners_history_date;type=datetime'
     ),
     'orders' => array(
         'orderId' => 'column=orders_id;type=integer;key=true;auto=true',
@@ -436,7 +436,7 @@ array(
         'total' => 'column=order_total;type=float',
         'order_tax' => 'column=order_tax;type=float',
         'paypal_ipn_id' => 'column=paypal_ipn_id;type=integer',
-        'ip_address' => 'column=ip_address;type=string',
+        'ip_address' => 'column=ip_address;type=string'
     ),
     'orders_products_attributes' => array(
         'orderProductAttributeId' => 'column=orders_products_attributes_id;type=integer;key=true;auto=true',
@@ -464,7 +464,7 @@ array(
         //'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
         'attributeId' => 'column=products_options_id;type=integer',
         'attributeValueId' => 'column=products_options_values_id;type=integer',
-        'sku' => 'column=products_prid;type=string',
+        'sku' => 'column=products_prid;type=string'
     ),
     'orders_total' => array(
         'orderTotalId' => 'column=orders_total_id;type=integer;key=true;auto=true',
@@ -473,12 +473,12 @@ array(
         'value' => 'column=text;type=string',
         'amount' => 'column=value;type=float',
         'type' => 'column=class;type=string',
-        'sortOrder' => 'column=sort_order;type=integer',
+        'sortOrder' => 'column=sort_order;type=integer'
     ),
     'orders_status' => array(
         'orderStatusId' => 'column=orders_status_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
-        'statusName' => 'column=orders_status_name;type=string',
+        'statusName' => 'column=orders_status_name;type=string'
     ),
     'orders_status_history' => array(
         'orderStatusHistoryId' => 'column=orders_status_history_id;type=integer;key=true;auto=true',
@@ -486,7 +486,7 @@ array(
         'orderStatusId' => 'column=orders_status_id;type=integer',
         'dateAdded' => 'column=date_added;type=datetime',
         'customerNotified' => 'column=customer_notified;type=boolean',
-        'comment' => 'column=comments;type=string',
+        'comment' => 'column=comments;type=string'
     ),
     'coupon_gv_queue' => array(
         'id' => 'column=unique_id;type=integer;key=true;auto=true',
@@ -495,7 +495,7 @@ array(
         'amount' => 'column=amount;type=integer',
         'dateCreated' => 'column=date_created;type=datetime',
         'ipAddr' => 'column=ipaddr;type=string',
-        'released' => 'column=release_flag;type=string',
+        'released' => 'column=release_flag;type=string'
     ),
     'orders_products' => array(
         'orderItemId' => 'column=orders_products_id;type=integer;key=true;auto=true',
@@ -512,7 +512,7 @@ array(
         'free' => 'column=product_is_free;type=integer',
         'discountType' => 'column=products_discount_type;type=integer',
         'discountTypeFrom' => 'column=products_discount_type_from;type=integer',
-        'sku' => 'column=products_prid;type=string',
+        'sku' => 'column=products_prid;type=string'
     ),
     'orders_products_download' => array(
         'id' => 'column=orders_products_download_id;type=integer;key=true;auto=true',
@@ -521,7 +521,7 @@ array(
         'filename' => 'column=orders_products_filename;type=string',
         'maxDays' => 'column=download_maxdays;type=integer',
         'downloadCount' => 'column=download_count;type=integer',
-        'productId' => 'column=products_prid;type=string',
+        'productId' => 'column=products_prid;type=string'
     ),
     'coupons' => array(
         'couponId' => 'column=coupon_id;type=integer;key=true;auto=true',
@@ -539,17 +539,17 @@ array(
         'active' => 'column=coupon_active;type=string',
         //'date_created' => 'column=date_created;type=datetime',
         //'date_modified' => 'column=date_modified;type=datetime',
-        //'coupon_zone_restriction' => 'column=coupon_zone_restriction;type=integer',
+        //'coupon_zone_restriction' => 'column=coupon_zone_restriction;type=integer'
     ),
     'coupons_description' => array(
         'couponId' => 'column=coupon_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=coupon_name;type=string',
-        'description' => 'column=coupon_description;type=string',
+        'description' => 'column=coupon_description;type=string'
     ),
     'coupon_gv_customer' => array(
         'accountId' => 'column=customer_id;type=integer;key=true',
-        'amount' => 'column=amount;type=float',
+        'amount' => 'column=amount;type=float'
     ),
     'coupon_redeem_track' => array(
         'couponRedeemId' => 'column=unique_id;type=integer;key=true;auto=true',
@@ -557,14 +557,14 @@ array(
         'accountId' => 'column=customer_id;type=integer',
         'redeemDate' => 'column=redeem_date;type=datetime',
         'redeemIp' => 'column=redeem_ip;type=string',
-        'orderId' => 'column=order_id;type=integer',
+        'orderId' => 'column=order_id;type=integer'
     ),
     'coupon_restrict' => array(
         'couponRestrictionId' => 'column=restrict_id;type=integer;key=true;auto=true',
         'couponId' => 'column=coupon_id;type=integer',
         'productId' => 'column=product_id;type=integer',
         'categoryId' => 'column=category_id;type=integer',
-        'restriction' => 'column=coupon_restrict;type=string',
+        'restriction' => 'column=coupon_restrict;type=string'
     ),
     'coupon_email_track' => array(
         'couponEmailId' => 'column=unique_id;type=integer;key=true;auto=true',
@@ -573,7 +573,7 @@ array(
         'firstName' => 'column=sent_firstname;type=string',
         'lastName' => 'column=sent_lastname;type=string',
         'emailTo' => 'column=emailed_to;type=string',
-        'dateSent' => 'column=date_sent;type=datetime',
+        'dateSent' => 'column=date_sent;type=datetime'
     ),
     'salemaker_sales' => array(
         'saleId' => 'column=sale_id;type=integer;key=true;auto=true',
@@ -590,7 +590,7 @@ array(
         'dateEnd' => 'column=sale_date_end;type=date',
         'dateAdded' => 'column=sale_date_added;type=date',
         'dateLastModified' => 'column=sale_date_last_modified;type=date',
-        'dateStatusChange' => 'column=sale_date_status_change;type=date',
+        'dateStatusChange' => 'column=sale_date_status_change;type=date'
     ),
     'reviews' => array(
         'reviewId' => 'column=reviews_id;type=integer;key=true;auto=true',
@@ -601,12 +601,12 @@ array(
         'dateAdded' => 'column=date_added;type=datetime',
         'lastModified' => 'column=last_modified;type=datetime',
         'viewCount' => 'column=reviews_read;type=integer',
-        'active' => 'column=status;type=boolean',
+        'active' => 'column=status;type=boolean'
     ),
     'reviews_description' => array(
         'reviewId' => 'column=reviews_id;type=integer;key=true',
         'languageId' => 'column=languages_id;type=integer;key=true',
-        'text' => 'column=reviews_text;type=string',
+        'text' => 'column=reviews_text;type=string'
     ),
     'tax_rates' => array(
         'taxRateId' => 'column=tax_rates_id;type=integer;key=true;auto=true',
@@ -616,14 +616,14 @@ array(
         'rate' => 'column=tax_rate;type=float',
         'description' => 'column=tax_description;type=string',
         'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'tax_class' => array(
         'taxClassId' => 'column=tax_class_id;type=integer;key=true;auto=true',
         'title' => 'column=tax_class_title;type=string',
         'description' => 'column=tax_class_description;type=string',
         'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'zones_to_geo_zones' => array(
         'zoneToGeoZoneId' => 'column=association_id;type=integer;key=true;auto=true',
@@ -631,19 +631,19 @@ array(
         'zoneId' => 'column=zone_id;type=integer',
         'geoZoneId' => 'column=geo_zone_id;type=integer',
         'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'geo_zones' => array(
         'geoZoneId' => 'column=geo_zone_id;type=integer;key=true;auto=true',
         'name' => 'column=geo_zone_name;type=string',
         'description' => 'column=geo_zone_description;type=string',
         'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
+        'dateAdded' => 'column=date_added;type=datetime'
     ),
     'products_discount_quantity' => array(
         'quantityDiscountId' => 'column=discount_id;type=integer',
         'productId' => 'column=products_id;type=integer',
         'quantity' => 'column=discount_qty;type=float',
-        'value' => 'column=discount_price;type=float',
+        'value' => 'column=discount_price;type=float'
     ),
 );
