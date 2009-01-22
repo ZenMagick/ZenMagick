@@ -39,6 +39,8 @@ class ZMCategories extends ZMObject {
      * using it.</p>
      */
     protected $categories_;
+
+    private $productTypeIdMap_;
     private $treeFlag_;
 
 
@@ -48,6 +50,7 @@ class ZMCategories extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->categories_ = array();
+        $this->productTypeIdMap_ = null;
     }
 
     /**
@@ -189,12 +192,39 @@ class ZMCategories extends ZMObject {
     }
 
     /**
+     * Get the allowed product types (ids) for the given category id.
+     *
+     * @return array List of allowed product type ids; an empty list means no restrictions.
+     */
+    public function getProductTypeIds($categoryId) {
+        if (null === $this->productTypeIdMap_) {
+            $this->productTypeIdMap_ = array();
+            $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
+                    ORDER BY category_id";
+            foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
+                if (!array_key_exists($result['categoryId'],  $this->productTypeIdMap_)) {
+                    $this->productTypeIdMap_[$result['categoryId']] = array();
+                }
+                $this->productTypeIdMap_[$result['categoryId']][] = $result['productTypeId'];
+            }
+        }
+
+        return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
+    }
+
+    /**
      * Load all categories.
      *
      * @param int languageId Optional language id; default is <code>null</code>.
      */
     protected function load($languageId=null) {
         $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+
+    //$check_categories = $db->Execute("select categories_id from " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCT_TYPES . " pt, " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " ptc where pt.type_master_type = 3 and ptc.product_type_id = pt.type_id and c.categories_id = ptc.category_id and c.categories_status=1 limit 1");
+        //    $sql = "select product_type_id from " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " where category_id='" . (int)$lookup . "'";
+
+//      $categories_query = "select ptc.category_id as categories_id, cd.categories_name, c.parent_id, c.categories_image from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd, " . :e  . " ptc
+
 
         // load all straight away - should be faster to sort them later on
         $sql = "SELECT c.*, cd.*

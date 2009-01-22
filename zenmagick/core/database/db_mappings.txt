@@ -54,6 +54,10 @@ array(
         'productId' => 'column=products_id;type=integer;key=true',
         'categoryId' => 'column=categories_id;type=integer;key=true'
     ),
+    'product_types_to_category' => array(
+        'productTypeId' => 'column=product_type_id;type=integer;key=true',
+        'categoryId' => 'column=category_id;type=integer;key=true'
+    ),
     'manufacturers' => array(
         'manufacturerId' => 'column=manufacturers_id;type=integer;key=true;auto=true',
         'name' => 'column=manufacturers_name;type=string',

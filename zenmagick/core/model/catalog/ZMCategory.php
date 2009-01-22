@@ -279,6 +279,17 @@ class ZMCategory extends ZMModel {
         return $ids;
     }
 
+    /**
+     * Get a list of allowed product types.
+     *
+     * <p>An empty list means no restrictions.</p>
+     *
+     * @return array List of allowed product type ids (might be empty).
+     */
+    public function getProductTypeIds() {
+        return ZMCategories::instance()->getProductTypeIds($this->getId());
+    }
+
 }
 
 ?>

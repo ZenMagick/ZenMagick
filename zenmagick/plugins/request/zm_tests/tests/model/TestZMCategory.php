@@ -35,6 +35,24 @@ class TestZMCategory extends ZMTestCase {
         }
     }
 
+    /**
+     * Test getProductTypeIds.
+     */
+    public function testGetProductTypeIds() {
+        $tests = array(
+            array('categoryId' => 63, 'expected' => array(3, 4)),
+            array('categoryId' => 62, 'expected' => array(2)),
+            array('categoryId' => 1, 'expected' => array())
+        );
+
+        foreach ($tests as $test) {
+            $category = ZMCategories::instance()->getCategoryForId($test['categoryId']);
+            if ($this->assertNotNull($category, '%s; categoryId '.$test['categoryId'])) {
+                $this->assertEqual($test['expected'], $category->getProductTypeIds());
+            }
+        }
+    }
+
 }
 
 ?>

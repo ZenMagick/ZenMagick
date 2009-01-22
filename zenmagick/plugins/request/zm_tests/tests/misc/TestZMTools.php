@@ -21,7 +21,7 @@ class TestZMTools extends ZMTestCase {
             array('6-7,8-10', array(6=>6,7=>7,8=>8,9=>9,10=>10)),
         );
         foreach ($tests as $test) {
-            $this->assertEqual($test[1], ZMTools::parseRange($test[0]));
+            $this->assertEqual($test[1], ZMTools::parseRange($test[0]), '%s; '.$test[0]);
         }
     }
 
@@ -120,7 +120,7 @@ class TestZMTools extends ZMTestCase {
             array('value' => 8, 'array' => '1, 2, 3', 'expected' => false)
         );
         foreach ($tests as $test) {
-            $this->assertEqual($test['expected'], ZMTools::inArray($test['value'], $test['array']), '%s: '.$test);
+            $this->assertEqual($test['expected'], ZMTools::inArray($test['value'], $test['array']), '%s; '.$test['value']);
         }
     }
 
