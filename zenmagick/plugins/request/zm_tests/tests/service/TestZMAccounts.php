@@ -147,9 +147,9 @@ class TestZMAccounts extends ZMTestCase {
             ZMRuntime::getDatabase()->update($sql, array('accountId' => 2, 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
-        $subscribedProductIds = array_flip(ZMAccounts::instance()->getSubscribedProductIds(2));
+        $subscribedProductIds = ZMAccounts::instance()->getSubscribedProductIds(2);
         foreach ($testProductIds as $id) {
-            $this->assertTrue(array_key_exists($id, $subscribedProductIds));
+            $this->assertTrue(in_array($id, $subscribedProductIds));
         }
 
     }

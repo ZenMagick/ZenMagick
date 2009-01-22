@@ -17,9 +17,8 @@ class TestZMCategory extends ZMTestCase {
         $category = ZMCategories::instance()->getCategoryForId(3);
         $ids = $category->getChildIds();
         $this->assertEqual(count($expect), count($ids));
-        $idLookup = array_flip($ids);
         foreach ($expect as $id) {
-            $this->assertTrue(array_key_exists($id, $idLookup));
+            $this->assertTrue(in_array($id, $ids));
         }
     }
 
@@ -31,9 +30,8 @@ class TestZMCategory extends ZMTestCase {
         $category = ZMCategories::instance()->getCategoryForId(3);
         $ids = $category->getChildIds(false);
         $this->assertEqual(count($expect), count($ids));
-        $idLookup = array_flip($ids);
         foreach ($expect as $id) {
-            $this->assertTrue(array_key_exists($id, $idLookup));
+            $this->assertTrue(in_array($id, $ids));
         }
     }
 

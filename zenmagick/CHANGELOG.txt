@@ -23,6 +23,8 @@ Release 0.9.5
 - change setting isEnableZenMagick to isEnableZMThemes to make it clearer what
   the setting actually does; also some code changes to exclude more code and
 	leave admin working ;)
+- code cleanup: use in_array rather than a combination of array_flip and
+  array_key_exists!
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]

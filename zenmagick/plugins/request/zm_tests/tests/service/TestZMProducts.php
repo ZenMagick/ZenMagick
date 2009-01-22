@@ -64,11 +64,11 @@ class TestZMProducts extends ZMTestCase {
      * Test featured products on homepage.
      */
     public function testFeaturedProductsHome() {
-        $featuredIds = array_flip(array(34, 40, 12, 27, 26, 168, 169, 171, 172));
+        $featuredIds = array(34, 40, 12, 27, 26, 168, 169, 171, 172);
         $products = ZMProducts::instance()->getFeaturedProducts();
         $this->assertEqual(9, count($products));
         foreach ($products as $product) {
-            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+            $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
     }
 
@@ -76,11 +76,11 @@ class TestZMProducts extends ZMTestCase {
      * Test featured products on category page.
      */
     public function testFeaturedProductsCategory() {
-        $featuredIds = array_flip(array(12));
+        $featuredIds = array(12);
         $products = ZMProducts::instance()->getFeaturedProducts(3, 4, true);
         $this->assertEqual(1, count($products));
         foreach ($products as $product) {
-            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+            $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
     }
 
@@ -101,11 +101,11 @@ class TestZMProducts extends ZMTestCase {
      * Test new products on category page.
      */
     public function testNewProductsCategory() {
-        $featuredIds = array_flip(array(1, 2));
+        $featuredIds = array(1, 2);
         $products = ZMProducts::instance()->getNewProducts(4, 0, '0');
         $this->assertEqual(2, count($products));
         foreach ($products as $product) {
-            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+            $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
     }
 
@@ -121,11 +121,11 @@ class TestZMProducts extends ZMTestCase {
      * Test bestseller products on category page.
      */
     public function testBestsellerProductsCategory() {
-        $featuredIds = array_flip(array(1, 2));
+        $featuredIds = array(1, 2);
         $products = ZMProducts::instance()->getBestSellers(4, 999);
         $this->assertEqual(2, count($products));
         foreach ($products as $product) {
-            $this->assertTrue(array_key_exists($product->getId(), $featuredIds));
+            $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
     }
 

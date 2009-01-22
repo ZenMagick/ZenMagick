@@ -234,14 +234,13 @@ class ZMToolboxMacro extends ZMObject {
         if ($root) { 
             ob_start();
             $path = ZMRequest::getCategoryPathArray();
-            $path = array_flip($path);
         }
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
             if (!$category->isActive()) {
                 continue;
             }
-            $active = isset($path[$category->getId()]);
+            $active = in_array($category->getId(), $path);
             $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
             $empty = 0 == $noOfProducts;
             echo '<li>';

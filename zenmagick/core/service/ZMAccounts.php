@@ -258,17 +258,16 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The aupdated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
-        $currentList = array_flip($account->getSubscribedProducts());
-        $newList = array_flip($productIds);
+        $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();
-        foreach ($newList as $id => $index) {
-            if (!array_key_exists($id, $currentList)) {
+        foreach ($productIds as $id => $index) {
+            if (!in_array($id, $currentList)) {
                 $add[] = $id;
             }
         }
-        foreach ($currentList as $id => $index) {
-            if (!array_key_exists($id, $newList)) {
+        foreach ($currentList as $id) {
+            if (!in_array($id, $productIds)) {
                 $remove[] = $id;
             }
         }

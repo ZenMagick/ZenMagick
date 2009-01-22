@@ -84,8 +84,8 @@ class ZMSaleMaker extends ZMObject {
         $saleCondition = 0;
         $saleDiscountType = 5; //No Sale or Skip Products with Special
         foreach ($this->sales_ as $result) {
-            $categories = array_flip(explode(',', $result['sale_categories_all']));
-            if (array_key_exists($categoryId, $categories)) {
+            $categories = explode(',', $result['sale_categories_all']);
+            if (in_array($categoryId, $categories)) {
                 $hasSale = true;
                 $saleDiscount = $result['sale_deduction_value'];
                 $saleCondition = $result['sale_specials_condition'];

@@ -31,7 +31,7 @@
           $account = ZMRequest::getAccount();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();
-              $isSubscribed = array_key_exists(ZMRequest::getProductId(), array_flip($subscribedProducts));
+              $isSubscribed = in_array(ZMRequest::getProductId(), $subscribedProducts);
           }
       }
     ?>

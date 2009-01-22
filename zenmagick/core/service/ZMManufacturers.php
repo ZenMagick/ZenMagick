@@ -67,7 +67,7 @@ class ZMManufacturers extends ZMObject {
         $sql = "SELECT mi.*, m.*
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
-                  ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                    ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
@@ -116,7 +116,7 @@ class ZMManufacturers extends ZMObject {
         $sql = "SELECT mi.*, m.* 
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
-                  ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
+                    ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
 
         $cacheKey = ZMTools::mkUnique('manufacturer', $languageId);

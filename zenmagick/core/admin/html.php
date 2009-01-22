@@ -44,7 +44,6 @@
         if ($root) { 
             ob_start(); 
             $path = ZMRequest::getCategoryPathArray();
-            $path = array_flip($path);
             echo '
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
 <script type="text/javascript"> $(document).ready(function() { 
@@ -61,7 +60,7 @@
         }
         echo '<ul>';
         foreach ($categories as $category) {
-            $active = isset($path[$category->getId()]);
+            $active = in_array($category->getId(), $path);
             $cparams = $params.'&'.$category->getPath();
             $noProducts = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), false));
             $hasProducts = 0 != $noProducts;

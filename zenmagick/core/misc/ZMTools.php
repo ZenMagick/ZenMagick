@@ -175,10 +175,9 @@ class ZMTools {
      */
     public static function inArray($value, $array) {
         if (!is_array($array)) {
-            $array = explode(",", $array);
+            $array = explode(',', $array);
         }
-        $array = array_flip($array);
-        return isset($array[$value]);
+        return in_array($value, $array);
     }
 
     /**

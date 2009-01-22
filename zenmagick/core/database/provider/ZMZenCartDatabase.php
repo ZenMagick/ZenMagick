@@ -144,10 +144,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
-        $properties = array_flip($model->getPropertyNames());
+        $properties = $model->getPropertyNames();
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
+            if (!$field['custom'] || in_array($field['property'], $properties)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
@@ -221,10 +221,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
-        $properties = array_flip($model->getPropertyNames());
+        $properties = $model->getPropertyNames();
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
+            if (!$field['custom'] || in_array($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -264,10 +264,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $sql = 'DELETE FROM '.$table;
         $firstWhere = true;
         $where = ' WHERE ';
-        $properties = array_flip($model->getPropertyNames());
+        $properties = $model->getPropertyNames();
         foreach ($mapping as $field) {
             // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || array_key_exists($field['property'], $properties)) {
+            if (!$field['custom'] || in_array($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';

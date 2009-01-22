@@ -109,6 +109,21 @@ class TestZMTools extends ZMTestCase {
         $this->assertEqual('12/Jan/2009', ZMTools::parseRSSDate('Mon, 12 Jan 2009 00:16:12 +0000'));
     }
 
+    /**
+     * Test inArray.
+     */
+    public function testInArray() {
+        $tests = array(
+            array('value' => 3, 'array' => array(1, 2, 3), 'expected' => true),
+            array('value' => 1, 'array' => '1, 2, 3', 'expected' => true),
+            array('value' => 7, 'array' => array(1, 2, 3), 'expected' => false),
+            array('value' => 8, 'array' => '1, 2, 3', 'expected' => false)
+        );
+        foreach ($tests as $test) {
+            $this->assertEqual($test['expected'], ZMTools::inArray($test['value'], $test['array']), '%s: '.$test);
+        }
+    }
+
 }
 
 ?>

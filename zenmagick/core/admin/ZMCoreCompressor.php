@@ -228,9 +228,8 @@ class ZMCoreCompressor extends ZMPhpCompressor {
         foreach ($loadFirst as $first) {
             $tmp2[] = $files[$first];
         }
-        $firstLookup = array_flip($loadFirst);
         foreach ($files as $key => $file) {
-            if (!isset($firstLookup[$key])) {
+            if (!in_array($key, $loadFirst)) {
                 $tmp2[] = $file;
             }
         }

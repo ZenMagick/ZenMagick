@@ -120,12 +120,9 @@ class ZMBeanUtils {
      * @param array keys Optional list of data keys to be used; default is <code>null</code> to use all.
      */
     public static function setAll($obj, $data, $keys=null) {
-        if (null !== $keys) {
-            $keys = array_flip($keys);
-        }
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
-            if (null === $keys || array_key_exists($property, $keys)) {
+            if (null === $keys || in_array($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
                 if (method_exists($obj, $method)) {
                     $obj->$method($value);
