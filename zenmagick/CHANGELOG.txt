@@ -1,4 +1,4 @@
-Release 0.9.5
+Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
   handling of hasXXX() properties
 - allow to ignore generic ZMObject properties in ZMBeanUtils::obj2map() by
@@ -26,6 +26,8 @@ Release 0.9.5
 - code cleanup: use in_array rather than a combination of array_flip and
   array_key_exists!
 - add getProductTypeIds() method to ZMCategory; f:#2522171
+- allow to configure Ajax access/authentication on method level; $page format:
+  [page]#[method]; for example 'ajax_catalog#getProductForId'
 
 Release 0.9.4.1
 - add support for DB transactions in controller code [ZMController::process()]

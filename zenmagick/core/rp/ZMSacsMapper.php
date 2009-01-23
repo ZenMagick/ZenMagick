@@ -75,7 +75,15 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Set a mapping.
      *
-     * @param string page The page [ie. the request name].
+     * <p>For Ajax requests, the access level may be configured on method level by using the following format
+     * for <code>$page</code>:</p>
+     *
+     * <p><code>[page]#[method]</code></p>
+     *
+     * <p>Example: To limit access to the <code>getProductForId</code> Ajax method of the catalog controller do:<br>
+     * <code>ZMSacsMapper::instance()->setMapping('ajax_catalog#getProductForId', ZMAccounts::REGISTERED, false);</code></p>
+     *
+     * @param string page The page [ie. the request name as in <code>main_page</code>].
      * @param string authentication The level of authentication required; default is <code>ZMAccounts::REGISTERED</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      */
@@ -118,7 +126,7 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Ensure the page is accessed using proper security.
      *
-     * <p>If a page is requested using HTTP and the page is mapped as <em>secure</code>, a
+     * <p>If a page is requested using HTTP and the page is mapped as <em>secure</em>, a
      * redirect using SSL will be performed.</p>
      *
      * @param string page The page; default is <code>null</code> to use the current page name.

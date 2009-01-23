@@ -81,6 +81,14 @@ class ZMAjaxController extends ZMController {
             $method = $this->method_.ZMSettings::get('ajaxFormat');
         }
 
+        // check access on controller level
+        ZMSacsMapper::instance()->ensureAuthorization($this->getId());
+
+        // (re-)check on method level
+        $page = $this->getId().'#'.$method;
+        ZMSacsMapper::instance()->ensureAccessMethod($page);
+        ZMSacsMapper::instance()->ensureAuthorization($page);
+
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
             call_user_func(array($this, $method));
             return null;
