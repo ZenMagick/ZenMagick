@@ -54,8 +54,9 @@
               </div>
               <ul>
                 <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = $all_results[$label]; ?>
+                  <?php $incomplete = false; foreach ($tests as $test) { if (!isset($all_selected_tests[$label.'-'.$test])) { $incomplete = true; break; } } ?>
                   <?php $selected = isset($all_selected_testCases[$label]); ?>
-                  <li<?php echo (($selected && !$result['status']) ? ' class="open"' : '') ?>>
+                  <li<?php echo (($selected && ($incomplete || !$result['status'])) ? ' class="open"' : '') ?>>
                     <div class="<?php if ($selected) { echo (($result['status']) ? "pass" : "fail"); } ?>">
                       <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
                            value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
