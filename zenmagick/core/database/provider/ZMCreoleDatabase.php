@@ -467,6 +467,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $typeMap = array('int'=>'integer','char'=>'string','varchar'=>'string', 'tinyint'=>'integer', 'text'=>'string', 'mediumtext' => 'string', 'smallint' => 'integer', 'int unsigned' => 'integer', 'tinytext' => 'string', 'mediumblob', 'blob');
         if (null !== $table) {
             $info = $this->conn_->getDatabaseInfo();
+            $meta = null;
             foreach ($info->getTables() as $tbl) {
                 if ($tbl->getName() == $table) {
                     $meta = array();
@@ -480,6 +481,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                             'maxLen' => $col->getSize()
                         );
                     }
+                    break;
                 }
             }
             return $meta;

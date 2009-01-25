@@ -376,7 +376,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     public function getMetaData($table=null) {
         if (null !== $table) {
             $res = @mysql_query("SELECT * FROM " . $table . " LIMIT 1", $this->db_->link);
-            $fieldCount = @mysql_num_fields($res);
+            if (false === ($fieldCount = @mysql_num_fields($res))) {
+                return null;
+            }
             $meta = array();
             for ($ii=0; $ii < $fieldCount; ++$ii) {
                 $field = @mysql_field_name($res, $ii);

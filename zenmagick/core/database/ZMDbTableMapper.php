@@ -179,7 +179,7 @@ class ZMDbTableMapper extends ZMObject {
 
         $mappings = array();
         foreach (array_reverse($tables) as $table) {
-            if (!isset($this->tableMap_[$table])) {
+            if (empty($table) || !array_key_exists($table, $this->tableMap_)) {
                 return null;
             }
             if ($this->isCached_) {
@@ -198,13 +198,25 @@ class ZMDbTableMapper extends ZMObject {
     /**
      * Handle mixed mapping values.
      *
+     * <p>If enabled (via setting 'isEnableDBAutoMapping'), mappings for unknown tables will be build
+     * on demand.</p>
+     *
      * @param mixed mapping The field mappings or table name.
      * @return array A mapping or <code>null</code>.
      */
     public function ensureMapping($mapping) {
         if (!is_array($mapping)) {
             // table name
-            return $this->getMapping($mapping);
+            $table = $mapping;
+            $mapping = $this->getMapping($table);
+            if (null === $mapping && ZMSettings::get('isEnableDBAutoMapping')) {
+                //XXX: refresh cache?
+                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+                $rawMapping = ZMDbUtils::buildTableMapping($table);
+                $this->setMappingForTable($table, $rawMapping);
+                $mapping = $this->getMapping($table);
+            }
+            return $mapping;
         }
         // either mapping or table list
         return is_array($mapping[0]) ? $mapping : $this->getMapping($mapping);

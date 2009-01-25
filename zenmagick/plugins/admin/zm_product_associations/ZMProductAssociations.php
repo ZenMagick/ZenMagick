@@ -106,7 +106,7 @@ class ZMProductAssociations extends ZMObject {
      */
     public function prepareAssociationTypes() {
         $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATION_TYPES;
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), null, ZMDatabase::MODEL_RAW) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(), ZMDatabase::MODEL_RAW) as $result) {
             $type = $result['association_type'];
             $clearName = $result['association_type_name'];
             $name = str_replace('-', '_', $clearName);

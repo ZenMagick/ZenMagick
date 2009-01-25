@@ -121,6 +121,8 @@
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,
 
+            // enable db table map building on demand
+            'isEnableDBAutoMapping' => false,
 
             /**************************************
              * Logging options.

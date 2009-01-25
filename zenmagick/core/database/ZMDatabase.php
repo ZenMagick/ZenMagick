@@ -94,7 +94,7 @@ interface ZMDatabase {
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
-     * @param mixed mapping The field mappings or table name; default is <code>null</code>.
+     * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      * @throws ZMDatabaseException
@@ -109,7 +109,7 @@ interface ZMDatabase {
      *
      * @param string sql The query.
      * @param array args Optional query args; default is an empty array.
-     * @param mixed mapping The field mappings or table name; default is <code>null</code>.
+     * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
      * @throws ZMDatabaseException
@@ -121,7 +121,7 @@ interface ZMDatabase {
      *
      * @param string sql The update sql.
      * @param mixed data A model instance or array; default is an empty array.
-     * @param mixed mapping The field mappings or table name; default is <code>null</code>.
+     * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @return int The number of affected rows.
      * @throws ZMDatabaseException
      */

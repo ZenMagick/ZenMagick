@@ -227,28 +227,37 @@ class ZMDbUtils {
                 // ok, what now??
             }
         }
-        $rows = ZMRuntime::getDatabase()->query('SHOW FULL COLUMNS FROM '.$table);
+
+        //XXX: use meta data instead!
+        // no args, empty mapping - or course!!
+        $rows = ZMRuntime::getDatabase()->query('SHOW FULL COLUMNS FROM '.$table, array(), array(), ZMDatabase::MODEL_RAW);
 
         $mapping = array();
         ob_start();
         echo "'".str_replace(ZM_DB_PREFIX, '', $table)."' => array(\n";
+        $first = true;
         foreach ($rows as $row) {
             $type = preg_replace('/(.*)\(.*\)/', '\1', $row['Type']);
             if (array_key_exists($type, $typeMap)) {
                 $type = $typeMap[$type];
             } 
 
-            $line = "    '". $row['Field'] . "' => '" . 'column=' . $row['Field'] . ';type='.$type;
+            //$line = "    '". $row['Field'] . "' => '" . 'column=' . $row['Field'] . ';type='.$type;
+            $line = 'column=' . $row['Field'] . ';type=' . $type;
             if ('PRI' == $row['Key']) {
                 $line .= ';key=true';
             }
             if (false !== strpos($row['Extra'], 'auto_increment')) {
                 $line .= ';auto=true';
             }
-            $mapping[] = $line;
-            echo $line."',\n";
+            $mapping[$row['Field']] = $line;
+            if (!$first) {
+                echo ",\n";
+            }
+            echo "    '" . $row['Field'] . "' => '" . $line . "'";
+            $first = false;
         }
-        echo "),\n";
+        echo "\n),\n";
 
         $text = ob_get_clean();
 
