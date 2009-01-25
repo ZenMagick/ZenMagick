@@ -55,7 +55,7 @@ Release 0.9.4
 - fix zm_site_switch: sql created different column than code expects! b:#2384579
 - use configured themeId to lookup static contents and boxes layout info;
   [this will make a difference only if the theme id is explicitely set using
-	ZMRuntime::seThemeId(...)]
+  ZMRuntime::seThemeId(...)]
 - decouple cache type from actual implementation
 - add memcache cache provider
 - make group text clickable in cache admin
@@ -86,7 +86,7 @@ Release 0.9.4
 - update to latest creole version (1.2.0 svn snapshot)
 - add PDO ZMDatabase provider - ZMPdoDatabase (not complete)
 - add new setting 'isSetFilePerms' to allow to enable file permission fixing;
-disabled as per default
+  disabled as per default
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
