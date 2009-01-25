@@ -196,6 +196,69 @@ class ZMDbUtils {
         return $messages;
     }
 
+    /**
+     * Generate a database mapping for the given table.
+     *
+     * @param string table The table name.
+     * @param boolean print Optional flag to also print the mapping in a form that can be used
+     *  to cut&paste into a mapping file; default is <code>false</code>.
+     * @return array The mapping.
+     */
+    public static function buildTableMapping($table, $print=false) {
+        // XXX: make class const
+        static $typeMap = array(
+            'int' => 'integer',
+            'char' => 'string',
+            'varchar' => 'string',
+            'tinyint' => 'integer',
+            'text' => 'string',
+            'mediumtext' => 'string',
+            'smallint' => 'integer',
+            'int unsigned' => 'integer',
+            'tinytext' => 'string',
+            'mediumblob', 'blob'
+        );
+
+        // check for prefix
+        if (null === ($meta = ZMRuntime::getDatabase()->getMetaData($table))) {
+            // try adding the prefix
+            $table = ZM_DB_PREFIX.$table;
+            if (null !== ($meta = ZMRuntime::getDatabase()->getMetaData($table))) {
+                // ok, what now??
+            }
+        }
+        $rows = ZMRuntime::getDatabase()->query('SHOW FULL COLUMNS FROM '.$table);
+
+        $mapping = array();
+        ob_start();
+        echo "'".str_replace(ZM_DB_PREFIX, '', $table)."' => array(\n";
+        foreach ($rows as $row) {
+            $type = preg_replace('/(.*)\(.*\)/', '\1', $row['Type']);
+            if (array_key_exists($type, $typeMap)) {
+                $type = $typeMap[$type];
+            } 
+
+            $line = "    '". $row['Field'] . "' => '" . 'column=' . $row['Field'] . ';type='.$type;
+            if ('PRI' == $row['Key']) {
+                $line .= ';key=true';
+            }
+            if (false !== strpos($row['Extra'], 'auto_increment')) {
+                $line .= ';auto=true';
+            }
+            $mapping[] = $line;
+            echo $line."',\n";
+        }
+        echo "),\n";
+
+        $text = ob_get_clean();
+
+        if ($print) {
+            echo $text;
+        }
+
+        return $mapping;
+    }
+
 }
 
 ?>

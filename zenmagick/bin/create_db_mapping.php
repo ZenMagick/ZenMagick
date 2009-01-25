@@ -25,26 +25,7 @@
 
     $tables = array_slice($argv, 1, 1);
     foreach ($tables as $table) {
-        $rows = ZMRuntime::getDatabase()->query('SHOW FULL COLUMNS FROM '.$table);
-        $name = str_replace(ZM_DB_PREFIX, '', $table);
-        echo "'".$name."' => array(\n";
-        foreach ($rows as $row) {
-            $typeMap = array('int'=>'integer','char'=>'string','varchar'=>'string', 'tinyint'=>'integer', 'text'=>'string', 'mediumtext' => 'string', 'smallint' => 'integer', 'int unsigned' => 'integer', 'tinytext' => 'string', 'mediumblob', 'blob');
-            $type = preg_replace('/(.*)\(.*\)/', '\1', $row['Type']);
-            if (isset($typeMap[$type])) {
-                $type=$typeMap[$type];
-            } 
-
-            $line = "    '". $row['Field'] . "' => '" . 'column=' . $row['Field'] . ';type='.$type;
-            if ('PRI' == $row['Key']) {
-                $line .= ';key=true';
-            }
-            if (false !== strpos($row['Extra'], 'auto_increment')) {
-                $line .= ';auto=true';
-            }
-            echo $line."',\n";
-        }
-        echo "),\n";
+        echo ZMDbUtils::buildTableMapping($table, true);
     }
 
 ?>
