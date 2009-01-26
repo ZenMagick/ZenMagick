@@ -443,6 +443,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getResource() {
+        return $this->db_;
+    }
+
 }
 
 ?>

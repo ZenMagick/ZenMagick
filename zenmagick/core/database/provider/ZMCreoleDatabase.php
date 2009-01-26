@@ -533,6 +533,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getResource() {
+        return $this->conn_;
+    }
+
 }
 
 ?>

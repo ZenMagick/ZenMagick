@@ -219,6 +219,13 @@ interface ZMDatabase {
      */
     public function getConfig();
 
+    /**
+     * Get the underlying, implementation specific resource used to access the database.
+     *
+     * @return mixed The (native) database handle, etc.
+     */
+    public function getResource();
+
 }
 
 ?>
