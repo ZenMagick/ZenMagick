@@ -380,6 +380,17 @@
              * Banner
              **************************************/
 
+            'banners.header1' => SHOW_BANNERS_GROUP_SET1,
+            'banners.header2' => SHOW_BANNERS_GROUP_SET2,
+            'banners.header3' => SHOW_BANNERS_GROUP_SET3,
+            'banners.footer1' => SHOW_BANNERS_GROUP_SET4,
+            'banners.footer2' => SHOW_BANNERS_GROUP_SET5,
+            'banners.footer3' => SHOW_BANNERS_GROUP_SET6,
+            'banners.box1' => SHOW_BANNERS_GROUP_SET7,
+            'banners.box2' => SHOW_BANNERS_GROUP_SET8,
+            'banners.all' => SHOW_BANNERS_GROUP_SET_ALL,
+
+            // deprecated
             'bannerGroup1' => SHOW_BANNERS_GROUP_SET1,
             'bannerGroup2' => SHOW_BANNERS_GROUP_SET2,
             'bannerGroup3' => SHOW_BANNERS_GROUP_SET3,

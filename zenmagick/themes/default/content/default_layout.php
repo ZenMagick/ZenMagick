@@ -65,7 +65,7 @@
   </head>
 
   <body id="b_<?php echo $zm_view->getName() ?>"<?php $html->onload() ?>>
-    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(1); if (null != $bannerBox) { ?>
+    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('header1'))) { ?>
         <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
@@ -94,7 +94,7 @@
             <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
-        <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(3); if (null != $bannerBox) { ?>
+        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('header3'))) { ?>
             <div id="bannerThree"><?php $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
 
@@ -108,7 +108,7 @@
 
         <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
 
-        <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(4); if (null != $bannerBox) { ?>
+        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('footer1'))) { ?>
             <div id="bannerFour"><?php $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
       </div>
@@ -116,7 +116,7 @@
       <?php include $zm_theme->themeFile("footer.php") ?>
     </div>
 
-    <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(6); if (null != $bannerBox) { ?>
+    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('footer3'))) { ?>
         <div id="bannerSix"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 

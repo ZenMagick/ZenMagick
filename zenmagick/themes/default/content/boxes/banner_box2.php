@@ -24,10 +24,9 @@
  */
 ?>
 
-<?php $bannerBox2 = ZMBanners::instance()->getBannerForIndex(8); ?>
-<?php if (null != $bannerBox2) { ?>
+<?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('box2'))) { ?>
     <h3><?php zm_l10n("Have you seen ...") ?></h3>
     <div id="sb_banner_box2" class="box">
-        <?php $macro->showBanner($bannerBox2); ?>
+        <?php $macro->showBanner($bannerBox); ?>
     </div>
 <?php } ?>

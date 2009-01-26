@@ -56,19 +56,30 @@ class ZMBanners extends ZMObject {
 
 
     /**
-     * Get a banner for the given (zen-cart) index.
+     * Get a <strong>single</strong> banner for the given (zen-cart) index.
      *
      * <p>The index is based on the zen-cart defines for banner; eg: <code>SHOW_BANNERS_GROUP_SET3</code>.
      * Here the index would be three.</p>
      *
      * @param integer index The zen-cart index.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
+     * @deprecated use getBannerForGroupName instead
      */
     public function getBannerForIndex($index) {
         $list = $this->getBannersForGroupName(ZMSettings::get('bannerGroup'.$index));
         return 0 < count($list) ? $list[0] : null;
     }
 
+    /**
+     * Get a <strong>single</strong> banner for the given symbolic banner group name.
+     *
+     * @param string name A banner group name, based on settings in the form <em>banners.[name]</em>.
+     * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
+     */
+    public function getBannerForGroupName($name) {
+        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name));
+        return 0 < count($list) ? $list[0] : null;
+    }
 
     /**
      * Get all banner according to zen-cart configuration.
@@ -77,8 +88,9 @@ class ZMBanners extends ZMObject {
      *
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getAllBanners() { return $this->getBannersForGroupName(ZMSettings::get('bannerGroupAll'), true); }
-
+    public function getAllBanners() { 
+        return $this->getBannersForGroupName(ZMSettings::get('banners.all', 'bannerGroupAll'), true);
+    }
 
     /**
      * Get one (random) or more banner based on the given banner group(s).
@@ -90,7 +102,7 @@ class ZMBanners extends ZMObject {
      *  the configured sort order; default is <code>false</code> to shuffle results.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getBannersForGroupName($identifiers, $all=false) { 
+    protected function getBannersForGroupName($identifiers, $all=false) { 
         if (empty($identifiers)) {
             return array();
         }
@@ -124,7 +136,6 @@ class ZMBanners extends ZMObject {
 
         return $banner;
     }
-
 
     /**
      * Get a banner for the given id.

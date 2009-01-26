@@ -4,8 +4,9 @@ Release 0.9.5
   default is false/off
 - add ZMDatabase::loadModel as the next/last step to abstract the SQL away if
   desired
-- change ZMBanners::getBannersForGroupName() access to public
+- change ZMBanners::getBannersForGroupName() access to protected
 - add code for banner group 2 to default theme
+- change banner code to use symbolic names rather than index
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

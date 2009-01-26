@@ -27,7 +27,7 @@
 <div id="header">
   <h1><a href="<?php $net->url(FILENAME_DEFAULT) ?>">ZenMagick</a></h1>
   <h2>As simple as that!</h2>
-  <?php $bannerBox = ZMBanners::instance()->getBannerForIndex(2); if (null != $bannerBox) { ?>
+  <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('header2'))) { ?>
       <div id="bannerTwo"><?php $macro->showBanner($bannerBox); ?></div>
   <?php } ?>
 </div>
