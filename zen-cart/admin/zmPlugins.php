@@ -93,7 +93,7 @@ require_once 'includes/application_top.php';
 
     // build/update plugin status for all plugins
     $pluginStatus = array();
-    foreach (ZMPlugins::getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) {
+    foreach (ZMPlugins::getAllPlugins(ZMPlugin::SCOPE_ALL, false) as $type => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
               'type' => $plugin->getType(),
@@ -143,7 +143,7 @@ require_once 'includes/application_top.php';
     <div id="main">
       <div id="content">
 
-        <?php foreach (ZMPlugins::getAllPlugins(ZM_SCOPE_ALL, false) as $type => $plugins) { ?>
+        <?php foreach (ZMPlugins::getAllPlugins(ZMPlugin::SCOPE_ALL, false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo 'zmPlugins.php' ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0"> 
@@ -180,7 +180,7 @@ require_once 'includes/application_top.php';
                 </tr>
                 <?php if ($isEdit) { ?>
                   <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <?php if (!$plugin->isTraditional() && !(ZMTools::endsWith($value->getKey(), ZM_PLUGIN_ENABLED_SUFFIX) || ZMTools::endsWith($value->getKey(), ZM_PLUGIN_ORDER_SUFFIX))) { continue; } ?>
+                    <?php if (!$plugin->isTraditional() && !(ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ENABLED_SUFFIX) || ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ORDER_SUFFIX))) { continue; } ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                       <td><?php echo $value->getName() ?></td>
                       <td><?php echo $value->getDescription() ?></td>
