@@ -7,6 +7,7 @@ Release 0.9.5
 - change ZMBanners::getBannersForGroupName() access to protected
 - add code for banner group 2 to default theme
 - change banner code to use symbolic names rather than index
+- change getBannerForGroupName to getBannerForSet
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

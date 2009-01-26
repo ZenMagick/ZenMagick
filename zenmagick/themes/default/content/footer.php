@@ -31,7 +31,7 @@
         <?php } ?>
     </p>
 
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForGroupName('footer2'))) { ?>
+    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
         <div id="bannerFive"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 

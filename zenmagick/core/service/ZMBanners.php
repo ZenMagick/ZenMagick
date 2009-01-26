@@ -63,7 +63,7 @@ class ZMBanners extends ZMObject {
      *
      * @param integer index The zen-cart index.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
-     * @deprecated use getBannerForGroupName instead
+     * @deprecated use getBannerForSet instead
      */
     public function getBannerForIndex($index) {
         $list = $this->getBannersForGroupName(ZMSettings::get('bannerGroup'.$index));
@@ -71,12 +71,18 @@ class ZMBanners extends ZMObject {
     }
 
     /**
-     * Get a <strong>single</strong> banner for the given symbolic banner group name.
+     * Get a <strong>random, single</strong> banner for the given symbolic banner group set (yes!) name.
      *
-     * @param string name A banner group name, based on settings in the form <em>banners.[name]</em>.
+     * <p>A banner set is a either a single banner group or a list of banner groups.</p>
+     *
+     * <p>Banner sets can be configured by creating a setting with the format: <em>banners.[NAME]</em>,
+     * with <em>banners.</em> being a fixed prefix and <em>[NAME]</em> the name of the set.</p>
+     * <p>Example: <code>ZMSettings::set('banners.mygroup', 'Wide-Banners');</code></p>
+     *
+     * @param string name A banner group set name.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    public function getBannerForGroupName($name) {
+    public function getBannerForSet($name) {
         $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name));
         return 0 < count($list) ? $list[0] : null;
     }
