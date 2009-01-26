@@ -122,15 +122,6 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $email = ZMSettings::get('storeEmail');
     }
 
-    /**
-     * Get the plugin.
-     *
-     * @return ZMPlugin The plugin.
-     */
-    protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('zm_subscriptions');
-    }
-
 }
 
 ?>
