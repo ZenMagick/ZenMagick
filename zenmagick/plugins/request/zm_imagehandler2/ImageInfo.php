@@ -32,8 +32,10 @@
  * @version $Id$
  */
 class ImageInfo extends ZMImageInfo {
-    var $image_;
-    var $formattedParameter_;
+    private $image_;
+    private $formattedParameter_;
+    private $disableIH2Attributes_;
+
 
     /**
      * Create new image info.
@@ -45,6 +47,8 @@ class ImageInfo extends ZMImageInfo {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_imagehandler2');
+        $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
     }
 
     /**
@@ -60,14 +64,16 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The default image.
      */
-    function getDefaultImage() { 
+    public function getDefaultImage() { 
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
 
         $newimg = handle_image(DIR_WS_IMAGES.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
-        $this->formattedParameter_ = $newimg[4];
+        if (!$this->disableIH2Attributes_) {
+            $this->formattedParameter_ = $newimg[4];
+        }
         return $newimg[0];
     }
 
@@ -76,14 +82,14 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
-    function hasMediumImage() { return true; }
+    public function hasMediumImage() { return true; }
 
     /**
      * Get the medium image.
      *
      * @return string The medium image.
      */
-    function getMediumImage() {
+    public function getMediumImage() {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -91,7 +97,9 @@ class ImageInfo extends ZMImageInfo {
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
         $newimg = handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
-        $this->formattedParameter_ = $newimg[4];
+        if (!$this->disableIH2Attributes_) {
+            $this->formattedParameter_ = $newimg[4];
+        }
         return $newimg[0];
     }
 
@@ -100,7 +108,7 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The large image.
      */
-    function getLargeImage() {
+    public function getLargeImage() {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -108,7 +116,9 @@ class ImageInfo extends ZMImageInfo {
 
         $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
         $newimg = handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
-        $this->formattedParameter_ = $newimg[4];
+        if (!$this->disableIH2Attributes_) {
+            $this->formattedParameter_ = $newimg[4];
+        }
         return $newimg[0];
     }
 
@@ -117,14 +127,14 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
-    function hasLargeImage() { return true; }
+    public function hasLargeImage() { return true; }
 
     /**
      * Get the parameter formatted as <code>key="value" </code>.
      *
      * @return string HTML formatted parameter.
      */
-    function getFormattedParameter() { 
+    public function getFormattedParameter() { 
         return $this->formattedParameter_;
     }
 

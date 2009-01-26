@@ -25,4 +25,6 @@ b) Add the following two lines to the <head> element of the used layout file(s):
 
 Ideally, they would be the last two lines before the closing head tag (</head>)
 
+NOTE: The mouseover can be disabled using the plugin settings. This allows to use your own JS or JS libary and avoid JS errors.
+
 c) You also might want to adjust the width/height for the image popup in common.js.

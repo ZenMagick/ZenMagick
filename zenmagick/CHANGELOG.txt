@@ -8,6 +8,7 @@ Release 0.9.5
 - add code for banner group 2 to default theme
 - change banner code to use symbolic names rather than index
 - change getBannerForGroupName to getBannerForSet
+- zm_imagehandler2: add new plugin option to disable IH2 img attributes
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
