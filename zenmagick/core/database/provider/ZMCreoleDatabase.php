@@ -130,6 +130,41 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $end = explode (' ', microtime());
         return $end[1]+$end[0]-$start[1]-$start[0];
     }
+    /**
+     * {@inheritDoc}
+     */
+    public function loadModel($table, $key, $modelClass, $mapping=null) {
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+
+        $keyName = ZMSettings::get('dbModelKeyName');
+        if (null == $keyName) {
+            // determine by looking at key and auto settings
+            foreach ($mapping as $property => $field) {
+                if ($field['auto'] && $field['key']) {
+                    $keyName = $property;
+                    break;
+                }
+            }
+        }
+
+        $field = $mapping[$keyName];
+        $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
+        $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
+
+        $rs = $stmt->executeQuery();
+        ++$this->queriesCount;
+
+        $results = array();
+        while ($rs->next()) {
+            $results[] = $this->rs2model($modelClass, $rs, $mapping);
+        }
+
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesTime += $this->getExecutionTime($startTime);
+
+        return 1 == count($results) ? $results[0] : null;
+    }
 
     /**
      * {@inheritDoc}

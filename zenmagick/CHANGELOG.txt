@@ -2,6 +2,8 @@ Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)
 - add new setting 'isEnableDBAutoMapping' to enable auto table mapping;
   default is false/off
+- add ZMDatabase::loadModel as the next/last step to abstract the SQL away if
+  desired
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

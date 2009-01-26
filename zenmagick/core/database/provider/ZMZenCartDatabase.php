@@ -138,6 +138,46 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function loadModel($table, $key, $modelClass, $mapping=null) {
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+
+        $keyName = ZMSettings::get('dbModelKeyName');
+        if (null == $keyName) {
+            // determine by looking at key and auto settings
+            foreach ($mapping as $property => $field) {
+                if ($field['auto'] && $field['key']) {
+                    $keyName = $property;
+                    break;
+                }
+            }
+        }
+
+        $field = $mapping[$keyName];
+        $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
+        $sql = $this->db_->bindVars($sql, ':'.$keyName, $key, $field['type']);
+
+        if ($this->debug) {
+            ZMLogging::instance()->log($sql, ZMLogging::TRACE);
+        }
+        $rs = $this->db_->Execute($sql);
+        ++$this->queriesCount;
+
+        $result = $rs->fields;
+        if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
+            $result = $this->translateRow($result, $mapping);
+        }
+        if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
+            $result = ZMBeanUtils::map2obj($modelClass, $result);
+        }
+
+        $this->queriesTime += $this->getExecutionTime($startTime);
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function createModel($table, $model, $mapping=null) {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);

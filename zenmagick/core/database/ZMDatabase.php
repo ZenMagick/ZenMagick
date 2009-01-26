@@ -128,6 +128,18 @@ interface ZMDatabase {
     public function update($sql, $data=array(), $mapping=null);
 
     /**
+     * Load a single row using the given model and mapping.
+     *
+     * @param string table The table to update.
+     * @param mixed key The primary key.
+     * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
+     * @param mixed mapping The field mappings; default is <code>null</code>.
+     * @return mixed The model with the updated primary key.
+     * @throws ZMDatabaseException
+     */
+    public function loadModel($table, $key, $modelClass, $mapping=null);
+
+    /**
      * Create a single row using the given model and mapping.
      *
      * @param string table The table to update.
