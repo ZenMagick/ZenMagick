@@ -83,14 +83,14 @@ class ZMBanners extends ZMObject {
     /**
      * Get one (random) or more banner based on the given banner group(s).
      *
-     * <p>If <code>$all</code> is set to <code>true, all matching banners will be returned.</p>
+     * <p>If <code>$all</code> is set to <code>true</code>, all matching banners will be returned.</p>
      *
      * @param string identifiers One ore more identifiers, separated by ':'.
      * @param boolean all If set to <code>true</code>, all banners will be returned, ordered in 
      *  the configured sort order; default is <code>false</code> to shuffle results.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    private function getBannersForGroupName($identifiers, $all=false) { 
+    public function getBannersForGroupName($identifiers, $all=false) { 
         if (empty($identifiers)) {
             return array();
         }

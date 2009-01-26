@@ -21,30 +21,10 @@ structure:
 - have separate wrapper around store settings (eg. name, etc)
 - restructure to have zenmagick outside htdocs?
 - use reflection to populate model classes from request?
-- improve ZMClassLoader to resolve dependencies (use get_parent_class(..) or better 
-  get_class_hierachy(..) for PHP4 comp.)
-- review handling of global exports (too many places and not consistent...)
 
 general:
 - get a logo and favicon
-- clean up zen-bridge
 - get rid of wrapped zen-cart data (like orders, shopping cart, etc)
 
 performance:
 - improve :)
-
-
-Module notes
-============
-=> implement DPS as showcase
-=> ZMModule => ZMPaymentModule, ZMShippingModule, ZMOrderTotalModule
-=> shared attr. like enabled/disabled, zone for shipping modules, etc + getter setter for order, etc...
-=> could be distributed as extra functions/classes to work with zc
-
-features notes
-==============
-feature_group: group_id, desc, bla
-feature_group_mapping: group_id, feature_id
-product_feature_group: map groups to features
-
-default values for features
