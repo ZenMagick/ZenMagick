@@ -422,8 +422,12 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $meta = array();
             for ($ii=0; $ii < $fieldCount; ++$ii) {
                 $field = @mysql_field_name($res, $ii);
+                $flags = mysql_field_flags($res, $ii);
                 $meta[$field] = array(
                     'type' => @mysql_field_type($res, $ii),
+                    'name' => $field,
+                    'key' => false !== strpos($flags, 'primary_key'),
+                    'autoIncrement' => false !== strpos($flags, 'auto_increment'),
                     'maxLen' => @mysql_field_len($res, $ii)
                 );
             }

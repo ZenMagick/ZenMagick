@@ -32,6 +32,22 @@
  * @version $Id$
  */
 class ZMDbUtils {
+    /**
+     * Mapping of native data types to API types.
+     */
+    public static $NATIVE_TO_API_TYPEMAP = array(
+        'int' => 'integer',
+        'char' => 'string',
+        'varchar' => 'string',
+        'tinyint' => 'integer',
+        'text' => 'string',
+        'mediumtext' => 'string',
+        'smallint' => 'integer',
+        'int unsigned' => 'integer',
+        'tinytext' => 'string',
+        'mediumblob', 'blob'
+    );
+
 
     /**
      * Bind a list of values to a given SQL query.
@@ -205,56 +221,37 @@ class ZMDbUtils {
      * @return array The mapping.
      */
     public static function buildTableMapping($table, $print=false) {
-        // XXX: make class const
-        static $typeMap = array(
-            'int' => 'integer',
-            'char' => 'string',
-            'varchar' => 'string',
-            'tinyint' => 'integer',
-            'text' => 'string',
-            'mediumtext' => 'string',
-            'smallint' => 'integer',
-            'int unsigned' => 'integer',
-            'tinytext' => 'string',
-            'mediumblob', 'blob'
-        );
-
         // check for prefix
-        if (null === ($meta = ZMRuntime::getDatabase()->getMetaData($table))) {
+        if (null === ($tableMetaData = ZMRuntime::getDatabase()->getMetaData($table))) {
             // try adding the prefix
             $table = ZM_DB_PREFIX.$table;
-            if (null !== ($meta = ZMRuntime::getDatabase()->getMetaData($table))) {
-                // ok, what now??
+            if (null === ($tableMetaData = ZMRuntime::getDatabase()->getMetaData($table))) {
+                return null;
             }
         }
-
-        //XXX: use meta data instead!
-        // no args, empty mapping - or course!!
-        $rows = ZMRuntime::getDatabase()->query('SHOW FULL COLUMNS FROM '.$table, array(), array(), ZMDatabase::MODEL_RAW);
 
         $mapping = array();
         ob_start();
         echo "'".str_replace(ZM_DB_PREFIX, '', $table)."' => array(\n";
         $first = true;
-        foreach ($rows as $row) {
-            $type = preg_replace('/(.*)\(.*\)/', '\1', $row['Type']);
-            if (array_key_exists($type, $typeMap)) {
-                $type = $typeMap[$type];
+        foreach ($tableMetaData as $column) {
+            $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
+            if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
+                $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
             } 
 
-            //$line = "    '". $row['Field'] . "' => '" . 'column=' . $row['Field'] . ';type='.$type;
-            $line = 'column=' . $row['Field'] . ';type=' . $type;
-            if ('PRI' == $row['Key']) {
+            $line = 'column=' . $column['name'] . ';type=' . $type;
+            if ($column['key']) {
                 $line .= ';key=true';
             }
-            if (false !== strpos($row['Extra'], 'auto_increment')) {
+            if ($column['autoIncrement']) {
                 $line .= ';auto=true';
             }
-            $mapping[$row['Field']] = $line;
+            $mapping[$column['name']] = $line;
             if (!$first) {
                 echo ",\n";
             }
-            echo "    '" . $row['Field'] . "' => '" . $line . "'";
+            echo "    '" . $column['name'] . "' => '" . $line . "'";
             $first = false;
         }
         echo "\n),\n";

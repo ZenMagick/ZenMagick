@@ -192,6 +192,20 @@ interface ZMDatabase {
      *
      * <p>Meta data is available for either the current database or, if specified, an individual table.</p>
      *
+     * <p>The following table information will be returned:</p>
+     * <dl>
+     *  <dt>type</dt>
+     *  <dd>The data type. This will be a data type as supported by the <code>ZMDatabase</code> API.</dd>
+     *  <dt>name</dt>
+     *  <dd>The (case sensitive) column name.</dd>
+     *  <dt>key</dt>
+     *  <dd>A boolean indicating a primary key</dd>
+     *  <dt>autoIncrement</dt>
+     *  <dd>A boolean flag indication an auto increment column</dd>
+     *  <dt>maxLen</dt>
+     *  <dd>The max. field length; this value is context specific.</dd>
+     * </dl>
+     *
      * @param string table Optional table; if no table is provided, database meta data will be returned;
      *  default is <code>null</code>.
      * @return array Context dependent meta data.
