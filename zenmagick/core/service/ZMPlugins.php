@@ -227,9 +227,6 @@ class ZMPlugins extends ZMObject {
             return ZMPlugins::$plugins_[$id];
         }
 
-        if (!array_key_exists($id, ZMPlugins::$pluginStatus_)) {
-            return null;
-        }
         $status = ZMPlugins::$pluginStatus_[$id];
         $type = null != $type ? $type : $status['type'];
         $typeDir = ZMRuntime::getPluginsDir() . $type . '/';

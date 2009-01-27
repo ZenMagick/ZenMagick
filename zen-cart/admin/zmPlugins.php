@@ -182,16 +182,25 @@ require_once 'includes/application_top.php';
                   <?php foreach ($plugin->getConfigValues() as $value) { ?>
                     <?php if (!$plugin->isTraditional() && !(ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ENABLED_SUFFIX) || ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ORDER_SUFFIX))) { continue; } ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
-                      <td><?php echo $value->getName() ?></td>
-                      <td><?php echo $value->getDescription() ?></td>
-                      <td>
-                        <?php if ($value->hasSetFunction()) { ?>
-                          <?php eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');"); ?>
-                          <?php echo str_replace('<br>', '', $set) ?>
+                        <?php if ($value instanceof ZMWidget) { ?>
+                          <td><?php echo $value->getTitle() ?></td>
+                          <td><?php echo $value->getDescription() ?></td>
+                          <td>
+                            <?php /** XXX: need full name here */ $value->set('name', 'configuration['.$value->get('configurationKey').']') ?>
+                            <?php echo $value->render() ?>
+                          </td>
                         <?php } else { ?>
-                          <?php echo zen_draw_input_field('configuration[' . $value->getKey() . ']', $value->getValue()); ?>
+                          <td><?php echo $value->getName() ?></td>
+                          <td><?php echo $value->getDescription() ?></td>
+                          <td>
+                            <?php if ($value->hasSetFunction()) { ?>
+                              <?php eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');"); ?>
+                              <?php echo str_replace('<br>', '', $set) ?>
+                            <?php } else { ?>
+                              <?php echo zen_draw_input_field('configuration[' . $value->getKey() . ']', $value->getValue()); ?>
+                            <?php } ?>
+                          </td>
                         <?php } ?>
-                      </td>
                     </tr>
                   <?php } ?>
                 <?php } ?>

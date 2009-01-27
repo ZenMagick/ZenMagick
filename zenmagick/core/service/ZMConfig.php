@@ -109,14 +109,38 @@ class ZMConfig extends ZMObject {
      * Get all config values for a given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return array A list of <code>ZMConfigValue</code> instances.
+     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
      */
     public function getConfigValues($pattern) {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key like :key
                 ORDER BY configuration_id";
-        return ZMRuntime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION, 'ConfigValue');
+        $values = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION) as $value) {
+            if (0 === strpos($value['setFunction'], 'widget#')) {
+                // generate all custom properties
+                $basics = explode(';', $value['setFunction']);
+                $widgetClass = str_replace('widget#', '', $basics[0]);
+                parse_str($basics[1], $basicProperties);
+                parse_str($value['useFunction'], $widgetProperties);
+                $properties = array_merge($basicProperties, $widgetProperties);
+                $widget = ZMBeanUtils::map2obj($widgetClass, $properties);
+                if (null !== $widget) {
+                    $widget->setTitle($value['name']);
+                    $widget->setDescription($value['description']);
+                    $widget->set('value', $value['value']);
+                    // XXX: still needed for generic plugin config support
+                    $widget->set('configurationKey', $value['key']);
+                    $values[] = $widget;
+                } else {
+                    ZMLogging::instance()->log('failed to create widget: '.$widgetClass, ZMLogging::WARN);
+                }
+            } else {
+                $values[] = ZMBeanUtils::map2obj('ConfigValue', $value);
+            }
+        }
+        return $values;
     }
 
     /**
