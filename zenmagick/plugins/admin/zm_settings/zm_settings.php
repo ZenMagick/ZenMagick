@@ -56,9 +56,13 @@ class zm_settings extends ZMPlugin {
         parent::install();
 
         $this->addConfigValue('Text Widget', 'text', 'foo', 'Sample text widget',
-            'widget#TextWidget;id=text&name=text;default=foo', 'size=30&maxlength=32');
+            'widget#TextFormWidget;id=text&name=text;default=foo', 'size=30&maxlength=32');
         $this->addConfigValue('Text Widget', 'some.other', '', 'Sample other text widget',
-            'widget#TextWidget;id=some.other&name=some.other;default=', 'size=8&maxlength=5');
+            'widget#TextFormWidget;id=some.other&name=some.other;default=', 'size=8&maxlength=5');
+        $this->addConfigValue('Boolean Widget', 'bool', 'false', 'Sample boolean widget',
+            'widget#BooleanFormWidget;id=bool&name=bool;default=false');
+        $this->addConfigValue('Other Boolean Widget', 'other.bool', 'true', 'Other sample boolean widget',
+            'widget#BooleanFormWidget;id=other.bool&name=other.bool;default=true', 'true=Yup&false=Nix da&style=radio');
     }
 
     /**
@@ -72,7 +76,8 @@ class zm_settings extends ZMPlugin {
         // make all config values proper settings
         foreach ($this->getConfigValues(false) as $value) {
             if ($value instanceof ZMWidget) {
-              ZMSettings::set($value->getName(), $value->getValue());
+                //echo $value->getName() . ' = ' . $value->getValue()."<BR>";
+                ZMSettings::set($value->getName(), $value->getValue());
             }
         }
     }

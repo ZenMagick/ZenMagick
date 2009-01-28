@@ -22,13 +22,13 @@
 
 
 /**
- * <p>A single line text input widget.</p>
+ * <p>A single line text input form widget.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.widgets
+ * @package org.zenmagick.widgets.form
  * @version $Id$
  */
-class ZMTextWidget extends ZMWidget {
+class ZMTextFormWidget extends ZMWidget {
 
     /**
      * Create new instance.
