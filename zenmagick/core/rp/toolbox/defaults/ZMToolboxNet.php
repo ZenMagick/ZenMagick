@@ -36,7 +36,7 @@ class ZMToolboxNet extends ZMObject {
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
-    public function _zm_zen_href_link($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    public function furl($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     //TODO:
     global $session_started, $http_domain, $https_domain;
 
@@ -56,6 +56,11 @@ class ZMToolboxNet extends ZMObject {
             $isStatic = true;
         } else if (empty($page)) {
             throw ZMLoader::make('ZMException', 'missing page parameter');
+        }
+
+        if (!$isAdmin && $seo && function_exists('zm_build_seo_href')) {
+            // use custom SEO builder function - three args only
+            return zm_build_seo_href($page, $params, 'SSL'==$transport, $addSessionId, $seo, $isStatic, $useContext);
         }
 
         // default to non ssl
@@ -159,11 +164,11 @@ class ZMToolboxNet extends ZMObject {
         // no SEO in admin
         // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
         if (function_exists('zm_build_seo_href') && !ZMSettings::get('isAdmin')) {
-            // use custom SEO builder function
+            // use custom SEO builder function - three args only
             $href = zm_build_seo_href($page, $params, $secure);
         } else {
-            // use default implementation
-            $href = $this->_zm_zen_href_link($page, $params, $secure ? 'SSL' : 'NONSSL');
+            // use default implementation - three args only
+            $href = $this->furl($page, $params, $secure ? 'SSL' : 'NONSSL');
         }
 
         if ($echo) echo $href;

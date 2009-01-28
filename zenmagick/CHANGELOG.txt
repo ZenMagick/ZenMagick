@@ -10,6 +10,8 @@ Release 0.9.5
 - change getBannerForGroupName to getBannerForSet
 - zm_imagehandler2: add new plugin option to disable IH2 img attributes
 - add some initial widget code
+- review / reorganize SEO related functions - there were still cases were
+  zen_href_link parameters got lost; affectes all SEO related plugins and core
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

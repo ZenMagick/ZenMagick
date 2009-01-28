@@ -32,7 +32,7 @@ if (!function_exists('zen_href_link')) {
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (class_exists('ZMToolbox')) {
-            return ZMToolbox::instance()->net->_zm_zen_href_link($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+            return ZMToolbox::instance()->net->furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else if (function_exists('zen_href_link_DISABLED')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
