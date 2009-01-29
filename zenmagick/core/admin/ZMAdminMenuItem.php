@@ -33,12 +33,12 @@
  * @package org.zenmagick.admin
  * @version $Id$
  */
-class ZMMenuItem extends ZMModel {
-    var $parent_;
-    var $id_;
-    var $title_;
-    var $file_;
-    var $function_;
+class ZMAdminMenuItem extends ZMObject {
+    private $parent_;
+    private $id_;
+    private $title_;
+    private $file_;
+    private $function_;
 
 
     /**
@@ -73,35 +73,37 @@ class ZMMenuItem extends ZMModel {
      *
      * @return string The parent id.
      */
-    function getParent() { return $this->parent_; }
+    public function getParent() { return $this->parent_; }
 
     /**
      * Set the parent.
      *
      * @param, string parent The parent id.
      */
-    function setParent($parent) { $this->parent_ = $parent; }
+    public function setParent($parent) { $this->parent_ = $parent; }
 
     /**
      * Get the id.
      *
      * @return string The id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the title.
      *
      * @return string The title.
      */
-    function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title_; }
 
     /**
      * Check if this menu entry has contents.
      *
+     * <p>Menu seperators would return <code>false</code> here.</p>
+     *
      * @return boolean <code>true</code> if this entry points to actual contents.
      */
-    function hasPage() {
+    public function hasPage() {
         return null !== $this->file_ || null !== $this->function_;
     }
 
@@ -110,9 +112,13 @@ class ZMMenuItem extends ZMModel {
      *
      * @return string The URL.
      */
-    function getURL() {
+    public function getURL() {
         if (null !== $this->file_) {
-            return $this->file_;
+            $params = '';
+            if (null !== $this->function_) {
+                $params = 'fkt='.$this->function_;
+            }
+            return ZMToolbox::instance()->net->url($this->file_, $params, false, false);
         } else if (null !== $this->function_) {
             return 'fkt:'.$this->function_;
         }
@@ -124,8 +130,8 @@ class ZMMenuItem extends ZMModel {
      *
      * @return string The page body.
      */
-    function getPage() {
-        return "<h2>foo</h2>";
+    public function getPage() {
+        return "";
     }
 
 }

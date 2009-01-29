@@ -29,25 +29,29 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-if (class_exists('ZMInstallationPatcher')) {
-    /*
-     * Check for any patches that need be applied. If they are disabled or can't be applied, 
-     * display installation menu item for manual installation.
-     */
+    if (class_exists('ZMInstallationPatcher')) {
+        /*
+         * Check for any patches that need be applied. If they are disabled or can't be applied, 
+         * display installation menu item for manual installation.
+         */
 
-    $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], 'zmInstallation.php');
-    $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
-    $installer = new ZMInstallationPatcher();
-    if (!$duringUninstall && !$isInstallation && $installer->isPatchesOpen()) {
-        // try to run all patches
-        $installer->patch();
-    }
+        $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], 'zmInstallation.php');
+        $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
+        $installer = new ZMInstallationPatcher();
+        if (!$duringUninstall && !$isInstallation && $installer->isPatchesOpen()) {
+            // try to run all patches
+            $installer->patch();
+        }
 
-    $adminMenuPatch = $installer->getPatchForId('adminMenu');
-    if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
-        // only if no ZenMagick menu item
-        $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link('zmInstallation.php', '', 'NONSSL'));
+        $adminMenuPatch = $installer->getPatchForId('adminMenu');
+        if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
+            // only if no ZenMagick menu item
+            $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => zen_href_link('zmInstallation.php', '', 'NONSSL'));
+        }
     }
-}
     
+    foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_TOOLS) as $item) {
+        $za_contents[] = array('text' => $item->getTitle(), 'link' => $item->getURL(), '', 'NONSSL');
+    }
+
 ?>

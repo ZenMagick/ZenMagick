@@ -477,11 +477,11 @@ class ZMPlugin extends ZMObject {
      * @param string id The page id.
      * @param string title The page title.
      * @param string function The function to render the contents.
-     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZM_MENU_PLUGINS</em>.
+     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
      */
-    public function addMenuItem($id, $title, $function, $menuKey=ZM_MENU_PLUGINS) {
+    public function addMenuItem($id, $title, $function, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
         if (ZMRequest::isAdmin()) {
-            zm_add_menu_item(ZMLoader::make("MenuItem", $menuKey, $id, $title, null, $function));
+            ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem", $menuKey, $id, $title, 'zmPluginPage.php', $function));
         }
     }
 

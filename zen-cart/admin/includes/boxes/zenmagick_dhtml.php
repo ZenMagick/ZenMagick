@@ -36,27 +36,16 @@ if (!defined('IS_ADMIN_FLAG')) {
     $zm_contents[] = array('text' => zm_l10n_get("About"), 'link' => zen_href_link('zmAbout.php', '', 'NONSSL'));
     echo zen_draw_admin_box($zm_heading, $zm_contents);
 
-    if (0 < count($_zm_menu)) {
-        $zp_heading = array();
+    $pluginItems = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_PLUGINS);
+    if (0 < count($pluginItems)) {
         $zp_heading = array('text' => "Plugins", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
 
         $zp_contents = array();
+        foreach ($pluginItems as $item) {
+            $zp_contents[] = array('text' => $item->getTitle(), 'link' => $item->getURL(), '', 'NONSSL');
+        }
 
-        foreach ($_zm_menu as $item) {
-            if (null == $item || 'plugins' != $item->getParent()) {
-                continue;
-            }
-            $url = $item->getURL();
-            if (0 === strpos($url, 'fkt:')) {
-                $url = $toolbox->net->url('zmPluginPage.php', 'fkt=' . substr($url, 4), false, false);
-            } else {
-                $url = zen_href_link($url);
-            }
-            $zp_contents[] = array('text' => $item->getTitle(), 'link' => $url, '', 'NONSSL');
-        }
-        if (0 < count($zp_contents)) {
-            echo zen_draw_admin_box($zp_heading, $zp_contents);
-        }
+        echo zen_draw_admin_box($zp_heading, $zp_contents);
     }
 
 ?>

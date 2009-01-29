@@ -19,46 +19,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
-<?php  
+<?php
+
+
+/**
+ * The admin menu.
+ *
+ * <p>This is a singleton with all methods being static.</p>
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.admin
+ * @version $Id$
+ */
+class ZMAdminMenu extends ZMObject {
+    /** Plugins menu id. */
+    const MENU_PLUGINS = 'plugins';
+    /** Tools menu id. */
+    const MENU_TOOLS = 'tools';
+    /** Menu id for Catalog Manager tabs. */
+    const MENU_CATALOG_MANAGER_TAB = 'catalog_manager_tab';
+    private static $items_ = array();
+
 
     /**
      * Add a admin menu item.
      *
-     * @package org.zenmagick.admin
-     * @param ZMMenuItem item The new item.
+     * @param ZMAdminMenuItem item The new item.
      */
-    function zm_add_menu_item($item) {
-    global $_zm_menu;
-
-        if (!isset($_zm_menu)) {
-            $_zm_menu = array();
-        }
-
-        $_zm_menu[] = $item;
+    public static function addItem($item) {
+        ZMAdminMenu::$items_[] = $item;
     }
-
 
     /**
      * Display the admin menu.
      *
-     * @package org.zenmagick.admin
-     * @param string parent Parent menu id (used for recursive calls).
+     * @param string parent Parent menu id (used for recursive calls, do not set).
      */
-    function zm_build_menu($parent=null) {
-    global $_zm_menu;
-
-        if (!isset($_zm_menu)) {
-            $_zm_menu = array();
-        }
-
+    public static function buildMenu($parent=null) {
+        ob_start();
         $first = true;
-        $size = count ($_zm_menu);
+        $size = count (ZMAdminMenu::$items_);
         for ($ii=0; $ii < $size; ++$ii) { 
-            $item = $_zm_menu[$ii];
+            $item = ZMAdminMenu::$items_[$ii];
             if (null == $item) {
                 continue;
             }
@@ -82,7 +86,7 @@
                     }
                     echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
                 }
-                zm_build_menu($item->getId());
+                ZMAdminMenu::buildMenu($item->getId());
                 echo "</li>";
             }
         }
@@ -90,6 +94,31 @@
         if (!$first) {
             echo "</ul>";
         }
+
+        if (null === $parent) {
+            return ob_get_clean();
+        }
+
+        return "";
     }
+
+    /**
+     * Get all child items for the given id.
+     *
+     * @param string parentId The parent id.
+     * @return array A list of <code>ZMAdminMenuItem</code> instances.
+     */
+    public static function getItemsForParentId($parentId) {
+        $items = array();
+        foreach (ZMAdminMenu::$items_ as $item) {
+            if (null !== $item && $item->getParent() == $parentId) {
+                $items[] = $item;
+            }
+        }
+
+        return $items;
+    }
+
+}
 
 ?>

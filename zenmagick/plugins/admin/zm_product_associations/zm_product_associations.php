@@ -83,7 +83,7 @@ class zm_product_associations extends ZMPlugin {
 
         if ($associations && 0 < ZMRequest::getProductId()) {
             // only available if product involved
-            $this->addMenuItem('zmpa', zm_l10n_get('Product Associations'), 'zm_pa_admin', ZM_MENU_CATALOG_ADMIN);
+            $this->addMenuItem('zmpa', zm_l10n_get('Product Associations'), 'zm_pa_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
 
         ZMObject::attachMethod('getProductAssociationsForProductIdJSON', 'ZMAjaxCatalogController', 

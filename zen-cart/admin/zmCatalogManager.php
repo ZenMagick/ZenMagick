@@ -50,17 +50,8 @@ require 'includes/application_top.php';
       $zm_nav_params .= '&cPath='.ZMRequest::getCategoryPath();
   }
 
-  $catalog_menu = array();
-  // show available tabs...
-  if (!isset($_zm_menu) || null === $_zm_menu) {
-      $_zm_menu = array();
-  }
-  foreach ($_zm_menu as $item) {
-      if (null == $item || 'catalog_plugins' != $item->getParent()) {
-          continue;
-      }
-      $catalog_menu[] = $item;
-  }
+  // get available tabs...
+  $catalog_menu = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
 
   // capture output as plugins redirect...
   ob_start();

@@ -86,7 +86,7 @@ class zm_product_features extends ZMPlugin {
 
         if (0 < ZMRequest::getProductId()) {
             // only available if product selected
-            $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZM_MENU_CATALOG_ADMIN);
+            $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
     }
 
