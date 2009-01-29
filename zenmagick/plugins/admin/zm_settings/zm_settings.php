@@ -60,7 +60,7 @@ class zm_settings extends ZMPlugin {
         $this->addConfigValue('Text Widget', 'some.other', '', 'Sample other text widget',
             'widget#TextFormWidget;id=some.other&name=some.other;default=', 'size=8&maxlength=5');
         $this->addConfigValue('Boolean Widget', 'bool', 'false', 'Sample boolean widget',
-            'widget#BooleanFormWidget;id=bool&name=bool;default=false');
+            'widget#BooleanFormWidget;id=bool&name=bool;default=false', 'label=Tickle me');
         $this->addConfigValue('Other Boolean Widget', 'other.bool', 'true', 'Other sample boolean widget',
             'widget#BooleanFormWidget;id=other.bool&name=other.bool;default=true', 'true=Yup&false=Nix da&style=radio');
     }
@@ -76,7 +76,7 @@ class zm_settings extends ZMPlugin {
         // make all config values proper settings
         foreach ($this->getConfigValues(false) as $value) {
             if ($value instanceof ZMWidget) {
-                //echo $value->getName() . ' = ' . $value->getValue()."<BR>";
+                echo $value->getName() . ' = ' . $value->getValue()."<BR>";
                 ZMSettings::set($value->getName(), $value->getValue());
             }
         }

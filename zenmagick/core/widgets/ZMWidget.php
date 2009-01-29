@@ -24,6 +24,15 @@
 /**
  * Widget base class.
  *
+ * <p>Widgets are simple UI element container. They have some basic meta data (<em>title</em>,
+ * <em>description</em>) and can either be enabled or disabled.</p>
+ *
+ * <p>Depending on the nature of the widgets, subclasses might implement custom properties as
+ * needed.</p>
+ *
+ * <p>Since widgets are used in the context of an HTML page, the <code>render()</code> method is expected
+ * to return valid HTML that will display the widget.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.widgets
  * @version $Id$

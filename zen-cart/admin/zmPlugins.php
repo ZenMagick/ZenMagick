@@ -79,11 +79,19 @@ require_once 'includes/application_top.php';
     }
 
     // update
-    if (isset($_POST) && array_key_exists('pluginId', $_POST)) {
-        while (list($key, $value) = each($_POST['configuration'])) {
+    if ('POST' == ZMRequest::getMethod() && null !== ($pluginId = ZMRequest::getParameter('pluginId'))) {
+        $plugin = ZMPlugins::getPluginForId($pluginId);
+        $data = ZMRequest::getParameter('configuration', array(), false);
+        $values = $plugin->getConfigValues();
+        foreach ($values as $value) {
+            /** XXX: need full name here, but without 'configuration[]' this time! */ 
+            $value->setName($value->get('configurationKey'));
+        }
+        $data = ZMWidgetForm::processRequest($data, $values);
+        while (list($key, $value) = each($data)) {
             ZMConfig::instance()->updateConfigValue($key, $value);
         }
-        $refresh = $_POST['pluginId'];
+        $refresh = $pluginId;
         $needRefresh = true;
     }
 
