@@ -61,8 +61,10 @@ class zm_settings extends ZMPlugin {
             'widget#TextFormWidget;id=some.other&name=some.other;default=', 'size=8&maxlength=5');
         $this->addConfigValue('Boolean Widget', 'bool', 'false', 'Sample boolean widget',
             'widget#BooleanFormWidget;id=bool&name=bool;default=false', 'label=Tickle me');
+        $this->addConfigValue('Select Boolean Widget', 'totallyother.bool', 'true', 'Select sample boolean widget',
+            'widget#BooleanFormWidget;id=other.bool&name=totallyother.bool;default=true', 'label.true=Yes&label.false=No&style=select');
         $this->addConfigValue('Other Boolean Widget', 'other.bool', 'true', 'Other sample boolean widget',
-            'widget#BooleanFormWidget;id=other.bool&name=other.bool;default=true', 'true=Yup&false=Nix da&style=radio');
+            'widget#BooleanFormWidget;id=other.bool&name=other.bool;default=true', 'label.true=Yup&label.false=Nix da&style=radio');
     }
 
     /**
