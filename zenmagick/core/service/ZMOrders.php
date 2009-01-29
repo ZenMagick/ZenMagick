@@ -187,7 +187,7 @@ class ZMOrders extends ZMObject {
         $items = array();
         $attributes = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'OrderItem') as $item) {
-            // lookup attributes as well
+            // lookup selected attributes as well
             $sql = "SELECT *
                     FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
                     WHERE orders_id = :orderId

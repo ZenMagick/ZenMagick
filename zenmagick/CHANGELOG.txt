@@ -15,6 +15,7 @@ Release 0.9.5
 - add widget form utility class to allow widgets to have a go at submitted
   form data in case they need to twiddle with it (so far only checkboxes need
 	this
+- fix missing calculated price on order items; b:#2544585
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

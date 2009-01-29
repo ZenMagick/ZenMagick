@@ -508,7 +508,7 @@ array(
         'model' => 'column=products_model;type=string',
         'name' => 'column=products_name;type=string',
         'productPrice' => 'column=products_price;type=float',
-        'finalPrice' => 'column=final_price;type=float',
+        'calculatedPrice' => 'column=final_price;type=float',
         'taxValue' => 'column=products_tax;type=float',
         'qty' => 'column=products_quantity;type=float',
         'oneTimeCharges' => 'column=onetime_charges;type=integer',
