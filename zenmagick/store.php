@@ -35,18 +35,15 @@
         zm_dispatch();
         ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
 
-        require('includes/application_bottom.php');
-
         // allow plugins to filter/modify the final contents
-        $_zm_contents = ob_get_clean();
-        $_zm_contents = ZMPlugins::filterResponse($_zm_contents);
-        echo $_zm_contents;
+        echo ZMPlugins::filterResponse(ob_get_clean());
 
         // clear messages if not redirect...
         ZMRequest::getSession()->clearMessages();
 
         ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
 
+        require('includes/application_bottom.php');
         exit;
     }
 

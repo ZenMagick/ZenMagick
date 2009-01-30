@@ -49,9 +49,24 @@ class ZMEventFixes extends ZMObject {
 
 
     /**
+     * Generic zen-cart event observer.
+     */
+    public function update($eventId, $args) {
+        if (!ZMsettings::get('')) {
+            if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
+                $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
+                ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controllerId' => $controllerId));
+            } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
+                $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
+                ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controllerId' => $controllerId));
+            }
+        }
+    }
+
+    /**
      * Validate addresses for guest checkout.
      */
-    function onNotifyHeaderEndCheckoutConfirmation() {
+    public function onNotifyHeaderEndCheckoutConfirmation() {
         $session = ZMRequest::getSession();
         $shoppingCart = ZMRequest::getShoppingCart();
         if ($session->isGuest()) {
@@ -71,7 +86,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * Remove ajax requests from navigation history.
      */
-    function onZMDispatchStart() {
+    public function onZMDispatchStart() {
         if (false !== strpos(ZMRequest::getPageName(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }

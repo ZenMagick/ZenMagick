@@ -36,6 +36,7 @@
     $patchLabel = array(
         "adminMenu" => "Install ZenMagick admin menu",
         "themeSupport" => "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)",
+        "noThemeSupport" => "Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes",
         "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
         "sideboxDummies" => "Create dummy files for all (side)boxes of the current ZenMagick theme",
         "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",

@@ -139,11 +139,11 @@
             $zm_theme = ZMRuntime::getTheme();
             $zm_themeInfo = $zm_theme->getThemeInfo();
         }
-
-        // start output buffering
-        // XXX: handle admin?
-        if (!ZMSettings::get('isAdmin')) { ob_start(); }
     }
+
+    // start output buffering
+    // XXX: handle admin?
+    if (!ZMSettings::get('isAdmin')) { ob_start(); }
 
     require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
 
