@@ -25,9 +25,6 @@
 ?>
 <?php
 
-
-    // ** ZenMagick constants **//
-
     /**
      * If you are changing ZM_ROOT, make sure to update 
      * ..\zen-cart\includes\init_includes\overrides\init_templates.php
@@ -50,12 +47,6 @@
     define('ZM_DB_PREFIX', DB_PREFIX);
 
 
-    //** menu keys **//
-
-    define('ZM_MENU_PLUGINS', 'plugins');
-    define('ZM_MENU_CATALOG_ADMIN', 'catalog_plugins');
-
-
     //** date/time formats used internally by all models **//
 
     define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
@@ -65,7 +56,14 @@
     //** others **//
 
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    //** deprecated **//
     define('ZM_SESSION_TOKEN_NAME', 'stoken');
+
+
+    //** menu keys; deprecated **//
+
+    define('ZM_MENU_PLUGINS', 'menu_plugins');
+    define('ZM_MENU_CATALOG_ADMIN', 'catalog_manager_tab');
 
 
     //** events; deprecated **//

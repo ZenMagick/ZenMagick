@@ -19,6 +19,7 @@ Release 0.9.5
 - refactor and streamline admin menu handling; add ZMAdminMenu class; use
   ZMAdmin constants rather defines for menu ids, add new const to add items to
   the tools menu
+- more define/const refactoring
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
@@ -67,9 +68,9 @@ Release 0.9.4.1
 - fix getManufacturerForId broken if id parameter empty or null; b:#2497461
 - do not show Plugins menu item for catalog manager plugins; b:#2497486
 - use preg_xxx instead of ereg_xxx
- -remove unused and undocumented parameter from ZMAjaxController::toJSON()
- - remove core/ext/JSON.php and use native 5.2.x json methods instead
- - upgrade zm_firephp to FirePHP 0.2.1
+-remove unused and undocumented parameter from ZMAjaxController::toJSON()
+- remove core/ext/JSON.php and use native 5.2.x json methods instead
+- upgrade zm_firephp to FirePHP 0.2.1
 
 Release 0.9.4
 - prepend log messages with log level labels

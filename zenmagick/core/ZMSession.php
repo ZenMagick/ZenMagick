@@ -32,6 +32,8 @@
  * @version $Id$
  */
 class ZMSession extends ZMObject {
+    const TOKEN_NAME = 'stoken';
+
 
     /**
      * Create new instance.

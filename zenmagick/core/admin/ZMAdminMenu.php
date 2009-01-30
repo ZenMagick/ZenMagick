@@ -35,9 +35,9 @@
  */
 class ZMAdminMenu extends ZMObject {
     /** Plugins menu id. */
-    const MENU_PLUGINS = 'plugins';
+    const MENU_PLUGINS = 'menu_plugins';
     /** Tools menu id. */
-    const MENU_TOOLS = 'tools';
+    const MENU_TOOLS = 'menu_tools';
     /** Menu id for Catalog Manager tabs. */
     const MENU_CATALOG_MANAGER_TAB = 'catalog_manager_tab';
     private static $items_ = array();

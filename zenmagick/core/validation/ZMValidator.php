@@ -213,13 +213,13 @@ class ZMValidator extends ZMObject {
         $valid = true;
         if (ZMTools::inArray($id, ZMSettings::get('tokenSecuredForms'))) {
             $valid = false;
-            if (isset($req[ZM_SESSION_TOKEN_NAME])) {
-                $valid = (ZMRequest::getSession()->getToken() == $req[ZM_SESSION_TOKEN_NAME]);
+            if (isset($req[ZMSession::TOKEN_NAME])) {
+                $valid = (ZMRequest::getSession()->getToken() == $req[ZMSession::TOKEN_NAME]);
             }
         }
 
         if (!$valid) {
-            $this->messages_[ZM_SESSION_TOKEN_NAME] = array(zm_l10n_get('Invalid session request.'));
+            $this->messages_[ZMSession::TOKEN_NAME] = array(zm_l10n_get('Invalid session request.'));
         }
         return $valid;
     }

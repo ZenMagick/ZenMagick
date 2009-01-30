@@ -98,7 +98,7 @@ class ZMToolboxForm extends ZMObject {
 
         // add session token if configured
         if ($hasId && 'post' == strtolower($attr['method']) && ZMTools::inArray($attr['id'], ZMSettings::get('tokenSecuredForms'))) {
-            $hidden[ZM_SESSION_TOKEN_NAME] = ZMRequest::getSession()->getToken();
+            $hidden[ZMSession::TOKEN_NAME] = ZMRequest::getSession()->getToken();
         }
 
         ob_start();

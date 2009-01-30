@@ -56,7 +56,6 @@
             if ($_zm_name == $_zm_file) { continue; } // this is static stuff
             // exclude some stuff that gets resolved dynamically
             if ((false === strpos($_zm_file, '/controller/')
-                  && false === strpos($_zm_file, '/admin/')
                   && false === strpos($_zm_file, '/model/')
                   && false === strpos($_zm_file, '/rules/')
                   && false === strpos($_zm_file, '/provider/')
