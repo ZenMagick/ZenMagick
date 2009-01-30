@@ -51,7 +51,7 @@ class zm_theme_switch extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         $session = ZMRequest::getSession();
