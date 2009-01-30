@@ -20,6 +20,8 @@ Release 0.9.5
   ZMAdmin constants rather defines for menu ids, add new const to add items to
   the tools menu
 - more define/const refactoring
+- allow event subscribers to implement update(..) to receive all zen-cart
+  events
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

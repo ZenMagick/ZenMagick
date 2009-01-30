@@ -56,7 +56,7 @@ class ZMEvents extends ZMObject {
     const CREATE_ORDER = 'create_order';
 
     private $subscriber_;
-    private $eventLog;
+    private $eventLog_;
 
 
     /**
@@ -65,7 +65,7 @@ class ZMEvents extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->subscriber_ = array();
-        $this->eventLog = array();
+        $this->eventLog_ = array();
     }
 
     /**
@@ -111,7 +111,7 @@ class ZMEvents extends ZMObject {
      * @return array Log of all events and timings.
      */
     public function getEventLog() {
-        return $this->eventLog;
+        return $this->eventLog_;
     }
 
     /**
@@ -145,7 +145,7 @@ class ZMEvents extends ZMObject {
     }
 
     /**
-     * Generic observer callback that delegates to internal methods...
+     * Generic zen-cart observer callback that delegates to internal methods...
      *
      * <p>The actual method called is generated based on the event id.</p>
      *
@@ -155,11 +155,14 @@ class ZMEvents extends ZMObject {
      */
     public function update($notifier, $eventId, $args=array()) {
         $method = $this->event2method($eventId, 'on');
-        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
+        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         ZMLogging::instance()->log('fire zen-cart event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
         foreach($this->subscriber_ as $obs) {
             if (method_exists($obs['obs'], $method)) {
                 call_user_func(array($obs['obs'], $method), $args);
+            }
+            if (method_exists($obs['obs'], 'update')) {
+                call_user_func(array($obs['obs'], 'update'), $eventId, $args);
             }
         }
     }
@@ -178,7 +181,7 @@ class ZMEvents extends ZMObject {
      */
     public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
-        $this->eventLog[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
+        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         $args['source'] = $source;
         ZMLogging::instance()->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
         foreach($this->subscriber_ as $obs) {
