@@ -51,7 +51,7 @@ class sample_plugin extends ZMPlugin {
      * Install this plugin.
      */
     public function install() {
-        Start of index page event callbackparent::install();
+        parent::install();
 
         $this->addConfigValue('Plugin true/false', 'rq1key1', 'true', 'Select true or false', 'zen_cfg_select_option(array(\'true\',\'false\'),');
         $this->addConfigValue('Plugin text config', 'rq1key2', 'doh', 'Some text');
