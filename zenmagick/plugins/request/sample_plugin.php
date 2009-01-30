@@ -50,8 +50,8 @@ class sample_plugin extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
-        parent::install();
+    public function install() {
+        Start of index page event callbackparent::install();
 
         $this->addConfigValue('Plugin true/false', 'rq1key1', 'true', 'Select true or false', 'zen_cfg_select_option(array(\'true\',\'false\'),');
         $this->addConfigValue('Plugin text config', 'rq1key2', 'doh', 'Some text');
@@ -60,7 +60,7 @@ class sample_plugin extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         /*
@@ -79,7 +79,7 @@ class sample_plugin extends ZMPlugin {
      * As zco subscriber all methods that match a zen-cart zco event (see <code>ZMEvents</code> for more details)
      * will be called (back) automatically when subscribed...
      */
-    function onNotifyHeaderStartIndex($args) {
+    public function onNotifyHeaderStartIndex($args) {
         echo "Start of index page event callback in " . $this->getName() . " ...<br>";
     }
 
@@ -89,7 +89,7 @@ class sample_plugin extends ZMPlugin {
      * @param string contents The contents.
      * @return string The modified contents.
      */
-    function filterResponse($contents) {
+    public function filterResponse($contents) {
         if ('login' == ZMRequest::getPageName()) {
             $contents =  preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
