@@ -42,6 +42,33 @@ abstract class ZMWidget extends ZMObject {
     private $description_;
     private $enabled_;
 
+/*
+zen_cfg_textarea(');
+zen_cfg_select_option(array(\'true\', \'false\'),');
+zen_cfg_select_option(array(\'shipping\', \'billing\'),');
+zen_cfg_select_option(array(\'ProductId\', \'Model\'),');
+zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
+zen_cfg_select_drop_down(array(array('id'=>'false', 'text'=>'Ignore'), array('id'=>'true', 'text'=>'Catch-up')), ");
+zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
+==================
+zen_cfg_select_coupon_id($coupon_id, $key = '')
+zen_cfg_pull_down_country_list($country_id, $key = '')
+zen_cfg_pull_down_country_list_none($country_id, $key = '')
+zen_cfg_pull_down_zone_list($zone_id, $key = '')
+zen_cfg_pull_down_tax_classes($tax_class_id, $key = '')
+zen_cfg_textarea($text, $key = '')
+zen_cfg_textarea_small($text, $key = '')
+zen_cfg_get_zone_name($zone_id)
+zen_cfg_pull_down_htmleditors($html_editor, $key = '')
+zen_cfg_password_input($value, $key = '')
+zen_cfg_password_display($value)
+zen_cfg_select_option($select_array, $key_value, $key = '')
+zen_cfg_select_drop_down($select_array, $key_value, $key = '')
+zen_cfg_pull_down_zone_classes($zone_class_id, $key = '')
+zen_cfg_pull_down_order_statuses($order_status_id, $key = '')
+zen_cfg_select_multioption($select_array, $key_value, $key = '')
+*/
 
     /**
      * Create new instance.
