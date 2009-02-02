@@ -68,6 +68,11 @@ class zm_theme_switch extends ZMPlugin {
      * {@inheritDoc}
      */
     public function filterResponse($contents) {
+        if (false !== strpos($contents, zm_l10n_get('Switch theme: '))) {
+            // already done
+            return $contents;
+        }
+
         $themes = explode(',', ZMSettings::get('plugins.zm_theme_switch.themes'));
         $links = '';
         foreach ($themes as $themeInfo) {
