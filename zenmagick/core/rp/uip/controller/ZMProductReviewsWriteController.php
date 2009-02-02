@@ -54,7 +54,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         $product = $this->_getProduct();
         if (null == $product) {
             return $this->findView('error');
@@ -74,7 +74,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         $review = ZMLoader::make("Review");
         $review->populate();
 
@@ -115,7 +115,7 @@ class ZMProductReviewsWriteController extends ZMController {
      *
      * @return ZMProduct The product or <code>null</code>.
      */
-    function _getProduct() {
+    protected function _getProduct() {
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
@@ -130,7 +130,7 @@ class ZMProductReviewsWriteController extends ZMController {
      *
      * @param ZMProduct product The current product.
      */
-    function _handleCrumbtrail($product) {
+    protected function _handleCrumbtrail($product) {
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
