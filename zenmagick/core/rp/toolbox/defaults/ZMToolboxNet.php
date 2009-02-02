@@ -136,12 +136,9 @@ class ZMToolboxNet extends ZMObject {
     public function url($page=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
         // custom view and params handling
         if (null === $page || null === $params) {
-            $query = array();
-            if (null === $page || null === $params) {
-                $query = ZMRequest::getParameterMap();
-                unset($query['main_page']);
-                unset($query[zen_session_name()]);
-            }
+            $query = ZMRequest::getParameterMap();
+            unset($query['main_page']);
+            unset($query[zen_session_name()]);
             if (null != $params) {
                 parse_str($params, $arr);
                 $query = array_merge($query, $arr);
