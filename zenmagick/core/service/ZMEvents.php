@@ -55,7 +55,7 @@ class ZMEvents extends ZMObject {
     const GENERATE_EMAIL = 'generate_email';
     const CREATE_ORDER = 'create_order';
 
-    private $subscriber_;
+    private $subscribers_;
     private $eventLog_;
 
 
@@ -64,7 +64,7 @@ class ZMEvents extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->subscriber_ = array();
+        $this->subscribers_ = array();
         $this->eventLog_ = array();
     }
 
@@ -84,25 +84,25 @@ class ZMEvents extends ZMObject {
 
 
     /**
-     * Attach an observer to this event source.
+     * Attach a subscriber to this event source.
      *
-     * @param mixed observer Reference to the observer class or method.
+     * @param mixed subscriber Reference to the subscriber instance.
      */
-    public function attach($observer) {
-        $eventId = 'all';
-        $nameHash = md5(get_class($observer).$eventId);
-        $this->subscriber_[$nameHash] = array('obs'=> $observer, 'eventID'=>$eventId);
+    public function attach($subscriber) {
+        //XXX: this is not safe!
+        $nameHash = md5(get_class($subscriber));
+        $this->subscribers_[$nameHash] = array('obj' => $subscriber, 'methods' => null);
     }
 
     /**
-     * Detach an observer from the notifier object
+     * Detach a subscriber.
      *
-     * @param mixed observer Reference to the observer class or method.
+     * @param mixed subscriber Reference of the subscriber instance.
      */
-    public function detach($observer) {
-        $eventId = 'all';
-        $nameHash = md5(get_class($observer).$eventId);
-        unset($this->subscriber_[$nameHash]);
+    public function detach($subscriber) {
+        //XXX: this is not safe!
+        $nameHash = md5(get_class($subscriber));
+        unset($this->subscribers_[$nameHash]);
     }
 
     /**
@@ -157,12 +157,15 @@ class ZMEvents extends ZMObject {
         $method = $this->event2method($eventId, 'on');
         $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         ZMLogging::instance()->log('fire zen-cart event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
-        foreach($this->subscriber_ as $obs) {
-            if (method_exists($obs['obs'], $method)) {
-                call_user_func(array($obs['obs'], $method), $args);
+        foreach($this->subscribers_ as $subscriber) {
+            if (null === $subscriber['methods']) {
+                $subscriber['methods'] = get_class_methods($subscriber['obj']);
             }
-            if (method_exists($obs['obs'], 'update')) {
-                call_user_func(array($obs['obs'], 'update'), $eventId, $args);
+            if (in_array($method, $subscriber['methods'])) {
+                call_user_func(array($subscriber['obj'], $method), $args);
+            }
+            if (in_array('update', $subscriber['methods'])) {
+                call_user_func(array($subscriber['obj'], 'update'), $eventId, $args);
             }
         }
     }
@@ -184,9 +187,12 @@ class ZMEvents extends ZMObject {
         $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'args' => $args);
         $args['source'] = $source;
         ZMLogging::instance()->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
-        foreach($this->subscriber_ as $obs) {
-            if (method_exists($obs['obs'], $method)) {
-                call_user_func(array($obs['obs'], $method), $args);
+        foreach($this->subscribers_ as $subscriber) {
+            if (null === $subscriber['methods']) {
+                $subscriber['methods'] = get_class_methods($subscriber['obj']);
+            }
+            if (in_array($method, $subscriber['methods'])) {
+                call_user_func(array($subscriber['obj'], $method), $args);
             }
         }
     }

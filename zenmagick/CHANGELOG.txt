@@ -24,6 +24,7 @@ Release 0.9.5
   events
 - add new patch to be able to filter the HTML response using zen-cart
   templates; this will enable most storefront plugins for zen-cart templates!
+- cache reflection data (class methods) in ZMEvents
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
