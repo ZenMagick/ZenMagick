@@ -50,9 +50,11 @@ class ZMEventFixes extends ZMObject {
 
     /**
      * Generic zen-cart event observer.
+     *
+     * <p>Implemented to generate some ZenMagick events triggered by zen-cart events.</p>
      */
     public function update($eventId, $args) {
-        if (!ZMsettings::get('')) {
+        if (!ZMsettings::get('isEnableZMThemes')) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
                 ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controllerId' => $controllerId));
@@ -60,6 +62,15 @@ class ZMEventFixes extends ZMObject {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
                 ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controllerId' => $controllerId));
             }
+        }
+    }
+
+    /**
+     * Fake theme resolved event if using zen-cart templates.
+     */
+    public function onZMInitDone() {
+        if (!ZMsettings::get('isEnableZMThemes')) {
+            ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId));
         }
     }
 
