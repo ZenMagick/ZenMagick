@@ -189,6 +189,11 @@
             <param name="plugin.name" value="zm_settings" />
             <param name="plugin.version" value="${plugins.zm_settings.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_toggle_zm_themes" />
+            <param name="plugin.version" value="${plugins.zm_toggle_zm_themes.version}" />
+        </antcall>
     </target>
 
     
