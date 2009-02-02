@@ -54,6 +54,7 @@ class ZMEvents extends ZMObject {
     const LOGOFF_SUCCESS = 'logoff_success';
     const GENERATE_EMAIL = 'generate_email';
     const CREATE_ORDER = 'create_order';
+    const FINALISE_CONTENTS = 'finalise_contents';
 
     private $subscribers_;
     private $eventLog_;
@@ -173,6 +174,10 @@ class ZMEvents extends ZMObject {
     /**
      * Fire ZenMagick event.
      *
+     * <p>Subscriber may opt to return the passed in <code>$args</code> array or a modified version or <code>null</code>.</p>
+     * <p>If <code>null</code> (or nothing) is returned, the orignal argument array is kept, if the return value is of
+     * type array it is used as new <code>$args</code> for the next subscriber call and as final return value.</p>
+     *
      * <p>ZenMagick event methods start with <em>onZM</em>.</p>
      *
      * <p>A reference of the event source is added to the optional arguments map with the key
@@ -181,6 +186,7 @@ class ZMEvents extends ZMObject {
      * @param mixed source The event source.
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>array()</code>.
+     * @return array The final <code>$args</code>.
      */
     public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
@@ -192,9 +198,14 @@ class ZMEvents extends ZMObject {
                 $subscriber['methods'] = get_class_methods($subscriber['obj']);
             }
             if (in_array($method, $subscriber['methods'])) {
-                call_user_func(array($subscriber['obj'], $method), $args);
+                $result = call_user_func(array($subscriber['obj'], $method), $args);
+                if (null !== $result) {
+                    $args = $result;
+                }
             }
         }
+
+        return $args;
     }
 
 }

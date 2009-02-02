@@ -268,6 +268,7 @@ class ZMPlugins extends ZMObject {
      *
      * @param string contents The page contents.
      * @return string The really final contents :0
+     * @deprecated use ZMEvents (ZMEvents::FINALISE_CONTENTS) instead
      */
     public static function filterResponse($contents) {
         $controller = ZMRequest::getController();

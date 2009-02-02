@@ -54,7 +54,7 @@ class zm_page_stats extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).', 'zen_cfg_select_option(array(\'true\',\'false\'),');
@@ -63,12 +63,9 @@ class zm_page_stats extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
-        if (defined('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS')) {
-            // page cache active
-            $this->zcoSubscribe();
-        }
+        $this->zcoSubscribe();
     }
 
     /**
@@ -111,14 +108,14 @@ class zm_page_stats extends ZMPlugin {
     }
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if (ZMTools::asBoolean($this->get('hideStats'))) {
-            return $contents.$this->hiddenStats();
+            $args['contents'] = $contents.$this->hiddenStats();
+            return $args;
         }
 
         ob_start();
@@ -143,8 +140,11 @@ class zm_page_stats extends ZMPlugin {
                 echo '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
-                $args = is_array($event['args']) ? $event['args'] : array($event['args']);
-                $argsInfo = implode(',', $args);
+                $eargs = is_array($event['args']) ? $event['args'] : array($event['args']);
+                if (ZMEvents::FINALISE_CONTENTS == $event['id']) {
+                    $eargs['contents'] = '**response**';
+                }
+                $argsInfo = implode(',', $eargs);
                 $argsInfo = empty($argsInfo) ? '&nbsp;' : $argsInfo;
                 echo '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
                 echo '</tr>';
@@ -161,7 +161,8 @@ class zm_page_stats extends ZMPlugin {
 
         $info = ob_get_clean();
 
-        return preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
+        $args['contents'] = preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
+        return $args;
     }
 
 }

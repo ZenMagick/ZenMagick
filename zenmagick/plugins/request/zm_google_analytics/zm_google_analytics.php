@@ -85,14 +85,20 @@ class zm_google_analytics extends ZMPlugin {
           'zen_cfg_select_option(array(\''.'true'.'\', \''.'false'.'\'), ');
     }
 
+    /**
+     * Init this plugin.
+     */
+    public function init() {
+        parent::init();
+        $this->zcoSubscribe();
+    }
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if (ZMSettings::get('plugins.zm_google_analytics.urchin', false)) {
             $trackerCode = $this->getTrackerCodeUrchin();
             $checkoutCode = $this->getCheckoutCodeUrchin();
@@ -108,7 +114,8 @@ class zm_google_analytics extends ZMPlugin {
             $code = str_replace('</script>', '/script-->', $code);
         }
 
-        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
+        $args['contents'] = preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
+        return $args;
     }
 
     /**

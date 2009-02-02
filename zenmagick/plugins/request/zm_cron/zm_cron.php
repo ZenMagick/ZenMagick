@@ -52,7 +52,7 @@ class zm_cron extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger', 'zen_cfg_select_option(array(\'true\',\'false\'),');
@@ -64,8 +64,10 @@ class zm_cron extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
+
+        $this->zcoSubscribe();
 
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
@@ -75,14 +77,12 @@ class zm_cron extends ZMPlugin {
         }
     }
 
-
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if ($this->isEnabled() && ZMTools::asBoolean($this->get('image'))) {
             $pages = $this->get('triggerPages');
             if (empty($pages) || ZMTools::inArray(ZMRequest::getPageName(), $pages)) {
@@ -92,7 +92,8 @@ class zm_cron extends ZMPlugin {
             }
         }
 
-        return $contents;
+        $args['contents'] = $contents;
+        return $args;
     }
 
     /**

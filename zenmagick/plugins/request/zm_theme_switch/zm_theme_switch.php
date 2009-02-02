@@ -54,6 +54,8 @@ class zm_theme_switch extends ZMPlugin {
     public function init() {
         parent::init();
 
+        $this->zcoSubscribe();
+
         $session = ZMRequest::getSession();
         if (null != ($themeId = ZMRequest::getParameter('themeId'))) {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
@@ -67,10 +69,12 @@ class zm_theme_switch extends ZMPlugin {
     /**
      * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if (false !== strpos($contents, zm_l10n_get('Switch theme: '))) {
-            // already done
-            return $contents;
+            // already done, do not change
+            return null;
         }
 
         $themes = explode(',', ZMSettings::get('plugins.zm_theme_switch.themes'));
@@ -93,7 +97,9 @@ class zm_theme_switch extends ZMPlugin {
             $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . zm_l10n_get('Switch theme: ') . $links . '</div>';
             $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
         }
-        return $contents;
+
+        $args['contents'] = $contents;
+        return $args;
     }
 
 }

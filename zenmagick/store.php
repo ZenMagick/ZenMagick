@@ -35,8 +35,9 @@
         zm_dispatch();
         ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
 
-        // allow plugins to filter/modify the final contents
-        echo ZMPlugins::filterResponse(ob_get_clean());
+        // allow plugins and event subscribers to filter/modify the final contents
+        $_zm_args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('contents' => ZMPlugins::filterResponse(ob_get_clean())));
+        echo $_zm_args['contents'];
 
         // clear messages if not redirect...
         ZMRequest::getSession()->clearMessages();

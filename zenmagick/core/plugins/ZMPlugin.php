@@ -570,6 +570,7 @@ class ZMPlugin extends ZMObject {
      *
      * @param string contents The contents.
      * @return string The modified contents.
+     * @deprecated use ZMEvents (ZMEvents::FINALISE_CONTENTS) instead
      */
     public function filterResponse($contents) {
         return $contents;

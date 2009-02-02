@@ -52,7 +52,7 @@ class zm_hoverbox3 extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/use-sql-patch-tool-to-install.txt")), $this->messages_);
     }
@@ -62,34 +62,36 @@ class zm_hoverbox3 extends ZMPlugin {
      *
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
-    function remove($keepSettings=false) {
+    public function remove($keepSettings=false) {
         parent::remove($keepSettings);
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall-HoverBox-sql.txt")), $this->messages_);
     }
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    function filterResponse($contents) {
-        if (strpos($contents, 'hoverbox')) {
-            $theme = ZMRuntime::getTheme();
-            // hover3 used in this page
-            $h3head = '';
-            $h3head .= '<link rel="stylesheet" type="text/css" href="' . $theme->themeURL('hover3/stylesheet_hoverbox3.css', false) . '" />';
-            $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_effects.js', false) . '"></script>';
-            // eval js config
-            $h3config_tpl = file_get_contents($this->getPluginDir().'/ic_hoverbox_config.tpl');
-            ob_start();
-            eval('?>'.$h3config_tpl);
-            $h3config = ob_get_clean();
-            $h3head .= $h3config;
-            $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_hoverbox3.js', false) . '"></script>';
-            $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+        if (false === strpos($contents, 'hoverbox')) {
+            return null;
         }
-        return $contents;
+
+        $theme = ZMRuntime::getTheme();
+        // hover3 used in this page
+        $h3head = '';
+        $h3head .= '<link rel="stylesheet" type="text/css" href="' . $theme->themeURL('hover3/stylesheet_hoverbox3.css', false) . '" />';
+        $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_effects.js', false) . '"></script>';
+        // eval js config
+        $h3config_tpl = file_get_contents($this->getPluginDir().'/ic_hoverbox_config.tpl');
+        ob_start();
+        eval('?>'.$h3config_tpl);
+        $h3config = ob_get_clean();
+        $h3head .= $h3config;
+        $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_hoverbox3.js', false) . '"></script>';
+        $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
+
+        $args['contents'] = $contents.$this->hiddenStats();
+        return $args;
     }
 
 }

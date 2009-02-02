@@ -61,7 +61,7 @@ class zm_page_cache extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         $this->zcoSubscribe();
@@ -133,17 +133,16 @@ class zm_page_cache extends ZMPlugin {
 
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if ($this->isEnabled() && $this->isCacheable()) {
             $this->pageCache_->save($contents, $this->getRequestKey());
         }
 
-        return $contents;
+        return null;
     }
 
 }

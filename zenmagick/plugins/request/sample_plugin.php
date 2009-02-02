@@ -84,17 +84,16 @@ class sample_plugin extends ZMPlugin {
     }
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if ('login' == ZMRequest::getPageName()) {
-            $contents =  preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
+            $args['contents'] = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 
-        return $contents;
+        return $args;
     }
 
 }

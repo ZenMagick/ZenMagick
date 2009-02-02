@@ -69,9 +69,7 @@ class zm_wordpress extends ZMPlugin {
     public function init() {
         parent::init();
 
-        if ($this->isEnabled()) {
-            $this->zcoSubscribe();
-        }
+        $this->zcoSubscribe();
 
         // use API
         define('WP_USE_THEMES', false);
@@ -113,20 +111,19 @@ class zm_wordpress extends ZMPlugin {
 
 
     /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
+     * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if (FILENAME_WP == ZMRequest::getPageName()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
-            $contents = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
+            $args['contents'] = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
         }
 
-        return $contents;
+        return $args;
     }
 
     /**

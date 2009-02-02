@@ -54,6 +54,8 @@ class zm_toggle_zm_themes extends ZMPlugin {
     public function init() {
         parent::init();
 
+        $this->zcoSubscribe();
+
         $session = ZMRequest::getSession();
         if (null != ($themeToggle = ZMRequest::getParameter('themeToggle'))) {
             $session->setValue(self::SESS_THEME_TOGGLE_KEY, $themeToggle);
@@ -67,10 +69,12 @@ class zm_toggle_zm_themes extends ZMPlugin {
     /**
      * {@inheritDoc}
      */
-    public function filterResponse($contents) {
+    public function onZMFinaliseContents($args) {
+        $contents = $args['contents'];
+
         if (false !== strpos($contents, zm_l10n_get('Toggle ZenMagick theme support'))) {
             // already done
-            return $contents;
+            return null;
         }
 
         $toggleValue = ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
@@ -81,8 +85,9 @@ class zm_toggle_zm_themes extends ZMPlugin {
         }      
         $link = '<a href="'.$url.'">'.zm_l10n_get('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';
-        $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
-        return $contents;
+
+        $args['contents'] = preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
+        return $args;
     }
 
 }
