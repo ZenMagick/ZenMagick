@@ -70,7 +70,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMInitDone() {
         if (!ZMsettings::get('isEnableZMThemes')) {
-            ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId));
+            ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId()));
         }
     }
 
