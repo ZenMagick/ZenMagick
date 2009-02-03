@@ -78,6 +78,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function lookup($id) {
+        $this->cache_->clean($this->group_, 'old');
         return $this->cache_->get($id, $this->group_);
     }
 

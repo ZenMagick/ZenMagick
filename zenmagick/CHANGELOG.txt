@@ -27,6 +27,7 @@ Release 0.9.5
 - cache reflection data (class methods) in ZMEvents
 - convert ZMPlugins::filterRequest() into a regular event to allow non plugins
   to access/modify the final contents
+- add proper auto purge to ZMFileCache
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
