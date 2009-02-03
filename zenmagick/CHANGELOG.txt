@@ -28,6 +28,7 @@ Release 0.9.5
 - convert ZMPlugins::filterRequest() into a regular event to allow non plugins
   to access/modify the final contents
 - add proper auto purge to ZMFileCache
+- fix ZMReviews::createReview(); b:#2560302
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

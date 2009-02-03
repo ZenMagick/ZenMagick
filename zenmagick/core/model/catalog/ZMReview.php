@@ -37,6 +37,7 @@ class ZMReview extends ZMModel {
     private $text_;
     private $dateAdded_;
     private $author_;
+    private $languageId_;
 
 
     /**
@@ -50,6 +51,7 @@ class ZMReview extends ZMModel {
         $this->text_ = '';
         $this->dateAdded_ = '';
         $this->author_ = '';
+        $this->languageId_ = 0;
         $this->setStatus(true);
         $this->setViewCount(0);
     }
@@ -152,6 +154,13 @@ class ZMReview extends ZMModel {
     public function getAuthor() { return $this->author_; }
 
     /**
+     * Get the lanugage id.
+     *
+     * @return int The lanugage id.
+     */
+    public function getLanguageId() { return $this->languageId_; }
+
+    /**
      * Set the review id.
      *
      * @param int id The review id.
@@ -220,6 +229,13 @@ class ZMReview extends ZMModel {
      * @param string author The name of the author.
      */
     public function setAuthor($author) { $this->author_ = $author; }
+
+    /**
+     * Set the lanugage id.
+     *
+     * @param int id The lanugage id.
+     */
+    public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
 }
 
