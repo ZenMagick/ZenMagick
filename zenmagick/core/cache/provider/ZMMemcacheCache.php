@@ -77,6 +77,8 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function clear() {
+        $this->lastModified_ = time();
+
         // iterate over all entries and match the group prefix
         $groupPrefix = $this->group_.'/';
         foreach ($this->memcache_->getExtendedStats('items') as $host => $hostSummary) {

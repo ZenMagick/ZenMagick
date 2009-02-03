@@ -73,6 +73,8 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function clear() {
+        $this->lastModified_ = time();
+
         // iterate over all entries and match the group prefix
         $groupPrefix = $this->group_.'/';
         for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; ++$ii) {
