@@ -102,6 +102,7 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function remove($id) {
+        $this->lastModified_ = time();
         return xcache_unset($this->group_.'/'.$id);
     }
 

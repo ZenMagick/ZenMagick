@@ -45,7 +45,7 @@ class zm_page_cache extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(9999);
         $this->pageCache_ = null;
     }
@@ -83,7 +83,8 @@ class zm_page_cache extends ZMPlugin {
      */
     function getRequestKey() {
         $session = ZMRequest::getSession();
-        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . $session->getLanguageId() . '-' . ZMRuntime::getThemeId();
+        return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . 
+                  $session->getLanguageId() . '-' . ZMRuntime::getThemeId();
     }
 
     /**

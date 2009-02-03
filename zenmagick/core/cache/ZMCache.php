@@ -58,10 +58,10 @@ interface ZMCache {
     public function clear();
 
     /**
-     * Test if a cache entry exists and, if it does, return it
+     * Test if a valid cache entry exists and, if it does, return it
      *
      * @param string id The cache id.
-     * @return string Data of the cache (else : false)
+     * @return string Cache data or <code>false</code>.
      */
     public function lookup($id);
 
