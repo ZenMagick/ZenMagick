@@ -52,7 +52,7 @@ class ZMReview extends ZMModel {
         $this->dateAdded_ = '';
         $this->author_ = '';
         $this->languageId_ = 0;
-        $this->setStatus(true);
+        $this->setActive(true);
         $this->setViewCount(0);
     }
 
@@ -193,7 +193,7 @@ class ZMReview extends ZMModel {
      *
      * @param boolean value <code>true</code> if the review is active.
      */
-    public function setActive($value) { $this->get('status', $value); }
+    public function setActive($value) { $this->set('status', $value); }
 
     /**
      * Set the review product name.

@@ -29,6 +29,7 @@ Release 0.9.5
   to access/modify the final contents
 - add proper auto purge to ZMFileCache
 - fix ZMReviews::createReview(); b:#2560302
+- fix ignored review approval flag; b:#2563338
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

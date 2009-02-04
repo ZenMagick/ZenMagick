@@ -99,6 +99,7 @@ class TestZMReviews extends ZMTestCase {
      * Test create review.
      */
     public function testCreateReview() {
+        ZMSettings::set('isApproveReviews', false);
         $account = ZMAccounts::instance()->getAccountForId(1);
         if ($this->assertNotNull($account)) {
             $review = ZMLoader::make('Review');
@@ -108,6 +109,49 @@ class TestZMReviews extends ZMTestCase {
             $review->setText('some foo');
             $newReview = ZMReviews::instance()->createReview($review, $account);
             $this->assertTrue(0 != $newReview->getId());
+
+            // make sure it is available via the service
+            $found = false;
+            foreach (ZMReviews::instance()->getReviewsForProductId(3) as $review) {
+                if ($review->getId() == $newReview->getId()) {
+                    $found = true;
+                    break;
+                }
+            }
+            $this->assertTrue($found, '%s new review with id: '.$newReview->getId().' not found');
+
+            // cleanup
+            $sql = 'DELETE FROM '.TABLE_REVIEWS.' WHERE reviews_id = :reviewId';
+            ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS);
+            $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
+            ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS_DESCRIPTION);
+        }
+    }
+
+    /**
+     * Test approve review.
+     */
+    public function testApproveReview() {
+        $account = ZMAccounts::instance()->getAccountForId(1);
+        if ($this->assertNotNull($account)) {
+            $review = ZMLoader::make('Review');
+            $review->setProductId(3);
+            $review->setRating(4);
+            $review->setLanguageId(1);
+            $review->setText('some foo');
+            ZMSettings::set('isApproveReviews', true);
+            $newReview = ZMReviews::instance()->createReview($review, $account);
+            $this->assertTrue(0 != $newReview->getId());
+
+            // make sure it is *not* available via the service
+            $found = false;
+            foreach (ZMReviews::instance()->getReviewsForProductId(3) as $review) {
+                if ($review->getId() == $newReview->getId()) {
+                    $found = true;
+                    break;
+                }
+            }
+            $this->assertFalse($found, '%s new review with id: '.$newReview->getId().' is available!');
 
             // cleanup
             $sql = 'DELETE FROM '.TABLE_REVIEWS.' WHERE reviews_id = :reviewId';
