@@ -14,7 +14,7 @@ Release 0.9.5
   zen_href_link parameters got lost; affectes all SEO related plugins and core
 - add widget form utility class to allow widgets to have a go at submitted
   form data in case they need to twiddle with it (so far only checkboxes need
-	this
+  this
 - fix missing calculated price on order items; b:#2544585
 - refactor and streamline admin menu handling; add ZMAdminMenu class; use
   ZMAdmin constants rather defines for menu ids, add new const to add items to
