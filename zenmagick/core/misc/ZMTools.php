@@ -702,6 +702,41 @@ class ZMTools {
         }
     }
 
+    /**
+     * Unzip a file into the given directory.
+     *
+     * @param string filename The zip filename.
+     * @param string target The target directory.
+     * @return boolean <code>true</code> on success.
+     */
+    public static function unzip($filename, $target) {
+        if (!function_exists('zip_open')) {
+            return false;
+        }
+        if ('/' != substr($target, -1)) {
+            $target .= '/';
+        }
+
+        if ($zhandle = zip_open($filename)) {
+            while ($zentry = zip_read($zhandle)) {
+                if (zip_entry_open($zhandle, $zentry, 'r')) {
+                    $entryFilename = $target.zip_entry_name($zentry);
+                    // ensure folder exists, otherwise things get dropped silently
+                    ZMTools::mkDir(dirname($entryFilename));
+                    $buffer = zip_entry_read($zentry, zip_entry_filesize($zentry));
+                    zip_entry_close($zentry);
+                    $fp = fopen($entryFilename, 'wb');
+                    fwrite($fp, "$buffer");
+                    fclose($fp);
+                } else {
+                    return false;
+                }
+            }
+            zip_close($zhandle);
+            return true;
+        }
+    }
+
 }
 
 ?>
