@@ -124,6 +124,9 @@
             // enable db table map building on demand
             'isEnableDBAutoMapping' => false,
 
+            // enable/disable plugins
+            'isEnablePlugins' => true,
+
             /**************************************
              * Logging options.
              **************************************/

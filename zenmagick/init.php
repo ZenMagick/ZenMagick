@@ -74,9 +74,11 @@
     // set the default authentication provider
     ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
 
-    // upset plugins
-    ZMLoader::make("Plugins");
-    ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+    if (ZMSettings::get('isEnablePlugins')) {
+        // upset plugins
+        ZMLoader::make("Plugins");
+        ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+    }
 
     // register custom error handler
     if (ZMSettings::get('isZMErrorHandler') && null != ZMSettings::get('zmLogFilename')) {

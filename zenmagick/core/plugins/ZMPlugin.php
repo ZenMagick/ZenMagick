@@ -424,8 +424,10 @@ class ZMPlugin extends ZMObject {
         }
         // keys are always upper case
         $key = strtoupper($key);
-
-        ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
+        // XXX: not a great test but will work while being based on zen-cart configuration
+        if (!defined($key)) {
+            ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
+        }
     }
 
     /**
