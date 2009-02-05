@@ -641,6 +641,67 @@ class ZMTools {
         }
     }
 
+    /**
+     * Move files and folders.
+     *
+     * @param string src The source (file or folder).
+     * @param string target The target (file or folder).
+     * @return boolean <code>true</code> on success.
+     */
+    public static function move($src, $target) {
+        if (is_dir($src)) {
+            if (is_file($target)) {
+                return false;
+            }
+            if ('/' != substr($src, -1)) {
+                $src .= '/';
+            }
+            if ('/' != substr($target, -1)) {
+                $target .= '/';
+            }
+
+            ZMTools::mkdir($target);
+            $handle = opendir($src);
+            if ($handle = opendir($src)) {
+                while (false !== ($file = readdir($handle))) {
+                    if ("." == $file || ".." == $file) {
+                        continue;
+                    }
+                    $fullfile = $src.$file;
+                    if (is_dir($fullfile)) {
+                        if (!ZMTools::move($fullfile.'/', $target.$file.'/')) {
+                            return false;
+                        }
+                    } else {
+                        if (!copy($fullfile, $target.$file)) {
+                            return false;
+                        }
+                    }
+                }
+                closedir($handle);
+                return ZMTools::rmdir($src, true);
+            } else {
+                return false;
+            }
+        } else {
+            if (is_dir($target)) {
+                if ('/' != substr($target, -1)) {
+                    $target .= '/';
+                }
+                ZMTools::mkdir($target);
+                if (!copy($src, $target.basename($src))) {
+                    return false;
+                }
+            } else {
+                ZMTools::mkdir(dirname($target));
+                if (!copy($src, $target)) {
+                    return false;
+                }
+            }
+            return unlink($src);
+        }
+    }
+
 }
 
 ?>
