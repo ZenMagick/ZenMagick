@@ -52,12 +52,12 @@
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
     <?php } ?>
-    <?php if (!ZMLayout::instance()->isLeftColEnabled() || !ZMLayout::instance()->isRightColEnabled()) { ?>
+    <?php if (!ZMTemplateManager::instance()->isLeftColEnabled() || !ZMTemplateManager::instance()->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
-        <?php if (!ZMLayout::instance()->isLeftColEnabled()) { ?>
+        <?php if (!ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
           #content {margin-left:10px;}
         <?php } ?>
-        <?php if (!ZMLayout::instance()->isRightColEnabled()) { ?>
+        <?php if (!ZMTemplateManager::instance()->isRightColEnabled()) { ?>
           body div#content {margin-right:20px;}
         <?php } ?>
       </style>
@@ -73,17 +73,17 @@
       <?php include $zm_theme->themeFile("header.php") ?>
       <?php include $zm_theme->themeFile("menu.php") ?>
 
-      <?php if (ZMLayout::instance()->isLeftColEnabled()) { ?>
+      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
         <div id="leftcol">
-          <?php foreach (ZMLayout::instance()->getLeftColBoxNames() as $box) { ?>
+          <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
               <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         </div>
       <?php } ?>
 
-      <?php if (ZMLayout::instance()->isRightColEnabled()) { ?>
+      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
-          <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
+          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
               <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         </div>

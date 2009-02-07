@@ -69,9 +69,9 @@
       
         <div class="grid_4 alpha">
         
-          <?php if (ZMLayout::instance()->isLeftColEnabled()) { ?>
+          <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
             <div id="sidebar" >
-              <?php foreach (ZMLayout::instance()->getLeftColBoxNames() as $box) { ?>
+              <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
                   <div class="sidebox">
                       <?php include $zm_theme->themeFile("boxes/" .$box) ?>
                   </div>
@@ -83,7 +83,7 @@
       
         <div class="grid_4 omega">
       
-          <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
+          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
                   <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         

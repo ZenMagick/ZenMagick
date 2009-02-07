@@ -32,6 +32,11 @@ Release 0.9.5
 - fix ignored review approval flag; b:#2563338
 - added new setting 'isEnablePlugins' to globally enable/disable plugins;
   default is true, of course ;)
+- rename ZMLayout to ZMTemplateManager to reflect the additional
+  functionality; this affects most templates layout files and a few more
+  classes
+- add cssFile(..) and jsFile(..) to ZMTemplateManager; PAGE_NOW option not yet
+  implemented
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

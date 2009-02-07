@@ -33,11 +33,11 @@ Released   : 20081126
     <!-- start page -->
     <div id="page">
 
-      <?php if (ZMLayout::instance()->isLeftColEnabled()) { ?>
+      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
         <!-- start sidebar1 -->
         <div id="sidebar1" class="sidebar">
           <ul>
-            <?php foreach (ZMLayout::instance()->getLeftColBoxNames() as $box) { ?>
+            <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
               <li>
                   <?php include $zm_theme->themeFile("boxes/" .$box) ?>
               </li>
@@ -65,11 +65,11 @@ Released   : 20081126
       </div>
       <!-- end content -->
 
-      <?php if (ZMLayout::instance()->isRightColEnabled()) { ?>
+      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>
-            <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
+            <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
               <li>
                   <?php include $zm_theme->themeFile("boxes/" .$box) ?>
               </li>

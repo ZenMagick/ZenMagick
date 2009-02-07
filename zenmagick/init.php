@@ -113,7 +113,7 @@
             $zm_request = new ZMRequest();
             $zm_loader = ZMLoader::instance();
             $zm_runtime = ZMRuntime::instance();
-            $zm_layout = ZMLayout::instance();
+            $zm_layout = ZMTemplateManager::instance();
             $zm_products = ZMProducts::instance();
             $zm_taxes = ZMTaxRates::instance();
             $zm_reviews = ZMReviews::instance();

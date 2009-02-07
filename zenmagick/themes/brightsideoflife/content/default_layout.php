@@ -65,9 +65,9 @@
     <img src="<?php $zm_theme->themeURL("images/headerphoto.jpg") ?>" width="820" height="120" alt="headerphoto" class="no-border" />
       
       <div id="sidebar" >							
-        <?php if (ZMLayout::instance()->isLeftColEnabled()) { ?>
+        <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
           <div id="leftcol">
-            <?php foreach (ZMLayout::instance()->getLeftColBoxNames() as $box) { ?>
+            <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
                 <?php include $zm_theme->themeFile("boxes/" .$box) ?>
             <?php } ?>
           </div>
@@ -91,9 +91,9 @@
       </div>	
         
       <div id="rightbar">
-      <?php if (ZMLayout::instance()->isRightColEnabled()) { ?>
+      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
-          <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
+          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
               <?php include $zm_theme->themeFile("boxes/" .$box) ?>
           <?php } ?>
         </div>

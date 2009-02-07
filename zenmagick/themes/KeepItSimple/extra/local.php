@@ -1,12 +1,12 @@
 <?php
 
-  ZMLayout::instance()->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
+  ZMTemplateManager::instance()->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
   if ('index' == ZMRequest::getPageName()) {
-      ZMLayout::instance()->setLeftColBoxes(array('featured.php', 'reviews.php'));
+      ZMTemplateManager::instance()->setLeftColBoxes(array('featured.php', 'reviews.php'));
   } else {
-      ZMLayout::instance()->setLeftColEnabled(false);
+      ZMTemplateManager::instance()->setLeftColEnabled(false);
       if (ZMRequest::isCheckout(false)) {
-          ZMLayout::instance()->setRightColBoxes(array('information.php'));
+          ZMTemplateManager::instance()->setRightColBoxes(array('information.php'));
       }
   }
 

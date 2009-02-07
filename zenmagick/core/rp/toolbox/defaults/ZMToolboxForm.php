@@ -190,7 +190,7 @@ class ZMToolboxForm extends ZMObject {
      */
     public function fieldLength($table, $col, $max=40, $echo=ZM_ECHO_DEFAULT) {
         //TODO: convert from col to form field/model property
-        $length = ZMLayout::instance()->getFieldLength($table, $col);
+        $length = ZMTemplateManager::instance()->getFieldLength($table, $col);
         $html = '';
         switch (true) {
             case ($length > $max):

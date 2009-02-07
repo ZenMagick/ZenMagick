@@ -25,18 +25,26 @@
 
 
 /**
- * Layout stuff.
+ * Template stuff.
+ *
+ * <p>This is a collection of things to make templating easier.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMLayout extends ZMObject {
+class ZMTemplateManager extends ZMObject {
+    const PAGE_TOP = "page_top";
+    const PAGE_BOTTOM = "page_bottom";
+    const PAGE_NOW = "page_now";
+
     private $leftColEnabled_;
     private $rightColEnabled_;
     private $leftColBoxes_;
     private $rightColBoxes_;
-    private $tableMeta;
+    private $tableMeta_;
+    private $cssFiles_;
+    private $jsFiles_;
 
 
     /**
@@ -48,7 +56,9 @@ class ZMLayout extends ZMObject {
         $this->rightColEnabled_ = true;
         $this->leftColBoxes_ = null;
         $this->rightColBoxes_ = null;
-        $this->tableMeta = array();
+        $this->tableMeta_ = array();
+        $this->jsFiles_ = array();
+        ZMEvents::instance()->attach($this);
     }
 
     /**
@@ -62,7 +72,7 @@ class ZMLayout extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Layout');
+        return ZMObject::singleton('TemplateManager');
     }
 
 
@@ -176,11 +186,11 @@ class ZMLayout extends ZMObject {
      * @return int The field length.
      */
     public function getFieldLength($table, $field) {
-        if (!isset($this->tableMeta[$table])) {
-            $this->tableMeta[$table] = ZMRuntime::getDatabase()->getMetaData($table);
+        if (!isset($this->tableMeta_[$table])) {
+            $this->tableMeta_[$table] = ZMRuntime::getDatabase()->getMetaData($table);
         }
 
-        return $this->tableMeta[$table][$field]['maxLen'];
+        return $this->tableMeta_[$table][$field]['maxLen'];
     }
 
     /**
@@ -209,6 +219,59 @@ class ZMLayout extends ZMObject {
         }
 
         return $template . '_info';
+    }
+
+    /**
+     * Event handler to inject JavaScript and CSS resources.
+     */
+    public function onZMFinaliseContents($args) {
+        if (0 == count($this->cssFiles_) && 0 == count($this->jsFiles_)) {
+            return null;
+        }
+
+        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+
+        $css = '';
+        foreach ($this->cssFiles_ as $info) {
+            $css .= '<link rel="stylesheet" type="text/css" href="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
+        }
+
+        $jsTop = '';
+        $jsBottom = '';
+        foreach ($this->jsFiles_ as $info) {
+            if (ZMTemplateManager::PAGE_TOP == $info['position']) {
+                $jsTop .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+            } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
+                $jsBottom .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+            }
+        }
+
+        $contents = $args['contents'];
+        $contents = preg_replace('/<\/head>/', $css.$jsTop . '</head>', $contents, 1);
+        $contents = preg_replace('/<\/body>/', $jsBottom . '</body>', $contents, 1);
+        $args['contents'] = $contents;
+        return $args;
+    }
+
+    /**
+     * Add the given CSS file to the final contents.
+     *
+     * @param string filename A relative CSS filename.
+     * @param array attr Optional attribute map.
+     */
+    public function cssFile($filename, $attr=array()) {
+        $this->cssFiles_[$filename] = array('filename' => $filename, 'attr' => $attr);
+    }
+
+    /**
+     * Add the given JavaScript file to the final contents.
+     *
+     * @param string filename A relative JavaScript filename.
+     * @param string position Optional position; either <code>PAGE_TOP</code> (default), or <code>PAGE_BOTTOM</code>.
+     */
+    public function jsFile($filename, $position=ZMTemplateManager::PAGE_TOP) {
+        //XXX TODO: PAGE_NOW
+        $this->jsFiles_[$filename] = array('filename' => $filename, 'postion' => $postion);
     }
 
 }

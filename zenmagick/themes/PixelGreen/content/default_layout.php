@@ -36,9 +36,9 @@
       <div id="content-wrap"><div id="content">		
         
         
-        <?php if (ZMLayout::instance()->isRightColEnabled()) { ?>
+        <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
           <div id="sidebar" >
-            <?php foreach (ZMLayout::instance()->getRightColBoxNames() as $box) { ?>
+            <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
                 <div class="sidebox">
                     <?php include $zm_theme->themeFile("boxes/" .$box) ?>
                 </div>

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Test layout service.
+ * Test template manager service.
  *
  * @package org.zenmagick.plugins.zm_tests.tests
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMLayout extends ZMTestCase {
+class TestZMTemplateManager extends ZMTestCase {
 
     /**
      * Test field length.
@@ -20,7 +20,7 @@ class TestZMLayout extends ZMTestCase {
         );
 
         foreach ($fields as $field) {
-            $this->assertEqual($field['expected'], ZMLayout::instance()->getFieldLength($field['table'], $field['column']));
+            $this->assertEqual($field['expected'], ZMTemplateManager::instance()->getFieldLength($field['table'], $field['column']));
         }
     }
 

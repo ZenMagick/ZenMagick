@@ -76,7 +76,7 @@ class ZMProductInfoController extends ZMController {
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
 
-        $viewName = ZMLayout::instance()->getProductTemplate($product->getId());
+        $viewName = ZMTemplateManager::instance()->getProductTemplate($product->getId());
         return $this->findView($viewName);
     }
 
