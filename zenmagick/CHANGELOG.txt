@@ -37,6 +37,7 @@ Release 0.9.5
   classes
 - add cssFile(..) and jsFile(..) to ZMTemplateManager; PAGE_NOW option not yet
   implemented
+- change dummy sidebox patch to look at both the current ZM and ZC theme
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

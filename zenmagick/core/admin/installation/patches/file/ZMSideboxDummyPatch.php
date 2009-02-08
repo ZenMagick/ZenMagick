@@ -168,29 +168,32 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
     function _getMissingZCSideboxes() {
         $missingBoxes = array();
         $theme = ZMRuntime::getTheme();
-        $boxPath = $theme->getBoxesDir();
-        if (file_exists($boxPath) && is_readable($boxPath)) {
-            // make list of all theme boxes
-            $handle = opendir($theme->getBoxesDir());
-            $zmBoxes = array();
-            while (false !== ($file = readdir($handle))) {
-                if (false === strpos($file, '.in.')) {
-                    $zmBoxes[$file] = $file;
+        $zcTheme = ZMThemes::instance()->getThemeForId(ZMThemes::instance()->getZCThemeId());
+        $pathList = array($theme->getBoxesDir(), $zcTheme->getBoxesDir());
+        foreach ($pathList as $boxPath) {
+            if (file_exists($boxPath) && is_readable($boxPath)) {
+                // make list of all theme boxes
+                $handle = opendir($boxPath);
+                $zmBoxes = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (is_file($boxPath.$file) && false === strpos($file, '.in.')) {
+                        $zmBoxes[$file] = $file;
+                    }
                 }
-            }
-            closedir($handle);
+                closedir($handle);
 
-            $zcBoxes = array();
-            $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
-            while (false !== ($file = readdir($handle))) {
-                $zcBoxes[$file] = $file;
-            }
-            closedir($handle);
+                $zcBoxes = array();
+                $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
+                while (false !== ($file = readdir($handle))) {
+                    $zcBoxes[$file] = $file;
+                }
+                closedir($handle);
 
-            foreach ($zmBoxes as $box) {
-                if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && ZMTools::endsWith($box, '.php')) {
-                    $missingBoxes[$box] = $box;
-                } 
+                foreach ($zmBoxes as $box) {
+                    if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && ZMTools::endsWith($box, '.php')) {
+                        $missingBoxes[$box] = $box;
+                    } 
+                }
             }
         }
 
