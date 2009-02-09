@@ -241,7 +241,7 @@ class ZMToolboxMacro extends ZMObject {
                 continue;
             }
             $active = in_array($category->getId(), $path);
-            $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
+            $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)) : 0;
             $empty = 0 == $noOfProducts;
             echo '<li>';
             $class = '';

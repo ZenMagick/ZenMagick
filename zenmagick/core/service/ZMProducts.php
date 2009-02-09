@@ -103,10 +103,11 @@ class ZMProducts extends ZMObject {
      *
      * @param int categoryId The category id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param boolean includeChildren Optional flag to include subcategories; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of product ids.
      */
-    public function getProductIdsForCategoryId($categoryId, $active=true, $languageId=null) {
+    public function getProductIdsForCategoryId($categoryId, $active=true, $includeChildren=false, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -144,11 +145,19 @@ class ZMProducts extends ZMObject {
             }
         }
 
-        return isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
+        $ids = isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
+        if ($includeChildren) {
+            $category = ZMCategories::instance()->getCategoryForId($categoryId);
+            foreach ($category->getChildren() as $child) {
+                $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $active, true, $languageId));
+            }
+        }
+
+        return $ids;
     }
 
     /**
-     * Get all active products for the given category id.
+     * Get all (active) products for the given category id.
      *
      * @param int categoryId The category id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
@@ -156,7 +165,7 @@ class ZMProducts extends ZMObject {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, $languageId));
+        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId));
     }
 
     /*
