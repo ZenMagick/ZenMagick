@@ -33,6 +33,11 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
  * @version $Id$
  */
 class ZMTools {
+    const RANDOM_DIGITS = 'digits';
+    const RANDOM_CHARS = 'chars';
+    const RANDOM_MIXED = 'mixed';
+    const RANDOM_HEX = 'hex';
+
     private static $seedDone = false;
     private static $fileOwner = null;
     private static $fileGroup = null;

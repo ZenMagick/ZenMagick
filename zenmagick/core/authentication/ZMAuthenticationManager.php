@@ -34,10 +34,6 @@
  * @version $Id$
  */
 class ZMAuthenticationManager extends ZMObject {
-    const RANDOM_DIGITS = 'digits';
-    const RANDOM_CHARS = 'chars';
-    const RANDOM_MIXED = 'mixed';
-    const RANDOM_HEX = 'hex';
     private $providers_;
     private $default_;
 
