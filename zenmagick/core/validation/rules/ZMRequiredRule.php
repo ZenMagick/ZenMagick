@@ -54,7 +54,7 @@ class ZMRequiredRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         return array_key_exists($this->getName(), $req) && !empty($req[$this->getName()]);
     }
 
@@ -64,7 +64,7 @@ class ZMRequiredRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('required'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

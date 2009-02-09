@@ -62,7 +62,7 @@ abstract class ZMRule extends ZMObject {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
+    public public function validate($req) {
         throw ZMLoader::make('ZMException', "can't use ZMRule directly");
     }
 

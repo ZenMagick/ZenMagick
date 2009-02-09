@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -71,28 +68,28 @@ class ZMSortOption extends ZMModel {
      *
      * @return string The option id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the reverse option id.
      *
      * @return string The reverse option id.
      */
-    function getReverseId() { return $this->id_ . ($this->decending_ ? '_a' : '_d'); }
+    public function getReverseId() { return $this->id_ . ($this->decending_ ? '_a' : '_d'); }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    function isActive() { return $this->active_; }
+    public function isActive() { return $this->active_; }
 
     /**
      * Check if the sorting is ascending or decending.
@@ -100,7 +97,7 @@ class ZMSortOption extends ZMModel {
      * @return boolean <code>true</code> if sorting is decending, <code>false</code> if sorting
      *  is ascending.
      */
-    function isDecending() { return $this->decending_; }
+    public function isDecending() { return $this->decending_; }
 
 }
 

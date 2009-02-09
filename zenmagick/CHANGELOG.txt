@@ -41,6 +41,9 @@ Release 0.9.5
 - change getProductIdsForCategoryId() to (optionally) work recursive to
   scan the category incl. all sub-categories
 - oops: random constants moved to ZMTools
+- remove obsolete ZMZcoObserver
+- remove obsolete ZMSimpleResultList
+- clean up some more (c) notes
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

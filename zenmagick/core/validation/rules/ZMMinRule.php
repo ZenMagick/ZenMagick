@@ -58,7 +58,7 @@ class ZMMinRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         return empty($req[$this->getName()]) || (!array_key_exists($this->getName(), $req) || $this->min_ <= strlen(trim($req[$this->getName()])));
     }
 
@@ -68,7 +68,7 @@ class ZMMinRule extends ZMRule {
      *
      * @return string Localized error message.
      */
-    function getErrorMsg() {
+    public function getErrorMsg() {
         return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min_);
     }
 
@@ -78,7 +78,7 @@ class ZMMinRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('min'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

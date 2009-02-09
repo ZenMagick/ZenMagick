@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -64,21 +61,21 @@ class ZMFilterOption extends ZMModel {
      *
      * @return int The option id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    function isActive() { return $this->active_; }
+    public function isActive() { return $this->active_; }
 
 }
 

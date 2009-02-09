@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -53,10 +50,12 @@ class ZMController extends ZMObject {
             $this->exportGlobal($name, $tool);
         }
 
-        foreach ($GLOBALS as $name => $instance) {
-            if (ZMTools::startsWith($name, "zm_")) {
-                if (is_object($instance)) {
-                    $this->exportGlobal($name, $GLOBALS[$name]);
+        if (ZMSettings::get('isLegacyAPI')) {
+            foreach ($GLOBALS as $name => $instance) {
+                if (ZMTools::startsWith($name, "zm_")) {
+                    if (is_object($instance)) {
+                        $this->exportGlobal($name, $GLOBALS[$name]);
+                    }
                 }
             }
         }

@@ -63,7 +63,7 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string function The function name.
      */
-    function setFunction($function) {
+    public function setFunction($function) {
         $this->function_ = $function;
     }
 
@@ -72,7 +72,7 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string javascript The javascript.
      */
-    function setJavaScript($javascript) {
+    public function setJavaScript($javascript) {
         $this->javascript = $javascript;
     }
 
@@ -82,7 +82,7 @@ class ZMWrapperRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         if (is_array($this->function_) && 2 == count($this->function_) && is_object($this->function_[0]) && is_string($this->function_[1])) {
             // expect object, method name
             $obj = $this->function_[0];
@@ -101,7 +101,7 @@ class ZMWrapperRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         return $this->javascript_;
     }
 

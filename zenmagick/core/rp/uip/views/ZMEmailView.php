@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -85,6 +82,7 @@ class ZMEmailView extends ZMPageView {
      */
     public function generate() {
         $isAdmin = ZMSettings::get('isAdmin');
+        //XXX: ugh!
         ZMSettings::set('isAdmin', false);
         $filename = $this->getViewFilename();
         if (!file_exists($filename)) {

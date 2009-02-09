@@ -54,7 +54,7 @@ class ZMEmailRule extends ZMRule {
      *
      * @return string regexp for email matching.
      */
-    function _emailRegexp() {
+    protected function emailRegexp() {
         $atom = '[-a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~]';
         $domain = '([a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9]+)?)';
 
@@ -74,14 +74,14 @@ class ZMEmailRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         if (!array_key_exists($this->getName(), $req)) {
             return true;
         }
 
         $email = $req[$this->getName()];
 
-        return empty($req[$this->getName()]) || 1 == preg_match('/'.$this->_emailRegexp().'/i', $email);
+        return empty($req[$this->getName()]) || 1 == preg_match('/'.$this->emailRegexp().'/i', $email);
     }
 
 
@@ -90,11 +90,11 @@ class ZMEmailRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('regexp'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".'"'.$this->_emailRegexp().'"';
+        $js .= ",".'"'.$this->emailRegexp().'"';
         $js .= ")";
         return $js;
     }

@@ -60,7 +60,7 @@ class ZMFieldMatchRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         return empty($req[$this->getName()]) || empty($req[$this->other_]) || ($req[$this->getName()] == $req[$this->other_]);
     }
 
@@ -70,7 +70,7 @@ class ZMFieldMatchRule extends ZMRule {
      *
      * @return string Localized error message.
      */
-    function getErrorMsg() {
+    public function getErrorMsg() {
         return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->other_);
     }
 
@@ -80,7 +80,7 @@ class ZMFieldMatchRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('fieldMatch'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

@@ -60,7 +60,7 @@ class ZMListRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the regular expression does match.
      */
-    function validate($req) {
+    public function validate($req) {
         return empty($req[$this->getName()]) || ZMTools::inArray($req[$this->getName()], $this->values_);
     }
 
@@ -70,7 +70,7 @@ class ZMListRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $quoted = array();
         foreach ($this->values_ as $value) {
             $quoted[] = "'".addslashes($value)."'";

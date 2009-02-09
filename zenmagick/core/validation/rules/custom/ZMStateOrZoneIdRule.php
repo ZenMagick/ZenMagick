@@ -60,7 +60,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         if (isset($req['__obj'])) {
             $address = $req['__obj'];
 
@@ -81,7 +81,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         return '';
     }
 

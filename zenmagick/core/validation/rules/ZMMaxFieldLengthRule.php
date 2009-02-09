@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2008 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -66,7 +63,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    public function validate($req) {
         return (!isset($req[$this->getName()]) || empty($req[$this->getName()]) || $this->getMaxFieldLength() >= strlen(trim($req[$this->getName()])));
     }
 
@@ -88,7 +85,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      *
      * @return string Localized error message.
      */
-    function getErrorMsg() {
+    public function getErrorMsg() {
         return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getMaxFieldLength());
     }
 
@@ -98,7 +95,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('max'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

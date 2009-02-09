@@ -58,7 +58,7 @@ class ZMRegexpRule extends ZMRule {
      * @param array req The request data.
      * @return boolean <code>true</code> if the regular expression does match.
      */
-    function validate($req) {
+    public function validate($req) {
         return empty($req[$this->getName()]) || preg_match($this->regexp_, $req[$this->getName()]);
     }
 
@@ -68,7 +68,7 @@ class ZMRegexpRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    function toJSString() {
+    public function toJSString() {
         $js = "    new Array('regexp'";
         $js .= ",'".$this->getName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
