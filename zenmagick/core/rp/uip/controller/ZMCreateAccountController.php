@@ -55,7 +55,7 @@ class ZMCreateAccountController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function process() { 
+    public function process() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
@@ -68,7 +68,7 @@ class ZMCreateAccountController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         $account = ZMLoader::make("Account");
         $account->populate();
         $address = ZMLoader::make("Address");
@@ -86,7 +86,7 @@ class ZMCreateAccountController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         $account = ZMLoader::make("Account");
         $account->populate();
 
