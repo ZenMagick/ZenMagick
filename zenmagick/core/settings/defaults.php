@@ -127,6 +127,9 @@
             // enable/disable plugins
             'isEnablePlugins' => true,
 
+            // default view class
+            'defaultViewClass' => 'PageView',
+
             /**************************************
              * Logging options.
              **************************************/

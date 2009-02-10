@@ -83,9 +83,18 @@ class ZMUrlMapper extends ZMObject {
      * @param array viewInfo View details.
      */
     public function setMappingInfo($page, $viewInfo) {
-        $defaults = array('view' => $page, 'viewId' => $page, 'controller' => null, 'class' => 'PageView', 'formId' => null, 'formClass' => null, 'parameter' => null);
+        $mappingDefaults = array(
+            'view' => $page,
+            'viewId' => $page,
+            'controller' => null,
+            'class' => ZMSettings::get('defaultViewClass'),
+            'formId' => null,
+            'formClass' => null,
+            'parameter' => null
+        );
+
         // merge with defaults
-        $viewInfo = array_merge($defaults, $viewInfo);
+        $viewInfo = array_merge($mappingDefaults, $viewInfo);
         // need this to store the data
         $viewId = $viewInfo['viewId'];
         // sanity check
