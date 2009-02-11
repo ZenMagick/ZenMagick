@@ -50,7 +50,6 @@ class ZMController extends ZMObject {
             $this->exportGlobal($name, $tool);
         }
 
-        // XXX: add $request
         // some generic objects that should always be there
         $this->exportGlobal('session', ZMRequest::getSession());
 
@@ -90,6 +89,8 @@ class ZMController extends ZMObject {
         }
 
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
+
+        // XXX: add $request to globals
 
         $view = null;
         try {
