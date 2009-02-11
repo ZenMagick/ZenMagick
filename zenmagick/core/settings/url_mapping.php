@@ -89,7 +89,7 @@
         $urlMapper->setMapping('checkout_guest', 'login');
         $urlMapper->setMapping('checkout_guest', 'checkout_guest', 'login');
         $urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView');
-        $urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping_address', 'RedirectView');
+        $urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping', 'RedirectView');
 
         // guest history
         $urlMapper->setMapping('guest_history', 'success', 'account_history_info');

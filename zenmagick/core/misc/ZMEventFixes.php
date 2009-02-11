@@ -77,20 +77,24 @@ class ZMEventFixes extends ZMObject {
     /**
      * Validate addresses for guest checkout.
      */
-    public function onNotifyHeaderEndCheckoutConfirmation() {
-        $session = ZMRequest::getSession();
+    public function onNotifyHeaderStartCheckoutShipping() {
         $shoppingCart = ZMRequest::getShoppingCart();
-        if ($session->isGuest()) {
-            // check for address
-            if (!$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
-                ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
-                ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
-            }
+        // check for address
+        if (!$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
+            ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
+            ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
+        }
+    }
 
-            if (null == $shoppingCart->getBillingAddress()) {
-                ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
-                ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
-            }
+    /**
+     * Validate addresses for guest checkout.
+     */
+    public function onNotifyHeaderStartCheckoutPayment() {
+        $shoppingCart = ZMRequest::getShoppingCart();
+        // check for address
+        if (!$shoppingCart->hasBillingAddress()) {
+            ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
+            ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
         }
     }
 

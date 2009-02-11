@@ -44,6 +44,7 @@ Release 0.9.5
 - remove obsolete ZMZcoObserver
 - remove obsolete ZMSimpleResultList
 - clean up some more (c) notes
+- change shipping/billing address checking for guest checkout
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
