@@ -26,7 +26,7 @@
 
 <?php $contact = '<a href="'.$net->url(FILENAME_CONTACT_US, '', false, false) .'">'.zm_l10n_get("let us know").'</a>'; ?>
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
-<?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree(), "catalog"); ?>
+<?php echo zm_build_category_tree_list(ZMCategories::instance()->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
     <?php if (ZMRequest::isRegistered()) { ?>
       <li><a href="<?php $net->url(FILENAME_ACCOUNT, '', true) ?>"><?php zm_l10n("My Account") ?></a>

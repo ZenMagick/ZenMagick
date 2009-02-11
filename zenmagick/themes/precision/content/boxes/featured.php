@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $products = ZMProducts::instance()->getFeaturedProducts(ZMRequest::getCategoryId(), 1); ?>
+<?php $products = ZMProducts::instance()->getFeaturedProducts(ZMRequest::getCategoryId(), 1, false, $session->getLanguageId()); ?>
 <?php if (1 == count($products)) { $product = $products[0]; ?>
     <h2><?php zm_l10n("Featured") ?> <a href="<?php $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a></h2>
     <div id="sb_featured" class="box">

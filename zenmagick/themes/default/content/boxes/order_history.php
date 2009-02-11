@@ -25,7 +25,7 @@
 ?>
 
 <?php
-    $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId());
+    $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId(), 7, $session->getLanguageId());
     $products = array();
 ?>
 <?php if (0 < count($orders)) { ?>

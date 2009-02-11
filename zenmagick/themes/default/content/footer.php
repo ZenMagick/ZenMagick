@@ -26,7 +26,7 @@
 
 <div id="footer">
     <p id="fpages">
-        <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+        <?php foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
             <?php $html->ezpageLink($page->getId()) ?>
         <?php } ?>
     </p>

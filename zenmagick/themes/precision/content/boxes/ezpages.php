@@ -25,7 +25,7 @@
 ?>
 
 <?php $sbchapter = isset($sbchapter) ? $sbchapter : ZMRequest::getParameter("sbchapter", null); ?>
-<?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter) : ZMEZPages::instance()->getPagesForSidebar(); ?>
+<?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter, $session->getLanguageId()) : ZMEZPages::instance()->getPagesForSidebar($session->getLanguageId()); ?>
 <?php if (0 < count($pages)) { ?>
   <h2><?php zm_l10n("Important Links") ?></h2>
   <ul>

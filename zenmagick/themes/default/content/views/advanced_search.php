@@ -43,7 +43,7 @@
         <legend><?php zm_l10n("Restrict Search By...")?></legend>
         <fieldset>
             <legend><?php zm_l10n("Category")?></legend>
-            <?php $categories = ZMCategories::instance()->getCategories(); ?>
+            <?php $categories = ZMCategories::instance()->getCategories(null, $session->getLanguageId()); ?>
             <?php $form->idpSelect('categories_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Categories"))), $categories), $zm_searchCriteria->getCategoryId()) ?>
             <?php $checked = $zm_searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="inc_subcat" name="inc_subcat" value="1" <?php echo $checked?>/>
@@ -52,7 +52,7 @@
 
         <fieldset>
             <legend><?php zm_l10n("Manufacturer"); ?></legend>
-            <?php $manufacturers = ZMManufacturers::instance()->getManufacturers(); ?>
+            <?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
             <?php $form->idpSelect('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Manufacturers"))), $manufacturers), $zm_searchCriteria->getManufacturerId()) ?>
         </fieldset>
 

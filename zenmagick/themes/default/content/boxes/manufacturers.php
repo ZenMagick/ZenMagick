@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $manufacturers = ZMManufacturers::instance()->getManufacturers(); ?>
+<?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
 <?php if (0 < count($manufacturers)) { ?>
     <h3><?php zm_l10n("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">

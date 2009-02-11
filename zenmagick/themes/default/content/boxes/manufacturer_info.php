@@ -25,7 +25,7 @@
 ?>
 
 <?php if (null != ZMRequest::getProductId()) { ?>
-    <?php $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId()); ?>
+    <?php $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId(), $session->getLanguageId()); ?>
     <?php if (null != $product) { ?>
         <?php $manufacturer = $product->getManufacturer(); ?>
         <?php if (null != $manufacturer) { ?>

@@ -106,7 +106,7 @@
         </p>	
         
         <p class="bottom-right">
-            <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+            <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
                 <?php if (!$first) { ?>| <?php } $first = false; ?><?php $html->ezpageLink($page->getId()) ?>
             <?php } ?>
         </p>

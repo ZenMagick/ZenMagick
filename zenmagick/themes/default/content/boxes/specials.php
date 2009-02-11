@@ -25,7 +25,7 @@
 ?>
 
 <?php if (0 == ZMRequest::getProductId() && 'specials' != ZMRequest::getPageName()) { ?>
-    <?php $products = ZMProducts::instance()->getSpecials(1); ?>
+    <?php $products = ZMProducts::instance()->getSpecials(1, $session->getLanguageId()); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
         <h3><a href="<?php $net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Specials") ?></h3>
         <div id="sb_specials" class="box">

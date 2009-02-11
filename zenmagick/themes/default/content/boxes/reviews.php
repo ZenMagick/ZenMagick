@@ -27,11 +27,11 @@
 <?php 
 
     // get review for product (if on product page)
-    $reviews = ZMReviews::instance()->getRandomReviews(ZMRequest::getProductId(), 1); 
+    $reviews = ZMReviews::instance()->getRandomReviews(ZMRequest::getProductId(), 1, $session->getLanguageId()); 
 
     if (0 == count($reviews) && 0 == ZMRequest::getProductId()) {
         // default to any random on non product pages
-        $reviews = ZMReviews::instance()->getRandomReviews(null, 1); 
+        $reviews = ZMReviews::instance()->getRandomReviews(null, 1, $session->getLanguageId()); 
     }
 ?>
 <?php if (1 == count($reviews)) {

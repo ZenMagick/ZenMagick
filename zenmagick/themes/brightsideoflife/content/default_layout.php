@@ -40,7 +40,7 @@
               $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true, false), zm_l10n_get("Cart"));
               $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
           }
-          foreach (ZMEZPages::instance()->getPagesForHeader() as $page) {
+          foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
               $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle(), false).'</span>', array(), false));
           }
           foreach ($menu as $item) {
@@ -118,7 +118,7 @@
     
     <div class="footer-right">
       <p class="align-right">
-        <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+        <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
             <?php if (!$first) { echo '&nbsp;|&nbsp;'; } $first = false; ?>
             <?php $html->ezpageLink($page->getId()) ?>
         <?php } ?>

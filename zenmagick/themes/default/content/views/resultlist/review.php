@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $product = ZMProducts::instance()->getProductForId($review->getProductId()); ?>
+<?php $product = ZMProducts::instance()->getProductForId($review->getProductId(), $session->getLanguageId()); ?>
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
         <?php $html->productImageLink($product) ?>

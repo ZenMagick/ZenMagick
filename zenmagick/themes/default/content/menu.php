@@ -40,7 +40,7 @@
         <li><a href="<?php $net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>
-    <?php foreach (ZMEZPages::instance()->getPagesForHeader() as $page) { ?>
+    <?php foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) { ?>
         <li><?php $html->ezpageLink($page->getId()) ?></li>
     <?php } ?>
   </ul>

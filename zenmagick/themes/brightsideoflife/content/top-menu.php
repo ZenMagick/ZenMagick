@@ -15,7 +15,7 @@
         $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true, false), zm_l10n_get("Cart"));
         $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
     }
-    foreach (ZMEZPages::instance()->getPagesForHeader() as $page) {
+    foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezpage($page, false), $page, false);
     }
     foreach ($menu as $item) {

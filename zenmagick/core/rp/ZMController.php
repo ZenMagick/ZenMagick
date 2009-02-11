@@ -50,6 +50,10 @@ class ZMController extends ZMObject {
             $this->exportGlobal($name, $tool);
         }
 
+        // XXX: add $request
+        // some generic objects that should always be there
+        $this->exportGlobal('session', ZMRequest::getSession());
+
         if (ZMSettings::get('isLegacyAPI')) {
             foreach ($GLOBALS as $name => $instance) {
                 if (ZMTools::startsWith($name, "zm_")) {

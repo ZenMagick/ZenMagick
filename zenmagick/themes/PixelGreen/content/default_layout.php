@@ -79,7 +79,7 @@
         <div class="col float-left">
           <h1>Links</h1>
           <ul>				
-            <?php foreach (ZMEZPages::instance()->getPagesForFooter() as $page) { ?>
+            <?php foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
                 <li><?php $html->ezpageLink($page->getId()) ?></li>
             <?php } ?>
           </ul>			

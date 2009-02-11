@@ -17,7 +17,7 @@
     }
     /*
      layout does not degrade well if too many items
-    foreach (ZMEZPages::instance()->getPagesForHeader() as $page) {
+    foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezpage($page, false), $page, false);
     }
      */
