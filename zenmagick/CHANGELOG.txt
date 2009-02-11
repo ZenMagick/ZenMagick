@@ -40,7 +40,7 @@ Release 0.9.5
 - change dummy sidebox patch to look at both the current ZM and ZC theme
 - change getProductIdsForCategoryId() to (optionally) work recursive to
   scan the category incl. all sub-categories
-- oops: random constants moved to ZMTools
+- oops: random constants moved to ZMTools; b:#2588405
 - remove obsolete ZMZcoObserver
 - remove obsolete ZMSimpleResultList
 - clean up some more (c) notes
