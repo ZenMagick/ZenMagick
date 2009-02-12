@@ -159,7 +159,7 @@ class ZMAuthenticationManager extends ZMObject {
      * @return string The new password.
      */
     public function mkPassword() {
-        return ZMTools::random(ZMSettings::get('minPasswordLength'), self::RANDOM_MIXED);
+        return ZMTools::random(ZMSettings::get('minPasswordLength'), ZMTools::RANDOM_MIXED);
     }
 
 }

@@ -42,7 +42,7 @@
             ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
 
             // TODO: extract somewhere into method/function??
-            $controller = ZMLoader::make("DefaultController");
+            $controller = ZMLoader::make(ZMSettings::get('defaultControllerClass'));
             $controller->exportGlobal('exception', $e);
             $view = $controller->findView('error');
             // uguu!

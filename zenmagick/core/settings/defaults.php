@@ -127,7 +127,8 @@
             // enable/disable plugins
             'isEnablePlugins' => true,
 
-            // default view class
+            // default controller and view class
+            'defaultControllerClass' => 'DefaultController',
             'defaultViewClass' => 'PageView',
 
             /**************************************

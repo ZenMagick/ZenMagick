@@ -35,10 +35,11 @@ class ZMForwardView extends ZMView {
     /**
      * Create a new forward view.
      *
-     * @param string page The page (view) name.
+     * @param string view The view name.
+     * @deprecated: contructor arguments
      */
-    function __construct($page) {
-        parent::__construct($page);
+    function __construct($view=null) {
+        parent::__construct($view);
     }
 
     /**
@@ -55,7 +56,8 @@ class ZMForwardView extends ZMView {
      * @return boolean <code>true</code> if the forward url is not empty.
      */
     public function isValid() {
-        return !empty($this->page_);
+        $view = $this->getView();
+        return !empty($view);
     }
 
     /**
@@ -64,14 +66,13 @@ class ZMForwardView extends ZMView {
      * <p>Will do the following:</p>
      * <ul>
      *  <li>Reset the crumbtrail</li>
-     *  <li>add the forward page as <em>ZM_PAGE_KEY</em> to the request</li>
+     *  <li>add the forward view as <em>ZM_PAGE_KEY</em> to the request</li>
      *  <li>call <code>zm_dispatch()</code></li>
      * </ul>
      */
     public function generate() { 
         ZMCrumbtrail::instance()->reset();
-        // TODO: do not use name directly!
-        ZMRequest::setParameter(ZM_PAGE_KEY, $this->page_);
+        ZMRequest::setParameter(ZM_PAGE_KEY, $this->getView());
 
         zm_dispatch();
     }

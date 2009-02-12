@@ -24,8 +24,6 @@
 /**
  * Simple theme view.
  *
- * <p>The content is either a full page or a layout using the page specified in the request.</p>
- *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip
  * @version $Id$
@@ -33,12 +31,13 @@
 class ZMPageView extends ZMView {
 
     /**
-     * Create new theme view view.
+     * Create new view.
      *
-     * @param string page The page (view) name.
+     * @param string view The view template name; default is <code>null</code>.
+     * @deprecated: contructor arguments
      */
-    function __construct($page) {
-        parent::__construct($page);
+    function __construct($view=null) {
+        parent::__construct($view);
     }
 
     /**

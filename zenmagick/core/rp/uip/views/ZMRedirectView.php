@@ -29,7 +29,6 @@
  * @version $Id$
  */
 class ZMRedirectView extends ZMView {
-    protected $page_;
     protected $secure_;
     protected $url_;
     protected $parameter_;
@@ -38,12 +37,12 @@ class ZMRedirectView extends ZMView {
     /**
      * Create a new redirect view.
      *
-     * @param string page The page (view) name.
+     * @param string view The view name.
      * @param boolean secure Flag whether to redirect using a secure URL or not; default is <code>false</code>.
+     * @deprecated: contructor arguments
      */
-    function __construct($page, $secure=false) {
-        parent::__construct($page);
-        $this->page_ = $page;
+    function __construct($view=null, $secure=false) {
+        parent::__construct($view);
         $this->secure_ = $secure;
         $this->url_ = null;
         $this->parameter_ = '';
@@ -63,7 +62,8 @@ class ZMRedirectView extends ZMView {
      * @return boolean <code>true</code> if the redirect url is not empty.
      */
     public function isValid() {
-        return !empty($this->page_);
+        $view = $this->view_;
+        return !empty($view);
     }
 
     /**
@@ -74,7 +74,7 @@ class ZMRedirectView extends ZMView {
         if (null != $this->url_) {
             $url = $this->url_;
         } else {
-            $url = ZMToolbox::instance()->net->url($this->page_, $this->parameter_, $this->secure_, false);
+            $url = ZMToolbox::instance()->net->url($this->view_, $this->parameter_, $this->secure_, false);
         }
 
         ZMRequest::redirect($url);
@@ -101,7 +101,7 @@ class ZMRedirectView extends ZMView {
     /**
      * Set a url.
      *
-     * <p>Setting a url will override the page property. The URL will be used <em>as is</em>.</p>
+     * <p>Setting a url will override the view. The URL will be used <em>as is</em>.</p>
      *
      * @param string url A full URL.
      */

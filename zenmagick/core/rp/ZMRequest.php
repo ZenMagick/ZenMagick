@@ -366,11 +366,11 @@ class ZMRequest extends ZMObject {
     /**
      * Get the controller for this request.
      *
-     * @return ZMController The current controller or <code>ZMDefaultController</code>.
+     * @return ZMController The current controller or a default controller instance.
      */
     public static function getController() { 
         if (null === ZMRequest::instance()->controller_) {
-            ZMRequest::instance()->controller_ = ZMLoader::make("DefaultController");
+            ZMRequest::instance()->controller_ = ZMLoader::make(ZMSettings::get('defaultControllerClass'));
         } 
         
         return ZMRequest::instance()->controller_; 

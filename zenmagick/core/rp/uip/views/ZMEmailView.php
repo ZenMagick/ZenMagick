@@ -43,7 +43,8 @@ class ZMEmailView extends ZMPageView {
      * @param array args Additional context values.
      */
     function __construct($template, $html=true, $args=array()) {
-        parent::__construct('email_'.$template.($html ? '.html' : '.text'));
+        parent::__construct();
+        $this->setView('email_'.$template.($html ? '.html' : '.text'));
         $this->args_ = $args;
     }
 

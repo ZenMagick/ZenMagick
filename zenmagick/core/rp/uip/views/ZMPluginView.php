@@ -24,8 +24,6 @@
 /**
  * Simple plugin view.
  *
- * <p>The content is either a full page or a layout using the page specified in the request.</p>
- *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
@@ -37,11 +35,12 @@ class ZMPluginView extends ZMPageView {
     /**
      * Create new theme view view.
      *
-     * @param string page The page (view) name.
+     * @param string view The view name.
      * @param ZMPlugin plugin The plugin; default is <code>null</code>.
+     * @deprecated: contructor arguments
      */
-    function __construct($page, $plugin=null) {
-        parent::__construct($page);
+    function __construct($view=null, $plugin=null) {
+        parent::__construct($view);
         $this->plugin_ = $plugin;
     }
 

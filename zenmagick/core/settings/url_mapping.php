@@ -37,12 +37,12 @@
         $urlMapper = ZMUrlMapper::instance();
 
         // mappings for shared views and error pages
-        $urlMapper->setMapping(null, 'error', 'error');
-        $urlMapper->setMapping(null, 'missing_page', 'error');
-        $urlMapper->setMapping(null, 'product_not_found', 'error');
-        $urlMapper->setMapping(null, 'category_not_found', 'error');
-        $urlMapper->setMapping(null, 'index', 'index');
-        $urlMapper->setMapping(null, 'login', 'login', 'RedirectView');
+        $urlMapper->setMappingInfo(null, array('viewId' => 'error', 'view' => 'error'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'missing_page', 'view' => 'error'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'category_not_found', 'view' => 'error'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'product_not_found', 'view' => 'product_not_found'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'index', 'view' => 'index'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'login', 'view' => 'login', 'viewDefinition' => 'RedirectView'));
 
         // checkout states
         $urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView');
@@ -75,9 +75,9 @@
         $urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
 
         // login [form]
-        $urlMapper->setMappingInfo('login', array());
-        $urlMapper->setMappingInfo('login', array('viewId' => 'success', 'view' => 'account', 'class' => 'RedirectView'));
-        $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'class' => 'RedirectView'));
+        $urlMapper->setMappingInfo('login'); // needed to avoid recursive redirects
+        $urlMapper->setMappingInfo('login', array('viewId' => 'success', 'view' => 'account', 'viewClass' => 'RedirectView'));
+        $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'viewClass' => 'RedirectView'));
 
         // logoff
         $urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');
@@ -95,7 +95,6 @@
         $urlMapper->setMapping('guest_history', 'success', 'account_history_info');
 
         // product_info
-        $urlMapper->setMapping('product_info', 'error', 'product_not_found');
         $urlMapper->setMapping('product_info', 'product_music_info', 'product_music_info');
         $urlMapper->setMapping('product_info', 'document_general_info', 'document_general_info');
         $urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');

@@ -49,6 +49,8 @@ Release 0.9.5
 - add ZMBeanUtils::getBean() and some related unit tests
 - add new define ZM_PAGE_KEY
 - allow to override existing validation rules and rulesets
+- refactor ZMUrlMapper to use ZMBeanUtils::getBean(); this now allows to add
+  properties to viewClass, controllerClass and formClass if required.
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
