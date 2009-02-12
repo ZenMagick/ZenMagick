@@ -33,7 +33,7 @@
      * used. The provided parameter will be merged into the current query string.</p>
      *
      * @package org.zenmagick.deprecated
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
@@ -48,7 +48,7 @@
      * Secure version of {@link org.zenmagick.html#zm_href zm_href}.
      *
      * @package org.zenmagick.deprecated
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full, secure URL.

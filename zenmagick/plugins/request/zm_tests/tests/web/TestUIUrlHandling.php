@@ -29,7 +29,7 @@ class TestUIUrlHandling extends ZMTestCase {
         $this->assertEqual($expected, $href);
 
         $href = zen_href_link(FILENAME_DEFAULT);
-        $expected = HTTP_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?main_page=index';
+        $expected = HTTP_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.ZM_PAGE_KEY.'=index';
         $this->assertEqual($expected, $href);
     }
 

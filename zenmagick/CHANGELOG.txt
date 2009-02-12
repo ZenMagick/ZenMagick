@@ -47,6 +47,7 @@ Release 0.9.5
 - change shipping/billing address checking for guest checkout
 - use $session to explicitely set the languageId on service calls
 - add ZMBeanUtils::getBean() and some related unit tests
+- add new define ZM_PAGE_KEY
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

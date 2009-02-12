@@ -484,10 +484,10 @@ class ZMTools {
             return false;
         }
 
-        $query1['main_page'] = (array_key_exists('main_page', $query1) && !empty($query1['main_page'])) ? $query1['main_page'] : 'index';
-        $query2['main_page'] = (array_key_exists('main_page', $query2) && !empty($query2['main_page'])) ? $query2['main_page'] : 'index';
+        $query1[ZM_PAGE_KEY] = (array_key_exists(ZM_PAGE_KEY, $query1) && !empty($query1[ZM_PAGE_KEY])) ? $query1[ZM_PAGE_KEY] : 'index';
+        $query2[ZM_PAGE_KEY] = (array_key_exists(ZM_PAGE_KEY, $query2) && !empty($query2[ZM_PAGE_KEY])) ? $query2[ZM_PAGE_KEY] : 'index';
 
-        $equal = $query1['main_page'] == $query2['main_page'];
+        $equal = $query1[ZM_PAGE_KEY] == $query2[ZM_PAGE_KEY];
         // additional test for sub parameter
         if ($equal) {
             $subArgs = array(
@@ -500,8 +500,8 @@ class ZMTools {
                 'product_reviews' => array('products_id'),
                 'product_reviews_info' => array('products_id', 'reviews_id')
             );
-            if (isset($subArgs[$query1['main_page']])) {
-                foreach ($subArgs[$query1['main_page']] as $sub) {
+            if (isset($subArgs[$query1[ZM_PAGE_KEY]])) {
+                foreach ($subArgs[$query1[ZM_PAGE_KEY]] as $sub) {
                     if (array_key_exists($sub, $query1) || array_key_exists($sub, $query2)) {
                         $equal = array_key_exists($sub, $query1) && array_key_exists($sub, $query2) && $query1[$sub] === $query2[$sub];
                         if (!$equal) {

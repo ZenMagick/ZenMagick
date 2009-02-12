@@ -29,37 +29,37 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl current.
      */
     public function testCmpStoreUrlCurrent() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=tests&abc=def'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=tests&abc=def'));
     }
 
     /**
      * Test compareStoreUrl two.
      */
     public function testCmpStoreUrlTwo() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=tests&abc=def', 'index.php?main_page=tests'));
-        $this->assertFalse(ZMTools::compareStoreUrl('index.php?main_page=page&id=1', 'index.php?main_page=page'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=static&cat=foo', 'http://localhost/index.php?main_page=static&cat=foo'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=tests&abc=def', 'index.php?'.ZM_PAGE_KEY.'=tests'));
+        $this->assertFalse(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=1', 'index.php?'.ZM_PAGE_KEY.'=page'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=static&cat=foo', 'http://localhost/index.php?'.ZM_PAGE_KEY.'=static&cat=foo'));
     }
 
     /**
      * Test compareStoreUrl incomplete.
      */
     public function testCmpStoreUrlIncomplete() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?main_page=index'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=', 'index.php?main_page=index'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?'.ZM_PAGE_KEY.'=index'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=', 'index.php?'.ZM_PAGE_KEY.'=index'));
     }
 
     /**
      * Test compareStoreUrl some more.
      */
     public function testCmpStoreUrlSomeMore() {
-        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', ''));
-        $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=login', 'main_page=login'));
-        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?main_page=wp', 'main_page=login'));
-        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?main_page=page&id=6', 'http://localhost/zen-cart/index.php?main_page=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=page&id=6', 'http://localhost/zen-cart/index.php?main_page=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?main_page=page&id=6', 'index.php?main_page=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?main_page=page&id=6', 'index.php?main_page=page&amp;id=6'));
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=login', ''));
+        $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=login', ''.ZM_PAGE_KEY.'=login'));
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=wp', ''.ZM_PAGE_KEY.'=login'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&id=6', 'http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=6', 'http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&id=6', 'index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=6', 'index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
     }
 
     /**

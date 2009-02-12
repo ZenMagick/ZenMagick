@@ -64,14 +64,14 @@ class ZMForwardView extends ZMView {
      * <p>Will do the following:</p>
      * <ul>
      *  <li>Reset the crumbtrail</li>
-     *  <li>add the forward page as <em>main_page</em> to the request</li>
+     *  <li>add the forward page as <em>ZM_PAGE_KEY</em> to the request</li>
      *  <li>call <code>zm_dispatch()</code></li>
      * </ul>
      */
     public function generate() { 
         ZMCrumbtrail::instance()->reset();
         // TODO: do not use name directly!
-        ZMRequest::setParameter('main_page', $this->page_);
+        ZMRequest::setParameter(ZM_PAGE_KEY, $this->page_);
 
         zm_dispatch();
     }

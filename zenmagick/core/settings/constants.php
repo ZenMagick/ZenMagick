@@ -42,6 +42,11 @@
     define('ZM_DEFAULT_THEME', 'default');
 
 
+    //** url page name key **//
+
+    define('ZM_PAGE_KEY', 'main_page');
+
+
     //** db **//
 
     define('ZM_DB_PREFIX', DB_PREFIX);

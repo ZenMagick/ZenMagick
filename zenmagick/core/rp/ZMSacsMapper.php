@@ -80,7 +80,7 @@ class ZMSacsMapper extends ZMObject {
      * <p>Example: To limit access to the <code>getProductForId</code> Ajax method of the catalog controller do:<br>
      * <code>ZMSacsMapper::instance()->setMapping('ajax_catalog#getProductForId', ZMAccounts::REGISTERED, false);</code></p>
      *
-     * @param string page The page [ie. the request name as in <code>main_page</code>].
+     * @param string page The page [ie. the request name as in <code>ZM_PAGE_KEY</code>].
      * @param string authentication The level of authentication required; default is <code>ZMAccounts::REGISTERED</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      */

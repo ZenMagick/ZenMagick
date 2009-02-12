@@ -31,7 +31,7 @@
      * and as second parameter a complete map of query parameters.</p>
      *
      * @package org.zenmagick.plugins.zm_pretty_links
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>main_page</code>)
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
      * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
      *  which will be interpreted as using the view name.
      * @param array params List of query parameters to append as part of the pretty link.
@@ -71,9 +71,9 @@
         if (ZMTools::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
-        $page = $query['main_page'];
+        $page = $query[ZM_PAGE_KEY];
         $translate = true;
-        $removeNames = array('main_page', 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
+        $removeNames = array(ZM_PAGE_KEY, 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
         switch ($page) {
             case 'index':
             case 'category':

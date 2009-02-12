@@ -83,7 +83,7 @@ class ZMToolboxNet extends ZMObject {
             $path .= $page;
         } else {
             $path .= 'index.php';
-            $query .= 'main_page=' . $page;
+            $query .= ZM_PAGE_KEY . '=' . $page;
         }
 
         if (!empty($params)) {
@@ -127,7 +127,7 @@ class ZMToolboxNet extends ZMObject {
      * <p>If the <code>page</code> parameter is <code>null</code>, the current page/view will be
      * used. The provided parameter will be merged into the current query string.</p>
      *
-     * @param string page The page name (ie. the page name as referred to by the parameter <code>main_page</code>)
+     * @param string page The page name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
@@ -137,7 +137,7 @@ class ZMToolboxNet extends ZMObject {
         // custom view and params handling
         if (null === $page || null === $params) {
             $query = ZMRequest::getParameterMap();
-            unset($query['main_page']);
+            unset($query[ZM_PAGE_KEY]);
             unset($query[zen_session_name()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -230,8 +230,8 @@ class ZMToolboxNet extends ZMObject {
         if (!ZMTools::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
-            $view = $query['main_page'];
-            unset($query['main_page']);
+            $view = $query[ZM_PAGE_KEY];
+            unset($query[ZM_PAGE_KEY]);
             $params = '';
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;

@@ -88,11 +88,11 @@ class ZMToolboxForm extends ZMObject {
 
         // parse params
         parse_str($params, $hidden);
-        // set best main_page value
-        if (!isset($hidden['main_page'])) {
+        // set best ZM_PAGE_KEY value
+        if (!isset($hidden[ZM_PAGE_KEY])) {
             $page = null === $page ? ZMRequest::getPageName() : $page;
             if (null !== $page) {
-                $hidden['main_page'] = $page;
+                $hidden[ZM_PAGE_KEY] = $page;
             }
         }
 

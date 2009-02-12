@@ -246,9 +246,9 @@
 
 			if (!$static) {
 				if ($this->not_null($parameters)) {
-					$link .= 'index.php?main_page='. $page . "&" . $this->output_string($parameters);
+					$link .= 'index.php?'.ZM_PAGE_KEY.'='. $page . "&" . $this->output_string($parameters);
 				} else {
-					$link .= 'index.php?main_page=' . $page;
+					$link .= 'index.php?'.ZM_PAGE_KEY.'=' . $page;
 				}
 			} else {
 				if ($this->not_null($parameters)) {
@@ -1186,10 +1186,10 @@
  * @version 1.2
  */	
 	function need_redirect() {
-		$this->need_redirect = ((preg_match('/main_page=/i', $this->uri)) ? true : false);
+		$this->need_redirect = ((preg_match('/'.ZM_PAGE_KEY.'=/i', $this->uri)) ? true : false);
 		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM 
 		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
-		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET['main_page'],$sefu) ) $this->need_redirect = false;
+		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET[ZM_PAGE_KEY],$sefu) ) $this->need_redirect = false;
 		// IMAGINADW.COM
 
 		$this->attributes['SEO_REDIRECT']['NEED_REDIRECT'] = $this->need_redirect ? 'true' : 'false';
@@ -1201,8 +1201,8 @@
  * @version 1.1
  */	
 	function check_seo_page() {
-		if (!isset($_GET['main_page']) || (!$this->not_null($_GET['main_page']))) {
-			$_GET['main_page'] = 'index';
+		if (!isset($_GET[ZM_PAGE_KEY]) || (!$this->not_null($_GET[ZM_PAGE_KEY]))) {
+			$_GET[ZM_PAGE_KEY] = 'index';
 		}
 
 		$this->is_seopage = (($this->attributes['SEO_ENABLED'] == 'true') ? true : false);
@@ -1220,7 +1220,7 @@
 		foreach( $p as $index => $value ) {						
 			$tmp = @explode('=', $value);
 
-			if ($tmp[0] == 'main_page') continue;
+			if ($tmp[0] == ZM_PAGE_KEY) continue;
 
 			switch($tmp[0]){
 				case 'products_id':
@@ -1238,7 +1238,7 @@
 		} # end foreach( $params as $var => $value )
 		$params = ( sizeof($params) > 1 ? implode('&', $params) : $params[0] );
 
-		$url = $this->href_link($_GET['main_page'], $params, 'NONSSL', false);
+		$url = $this->href_link($_GET[ZM_PAGE_KEY], $params, 'NONSSL', false);
 		// cleanup url for redirection
 		$url = str_replace('&amp;', '&', $url);
 

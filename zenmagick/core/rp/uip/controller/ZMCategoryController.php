@@ -83,10 +83,6 @@ class ZMCategoryController extends ZMController {
             $method = "getProductsForManufacturerId";
             $args = array(ZMRequest::getManufacturerId());
             $viewName = 'manufacturer';
-        } else if (null != ZMRequest::getParameter('compareId')) {
-            $method = "getProductsForIds";
-            $args = array(ZMRequest::getParameter('compareId'));
-            $viewName = 'category_list';
         }
 
         $resultList = null;

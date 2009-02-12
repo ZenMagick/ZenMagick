@@ -149,11 +149,11 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the current page name; ie the <code>main_page</code> value.
+     * Get the current page name; ie the <code>ZM_PAGE_KEY</code> value.
      *
-     * @return string The value of the <code>main_page</code> query parameter.
+     * @return string The value of the <code>ZM_PAGE_KEY</code> query parameter.
      */
-    public static function getPageName() { return ZMRequest::instance()->getParameter('main_page'); }
+    public static function getPageName() { return ZMRequest::instance()->getParameter(ZM_PAGE_KEY); }
 
     /**
      * Get the current page index (if available).

@@ -24,9 +24,18 @@
 /**
  * Handle URL mappings.
  *
- * <p>URL mappings control the actual view being displayed after the controller
- * is finished with its part of the request processing. The mapping is used
- * by the controller method <code>findView(...)</code>.</p>
+ * <p>The URL mappings connect the requested page (value of <em>ZM_PAGE_KEY</em>)
+ * with a view (template) and optionally a controller to handle the request.</p>
+ *
+ * <p>The default behaviour for controller is to build the controller class using
+ * the <em>ZM_PAGE_KEY</em> value.</p>
+ *
+ * <p>Furthermore, depending on the processing of a request in a controller, different
+ * views may be returned. This is archived by mapping the actual template name not to
+ * a request (<em>ZM_PAGE_KEY</em> value) or controller class, but to a logical key that
+ * is used by the controller to lookup the actual view template.</p>
+ *
+ * <p>Finally, there are optional settings for form validation that are not used (yet).</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.rp
