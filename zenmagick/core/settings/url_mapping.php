@@ -76,8 +76,8 @@
 
         // login [form]
         $urlMapper->setMappingInfo('login'); // needed to avoid recursive redirects
-        $urlMapper->setMappingInfo('login', array('viewId' => 'success', 'view' => 'account', 'viewClass' => 'RedirectView'));
-        $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'viewClass' => 'RedirectView'));
+        $urlMapper->setMappingInfo('login', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
 
         // logoff
         $urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');

@@ -214,10 +214,6 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($id=null, $parameter=null) {
-        ZMLogging::instance()->log('find view: id='.$id.', parameter='.$parameter, ZMLogging::TRACE);
-
-        // page and controller name *must* be the same as the logic to 
-        // build the controller name is based on that fact!
         $view = ZMUrlMapper::instance()->findView($this->id_, $id, $parameter);
 
         // ensure secure option is set

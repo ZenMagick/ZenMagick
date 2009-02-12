@@ -172,6 +172,7 @@ class ZMUrlMapper extends ZMObject {
      * @return ZMController A controller instance to handle the request.
      */
     public function findController($page) {
+        ZMLogging::instance()->log('find controller: page='.$page, ZMLogging::TRACE);
         $definition = null;
         if (array_key_exists($page, $this->pageViews_) 
             && array_key_exists($page, $this->pageViews_[$page]) && null != $this->pageViews_[$page][$page]['controllerDefinition']) {
@@ -181,6 +182,7 @@ class ZMUrlMapper extends ZMObject {
             $definition = ZMLoader::makeClassname($page.'Controller');
         }
 
+        ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = ZMBeanUtils::getBean($definition))) {
             $controller = ZMBeanUtils::getBean(ZMSettings::get('defaultControllerClass'));
         }
