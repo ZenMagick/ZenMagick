@@ -194,7 +194,7 @@ require_once 'includes/application_top.php';
                           <td><?php echo $value->getTitle() ?></td>
                           <td><?php echo $value->getDescription() ?></td>
                           <td>
-                            <?php /** XXX: need full name here */ $value->set('name', 'configuration['.$value->get('configurationKey').']') ?>
+                            <?php /** XXX: need full name here */ $value->setName('configuration['.$value->get('configurationKey').']') ?>
                             <?php echo $value->render() ?>
                           </td>
                         <?php } else { ?>

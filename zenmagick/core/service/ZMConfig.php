@@ -118,14 +118,10 @@ class ZMConfig extends ZMObject {
                 ORDER BY configuration_id";
         $values = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION) as $value) {
-            if (0 === strpos($value['setFunction'], 'widget#')) {
-                // generate all custom properties
-                $basics = explode(';', $value['setFunction']);
-                $widgetClass = str_replace('widget#', '', $basics[0]);
-                parse_str($basics[1], $basicProperties);
-                parse_str($value['useFunction'], $widgetProperties);
-                $properties = array_merge($basicProperties, $widgetProperties);
-                $widget = ZMBeanUtils::map2obj($widgetClass, $properties);
+            if (0 === strpos($value['setFunction'], 'widget@')) {
+                // build definition from both function values (just in case)
+                $definition = str_replace('widget@', '', $value['setFunction'].'&'.$value['useFunction']);
+                $widget = ZMBeanUtils::getBean($definition);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
                     $widget->setDescription($value['description']);
