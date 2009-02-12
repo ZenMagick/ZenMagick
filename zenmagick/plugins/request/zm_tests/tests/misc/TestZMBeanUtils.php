@@ -81,6 +81,14 @@ class TestZMBeanUtils extends ZMTestCase {
         $map = ZMBeanUtils::obj2map($obj);
         $this->assertEqual($expect, $map);
         $this->assertTrue($obj instanceof ZMObject);
+
+        // test empty properties
+        $expect = array('propertyNames' => array(), 'attachedMethods' => array());
+        $definition = 'ZMObject';
+        $obj = ZMBeanUtils::getBean($definition);
+        $map = ZMBeanUtils::obj2map($obj);
+        $this->assertEqual($expect, $map);
+        $this->assertTrue($obj instanceof ZMObject);
     }
 
 }
