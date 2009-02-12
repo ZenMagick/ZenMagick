@@ -150,6 +150,20 @@ class ZMBeanUtils {
         return $obj;
     }
 
+    /**
+     * Build an object based on the bean definition.
+     *
+     * <p>The syntax for bean definitions is: <em>[class name]#[property1=value1&property2=value2&...]<em>.</p>
+     *
+     * @param string definition The bean definition.
+     * @return mixed An object or <code>null</code>.
+     */
+    public static function getBean($definition) {
+        $tokens = explode('#', $definition, 2);
+        parse_str($tokens[1], $properties);
+        return self::map2obj($tokens[0], $properties);
+    }
+
 }
 
 ?>
