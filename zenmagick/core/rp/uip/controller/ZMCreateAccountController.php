@@ -27,17 +27,27 @@
 /**
  * Request controller for account creation page.
  *
+ * <p>The <em>createDefaultAddress</em> property can be used to control whether or not
+ * to create a default address entry in the address book. Obviously, the validation rules
+ * for the registration form need to be adjusted accordingly.</p>
+ *
+ * <p>The property may be set by specifying a controllerDefinition value in the <em>URL mapping</em>
+ * like this:</p>
+ * <p><code>ZMUrlMapper::instance()->setMappingInfo('create_account', array('controllerDefinition' => 'CreateAccountController#createDefaultAddress=false'));</code></p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMCreateAccountController extends ZMController {
+    private $createDefaultAddress_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->createDefaultAddress_ = true;
     }
 
     /**
@@ -47,6 +57,16 @@ class ZMCreateAccountController extends ZMController {
         parent::__destruct();
     }
 
+    /**
+     * Set create default address flag.
+     *
+     * @param boolean value The new value.
+     */
+    public function setCreateDefaultAddress($value) {
+        // make sure we convert to boolean; typically this would be set via a bean definition
+        $this->createDefaultAddress_ = ZMTools::asBoolean($value);
+        ZMLogging::instance()->log('createDefaultAddress set to: '.$this->createDefaultAddress_, ZMLogging::TRACE);
+    }
 
     /**
      * Process a HTTP request.
@@ -103,11 +123,13 @@ class ZMCreateAccountController extends ZMController {
         $account->setPassword(ZMAuthenticationManager::instance()->encryptPassword(ZMRequest::getParameter('password')));
         $account = ZMAccounts::instance()->createAccount($account);
 
-        $address->setAccountId($account->getId());
-        $address = ZMAddresses::instance()->createAddress($address);
+        if ($this->createDefaultAddress_) {
+            $address->setAccountId($account->getId());
+            $address = ZMAddresses::instance()->createAddress($address);
 
-        $account->setDefaultAddressId($address->getId());
-        ZMAccounts::instance()->updateAccount($account);
+            $account->setDefaultAddressId($address->getId());
+            ZMAccounts::instance()->updateAccount($account);
+        }
 
         // here we have a proper account, so time to let other know about it
         ZMEvents::instance()->fireEvent($this, ZMEvents::CREATE_ACCOUNT, array('controller' => $this, 'account' => $account));
