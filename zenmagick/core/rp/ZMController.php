@@ -91,6 +91,7 @@ class ZMController extends ZMObject {
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
 
         // XXX: add $request to globals
+        // move custom template objects into ZMEventFixes (also $session?)
 
         $view = null;
         try {
