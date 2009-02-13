@@ -37,24 +37,24 @@
         $urlMapper = ZMUrlMapper::instance();
 
         // mappings for shared views and error pages
-        $urlMapper->setMappingInfo(null, array('viewId' => 'error', 'view' => 'error'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'error'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'missing_page', 'view' => 'error'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'category_not_found', 'view' => 'error'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'product_not_found', 'view' => 'product_not_found'));
-        $urlMapper->setMappingInfo(null, array('viewId' => 'index', 'view' => 'index'));
-        $urlMapper->setMappingInfo(null, array('viewId' => 'login', 'view' => 'login', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'index'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'login', 'viewDefinition' => 'RedirectView'));
 
         // checkout states
-        $urlMapper->setMapping(null, 'empty_cart', 'shopping_cart', 'RedirectView');
-        $urlMapper->setMapping(null, 'cart_not_ready', 'shopping_cart', 'RedirectView');
-        $urlMapper->setMapping(null, 'cart_is_virtual', 'checkout_billing', 'RedirectView');
-        $urlMapper->setMapping(null, 'check_cart', 'shopping_cart', 'RedirectView');
+        $urlMapper->setMappingInfo(null, array('viewId' => 'empty_cart', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'cart_not_ready', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'cart_is_virtual', 'view' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'check_cart', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
 
         // popups
-        $urlMapper->setMapping(null, 'popup_search_help', 'popup_search_help', 'PageView', 'subdir=popup');
-        $urlMapper->setMapping(null, 'popup_shipping_estimator', 'popup_shipping_estimator', 'PageView', 'subdir=popup');
-        $urlMapper->setMapping(null, 'popup_cvv_help', 'popup_cvv_help', 'PageView', 'subdir=popup');
-        $urlMapper->setMapping(null, 'popup_coupon_help', 'popup_coupon_help', 'PageView', 'subdir=popup');
+        $urlMapper->setMappingInfo(null, array('viewId' => 'popup_search_help', 'viewDefinition' => 'PageView#subdir=popup'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'popup_shipping_estimator', 'viewDefinition' => 'PageView#subdir=popup'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'popup_cvv_help', 'viewDefinition' => 'PageView#subdir=popup'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'popup_coupon_help', 'viewDefinition' => 'PageView#subdir=popup'));
 
         // address_book_process views
         $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
@@ -80,7 +80,7 @@
         $urlMapper->setMappingInfo('login', array('viewId' => 'account', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
 
         // logoff
-        $urlMapper->setMapping('logoff', 'success', 'logoff', 'RedirectView');
+        $urlMapper->setMappingInfo('logoff', array('viewId' => 'success', 'view' => 'logoff', 'viewDefinition' => 'RedirectView'));
 
         // password_forgotten [form]
         $urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView');

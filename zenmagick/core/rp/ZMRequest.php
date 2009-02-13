@@ -460,6 +460,7 @@ class ZMRequest extends ZMObject {
 
         $url = str_replace('&amp;', '&', $url);
 
+        ZMLogging::instance()->log('redirect url: ' . $url, ZMLogging::TRACE);
         header('Location: ' . $url);
         ZMRuntime::finish();
     }

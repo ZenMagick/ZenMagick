@@ -89,7 +89,7 @@ class ZMUrlMapper extends ZMObject {
      *  <dt>formClass</dt><dd>Optional form model class; default is <code>null</code> for none.</dd>
      * </dl>
      *
-     * <p>In the case of <code>$page</code> being <code>null</code>, both <em>view</em> and <em>viewId</em> are required.</p>
+     * <p>In the case of <code>$page</code> being <code>null</code>, at least <em>viewId</em> is required.</p>
      *
      * @param string page The page name; <code>null</code> may be used to lookup shared mappings.
      * @param array viewInfo View details; default is an empty array - <code>array()</code>.
@@ -108,6 +108,9 @@ class ZMUrlMapper extends ZMObject {
         $viewInfo = array_merge($mappingDefaults, $viewInfo);
         // need this to store the data
         $viewId = $viewInfo['viewId'];
+        if (!isset($viewInfo['view']) && !empty($viewId)) {
+            $viewInfo['view'] = $viewId;
+        }
         // sanity check
         if (null == $page && (null == $viewInfo['view'] || null == $viewId)) {
             $msg = zm_l10n_get("invalid url mapping; page=%s, view=%s, viewId=%s", $page, $viewInfo['view'], $viewId);
@@ -139,6 +142,9 @@ class ZMUrlMapper extends ZMObject {
     public function setMapping($page, $viewId=null, $view=null, $viewDefinition='PageView', $parameter=null, $controllerDefinition=null) {
         if (null == $page && (null == $view || null == $viewId)) {
             throw ZMLoader::make('ZMException', "invalid url mapping");
+        }
+        if (is_array($parameter)) {
+            $parameter = http_build_query($parameter);
         }
         $viewId = null != $viewId ? $viewId : $page;
 
@@ -222,7 +228,10 @@ class ZMUrlMapper extends ZMObject {
             $viewInfo = array('view' => $page, 'viewDefinition' => 'PageView#');
         }
 
-        $definition = $viewInfo['viewDefinition'] . '&' . $parameter . '&view=' . $viewInfo['view'] . '&viewId=' . $viewInfo['viewId'];
+        if (is_array($parameter)) {
+            $parameter = http_build_query($parameter);
+        }
+        $definition = $viewInfo['viewDefinition'] . (false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&') . $parameter . '&view=' . $viewInfo['view'] . '&viewId=' . $viewInfo['viewId'];
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
     }
