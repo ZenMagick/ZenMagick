@@ -53,6 +53,7 @@ Release 0.9.5
   properties to viewClass, controllerClass and formClass if required.
 - add boolean createDefaultAddress property to ZMCreateAccountController to
   configure whether or not to create a default address during registration.
+- update (c)
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
