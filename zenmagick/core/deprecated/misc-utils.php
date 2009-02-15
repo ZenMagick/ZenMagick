@@ -63,7 +63,8 @@
      * @deprecated use ZMTools instead
      */
     function zm_parse_date($date, $format) {
-        return ZMTools::parseDate($date, $format);
+        $c = ZMTools::parseDateString($date, $format);
+        return array($c['DD'], $c['MM'], $c['CC'], $c['YY']);
     }
     /**
      * Convert a UI date into the internal data format.
@@ -77,7 +78,12 @@
      * @deprecated use ZMTools instead
      */
     function zm_ui2date($date) {
-        return ZMTools::ui2date($date);
+        if (empty($date)) {
+            return '';
+        }
+        // The individual date components in the order dd, mm, cc, yy.
+        $da = self::parseDateString($date, UI_DATE_FORMAT);
+        return date(ZM_DATETIME_FORMAT, mktime(0, 0, 0, $da['mm'], $da['dd'], (int)($da['cc'].$da['yy'])));
     }
     /**
      * Convert text based user input into HTML.

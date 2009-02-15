@@ -54,20 +54,6 @@ class ZMObject {
 
 
     /**
-     * Shortcut to create new class instances.
-     *
-     * @param string name The class name.
-     * @param var args A variable number of arguments that will be used as arguments for
-     * @return mixed An instance of the class denoted by <code>$name</code> or <code>null</code>.
-     * @deprecated Use <code>ZMLoader::make(..)</code> instead.
-     */
-    public static function create() {
-        ZMLogging::instance()->trace('deprecated');
-        $args = func_get_args();
-        return ZMLoader::make($args);
-    }
-
-    /**
      * Get a singleton instance of the calling class.
      *
      * @param string name The class name.

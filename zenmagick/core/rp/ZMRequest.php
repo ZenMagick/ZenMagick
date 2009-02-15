@@ -322,20 +322,6 @@ class ZMRequest extends ZMObject {
      *
      * @param string name The paramenter name.
      * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
-     * @return string The parameter value or the default value or <code>null</code>.
-     * @deprecated use getParameter() instead
-     */
-    public static function getRequestParameter($name, $default=null) { 
-        return ZMRequest::instance()->getParameter($name, $default, true);
-    }
-
-    /**
-     * Generic access method for request parameter.
-     *
-     * <p>This method is evaluating both <code>GET</code> and <code>POST</code> parameter.</p>
-     *
-     * @param string name The paramenter name.
-     * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return mixed The parameter value or the default value or <code>null</code>.
      */

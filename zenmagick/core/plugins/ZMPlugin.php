@@ -488,31 +488,6 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Get the loader support flag for this plugin.
-     *
-     * <p>This flag tells the core compresser the extend of support for adding this plugin
-     * to a compressed version of <code>core.php</code>. Valid values are:</p>
-     * <dl>
-     *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
-     *   <dt>ZMPlugin::LP_PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
-     *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
-     *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
-     * </dl>
-     *
-     * @return string The loader support flag.
-     * @deprecated use loaderPolicy instead
-     */
-    public function getLoaderSupport() { return $this->loaderPolicy_; }
-
-    /**
-     * Set the loader support flag for this plugin.
-     *
-     * @param string loaderSupport The loader support flag.
-     * @deprecated use loaderPolicy instead
-     */
-    public function setLoaderSupport($loaderSupport) { $this->loaderPolicy_ = $loaderSupport; }
-
-    /**
      * Get this plugin's loader policy.
      *
      * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requests.</p>
@@ -566,17 +541,6 @@ class ZMPlugin extends ZMObject {
      * @return string The scope.
      */
     public function getScope() { return $this->scope_; }
-
-    /**
-     * Filter the response contents.
-     *
-     * @param string contents The contents.
-     * @return string The modified contents.
-     * @deprecated use ZMEvents (ZMEvents::FINALISE_CONTENTS) instead
-     */
-    public function filterResponse($contents) {
-        return $contents;
-    }
 
     /**
      * Resolve a plugin relative URI.

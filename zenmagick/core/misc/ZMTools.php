@@ -44,43 +44,6 @@ class ZMTools {
 
 
     /**
-     * Convert a UI date into the internal data format.
-     *
-     * <p>This is typically used by controller/business code to convert user input before 
-     * storing it in the database.</p>
-     *
-     * @param string date The date as received via the UI.
-     * @return string The formatted date.
-     * @deprecated use translateDateString instead
-     */
-    public static function ui2date($date) {
-        if (empty($date)) {
-            return '';
-        }
-        // The individual date components in the order dd, mm, cc, yy.
-        $da = self::parseDateString($date, UI_DATE_FORMAT);
-        return date(ZM_DATETIME_FORMAT, mktime(0, 0, 0, $da['mm'], $da['dd'], (int)($da['cc'].$da['yy'])));
-    }
-    /**
-     * Parse a date according to a given format.
-     *
-     * <p>This function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
-     * and <code>YYYY</code> in the format.</p>
-     *
-     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
-     *
-     * @param string date A date (usually provided by the user).
-     * @param string format The date format
-     * @return array The individual date components in the order dd, mm, cc, yy.
-     * @deprecated use parseDateString instead
-     */
-    public static function parseDate($date, $format) {
-        $c = self::parseDateString($date, $format);
-        return array($c['DD'], $c['MM'], $c['CC'], $c['YY']);
-    }
-
-
-    /**
      * Remove a directory (tree).
      *
      * @param string dir The directory name.

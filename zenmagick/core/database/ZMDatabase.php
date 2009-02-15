@@ -21,18 +21,6 @@
 <?php
 
 
-/** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc); deprecated */
-define('ZM_DB_MODEL_RAW', '@raw');
-
-/** Internal date format; deprecated */
-define('ZM_DB_DATETIME_FORMAT', 'Y-m-d H:i:s');
-
-/** NULL date; deprecated */
-define('ZM_DB_NULL_DATE', '0001-01-01');
-/** NULL datetime; deprecated */
-define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
-
-
 /**
  * ZenMagick database abstractation.
  *

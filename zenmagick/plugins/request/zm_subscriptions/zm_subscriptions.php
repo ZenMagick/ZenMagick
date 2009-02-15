@@ -38,7 +38,7 @@ class zm_subscriptions extends ZMPlugin {
      */
     function __construct() {
         parent::__construct('Subscriptions', 'Allow users to subscribe products/orders', '${plugin.version}');
-        $this->setLoaderSupport(ZMPlugin::LP_FOLDER);
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
 
         // the new prices and customer flag
         $customFields = array(
