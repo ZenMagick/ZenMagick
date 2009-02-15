@@ -24,6 +24,9 @@
 /**
  * Simple plugin view.
  *
+ * <p>This view allows to display templates (full layouts or views) that are located in 
+ * a plugin folder.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.views
  * @version $Id$
@@ -58,7 +61,12 @@ class ZMPluginView extends ZMPageView {
      * @param ZMPlugin plugin The plugin.
      */
     public function setPlugin($plugin) {
-        $this->plugin_ = $plugin;
+        if (is_object($plugin)) {
+            $this->plugin_ = $plugin;
+        } else {
+            // assume string
+            $this->plugin_ = ZMPlugins::getPluginForId($plugin);
+        }
     }
 
     /**

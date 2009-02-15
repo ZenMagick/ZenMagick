@@ -56,6 +56,14 @@ define('ZM_DB_NULL_DATETIME', '0001-01-01 00:00:00');
  *  <dd>The name of the database to connect to.</dd>
  * </dl>
  *
+ * <p>The data will be bound to the SQL using the configured table mappings.</p>
+ *
+ * <p>It is also possible to generate table mappings on the fly. In that case no name translation will be done.</p>
+ *
+ * <p>Syntax for parameters in SQL is: <em>:{[0-9]+#}[propertyName]</em>. The numeric prefix (for example
+ * <code>:3#categoryId</code>) is optional and only required if multiple values of a column are used in a single SQL
+ * statement.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.database
  * @version $Id$

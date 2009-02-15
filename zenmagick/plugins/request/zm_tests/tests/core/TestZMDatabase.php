@@ -62,6 +62,20 @@ class TestZMDatabase extends ZMTestCase {
         ZMRuntime::getDatabase()->update($drop_table);
     }
 
+    /**
+     * Test indexed field names.
+     */
+    public function testIndexedFields() {
+        // use simple country query to compare results
+        $sql1 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :countryId";
+        $results1 = ZMRuntime::getDatabase()->query($sql1, array('countryId' => 153), TABLE_COUNTRIES);
+
+        $sql2 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :1#countryId";
+        $results2 = ZMRuntime::getDatabase()->query($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
+
+        $this->assertEqual($results1, $results2);
+    }
+
 }
 
 ?>

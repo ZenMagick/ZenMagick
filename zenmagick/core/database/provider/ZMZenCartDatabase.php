@@ -230,10 +230,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             foreach ($argKeys as $name) {
                 $value = $data[$name];
                 // bind query parameter
+                $typeName = preg_replace('/[0-9]+#/', '', $name);
                 if (is_array($value)) {
-                    $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+                    $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 } else {
-                    $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+                    $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 }
             }
         } else if (is_object($data)) {
@@ -353,10 +354,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         foreach ($argKeys as $name) {
             $value = $args[$name];
             // bind query parameter
+            $typeName = preg_replace('/[0-9]+#/', '', $name);
             if (is_array($value)) {
-                $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+                $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             } else {
-                $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$name]['type']));
+                $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             }
         }
 

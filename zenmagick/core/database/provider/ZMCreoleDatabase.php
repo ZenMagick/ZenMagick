@@ -373,7 +373,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         // set values by index
         foreach ($argOrder as $name) {
             $name = substr($name, 1);
-            $type = $mapping[$name]['type'];
+            $typeName = preg_replace('/[0-9]+#/', '', $name);
+            $type = $mapping[$typeName]['type'];
             $values = $args[$name];
             if (!is_array($values)) {
                 // treat all values as value arrays

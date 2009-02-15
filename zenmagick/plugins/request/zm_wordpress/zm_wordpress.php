@@ -79,7 +79,7 @@ class zm_wordpress extends ZMPlugin {
         $parameter = 'subdir='.FILENAME_WP;
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
             $view = 'PluginView';
-            $parameter = array('plugin' => $this, 'subdir' => FILENAME_WP);
+            $parameter = array('plugin' => 'zm_wordpress', 'subdir' => FILENAME_WP);
         }
 
         ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_index', 'index', $view, $parameter);

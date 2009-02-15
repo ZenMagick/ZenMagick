@@ -65,7 +65,7 @@ class zm_product_facets extends ZMPlugin {
         $parameter = array('plugin' => $this, 'subdir' => 'views');
         ZMUrlMapper::instance()->setMappingInfo('facets', array(
             'class' => 'PluginView',
-            'parameter' => array('plugin' => $this, 'subdir' => 'views')
+            'parameter' => array('plugin' => 'zm_product_facets', 'subdir' => 'views')
         ));
 
         // if zm_cron available, load cron job

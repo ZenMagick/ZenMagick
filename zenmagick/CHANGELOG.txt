@@ -54,6 +54,9 @@ Release 0.9.5
 - add boolean createDefaultAddress property to ZMCreateAccountController to
   configure whether or not to create a default address during registration.
 - update (c)
+- allow PluginView to accept the plugin as object or string (plugin id)
+- allow optional index in SQL data names to be able to use multiple values of
+  a column in a single SQL statement
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
