@@ -89,7 +89,7 @@ class ZMAccountPasswordController extends ZMController {
         }
 
         // update password
-        $newEncrpytedPassword = zm_encrypt_password($newPassword);
+        $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
         ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         ZMMessages::instance()->success(zm_l10n_get('Your password has been updated.'));

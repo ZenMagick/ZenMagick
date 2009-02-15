@@ -327,7 +327,7 @@ class ZMRequest extends ZMObject {
      */
     public static function getParameter($name, $default=null, $sanitize=true) { 
         if (isset(ZMRequest::instance()->parameter_[$name])) {
-            return $sanitize ? zm_sanitize(ZMRequest::instance()->parameter_[$name]) : ZMRequest::instance()->parameter_[$name];
+            return $sanitize ? ZMTools::sanitize(ZMRequest::instance()->parameter_[$name]) : ZMRequest::instance()->parameter_[$name];
         } else {
             return $default;
         }

@@ -264,29 +264,6 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
-     * Call <code>filterContents(string)</code> on all available plugin handler.
-     *
-     * @param string contents The page contents.
-     * @return string The really final contents :0
-     * @deprecated use ZMEvents (ZMEvents::FINALISE_CONTENTS) instead
-     */
-    public static function filterResponse($contents) {
-        $controller = ZMRequest::getController();
-        foreach ($controller->getGlobals() as $name => $instance) {
-            global $$name;
-            $$name = $instance;
-        }
-
-        foreach (ZMPlugins::getPluginsForType('request', ZMPlugin::SCOPE_STORE) as $plugin) {
-            if ($plugin->isEnabled() && method_exists($plugin, 'filterResponse')) {
-                $contents = $plugin->filterResponse($contents);
-            }
-        }
-
-        return $contents;
-    }
-
-    /**
      * Init all plugins of the given type and scope.
      *
      * @param mixed types The type or type array.
@@ -308,9 +285,9 @@ class ZMPlugins extends ZMObject {
             // instantiate, add to loader (if required) and make global
             foreach ($pluginList as $plugin) {
                 if ($plugin->isEnabled()) {
-                    if ('ALL' == $plugin->getLoaderSupport()) {
+                    if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
                         $pluginLoader->addPath($plugin->getPluginDir());
-                    } else if ('FOLDER' == $plugin->getLoaderSupport()) {
+                    } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
                         $pluginLoader->addPath($plugin->getPluginDir(), false);
                     }
                     foreach ($plugin->getGlobal() as $file) {
@@ -343,7 +320,6 @@ class ZMPlugins extends ZMObject {
             }
         }
     }
-
 
 }
 

@@ -60,7 +60,7 @@ Release 0.9.5
 - remvove deprecated method(s): ZMRequest::getRequestParameter(),
   ZMPlugin::filterResponse(), ZMPlugin::setLoaderSupport(),
 	ZMPlugin::getLoaderSupport(), ZMTools::ui2date(), ZMTools::parseDate(),
-	ZM_DB_xxx defines, ZMObject::create()
+	ZM_DB_xxx defines, ZMObject::create(), ZMPlugins::filterResponse()
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

@@ -124,20 +124,20 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                 if (!$plugin->isEnabled()) {
                     continue;
                 }
-                $flag = $plugin->getLoaderSupport();
+                $flag = $plugin->getLoaderPolicy();
                 $pluginBase = $out.$type.'/'.$plugin->getId().'/';
                 ZMTools::mkdir($pluginBase, 755);
-                if ('NONE' != $flag) {
+                if (ZMPlugin::LP_NONE != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
                     if (empty($pluginDir)) {
                         $pluginDir = ZMRuntime::getPluginsDir() . $type . '/';
                         $noDir = true;
                     }
-                    if ($noDir || 'PLUGIN' == $flag) {
+                    if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {
                         $files = array($pluginDir.$plugin->getId().'.php');
                     } else {
-                        $files = ZMLoader::findIncludes($pluginDir, '.php', 'FOLDER' != $flag);
+                        $files = ZMLoader::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
                     }
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);

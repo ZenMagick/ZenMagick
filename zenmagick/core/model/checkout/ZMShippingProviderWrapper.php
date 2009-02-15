@@ -184,10 +184,6 @@ class ZMShippingProviderWrapper extends ZMModel {
             $this->delivery = array();
             $this->delivery['country'] = array();
         }
-
-        function zm_order() {
-            $this->__construct();
-        }
     }
 
 ?>
