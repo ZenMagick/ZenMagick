@@ -74,7 +74,7 @@ class ZMTextFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function compare($value) {
-        return $valule == $this->getValue();
+        return $value == $this->getValue();
     }
 
 }

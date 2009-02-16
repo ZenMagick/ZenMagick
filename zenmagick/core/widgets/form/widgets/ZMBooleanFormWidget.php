@@ -183,8 +183,6 @@ class ZMBooleanFormWidget extends ZMFormWidget {
 
         $name = $this->getName();
         $_name = $this->getCheckboxHiddenValueName($name);
-        echo 'name:'.$name;
-        echo '_name:'.$_name;
         if (!array_key_exists($name, $data) && array_key_exists($_name, $data)) {
             $data[$name] = false;
             unset($data[$_name]);
@@ -197,7 +195,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function compare($value) {
-        return ZMTools::asBoolean($valule) == $this->getValue();
+        return ZMTools::asBoolean($value) == $this->getValue();
     }
 
 }

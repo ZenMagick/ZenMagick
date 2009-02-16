@@ -5,7 +5,7 @@
     // use jquery to toggle value element
 </script>
 
-<?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form')) ?>
+<?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form_update')) ?>
     <fieldset>
         <legend>Settings</legend>
         <table>
@@ -28,16 +28,22 @@
                 <?php } ?>
             </tbody>
         </table>
+        <input type="hidden" name="fkt" value="ZMSettingsAdminController">
+        <input type="hidden" name="action" value="update">
+        <p><input type="submit" value="update"></p>
     </fieldset>
+</form>
+<?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form_create')) ?>
     <fieldset>
         <legend>New Setting</legend>
         <p>
             <input type="hidden" name="fkt" value="ZMSettingsAdminController">
+            <input type="hidden" name="action" value="create">
             Title: <input type="text" name="title">
             Key: <input type="text" name="key">
             Value: <input type="text" name="value">
             Type: <select name="type">
-                <option value="TextFormWidget">Text</option>
+                <option value="TextFormWidget#">Text</option>
                 <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
                 <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
                 <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>

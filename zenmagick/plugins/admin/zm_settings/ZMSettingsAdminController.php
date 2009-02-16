@@ -68,14 +68,36 @@ class ZMSettingsAdminController extends ZMPluginPageController {
     public function processPost() {
         $page = self::processGet();
 
-        $title = ZMRequest::getParameter('title', '');
-        $key = ZMRequest::getParameter('key');
-        $value = ZMRequest::getParameter('value');
-        $type = ZMRequest::getParameter('type');
+        $plugin = $this->getPlugin();
+        $action = ZMRequest::getParameter('action', '');
+        if ('create' == $action) {
+            $title = ZMRequest::getParameter('title', '');
+            $key = ZMRequest::getParameter('key');
+            $value = ZMRequest::getParameter('value');
+            $type = ZMRequest::getParameter('type');
 
-        if (!empty($key) && !empty($type)) {
-            $this->getPlugin()->addConfigValue($title, $key, $value, '',
-                'widget@'.$type.'&id='.$key.'&name='.$key);
+            if (!empty($key) && !empty($type)) {
+                $plugin->addConfigValue($title, $key, $value, '',
+                    'widget@'.$type.'&id='.$key.'&name='.$key);
+            }
+        } else if ('update' == $action) {
+            $parameter = array();
+            foreach (ZMRequest::getParameterMap() as $name => $value) {
+                // TODO:::: sanitized by zc
+                $lname = str_replace('_', '.', $name);
+                $parameter[$lname] = $value;
+            }
+            foreach ($plugin->getConfigValues(false) as $widget) {
+                if ($widget instanceof ZMFormWidget) {
+                    $parameter = $widget->handleFormData($parameter);
+                    $value = $parameter[$widget->getName()];
+                    if (!$widget->compare($value)) {
+                    echo $widget->getName().' - '.$value.' : '.$widget->getValue()."<BR>";
+                        $plugin->set($name, $value);
+                    }
+                }
+            }
+            var_dump($parameter);
         }
 
         return $page;
