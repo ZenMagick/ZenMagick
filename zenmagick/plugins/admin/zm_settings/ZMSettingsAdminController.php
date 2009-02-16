@@ -68,6 +68,16 @@ class ZMSettingsAdminController extends ZMPluginPageController {
     public function processPost() {
         $page = self::processGet();
 
+        $title = ZMRequest::getParameter('title', '');
+        $key = ZMRequest::getParameter('key');
+        $value = ZMRequest::getParameter('value');
+        $type = ZMRequest::getParameter('type');
+
+        if (!empty($key) && !empty($type)) {
+            $this->getPlugin()->addConfigValue($title, $key, $value, '',
+                'widget@'.$type.'&id='.$key.'&name='.$key);
+        }
+
         return $page;
     }
 

@@ -8,21 +8,41 @@
 <?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form')) ?>
     <fieldset>
         <legend>Settings</legend>
-        <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
-            <?php if ($value instanceof ZMWidget) { ?>
-                <p><?php echo $value->getTitle() ?>: <?php echo $value->render(); ?></p>
-            <?php } ?>
-        <?php } ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>title</th>
+                    <th>key</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
+                    <?php if ($value instanceof ZMWidget) { ?>
+                        <tr>
+                            <td><?php echo $value->getTitle() ?></td>
+                            <td><?php echo $value->getName() ?></td>
+                            <td><?php echo $value->render(); ?></td>
+                        </tr>
+                    <?php } ?>
+                <?php } ?>
+            </tbody>
+        </table>
     </fieldset>
     <fieldset>
         <legend>New Setting</legend>
-        <p>Type: <select name="type">
-            <option value="TextFormWidget">Text</option>
-            <option value="BooleanFormWidget">Boolean</option>
-        </select></p>
-        <p>Value: <input type="text" name="value"></p>
-        <p>Title: <input type="text" name="title"></p>
-        <p>Descritpion: <input type="text" name="description"></p>
-        <input type="submit" value="create">
+        <p>
+            <input type="hidden" name="fkt" value="ZMSettingsAdminController">
+            Title: <input type="text" name="title">
+            Key: <input type="text" name="key">
+            Value: <input type="text" name="value">
+            Type: <select name="type">
+                <option value="TextFormWidget">Text</option>
+                <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
+                <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
+                <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
+            </select>
+        </p>
+        <p><input type="submit" value="create"></p>
     </fieldset>
 </form>
