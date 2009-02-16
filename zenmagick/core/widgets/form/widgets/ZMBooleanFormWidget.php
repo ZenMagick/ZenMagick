@@ -193,6 +193,13 @@ class ZMBooleanFormWidget extends ZMFormWidget {
         return $data;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function compare($value) {
+        return ZMTools::asBoolean($valule) == $this->getValue();
+    }
+
 }
 
 ?>

@@ -70,6 +70,13 @@ class ZMTextFormWidget extends ZMFormWidget {
         return '<input type="text"'.$attr.$slash.'>';
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function compare($value) {
+        return $valule == $this->getValue();
+    }
+
 }
 
 ?>
