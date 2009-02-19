@@ -139,9 +139,11 @@ class ZMCategories extends ZMObject {
         }
 
         $tlc = array();
-        foreach ($this->categories_[$languageId] as $id => $category) {
-            if (0 == $category->getParentId() && 0 < $id) {
-                $tlc[] = $this->categories_[$languageId][$id];
+            if (array_key_exists($languageId, $this->categories_)) {
+            foreach ($this->categories_[$languageId] as $id => $category) {
+                if (0 == $category->getParentId() && 0 < $id) {
+                    $tlc[] = $this->categories_[$languageId][$id];
+                }
             }
         }
 
@@ -247,10 +249,12 @@ class ZMCategories extends ZMObject {
     protected function buildTree($languageId=null) {
         $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
 
-        foreach ($this->categories_[$languageId] as $id => $category) {
-            if (0 != $category->getParentId()) {
-                $parent = $this->categories_[$languageId][$category->getParentId()];
-                $parent->addChild($id);
+        if (array_key_exists($languageId, $this->categories_)) {
+            foreach ($this->categories_[$languageId] as $id => $category) {
+                if (0 != $category->getParentId()) {
+                    $parent = $this->categories_[$languageId][$category->getParentId()];
+                    $parent->addChild($id);
+                }
             }
         }
     }
