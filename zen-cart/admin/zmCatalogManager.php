@@ -26,6 +26,13 @@
 <?php  
 require 'includes/application_top.php';
 
+  // helper
+  function get_fkt($url) {
+      $urlToken = parse_url($url); 
+      parse_str(str_replace('&amp;', '&', $urlToken['query']), $query); 
+      return $query['fkt'];
+  }
+
   // active fkt
   $selectedFkt = ZMRequest::getParameter('fkt', '');
   $zm_nav_params .= '&fkt='.$selectedFkt;
@@ -102,12 +109,12 @@ require 'includes/application_top.php';
             <div id="main-tab-container">
               <ul>
                 <?php $activeTab = 1; ?>
-                <?php foreach ($catalog_menu as $item) { $id = str_replace('fkt:', '', $item->getURL()); ?>
+                <?php foreach ($catalog_menu as $item) { $id = get_fkt($item->getURL()); ?>
                   <li><a href="#<?php echo $id ?>"><span><?php echo $item->getTitle() ?></span></a></li>
                 <?php } ?>
               </ul>
               <?php foreach ($catalog_menu as $index => $item) { 
-                $fkt = str_replace('fkt:', '', $item->getURL()); 
+                $fkt = get_fkt($item->getURL());
                 if ($fkt == $selectedFkt) { $activeTab = ($index+1); }
                 ?>
                 <div id="<?php echo $fkt ?>" style="position:relative;">
