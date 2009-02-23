@@ -27,13 +27,16 @@
  * @author DerManoMann
  * @package org.zenmagick.rp.resultlist.sources
  * @version $Id$
+ * @todo add support for filter/sorter when using ZMSQLAware
  */
 class ZMObjectResultSource extends ZMObject implements ZMResultSource {
+    private $resultList_;
     private $resultClass_;
     private $object_;
     private $method_;
     private $args_;
     private $results_;
+    private $totalNumberOfResults_;
 
 
     /**
@@ -51,6 +54,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->method_ = $method;
         $this->args_ = $args;
         $this->results_ = null;
+        $this->totalNumberOfResults_ = null;
     }
 
     /**
@@ -64,14 +68,28 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) { /* not used */ }
+    public function setResultList($resultList) { 
+        $this->resultList_ = $resultList;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function getResults() {
         if (null === $this->results_) {
-            $this->results_ = call_user_func_array(array($this->object_, $this->method_), $this->args_);
+            if ($this->object_ instanceof ZMSQLAware) {
+                if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
+                    $queryPager = ZMLoader::make('QueryPager', $queryDetails);
+                    $this->results_ = $queryPager->getResults($this->resultList_);
+                    $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
+                }
+            }
+            // check in case this methid is not supported
+            if (null === $this->results_) {
+                $this->results_ = call_user_func_array(array($this->object_, $this->method_), $this->args_);
+                $this->totalNumberOfResults_ = count($this->results_);
+            }
+
         }
         return $this->results_;
     }
@@ -105,7 +123,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function getTotalNumberOfResults() {
-        return count($this->getResults());
+        $this->getResults();
+        return $this->totalNumberOfResults_;
     }
 
 }

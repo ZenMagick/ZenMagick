@@ -10,6 +10,15 @@
 class TestResultList extends ZMTestCase {
 
     /**
+     * Set up.
+     */
+    public function setUp() {
+        parent::setUp();
+        // all tests assume this
+        ZMSettings::set('defaultResultListPagination', 10);
+    }
+
+    /**
      * Callback to *create* results.
      *
      * @param string resultClass The class of the results; default is <em>ZMProduct</em>.
@@ -37,6 +46,7 @@ class TestResultList extends ZMTestCase {
      * @return ZMResultListSource A result list source.
      */
     protected function getResultListSource($size, $resultClass='ZMProduct') {
+        // use this::getResults to lookup results
         return ZMLoader::make('ObjectResultSource', $resultClass, $this, 'getResults', array($resultClass, $size));
     }
 

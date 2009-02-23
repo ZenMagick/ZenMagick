@@ -31,7 +31,7 @@
 class ZMQueryDetails extends ZMObject {
     private $sql_;
     private $args_;
-    private $model_;
+    private $mapping_;
     private $modelClass_;
 
 
@@ -49,7 +49,7 @@ class ZMQueryDetails extends ZMObject {
         parent::__construct();
         $this->sql_ = $sql;
         $this->args_ = $args;
-        $this->model_ = $model;
+        $this->mapping_ = $mapping;
         $this->modelClass_ = $modelClass;
     }
 

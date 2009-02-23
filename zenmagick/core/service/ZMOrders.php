@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMOrders extends ZMObject {
+class ZMOrders extends ZMObject implements ZMSQLAware {
 
     /**
      * Create new instance.
@@ -54,6 +54,17 @@ class ZMOrders extends ZMObject {
         return ZMObject::singleton('Orders');
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method, $args=array()) {
+        $methods = array('getOrdersForAccountId', 'getOrdersForStatusId');
+        if (in_array($method, $methods)) {
+            return call_user_func_array(array($this, $method.'QueryDetails'), $args);
+        }
+        return null;
+    }
 
     /**
      * Get order for the given id.
@@ -87,9 +98,9 @@ class ZMOrders extends ZMObject {
      * @param int accountId The account id.
      * @param int limit Optional result limit.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array List of <code>ZMOrder</code> instances.
+     * @return ZMQueryDetails Query details.
      */
-    public function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
+    protected function getOrdersForAccountIdQueryDetails($accountId, $limit=0, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -106,7 +117,20 @@ class ZMOrders extends ZMObject {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        return ZMLoader::make('QueryDetails',$sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+    }
+
+    /**
+     * Get all orders for the given account id.
+     *
+     * @param int accountId The account id.
+     * @param int limit Optional result limit.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMOrder</code> instances.
+     */
+    public function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
+        $details = $this->getOrdersForAccountIdQueryDetails($accountId, $limit, $languageId);
+        return $details->query();
     }
 
     /**
@@ -114,9 +138,9 @@ class ZMOrders extends ZMObject {
      *
      * @param int statusId The order status.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array List of <code>ZMOrder</code> instances.
+     * @return ZMQueryDetails Query details.
      */
-    public function getOrdersForStatusId($statusId, $languageId=null) {
+    protected function getOrdersForStatusIdQueryDetails($statusId, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
@@ -132,9 +156,19 @@ class ZMOrders extends ZMObject {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
-        $orders = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        return ZMLoader::make('QueryDetails',$sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+    }
 
-        return $orders;
+    /**
+     * Get all orders for a given order status.
+     *
+     * @param int statusId The order status.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMOrder</code> instances.
+     */
+    public function getOrdersForStatusId($statusId, $languageId=null) {
+        $details = $this->getOrdersForStatusIdQueryDetails($statusId, $languageId);
+        return $details->query();
     }
 
     /**

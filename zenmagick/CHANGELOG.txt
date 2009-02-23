@@ -63,6 +63,10 @@ Release 0.9.5
 	ZM_DB_xxx defines, ZMObject::create(), ZMPlugins::filterResponse()
 - add code to support SQL based pagination via result lists and prepare to use
   it
+- add ZMSQLAware support to ZMOrders
+- add initial ZMSQLAware support to ZMObjectResultSource (no filter/sorter
+  support yet); this should speed up things in admin a bit where longer lists
+	need to be handled
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
