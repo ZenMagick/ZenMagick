@@ -33,6 +33,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     private $object_;
     private $method_;
     private $args_;
+    private $results_;
 
 
     /**
@@ -49,6 +50,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->object_ = $object;
         $this->method_ = $method;
         $this->args_ = $args;
+        $this->results_ = null;
     }
 
     /**
@@ -68,7 +70,10 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function getResults() {
-        return call_user_func_array(array($this->object_, $this->method_), $this->args_);
+        if (null === $this->results_) {
+            $this->results_ = call_user_func_array(array($this->object_, $this->method_), $this->args_);
+        }
+        return $this->results_;
     }
 
     /**
@@ -94,6 +99,13 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      */
     public function getArgs() {
         return $this->args_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTotalNumberOfResults() {
+        return count($this->getResults());
     }
 
 }

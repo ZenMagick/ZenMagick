@@ -22,41 +22,25 @@
 
 
 /**
- * A source of result list results.
+ * Add support for querying the SQL parameters for a particular method on an object.
+ *
+ * <p>This would typically be implemented by service classes that want to support SQL based
+ * result list handling.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.rp.resultlist
+ * @package org.zenmagick.database
  * @version $Id$
  */
-interface ZMResultSource {
+interface ZMSQLAware {
 
     /**
-     * Set the corresponding result list.
+     * Get query details.
      *
-     * @param ZMResultList resultList The *parent* result list.
+     * @param string method The method name to query.
+     * @param array args Parameter for the method; default is an empty array <code>array()</code>.
+     * @return ZMQueryDetails Details about the query that would be used.
      */
-    public function setResultList($resultList);
-
-    /**
-     * Get the results.
-     *
-     * @return array List of results.
-     */
-    public function getResults();
-
-    /**
-     * Get the class name of the results.
-     *
-     * @return string The class name of the results.
-     */
-    public function getResultClass();
-
-    /**
-     * Total number of results.
-     *
-     * @return int The total number if results.
-     */
-    public function getTotalNumberOfResults();
+    public function getQueryDetails($method, $args=array());
 
 }
 

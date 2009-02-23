@@ -61,6 +61,8 @@ Release 0.9.5
   ZMPlugin::filterResponse(), ZMPlugin::setLoaderSupport(),
 	ZMPlugin::getLoaderSupport(), ZMTools::ui2date(), ZMTools::parseDate(),
 	ZM_DB_xxx defines, ZMObject::create(), ZMPlugins::filterResponse()
+- add code to support SQL based pagination via result lists and prepare to use
+  it
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

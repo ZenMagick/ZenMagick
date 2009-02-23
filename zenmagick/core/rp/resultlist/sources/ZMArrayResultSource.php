@@ -73,6 +73,13 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
         return $this->resultClass_;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getTotalNumberOfResults() {
+        return count($this->list_);
+    }
+
 }
 
 ?>

@@ -153,12 +153,12 @@ class ZMResultList extends ZMObject {
     }
 
     /**
-     * Count results.
+     * Count all results.
      *
-     * @return int The number if results.
+     * @return int The total number if results.
      */
     public function getNumberOfResults() {
-        return count($this->getAllResults());
+        return $this->resultSource_->getTotalNumberOfResults();
     }
 
     /**
