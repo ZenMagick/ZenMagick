@@ -19,8 +19,6 @@ class TestZMQueryPager extends ZMTestCase {
 
         $queryPager = ZMLoader::make('QueryPager', ZMLoader::make('QueryDetails', 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'Product'));
         $queryPager->getResults($resultList);
-
-
     }
 
 }
