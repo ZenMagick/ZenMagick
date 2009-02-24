@@ -42,8 +42,12 @@ class ZMPhpBB3 extends ZMObject {
      */
     function __construct() {
         parent::__construct();
+        @define('IN_PHPBB', true);
+        require ZM_PHPBB3_ROOT . 'config.php';
+        require_once ZM_PHPBB3_ROOT . 'includes/constants.php';
+
         // init here, as table defines need to be done before creating SQL...
-        $this->getDatabase();
+        //$this->getDatabase();
     }
 
     /**
@@ -61,10 +65,7 @@ class ZMPhpBB3 extends ZMObject {
     protected function getDatabase() {
         if (null == $this->database_) {
             // load phpBB3 config
-            eval('?>'. file_get_contents(ZM_PHPBB3_ROOT . 'config.php'));
-
-            // table names
-            define('ZM_PHPBB3_TABLE_USERS', $table_prefix . 'users');
+            require ZM_PHPBB3_ROOT . 'config.php';
 
             // ZMDatabase config
             $dbconf = array(
@@ -78,7 +79,7 @@ class ZMPhpBB3 extends ZMObject {
             $this->database_ = ZMRuntime::getDatabase($dbconf);
 
             // also setup database mapping
-            ZMDbTableMapper::instance()->setMappingForTable(ZM_PHPBB3_TABLE_USERS, 
+            ZMDbTableMapper::instance()->setMappingForTable(USERS_TABLE, 
                 array(
                     'username' => 'column=username;type=string;',
                     'user_email' => 'column=user_email;type=string;'
@@ -96,9 +97,9 @@ class ZMPhpBB3 extends ZMObject {
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
     public function vDuplicateNickname($req) {
-        $sql = "SELECT username FROM " . ZM_PHPBB3_TABLE_USERS . "
+        $sql = "SELECT username FROM " . USERS_TABLE . "
                 WHERE username = :username";
-        return null == $this->getDatabase()->querySingle($sql, array('username' => $req['nick']), ZM_PHPBB3_TABLE_USERS);
+        return null == $this->getDatabase()->querySingle($sql, array('username' => $req['nick']), USERS_TABLE);
     }
 
     /**
@@ -108,9 +109,9 @@ class ZMPhpBB3 extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($req) {
-        $sql = "SELECT user_email FROM " . ZM_PHPBB3_TABLE_USERS . "
+        $sql = "SELECT user_email FROM " . USERS_TABLE . "
                 WHERE user_email = :user_email";
-        return null == $this->getDatabase()->querySingle($sql, array('user_email' => $req['email_address']), ZM_PHPBB3_TABLE_USERS);
+        return null == $this->getDatabase()->querySingle($sql, array('user_email' => $req['email_address']), USERS_TABLE);
     }
 
     /**
@@ -129,6 +130,44 @@ class ZMPhpBB3 extends ZMObject {
         }
 
         return true;
+    }
+
+    /**
+     * Get the default group id.
+     *
+     * @return int The default group id or <code>false</code>.
+     */
+    protected function getDefaultGroupId() {
+        $sql = 'SELECT group_id
+                FROM ' . GROUPS_TABLE . "
+                WHERE group_name = 'REGISTERED'
+                  AND group_type = " . GROUP_SPECIAL;
+
+        $result = $this->getDatabase()->querySingle($sql, array(), null, ZMDatabase::MODEL_RAW);
+        return null !== $result ? (int)$result['group_id'] : false;
+    }
+
+    /**
+     * Create a new account.
+     *
+     * @param string nickName The nick name.
+     * @param string password The clear text password.
+     * @param string email The email address.
+     */
+    public function createAccount($nickName, $password, $email) {
+        if (false !== ($groupId = $this->getDefaultGroupId())) {
+            $authentication = ZMLoader::make('ZMPhpBB3Authentication');
+            $data = array(
+                    'username'      => $nickName,
+                    'user_password' => $authentication->encryptPassword($password),
+                    'user_email'    => strtolower($email),
+                    'group_id'      => $groupId,
+                    'user_type'     => USER_NORMAL,
+            );
+            var_dump($data);
+        }
+
+        //$user_id = user_add($data);
     }
 
 }

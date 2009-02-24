@@ -24,9 +24,6 @@
 <?php
 
 
-define('ZM_PHPBB3_ROOT', ZMSettings::get('plugins.zm_pbpbb3.root', DIR_WS_PHPBB));
-
-
 /**
  * Plugin to enable phpBB3 support in ZenMagick.
  *
@@ -61,7 +58,7 @@ class zm_phpbb3 extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         // warning: screwed logic!
@@ -84,10 +81,13 @@ class zm_phpbb3 extends ZMPlugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
         $this->page_ = ZMRequest::getPageName();
         $this->prePostAccount_ = ZMRequest::getAccount();
+
+        // main define to get at things
+        define('ZM_PHPBB3_ROOT', ZMSettings::get('plugins.zm_pbpbb3.root', DIR_WS_PHPBB));
 
         // enable nickname field
         ZMSettings::set('isAccountNickname', true);
@@ -125,6 +125,22 @@ class zm_phpbb3 extends ZMPlugin {
     }
 
     /**
+     * Account created event callback.
+     *
+     * <p>Here the additional processing is done by checking the result view id. As per convention,
+     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     *
+     * @param array args Optional parameter ('view' => $view).
+     */
+    public function onZMCreateAccount($args) {
+        // account created
+        $email = ZMRequest::getParameter('email_address');
+        $password = ZMRequest::getParameter('password');
+        $nickName = ZMRequest::getParameter('nick');
+        //TODO: $phpBB->createAccount($nickName, $password, $email);
+    }
+
+    /**
      * Event callback for controller processing.
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
@@ -132,17 +148,9 @@ class zm_phpbb3 extends ZMPlugin {
      *
      * @param array args Optional parameter ('view' => $view).
      */
-    function onZMControllerProcessEnd($args) {
+    public function onZMControllerProcessEnd($args) {
         if ('POST' == ZMRequest::getMethod()) {
             $view = $args['view'];
-
-            if ('create_account' == $this->page_ && 'success' == $view->getMappingId()) {
-                // account created
-                $email = ZMRequest::getParameter('email_address');
-                $password = ZMRequest::getParameter('password');
-                $nickName = ZMRequest::getParameter('nick');
-                //TODO: $phpBB->createAccount($nickName, $password, $email);
-            }
 
             if ('account_password' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMRequest::getAccount();
