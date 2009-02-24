@@ -175,6 +175,18 @@ class ZMPlugins extends ZMObject {
         } else {
             // do it the long way...
             $idList = ZMPlugins::_getPluginIdsForType($type);
+            // make sure we populate the pluginStatus cache
+            foreach ($idList as $id) {
+                if (!array_key_exists($id, ZMPlugins::$pluginStatus_)) {
+                    ZMPlugins::$pluginStatus_[$id] = array(
+                      'type' => $type,
+                      'scope' => $scope,
+                      'installed' => false,
+                      'enabled' => false,
+                      'order' => 0
+                    );
+                }
+            }
         }
 
         $plugins = array();
