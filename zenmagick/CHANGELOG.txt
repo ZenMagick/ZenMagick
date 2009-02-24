@@ -68,7 +68,7 @@ Release 0.9.5
   support yet); this should speed up things in admin a bit where longer lists
   need to be handled
 - make sure that plugins are found if no plugin status cache is set yet -
-  thanks William for letting me have a look at that
+  thanks William for letting me have a look at that; b:#2634910
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
