@@ -21,10 +21,6 @@
 <?php
 
 
-require_once ZM_PHPBB3_ROOT . 'includes/functions.php';
-
-
-
 /**
  * phpBB3 authentication provider.
  *
@@ -33,18 +29,27 @@ require_once ZM_PHPBB3_ROOT . 'includes/functions.php';
  * @version $Id$
  */
 class ZMPhpBB3Authentication implements ZMAuthentication {
+    private $passwordHash_;
+
+    /**
+     * Create instance.
+     */
+    function __construct() {
+        $this->passwordHash_ = ZMLoader::make('PasswordHash', 6, false, '$H$');
+    }
 
     /**
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) { 
-        return phpbb_hash($plaintext);
+        return $this->passwordHash_->HashPassword($plaintext);
     }
 
     /**
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) { 
+        return $this->passwordHash_->HashPassword($plaintext);
         return phpbb_check_hash($plaintext, $encrypted);
     }
 

@@ -75,16 +75,11 @@ class ZMPhpBB3 extends ZMObject {
                 'password' => $dbpasswd,
                 'driver' => $dbms
             );
+            if (isset($dbport)) {
+                $dbconf['port'] = $dbport;
+            }
 
             $this->database_ = ZMRuntime::getDatabase($dbconf);
-
-            // also setup database mapping
-            ZMDbTableMapper::instance()->setMappingForTable(USERS_TABLE, 
-                array(
-                    'username' => 'column=username;type=string;',
-                    'user_email' => 'column=user_email;type=string;'
-                  )
-            );
         }
 
         return $this->database_;
@@ -158,13 +153,68 @@ class ZMPhpBB3 extends ZMObject {
         if (false !== ($groupId = $this->getDefaultGroupId())) {
             $authentication = ZMLoader::make('ZMPhpBB3Authentication');
             $data = array(
-                    'username'      => $nickName,
-                    'user_password' => $authentication->encryptPassword($password),
-                    'user_email'    => strtolower($email),
-                    'group_id'      => $groupId,
-                    'user_type'     => USER_NORMAL,
+                    'username'          => $nickName,
+		            'username_clean'    => strtolower($nickName),
+                    'user_password'     => $authentication->encryptPassword($password),
+		            'user_pass_convert'	=> 0,
+                    'user_email'        => strtolower($email),
+		            'user_email_hash'	=> crc32(strtolower($email)) . strlen($email),
+                    'group_id'          => $groupId,
+                    'user_type'         => USER_NORMAL,
             );
-            var_dump($data);
+
+            // These are the additional vars able to be specified (functions_user.php user_add()
+            $additional_vars = array(
+                'user_permissions'	=> '',
+                //'user_timezone'		=> $config['board_timezone'],
+                //'user_dateformat'	=> $config['default_dateformat'],
+                //'user_lang'			=> $config['default_lang'],
+                //'user_style'		=> (int) $config['default_style'],
+                'user_actkey'		=> '',
+                'user_ip'			=> '',
+                'user_regdate'		=> time(),
+                'user_passchg'		=> time(),
+                'user_options'		=> 895,
+
+                'user_inactive_reason'	=> 0,
+                'user_inactive_time'	=> 0,
+                'user_lastmark'			=> time(),
+                'user_lastvisit'		=> 0,
+                'user_lastpost_time'	=> 0,
+                'user_lastpage'			=> '',
+                'user_posts'			=> 0,
+                //'user_dst'				=> (int) $config['board_dst'],
+                'user_colour'			=> '',
+                'user_occ'				=> '',
+                'user_interests'		=> '',
+                'user_avatar'			=> '',
+                'user_avatar_type'		=> 0,
+                'user_avatar_width'		=> 0,
+                'user_avatar_height'	=> 0,
+                'user_new_privmsg'		=> 0,
+                'user_unread_privmsg'	=> 0,
+                'user_last_privmsg'		=> 0,
+                'user_message_rules'	=> 0,
+                'user_full_folder'		=> PRIVMSGS_NO_BOX,
+                'user_emailtime'		=> 0,
+
+                'user_notify'			=> 0,
+                'user_notify_pm'		=> 1,
+                'user_notify_type'		=> NOTIFY_EMAIL,
+                'user_allow_pm'			=> 1,
+                'user_allow_viewonline'	=> 1,
+                'user_allow_viewemail'	=> 1,
+                'user_allow_massemail'	=> 1,
+
+                'user_sig'					=> '',
+                'user_sig_bbcode_uid'		=> '',
+                'user_sig_bbcode_bitfield'	=> '',
+
+                'user_form_salt'			=> 'zm',
+            );
+
+            $data = array_merge($additional_vars, $data);
+            $data = $this->getDatabase()->createModel(USERS_TABLE, $data);
         }
 
         //$user_id = user_add($data);
