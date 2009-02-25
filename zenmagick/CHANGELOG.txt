@@ -71,6 +71,10 @@ Release 0.9.5
   thanks William for letting me have a look at that; b:#2634910
 - add PasswordHash (http://www.openwall.com/phpass/) with a slight
   modification to allow to change the hash identifier
+- allow create/update/remove model methods to handle array data
+- make auto DB mappings work on non default databases
+- fix SQL generation to ignore properties/columns not set on a model object
+- add new authentication provider using phpass; http://www.openwall.com/phpass/
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
