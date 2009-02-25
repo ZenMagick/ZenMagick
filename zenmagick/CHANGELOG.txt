@@ -69,6 +69,8 @@ Release 0.9.5
   need to be handled
 - make sure that plugins are found if no plugin status cache is set yet -
   thanks William for letting me have a look at that; b:#2634910
+- add PasswordHash (http://www.openwall.com/phpass/) with a slight
+  modification to allow to change the hash identifier
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
