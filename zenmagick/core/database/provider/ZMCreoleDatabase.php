@@ -132,7 +132,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function loadModel($table, $key, $modelClass, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $keyName = ZMSettings::get('dbModelKeyName');
         if (null == $keyName) {
@@ -168,14 +168,17 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function createModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
-        $properties = $model->getPropertyNames();
+        if (is_array($model)) {
+            $properties = array_keys($model);
+        } else {
+            $properties = $model->getPropertyNames();
+        }
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || in_array($field['property'], $properties)) {
+            if (in_array($field['property'], $properties)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
@@ -215,7 +218,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function update($sql, $data=array(), $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
@@ -230,16 +233,19 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function updateModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'UPDATE '.$table.' SET';
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
-        $properties = $model->getPropertyNames();
+        if (is_array($model)) {
+            $properties = array_keys($model);
+        } else {
+            $properties = $model->getPropertyNames();
+        }
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || in_array($field['property'], $properties)) {
+            if (in_array($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -272,15 +278,18 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function removeModel($table, $model, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'DELETE FROM '.$table;
         $firstWhere = true;
         $where = ' WHERE ';
-        $properties = $model->getPropertyNames();
+        if (is_array($model)) {
+            $properties = array_keys($model);
+        } else {
+            $properties = $model->getPropertyNames();
+        }
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (!$field['custom'] || in_array($field['property'], $properties)) {
+            if (in_array($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -315,7 +324,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping);
+        $mapping = $this->mapper->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();

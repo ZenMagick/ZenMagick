@@ -199,9 +199,10 @@ class ZMDbTableMapper extends ZMObject {
      * on demand.</p>
      *
      * @param mixed mapping The field mappings or table name.
+     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
      * @return array A mapping or <code>null</code>.
      */
-    public function ensureMapping($mapping) {
+    public function ensureMapping($mapping, $database=null) {
         if (!is_array($mapping)) {
             // table name
             $table = $mapping;
@@ -209,7 +210,7 @@ class ZMDbTableMapper extends ZMObject {
             if (null === $mapping && ZMSettings::get('isEnableDBAutoMapping')) {
                 //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-                $rawMapping = ZMDbUtils::buildTableMapping($table);
+                $rawMapping = ZMDbUtils::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
                 $mapping = $this->getMapping($table);
             }

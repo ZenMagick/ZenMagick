@@ -36,15 +36,19 @@ class ZMDbUtils {
      * Mapping of native data types to API types.
      */
     public static $NATIVE_TO_API_TYPEMAP = array(
-        'int' => 'integer',
         'char' => 'string',
         'varchar' => 'string',
+        'int' => 'integer',
         'tinyint' => 'integer',
-        'text' => 'string',
-        'mediumtext' => 'string',
         'smallint' => 'integer',
+        'mediumint' => 'integer',
+        'bigint' => 'integer',
         'int unsigned' => 'integer',
+        'decimal' => 'float',
+        'real' => 'float',
+        'text' => 'string',
         'tinytext' => 'string',
+        'mediumtext' => 'string',
         'mediumblob', 'blob'
     );
 
@@ -216,16 +220,20 @@ class ZMDbUtils {
      * Generate a database mapping for the given table.
      *
      * @param string table The table name.
+     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
      * @param boolean print Optional flag to also print the mapping in a form that can be used
      *  to cut&paste into a mapping file; default is <code>false</code>.
      * @return array The mapping.
      */
-    public static function buildTableMapping($table, $print=false) {
+    public static function buildTableMapping($table, $database=null, $print=false) {
+        if (null === $database) {
+            $database = ZMRuntime::getDatabase();
+        }
         // check for prefix
-        if (null === ($tableMetaData = ZMRuntime::getDatabase()->getMetaData($table))) {
+        if (null === ($tableMetaData = $database->getMetaData($table))) {
             // try adding the prefix
             $table = ZM_DB_PREFIX.$table;
-            if (null === ($tableMetaData = ZMRuntime::getDatabase()->getMetaData($table))) {
+            if (null === ($tableMetaData = $database->getMetaData($table))) {
                 return null;
             }
         }
