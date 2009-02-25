@@ -73,6 +73,8 @@ class ZMRuntime extends ZMObject {
      *  <dd>The database driver/type; default is <code>mysql</code>.</dd>
      *  <dt>host</dt>
      *  <dd>The database host; default is <code>DB_SERVER</code>.</dd>
+     *  <dt>port</dt>
+     *  <dd>The database port; optional, no default.</dd>
      *  <dt>username</dt>
      *  <dd>The database username; default is <code>DB_SERVER_USERNAME</code>.</dd>
      *  <dt>password</dt>
