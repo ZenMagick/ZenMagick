@@ -350,13 +350,13 @@ EOT;
     }
 
     protected function getConversionCode() {
-        if (null == $this->order_) {
-            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
-            return;
-        }
-
         $code = '';
         if ('checkout_success' == ZMRequest::getPageName()) {
+            if (null == $this->order_) {
+                ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+                return;
+            }
+
             $conversionId = $this->get('conversionId');
             if (!empty($conversionId)) {
                 if (ZMRequest::isSecure()) {
