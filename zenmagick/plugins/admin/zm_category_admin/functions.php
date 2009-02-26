@@ -32,7 +32,7 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_category_admin() {
-    global $zm_category_admin, $zm_nav_params;
+    global $zm_nav_params;
 
         if (null != ZMRequest::getParameter('update') && 'zm_category_admin' == ZMRequest::getParameter('fkt')) {
             // load from db to start with
@@ -53,7 +53,8 @@
             ZMMessages::instance()->success(zm_l10n_get('Category updated'));
         }
 
-        $template = file_get_contents($zm_category_admin->getPluginDir().'/views/category_admin.php');
+        $plugin = ZMPlugins::getPluginForId('zm_category_admin');
+        $template = file_get_contents($plugin->getPluginDir().'/views/category_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'));
     }

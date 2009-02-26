@@ -33,9 +33,8 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_site_switch_admin() {
-    global $zm_site_switch;
-
-        $template = file_get_contents($zm_site_switch->getPluginDir().'/views/site_switch_admin.php');
+        $plugin = ZMPlugins::getPluginForId('zm_site_switch');
+        $template = file_get_contents($plugin->getPluginDir().'/views/site_switch_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_site_switch_admin', zm_l10n_get('Site Switch'), null);
     }

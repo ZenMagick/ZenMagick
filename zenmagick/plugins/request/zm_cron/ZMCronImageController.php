@@ -37,13 +37,12 @@ class ZMCronImageController extends ZMController {
      * {@inheritDoc}
      */
     public function process() { 
-    global $zm_cron;
-
+        $plugin = ZMPlugins::getPluginForId('zm_cron');
         header("Content-Type: image/gif");
 
-        if (isset($zm_cron)) {
+        if (null != $plugin) {
             // execute configured jobs
-            $zm_cron->runCron();
+            $plugin->runCron();
         }
 
         // create 1x1 image

@@ -147,14 +147,14 @@ class zm_recaptcha extends ZMPlugin {
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_recaptcha_validate($req) {
-global $zm_recaptcha;
-
     if (ZMTools::isEmpty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }
 
-    $resp = recaptcha_check_answer ($zm_recaptcha->get('privateKey'),
+    $plugin = ZMPlugins::getPluginForId('zm_recaptcha');
+
+    $resp = recaptcha_check_answer ($plugin->get('privateKey'),
                                     $_SERVER["REMOTE_ADDR"],
                                     $_POST["recaptcha_challenge_field"],
                                     $_POST["recaptcha_response_field"]);
@@ -162,7 +162,7 @@ global $zm_recaptcha;
     if ($resp->is_valid) {
         return true;
     } else {
-        $zm_recaptcha->setError($resp->error);
+        $plugin->setError($resp->error);
         return false;
     }
 }

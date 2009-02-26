@@ -32,7 +32,7 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_group_pricing_admin() {
-    global $zm_group_pricing, $zm_nav_params;
+    global $zm_nav_params;
 
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
         $toolbox = ZMToolbox::instance();
@@ -70,7 +70,8 @@
 
 
         // execute view
-        $template = file_get_contents($zm_group_pricing->getPluginDir().'/views/group_pricing_admin.php');
+        $plugin = ZMPlugins::getPluginForId('zm_group_pricing');
+        $template = file_get_contents($plugin->getPluginDir().'/views/group_pricing_admin.php');
         eval('?>'.$template);
 
         return new ZMPluginPage('zm_group_pricing_admin', zm_l10n_get('Group Pricing'));

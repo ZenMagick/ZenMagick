@@ -31,8 +31,7 @@
      * @package org.zenmagick.plugins.zm_master_password
      */
     function zm_master_password_admin() {
-    global $zm_master_password;
-
+        $plugin = ZMPlugins::getPluginForId('zm_master_password');
         if ('POST' == ZMRequest::getMethod()) {
             $values = ZMRequest::getParameter('configuration', array());
             $masterPassword = $values['MASTERPASSWORD'];
@@ -40,12 +39,12 @@
             if (!empty($masterPassword)) {
                 $masterPassword = ZMAuthenticationManager::instance()->getDefaultProvider()->encryptPassword($masterPassword);
             }
-            $zm_master_password->set('masterPassword', $masterPassword);
+            $plugin->set('masterPassword', $masterPassword);
             ZMRequest::redirect(zm_plugin_admin_url());
         }
 
         //TODO: custom form; either single field to set or old, new, confirm to change
-        $pluginPage = zm_simple_config_form($zm_master_password, 'zm_master_password_admin', 'Set Master Password', false);
+        $pluginPage = zm_simple_config_form($plugin, 'zm_master_password_admin', 'Set Master Password', false);
         $contents = str_replace('type="text"', 'type="password"', $pluginPage->getContents());
         $pluginPage->setContents($contents);
 

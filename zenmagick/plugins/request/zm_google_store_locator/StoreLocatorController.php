@@ -55,11 +55,10 @@ class StoreLocatorController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_google_store_locator;
-
         ZMCrumbtrail::instance()->addCrumb("Store Locator");
 
-        return ZMLoader::make("PluginView", zm_view_store_locator, $zm_google_store_locator);
+        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
+        return ZMLoader::make("PluginView", zm_view_store_locator, $plugin);
     }
 
 }

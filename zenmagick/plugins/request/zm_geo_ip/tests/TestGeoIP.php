@@ -13,8 +13,7 @@ class TestGeoIP extends ZMTestCase {
      * Get plugin.
      */
     public function getPlugin() {
-    global $zm_geo_ip;
-        return $zm_geo_ip;
+        return ZMPlugins::getPluginForId('zm_geo_ip');
     }
 
 

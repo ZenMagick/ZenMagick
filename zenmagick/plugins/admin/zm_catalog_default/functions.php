@@ -32,9 +32,8 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_catalog_default_admin() {
-    global $zm_catalog_default;
-
-        $template = file_get_contents($zm_catalog_default->getPluginDir().'/views/catalog_default.php');
+        $plugin = ZMPlugins::getPluginForId('zm_catalog_default');
+        $template = file_get_contents($plugin->getPluginDir().'/views/catalog_default.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'));
     }

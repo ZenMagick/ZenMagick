@@ -55,7 +55,7 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet() {
-    global $zm_wiki;
+        $plugin = ZMPlugins::getPluginForId('zm_wiki');
 
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
@@ -66,7 +66,7 @@ class WikiController extends ZMController {
         $page = zm_l10n_get($page);
         ZMCrumbtrail::instance()->addCrumb(zm_l10n_get($page));
 
-        return ZMLoader::make("PluginView", zm_view_wiki, $zm_wiki);
+        return ZMLoader::make("PluginView", zm_view_wiki, $plugin);
     }
 
 
@@ -77,12 +77,14 @@ class WikiController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
+        $plugin = ZMPlugins::getPluginForId('zm_wiki');
+
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
         $page = ZMRequest::getParameter('page', 'WikiRoot');
         ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
 
-        return ZMLoader::make("PluginView", zm_view_wiki_edit, $zm_wiki);
+        return ZMLoader::make("PluginView", zm_view_wiki_edit, $plugin);
     }
 
 }

@@ -157,13 +157,13 @@ class zm_captcha extends ZMPlugin {
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_captcha_validate($req) {
-global $zm_captcha;
 
     if (ZMTools::isEmpty(ZMRequest::getParameter(ZM_CAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }
-    $captcha = $zm_captcha->getCaptcha();
+    $plugin = ZMPlugins::getPluginForId('zm_captcha');
+    $captcha = $plugin->getCaptcha();
     return $captcha->validateCaptchaCode();
 }
 

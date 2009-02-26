@@ -31,13 +31,12 @@
      * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function zm_view_store_locator() {
-    global $zm_google_store_locator;
-
-        $storeKey = $zm_google_store_locator->get('storeKey');
-        $location = $zm_google_store_locator->get('location');
-        $zoom = $zm_google_store_locator->get('zoom');
-        $markerText = $zm_google_store_locator->get('marker_text');
-        $controls = ZMTools::asBoolean($zm_google_store_locator->get('controls'));
+        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
+        $storeKey = $plugin->get('storeKey');
+        $location = $plugin->get('location');
+        $zoom = $plugin->get('zoom');
+        $markerText = $plugin->get('marker_text');
+        $controls = ZMTools::asBoolean($plugin->get('controls'));
 
         $script = '
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$storeKey.'" type="text/javascript"></script>
@@ -69,19 +68,19 @@ EOT;
      * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function zm_store_locator_admin() {
-    global $zm_google_store_locator;
+        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
 
         if ('POST' == ZMRequest::getMethod()) {
             $values = ZMRequest::getParameter('configuration', array());
             foreach ($values as $name => $value) {
-                $zm_google_store_locator->set($name, $value);
+                $plugin->set($name, $value);
             }
             ZMRequest::redirect(zm_plugin_admin_url());
         }
 
-        $adminKey = $zm_google_store_locator->get('adminKey');
-        $location = $zm_google_store_locator->get('location');
-        $zoom = $zm_google_store_locator->get('zoom');
+        $adminKey = $plugin->get('adminKey');
+        $location = $plugin->get('location');
+        $zoom = $plugin->get('zoom');
 
         $script = '
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$adminKey.'" type="text/javascript"></script>
@@ -122,7 +121,7 @@ EOT;
 <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;"><?php zm_l10n("Loading map...") ?></div>
 EOT;
 
-        $pluginPage = zm_simple_config_form($zm_google_store_locator, 'zm_store_locator_admin', 'Store Locator Setup');
+        $pluginPage = zm_simple_config_form($plugin, 'zm_store_locator_admin', 'Store Locator Setup');
         $contents = $pluginPage->getContents() . $map;
         $pluginPage->setContents($contents);
         $pluginPage->setHeader($script);

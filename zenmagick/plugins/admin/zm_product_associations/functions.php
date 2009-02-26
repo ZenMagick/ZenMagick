@@ -32,9 +32,10 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_pa_admin() {
-    global $zm_product_associations, $zm_nav_params;
+    global $zm_nav_params;
 
-        $template = file_get_contents($zm_product_associations->getPluginDir().'/views/product_associations_admin.php');
+        $plugin = ZMPlugins::getPluginForId('zm_product_associations');
+        $template = file_get_contents($plugin->getPluginDir().'/views/product_associations_admin.php');
         eval('?>'.$template);
 
         return new ZMPluginPage('zm_pa_admin', zm_l10n_get('Product Associations'));

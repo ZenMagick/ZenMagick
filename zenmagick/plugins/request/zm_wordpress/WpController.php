@@ -39,10 +39,8 @@ class WpController extends ZMController {
      * Create new instance.
      */
     function __construct() {
-    global $zm_wordpress;
-
         parent::__construct();
-        $this->plugin = $zm_wordpress;
+        $this->plugin = ZMPlugins::getPluginForId('zm_wordpress');
     }
 
     /**

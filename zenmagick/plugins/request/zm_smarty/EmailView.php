@@ -63,7 +63,7 @@ class EmailView extends ZMEmailView {
      * code.</p>
      */
     public function generate() {
-    global $zm_smarty;
+        $plugin = ZMPlugins::getPluginForId('zm_smarty');
 
         // first, check for file
         $filename = $this->getViewFilename();
@@ -72,7 +72,7 @@ class EmailView extends ZMEmailView {
         }
 
         // get smarty instance
-        $smarty = $zm_smarty->getSmarty();
+        $smarty = $plugin->getSmarty();
 
         // *export* globals from controller into template space
         $controller = $this->getController();

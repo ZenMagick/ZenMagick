@@ -32,9 +32,10 @@
      * @return ZMPluginPage A plugin page or <code>null</code>.
      */
     function zm_quick_edit_admin() {
-    global $zm_quick_edit, $zm_nav_params;
+    global $zm_nav_params;
 
-        $template = file_get_contents($zm_quick_edit->getPluginDir().'views/quick_edit_admin.php');
+        $plugin = ZMPlugins::getPluginForId('zm_quick_edit');
+        $template = file_get_contents($plugin->getPluginDir().'views/quick_edit_admin.php');
         eval('?>'.$template);
 
         return new ZMPluginPage('zm_quick_edit_admin', zm_l10n_get('Quick Edit'));
