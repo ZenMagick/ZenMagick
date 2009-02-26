@@ -53,7 +53,7 @@ class Logging extends ZMLogging {
             ZMLogging::INFO => FirePHP::INFO,
             ZMLogging::DEBUG => FirePHP::LOG,
             ZMLogging::TRACE => FirePHP::LOG
-      );
+        );
     }
 
     /**
