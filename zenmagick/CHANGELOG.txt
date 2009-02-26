@@ -76,6 +76,7 @@ Release 0.9.5
 - fix SQL generation to ignore properties/columns not set on a model object
 - add new authentication provider using phpass; http://www.openwall.com/phpass/
 - avoid using plugin globals
+- remove use of $zm_order global from zm_google_analytics plugin; b:#2639645
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

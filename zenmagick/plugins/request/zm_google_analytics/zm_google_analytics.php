@@ -41,6 +41,7 @@
  */
 class zm_google_analytics extends ZMPlugin {
     private $eol_;
+    private $order_;
 
 
     /**
@@ -49,6 +50,7 @@ class zm_google_analytics extends ZMPlugin {
     public function __construct() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
         $this->eol_ = "\n";
+        $this->order_ = null;
     }
 
     /**
@@ -91,6 +93,16 @@ class zm_google_analytics extends ZMPlugin {
     public function init() {
         parent::init();
         $this->zcoSubscribe();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function onZMControllerProcessEnd($args) {
+        $controller = $args['controller'];
+        if (null != $controller && 'checkout_success' == $controller->getId()) {
+            $this->order_ = $controller->getGlobal('zm_order');
+        }
     }
 
     /**
@@ -164,33 +176,35 @@ class zm_google_analytics extends ZMPlugin {
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeUrchin() {
-    global $zm_order;
-
         if ('checkout_success' != ZMRequest::getPageName()) {
             return '';
         }
+        if (null == $this->order_) {
+            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+            return;
+        }
 
-        $address = $this->getAddress($zm_order);
+        $address = $this->getAddress($this->order_);
         $country = $address->getCountry();
         // totals
-        $total = $zm_order->getOrderTotal('total', true);
+        $total = $this->order_->getOrderTotal('total', true);
         $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $zm_order->getOrderTotal('tax', true);
+        $tax = $this->order_->getOrderTotal('tax', true);
         $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $zm_order->getOrderTotal('shipping', true);
+        $shipping = $this->order_->getOrderTotal('shipping', true);
         $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
 
         $code = '<form style="display:none;" name="utmform"><textarea id="utmtrans">' . $this->eol_;
         // UTM:T|[order-id]|[affiliation]|[total]|[tax]|[shipping]|[city]|[state]|[country]
-        $code .= 'UTM:T|'.$zm_order->getId().'|'.$this->get('affiliation').'|'.$totalValue.'|'.$taxValue.'|'.
+        $code .= 'UTM:T|'.$this->order_->getId().'|'.$this->get('affiliation').'|'.$totalValue.'|'.$taxValue.'|'.
             $shippingValue.'|'.$address->getCity().'|'.$address->getState().'|'.$country->getIsoCode3() . $this->eol_;
 
         //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
-        foreach ($zm_order->getOrderItems() as $orderItem) {
+        foreach ($this->order_->getOrderItems() as $orderItem) {
             $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId());
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
-            $code .= 'UTM:I|'.$zm_order->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
+            $code .= 'UTM:I|'.$this->order_->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
         }
 
         $code .= '</textarea></form>' . $this->eol_;
@@ -257,10 +271,12 @@ EOT;
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeGa() {
-    global $zm_order;
-
         if ('checkout_success' != ZMRequest::getPageName()) {
             return '';
+        }
+        if (null == $this->order_) {
+            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+            return;
         }
 
         $tracker = $this->get('uacct');
@@ -268,19 +284,19 @@ EOT;
         $affiliation = $this->get('affiliation');
 
         // order
-        $address = $this->getAddress($zm_order);
+        $address = $this->getAddress($this->order_);
         $city = $address->getCity();
         $state = $address->getState();
         $country = $address->getCountry();
         $countryCode = $address->getCountry()->getIsoCode3();
 
         // totals
-        $orderId = $zm_order->getId();
-        $total = $zm_order->getOrderTotal('total', true);
+        $orderId = $this->order_->getId();
+        $total = $this->order_->getOrderTotal('total', true);
         $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $zm_order->getOrderTotal('tax', true);
+        $tax = $this->order_->getOrderTotal('tax', true);
         $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $zm_order->getOrderTotal('shipping', true);
+        $shipping = $this->order_->getOrderTotal('shipping', true);
         $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
 
         // order code
@@ -307,7 +323,7 @@ pageTracker._addTrans(
 );
 EOT;
         // items
-        foreach ($zm_order->getOrderItems() as $orderItem) {
+        foreach ($this->order_->getOrderItems() as $orderItem) {
             $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $name = $orderItem->getName();
             $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId())->getName();
@@ -334,7 +350,10 @@ EOT;
     }
 
     protected function getConversionCode() {
-    global $zm_order;
+        if (null == $this->order_) {
+            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+            return;
+        }
 
         $code = '';
         if ('checkout_success' == ZMRequest::getPageName()) {
@@ -345,7 +364,7 @@ EOT;
                 } else {
                     $baseUrl = "http://www.googleadservices.com/pagead";
                 }
-                $total = $zm_order->getOrderTotal('total', true);
+                $total = $this->order_->getOrderTotal('total', true);
                 if (0 >= $total) {
                     $total = 1;
                 }
