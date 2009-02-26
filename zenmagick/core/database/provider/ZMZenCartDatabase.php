@@ -184,13 +184,16 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
+        $beanModel = true;
         if (is_array($model)) {
             $properties = array_keys($model);
+            $beanModel = false;
         } else {
             $properties = $model->getPropertyNames();
         }
         foreach ($mapping as $field) {
-            if (in_array($field['property'], $properties)) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
@@ -265,13 +268,16 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
+        $beanModel = true;
         if (is_array($model)) {
             $properties = array_keys($model);
+            $beanModel = false;
         } else {
             $properties = $model->getPropertyNames();
         }
         foreach ($mapping as $field) {
-            if (in_array($field['property'], $properties)) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -311,13 +317,16 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $sql = 'DELETE FROM '.$table;
         $firstWhere = true;
         $where = ' WHERE ';
+        $beanModel = true;
         if (is_array($model)) {
             $properties = array_keys($model);
+            $beanModel = false;
         } else {
             $properties = $model->getPropertyNames();
         }
         foreach ($mapping as $field) {
-            if (in_array($field['property'], $properties)) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
