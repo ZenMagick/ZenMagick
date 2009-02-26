@@ -12,6 +12,14 @@ class TestZMPhpBB3 extends ZMTestCase {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function tearDown() {
+        parent::tearDown();
+        $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
+    }
+
+    /**
      * Get the phpBB3 adapter.
      */
     protected function getAdapter() {
@@ -26,25 +34,34 @@ class TestZMPhpBB3 extends ZMTestCase {
      * Test duplicate nickname validation.
      */
     public function testVDuplicateNickname() {
-        $phpBB3 = ZMLoader::make('ZMPhpBB3');
-        $this->assertTrue($phpBB3->vDuplicateNickname(array('nick' => 'foobarx')));
-        $this->assertFalse($phpBB3->vDuplicateNickname(array('nick' => 'Anonymous')));
+        $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nick' => 'foobarx')));
+        $this->assertFalse($this->getAdapter()->vDuplicateNickname(array('nick' => 'Anonymous')));
     }
 
     /**
      * Test duplicate email validation.
      */
     public function testVDuplicateEmail() {
-        $phpBB3 = ZMLoader::make('ZMPhpBB3');
-        $this->assertTrue($phpBB3->vDuplicateEmail(array('email_address' => 'foo@bar.com')));
-        $this->assertFalse($phpBB3->vDuplicateEmail(array('email_address' => 'mano@zenmagick.org')));
+        $this->assertTrue($this->getAdapter()->vDuplicateEmail(array('email_address' => 'foo@bar.com')));
+        $this->testCreateAccount();
+        $this->assertFalse($this->getAdapter()->vDuplicateEmail(array('email_address' => 'martin@mixedmatter.co.nz')));
     }
 
     /**
      * Test create account.
      */
     public function testCreateAccount() {
-        $this->getAdapter()->createAccount('DerManoMann', 'mano11', 'martin@mixedmatter.co.nz');
+        $result = $this->getAdapter()->createAccount('DerManoMann', 'mano11', 'martin@mixedmatter.co.nz');
+        $this->assertTrue($result);
+    }
+
+    /**
+     * Test update account.
+     */
+    public function testUpdateAccount() {
+        $this->testCreateAccount();
+        $result = $this->getAdapter()->updateAccount('DerManoMann', 'mano12', 'martin@mixedmatter.co.nz');
+        $this->assertTrue($result);
     }
 
 }

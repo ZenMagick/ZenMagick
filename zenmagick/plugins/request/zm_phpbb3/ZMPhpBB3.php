@@ -104,9 +104,7 @@ class ZMPhpBB3 extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($req) {
-        $sql = "SELECT user_email FROM " . USERS_TABLE . "
-                WHERE user_email = :user_email";
-        return null == $this->getDatabase()->querySingle($sql, array('user_email' => $req['email_address']), USERS_TABLE);
+        return null == $this->getAccountForEmail($req['email_address']);
     }
 
     /**
@@ -140,6 +138,19 @@ class ZMPhpBB3 extends ZMObject {
 
         $result = $this->getDatabase()->querySingle($sql, array(), null, ZMDatabase::MODEL_RAW);
         return null !== $result ? (int)$result['group_id'] : false;
+    }
+
+    /**
+     * Get account for email.
+     *
+     * @param string email The email address.
+     * @return mixed A data array or <code>null</code>.
+     */
+    protected function getAccountForEmail($email) {
+        $sql = "SELECT * FROM " . USERS_TABLE . "
+                WHERE user_email_hash = :user_email_hash";
+        $email_hash = crc32(strtolower($email)) . strlen($email);
+        return $this->getDatabase()->querySingle($sql, array('user_email_hash' => $email_hash), USERS_TABLE);
     }
 
     /**
@@ -215,9 +226,49 @@ class ZMPhpBB3 extends ZMObject {
 
             $data = array_merge($additional_vars, $data);
             $data = $this->getDatabase()->createModel(USERS_TABLE, $data);
+            return true;
         }
+        return false;
+    }
 
-        //$user_id = user_add($data);
+    /**
+     * Update an account.
+     *
+     * @param string nickName The nick name.
+     * @param string password The clear text password.
+     * @param string email The email address.
+     * @return boolean <code>true</code> on success.
+     */
+    public function updateAccount($nickName, $password, $email) {
+        $data = $this->getAccountForEmail($email);
+        if (null !== $data) {
+            $authentication = ZMLoader::make('ZMPhpBB3Authentication');
+            $data = array_merge($data, array(
+                            'username'          => $nickName,
+                            'username_clean'    => strtolower($nickName),
+                            'user_password'     => $authentication->encryptPassword($password),
+                            'user_email'        => strtolower($email),
+                            'user_email_hash'	=> crc32(strtolower($email)) . strlen($email),
+            ));
+            $this->getDatabase()->updateModel(USERS_TABLE, $data);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove an account.
+     *
+     * @param string email The email address.
+     * @return boolean <code>true</code> on success.
+     */
+    public function removeAccount($email) {
+        $data = $this->getAccountForEmail($email);
+        if (null !== $data) {
+            $this->getDatabase()->removeModel(USERS_TABLE, $data);
+            return true;
+        }
+        return false;
     }
 
 }
