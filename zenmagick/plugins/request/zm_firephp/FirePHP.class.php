@@ -1373,3 +1373,5 @@ class FirePHP {
       return $this->json_encode(strval($name)) . ':' . $encoded_value;
   }
 }
+
+?>
