@@ -93,10 +93,15 @@ require_once 'includes/application_top.php';
         }
         $refresh = $pluginId;
         $needRefresh = true;
+        $editPlugin = $plugin;
     }
 
     if ($needRefresh) {
-        ZMRequest::redirect('zmPlugins.php'.'?select='.$refresh);
+        $fragment = '';
+        if ($editPlugin) {
+            $fragment = '#' . $editPlugin->getId();
+        }
+        ZMRequest::redirect('zmPlugins.php'.'?select='.$refresh.$fragment);
     }
 
     // build/update plugin status for all plugins
@@ -167,7 +172,7 @@ require_once 'includes/application_top.php';
             <tbody>
               <?php foreach ($plugins as $plugin) { $isEdit = (null != $edit && $plugin->getId() == $editPlugin->getId()); ?>
                 <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
-                  <td><?php echo $plugin->getName() ?></td>
+                  <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
                   <td style="text-align:center;"><img src="images/icons/<?php echo ($plugin->isEnabled() ? 'tick.gif' : 'cross.gif') ?>"></td>
                   <td><?php echo $plugin->getSortOrder() ?></td>
@@ -179,10 +184,10 @@ require_once 'includes/application_top.php';
                           <input type="hidden" name="type" value="<?php echo $plugin->getType() ?>">
                           <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                         <?php } else { ?>
-                            <a href="<?php echo 'zmPlugins.php' ?>?edit=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                            <a href="<?php echo 'zmPlugins.php' ?>?edit=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
                         <?php } ?>
                     <?php } else { ?>
-                        <a href="<?php echo 'zmPlugins.php' ?>?install=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                        <a href="<?php echo 'zmPlugins.php' ?>?install=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
                     <?php } ?>
                   </td>
                 </tr>

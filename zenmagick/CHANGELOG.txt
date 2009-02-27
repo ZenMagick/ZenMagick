@@ -81,6 +81,7 @@ Release 0.9.5
 - add new PASSWORD_CHANGED event to allow 3rd party integration plugins easy
   access to changed password (in particular requesting a new password was
 	tricky/impossible to track)
+- use anchor elements to return to active plugin in plugin manager
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
