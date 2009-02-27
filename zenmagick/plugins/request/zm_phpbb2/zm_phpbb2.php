@@ -76,7 +76,17 @@ class zm_phpbb2 extends ZMPlugin {
 
         // enable nickname field
         ZMSettings::set('isAccountNickname', true);
+    }
 
+    /**
+     * Init done callback.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMInitDone($args=null) {
         if ('create_account' == $this->page_) {
             // add custom validation rules
             $rules = array(

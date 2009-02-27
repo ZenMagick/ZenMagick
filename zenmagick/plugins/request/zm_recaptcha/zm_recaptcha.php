@@ -80,11 +80,14 @@ class zm_recaptcha extends ZMPlugin {
     }
 
     /**
-     * Init this plugin.
+     * Init done callback.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
+     *
+     * @param array args Optional parameter.
      */
-    function init() {
-        parent::init();
-
+    public function onZMInitDone($args=null) {
         // check if we need to do anything for this request...
         $page = ZMRequest::getPageName();
         if (true == $this->get($page) && isset($this->pageConfig_[$page])) { 

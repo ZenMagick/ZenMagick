@@ -86,6 +86,26 @@ class zm_openid extends ZMPlugin {
         $tokenSecuredForms = ZMSettings::get('tokenSecuredForms', '');
         ZMSettings::set('tokenSecuredForms', $tokenSecuredForms.',openid_login');
 
+        // add success URL mapping if none exists
+        ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');
+
+        // register tests
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+            // add class path only now to avoid errors due to missing ZMTestCase
+            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            $tests->addTest('TestZMDatabaseOpenIDStore');
+        }
+    }
+
+    /**
+     * Init done callback.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMInitDone($args=null) {
         // initial rule
         $rules = array(
             array('RequiredRule', 'openid', 'Please enter your OpenID.')
@@ -99,17 +119,8 @@ class zm_openid extends ZMPlugin {
 
         // add validation rule for account edit
         ZMValidator::instance()->addRule('edit_account', array('ZMUniqueOpenIDRule', 'openid'));
-
-        // add success URL mapping if none exists
-        ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');
-
-        // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
-            // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
-            $tests->addTest('TestZMDatabaseOpenIDStore');
-        }
     }
+
 
     /**
      * Find account for a given OpenID.

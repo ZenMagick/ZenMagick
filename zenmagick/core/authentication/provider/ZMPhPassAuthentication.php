@@ -30,7 +30,7 @@
  * @package org.zenmagick.authentication.provider
  * @version $Id$
  */
-class ZMPhPassAuthentication.php implements ZMAuthentication {
+class ZMPhPassAuthentication implements ZMAuthentication {
     private $passwordHash_;
 
     /**
