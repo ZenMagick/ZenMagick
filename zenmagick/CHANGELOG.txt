@@ -77,6 +77,10 @@ Release 0.9.5
 - add new authentication provider using phpass; http://www.openwall.com/phpass/
 - avoid using plugin globals
 - remove use of $zm_order global from zm_google_analytics plugin; b:#2639645
+- change default of 'isEnableDBAutoMapping' to true
+- add new PASSWORD_CHANGED event to allow 3rd party integration plugins easy
+  access to changed password (in particular requesting a new password was
+	tricky/impossible to track)
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

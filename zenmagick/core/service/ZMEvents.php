@@ -55,6 +55,7 @@ class ZMEvents extends ZMObject {
     const GENERATE_EMAIL = 'generate_email';
     const CREATE_ORDER = 'create_order';
     const FINALISE_CONTENTS = 'finalise_contents';
+    const PASSWORD_CHANGED = 'password_changed';
 
     private $subscribers_;
     private $eventLog_;

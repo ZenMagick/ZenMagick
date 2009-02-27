@@ -122,7 +122,7 @@
             'isEnableTransactions' => false,
 
             // enable db table map building on demand
-            'isEnableDBAutoMapping' => false,
+            'isEnableDBAutoMapping' => true,
 
             // enable/disable plugins
             'isEnablePlugins' => true,
