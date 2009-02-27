@@ -159,19 +159,19 @@ require_once 'includes/application_top.php';
         <?php foreach (ZMPlugins::getAllPlugins(ZMPlugin::SCOPE_ALL, false) as $type => $plugins) { ?>
         <h2><?php echo $type ?> plugins</h2>
         <form action="<?php echo 'zmPlugins.php' ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
-          <table cellpadding="5" cellspacing="0"> 
+          <table cellpadding="5" cellspacing="0" style="width:90%;"> 
             <thead>
               <tr>
-              <th><?php zm_l10n("Name") ?></th>
-              <th><?php zm_l10n("Description") ?></th>
-              <th><?php zm_l10n("Status") ?></th>
-              <th><?php zm_l10n("Order") ?></th>
-              <th><?php zm_l10n("Options") ?></th>
+                <th><?php zm_l10n("Name") ?></th>
+                <th style="width:45%;"><?php zm_l10n("Description") ?></th>
+                <th style="width:13em;"><?php zm_l10n("Status") ?></th>
+                <th style="width:3em;"><?php zm_l10n("Order") ?></th>
+                <th style="width:160px;"><?php zm_l10n("Options") ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($plugins as $plugin) { $isEdit = (null != $edit && $plugin->getId() == $editPlugin->getId()); ?>
-                <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
+              <?php $odd = true; foreach ($plugins as $plugin) { $isEdit = (null != $edit && $plugin->getId() == $editPlugin->getId()); $odd = !$odd; ?>
+    <tr<?php echo ($isEdit ? ' class="edit"' : '') ?><?php if ($odd) { echo ' style="background-color:#ddd;"'; } ?>>
                   <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
                   <td style="text-align:center;"><img src="images/icons/<?php echo ($plugin->isEnabled() ? 'tick.gif' : 'cross.gif') ?>"></td>
@@ -214,6 +214,8 @@ require_once 'includes/application_top.php';
                             <?php } ?>
                           </td>
                         <?php } ?>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
                     </tr>
                   <?php } ?>
                 <?php } ?>
