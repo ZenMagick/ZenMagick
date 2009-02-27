@@ -65,7 +65,7 @@ class ZMValidator extends ZMObject {
      * @param boolean override Optional flag to override or add; default is <code>false</code> (add).
      */
     public function addRule($id, $rule, $override=false) {
-        if (!$override && array_key_exists($id, $this->sets_)) {
+        if (array_key_exists($id, $this->sets_) && !$override) {
             $this->sets_[$id][] = $rule;
         } else {
             $this->sets_[$id] = array($rule);
@@ -80,7 +80,7 @@ class ZMValidator extends ZMObject {
      * @param boolean override Optional flag to override or add; default is <code>false</code> (add).
      */
     public function addRules($id, $rules, $override=false) {
-        if (!$override && array_key_exists($id, $this->sets_)) {
+        if (array_key_exists($id, $this->sets_) && !$override) {
             $this->sets_[$id] = array_merge($this->sets_[$id], $rules);
         } else {
             $this->sets_[$id] = $rules;

@@ -45,9 +45,6 @@ class ZMPhpBB3 extends ZMObject {
         @define('IN_PHPBB', true);
         require ZM_PHPBB3_ROOT . 'config.php';
         require_once ZM_PHPBB3_ROOT . 'includes/constants.php';
-
-        // init here, as table defines need to be done before creating SQL...
-        //$this->getDatabase();
     }
 
     /**

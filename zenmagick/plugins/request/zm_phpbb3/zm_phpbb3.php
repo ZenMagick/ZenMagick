@@ -92,6 +92,26 @@ class zm_phpbb3 extends ZMPlugin {
         // enable nickname field
         ZMSettings::set('isAccountNickname', true);
 
+        // using events
+        $this->zcoSubscribe();
+
+        // register tests
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+            // add class path only now to avoid errors due to missing ZMTestCase
+            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            $tests->addTest('TestZMPhpBB3');
+        }
+    }
+
+    /**
+     * Init done callback.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMInitDone($args=null) {
         if ('create_account' == $this->page_) {
             $phpBB = $this->getAdapter();
             // add custom validation rules
@@ -104,7 +124,6 @@ class zm_phpbb3 extends ZMPlugin {
                 $rules[] = array('RequiredRule', 'nick', 'Please enter a nickname.');
             }
             ZMValidator::instance()->addRules('create_account', $rules);
-            $this->zcoSubscribe();
         } else if ('account_password' == $this->page_) {
             $this->zcoSubscribe();
         } else if ('account_edit' == $this->page_) {
@@ -112,15 +131,12 @@ class zm_phpbb3 extends ZMPlugin {
             $rules = array(
                 array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
+            // optionally, make nickname required
+            if ($this->get('requireNickname')) {
+                $rules[] = array('RequiredRule', 'nick', 'Please enter a nickname.');
+            }
             ZMValidator::instance()->addRules('edit_account', $rules);
             $this->zcoSubscribe();
-        }
-
-        // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
-            // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
-            $tests->addTest('TestZMPhpBB3');
         }
     }
 
@@ -130,14 +146,12 @@ class zm_phpbb3 extends ZMPlugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      *
-     * @param array args Optional parameter ('view' => $view).
+     * @param array args Optional parameter.
      */
     public function onZMCreateAccount($args) {
-        // account created
-        $email = ZMRequest::getParameter('email_address');
-        $password = ZMRequest::getParameter('password');
-        $nickName = ZMRequest::getParameter('nick');
-        //TODO: $phpBB->createAccount($nickName, $password, $email);
+        $account = $args['account'];
+        $password = $args['clearPassword'];
+        $this->getAdapter()->createAccount($account->getNickName(), $password, $account->getEmail());
     }
 
     /**
@@ -146,20 +160,12 @@ class zm_phpbb3 extends ZMPlugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      *
-     * @param array args Optional parameter ('view' => $view).
+     * @param array args Optional parameter.
      */
-    public function onZMControllerProcessEnd($args) {
-        if ('POST' == ZMRequest::getMethod()) {
-            $view = $args['view'];
-
-            if ('account_password' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMRequest::getAccount();
-                if (null != $account && !ZMTools::isEmpty($account->getNickName())) {
-                    $newPassword = ZMRequest::getParameter('password_new');
-                    // TODO: $phpBB->changePassword($account->getNickName(), $newPassword);
-                }
-            }
-        }
+    public function onZMPasswordChanged($args) {
+        $account = $args['account'];
+        $password = $args['clearPassword'];
+        $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
     }
 
 }
