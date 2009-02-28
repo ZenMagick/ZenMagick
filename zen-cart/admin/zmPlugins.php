@@ -29,8 +29,6 @@ define('GZIP_LEVEL', 0);
 ob_start(); require 'sqlpatch.php'; ob_end_clean();
 require_once 'includes/application_top.php';
 
-    $pluginLoader = new ZMLoader("pluginLoader");
-
     $install = ZMRequest::getParameter('install');
     $remove = ZMRequest::getParameter('remove');
     $edit = ZMRequest::getParameter('edit');
@@ -39,16 +37,7 @@ require_once 'includes/application_top.php';
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
-        $plugin = ZMPlugins::getPluginForId($install);
-        if (!$plugin->isInstalled()) {
-            if ('ALL' == $plugin->getLoaderSupport()) {
-                $pluginLoader->addPath($plugin->getPluginDir());
-                foreach ($pluginLoader->getStatic() as $static) {
-                    require_once $static;
-                }
-                // plugins prevail over defaults, but not themes
-                ZMLoader::instance()->setParent($pluginLoader);
-            }
+        if (null != ($plugin = ZMPlugins::initPluginForId($install, true)) && !$plugin->isInstalled()) {
             $plugin->install();
             ZMMessages::instance()->addAll($plugin->getMessages());
         }
@@ -57,30 +46,21 @@ require_once 'includes/application_top.php';
         $needRefresh = true;
         $refresh = $edit;
     } else if (null != $remove) {
-        $plugin = ZMPlugins::getPluginForId($remove);
-        if ($plugin && $plugin->isInstalled()) {
-            if ('ALL' == $plugin->getLoaderSupport()) {
-                $pluginLoader->addPath($plugin->getPluginDir());
-                foreach ($pluginLoader->getStatic() as $static) {
-                    require_once $static;
-                }
-                // plugins prevail over defaults, but not themes
-                ZMLoader::instance()->setParent($pluginLoader);
-            }
+        if (null != ($plugin = ZMPlugins::initPluginForId($remove, true)) && $plugin->isInstalled()) {
             $plugin->remove();
             ZMMessages::instance()->addAll($plugin->getMessages());
         }
         $needRefresh = true;
     } else if (null != $edit) {
-        $editPlugin = ZMPlugins::getPluginForId($edit);
+        $editPlugin = ZMPlugins::initPluginForId($edit);
     } else if (null != $select) {
         $edit = $select;
-        $editPlugin = ZMPlugins::getPluginForId($select);
+        $editPlugin = ZMPlugins::initPluginForId($select);
     }
 
     // update
     if ('POST' == ZMRequest::getMethod() && null !== ($pluginId = ZMRequest::getParameter('pluginId'))) {
-        $plugin = ZMPlugins::getPluginForId($pluginId);
+        $plugin = ZMPlugins::initPluginForId($pluginId);
         $data = ZMRequest::getParameter('configuration', array(), false);
         $values = $plugin->getConfigValues();
         foreach ($values as $value) {

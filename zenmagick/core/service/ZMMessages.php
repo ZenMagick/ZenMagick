@@ -31,10 +31,10 @@
  *
  * <p>Code supported message levels are:</p>
  * <ul>
- *  <li><code>error</code></li>
- *  <li><code>warn</code></li>
- *  <li><code>success</code></li>
- *  <li><code>msg</code> (this is the default if no type specified)</li>
+ *  <li><code>T_ERROR</code></li>
+ *  <li><code>T_WARN</code></li>
+ *  <li><code>T_SUCCESS</code></li>
+ *  <li><code>T_MESSAGE</code> (this is the default if no type specified)</li>
  * </ul>
  *
  * @author DerManoMann
@@ -42,6 +42,11 @@
  * @version $Id$
  */
 class ZMMessages extends ZMObject {
+    const T_GLOBAL = 'global';
+    const T_SUCCESS = 'success';
+    const T_MESSAGE = 'msg';
+    const T_WARN = 'warn';
+    const T_ERROR = 'error';
     var $messages_;
     var $uniqueMsgRef_;
 
@@ -89,7 +94,7 @@ class ZMMessages extends ZMObject {
                 $text = substr($zenMessage['text'], $pos+2);
                 $this->add($text, 
                   (false === strpos($zenMessage['params'], 'Error') 
-                    ? (false === strpos($zenMessage['params'], 'Success') ? "warn" : "msg") : "error"));
+                    ? (false === strpos($zenMessage['params'], 'Success') ? ZMMessages::T_WARN : ZMMessages::T_MESSAGE) : ZMMessages::T_ERROR));
             }
         } else {
             // look for session messages
@@ -114,10 +119,10 @@ class ZMMessages extends ZMObject {
      * Generic add a message.
      *
      * @param string text The message text.
-     * @param string type The message type; default is 'msg'.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string type The message type; default is <code>ZMMessages::T_MESSAGE</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function add($text, $type='msg', $ref='global') {
+    function add($text, $type=ZMMessages::T_MESSAGE, $ref=ZMMessages::T_GLOBAL) {
         if (array_key_exists($text, $this->uniqueMsgRef_))
             return;
 
@@ -129,40 +134,40 @@ class ZMMessages extends ZMObject {
      * Add an error message.
      *
      * @param string text The message text.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function error($text, $ref='global') {
-        $this->add($text, 'error', $ref);
+    function error($text, $ref=ZMMessages::T_GLOBAL) {
+        $this->add($text, ZMMessages::T_ERROR, $ref);
     }
 
     /**
      * Add a warning message.
      *
      * @param string text The message text.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function warn($text, $ref='global') {
-        $this->add($text, 'warn', $ref);
+    function warn($text, $ref=ZMMessages::T_GLOBAL) {
+        $this->add($text, ZMMessages::T_WARN, $ref);
     }
 
     /**
      * Add a default message.
      *
      * @param string text The message text.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function msg($text, $ref='global') {
-        $this->add($text, 'msg', $ref);
+    function msg($text, $ref=ZMMessages::T_GLOBAL) {
+        $this->add($text, ZMMessages::T_MESSAGE, $ref);
     }
 
     /**
      * Add a success message.
      *
      * @param string text The message text.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function success($text, $ref='global') {
-        $this->add($text, 'success', $ref);
+    function success($text, $ref=ZMMessages::T_GLOBAL) {
+        $this->add($text, ZMMessages::T_SUCCESS, $ref);
     }
 
     /**

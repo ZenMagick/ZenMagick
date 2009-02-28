@@ -37,9 +37,9 @@
  * @version $Id$
  */
 class ZMMessage extends ZMModel {
-    var $text_;
-    var $type_;
-    var $ref_;
+    private $text_;
+    private $type_;
+    private $ref_;
 
 
     /**
@@ -47,9 +47,9 @@ class ZMMessage extends ZMModel {
      *
      * @param string text The message text.
      * @param string type The message type; default is <em>msg</em>.
-     * @param string ref The referencing resource; default is <code>global</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function __construct($text, $type='msg', $ref='global') {
+    function __construct($text, $type='msg', $ref=ZMMessages::T_GLOBAL) {
         parent::__construct();
 
         $this->text_ = $text;
@@ -70,21 +70,21 @@ class ZMMessage extends ZMModel {
      *
      * @return string The message text.
      */
-    function getText() { return $this->text_; }
+    public function getText() { return $this->text_; }
 
     /**
      * Get the message type.
      *
      * @return string The message type.
      */
-    function getType() { return $this->type_; }
+    public function getType() { return $this->type_; }
 
     /**
      * Get the message reference.
      *
      * @return string The message reference.
      */
-    function getRef() { return $this->ref_; }
+    public function getRef() { return $this->ref_; }
 
 }
 

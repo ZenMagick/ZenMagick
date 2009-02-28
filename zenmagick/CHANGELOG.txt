@@ -82,6 +82,9 @@ Release 0.9.5
   access to changed password (in particular requesting a new password was
 	tricky/impossible to track)
 - use anchor elements to return to active plugin in plugin manager
+- make plugin handling more stable in plugin manager
+- ensure proper init before a plugin is installed/removed
+- add message type constants
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

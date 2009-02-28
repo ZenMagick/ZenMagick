@@ -166,6 +166,11 @@
         $tableMapper->updateCache();
     }
 
+    if (!ZMSettings::get('isAdmin')) { ob_start(); }
+    // pick up messages from zen-cart request handling
+    ZMMessages::instance()->_loadMessageStack();
+
+
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE);
 
 ?>

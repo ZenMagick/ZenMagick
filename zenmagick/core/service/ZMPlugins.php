@@ -306,6 +306,7 @@ class ZMPlugins extends ZMObject {
                         $pluginLoader->addGlobal($plugin->getPluginDir().$file);
                     }
                     $pluginId = $plugin->getId();
+                    // XXX: avoid by adding plugins to page context
                     // make plugin a global using the class name
                     global $$pluginId;
                     $$pluginId = $plugin;
@@ -331,6 +332,48 @@ class ZMPlugins extends ZMObject {
                 }
             }
         }
+    }
+
+    /**
+     * Init a single plugin.
+     *
+     * <p>This is the single version of <code>initPlugins()</code>.</p>
+     *
+     * @param string id The plugin id.
+     * @param boolean forceInit Optional flag to force init even if plugin is not enabled; default is <code>false</code>.
+     * @return ZMPlugin An instantiated and initallized plugin or <code>null</code>.
+     */
+    public static function initPluginForId($id, $forceInit=false) {
+        $pluginLoader = ZMLoader::make("Loader");
+        $plugin = ZMPlugins::getPluginForId($id);
+        if (null == $plugin) {
+            return null;
+        }
+        if ($plugin->isEnabled() || $forceInit) {
+            if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
+                $pluginLoader->addPath($plugin->getPluginDir());
+            } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
+                $pluginLoader->addPath($plugin->getPluginDir(), false);
+            }
+            foreach ($plugin->getGlobal() as $file) {
+                $pluginLoader->addGlobal($plugin->getPluginDir().$file);
+            }
+            $pluginId = $plugin->getId();
+        }
+
+        // use plugin loader to load static stuff
+        if (ZMPlugin::SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
+            $pluginLoader->loadStatic();
+        }
+
+        // plugins prevail over defaults, *and* themes
+        ZMLoader::instance()->setParent($pluginLoader);
+
+        if ($plugin->isEnabled()) {
+            $plugin->init();
+        }
+
+        return $plugin;
     }
 
 }
