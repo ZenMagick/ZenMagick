@@ -23,6 +23,7 @@
 ?>
 <?php
 
+//XXX: what to do??
 ZMLoader::resolve('ZMSQLAware');
 
 

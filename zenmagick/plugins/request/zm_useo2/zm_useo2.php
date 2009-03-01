@@ -84,12 +84,8 @@ class zm_useo2 extends ZMPlugin {
     public function getMessages() {
         $messages = parent::getMessages();
         $patch = ZMLoader::make('ZMUltimateSeoSupportPatch');
-        if (null == $patch) {
-            var_dump(ZMLoader::instance()->getClassPath());
-        }
-        $conditions = $patch->getPreconditionsMessage();
-        if (!empty($conditions)) {
-            $messages[] = ZMLoader::make('Message', $conditions, ZMMessages::T_WARN);
+        if (null !== $patch && $patch->isOpen() && !$patch->isReady()) {
+            $messages[] = ZMLoader::make('Message', $patch->getPreconditionsMessage(), ZMMessages::T_WARN);
         }
         return $messages;
     }

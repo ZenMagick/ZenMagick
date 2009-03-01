@@ -41,11 +41,11 @@
         require(dirname(__FILE__).'/core.php');
     } else {
         $_zm_coreDir = dirname(__FILE__).'/core/';
-        require($_zm_coreDir."settings/constants.php");
-        require($_zm_coreDir."ZMSettings.php");
-        require($_zm_coreDir."settings/defaults.php");
-        require($_zm_coreDir."ZMObject.php");
-        require($_zm_coreDir."ZMLoader.php");
+        require_once($_zm_coreDir."settings/constants.php");
+        require_once($_zm_coreDir."ZMSettings.php");
+        require_once($_zm_coreDir."settings/defaults.php");
+        require_once($_zm_coreDir."ZMObject.php");
+        require_once($_zm_coreDir."ZMLoader.php");
 
         // prepare loader
         ZMLoader::instance()->addPath($_zm_coreDir);
@@ -68,7 +68,7 @@
 
     // load global settings
     if (file_exists(dirname(__FILE__).'/local.php')) {
-        require(dirname(__FILE__).'/local.php');
+        require_once(dirname(__FILE__).'/local.php');
     }
 
     // set the default authentication provider
@@ -147,7 +147,7 @@
     // XXX: handle admin?
     if (!ZMSettings::get('isAdmin')) { ob_start(); }
 
-    require(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
+    require_once(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
 
     // always echo in admin
     if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
@@ -156,7 +156,7 @@
 
     // load stuff that really needs to be global!
     foreach (ZMLoader::instance()->getGlobal() as $_zm_global) {
-        include $_zm_global;
+        include_once $_zm_global;
     }
 
     // XXX: move to ZMDbTableMapper
