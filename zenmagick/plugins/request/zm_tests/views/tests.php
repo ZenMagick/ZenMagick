@@ -8,6 +8,7 @@
         h1 {width:100%;border-bottom:1px solid gray;}
         .fail {background-color:inherit;color:red;font-weight:bold;}
         .pass {background-color:inherit;color:green;font-weight:bold;}
+        .skip {background-color:inherit;color:gray;font-weight:bold;}
         .msg {margin-left:1em;}
          pre {background-color:#eaeaea;color:inherit;}
          label strong {color:black;font-weight:bold;}
@@ -56,8 +57,8 @@
                 <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = $all_results[$label]; ?>
                   <?php $incomplete = false; foreach ($tests as $test) { if (!isset($all_selected_tests[$label.'-'.$test])) { $incomplete = true; break; } } ?>
                   <?php $selected = isset($all_selected_testCases[$label]); ?>
-                  <li<?php echo (($selected && ($incomplete || !$result['status'])) ? ' class="open"' : '') ?>>
-                    <div class="<?php if ($selected) { echo (($result['status']) ? "pass" : "fail"); } ?>">
+                  <li<?php echo (($selected && ($incomplete || (null !== $result && !$result['status']))) ? ' class="open"' : '') ?>>
+                    <div class="<?php if ($selected) { echo (null === $result ? "skip" : ($result['status'] ? "pass" : "fail")); } ?>">
                       <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
                            value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
                       <label for="<?php echo $idGroup.'-'.$label ?>"><?php echo $label ?></label>
@@ -66,7 +67,7 @@
                       <?php foreach ($tests as $test) { ?>
                           <?php $selected = isset($all_selected_tests[$label.'-'.$test]); ?>
                           <li>
-                            <span class="<?php if ($selected) { echo (($result['tests'][$test]['status']) ? "pass" : "fail"); } ?>">
+                            <span class="<?php if ($selected) { echo (null === $result ? "skip" : ($result['tests'][$test]['status'] ? "pass" : "fail")); } ?>">
                               <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'-'.$label.'-'.$test ?>"
                                    value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>> 
                               <label for="<?php echo $idGroup.'-'.$label.'-'.$test ?>"><?php echo $test ?></label>

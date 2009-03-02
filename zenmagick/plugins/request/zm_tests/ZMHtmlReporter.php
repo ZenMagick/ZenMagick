@@ -185,6 +185,13 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
+    public function paintSkip($message) {
+        parent::paintSkip($message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function paintFail($message) {
         ob_start(); parent::paintFail($message); $html = ob_get_clean();
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
