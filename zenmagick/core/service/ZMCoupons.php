@@ -32,6 +32,8 @@
  * @version $Id$
  */
 class ZMCoupons extends ZMObject {
+    const BALANCE_SET = 'balance_set';
+    const BALANCE_ADD = 'balance_add';
     const TYPPE_GV = 'G';
     const TYPPE_FIXED = 'F';
     const TYPPE_PERCENT = 'P';
@@ -128,10 +130,34 @@ class ZMCoupons extends ZMObject {
      * @param float amount The new amount.
      */
     public function setVoucherBalanceForAccountId($accountId, $amount) {
-        $sql = "UPDATE " . TABLE_COUPON_GV_CUSTOMER . "
-                SET amount = :amount
+        $this->updateVoucherBalanceForAccountId($accountId, $amount, ZMCoupons::BALANCE_SET);
+    }
+
+    /**
+     * Update the coupon/coucher balance for the given account id.
+     *
+     * @param int accountId The account id.
+     * @param float amount The new amount.
+     * @param string mode Optional update mode; either <code>BALANCE_SET</code> or <code>BALANCE_ADD</code>.
+     */
+    protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=ZMCoupons::BALANCE_SET) {
+        // check if customer has already a balance
+        $sql = "SELECT amount
+                FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'amount' =>$amount), TABLE_COUPON_GV_CUSTOMER);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_COUPON_GV_CUSTOMER);
+        if (null != $result) {
+            if (ZMCoupons::BALANCE_ADD == $mode) {
+                $amount = $result['amount'] + $amount;
+            }
+            $sql = "UPDATE " . TABLE_COUPON_GV_CUSTOMER . "
+                    SET amount = :amount
+                    WHERE customer_id = :accountId";
+        } else {
+            $sql = "INSERT INTO " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
+                    VALUES (:accountId, :amount)";
+        }
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'amount' => $amount), TABLE_COUPON_GV_CUSTOMER);
     }
 
     /**
@@ -241,24 +267,7 @@ class ZMCoupons extends ZMObject {
                 FROM " . TABLE_COUPONS . "
                 WHERE coupon_id = :couponId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $couponId), TABLE_COUPONS);
-        $couponValue = $result['amount'];
-
-        // check if customer has already a balance
-        $sql = "SELECT amount
-                FROM " . TABLE_COUPON_GV_CUSTOMER . "
-                WHERE customer_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_COUPON_GV_CUSTOMER);
-        if (null != $result) {
-            $amount = $result['amount'] + $couponValue;
-            $sql = "UPDATE " . TABLE_COUPON_GV_CUSTOMER . "
-                    SET amount = :amount
-                    WHERE customer_id = :accountId";
-        } else {
-            $amount = $couponValue;
-            $sql = "INSERT INTO " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
-                    VALUES (:accountId, :amount)";
-        }
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'amount' => $amount), TABLE_COUPON_GV_CUSTOMER);
+        $this->updateVoucherBalanceForAccountId($accountId, $result['amount'], ZMCoupons::BALANCE_ADD);
     }
 
     /**

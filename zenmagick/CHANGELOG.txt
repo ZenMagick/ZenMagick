@@ -86,6 +86,10 @@ Release 0.9.5
 - ensure proper init before a plugin is installed/removed
 - add message type constants
 - implement basic support for sql aware sorters and filters
+- add SQL script to (re-)create zen-cart's initial tax setup (which is part of
+  the  main SQL, not the demo data)
+- make all service tests pass with dropped/reloaded demo data (and the tax
+  settings)
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
