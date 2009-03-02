@@ -20,6 +20,8 @@
 ?>
 <?php
 
+ZMLoader::resolve('ZMSQLAware');
+
 
 /**
  * Filter orders by status id.

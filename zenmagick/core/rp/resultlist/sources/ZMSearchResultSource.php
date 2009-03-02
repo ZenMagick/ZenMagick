@@ -107,6 +107,13 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
         return count($this->getResultIds());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function isFinal() {
+        return false;
+    }
+
 }
 
 ?>

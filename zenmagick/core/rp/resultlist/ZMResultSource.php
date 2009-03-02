@@ -58,6 +58,20 @@ interface ZMResultSource {
      */
     public function getTotalNumberOfResults();
 
+    /**
+     * Indicates whether the returned results are final or not.
+     *
+     * <p>Sources may opt to filter and sort results already (for example for performance
+     * reasons. In that case, no further action is required by the result list.</p>
+     *
+     * <p>As a side effect, the method <code>getAllResults()</code> may then return the same
+     * results (number and sort order) as <code>getResults()</code>, even if the source
+     * reports more than one page.</p>
+     *
+     * @return boolean <code>true</code> if the result source is handling all sorting and filtering, too.
+     */
+    public function isFinal();
+
 }
 
 ?>

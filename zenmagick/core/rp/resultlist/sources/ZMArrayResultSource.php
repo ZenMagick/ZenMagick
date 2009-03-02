@@ -80,6 +80,13 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
         return count($this->list_);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function isFinal() {
+        return false;
+    }
+
 }
 
 ?>

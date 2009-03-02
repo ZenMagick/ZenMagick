@@ -23,6 +23,8 @@
 ?>
 <?php
 
+ZMLoader::resolve('ZMSQLAware');
+
 
 /**
  * Orders.
