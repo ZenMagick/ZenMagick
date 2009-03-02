@@ -10,6 +10,13 @@
 class TestDBMappings extends ZMTestCase {
 
     /**
+     * {@inheritDoc}
+     */
+    public function skip() {
+        $this->skipIf(true, 'skip until database API stable');
+    }
+
+    /**
      * Test duplicate fields.
      */
     public function testDuplicates() {

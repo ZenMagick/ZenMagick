@@ -46,10 +46,11 @@ class TestZMDatabase extends ZMTestCase {
         static $expectedOutput = "'zm_db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string'\n),\n";
 
         // create test tabe
+        ZMRuntime::getDatabase()->update($drop_table);
         ZMRuntime::getDatabase()->update($create_table);
 
         ob_start();
-        $mapping = ZMDbUtils::buildTableMapping('zm_db_test', true);
+        $mapping = ZMDbUtils::buildTableMapping('zm_db_test', null, true);
         $output = ob_get_clean();
         if ($this->assertTrue(is_array($mapping))) {
             $this->assertEqual($expectedMapping, $mapping);
