@@ -68,7 +68,6 @@ class ZMPlugins extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-
         ZMPlugins::$pluginStatus_ = unserialize(ZENMAGICK_PLUGIN_STATUS);
         if (!is_array(ZMPlugins::$pluginStatus_)) {
             ZMPlugins::$pluginStatus_ = array();
