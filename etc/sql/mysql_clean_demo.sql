@@ -12,6 +12,7 @@ TRUNCATE TABLE categories;
 TRUNCATE TABLE categories_description;
 DELETE FROM customers WHERE customers_id = 1;
 DELETE FROM customers_info WHERE customers_info_id = 1;
+ALTER TABLE customers AUTO_INCREMENT = 1;
 DELETE FROM ezpages where pages_id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14);
 TRUNCATE TABLE featured;
 TRUNCATE TABLE group_pricing;
