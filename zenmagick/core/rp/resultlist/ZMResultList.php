@@ -119,10 +119,21 @@ class ZMResultList extends ZMObject {
     /**
      * Get all configured sorter.
      *
+     * @param boolean active Optional flag to get only active sorters; default is <code>false</code for all.
      * @return array A list of <code>ZMResultListSorter</code>.
      */
-    public function getSorters() {
-        return $this->sorters_;
+    public function getSorters($active=false) {
+        if (!$active) {
+            return $this->sorters_;
+        }
+
+        $list = array();
+        foreach ($this->sorters_ as $sorter) {
+            if ($sorter->isActive()) {
+                $list[] = $sorter;
+            }
+        }
+        return $list;
     }
 
     /**
@@ -137,10 +148,21 @@ class ZMResultList extends ZMObject {
     /**
      * Get all filter.
      *
+     * @param boolean active Optional flag to get only active sorters; default is <code>false</code for all.
      * @return array A list of <code>ZMResultListFilter</code>.
      */
-    public function getFilters() {
-        return $this->filters_;
+    public function getFilters($active=false) {
+        if (!$active) {
+            return $this->filters_;
+        }
+
+        $list = array();
+        foreach ($this->filters_ as $filter) {
+            if ($filter->isActive()) {
+                $list[] = $filter;
+            }
+        }
+        return $list;
     }
 
     /**
@@ -253,18 +275,20 @@ class ZMResultList extends ZMObject {
         if (null === $this->results_) {
             $results = $this->getAllResults();
 
-            foreach ($this->filters_ as $filter) {
-                if (!$filter->isActive())
-                    continue;
+            if (!$this->resultSource_->isFinal()) {
+                foreach ($this->filters_ as $filter) {
+                    if (!$filter->isActive())
+                        continue;
 
-                $results = $filter->filter($results);
-            }
+                    $results = $filter->filter($results);
+                }
 
-            foreach ($this->sorters_ as $sorter) {
-                if ($sorter->isActive()) {
-                    $results = $sorter->sort($results);
-                    // can't have more than one sorter active
-                    break;
+                foreach ($this->sorters_ as $sorter) {
+                    if ($sorter->isActive()) {
+                        $results = $sorter->sort($results);
+                        // can't have more than one sorter active here
+                        break;
+                    }
                 }
             }
 

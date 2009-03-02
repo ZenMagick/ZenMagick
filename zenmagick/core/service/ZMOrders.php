@@ -23,9 +23,6 @@
 ?>
 <?php
 
-//XXX: what to do??
-ZMLoader::resolve('ZMSQLAware');
-
 
 /**
  * Orders.
@@ -61,12 +58,45 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method, $args=array()) {
-        $methods = array('getOrdersForAccountId', 'getOrdersForStatusId');
+    public function getQueryDetails($method=null, $args=array()) {
+        $methods = array('getOrdersForAccountId', 'getOrdersForStatusId', 'getAllOrders');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
         return null;
+    }
+
+    /**
+     * Get all orders.
+     *
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return ZMQueryDetails Query details.
+     */
+    protected function getAllOrdersQueryDetails($languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::getSession();
+            $languageId = $session->getLanguageId();
+        }
+        
+        $sql = "SELECT o.*, s.orders_status_name
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                WHERE o.orders_id = ot.orders_id
+                  AND ot.class = 'ot_total'
+                  AND o.orders_status = s.orders_status_id
+                  AND s.language_id = :languageId";
+        $args = array('languageId' => $languageId);
+        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+    }
+
+    /**
+     * Get all orders.
+     *
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMOrder</code> instances.
+     */
+    public function getAllOrders($languageId=null) {
+        $details = $this->getAllOrdersQueryDetails($languageId);
+        return $details->query();
     }
 
     /**
@@ -120,7 +150,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        return ZMLoader::make('QueryDetails',$sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
     }
 
     /**
@@ -159,7 +189,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
-        return ZMLoader::make('QueryDetails',$sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
     }
 
     /**

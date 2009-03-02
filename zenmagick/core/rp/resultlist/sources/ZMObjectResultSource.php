@@ -77,9 +77,25 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      */
     public function getResults() {
         if (null === $this->results_) {
+            // XXX: extract and figure out how to determine isFinal()
             if ($this->object_ instanceof ZMSQLAware) {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     $queryPager = ZMLoader::make('QueryPager', $queryDetails);
+                    if ($this->resultList_->hasSorters()) {
+                        $sorters = $this->resultList_->getSorters(true);
+                        if ($sorters[0] instanceof ZMSQLAware) {
+                            $sortDetails = $sorters[0]->getQueryDetails();
+                            $queryPager->setOrderBy($sortDetails->getSql());
+                        }
+                    }
+                    if ($this->resultList_->hasFilters()) {
+                        foreach ($this->resultList_->getFilters() as $filter) {
+                            if ($filter instanceof ZMSQLAware) {
+                                $filterDetails = $filter->getQueryDetails();
+                                $queryPager->addFilter($filterDetails->getSql());
+                            }
+                        }
+                    }
                     $this->results_ = $queryPager->getResults($this->resultList_);
                     $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
                 }

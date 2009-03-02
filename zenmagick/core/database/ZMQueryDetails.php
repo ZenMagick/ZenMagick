@@ -41,11 +41,11 @@ class ZMQueryDetails extends ZMObject {
      * <p>The parameters here correspond to <code>ZMDatabase#query()</code>.</p>
      *
      * @param string sql The sql.
-     * @param array args Database query parameter.
-     * @param mixed mapping The field mappings.
-     * @param string modelClass The class name.
+     * @param array args Database query parameter; default is <code>array()</code>.
+     * @param mixed mapping The field mappings; default is <code>null</code>.
+     * @param string modelClass The class name; default is <code>null</code>.
      */
-    public function __construct($sql, $args, $mapping, $modelClass) {
+    public function __construct($sql, $args=array(), $mapping=null, $modelClass=null) {
         parent::__construct();
         $this->sql_ = $sql;
         $this->args_ = $args;

@@ -85,6 +85,7 @@ Release 0.9.5
 - make plugin handling more stable in plugin manager
 - ensure proper init before a plugin is installed/removed
 - add message type constants
+- implement basic support for sql aware sorters and filters
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

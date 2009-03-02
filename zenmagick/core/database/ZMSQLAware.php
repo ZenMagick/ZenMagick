@@ -36,12 +36,12 @@ interface ZMSQLAware {
     /**
      * Get query details.
      *
-     * @param string method The method name to query.
+     * @param string method The method name to query; default is <code>null</code> for none.
      * @param array args Parameter for the method; default is an empty array <code>array()</code>.
      * @return ZMQueryDetails Details about the query that would be used or <code>null</code for
      * unsupported methods.
      */
-    public function getQueryDetails($method, $args=array());
+    public function getQueryDetails($method=null, $args=array());
 
 }
 
