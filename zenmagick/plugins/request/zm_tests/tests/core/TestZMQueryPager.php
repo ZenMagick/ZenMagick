@@ -29,7 +29,8 @@ class TestZMQueryPager extends ZMTestCase {
     public function testSQLAware() {
             $resultList = ZMLoader::make('ZMResultList');
             //$resultList->setResultSource(ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getOrdersForStatusId', 1));
-            $resultList->setResultSource(ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders'));
+            $resultSource = ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders');
+            $resultList->setResultSource($resultSource);
             $sorter = ZMLoader::make('OrderSorter');
             $sorter->setSortId('date');
             $sorter->setDescending(true);
@@ -39,9 +40,10 @@ class TestZMQueryPager extends ZMTestCase {
             $resultList->addFilter($filter);
             $resultList->setPageNumber(3);
             $orders = $resultList->getResults();
+            echo 'is final source: ' . $resultSource->isFinal()."<BR>";
             echo "# of pages: " . $resultList->getNumberOfPages()."<BR>";
             foreach ($orders as $order) {
-              echo $order->getId() . ' ' . $order->getOrderDate()."<BR>";
+                echo $order->getId() . ' ' . $order->getOrderDate()."<BR>";
             }
     }
 

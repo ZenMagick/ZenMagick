@@ -27,7 +27,6 @@
  * @author DerManoMann
  * @package org.zenmagick.rp.resultlist.sources
  * @version $Id$
- * @todo add support for filter/sorter when using ZMSQLAware
  */
 class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     private $resultList_;
@@ -37,6 +36,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     private $args_;
     private $results_;
     private $totalNumberOfResults_;
+    private $isFinal_;
 
 
     /**
@@ -55,6 +55,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->args_ = $args;
         $this->results_ = null;
         $this->totalNumberOfResults_ = null;
+        $this->isFinal_ = null;
     }
 
     /**
@@ -77,15 +78,18 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      */
     public function getResults() {
         if (null === $this->results_) {
-            // XXX: extract and figure out how to determine isFinal()
             if ($this->object_ instanceof ZMSQLAware) {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
+                    // potentially final, so check sorter and filter
+                    $this->isFinal_ = true;
                     $queryPager = ZMLoader::make('QueryPager', $queryDetails);
                     if ($this->resultList_->hasSorters()) {
                         $sorters = $this->resultList_->getSorters(true);
                         if ($sorters[0] instanceof ZMSQLAware) {
                             $sortDetails = $sorters[0]->getQueryDetails();
                             $queryPager->setOrderBy($sortDetails->getSql());
+                        } else {
+                            $this->isFinal_ = false;
                         }
                     }
                     if ($this->resultList_->hasFilters()) {
@@ -93,11 +97,17 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                             if ($filter instanceof ZMSQLAware) {
                                 $filterDetails = $filter->getQueryDetails();
                                 $queryPager->addFilter($filterDetails->getSql());
+                            } else {
+                                $this->isFinal_ = false;
                             }
                         }
                     }
-                    $this->results_ = $queryPager->getResults($this->resultList_);
-                    $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
+
+                    // only use pager if final
+                    if ($this->isFinal_) {
+                        $this->results_ = $queryPager->getResults($this->resultList_);
+                        $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
+                    }
                 }
             }
             // check in case this methid is not supported
@@ -141,6 +151,16 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     public function getTotalNumberOfResults() {
         $this->getResults();
         return $this->totalNumberOfResults_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isFinal() {
+        if (null === $this->isFinal_) {
+            $this->getResults();
+        }
+        return $this->isFinal_;
     }
 
 }
