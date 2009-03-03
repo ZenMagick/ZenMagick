@@ -91,6 +91,7 @@ Release 0.9.5
 - make all service tests pass with dropped/reloaded demo data (and the tax
   settings)
 - zm_tests: mark skipped tests gray
+- convert ZMProductFinder to using ZMDatabase
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

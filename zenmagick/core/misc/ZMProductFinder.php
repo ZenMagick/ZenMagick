@@ -83,8 +83,8 @@ class ZMProductFinder {
      * @return array List of product ids.
      */
     public function execute() {
-        $sql = $this->buildSQL($this->criteria_);
-        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCTS);
+        $queryDetails = $this->buildQuery($this->criteria_);
+        $results = $queryDetails->query();
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -96,10 +96,10 @@ class ZMProductFinder {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return string The search SQL.
+     * @return ZMQueryDetails The search SQL.
      */
-    protected function buildSQL($criteria) {
-        $db = ZMRuntime::getDB();
+    protected function buildQuery($criteria) {
+        $args = array();
 
         $select = "SELECT DISTINCT p.products_id";
         if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
@@ -111,21 +111,21 @@ class ZMProductFinder {
                  TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c)
                  LEFT JOIN " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . " mtpd ON mtpd.products_id= p2c.products_id AND mtpd.language_id = :languageId";
 
-        $from = $db->bindVars($from, ':languageId', $criteria->getLanguageId(), 'integer');
+        $args['languageId'] = $criteria->getLanguageId();
 
         if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
             $from .= " LEFT JOIN " . TABLE_TAX_RATES . " tr ON p.products_tax_class_id = tr.tax_class_id
                        LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " gz ON tr.tax_zone_id = gz.geo_zone_id
                          AND (gz.zone_country_id IS null OR gz.zone_country_id = 0 OR gz.zone_country_id = :zoneId)
                          AND (gz.zone_id IS null OR gz.zone_id = 0 OR gz.zone_id = :zoneId)";
-            $from = $db->bindVars($from, ':countryId', $criteria->getCountryId(), 'integer');
-            $from = $db->bindVars($from, ':zoneId', $criteria->getZoneId(), 'integer');
+            $args['countryId'] = $criteria->getCountryId();
+            $args['zoneId'] = $criteria->getZoneId();
         }
 
         $where = " WHERE (p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = :languageId
                      AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id";
 
-        $where = $db->bindVars($where, ':languageId', $criteria->getLanguageId(), 'integer');
+        $args['languageId'] = $criteria->getLanguageId();
 
         if (0 != $criteria->getCategoryId()) {
             if ($criteria->isIncludeSubcategories()) {
@@ -133,24 +133,25 @@ class ZMProductFinder {
                             AND p2c.products_id = pd.products_id
                             AND p2c.categories_id in (:categoryId)";
                 $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId());
-                $where = ZMDbUtils::bindValueList($where, ':categoryId', $category->getChildIds(), 'integer');
+                $args['categoryId'] = $category->getChildIds();
             } else {
                 $where .= " AND p2c.products_id = p.products_id
                             AND p2c.products_id = pd.products_id
                             AND pd.language_id = :languageId
                             AND p2c.categories_id = :categoryId";
-                $where = $db->bindVars($where, ':categoryId', $criteria->getCategoryId(), 'integer');
-                $where = $db->bindVars($where, ':languageId', $criteria->getLanguageId(), 'integer');
+                $args['categoryId'] = $criteria->getCategoryId();
+                $args['languageId'] = $criteria->getLanguageId();
             }
         }
 
         if (0 != $criteria->getManufacturerId()) {
             $where .= " AND m.manufacturers_id = :manufacturerId";
-            $where = $db->bindVars($where, ':manufacturerId', $criteria->getManufacturerId(), 'integer');
+            $args['manufacturerId'] = $criteria->getManufacturerId();
         }
 
         if (!ZMTools::isEmpty($criteria->getKeywords())) {
             if (zen_parse_search_string(stripslashes($criteria->getKeywords()), $tokens)) {
+                $index = 0;
                 $where .= " AND (";
                 foreach ($tokens as $token) {
                     switch ($token) {
@@ -161,19 +162,16 @@ class ZMProductFinder {
                         $where .= " " . $token . " ";
                         break;
                     default:
-                        $where .= "(pd.products_name LIKE '%:token%' OR p.products_model LIKE '%:token%' OR m.manufacturers_name LIKE '%:token%'";
-                        $where = $db->bindVars($where, ':token', $token, 'noquotestring');
+                        // use name for all string operations
+                        $name = ++$index.'#name';
+                        $args[$name] = '%'.$token.'%';
 
+                        $where .= "(pd.products_name LIKE :".$name." OR p.products_model LIKE :".$name." OR m.manufacturers_name LIKE :".$name."";
                         // search meta tags
-                        $where .= " OR (mtpd.metatags_keywords LIKE '%:token%' AND mtpd.metatags_keywords !='')";
-                        $where = $db->bindVars($where, ':token', $token, 'noquotestring');
-
-                        $where .= " OR (mtpd.metatags_description LIKE '%:token%' AND mtpd.metatags_description !='')";
-                        $where = $db->bindVars($where, ':token', $token, 'noquotestring');
-
+                        $where .= " OR (mtpd.metatags_keywords LIKE :".$name." AND mtpd.metatags_keywords !='')";
+                        $where .= " OR (mtpd.metatags_description LIKE :".$name." AND mtpd.metatags_description !='')";
                         if ($criteria->isIncludeDescription()) {
-                            $where .= " OR pd.products_description LIKE '%:token%'";
-                            $where = $db->bindVars($where, ':token', $token, 'noquotestring');
+                            $where .= " OR pd.products_description LIKE :".$name."";
                         }
                         $where .= ')';
                         break;
@@ -185,32 +183,32 @@ class ZMProductFinder {
         $where .= ')';
 
         if (!ZMTools::isEmpty($criteria->getDateFrom())) {
-            $where .= " AND p.products_date_added >= :dateAdded";
-            $where = $db->bindVars($where, ':dateAdded', zen_date_raw($criteria->getDateFrom()), 'date');
+            $where .= " AND p.products_date_added >= :1#dateAdded";
+            $args['1#dateAdded'] = zen_date_raw($criteria->getDateFrom());
         }
 
         if (!ZMTools::isEmpty($criteria->getDateTo())) {
-            $where .= " AND p.products_date_added <= :dateAdded";
-            $where = $db->bindVars($where, ':dateAdded', zen_date_raw($criteria->getDateTo()), 'date');
+            $where .= " AND p.products_date_added <= :2#dateAdded";
+            $args['2#dateAdded'] = zen_date_raw($criteria->getDateTo());
         }
 
         if ($criteria->isIncludeTax()) {
             if ($pfrom) {
-                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) >= :price)";
-                $where = $db->bindVars($where, ':price', $criteria->getPriceFrom(), 'float');
+                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) >= :1#price)";
+                $args['1#price'] = $criteria->getPriceFrom();
             }
             if ($pto) {
-                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) <= :price)";
-                $where = $db->bindVars($where, ':price', $criteria->getPriceTo(), 'float');
+                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) <= :2#price)";
+                $args['2#price'] = $criteria->getPriceTo();
             }
         } else {
             if ($pfrom) {
-                $where .= " AND (p.products_price_sorter >= :price)";
-                $where = $db->bindVars($where, ':price', $criteria->getPriceFrom(), 'float');
+                $where .= " AND (p.products_price_sorter >= :1#price)";
+                $args['1#price'] = $criteria->getPriceFrom();
             }
             if ($pto) {
-                $where .= " AND (p.products_price_sorter <= :price)";
-                $where = $db->bindVars($where, ':price', $criteria->getPriceTo(), 'float');
+                $where .= " AND (p.products_price_sorter <= :2#price)";
+                $args['2#price'] = $criteria->getPriceTo();
             }
         }
 
@@ -246,7 +244,8 @@ class ZMProductFinder {
         }
 
         $sql = $select . $from . $where . $sort;
-        return $sql;
+        $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS, TABLE_CATEGORIES, TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES);
+        return ZMLoader::make('QueryDetails', $sql, $args, $tables);
     }
 
 }
