@@ -90,7 +90,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function getResults() {
-        return ZMProducts::instance()->getProductsForIds($this->getResultIds());
+        return ZMProducts::instance()->getProductsForIds($this->getResultIds(), true);
     }
 
     /**
@@ -111,7 +111,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function isFinal() {
-        return false;
+        return true;
     }
 
 }
