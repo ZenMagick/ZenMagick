@@ -579,7 +579,7 @@ class ZMToolboxMacro extends ZMObject {
      */
     public function buildQuantityDiscounts($product, $tax=true) {
         $offers = $product->getOffers();
-        $discounts = $offers->getQuantityDiscounts();
+        $discounts = $offers->getQuantityDiscounts($tax);
 
         // build info map
         $details = array();
@@ -596,7 +596,8 @@ class ZMToolboxMacro extends ZMObject {
                 } else {
                     $qty = $low;
                 }
-                $details[] = array('qty' => $qty, 'price' => ($offers->isSpecial() ? $offers->getSpecialPrice() : $offers->getCalculatedPrice()));
+                $price = $offers->isSpecial($tax) ? $offers->getSpecialPrice($tax) : $offers->getCalculatedPrice($tax);
+                $details[] = array('qty' => $qty, 'price' => $price);
             }
 
             if ($ii == ($n - 1)) {

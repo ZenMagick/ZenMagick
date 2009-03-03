@@ -10,6 +10,14 @@
 class TestZMOffers extends ZMTestCase {
 
     /**
+     * Set up.
+     */
+    public function setUp() {
+        parent::setUp();
+    }
+
+
+    /**
      * Test quantity discounts
      */
     public function testQtyDiscounts() {
@@ -17,7 +25,7 @@ class TestZMOffers extends ZMTestCase {
         if ($this->assertNotNull($product)) {
             $offers = $product->getOffers();
             if ($this->assertNotNull($offers)) {
-                $discounts = $offers->getQuantityDiscounts();
+                $discounts = $offers->getQuantityDiscounts(false);
                 $this->assertTrue(is_array($discounts));
                 $this->assertEqual(5, count($discounts));
                 // grab one and check details
@@ -95,7 +103,7 @@ class TestZMOffers extends ZMTestCase {
 
         foreach ($tests as $productId => $expected) {
             $product = ZMProducts::instance()->getProductForId($productId);
-            $details = ZMToolbox::instance()->macro->buildQuantityDiscounts($product);
+            $details = ZMToolbox::instance()->macro->buildQuantityDiscounts($product, false);
             if (!$this->assertEqual($expected, $details, '%s: productId: '.$productId))
                 var_dump($details);
         }
