@@ -80,7 +80,7 @@ class sample_plugin extends ZMPlugin {
      * will be called (back) automatically when subscribed...
      */
     public function onNotifyHeaderStartIndex($args) {
-        echo "Start of index page event callback in " . $this->getName() . " ...<br>";
+        echo "Start of Zen Cart's index page event callback in " . $this->getName() . " ...<br>";
     }
 
     /**
