@@ -422,7 +422,7 @@ class ZMTools {
             return true;
         }
 
-        if (false !== strpos($url1, '//')) {
+        if (false !== strpos($url1, '//') || false !== strpos($url1, '?')) {
             $url1Token = parse_url($url1);
             parse_str($url1Token['query'], $query1);
         } else {
@@ -430,7 +430,7 @@ class ZMTools {
         }
 
         if (null !== $url2) {
-            if (false !== strpos($url2, '//')) {
+            if (false !== strpos($url2, '//') || false !== strpos($url2, '?')) {
                 $url2Token = parse_url($url2);
                 parse_str($url2Token['query'], $query2);
             } else {
@@ -440,10 +440,10 @@ class ZMTools {
             parse_str(str_replace('&amp;', '&', ZMRequest::getQueryString()), $query2);
         }
 
-        if (isset($url1Token) && null === $url2 && ZMRequest::getHostname() != $url1Token['host']) {
+        if (isset($url1Token) && null === $url2 && isset($url1Token['host']) && ZMRequest::getHostname() != $url1Token['host']) {
             return false;
         }
-        if (isset($url1Token) && isset($url2Token) && $url1Token['host'] != $url2Token['host']) {
+        if (isset($url1Token) && isset($url2Token) && isset($url1Token['host']) && isset($url2Token['host']) && $url1Token['host'] != $url2Token['host']) {
             return false;
         }
 
