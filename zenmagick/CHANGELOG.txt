@@ -53,11 +53,10 @@ Release 0.9.5
   properties to viewClass, controllerClass and formClass if required.
 - add boolean createDefaultAddress property to ZMCreateAccountController to
   configure whether or not to create a default address during registration.
-- update (c)
 - allow PluginView to accept the plugin as object or string (plugin id)
 - allow optional index in SQL data names to be able to use multiple values of
   a column in a single SQL statement
-- remvove deprecated method(s): ZMRequest::getRequestParameter(),
+- remvove deprecated defines and method(s): ZMRequest::getRequestParameter(),
   ZMPlugin::filterResponse(), ZMPlugin::setLoaderSupport(),
   ZMPlugin::getLoaderSupport(), ZMTools::ui2date(), ZMTools::parseDate(),
   ZM_DB_xxx defines, ZMObject::create(), ZMPlugins::filterResponse()
