@@ -26,7 +26,7 @@
       function sync_all(box) {
         var boxes = document.getElementsByTagName('input');
         for (var ii=0; ii<boxes.length; ++ii) {
-          if ((0 == boxes[ii].id.indexOf(box.id) || 'all__all' == box.id) && !boxes[ii].disabled) {
+          if ((0 == boxes[ii].id.indexOf(box.id+'-') || 'all__all' == box.id) && !boxes[ii].disabled) {
             boxes[ii].checked = box.checked;
           }
         }
