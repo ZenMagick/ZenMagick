@@ -13,8 +13,8 @@ class TestBrowsing extends WebTestCase {
     /**
      * Test home.
      */
-    public function xtestHomepage() {
-        $this->get(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, '', $this->secure, false));
+    public function testHomepage() {
+        $this->get(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, 'themeId=default', $this->secure, false));
         $this->assertText('ZenMagick');
     }
 
@@ -22,7 +22,7 @@ class TestBrowsing extends WebTestCase {
      * Test product page.
      */
     public function testProduct() {
-        $this->get(str_replace('&amp;', '&', ZMToolbox::instance()->net->product(19, null, false)));
+        $this->get(str_replace('&amp;', '&', ZMToolbox::instance()->net->product(19, null, false).'&themeId=default'));
         $this->assertTitle('There\'s Something About Mary Linked [DVD-TSAB] :: ZenMagick');
     }
 
