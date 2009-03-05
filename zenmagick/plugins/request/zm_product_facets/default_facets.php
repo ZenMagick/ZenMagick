@@ -81,7 +81,7 @@
      */
     function zm_build_pricerange_facet($type=null) {
         $facet = array();
-        $products = ZMProducts::instance()->getProducts();
+        $products = ZMProducts::instance()->getAllProducts();
 
         $low = 9999999;
         $high = 0;

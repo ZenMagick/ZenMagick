@@ -91,6 +91,7 @@ Release 0.9.5
   settings)
 - zm_tests: mark skipped tests gray
 - convert ZMProductFinder to using ZMDatabase
+- rename ZMProducts::getProducts() to getAllProducts()
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

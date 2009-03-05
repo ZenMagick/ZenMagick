@@ -72,7 +72,7 @@ class ZMProducts extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    public function getProducts($active=true, $languageId=null) {
+    public function getAllProducts($active=true, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::getSession();
             $languageId = $session->getLanguageId();
