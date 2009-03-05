@@ -142,7 +142,7 @@ class zm_phpbb2 extends ZMPlugin {
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = $this->prePostAccount_;
                 if (null != $account) {
-                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::getparameter('email_address'));
+                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::getParameter('email_address'));
                 }
             }
         }
