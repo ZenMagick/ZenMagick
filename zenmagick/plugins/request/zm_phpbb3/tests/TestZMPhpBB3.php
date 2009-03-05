@@ -14,6 +14,14 @@ class TestZMPhpBB3 extends ZMTestCase {
     /**
      * {@inheritDoc}
      */
+    public function setUp() {
+        parent::setUp();
+        $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function tearDown() {
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
@@ -51,7 +59,7 @@ class TestZMPhpBB3 extends ZMTestCase {
      * Test create account.
      */
     public function testCreateAccount() {
-        $result = $this->getAdapter()->createAccount('DerManoMann', 'mano11', 'martin@mixedmatter.co.nz');
+        $result = $this->getAdapter()->createAccount('DerManoMann', 'foob1', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
     }
 
@@ -60,7 +68,9 @@ class TestZMPhpBB3 extends ZMTestCase {
      */
     public function testUpdateAccount() {
         $this->testCreateAccount();
-        $result = $this->getAdapter()->updateAccount('DerManoMann', 'mano12', 'martin@mixedmatter.co.nz');
+        $result = $this->getAdapter()->updateAccount('DerManoMann', 'foob12', 'martin@mixedmatter.co.nz');
+        $this->assertTrue($result);
+        $result = $this->getAdapter()->updateAccount('DerManoMann', null, 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
     }
 

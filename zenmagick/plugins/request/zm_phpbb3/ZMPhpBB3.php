@@ -161,14 +161,14 @@ class ZMPhpBB3 extends ZMObject {
         if (false !== ($groupId = $this->getDefaultGroupId())) {
             $authentication = ZMLoader::make('ZMPhpBB3Authentication');
             $data = array(
-                    'username'          => $nickName,
+                'username'          => $nickName,
 		            'username_clean'    => strtolower($nickName),
-                    'user_password'     => $authentication->encryptPassword($password),
+                'user_password'     => $authentication->encryptPassword($password),
 		            'user_pass_convert'	=> 0,
-                    'user_email'        => strtolower($email),
+                'user_email'        => strtolower($email),
 		            'user_email_hash'	=> crc32(strtolower($email)) . strlen($email),
-                    'group_id'          => $groupId,
-                    'user_type'         => USER_NORMAL,
+                'group_id'          => $groupId,
+                'user_type'         => USER_NORMAL,
             );
 
             // These are the additional vars able to be specified (functions_user.php user_add()
@@ -240,13 +240,16 @@ class ZMPhpBB3 extends ZMObject {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
             $authentication = ZMLoader::make('ZMPhpBB3Authentication');
-            $data = array_merge($data, array(
-                            'username'          => $nickName,
-                            'username_clean'    => strtolower($nickName),
-                            'user_password'     => $authentication->encryptPassword($password),
-                            'user_email'        => strtolower($email),
-                            'user_email_hash'	=> crc32(strtolower($email)) . strlen($email),
-            ));
+            $updates = array(
+                'username' => $nickName,
+                'username_clean' => strtolower($nickName),
+                'user_email' => strtolower($email),
+                'user_email_hash' => crc32(strtolower($email)) . strlen($email),
+            );
+            if (null != $password) {
+                $updates['user_password'] = $authentication->encryptPassword($password);
+            }
+            $data = array_merge($data, $updates);
             $this->getDatabase()->updateModel(USERS_TABLE, $data);
             return true;
         }

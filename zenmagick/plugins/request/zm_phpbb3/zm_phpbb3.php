@@ -168,6 +168,25 @@ class zm_phpbb3 extends ZMPlugin {
         $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
     }
 
+    /**
+     * Event callback for controller processing.
+     *
+     * <p>Here the additional processing is done by checking the result view id. As per convention,
+     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     *
+     * @param array args Optional parameter ('view' => $view).
+     */
+    function onZMControllerProcessEnd($args) {
+        if ('POST' == ZMRequest::getMethod()) {
+            $view = $args['view'];
+            if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
+                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
+                if (null != $account) {
+                    $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
+                }
+            }
+        }
+    }
 }
 
 
