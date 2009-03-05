@@ -54,7 +54,7 @@ class zm_settings extends ZMPlugin {
      */
     function install() {
         parent::install();
-
+        /*
         $this->addConfigValue('Text Widget', 'text', 'foo', 'Sample text widget',
             'widget@TextFormWidget#id=text&name=text&default=foo&size=30&maxlength=32');
         $this->addConfigValue('Text Widget', 'some.other', '', 'Sample other text widget',
@@ -65,6 +65,7 @@ class zm_settings extends ZMPlugin {
             'widget@BooleanFormWidget#id=other.bool&name=totallyother.bool&default=true&label.true=Yes&label.false=No&style=select');
         $this->addConfigValue('Other Boolean Widget', 'other.bool', 'true', 'Other sample boolean widget',
             'widget@BooleanFormWidget#id=other.bool&name=other.bool&default=true&label.true=Yup&label.false=Nix da&style=radio');
+        */
     }
 
     /**
