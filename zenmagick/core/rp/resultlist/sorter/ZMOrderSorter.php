@@ -42,12 +42,9 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
     );
     // as SQL
     private $sql_ = array(
+        // XXX: allow to use mapped name
         'date' => 'date_purchased',
         'status' => 'orders_status'
-        /* XXX: allow to use mapped name
-        'date' => 'orderDate',
-        'status' => 'orderStatusId'
-        */
     );
 
 

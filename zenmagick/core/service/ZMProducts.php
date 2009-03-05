@@ -23,6 +23,8 @@
 ?>
 <?php
 
+ZMLoader::resolve('ZMSQLAware');
+
 
 /**
  * Product access.
@@ -31,7 +33,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMProducts extends ZMObject {
+class ZMProducts extends ZMObject implements ZMSQLAware {
     // image size constants
     const IMAGE_SMALL = 'small';
     const IMAGE_MEDIUM = 'medium';
@@ -64,6 +66,18 @@ class ZMProducts extends ZMObject {
         return ZMObject::singleton('Products');
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method=null, $args=array()) {
+        //$methods = array('getAllProducts');
+        $methods = array();
+        if (in_array($method, $methods)) {
+            return call_user_func_array(array($this, $method.'QueryDetails'), $args);
+        }
+        return null;
+    }
 
     /**
      * Get all products.

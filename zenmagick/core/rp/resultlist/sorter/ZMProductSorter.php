@@ -29,7 +29,7 @@
  * @package org.zenmagick.rp.resultlist.sorter
  * @version $Id$
  */
-class ZMProductSorter extends ZMResultListSorter {
+class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
     // supported sorts
     private $methods_ = array(
         'model' => '_cmpModel',
@@ -46,7 +46,15 @@ class ZMProductSorter extends ZMResultListSorter {
         'price' => 'Price',
         'weight' => 'Weight'
     );
-
+    // as SQL
+    private $sql_ = array(
+        // XXX: allow to use mapped name
+        'model' => 'p.products_model',
+        'name' => 'pd.products_name',
+        'manufacturer' => 'm.manufacturers_name',
+        'price' => 'p.products_price_sorter',
+        'weight' => 'p.products_weight'
+    );
 
     /**
      * Create new instance.
@@ -119,6 +127,17 @@ class ZMProductSorter extends ZMResultListSorter {
         }
 
         return $options;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method=null, $args=array()) {
+        if (!$this->isActive() || !array_key_exists($this->sortId_, $this->sql_)) {
+            return null;
+        }
+
+        return ZMLoader::make('QueryDetails', $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }
