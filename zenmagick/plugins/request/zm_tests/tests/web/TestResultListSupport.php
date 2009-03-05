@@ -10,6 +10,15 @@
 class TestResultListSupport extends ZMTestCase {
 
     /**
+     * Set up.
+     */
+    public function setUp() {
+        parent::setUp();
+        // all tests assume this
+        ZMSettings::set('defaultResultListPagination', 10);
+    }
+
+    /**
      * Test search source.
      */
     public function testSearchSourceOnly() {
@@ -20,12 +29,13 @@ class TestResultListSupport extends ZMTestCase {
         $criteria->setKeywords('dvd');
 
         $source = ZMLoader::make('ZMSearchResultSource', $criteria);
+        $source->setResultList(ZMLoader::make('ZMResultList'));
         $results = $source->getResults();
         $this->assertNotNull($results);
 
-        $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17, 6, 4, 19, 10, 9, 7, 8);
+        $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17); //, 6, 4, 19, 10, 9, 7, 8);
 
-        $this->assertEqual(count($expectedIds), count($results));
+        $this->assertEqual(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
@@ -50,9 +60,9 @@ class TestResultListSupport extends ZMTestCase {
         $results = $source->getResults();
         $this->assertNotNull($results);
 
-        $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17, 6, 4, 19, 10, 9, 7, 8);
+        $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17); //, 6, 4, 19, 10, 9, 7, 8);
 
-        $this->assertEqual(count($expectedIds), count($results));
+        $this->assertEqual(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
@@ -81,9 +91,9 @@ class TestResultListSupport extends ZMTestCase {
         $results = $source->getResults();
         $this->assertNotNull($results);
 
-        $expectedIds = array(7, 9, 10, 19, 4, 6, 17, 18, 14, 13, 15, 11, 12, 16, 5, 20, 8);
+        $expectedIds = array(7, 9, 10, 19, 4, 6, 17, 18, 14, 13);
 
-        $this->assertEqual(count($expectedIds), count($results));
+        $this->assertEqual(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
