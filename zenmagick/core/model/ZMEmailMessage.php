@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMEmailMessage extends ZMModel {
-    var $fromEmail_;
-    var $fromName_;
-    var $toEmail_;
-    var $toName_;
-    var $message_;
+    private $fromEmail_;
+    private $fromName_;
+    private $toEmail_;
+    private $toName_;
+    private $message_;
 
 
     /**
@@ -44,7 +44,6 @@ class ZMEmailMessage extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-
         $this->fromEmail_ = null;
         $this->fromName_ = '';
         $this->toEmail_ = null;
@@ -78,77 +77,77 @@ class ZMEmailMessage extends ZMModel {
      *
      * @return string The sender email address.
      */
-    function getFromEmail() { return $this->fromEmail_; }
+    public function getFromEmail() { return $this->fromEmail_; }
 
     /**
      * Get the sender name.
      *
      * @return string The sender name.
      */
-    function getFromName() { return $this->fromName_; }
+    public function getFromName() { return $this->fromName_; }
 
     /**
      * Get the recipient email address.
      *
      * @return string The recipient email address.
      */
-    function getToEmail() { return $this->toEmail_; }
+    public function getToEmail() { return $this->toEmail_; }
 
     /**
      * Get the receiver name.
      *
      * @return string The recipient name.
      */
-    function getToName() { return $this->toName_; }
+    public function getToName() { return $this->toName_; }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    function getMessage() { return $this->message_; }
+    public function getMessage() { return $this->message_; }
 
     /**
      * Set the sender email address.
      *
      * @param string email The sender email address.
      */
-    function setFromEmail($email) { $this->fromEmail_ = $email; }
+    public function setFromEmail($email) { $this->fromEmail_ = $email; }
 
     /**
      * Set the sender name.
      *
      * @param string name The sender name.
      */
-    function setFromName($name) { $this->fromName_ = $name; }
+    public function setFromName($name) { $this->fromName_ = $name; }
 
     /**
      * Set the recipient email address.
      *
      * @param string email The recipient email address.
      */
-    function setToEmail($email) { $this->toEmail_ = $email; }
+    public function setToEmail($email) { $this->toEmail_ = $email; }
 
     /**
      * Set the receiver name.
      *
      * @param string name The recipient name.
      */
-    function setToName($name) { $this->toName_ = $name; }
+    public function setToName($name) { $this->toName_ = $name; }
 
     /**
      * Set the message.
      *
      * @param string message The message.
      */
-    function setMessage($message) { $this->message_ = $message; }
+    public function setMessage($message) { $this->message_ = $message; }
 
     /**
      * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    function hasMessage() { return !empty($this->message_); }
+    public function hasMessage() { return !empty($this->message_); }
 
 }
 
