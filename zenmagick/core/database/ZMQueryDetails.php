@@ -33,6 +33,7 @@ class ZMQueryDetails extends ZMObject {
     private $args_;
     private $mapping_;
     private $modelClass_;
+    private $countCol_;
 
 
     /**
@@ -44,13 +45,15 @@ class ZMQueryDetails extends ZMObject {
      * @param array args Database query parameter; default is <code>array()</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @param string modelClass The class name; default is <code>null</code>.
+     * @param string countCol The column SQL to use for counting; default is <code>null</code> to compute.
      */
-    public function __construct($sql, $args=array(), $mapping=null, $modelClass=null) {
+    public function __construct($sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null) {
         parent::__construct();
         $this->sql_ = $sql;
         $this->args_ = $args;
         $this->mapping_ = $mapping;
         $this->modelClass_ = $modelClass;
+        $this->countCol_ = $countCol;
     }
 
 
@@ -88,6 +91,15 @@ class ZMQueryDetails extends ZMObject {
      */
     public function getModelClass() { 
         return $this->modelClass_;
+    }
+
+    /**
+     * Get the count column SQL.
+     *
+     * @return string The SQL fragment.
+     */
+    public function getCountCol() { 
+        return $this->countCol_;
     }
 
     /**
