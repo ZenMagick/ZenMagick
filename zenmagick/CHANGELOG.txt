@@ -92,6 +92,7 @@ Release 0.9.5
 - zm_tests: mark skipped tests gray
 - convert ZMProductFinder to using ZMDatabase
 - rename ZMProducts::getProducts() to getAllProducts()
+- make simple search use query pager to paginate results from ZMProductFinder
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

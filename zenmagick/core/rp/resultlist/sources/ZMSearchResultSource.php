@@ -32,8 +32,9 @@
  */
 class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     private $criteria_;
-    private $resultIds_;
     private $resultList_;
+    private $results_;
+    private $totalNumberOfResults_;
 
 
     /**
@@ -44,7 +45,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     public function __construct($criteria) {
         parent::__construct();
         $this->criteria_ = $criteria;
-        $this->resultIds_ = null;
+        $this->results_ = null;
+        $this->totalNumberOfResults_ = null;
     }
 
     /**
@@ -56,12 +58,17 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
 
 
     /**
-     * Get the result ids.
-     *
-     * @return array List of product ids.
+     * {@inheritDoc}
      */
-    private function getResultIds() {
-        if (null === $this->resultIds_) {
+    public function setResultList($resultList) { 
+        $this->resultList_ = $resultList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getResults() {
+        if (null === $this->results_) {
             $finder = ZMLoader::make('ProductFinder');
             $finder->setCriteria($this->criteria_);
             if (null !== $this->resultList_) {
@@ -74,23 +81,16 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
                     }
                 }
             }
-            $this->resultIds_ = $finder->execute();
+            $queryDetails = $finder->execute();
+            $queryPager = ZMLoader::make('QueryPager', $queryDetails);
+            $productIds = array();
+            foreach ($queryPager->getResults($this->resultList_) as $result) {
+                $productIds[] = $result['productId'];
+            }
+            $this->results_ = ZMProducts::instance()->getProductsForIds($productIds, true, $this->criteria_->getLanguageId());
+            $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
         }
-        return $this->resultIds_;
-    }
- 
-    /**
-     * {@inheritDoc}
-     */
-    public function setResultList($resultList) { 
-        $this->resultList_ = $resultList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getResults() {
-        return ZMProducts::instance()->getProductsForIds($this->getResultIds(), true);
+        return $this->results_;
     }
 
     /**
@@ -104,7 +104,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function getTotalNumberOfResults() {
-        return count($this->getResultIds());
+        $this->getResults();
+        return $this->totalNumberOfResults_;
     }
 
     /**

@@ -80,16 +80,19 @@ class ZMProductFinder {
     /**
      * Execute a product search for the given criteria.
      *
-     * @return array List of product ids.
+     * @return ZMQueryDetails Query details for a product id search.
      */
     public function execute() {
         $queryDetails = $this->buildQuery($this->criteria_);
+        return $queryDetails;
+        /*
         $results = $queryDetails->query();
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;
+        */
     }
 
     /**

@@ -92,7 +92,10 @@ class ZMQueryPager extends ZMObject {
 
         $pos_to = strlen($sql);
         $query_lower = strtolower($sql);
-        $pos_from = strpos($query_lower, ' from', 0);
+
+        $pos_select = strpos($query_lower, 'select ', 0);
+
+        $pos_from = strpos($query_lower, ' from', $pos_select);
 
         $pos_where = strpos($query_lower, ' where', $pos_from);
 
@@ -105,10 +108,9 @@ class ZMQueryPager extends ZMObject {
         $pos_order_by = strpos($query_lower, ' order by', $pos_from);
         if (($pos_order_by < $pos_to) && ($pos_order_by != false)) { $pos_to = $pos_order_by; }
 
+        $count_string = trim(preg_replace('/distinct/i', '', substr($sql, $pos_select+7, $pos_from-6)));
         if (strpos($query_lower, 'distinct') || strpos($query_lower, 'group by')) {
-            $count_string = 'distinct *';
-        } else {
-            $count_string = '*';
+            $count_string = 'distinct '.$count_string;
         }
 
         // count total results
