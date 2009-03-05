@@ -71,12 +71,38 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        //$methods = array('getAllProducts');
-        $methods = array();
+        $methods = array('getAllProducts');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
         return null;
+    }
+
+    /**
+     * Get all products.
+     *
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return ZMQueryDetails Query details.
+     */
+    protected function getAllProductsQueryDetails($active=true, $languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        $sql = "SELECT p.*, pd.*, s.specials_new_products_price
+                FROM " . TABLE_PRODUCTS . " p 
+                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                WHERE pd.products_id = p.products_id
+                  AND pd.language_id = :languageId";
+        if ($active) {
+            $sql .= " AND p.products_status = 1";
+        }
+        $sql .= " ORDER BY p.products_sort_order, pd.products_name";
+        $args = array('languageId' => $languageId);
+        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
     }
 
     /**
