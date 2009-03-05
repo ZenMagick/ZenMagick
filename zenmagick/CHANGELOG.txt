@@ -93,6 +93,7 @@ Release 0.9.5
 - convert ZMProductFinder to using ZMDatabase
 - rename ZMProducts::getProducts() to getAllProducts()
 - make simple search use query pager to paginate results from ZMProductFinder
+- change search sidebox to use the new simple search
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

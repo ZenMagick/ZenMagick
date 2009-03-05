@@ -24,10 +24,10 @@
  */
 ?>
 
-<?php if (false === strpos(ZMRequest::getPageName(), 'advanced_search')) { ?>
+<?php if (false === strpos(ZMRequest::getPageName(), 'search')) { ?>
     <h3><?php zm_l10n("Quick Search") ?></h3>
     <div id="sb_search" class="box">
-        <?php $form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, array('method' => 'get')) ?>
+        <?php $form->open('search', '', false, array('method' => 'get')) ?>
             <div>
                 <input type="hidden" name="search_in_description" value="1" />
                 <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
