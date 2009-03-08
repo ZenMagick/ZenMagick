@@ -80,8 +80,7 @@ class ZMCoupons extends ZMObject {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM " . TABLE_COUPONS . " c
-                LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd
-                ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
+                  LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_code = :code";
         $args = array('code' => $code, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'Coupon');
@@ -103,8 +102,7 @@ class ZMCoupons extends ZMObject {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM " . TABLE_COUPONS . " c
-                LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd
-                ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
+                  LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_id = :couponId";
         $args = array('couponId' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'Coupon');

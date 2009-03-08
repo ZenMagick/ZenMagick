@@ -114,8 +114,8 @@ class ZMTaxRates extends ZMObject {
 
         $sql = "SELECT SUM(tax_rate) AS tax_rate
                 FROM (" . TABLE_TAX_RATES . " tr
-                LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
-                LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id))
+                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id))
                 WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId
@@ -160,8 +160,8 @@ class ZMTaxRates extends ZMObject {
     public function getTaxDescription($taxClassId, $countryId, $zoneId) {
         $sql = "SELECT tax_description
                 FROM (" . TABLE_TAX_RATES . " tr
-                LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
-                LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
+                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
                 WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId

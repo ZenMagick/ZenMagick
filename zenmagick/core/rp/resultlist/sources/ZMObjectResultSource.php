@@ -83,8 +83,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                     // potentially final, so check sorter and filter
                     $this->isFinal_ = true;
                     $queryPager = ZMLoader::make('QueryPager', $queryDetails);
-                    if ($this->resultList_->hasSorters()) {
-                        $sorters = $this->resultList_->getSorters(true);
+                    $sorters = $this->resultList_->getSorters(true);
+                    if (0 < count($sorters)) {
                         if ($sorters[0] instanceof ZMSQLAware) {
                             $sortDetails = $sorters[0]->getQueryDetails();
                             $queryPager->setOrderBy($sortDetails->getSql());

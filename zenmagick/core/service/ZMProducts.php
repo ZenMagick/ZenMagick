@@ -71,7 +71,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        $methods = array('getAllProducts');
+        $methods = array('getAllProducts', 'getProductsForCategoryId');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
@@ -93,8 +93,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p 
-                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
-                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                  " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         if ($active) {
@@ -194,6 +194,36 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
 
         return $ids;
+    }
+
+    /**
+     * Get all (active) products for the given category id.
+     *
+     * @param int categoryId The category id.
+     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array A list of <code>ZMProduct</code> instances.
+     */
+    protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
+                FROM " . TABLE_PRODUCTS . " p 
+                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1)
+                  LEFT JOIN " . TABLE_MANUFACTURERS . " m ON (m.manufacturers_id = p.manufacturers_id),
+                  " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                WHERE pd.products_id = p.products_id AND p2c.categories_id = :categoryId
+                  AND p.products_id = p2c.products_id AND pd.products_id = p2c.products_id
+                  AND pd.language_id = :languageId";
+        if ($active) {
+            $sql .= " AND p.products_status = 1";
+        }
+        $sql .= " ORDER BY p.products_sort_order, pd.products_name";
+        $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
+        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
     }
 
     /**
