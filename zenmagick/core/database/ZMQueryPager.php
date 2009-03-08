@@ -148,7 +148,9 @@ class ZMQueryPager extends ZMObject {
         if ($offset < 0) { $offset = 0; }
         if (!empty($this->orderBy_)) {
             if (false !== ($pos = strpos($query_lower, 'order by'))) {
-                $sql = substr($sql, 0, $pos) . 'order by ' . $this->orderBy_;
+                //$sql = substr($sql, 0, $pos) . 'order by '.$this->orderBy_;
+                // keep original order also
+                $sql = preg_replace('/order by /i', 'order by '.$this->orderBy_.',', $sql);
             } else {
                 $sql .= ' order by '.$this->orderBy_;
             }
