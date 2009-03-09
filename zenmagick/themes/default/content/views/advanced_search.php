@@ -25,7 +25,7 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php $form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, array('method' => 'get', 'id' => 'advanced_search')) ?>
+<?php $form->open('search', '', false, array('method' => 'get', 'id' => 'advanced_search')) ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">

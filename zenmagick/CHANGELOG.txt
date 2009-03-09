@@ -95,6 +95,8 @@ Release 0.9.5
 - make simple search use query pager to paginate results from ZMProductFinder
 - change search sidebox to use the new simple search
 - add sql aware support for ZMProducts::getProductsForCategoryId
+- remove advanced_search_result.php from default theme, mark
+  ZMAdvancedSearchResultController as deprecated
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

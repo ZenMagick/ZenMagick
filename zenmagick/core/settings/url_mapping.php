@@ -127,6 +127,9 @@
         $urlMapper->setMapping('product_reviews_write', 'success', 'product_reviews', 'RedirectView');
         $urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
         $urlMapper->setMapping('contact_us', 'success', 'contact_us_success', 'RedirectView');
+
+        // advanced search
+        $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false'));
     }
 
 ?>

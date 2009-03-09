@@ -27,17 +27,21 @@
 /**
  * Search controller.
  *
+ * <p>The default for <em>autoSearch</em> is <code>true</code>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
  */
 class ZMSearchController extends ZMController {
+    private $autoSearch_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->autoSearch_ = true;
     }
 
     /**
@@ -47,6 +51,27 @@ class ZMSearchController extends ZMController {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the auto search flag.
+     *
+     * <p>If enabled, the controller will automatically run a search even if only the keyword is set.
+     * This allows to create simple URLs that run a search.</p>
+     *
+     * @param boolean autoSearch The new value.
+     */
+    public function setAutoSearch($autoSearch) {
+        $this->autoSearch_ = ZMTools::asBoolean($autoSearch);
+    }
+
+    /**
+     * Get the auto search setting.
+     *
+     * @return boolean The auto search flag.
+     */
+    public function isAutoSearch() {
+        return $this->autoSearch_;
+    }
 
     /**
      * Process a HTTP GET request.
@@ -61,7 +86,7 @@ class ZMSearchController extends ZMController {
         $criteria->populate();
         $this->exportGlobal("zm_searchCriteria", $criteria);
 
-        if (null !== ZMRequest::getParameter('keyword')) {
+        if (!ZMTools::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMLoader::make('ResultList');
             //TODO: filter??
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
@@ -72,6 +97,7 @@ class ZMSearchController extends ZMController {
             $resultList->setResultSource($source);
             $resultList->setPageNumber(ZMRequest::getPageIndex());
             $this->exportGlobal("zm_resultList", $resultList);
+            return $this->findView('results');
         }
 
         return $this->findView();

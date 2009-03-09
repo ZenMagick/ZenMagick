@@ -30,6 +30,7 @@
  * @author DerManoMann
  * @package org.zenmagick.rp.uip.controller
  * @version $Id$
+ * @deprecated Use the new SearchController instead
  */
 class ZMAdvancedSearchResultController extends ZMController {
 
