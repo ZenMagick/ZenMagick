@@ -23,15 +23,15 @@ class TestWhosOnline extends ZMTestCase {
      */
     public function testGetStatsOnly() {
         $stats = $this->getPlugin()->getStats(false);
-        $this->assertEqual(array('anonymous' => 0, 'registered' => 1, 'total' => 1), $stats);
+        $this->assertEqual(array('anonymous' => 1, 'registered' => 0, 'total' => 1), $stats);
     }
 
     /**
      * Test get stats.
      */
     public function testGetStatsAndExpire() {
-        $stats = $this->getPlugin()->getStats();
-        $this->assertEqual(array('anonymous' => 0, 'registered' => 1, 'total' => 1), $stats);
+        $stats = $this->getPlugin()->getStats(true);
+        $this->assertEqual(array('anonymous' => 1, 'registered' => 0, 'total' => 1), $stats);
     }
 
     /**
