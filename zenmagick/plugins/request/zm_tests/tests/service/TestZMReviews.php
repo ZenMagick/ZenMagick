@@ -14,15 +14,16 @@ class TestZMReviews extends ZMTestCase {
      */
     protected function assertReview($review) {
         $this->assertTrue($review instanceof ZMReview);
-
-        $this->assertEqual(1, $review->getId());
-        $this->assertEqual(5, $review->getRating());
-        $this->assertEqual(19, $review->getProductId());
-        $this->assertEqual('There\'s Something About Mary Linked', $review->getProductName());
-        $this->assertEqual('dvd/theres_something_about_mary.gif', $review->getProductImage());
-        $this->assertEqual('This really is a very funny but old movie!', $review->getText());
-        $this->assertEqual('2003-12-23 03:18:19', $review->getDateAdded());
-        $this->assertEqual('Bill Smith', $review->getAuthor());
+        if ($this->assertNotNull($review)) {
+            $this->assertEqual(1, $review->getId());
+            $this->assertEqual(5, $review->getRating());
+            $this->assertEqual(19, $review->getProductId());
+            $this->assertEqual('There\'s Something About Mary Linked', $review->getProductName());
+            $this->assertEqual('dvd/theres_something_about_mary.gif', $review->getProductImage());
+            $this->assertEqual('This really is a very funny but old movie!', $review->getText());
+            $this->assertEqual('2003-12-23 03:18:19', $review->getDateAdded());
+            $this->assertEqual('Bill Smith', $review->getAuthor());
+        }
     }
 
     /**
@@ -79,8 +80,9 @@ class TestZMReviews extends ZMTestCase {
      */
     public function testGetReview() {
         $review = ZMReviews::instance()->getReviewForId(1);
-        $this->assertNotNull($review);
-        $this->assertReview($review);
+        if ($this->assertNotNull($review)) {
+            $this->assertReview($review);
+        }
     }
 
     /**
@@ -88,11 +90,13 @@ class TestZMReviews extends ZMTestCase {
      */
     public function testUpdateViewCount() {
         $review = ZMReviews::instance()->getReviewForId(1);
-        $this->assertNotNull($review);
-        ZMReviews::instance()->updateViewCount(1);
-        $updated = ZMReviews::instance()->getReviewForId(1);
-        $this->assertNotNull($updated);
-        $this->assertEqual(($review->getViewCount() + 1), $updated->getViewCount());
+        if ($this->assertNotNull($review)) {
+            ZMReviews::instance()->updateViewCount(1);
+            $updated = ZMReviews::instance()->getReviewForId(1);
+            if ($this->assertNotNull($updated)) {
+                $this->assertEqual(($review->getViewCount() + 1), $updated->getViewCount());
+            }
+        }
     }
 
     /**
