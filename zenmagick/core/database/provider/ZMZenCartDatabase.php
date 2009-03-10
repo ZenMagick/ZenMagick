@@ -204,7 +204,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $sql = ZMDbUtils::bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $model);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -238,13 +238,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 // bind query parameter
                 $typeName = preg_replace('/[0-9]+#/', '', $name);
                 if (is_array($value)) {
-                    $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
+                    $sql = $this->bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 } else {
                     $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 }
             }
         } else if (is_object($data)) {
-            $sql = ZMDbUtils::bindObject($sql, $data);
+            $sql = $this->bindObject($sql, $data);
         } else {
             throw ZMLoader::make('ZMException', 'invalid data type');
         }
@@ -298,7 +298,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $sql = ZMDbUtils::bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $model);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -341,7 +341,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $sql = ZMDbUtils::bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $model);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -374,7 +374,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             // bind query parameter
             $typeName = preg_replace('/[0-9]+#/', '', $name);
             if (is_array($value)) {
-                $sql = ZMDbUtils::bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
+                $sql = $this->bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             } else {
                 $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             }
@@ -401,33 +401,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $this->queriesTime += $this->getExecutionTime($startTime);
         return $results;
-    }
-
-    /**
-     * Translate a given raw database row with the given mapping.
-     *
-     * @param array row The database row map.
-     * @param array mapping The mapping (may be <code>null</code>).
-     * @return array The mapped row.
-     */
-    protected function translateRow($row, $mapping) {
-        if (null == $mapping) {
-            return $row;
-        }
-
-        $mappedRow = array();
-        foreach ($mapping as $field) {
-            if (array_key_exists($field['column'], $row)) {
-                $mappedRow[$field['property']] = $row[$field['column']];
-                if ('date' == $this->getMappedType($field['type'])) {
-                    if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
-                        $mappedRow[$field['property']] = null;
-                    }
-                }
-            }
-        }
-
-        return $mappedRow;
     }
 
     /**
@@ -468,6 +441,108 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getResource() {
         return $this->db_;
+    }
+
+    /**
+     * Translate a given raw database row with the given mapping.
+     *
+     * @param array row The database row map.
+     * @param array mapping The mapping (may be <code>null</code>).
+     * @return array The mapped row.
+     */
+    protected function translateRow($row, $mapping) {
+        if (null == $mapping) {
+            return $row;
+        }
+
+        $mappedRow = array();
+        foreach ($mapping as $field) {
+            if (array_key_exists($field['column'], $row)) {
+                $mappedRow[$field['property']] = $row[$field['column']];
+                if ('date' == $this->getMappedType($field['type'])) {
+                    if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
+                        $mappedRow[$field['property']] = null;
+                    }
+                }
+            }
+        }
+
+        return $mappedRow;
+    }
+
+    /**
+     * Bind object to a given SQL query.
+     *
+     * <p>This is based on introspection/reflection on the given object and the available
+     * <code>getXXX()</code> or <code>isXXX()</code> methods.</p>
+     * <p>SQL label must follow the listed convenctions:</p>
+     * <ul>
+     *  <li>label start with the prefix '<code>:</code>'</li>
+     *  <li>label match the objetcs <code>getXXX()</code> method excl the <code>get</code> prefix</li>
+     *  <li>label are suffixed with the data type with a semicolon '<code>;</code>' as separator</li>
+     * </ul>
+     *
+     * <p>Examples:</p>
+     * <ul>
+     *  <li><code>:firstName;string</code> - maps to the <code>getFirstName()</code> method; data type string</li>
+     *  <li><code>:dob;date</code> - maps to the <code>getDob()</code> method; data type date</li>
+     *  <li><code>:newsletterSubscriber;integer</code> - maps to the <code>isNewsletterSubscriber()</code> method; data type integer</li>
+     * </ul>
+     *
+     * @param string sql The sql to work on.
+     * @param mixed obj The data object instance.
+     * @return string The updated SQL query.
+     */
+    protected function bindObject($sql, $obj) {
+        // prepare label
+        preg_match_all('/:\w+;\w+/m', $sql, $matches);
+        $labels = array();
+        foreach ($matches[0] as $name) {
+            $label = explode(';', $name);
+            $labels[str_replace(':', '', $label[0])] = array($name, $label[1]);
+        }
+
+        $data = ZMBeanUtils::obj2map($obj, array_keys($labels));
+
+        foreach ($labels as $property => $info) {
+            $value = null;
+            if (array_key_exists($property, $data)) {
+                $value = $data[$property];
+            }
+            
+            // bind
+            if ('date' == $info[1]) {
+                // if not empty nothing, otherwise assume NULL
+                if (empty($value)) {
+                    $value = ZMDatabase::NULL_DATETIME;
+                    $info[1] = 'date';
+                }
+            }
+            $sql = $this->db_->bindVars($sql, $info[0], $value, $info[1]);
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Bind a list of values to a given SQL query.
+     *
+     * <p>Converts the values in the given array into a comma separated list of the specified type.</p>
+     *
+     * @param string sql The sql query to work on.
+     * @param string bindName The name to bind the list to.
+     * @param array values An array of values.
+     * @param string type The value type; default is 'string'
+     * @return string The sql with <code>$bindName</code> replaced with a properly formatted value list.
+     */
+    protected function bindValueList($sql, $bindName, $values, $type='string') {
+        $fragment = '';
+        foreach ($values as $value) {
+            if ('' != $fragment) $fragment .= ', ';
+            $fragment .= $this->db_->bindVars(":value", ":value", $value, $type);
+        }
+
+        return $this->db_->bindVars($sql, $bindName, $fragment, 'passthru');
     }
 
 }

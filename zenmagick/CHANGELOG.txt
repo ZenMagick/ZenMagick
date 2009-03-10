@@ -98,6 +98,8 @@ Release 0.9.5
 - remove advanced_search_result.php from default theme, mark
   ZMAdvancedSearchResultController as deprecated
 - more improvements to discount calculations
+- move code depending on ZMRuntime::getDB() from ZMDbUtils to
+  ZMZenCartDatabase
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
