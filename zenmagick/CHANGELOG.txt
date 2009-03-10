@@ -97,6 +97,7 @@ Release 0.9.5
 - add sql aware support for ZMProducts::getProductsForCategoryId
 - remove advanced_search_result.php from default theme, mark
   ZMAdvancedSearchResultController as deprecated
+- more improvements to discount calculations
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
