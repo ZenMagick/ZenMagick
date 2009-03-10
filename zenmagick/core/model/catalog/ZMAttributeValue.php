@@ -179,9 +179,10 @@ class ZMAttributeValue extends ZMModel {
         if ($this->isDiscounted_) {
             //TODO: cache value
             $price = $this->getFinalPriceForQty(1);
+            // no need to discount free attributes
             if (0 != $price) {
-                // no need to discount free attributes
-                $price = _zm_calc_discount($this->attribute_->getProductId(), $price);
+                $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+                $price = $product->getOffers()->calculateDiscount($price);
             }
         }
 
@@ -500,6 +501,8 @@ If a special exist * 10+9
 
 // fix here
 // BOF: percentage discounts apply to price
+
+//**** from here on it's all about attribute_amount; see ZMOffers:::calculateDiscount()
     switch (true) {
 
       case ($discountTypeId == 5):
@@ -742,148 +745,5 @@ If a special exist * 10+9
 
     return $discountAmount;
   }
-
-
-/**
- * Calculate discount for either product or any given base amount (for example to calculate discounts on
- * attributes).
- *
- * @param int productId The product i.
- * @param float amount Optional amount; default is <code>null</code> to calculate the discount 
- *  of the product price.
- * @return float The discounted amount.
- * @todo move to ZMOffers
- */
-function _zm_calc_discount($productId, $amount=null) {
-    $product = ZMProducts::instance()->getProductForId($productId);
-    $offers = $product->getOffers();
-
-    $basePrice = $offers->getBasePrice(false);
-    $specialPrice = $offers->getSpecialPrice(false);
-
-    /*==================
-    0 = flat amount off base price with a special
-    1 = Percentage off base price with a special
-    2 = New Price with a special
-
-    5 = No Sale or Skip Products with Special_zm_calc_discount
-
-    special options + option * 10
-    0 = Ignore special and apply to Price
-    1 = Skip Products with Specials switch to 5
-    2 = Apply to Special Price
-
-    If a special exist * 10+9
-
-    0*100 + 0*10 = flat apply to price = 0 or 9
-    0*100 + 1*10 = flat skip Specials = 5 or 59
-    0*100 + 2*10 = flat apply to special = 20 or 209
-
-    1*100 + 0*10 = Percentage apply to price = 100 or 1009
-    1*100 + 1*10 = Percentage skip Specials = 110 or 1109 / 5 or 59
-    1*100 + 2*10 = Percentage apply to special = 120 or 1209
-
-    2*100 + 0*10 = New Price apply to price = 200 or 2009
-    2*100 + 1*10 = New Price skip Specials = 210 or 2109 / 5 or 59
-    2*100 + 2*10 = New Price apply to Special = 220 or 2209
-    ====================*/
-
-    $typeInfo = ZMSalemaker::instance()->getSaleDiscountTypeInfo($productId);
-    $discountTypeId = $typeInfo['type'];
-
-    if (0 != $basePrice) {
-        $special_price_discount = (0 != $specialPrice ? ($specialPrice/$basePrice) : 1);
-    } else {
-        $special_price_discount = '';
-    }
-    $discountAmount = $typeInfo['amount'];
-
-    if ($discountTypeId == 120 || $discountTypeId == 1209 || $discountTypeId == 110 || $discountTypeId == 1109) {
-        // percentage adjustment of discount
-        $discountAmount = (0 != $discountAmount ? (100 - $discountAmount)/100 : 1);
-    }
-
-    if (null == $amount && 109 == $discountTypeId) {
-        // flat amount discount on Sale and Special with a special
-        $discountAmount = 1;
-    }
-
-    if (null !== $amount) {
-        switch ($discountTypeId) {
-        case 5:
-            // No Sale and No Special
-            if (0 != $special_price_discount) {
-                $discountAmount = ($amount * $special_price_discount);
-            } else {
-                $discountAmount = $amount;
-            }
-            break;
-        case 59:
-            // No Sale and Special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 120:
-            // percentage discount Sale and Special without a special
-            $discountAmount = ($amount * $discountAmount);
-            break;
-        case 1209:
-            // percentage discount on Sale and Special with a special
-            $calc = ($amount * $special_price_discount);
-            $calc2 = $calc - ($calc * $discountAmount);
-            $discountAmount = $calc - $calc2;
-            break;
-        case 110:
-            // percentage discount Sale and Special without a special
-            $discountAmount = ($amount * $discountAmount);
-            break;
-        case 1109:
-            // percentage discount on Sale and Special with a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 20:
-            // flat amount discount Sale and Special without a special
-            $discountAmount = ($amount - $discountAmount);
-            break;
-        case 209:
-            // flat amount discount on Sale and Special with a special
-            $calc = ($amount * $special_price_discount);
-            $calc2 = ($calc - $discountAmount);
-            $discountAmount = $calc2;
-            break;
-        case 10:
-            // flat amount discount Sale and Special without a special
-            $discountAmount = ($amount - $discountAmount);
-            break;
-        case 109:
-            // flat amount discount on Sale and Special with a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 220:
-            // New Price amount discount Sale and Special without a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 2209:
-            // New Price amount discount on Sale and Special with a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 210:
-            // New Price amount discount Sale and Special without a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 2109:
-            // New Price amount discount on Sale and Special with a special
-            $discountAmount = ($amount * $special_price_discount);
-            break;
-        case 0:
-        case 9:
-            // flat discount
-            break;
-        default:
-            throw ZMLoader::make('ZMException', 'wtf!');
-        }
-    }
-
-    return $discountAmount;
-}
 
 ?>
