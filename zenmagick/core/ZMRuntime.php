@@ -94,7 +94,7 @@ class ZMRuntime extends ZMObject {
                       'username' => DB_SERVER_USERNAME,
                       'password' => DB_SERVER_PASSWORD,
                       'database' => DB_DATABASE);
-        if (null !== ($port = @ini_get('mysql.default_port'))) {
+        if (null !== ($port = @ini_get('mysql.default_port')) && !empty($port)) {
             $defaults['port'] = $port;
         }
 
