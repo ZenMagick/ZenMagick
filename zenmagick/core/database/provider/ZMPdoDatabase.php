@@ -56,7 +56,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $conf['host'] = substr($conf['host'], 0, $colon);
         }
         if (isset($conf['port']) && 'localhost' == $conf['host']) {
-            // can't do port on localhost?
+            // can't do port on localhost!
             $conf['host'] = '127.0.0.1';
         }
 
@@ -84,6 +84,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     function __destruct() {
         parent::__destruct();
+        $this->pdo_ = null;
     }
 
 
