@@ -71,6 +71,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
         $this->config_ = $conf;
         $this->pdo_ = new PDO($url, $conf['username'], $conf['password'], $params);
+        $this->pdo_->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->mapper = ZMDbTableMapper::instance();
         $this->queriesCount = 0;
         $this->queriesTime = 0;
@@ -141,13 +142,34 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
+    public function loadModel($table, $key, $modelClass, $mapping=null) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function createModel($table, $model, $mapping=null) {
     }
 
     /**
      * {@inheritDoc}
      */
+    public function removeModel($table, $model, $mapping=null) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function update($sql, $data=array(), $mapping=null) {
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping($mapping, $this);
+
+        $stmt = $this->prepareStatement($sql, $data, $mapping);
+        $stmt->execute();
+        ++$this->queriesCount;
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesTime += $this->getExecutionTime($startTime);
+        return $rows;
     }
 
     /**
@@ -202,7 +224,18 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     protected function prepareStatement($sql, $args, $mapping=null) {
         // TODO: store centrally
-        $typeMap = array('integer' => PDO::PARAM_INT);
+        $typeMap = array('integer' => PDO::PARAM_INT, 'string' => PDO::PARAM_STR, 'boolean' => PDO::PARAM_BOOL, 'date' => PDO::PARAM_STR, 'time' => PDO::PARAM_INT, 'blob' => PDO::PARAM_LOB, 'datetime' => PDO::PARAM_STR, 'float' => PDO::PARAM_STR);
+
+        // pdo doesn't allow '#' in param names, so use '-'
+        $nargs = array();
+        foreach (array_keys($args) as $name) {
+            $nname = str_replace('#', '-', $name);
+            if ($name != $nname) {
+                $sql = str_replace(':'.$name, ':'.$nname, $sql);
+            }
+            $nargs[$nname] = $args[$name];
+        }
+        $args = $nargs;
 
         // make sure we are working on a map
         if (is_object($args)) {
@@ -215,7 +248,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->pdo_->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($args as $name => $value) {
-            $type = $mapping[$name]['type'];
+            $typeName = preg_replace('/[0-9]+-/', '', $name);
+            $type = $mapping[$typeName]['type'];
             if (!array_key_exists($type, $typeMap)) {
                 throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
             }
@@ -257,6 +291,44 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getMetaData($table=null) {
+        if (null !== $table) {
+            $meta = array();
+            try {
+                $columns = $this->pdo_->query("SHOW COLUMNS FROM " . $table, PDO::FETCH_ASSOC);
+            } catch (PDOException $pdoe) {
+                return null;
+            }
+            foreach($columns as $key => $col) {
+                $field = $col['Field'];
+                preg_match('/([^(]*)(\([0-9]+\))?/', $col['Type'], $matches);
+                $type = $matches[1];
+                if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
+                    $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
+                } 
+                $meta[$field] = array(
+                    'type' => $type,
+                    'name' => $field,
+                    'key' => $col['Key'] == "PRI",
+                    'autoIncrement' => false !== strpos($col['Extra'], 'auto_increment'),
+                    'maxLen' => (3 == count($matches) ? (int)str_replace(array('(', ')'), '', $matches[2]) : null)
+                );
+            }
+            return $meta;
+        } else {
+            $tables = array();
+            $results = $this->pdo_->query("SHOW TABLES", PDO::FETCH_NUM);
+            foreach ($results as $row) {
+                $tables[] = $row[0];
+            }
+            return array('tables' => $tables);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getResource() {
+        return $this->pdo_;
     }
 
 }

@@ -8,18 +8,18 @@
  * @version $Id$
  */
 class TestZMDatabase extends ZMTestCase {
-    static $PROVIDERS = array('ZMCreoleDatabase', 'ZMZenCartDatabase');
+    static $PROVIDERS = array('ZMCreoleDatabase', 'ZMZenCartDatabase', 'ZMPdoDatabase');
 
     /**
      * Test table meta data.
      */
-    public function runTestTableMetaData($database) {
+    public function runTestTableMetaData($database, $provider) {
         $tableMeta = $database->getMetaData(TABLE_PRODUCTS_DESCRIPTION);
-        $this->assertEqual(6, count($tableMeta));
-        $this->assertTrue(array_key_exists('products_name', $tableMeta));
-        $this->assertTrue(is_array($tableMeta['products_name']));
-        $this->assertEqual('string', $tableMeta['products_name']['type']);
-        $this->assertEqual(64, $tableMeta['products_name']['maxLen']);
+        $this->assertEqual(6, count($tableMeta), '%s: '.$provider);
+        $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
+        $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
+        $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
+        $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
     }
 
     /**
@@ -28,7 +28,7 @@ class TestZMDatabase extends ZMTestCase {
     public function testTableMetaData() {
         foreach (self::$PROVIDERS as $provider) {
             $database = ZMRuntime::getDatabase(array('provider' => $provider));
-            $this->runTestTableMetaData($database);
+            $this->runTestTableMetaData($database, $provider);
         }
     }
 
