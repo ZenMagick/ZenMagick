@@ -74,6 +74,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     function __destruct() {
         parent::__destruct();
+        $this->conn_ = null;
     }
 
 
