@@ -177,7 +177,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -224,7 +224,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
 
@@ -232,12 +232,93 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function removeModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return null;
+        }
+
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+
+        $sql = 'DELETE FROM '.$table;
+        $firstWhere = true;
+        $where = ' WHERE ';
+        $beanModel = true;
+        if (is_array($model)) {
+            $properties = array_keys($model);
+            $beanModel = false;
+        } else {
+            $properties = $model->getPropertyNames();
+        }
+        foreach ($mapping as $field) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+                if ($field['key']) {
+                    if (!$firstWhere) {
+                        $where .= ' AND ';
+                    }
+                    $where .= $field['column'].' = :'.$field['property'];
+                    $firstWhere = false;
+                }
+            }
+        }
+        if (7 > strlen($where)) {
+            throw ZMLoader::make('ZMException', 'missing key');
+        }
+        $sql .= $where;
+
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $stmt->execute();
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return;
+        }
+
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+
+        $sql = 'UPDATE '.$table.' SET';
+        $firstSet = true;
+        $firstWhere = true;
+        $where = ' WHERE ';
+        $beanModel = true;
+        if (is_array($model)) {
+            $properties = array_keys($model);
+            $beanModel = false;
+        } else {
+            $properties = $model->getPropertyNames();
+        }
+        foreach ($mapping as $field) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+                if ($field['key']) {
+                    if (!$firstWhere) {
+                        $where .= ' AND ';
+                    }
+                    $where .= $field['column'].' = :'.$field['property'];
+                    $firstWhere = false;
+                } else {
+                    if (!$firstSet) {
+                        $sql .= ',';
+                    }
+                    $sql .= ' '.$field['column'].' = :'.$field['property'];
+                    $firstSet = false;
+                }
+            }
+        }
+        if (7 > strlen($where)) {
+            throw ZMLoader::make('ZMException', 'missing key');
+        }
+        $sql .= $where;
+
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $stmt->execute();
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -249,7 +330,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $stmt->execute();
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $rows;
     }
 
@@ -283,7 +364,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
 

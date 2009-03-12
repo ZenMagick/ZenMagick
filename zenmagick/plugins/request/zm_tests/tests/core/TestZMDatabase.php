@@ -130,8 +130,40 @@ class TestZMDatabase extends ZMTestCase {
         }
 
         // updateModel
-        // removeModel
+        $reset = "UPDATE " . TABLE_COUNTRIES . " SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
+        foreach ($this->getProviders() as $provider => $database) {
+            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+            if ($this->assertNotNull($country, '%s: '.$provider)) {
+                $isCode3 = $country->getIsoCode3();
+                $country->setIsoCode3('###');
+                $database->updateModel(TABLE_COUNTRIES, $country);
+                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+                if ($this->assertNotNull($updated, '%s: '.$provider)) {
+                    $this->assertEqual('###', $updated->getIsoCode3(), '%s: '.$provider);
+                }
+                // clean up
+                $database->update($reset, array('countryId' => 153, 'isoCode3' => 'NZL'), TABLE_COUNTRIES);
+            }
+        }
 
+        // removeModel
+        $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
+        $findTestModelSql = "SELECT * from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
+        foreach ($this->getProviders() as $provider => $database) {
+            // first delete, just in case
+            $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+
+            // set up test data
+            $model = ZMBeanUtils::getBean('Country#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
+            $result = $database->createModel(TABLE_COUNTRIES, $model);
+            if ($this->assertNotNull($result, '%s: '.$provider)) {
+                $database->removeModel(TABLE_COUNTRIES, $result);
+                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'Country'), '%s: '.$provider);
+            }
+
+            // clean up
+            $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+        }
     }
 
 }

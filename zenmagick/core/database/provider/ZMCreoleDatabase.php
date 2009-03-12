@@ -158,7 +158,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $results[] = $this->rs2model($modelClass, $rs, $mapping);
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -213,7 +213,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
 
@@ -226,7 +226,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $rows;
     }
 
@@ -234,6 +234,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return;
+        }
+
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
@@ -273,13 +277,17 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
      * {@inheritDoc}
      */
     public function removeModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return null;
+        }
+
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
@@ -312,7 +320,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -338,7 +346,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $results[] = $this->rs2model($modelClass, $rs, $mapping);
         }
 
-        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
 
