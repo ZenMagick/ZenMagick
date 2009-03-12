@@ -33,7 +33,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
     private $config_;
     private $queriesMap_;
-    private $mapper;
+    private $mapper_;
 
 
     /**
@@ -63,7 +63,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $this->config_ = $conf;
         $this->queriesMap_ = array();
         $this->conn_ = Creole::getConnection($conf);
-        $this->mapper = ZMDbTableMapper::instance();
+        $this->mapper_ = ZMDbTableMapper::instance();
     }
 
     /**
@@ -134,7 +134,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function loadModel($table, $key, $modelClass, $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $keyName = ZMSettings::get('dbModelKeyName');
         if (null == $keyName) {
@@ -171,7 +171,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
@@ -222,7 +222,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function update($sql, $data=array(), $mapping=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
@@ -239,7 +239,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'UPDATE '.$table.' SET';
         $firstSet = true;
@@ -289,7 +289,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $sql = 'DELETE FROM '.$table;
         $firstWhere = true;
@@ -336,7 +336,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         $startTime = microtime();
-        $mapping = $this->mapper->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
