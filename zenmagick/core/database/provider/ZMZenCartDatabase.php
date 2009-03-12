@@ -179,6 +179,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return null;
+        }
+
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 

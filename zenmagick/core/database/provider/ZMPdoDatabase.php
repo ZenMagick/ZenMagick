@@ -144,18 +144,104 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function loadModel($table, $key, $modelClass, $mapping=null) {
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+
+        $keyName = ZMSettings::get('dbModelKeyName');
+        if (null == $keyName) {
+            // determine by looking at key and auto settings
+            foreach ($mapping as $property => $field) {
+                if ($field['auto'] && $field['key']) {
+                    $keyName = $property;
+                    break;
+                }
+            }
+        }
+
+        $field = $mapping[$keyName];
+        $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
+        $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
+
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        ++$this->queriesCount;
+
+        $results = array();
+        foreach ($rows as $result) {
+            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
+                $result = $this->translateRow($result, $mapping);
+            }
+            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
+                $result = ZMBeanUtils::map2obj($modelClass, $result);
+            }
+            $results[] = $result;
+        }
+
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesTime += $this->getExecutionTime($startTime);
+
+        return 1 == count($results) ? $results[0] : null;
     }
 
     /**
      * {@inheritDoc}
      */
     public function createModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return null;
+        }
+
+        $startTime = microtime();
+        $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+
+        $sql = 'INSERT INTO '.$table.' SET';
+        $firstSet = true;
+        $beanModel = true;
+        if (is_array($model)) {
+            $properties = array_keys($model);
+            $beanModel = false;
+        } else {
+            $properties = $model->getPropertyNames();
+        }
+        foreach ($mapping as $field) {
+            // ignore unset custom fields as they might not allow NULL but have defaults
+            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+                if (!$field['auto']) {
+                    if (!$firstSet) {
+                        $sql .= ',';
+                    }
+                    $sql .= ' '.$field['column'].' = :'.$field['property'];
+                    $firstSet = false;
+                }
+            }
+        }
+
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $stmt->execute();
+        $newId = $this->pdo_->lastInsertId();
+        ++$this->queriesCount;
+
+        foreach ($mapping as $property => $field) {
+            if ($field['auto']) {
+                ZMBeanUtils::setAll($model, array($property => $newId));
+            }
+        }
+
+        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
+        $this->queriesTime += $this->getExecutionTime($startTime);
+        return $model;
     }
 
     /**
      * {@inheritDoc}
      */
     public function removeModel($table, $model, $mapping=null) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateModel($table, $model, $mapping=null) {
     }
 
     /**
@@ -171,12 +257,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         $this->queriesTime += $this->getExecutionTime($startTime);
         return $rows;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function updateModel($table, $model, $mapping=null) {
     }
 
     /**
@@ -224,13 +304,27 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * @return A <code>PreparedStatement</code> or null;
      */
     protected function prepareStatement($sql, $args, $mapping=null) {
-        // TODO: store centrally
-        $typeMap = array('integer' => PDO::PARAM_INT, 'string' => PDO::PARAM_STR, 'boolean' => PDO::PARAM_BOOL, 'date' => PDO::PARAM_STR, 'time' => PDO::PARAM_INT, 'blob' => PDO::PARAM_LOB, 'datetime' => PDO::PARAM_STR, 'float' => PDO::PARAM_STR);
+        $PDO_INDEX_SEP = '__';
+        $typeMap = array(
+          'integer' => PDO::PARAM_INT, 
+          'string' => PDO::PARAM_STR,
+          'boolean' => PDO::PARAM_BOOL,
+          'date' => PDO::PARAM_STR,
+          'time' => PDO::PARAM_INT,
+          'blob' => PDO::PARAM_LOB,
+          'datetime' => PDO::PARAM_STR,
+          'float' => PDO::PARAM_STR
+        );
 
-        // pdo doesn't allow '#' in param names, so use '-'
+        // make sure we are working on a map
+        if (is_object($args)) {
+            $args = ZMBeanUtils::obj2map($args, array_keys($mapping));
+        }
+
+        // PDO doesn't allow '#' in param names, so use '-'
         $nargs = array();
         foreach (array_keys($args) as $name) {
-            $nname = str_replace('#', '-', $name);
+            $nname = str_replace('#', $PDO_INDEX_SEP, $name);
             if ($name != $nname) {
                 $sql = str_replace(':'.$name, ':'.$nname, $sql);
             }
@@ -238,23 +332,35 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
         $args = $nargs;
 
-        // make sure we are working on a map
-        if (is_object($args)) {
-            $args = ZMBeanUtils::obj2map($args, array_keys($mapping));
+        foreach ($args as $name => $value) {
+            if (is_array($value)) {
+                $aargs = array();
+                $index = 1;
+                foreach ($value as $vv) {
+                    $aargs[$index++.$PDO_INDEX_SEP.$name] = $vv;
+                }
+                // remove original
+                unset($args[$name]);
+                // add new split up values
+                $args = array_merge($args, $aargs);
+                // update SQL
+                $sql = str_replace(':'.$name, ':'.implode(', :', array_keys($aargs)), $sql);
+            }
         }
-
-        // TODO: value arrays
 
         // create statement
         $stmt = $this->pdo_->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($args as $name => $value) {
-            $typeName = preg_replace('/[0-9]+-/', '', $name);
-            $type = $mapping[$typeName]['type'];
-            if (!array_key_exists($type, $typeMap)) {
-                throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
+            if (false !== strpos($sql, ':'.$name)) {
+                // only bind if actually used
+                $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
+                $type = $mapping[$typeName]['type'];
+                if (!array_key_exists($type, $typeMap)) {
+                    throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
+                }
+                $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
             }
-            $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
         }
 
         return $stmt;
@@ -276,7 +382,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
-                //TODO: is is ok?
+                //XXX: is is ok?
                 if ('date' == $field['type']) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;

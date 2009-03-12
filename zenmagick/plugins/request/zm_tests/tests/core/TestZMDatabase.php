@@ -10,25 +10,30 @@
 class TestZMDatabase extends ZMTestCase {
     static $PROVIDERS = array('ZMCreoleDatabase', 'ZMZenCartDatabase', 'ZMPdoDatabase');
 
+
     /**
-     * Test table meta data.
+     * Get all provider to test.
      */
-    public function runTestTableMetaData($database, $provider) {
-        $tableMeta = $database->getMetaData(TABLE_PRODUCTS_DESCRIPTION);
-        $this->assertEqual(6, count($tableMeta), '%s: '.$provider);
-        $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
-        $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
-        $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
-        $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
+    private function getProviders() {
+        //XXX: add variations with different drivers
+        $providers = array();
+        foreach (self::$PROVIDERS as $provider) {
+            $providers[$provider] = ZMRuntime::getDatabase(array('provider' => $provider));
+        }
+        return $providers;
     }
 
     /**
      * Table meta data test runner.
      */
     public function testTableMetaData() {
-        foreach (self::$PROVIDERS as $provider) {
-            $database = ZMRuntime::getDatabase(array('provider' => $provider));
-            $this->runTestTableMetaData($database, $provider);
+        foreach ($this->getProviders() as $provider => $database) {
+            $tableMeta = $database->getMetaData(TABLE_PRODUCTS_DESCRIPTION);
+            $this->assertEqual(6, count($tableMeta), '%s: '.$provider);
+            $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
+            $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
+            $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
+            $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
         }
     }
 
@@ -45,36 +50,88 @@ class TestZMDatabase extends ZMTestCase {
         );
         static $expectedOutput = "'zm_db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string'\n),\n";
 
-        // create test tabe
-        ZMRuntime::getDatabase()->update($drop_table);
-        ZMRuntime::getDatabase()->update($create_table);
+        foreach ($this->getProviders() as $provider => $database) {
+            // create test tabe
+            $database->update($drop_table);
+            $database->update($create_table);
 
-        ob_start();
-        $mapping = ZMDbUtils::buildTableMapping('zm_db_test', null, true);
-        $output = ob_get_clean();
-        if ($this->assertTrue(is_array($mapping))) {
-            $this->assertEqual($expectedMapping, $mapping);
+            ob_start();
+            $mapping = ZMDbUtils::buildTableMapping('zm_db_test', $database, true);
+            $output = ob_get_clean();
+            if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
+                $this->assertEqual($expectedMapping, $mapping, '%s: '.$provider);
+            }
+            $this->assertEqual($expectedOutput, $output, '%s: '.$provider);
+
+            // drop again
+            $database->update($drop_table);
         }
-        $this->assertEqual($expectedOutput, $output);
-
-        //XXX: insert,update,delete using model
-
-        // drop again
-        ZMRuntime::getDatabase()->update($drop_table);
     }
 
     /**
      * Test indexed field names.
      */
     public function testIndexedFields() {
-        // use simple country query to compare results
         $sql1 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :countryId";
-        $results1 = ZMRuntime::getDatabase()->query($sql1, array('countryId' => 153), TABLE_COUNTRIES);
-
         $sql2 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :1#countryId";
-        $results2 = ZMRuntime::getDatabase()->query($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
 
-        $this->assertEqual($results1, $results2);
+        foreach ($this->getProviders() as $provider => $database) {
+            // use simple country query to compare results
+            $results1 = $database->query($sql1, array('countryId' => 153), TABLE_COUNTRIES);
+            $results2 = $database->query($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
+            $this->assertEqual($results1, $results2, '%s: '.$provider);
+        }
+    }
+
+    /**
+     * Test value array.
+     */
+    public function testValueArray() {
+        $sql = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id IN (:countryId)";
+
+        foreach ($this->getProviders() as $provider => $database) {
+            $results = $database->query($sql, array('countryId' => array(81, 153)), TABLE_COUNTRIES);
+            if ($this->assertEqual(2, count($results), '%s: '.$provider)) {
+                $this->assertEqual(81, $results[0]['countryId'], '%s: '.$provider);
+                $this->assertEqual('DE', $results[0]['isoCode2'], '%s: '.$provider);
+                $this->assertEqual(153, $results[1]['countryId'], '%s: '.$provider);
+                $this->assertEqual('NZL', $results[1]['isoCode3'], '%s: '.$provider);
+            }
+        }
+    }
+
+    /**
+     * Test model based methods.
+     */
+    public function testModelMethods() {
+        // loadModel
+        foreach ($this->getProviders() as $provider => $database) {
+            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+            if ($this->assertTrue($result instanceof ZMCountry, '%s: '.$provider)) {
+                $this->assertEqual('NZ', $result->getIsoCode2(), '%s: '.$provider);
+            }
+        }
+
+        // createModel
+        $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
+        foreach ($this->getProviders() as $provider => $database) {
+            // first delete, just in case
+            $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+
+            // set up test data
+            $model = ZMBeanUtils::getBean('Country#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
+            $result = $database->createModel(TABLE_COUNTRIES, $model);
+            if ($this->assertNotNull($result, '%s: '.$provider)) {
+                $this->assertTrue(0 != $result->getId(), '%s: '.$provider);
+            }
+
+            // clean up
+            $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+        }
+
+        // updateModel
+        // removeModel
+
     }
 
 }

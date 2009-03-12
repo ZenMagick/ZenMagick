@@ -101,6 +101,8 @@ Release 0.9.5
 - move code depending on ZMRuntime::getDB() from ZMDbUtils to
   ZMZenCartDatabase
 - re-added ZMPdoDatabase and improved on the last known version
+- change TestZMDatabase to run all tests on all supported implementations
+- add db test for value arrays
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
