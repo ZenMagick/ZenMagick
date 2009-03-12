@@ -33,7 +33,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMCategory extends ZMModel {
+class ZMCategory extends ZMObject {
     private $parentId_;
     private $name_;
     private $active_;

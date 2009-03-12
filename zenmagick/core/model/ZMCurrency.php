@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMCurrency extends ZMModel {
+class ZMCurrency extends ZMObject {
     private $code_;
     private $name_;
     private $symbolLeft_;

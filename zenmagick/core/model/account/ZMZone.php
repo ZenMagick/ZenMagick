@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.account
  * @version $Id$
  */
-class ZMZone extends ZMModel {
+class ZMZone extends ZMObject {
     private $code_;
     private $name_;
 

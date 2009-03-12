@@ -35,7 +35,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMCoupon extends ZMModel {
+class ZMCoupon extends ZMObject {
     private $code_;
     private $type_;
     private $amount_;

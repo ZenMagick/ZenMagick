@@ -30,7 +30,7 @@
  * @package org.zenmagick.plugins.zm_token
  * @version $Id$
  */
-class ZMToken extends ZMModel {
+class ZMToken extends ZMObject {
 
     /**
      * Create new instance.

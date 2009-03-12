@@ -31,7 +31,7 @@
  * @rp.package org.zenmagick.rp.resultlist.model
  * @version $Id$
  */
-class ZMSortOption extends ZMModel {
+class ZMSortOption extends ZMObject {
     var $name_;
     var $id_;
     var $active_;

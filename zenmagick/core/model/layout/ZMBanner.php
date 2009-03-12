@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.layout
  * @version $Id$
  */
-class ZMBanner extends ZMModel {
+class ZMBanner extends ZMObject {
     private $id_;
     private $title_;
     private $image_;

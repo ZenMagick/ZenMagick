@@ -37,7 +37,7 @@
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */
-class ZMShippingProviderWrapper extends ZMModel {
+class ZMShippingProviderWrapper extends ZMObject {
     var $zenModule_;
     var $errors_;
 

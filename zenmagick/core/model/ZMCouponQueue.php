@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMCouponQueue extends ZMModel {
+class ZMCouponQueue extends ZMObject {
     private $id;
     private $accountId;
     private $orderId;

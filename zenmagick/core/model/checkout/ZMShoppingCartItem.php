@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */
-class ZMShoppingCartItem extends ZMModel {
+class ZMShoppingCartItem extends ZMObject {
     private $cart_;
     private $zenItem_;
 

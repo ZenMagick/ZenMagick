@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMManufacturer extends ZMModel {
+class ZMManufacturer extends ZMObject {
     private $name_;
     private $image_;
     private $languageId_;

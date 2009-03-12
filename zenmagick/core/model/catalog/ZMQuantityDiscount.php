@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMQuantityDiscount extends ZMModel {
+class ZMQuantityDiscount extends ZMObject {
     private $productId_;
     private $quantity_;
     private $value_;

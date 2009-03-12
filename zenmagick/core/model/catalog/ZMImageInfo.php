@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMImageInfo extends ZMModel {
+class ZMImageInfo extends ZMObject {
     var $imageDefault_;
     var $imageMedium_;
     var $imageLarge_;

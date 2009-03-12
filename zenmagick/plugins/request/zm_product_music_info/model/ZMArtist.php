@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_product_music_info.model
  * @version $Id$
  */
-class ZMArtist extends ZMModel {
+class ZMArtist extends ZMObject {
     var $id_;
     var $name_;
     var $genre_;

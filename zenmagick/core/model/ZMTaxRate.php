@@ -33,7 +33,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMTaxRate extends ZMModel {
+class ZMTaxRate extends ZMObject {
     var $id_;
     var $classId_;
     var $countryId_;

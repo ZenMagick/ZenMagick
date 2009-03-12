@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMConfigGroup extends ZMModel {
+class ZMConfigGroup extends ZMObject {
     private $id_;
     private $name_;
 

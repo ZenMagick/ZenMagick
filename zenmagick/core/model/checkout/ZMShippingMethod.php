@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.checkout
  * @version $Id$
  */
-class ZMShippingMethod extends ZMModel {
+class ZMShippingMethod extends ZMObject {
     var $provider_;
     var $taxRate_;
     var $zenMethod_;

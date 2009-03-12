@@ -34,7 +34,7 @@
  * @package org.zenmagick.model.rss
  * @version $Id$
  */
-class ZMRssChannel extends ZMModel {
+class ZMRssChannel extends ZMObject {
     var $rs_;
 
 

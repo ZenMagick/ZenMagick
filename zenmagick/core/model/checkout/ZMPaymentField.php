@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.checkout
  * @version $Id: ZMPaymentField.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
-class ZMPaymentField extends ZMModel {
+class ZMPaymentField extends ZMObject {
     var $label_;
     var $html_;
 

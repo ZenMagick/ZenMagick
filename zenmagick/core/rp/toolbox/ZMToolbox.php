@@ -31,7 +31,7 @@
  * @package org.zenmagick.rp.toolbox
  * @version $Id$
  */
-class ZMToolbox extends ZMModel {
+class ZMToolbox extends ZMObject {
     /** 
      * @var ZMToolboxHtml
      * @return ZMToolboxHtml

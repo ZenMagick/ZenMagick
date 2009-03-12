@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMFeature extends ZMModel {
+class ZMFeature extends ZMObject {
     var $id_;
     var $type_;
     var $name_;

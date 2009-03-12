@@ -28,7 +28,7 @@
  * @package org.zenmagick.rp.resultlist.model
  * @version $Id$
  */
-class ZMFilterOption extends ZMModel {
+class ZMFilterOption extends ZMObject {
     var $name_;
     var $id_;
     var $active_;

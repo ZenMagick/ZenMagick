@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMCountry extends ZMModel {
+class ZMCountry extends ZMObject {
     private $name_;
     private $isoCode2_;
     private $isoCode3_;

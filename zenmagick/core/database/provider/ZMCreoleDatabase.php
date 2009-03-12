@@ -354,7 +354,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * Create a prepared statement.
      *
      * @param string sql The initial SQL.
-     * @param mixed args The data either as map or ZMModel instance.
+     * @param mixed args The data either as map or ZMObject instance.
      * @param array mapping The field mapping.
      * @return A <code>PreparedStatement</code> or null;
      */

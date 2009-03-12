@@ -36,7 +36,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMMessage extends ZMModel {
+class ZMMessage extends ZMObject {
     private $text_;
     private $type_;
     private $ref_;

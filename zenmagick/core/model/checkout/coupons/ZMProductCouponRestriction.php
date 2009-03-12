@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.checkout.coupons
  * @version $Id: ZMProductCouponRestriction.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
-class ZMProductCouponRestriction extends ZMModel {
+class ZMProductCouponRestriction extends ZMObject {
     var $allowed_;
     var $productId_;
 

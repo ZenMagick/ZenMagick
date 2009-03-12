@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.order
  * @version $Id$
  */
-class ZMOrder extends ZMModel {
+class ZMOrder extends ZMObject {
     var $accountId_;
     private $orderStatusId_;
     var $orderDate_;

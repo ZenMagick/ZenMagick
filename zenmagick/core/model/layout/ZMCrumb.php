@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.layout
  * @version $Id$
  */
-class ZMCrumb extends ZMModel {
+class ZMCrumb extends ZMObject {
     var $name_;
     var $url_;
 

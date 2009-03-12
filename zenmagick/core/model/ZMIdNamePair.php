@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMIdNamePair extends ZMModel {
+class ZMIdNamePair extends ZMObject {
     var $id_;
     var $name_;
 

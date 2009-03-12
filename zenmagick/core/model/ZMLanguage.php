@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMLanguage extends ZMModel {
+class ZMLanguage extends ZMObject {
     private $name_;
     private $image_;
     private $code_;

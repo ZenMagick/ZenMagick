@@ -113,7 +113,7 @@ class zm_geo_ip extends ZMPlugin {
      * Query IP address.
      *
      * @param string ip The ip address.
-     * @return ZMModel Data object or <code>null</code>.
+     * @return ZMObject Data object or <code>null</code>.
      */
     public function lookup($ip) {
         if (!$this->isEnabled() || null === $this->gi) {
@@ -121,7 +121,7 @@ class zm_geo_ip extends ZMPlugin {
         }
 
         //TODO: make type detection smarter
-        $result = ZMLoader::make('ZMModel');
+        $result = ZMLoader::make('ZMObject');
         if ('GeoIP.dat' == $this->type) {
             $code = geoip_country_code_by_addr($this->gi, $ip);
             $name = geoip_country_name_by_addr($this->gi, $ip);

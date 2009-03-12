@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.account
  * @version $Id$
  */
-class ZMPriceGroup extends ZMModel {
+class ZMPriceGroup extends ZMObject {
     private $id_;
     private $name_;
     private $discount_;

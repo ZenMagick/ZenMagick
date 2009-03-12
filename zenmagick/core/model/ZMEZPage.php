@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMEZPage extends ZMModel {
+class ZMEZPage extends ZMObject {
     private $id_;
     private $title_;
     private $altUrl_;

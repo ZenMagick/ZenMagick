@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_product_music_info.model
  * @version $Id$
  */
-class ZMMedia extends ZMModel {
+class ZMMedia extends ZMObject {
     var $id_;
     var $filename_;
     var $dateAdded_;

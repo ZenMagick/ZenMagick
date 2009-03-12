@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.order
  * @version $Id$
  */
-class ZMOrderTotal extends ZMModel {
+class ZMOrderTotal extends ZMObject {
     private $name_;
     private $value_;
     private $amount_;

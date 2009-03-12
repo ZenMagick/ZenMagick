@@ -51,10 +51,10 @@ class ZMFormHandlerController extends ZMController {
     /**
      * Create the model from the current request.
      *
-     * @return ZMModel The model.
+     * @return ZMObject The model.
      */
     protected function createModel() {
-        $request = ZMLoader::make('Model');
+        $request = ZMLoader::make('ZMObject');
         foreach (ZMRequest::getParameterMap() as $name => $value) {
             $request->set($name, $value);
         }

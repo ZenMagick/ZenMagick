@@ -103,6 +103,7 @@ Release 0.9.5
 - re-added ZMPdoDatabase and improved on the last known version
 - change TestZMDatabase to run all tests on all supported implementations
 - add db test for value arrays
+- inherit from ZMObject rather than ZMModel, unless it is really required
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct

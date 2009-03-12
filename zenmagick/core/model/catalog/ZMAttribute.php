@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.catalog
  * @version $Id$
  */
-class ZMAttribute extends ZMModel {
+class ZMAttribute extends ZMObject {
     private $productId_;
     private $name_;
     private $type_;

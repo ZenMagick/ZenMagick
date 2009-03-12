@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.checkout
  * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
-class ZMPaymentType extends ZMModel {
+class ZMPaymentType extends ZMObject {
     var $id_;
     var $name_;
     var $instructions_;

@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.order
  * @version $Id$
  */
-class ZMDownload extends ZMModel {
+class ZMDownload extends ZMObject {
     private $id;
     private $orderId;
     private $orderItemId;

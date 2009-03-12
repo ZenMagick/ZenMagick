@@ -43,7 +43,7 @@
  * @package org.zenmagick.plugins.zm_product_associations
  * @version $Id$
  */
-class ZMProductAssociation extends ZMModel {
+class ZMProductAssociation extends ZMObject {
 
     /**
      * Create new instance.
