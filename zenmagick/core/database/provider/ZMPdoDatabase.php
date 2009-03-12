@@ -36,9 +36,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     private $config_;
     private $autoCommit_;
     private $inTransaction_;
-    private $queriesCount;
-    private $queriesTime;
-    private $queriesMap = array();
+    private $queriesMap_;
     private $mapper;
 
 
@@ -73,8 +71,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->pdo_ = new PDO($url, $conf['username'], $conf['password'], $params);
         $this->pdo_->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->mapper = ZMDbTableMapper::instance();
-        $this->queriesCount = 0;
-        $this->queriesTime = 0;
+        $this->queriesMap_ = array();
         $this->autoCommit_ = true;
         $this->inTransaction_ = false;
     }
@@ -122,9 +119,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     public function getStats() {
         $stats = array();
-        $stats['time'] = $this->queriesTime;
-        $stats['queries'] = $this->queriesCount;
-        $stats['details'] = $this->queriesMap;
+        $time = 0;
+        foreach ($this->queriesMap_ as $query) {
+            $time += $query['time'];
+        }
+        $stats['time'] = $time;
+        $stats['queries'] = count($this->queriesMap_);
+        $stats['details'] = $this->queriesMap_;
         return $stats;
     }
 
@@ -164,7 +165,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         $stmt->execute();
         $rows = $stmt->fetchAll();
-        ++$this->queriesCount;
 
         $results = array();
         foreach ($rows as $result) {
@@ -177,9 +177,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
-
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -219,7 +217,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->execute();
         $newId = $this->pdo_->lastInsertId();
-        ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
@@ -227,8 +224,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $model;
     }
 
@@ -253,9 +249,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $stmt->execute();
-        ++$this->queriesCount;
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $rows;
     }
 
@@ -277,7 +271,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $stmt->execute();
         $rows = $stmt->fetchAll();
-        ++$this->queriesCount;
 
         $results = array();
         foreach ($rows as $result) {
@@ -290,8 +283,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $results;
     }
 

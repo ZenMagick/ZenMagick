@@ -32,9 +32,7 @@
 class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;
     private $config_;
-    private $queriesCount;
-    private $queriesTime;
-    private $queriesMap = array();
+    private $queriesMap_;
     private $mapper;
 
 
@@ -63,10 +61,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $conf['phptype'] = $conf['driver'];
         $conf['hostspec'] = $conf['host'];
         $this->config_ = $conf;
+        $this->queriesMap_ = array();
         $this->conn_ = Creole::getConnection($conf);
         $this->mapper = ZMDbTableMapper::instance();
-        $this->queriesCount = 0;
-        $this->queriesTime = 0;
     }
 
     /**
@@ -111,9 +108,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     public function getStats() {
         $stats = array();
-        $stats['time'] = $this->queriesTime;
-        $stats['queries'] = $this->queriesCount;
-        $stats['details'] = $this->queriesMap;
+        $time = 0;
+        foreach ($this->queriesMap_ as $query) {
+            $time += $query['time'];
+        }
+        $stats['time'] = $time;
+        $stats['queries'] = count($this->queriesMap_);
+        $stats['details'] = $this->queriesMap_;
         return $stats;
     }
 
@@ -151,16 +152,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
         $rs = $stmt->executeQuery();
-        ++$this->queriesCount;
 
         $results = array();
         while ($rs->next()) {
             $results[] = $this->rs2model($modelClass, $rs, $mapping);
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
-
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -208,7 +206,6 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $stmt->executeUpdate();
             $newId = $idgen->getId();
         }
-        ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
@@ -216,8 +213,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $model;
     }
 
@@ -230,9 +226,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
         $rows = $stmt->executeUpdate();
-        ++$this->queriesCount;
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $rows;
     }
 
@@ -279,9 +273,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
-        ++$this->queriesCount;
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
     }
 
     /**
@@ -320,9 +312,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $model, $mapping);
         $stmt->executeUpdate();
-        ++$this->queriesCount;
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
     }
 
     /**
@@ -342,15 +332,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
         $rs = $stmt->executeQuery();
-        ++$this->queriesCount;
 
         $results = array();
         while ($rs->next()) {
             $results[] = $this->rs2model($modelClass, $rs, $mapping);
         }
 
-        $this->queriesMap[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time'=>$this->getExecutionTime($startTime), 'sql'=>$sql);
         return $results;
     }
 
