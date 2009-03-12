@@ -414,12 +414,14 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $stmt->setFloat($index, $value);
                     break;
                 case 'datetime':
+                    //XXX: yeah, yeah
                     if (null === $value) {
                         $value = ZMDatabase::NULL_DATETIME;
                     }
                     $stmt->setTimestamp($index, $value);
                     break;
                 case 'date':
+                    //XXX: yeah, yeah
                     if (null === $value) {
                         $value = ZMDatabase::NULL_DATE;
                     }
