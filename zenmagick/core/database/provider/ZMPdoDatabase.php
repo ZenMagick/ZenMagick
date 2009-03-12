@@ -435,6 +435,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 if (!array_key_exists($type, $typeMap)) {
                     throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
                 }
+                //XXX: yeah, yeah
+                if ($type == 'datetime' && null === $value) {
+                    $value = ZMDatabase::NULL_DATETIME;
+                } else if ($type == 'date' && null === $value) {
+                    $value = ZMDatabase::NULL_DATE;
+                }
                 $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
             }
         }
@@ -459,8 +465,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
                 //XXX: is is ok?
-                if ('date' == $field['type']) {
+                if ('datetime' == $field['type']) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
+                        $mappedRow[$field['property']] = null;
+                    }
+                } else if ('date' == $field['type']) {
+                    if (ZMDatabase::NULL_DATE == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
                     }
                 }
