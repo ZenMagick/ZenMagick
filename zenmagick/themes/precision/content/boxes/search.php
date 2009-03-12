@@ -1,6 +1,6 @@
 <div id="search">
   <h2>Search</h2>
-  <?php $form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, array('method' => 'get', 'id' => 'searchform')) ?>
+  <?php $form->open('search', '', false, array('method' => 'get', 'id' => 'searchform')) ?>
     <div>
       <input type="hidden" name="search_in_description" value="1" />
       <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>

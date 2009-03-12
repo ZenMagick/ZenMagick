@@ -26,7 +26,7 @@
 
 <?php if (false === strpos(ZMRequest::getPageName(), 'advanced_search')) { ?>
     <h1>Search Box</h1>	
-    <?php $form->open(FILENAME_ADVANCED_SEARCH_RESULT, '', false, array('method' => 'get', 'class' => 'searchform')) ?>
+    <?php $form->open('search', '', false, array('method' => 'get', 'class' => 'searchform')) ?>
       <p>
         <input type="hidden" name="search_in_description" value="1" />
         <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
