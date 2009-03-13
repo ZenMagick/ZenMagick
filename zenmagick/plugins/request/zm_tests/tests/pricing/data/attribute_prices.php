@@ -2,6 +2,38 @@
 
 global $attribute_prices;
 $attribute_prices = array(
+    'p52' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.5
+    ),
+    'p53' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.75
+    ),
+    'p54' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 1.0
+    ),
+    'p496' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.75
+    ),
+    'p497' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.5
+    ),
+    'p498' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.25
+    ),
+    'p55' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.25
+    ),
+    'p56' =>  array(
+        'final_price' => 0.0,
+        'dicount_price' => 0.25
+    ),
     'p39' =>  array(
         'final_price' => 0.1,
         'dicount_price' => 0.1
