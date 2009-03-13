@@ -80,7 +80,9 @@ class ZMEventFixes extends ZMObject {
     public function onNotifyHeaderStartCheckoutShipping() {
         $shoppingCart = ZMRequest::getShoppingCart();
         // check for address
-        if (!$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
+        $session = ZMRequest::getSession();
+        // if anonymous, we need to login/register first, so no point asking yet
+        if (!$session->isAnonymous() && !$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
             ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
             ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
         }
