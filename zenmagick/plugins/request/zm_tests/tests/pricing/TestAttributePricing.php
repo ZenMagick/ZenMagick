@@ -29,7 +29,7 @@ class TestAttributePricing extends ZMTestCase {
                 foreach ($attribute->getValues() as $value) {
                     $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getAttributeValueDetailsId()];
                     // default is 4 decimal digits...
-                    $this->assertEqual((int)(10000*$priceInfo['dicount_price']), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId());
+                    $this->assertEqual((int)(10000*$priceInfo['dicount_price']), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
                 }
             }
         }
