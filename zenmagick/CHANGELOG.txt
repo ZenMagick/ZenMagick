@@ -104,6 +104,7 @@ Release 0.9.5
 - change TestZMDatabase to run all tests on all supported implementations
 - add db test for value arrays
 - inherit from ZMObject rather than ZMModel, unless it is really required
+- remove obsolete zm_split_page_result_list plugin
 
 Release 0.9.4.2
 - improve ZMAjaxController::flattenObject(); using ZMBeanUtils, correct
