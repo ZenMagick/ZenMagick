@@ -186,8 +186,8 @@
     /* review */
     $validator->addRules('review', array(
         array('RequiredRule' ,'rating', 'Please choose a rating.'),
-        array('RequiredRule' ,'review_text', 'Please enter your review.'),
-        array('MinRule' ,'review_text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
+        array('RequiredRule' ,'text', 'Please enter your review.'),
+        array('MinRule' ,'text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     ));
 
 

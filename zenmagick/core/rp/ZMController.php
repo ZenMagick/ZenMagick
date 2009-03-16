@@ -96,31 +96,42 @@ class ZMController extends ZMObject {
         // XXX: add $request to globals
         // move custom template objects into ZMEventFixes (also $session?)
 
-        // handle form beans and validation
+        // handle form bean
         if (null !== ($formBean = $this->getFormBean())) {
+            // put form bean in context
+            $this->exportGlobal($formBean->getFormId(), $formBean);
+        }
+
+        // method independant (pre-)processing
+        $this->handleRequest();
+
+        // and validation
+        $view = null;
+        if (null != $formBean && $this->isFormSubmit()) {
+            // move to function and 
             if (null != ($view = $this->validateFormBean($formBean))) {
                 ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
-                return $view;
             }
         }
 
-        $view = null;
-        try {
-            switch (ZMRequest::getMethod()) {
-                case 'GET':
-                    $view = $this->processGet();
-                    break;
-                case 'POST':
-                    $view = $this->processPost();
-                    break;
-                default:
-                    throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
-            }
-        } catch (Exception $e) {
-            if ($enableTransactions) {
-                ZMRuntime::getDatabase()->rollback();
-                // re-throw
-                throw $e;
+        if (null == $view) {
+            try {
+                switch (ZMRequest::getMethod()) {
+                    case 'GET':
+                        $view = $this->processGet();
+                        break;
+                    case 'POST':
+                        $view = $this->processPost();
+                        break;
+                    default:
+                        throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
+                }
+            } catch (Exception $e) {
+                if ($enableTransactions) {
+                    ZMRuntime::getDatabase()->rollback();
+                    // re-throw
+                    throw $e;
+                }
             }
         }
 
@@ -143,6 +154,23 @@ class ZMController extends ZMObject {
         return $view;
     }
 
+
+    /**
+     * Generic callback for request processing independant from the method.
+     */
+    public function handleRequest() {
+    }
+
+    /**
+     * Check if this request is a form submit.
+     *
+     * <p>This default implementation will return <code>true</code> for all <em>POST</em> requests.</p>
+     *
+     * @return boolean <code>true</code> if this is a form submit request.
+     */
+    public function isFormSubmit() {
+        return 'POST' == ZMRequest::getMethod();
+    }
 
     /**
      * Process a HTTP GET request.
@@ -241,7 +269,9 @@ class ZMController extends ZMObject {
         if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
             if (null !== $mapping['formDefinition']) {
                 $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].'&formId='.$mapping['formId']);
-                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
+                // XXX: is this ok??
+                // copy only matching properties
+                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap(), null, false);
             }
         }
 

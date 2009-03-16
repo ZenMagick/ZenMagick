@@ -122,15 +122,17 @@ class ZMBeanUtils {
      * @param mixed obj The class instance.
      * @param array data The data map.
      * @param array keys Optional list of data keys to be used; default is <code>null</code> to use all.
+     * @param setGeneric Optional flag to indicate whether generic <code>ZMObject</code> properties should be
+     *  included or not; default is <code>true</code> to include generic properties.
      */
-    public static function setAll($obj, $data, $keys=null) {
+    public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
             if (null === $keys || in_array($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
                 if (method_exists($obj, $method)) {
                     $obj->$method($value);
-                } else if ($isModel) {
+                } else if ($isModel && $setGeneric) {
                     $obj->set($property, $value);
                 }
             }

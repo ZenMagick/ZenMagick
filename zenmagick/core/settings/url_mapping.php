@@ -123,8 +123,11 @@
         $urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
         $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
 
+        // review [form]
+        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'ZMReview#', 'formId' => 'review'));
+        $urlMapper->setMappingInfo('product_reviews_write', array('viewId' => 'success', 'view' => 'product_reviews', 'viewDefinition' => 'RedirectView'));
+
         // misc [form]
-        $urlMapper->setMapping('product_reviews_write', 'success', 'product_reviews', 'RedirectView');
         $urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
         $urlMapper->setMapping('contact_us', 'success', 'contact_us_success', 'RedirectView');
 

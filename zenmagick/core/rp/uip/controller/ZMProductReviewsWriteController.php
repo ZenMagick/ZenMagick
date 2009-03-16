@@ -49,22 +49,25 @@ class ZMProductReviewsWriteController extends ZMController {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function handleRequest() {
+        $product = $this->getProduct();
+        $this->exportGlobal("zm_product", $product);
+        $this->exportGlobal("zm_account", ZMRequest::getAccount());
+        $this->handleCrumbtrail($product);
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     public function processGet() {
-        $product = $this->_getProduct();
-        if (null == $product) {
+        if (null == $this->getProduct()) {
             return $this->findView('error');
         }
-
-        $this->exportGlobal("zm_product", $product);
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
-
-        $this->_handleCrumbtrail($product);
-
         return $this->findView();
     }
 
@@ -75,22 +78,11 @@ class ZMProductReviewsWriteController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processPost() {
-        $review = ZMLoader::make("Review");
-        $review->populate();
-
-        $product = $this->_getProduct();
-        if (null == $product) {
+        if (null == $this->getProduct()) {
             return $this->findView('error');
         }
 
-        if (!$this->validate('review')) {
-            $this->_handleCrumbtrail($product);
-            $this->exportGlobal("zm_product", $product);
-            $this->exportGlobal("zm_account", ZMRequest::getAccount());
-            $this->exportGlobal("zm_review", $review);
-            return $this->findView();
-        }
-
+        $review = $this->getFormBean();
         $account = ZMRequest::getAccount();
         $session = ZMRequest::getSession();
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
@@ -115,7 +107,7 @@ class ZMProductReviewsWriteController extends ZMController {
      *
      * @return ZMProduct The product or <code>null</code>.
      */
-    protected function _getProduct() {
+    protected function getProduct() {
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
@@ -130,7 +122,7 @@ class ZMProductReviewsWriteController extends ZMController {
      *
      * @param ZMProduct product The current product.
      */
-    protected function _handleCrumbtrail($product) {
+    protected function handleCrumbtrail($product) {
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
