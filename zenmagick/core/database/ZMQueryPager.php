@@ -27,7 +27,7 @@
  * Paginate a query.
  *
  * @author DerManoMann
- * @package org.zenmagick.database.provider
+ * @package org.zenmagick.database
  * @version $Id$
  */
 class ZMQueryPager extends ZMObject {

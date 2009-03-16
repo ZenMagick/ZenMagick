@@ -25,7 +25,7 @@
 
 
 /**
- * Implementation of the ZenMagick database layer using <em>PDA</em>.
+ * Implementation of the ZenMagick database layer using <em>PDO</em>.
  *
  * @author DerManoMann
  * @package org.zenmagick.database.provider
