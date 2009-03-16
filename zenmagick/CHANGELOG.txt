@@ -1,3 +1,7 @@
+Release 0.9.6
+- add sanitize parameter to ZMRequest::getParameterMap()
+- add form bean code to ZMController
+
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)
 - add new setting 'isEnableDBAutoMapping' to enable auto table mapping;

@@ -123,9 +123,21 @@ class ZMRequest extends ZMObject {
     /**
      * Get the complete parameter map.
      *
+     * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return array Map of all request parameters
      */
-    public static function getParameterMap() { return ZMRequest::instance()->parameter_; }
+    public static function getParameterMap($sanitize=true) { 
+        $request = ZMRequest::instance();
+        if ($sanitize) {
+            $map = array();
+            foreach (array_keys($request->parameter_) as $key) {
+                $map[$key] = $request->getParameter($key);
+            }
+        }
+
+        // return as is
+        return $request->parameter_;
+    }
 
     /**
      * Set the parameter map.

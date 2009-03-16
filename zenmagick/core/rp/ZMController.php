@@ -32,6 +32,7 @@ class ZMController extends ZMObject {
     private $id_;
     private $globals_;
     private $view_;
+    private $formBean_;
 
 
     /**
@@ -40,9 +41,11 @@ class ZMController extends ZMObject {
     function __construct() {
         parent::__construct();
 
-        $this->globals_ = array();
         // use as controller id
         $this->id_ = ZMRequest::getPageName();
+        $this->globals_ = array();
+        $this->view_ = null;
+        $this->formBean_ = null;
 
         // always add toolbox
         $this->exportGlobal('toolbox', ZMToolbox::instance());
@@ -92,6 +95,14 @@ class ZMController extends ZMObject {
 
         // XXX: add $request to globals
         // move custom template objects into ZMEventFixes (also $session?)
+
+        // handle form beans and validation
+        if (null !== ($formBean = $this->getFormBean())) {
+            if (null != ($view = $this->validateFormBean($formBean))) {
+                ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
+                return $view;
+            }
+        }
 
         $view = null;
         try {
@@ -206,23 +217,52 @@ class ZMController extends ZMObject {
     /**
      * Lookup the appropriate view for the given name.
      *
-     * <p>This implementation might be changed later on to allow for view mapping to make the page
-     * flow configurable and extract that knowlege from the controller into some sort of config
-     * file or other piece of logic.</p>
-     *
      * @param string id The controller id or <code>null</code> to return to the current page.
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($id=null, $parameter=null) {
-        $view = ZMUrlMapper::instance()->findView($this->id_, $id, $parameter);
+        $viewDefinition = ZMUrlMapper::instance()->getViewDefinition($this->id_, $id, $parameter);
 
         // ensure secure option is set
         if (ZMSacsmapper::instance()->secureRequired($this->id_)) {
-            ZMBeanUtils::setAll($view, array('secure' => true));
+            $viewDefinition .= '&secure=true';
         }
 
-        return $view;
+        return ZMBeanUtils::getBean($viewDefinition);
+    }
+
+    /**
+     * Get the form bean (if any) for this request.
+     *
+     * @return ZMView The actual view to be used to render the response.
+     */
+    public function getFormBean() {
+        if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
+            if (null !== $mapping['formDefinition']) {
+                $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].'&formId='.$mapping['formId']);
+                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
+            }
+        }
+
+        return $this->formBean_;
+    }
+
+    /**
+     * Validate the given form bean.
+     *
+     * @param mixed formBean An object.
+     * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
+     */
+    protected function validateFormBean($formBean) {
+        if (!$this->validate($formBean->getFormId(), $formBean)) {
+            // put form bean in context
+            $this->exportGlobal($formBean->getFormId(), $formbean);
+            // back to same form
+            return $this->findView();
+        }
+        // all good
+        return null;
     }
 
     /**

@@ -86,7 +86,7 @@ class ZMUrlMapper extends ZMObject {
      *  <dt>controllerDefinition</dt><dd>The class name for the controller to handle this page; default is <code>null</code> 
      *   to use <code>$page</code> to build a classname (see <code>ZMLoader::makeClassname(string)</code> for details).</dd>
      *  <dt>formId</dt><dd>Optional name of the form for automatic request validation; default is <code>null</code> for none.</dd>
-     *  <dt>formClass</dt><dd>Optional form model class; default is <code>null</code> for none.</dd>
+     *  <dt>formDefinition</dt><dd>Optional form model definition; default is <code>null</code> for none.</dd>
      * </dl>
      *
      * <p>In the case of <code>$page</code> being <code>null</code>, at least <em>viewId</em> is required.</p>
@@ -101,7 +101,7 @@ class ZMUrlMapper extends ZMObject {
             'controllerDefinition' => null, // leave null here to first try building the class based on $page 
             'viewDefinition' => ZMSettings::get('defaultViewClass') . '#',
             'formId' => null,
-            'formClass' => null
+            'formDefinition' => null
         );
 
         // merge with defaults
@@ -197,16 +197,16 @@ class ZMUrlMapper extends ZMObject {
     }
 
     /**
-     * Find a URL mapping for the given controller and viewId.
+     * Find a URL mapping for the given controller (and viewId).
      *
      * @param string page The page name.
      * @param string viewId The viewId; defaults to <code>null</code> to use the controller.
      * @param mixed parameter Optional map of name/value pairs (or URL query format string) 
      *  to further configure the view; default is <code>null</code>.
-     * @return ZMView The actual view to be used to render the response.
+     * @return array A mapping or <code>null</code>.
      */
-    public function findView($page, $viewId=null, $parameter=null) {
-        ZMLogging::instance()->log('find view: page='.$page.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+    public function findMapping($page, $viewId=null, $parameter=null) {
+        ZMLogging::instance()->log('find mapping: page='.$page.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
 
         $viewId = null != $viewId ? $viewId : $page;
 
@@ -223,7 +223,22 @@ class ZMUrlMapper extends ZMObject {
             $viewInfo = (isset($this->globalViews_[$viewId]) ? $this->globalViews_[$viewId] : null);
         }
 
-        if (null == $viewInfo) {
+        return $viewInfo;
+    }
+
+    /**
+     * Get the view definition string for the given controller (and viewId).
+     *
+     * @param string page The page name.
+     * @param string viewId The viewId; defaults to <code>null</code> to use the controller.
+     * @param mixed parameter Optional map of name/value pairs (or URL query format string) 
+     *  to further configure the view; default is <code>null</code>.
+     * @return string A <em>best match</em> view definition.
+     */
+    public function getViewDefinition($page, $viewId=null, $parameter=null) {
+        $viewInfo = $this->findMapping($page, $viewId, $parameter);
+
+        if (null === $viewInfo) {
             // set some sensible defaults
             $viewInfo = array('view' => $page, 'viewDefinition' => 'PageView#');
         }
@@ -233,7 +248,7 @@ class ZMUrlMapper extends ZMObject {
         }
         $definition = $viewInfo['viewDefinition'] . (false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&') . $parameter . '&view=' . $viewInfo['view'] . '&viewId=' . $viewInfo['viewId'];
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
-        return ZMBeanUtils::getBean($definition);
+        return $definition;
     }
 
 }
