@@ -26,22 +26,22 @@
 
 <?php $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . ZMRequest::getProductId(), true, array('id'=>'tell_a_friend')) ?>
    <fieldset>
-      <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
+        <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 
-        <label for="from_name"><?php zm_l10n("Your Name") ?><span>*</span></label>
-        <input type="text" id="from_name" name="from_name" size="40" value="<?php $html->encode($zm_emailMessage->getFromName()) ?>" /><br />
+        <label for="fromName"><?php zm_l10n("Your Name") ?><span>*</span></label>
+        <input type="text" id="fromName" name="fromName" size="40" value="<?php $html->encode($tellAFriend->getFromName()) ?>" /><br />
 
-        <label for="from_email_address"><?php zm_l10n("Your Email") ?><span>*</span></label>
-        <input type="text" id="from_email_address" name="from_email_address" size="40" value="<?php $html->encode($zm_emailMessage->getFromEmail()) ?>" /><br />
+        <label for="fromEmail"><?php zm_l10n("Your Email") ?><span>*</span></label>
+        <input type="text" id="fromEmail" name="fromEmail" size="40" value="<?php $html->encode($tellAFriend->getFromEmail()) ?>" /><br />
 
-        <label for="to_name"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
-        <input type="text" id="to_name" name="to_name" size="40" value="<?php $html->encode($zm_emailMessage->getToName()) ?>" /><br />
+        <label for="toName"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
+        <input type="text" id="toName" name="toName" size="40" value="<?php $html->encode($tellAFriend->getToName()) ?>" /><br />
 
-        <label for="to_email_address"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
-        <input type="text" id="to_email_address" name="to_email_address" size="40" value="<?php $html->encode($zm_emailMessage->getToEmail()) ?>" /><br />
+        <label for="toEmail"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
+        <input type="text" id="toEmail" name="toEmail" size="40" value="<?php $html->encode($tellAFriend->getToEmail()) ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($zm_emailMessage->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($tellAFriend->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>

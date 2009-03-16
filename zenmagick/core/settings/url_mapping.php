@@ -124,14 +124,15 @@
         $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
 
         // review [form]
-        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'ZMReview#', 'formId' => 'review'));
+        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'ZMReview', 'formId' => 'review'));
         $urlMapper->setMappingInfo('product_reviews_write', array('viewId' => 'success', 'view' => 'product_reviews', 'viewDefinition' => 'RedirectView'));
 
         // contact us [form]
-        $urlMapper->setMappingInfo('contact_us', array('view' => 'contact_us', 'formDefinition' => 'ZMContactInfo#', 'formId' => 'contactUs'));
+        $urlMapper->setMappingInfo('contact_us', array('view' => 'contact_us', 'formDefinition' => 'ZMContactInfo', 'formId' => 'contactUs'));
 
-        // misc [form]
-        $urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
+        // tell a friend [form]
+        $urlMapper->setMappingInfo('tell_a_friend', array('view' => 'tell_a_friend', 'formDefinition' => 'ZMEmailMessage', 'formId' => 'tellAFriend'));
+        $urlMapper->setMappingInfo('tell_a_friend', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView'));
 
         // advanced search
         $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false'));

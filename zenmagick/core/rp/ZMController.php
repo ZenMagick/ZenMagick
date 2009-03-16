@@ -268,10 +268,8 @@ class ZMController extends ZMObject {
     public function getFormBean() {
         if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
             if (null !== $mapping['formDefinition']) {
-                $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].'&formId='.$mapping['formId']);
-                // XXX: is this ok??
-                // copy only matching properties
-                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap(), null, false);
+                $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
             }
         }
 

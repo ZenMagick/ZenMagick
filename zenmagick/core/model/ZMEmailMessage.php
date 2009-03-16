@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMEmailMessage extends ZMModel {
+class ZMEmailMessage extends ZMObject {
     private $fromEmail_;
     private $fromName_;
     private $toEmail_;
@@ -58,19 +58,6 @@ class ZMEmailMessage extends ZMModel {
         parent::__destruct();
     }
 
-
-    /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    function populate($req=null) {
-        $this->fromEmail_ = ZMRequest::getParameter('from_email_address');
-        $this->fromName_ = ZMRequest::getParameter('from_name', '');
-        $this->toEmail_ = ZMRequest::getParameter('to_email_address');
-        $this->toName_ = ZMRequest::getParameter('to_name', '');
-        $this->message_ = ZMRequest::getParameter('message', '');
-    }
 
     /**
      * Get the sender email address.

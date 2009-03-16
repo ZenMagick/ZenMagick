@@ -32,12 +32,15 @@
  * @version $Id$
  */
 class ZMTellAFriendController extends ZMController {
+    private $product_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->product_ = null;
     }
 
     /**
@@ -49,34 +52,35 @@ class ZMTellAFriendController extends ZMController {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function handleRequest() { 
+        if (ZMRequest::getProductId()) {
+            $this->product_ = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        } else if (ZMRequest::getModel()) {
+            $this->product_ = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
+        }
+        $this->exportGlobal("zm_product", $this->product_);
+        $this->handleCrumbtrail($this->product_);
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     function processGet() {
-        $product = null;
-        if (ZMRequest::getProductId()) {
-            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        } else if (ZMRequest::getModel()) {
-            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
-        }
-
-        if (null == $product) {
+        if (null == $this->product_) {
             return $this->findView('error');
         }
 
         $account = ZMRequest::getAccount();
-        $emailMessage = ZMLoader::make("EmailMessage");
+        $emailMessage = $this->getFormBean();
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());
             $emailMessage->setFromName($account->getFullName());
         }
-
-        $this->exportGlobal("zm_emailMessage", $emailMessage);
-        $this->exportGlobal("zm_product", $product);
-
-        $this->_handleCrumbtrail($product);
 
         return $this->findView();
     }
@@ -88,28 +92,13 @@ class ZMTellAFriendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $emailMessage = ZMLoader::make("EmailMessage");
-        $emailMessage->populate();
-
-        if (!$this->validate('tell_a_friend')) {
-            $this->exportGlobal("zm_emailMessage", $emailMessage);
-            return $this->findView();
-        }
-
-        $product = null;
-        if (ZMRequest::getProductId()) {
-            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        } else if (ZMRequest::getModel()) {
-            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
-        }
-
-        if (null == $product) {
+        if (null == $this->product_) {
             return $this->findView('error');
         }
 
-        $this->_handleCrumbtrail($product);
+        $emailMessage = $this->getFormBean();
 
-        $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $product, 'office_only_html' => '', 'office_only_text' => '');
+        $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
@@ -117,7 +106,7 @@ class ZMTellAFriendController extends ZMController {
             $session = ZMRequest::getSession();
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
-            $context['zm_product'] = $product;
+            $context['zm_product'] = $this->product_;
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
         }
 
@@ -125,7 +114,7 @@ class ZMTellAFriendController extends ZMController {
         $emailMessage = ZMLoader::make("EmailMessage");
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 
-        return $this->findView('success', array('parameter' => 'products_id='.$product->getId()));
+        return $this->findView('success', array('parameter' => 'products_id='.$this->product_->getId()));
     }
 
     /**
@@ -133,7 +122,7 @@ class ZMTellAFriendController extends ZMController {
      *
      * @param ZMProduct product The current product.
      */
-    function _handleCrumbtrail($product) {
+    protected function handleCrumbtrail($product) {
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());

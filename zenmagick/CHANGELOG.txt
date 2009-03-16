@@ -5,6 +5,7 @@ Release 0.9.6
   validation code
 - convert contact us form to new form bean stuff; get rid of
   contact_us_success view
+- convert tell a friend form to new form bean stuff
 
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)

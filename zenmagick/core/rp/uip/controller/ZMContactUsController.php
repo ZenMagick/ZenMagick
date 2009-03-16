@@ -51,9 +51,8 @@ class ZMContactUsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processRequest() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-        return parent::process();
     }
 
     /**

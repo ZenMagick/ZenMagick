@@ -192,13 +192,13 @@
 
 
     /* tell a friend */
-    $validator->addRules('tell_a_friend', array(
-        array('RequiredRule' ,'from_name', 'Please enter your name.'),
-        array('RequiredRule' ,'from_email_address', 'Please enter your email address.'),
-        array('EmailRule' ,'from_email_address', "Please enter a valid email address."),
-        array('RequiredRule' ,'to_name', "Please enter your friend's name."),
-        array('RequiredRule' ,'to_email_address', "Please enter your friend's email address."),
-        array('EmailRule' ,'to_email_address', "Please enter a valid friend's email address.")
+    $validator->addRules('tellAFriend', array(
+        array('RequiredRule' ,'fromName', 'Please enter your name.'),
+        array('RequiredRule' ,'fromEmail', 'Please enter your email address.'),
+        array('EmailRule' ,'fromEmail', "Please enter a valid email address."),
+        array('RequiredRule' ,'toName', "Please enter your friend's name."),
+        array('RequiredRule' ,'toEmail', "Please enter your friend's email address."),
+        array('EmailRule' ,'toEmail', "Please enter a valid friend's email address.")
     ));
 
 
