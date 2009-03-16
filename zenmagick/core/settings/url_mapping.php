@@ -127,9 +127,11 @@
         $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'ZMReview#', 'formId' => 'review'));
         $urlMapper->setMappingInfo('product_reviews_write', array('viewId' => 'success', 'view' => 'product_reviews', 'viewDefinition' => 'RedirectView'));
 
+        // contact us [form]
+        $urlMapper->setMappingInfo('contact_us', array('view' => 'contact_us', 'formDefinition' => 'ZMContactInfo#', 'formId' => 'contactUs'));
+
         // misc [form]
         $urlMapper->setMapping('tell_a_friend', 'success', 'product_info', 'RedirectView');
-        $urlMapper->setMapping('contact_us', 'success', 'contact_us_success', 'RedirectView');
 
         // advanced search
         $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false'));

@@ -49,15 +49,10 @@ class ZMContactUsController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function processRequest() { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
         return parent::process();
     }
 
@@ -67,16 +62,14 @@ class ZMContactUsController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
-        $contactInfo = ZMLoader::make("ContactInfo");
+    public function processGet() {
+        $contactInfo = $this->getFormBean();
         if (ZMRequest::isRegistered()) {
             $account = ZMRequest::getAccount();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());
 
         }
-        $this->exportGlobal("zm_contact", $contactInfo);
-
         return $this->findView();
     }
 
@@ -86,21 +79,18 @@ class ZMContactUsController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
-        $contactInfo = ZMLoader::make("ContactInfo");
-        $contactInfo->populate();
-        // not available in case of success redirect!
-        $this->exportGlobal("zm_contact", $contactInfo);
-
-        if (!$this->validate('contact_us')) {
-            return $this->findView();
-        }
+    public function processPost() {
+        $contactInfo = $this->getFormBean();
 
         // send email
         $context = array();
         $context['contactInfo'] = $contactInfo;
 
         zm_mail(zm_l10n_get("Message from %s", ZMSettings::get('storeName')), 'contact_us', $context, ZMSettings::get('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
+
+        ZMMessages::instance()->success(zm_l10n_get('Your message has been successfully sent.'));
+        // clear message before displaying form again
+        $contactInfo->setMessage('');
 
         return $this->findView('success');
     }

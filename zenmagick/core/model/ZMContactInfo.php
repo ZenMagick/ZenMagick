@@ -31,11 +31,11 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMContactInfo extends ZMModel {
-    var $id_;
-    var $email_;
-    var $recipient_;
-    var $message_;
+class ZMContactInfo extends ZMObject {
+    private $id_;
+    private $email_;
+    private $recipient_;
+    private $message_;
 
 
     /**
@@ -62,57 +62,60 @@ class ZMContactInfo extends ZMModel {
 
 
     /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    function populate($req=null) {
-        $this->name_ = ZMRequest::getParameter('contactname', '');
-        $this->email_ = ZMRequest::getParameter('email', '');
-        $this->message_ = ZMRequest::getParameter('enquiry', '');
-    }
-
-    /**
      * Get the contact name.
      *
      * @return string The contact name.
      */
-    function getName() { return $this->name_; }
-
-    /**
-     * Get the contact email address.
-     *
-     * @return string The contact email address.
-     */
-    function getEmail() { return $this->email_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Set the contact name.
      *
      * @param string name The contact name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Get the contact email address.
+     *
+     * @return string The contact email address.
+     */
+    public function getEmail() { return $this->email_; }
 
     /**
      * Set the contact email address.
      *
      * @param string email The contact email address.
      */
-    function setEmail($email) { $this->email_ = $email; }
+    public function setEmail($email) { $this->email_ = $email; }
 
     /**
      * Get the recipient.
      *
      * @return string The recipient.
      */
-    function getRecipient() { return $this->recipient_; }
+    public function getRecipient() { return $this->recipient_; }
+
+    /**
+     * Set the recipient.
+     *
+     * @param string recipient The recipient.
+     */
+    public function setRecipient($recipient) { $this->recipient_ = $recipient; }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    function getMessage() { return $this->message_; }
+    public function getMessage() { return $this->message_; }
+
+    /**
+     * Set the message.
+     *
+     * @param string message The message.
+     */
+    public function setMessage($message) { $this->message_ = $message; }
 
 }
 

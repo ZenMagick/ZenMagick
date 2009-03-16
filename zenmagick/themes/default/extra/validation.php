@@ -120,11 +120,11 @@
 
 
     /* contact us */
-    $validator->addRules('contact_us', array(
-        array('RequiredRule' ,'contactname', 'Please enter your name.'),
+    $validator->addRules('contactUs', array(
+        array('RequiredRule' ,'name', 'Please enter your name.'),
         array('RequiredRule' ,'email', 'Please enter your email address.'),
         array('EmailRule' ,'email', 'Please enter a valid email address.'),
-        array('RequiredRule' ,'enquiry', 'Please enter your message.')
+        array('RequiredRule' ,'message', 'Please enter your message.')
     ));
 
 

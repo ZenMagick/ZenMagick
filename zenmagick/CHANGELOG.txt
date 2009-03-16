@@ -3,6 +3,8 @@ Release 0.9.6
 - add form bean code to ZMController
 - convert review form to using the new mapping based form handling and
   validation code
+- convert contact us form to new form bean stuff; get rid of
+  contact_us_success view
 
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)
