@@ -10,6 +10,7 @@ Release 0.9.6
 - add special case to ZMRequest::getParameter() to handle checkbox form fields
   via a _[name] name
 - convert search to using form beans
+- remove unused class ZMReceiver
 
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)

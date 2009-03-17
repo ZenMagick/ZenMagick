@@ -34,10 +34,10 @@
  * @version $Id$
  */
 class ZMGVReceiver extends ZMModel {
-    var $name_;
-    var $email_;
-    var $amount_;
-    var $message_;
+    private $name_;
+    private $email_;
+    private $amount_;
+    private $message_;
 
 
     /**
@@ -45,7 +45,6 @@ class ZMGVReceiver extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-
         $this->name_ = '';
         $this->email_ = '';
         $this->amount_ = 0;
