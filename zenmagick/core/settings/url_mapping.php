@@ -100,6 +100,10 @@
         $urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');
         $urlMapper->setMapping('product_info', 'product_free_shipping_info', 'product_free_shipping_info');
 
+        // gv_redeem
+        $urlMapper->setMappingInfo('gv_redeem', array('formDefinition' => 'GVRedeem', 'formId' => 'gvRedeem'));
+        $urlMapper->setMappingInfo('gv_faq', array('formDefinition' => 'GVRedeem', 'formId' => 'gvRedeem'));
+
         // gv_send
         $urlMapper->setMapping('gv_send', 'success', 'gv_send_confirm');
         $urlMapper->setMapping('gv_send_confirm', 'edit', 'gv_send', 'ForwardView');
@@ -124,19 +128,19 @@
         $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
 
         // review [form]
-        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'ZMReview', 'formId' => 'review'));
+        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'Review', 'formId' => 'review'));
         $urlMapper->setMappingInfo('product_reviews_write', array('viewId' => 'success', 'view' => 'product_reviews', 'viewDefinition' => 'RedirectView'));
 
         // contact us [form]
-        $urlMapper->setMappingInfo('contact_us', array('view' => 'contact_us', 'formDefinition' => 'ZMContactInfo', 'formId' => 'contactUs'));
+        $urlMapper->setMappingInfo('contact_us', array('view' => 'contact_us', 'formDefinition' => 'ContactInfo', 'formId' => 'contactUs'));
 
         // tell a friend [form]
-        $urlMapper->setMappingInfo('tell_a_friend', array('view' => 'tell_a_friend', 'formDefinition' => 'ZMEmailMessage', 'formId' => 'tellAFriend'));
+        $urlMapper->setMappingInfo('tell_a_friend', array('view' => 'tell_a_friend', 'formDefinition' => 'EmailMessage', 'formId' => 'tellAFriend'));
         $urlMapper->setMappingInfo('tell_a_friend', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView'));
 
         // search [forms]
-        $urlMapper->setMappingInfo('search', array('formDefinition' => 'ZMSearchCriteria', 'formId' => 'searchCriteria'));
-        $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false', 'formDefinition' => 'ZMSearchCriteria', 'formId' => 'searchCriteria'));
+        $urlMapper->setMappingInfo('search', array('formDefinition' => 'SearchCriteria', 'formId' => 'searchCriteria'));
+        $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false', 'formDefinition' => 'SearchCriteria', 'formId' => 'searchCriteria'));
     }
 
 ?>

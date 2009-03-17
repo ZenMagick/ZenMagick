@@ -31,10 +31,10 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMGVRedeem extends ZMModel {
-    var $code_;
-    var $amount_;
-    var $redeemed_;
+class ZMGVRedeem extends ZMObject {
+    private $couponCode_;
+    private $amount_;
+    private $redeemed_;
 
 
     /**
@@ -42,8 +42,7 @@ class ZMGVRedeem extends ZMModel {
      */
     function __construct() {
         parent::__construct();
-
-        $this->code_ = '';
+        $this->couponCode_ = '';
         $this->amount_ = 0;
         $this->redeemed_ = false;
     }
@@ -57,56 +56,46 @@ class ZMGVRedeem extends ZMModel {
 
 
     /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    function populate($req=null) {
-        $this->code_ = ZMRequest::getParameter('couponCode', '');
-    }
-
-
-    /**
      * Get the coupon code.
      *
      * @return string The coupon code.
      */
-    function getCode() { return $this->code_; }
+    public function getCouponCode() { return $this->couponCode_; }
 
     /**
      * Get the amount.
      *
      * @return float The amount.
      */
-    function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount_; }
 
     /**
      * Check if the coupon was redeemed succsessfully.
      *
      * @return boolean <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    function isRedeemed() { return $this->redeemed_; }
+    public function isRedeemed() { return $this->redeemed_; }
 
     /**
      * Set the coupon code.
      *
-     * @param string code The coupon code.
+     * @param string couponCode The coupon code.
      */
-    function setCode($code) { $this->code_ = $code; }
+    public function setCouponCode($couponCode) { $this->couponCode_ = $couponCode; }
 
     /**
      * Set the amount.
      *
      * @param float amount The amount.
      */
-    function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount_ = $amount; }
 
     /**
      * Set the redeem flag.
      *
      * @param boolean redeemed <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    function setRedeemed($redeemed) { $this->redeemed_ = $redeemed; }
+    public function setRedeemed($redeemed) { $this->redeemed_ = $redeemed; }
 
 }
 

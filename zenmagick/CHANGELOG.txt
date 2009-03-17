@@ -11,6 +11,9 @@ Release 0.9.6
   via a _[name] name
 - convert search to using form beans
 - remove unused class ZMReceiver
+- fix broken redeem coupon; b:#2689552
+- fix missing decimalPoint property in currencies; b:#2689542
+- convert ZMGVRdeem to form bean
 
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)

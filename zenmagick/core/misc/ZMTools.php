@@ -204,7 +204,6 @@ class ZMTools {
     public static function parseMoney($money) {
         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
         $amount = $currency->parse($money, false);
-
         return $amount;
     }
 

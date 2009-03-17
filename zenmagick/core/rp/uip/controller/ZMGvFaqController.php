@@ -54,13 +54,8 @@ class ZMGvFaqController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        $gvredeem = ZMLoader::make('GVRedeem');
-        $gvredeem->populate();
-        $this->exportGlobal("zm_gvredeem", $gvredeem);
-
         return $this->findView();
     }
 

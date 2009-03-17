@@ -25,15 +25,15 @@
 ?>
 
 <h2><?php zm_l10n("Redeem A Gift Certificate") ?></h2>
-<?php if ($zm_gvredeem->isRedeemed()) { ?>
-  <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($zm_gvredeem->getAmount(), true, false)) ?></p>
+<?php if ($gvRedeem->isRedeemed()) { ?>
+  <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount(), true, false)) ?></p>
 <?php } else { ?>
   <?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
       <legend><?php zm_l10n("Redemption code details") ?></legend>
       <div>
         <label for="gvCode"><?php zm_l10n("Redemption Code") ?></label>
-        <input type="text" id="gvCode" name="couponCode" value="<?php $html->encode($zm_gvredeem->getCode()) ?>" /> 
+        <input type="text" id="gvCode" name="couponCode" value="<?php $html->encode($gvRedeem->getCouponCode()) ?>" /> 
       </div>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>

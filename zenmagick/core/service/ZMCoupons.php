@@ -213,7 +213,7 @@ class ZMCoupons extends ZMObject {
      * @param string remoteIp The redeeming IP addres; default is an empty string.
      */
     public function redeemCoupon($couponId, $accountId, $remoteIp='') {
-        $this->finalizeCoupon($couponId, $accountId, $removeIp);
+        $this->finalizeCoupon($couponId, $accountId, $remoteIp);
         $this->creditCoupon($couponId, $accountId);
     }
 
