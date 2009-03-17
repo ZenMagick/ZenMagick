@@ -332,6 +332,10 @@ class ZMRequest extends ZMObject {
      *
      * <p>This method is evaluating both <code>GET</code> and <code>POST</code> parameter.</p>
      *
+     * <p>There is a special case for when a parameter is not found, but _[name] is found. In this
+     * case <code>false</code> is returned. This allows to handle checkboxes same as any other form element
+     * by adding a hidden field _[name] with the original value.</p>
+     *
      * @param string name The paramenter name.
      * @param mixed default An optional default parameter (if not provided, <code>null</code> is used).
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
@@ -340,9 +344,14 @@ class ZMRequest extends ZMObject {
     public static function getParameter($name, $default=null, $sanitize=true) { 
         if (isset(ZMRequest::instance()->parameter_[$name])) {
             return $sanitize ? ZMTools::sanitize(ZMRequest::instance()->parameter_[$name]) : ZMRequest::instance()->parameter_[$name];
-        } else {
-            return $default;
         }
+
+        // special case for checkboxes/radioboxes?
+        if (isset(ZMRequest::instance()->parameter_['_'.$name])) {
+            // checkbox boolean value 
+            return false;
+        }
+        return $default;
     }
 
     /**
