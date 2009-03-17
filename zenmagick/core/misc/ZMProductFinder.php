@@ -85,14 +85,6 @@ class ZMProductFinder {
     public function execute() {
         $queryDetails = $this->buildQuery($this->criteria_);
         return $queryDetails;
-        /*
-        $results = $queryDetails->query();
-        $productIds = array();
-        foreach ($results as $result) {
-            $productIds[] = $result['productId'];
-        }
-        return $productIds;
-        */
     }
 
     /**
@@ -196,22 +188,22 @@ class ZMProductFinder {
         }
 
         if ($criteria->isIncludeTax()) {
-            if ($pfrom) {
-                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) >= :1#price)";
-                $args['1#price'] = $criteria->getPriceFrom();
+            if (!ZMTools::isEmpty($criteria->getPriceFrom())) {
+                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) >= :1#productPrice)";
+                $args['1#productPrice'] = $criteria->getPriceFrom();
             }
-            if ($pto) {
-                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) <= :2#price)";
-                $args['2#price'] = $criteria->getPriceTo();
+            if (!ZMTools::isEmpty($criteria->getPriceTo())) {
+                $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) <= :2#productPrice)";
+                $args['2#productPrice'] = $criteria->getPriceTo();
             }
         } else {
-            if ($pfrom) {
-                $where .= " AND (p.products_price_sorter >= :1#price)";
-                $args['1#price'] = $criteria->getPriceFrom();
+            if (!ZMTools::isEmpty($criteria->getPriceFrom())) {
+                $where .= " AND (p.products_price_sorter >= :1#productPrice)";
+                $args['1#productPrice'] = $criteria->getPriceFrom();
             }
-            if ($pto) {
-                $where .= " AND (p.products_price_sorter <= :2#price)";
-                $args['2#price'] = $criteria->getPriceTo();
+            if (!ZMTools::isEmpty($criteria->getPriceTo())) {
+                $where .= " AND (p.products_price_sorter <= :2#productPrice)";
+                $args['2#productPrice'] = $criteria->getPriceTo();
             }
         }
 
