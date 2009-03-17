@@ -114,8 +114,8 @@
 
 
     /* advanced search */
-    $validator->addRules('advanced_search', array(
-        array('RequiredRule' ,'keyword', 'Search cannot be empty.')
+    $validator->addRules('searchCriteria', array(
+        array('RequiredRule' ,'keywords', 'Search cannot be empty.')
     ));
 
 

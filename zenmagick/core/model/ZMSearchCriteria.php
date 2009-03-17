@@ -31,7 +31,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMSearchCriteria extends ZMModel {
+class ZMSearchCriteria extends ZMObject {
 
     /**
      * Create new instance.
@@ -54,23 +54,6 @@ class ZMSearchCriteria extends ZMModel {
 
 
     /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    public function populate($req=null) {
-        $this->set('keywords', ZMRequest::getParameter('keyword'));
-        $this->set('priceFrom', ZMRequest::getParameter('pfrom'));
-        $this->set('priceTo', ZMRequest::getParameter('pto'));
-        $this->set('dateFrom', ZMRequest::getParameter('dfrom'));
-        $this->set('dateTo', ZMRequest::getParameter('dto'));
-        $this->set('categoryId', ZMRequest::getParameter('categories_id'), 0);
-        $this->set('includeSubcategories', ZMRequest::getParameter('inc_subcat') == '1');
-        $this->set('manufacturerId', ZMRequest::getParameter('manufacturers_id'), 0);
-        $this->set('includeDescription', ZMRequest::getParameter('search_in_description') == '1');
-    }
-
-    /**
      * Get the keyword(s).
      *
      * @param string default A default value.
@@ -84,7 +67,7 @@ class ZMSearchCriteria extends ZMModel {
      * @param string default A default value.
      * @return boolean <code>true</code> if descriptions should be searched too.
      */
-    public function isIncludeDescription($default=true) { return $this->get('includeDescription', $default); }
+    public function isIncludeDescription($default=true) { return ZMTools::asBoolean($this->get('includeDescription', $default)); }
 
     /**
      * Get the category.
@@ -100,7 +83,7 @@ class ZMSearchCriteria extends ZMModel {
      * @param string default A default value.
      * @return boolean <code>true</code> if subcategories should be searched too.
      */
-    public function isIncludeSubcategories($default=true) { return $this->get('includeSubcategories', $default); }
+    public function isIncludeSubcategories($default=true) { return ZMTools::asBoolean($this->get('includeSubcategories', $default)); }
 
     /**
      * Get the manufacturer.
@@ -127,7 +110,31 @@ class ZMSearchCriteria extends ZMModel {
     public function getDateTo($default='') { return $this->get('dateTo', $default); }
 
     /**
-     * Get the price from.
+     * Set the from date.
+     *
+     * @param string date The from date.
+     */
+    public function setDateFrom($date) { 
+        if (UI_DATE_FORMAT == $date) {
+            $date = '';
+        }
+        $this->set('dateFrom', $date);
+    }
+
+    /**
+     * Set the to date.
+     *
+     * param return string date The to date.
+     */
+    public function setDateTo($date) {
+        if (UI_DATE_FORMAT == $date) {
+            $date = '';
+        }
+        $this->set('dateTo', $date);
+    }
+
+    /**
+     * Set the price from.
      *
      * @param string default A default value.
      * @return string The price from.
@@ -147,7 +154,7 @@ class ZMSearchCriteria extends ZMModel {
      *
      * @return boolean <code>true</code> if included, <code>false</code> if not.
      */
-    public function isIncludeTax() { return $this->get('includeTax'); }
+    public function isIncludeTax() { return ZMTools::asBoolean($this->get('includeTax')); }
 
     /**
      * Get the country for tax calculations (if required).

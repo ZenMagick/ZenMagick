@@ -74,6 +74,13 @@ class ZMSearchController extends ZMController {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function isFormSubmit() {
+        return $this->isAutoSearch();
+    }
+
+    /**
      * Process a HTTP GET request.
      * 
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
@@ -82,9 +89,7 @@ class ZMSearchController extends ZMController {
     public function processGet() {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        $criteria = ZMLoader::make("SearchCriteria");
-        $criteria->populate();
-        $this->exportGlobal("zm_searchCriteria", $criteria);
+        $criteria = $this->getFormBean();
 
         if (!ZMTools::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMLoader::make('ResultList');

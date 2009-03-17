@@ -25,17 +25,17 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php $form->open('search', '', false, array('method' => 'get', 'id' => 'advanced_search')) ?>
+<?php $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">
             <a href="javascript:popupWindow('<?php $net->url(FILENAME_POPUP_SEARCH_HELP) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="askeyword" name="keyword" value="<?php $html->encode($zm_searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
-            <?php $checked = $zm_searchCriteria->isIncludeDescription() ? 'checked="checked" ' : ''; ?>
-            <input type="checkbox" id="search_in_description" name="search_in_description" value="1" <?php echo $checked?>/>
-            <label class="checkboxLabel" for="search_in_description"><?php zm_l10n("Search in product descriptions"); ?></label>
+            <input type="text" id="askeyword" name="keywords" value="<?php $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <?php $checked = $searchCriteria->isIncludeDescription() ? 'checked="checked" ' : ''; ?>
+            <input type="checkbox" id="includeDescription" name="includeDescription" value="1" <?php echo $checked?>/>
+            <label class="checkboxLabel" for="includeDescription"><?php zm_l10n("Search in product descriptions"); ?></label>
         </div>
     </fieldset>
 
@@ -44,30 +44,30 @@
         <fieldset>
             <legend><?php zm_l10n("Category")?></legend>
             <?php $categories = ZMCategories::instance()->getCategories(null, $session->getLanguageId()); ?>
-            <?php $form->idpSelect('categories_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Categories"))), $categories), $zm_searchCriteria->getCategoryId()) ?>
-            <?php $checked = $zm_searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
-            <input type="checkbox" id="inc_subcat" name="inc_subcat" value="1" <?php echo $checked?>/>
-            <label for="inc_subcat"><?php zm_l10n("Include subcategories"); ?></label>
+            <?php $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
+            <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
+            <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" <?php echo $checked?>/>
+            <label for="includeSubcategories"><?php zm_l10n("Include subcategories"); ?></label>
         </fieldset>
 
         <fieldset>
             <legend><?php zm_l10n("Manufacturer"); ?></legend>
             <?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
-            <?php $form->idpSelect('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Manufacturers"))), $manufacturers), $zm_searchCriteria->getManufacturerId()) ?>
+            <?php $form->idpSelect('manufacturerId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
         </fieldset>
 
         <fieldset>
             <legend><?php zm_l10n("Price Range"); ?></legend>
-            <input type="text" id="pfrom" name="pfrom" value="<?php $html->encode($zm_searchCriteria->getPriceFrom()) ?>" />
-            <input type="text" id="pto" name="pto" value="<?php $html->encode($zm_searchCriteria->getPriceTo()) ?>" />
+            <input type="text" id="priceFrom" name="priceFrom" value="<?php $html->encode($searchCriteria->getPriceFrom()) ?>" />
+            <input type="text" id="priceTo" name="priceTo" value="<?php $html->encode($searchCriteria->getPriceTo()) ?>" />
         </fieldset> 
 
         <fieldset> 
             <legend><?php zm_l10n("Date"); ?></legend>
             <?php /* UI_DATE_FORMAT is defined in the theme's i18n.php setup */ ?>
             <?php $onfocus = "if(this.value=='" . UI_DATE_FORMAT . "') this.value='';" ?>
-            <input type="text" id="dfrom" name="dfrom" value="<?php $html->encode($zm_searchCriteria->getDateFrom(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dto" name="dto" value="<?php $html->encode($zm_searchCriteria->getDateTo(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateFrom" name="dateFrom" value="<?php $html->encode($searchCriteria->getDateFrom(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="<?php $html->encode($searchCriteria->getDateTo(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </fieldset> 
     </fieldset> 
 

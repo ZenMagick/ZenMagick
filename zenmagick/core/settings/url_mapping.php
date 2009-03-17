@@ -134,8 +134,9 @@
         $urlMapper->setMappingInfo('tell_a_friend', array('view' => 'tell_a_friend', 'formDefinition' => 'ZMEmailMessage', 'formId' => 'tellAFriend'));
         $urlMapper->setMappingInfo('tell_a_friend', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView'));
 
-        // advanced search
-        $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false'));
+        // search [forms]
+        $urlMapper->setMappingInfo('search', array('formDefinition' => 'ZMSearchCriteria', 'formId' => 'searchCriteria'));
+        $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false', 'formDefinition' => 'ZMSearchCriteria', 'formId' => 'searchCriteria'));
     }
 
 ?>

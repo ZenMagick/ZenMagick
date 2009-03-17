@@ -31,7 +31,7 @@
         <input type="hidden" name="search_in_description" value="1" />
         <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-        <input name="keyword" class="textbox" type="text" value="<?php $html->encode(ZMRequest::getParameter('keyword', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+        <input name="keywords" class="textbox" type="text" value="<?php $html->encode(ZMRequest::getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         <input name="search" class="button" value="Search" type="submit" /><br />
         <a href="<?php $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
       </p>			
