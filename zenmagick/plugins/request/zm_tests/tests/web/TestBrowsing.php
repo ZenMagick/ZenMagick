@@ -7,14 +7,15 @@
  * @version $Id$
  */
 
-class TestBrowsing extends WebTestCase {
-    protected $secure = false;
+class TestBrowsing extends ZMWebTestCase {
+    protected $secure_ = false;
+
     
     /**
      * Test home.
      */
     public function testHomepage() {
-        $this->get(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, 'themeId=default', $this->secure, false));
+        $this->get(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, 'themeId=default', $this->secure_, false));
         $this->assertText('ZenMagick');
     }
 

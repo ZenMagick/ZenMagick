@@ -14,6 +14,7 @@ Release 0.9.6
 - fix broken redeem coupon; b:#2689552
 - fix missing decimalPoint property in currencies; b:#2689542
 - convert ZMGVRdeem to form bean
+- create proper ZMWebTestCase base class for zm_tests
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

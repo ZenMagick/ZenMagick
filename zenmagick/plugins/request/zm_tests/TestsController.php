@@ -97,8 +97,9 @@ class TestsController extends ZMController {
         $allTests = array_merge($allTests, $this->plugin->getTests());
         ksort($allTests);
 
-        // make ZMTestCase available
+        // make available
         ZMLoader::resolve('ZMTestCase');
+        ZMLoader::resolve('ZMWebTestCase');
 
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {

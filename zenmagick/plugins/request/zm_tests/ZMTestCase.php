@@ -48,7 +48,7 @@ class ZMTestCase extends UnitTestCase {
      */
     public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
-            return $this->assert(new ArrayEqualExpectation($first), $second, $message);
+            return $this->assert(ZMLoader::make('ArrayEqualExpectation', $first), $second, $message);
         }
         return parent::assertEqual($first, $second, $message);
     }
@@ -78,44 +78,6 @@ class ZMTestCase extends UnitTestCase {
      */
     public function getTestPlugin() {
         return ZMPlugins::instance()->getPluginForId('zm_tests');
-    }
-
-}
-
-/**
- * Simple expectation class to compare arrays.
- *
- * @package org.zenmagick.plugins.zm_tests
- * @author DerManoMann
- */
-class ArrayEqualExpectation extends EqualExpectation {
-
-    /**
-     * {@inheritDoc}
-     */
-    function __construct($value, $message='%s') {
-        parent::__construct($value, $message);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    function test($compare) {
-        $value = $this->_getValue();
-        if (!is_array($compare) || !is_array($value)) {
-            return false;
-        }
-        if (count($compare) != count($value)) {
-            return false;
-        }
-
-        foreach ($compare as $ii => $cvalue) {
-            if (!array_key_exists($ii, $value) || $value[$ii] != $cvalue) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
 }
