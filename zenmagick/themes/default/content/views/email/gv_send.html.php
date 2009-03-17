@@ -30,14 +30,14 @@
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s,", $zm_gvreceiver->getName()) ?></p>
+<p><?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?></p>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($zm_gvreceiver->getAmount(), false, false), $zm_account->getFullName()) ?></p>
+<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $zm_account->getFullName()) ?></p>
 <p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?></p>
-<?php if ($zm_gvreceiver->hasMessage()) { ?>
+<?php if ($gvReceiver->hasMessage()) { ?>
 <p>
 <?php zm_l10n("%s says:", $zm_account->getFirstName()); ?><br>
-<?php echo $html->text2html($zm_gvreceiver->getMessage()) ?>
+<?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>
 <?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>

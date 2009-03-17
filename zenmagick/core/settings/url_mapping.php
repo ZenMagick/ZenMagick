@@ -105,9 +105,11 @@
         $urlMapper->setMappingInfo('gv_faq', array('formDefinition' => 'GVRedeem', 'formId' => 'gvRedeem'));
 
         // gv_send
-        $urlMapper->setMapping('gv_send', 'success', 'gv_send_confirm');
-        $urlMapper->setMapping('gv_send_confirm', 'edit', 'gv_send', 'ForwardView');
-        $urlMapper->setMapping('gv_send_confirm', 'success', 'account', 'RedirectView');
+        $urlMapper->setMappingInfo('gv_send', array('formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
+        $urlMapper->setMappingInfo('gv_send', array('viewId' => 'success', 'view' => 'gv_send_confirm', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
+        $urlMapper->setMappingInfo('gv_send_confirm', array('formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
+        $urlMapper->setMappingInfo('gv_send_confirm', array('viewId' => 'edit', 'view' => 'gv_send', 'viewDefinition' => 'ForwardView', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
+        $urlMapper->setMappingInfo('gv_send_confirm', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
 
         // account [forms]
         $urlMapper->setMapping('create_account', 'success', 'account', 'RedirectView');

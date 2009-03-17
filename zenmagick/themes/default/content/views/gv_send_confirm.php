@@ -26,16 +26,16 @@
 
 <?php $form->open('gv_send_confirm', null, true, array('onsubmit'=>null)) ?>
     <div>
-        <input type="hidden" name="name" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" />
-        <input type="hidden" name="email" value="<?php $html->encode($zm_gvreceiver->getEmail()) ?>" />
-        <input type="hidden" name="amount" value="<?php $html->encode($zm_gvreceiver->getAmount()) ?>" />
-        <input type="hidden" name="message" value="<?php $html->encode($zm_gvreceiver->getMessage()) ?>" />
+        <input type="hidden" name="name" value="<?php $html->encode($gvReceiver->getName()) ?>" />
+        <input type="hidden" name="email" value="<?php $html->encode($gvReceiver->getEmail()) ?>" />
+        <input type="hidden" name="amount" value="<?php $html->encode($gvReceiver->getAmount()) ?>" />
+        <input type="hidden" name="message" value="<?php $html->encode($gvReceiver->getMessage()) ?>" />
     </div>
     <fieldset>
         <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
 
         <p class="note"><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
-          $utils->formatMoney($zm_gvreceiver->getAmount(), false, false), $zm_gvreceiver->getName(), $zm_gvreceiver->getEmail()) ?>
+          $utils->formatMoney($gvReceiver->getAmount(), false, false), $gvReceiver->getName(), $gvReceiver->getEmail()) ?>
         </p>
 
         <fieldset>

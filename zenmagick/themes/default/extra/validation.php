@@ -209,8 +209,8 @@
     ));
 
 
-    /* gvreceiver object */
-    $validator->addRules('gvreceiverObject', array(
+    /* gvReceiver */
+    $validator->addRules('gvReceiver', array(
         array('RequiredRule' ,'name', 'Please enter a receiver name.'),
         array('RequiredRule' ,'email', 'Please enter the receivers email address.'),
         array('MaxFieldLengthRule' ,'email', TABLE_COUPON_EMAIL_TRACK, 'emailed_to'),

@@ -49,17 +49,11 @@ class ZMGvSendConfirmController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        return parent::process();
     }
 
     /**
@@ -68,13 +62,22 @@ class ZMGvSendConfirmController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
-        $action = ZMRequest::getParameter('action');
+    public function processGet() {
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $this->exportGlobal("zm_gvreceiver", ZMLoader::make("GVReceiver"));
         $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
-
         return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function validateFormBean($formBean) {
+        // need specific view to go back to in case of validation errors
+        $result = parent::validateFormBean($formBean);
+        if (null != $result) {
+            return $this->findView('edit');
+        }
+        return null;
     }
 
     /**
@@ -83,25 +86,19 @@ class ZMGvSendConfirmController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         if (null != ZMRequest::getParameter('edit')) {
             return $this->findView('edit');
         }
 
-        $gvreceiver = ZMLoader::make("GVReceiver");
-        $gvreceiver->populate();
-
-        // revalidate
-        if (!$this->validate('gvreceiverObject', $gvreceiver)) {
-            return $this->findView('edit');
-        }
-
+        // the form data
+        $gvReceiver = $this->getFormBean();
         // the sender account
         $account = ZMRequest::getAccount();
         // current balance
         $balance = $account->getVoucherBalance();
         // coupon amount
-        $amount = $gvreceiver->getAmount(); 
+        $amount = $gvReceiver->getAmount(); 
 
         $currentCurrencyCode = ZMRequest::getCurrencyCode();
         if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
@@ -120,17 +117,17 @@ class ZMGvSendConfirmController extends ZMController {
         $coupon = $coupons->createCoupon($couponCode, $amount, ZMCoupons::TYPPE_GV);
 
         // create coupon tracker
-        $coupons->createCouponTracker($coupon, $account, $gvreceiver);
+        $coupons->createCouponTracker($coupon, $account, $gvReceiver);
 
         // create gv_send email
-        $context = array('zm_account' => $account, 'zm_gvreceiver' => $gvreceiver, 'zm_coupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
-        zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvreceiver->getEmail());
+        $context = array('zm_account' => $account, 'gvReceiver' => $gvReceiver, 'zm_coupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
+        zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvReceiver->getEmail());
         if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
             $session = ZMRequest::getSession();
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
-            $context['zm_gvreceiver'] = $gvreceiver;
+            $context['gvReceiver'] = $gvReceiver;
             $context['zm_coupon'] = $coupon;
             zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, ZMSettings::get('emailAdminGvSend'));
         }

@@ -29,14 +29,14 @@
     <fieldset>
         <legend><?php zm_l10n("EMail Gift Certificate") ?></legend>
         <label for="name"><?php zm_l10n("Receiver Name") ?></label><br />
-        <input type="text" id="name" name="name" size="40" value="<?php $html->encode($zm_gvreceiver->getName()) ?>" /><br />
+        <input type="text" id="name" name="name" size="40" value="<?php $html->encode($gvReceiver->getName()) ?>" /><br />
         <label for="email"><?php zm_l10n("Receiver EMail Address") ?><span>*</span></label><br />
-        <input type="text" id="email" name="email" size="40" value="<?php $html->encode($zm_gvreceiver->getEmail()) ?>" /><br />
+        <input type="text" id="email" name="email" size="40" value="<?php $html->encode($gvReceiver->getEmail()) ?>" /><br />
         <label for="amount"><?php zm_l10n("Gift Certificate Amount") ?><span>*</span></label><br />
         <?php /* Do not convert the amout - either it is 0 or entered by the user; in either case it is fine as  is */ ?>
-        <input type="text" id="amount" name="amount" value="<?php $utils->formatMoney($zm_gvreceiver->getAmount(), false, true) ?>" /><br />
+        <input type="text" id="amount" name="amount" value="<?php $utils->formatMoney($gvReceiver->getAmount(), false, true) ?>" /><br />
         <label for="message"><?php zm_l10n("Message Text") ?></label><br />
-        <textarea id="message" name="message" cols="50" rows="8"><?php $html->encode($zm_gvreceiver->getMessage()) ?></textarea><br />
+        <textarea id="message" name="message" cols="50" rows="8"><?php $html->encode($gvReceiver->getMessage()) ?></textarea><br />
         <p class="man"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>

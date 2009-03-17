@@ -49,30 +49,12 @@ class ZMGvSendController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        return parent::process();
-    }
-
-    /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
-     */
-    function processGet() {
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $this->exportGlobal("zm_gvreceiver", ZMLoader::make("GVReceiver"));
-
-        return $this->findView();
     }
 
     /**
@@ -82,17 +64,14 @@ class ZMGvSendController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processPost() {
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $gvreceiver = ZMLoader::make("GVReceiver");
-        $gvreceiver->populate();
-        $this->exportGlobal("zm_gvreceiver", $gvreceiver);
+        $gvReceiver = $this->getFormBean();
 
         // back from confirmation to edit or not valid
-        if (null != ZMRequest::getParameter('edit') || !$this->validate('gvreceiverObject', $gvreceiver)) {
+        if (null != ZMRequest::getParameter('edit')) {
             return $this->findView();
         }
 
-        // to fakce the email content display
+        // to fake the email content display
         $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
 
         return $this->findView('success');

@@ -33,7 +33,7 @@
  * @package org.zenmagick.model
  * @version $Id$
  */
-class ZMGVReceiver extends ZMModel {
+class ZMGVReceiver extends ZMObject {
     private $name_;
     private $email_;
     private $amount_;
@@ -56,20 +56,6 @@ class ZMGVReceiver extends ZMModel {
      */
     function __destruct() {
         parent::__destruct();
-    }
-
-
-    /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    public function populate($req=null) {
-        $this->name_ = ZMRequest::getParameter('name', '');
-        $this->email_ = ZMRequest::getParameter('email', '');
-        $this->amount_ = ZMRequest::getParameter('amount', 0);
-        $this->amount_ = ZMTools::parseMoney($this->amount_);
-        $this->message_ = ZMRequest::getParameter('message', '');
     }
 
 
@@ -127,7 +113,7 @@ class ZMGVReceiver extends ZMModel {
      *
      * @param string amount The (formatted) amount.
      */
-    public function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount_ = ZMTools::parseMoney($amount); }
 
     /**
      * Set the message.
