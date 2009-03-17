@@ -15,6 +15,11 @@ Release 0.9.6
 - fix missing decimalPoint property in currencies; b:#2689542
 - convert ZMGVRdeem to form bean
 
+Release 0.9.5.1
+- fix broken price filter in product search; b:#2689495
+- fix broken redeem coupon; b:#2689552
+- fix missing decimalPoint property in currencies; b:#2689542
+
 Release 0.9.5
 - add ZMDbUtils::buildTableMapping(...)
 - add new setting 'isEnableDBAutoMapping' to enable auto table mapping;
