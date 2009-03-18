@@ -202,6 +202,7 @@ interface ZMDatabase {
      * @param string table Optional table; if no table is provided, database meta data will be returned;
      *  default is <code>null</code>.
      * @return array Context dependent meta data.
+     * @throws ZMDatabaseException
      */
     public function getMetaData($table=null);
 

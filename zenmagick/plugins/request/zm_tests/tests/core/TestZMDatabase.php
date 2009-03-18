@@ -56,7 +56,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($create_table);
 
             ob_start();
-            $mapping = ZMDbUtils::buildTableMapping('zm_db_test', $database, true);
+            $mapping = ZMDbTableMapper::buildTableMapping('zm_db_test', $database, true);
             $output = ob_get_clean();
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
                 $this->assertEqual($expectedMapping, $mapping, '%s: '.$provider);

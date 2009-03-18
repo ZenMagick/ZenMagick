@@ -478,7 +478,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'datetime':
                 try {
-                    // TODO: creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
+                    // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
                     $value = $rs->getTimestamp($info['column']);
                     if (ZMDatabase::NULL_DATETIME == $value) {
                         $value = null;
@@ -489,7 +489,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 break;
             case 'date':
                 try {
-                    // TODO: creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
+                    // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
                     $value = $rs->getDate($info['column']);
                     if (ZMDatabase::NULL_DATE == $value) {
                         $value = null;

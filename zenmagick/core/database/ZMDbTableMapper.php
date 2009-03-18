@@ -193,6 +193,63 @@ class ZMDbTableMapper extends ZMObject {
     }
 
     /**
+     * Generate a database mapping for the given table.
+     *
+     * @param string table The table name.
+     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
+     * @param boolean print Optional flag to also print the mapping in a form that can be used
+     *  to cut&paste into a mapping file; default is <code>false</code>.
+     * @return array The mapping.
+     */
+    public static function buildTableMapping($table, $database=null, $print=false) {
+        if (null === $database) {
+            $database = ZMRuntime::getDatabase();
+        }
+        // check for prefix
+        if (null === ($tableMetaData = $database->getMetaData($table))) {
+            // try adding the prefix
+            $table = ZM_DB_PREFIX.$table;
+            if (null === ($tableMetaData = $database->getMetaData($table))) {
+                return null;
+            }
+        }
+
+        $mapping = array();
+        ob_start();
+        echo "'".str_replace(ZM_DB_PREFIX, '', $table)."' => array(\n";
+        $first = true;
+        foreach ($tableMetaData as $column) {
+            $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
+            if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
+                $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
+            } 
+
+            $line = 'column=' . $column['name'] . ';type=' . $type;
+            if ($column['key']) {
+                $line .= ';key=true';
+            }
+            if ($column['autoIncrement']) {
+                $line .= ';auto=true';
+            }
+            $mapping[$column['name']] = $line;
+            if (!$first) {
+                echo ",\n";
+            }
+            echo "    '" . $column['name'] . "' => '" . $line . "'";
+            $first = false;
+        }
+        echo "\n),\n";
+
+        $text = ob_get_clean();
+
+        if ($print) {
+            echo $text;
+        }
+
+        return $mapping;
+    }
+
+    /**
      * Handle mixed mapping values.
      *
      * <p>If enabled (via setting 'isEnableDBAutoMapping'), mappings for unknown tables will be build
@@ -210,7 +267,7 @@ class ZMDbTableMapper extends ZMObject {
             if (null === $mapping && ZMSettings::get('isEnableDBAutoMapping')) {
                 //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-                $rawMapping = ZMDbUtils::buildTableMapping($table, $database);
+                $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
                 $mapping = $this->getMapping($table);
             }

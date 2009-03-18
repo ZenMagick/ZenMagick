@@ -381,7 +381,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     protected function prepareStatement($sql, $args, $mapping=null) {
         $PDO_INDEX_SEP = '__';
-        $typeMap = array(
+        static $typeMap = array(
           'integer' => PDO::PARAM_INT, 
           'string' => PDO::PARAM_STR,
           'boolean' => PDO::PARAM_BOOL,
@@ -397,7 +397,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $args = ZMBeanUtils::obj2map($args, array_keys($mapping));
         }
 
-        // PDO doesn't allow '#' in param names, so use '-'
+        // PDO doesn't allow '#' in param names, so use something else
         $nargs = array();
         foreach (array_keys($args) as $name) {
             $nname = str_replace('#', $PDO_INDEX_SEP, $name);
@@ -464,7 +464,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
-                //XXX: is is ok?
                 if ('datetime' == $field['type']) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;

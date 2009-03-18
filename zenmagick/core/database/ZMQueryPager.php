@@ -137,6 +137,8 @@ class ZMQueryPager extends ZMObject {
      *
      * @param ZMResultList resultList The paging handler.
      * @return array A list of results.
+     * @todo Utilizing a ZMResultList is a bit overkill as we need only page number and pagination; 
+     *  this could be handled either by two separate parameters or a sub-interface implemented by ZMResultList
      */
     public function getResults($resultList) {
         $sql = $this->queryDetails_->getSql();
@@ -148,7 +150,6 @@ class ZMQueryPager extends ZMObject {
         if ($offset < 0) { $offset = 0; }
         if (!empty($this->orderBy_)) {
             if (false !== ($pos = strpos($query_lower, 'order by'))) {
-                //$sql = substr($sql, 0, $pos) . 'order by '.$this->orderBy_;
                 // keep original order also
                 $sql = preg_replace('/order by /i', 'order by '.$this->orderBy_.',', $sql);
             } else {
