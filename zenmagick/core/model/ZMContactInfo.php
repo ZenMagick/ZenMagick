@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMContactInfo extends ZMObject {
-    private $id_;
+    private $name_;
     private $email_;
     private $recipient_;
     private $message_;
