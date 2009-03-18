@@ -92,7 +92,7 @@ class ZMObject {
      * @return mixed The value or <code>null</code>.
      */
    public function __get($name) {
-        ZMLogging::instance()->trace('accessing undeclated class property(get): '.$name, ZMLogging::WARN);
+        ZMLogging::instance()->trace('accessing undeclated class property(get): '.$name.' on: '.get_class($this), ZMLogging::WARN);
         if (array_key_exists($name, $this->properties_)) {
             return $this->properties_[$name];
         }
@@ -106,7 +106,7 @@ class ZMObject {
      * @param mixed value The value.
      */
     public function __set($name, $value) {
-        ZMLogging::instance()->trace('accessing undeclated class property(set): '.$name, ZMLogging::WARN);
+        ZMLogging::instance()->trace('accessing undeclated class property(set): '.$name.' on: '.get_class($this), ZMLogging::WARN);
         $this->properties_[$name] = $value;
     }
 
