@@ -49,18 +49,10 @@ class ZMAdvancedSearchController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        $criteria = ZMLoader::make("SearchCriteria");
-        $criteria->populate();
-        $this->exportGlobal("zm_searchCriteria", $criteria);
-
         return $this->findView();
     }
 
