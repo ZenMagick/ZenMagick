@@ -15,6 +15,12 @@ Release 0.9.6
 - fix missing decimalPoint property in currencies; b:#2689542
 - convert ZMGVRdeem to form bean
 - create proper ZMWebTestCase base class for zm_tests
+- converted registration to form bean; requires new versions of phpBB plugins
+  as the nickname field name changed
+- use ZMBeanUtils::obj2map in ZMValidator to convert form beans to maps
+- extend ZMRequiredRule (and the default validation.js) to accept multiple
+  names either as array or comma separated string; validation is successfull
+	if at least one of the fields is not empty
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

@@ -42,17 +42,17 @@ class TestZMPhpBB3 extends ZMTestCase {
      * Test duplicate nickname validation.
      */
     public function testVDuplicateNickname() {
-        $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nick' => 'foobarx')));
-        $this->assertFalse($this->getAdapter()->vDuplicateNickname(array('nick' => 'Anonymous')));
+        $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nickName' => 'foobarx')));
+        $this->assertFalse($this->getAdapter()->vDuplicateNickname(array('nickName' => 'Anonymous')));
     }
 
     /**
      * Test duplicate email validation.
      */
     public function testVDuplicateEmail() {
-        $this->assertTrue($this->getAdapter()->vDuplicateEmail(array('email_address' => 'foo@bar.com')));
+        $this->assertTrue($this->getAdapter()->vDuplicateEmail(array('email' => 'foo@bar.com')));
         $this->testCreateAccount();
-        $this->assertFalse($this->getAdapter()->vDuplicateEmail(array('email_address' => 'martin@mixedmatter.co.nz')));
+        $this->assertFalse($this->getAdapter()->vDuplicateEmail(array('email' => 'martin@mixedmatter.co.nz')));
     }
 
     /**

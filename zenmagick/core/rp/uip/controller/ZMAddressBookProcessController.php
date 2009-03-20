@@ -49,17 +49,11 @@ class ZMAddressBookProcessController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     *{@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
-
-        return parent::process();
     }
 
     /**
@@ -68,27 +62,44 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         $viewName = null;
         if (ZMRequest::getParameter('edit')) {
             ZMCrumbtrail::instance()->addCrumb("Edit");
             $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('edit'));
-            // set the original isPrimary status to avoid hiding the tickbox when selected, but validation fails
-            $address->set('_isPrimary', $address->isPrimary());
-            $this->exportGlobal("zm_address", $address);
-            $viewName = 'address_book_edit';
+            var_dump($address);
+            $this->exportGlobal('address', $address);
+            $viewName = 'edit';
         } else if (ZMRequest::getParameter('delete')) {
             ZMCrumbtrail::instance()->addCrumb("Delete");
             $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('delete'));
-            $this->exportGlobal("zm_address", $address);
-            $viewName = 'address_book_delete';
+            $this->exportGlobal('address', $address);
+            $viewName = 'delete';
         } else {
             ZMCrumbtrail::instance()->addCrumb("New Entry");
-            $this->exportGlobal("zm_address", ZMLoader::make("Address"));
-            $viewName = 'address_book_create';
+            $viewName = 'create';
         }
 
         return $this->findView($viewName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function validateFormBean($formBean) {
+        // need specific view to go back to in case of validation errors
+        $result = parent::validateFormBean($formBean);
+        if (null != $result) {
+            $action = ZMRequest::getParameter('action');
+            $viewName = null;
+            if ('edit' == $action) {
+                $viewName = 'edit';
+            } else if ('process' == $action) {
+                $viewName = 'create';
+            }
+            return $this->findView($viewName);
+        }
+        return null;
     }
 
     /**
@@ -97,7 +108,7 @@ class ZMAddressBookProcessController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         $action = ZMRequest::getParameter('action');
         $view = null;
         if ('update' == $action) {
@@ -119,17 +130,8 @@ class ZMAddressBookProcessController extends ZMController {
      *
      * @return ZMView The result view.
      */
-    function updateAddress() {
-        $address = ZMLoader::make("Address");
-        $address->populate();
-        // preserve original status
-        $address->set('_isPrimary', ZMRequest::getParameter('_isPrimary', false));
-
-        if (!$this->validate('addressObject', $address)) {
-            $this->exportGlobal("zm_address", $address);
-            return $this->findView('address_book_edit');
-        }
-
+    protected function updateAddress() {
+        $address = $this->formBean();
         $address = ZMAddresses::instance()->updateAddress($address);
 
         // process primary setting
@@ -153,7 +155,7 @@ class ZMAddressBookProcessController extends ZMController {
      *
      * @return ZMView The result view.
      */
-    function deleteAddress() {
+    protected function deleteAddress() {
         $account = ZMRequest::getAccount();
         $addressId = ZMRequest::getParameter('addressId', 0);
         if (0 < $addressId) {
@@ -168,16 +170,9 @@ class ZMAddressBookProcessController extends ZMController {
      *
      * @return ZMView The result view.
      */
-    function createAddress() {
-        $address = ZMLoader::make("Address");
-        $address->populate();
+    protected function createAddress() {
+        $address = $this->formBean();
         $address->setAccountId(ZMRequest::getAccountId());
-
-        if (!$this->validate('addressObject', $address)) {
-            $this->exportGlobal("zm_address", $address);
-            return $this->findView('address_book_create');
-        }
-
         $address = ZMAddresses::instance()->createAddress($address);
 
         // process primary setting
@@ -185,12 +180,12 @@ class ZMAddressBookProcessController extends ZMController {
             $account = ZMRequest::getAccount();
             $account->setDefaultAddressId($address->getId());
             ZMAccounts::instance()->updateAccount($account);
+            $address->setPrimary(true);
+            $address = ZMAddresses::instance()->updateAddress($address);
 
             $session = ZMRequest::getSession();
             $session->setAccount($account);
         }
-
-        $this->exportGlobal("zm_address", $address);
 
         // if guest, there is no address book!
         if (ZMRequest::isRegistered()) {

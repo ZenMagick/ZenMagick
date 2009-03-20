@@ -60,9 +60,9 @@ case 'select': return -1 != elem.selectedIndex; break;
 } else { for (var ii=0; ii<elem.length; ++ii) { if (elem[ii].checked) { return true; } } return false; }
 return true;
 }
-function isMinLength(elem, min) { return ('' == elem.value || elem.value.length >= min); }
-function isMaxLength(elem, max) { return ('' == elem.value || elem.value.length <= max); }
-function isRegexp(elem, expr) { return ('' == elem.value || elem.value.match(expr)); }
+function isMinLength(elem, min) { return (!elem || undefined == elem || '' == elem.value || elem.value.length >= min); }
+function isMaxLength(elem, max) { return (!elem || undefined == elem || '' == elem.value || elem.value.length <= max); }
+function isRegexp(elem, expr) { return (!elem || undefined == elem || '' == elem.value || elem.value.match(expr)); }
 function isFieldMatch(elem1, elem2) { return elem1.value == elem2.value; }
 function inArray(elem, arr) { for (key in arr) { if (elem.value == arr[key]) { return true; } } return false;; }
 
@@ -76,7 +76,10 @@ var isValid = true;
 var rules = eval(form.id+"_rules");
 for (var ii=0; ii<rules.length; ++ii) { var rule = rules[ii];
 switch (rule[0]) {
-case 'required': if (!isNotEmpty(form.elements[rule[1]])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
+case 'required': var relems = rule[1].split(','); var isEmpty = true;
+  for (var jj=0; jj<relems.length; ++jj) { if (isNotEmpty(form.elements[relems[jj]])) { isEmpty = false; break; } } 
+  if (isEmpty) { isValid = false; msg += '* ' + rule[2] + '\n'; }
+  break;
 case 'min': if (!isMinLength(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'max': if (!isMaxLength(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;
 case 'regexp': if (!isRegexp(form.elements[rule[1]], rule[3])) { isValid = false; msg += '* ' + rule[2] + '\n'; } break;

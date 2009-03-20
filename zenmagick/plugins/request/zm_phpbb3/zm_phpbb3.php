@@ -116,12 +116,12 @@ class zm_phpbb3 extends ZMPlugin {
             $phpBB = $this->getAdapter();
             // add custom validation rules
             $rules = array(
-                array("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
-                array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
+                array("WrapperRule", 'nickName', 'The entered nickname is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
+                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
             );
             // optionally, make nickname required
             if ($this->get('requireNickname')) {
-                $rules[] = array('RequiredRule', 'nick', 'Please enter a nickname.');
+                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nickname.');
             }
             ZMValidator::instance()->addRules('create_account', $rules);
         } else if ('account_password' == $this->page_) {
@@ -129,11 +129,11 @@ class zm_phpbb3 extends ZMPlugin {
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
-                array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
+                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
             // optionally, make nickname required
             if ($this->get('requireNickname')) {
-                $rules[] = array('RequiredRule', 'nick', 'Please enter a nickname.');
+                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nickname.');
             }
             ZMValidator::instance()->addRules('edit_account', $rules);
             $this->zcoSubscribe();

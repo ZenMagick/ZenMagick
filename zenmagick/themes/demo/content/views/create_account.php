@@ -26,14 +26,14 @@
 <script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#zone_country_id').change(updateState);
+        $('#countryId').change(updateState);
     });
 
     function updateState() {
         // show timer
         $('#state').after('<span id="state_timer"><img src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
 
-        var countryId = $('#zone_country_id').val();
+        var countryId = $('#countryId').val();
         $.ajax({
             type: "GET",
             url: "<?php $net->ajax('country', 'getZonesForCountryId') ?>",
@@ -65,15 +65,15 @@
     }
 </script>
 
-<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id' => 'create_account', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
+<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
             <p>
                 <?php zm_l10n("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
-                <?php $href = '<a href="' . $net->staticPage('privacy', '', false, false) . '">' . zm_l10n_get("here") . '</a>'; ?>
+                <?php $href = '<a href="' . $net->static('privacy', false) . '">' . zm_l10n_get("here") . '</a>'; ?>
                 <?php zm_l10n("The privacy statement can be read %s.", $href) ?><p>
-            <p><input type="checkbox" id="privacy" name="privacy_conditions" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
+            <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
         </fieldset>
     <?php } ?>
     <fieldset>
@@ -90,35 +90,35 @@
                     <tr>
                         <td><?php zm_l10n("Title") ?><span>*</span></td>
                         <td>
-                            <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $zm_account->getGender()) ?> />
+                            <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $registration->getGender()) ?> />
                             <label for="male"><?php zm_l10n("Mr.") ?></label>
-                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f' == $zm_account->getGender()) ?> />
+                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f' == $registration->getGender()) ?> />
                             <label for="female"><?php zm_l10n("Ms.") ?></label>
                         </td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("First Name") ?><span>*</span></td>
-                    <td><input type="text" name="firstname" value="<?php $html->encode($zm_account->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstName" value="<?php $html->encode($registration->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Last Name") ?><span>*</span></td>
-                    <td><input type="text" name="lastname" value="<?php $html->encode($zm_account->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastName" value="<?php $html->encode($registration->getLastName()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php $html->encode($zm_account->getDOB()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
+                        <td><input type="text" name="dob" value="<?php $html->encode($registration->getDob()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php zm_l10n("E-Mail Address") ?><span>*</span></td>
-                    <td><input type="text" name="email_address" value="<?php $html->encode($zm_account->getEmail()) ?>" /></td>
+                    <td><input type="text" name="email" value="<?php $html->encode($registration->getEmail()) ?>" /></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
-                        <td><input type="text" name="nick" value="<?php $html->encode($zm_account->getNickName()) ?>" /></td>
+                        <td><input type="text" name="nickName" value="<?php $html->encode($registration->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -132,33 +132,33 @@
                 <?php if (ZMSettings::get('isAccountCompany')) { ?>
                     <tr>
                         <td><?php zm_l10n("Company Name") ?></td>
-                        <td><input type="text" name="company" value="<?php $html->encode($zm_address->getCompanyName()) ?>" /></td>
+                        <td><input type="text" name="companyName" value="<?php $html->encode($registration->getCompanyName()) ?>" /></td>
                     </tr>
                 <?php } ?>
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="street_address" value="<?php $html->encode($zm_address->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="address" value="<?php $html->encode($registration->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php $html->encode($zm_address->getSuburb()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php $html->encode($registration->getSuburb()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php $html->encode($zm_address->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php $html->encode($registration->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
-                    $country = $zm_address->getCountry(); 
-                    $countryId = 0 != $country->getId() ? $country->getId() : ZMSettings::get('storeCountry');
+                    $countryId = $registration->getCountryId(); 
+                    $countryId = 0 != $countryId ? $countryId : ZMSettings::get('storeCountry');
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php $html->encode($zm_address->getPostcode()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php $html->encode($registration->getPostcode()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php $form->idpSelect('zone_country_id', ZMCountries::instance()->getCountries(), $countryId) ?></td>
+                    <td><?php $form->idpSelect('countryId', ZMCountries::instance()->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
@@ -166,9 +166,9 @@
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
-                                <?php $form->idpSelect('state', $zones, $zm_address->getState()) ?>
+                                <?php $form->idpSelect('state', $zones, $registration->getZoneId()) ?>
                             <?php } else { ?>
-                                <input type="text" name="state" value="<?php $html->encode($zm_address->getState()) ?>" />
+                                <input type="text" name="state" value="<?php $html->encode($registration->getState()) ?>" />
                             <?php } ?>
                         </td>
                     </tr>
@@ -176,26 +176,26 @@
 
                 <tr>
                     <td><?php zm_l10n("Telephone Number") ?><span>*</span></td>
-                    <td><input type="text" name="telephone" value="<?php $html->encode($zm_account->getPhone()) ?>" /></td>
+                    <td><input type="text" name="phone" value="<?php $html->encode($registration->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Fax Number") ?></td>
-                    <td><input type="text" name="fax" value="<?php $html->encode($zm_account->getFax()) ?>" /></td>
+                    <td><input type="text" name="fax" value="<?php $html->encode($registration->getFax()) ?>" /></td>
                 </tr>
 
                  <tr>
                     <td><?php zm_l10n("E-Mail Format") ?><span>*</span></td>
                     <td>
-                        <input type="radio" id="html" name="email_format" value="HTML"<?php $form->checked('HTML', $zm_account->getEmailFormat(), 'HTML') ?> />
+                        <input type="radio" id="html" name="emailFormat" value="HTML"<?php $form->checked('HTML', $registration->getEmailFormat(), 'HTML') ?> />
                         <label for="html"><?php zm_l10n("HTML") ?></label>
-                        <input type="radio" id="text" name="email_format" value="TEXT"<?php $form->checked('TEXT', $zm_account->getEmailFormat(), 'TEXT', true) ?> />
+                        <input type="radio" id="text" name="emailFormat" value="TEXT"<?php $form->checked('TEXT', $registration->getEmailFormat(), 'TEXT', true) ?> />
                         <label for="text"><?php zm_l10n("Text") ?></label>
                     </td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
-                        <td><input type="checkbox" id="newsletter" name="newsletter" value="1"<?php $form->checked($zm_account->isNewsletterSubscriber()) ?> /><label for="newsletter"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
+                        <td><input type="checkbox" id="newsletterSubscriber" name="newsletterSubscriber" value="1"<?php $form->checked($registration->isNewsletterSubscriber()) ?> /><label for="newsletterSubscriber"><?php zm_l10n("Receive Store Newsletter") ?></label></td>
                     </tr>
                 <?php } ?>
 

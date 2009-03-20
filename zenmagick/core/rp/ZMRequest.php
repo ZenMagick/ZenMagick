@@ -128,15 +128,14 @@ class ZMRequest extends ZMObject {
      */
     public static function getParameterMap($sanitize=true) { 
         $request = ZMRequest::instance();
-        if ($sanitize) {
-            $map = array();
-            foreach (array_keys($request->parameter_) as $key) {
-                $map[$key] = $request->getParameter($key);
+        $map = array();
+        foreach (array_keys($request->parameter_) as $key) {
+            if (0 === strpos($key, '_')) {
+                $key = substr($key, 1);
             }
+            $map[$key] = $request->getParameter($key, null, $sanitize);
         }
-
-        // return as is
-        return $request->parameter_;
+        return $map;
     }
 
     /**

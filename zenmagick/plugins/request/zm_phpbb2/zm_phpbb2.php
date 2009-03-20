@@ -90,9 +90,9 @@ class zm_phpbb2 extends ZMPlugin {
         if ('create_account' == $this->page_) {
             // add custom validation rules
             $rules = array(
-                array('RequiredRule', 'nick', 'Please enter a nickname.'),
-                array("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB).', '_zmp_is_not_duplicate_nickname'),
-                array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
+                array('RequiredRule', 'nickName', 'Please enter a nickname.'),
+                array("WrapperRule", 'nickName', 'The entered nickname is already taken (phpBB).', '_zmp_is_not_duplicate_nickname'),
+                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
             );
             ZMValidator::instance()->addRules('create_account', $rules);
             $this->zcoSubscribe();
@@ -100,9 +100,9 @@ class zm_phpbb2 extends ZMPlugin {
             $this->zcoSubscribe();
         } else if ('account_edit' == $this->page_) {
             $rules = array(
-                array('RequiredRule', 'nick', 'Please enter a nickname.'),
-                array("WrapperRule", 'nick', 'The entered nickname is already taken (phpBB).', '_zmp_is_not_duplicate_nickname'),
-                array("WrapperRule", 'email_address', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
+                array('RequiredRule', 'nickName', 'Please enter a nickname.'),
+                array("WrapperRule", 'nickName', 'The entered nickname is already taken (phpBB).', '_zmp_is_not_duplicate_nickname'),
+                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
             );
             ZMValidator::instance()->addRules('edit_account', $rules);
             $this->zcoSubscribe();
@@ -125,9 +125,9 @@ class zm_phpbb2 extends ZMPlugin {
 
             if ('create_account' == $this->page_ && 'success' == $view->getMappingId()) {
                 // account created
-                $email = ZMRequest::getParameter('email_address');
+                $email = ZMRequest::getParameter('email');
                 $password = ZMRequest::getParameter('password');
-                $nickName = ZMRequest::getParameter('nick');
+                $nickName = ZMRequest::getParameter('nickName');
                 $phpBB->phpbb_create_account($nickName, $password, $email);
             }
 
@@ -142,7 +142,7 @@ class zm_phpbb2 extends ZMPlugin {
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = $this->prePostAccount_;
                 if (null != $account) {
-                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::getParameter('email_address'));
+                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::getParameter('email'));
                 }
             }
         }

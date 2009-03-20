@@ -57,8 +57,10 @@
         $urlMapper->setMappingInfo(null, array('viewId' => 'popup_coupon_help', 'viewDefinition' => 'PageView#subdir=popup'));
 
         // address_book_process views
+        $urlMapper->setMappingInfo('address_book_edit', array('formDefinition' => 'Address', 'formId' => 'address'));
+        $urlMapper->setMappingInfo('address_book_edit', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'Address', 'formId' => 'address'));
         $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
-        $urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
+        //$urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
         $urlMapper->setMapping('address_book_process', 'address_book_delete', 'address_book_delete');
         $urlMapper->setMapping('address_book_process', 'success', 'address_book', 'RedirectView');
 
@@ -111,8 +113,11 @@
         $urlMapper->setMappingInfo('gv_send_confirm', array('viewId' => 'edit', 'view' => 'gv_send', 'viewDefinition' => 'ForwardView', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
         $urlMapper->setMappingInfo('gv_send_confirm', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
 
+        // create account [form]
+        $urlMapper->setMappingInfo('create_account', array('view' => 'create_account', 'formDefinition' => 'Registration', 'formId' => 'registration'));
+        $urlMapper->setMappingInfo('create_account', array('viewId' => 'success', 'view' => 'create_account_success', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'Registration', 'formId' => 'registration'));
+
         // account [forms]
-        $urlMapper->setMapping('create_account', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_edit', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_password', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_newsletters', 'success', 'account', 'RedirectView');

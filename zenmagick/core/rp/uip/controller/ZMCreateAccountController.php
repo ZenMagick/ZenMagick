@@ -69,35 +69,11 @@ class ZMCreateAccountController extends ZMController {
     }
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     *{@inheritDoc}
      */
-    public function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        return parent::process();
-    }
-
-    /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
-     */
-    public function processGet() {
-        $account = ZMLoader::make("Account");
-        $account->populate();
-        $address = ZMLoader::make("Address");
-        $address->populate();
-
-        $this->exportGlobal("zm_account", $account);
-        $this->exportGlobal("zm_address", $address);
-
-        return $this->findView();
     }
 
     /**
@@ -107,27 +83,20 @@ class ZMCreateAccountController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processPost() {
-        $account = ZMLoader::make("Account");
-        $account->populate();
+        $registration = $this->getFormBean();
 
-        $address = ZMLoader::make("Address");
-        $address->populate();
-
-        if (!$this->validate('create_account')) {
-            $this->exportGlobal("zm_account", $account);
-            $this->exportGlobal("zm_address", $address);
-            return $this->findView();
-        }
-
-        // hen and egg...
-        $clearPassword = ZMRequest::getParameter('password');
-        $account->setPassword(ZMAuthenticationManager::instance()->encryptPassword(clearPassword));
+        $clearPassword = $registration->getPassword();
+        $account = $registration->getAccount();
+        $account->setPassword(ZMAuthenticationManager::instance()->encryptPassword($clearPassword));
         $account = ZMAccounts::instance()->createAccount($account);
 
+        $address = null;
         if ($this->createDefaultAddress_) {
+            // account and address refer to each other...
+            $address = $registration->getAddress();
+            $address->setPrimary(true);
             $address->setAccountId($account->getId());
             $address = ZMAddresses::instance()->createAddress($address);
-
             $account->setDefaultAddressId($address->getId());
             ZMAccounts::instance()->updateAccount($account);
         }
@@ -136,11 +105,16 @@ class ZMCreateAccountController extends ZMController {
         ZMEvents::instance()->fireEvent($this, ZMEvents::CREATE_ACCOUNT, array(
                 'controller' => $this, 
                 'account' => $account, 
+                'address' => $address, 
                 'clearPassword' => $clearPassword
             )
         );
+
         // in case it got changed
         ZMAccounts::instance()->updateAccount($account);
+        if (null != $address) {
+            ZMAddresses::instance()->updateAddress($address);
+        }
 
         $session = ZMRequest::getSession();
         $session->recreate();

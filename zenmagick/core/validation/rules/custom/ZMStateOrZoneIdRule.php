@@ -27,8 +27,8 @@
 /**
  * Check for either state or zone.
  *
- * <p>This rule will only work if the address object is validated rather than
- * just the request map.</p>
+ * <p>This rule will attempt to make changes to the underlying form bean in order to adjust state/zoneId
+ * if required.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.validation.rules.custom
@@ -61,18 +61,37 @@ class ZMStateOrZoneIdRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     public function validate($req) {
-        if (isset($req['__obj'])) {
-            $address = $req['__obj'];
-
-            if (!ZMSettings::get('isAccountState')) {
-                return true;
-            }
-
-            // TODO: make sure that zone is actually required!
-            return !ZMTools::isEmpty($address->getState()) || 0 != $address->getZoneId();
+        if (!ZMSettings::get('isAccountState')) {
+            return true;
         }
 
-        return true;
+        $state = $req['state'];
+        $zoneId = $req['zoneId'];
+        $zones = ZMCountries::instance()->getZonesForCountryId($req['countryId']);
+        $valid = false;
+        if (0 < count ($zones)) {
+            // need $state to match either an id or name
+            foreach ($zones as $zone) {
+                if ($zone->getName() == $state || $zone->getId() == $zoneId || $zone->getCode() == $state) {
+                    $zoneId = $zone->getId();
+                    $state = '';
+                    $valid = true;
+                    break;
+                }
+            }
+        } else {
+            if (!empty($state)) {
+                $valid = true;
+                $zoneId = 0;
+            }
+        }
+
+        // check for form bean
+        if (array_key_exists('__obj', $req)) {
+            ZMBeanUtils::setAll($req['__obj'], array('state' => $state, 'zoneId' => $zoneId));
+        }
+
+        return $valid;
     }
 
 

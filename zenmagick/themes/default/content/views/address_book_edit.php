@@ -24,8 +24,7 @@
  */
 ?>
 
-<?php $address = $zm_address; ?>
-<?php $form->open(FILENAME_ADDRESS_BOOK_PROCESS, "action=update&edit=".$zm_address->getId()."&addressId=".$zm_address->getId(), true, array('id'=>'address')) ?>
+<?php $form->open('address_book_edit', '', true, array('id'=>'address')) ?>
     <?php include "address.php" ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
 </form>

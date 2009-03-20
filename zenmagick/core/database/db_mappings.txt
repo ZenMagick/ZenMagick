@@ -122,7 +122,7 @@ array(
         'companyName' => 'column=entry_company;type=string',
         'firstName' => 'column=entry_firstname;type=string',
         'lastName' => 'column=entry_lastname;type=string',
-        'address' => 'column=entry_street_address;type=string',
+        'addressLine1' => 'column=entry_street_address;type=string',
         'suburb' => 'column=entry_suburb;type=string',
         'postcode' => 'column=entry_postcode;type=string',
         'city' => 'column=entry_city;type=string',

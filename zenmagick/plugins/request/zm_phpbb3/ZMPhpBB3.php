@@ -91,7 +91,7 @@ class ZMPhpBB3 extends ZMObject {
     public function vDuplicateNickname($req) {
         $sql = "SELECT username FROM " . USERS_TABLE . "
                 WHERE username = :username";
-        return null == $this->getDatabase()->querySingle($sql, array('username' => $req['nick']), USERS_TABLE);
+        return null == $this->getDatabase()->querySingle($sql, array('username' => $req['nickName']), USERS_TABLE);
     }
 
     /**
@@ -101,7 +101,7 @@ class ZMPhpBB3 extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($req) {
-        return null == $this->getAccountForEmail($req['email_address']);
+        return null == $this->getAccountForEmail($req['email']);
     }
 
     /**
@@ -114,7 +114,7 @@ class ZMPhpBB3 extends ZMObject {
         // the current account
         $account = ZMRequest::getAccount();
 
-        if ($account->getEmail() != $req['email_address']) {
+        if ($account->getEmail() != $req['email']) {
             // changed
             return $this->vDuplicateNickname($req);
         }

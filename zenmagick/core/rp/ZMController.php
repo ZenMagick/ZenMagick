@@ -108,7 +108,7 @@ class ZMController extends ZMObject {
         // and validation
         $view = null;
         if (null != $formBean && $this->isFormSubmit()) {
-            // move to function and 
+            // move to function
             if (null != ($view = $this->validateFormBean($formBean))) {
                 ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
             }

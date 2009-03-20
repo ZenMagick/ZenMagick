@@ -108,6 +108,7 @@ class ZMValidator extends ZMObject {
                 $ruleSet->addRule(ZMLoader::make($rule));
             }
         }
+
         return $ruleSet;
     }
 
@@ -132,33 +133,6 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Convert an object to map.
-     *
-     * @param mixed obj An object.
-     * @param ZMRuleSet set The rule set.
-     * @return array A name/value map.
-     */
-    protected function obj2map($obj, $set) {
-        //XXX: use beans?
-        $prefixList = array('get', 'is', 'has');
-
-        $map = array();
-        foreach ($set->getRules() as $rule) {
-            $name = $rule->getName();
-            $ucName = ucwords($name);
-            foreach ($prefixList as $prefix) {
-                $getter = $prefix . $ucName;
-                if (method_exists($obj, $getter)) {
-                    $map[$name] = $obj->$getter();
-                    break;
-                }
-            }
-        }
-
-        return $map;
-    }
-
-    /**
      * Validate the given request/object using the named (id) rule set.
      *
      * <p>If the request parameter is an object, it will be added to the field map using the
@@ -177,7 +151,7 @@ class ZMValidator extends ZMObject {
         }
 
         if (is_object($req)) {
-            $map = $this->obj2map($req, $set);
+            $map = ZMBeanUtils::obj2map($req);
             $map['__obj'] = $req;
         } else {
             $map = $req;

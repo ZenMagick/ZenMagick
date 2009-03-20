@@ -41,7 +41,7 @@ class ZMAddress extends ZMModel {
     private $lastName_;
     private $companyName_;
     private $gender_;
-    private $address_;
+    private $addressLine1_;
     private $suburb_;
     private $postcode_;
     private $city_;
@@ -60,17 +60,19 @@ class ZMAddress extends ZMModel {
         parent::__construct();
 
         $this->addressId_ = 0;
+        $this->accountId_ = 0;
         $this->firstName_ = '';
         $this->lastName_ = '';
         $this->companyName_ = '';
         $this->gender_ = '';
-        $this->address_ = '';
+        $this->addressLine1_ = '';
         $this->suburb_ = '';
         $this->postcode_ = '';
         $this->city_ = '';
         $this->state_ = '';
         $this->zoneId_ = 0;
         $this->country_ = null;
+        $this->countryId_ = 0;
         $this->isPrimary_ = false;
         $this->format_ = 0;
     }
@@ -97,7 +99,7 @@ class ZMAddress extends ZMModel {
         $this->lastName_ = ZMRequest::getParameter('lastname', '');
         $this->companyName_ = ZMRequest::getParameter('company', '');
         $this->gender_ = ZMRequest::getParameter('gender', '');
-        $this->address_ = ZMRequest::getParameter('street_address', '');
+        $this->addressLine1_ = ZMRequest::getParameter('street_address', '');
         $this->suburb_ = ZMRequest::getParameter('suburb', '');
         $this->postcode_ = ZMRequest::getParameter('postcode', '');
         $this->city_ = ZMRequest::getParameter('city', '');
@@ -178,7 +180,7 @@ class ZMAddress extends ZMModel {
      *
      * @return string The address line.
      */
-    public function getAddress() { return $this->address_; }
+    public function getAddressLine1() { return $this->addressLine1_; }
 
     /**
      * Get the suburb.
@@ -290,9 +292,9 @@ class ZMAddress extends ZMModel {
     /**
      * Set the primary address flag.
      *
-     * @param boolean isPrimary The new status.
+     * @param boolean value The new status.
      */
-    public function setPrimary($isPrimary) { $this->isPrimary_ = $isPrimary; }
+    public function setPrimary($value) { $this->isPrimary_ = $value; }
 
     /**
      * Set the address id.
@@ -325,9 +327,9 @@ class ZMAddress extends ZMModel {
     /**
      * Set the address line.
      *
-     * @param string address The address line.
+     * @param string addressLine The address line.
      */
-    public function setAddress($address) { $this->address_ = $address; }
+    public function setAddressLine1($addressLine) { $this->addressLine1_ = $addressLine; }
 
     /**
      * Set the suburb.

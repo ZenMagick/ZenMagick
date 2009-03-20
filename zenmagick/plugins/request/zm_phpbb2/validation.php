@@ -36,7 +36,7 @@
     function _zmp_is_not_duplicate_nickname($req) {
         // use fresh instance to be sure the phpBB db is selected
         $phpBB = new phpBB();
-        return !$phpBB->phpbb_check_for_duplicate_nick($req['nick']) == 'already_exists';
+        return !$phpBB->phpbb_check_for_duplicate_nick($req['nickName']) == 'already_exists';
     }
 
     /**
@@ -49,7 +49,7 @@
     function _zmp_is_not_duplicate_email($req) {
         // use fresh instance to be sure the phpBB db is selected
         $phpBB = new phpBB();
-        return !$phpBB->phpbb_check_for_duplicate_email($req['email_address']) == 'already_exists';
+        return !$phpBB->phpbb_check_for_duplicate_email($req['email']) == 'already_exists';
     }
 
     /**
@@ -63,7 +63,7 @@
         // the current account
         $account = ZMRequest::getAccount();
 
-        if ($account->getNickName() != $req['nick']) {
+        if ($account->getNickName() != $req['nickName']) {
             // changed
             return _zmp_is_not_duplicate_nickname($req);
         }
@@ -82,7 +82,7 @@
         // the current account
         $account = ZMRequest::getAccount();
 
-        if ($account->getEmail() != $req['email_address']) {
+        if ($account->getEmail() != $req['email']) {
             // changed
             return _zmp_is_not_duplicate_email($req);
         }

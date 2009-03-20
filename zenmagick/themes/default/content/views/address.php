@@ -48,21 +48,21 @@
             <?php } ?>
             <tr>
                 <td><?php zm_l10n("First Name") ?><span>*</span></td>
-                <td><input type="text" id="firstname" name="firstname" value="<?php $html->encode($address->getFirstName()) ?>" /></td>
+                <td><input type="text" id="firstName" name="firstName" value="<?php $html->encode($address->getFirstName()) ?>" /></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("Last Name") ?><span>*</span></td>
-                <td><input type="text" id="lastname" name="lastname" value="<?php $html->encode($address->getLastName()) ?>" /></td>
+                <td><input type="text" id="lastName" name="lastName" value="<?php $html->encode($address->getLastName()) ?>" /></td>
             </tr>
             <?php if (ZMSettings::get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php zm_l10n("Company Name") ?></td>
-                    <td><input type="text" id="company" name="company" value="<?php $html->encode($address->getCompanyName()) ?>" /></td>
+                    <td><input type="text" id="companyName" name="companyName" value="<?php $html->encode($address->getCompanyName()) ?>" /></td>
                 </tr>
             <?php } ?>
             <tr>
                 <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                <td><input type="text" id="street_address" name="street_address" value="<?php $html->encode($address->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="<?php $html->encode($address->getAddressLine1()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("Suburb") ?></td>
@@ -78,7 +78,7 @@
             </tr>
              <tr>
                 <td><?php zm_l10n("Country") ?><span>*</span></td>
-                <td><?php $form->idpSelect('zone_country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
+                <td><?php $form->idpSelect('countryId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
@@ -86,17 +86,18 @@
                     <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                     <td>
                         <?php if (0 < count($zones)) { ?>
-                            <?php $form->idpSelect('state', $zones, $address->getZoneId()) ?>
+                            <?php $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
                         <?php } else { ?>
                             <input type="text" name="state" value="<?php $html->encode($address->getState()) ?>" />
                         <?php } ?>
                     </td>
                 </tr>
             <?php } ?>
-            <?php if (!$address->get('_isPrimary')) { ?>
+            <?php if (!$address->isPrimary()) { ?>
                  <tr>
                     <td></td>
                     <td>
+                        <input type="hidden" name="_primary" value="<?php echo $address->isPrimary() ?>" />
                         <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
                         <label for="primary"><?php zm_l10n("Use as primary address") ?></label>
                     </td>
@@ -104,7 +105,7 @@
             <?php } ?>
             <tr class="legend">
                 <td colspan="2">
-                    <input type="hidden" name="_isPrimary" value="<?php echo $address->get('_isPrimary') ?>" />
+                    <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
                     <?php zm_l10n("<span>*</span> Mandatory fields") ?>
                 </td>
             </tr>

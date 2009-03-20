@@ -33,10 +33,15 @@ class ZMRequiredRule extends ZMRule {
     /**
      * Create new required rule.
      *
-     * @param string name The field name.
+     * <p>If a list of names is specified, validation is considered teh existence of at least one.
+     *
+     * @param mixed name The field name or a list (either an array or comma separated string) of names.
      * @param string msg Optional message.
      */
     function __construct($name, $msg=null) {
+        if (is_array($name)) {
+            $name = implode(',', $name);
+        }
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
@@ -55,7 +60,12 @@ class ZMRequiredRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     public function validate($req) {
-        return array_key_exists($this->getName(), $req) && !empty($req[$this->getName()]);
+        foreach (explode(',', $this->getName()) as $name) {
+            if (array_key_exists($name, $req) && !empty($req[$name])) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

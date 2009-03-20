@@ -32,7 +32,7 @@
             <?php if (!$address->isPrimary()) { ?>
                 <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
             <?php } ?>
-            <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
+            <a class="btn" href="<?php $net->url('address_book_edit', 'id='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
         <?php $macro->formatAddress($address) ?>
     </fieldset>
