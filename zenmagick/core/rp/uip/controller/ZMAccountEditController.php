@@ -49,46 +49,37 @@ class ZMAccountEditController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
-
-        return parent::process();
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
-        if (!$this->validate('edit_account')) {
-            return $this->findView();
-        }
+    public function processGet() {
+        $this->exportGlobal("account", ZMRequest::getAccount());
+        return $this->findView();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost() {
         $currentAccount = ZMRequest::getAccount();
+        $account = $this->getFormBean()->getAccount();
 
-        $reqAccount = ZMRequest::getAccount();
-        $reqAccount->populate();
-
-        if ($reqAccount->getEmail() != $currentAccount->getEmail()) {
-            // email changed, so make sure it doesn't exist
-            if (ZMAccounts::instance()->emailExists($reqAccount->getEmail())) {
+        if ($account->getEmail() != $currentAccount->getEmail()) {
+            // XXX: move into validation rule email changed, so make sure it doesn't exist
+            if (ZMAccounts::instance()->emailExists($account->getEmail())) {
                 ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered email address already exists.'));
                 return $this->findView();
             }
         }
 
-        ZMAccounts::instance()->updateAccount($reqAccount);
-
+        ZMAccounts::instance()->updateAccount($account);
         ZMMessages::instance()->success(zm_l10n_get('Your account has been updated.'));
 
         return $this->findView('success');

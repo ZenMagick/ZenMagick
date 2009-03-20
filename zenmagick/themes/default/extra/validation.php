@@ -36,24 +36,24 @@
 
     $validator = ZMValidator::instance();
     /* edit account */
-    $validator->addRules('edit_account', array(
-        array('RequiredRule' ,'firstname', 'Please enter your first name.'),
-        array('MaxFieldLengthRule' ,'firstname', TABLE_CUSTOMERS, 'customers_firstname'),
-        array('RequiredRule' ,'lastname', 'Please enter your last name.'),
-        array('MaxFieldLengthRule' ,'lastname', TABLE_CUSTOMERS, 'customers_lastname'),
-        array('RequiredRule' ,'email_address', 'Please enter your email address.'),
-        array('MaxFieldLengthRule' ,'email_address', TABLE_CUSTOMERS, 'customers_email_address'),
-        array('EmailRule' ,'email_address', 'Please enter a valid email address.'),
-        array('RequiredRule' ,'telephone', "Please enter your telephone details."),
-        array('MaxFieldLengthRule' ,'telephone', TABLE_CUSTOMERS, 'customers_telephone'),
-        array('MinRule' ,'telephone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
+    $validator->addRules('account', array(
+        array('RequiredRule' ,'firstName', 'Please enter your first name.'),
+        array('MaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('RequiredRule' ,'lastName', 'Please enter your last name.'),
+        array('MaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('RequiredRule' ,'email', 'Please enter your email address.'),
+        array('MaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('EmailRule' ,'email', 'Please enter a valid email address.'),
+        array('RequiredRule' ,'phone', "Please enter your telephone details."),
+        array('MaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone'),
+        array('MinRule' ,'phone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     ));
     if (ZMSettings::get('isAccountGender')) {
-        $validator->addRule('edit_account', array('RequiredRule' ,'gender', 'Please choose a gender.'));
+        $validator->addRule('account', array('RequiredRule' ,'gender', 'Please choose a gender.'));
     }
     if (ZMSettings::get('isAccountDOB')) {
-        $validator->addRule('edit_account', array('RequiredRule' ,'dob', 'Please enter your date of birth.'));
-        $validator->addRule('edit_account', array('DateRule' ,'dob', null, 'Please enter a valid date of birth.'));
+        $validator->addRule('account', array('RequiredRule' ,'dob', 'Please enter your date of birth.'));
+        $validator->addRule('account', array('DateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
 
 

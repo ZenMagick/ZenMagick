@@ -119,11 +119,14 @@
         $urlMapper->setMappingInfo('gv_send_confirm', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'GVReceiver', 'formId' => 'gvReceiver'));
 
         // create account [form]
-        $urlMapper->setMappingInfo('create_account', array('view' => 'create_account', 'formDefinition' => 'Registration', 'formId' => 'registration'));
-        $urlMapper->setMappingInfo('create_account', array('viewId' => 'success', 'view' => 'create_account_success', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'Registration', 'formId' => 'registration'));
+        $urlMapper->setMappingInfo('create_account', array('view' => 'create_account', 'formDefinition' => 'RegistrationForm', 'formId' => 'registration'));
+        $urlMapper->setMappingInfo('create_account', array('viewId' => 'success', 'view' => 'create_account_success', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'RegistrationForm', 'formId' => 'registration'));
+
+        // create account [form]
+        $urlMapper->setMappingInfo('account_edit', array('formDefinition' => 'AccountForm', 'formId' => 'account'));
+        $urlMapper->setMappingInfo('account_edit', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'AccountForm', 'formId' => 'account'));
 
         // account [forms]
-        $urlMapper->setMapping('account_edit', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_password', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_newsletters', 'success', 'account', 'RedirectView');
         $urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView');

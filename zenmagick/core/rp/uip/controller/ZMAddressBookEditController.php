@@ -49,9 +49,9 @@ class ZMAddressBookEditController extends ZMController {
 
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest() {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Edit");

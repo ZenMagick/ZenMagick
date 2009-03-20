@@ -25,13 +25,36 @@
 
 
 /**
- * A registration form (bean).
+ * An account form (bean).
  *
  * @author DerManoMann
- * @package org.zenmagick.model.account
+ * @package org.zenmagick.model.forms
  * @version $Id$
  */
-class ZMRegistration extends ZMObject {
+class ZMAccountForm extends ZMObject {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+        // prepopulate with current account
+        $account = ZMRequest::getAccount();
+        // move into ZMBeanUtils to wrap unsets of propertynames, attachedM, etc.
+        $map = ZMBeanUtils::obj2map($account);
+        unset($map['propertyNames']);
+        unset($map['password']);
+        unset($map['attachedMethods']);
+        ZMBeanUtils::setAll($this, $map);
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
 
     /**
      * Get a populated <code>ZMAccount</code> instance.
@@ -52,29 +75,6 @@ class ZMRegistration extends ZMObject {
 
         ZMBeanUtils::setAll($account, $properties);
         return $account;
-    }
-
-    /**
-     * Get a populated <code>ZMAddress</code> instance.
-     *
-     * @return ZMAddress An address.
-     */
-    public function getAddress() {
-        $address = ZMLoader::make('Address');
-        $properties = $this->properties_;
-
-        // don't need these
-        foreach (array(ZM_PAGE_KEY, 'formId', 'action', 'password', 'confirmation') as $name) {
-            unset($properties[$name]);
-        }
-
-        // special treatment
-        if (empty($properties['countryId'])) {
-            $properties['countryId'] = 0;
-        }
-
-        ZMBeanUtils::setAll($address, $properties);
-        return $address;
     }
 
 }
