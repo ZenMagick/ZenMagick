@@ -34,7 +34,7 @@
  * @package org.zenmagick.model.account
  * @version $Id$
  */
-class ZMAddress extends ZMModel {
+class ZMAddress extends ZMObject {
     private $addressId_;
     private $accountId_;
     private $firstName_;
@@ -82,54 +82,6 @@ class ZMAddress extends ZMModel {
      */
     function __destruct() {
         parent::__destruct();
-    }
-
-
-    /**
-     * Populate all available fields from the given request.
-     *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
-     */
-    public function populate($req=null) {
-        $this->addressId_ = ZMRequest::getParameter('addressId', 0);
-        // default to current
-        $current = ZMRequest::getAccount();
-        $this->accountId_ = ZMRequest::getParameter('accountId', (null != $current ? $current->getId() : 0));
-        $this->firstName_ = ZMRequest::getParameter('firstname', '');
-        $this->lastName_ = ZMRequest::getParameter('lastname', '');
-        $this->companyName_ = ZMRequest::getParameter('company', '');
-        $this->gender_ = ZMRequest::getParameter('gender', '');
-        $this->addressLine1_ = ZMRequest::getParameter('street_address', '');
-        $this->suburb_ = ZMRequest::getParameter('suburb', '');
-        $this->postcode_ = ZMRequest::getParameter('postcode', '');
-        $this->city_ = ZMRequest::getParameter('city', '');
-        $this->countryId_ = ZMRequest::getParameter('zone_country_id', 0);
-
-        $this->state_ = '';
-        $this->zoneId_ = 0;
-        // free text or zone id
-        $state = ZMRequest::getParameter('state', '');
-        $zones = ZMCountries::instance()->getZonesForCountryId($this->countryId_);
-        if (0 < count ($zones)) {
-            // need $state to match either an id or name
-            foreach ($zones as $zone) {
-                if ($zone->getName() == $state || $zone->getId() == $state || $zone->getCode() == $state) {
-                    $this->zoneId_ = $zone->getId();
-                    break;
-                }
-            }
-        } else {
-            // need some free text that is not numeric (pretty safe to assume!)
-            if (!empty($state)) {
-                if (!is_numeric($state)) {
-                    $this->state_ = $state;
-                }
-            }
-
-        }
-
-        $this->isPrimary_ = ZMTools::asBoolean(ZMRequest::getParameter('primary', false));
-        $this->format_ = 0;
     }
 
 

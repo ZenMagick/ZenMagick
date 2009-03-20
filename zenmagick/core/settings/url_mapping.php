@@ -56,13 +56,18 @@
         $urlMapper->setMappingInfo(null, array('viewId' => 'popup_cvv_help', 'viewDefinition' => 'PageView#subdir=popup'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'popup_coupon_help', 'viewDefinition' => 'PageView#subdir=popup'));
 
-        // address_book_process views
+        // address_book_edit [form]
         $urlMapper->setMappingInfo('address_book_edit', array('formDefinition' => 'Address', 'formId' => 'address'));
         $urlMapper->setMappingInfo('address_book_edit', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'Address', 'formId' => 'address'));
-        $urlMapper->setMapping('address_book_process', 'address_book_create', 'address_book_create');
-        //$urlMapper->setMapping('address_book_process', 'address_book_edit', 'address_book_edit');
-        $urlMapper->setMapping('address_book_process', 'address_book_delete', 'address_book_delete');
-        $urlMapper->setMapping('address_book_process', 'success', 'address_book', 'RedirectView');
+
+        // address_book_add [form]
+        $urlMapper->setMappingInfo('address_book_add', array('view' => 'address_book_create', 'formDefinition' => 'Address', 'formId' => 'address'));
+        $urlMapper->setMappingInfo('address_book_add', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'Address', 'formId' => 'address'));
+
+        // address_book_delete
+        $urlMapper->setMappingInfo('address_book_delete', array('view' => 'address_book_delete'));
+        $urlMapper->setMappingInfo('address_book_delete', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
+
 
         // index; support for old style category URLs using index
         $urlMapper->setMapping('index', 'category', 'category', 'ForwardView');

@@ -30,11 +30,11 @@
         <?php echo ($address->isPrimary() ? zm_l10n("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
+                <a class="btn" href="<?php $net->url('address_book_delete', 'id='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
             <?php } ?>
             <a class="btn" href="<?php $net->url('address_book_edit', 'id='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
         </div>
         <?php $macro->formatAddress($address) ?>
     </fieldset>
 <?php } ?>
-<div class="btn"><a href="<?php $net->url(FILENAME_ADDRESS_BOOK_PROCESS, '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>
+<div class="btn"><a href="<?php $net->url('address_book_add', '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>

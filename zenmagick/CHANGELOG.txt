@@ -21,6 +21,8 @@ Release 0.9.6
 - extend ZMRequiredRule (and the default validation.js) to accept multiple
   names either as array or comma separated string; validation is successfull
 	if at least one of the fields is not empty
+- remove ZMModel
+- split ZMAddressBookProcessController into individual controller
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

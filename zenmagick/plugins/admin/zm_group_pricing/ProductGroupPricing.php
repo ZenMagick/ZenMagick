@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_group_pricing
  * @version $Id$
  */
-class ProductGroupPricing extends ZMModel {
+class ProductGroupPricing extends ZMObject {
     var $id_;
     var $productId_;
     var $groupId_;
