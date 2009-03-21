@@ -42,6 +42,9 @@ class ZMAccountForm extends ZMObject {
         $account = ZMRequest::getAccount();
         // move into ZMBeanUtils to wrap unsets of propertynames, attachedM, etc.
         $map = ZMBeanUtils::obj2map($account);
+        // TODO: all this should be in a base class (but not ZMModel) - perhaps ZMFormBean in rp?
+        // also, it should be possible/required to specify the fields that should be merged, plus
+        // table names for custom fields (how could we find that out automatically??)
         unset($map['propertyNames']);
         unset($map['password']);
         unset($map['attachedMethods']);
@@ -65,6 +68,7 @@ class ZMAccountForm extends ZMObject {
         $account = ZMLoader::make('Account');
         $properties = $this->properties_;
 
+        // TODO: see comment in c'tor
         // don't need these
         foreach (array(ZM_PAGE_KEY, 'formId', 'action') as $name) {
             unset($properties[$name]);
