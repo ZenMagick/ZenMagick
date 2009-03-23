@@ -33,6 +33,7 @@
  * @author DerManoMann
  * @package org.zenmagick.rp
  * @version $Id$
+ * @todo complete access level via group 
  */
 class ZMSacsMapper extends ZMObject {
     /** Access level registered. */
@@ -41,6 +42,8 @@ class ZMSacsMapper extends ZMObject {
     const GUEST = 'guest';
     /** Access level anonymous. */
     const ANONYMOUS = 'anonymous';
+    /** Access level by group. */
+    const GROUP = 'group';
 
     private $mapping_;
     private $levelMap_;
