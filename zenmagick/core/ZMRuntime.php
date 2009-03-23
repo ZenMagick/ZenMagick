@@ -40,13 +40,6 @@ class ZMRuntime extends ZMObject {
 
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return ZMObject::singleton('Runtime');
-    }
-
-    /**
      * Get the application scope.
      *
      * @return string Either <code>ZMPlugin::SCOPE_STORE</code> or <code>ZMPlugin::SCOPE_ADMIN</code>.

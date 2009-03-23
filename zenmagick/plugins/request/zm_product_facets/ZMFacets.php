@@ -79,7 +79,7 @@ class ZMFacets extends ZMObject {
      */
     protected function getCacheKey() {
         ksort($this->facetBuilder_);
-        $language = ZMRuntime::instance()->getLanguage();
+        $language = ZMRuntime::getLanguage();
         return 'facets-'.serialize($this->facetBuilder_).":".$language->getId();
     }
 

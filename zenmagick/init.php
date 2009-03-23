@@ -112,7 +112,7 @@
             // deprecated legacy globals
             $zm_request = new ZMRequest();
             $zm_loader = ZMLoader::instance();
-            $zm_runtime = ZMRuntime::instance();
+            $zm_runtime = ZMLoader::make('ZMRuntime');
             $zm_layout = ZMTemplateManager::instance();
             $zm_products = ZMProducts::instance();
             $zm_taxes = ZMTaxRates::instance();

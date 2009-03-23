@@ -43,7 +43,7 @@ class ZMFunctionProxy {
             'ZMRequest' => new ZMRequest(),
             'ZMSettings' => new ZMSettings(),
             'ZMLoader' => ZMLoader::instance(),
-            'ZMRuntime' => ZMRuntime::instance(),
+            'ZMRuntime' => new ZMRuntime(),
             'ZMTemplateManager' => ZMTemplateManager::instance(),
             'ZMProducts' => ZMProducts::instance(),
             'ZMTaxRates' => ZMTaxRates::instance(),

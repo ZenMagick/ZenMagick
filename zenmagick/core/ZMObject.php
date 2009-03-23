@@ -54,7 +54,7 @@ class ZMObject {
 
 
     /**
-     * Get a singleton instance of the calling class.
+     * Get a singleton instance of the named class.
      *
      * @param string name The class name.
      * @param string instance If set, register the given object, unless the name is already taken.
