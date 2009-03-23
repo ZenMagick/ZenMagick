@@ -26,6 +26,8 @@ Release 0.9.6
 - convert zm_dispatch (and stopre.php) into ZMDispatcher (still needs
   store.php)
 - remove ZMRuntime::instance()
+- introduce define ZM_BASE_DIR that is going to replace ZM_ROOT in conjunction
+  with Zen Cart path defines (DIR_WS_xxx)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

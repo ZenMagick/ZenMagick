@@ -107,14 +107,14 @@ class ZMRuntime extends ZMObject {
      *
      * @return string The base directory for themes.
      */
-    public static function getThemesDir() { return DIR_FS_CATALOG.ZM_ROOT.'themes/'; }
+    public static function getThemesDir() { return ZM_BASE_DIR.'themes'.DIRECTORY_SEPARATOR; }
 
     /**
      * Return the directory containing all plugins.
      *
      * @return string The base directory for plugins.
      */
-    public static function getPluginsDir() { return DIR_FS_CATALOG.ZM_ROOT.'plugins/'; }
+    public static function getPluginsDir() { return ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR; }
 
     /**
      * Return the base path for theme URIs.
@@ -135,7 +135,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return string The ZenMagick installation folder.
      */
-    public static function getZMRootPath() { return DIR_FS_CATALOG.ZM_ROOT; }
+    public static function getZMRootPath() { return ZM_BASE_DIR; }
 
     /**
      * The application context.

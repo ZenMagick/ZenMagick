@@ -30,6 +30,8 @@
     // start time for stats
     define('ZM_START_TIME', microtime());
 
+    define('ZM_BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
+
     error_reporting(E_ALL^E_NOTICE);
     // hide as to avoid filenames that contain account names, etc.
     @ini_set("display_errors", false);
@@ -37,18 +39,17 @@
     @ini_set("register_globals", false);
 
     // ZenMagick bootstrap
-    if (!IS_ADMIN_FLAG && file_exists(dirname(__FILE__).'/core.php')) {
-        require(dirname(__FILE__).'/core.php');
+    if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_DIR.'core.php')) {
+        require ZM_BASE_DIR.'core.php';
     } else {
-        $_zm_coreDir = dirname(__FILE__).'/core/';
-        require_once($_zm_coreDir."settings/constants.php");
-        require_once($_zm_coreDir."ZMSettings.php");
-        require_once($_zm_coreDir."settings/defaults.php");
-        require_once($_zm_coreDir."ZMObject.php");
-        require_once($_zm_coreDir."ZMLoader.php");
+        require_once ZM_BASE_DIR."core/settings/constants.php";
+        require_once ZM_BASE_DIR."core/ZMSettings.php";
+        require_once ZM_BASE_DIR."core/settings/defaults.php";
+        require_once ZM_BASE_DIR."core/ZMObject.php";
+        require_once ZM_BASE_DIR."core/ZMLoader.php";
 
         // prepare loader
-        ZMLoader::instance()->addPath($_zm_coreDir);
+        ZMLoader::instance()->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->loadStatic();
 
         // preload some stuff
@@ -61,14 +62,14 @@
                   && false === strpos($_zm_file, '/provider/')
                   && false === strpos($_zm_file, '/settings/'))
                 || (false !== strpos($_zm_file, '/admin/') && ZMSettings::get('isAdmin'))) {
-                require_once($_zm_file);
+                require_once $_zm_file;
             }
         }
     }
 
     // load global settings
-    if (file_exists(dirname(__FILE__).'/local.php')) {
-        require_once(dirname(__FILE__).'/local.php');
+    if (file_exists(ZM_BASE_DIR.'local.php')) {
+        require_once ZM_BASE_DIR.'local.php';
     }
 
     // set the default authentication provider
@@ -147,7 +148,7 @@
     // XXX: handle admin?
     if (!ZMSettings::get('isAdmin')) { ob_start(); }
 
-    require_once(DIR_FS_CATALOG.ZM_ROOT.'zc_fixes.php');
+    require_once(ZM_BASE_DIR.'zc_fixes.php');
 
     // always echo in admin
     if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
