@@ -28,6 +28,9 @@ Release 0.9.6
 - remove ZMRuntime::instance()
 - introduce define ZM_BASE_DIR that is going to replace ZM_ROOT in conjunction
   with Zen Cart path defines (DIR_WS_xxx)
+- make loader return files per level (accross the scanned tree); this means
+  all 2nd level files come before any 3rd level file
+- add empty ZMFormBean
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
