@@ -96,7 +96,7 @@
         zm_set_default_sacs_mappings();
 
         // make sure to use SSL if required
-        ZMSacsMapper::instance()->ensureAccessMethod();
+        ZMSacsMapper::instance()->ensureAccessMethod(ZMRequest::getPageName());
 
         // now we can check for a static homepage
         if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 

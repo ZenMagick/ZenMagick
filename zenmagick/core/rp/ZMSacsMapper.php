@@ -94,9 +94,9 @@ class ZMSacsMapper extends ZMObject {
     /**
      * Authorize the current request.
      *
-     * @param string page The page; default is <code>null</code> to use the current page name.
+     * @param string page The page id/name whatever.
      */
-    public function ensureAuthorization($page=null) {
+    public function ensureAuthorization($page) {
         $requiredLevel = $this->getMappingValue($page, 'level', ZMSettings::get('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
@@ -108,7 +108,7 @@ class ZMSacsMapper extends ZMObject {
             $level = $account->getType();
         }
 
-        if (!ZMTools::inArray($level, $this->levelMap_[$requiredLevel])) {
+        if (!in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
             $session = ZMRequest::getSession();
             if (!$session->isValid()) {
@@ -126,9 +126,9 @@ class ZMSacsMapper extends ZMObject {
      * <p>If a page is requested using HTTP and the page is mapped as <em>secure</em>, a
      * redirect using SSL will be performed.</p>
      *
-     * @param string page The page; default is <code>null</code> to use the current page name.
+     * @param string page The page id/name whatever.
      */
-    public function ensureAccessMethod($page=null) {
+    public function ensureAccessMethod($page) {
         $secure = $this->getMappingValue($page, 'level', false);
         if ($secure && !ZMRequest::isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
             ZMRequest::redirect(ZMToolbox::instance()->net->url(null, null, true, false));
@@ -144,10 +144,6 @@ class ZMSacsMapper extends ZMObject {
      * @return mixed The value or the provided default value; default is <code>null</code>.
      */
     protected function getMappingValue($page, $key, $default=null) {
-        if (null == $page) {
-            $page = ZMRequest::getPageName();
-        }
-
         if (!isset($this->mapping_[$page])) {
             return $default;
         }
