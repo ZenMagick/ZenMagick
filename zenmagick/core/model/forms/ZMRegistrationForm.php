@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.forms
  * @version $Id$
  */
-class ZMRegistrationForm extends ZMObject {
+class ZMRegistrationForm extends ZMFormBean {
 
     /**
      * Get a populated <code>ZMAccount</code> instance.

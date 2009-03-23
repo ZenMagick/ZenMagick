@@ -31,7 +31,7 @@
  * @package org.zenmagick.model.forms
  * @version $Id$
  */
-class ZMAccountForm extends ZMObject {
+class ZMAccountForm extends ZMFormBean {
 
     /**
      * Create new instance.
