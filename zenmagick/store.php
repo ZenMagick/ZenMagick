@@ -25,27 +25,7 @@
 ?>
 <?php
 
-    // pick up messages from zen-cart request handling
-    ZMMessages::instance()->_loadMessageStack();
-
-    // main request processor
-    if (ZMSettings::get('isEnableZMThemes')) {
-
-        ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START);
-        zm_dispatch();
-        ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
-
-        // allow plugins and event subscribers to filter/modify the final contents
-        $_zm_args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('contents' => ob_get_clean()));
-        echo $_zm_args['contents'];
-
-        // clear messages if not redirect...
-        ZMRequest::getSession()->clearMessages();
-
-        ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
-
-        require('includes/application_bottom.php');
-        exit;
-    }
+    ZMLoader::resolve('Dispatcher');
+    ZMDispatcher::dispatch();
 
 ?>

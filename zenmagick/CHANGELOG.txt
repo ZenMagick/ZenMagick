@@ -23,6 +23,8 @@ Release 0.9.6
 	if at least one of the fields is not empty
 - remove ZMModel
 - split ZMAddressBookProcessController into individual controller
+- convert zm_dispatch (and stopre.php) into ZMDispatcher (still needs
+  store.php)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

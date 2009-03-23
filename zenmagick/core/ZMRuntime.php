@@ -269,8 +269,11 @@ class ZMRuntime extends ZMObject {
      * <p>Calling this function will end all request handling in an ordered manner.</p>
      */
     public static function finish() {
-        zen_session_close();
-        exit();
+        if (function_exists('session_close')) {
+            session_close();
+        }
+        session_write_close();
+        exit;
     }
 
     /**

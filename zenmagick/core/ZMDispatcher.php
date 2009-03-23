@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2009 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,19 +16,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
+
+/**
+ * ZenMagick dispatcher.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick
+ */
+class ZMDispatcher {
+
     /**
-     * Dispatch the current request.
-     *
-     * @package org.zenmagick
-     * @return boolean Always <code>true</code>.
+     * Dispatch a request.
      */
-    function zm_dispatch() {
+    public static function dispatch() {
+        // pick up messages from zen-cart request handling
+        ZMMessages::instance()->_loadMessageStack();
+
+        // main request processor
+        if (ZMSettings::get('isEnableZMThemes')) {
+
+            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START);
+            self::handleRequest();
+            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
+
+            // allow plugins and event subscribers to filter/modify the final contents
+            $args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('contents' => ob_get_clean()));
+            echo $args['contents'];
+
+            // clear messages if not redirect...
+            ZMRequest::getSession()->clearMessages();
+
+            ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
+
+            ZMRuntime::finish();
+        }
+    }
+
+    /**
+     * Handle a request.
+     */
+    public static function handleRequest() {
         $controller = ZMUrlMapper::instance()->findController(ZMRequest::getPageName());
         ZMRequest::setController($controller);
 
@@ -69,8 +97,8 @@
             } 
             ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_DONE, array('view' => $view));
         }
-
-        return true;
     }
+
+}
 
 ?>
