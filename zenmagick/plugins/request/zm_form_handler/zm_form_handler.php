@@ -81,7 +81,7 @@ class zm_form_handler extends ZMPlugin {
             if ($secure) {
                 // mark as secure
                 foreach ($pages as $page) {
-                    ZMSacsMapper::instance()->setMapping($page, ZMAccounts::ANONYMOUS);
+                    ZMSacsMapper::instance()->setMapping($page, ZMSacsMapper::ANONYMOUS);
                 }
             }
 

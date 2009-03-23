@@ -35,6 +35,13 @@
  * @version $Id$
  */
 class ZMSacsMapper extends ZMObject {
+    /** Access level registered. */
+    const REGISTERED = 'registered';
+    /** Access level guest. */
+    const GUEST = 'guest';
+    /** Access level anonymous. */
+    const ANONYMOUS = 'anonymous';
+
     private $mapping_;
     private $levelMap_;
 
@@ -48,9 +55,9 @@ class ZMSacsMapper extends ZMObject {
         $this->mapping_ = array();
         // which level allows what
         $this->levelMap_ = array(
-            ZMAccounts::ANONYMOUS => array(ZMAccounts::ANONYMOUS, ZMAccounts::GUEST, ZMAccounts::REGISTERED),
-            ZMAccounts::GUEST => array(ZMAccounts::GUEST, ZMAccounts::REGISTERED),
-            ZMAccounts::REGISTERED => array(ZMAccounts::REGISTERED)
+            self::ANONYMOUS => array(self::ANONYMOUS, self::GUEST, self::REGISTERED),
+            self::GUEST => array(self::GUEST, self::REGISTERED),
+            self::REGISTERED => array(self::REGISTERED)
         );
     }
 
@@ -78,15 +85,15 @@ class ZMSacsMapper extends ZMObject {
      * <p><code>[page]#[method]</code></p>
      *
      * <p>Example: To limit access to the <code>getProductForId</code> Ajax method of the catalog controller do:<br>
-     * <code>ZMSacsMapper::instance()->setMapping('ajax_catalog#getProductForId', ZMAccounts::REGISTERED, false);</code></p>
+     * <code>ZMSacsMapper::instance()->setMapping('ajax_catalog#getProductForId', ZMSacsMapper::REGISTERED, false);</code></p>
      *
      * @param string page The page [ie. the request name as in <code>ZM_PAGE_KEY</code>].
-     * @param string authentication The level of authentication required; default is <code>ZMAccounts::REGISTERED</code>.
+     * @param string authentication The level of authentication required; default is <code>ZMSacsMapper::REGISTERED</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      */
-    public function setMapping($page, $authentication=ZMAccounts::REGISTERED, $secure=true) {
+    public function setMapping($page, $authentication=ZMSacsMapper::REGISTERED, $secure=true) {
         if (null == $page) {
-            throw ZMLoader::make('ZMException', "invalid sacs mapping (null controller)");
+            throw ZMLoader::make('ZMException', "invalid sacs mapping (page missing)");
         }
         $this->mapping_[$page] = array('level' => $authentication, 'secure' => $secure);
     }
@@ -103,13 +110,14 @@ class ZMSacsMapper extends ZMObject {
         }
 
         $account = ZMRequest::getAccount();
-        $level = ZMAccounts::ANONYMOUS;
+        $level = ZMSacsMapper::ANONYMOUS;
         if (null != $account) {
             $level = $account->getType();
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
+            //TODO: group check
             $session = ZMRequest::getSession();
             if (!$session->isValid()) {
                 // no valid session
@@ -144,6 +152,10 @@ class ZMSacsMapper extends ZMObject {
      * @return mixed The value or the provided default value; default is <code>null</code>.
      */
     protected function getMappingValue($page, $key, $default=null) {
+        if (null == $page) {
+            throw ZMLoader::make('ZMException', "invalid sacs mapping (page missing)");
+        }
+
         if (!isset($this->mapping_[$page])) {
             return $default;
         }

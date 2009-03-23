@@ -46,18 +46,18 @@
         $sacsMapper->setMapping('account_password');
         $sacsMapper->setMapping('address_book');
         $sacsMapper->setMapping('address_book_process');
-        $sacsMapper->setMapping('checkout_process', ZMAccounts::GUEST);
-        $sacsMapper->setMapping('checkout_confirmation', ZMAccounts::GUEST);
-        $sacsMapper->setMapping('checkout_payment', ZMAccounts::GUEST);
-        $sacsMapper->setMapping('checkout_payment_address', ZMAccounts::GUEST);
-        $sacsMapper->setMapping('checkout_shipping', ZMAccounts::GUEST);
-        $sacsMapper->setMapping('checkout_shipping_address', ZMAccounts::GUEST);
+        $sacsMapper->setMapping('checkout_process', ZMSacsMapper::GUEST);
+        $sacsMapper->setMapping('checkout_confirmation', ZMSacsMapper::GUEST);
+        $sacsMapper->setMapping('checkout_payment', ZMSacsMapper::GUEST);
+        $sacsMapper->setMapping('checkout_payment_address', ZMSacsMapper::GUEST);
+        $sacsMapper->setMapping('checkout_shipping', ZMSacsMapper::GUEST);
+        $sacsMapper->setMapping('checkout_shipping_address', ZMSacsMapper::GUEST);
         $sacsMapper->setMapping('gv_redeem');
         $sacsMapper->setMapping('gv_send');
         $sacsMapper->setMapping('gv_send_confirm');
         $sacsMapper->setMapping('product_reviews_write');
-        $sacsMapper->setMapping('login', ZMAccounts::ANONYMOUS);
-        $sacsMapper->setMapping('create_account', ZMAccounts::ANONYMOUS);
+        $sacsMapper->setMapping('login', ZMSacsMapper::ANONYMOUS);
+        $sacsMapper->setMapping('create_account', ZMSacsMapper::ANONYMOUS);
 
         if (!ZMSettings::get('isTellAFriendAnonymousAllow')) {
             $sacsMapper->setMapping('tell_a_friend');

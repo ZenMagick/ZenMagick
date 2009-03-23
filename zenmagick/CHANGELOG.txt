@@ -31,6 +31,8 @@ Release 0.9.6
 - make loader return files per level (accross the scanned tree); this means
   all 2nd level files come before any 3rd level file
 - add empty ZMFormBean
+- move user types (REGISTERED, GUEST, ANONYMOUS) from ZMAccounts to
+  ZMSacsMapper
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

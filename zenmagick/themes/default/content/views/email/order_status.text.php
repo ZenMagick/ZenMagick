@@ -27,7 +27,7 @@
 
 <?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?>
 
-<?php if (ZMAccounts::REGISTERED == $zm_account->getType()) { ?>
+<?php if (ZMSacsMapper::REGISTERED == $zm_account->getType()) { ?>
 <?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
 <?php } else { ?>
 <?php zm_l10n("You can check the status of your order at: %s.", $net->url('guest_history', '', false, false)) ?>
