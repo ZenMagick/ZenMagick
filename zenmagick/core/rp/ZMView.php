@@ -214,6 +214,25 @@ class ZMView extends ZMObject {
         }
         return false;
     }
+
+    /**
+     * Get the content type.
+     *
+     * @return string The content type.
+     */
+    public function getContentType() {
+        return 'text/html';
+    }
+
+    /**
+     * Get the character encoding.
+     *
+     * @return string The encoding.
+     */
+    public function getEncoding() {
+        return zm_i18n('HTML_CHARSET');
+    }
+
 }
 
 ?>

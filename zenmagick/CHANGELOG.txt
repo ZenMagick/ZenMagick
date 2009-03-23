@@ -34,6 +34,7 @@ Release 0.9.6
 - move user types (REGISTERED, GUEST, ANONYMOUS) from ZMAccounts to
   ZMSacsMapper
 - another small attribute related optimization reducing SQL queries
+- allow the view (ZMView) to control the content type and encoding.
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

@@ -81,13 +81,7 @@ class ZMDispatcher {
 
         // generate response
         if (null != $view) {
-            // make header match the template
-            header('Content-Type: text/html; charset='.zm_i18n('HTML_CHARSET'));
-
-            // common view variables
-            $controller->exportGlobal('zm_view', $view);
-            $controller->exportGlobal('zm_theme', ZMRuntime::getTheme());
-
+            header('Content-Type: '.$view->getContentType().'; charset='.$view->getEncoding());
             ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_START, array('view' => $view));
             try {
                 $view->generate();

@@ -68,6 +68,10 @@ class ZMPageView extends ZMView {
             $$name = $instance;
         }
 
+        // common view variables
+        $zm_view = $this;
+        $zm_theme = ZMRuntime::getTheme();
+
         $layout = $this->getLayout();
         if (null != $layout) {
             include ZMRuntime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix'));
