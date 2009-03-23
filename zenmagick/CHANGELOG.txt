@@ -33,6 +33,7 @@ Release 0.9.6
 - add empty ZMFormBean
 - move user types (REGISTERED, GUEST, ANONYMOUS) from ZMAccounts to
   ZMSacsMapper
+- another small attribute related optimization reducing SQL queries
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

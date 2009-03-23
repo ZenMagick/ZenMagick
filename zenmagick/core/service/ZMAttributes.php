@@ -85,24 +85,41 @@ class ZMAttributes extends ZMObject {
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $languageId);
-        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
-
-        // set up sort order SQL
-        $valuesOrderBy = '';
-        if (ZMSettings::get('isSortAttributeValuesByPrice')) {
-            $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pa.options_values_price';
-        } else {
-            $valuesOrderBy= ' ORDER BY LPAD(pa.products_options_sort_order, 11, "0"), pov.products_options_values_name';
+        $attributes = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
+        if (0 == count($attributes)) {
+            return $attributes;
         }
+
+        // put in map for easy lookup
+        $attributeMap = array();
+        foreach ($attributes as $attribute) {
+            $attributeMap[$attribute->getId()] = $attribute;
+        }
+
         $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
                 FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
                 WHERE pa.products_id = :productId
-                  AND pa.options_id = :attributeId
+                  AND pa.options_id IN (:attributeId)
                   AND pa.options_values_id = pov.products_options_values_id
-                  AND pov.language_id = :languageId " .
-                $valuesOrderBy;
+                  AND pov.language_id = :languageId ";
+        // set up sort order SQL
+        if (ZMSettings::get('isSortAttributeValuesByPrice')) {
+            $sql .= ' ORDER BY pa.options_id, LPAD(pa.products_options_sort_order, 11, "0"), pa.options_values_price';
+        } else {
+            $sql .= ' ORDER BY pa.options_id, LPAD(pa.products_options_sort_order, 11, "0"), pov.products_options_values_name';
+        }
 
-        $attributes = array();
+        // read all in one go
+        $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $languageId);
+        $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
+            $attribute = $attributeMap[$value->getAttributeId()];
+            $value->setAttribute($attribute);
+            $value->setTaxRate($product->getTaxRate());
+            $attribute->addValue($value);
+        }
+
+        /*
         foreach ($results as $attribute) {
             $args = array('attributeId' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
             $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
@@ -115,6 +132,7 @@ class ZMAttributes extends ZMObject {
             // add to attributes
             $attributes[] = $attribute;
         }
+        */
 
         return $attributes;
     }
