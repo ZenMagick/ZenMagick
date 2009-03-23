@@ -90,6 +90,8 @@ class ZMDispatcher {
                 //TODO: what to do?
             } 
             ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_DONE, array('view' => $view));
+        } else {
+            ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }
     }
 

@@ -14,7 +14,6 @@ class TestZMProductFinder extends ZMTestCase {
      */
     public function test() {
         $criteria = ZMLoader::make('SearchCriteria');
-        //$criteria->populate();
         //$criteria->setIncludeTax(true);
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);

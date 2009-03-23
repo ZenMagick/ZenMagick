@@ -53,7 +53,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code>  or <code>null</code>.
      */
-    function checkCart() {
+    protected function checkCart() {
         $shoppingCart = ZMRequest::getShoppingCart();
         if ($shoppingCart->isEmpty()) {
             return $this->findView("empty_cart");
@@ -68,20 +68,14 @@ class ZMCheckoutPaymentAddressController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $shoppingCart = ZMRequest::getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);
-
-        return parent::process();
     }
 
     /**
@@ -90,7 +84,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    public function processGet() {
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }
@@ -99,7 +93,6 @@ class ZMCheckoutPaymentAddressController extends ZMController {
         $this->exportGlobal("zm_addressList", $addressList);
 
         $address = ZMLoader::make("Address");
-        $address->populate();
         $address->setPrimary(0 == count($addressList));
         $this->exportGlobal("zm_address", $address);
 
@@ -112,7 +105,7 @@ class ZMCheckoutPaymentAddressController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processPost() {
+    public function processPost() {
         if (null !== ($view = $this->checkCart())) {
             return $view;
         }
