@@ -119,21 +119,6 @@ class ZMAttributes extends ZMObject {
             $attribute->addValue($value);
         }
 
-        /*
-        foreach ($results as $attribute) {
-            $args = array('attributeId' => $attribute->getId(), 'productId' => $product->getId(), 'languageId' => $languageId);
-            $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
-                $value->setAttribute($attribute);
-                $value->setTaxRate($product->getTaxRate());
-                $attribute->addValue($value);
-            }
-
-            // add to attributes
-            $attributes[] = $attribute;
-        }
-        */
-
         return $attributes;
     }
 
