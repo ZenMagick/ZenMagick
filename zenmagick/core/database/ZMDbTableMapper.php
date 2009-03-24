@@ -268,7 +268,7 @@ class ZMDbTableMapper extends ZMObject {
                 //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
-                $this->setMappingForTable($table, $rawMapping);
+                $this->setMappingForTable(str_replace(ZM_DB_PREFIX, '', $table), $rawMapping);
                 $mapping = $this->getMapping($table);
             }
             return $mapping;
