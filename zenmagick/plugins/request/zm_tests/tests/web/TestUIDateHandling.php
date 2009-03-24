@@ -10,6 +10,13 @@
 class TestUIDateHandling extends ZMTestCase {
 
     /**
+     * {@inheritDoc}
+     */
+    public function skip() {
+        $this->skipIf(true, 'obsolete in this form due to form bean changes');
+    }
+
+    /**
      * Test date handling.
      */
     public function testDates() {
