@@ -29,8 +29,8 @@
  * <p>If style is <em>checkbox</em>, the custom property <code>label</code> might be set to override the use
  * of the title as label text.</p>
  *
- * <p>Radiobox and select label for <code>true</code> and <code>false</code> may be set via <em>label.true</em> and
- * <em>label.false</em>, respectively.</p>
+ * <p>Radiobox and select label for <code>true</code> and <code>false</code> may be set via <em>label_true</em> and
+ * <em>label_false</em>, respectively.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.widgets.form.widget
@@ -45,8 +45,9 @@ class ZMBooleanFormWidget extends ZMFormWidget {
         parent::__construct();
         // defaults
         $this->set('style', 'checkbox');
-        $this->set('label.true', 'True');
-        $this->set('label.false', 'False');
+        // use underscore as zc sanitize converts '.' to '_'
+        $this->set('label_true', 'True');
+        $this->set('label_false', 'False');
     }
 
     /**
@@ -127,9 +128,9 @@ class ZMBooleanFormWidget extends ZMFormWidget {
 
         ob_start();
         echo '<input type="radio" id="'.$idBase.'_true" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
-        echo ' <label for="'.$idBase.'_true">'.$html->encode(zm_l10n_get($this->get('label.true')), false).'</label>';
+        echo ' <label for="'.$idBase.'_true">'.$html->encode(zm_l10n_get($this->get('label_true')), false).'</label>';
         echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? $checked : '').$slash.'>';
-        echo ' <label for="'.$idBase.'_false">'.$html->encode(zm_l10n_get($this->get('label.false')), false).'</label>';
+        echo ' <label for="'.$idBase.'_false">'.$html->encode(zm_l10n_get($this->get('label_false')), false).'</label>';
         return ob_get_clean();
     }
 
@@ -148,8 +149,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
 
         ob_start();
         echo '<select '.(!empty($id) ? ' id="'.$id.'"' : '').' name="'.$name.'">';
-        echo '  <option value="true"'.(!$value ? $selected : '').'>'.$html->encode(zm_l10n_get($this->get('label.true')), false).'</option>';
-        echo '  <option value="false"'.(!$value ? $selected : '').'>'.$html->encode(zm_l10n_get($this->get('label.false')), false).'</option>';
+        echo '  <option value="true"'.(!$value ? $selected : '').'>'.$html->encode(zm_l10n_get($this->get('label_true')), false).'</option>';
+        echo '  <option value="false"'.(!$value ? $selected : '').'>'.$html->encode(zm_l10n_get($this->get('label_false')), false).'</option>';
         echo '</select>';
         return ob_get_clean();
     }
