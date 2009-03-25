@@ -166,8 +166,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
         $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
-        $stmt->execute();
-        $rows = $stmt->fetchAll();
+        try {
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
 
         $results = array();
         foreach ($rows as $result) {
@@ -217,9 +221,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $stmt = $this->prepareStatement($sql, $model, $mapping);
-        $stmt->execute();
-        $newId = $this->pdo_->lastInsertId();
+        try {
+            $stmt = $this->prepareStatement($sql, $model, $mapping);
+            $stmt->execute();
+            $newId = $this->pdo_->lastInsertId();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
@@ -269,8 +277,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $stmt = $this->prepareStatement($sql, $model, $mapping);
-        $stmt->execute();
+        try {
+            $stmt = $this->prepareStatement($sql, $model, $mapping);
+            $stmt->execute();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
+
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -319,8 +332,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $stmt = $this->prepareStatement($sql, $model, $mapping);
-        $stmt->execute();
+        try {
+            $stmt = $this->prepareStatement($sql, $model, $mapping);
+            $stmt->execute();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
+
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -331,8 +349,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
-        $stmt = $this->prepareStatement($sql, $data, $mapping);
-        $stmt->execute();
+        try {
+            $stmt = $this->prepareStatement($sql, $data, $mapping);
+            $stmt->execute();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
+
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $rows;
     }
@@ -352,9 +375,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
-        $stmt = $this->prepareStatement($sql, $args, $mapping);
-        $stmt->execute();
+        try {
+            $stmt = $this->prepareStatement($sql, $args, $mapping);
+            $stmt->execute();
         $rows = $stmt->fetchAll();
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
 
         $results = array();
         foreach ($rows as $result) {
@@ -488,6 +515,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             try {
                 $columns = $this->pdo_->query("SHOW COLUMNS FROM " . $table, PDO::FETCH_ASSOC);
             } catch (PDOException $pdoe) {
+                ZMLogging::instance()->dump($pdoe);
                 return null;
             }
             foreach($columns as $key => $col) {
