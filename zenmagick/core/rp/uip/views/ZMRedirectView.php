@@ -32,6 +32,7 @@ class ZMRedirectView extends ZMView {
     protected $secure_;
     protected $url_;
     protected $parameter_;
+    protected $status_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMRedirectView extends ZMView {
         $this->secure_ = $secure;
         $this->url_ = null;
         $this->parameter_ = '';
+        $this->status_ = 302;
     }
 
     /**
@@ -77,7 +79,7 @@ class ZMRedirectView extends ZMView {
             $url = ZMToolbox::instance()->net->url($this->view_, $this->parameter_, $this->secure_, false);
         }
 
-        ZMRequest::redirect($url);
+        ZMRequest::redirect($url, $this->status_);
     }
 
     /**
@@ -109,6 +111,16 @@ class ZMRedirectView extends ZMView {
         $this->url_ = $url;
     }
 
+    /**
+     * Set alternative status code.
+     *
+     * <p>Allows to set an alternative 3xx status code for the redirect.</p>
+     *
+     * @param int status HTTP status code.
+     */
+    public function setStatus($status) {
+        $this->status_ = (int)$status;
+    }
 }
 
 ?>

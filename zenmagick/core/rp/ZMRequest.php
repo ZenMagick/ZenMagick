@@ -457,8 +457,9 @@ class ZMRequest extends ZMObject {
      * able to display them after the redirect.</p>
      *
      * @param string url A fully qualified url.
+     * @param int status Optional status; default is <em>302 - FOUND</em>.
      */
-    public static function redirect($url) {
+    public static function redirect($url, $status=302) {
         if (ZMMessages::instance()->hasMessages()) {
             $session = ZMRequest::getSession();
             $session->setMessages(ZMMessages::instance()->getMessages());
@@ -467,7 +468,7 @@ class ZMRequest extends ZMObject {
         $url = str_replace('&amp;', '&', $url);
 
         ZMLogging::instance()->log('redirect url: ' . $url, ZMLogging::TRACE);
-        header('Location: ' . $url);
+        header('Location: ' . $url, true, $status);
         ZMRuntime::finish();
     }
 
