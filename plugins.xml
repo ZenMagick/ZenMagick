@@ -189,6 +189,11 @@
             <param name="plugin.name" value="zm_toggle_zm_themes" />
             <param name="plugin.version" value="${plugins.zm_toggle_zm_themes.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_snap_affiliates" />
+            <param name="plugin.version" value="${plugins.zm_snap_affiliates.version}" />
+        </antcall>
     </target>
 
     
