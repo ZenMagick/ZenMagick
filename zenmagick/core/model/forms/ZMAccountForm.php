@@ -38,6 +38,23 @@ class ZMAccountForm extends ZMFormBean {
      */
     function __construct() {
         parent::__construct();
+        $this->addFields('gender,firstName,lastName,dob,email,nickName,companyName,phone,fax,emailFormat');
+        $this->addTables('customers,customers_info');
+        $this->loadAccount();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Init with current account settings.
+     */
+    private function loadAccount() {
         // prepopulate with current account
         $account = ZMRequest::getAccount();
         // move into ZMBeanUtils to wrap unsets of propertynames, attachedM, etc.
@@ -50,14 +67,6 @@ class ZMAccountForm extends ZMFormBean {
         unset($map['attachedMethods']);
         ZMBeanUtils::setAll($this, $map);
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get a populated <code>ZMAccount</code> instance.

@@ -269,7 +269,11 @@ class ZMController extends ZMObject {
         if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
             if (null !== $mapping['formDefinition']) {
                 $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
-                ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
+                if ($this->formBean_ instanceof ZMFormBean) {
+                    $this->formBean_->populate();
+                } else {
+                    ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
+                }
             }
         }
 
