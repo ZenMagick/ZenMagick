@@ -23,55 +23,15 @@
  * $Id$
  */
 ?>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#countryId').change(updateState);
-    });
-
-    function updateState() {
-        // show timer
-        $('#state').after('<span id="state_timer"><img src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
-
-        var countryId = $('#countryId').val();
-        $.ajax({
-            type: "GET",
-            url: "<?php $net->ajax('country', 'getZonesForCountryId') ?>",
-            data: "countryId="+countryId,
-            success: function(msg) {
-                // remove timer
-                $('#state_timer').remove();
-
-                var json = eval('(' + msg + ')');
-                if (0 < json.length) {
-                    var state_value = $('#state').val();
-                    var state_select = '<select id="state" name="state">';
-                    state_select += '<option value=""><?php zm_l10n("-- Please select a state --") ?></option>';
-                    for (var ii=0; ii < json.length; ++ii) {
-                        var option = json[ii];
-                        var selected = state_value == option ? ' selected="selected"' : '';
-                        state_select += '<option value="'+option.id+'"'+selected+'>'+option.name+'</option>';
-                    }
-                    state_select += '</select>';
-
-                    // replace with dropdown
-                    $('#state').after(state_select).remove();
-                } else {
-                    // free text
-                    $('#state').after('<input type="text" id="state" name="state" value="">').remove();
-                }
-            }
-        });
-    }
-</script>
-
+<?php ZMTemplateManager::instance()->jsFile('jquery.js', ZMTemplateManager::PAGE_NOW) ?>
+<script type="text/javascript"><?php include $zm_theme->themeFile("dynamicState.js") ?></script>
 <?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
             <p>
                 <?php zm_l10n("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
-                <?php $href = '<a href="' . $net->static('privacy', false) . '">' . zm_l10n_get("here") . '</a>'; ?>
+                <?php $href = '<a href="' . $net->staticPage('privacy', false) . '">' . zm_l10n_get("here") . '</a>'; ?>
                 <?php zm_l10n("The privacy statement can be read %s.", $href) ?><p>
             <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
         </fieldset>
@@ -138,7 +98,7 @@
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="address" value="<?php $html->encode($registration->getAddress()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="addressLine1" value="<?php $html->encode($registration->getAddressLine1()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
@@ -166,7 +126,7 @@
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
-                                <?php $form->idpSelect('state', $zones, $registration->getZoneId()) ?>
+                                <?php $form->idpSelect('zoneId', $zones, $registration->getZoneId()) ?>
                             <?php } else { ?>
                                 <input type="text" name="state" value="<?php $html->encode($registration->getState()) ?>" />
                             <?php } ?>

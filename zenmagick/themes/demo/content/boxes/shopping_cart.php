@@ -24,8 +24,8 @@
  */
 ?>
 
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("interface.js") ?>"></script>
+<?php ZMTemplateManager::instance()->jsFile('jquery.js', ZMTemplateManager::PAGE_BOTTOM) ?>
+<?php ZMTemplateManager::instance()->jsFile('interface.js', ZMTemplateManager::PAGE_BOTTOM) ?>
 
 <script type="text/javascript">
     // callback used by drop handler to update cart contents

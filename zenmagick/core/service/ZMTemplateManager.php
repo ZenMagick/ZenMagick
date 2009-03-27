@@ -34,9 +34,9 @@
  * @version $Id$
  */
 class ZMTemplateManager extends ZMObject {
-    const PAGE_TOP = "page_top";
-    const PAGE_BOTTOM = "page_bottom";
-    const PAGE_NOW = "page_now";
+    const PAGE_TOP = 'top';
+    const PAGE_BOTTOM = 'bottom';
+    const PAGE_NOW = 'now';
 
     private $leftColEnabled_;
     private $rightColEnabled_;
@@ -57,6 +57,7 @@ class ZMTemplateManager extends ZMObject {
         $this->leftColBoxes_ = null;
         $this->rightColBoxes_ = null;
         $this->tableMeta_ = array();
+        $this->cssFiles_ = array();
         $this->jsFiles_ = array();
         ZMEvents::instance()->attach($this);
     }
@@ -238,11 +239,14 @@ class ZMTemplateManager extends ZMObject {
 
         $jsTop = '';
         $jsBottom = '';
-        foreach ($this->jsFiles_ as $info) {
-            if (ZMTemplateManager::PAGE_TOP == $info['position']) {
-                $jsTop .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
-            } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
-                $jsBottom .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+        foreach ($this->jsFiles_ as $filename => $info) {
+            if (!$info['done']) {
+                if (ZMTemplateManager::PAGE_TOP == $info['position']) {
+                    $jsTop .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
+                    $jsBottom .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                }
+                $this->jsFiles_[$filename]['done'] = true;
             }
         }
 
@@ -270,8 +274,25 @@ class ZMTemplateManager extends ZMObject {
      * @param string position Optional position; either <code>PAGE_TOP</code> (default), or <code>PAGE_BOTTOM</code>.
      */
     public function jsFile($filename, $position=ZMTemplateManager::PAGE_TOP) {
-        //XXX TODO: PAGE_NOW
-        $this->jsFiles_[$filename] = array('filename' => $filename, 'postion' => $postion);
+        if (array_key_exists($filename, $this->jsFiles_)) {
+            // check if we need to do anything else or update the position
+            if ($this->jsFiles_[$filename]['done']) {
+                ZMLogging::instance()->log('skipping '.$filename.' as already done', ZMLogging::TRACE);
+                return;
+            }
+            if (ZMTemplateManager::PAGE_BOTTOM == $this->jsFiles_[$filename]['position']) {
+                if (ZMTemplateManager::PAGE_TOP == $position) {
+                    ZMLogging::instance()->log('upgrading '.$filename.' to PAGE_TOP', ZMLogging::TRACE);
+                    return;
+                }
+            }
+            // either it's now or same as already registered
+        }
+        $this->jsFiles_[$filename] = array('filename' => $filename, 'position' => $position, 'done' => false);
+        if (ZMTemplateManager::PAGE_NOW == $position) {
+            $this->jsFiles_[$filename]['done'] = true;
+            echo '<script type="text/javascript" src="',ZMRuntime::getTheme()->themeURL($filename, false),'"></script>',"\n";
+        }
     }
 
 }
