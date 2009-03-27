@@ -28,7 +28,10 @@ $(document).ready(function() {
 
 function updateState() {
     // show timer
-    $('#state').after('<span id="state_timer"><img src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
+    var zoneId = $('#zoneId');
+    var state = $('#state');
+    var sz = 0 < zoneId.size() ? zoneId : state;
+    sz.after('<span id="state_timer"><img src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
 
     var countryId = $('#countryId').val();
     $.ajax({
@@ -52,10 +55,10 @@ function updateState() {
                 state_select += '</select>';
 
                 // replace with dropdown
-                $('#state').after(state_select).remove();
+                sz.after(state_select).remove();
             } else {
                 // free text
-                $('#zoneId').after('<input type="text" id="state" name="state" value="">').remove();
+               sz.after('<input type="text" id="state" name="state" value="">').remove();
             }
         }
     });
