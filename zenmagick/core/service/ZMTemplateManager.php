@@ -234,7 +234,15 @@ class ZMTemplateManager extends ZMObject {
 
         $css = '';
         foreach ($this->cssFiles_ as $info) {
-            $css .= '<link rel="stylesheet" type="text/css" href="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
+            // merge in defaults
+            $attr = '';
+            $info['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css'), $info['attr']);
+            foreach ($info['attr'] as $name => $value) {
+                if (null !== $value) {
+                    $attr .= ' '.$name.'="'.$value.'"';
+                }
+            }
+            $css .= '<link '.$attr.' href="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
         }
 
         $jsTop = '';

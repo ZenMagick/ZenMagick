@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php ZMTemplateManager::instance()->jsFile('jquery.js', ZMTemplateManager::PAGE_NOW) ?>
+<?php $utils->jsNow('jquery.js') ?>
 <script type="text/javascript"><?php include $zm_theme->themeFile("dynamicState.js") ?></script>
 <?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
