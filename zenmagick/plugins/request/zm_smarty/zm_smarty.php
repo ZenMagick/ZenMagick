@@ -52,7 +52,7 @@ class zm_smarty extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Smarty Installation Folder', 'smartyDir', '', 'Path to your Smarty installation');
@@ -61,7 +61,7 @@ class zm_smarty extends ZMPlugin {
     /**
      * Init.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         // do not echo HTML per default
@@ -87,7 +87,7 @@ class zm_smarty extends ZMPlugin {
      *
      * @return Smarty A <code>Smarty</code> instance.
      */
-    function getSmarty() {
+    public function getSmarty() {
         // use included version
         require_once(SMARTY_DIR.'Smarty.class.php');
 
