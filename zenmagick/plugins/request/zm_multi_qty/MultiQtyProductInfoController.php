@@ -49,12 +49,9 @@ class MultiQtyProductInfoController extends ZMController {
 
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
+    public function processPost() {
         $productId = ZMRequest::getProductId();
         // prepare attributes
         $multiQtyId = ZMRequest::getParameter(MULTI_QUANTITY_ID);
