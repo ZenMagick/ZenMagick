@@ -26,18 +26,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="{$language->getCode()}">
 <head>
-<title>{zms_l10n text="Welcome to %s" 1=$zm_setting.storeName}</title>
+<title>{$zm->l10n("Welcome to %s", $zm_setting.storeName)}</title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p>{zms_l10n text="Dear %s %s," 1=$zm_account->getFirstName() 2=$zm_account->getLastName()}</p>
+<p>{$zm->l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName())}</p>
 
-<p>{zms_l10n text="We wish to welcome you to %s." 1=$zm_setting.storeName}</p>
-<div>{zms_l10n_chunk text='email_welcome' 1=$zm_setting.storeName 2=$zm_setting.storeEmail 3=$zm_setting.storeOwner}</div>
-<p>{zms_l10n text="Sincerely, %s" 1=$zm_setting.storeOwner}</p>
+<p>{$zm->l10n("We wish to welcome you to %s.", $zm_setting.storeName)}</p>
+<div>{$zm->l10n_chunk_get('email_welcome', $zm_setting.storeName, $zm_setting.storeEmail, $zm_setting.storeOwner)}</div>
+<p>{$zm->l10n("Sincerely, %s", $zm_setting.storeOwner)}</p>
 
-{zms_l10n_chunk text='email_advisory' 1=$zm_setting.storeEmail}
+{$zm->l10n_chunk_get('email_advisory', $zm_setting.storeEmail)}
 {$office_only_html}
 </div>
 </body>

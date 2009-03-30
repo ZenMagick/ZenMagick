@@ -40,10 +40,15 @@ class ZMFunctionProxy {
      */
     function __construct() {
         $this->services = array(
+            // can't do static from smarty
             'ZMRequest' => new ZMRequest(),
             'ZMSettings' => new ZMSettings(),
-            'ZMLoader' => ZMLoader::instance(),
             'ZMRuntime' => new ZMRuntime(),
+
+            // managed by ZMRequest
+            'ZMShoppingCart' => ZMRequest::getShoppingCart(),
+
+            'ZMLoader' => ZMLoader::instance(),
             'ZMTemplateManager' => ZMTemplateManager::instance(),
             'ZMProducts' => ZMProducts::instance(),
             'ZMTaxRates' => ZMTaxRates::instance(),
@@ -64,7 +69,6 @@ class ZMFunctionProxy {
             'ZMLanguages' => ZMLanguages::instance(),
             'ZMCountries' => ZMCountries::instance(),
             'ZMAccounts' => ZMAccounts::instance(),
-            'ZMShoppingCart' => new ZMShoppingCart(),
             'ZMUrlMapper' => ZMUrlMapper::instance(),
             'ZMSacsMapper' => ZMSacsMapper::instance()
         );

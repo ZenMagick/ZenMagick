@@ -69,9 +69,9 @@ class zm_smarty extends ZMPlugin {
 
         $smartyDir = $this->get('smartyDir');
         if (empty($smartyDir)) {
-            $smartyDir = $this->getPluginDir().'/smarty/';
+            $smartyDir = $this->getPluginDir().DIRECTORY_SEPARATOR.'smarty'.DIRECTORY_SEPARATOR;
         }
-        define('SMARTY_DIR', $smartyDir.'/libs/');
+        define('SMARTY_DIR', $smartyDir.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR);
 
         ZMSettings::set('templateSuffix', '.tpl');
         ZMSettings::set('isEnableThemeDefaults', false);
@@ -99,8 +99,8 @@ class zm_smarty extends ZMPlugin {
         // main dirs
         $smarty->template_dir = $themeRoot.'content';
         $smarty->compile_dir = $themeRoot.'templates_c';
-        $smarty->cache_dir = $themeRoot.'/cache';
-        $smarty->config_dir = $themeRoot.'/configs';
+        $smarty->cache_dir = $themeRoot.DIRECTORY_SEPARATOR.'cache';
+        $smarty->config_dir = $themeRoot.DIRECTORY_SEPARATOR.'configs';
 
         // plugins; add custom ZenMagick plugins
         $smarty->plugins_dir = array(

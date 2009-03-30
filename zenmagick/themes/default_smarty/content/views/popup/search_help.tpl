@@ -24,8 +24,8 @@
  */
 *}
 
-<h1>{zms_l10n text="Search Help"}</h1>
+<h1>{$zm->l10n("Search Help")}</h1>
 
-{zms_l10n_chunk text='popup_search_help'}
+{$zm->l10n_chunk_get('popup_search_help')}
 
-<div id="close"><a href="#" onclick="javascript:window.close()">{zms_l10n text="Close Window [x]"}</a></div>
+<div id="close"><a href="#" onclick="javascript:window.close()">{$zm->l10n("Close Window [x]")}</a></div>

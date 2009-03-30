@@ -36,10 +36,10 @@ class PageView extends ZMPageView {
     /**
      * Create new theme view view.
      *
-     * @param string page The page (view) name.
+     * @param string view The page (view) name.
      */
-    function __construct($page) {
-        parent::__construct($page);
+    function __construct($view=null) {
+        parent::__construct($view);
     }
 
     /**
@@ -64,6 +64,9 @@ class PageView extends ZMPageView {
         foreach ($controller->getGlobals() as $name => $instance) {
             $smarty->assign($name, $instance);
         }
+
+        $smarty->assign('zm_view', $this);
+        $smarty->assign('zm_theme', ZMRuntime::getTheme());
 
         // function proxy 
         $smarty->assign('zm', ZMLoader::make('FunctionProxy'));

@@ -16,6 +16,12 @@ class DefaultSmartyThemeInfo extends ZMThemeInfo {
         $this->setVersion("0.1");
         $this->setAuthor("ZenMagick");
         $this->setDescription("Smarty default theme.");
+
+        // popups use their own simple page layout
+        $this->setLayout('popup_cvv_help', 'popup_layout');
+        $this->setLayout('popup_search_help', 'popup_layout');
+        $this->setLayout('popup_shipping_estimator', 'popup_layout');
+        $this->setLayout('popup_coupon_help', 'popup_layout');
     }
     
 }
