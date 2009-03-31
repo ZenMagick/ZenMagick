@@ -37,12 +37,14 @@ class ZMController extends ZMObject {
 
     /**
      * Create new instance.
+     *
+     * @param string id Optional id; default is <code>null</code> to use the request name.
      */
-    function __construct() {
+    function __construct($id=null) {
         parent::__construct();
 
         // use as controller id
-        $this->id_ = ZMRequest::getPageName();
+        $this->id_ = null != $id ? $id : ZMRequest::getPageName();
         $this->globals_ = array();
         $this->view_ = null;
         $this->formBean_ = null;

@@ -38,6 +38,8 @@ Release 0.9.6
 - wrap PDOException in ZMException
 - allow to send alternative HTTP status code with redirects
 - add toolbox utils wrapper for template manager CSS/JS methods and use
+- allow controller to set the used id as c'tor arg in ZMController
+- fix zm_multi_qty issue (needs cleanup, though)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
