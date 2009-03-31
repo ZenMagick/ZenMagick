@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMImageInfo extends ZMObject {
-    private $imageDefault_;
-    private $imageMedium_;
-    private $imageLarge_;
-    private $altText_;
-    private $parameter_;
+    protected $imageDefault_;
+    protected $imageMedium_;
+    protected $imageLarge_;
+    protected $altText_;
+    protected $parameter_;
 
 
     /**
