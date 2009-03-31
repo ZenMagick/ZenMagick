@@ -74,8 +74,12 @@ class zm_multi_qty extends ZMPlugin {
         if (null != ZMRequest::getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi qty add, so leave it to the custom controller to do so
             unset($_GET['action']);
-            // tweak the ZM_PAGE_KEY parameter to use our custom controller
-            ZMRequest::setParameter(ZM_PAGE_KEY, 'multi_qty_product_info');
+
+            // TODO: make nicer
+            // create mapping for lookup
+            ZMUrlMapper::instance()->setMappingInfo('product_info', array('controller' => 'MultiQtyProductInfoController'));
+            // tweak the main_page parameter as controller id is private!
+            ZMRequest::setParameter('main_page', 'multi_qty_product_info');
 
             // add url mappings
             if (ZMSettings::get('isShowCartAfterAddProduct')) {
