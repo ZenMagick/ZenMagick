@@ -32,10 +32,10 @@
  * @version $Id$
  */
 class ZMSortOption extends ZMObject {
-    var $name_;
-    var $id_;
-    var $active_;
-    var $decending_;
+    private $name_;
+    private $id_;
+    private $active_;
+    private $decending_;
 
 
     /**

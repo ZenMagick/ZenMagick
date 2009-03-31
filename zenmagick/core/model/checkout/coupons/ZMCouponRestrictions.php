@@ -32,8 +32,8 @@
  * @version $Id: ZMCouponRestrictions.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
 class ZMCouponRestrictions extends ZMObject {
-    var $categories_;
-    var $products_;
+    private $categories_;
+    private $products_;
 
 
     /**
@@ -58,35 +58,35 @@ class ZMCouponRestrictions extends ZMObject {
      *
      * @return boolean <code>true</code> if restrictions exist, <code>false</code> if not.
      */
-    function hasRestrictions() { return 0 != count($this->categories_) || 0 < count($this->products_); }
+    public function hasRestrictions() { return 0 != count($this->categories_) || 0 < count($this->products_); }
 
     /**
      * Checks if there are categories.
      *
      * @return boolean <code>true</code> if categories exist, <code>false</code> if not.
      */
-    function hasCategories() { return 0 != count($this->categories_); }
+    public function hasCategories() { return 0 != count($this->categories_); }
 
     /**
      * Checks if there are products.
      *
      * @return boolean <code>true</code> if products exist, <code>false</code> if not.
      */
-    function hasProducts() { return 0 < count($this->products_); }
+    public function hasProducts() { return 0 < count($this->products_); }
 
     /**
      * Returns the category restrictions.
      *
      * @return array An array of <code>ZMCouponRestricton</code> instances.
      */
-    function getCategories() { return $this->categories_; }
+    public function getCategories() { return $this->categories_; }
 
     /**
      * Returns the product restrictions.
      *
      * @return array An array of <code>ZMCouponRestricton</code> instances.
      */
-    function getProducts() { return $this->products_; }
+    public function getProducts() { return $this->products_; }
 
 }
 

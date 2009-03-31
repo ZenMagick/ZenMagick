@@ -32,8 +32,8 @@
  * @version $Id$
  */
 class ZMCrumb extends ZMObject {
-    var $name_;
-    var $url_;
+    private $name_;
+    private $url_;
 
 
     /**
@@ -61,28 +61,28 @@ class ZMCrumb extends ZMObject {
      *
      * @return string The crumb's name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the url (if any).
      *
      * @return string The crumb's url or <code>null</code>.
      */
-    function getURL() { return $this->url_; }
+    public function getURL() { return $this->url_; }
 
     /**
      * Set the name.
      *
      * @param string name The crumb's name.
      */
-    function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name_ = $name; }
 
     /**
      * Set the url.
      *
      * @param string url The crumb's url.
      */
-    function setURL($url) { $this->url_ = $url; }
+    public function setURL($url) { $this->url_ = $url; }
 
 }
 

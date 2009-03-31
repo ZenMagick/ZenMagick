@@ -33,10 +33,10 @@
  * @version $Id$
  */
 class ZMShoppingCart extends ZMObject {
-    var $cart_;
-    var $zenTotals_;
-    var $payments_;
-    var $items_;
+    private $cart_;
+    private $zenTotals_;
+    private $payments_;
+    private $items_;
 
 
     /**

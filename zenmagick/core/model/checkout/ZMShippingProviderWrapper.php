@@ -38,8 +38,8 @@
  * @version $Id$
  */
 class ZMShippingProviderWrapper extends ZMObject {
-    var $zenModule_;
-    var $errors_;
+    private $zenModule_;
+    private $errors_;
 
 
     /**
@@ -67,49 +67,49 @@ class ZMShippingProviderWrapper extends ZMObject {
      *
      * @return int The shipping provider id.
      */
-    function getId() { return $this->zenModule_->code; }
+    public function getId() { return $this->zenModule_->code; }
 
     /**
      * Get the shipping provider name.
      *
      * @return string The shipping provider name.
      */
-    function getName() { return $this->zenModule_->title; }
+    public function getName() { return $this->zenModule_->title; }
 
     /**
      * Checks if an icon exists for this provider.
      *
      * @return boolean <code>true</code> if an icon, <code>false</code> if not.
      */
-    function hasIcon() { return !ZMTools::isEmpty($this->zenModule_->icon); }
+    public function hasIcon() { return !ZMTools::isEmpty($this->zenModule_->icon); }
 
     /**
      * Get the icon.
      *
      * @return string The icon.
      */
-    function getIcon() { return $this->hasIcon() ? $this->zenModule_->icon : null; }
+    public function getIcon() { return $this->hasIcon() ? $this->zenModule_->icon : null; }
 
     /**
      * Flags whether this shipping provider is installed or not.
      *
      * @return boolean <code>true</code> if installed, <code>false</code> if not.
      */
-    function isInstalled() { return $this->zenModule_->check(); }
+    public function isInstalled() { return $this->zenModule_->check(); }
 
     /**
      * Checks if errors are logged for this provider.
      *
      * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
      */
-    function hasErrors() { return 0 < count($this->errors_); }
+    public function hasErrors() { return 0 < count($this->errors_); }
 
     /**
      * Get the errors.
      *
      * @return array List of error messages.
      */
-    function getErrors() { return $this->errors_(); }
+    public function getErrors() { return $this->errors_(); }
 
     /**
      * Get available shipping methods for the given address.
@@ -120,7 +120,7 @@ class ZMShippingProviderWrapper extends ZMObject {
      * @param ZMAddress address The shipping address.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    function getShippingMethods($address) { 
+    public function getShippingMethods($address) { 
         $this->errors_ = array();
 
         // TODO: setup globals, etc with address information, similar to shipping estimator...

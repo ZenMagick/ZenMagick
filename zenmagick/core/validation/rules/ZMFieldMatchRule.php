@@ -31,7 +31,7 @@
  * @version $Id$
  */
 class ZMFieldMatchRule extends ZMRule {
-    var $other_;
+    private $other_;
 
 
     /**

@@ -32,9 +32,9 @@
  * @version $Id$
  */
 class ZMShippingMethod extends ZMObject {
-    var $provider_;
-    var $taxRate_;
-    var $zenMethod_;
+    private $provider_;
+    private $taxRate_;
+    private $zenMethod_;
 
 
     /**
@@ -63,42 +63,42 @@ class ZMShippingMethod extends ZMObject {
      *
      * @return int The shipping method id.
      */
-    function getId() { return $this->zenMethod_['id']; }
+    public function getId() { return $this->zenMethod_['id']; }
 
     /**
      * Get the shipping method name.
      *
      * @return string The shipping method name.
      */
-    function getName() { return $this->zenMethod_['title']; }
+    public function getName() { return $this->zenMethod_['title']; }
 
     /**
      * Get the shipping cost.
      *
      * @return float The shipping cost.
      */
-    function getCost() { return $this->taxRate_->addTax($this->zenMethod_['cost']); }
+    public function getCost() { return $this->taxRate_->addTax($this->zenMethod_['cost']); }
 
     /**
      * Get the shipping provider.
      *
      * @return ZMShippingProvider The shipping provider.
      */
-    function getProvider() { return $this->provider_; }
+    public function getProvider() { return $this->provider_; }
 
     /**
      * Set the tax rate.
      *
      * @param ZMTaxRate taxRate The tax rate.
      */
-    function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
+    public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 
     /**
      * Get the shipping id.
      *
      * @return string The shipping id as used by the shopping cart.
      */
-    function getShippingId() {
+    public function getShippingId() {
         $id = $this->provider_->getId() . '_' . $this->getId();
         return $id;
     }

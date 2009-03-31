@@ -32,11 +32,11 @@
  * @version $Id$
  */
 class ZMImageInfo extends ZMObject {
-    var $imageDefault_;
-    var $imageMedium_;
-    var $imageLarge_;
-    var $altText_;
-    var $parameter_;
+    private $imageDefault_;
+    private $imageMedium_;
+    private $imageLarge_;
+    private $altText_;
+    private $parameter_;
 
 
     /**
@@ -94,49 +94,49 @@ class ZMImageInfo extends ZMObject {
      *
      * @return boolean <code>true</code> if there is an image, <code>false</code> if not.
      */
-    function hasImage() { return '' != $this->imageDefault_; }
+    public function hasImage() { return '' != $this->imageDefault_; }
 
     /**
      * Get the default image.
      *
      * @return string The default image.
      */
-    function getDefaultImage() { return $this->imageDefault_; }
+    public function getDefaultImage() { return $this->imageDefault_; }
 
     /**
      * Check if there is a medium image.
      *
      * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
-    function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
+    public function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
 
     /**
      * Get the medium image.
      *
      * @return string The medium image.
      */
-    function getMediumImage() { return $this->imageMedium_; }
+    public function getMediumImage() { return $this->imageMedium_; }
 
     /**
      * Get the large image.
      *
      * @return string The large image.
      */
-    function getLargeImage() { return $this->imageLarge_; }
+    public function getLargeImage() { return $this->imageLarge_; }
 
     /**
      * Check if there is a large image.
      *
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
-    function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
+    public function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
 
     /**
      * Get the alt text.
      *
      * @return string The alt text.
      */
-    function getAltText() { return $this->altText_; }
+    public function getAltText() { return $this->altText_; }
 
     /**
      * Set the parameter.
@@ -144,7 +144,7 @@ class ZMImageInfo extends ZMObject {
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
      */
-    function setParameter($parameter) {
+    public function setParameter($parameter) {
         if (is_array($parameter)) {
             $this->parameter_ = $parameter;
         } else if (!empty($parameter)) {
@@ -157,14 +157,14 @@ class ZMImageInfo extends ZMObject {
      *
      * @return array Map of key/value pairs.
      */
-    function getParameter() { return $this->parameter_; }
+    public function getParameter() { return $this->parameter_; }
 
     /**
      * Get the parameter formatted as <code>key="value" </code>.
      *
      * @return string HTML formatted parameter.
      */
-    function getFormattedParameter() { 
+    public function getFormattedParameter() { 
         $html = '';
         foreach ($this->parameter_ as $attr => $value) {
             $html .= ' '.$attr.'="'.$value.'"';

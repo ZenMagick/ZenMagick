@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMRegexpRule extends ZMRule {
-    var $regexp_;
+    private $regexp_;
 
 
     /**

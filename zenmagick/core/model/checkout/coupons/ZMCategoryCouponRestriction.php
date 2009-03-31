@@ -32,8 +32,8 @@
  * @version $Id: ZMCategoryCouponRestriction.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
 class ZMCategoryCouponRestriction extends ZMObject {
-    var $allowed_;
-    var $categoryId_;
+    private $allowed_;
+    private $categoryId_;
 
 
     /**
@@ -58,14 +58,14 @@ class ZMCategoryCouponRestriction extends ZMObject {
      *
      * @return boolean <code>true</code> if allowed, <code>false</code> if not.
      */
-    function isAllowed() { return $this->allowed_; }
+    public function isAllowed() { return $this->allowed_; }
 
     /**
      * Returns the category.
      *
      * @return A <code>ZMCategory</code> instance.
      */
-    function getCategory() { 
+    public function getCategory() { 
         return ZMCategories::instance()->getCategoryForId($this->categoryId_);
     }
 

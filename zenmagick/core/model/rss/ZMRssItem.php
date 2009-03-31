@@ -35,7 +35,7 @@
  * @version $Id$
  */
 class ZMRssItem extends ZMObject {
-    var $item_;
+    private $item_;
 
 
     /**
@@ -61,70 +61,70 @@ class ZMRssItem extends ZMObject {
      *
      * @return string The item title.
      */
-    function getTitle() { return $this->getProperty('title'); }
+    public function getTitle() { return $this->getProperty('title'); }
 
     /**
      * Get the item link.
      *
      * @return string The item link.
      */
-    function getLink() { return $this->getProperty('link'); }
+    public function getLink() { return $this->getProperty('link'); }
 
     /**
      * Get the item description.
      *
      * @return string The item description.
      */
-    function getDescription() { return $this->getProperty('description'); }
+    public function getDescription() { return $this->getProperty('description'); }
 
     /**
      * Get the item category.
      *
      * @return string The item category.
      */
-    function getCategory() { return $this->getProperty('category'); }
+    public function getCategory() { return $this->getProperty('category'); }
 
     /**
      * Get the item publish date.
      *
      * @return string The item publish date.
      */
-    function getPubDate() { return $this->getProperty('pubDate'); }
+    public function getPubDate() { return $this->getProperty('pubDate'); }
 
     /**
      * Set the item title.
      *
      * @param string title The item title.
      */
-    function setTitle($title) { $this->item_['title'] = $title; }
+    public function setTitle($title) { $this->item_['title'] = $title; }
 
     /**
      * Set the item link.
      *
      * @param string link The item link.
      */
-    function setLink($link) { $this->item_['link'] = $link; }
+    public function setLink($link) { $this->item_['link'] = $link; }
 
     /**
      * Set the item description.
      *
      * @param string description The item description.
      */
-    function setDescription($description) { $this->item_['description'] = $description; }
+    public function setDescription($description) { $this->item_['description'] = $description; }
 
     /**
      * set the item category.
      *
      * @param string category The item category.
      */
-    function setCategory($category) { $this->item_['category'] = $category; }
+    public function setCategory($category) { $this->item_['category'] = $category; }
 
     /**
      * Set the item publish date.
      *
      * @param string date The item publish date.
      */
-    function setPubDate($date) { $this->item_['pubDate'] = $date; }
+    public function setPubDate($date) { $this->item_['pubDate'] = $date; }
 
     /**
      * Custom set method for properties that do not have a dedicated
@@ -133,7 +133,7 @@ class ZMRssItem extends ZMObject {
      * @param string name The property name.
      * @param string value The value.
      */
-    function setProperty($name, $value) { $this->item_[$name] = $value; }
+    public function setProperty($name, $value) { $this->item_[$name] = $value; }
 
     /**
      * Custom get method for properties that do not have a dedicated
@@ -142,14 +142,14 @@ class ZMRssItem extends ZMObject {
      * @param string name The property name.
      * @return string value The value or <code>null</code>.
      */
-    function getProperty($name) { return isset($this->item_[$name]) ? $this->item_[$name] : null; }
+    public function getProperty($name) { return isset($this->item_[$name]) ? $this->item_[$name] : null; }
 
     /**
      * Get all properties.
      *
      * @return array Name/value map.
      */
-    function getProperties() { return $this->item_; }
+    public function getProperties() { return $this->item_; }
 
 }
 

@@ -32,11 +32,11 @@
  * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
 class ZMPaymentType extends ZMObject {
-    var $id_;
-    var $name_;
-    var $instructions_;
-    var $error_;
-    var $fields_;
+    private $id_;
+    private $name_;
+    private $instructions_;
+    private $error_;
+    private $fields_;
 
 
     /**
@@ -68,7 +68,7 @@ class ZMPaymentType extends ZMObject {
      *
      * @return int The payment type id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the payment name.
@@ -77,7 +77,7 @@ class ZMPaymentType extends ZMObject {
      *
      * @return string The payment name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the optional payment instructions.
@@ -86,28 +86,28 @@ class ZMPaymentType extends ZMObject {
      *
      * @return string Payment instructions.
      */
-    function getInstructions() { return $this->instructions_; }
+    public function getInstructions() { return $this->instructions_; }
 
     /**
      * Get the payment error (if any).
      *
      * @return string The payment error message.
      */
-    function getError() { return $this->error_; }
+    public function getError() { return $this->error_; }
 
     /**
      * Get the payment form fields.
      *
      * @return array A list of <code>ZMPaymentField</code> instances.
      */
-    function getFields() { return $this->fields_; }
+    public function getFields() { return $this->fields_; }
 
     /**
      * Add a form field to this payment type.
      *
      * @param ZMPaymentField field The new form field.
      */
-    function addField($field) { array_push($this->fields_, $field); }
+    public function addField($field) { array_push($this->fields_, $field); }
 
 }
 

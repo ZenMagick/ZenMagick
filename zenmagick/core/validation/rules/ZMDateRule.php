@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMDateRule extends ZMRule {
-    var $format_;
+    private $format_;
 
 
     /**

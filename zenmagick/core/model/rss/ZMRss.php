@@ -35,10 +35,10 @@
  * @version $Id$
  */
 class ZMRss extends ZMObject {
-    var $url_;
-    var $limit_;
-    var $channel_;
-    var $items_;
+    private $url_;
+    private $limit_;
+    private $channel_;
+    private $items_;
 
 
     /**
@@ -86,7 +86,7 @@ class ZMRss extends ZMObject {
      *
      * @return ZMRssChannel The channel information.
      */
-    function getChannel() {
+    public function getChannel() {
         return $this->channel_;
     }
 
@@ -96,7 +96,7 @@ class ZMRss extends ZMObject {
      *
      * @param array A list of <code>ZMRssItem</code>s.
      */
-    function getItems() {
+    public function getItems() {
         return $this->items_;
     }
 
@@ -106,7 +106,7 @@ class ZMRss extends ZMObject {
      *
      * @return boolean <code>true</code> if feed items are available, <code>false</code>, if not.
      */
-    function hasContents() {
+    public function hasContents() {
         return 0 != count($this->items_);
     }
 

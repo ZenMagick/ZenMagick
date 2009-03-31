@@ -32,8 +32,8 @@
  * @version $Id: ZMPaymentField.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
 class ZMPaymentField extends ZMObject {
-    var $label_;
-    var $html_;
+    private $label_;
+    private $html_;
 
 
     /**
@@ -63,16 +63,15 @@ class ZMPaymentField extends ZMObject {
      *
      * @return string The field name/label.
      */
-    function getLabel() { return $this->label_; }
+    public function getLabel() { return $this->label_; }
 
     /**
      * Get the field HTML.
      *
      * @return string The field HTML.
      */
-    function getHTML() { return $this->html_; }
+    public function getHTML() { return $this->html_; }
 
 }
-
 
 ?>

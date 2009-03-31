@@ -32,8 +32,8 @@
  * @version $Id: ZMProductCouponRestriction.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
 class ZMProductCouponRestriction extends ZMObject {
-    var $allowed_;
-    var $productId_;
+    private $allowed_;
+    private $productId_;
 
 
     /**
@@ -61,14 +61,14 @@ class ZMProductCouponRestriction extends ZMObject {
      *
      * @return boolean <code>true</code> if this coupon restriction is allowed, <code>false</code> if not.
      */
-    function isAllowed() { return $this->allowed_; }
+    public function isAllowed() { return $this->allowed_; }
 
     /**
      * Returns the product.
      *
      * @return A <code>ZMProduct</code> instance.
      */
-    function getProduct() { return ZMProducts::instance()->getProductForId($this->productId_); }
+    public function getProduct() { return ZMProducts::instance()->getProductForId($this->productId_); }
 
 }
 

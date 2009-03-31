@@ -29,8 +29,8 @@
  * @version $Id$
  */
 class ZMWrapperRule extends ZMRule {
-    var $function_;
-    var $javascript_;
+    private $function_;
+    private $javascript_;
 
 
     /**

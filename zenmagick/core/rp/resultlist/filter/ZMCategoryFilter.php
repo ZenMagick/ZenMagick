@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMCategoryFilter extends ZMResultListFilter {
-    var $productIds_;
+    private $productIds_;
 
 
     /**
@@ -49,7 +49,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
 
 
     // lazy load all included productIds
-    function _getProductIds() {
+    protected function getProductIds() {
         if (null === $this->productIds_) {
             $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0]);
         }
@@ -63,8 +63,8 @@ class ZMCategoryFilter extends ZMResultListFilter {
      * @param mixed obj The object to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    function exclude($obj) {
-        $productIds = $this->_getProductIds();
+    public function exclude($obj) {
+        $productIds = $this->getProductIds();
         return !array_key_exists($obj->getId(), $productIds);
     }
 
@@ -73,7 +73,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
      *
      * @return array An array of string values.
      */
-    function getOptions() {
+    public function getOptions() {
         $options = array();
         foreach ($this->list_->getAllResults() as $result) {
             $category = $result->getDefaultCategory();

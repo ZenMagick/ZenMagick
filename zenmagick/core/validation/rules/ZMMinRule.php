@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMMinRule extends ZMRule {
-    var $min_;
+    private $min_;
 
 
     /**

@@ -33,8 +33,8 @@
  * @version $Id$
  */
 class ZMRssFeed extends ZMObject {
-    var $channel_;
-    var $items_;
+    private $channel_;
+    private $items_;
 
 
     /**
@@ -59,28 +59,28 @@ class ZMRssFeed extends ZMObject {
      *
      * @return ZMRssChannel The channel.
      */
-    function getChannel() { return $this->channel_; }
+    public function getChannel() { return $this->channel_; }
 
     /**
      * Get the feed items.
      *
      * @return array A list of <code>ZMRssItem</code> instances.
      */
-    function getItems() { return $this->items_; }
+    public function getItems() { return $this->items_; }
 
     /**
      * Set the channel.
      *
      * @param ZMRssChannel channel The channel.
      */
-    function setChannel($channel) { $this->channel_ = $channel; }
+    public function setChannel($channel) { $this->channel_ = $channel; }
 
     /**
      * Set the feed items.
      *
      * @param array items A list of <code>ZMRssItem</code> instances.
      */
-    function setItems($items) { $this->items_ = $items; }
+    public function setItems($items) { $this->items_ = $items; }
 
 }
 

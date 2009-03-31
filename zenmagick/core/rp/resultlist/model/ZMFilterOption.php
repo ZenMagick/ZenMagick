@@ -29,9 +29,9 @@
  * @version $Id$
  */
 class ZMFilterOption extends ZMObject {
-    var $name_;
-    var $id_;
-    var $active_;
+    private $name_;
+    private $id_;
+    private $active_;
 
 
     /**

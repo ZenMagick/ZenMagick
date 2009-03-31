@@ -32,13 +32,13 @@
  * @version $Id$
  */
 class ZMOrderItem extends ZMObject {
-    var $productId_;
-    var $qty_;
-    var $name_;
-    var $model_;
-    var $taxRate_;
-    var $calculatedPrice_;
-    var $attributes_;
+    private $productId_;
+    private $qty_;
+    private $name_;
+    private $model_;
+    private $taxRate_;
+    private $calculatedPrice_;
+    private $attributes_;
 
 
     /**

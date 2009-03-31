@@ -35,8 +35,8 @@
  * @version $Id$
  */
 class ZMShippingProvider extends ZMObject {
-    var $zenQuote_;
-    var $methods_;
+    private $zenQuote_;
+    private $methods_;
 
 
     /**
@@ -50,7 +50,7 @@ class ZMShippingProvider extends ZMObject {
         $this->methods_ = array();
         $taxRate = $this->getTaxRate();
         if (isset($this->zenQuote_['methods']) && is_array($this->zenQuote_['methods'])) {
-            foreach ($this->zenQuote_['methods'] as $method) {
+            private ($this->zenQuote_['methods'] as $method) {
                 $method = ZMLoader::make("ShippingMethod", $this, $method);
                 $method->setTaxRate($taxRate);
                 $this->methods_[$method->getId()] = $method;
@@ -71,63 +71,67 @@ class ZMShippingProvider extends ZMObject {
      *
      * @return int The shipping provider id.
      */
-    function getId() { return $this->zenQuote_['id']; }
+    public function getId() { return $this->zenQuote_['id']; }
 
     /**
      * Get the shipping provider name.
      *
      * @return string The shipping provider name.
      */
-    function getName() { return $this->zenQuote_['module']; }
+    public function getName() { return $this->zenQuote_['module']; }
 
     /**
      * Get the shipping tax rate.
      *
      * @return float The shipping tax rate.
      */
-    function getTaxRate() { $taxRate = ZMLoader::make("TaxRate"); $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0); return $taxRate; }
+    public function getTaxRate() {
+        $taxRate = ZMLoader::make("TaxRate");
+        $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0);
+        return $taxRate;
+    }
 
     /**
      * Checks if an icon exists for this provider.
      *
      * @return boolean <code>true</code> if an icon, <code>false</code> if not.
      */
-    function hasIcon() { return isset($this->zenQuote_['icon']); }
+    public function hasIcon() { return isset($this->zenQuote_['icon']); }
 
     /**
      * Get the icon.
      *
      * @return string The icon.
      */
-    function getIcon() { return $this->hasIcon() ? $this->zenQuote_['icon'] : null; }
+    public function getIcon() { return $this->hasIcon() ? $this->zenQuote_['icon'] : null; }
 
     /**
      * Checks if errors are logged for this provider.
      *
      * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
      */
-    function hasError() { return isset($this->zenQuote_['error']); }
+    public function hasError() { return isset($this->zenQuote_['error']); }
 
     /**
      * Get the errors.
      *
      * @return array List of error messages.
      */
-    function getError() { return $this->hasError() ?  $this->zenQuote_['error'] : null; }
+    public function getError() { return $this->hasError() ?  $this->zenQuote_['error'] : null; }
 
     /**
      * Checks if shipping methods are available from this provider.
      *
      * @return boolean <code>true</code> if shipping methods exist, <code>false</code> if not.
      */
-    function hasShippingMethods() { return 0 < count ($this->methods_); }
+    public function hasShippingMethods() { return 0 < count ($this->methods_); }
 
     /**
      * Get the available shipping methods.
      *
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    function getShippingMethods() { return $this->methods_; }
+    public function getShippingMethods() { return $this->methods_; }
 
 }
 
