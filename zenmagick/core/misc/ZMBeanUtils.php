@@ -166,7 +166,11 @@ class ZMBeanUtils {
      */
     public static function getBean($definition) {
         $tokens = explode('#', $definition, 2);
-        parse_str($tokens[1], $properties);
+        if (1 < count($tokens)) {
+            parse_str($tokens[1], $properties);
+        } else {
+            $properties = array();
+        }
         return self::map2obj($tokens[0], $properties);
     }
 

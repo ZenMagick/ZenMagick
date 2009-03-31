@@ -274,7 +274,7 @@ class ZMDbTableMapper extends ZMObject {
             return $mapping;
         }
         // either mapping or table list
-        return is_array($mapping[0]) ? $mapping : $this->getMapping($mapping);
+        return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping);
     }
 
     /**
