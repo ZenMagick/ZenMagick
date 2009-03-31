@@ -50,7 +50,7 @@ class ZMShippingProvider extends ZMObject {
         $this->methods_ = array();
         $taxRate = $this->getTaxRate();
         if (isset($this->zenQuote_['methods']) && is_array($this->zenQuote_['methods'])) {
-            private ($this->zenQuote_['methods'] as $method) {
+            foreach ($this->zenQuote_['methods'] as $method) {
                 $method = ZMLoader::make("ShippingMethod", $this, $method);
                 $method->setTaxRate($taxRate);
                 $this->methods_[$method->getId()] = $method;
