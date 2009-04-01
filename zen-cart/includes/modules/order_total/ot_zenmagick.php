@@ -25,31 +25,60 @@
 
 
 /**
- * A central place for all runtime stuff.
+ * A proxy module to allow ZenMagick plugins to act as order total.
  *
- * <p>This is kind of the <em>application context</em>.</p>
+ * <p><strong>Currently credit_class functionality is not supported.</strong></p>
+ *
+ * <p>This proxy class uses the Plugin service to lookup existing order total modules.</p>
+ *
+ * <p>While the proxy shows up as a single module in the admin view, it might handle multiple
+ * plugins and also multiple order total lines on any order.</p>
+ *
+ * <p>Disabling this module will disable <strong>*all*</strong> ZenMagick order total plugins.
+ * To disable individual order total plugins the Plugin Manager should be used.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick
- * @version $Id: ZMRuntime.php 2096 2009-03-23 01:49:18Z dermanomann $
+ * @version $Id$
  */
 class ot_zenmagick {
     var $title;
-    var $description;
     var $code;
     var $sort_order;
     var $credit_class;
+    var $output;
+    private $plugins_;
+    private $installed_;
 
 
     /**
      * Create proxy instance.
      */
     function __construct() {
-        $this->title = 'ZenMagick Order Totals';
-        $this->description = 'ZenMagick Order Total Proxy';
+        $this->title = zm_l10n_get('ZenMagick Order Totals');
         $this->code = 'ot_zenmagick';
-        $this->sort_order = 0;
+        $this->sort_order = defined('MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER') ? MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER : 0;
         // to start with
         $this->credit_class = false;
+        $this->output = array();
+
+        // find all order total plugins
+        $this->plugins_ = array();
+        foreach (ZMPlugins::getAllPlugins() as $type => $plugins) {
+            foreach ($plugins as $plugin) {
+                if ($plugin instanceof ZMOrderTotalPlugin) {
+                    $this->plugins_[$plugin->getId()] = $plugin;
+                }
+            }
+        }
+
+        // add ative plugin ids to the description
+        if (0 < count($this->plugins_)) {
+            $ids = ' (' . implode(',', array_keys($this->plugins_)) . ')';
+            $this->title .= $ids;
+        }
+
+        $this->installed_ = null;
     }
 
     /**
@@ -72,13 +101,29 @@ class ot_zenmagick {
      * @return array A list of order total line info (which is of type <code>array</code> too).
      */
     public function process() {
-        global $order, $currencies;
-        $output = array('title' => 'Foo',
-                      'text' => $currencies->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']),
-                      'value' => $order->info['total']);
-        $this->output[] = $output;
-        $this->output[] = $output;
-        //$this->output = array();
+        $cart = ZMRequest::getShoppingCart();
+        $detailsList = array();
+        foreach ($this->plugins_ as $plugin) {
+            if (null != ($details = $plugin->evaluate($cart))) {
+                if (!is_array($details)) {
+                    $details = array($details);
+                }
+                // allows empty array too
+                foreach ($details as $detail) {
+                    $detailsList[] = $detail;
+                }
+            }
+        }
+
+        // now convert to $output style
+        $toolbox = ZMToolbox::instance();
+        foreach ($detailsList as $detail) {
+            $this->output[] = array(
+                'title' => $detail->getTitle(),
+                'text' => $toolbox->utils->formatMoney($detail->getAmount(), true, false),
+                'value' => $detail->getAmount()
+            );
+        }
     }
 
     /**
@@ -87,7 +132,15 @@ class ot_zenmagick {
      * @return boolean <code>true</code> if active.
      */
     public function check() {
-        return true;
+        if (null === $this->installed_) {
+          $sql = "SELECT configuration_value FROM " . TABLE_CONFIGURATION . "
+                  WHERE configuration_key = :key";
+          $args = array('key' => 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
+          $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CONFIGURATION);
+          $this->installed_ = null != $result;
+        }
+
+        return $this->installed_;
     }
 
     /**
@@ -96,13 +149,15 @@ class ot_zenmagick {
      * @return array Empty list.
      */
     public function keys() {
-        return array();
+        return array('MODULE_ORDER_TOTAL_ZENMAGICK_STATUS', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER');
     }
 
     /**
      * Install module.
      */
     public function install() {
+        ZMConfig::instance()->createConfigValue('Plugin Status', 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS', true, ZENMAGICK_PLUGIN_GROUP_ID, 'Enable/disable this plugin.', 0, "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
+        ZMConfig::instance()->createConfigValue('Plugin sort order', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER', 0, ZENMAGICK_PLUGIN_GROUP_ID, 'Controls the execution order of plugins.', 1);
         return;
     }
 
@@ -110,76 +165,9 @@ class ot_zenmagick {
      * Remove module.
      */
     public function remove() {
-        return;
+        ZMConfig::instance()->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
+        ZMConfig::instance()->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER');
     }
-
-    /*
-
-    // credit class
-
-  // The second function called is credit_selection(). This in the credit classes already made is usually a redeem box.
-  // for entering a Gift Voucher number. Note credit classes can decide whether this part is displayed depending on
-  // E.g. a setting in the admin section.
-    // cc
-    function credit_selection() {
-        return array();
-    }
-
-  // update_credit_account is called in checkout process on a per product basis. It's purpose
-  // is to decide whether each product in the cart should add something to a credit account.
-  // e.g. for the Gift Voucher it checks whether the product is a Gift voucher and then adds the amount
-  // to the Gift Voucher account.
-  // Another use would be to check if the product would give reward points and add these to the points/reward account.
-    // cc
-    function update_credit_account($productIndex) {
-        return;
-    }
-
-  // This function is called in checkout confirmation.
-  // It's main use is for credit classes that use the credit_selection() method. This is usually for
-  // entering redeem codes(Gift Vouchers/Discount Coupons). This function is used to validate these codes.
-  // If they are valid then the necessary actions are taken, if not valid we are returned to checkout payment
-  // with an error
-    // cc
-    function collect_posts() {
-        return;
-    }
-
-    // cc
-    function get_order_total() {
-        return 0;
-    }
-
-  // pre_confirmation_check is called on checkout confirmation. It's function is to decide whether the
-  // credits available are greater than the order total. If they are then a variable (credit_covers) is set to
-  // true. This is used to bypass the payment method. In other words if the Gift Voucher is more than the order
-  // total, we don't want to go to paypal etc.
-    // cc
-    function pre_confirmation_check($orderTotal) {
-    global $credit_covers;
-        // only if MODULE_ORDER_TOTAL_INSTALLED!!
-        if ($covers_amount)
-        $credit_covers = true;
-        return;
-    }
-
-  // this function is called in checkout process. it tests whether a decision was made at checkout payment to use
-  // the credit amount be applied aginst the order. If so some action is taken. E.g. for a Gift voucher the account
-  // is reduced the order total amount.
-  //
-    // cc
-    function apply_credit() {
-        return;
-    }
-
-  // Called in checkout process to clear session variables created by each credit class module.
-  //
-    // cc
-    function clear_posts() {
-      return;
-    }
-
-     */
 
 }
 

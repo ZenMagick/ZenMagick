@@ -131,6 +131,8 @@
             'defaultControllerClass' => 'DefaultController',
             'defaultViewClass' => 'PageView',
 
+            'plugins.types' => 'init,admin,request,order_total',
+
             /**************************************
              * Logging options.
              **************************************/

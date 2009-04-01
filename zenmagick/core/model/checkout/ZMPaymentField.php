@@ -25,7 +25,7 @@
 
 
 /**
- * A form field for a payment type;
+ * A form field for a payment type.
  *
  * @author DerManoMann
  * @package org.zenmagick.model.checkout

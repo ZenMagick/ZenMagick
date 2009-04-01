@@ -40,6 +40,11 @@ Release 0.9.6
 - add toolbox utils wrapper for template manager CSS/JS methods and use
 - allow controller to set the used id as c'tor arg in ZMController
 - fix zm_multi_qty issue (needs cleanup, though)
+- add order_total proxy and ZMOrderTotalPlugin class to allow plugins to act
+  as order total
+- add new order_total plugin type
+- make plugin type list configurable
+- import initial version of zm_surcharge order total plugin
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

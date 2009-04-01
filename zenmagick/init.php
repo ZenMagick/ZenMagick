@@ -78,7 +78,7 @@
     if (ZMSettings::get('isEnablePlugins')) {
         // upset plugins
         ZMLoader::make("Plugins");
-        ZMPlugins::initPlugins(array('init', 'admin', 'request'), ZMRuntime::getScope());
+        ZMPlugins::initPlugins(explode(',', ZMSettings::get('plugins.types')), ZMRuntime::getScope());
     }
 
     // register custom error handler

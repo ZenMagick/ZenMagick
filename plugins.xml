@@ -194,6 +194,11 @@
             <param name="plugin.name" value="zm_snap_affiliates" />
             <param name="plugin.version" value="${plugins.zm_snap_affiliates.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_surcharge" />
+            <param name="plugin.version" value="${plugins.zm_surcharge.version}" />
+        </antcall>
     </target>
 
     
