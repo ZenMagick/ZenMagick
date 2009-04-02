@@ -101,10 +101,12 @@ class ot_zenmagick {
      * @return array A list of order total line info (which is of type <code>array</code> too).
      */
     public function process() {
+    global $order;
+
         $cart = ZMRequest::getShoppingCart();
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {
-            if (null != ($details = $plugin->evaluate($cart))) {
+            if (null != ($details = $plugin->calculate($cart))) {
                 if (!is_array($details)) {
                     $details = array($details);
                 }
@@ -118,6 +120,9 @@ class ot_zenmagick {
         // now convert to $output style
         $toolbox = ZMToolbox::instance();
         foreach ($detailsList as $detail) {
+            $order->info['total'] += $detail->getAmount();
+            $order->info['subtotal'] += $detail->getSubtotal();
+            $order->info['tax'] += $detail->getTax();
             $this->output[] = array(
                 'title' => $detail->getTitle(),
                 'text' => $toolbox->utils->formatMoney($detail->getAmount(), true, false),
@@ -157,7 +162,7 @@ class ot_zenmagick {
      */
     public function install() {
         ZMConfig::instance()->createConfigValue('Plugin Status', 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS', true, ZENMAGICK_PLUGIN_GROUP_ID, 'Enable/disable this plugin.', 0, "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
-        ZMConfig::instance()->createConfigValue('Plugin sort order', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER', 0, ZENMAGICK_PLUGIN_GROUP_ID, 'Controls the execution order of plugins.', 1);
+        ZMConfig::instance()->createConfigValue('Plugin sort order', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER', 110, ZENMAGICK_PLUGIN_GROUP_ID, 'Controls the execution order of plugins.', 1);
         return;
     }
 

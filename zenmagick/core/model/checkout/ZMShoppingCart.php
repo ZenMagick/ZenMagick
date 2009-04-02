@@ -161,6 +161,16 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
+     * Get the cart subtotal.
+     *
+     * @return float The cart subtotal.
+     */
+    public function getSubTotal() { 
+        $order = new order();
+        return $order->info['subtotal'];
+    }
+
+    /**
      * Get the cart total.
      *
      * @return float The cart total.

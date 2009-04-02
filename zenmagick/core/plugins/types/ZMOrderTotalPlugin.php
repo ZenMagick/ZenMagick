@@ -59,7 +59,7 @@ class ZMOrderTotalPlugin extends ZMPlugin {
      * @return mixed Either a single <code>ZMOrderTotalDetails</code>, a list of order total details
      *  (<code>ZMOrderTotalDetails</code>) or <code>null</code>.
      */
-    public function evaluate($cart) {
+    public function calculate($cart) {
         return null;
     }
 
