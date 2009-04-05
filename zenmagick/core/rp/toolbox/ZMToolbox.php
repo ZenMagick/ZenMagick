@@ -62,6 +62,11 @@ class ZMToolbox extends ZMObject {
      * @return ZMToolboxUtils
      */
     public $utils;
+    /** 
+     * @var ZMToolboxAdmin
+     * @return ZMToolboxAdmin
+     */
+    public $admin;
 
 
     /**
@@ -77,6 +82,7 @@ class ZMToolbox extends ZMObject {
         $this->macro = ZMLoader::make('ToolboxMacro');
         $this->locale = ZMLoader::make('ZMToolboxLocale');
         $this->utils = ZMLoader::make('ToolboxUtils');
+        $this->admin = ZMLoader::make('ToolboxAdmin');
     }
 
     /**
@@ -106,7 +112,8 @@ class ZMToolbox extends ZMObject {
             'net' => $this->net, 
             'macro' => $this->macro, 
             'locale' => $this->locale, 
-            'utils' => $this->utils), 
+            'utils' => $this->utils, 
+            'admin' => $this->admin), 
           $this->properties_);
     }
 
