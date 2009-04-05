@@ -29,15 +29,16 @@
     if (!$isZMAdmin) { return; }
 
     // build full zen-cart menu
-    zm_add_menu_item(new ZMMenuItem(null, 'config', zm_l10n_get('Configuration')));
+    ZMAdminMenu::addItem(new ZMAdminMenuItem(null, 'config', zm_l10n_get('Configuration')));
     $configGroups = ZMConfig::instance()->getConfigGroups();
     foreach ($configGroups as $group) {
         $id = strtolower($group->getName());
         $id = str_replace(' ', '', $id);
         $id = str_replace('/', '-', $id);
-        zm_add_menu_item(new ZMMenuItem('config', $id, zm_l10n_get($group->getName()), 'zmAdmin.php?zmPage=configuration.php&amp;gID='.$group->getId()));
+        ZMAdminMenu::addItem(new ZMAdminMenuItem('config', $id, zm_l10n_get($group->getName()), 'zmAdmin.php?zmPage=configuration.php&amp;gID='.$group->getId()));
     }
 
+    // need to buffer to avoid output from including xxx_dhtml.php
     ob_start();
     $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras', 'zenmagick');
     foreach ($zc_menus as $zm_menu) {
@@ -46,7 +47,7 @@
             $za_heading = $zm_heading;
             $za_contents = $zm_contents;
         }
-        zm_add_menu_item(new ZMMenuItem(null, $zm_menu, zm_l10n_get($za_heading['text'])));
+        ZMAdminMenu::addItem(new ZMAdminMenuItem(null, $zm_menu, zm_l10n_get($za_heading['text'])));
         foreach ($za_contents as $item) {
             $id = strtolower($item['text']);
             $id = str_replace(' ', '', $id);
@@ -56,10 +57,10 @@
                 $url = parse_url($link);
                 $link = 'zmAdmin.php?zmPage='.basename($url['path']).'&amp;'.$url['query'];
             }
-            zm_add_menu_item(new ZMMenuItem($zm_menu, $id, zm_l10n_get($item['text']), $link));
+            ZMAdminMenu::addItem(new ZMAdminMenuItem($zm_menu, $id, zm_l10n_get($item['text']), $link));
         }
     }
-    zm_add_menu_item(new ZMMenuItem(null, 'plugins', zm_l10n_get('Plugins')));
+    ZMAdminMenu::addItem(new ZMAdminMenuItem(null, ZMAdminMenu::MENU_PLUGINS, zm_l10n_get('Plugins')));
     ob_end_clean();
 
 ?>
@@ -69,7 +70,7 @@
   logo and such | <a href="zmAdmin.php">Admin Home</a> | <a href="<?php echo zen_catalog_href_link() ?>">Store Home</a> | <a href="<?php echo zen_href_link(FILENAME_LOGOFF) ?>">Logoff</a>
   </div>
   <div id="secnav">
-    <?php zm_build_menu(); ?>
+    <?php ZMAdminMenu::buildMenu(); ?>
   </div>
   <br style="clear:both;">
 </div>
