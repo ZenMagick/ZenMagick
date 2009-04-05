@@ -29,8 +29,8 @@
      * Create a plugin admin page URL.
      *
      * @package org.zenmagick.plugins
-     * @param string function The view function name; default is <code>null</code>.
-     * @param string params Query string style parameter; if <code>null</code> add all current parameter.
+     * @param string function The view function name; default is <code>null</code> to use the current.
+     * @param string params Query string style parameter; if <code>''</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
