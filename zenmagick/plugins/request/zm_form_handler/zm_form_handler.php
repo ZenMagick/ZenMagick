@@ -74,8 +74,8 @@ class zm_form_handler extends ZMPlugin {
             $pages = explode(',', $pages);
             $secure = ZMTools::asBoolean($this->get('secure'));
             foreach ($pages as $page) {
-                ZMUrlMapper::instance()->setMapping($page, $page, $page, 'PageView', null, 'ZMFormHandlerController');
-                ZMUrlMapper::instance()->setMapping($page, 'success', $page, 'RedirectView', ($secure ? 'secure=true' : ''), 'ZMFormHandlerController');
+                ZMUrlMapper::instance()->setMappingInfo($page, array('viewId' => $page, 'view' => $page, 'controllerDefinition' => 'ZMFormHandlerController'));
+                ZMUrlMapper::instance()->setMappingInfo($page, array('viewId' => 'success', 'view' => $page, 'viewDefinition' => 'RedirectView', 'controllerDefinition' => 'ZMFormHandlerController'));
             }
 
             if ($secure) {

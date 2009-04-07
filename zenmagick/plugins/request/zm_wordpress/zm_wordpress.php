@@ -75,19 +75,17 @@ class zm_wordpress extends ZMPlugin {
         define('WP_USE_THEMES', false);
 
         // set up view mappings used by the wp controller
-        $view = 'PageView';
-        $parameter = 'subdir='.FILENAME_WP;
+        $view = 'PageView#subdir='.FILENAME_WP;
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
-            $view = 'PluginView';
-            $parameter = array('plugin' => 'zm_wordpress', 'subdir' => FILENAME_WP);
+            $view = 'PluginView#plugin=zm_wordpress&subdir='.FILENAME_WP;
         }
 
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_index', 'index', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_single', 'single', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_page', 'page', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_archive', 'archive', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_archives', 'archives', $view, $parameter);
-        ZMUrlMapper::instance()->setMapping(null, FILENAME_WP.'_search', 'search', $view, $parameter);
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_index', 'viewId' => 'index', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_single', 'viewId' => 'single', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_page', 'viewId' => 'page', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_archive', 'viewId' => 'archive', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_archives', 'viewId' => 'archives', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_search', 'viewId' => 'search', 'viewDefition' => $view));
     }
 
     /**

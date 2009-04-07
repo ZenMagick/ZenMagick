@@ -77,15 +77,15 @@ class zm_multi_qty extends ZMPlugin {
 
             // TODO: make nicer
             // create mapping for lookup
-            ZMUrlMapper::instance()->setMappingInfo('product_info', array('controller' => 'MultiQtyProductInfoController'));
+            ZMUrlMapper::instance()->setMappingInfo('product_info', array('controllerDefinition' => 'MultiQtyProductInfoController'));
             // tweak the main_page parameter as controller id is private!
             ZMRequest::setParameter('main_page', 'multi_qty_product_info');
 
             // add url mappings
             if (ZMSettings::get('isShowCartAfterAddProduct')) {
-                ZMUrlMapper::instance()->setMapping('multi_qty_product_info', 'success', 'shopping_cart', 'RedirectView', 'secure=true');
+                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
             } else {
-                ZMUrlMapper::instance()->setMapping('multi_qty_product_info', 'success', 'product_info', 'RedirectView', 'parameter=products_id='.ZMRequest::getProductId());
+                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView', 'parameter=products_id='.ZMRequest::getProductId()));
             }
         }
     }

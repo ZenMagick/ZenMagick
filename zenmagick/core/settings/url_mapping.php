@@ -70,16 +70,15 @@
 
 
         // index; support for old style category URLs using index
-        $urlMapper->setMapping('index', 'category', 'category', 'ForwardView');
+        $urlMapper->setMappingInfo('index', array('viewId' => 'category', 'view' => 'category', 'viewDefinition' => 'ForwardView'));
 
         // discount_coupon
-        $urlMapper->setMapping('discount_coupon', 'info', 'discount_coupon_info');
+        $urlMapper->setMappingInfo('discount_coupon', array('viewId' => 'info', 'view' => 'discount_coupon_info'));
 
         // parameter dependant category views
-        $urlMapper->setMapping('category', 'category', 'category');
-        $urlMapper->setMapping('category', 'category_list', 'category_list');
-        $urlMapper->setMapping('category', 'manufacturer', 'manufacturer');
-        $urlMapper->setMapping('category', 'product_info', 'product_info', 'ForwardView');
+        $urlMapper->setMappingInfo('category', array('viewId' => 'category_list', 'view' => 'category_list'));
+        $urlMapper->setMappingInfo('category', array('viewId' => 'manufacturer', 'view' => 'manufacturer'));
+        $urlMapper->setMappingInfo('category', array('viewId' => 'product_info', 'view' => 'product_info', 'viewDefinition' => 'ForwardView'));
 
         // login [form]
         $urlMapper->setMappingInfo('login'); // needed to avoid recursive redirects
@@ -90,22 +89,23 @@
         $urlMapper->setMappingInfo('logoff', array('viewId' => 'success', 'view' => 'logoff', 'viewDefinition' => 'RedirectView'));
 
         // password_forgotten [form]
-        $urlMapper->setMapping('password_forgotten', 'success', 'login', 'RedirectView');
+        $urlMapper->setMappingInfo('password_forgotten', array('viewId' => 'success', 'view' => 'login', 'viewDefinition' => 'RedirectView'));
 
         // guest checkout
-        $urlMapper->setMapping('checkout_guest', 'login');
-        $urlMapper->setMapping('checkout_guest', 'checkout_guest', 'login');
-        $urlMapper->setMapping('checkout_guest', 'guest_checkout_disabled', 'login', 'RedirectView');
-        $urlMapper->setMapping('checkout_guest', 'success', 'checkout_shipping', 'RedirectView');
+        $urlMapper->setMappingInfo('checkout_guest', array('view' => 'login'));
+        $urlMapper->setMappingInfo('checkout_guest', array('viewId' => 'checkout_guest', 'view' => 'login'));
+        $urlMapper->setMappingInfo('checkout_guest', array('viewId' => 'guest_checkout_disabled', 'view' => 'login', 'RedirectView'));
+        $urlMapper->setMappingInfo('checkout_guest', array('viewId' => 'success', 'view' => 'checkout_shipping', 'viewDefinition' => 'RedirectView'));
 
         // guest history
-        $urlMapper->setMapping('guest_history', 'success', 'account_history_info');
+        $urlMapper->setMappingInfo('guest_history', array('viewId' => 'success', 'view' => 'account_history_info'));
 
         // product_info
-        $urlMapper->setMapping('product_info', 'product_music_info', 'product_music_info');
-        $urlMapper->setMapping('product_info', 'document_general_info', 'document_general_info');
-        $urlMapper->setMapping('product_info', 'document_product_info', 'document_product_info');
-        $urlMapper->setMapping('product_info', 'product_free_shipping_info', 'product_free_shipping_info');
+        $urlMapper->setMappingInfo('product_info', array('viewId' => 'product_music_info', 'view' => 'product_music_info'));
+        //TODO: these should be set dynamically
+        $urlMapper->setMappingInfo('product_info', array('viewId' => 'document_general_info', 'view' => 'document_general_info'));
+        $urlMapper->setMappingInfo('product_info', array('viewId' => 'document_product_info', 'view' => 'document_product_info'));
+        $urlMapper->setMappingInfo('product_info', array('viewId' => 'product_free_shipping_info', 'view' => 'product_free_shipping_info'));
 
         // gv_redeem
         $urlMapper->setMappingInfo('gv_redeem', array('formDefinition' => 'GVRedeem', 'formId' => 'gvRedeem'));
@@ -127,20 +127,20 @@
         $urlMapper->setMappingInfo('account_edit', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'AccountForm', 'formId' => 'account'));
 
         // account [forms]
-        $urlMapper->setMapping('account_password', 'success', 'account', 'RedirectView');
-        $urlMapper->setMapping('account_newsletters', 'success', 'account', 'RedirectView');
-        $urlMapper->setMapping('account_notifications', 'success', 'account', 'RedirectView');
+        $urlMapper->setMappingInfo('account_password', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('account_newsletters', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('account_notifications', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
 
 
         // checkout [forms]
-        $urlMapper->setMapping('shopping_cart', 'empty_cart', 'empty_cart');
-        $urlMapper->setMapping('checkout_shipping', 'success', 'checkout_billing', 'RedirectView');
-        $urlMapper->setMapping('checkout_shipping_address', 'success', 'checkout_shipping', 'RedirectView');
-        $urlMapper->setMapping('checkout_payment_address', 'success', 'checkout_payment', 'RedirectView');
+        $urlMapper->setMappingInfo('shopping_cart', array('view' => 'empty_cart', 'view' => 'empty_cart'));
+        $urlMapper->setMappingInfo('checkout_shipping', array('view' => 'success', 'view' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('checkout_shipping_address', array('view' => 'success', 'view' => 'checkout_shipping', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('checkout_payment_address', array('view' => 'success', 'view' => 'checkout_payment', 'viewDefinition' => 'RedirectView'));
 
         // redirect
-        $urlMapper->setMapping('redirect', 'success', 'index', 'RedirectView');
-        $urlMapper->setMapping('redirect', 'error', 'index', 'ForwardView');
+        $urlMapper->setMappingInfo('redirect', array('viewId' => 'success', 'view' => 'index', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('redirect', array('viewId' => 'error', 'view' => 'index', 'viewDefinition' => 'ForwardView'));
 
         // review [form]
         $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'Review', 'formId' => 'review'));

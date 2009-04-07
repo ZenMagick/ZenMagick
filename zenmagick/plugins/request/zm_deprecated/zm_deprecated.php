@@ -47,6 +47,18 @@ class zm_deprecated extends ZMPlugin {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        // resolve
+        ZMLoader::resolve('ZMDeprecatedMethods');
+        // call static method to register all deprecated methods
+        ZMDeprecatedMethods::register();
+    }
+
 }
 
 ?>

@@ -87,7 +87,8 @@ class zm_openid extends ZMPlugin {
         ZMSettings::set('tokenSecuredForms', $tokenSecuredForms.',openid_login');
 
         // add success URL mapping if none exists
-        ZMUrlMapper::instance()->setMapping('openID', 'success', 'account', 'RedirectView', 'secure=true');
+        ZMSacsMapper::instance()->setMapping('openID');
+        ZMUrlMapper::instance()->setMappingInfo('openID', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
 
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {

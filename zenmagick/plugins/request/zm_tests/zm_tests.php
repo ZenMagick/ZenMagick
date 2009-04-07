@@ -62,7 +62,7 @@ class zm_tests extends ZMPlugin {
         parent::init();
 
         $parameter = array('plugin' => $this, 'subdir' => 'views');
-        ZMUrlMapper::instance()->setMapping(null, 'tests', 'tests', 'PluginView', array('plugin' => 'zm_tests', 'subdir' => 'views'));
+        ZMUrlMapper::instance()->setMappingInfo('tests', array('view' => 'tests', 'viewDefinition' => 'PluginView#plugin=zm_tests&subdir=views'));
     }
 
     /**
