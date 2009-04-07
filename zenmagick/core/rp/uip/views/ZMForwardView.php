@@ -67,14 +67,14 @@ class ZMForwardView extends ZMView {
      * <ul>
      *  <li>Reset the crumbtrail</li>
      *  <li>add the forward view as <em>ZM_PAGE_KEY</em> to the request</li>
-     *  <li>call <code>zm_dispatch()</code></li>
+     *  <li>call <code>ZMDispatcher::dispatch()</code></li>
      * </ul>
      */
     public function generate() { 
         ZMCrumbtrail::instance()->reset();
         ZMRequest::setParameter(ZM_PAGE_KEY, $this->getView());
 
-        zm_dispatch();
+        ZMDispatcher::dispatch();
     }
 
 }
