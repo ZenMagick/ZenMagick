@@ -199,6 +199,11 @@
             <param name="plugin.name" value="zm_surcharge" />
             <param name="plugin.version" value="${plugins.zm_surcharge.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_deprecated" />
+            <param name="plugin.version" value="${plugins.zm_deprecated.version}" />
+        </antcall>
     </target>
 
     
