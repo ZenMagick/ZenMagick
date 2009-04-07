@@ -75,14 +75,14 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @return boolean <code>true</code> if successful, <code>false</code> on failure.
      */
     public function compress() {
-        $this->strippedFolder = $this->tempFolder.'/stripped';
-        $this->flatFolder = $this->tempFolder.'/flat';
+        $this->strippedFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'stripped';
+        $this->flatFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'flat';
 
         $this->clean();
         @unlink($this->outputFilename);
 
         // add some levels to make plugins load last
-        $this->preparePlugins($this->pluginsPreparedFolder.'/1/2/3/4');
+        $this->preparePlugins($this->pluginsPreparedFolder.DIRECTORY_SEPARATOR.'1'.DIRECTORY_SEPARATOR.'2'.DIRECTORY_SEPARATOR.'3'.DIRECTORY_SEPARATOR.'4');
 
         if ($this->stripCode) {
             $this->stripPhpDir($this->rootFolder, $this->strippedFolder);
@@ -116,7 +116,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @param string out The output directory.
      */
     private function preparePlugins($out) {
-        if (!ZMTools::endsWith($out, '/')) $out .= '/';
+        if (!ZMTools::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
@@ -124,13 +124,13 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                     continue;
                 }
                 $flag = $plugin->getLoaderPolicy();
-                $pluginBase = $out.$type.'/'.$plugin->getId().'/';
+                $pluginBase = $out.$type.DIRECTORY_SEPARATOR.$plugin->getId().DIRECTORY_SEPARATOR;
                 ZMTools::mkdir($pluginBase, 755);
                 if (ZMPlugin::LP_NONE != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
                     if (empty($pluginDir)) {
-                        $pluginDir = ZMRuntime::getPluginsDir() . $type . '/';
+                        $pluginDir = ZMRuntime::getPluginsDir() . $type . DIRECTORY_SEPARATOR;
                         $noDir = true;
                     }
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {
@@ -140,7 +140,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                     }
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);
-                        $relDir = dirname($fileBase).'/';
+                        $relDir = dirname($fileBase).DIRECTORY_SEPARATOR;
                         if ('./' == $relDir) {
                             $relDir = '';
                         }
@@ -174,7 +174,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @param string out The output directory.
      */
     private function createInitBootstrap($out) {
-        $outfile = $out.'/init_bootstrap.php';
+        $outfile = $out.DIRECTORY_SEPARATOR.'init_bootstrap.php';
         if (!$handle = fopen($outfile, 'ab')) {
             array_push($this->errors_, 'could not open file for writing ' . $outfile);
             return;

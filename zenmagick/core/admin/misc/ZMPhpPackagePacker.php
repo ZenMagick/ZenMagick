@@ -134,7 +134,7 @@ class ZMPhpPackagePacker {
      */
     public function clean() {
         ZMTools::rmdir($this->tempFolder);
-        ZMTools::rmdir($this->outputFilename.'.prep/');
+        ZMTools::rmdir($this->outputFilename.'.prep'.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -274,10 +274,10 @@ class ZMPhpPackagePacker {
             echo count($resolved) . ' of ' . count($dependsOn) . " classes resolved<br>\n";
         }
 
-        $currentDir = $this->outputFilename.'.prep/';
+        $currentDir = $this->outputFilename.'.prep'.DIRECTORY_SEPARATOR;
         foreach ($this->treeMap as $level => $classes) {
             if (0 < $level) {
-                $currentDir .= $level.'/';
+                $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
 
             ZMTools::mkdir($currentDir);
@@ -314,7 +314,7 @@ class ZMPhpPackagePacker {
      */
     protected function compressFiles($strip=true) {
         $compressor = ZMLoader::make('PhpCompressor');
-        $compressor->setRoot($this->outputFilename.'.prep/');
+        $compressor->setRoot($this->outputFilename.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename);
         $compressor->setTemp($this->tempFolder);
         $compressor->setStripCode($strip);

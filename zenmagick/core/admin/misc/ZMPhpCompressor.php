@@ -163,8 +163,8 @@ class ZMPhpCompressor {
      * @return boolean <code>true</code> if successful, <code>false</code> on failure.
      */
     public function compress() {
-        $this->strippedFolder = $this->tempFolder.'/stripped';
-        $this->flatFolder = $this->tempFolder.'/flat';
+        $this->strippedFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'stripped';
+        $this->flatFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'flat';
 
         $this->clean();
         @unlink($this->outputFilename);
@@ -280,8 +280,8 @@ class ZMPhpCompressor {
      */
     protected function stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";
-        if (!ZMTools::endsWith($in, '/')) $in .= '/';
-        if (!ZMTools::endsWith($out, '/')) $out .= '/';
+        if (!ZMTools::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
+        if (!ZMTools::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
         $files = ZMLoader::findIncludes($in, '.php', $recursive);
 
@@ -289,7 +289,7 @@ class ZMPhpCompressor {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
-            if (!ZMTools::endsWith($outdir, '/')) $outdir .= '/';
+            if (!ZMTools::endsWith($outdir, DIRECTORY_SEPARATOR)) $outdir .= DIRECTORY_SEPARATOR;
             $outfile = $outdir.$name;
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
@@ -319,19 +319,19 @@ class ZMPhpCompressor {
      */
     protected function flattenDirStructure($in, $out) {
         //echo "** flatten " . $in . " into " . $out . "\n";
-        $files = ZMLoader::findIncludes($in.'/', '.php', true);
+        $files = ZMLoader::findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         if (!file_exists($out)) {
             ZMTools::mkdir($out, 755);
         }
 
-        $inpath = explode('/', $in);
+        $inpath = explode(DIRECTORY_SEPARATOR, $in);
         foreach ($files as $name => $infile) {
-            $path = explode('/', $infile);
+            $path = explode(DIRECTORY_SEPARATOR, $infile);
             $level = count($path)-count($inpath)-1;
             $outdir = $out;
             for ($ii=1;$ii<=$level;++$ii) {
-                $outdir .= '/'.$ii;
+                $outdir .= DIRECTORY_SEPARATOR.$ii;
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
@@ -347,10 +347,10 @@ class ZMPhpCompressor {
                     return;
                 }
             }
-            $outfile = $outdir.'/'.basename($infile);
+            $outfile = $outdir.DIRECTORY_SEPARATOR.basename($infile);
             $sub = 1;
             while (file_exists($outfile)) {
-                $outfile = $outdir.'/'.$sub.'-'.basename($infile);
+                $outfile = $outdir.DIRECTORY_SEPARATOR.$sub.'-'.basename($infile);
                 ++$sub;
             }
             //echo $infile . " >> " . $outfile . "\n";
@@ -396,7 +396,7 @@ class ZMPhpCompressor {
      */
     protected function compressToSingleFile($in, $outfile) {
         //echo "** compress " . $in . " into " . $outfile . "\n";
-        $files = ZMLoader::findIncludes($in.'/', '.php', true);
+        $files = ZMLoader::findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         $tmp = array();
         // mess around with results ...
@@ -408,7 +408,7 @@ class ZMPhpCompressor {
 
         // use ob to collect content
         ob_start();
-        $inpath = explode('/', $in);
+        $inpath = explode(DIRECTORY_SEPARATOR, $in);
         $currLevel = 0;
         while (0 < count($files)) {
             $processed = 0;
@@ -418,7 +418,7 @@ class ZMPhpCompressor {
                     unset($files[$key]);
                     continue;
                 }
-                $path = explode('/', $infile);
+                $path = explode(DIRECTORY_SEPARATOR, $infile);
                 $level = count($path)-count($inpath)-1;
                 if ($level == $currLevel || $key < 4) {
                     ++$processed;
