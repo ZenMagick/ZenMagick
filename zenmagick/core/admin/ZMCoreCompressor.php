@@ -31,7 +31,6 @@
  * @package org.zenmagick.admin
  * @version $Id$
  */
-ZMLoader::resolve('PhpCompressor');
 class ZMCoreCompressor extends ZMPhpCompressor {
     private $pluginsPreparedFolder;
 

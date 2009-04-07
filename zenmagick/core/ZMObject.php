@@ -132,7 +132,7 @@ class ZMObject {
     /**
      * Attach a dynamic method to objects.
      *
-     * <p>Target functions/methods have the follwoing signature: <code>($ref, ...)</code>. <code>$ref</code> is
+     * <p>Target functions/methods have the following signature: <code>($ref, ...)</code>. <code>$ref</code> is
      * the current instance (<code>$this</code>), and the remaining arguments are the actual call parameter.</p>
      *
      * @param string method The method name.

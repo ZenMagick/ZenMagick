@@ -129,43 +129,6 @@ class ZMUrlMapper extends ZMObject {
     }
 
     /**
-     * Set a mapping.
-     *
-     * @param string page The page name; <code>null</code> may be used to lookup shared mappings.
-     * @param string viewId The view id; this is the key the controller is using to lookup the view; default is <code>null</code>.
-     * @param string view The mapped view name; default is <code>null</code> to default to the value of the parameter <em>page</em>.
-     * @param string viewDefinition The view class to be used; default is <code>PageView</code>
-     * @param mixed parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
-     * @param string controllerDefinition Optional controller name; default is the value of the parameter <em>page</em>.
-     * @deprecated Use setMappingInfo instead.
-     */
-    public function setMapping($page, $viewId=null, $view=null, $viewDefinition='PageView', $parameter=null, $controllerDefinition=null) {
-        if (null == $page && (null == $view || null == $viewId)) {
-            throw ZMLoader::make('ZMException', "invalid url mapping");
-        }
-        if (is_array($parameter)) {
-            $parameter = http_build_query($parameter);
-        }
-        $viewId = null != $viewId ? $viewId : $page;
-
-        // first, build the view info
-        $viewInfo = array();
-        $viewInfo['view'] = (null != $view ? $view : $page);
-        $viewInfo['viewDefinition'] = $viewDefinition.'#'.$parameter;
-        $viewInfo['controllerDefinition'] = $controllerDefinition;
-
-        if (null === $page) {
-            // global mapping
-            $this->globalViews_[$viewId] = $viewInfo;
-        } else {
-            if (!isset($this->pageViews_[$page])) {
-                $this->pageViews_[$page] = array();
-            }
-            $this->pageViews_[$page][$viewId] = $viewInfo;
-        }
-    }
-
-    /**
      * Find the controller (class) mapped to the given page.
      *
      * <p>Unless explicitely configured, the controller class name will be

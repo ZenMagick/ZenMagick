@@ -399,17 +399,6 @@
             'banners.box2' => SHOW_BANNERS_GROUP_SET8,
             'banners.all' => SHOW_BANNERS_GROUP_SET_ALL,
 
-            // deprecated
-            'bannerGroup1' => SHOW_BANNERS_GROUP_SET1,
-            'bannerGroup2' => SHOW_BANNERS_GROUP_SET2,
-            'bannerGroup3' => SHOW_BANNERS_GROUP_SET3,
-            'bannerGroup4' => SHOW_BANNERS_GROUP_SET4,
-            'bannerGroup5' => SHOW_BANNERS_GROUP_SET5,
-            'bannerGroup6' => SHOW_BANNERS_GROUP_SET6,
-            'bannerGroup7' => SHOW_BANNERS_GROUP_SET7,
-            'bannerGroup8' => SHOW_BANNERS_GROUP_SET8,
-            'bannerGroupAll' => SHOW_BANNERS_GROUP_SET_ALL,
-
 
             /**************************************
              * Image settings

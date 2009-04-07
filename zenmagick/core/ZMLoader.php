@@ -20,6 +20,15 @@
 ?>
 <?php
 
+if (!function_exists('__autoload')) {
+    /**
+     * __autoload.
+     */
+    function __autoload($className) {
+        ZMLoader::resolve($className, true);
+    }
+}
+
 
 /**
  * ZenMagick code/class loader.
@@ -211,57 +220,65 @@ class ZMLoader {
      * Shortcut version of <code>ZMLoader::instance()->resolveClass($name)</code>.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public static function resolve($name) {
+    public static function resolve($name, $isAutoLoad=false) {
         return ZMLoader::instance()->resolveClass($name);
+    }
+
+    /**
+     * Resolve and load the class given.
+     *
+     * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
+     * @return string The resolved class name or <code>null</code>.
+     */
+    private function resolveFromClassPath($name, $isAutoLoad=false) {
+        $classfile = $this->getClassFile($name);
+        if (null != $classfile) {
+            // we know about the class
+            if ($isAutoLoad || (!class_exists($name) && !interface_exists($name))) {
+                // either isAutoLoad in which case the class is not yet loaded
+                // or class/interface doesn't exist yet
+                require_once $classfile;
+            }
+            return $name;
+        }
+        // don't know this one
+        return null;
     }
 
     /**
      * Resolve and load the class code for the given class name.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public function resolveClass($name) {
-        // plain name
-        $classfile = $this->getClassFile($name);
-        // prefixed class
-        $zmname = ZMLoader::$classPrefix.$name;
-
-        if (!class_exists($name) && !interface_exists($name) && null != $classfile) {
-            if (null != ($zmclassfile = $this->getClassFile($zmname))) { 
-                // ensure the prefixed class is loaded for inheritence
-                require_once $zmclassfile;
-            }
-            require_once $classfile;
+    public function resolveClass($name, $isAutoLoad=false) {
+        if (0 === strpos($name, ZMLoader::$classPrefix)) {
+            return $this->resolveFromClassPath($name);
         }
 
-        if (class_exists($name) || interface_exists($name)) {
-            if (0 === strpos($name, ZMLoader::$classPrefix) || null != $classfile) {
-                // resolved && starts with prefix or resolved via classpath (which suggests a ZenMagick class) - as good as it gets
-                return $name;
-            } else {
-                // make sure we load a ZenMagick class
-                // there might be name clashes with non ZenMagick classes
-                $parent = $name;
-                while (false !== ($parent = get_parent_class($parent))) {
-                    if (0 === strpos($parent, ZMLoader::$classPrefix)) {
-                        return $name;
-                    }
+        // resolve ZM class first to be used as fallback
+        $zmclassname = $this->resolveFromClassPath(ZMLoader::$classPrefix.$name);
+        $classname = $this->resolveFromClassPath($name);
+
+        if (null != $classname) {
+            // non prefix class exists, now make sure it's a ZenMagick class 
+            // to avoid conflicts with zen cart class names
+            $parent = $classname;
+            while (false !== ($parent = get_parent_class($parent))) {
+                if (0 === strpos($parent, ZMLoader::$classPrefix)) {
+                    return $classname;
                 }
             }
-        } 
-
-        // fallback to prefixed class
-        if (null != ($zmclassfile = $this->getClassFile($zmname)) && !class_exists($zmname)) { 
-            require_once $zmclassfile;
-        }
-
-        if (class_exists($zmname) || interface_exists($zmname)) {
-            return $zmname;
+        } else if (null != $zmclassname) {
+            // class not found, but prefixed version, so use as fallback
+            return $zmclassname;
         }
 
         return null;
@@ -300,7 +317,7 @@ class ZMLoader {
             $args = func_get_args();
             array_shift($args);
         }
-        $clazz = ZMLoader::resolve($name);
+        $clazz = $this->resolveClass($name);
         if (null != $clazz) {
             if (!class_exists($clazz)) {
                 throw ZMLoader::make('ZMException', 'class not found ' . $clazz);

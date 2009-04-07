@@ -52,7 +52,6 @@ class ZMPhpPackagePacker {
         $this->outputFilename = $out;
         $this->setTemp($temp);
         $this->debug = false;
-        ZMLoader::resolve('ZMTools');
     }
 
 

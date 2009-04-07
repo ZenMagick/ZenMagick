@@ -262,14 +262,6 @@ class ZMOrder extends ZMObject {
      * Get the order status history.
      *
      * @return array A list of previous order stati.
-     * @deprecated Use <code>getOrderStatusHistory</code> instead.
-     */
-    public function getOrderStati() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId()); }
-
-    /**
-     * Get the order status history.
-     *
-     * @return array A list of previous order stati.
      */
     public function getOrderStatusHistory() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId()); }
 

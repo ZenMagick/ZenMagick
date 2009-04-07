@@ -56,21 +56,6 @@ class ZMBanners extends ZMObject {
 
 
     /**
-     * Get a <strong>single</strong> banner for the given (zen-cart) index.
-     *
-     * <p>The index is based on the zen-cart defines for banner; eg: <code>SHOW_BANNERS_GROUP_SET3</code>.
-     * Here the index would be three.</p>
-     *
-     * @param integer index The zen-cart index.
-     * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
-     * @deprecated use getBannerForSet instead
-     */
-    public function getBannerForIndex($index) {
-        $list = $this->getBannersForGroupName(ZMSettings::get('bannerGroup'.$index));
-        return 0 < count($list) ? $list[0] : null;
-    }
-
-    /**
      * Get a <strong>random, single</strong> banner for the given symbolic banner group set (yes!) name.
      *
      * <p>A banner set is a either a single banner group or a list of banner groups.</p>
