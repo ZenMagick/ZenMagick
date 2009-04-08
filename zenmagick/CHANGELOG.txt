@@ -48,6 +48,8 @@ Release 0.9.6
 - add admin toolbox item
 - add zm_deprecated plugin
 - make ZMUrlMapper::setMapping() throw an exception due to being removed
+- change ZMDatabase::setAutoCommit() to ZMDatabase::beginTransaction()
+- add support for nested transactions in ZMPdoDatabase (MySQL5 and PostgreSQL)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

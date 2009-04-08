@@ -164,11 +164,11 @@ interface ZMDatabase {
     public function removeModel($table, $model, $mapping=null);
 
     /**
-     * Enable/disable automatic commits for this instance.
+     * Start a transaction.
      *
-     * @param boolean value The new value.
+     * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
      */
-    public function setAutoCommit($value);
+    public function beginTransaction();
 
     /**
      * Commits statements in a transaction.

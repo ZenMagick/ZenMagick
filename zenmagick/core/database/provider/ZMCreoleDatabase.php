@@ -85,8 +85,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function setAutoCommit($value) {
-        $this->conn_->setAutoCommit($value);
+    public function beginTransaction() {
+        $this->conn_->setAutoCommit(true);
     }
 
     /**

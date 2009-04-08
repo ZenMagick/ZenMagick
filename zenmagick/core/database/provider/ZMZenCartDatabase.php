@@ -83,7 +83,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function setAutoCommit($value) {
+    public function beginTransaction() {
     }
 
     /**

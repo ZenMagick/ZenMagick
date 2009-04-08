@@ -27,6 +27,9 @@
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em>.
  *
+ * <p>Support for nested transactions via <code>SAVEPOINT</code>s inspired by
+ * http://www.kennynet.co.uk/2008/12/02/php-pdo-nested-transactions/.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.database.provider
  * @version $Id$
@@ -34,10 +37,11 @@
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     private $pdo_;
     private $config_;
-    private $autoCommit_;
-    private $inTransaction_;
     private $queriesMap_;
     private $mapper_;
+    private static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
+    private $savepointLevel_;
+    
 
 
     /**
@@ -75,8 +79,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->pdo_->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->queriesMap_ = array();
-        $this->autoCommit_ = true;
-        $this->inTransaction_ = false;
+        $this->savepointLevel_ = 0;
     }
 
     /**
@@ -89,6 +92,15 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
 
     /**
+     * Does this instance allow nested transactions?
+     *
+     * @return boolean <code>true</code> if nested transactions are supported.
+     */
+    protected function isNestedTransactions() {
+        return in_array($this->config_['driver'], self::$SAVEPOINT_DRIVER);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getConfig() {
@@ -98,23 +110,55 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     /**
      * {@inheritDoc}
      */
-    public function setAutoCommit($value) {
-        $this->autoCommit_ = $value;
+    public function beginTransaction() {
+        try {
+            if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
+              echo 'begin';
+                $this->pdo_->beginTransaction();
+            } else {
+              echo "SAVEPOINT LEVEL{$this->savepointLevel_}";
+                $this->pdo_->exec("SAVEPOINT LEVEL{$this->savepointLevel_}");
+            }
+            ++$this->savepointLevel_;
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     public function commit() {
-        $this->pdo_->commit();
-        $this->inTransaction_ = false;
+        try {
+            --$this->savepointLevel_;
+            if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
+              echo 'commit';
+                $this->pdo_->commit();
+            } else {
+              echo "RELEASE SAVEPOINT LEVEL{$this->savepointLevel_}";
+                $this->pdo_->exec("RELEASE SAVEPOINT LEVEL{$this->savepointLevel_}");
+            }
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     public function rollback() {
-        $this->pdo_->rollBack();
+        try {
+            --$this->savepointLevel_;
+            if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
+              echo 'rollback';
+                $this->pdo_->rollBack();
+            } else {
+              echo "ROLLBACK SAVEPOINT LEVEL{$this->savepointLevel_}";
+                $this->pdo_->exec("ROLLBACK TO SAVEPOINT LEVEL{$this->transLevel}");
+            }
+        } catch (PDOException $pdoe) {
+            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
     }
 
     /**

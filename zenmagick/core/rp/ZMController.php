@@ -90,7 +90,7 @@ class ZMController extends ZMObject {
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 
         if ($enableTransactions) {
-            ZMRuntime::getDatabase()->setAutoCommit(false);
+            ZMRuntime::getDatabase()->beginTransaction();
         }
 
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
