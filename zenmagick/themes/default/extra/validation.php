@@ -89,6 +89,9 @@
         $validator->addRule('address', array('MaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
     }
 
+    /* use alias */
+    $validator->addAlias('address', 'shippingAddress');
+    $validator->addAlias('address', 'billingAddress');
 
     /* advanced search */
     $validator->addRules('searchCriteria', array(

@@ -83,8 +83,13 @@ class ZMEventFixes extends ZMObject {
         $session = ZMRequest::getSession();
         // if anonymous, we need to login/register first, so no point asking yet
         if (!$session->isAnonymous() && !$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
-            ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
-            ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
+            $account = ZMRequest::getAccount();
+            if (0 < $account->getDefaultAddressId()) {
+                $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
+            } else {
+                ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
+                ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
+            }
         }
     }
 
@@ -94,7 +99,7 @@ class ZMEventFixes extends ZMObject {
     public function onNotifyHeaderStartCheckoutPayment() {
         $shoppingCart = ZMRequest::getShoppingCart();
         // check for address
-        if (!$shoppingCart->hasBillingAddress()) {
+        if (!$shoppingCart->hasBillingAddress() && (!isset($_SESSION['customer_default_address_id']) || 0 == $_SESSION['customer_default_address_id'])) {
             ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
             ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
         }

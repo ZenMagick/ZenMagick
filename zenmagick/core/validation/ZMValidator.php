@@ -30,6 +30,7 @@
  */
 class ZMValidator extends ZMObject {
     private $sets_;
+    private $alias_;
     private $messages_;
 
 
@@ -39,6 +40,7 @@ class ZMValidator extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->sets_ = array();
+        $this->alias_ = array();
         $this->messages_ = array();
     }
 
@@ -56,6 +58,31 @@ class ZMValidator extends ZMObject {
         return ZMObject::singleton('Validator');
     }
 
+
+    /**
+     * Add an alias to share rules between different forms.
+     *
+     * <p>Adding / modifying an alias is not permitted and the result not defined.</p>
+     *
+     * @param string id A rule id of an existing rule set.
+     * @param string alias An alias.
+     */
+    public function addAlias($id, $alias) {
+        $this->alias_[$alias] = $id;
+    }
+
+    /**
+     * Resolve alias.
+     *
+     * @param string id A rule set id.
+     * @return string Either the same id or the aliased id.
+     */
+    protected function resolveAlias($id) {
+        if (array_key_exists($id, $this->alias_)) {
+            return $this->alias_[$id];
+        }
+        return $id;
+    }
 
     /**
      * Add a new rule for the given rule set id.
@@ -96,6 +123,7 @@ class ZMValidator extends ZMObject {
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance, array or <code>null</code>.
      */
     public function getRuleSet($id, $compile=false) {
+        $id = $this->resolveAlias($id);
         $ruleSet = null;
         if (array_key_exists($id, $this->sets_)) {
             $ruleSet = $this->sets_[$id];
@@ -119,6 +147,7 @@ class ZMValidator extends ZMObject {
      * @return boolean <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
      */
     public function hasRuleSet($id) {
+        $id = $this->resolveAlias($id);
         return array_key_exists($id, $this->sets_);
     }
 
@@ -186,6 +215,7 @@ class ZMValidator extends ZMObject {
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
     protected function validateSession($req, $id) {
+        $id = $this->resolveAlias($id);
         $valid = true;
         if (ZMTools::inArray($id, ZMSettings::get('tokenSecuredForms'))) {
             $valid = false;
@@ -243,7 +273,7 @@ class ZMValidator extends ZMObject {
      */
     public function insertJSValidation($id) {
         $this->toJSString($id);
-        // inline JS
+        // inline JS to allow PHP
         include_once ZMRuntime::getTheme()->themeFile("validation.js");
     }
 

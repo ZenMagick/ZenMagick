@@ -25,13 +25,14 @@
 
 
 /**
- * Request controller for checkout shipping page.
+ * Ajax controller for JSON checkout.
  *
  * @author DerManoMann
- * @package org.zenmagick.rp.uip.controller
+ * @package org.zenmagick.rp.ajax.controller
  * @version $Id$
+ * @todo implement!
  */
-class ZMCheckoutPaymentController extends ZMController {
+class ZMAjaxCheckoutController extends ZMAjaxController {
 
     /**
      * Create new instance.
@@ -45,23 +46,6 @@ class ZMCheckoutPaymentController extends ZMController {
      */
     function __destruct() {
         parent::__destruct();
-    }
-
-
-    /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
-     */
-    function processGet() {
-        ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        $shoppingCart = ZMRequest::getShoppingCart();
-        $this->exportGlobal("zm_cart", $shoppingCart);
-
-        return $this->findView();
     }
 
 }

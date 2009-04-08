@@ -123,13 +123,13 @@ class ZMAddresses extends ZMObject {
     /**
      * Delte an address.
      *
-     * @param int The address id.
+     * @param int addressId The address id.
      * @param boolean <code>true</code>.
      */
     public function deleteAddressForId($addressId) {
         $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE  address_book_id = :id"; 
-        ZMRuntime::getDatabase()->query($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
+        ZMRuntime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
         return true;
     }
 

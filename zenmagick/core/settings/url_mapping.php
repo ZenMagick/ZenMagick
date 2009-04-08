@@ -127,16 +127,24 @@
         $urlMapper->setMappingInfo('account_edit', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView', 'formDefinition' => 'AccountForm', 'formId' => 'account'));
 
         // account [forms]
-        $urlMapper->setMappingInfo('account_password', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
-        $urlMapper->setMappingInfo('account_newsletters', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
-        $urlMapper->setMappingInfo('account_notifications', array('view' => 'success', 'viewId' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('account_password', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('account_newsletters', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('account_notifications', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
 
 
-        // checkout [forms]
-        $urlMapper->setMappingInfo('shopping_cart', array('view' => 'empty_cart', 'view' => 'empty_cart'));
-        $urlMapper->setMappingInfo('checkout_shipping', array('view' => 'success', 'view' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
-        $urlMapper->setMappingInfo('checkout_shipping_address', array('view' => 'success', 'view' => 'checkout_shipping', 'viewDefinition' => 'RedirectView'));
-        $urlMapper->setMappingInfo('checkout_payment_address', array('view' => 'success', 'view' => 'checkout_payment', 'viewDefinition' => 'RedirectView'));
+        // checkout shipping [form]
+        $urlMapper->setMappingInfo('checkout_shipping', array('viewId' => 'success', 'view' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
+
+        // checkout shipping address [form]
+        $urlMapper->setMappingInfo('checkout_shipping_address', array('view' => 'checkout_shipping_address', 'formDefinition' => 'Address', 'formId' => 'shippingAddress', 'controllerDefinition' => 'CheckoutAddressController#mode=shipping'));
+        $urlMapper->setMappingInfo('checkout_shipping_address', array('viewId' => 'success', 'view' => 'checkout_shipping', 'viewDefinition' => 'RedirectView'));
+
+        // checkout payment [form]
+        $urlMapper->setMappingInfo('checkout_payment', array('viewId' => 'success', 'view' => 'checkout_confirmation', 'viewDefinition' => 'RedirectView'));
+
+        // checkout payment address [form]
+        $urlMapper->setMappingInfo('checkout_payment_address', array('view' => 'checkout_payment_address', 'formDefinition' => 'Address', 'formId' => 'billingAddress', 'controllerDefinition' => 'CheckoutAddressController#mode=billing'));
+        $urlMapper->setMappingInfo('checkout_payment_address', array('viewId' => 'success', 'view' => 'checkout_payment', 'viewDefinition' => 'RedirectView'));
 
         // redirect
         $urlMapper->setMappingInfo('redirect', array('viewId' => 'success', 'view' => 'index', 'viewDefinition' => 'RedirectView'));

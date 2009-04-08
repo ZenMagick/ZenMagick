@@ -50,6 +50,15 @@ Release 0.9.6
 - make ZMUrlMapper::setMapping() throw an exception due to being removed
 - change ZMDatabase::setAutoCommit() to ZMDatabase::beginTransaction()
 - add support for nested transactions in ZMPdoDatabase (MySQL5 and PostgreSQL)
+- allow to set validation rule aliases
+- use alias to share address rules between address book and checkout; this
+  allows now to have separate rules if required; f:#2009313
+- changed radio name of existing checkout address in list from address to
+  addressId
+- form object name in checkout addresses changed from zm_address to
+  shippingAddress and billingAddress, respectively (following the naming
+	convention of the form definition in url_mappings.php)
+- merge checkout address controller into single ZMCheckoutAddressController
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
