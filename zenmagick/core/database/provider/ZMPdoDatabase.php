@@ -113,10 +113,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function beginTransaction() {
         try {
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
-              echo 'begin';
                 $this->pdo_->beginTransaction();
             } else {
-              echo "SAVEPOINT LEVEL{$this->savepointLevel_}";
                 $this->pdo_->exec("SAVEPOINT LEVEL{$this->savepointLevel_}");
             }
             ++$this->savepointLevel_;
@@ -132,10 +130,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             --$this->savepointLevel_;
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
-              echo 'commit';
                 $this->pdo_->commit();
             } else {
-              echo "RELEASE SAVEPOINT LEVEL{$this->savepointLevel_}";
                 $this->pdo_->exec("RELEASE SAVEPOINT LEVEL{$this->savepointLevel_}");
             }
         } catch (PDOException $pdoe) {
@@ -150,10 +146,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             --$this->savepointLevel_;
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
-              echo 'rollback';
                 $this->pdo_->rollBack();
             } else {
-              echo "ROLLBACK SAVEPOINT LEVEL{$this->savepointLevel_}";
                 $this->pdo_->exec("ROLLBACK TO SAVEPOINT LEVEL{$this->transLevel}");
             }
         } catch (PDOException $pdoe) {
