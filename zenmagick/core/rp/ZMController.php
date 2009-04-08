@@ -346,6 +346,13 @@ class ZMController extends ZMObject {
     }
 
     /**
+     * Set the controller id.
+     *
+     * @param string id The id (page name).
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
      * Get the controller id.
      *
      * @return string The id (page name).
