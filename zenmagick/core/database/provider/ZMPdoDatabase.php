@@ -493,9 +493,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->pdo_->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($args as $name => $value) {
-            if (false !== strpos($sql, ':'.$name)) {
+            $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
+            if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
                 // only bind if actually used
-                $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
                 $type = $mapping[$typeName]['type'];
                 if (!array_key_exists($type, $typeMap)) {
                     throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
