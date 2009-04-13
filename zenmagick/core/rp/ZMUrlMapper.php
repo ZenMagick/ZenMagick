@@ -114,7 +114,7 @@ class ZMUrlMapper extends ZMObject {
         // sanity check
         if (null == $page && (null == $viewInfo['view'] || null == $viewId)) {
             $msg = zm_l10n_get("invalid url mapping; page=%s, view=%s, viewId=%s", $page, $viewInfo['view'], $viewId);
-            throw ZMLoader::make('ZMException', $msg);
+            throw new ZMException($msg);
         }
 
         if (null == $page) {

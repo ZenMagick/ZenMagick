@@ -347,7 +347,7 @@ class ZMToolboxMacro extends ZMObject {
                     $elements[] = $this->productSelectAttribute($product, $attribute);
                     break;
                 default:
-                    throw ZMLoader::make('ZMException', 'Unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
+                    throw new ZMException('Unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
             }
         }
 

@@ -117,7 +117,7 @@ class ZMOpenIDController extends ZMController {
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($openid) {
-        $store = ZMLoader::make('ZMDatabaseOpenIDStore');
+        $store = new ZMDatabaseOpenIDStore();
         $consumer = new Auth_OpenID_Consumer($store);
         $auth_request = $consumer->begin($openid);
 
@@ -178,7 +178,7 @@ class ZMOpenIDController extends ZMController {
      * @return array OpenID details map or <code>null</code>.
      */
     private function finishAuthentication() {
-        $store = ZMLoader::make('ZMDatabaseOpenIDStore');
+        $store = new ZMDatabaseOpenIDStore();
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Complete the authentication process using the server's response.

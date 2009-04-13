@@ -13,13 +13,13 @@ class TestAuthentication extends ZMTestCase {
      * Test manager single provider.
      */
     public function testManagerSingle() {
-        $manager = ZMLoader::make('ZMAuthenticationManager');
+        $manager = new ZMAuthenticationManager();
         $this->assertNull($manager->getDefaultProvider());
         $manager->addProvider('ZMZenCartAuthentication');
         $this->assertNotNull($manager->getDefaultProvider());
 
         // check zc encryypted password
-        $zcProvider = ZMLoader::make('ZMZenCartAuthentication');
+        $zcProvider = new ZMZenCartAuthentication();
         $zcpwd = 'foobar';
         $zcenc = $zcProvider->encryptPassword($zcpwd);
         $this->assertTrue($manager->validatePassword($zcpwd, $zcenc));
@@ -34,7 +34,7 @@ class TestAuthentication extends ZMTestCase {
      * Test manager multi provider.
      */
     public function testManagerMulti() {
-        $manager = ZMLoader::make('ZMAuthenticationManager');
+        $manager = new ZMAuthenticationManager();
         $this->assertNull($manager->getDefaultProvider());
         $manager->addProvider('ZMZenCartAuthentication');
         $this->assertNotNull($manager->getDefaultProvider());
@@ -42,13 +42,13 @@ class TestAuthentication extends ZMTestCase {
         $this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
 
         // check zc encryypted password
-        $zcProvider = ZMLoader::make('ZMZenCartAuthentication');
+        $zcProvider = new ZMZenCartAuthentication();
         $zcpwd = 'foobar';
         $zcenc = $zcProvider->encryptPassword($zcpwd);
         $this->assertTrue($manager->validatePassword($zcpwd, $zcenc));
 
         // check sha1 encryypted password
-        $sha1Provider = ZMLoader::make('ZMSha1Authentication');
+        $sha1Provider = new ZMSha1Authentication();
         $sha1pwd = 'boofar';
         $sha1enc = $sha1Provider->encryptPassword($sha1pwd);
         $this->assertTrue($manager->validatePassword($sha1pwd, $sha1enc));

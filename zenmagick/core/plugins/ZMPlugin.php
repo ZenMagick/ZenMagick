@@ -553,7 +553,7 @@ class ZMPlugin extends ZMObject {
      */
     public function pluginURL($uri, $echo=ZM_ECHO_DEFAULT) {
         if (null == $this->pluginDir_) {
-            throw ZMLoader::make('ZMException', 'pluginDir missing');
+            throw new ZMException('pluginDir missing');
         }
 
         $type = basename(dirname($this->pluginDir_));

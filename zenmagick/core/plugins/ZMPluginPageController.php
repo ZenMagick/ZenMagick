@@ -78,7 +78,7 @@ class ZMPluginPageController extends ZMObject {
      */
     public function process() { 
         if (!ZMSettings::get('isAdmin')) {
-            throw ZMLoader::make('ZMException', 'illegal access');
+            throw new ZMException('illegal access');
         }
 
         $page = null;
@@ -90,7 +90,7 @@ class ZMPluginPageController extends ZMObject {
                 $page = $this->processPost();
                 break;
             default:
-                throw ZMLoader::make('ZMException', 'unsupported request method: ' . ZMRequest::getMethod());
+                throw new ZMException('unsupported request method: ' . ZMRequest::getMethod());
         }
 
         return $page;

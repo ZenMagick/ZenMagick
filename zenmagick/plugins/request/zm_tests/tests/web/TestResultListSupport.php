@@ -22,14 +22,14 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source.
      */
     public function testSearchSourceOnly() {
-        $criteria = ZMLoader::make('ZMSearchCriteria');
+        $criteria = new ZMSearchCriteria();
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $source = ZMLoader::make('ZMSearchResultSource', $criteria);
-        $source->setResultList(ZMLoader::make('ZMResultList'));
+        $source = new ZMSearchResultSource($criteria);
+        $source->setResultList(new ZMResultList());
         $results = $source->getResults();
         $this->assertNotNull($results);
 
@@ -48,14 +48,14 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source with result list.
      */
     public function testSourceWithList() {
-        $criteria = ZMLoader::make('ZMSearchCriteria');
+        $criteria = new ZMSearchCriteria();
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $resultList = ZMLoader::make('ZMResultList');
-        $source = ZMLoader::make('ZMSearchResultSource', $criteria);
+        $resultList = new ZMResultList();
+        $source = new ZMSearchResultSource($criteria);
         $source->setResultList($resultList);
         $results = $source->getResults();
         $this->assertNotNull($results);
@@ -75,18 +75,18 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source with result list and sorter.
      */
     public function testSourceWithListAndSorter() {
-        $criteria = ZMLoader::make('ZMSearchCriteria');
+        $criteria = new ZMSearchCriteria();
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $resultList = ZMLoader::make('ZMResultList');
-        $sorter = ZMLoader::make('ZMProductSorter');
+        $resultList = new ZMResultList();
+        $sorter = new ZMProductSorter();
         $sorter->setSortId('name');
         $sorter->setDescending(true);
         $resultList->addSorter($sorter);
-        $source = ZMLoader::make('ZMSearchResultSource', $criteria);
+        $source = new ZMSearchResultSource($criteria);
         $source->setResultList($resultList);
         $results = $source->getResults();
         $this->assertNotNull($results);

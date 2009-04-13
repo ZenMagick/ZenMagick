@@ -167,16 +167,22 @@ interface ZMDatabase {
      * Start a transaction.
      *
      * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
+     *
+     * @throws ZMDatabaseException
      */
     public function beginTransaction();
 
     /**
      * Commits statements in a transaction.
+     * 
+     * @throws ZMDatabaseException
      */
     public function commit();
 
     /**
      * Rollback changes in a transaction.
+     * 
+     * @throws ZMDatabaseException
      */
     public function rollback();
 

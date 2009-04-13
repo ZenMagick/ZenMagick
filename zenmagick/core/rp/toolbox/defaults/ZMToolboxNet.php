@@ -55,7 +55,7 @@ class ZMToolboxNet extends ZMObject {
             $useContext = false;
             $isStatic = true;
         } else if (empty($page)) {
-            throw ZMLoader::make('ZMException', 'missing page parameter');
+            throw new ZMException('missing page parameter');
         }
 
         if (!$isAdmin && $seo && function_exists('zm_build_seo_href')) {

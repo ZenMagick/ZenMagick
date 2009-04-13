@@ -180,7 +180,7 @@ class ZMCoupons extends ZMObject {
      * @param ZMGVReceiver gvreceiver The receiver.
      */
     public function createCouponTracker($coupon, $account, $gvreceiver) {
-        $tracker = ZMLoader::make('ZMObject');
+        $tracker = new ZMObject();
         $tracker->set('couponId', $coupon->getId());
         $tracker->set('accountId', $account->getId());
         $tracker->set('firstName', $account->getFirstName());
@@ -225,7 +225,7 @@ class ZMCoupons extends ZMObject {
      * @param string remoteIp The redeeming IP addres; default is an empty string.
      */
     public function finalizeCoupon($couponId, $accountId, $remoteIp='') {
-        $tracker = ZMLoader::make('ZMObject');
+        $tracker = new ZMObject();
         $tracker->set('couponId', $couponId);
         $tracker->set('accountId', $accountId);
         $tracker->set('redeemDate', date(ZMDatabase::DATETIME_FORMAT));

@@ -37,7 +37,7 @@ class ZMMasterPasswordAuthentication implements ZMAuthentication {
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) { 
-        throw ZMLoader::make('ZMException', 'not supported');
+        throw new ZMException('not supported');
     }
 
     /**

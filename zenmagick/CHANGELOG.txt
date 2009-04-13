@@ -59,6 +59,10 @@ Release 0.9.6
   shippingAddress and billingAddress, respectively (following the naming
 	convention of the form definition in url_mappings.php)
 - merge checkout address controller into single ZMCheckoutAddressController
+- improve default address handling
+- renamted Lite.php to Cache_Lite.php to follow loader conventions
+- removed code that preloads classes as the loader now supports __autoload()
+- convert code to use new where explicitely ZM prefixed classes are used
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

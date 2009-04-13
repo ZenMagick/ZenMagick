@@ -55,7 +55,7 @@ class ZMCronJobs extends ZMObject {
         }
         // load on demand
         $this->history = null;
-        $this->parser = ZMLoader::make('ZMCronParser');
+        $this->parser = new ZMCronParser();
     }
 
     /**

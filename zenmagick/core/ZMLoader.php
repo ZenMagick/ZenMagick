@@ -324,7 +324,7 @@ class ZMLoader {
         $clazz = $this->resolveClass($name);
         if (null != $clazz) {
             if (!class_exists($clazz)) {
-                throw ZMLoader::make('ZMException', 'class not found ' . $clazz);
+                throw new ZMException('class not found ' . $clazz);
             }
             $obj = null;
             switch (count($args)) {
@@ -347,7 +347,7 @@ class ZMLoader {
                 $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
                 break;
             default:
-                throw ZMLoader::make('ZMException', 'unsupported number of constructor arguments ' . $clazz);
+                throw new ZMException('unsupported number of constructor arguments ' . $clazz);
             }
             return $obj;
 

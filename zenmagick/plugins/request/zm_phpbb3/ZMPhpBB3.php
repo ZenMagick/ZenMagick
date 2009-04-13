@@ -159,7 +159,7 @@ class ZMPhpBB3 extends ZMObject {
      */
     public function createAccount($nickName, $password, $email) {
         if (false !== ($groupId = $this->getDefaultGroupId())) {
-            $authentication = ZMLoader::make('ZMPhpBB3Authentication');
+            $authentication = new ZMPhpBB3Authentication();
             $data = array(
                 'username'          => $nickName,
 		            'username_clean'    => strtolower($nickName),
@@ -239,7 +239,7 @@ class ZMPhpBB3 extends ZMObject {
     public function updateAccount($nickName, $password, $email) {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
-            $authentication = ZMLoader::make('ZMPhpBB3Authentication');
+            $authentication = new ZMPhpBB3Authentication();
             $updates = array(
                 'username' => $nickName,
                 'username_clean' => strtolower($nickName),

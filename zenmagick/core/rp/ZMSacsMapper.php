@@ -96,7 +96,7 @@ class ZMSacsMapper extends ZMObject {
      */
     public function setMapping($page, $authentication=ZMSacsMapper::REGISTERED, $secure=true) {
         if (null == $page) {
-            throw ZMLoader::make('ZMException', "invalid sacs mapping (page missing)");
+            throw new ZMException("invalid sacs mapping (page missing)");
         }
         $this->mapping_[$page] = array('level' => $authentication, 'secure' => $secure);
     }
@@ -156,7 +156,7 @@ class ZMSacsMapper extends ZMObject {
      */
     protected function getMappingValue($page, $key, $default=null) {
         if (null == $page) {
-            throw ZMLoader::make('ZMException', "invalid sacs mapping (page missing)");
+            throw new ZMException("invalid sacs mapping (page missing)");
         }
 
         if (!isset($this->mapping_[$page])) {

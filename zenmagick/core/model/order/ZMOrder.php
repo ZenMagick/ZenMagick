@@ -303,7 +303,7 @@ class ZMOrder extends ZMObject {
             }
         }
 
-        return $force ? ZMLoader::make("ZMOrderTotal", ucwords($name), 0, 0, $type) : null;
+        return $force ? ZMLoader::make("OrderTotal", ucwords($name), 0, 0, $type) : null;
     }
 
     /**

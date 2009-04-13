@@ -32,7 +32,7 @@ class TestZMPhpBB3 extends ZMTestCase {
      */
     protected function getAdapter() {
         if (null == $this->phpBB3_) {
-            $this->phpBB3_ = ZMLoader::make('ZMPhpBB3');
+            $this->phpBB3_ = new ZMPhpBB3();
         }
 
         return $this->phpBB3_;

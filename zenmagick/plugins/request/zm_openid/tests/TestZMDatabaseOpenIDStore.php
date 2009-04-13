@@ -13,7 +13,7 @@ class TestZMDatabaseOpenIDStore extends ZMTestCase {
      * Test store.
      */
     public function testStore() {
-        $store = ZMLoader::make('ZMDatabaseOpenIDStore');
+        $store = new ZMDatabaseOpenIDStore();
         $this->assertNotNull($store);
         $ass = new Auth_OpenID_Association('foo', 'secret', 1, (time()+100000), 'HMAC-SHA1');
         $store->storeAssociation('bar', $ass);

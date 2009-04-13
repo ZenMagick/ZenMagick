@@ -15,7 +15,7 @@ class TestZMBeanUtils extends ZMTestCase {
     public function testObj2map() {
         // get all properties
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
-        $obj = ZMLoader::make('ZMObject');
+        $obj = new ZMObject();
         $obj->set('foo', 'bar');
         $obj->set('doh', 'nut');
         $map = ZMBeanUtils::obj2map($obj);
@@ -35,7 +35,7 @@ class TestZMBeanUtils extends ZMTestCase {
 
         // set all
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
-        $obj = ZMLoader::make('ZMObject');
+        $obj = new ZMObject();
         $map = ZMBeanUtils::setAll($obj, $data);
         $this->assertEqual('bar',$obj->getFoo());
         $map = ZMBeanUtils::obj2map($obj);
@@ -43,7 +43,7 @@ class TestZMBeanUtils extends ZMTestCase {
 
         // set some
         $expectSome = array('foo' => 'bar', 'propertyNames' => array('foo'), 'attachedMethods' => array());
-        $obj = ZMLoader::make('ZMObject');
+        $obj = new ZMObject();
         $map = ZMBeanUtils::setAll($obj, $data, array('foo'));
         $this->assertEqual('bar',$obj->getFoo());
         $map = ZMBeanUtils::obj2map($obj);

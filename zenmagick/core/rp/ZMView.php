@@ -140,7 +140,7 @@ class ZMView extends ZMObject {
     /**
      * Generate view response.
      */
-    public function generate() { throw ZMLoader::make('ZMException', 'not implemented'); }
+    public function generate() { throw new ZMException('not implemented'); }
 
     /**
      * Set the controller for this view.

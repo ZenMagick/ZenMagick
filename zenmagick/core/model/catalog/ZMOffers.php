@@ -394,7 +394,7 @@ class ZMOffers extends ZMObject {
                         $price = $basePrice - $discount->getValue();
                         break;
                     default:
-                        throw ZMLoader::make('ZMException', ' invalid discount type: '.$product->getDiscountType());
+                        throw new ZMException('invalid discount type: '.$product->getDiscountType());
                         break;
                 }
                 $discount->setPrice($price);
@@ -535,7 +535,7 @@ class ZMOffers extends ZMObject {
                 break;
             default:
                 // XXX
-                throw ZMLoader::make('ZMException', 'wtf!');
+                throw new ZMException('wtf!');
             }
         }
 

@@ -80,7 +80,7 @@ class ZMToolbox extends ZMObject {
         $this->form = ZMLoader::make('ToolboxForm');
         $this->net = ZMLoader::make('ToolboxNet');
         $this->macro = ZMLoader::make('ToolboxMacro');
-        $this->locale = ZMLoader::make('ZMToolboxLocale');
+        $this->locale = ZMLoader::make('ToolboxLocale');
         $this->utils = ZMLoader::make('ToolboxUtils');
         $this->admin = ZMLoader::make('ToolboxAdmin');
     }

@@ -140,7 +140,7 @@ class TestsController extends ZMController {
             set_time_limit(300);
 
             // run tests
-            $reporter = ZMLoader::make('ZMHtmlReporter');
+            $reporter = new ZMHtmlReporter();
             // enable all selected tests
             foreach ($tests as $id) {
                 // XXX: this should not be handled by the reporter

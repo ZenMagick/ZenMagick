@@ -72,7 +72,7 @@ class zm_phpbb3 extends ZMPlugin {
      */
     protected function getAdapter() {
         if (null == $this->phpBB3_) {
-            $this->phpBB3_ = ZMLoader::make('ZMPhpBB3');
+            $this->phpBB3_ = new ZMPhpBB3();
         }
 
         return $this->phpBB3_;

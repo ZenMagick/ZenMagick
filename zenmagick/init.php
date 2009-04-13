@@ -45,26 +45,11 @@
         require_once ZM_BASE_DIR."core/settings/constants.php";
         require_once ZM_BASE_DIR."core/ZMSettings.php";
         require_once ZM_BASE_DIR."core/settings/defaults.php";
-        require_once ZM_BASE_DIR."core/ZMObject.php";
         require_once ZM_BASE_DIR."core/ZMLoader.php";
 
         // prepare loader
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->loadStatic();
-
-        // preload some stuff
-        foreach (ZMLoader::instance()->getClassPath() as $_zm_name => $_zm_file) {
-            if ($_zm_name == $_zm_file) { continue; } // this is static stuff
-            // exclude some stuff that gets resolved dynamically
-            if ((false === strpos($_zm_file, '/controller/')
-                  && false === strpos($_zm_file, '/model/')
-                  && false === strpos($_zm_file, '/rules/')
-                  && false === strpos($_zm_file, '/provider/')
-                  && false === strpos($_zm_file, '/settings/'))
-                || (false !== strpos($_zm_file, '/admin/') && ZMSettings::get('isAdmin'))) {
-                require_once $_zm_file;
-            }
-        }
     }
 
     // load global settings
@@ -115,7 +100,7 @@
             // deprecated legacy globals
             $zm_request = new ZMRequest();
             $zm_loader = ZMLoader::instance();
-            $zm_runtime = ZMLoader::make('ZMRuntime');
+            $zm_runtime = new ZMRuntime();
             $zm_layout = ZMTemplateManager::instance();
             $zm_products = ZMProducts::instance();
             $zm_taxes = ZMTaxRates::instance();
@@ -137,7 +122,7 @@
             $zm_countries = ZMCountries::instance();
             $zm_accounts = ZMAccounts::instance();
             $zm_account = ZMRequest::getAccount();
-            $zm_cart = ZMLoader::make('ZMShoppingCart');
+            $zm_cart = ZMShoppingCart();
             $zm_urlMapper = ZMUrlMapper::instance();
             $zm_sacsMapper = ZMSacsMapper::instance();
 

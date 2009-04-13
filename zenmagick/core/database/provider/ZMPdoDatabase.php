@@ -119,7 +119,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
             ++$this->savepointLevel_;
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
     }
 
@@ -135,7 +135,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $this->pdo_->exec("RELEASE SAVEPOINT LEVEL{$this->savepointLevel_}");
             }
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
     }
 
@@ -151,7 +151,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $this->pdo_->exec("ROLLBACK TO SAVEPOINT LEVEL{$this->transLevel}");
             }
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
     }
 
@@ -208,7 +208,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt->execute();
             $rows = $stmt->fetchAll();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $results = array();
@@ -264,7 +264,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt->execute();
             $newId = $this->pdo_->lastInsertId();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         foreach ($mapping as $property => $field) {
@@ -311,7 +311,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -319,7 +319,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
@@ -366,7 +366,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -374,7 +374,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
@@ -391,7 +391,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
@@ -418,7 +418,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt->execute();
         $rows = $stmt->fetchAll();
         } catch (PDOException $pdoe) {
-            throw ZMLoader::make('ZMException', $pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $results = array();
@@ -498,7 +498,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 // only bind if actually used
                 $type = $mapping[$typeName]['type'];
                 if (!array_key_exists($type, $typeMap)) {
-                    throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
+                    throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
                 //XXX: yeah, yeah
                 if ($type == 'datetime' && null === $value) {

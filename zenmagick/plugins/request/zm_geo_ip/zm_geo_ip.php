@@ -121,7 +121,7 @@ class zm_geo_ip extends ZMPlugin {
         }
 
         //TODO: make type detection smarter
-        $result = ZMLoader::make('ZMObject');
+        $result = new ZMObject();
         if ('GeoIP.dat' == $this->type) {
             $code = geoip_country_code_by_addr($this->gi, $ip);
             $name = geoip_country_name_by_addr($this->gi, $ip);

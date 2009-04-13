@@ -87,7 +87,7 @@ class zm_product_associations extends ZMPlugin {
         }
 
         ZMObject::attachMethod('getProductAssociationsForProductIdJSON', 'ZMAjaxCatalogController', 
-            array(ZMLoader::make('ZMProductAssociationAjaxHandler'), 'getProductAssociationsForProductIdJSON'));
+            array(new ZMProductAssociationAjaxHandler(), 'getProductAssociationsForProductIdJSON'));
     }
 
 

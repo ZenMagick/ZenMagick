@@ -62,7 +62,7 @@ class ZMToolboxHtml extends ZMObject {
             $imgSrc = $imageInfo->getDefaultImage();
             break;
         default:
-            throw ZMLoader::make('ZMException', 'invalid image format: '.$format);
+            throw new ZMException('invalid image format: '.$format);
         }
         if (!ZMTools::startsWith($imgSrc, '/')) {
             $imgSrc = ZMRuntime::getContext() . $imgSrc;

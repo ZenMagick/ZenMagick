@@ -271,7 +271,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -314,7 +314,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -431,7 +431,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $stmt->setBlob($index, $value);
                     break;
                 default:
-                    throw ZMLoader::make('ZMException', 'unsupported data(prepare) type='.$type.' for name='.$name);
+                    throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
                 ++$index;
             }
@@ -503,7 +503,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 $value = null != $blob ? $blob->getContents() : null;
                 break;
             default:
-                throw ZMLoader::make('ZMException', 'unsupported data(read) type='.$info['type'].' for field='.$field);
+                throw new ZMDatabaseException('unsupported data(read) type='.$info['type'].' for field='.$field);
             }
 
             $data[$field] = $value;

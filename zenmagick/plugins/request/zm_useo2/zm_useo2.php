@@ -54,7 +54,7 @@ class zm_useo2 extends ZMPlugin {
     function install() {
         // this will remove all '%SEO%' configuration settings, so do this first,
         // before creating SEO plugin settings in parent::install() ...
-        $patch = ZMLoader::make('ZMUltimateSeoSupportPatch');
+        $patch = new ZMUltimateSeoSupportPatch();
         if (null != $patch && $patch->isOpen()) {
             $status = $patch->patch(true);
             ZMMessages::instance()->addAll($patch->getMessages());
@@ -71,7 +71,7 @@ class zm_useo2 extends ZMPlugin {
     function remove($keepSettings=true) {
         parent::remove($keepSettings);
 
-        $patch = ZMLoader::make('ZMUltimateSeoSupportPatch');
+        $patch = new ZMUltimateSeoSupportPatch();
         if (!$patch->isOpen() && $patch->canUndo()) {
             $status = $patch->undo();
             ZMMessages::instance()->addAll($patch->getMessages());
@@ -83,7 +83,7 @@ class zm_useo2 extends ZMPlugin {
      */
     public function getMessages() {
         $messages = parent::getMessages();
-        $patch = ZMLoader::make('ZMUltimateSeoSupportPatch');
+        $patch = new ZMUltimateSeoSupportPatch();
         if (null !== $patch && $patch->isOpen() && !$patch->isReady()) {
             $messages[] = ZMLoader::make('Message', $patch->getPreconditionsMessage(), ZMMessages::T_WARN);
         }

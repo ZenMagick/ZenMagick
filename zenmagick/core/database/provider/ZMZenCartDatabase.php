@@ -250,7 +250,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         } else if (is_object($data)) {
             $sql = $this->bindObject($sql, $data);
         } else {
-            throw ZMLoader::make('ZMException', 'invalid data type');
+            throw new ZMDatabaseException('invalid data type');
         }
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
@@ -298,7 +298,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -341,7 +341,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
         if (7 > strlen($where)) {
-            throw ZMLoader::make('ZMException', 'missing key');
+            throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
 

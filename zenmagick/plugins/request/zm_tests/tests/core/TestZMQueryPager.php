@@ -27,7 +27,7 @@ class TestZMQueryPager extends ZMTestCase {
      * @todo create reliable test data
      */
     public function testSQLAware() {
-            $resultList = ZMLoader::make('ZMResultList');
+            $resultList = new ZMResultList();
             //$resultList->setResultSource(ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getOrdersForStatusId', 1));
             $resultSource = ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders');
             $resultList->setResultSource($resultSource);
