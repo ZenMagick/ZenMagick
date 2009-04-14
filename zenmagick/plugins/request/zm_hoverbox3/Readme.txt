@@ -42,7 +42,7 @@ Template code examples
 
 Replace the line (around line #34):
 
-      <a href="<?php zm_absolute_href($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
+      <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
 
 with this call to hover3_product_image_link():
 
@@ -51,7 +51,7 @@ with this call to hover3_product_image_link():
 
 For additional images, change the line (around line #71):
 
-      <a href="<?php zm_absolute_href($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+      <a href="<?php $net->absolute($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
 
 with this call:
 

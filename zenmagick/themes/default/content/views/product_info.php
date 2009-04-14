@@ -66,9 +66,9 @@
           <legend><?php zm_l10n("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php zm_absolute_href($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php $net->absolute($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
               <?php } else { ?>
-                  <img src="<?php zm_absolute_href($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>
