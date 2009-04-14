@@ -38,7 +38,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('ajaxCheckout');
     }
 
     /**

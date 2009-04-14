@@ -34,7 +34,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('ajaxCountry');
         $this->set('ajaxCountryMap', array('id', 'name'));
         $this->set('ajaxZoneMap', array('id', 'name'));
     }

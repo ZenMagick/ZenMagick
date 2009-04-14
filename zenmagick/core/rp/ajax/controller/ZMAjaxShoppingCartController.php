@@ -37,7 +37,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('ajaxShoppingCart');
         $this->set('ajaxAddressMap', array('firstName', 'lastName', 'address', 'suburb', 'postcode', 'city', 'state', 'country'));
         $this->set('ajaxCartItemMap', array('id', 'name', 'qty', 'itemTotal'));
     }

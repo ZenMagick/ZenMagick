@@ -27,7 +27,7 @@
  * <p>Access control mappings define the level of authentication required for resources.
  * Resources in this context are controller or page requests.</p>
  *
- * <p>Controller/resources marked as secure will force redirects using SSL (if enabled), if
+ * <p>Controller/resources marked as secure will be enforcer by redirects using SSL (if configured), if
  * non secure HTTP is used to access them.</p>
  *
  * @author DerManoMann

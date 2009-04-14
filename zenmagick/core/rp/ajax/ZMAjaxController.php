@@ -33,11 +33,14 @@
 class ZMAjaxController extends ZMController {
     private $method_;
 
+
     /**
      * Create new instance.
+     *
+     * @param string id Optional id; default is <code>null</code> to use the request name.
      */
-    function __construct() {
-        parent::__construct();
+    function __construct($id=null) {
+        parent::__construct($id);
         $this->method_ = ZMRequest::getParameter('method', null);
     }
 

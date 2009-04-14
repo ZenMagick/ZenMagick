@@ -34,7 +34,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('ajaxCatalog');
         $this->set('ajaxProductMap', array(
             'id', 'name', 'description', 'model', 
             'attributes' => array('id', 'type', 'name', 
