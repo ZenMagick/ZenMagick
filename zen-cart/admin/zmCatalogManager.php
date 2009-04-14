@@ -78,7 +78,7 @@ require 'includes/application_top.php';
     <script type="text/javascript" src="includes/menu.js"></script>
     <script type="text/javascript" src="includes/general.js"></script>
     <script type="text/javascript" src="includes/zenmagick.js"></script>
-    <script type="text/javascript" src="includes/jquery/jquery-1.2.6.pack.js"></script>
+    <script type="text/javascript" src="includes/jquery/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="includes/jquery/ui.tabs.js"></script>
     <script type="text/javascript" src="includes/jquery/thickbox-3.1.pack.js"></script>
     <script type="text/javascript">
