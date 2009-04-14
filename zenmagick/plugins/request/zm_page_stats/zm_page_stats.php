@@ -127,6 +127,8 @@ class zm_page_stats extends ZMPlugin {
         echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
         echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br'.$slash.'>';
+        $lstats = ZMLoader::instance()->getStats(true);
+        echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded.<br'.$slash.'>';
         echo '</div>';
         if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             echo '<div id="event-log">';

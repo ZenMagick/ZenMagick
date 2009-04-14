@@ -66,6 +66,7 @@ class ZMLoader {
     private static $classPrefix = 'ZM';
     private $global_;
     private $cache_;
+    private $stats_;
 
 
     /**
@@ -76,6 +77,7 @@ class ZMLoader {
         $this->path_ = array();
         $this->global_ = array();
         $this->cache_ = array();
+        $this->stats_ = array('static' => 0, 'class' => 0);
     }
 
 
@@ -183,6 +185,7 @@ class ZMLoader {
      */
     public function loadStatic() {
         foreach ($this->getStatic() as $static) {
+            ++$this->stats_['static'];
             require_once $static;
         }
     }
@@ -242,6 +245,7 @@ class ZMLoader {
         if (null != $classfile) {
             // we know about the class
             if ($isAutoLoad || (!class_exists($name) && !interface_exists($name))) {
+                ++$this->stats_['class'];
                 require_once $classfile;
             }
             return $name;
@@ -272,7 +276,9 @@ class ZMLoader {
         }
 
         $classname = $this->resolveFromClassPath($name);
+
         if (null != $classname || (!$isAutoLoad && (class_exists($name) || interface_exists($name)))) {
+            // XXX: get rid of
             // non prefix class exists, now make sure it's a ZenMagick class 
             // to avoid conflicts with zen cart class names
             $parent = $classname;
@@ -473,6 +479,21 @@ class ZMLoader {
             $hierachy[] = $object;
         }
         return $hierachy;
+    }
+
+    /**
+     * Get loader stats.
+     *
+     * @param all Optional parameter to indicate that stats of all loaders should be returned.
+     */
+    public function getStats($all=true) {
+        $list = array('static' => $this->stats_['static'], 'class' => $this->stats_['class']);
+        if ($all && null != $this->parent_) {
+            $plist = $this->parent_->getStats(true);
+            $list['static'] += $plist['static'];
+            $list['class'] += $plist['class'];
+        }
+        return $list;
     }
 
 }
