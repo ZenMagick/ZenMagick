@@ -100,7 +100,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
-        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
     }
 
     /**
@@ -221,7 +221,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return ZMLoader::make('QueryDetails', $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
     }
 
     /**

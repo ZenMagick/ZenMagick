@@ -120,7 +120,7 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
             return null;
         }
 
-        return ZMLoader::make('QueryDetails', $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }

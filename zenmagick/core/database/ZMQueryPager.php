@@ -128,7 +128,7 @@ class ZMQueryPager extends ZMObject {
             }
         }
 
-        $result = ZMRuntime::getDatabase()->querySingle($count_query, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
+        $result = $queryDetails->getDatabase()->querySingle($count_query, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
         return (int)$result['total'];
     }
 

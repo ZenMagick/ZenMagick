@@ -66,6 +66,9 @@ Release 0.9.6
 - add simple stats to ZMLoader and display with zm_page_stats plugin
 - upgrade admin to jquery 1.3.2
 - fix admin ajax
+- make ZMQueryPager use the database instace provided by ZMQueryDetails to
+  allow to use this on any database connection
+- disable plugins for CLI calls (may be overridden by local.php, though)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

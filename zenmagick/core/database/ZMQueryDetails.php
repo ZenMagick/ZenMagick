@@ -29,6 +29,7 @@
  * @version $Id$
  */
 class ZMQueryDetails extends ZMObject {
+    private $database_;
     private $sql_;
     private $args_;
     private $mapping_;
@@ -41,14 +42,16 @@ class ZMQueryDetails extends ZMObject {
      *
      * <p>The parameters here correspond to <code>ZMDatabase#query()</code>.</p>
      *
+     * @param ZMDatabase database The database.
      * @param string sql The sql.
      * @param array args Database query parameter; default is <code>array()</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @param string modelClass The class name; default is <code>null</code>.
      * @param string countCol The column SQL to use for counting; default is <code>null</code> to compute.
      */
-    public function __construct($sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null) {
+    public function __construct($database, $sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null) {
         parent::__construct();
+        $this->database_ = $database;
         $this->sql_ = $sql;
         $this->args_ = $args;
         $this->mapping_ = $mapping;
@@ -56,6 +59,15 @@ class ZMQueryDetails extends ZMObject {
         $this->countCol_ = $countCol;
     }
 
+
+    /**
+     * Get the database.
+     *
+     * @return string The database.
+     */
+    public function getDatabase() { 
+        return $this->database_;
+    }
 
     /**
      * Get the sql.
@@ -109,7 +121,7 @@ class ZMQueryDetails extends ZMObject {
      * @return mixed array Results.
      */
     public function query($sql=null) {
-        return ZMRuntime::getDatabase()->query(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
+        return $this->database_->query(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
     }
 
 }

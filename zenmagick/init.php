@@ -52,6 +52,9 @@
         ZMLoader::instance()->loadStatic();
     }
 
+    // as default disable plugins for CLI calls
+    ZMSettings::set('isEnablePlugins', !ZM_CLI_CALL);
+
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {
         require_once ZM_BASE_DIR.'local.php';
