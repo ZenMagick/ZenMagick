@@ -7,7 +7,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class LoaderTestClass3 {
+class LoaderTestClass3 extends ZMObject {
 
 }
 
