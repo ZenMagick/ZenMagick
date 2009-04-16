@@ -61,8 +61,6 @@ class ZMRequiredRule extends ZMRule {
      */
     public function validate($req) {
         foreach (explode(',', $this->getName()) as $name) {
-            // remove trailing '[]' used for checkbox groups
-            $name = str_replace(array('[', ']'), '', $name);
             if (array_key_exists($name, $req) && !empty($req[$name])) {
                 return true;
             }
@@ -78,7 +76,7 @@ class ZMRequiredRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('required'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ")";
         return $js;

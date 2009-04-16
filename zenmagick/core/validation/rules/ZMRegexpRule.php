@@ -70,7 +70,7 @@ class ZMRegexpRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('regexp'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->regexp_.'"';
         $js .= ")";

@@ -94,7 +94,7 @@ class ZMDateRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('date'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->getFormat().'"';
         $js .= ")";

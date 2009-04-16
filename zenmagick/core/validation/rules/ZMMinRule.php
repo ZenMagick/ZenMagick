@@ -80,7 +80,7 @@ class ZMMinRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('min'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".$this->min_;
         $js .= ")";

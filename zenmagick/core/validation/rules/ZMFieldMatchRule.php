@@ -82,7 +82,7 @@ class ZMFieldMatchRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('fieldMatch'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",'".$this->other_."'";
         $js .= ")";

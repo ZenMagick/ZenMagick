@@ -76,7 +76,7 @@ class ZMListRule extends ZMRule {
             $quoted[] = "'".addslashes($value)."'";
         }
         $js = "    new Array('list'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",new Array(".implode(',', $quoted).")";
         $js .= ")";

@@ -68,11 +68,24 @@ abstract class ZMRule extends ZMObject {
 
 
     /**
-     * Get the field name this rule is validating.
+     * Get the parameter name this rule is validating.
      *
-     * @return string The name of the data element this rule is testing.
+     * @return string The name of the request parameter (GET/POST) this rule is testing.
      */
     public function getName() {
+        return str_replace(array('[', ']'), '', $this->name_);
+    }
+
+    /**
+     * Get the form field name this rule is validating.
+     *
+     * <p>This might be different in case of checkboxes or other input fields that allow multiple
+     * values. In that case PPH requires to to suffix form field names with '<em>[]</em>'. However,
+     * the request parameter will not have this suffix (rather being an array instead of a string).</p>
+     *
+     * @return string The form field name this rule is testing.
+     */
+    public function getJSName() {
         return $this->name_;
     }
 

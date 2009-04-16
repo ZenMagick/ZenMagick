@@ -92,7 +92,7 @@ class ZMEmailRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('regexp'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->emailRegexp().'"';
         $js .= ")";

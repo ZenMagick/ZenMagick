@@ -97,7 +97,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      */
     public function toJSString() {
         $js = "    new Array('max'";
-        $js .= ",'".$this->getName()."'";
+        $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".$this->getMaxFieldLength();
         $js .= ")";

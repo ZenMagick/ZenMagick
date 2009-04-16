@@ -69,6 +69,9 @@ Release 0.9.6
 - make ZMQueryPager use the database instace provided by ZMQueryDetails to
   allow to use this on any database connection
 - disable plugins for CLI calls (may be overridden by local.php, though)
+- add new getJSName() method to ZMRule; this allows the JS code to correctly
+  handle multi value fields (typically checkbox groups) where the JS fieldname
+	has a '[]' suffix
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
