@@ -33,11 +33,12 @@
 class ZMPhPassAuthentication implements ZMAuthentication {
     private $passwordHash_;
 
+
     /**
      * Create instance.
      */
     function __construct() {
-        $this->passwordHash_ = ZMLoader::make('PasswordHash', 8, false);
+        $this->passwordHash_ = new PasswordHash(8, false);
     }
 
     /**

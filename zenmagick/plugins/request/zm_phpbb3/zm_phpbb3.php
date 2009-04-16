@@ -150,8 +150,10 @@ class zm_phpbb3 extends ZMPlugin {
      */
     public function onZMCreateAccount($args) {
         $account = $args['account'];
-        $password = $args['clearPassword'];
-        $this->getAdapter()->createAccount($account->getNickName(), $password, $account->getEmail());
+        if (!ZMTools::isEmpty($account->getNickName())) {
+            $password = $args['clearPassword'];
+            $this->getAdapter()->createAccount($account->getNickName(), $password, $account->getEmail());
+        }
     }
 
     /**
@@ -164,8 +166,10 @@ class zm_phpbb3 extends ZMPlugin {
      */
     public function onZMPasswordChanged($args) {
         $account = $args['account'];
-        $password = $args['clearPassword'];
-        $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
+        if (!ZMTools::isEmpty($account->getNickName())) {
+            $password = $args['clearPassword'];
+            $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
+        }
     }
 
     /**
@@ -181,7 +185,7 @@ class zm_phpbb3 extends ZMPlugin {
             $view = $args['view'];
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
-                if (null != $account) {
+                if (null != $account && !ZMTools::isEmpty($account->getNickName())) {
                     $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
                 }
             }

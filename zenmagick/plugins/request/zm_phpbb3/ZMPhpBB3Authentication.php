@@ -31,11 +31,12 @@
 class ZMPhpBB3Authentication implements ZMAuthentication {
     private $passwordHash_;
 
+
     /**
      * Create instance.
      */
     function __construct() {
-        $this->passwordHash_ = ZMLoader::make('PasswordHash', 6, false, '$H$');
+        $this->passwordHash_ = new PasswordHash(6, false, '$H$');
     }
 
     /**
@@ -50,7 +51,6 @@ class ZMPhpBB3Authentication implements ZMAuthentication {
      */
     public function validatePassword($plaintext, $encrypted) { 
         return $this->passwordHash_->HashPassword($plaintext);
-        return phpbb_check_hash($plaintext, $encrypted);
     }
 
 }

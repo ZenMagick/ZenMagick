@@ -246,6 +246,8 @@ class ZMPhpBB3 extends ZMObject {
                 'user_email' => strtolower($email),
                 'user_email_hash' => crc32(strtolower($email)) . strlen($email),
             );
+            var_dump($updates);
+        die();
             if (null != $password) {
                 $updates['user_password'] = $authentication->encryptPassword($password);
             }
