@@ -110,7 +110,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * Validate addresses for guest checkout.
      */
-    public function onNotifyHeaderStartCheckoutShipping() {
+    public function onNotifyHeaderEndCheckoutShipping() {
         $shoppingCart = ZMRequest::getShoppingCart();
         // check for address
         $session = ZMRequest::getSession();
