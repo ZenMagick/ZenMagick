@@ -79,6 +79,10 @@
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
 
     if (ZMSettings::get('isEnableZMThemes') || ZM_CLI_CALL) {
+        // resolve theme to be used 
+        $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
+        ZMRuntime::setTheme($_zm_theme);
+
         // load default mappings
         zm_set_default_url_mappings();
         zm_set_default_sacs_mappings();
@@ -94,10 +98,6 @@
             require ZMSettings::get('staticHome');
             exit;
         }
-
-        // resolve theme to be used 
-        $_zm_theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
-        ZMRuntime::setTheme($_zm_theme);
 
         if (ZMSettings::get('isLegacyAPI')) {
             // deprecated legacy globals
