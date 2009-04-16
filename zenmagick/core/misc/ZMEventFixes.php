@@ -25,7 +25,7 @@
 
 
 /**
- * Fixes that are event driven.
+ * Fixes and stuff that are (can be) event driven.
  *
  * @author DerManoMann
  * @package org.zenmagick.misc
@@ -66,12 +66,45 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
-     * Fake theme resolved event if using zen-cart templates.
+     * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function onZMInitDone() {
         if (!ZMsettings::get('isEnableZMThemes')) {
             ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId()));
         }
+
+        // pick up messages from zen-cart request handling
+        ZMMessages::instance()->_loadMessageStack();
+    }
+
+    /**
+     * More store startup code.
+     */
+    public function onZMBootstrapDone() {
+        // set the default authentication provider for zen cart
+        ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
+
+        if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
+            // resolve theme to be used 
+            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
+            ZMRuntime::setTheme($theme);
+
+            // now we can check for a static homepage
+            if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+                && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
+                require ZMSettings::get('staticHome');
+                exit;
+            }
+
+            // load default mappings
+            zm_set_default_url_mappings();
+            zm_set_default_sacs_mappings();
+        }
+
+        // always echo in admin
+        if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
+        // this is used as default value for the $echo parameter for HTML functions
+        define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
     }
 
     /**

@@ -33,12 +33,12 @@
         return (ZMRequest::isCheckout() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
+    ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
+
     // skip more zc request handling
     if (!_zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
         $code_page_directory = 'zenmagick';
     }
-
-    ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
     // simulate the number of uploads parameter for add to cart
     if ('add_product' == ZMRequest::getParameter('action')) {

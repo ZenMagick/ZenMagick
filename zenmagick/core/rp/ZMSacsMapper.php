@@ -156,7 +156,8 @@ class ZMSacsMapper extends ZMObject {
      */
     protected function getMappingValue($page, $key, $default=null) {
         if (null == $page) {
-            throw new ZMException("invalid sacs mapping (page missing)");
+            ZMLogging::instance()->log('null is not a valid page value', ZMLogging::DEBUG);
+            return null;
         }
 
         if (!isset($this->mapping_[$page])) {

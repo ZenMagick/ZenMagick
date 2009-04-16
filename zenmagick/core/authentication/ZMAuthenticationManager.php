@@ -45,6 +45,8 @@ class ZMAuthenticationManager extends ZMObject {
         parent::__construct();
         $this->providers_ = array();
         $this->default_ = null;
+        // set default, just in case
+        $this->addProvider(ZMSha1Authentication, true);
     }
 
     /**

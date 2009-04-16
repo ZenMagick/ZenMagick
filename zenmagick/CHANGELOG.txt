@@ -75,6 +75,8 @@ Release 0.9.6
 - removed isLegacyAPI setting and all use; the pluing zm_deprecated covers
   most of these changes with the exception that static theme code doesn't have
 	automatically $zm_ globals in scope
+- set initial default authentication provider to ZMSha1Authentication
+- make db mapping cache code self contained in ZMDbTableMapper
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

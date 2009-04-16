@@ -122,7 +122,7 @@
             'isEnableDBAutoMapping' => true,
 
             // enable/disable plugins
-            'isEnablePlugins' => true,
+            'plugins.enabled' => true,
 
             // default controller and view class
             'defaultControllerClass' => 'DefaultController',
