@@ -1,0 +1,60 @@
+<?php
+/*
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006-2009 ZenMagick
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * @version $Id$
+ */
+?>
+<?php
+
+    // deprecated legacy globals
+    $zm_request = new ZMRequest();
+    $zm_loader = ZMLoader::instance();
+    $zm_runtime = new ZMRuntime();
+    $zm_layout = ZMTemplateManager::instance();
+    $zm_products = ZMProducts::instance();
+    $zm_taxes = ZMTaxRates::instance();
+    $zm_reviews = ZMReviews::instance();
+    $zm_pages = ZMEZPages::instance();
+    $zm_coupons = ZMCoupons::instance();
+    $zm_banners = ZMBanners::instance();
+    $zm_orders = ZMOrders::instance();
+    $zm_events = ZMEvents::instance();
+    $zm_addresses = ZMAddresses::instance();
+    $zm_messages = ZMMessages::instance();
+    $zm_validator = ZMValidator::instance();
+    $zm_categories = ZMCategories::instance();
+    $zm_manufacturers = ZMManufacturers::instance();
+    $zm_crumbtrail = ZMCrumbtrail::instance();
+    $zm_meta = ZMMetaTags::instance();
+    $zm_currencies = ZMCurrencies::instance();
+    $zm_languages = ZMLanguages::instance();
+    $zm_countries = ZMCountries::instance();
+    $zm_accounts = ZMAccounts::instance();
+    $zm_account = ZMRequest::getAccount();
+    $zm_cart = new ZMShoppingCart();
+    $zm_urlMapper = ZMUrlMapper::instance();
+    $zm_sacsMapper = ZMSacsMapper::instance();
+
+    $zm_theme = ZMRuntime::getTheme();
+    $zm_themeInfo = $zm_theme->getThemeInfo();
+
+?>

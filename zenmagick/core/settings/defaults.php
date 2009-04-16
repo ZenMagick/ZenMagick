@@ -49,9 +49,6 @@
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
 
-            // legacy API is initializing all zm_ globals
-            'isLegacyAPI' => false,
-
             // whether to strip code in core.php
             'isStripCore' => true,
 

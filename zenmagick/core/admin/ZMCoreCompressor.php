@@ -185,11 +185,6 @@ class ZMCoreCompressor extends ZMPhpCompressor {
         }
         $lines = array(
             "define('ZM_SINGLE_CORE', true);",
-            'if (ZMSettings::get("isLegacyAPI")) {',
-            '  $zm_loader = ZMLoader::instance();',
-            '  $zm_runtime = ZMLoader::make("Runtime");',
-            '  $zm_request = new ZMRequest();',
-            '}'
         );
         foreach ($lines as $line) {
             if (false === fwrite($handle, $line."\n")) {

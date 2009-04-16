@@ -98,40 +98,6 @@
             require ZMSettings::get('staticHome');
             exit;
         }
-
-        if (ZMSettings::get('isLegacyAPI')) {
-            // deprecated legacy globals
-            $zm_request = new ZMRequest();
-            $zm_loader = ZMLoader::instance();
-            $zm_runtime = new ZMRuntime();
-            $zm_layout = ZMTemplateManager::instance();
-            $zm_products = ZMProducts::instance();
-            $zm_taxes = ZMTaxRates::instance();
-            $zm_reviews = ZMReviews::instance();
-            $zm_pages = ZMEZPages::instance();
-            $zm_coupons = ZMCoupons::instance();
-            $zm_banners = ZMBanners::instance();
-            $zm_orders = ZMOrders::instance();
-            $zm_events = ZMEvents::instance();
-            $zm_addresses = ZMAddresses::instance();
-            $zm_messages = ZMMessages::instance();
-            $zm_validator = ZMValidator::instance();
-            $zm_categories = ZMCategories::instance();
-            $zm_manufacturers = ZMManufacturers::instance();
-            $zm_crumbtrail = ZMCrumbtrail::instance();
-            $zm_meta = ZMMetaTags::instance();
-            $zm_currencies = ZMCurrencies::instance();
-            $zm_languages = ZMLanguages::instance();
-            $zm_countries = ZMCountries::instance();
-            $zm_accounts = ZMAccounts::instance();
-            $zm_account = ZMRequest::getAccount();
-            $zm_cart = ZMShoppingCart();
-            $zm_urlMapper = ZMUrlMapper::instance();
-            $zm_sacsMapper = ZMSacsMapper::instance();
-
-            $zm_theme = ZMRuntime::getTheme();
-            $zm_themeInfo = $zm_theme->getThemeInfo();
-        }
     }
 
     // start output buffering

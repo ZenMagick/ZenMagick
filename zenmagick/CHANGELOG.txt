@@ -72,6 +72,9 @@ Release 0.9.6
 - add new getJSName() method to ZMRule; this allows the JS code to correctly
   handle multi value fields (typically checkbox groups) where the JS fieldname
 	has a '[]' suffix
+- removed isLegacyAPI setting and all use; the pluing zm_deprecated covers
+  most of these changes with the exception that static theme code doesn't have
+	automatically $zm_ globals in scope
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

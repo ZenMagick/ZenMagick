@@ -226,8 +226,6 @@ class ZMThemes extends ZMObject {
         // add loader to root loader
         ZMLoader::instance()->setParent($themeLoader);
 
-        if (ZMSettings::get('isLegacyAPI')) { eval(zm_globals()); }
-
         // init l10n/i18n
         $session = ZMRequest::getSession();
         $language = $session->getLanguage();

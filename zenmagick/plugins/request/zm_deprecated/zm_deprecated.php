@@ -53,10 +53,34 @@ class zm_deprecated extends ZMPlugin {
      */
     public function init() {
         parent::init();
+
+        $this->zcoSubscribe();
+
         // resolve
         ZMLoader::resolve('ZMDeprecatedMethods');
         // call static method to register all deprecated methods
         ZMDeprecatedMethods::register();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGlobal() {
+        return array('globals.gphp');
+    }
+
+    /**
+     * Register all legacy globals for use by the templates.
+     */
+    public function onZMControllerProcessStart($args=array()) {
+        $controller = $args['controller'];
+        foreach ($GLOBALS as $name => $instance) {
+            if (ZMTools::startsWith($name, "zm_")) {
+                if (is_object($instance)) {
+                    $controller->exportGlobal($name, $GLOBALS[$name]);
+                }
+            }
+        }
     }
 
 }
