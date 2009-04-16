@@ -186,6 +186,11 @@ class ZMHtmlReporter extends HtmlReporter {
      * {@inheritDoc}
      */
     public function paintSkip($message) {
+        // strip path from filename
+        preg_match('/.* at \[(.*) line .*\]/', $message, $matches);
+        if (2 == count($matches)) {
+            $message = str_replace($matches[1], basename($matches[1]), $message);
+        }
         parent::paintSkip($message);
     }
 
