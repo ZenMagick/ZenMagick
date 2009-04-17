@@ -86,7 +86,8 @@ class ZMView extends ZMObject {
      * @return string The full view filename.
      */
     protected function _getViewFilename($subdir=null, $prefixToDir=true) {
-        $filename = ZMRuntime::getTheme()->getViewsDir();
+        //XXX: was using themeInfo
+        $filename = 'views'.DIRECTORY_SEPARATOR;
         $subdir = null != $subdir ? $subdir : $this->subdir_;
         if (null != $subdir) {
             $filename .= $subdir.'/';
