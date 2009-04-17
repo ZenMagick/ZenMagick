@@ -65,6 +65,24 @@
  * @version $Id$
  */
 class ZMDbTableMapper extends ZMObject {
+    /** Mapping of native data types to API types. */
+    public static $NATIVE_TO_API_TYPEMAP = array(
+        'char' => 'string',
+        'varchar' => 'string',
+        'tinyint' => 'integer',
+        'smallint' => 'integer',
+        'mediumint' => 'integer',
+        'int' => 'integer',
+        'bigint' => 'integer',
+        'int unsigned' => 'integer',
+        'decimal' => 'float',
+        'real' => 'float',
+        'text' => 'string',
+        'tinytext' => 'string',
+        'mediumtext' => 'string',
+        'mediumblob', 'blob'
+    );
+
     const CACHE_KEY = "ZMDbTableMapper::mappings";
     private $tableMap_;
     private $cache_;
@@ -234,8 +252,8 @@ class ZMDbTableMapper extends ZMObject {
         $first = true;
         foreach ($tableMetaData as $column) {
             $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
-            if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
-                $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
+            if (array_key_exists($type, self::$NATIVE_TO_API_TYPEMAP)) {
+                $type = self::$NATIVE_TO_API_TYPEMAP[$type];
             } 
 
             $line = 'column=' . $column['name'] . ';type=' . $type;

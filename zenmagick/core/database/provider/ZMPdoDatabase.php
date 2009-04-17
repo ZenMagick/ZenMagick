@@ -560,8 +560,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $field = $col['Field'];
                 preg_match('/([^(]*)(\([0-9]+\))?/', $col['Type'], $matches);
                 $type = $matches[1];
-                if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
-                    $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
+                if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                    $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
                 } 
                 $meta[$field] = array(
                     'type' => $type,

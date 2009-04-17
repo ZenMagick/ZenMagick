@@ -527,8 +527,8 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                     $primaryKeyName = (null !== $primaryKey ? $primaryKey->getName() : null);
                     foreach ($tbl->getColumns() as $col) {
                         $type = $col->getNativeType();
-                        if (array_key_exists($type, ZMDbUtils::$NATIVE_TO_API_TYPEMAP)) {
-                            $type = ZMDbUtils::$NATIVE_TO_API_TYPEMAP[$type];
+                        if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                            $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
                         } 
                         $name = $col->getName();
                         $meta[$name] = array(

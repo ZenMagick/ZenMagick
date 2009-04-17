@@ -32,24 +32,6 @@
  * @version $Id$
  */
 class ZMDbUtils {
-    /** Mapping of native data types to API types. */
-    public static $NATIVE_TO_API_TYPEMAP = array(
-        'char' => 'string',
-        'varchar' => 'string',
-        'tinyint' => 'integer',
-        'smallint' => 'integer',
-        'mediumint' => 'integer',
-        'int' => 'integer',
-        'bigint' => 'integer',
-        'int unsigned' => 'integer',
-        'decimal' => 'float',
-        'real' => 'float',
-        'text' => 'string',
-        'tinytext' => 'string',
-        'mediumtext' => 'string',
-        'mediumblob', 'blob'
-    );
-
 
     /**
      * Execute a SQL patch.
