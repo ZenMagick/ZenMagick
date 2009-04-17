@@ -139,8 +139,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes views directory.
      */
     public function getViewsDir() {
-        $themeInfo = $this->getThemeInfo();
-        return $themeInfo->getViewsDir();
+        return $this->getRootDir() . 'content/views/';
     }
 
     /**

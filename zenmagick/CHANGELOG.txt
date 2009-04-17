@@ -78,6 +78,7 @@ Release 0.9.6
 - set initial default authentication provider to ZMSha1Authentication
 - make db mapping cache code self contained in ZMDbTableMapper
 - add more checks for empty nickName in zm_phpbb3
+- start dismantling ZMThemeInfo
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

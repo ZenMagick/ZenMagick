@@ -49,9 +49,6 @@ class DefaultThemeInfo extends ZMThemeInfo {
         $this->setLayout('popup_search_help', 'popup_layout');
         $this->setLayout('popup_shipping_estimator', 'popup_layout');
         $this->setLayout('popup_coupon_help', 'popup_layout');
-
-        // set JS event handler
-        $this->setPageEventHandler('onload', 'login', "focus('email_address');");
     }
 
 }

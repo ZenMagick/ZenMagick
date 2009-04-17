@@ -296,6 +296,7 @@ class ZMToolboxHtml extends ZMObject {
      * @param string page The page name; default is <code>null<code> for the current page.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete onload attribute incl. value or an empty string.
+     * @deprecated
      */
     public function onload($page=null, $echo=ZM_ECHO_DEFAULT) {
         $page = null == $page ? ZMRequest::getPageName() : $page;

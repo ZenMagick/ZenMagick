@@ -31,7 +31,6 @@
  * @version $Id$
  */
 class ZMThemeInfo extends ZMObject {
-    private $id_;
     private $info_;
     private $config_;
     private $layout_;
@@ -152,20 +151,6 @@ class ZMThemeInfo extends ZMObject {
     function setDescription($description) { $this->info_['description'] = $description; }
 
     /**
-     * Get the theme path.
-     *
-     * @return string The theme path.
-     */
-    function getPath() { return $this->info_['path']; }
-
-    /**
-     * Set the theme path.
-     *
-     * @param string path The theme name.
-     */
-    function setPath($path) { $this->info_['path'] = $path; }
-
-    /**
      * Get the error page.
      *
      * @return string The error page.
@@ -217,6 +202,7 @@ class ZMThemeInfo extends ZMObject {
      * Set the views directory.
      *
      * @param string dir The views directory name.
+     * @deprecated no replacement
      */
     function setViewsDir($dir) { $this->config_['view-dir'] = $dir; }
 
@@ -224,6 +210,7 @@ class ZMThemeInfo extends ZMObject {
      * Get the views directory.
      *
      * @return string The views directory name.
+     * @deprecated use ZMTheme::getViewsDir() instead
      */
     function getViewsDir() { return $this->config_['view-dir']; }
 
@@ -249,6 +236,7 @@ class ZMThemeInfo extends ZMObject {
      *
      * @param string event The event.
      * @param string handler The handler name.
+     * @deprecated
      */
     function setDefaultPageEventHandler($event, $handler) {
         $this->js_default_events_[$event] = $handler;
@@ -260,6 +248,7 @@ class ZMThemeInfo extends ZMObject {
      * @param string event The event.
      * @param string page The page to configure.
      * @param string handler The event handler.
+     * @deprecated
      */
     function setPageEventHandler($event, $page, $handler) {
         if (!array_key_exists($event, $this->js_events_)) {
@@ -274,6 +263,7 @@ class ZMThemeInfo extends ZMObject {
      * @param string even The event.
      * @param string page The page.
      * @return string The handler name or <code>null</code>.
+     * @deprecated
      */
     function hasPageEventHandler($event, $page) {
         return null != $this->getPageEventHandler($event, $page);
@@ -285,6 +275,7 @@ class ZMThemeInfo extends ZMObject {
      * @param string event The event.
      * @param string page The page.
      * @return string The handler name or <code>null</code>.
+     * @deprecated
      */
     function getPageEventHandler($event, $page) {
         $default = '';

@@ -73,6 +73,7 @@ class zm_google_store_locator extends ZMPlugin {
 
         $this->addMenuItem('store_locator', zm_l10n_get('Store Locator'), 'zm_store_locator_admin');
         if (function_exists('zm_pretty_links_set_mapping')) {
+            //XXX: get rid of?
             zm_pretty_links_set_mapping('store_locator');
         }
         // subscribe to events to set the JS onload event
@@ -83,6 +84,7 @@ class zm_google_store_locator extends ZMPlugin {
      * Update theme once init is done.
      */
     function onZMInitDone($args) {
+        // TODO: replace with code injection at bottom of page
         ZMRuntime::getTheme()->getThemeInfo()->setPageEventHandler('onload', 'store_locator', "load_locator_map()");
     }
 

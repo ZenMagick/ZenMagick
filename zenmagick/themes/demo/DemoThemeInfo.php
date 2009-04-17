@@ -40,15 +40,6 @@ class DemoThemeInfo extends ZMThemeInfo {
         $this->setVersion('${zenmagick.version}');
         $this->setAuthor('ZenMagick 2006-2008');
         $this->setDescription('ZenMagick demo theme including additional product pages and extra code.');
-
-        // configure individual layout templates
-        //$this->setLayout('static', 'special_layout');
-
-        // keep error page simple; the default full error page requires a define page..
-        //$this->setLayout('error', null);
-
-        // set default JS event handler; i.e. for ALL pages
-        //$this->setDefaultPageEventHandler('onload', "inject_category_code();");
     }
 
 }
