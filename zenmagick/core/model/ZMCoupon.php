@@ -41,7 +41,7 @@ class ZMCoupon extends ZMObject {
     private $amount_;
     private $name_;
     private $description_;
-    private $minimumOrder_;
+    private $minOrderAmount_;
     private $startDate_;
     private $expiryDate_;
     private $usesPerCoupon_;
@@ -62,7 +62,7 @@ class ZMCoupon extends ZMObject {
         $this->code_ = $code;
         $this->type_ = $type;
         $this->active_ = 'Y';
-        $this->minimumOrder_ = 0;
+        $this->minOrderAmount_ = 0;
         $this->usesPerCoupon_ = 1;
         $this->usesPerUser_ = 0;
     }
@@ -118,11 +118,11 @@ class ZMCoupon extends ZMObject {
     public function getDescription() { return $this->description_; }
 
     /**
-     * Get the minimum order value.
+     * Get the minimum order amount.
      *
-     * @return float The minimum order value.
+     * @return float The minimum order amount.
      */
-    public function getMinimumOrder() { return $this->minimumOrder_; }
+    public function getMinOrderAmount() { return $this->minOrderAmount_; }
 
     /**
      * Get the coupon start date.
@@ -232,11 +232,11 @@ class ZMCoupon extends ZMObject {
     public function setDescription($description) { $this->description_ = $description; }
 
     /**
-     * Set the minimum order value.
+     * Set the minimum order amount.
      *
-     * @param float min The minimum order value.
+     * @param float amount The new minimum order amount.
      */
-    public function setMinimumOrder($min) { $this->minimumOrder_ = $min; }
+    public function setMinOrderAmount($amount) { $this->minOrderAmount_ = $amount; }
 
     /**
      * Set the coupon start date.

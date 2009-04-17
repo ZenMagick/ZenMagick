@@ -529,7 +529,7 @@ array(
         'type' => 'column=coupon_type;type=string',
         'code' => 'column=coupon_code;type=string',
         'amount' => 'column=coupon_amount;type=float',
-        'minimumOrder' => 'column=coupon_minimum_order;type=float',
+        'minOrderAmount' => 'column=coupon_minimum_order;type=float',
         'startDate' => 'column=coupon_start_date;type=datetime',
         'expiryDate' => 'column=coupon_expire_date;type=datetime',
         'usesPerCoupon' => 'column=uses_per_coupon;type=integer',
