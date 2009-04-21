@@ -77,7 +77,7 @@
       <fieldset>
           <legend><?php zm_l10n("Other Options") ?></legend>
           <?php if ($zm_product->hasReviews()) { ?>
-              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($zm_product->getTypeSetting('reviews')) { ?>
               <a class="btn" href="<?php $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$zm_product->getId()) ?>"><?php zm_l10n("Write a Review") ?></a>

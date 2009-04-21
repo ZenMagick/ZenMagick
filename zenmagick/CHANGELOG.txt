@@ -79,6 +79,9 @@ Release 0.9.6
 - make db mapping cache code self contained in ZMDbTableMapper
 - add more checks for empty nickName in zm_phpbb3
 - start dismantling ZMThemeInfo
+- add missing products_id parameter to 'Read Reviews' link in product_info
+  template (default theme)
+- change default theme CSS to float the EZPage TOC on the right hand side
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

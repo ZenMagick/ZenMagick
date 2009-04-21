@@ -267,7 +267,7 @@ table#cart td.tot {border-top:1px solid gray;}
 #b_gv_send input {margin-bottom:6px;}
 
 /* ez pages */
-div#eztoc {border:1px solid gray; float:left;margin:0 6px 6px 0;padding:3px;}
+div#eztoc {border:1px solid gray; float:right;margin:0 6px 6px 0;padding:3px;}
 div#eztoc h4 {color:white;background:#578bb8;padding:3px;}
 body#b_page #content h2 {text-align:left;}
 div#eztoc ul {list-style:none;margin:3px;padding:0;}

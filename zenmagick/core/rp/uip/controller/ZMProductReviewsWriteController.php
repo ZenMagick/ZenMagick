@@ -89,6 +89,7 @@ class ZMProductReviewsWriteController extends ZMController {
 
         // account email
         if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
+            $product = ZMproducts::instance()->getProductForId($review->getProductId());
             $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
             $session = ZMRequest::getSession();
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);

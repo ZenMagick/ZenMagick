@@ -151,7 +151,7 @@
         $urlMapper->setMappingInfo('redirect', array('viewId' => 'error', 'view' => 'index', 'viewDefinition' => 'ForwardView'));
 
         // review [form]
-        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'Review', 'formId' => 'review'));
+        $urlMapper->setMappingInfo('product_reviews_write', array('view' => 'product_reviews_write', 'formDefinition' => 'Review', 'formId' => 'newReview'));
         $urlMapper->setMappingInfo('product_reviews_write', array('viewId' => 'success', 'view' => 'product_reviews', 'viewDefinition' => 'RedirectView'));
 
         // contact us [form]
