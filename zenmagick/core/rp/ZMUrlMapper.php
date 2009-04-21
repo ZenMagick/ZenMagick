@@ -202,6 +202,7 @@ class ZMUrlMapper extends ZMObject {
         $viewInfo = $this->findMapping($page, $viewId, $parameter);
 
         if (null === $viewInfo) {
+            ZMLogging::instance()->log('no view found for: page='.$page.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
             // set some sensible defaults
             $viewInfo = array('view' => $page, 'viewDefinition' => 'PageView#');
         }
