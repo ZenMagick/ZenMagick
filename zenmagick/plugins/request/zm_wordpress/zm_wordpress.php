@@ -80,12 +80,12 @@ class zm_wordpress extends ZMPlugin {
             $view = 'PluginView#plugin=zm_wordpress&subdir='.FILENAME_WP;
         }
 
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_index', 'viewId' => 'index', 'viewDefition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_single', 'viewId' => 'single', 'viewDefition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_page', 'viewId' => 'page', 'viewDefition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_archive', 'viewId' => 'archive', 'viewDefition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_archives', 'viewId' => 'archives', 'viewDefition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('view' => FILENAME_WP.'_search', 'viewId' => 'search', 'viewDefition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_index', 'view' => 'index', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_single', 'view' => 'single', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_page', 'view' => 'page', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archive', 'view' => 'archive', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archives', 'view' => 'archives', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_search', 'view' => 'search', 'viewDefinition' => $view));
     }
 
     /**
@@ -98,7 +98,7 @@ class zm_wordpress extends ZMPlugin {
      */
     public function onZMInitDone($args=null) {
         // create single request handler
-        $this->requestHandler = ZMLoader::make('WpRequestHandler', $this);
+        $this->requestHandler = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');
         if ($this->initWP() && (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
@@ -182,7 +182,7 @@ class zm_wordpress extends ZMPlugin {
     /**
      * Get the request handler.
      *
-     * @return WpRequestHandler The single request handler for this request.
+     * @return ZMWpRequestHandler The single request handler for this request.
      */
     public function getRequestHandler() {
         return $this->requestHandler;
