@@ -75,7 +75,7 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process() { 
-        ZMSacsMapper::instance()->ensureAuthorization($this->id_);
+        ZMSacsMapper::instance()->ensureAuthorization($this->id_, ZMRequest::getAccount());
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 

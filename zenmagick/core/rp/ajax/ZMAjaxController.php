@@ -82,12 +82,12 @@ class ZMAjaxController extends ZMController {
         }
 
         // check access on controller level
-        ZMSacsMapper::instance()->ensureAuthorization($this->getId());
+        ZMSacsMapper::instance()->ensureAuthorization($this->getId(), ZMRequest::getAccount());
 
         // (re-)check on method level
         $page = $this->getId().'#'.$method;
         ZMSacsMapper::instance()->ensureAccessMethod($page);
-        ZMSacsMapper::instance()->ensureAuthorization($page);
+        ZMSacsMapper::instance()->ensureAuthorization($page, ZMRequest::getAccount());
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
             call_user_func(array($this, $method));

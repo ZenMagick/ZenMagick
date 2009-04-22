@@ -105,17 +105,17 @@ class ZMSacsMapper extends ZMObject {
      * Authorize the current request.
      *
      * @param string page The page id/name whatever.
+     * @param mixed user Generic user information; right now <code>ZMAccount</code>.
      */
-    public function ensureAuthorization($page) {
+    public function ensureAuthorization($page, $user) {
         $requiredLevel = $this->getMappingValue($page, 'level', ZMSettings::get('defaultAccessLevel'));
         if (null == $requiredLevel) {
             return;
         }
 
-        $account = ZMRequest::getAccount();
         $level = ZMSacsMapper::ANONYMOUS;
-        if (null != $account) {
-            $level = $account->getType();
+        if (null != $user) {
+            $level = $user->getType();
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
