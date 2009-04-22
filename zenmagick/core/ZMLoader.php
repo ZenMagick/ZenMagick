@@ -374,50 +374,26 @@ class ZMLoader {
      * @return array List of full filenames of <code>.php</code> files.
      */
     public static function findIncludes($dir, $ext='.php', $recursive=false, $level=0) {
-        $includes = array();
         // sanity check
         if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
             return $includes;
         }
-        $includes['l'.$level] = array();
 
-        // save directories for later
-        $dirs = array();
+        $includes = array();
+
         $handle = @opendir($dir);
-        while (false !== ($file = readdir($handle))) { 
-            if ("." == $file || ".." == $file || ".svn" == $file) {
+        while (false !== ($name = readdir($handle))) { 
+            if ("." == $name || ".." == $name || ".svn" == $name) {
                 continue;
             }
-            $file = $dir.$file;
-            if (is_dir($file)) {
-                $dirs[] = $file.DIRECTORY_SEPARATOR;
-            } else if ($ext == substr($file, -strlen($ext))) {
-                $includes['l'.$level][] = $file;
+            $file = $dir.$name;
+            if (is_dir($file) && $recursive) {
+                $includes = array_merge($includes, self::findIncludes($file.DIRECTORY_SEPARATOR, $ext, $recursive, $level+1));
+            } else if ($ext == substr($name, -strlen($ext))) {
+                $includes[] = $file;
             }
         }
         @closedir($handle);
-
-        // process folders last
-        if ($recursive) {
-            foreach ($dirs as $dir) {
-                foreach (ZMLoader::findIncludes($dir, $ext, $recursive, $level+1) as $lkey => $files) {
-                    if (!array_key_exists($lkey, $includes)) {
-                        $includes[$lkey] = $files;
-                    } else {
-                        $includes[$lkey] = array_merge($includes[$lkey], $files);
-                    }
-                }
-            }
-        }
-
-        if (0 == $level) {
-            $arr = array();
-            // shrink into single array keeping the order
-            foreach ($includes as $lkey => $files) {
-                $arr = array_merge($arr, $includes[$lkey]);
-            }
-            return $arr;
-        }
 
         return $includes;
     }
@@ -465,20 +441,6 @@ class ZMLoader {
         // cuddle together :)
         $classname = str_replace(' ', '', $classname);
         return $classname;
-    }
-
-    /**
-     * Get class hierachy for the given class/object.
-     *
-     * @param mixed object The object or class name.
-     * @return array The class hierachy.
-     */
-    public static function getClassHierachy($object) {
-        $hierachy = array($object);
-        while($object = get_parent_class($object)) { 
-            $hierachy[] = $object;
-        }
-        return $hierachy;
     }
 
     /**
