@@ -47,9 +47,11 @@ class ZMProduct extends ZMObject {
     var $qtyBoxStatus_;
     var $qtyOrderMin_;
     var $qtyOrderMax_;
+    var $qtyOrderUnits_;
     var $isFree_;
     var $isAlwaysFreeShipping_;
     var $isCall_;
+    var $isVirtual_;
     var $taxClassId_;
     var $discountType_;
     var $discountTypeFrom_;
@@ -297,6 +299,20 @@ class ZMProduct extends ZMObject {
     public function getMinOrderQty() { return $this->qtyOrderMin_; }
 
     /**
+     * Get the quantity units.
+     *
+     * @return float The quantity units.
+     */
+    public function getQtyOrderUnits() { return $this->qtyOrderUnits_; }
+
+    /**
+     * Set the quantity units.
+     *
+     * @param float value The quantity units value.
+     */
+    public function setQtyOrderUnits($value) { $this->qtyOrderUnits_ = $value; }
+
+    /**
      * Checks if the product is free.
      *
      * @return boolean <code>true</code> if the product is free, <code>false</code> if not.
@@ -309,6 +325,20 @@ class ZMProduct extends ZMObject {
      * @param boolean value <code>true</code> if the product is free, <code>false</code> if not.
      */
     public function setFree($value) { $this->isFree_ = $value; }
+
+    /**
+     * Checks if the product is virtual.
+     *
+     * @return boolean <code>true</code> if the product is virtual, <code>false</code> if not.
+     */
+    public function isVirtual() { return $this->isVirtual_; }
+
+    /**
+     * Set the product is virtual flag.
+     *
+     * @param boolean value <code>true</code> if the product is virtual, <code>false</code> if not.
+     */
+    public function setVirtual($value) { $this->isVirtual_ = $value; }
 
     /**
      * Checks if the product is always free shipping

@@ -70,6 +70,15 @@ class ZMShoppingCartItem extends ZMObject {
 
 
     /**
+     * Get the number of items in the cart.
+     *
+     * @return int The cart quantity.
+     */
+    public function getQuantity() { 
+        return $this->zenItem_['quantity'];
+    }
+
+    /**
      * Get the tax rate for this item.
      *
      * @return ZMTaxRate The tax rate or <code>null</code>.

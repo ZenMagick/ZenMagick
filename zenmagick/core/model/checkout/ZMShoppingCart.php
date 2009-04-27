@@ -37,6 +37,7 @@ class ZMShoppingCart extends ZMObject {
     private $zenTotals_;
     private $payments_;
     private $items_;
+    private $helper_;
 
 
     /**
@@ -48,6 +49,7 @@ class ZMShoppingCart extends ZMObject {
         $this->zenTotals_ = null;
         $this->payments_ = null;
         $this->items_ = null;
+        $this->helper_ = new ZMCheckoutHelper($this);
     }
 
     /**
@@ -82,40 +84,12 @@ class ZMShoppingCart extends ZMObject {
     public function getWeight() { return $this->cart_->show_weight(); }
 
     /**
-     * Checks if there are only gift vouchers in the cart.
-     *
-     * @return boolean <code>true</code> if only vouchers are in the cart.
-     */
-    function isGVOnly() { return $this->cart_->gv_only(); }
-
-    /**
-     * Checks for free products in the cart.
-     *
-     * @return int The number of free products in the cart.
-     */
-    function freeProductsCount() { return $this->cart_->in_cart_check('product_is_free','1'); }
-
-    /**
-     * Checks for virtual products in the cart.
-     *
-     * @return int The number of virtual products in the cart.
-     */
-    function virtualProductsCount() { return $this->cart_->in_cart_check('products_virtual','1'); }
-
-    /**
-     * Checks for free shipping.
-     *
-     * @return boolean <code>true</code> if the cart is free of shipping.
-     */
-    function freeShippingCount() { return $this->cart_->in_cart_check('product_is_always_free_shipping','1'); }
-
-    /**
      * Check for out of stock items.
      *
      * @return boolean <code>true</code> if the cart contains items that are out of stock,
      *  <code>false</code> if not.
      */
-    function hasOutOfStockItems() {
+    public function hasOutOfStockItems() {
         foreach ($this->getItems() as $item) {
             if (!$item->isStockAvailable()) {
                 return true;
@@ -131,14 +105,7 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
-    global $order;
-
-        if (!isset($order)) {
-            ZMTools::resolveZCClass('order');
-            $order = new order();
-        }
-
-        return $order->content_type == 'virtual';
+        return $this->helper_->isVirtual();
     }
 
     /**
@@ -449,10 +416,8 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
      */
-    function readyForCheckout() {
-        $_SESSION['valid_to_checkout'] = true;
-        $this->cart_->get_products(true);
-        return $_SESSION['valid_to_checkout'];
+    public function readyForCheckout() {
+        return $this->helper_->readyForCheckout();
     }
 
     /**

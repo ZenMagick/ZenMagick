@@ -704,6 +704,19 @@ class ZMTools {
         }
     }
 
+    /**
+     * fmod variant that can handle values < 1.
+     */
+    public function fmod_round($x, $y) {
+        $x = strval($x);
+        $y = strval($y);
+        $zc_round = ($x*1000)/($y*1000);
+        $zc_round_ceil = (int)($zc_round);
+        $multiplier = $zc_round_ceil * $y;
+        $results = abs(round($x - $multiplier, 6));
+        return $results;
+    }
+
 }
 
 ?>

@@ -82,6 +82,8 @@ Release 0.9.6
 - add missing products_id parameter to 'Read Reviews' link in product_info
   template (default theme)
 - change default theme CSS to float the EZPage TOC on the right hand side
+- remove unused methods in ZMShoppingCart (and move into new ZMCheckoutHelper
+  class)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
