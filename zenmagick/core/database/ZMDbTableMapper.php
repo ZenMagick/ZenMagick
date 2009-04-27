@@ -208,9 +208,16 @@ class ZMDbTableMapper extends ZMObject {
 
         $mappings = array();
         foreach (array_reverse($tables) as $table) {
-            if (empty($table) || !array_key_exists($table, $this->tableMap_)) {
-                return null;
+          if (empty($table)) {
+                continue;
             }
+            if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('isEnableDBAutoMapping')) {
+                //XXX: refresh cache?
+                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+                $rawMapping = self::buildTableMapping($table, $database);
+                $this->setMappingForTable(str_replace(ZM_DB_PREFIX, '', $table), $rawMapping);
+            }
+
             if ($this->isCached_) {
                 // assume all is good
                 $tableMap = $this->tableMap_[$table];
