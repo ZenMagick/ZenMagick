@@ -32,6 +32,9 @@
  * @version $Id$
  */
 class ZMCheckoutHelper extends ZMObject {
+    const CART_PRODUCT_STATUS = 'status';
+    const CART_PRODUCT_QUANTITY = 'quantity';
+    const CART_PRODUCT_UNITS = 'units';
     private $cart_;
 
 
@@ -147,24 +150,26 @@ class ZMCheckoutHelper extends ZMObject {
     /**
      * Check whether the cart is ready for checkout or not.
      *
-     * <p><strong>NOTE:</strong> The main difference to the Zen Cart implementation of this method is that 
-     * no error messages are generated. This is left to the controller to handle.</p>
+     * <p>Possible return values:</p>
+     * <ul>
+     *  <li>status - one or more products are not availalable (product status)</li>
+     *  <li>quantity - one or more products have unsatisfied quantity restrictions</li>
+     *  <li>units - one or more products have unsatisfied unit restrictions</li>
+     * </ul>
      *
-     * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
+     * @return array A map of errorCode -&gt; item pairs.
      */
-    public function readyForCheckout() {
-        if (!ZMSettings::get('isUseCheckoutHelper', true)) {
-            $_SESSION['valid_to_checkout'] = true;
-            $this->cart_->get_products(true);
-            return $_SESSION['valid_to_checkout'];
-        }
-
+    public function checkCartStatus() {
+        $map = array();
         foreach ($this->cart_->getItems() as $item) {
             $product = $item->getProduct();
 
             // check product status
             if (!$product->getStatus()) {
-                return false;
+                if (!isset($map[self::CART_PRODUCT_STATUS])) {
+                    $map[self::CART_PRODUCT_STATUS] = array();
+                }
+                $map[self::CART_PRODUCT_STATUS][] = $item;
             }
 
             // check min qty
@@ -181,17 +186,35 @@ class ZMCheckoutHelper extends ZMObject {
                 $qty = $tqty;
             }
             if ($qty < $minQty) {
-                return false;
+                if (!isset($map[self::CART_PRODUCT_QUANTITY])) {
+                    $map[self::CART_PRODUCT_QUANTITY] = array();
+                }
+                $map[self::CART_PRODUCT_QUANTITY][] = $item;
             }
 
             // check quantity units
             $units = $product->getQtyOrderUnits();
             if (ZMTools::fmod_round($qty, $units)) {
-                return false;
+                if (!isset($map[self::CART_PRODUCT_UNITS])) {
+                    $map[self::CART_PRODUCT_UNITS] = array();
+                }
+                $map[self::CART_PRODUCT_UNITS][] = $item;
             }
         }
 
-        return true;
+        return $map;
+    }
+
+    /**
+     * Check whether the cart is ready for checkout or not.
+     *
+     * <p><strong>NOTE:</strong> The main difference to the Zen Cart implementation of this method is that 
+     * no error messages are generated. This is left to the controller to handle.</p>
+     *
+     * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
+     */
+    public function readyForCheckout() {
+        return 0 == count($this->checkCartStatus());
     }
 
 }

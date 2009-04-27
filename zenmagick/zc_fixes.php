@@ -30,7 +30,7 @@
      */
     function _zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
-        return (ZMRequest::isCheckout() && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+        return (ZMRequest::isCheckout(false) && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));

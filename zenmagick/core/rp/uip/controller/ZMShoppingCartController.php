@@ -49,22 +49,38 @@ class ZMShoppingCartController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
         
         $shoppingCart = ZMRequest::getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);
 
+        // some validation
         if (ZMSettings::get('isEnableStock') && $shoppingCart->hasOutOfStockItems()) {
             if (ZMSettings::get('isAllowLowStockCheckout')) {
                 ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
             } else {
                 ZMMessages::instance()->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
+            }
+        }
+        $helper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $statusMap = $helper->checkCartStatus();
+        foreach ($statusMap as $status => $items) {
+            foreach ($items as $item) {
+                $product = $item->getProduct();
+                switch ($status) {
+                case ZMCheckoutHelper::CART_PRODUCT_STATUS:
+                    ZMMessages::instance()->warn(sprintf('%s: We are sorry but this product has been removed from our inventory at this time.', $product->getName()));
+                    break;
+                case ZMCheckoutHelper::CART_PRODUCT_QUANTITY:
+                    ZMMessages::instance()->warn(sprintf('%s: has a minimum quantity restriction; minimum order quantity is: %s', $product->getName(), $product->getMinOrderQty()));
+                    break;
+                case ZMCheckoutHelper::CART_PRODUCT_UNITS:
+                    ZMMessages::instance()->warn(sprintf('%s: has a quantity units restriction; minimum order units: %s', $product->getName(), $product->getQtyOrderUnits()));
+                    break;
+                }
             }
         }
 

@@ -84,6 +84,8 @@ Release 0.9.6
 - change default theme CSS to float the EZPage TOC on the right hand side
 - remove unused methods in ZMShoppingCart (and move into new ZMCheckoutHelper
   class)
+- disable zen-cart request handling for shopping cart; use checkout helper in
+  ZMShoppingCartController instead
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
