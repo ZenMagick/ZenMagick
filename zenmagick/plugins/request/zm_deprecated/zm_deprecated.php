@@ -74,10 +74,12 @@ class zm_deprecated extends ZMPlugin {
      */
     public function onZMControllerProcessStart($args=array()) {
         $controller = $args['controller'];
-        foreach ($GLOBALS as $name => $instance) {
-            if (ZMTools::startsWith($name, "zm_")) {
-                if (is_object($instance)) {
-                    $controller->exportGlobal($name, $GLOBALS[$name]);
+        if (null !== $controller) {
+            foreach ($GLOBALS as $name => $instance) {
+                if (ZMTools::startsWith($name, "zm_")) {
+                    if (is_object($instance)) {
+                        $controller->exportGlobal($name, $GLOBALS[$name]);
+                    }
                 }
             }
         }
