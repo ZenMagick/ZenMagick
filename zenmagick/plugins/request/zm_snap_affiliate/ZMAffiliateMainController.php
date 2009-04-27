@@ -58,9 +58,9 @@ class ZMAffiliateMainController extends ZMController {
         // check for existing referrer
         $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
                 WHERE referrer_customers_id = :referrer_customers_id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'ZMObject');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'AffiliateDetails');
         if (null != $result) {
-            $this->exportGlobal('referrer', $result);
+            $this->exportGlobal('affiliateDetails', $result);
         }
     }
 
@@ -68,83 +68,40 @@ class ZMAffiliateMainController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet() {
-        if (null == $this->getGlobal('referrer')) {
+        if (null == ($affiliateDetails = $this->getGlobal('affiliateDetails'))) {
             // logged in *and* signed up
             return $this->findView('signup');
         }
-    }
 
-    /*
-$today = getdate();
-$show_terms = isset( $_GET['terms'] );
+        $today = getdate();
+        $activityBegin = mktime(0, 0, 0, $today['mon'], 1, $today['year']);
+        $activityEnd = mktime(23, 59, 59, $activityBegin['mon'] + 1, 0, $today['year']);
 
-$referrer = null;
-$submitted = false;
-$approved = false;
-$banned = false;
-$is_referrer = false;
-$is_logged_in = isset( $_SESSION['customer_id'] );
+        // date range selected?
+        if (null != ($start = ZMRequest::getParameter('start'))) {
+            $activityBegin = intval($start);
+        }
+        if ($activityBegin > time()) {
+            $activityNegin = time();
+        }
+        if (null != ($end = ZMRequest::getParameter('end'))) {
+            $activityEnd = intval($end);
+        }
 
-$total_total = 0;
-$total_commission = 0;
-$unpaid_total = 0;
-$unpaid_commission = 0;
-$yearly_total = 0;
-$yearly_commission = 0;
-$last_payout = 0;
-$next_payout = 0;
+        if ($activityBegin > $activityEnd) {
+            $tempDate = getdate($activityBegin);
+            $activityEnd = mktime(23, 59, 59, $tempDate['mon']+1, 0, $tempDate['year']);
+        }
 
-$activity_begin = mktime(0, 0, 0, $today['mon'], 1, $today['year']);
-$activity_end = mktime(23, 59, 59, $activity_begin['mon'] + 1, 0, $today['year']);
-$activity_total = 0;
-$activity_commission = 0;
-$activity = array();
-
-if( isset($_GET['start']) ) {
-  $activity_begin = intval( $_GET['start'] );
-}
-
-if( $activity_begin > time() ) {
-  $activity_begin = time();
-}
-
-if( isset( $_GET['end'] ) ) {
-  $activity_end = intval( $_GET['end'] );
-}
-
-if( $activity_begin > $activity_end ) {
-  $tempDate = getdate($activity_begin);
-
-  $activity_end = mktime( 23, 59, 59, $tempDate['mon']+1, 0, $tempDate['year'] );
-}
-
-if( $is_logged_in ) {
-  $query = "select * from ". TABLE_REFERRERS ." where referrer_customers_id = " . intval($_SESSION['customer_id']);
-
-  $referrer = $db->Execute($query);
-
-  if( $referrer && $referrer->fields ) {
-
-    $referrer = $referrer->fields;
-    $submitted = true;
-
-    if( isset($referrer['referrer_approved']) ) {
-      $approved = intval($referrer['referrer_approved']) != 0;
-    }
-
-    if( isset($referrer['referrer_banned']) ) {
-      $banned = intval($referrer['referrer_banned']) != 0;
-    }
-
-    if( $approved ) {
-      $year_start = mktime(0,0,0, 1, 1, $today['year']);
-      $query = "select o.date_purchased, o.order_total, c.commission_paid, c.commission_rate, t.value " .
-	"from ". TABLE_ORDERS ." as o, ". TABLE_ORDERS_TOTAL ." as t, " . TABLE_COMMISSION . " as c where " .
-	"c.commission_referrer_key = \"" . $referrer['referrer_key'] . "\" and o.orders_id = t.orders_id and o.orders_id = c.commission_orders_id and t.class = \"ot_shipping\"";
-
-      $totals = $db->Execute($query);
-
-      while( !$totals->EOF ) {
+        if ($affiliateDetails->referrer_approved) {
+            $yearStart = mktime(0,0,0, 1, 1, $today['year']);
+            $sql = "SELECT o.date_purchased, o.order_total, c.commission_paid, c.commission_rate, t.value " .
+                   "FROM ". TABLE_ORDERS ." AS o, ". TABLE_ORDERS_TOTAL ." AS t, " . TABLE_COMMISSION . " AS c " .
+                   "WHERE c.commission_referrer_key = :commission_referrer_key AND o.orders_id = t.orders_id
+                       AND o.orders_id = c.commission_orders_id AND t.class = :type";
+            $args = array('commission_referrer_key' => $affiliateDetails->referrer_key, 'type' => 'ot_shipping');
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REFERRERS, TABLE_ORDERS_TOTAL, TABLE_COMMISSION)) as $result) {
+              /*
 	$commission = floatval($totals->fields['commission_rate']);
 	$purchase_date = strtotime($totals->fields['date_purchased']);
 	$current_date = $totals->fields['commission_paid'];
@@ -185,12 +142,14 @@ if( $is_logged_in ) {
 
 	  array_push( $activity, array('amount' => $current_amount, 'date' => $purchase_date, 'paid' => $current_date, 'commission' => $commission) );
 	}
-
-	$totals->MoveNext();
-      }
-    }
-  } 
 */
+            }
+
+        }
+
+        return parent::processGet();
+    }
+
 }
 
 ?>
