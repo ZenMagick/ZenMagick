@@ -196,9 +196,13 @@ class ZMDbTableMapper extends ZMObject {
      * Get a table map.
      *
      * @param mixed tables Either a single table or array of table names.
+     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
      * @return array The mapping or <code>null</code>.
      */
-    public function getMapping($tables) {
+    public function getMapping($tables, $database=null) {
+        if (null === $database) {
+            $database = ZMRuntime::getDatabase();
+        }
         if (!is_array($tables)) {
             $tables = array($tables);
         }
@@ -302,18 +306,18 @@ class ZMDbTableMapper extends ZMObject {
         if (!is_array($mapping)) {
             // table name
             $table = $mapping;
-            $mapping = $this->getMapping($table);
+            $mapping = $this->getMapping($table, $database);
             if (null === $mapping && ZMSettings::get('isEnableDBAutoMapping')) {
                 //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace(ZM_DB_PREFIX, '', $table), $rawMapping);
-                $mapping = $this->getMapping($table);
+                $mapping = $this->getMapping($table, $database);
             }
             return $mapping;
         }
         // either mapping or table list
-        return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping);
+        return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping, $database);
     }
 
     /**
