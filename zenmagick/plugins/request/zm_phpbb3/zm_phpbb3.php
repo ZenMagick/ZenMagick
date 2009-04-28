@@ -191,6 +191,7 @@ class zm_phpbb3 extends ZMPlugin {
             }
         }
     }
+
 }
 
 
