@@ -61,6 +61,7 @@ class zm_phpbb3 extends ZMPlugin {
     public function install() {
         parent::install();
 
+        $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation');
         // warning: screwed logic!
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nickname as optional (will skip automatic phpBB registration)', 
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
@@ -87,9 +88,13 @@ class zm_phpbb3 extends ZMPlugin {
         $this->prePostAccount_ = ZMRequest::getAccount();
 
         // main define to get at things
-        define('ZM_PHPBB3_ROOT', ZMSettings::get('plugins.zm_pbpbb3.root', DIR_WS_PHPBB));
+        $phpBB3Dir = $this->get('phpBB3Dir');
+        if (empty($phpBB3Dir)) {
+            $phpBB3Dir = ZMSettings::get('plugins.zm_pbpbb3.root', DIR_WS_PHPBB);
+        }
+        define('ZM_PHPBB3_ROOT', $phpBB3Dir);
 
-        // enable nickname field
+        // enable nick name field
         ZMSettings::set('isAccountNickname', true);
 
         // using events
@@ -116,26 +121,27 @@ class zm_phpbb3 extends ZMPlugin {
             $phpBB = $this->getAdapter();
             // add custom validation rules
             $rules = array(
-                array("WrapperRule", 'nickName', 'The entered nickname is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
+                array("WrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
             );
-            // optionally, make nickname required
+            // optionally, make nick name required
             if ($this->get('requireNickname')) {
-                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nickname.');
+                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            ZMValidator::instance()->addRules('create_account', $rules);
+            ZMValidator::instance()->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
             $this->zcoSubscribe();
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
+                array("WrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
-            // optionally, make nickname required
+            // optionally, make nick name required
             if ($this->get('requireNickname')) {
-                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nickname.');
+                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            ZMValidator::instance()->addRules('edit_account', $rules);
+            ZMValidator::instance()->addRules('account', $rules);
             $this->zcoSubscribe();
         }
     }
@@ -152,7 +158,7 @@ class zm_phpbb3 extends ZMPlugin {
         $account = $args['account'];
         if (!ZMTools::isEmpty($account->getNickName())) {
             $password = $args['clearPassword'];
-            $this->getAdapter()->createAccount($account->getNickName(), $password, $account->getEmail());
+            $this->getAdapter()->createAccount($account, $password);
         }
     }
 

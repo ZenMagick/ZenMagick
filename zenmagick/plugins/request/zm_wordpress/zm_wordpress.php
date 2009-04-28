@@ -33,7 +33,9 @@ define('FILENAME_WP', 'wp');
  * @version $Id$
  */
 class zm_wordpress extends ZMPlugin {
-    private $requestHandler;
+    private $page_;
+    private $requestHandler_;
+    private $bridge_;
 
 
     /**
@@ -42,7 +44,9 @@ class zm_wordpress extends ZMPlugin {
     function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->requestHandler = null;
+        $this->page_ = '';
+        $this->requestHandler_ = null;
+        $this->bridge_ = null;
     }
 
     /**
@@ -53,14 +57,19 @@ class zm_wordpress extends ZMPlugin {
     }
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation');
         $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabled', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
+        // warning: screwed logic!
+        $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)', 
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nick name as optional (will skip automatic WP registration)', 
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
     }
 
     /**
@@ -69,10 +78,24 @@ class zm_wordpress extends ZMPlugin {
     public function init() {
         parent::init();
 
+        $this->page_ = ZMRequest::getPageName();
+
+        // main define to get at things
+        $wordpressDir = $this->get('wordpressDir');
+        if (empty($wordpressDir)) {
+            $wordpressDir = ZMSettings::get('plugins.zm_wordpress.root');
+        }
+        define('ZM_WORDPRESS_ROOT', $wordpressDir);
+
         $this->zcoSubscribe();
 
         // use API
         define('WP_USE_THEMES', false);
+
+        if ($this->get('requireNickname')) {
+            // enable nick name field
+            ZMSettings::set('isAccountNickname', true);
+        }
 
         // set up view mappings used by the wp controller
         $view = 'PageView#subdir='.FILENAME_WP;
@@ -89,6 +112,17 @@ class zm_wordpress extends ZMPlugin {
     }
 
     /**
+     * Get the WP bridge.
+     */
+    protected function getAdapter() {
+        if (null == $this->bridge_) {
+            $this->bridge_ = new ZMWPBridge();
+        }
+
+        return $this->bridge_;
+    }
+
+    /**
      * Handle init done event.
      *
      * <p>Code in here can't be executed in <code>init()</code>, as it depends on the global
@@ -98,15 +132,44 @@ class zm_wordpress extends ZMPlugin {
      */
     public function onZMInitDone($args=null) {
         // create single request handler
-        $this->requestHandler = new ZMWpRequestHandler($this);
+        $this->requestHandler_ = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');
         if ($this->initWP() && (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
-            $this->requestHandler->handleRequest();
-            $this->requestHandler->register();
+            $this->requestHandler_->handleRequest();
+            $this->requestHandler_->register();
+        }
+
+        if (ZMTools::asBoolean($this->get('syncUser'))) {
+            // setup WP bridge hooks and additional validation rules
+            if ('create_account' == $this->page_) {
+                $bridge = $this->getAdapter();
+                // add custom validation rules
+                $rules = array(
+                    array("WrapperRule", 'nickName', 'The entered nick name is already taken (wordpress).', array($bridge, 'vDuplicateNickname')),
+                    array("WrapperRule", 'email', 'The entered email address is already taken (wordpress).', array($bridge, 'vDuplicateEmail'))
+                );
+                // optionally, make nick name required
+                if ($this->get('requireNickname')) {
+                    $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
+                }
+                ZMValidator::instance()->addRules('registration', $rules);
+            } else if ('account_password' == $this->page_) {
+                // nothing
+            } else if ('account_edit' == $this->page_) {
+                $bridge = $this->getAdapter();
+                $rules = array(
+                    array("WrapperRule", 'nickName', 'The entered nick name is already taken (wordpress).', array($bridge, 'vDuplicateNickname')),
+                    array("WrapperRule", 'email', 'The entered email address is already taken (wordpress).', array($bridge, 'vDuplicateChangedEmail'))
+                );
+                // optionally, make nick name required
+                if ($this->get('requireNickname')) {
+                    $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
+                }
+                ZMValidator::instance()->addRules('account', $rules);
+            }
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -185,7 +248,61 @@ class zm_wordpress extends ZMPlugin {
      * @return ZMWpRequestHandler The single request handler for this request.
      */
     public function getRequestHandler() {
-        return $this->requestHandler;
+        return $this->requestHandler_;
+    }
+
+    /**
+     * Account created event callback.
+     *
+     * <p>Here the additional processing is done by checking the result view id. As per convention,
+     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMCreateAccount($args) {
+        $account = $args['account'];
+        if (!ZMTools::isEmpty($account->getNickName())) {
+            $password = $args['clearPassword'];
+            if (!$this->getAdapter()->createAccount($account, $password)) {
+                ZMMessages::instance()->info(zm_l10n_get('Could not create wordpress account - please contact the store administrator.'));
+            }
+        }
+    }
+
+    /**
+     * Event callback for controller processing.
+     *
+     * <p>Here the additional processing is done by checking the result view id. As per convention,
+     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMPasswordChanged($args) {
+        $account = $args['account'];
+        if (!ZMTools::isEmpty($account->getNickName())) {
+            $password = $args['clearPassword'];
+            $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
+        }
+    }
+
+    /**
+     * Event callback for controller processing.
+     *
+     * <p>Here the additional processing is done by checking the result view id. As per convention,
+     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     *
+     * @param array args Optional parameter ('view' => $view).
+     */
+    function onZMControllerProcessEnd($args) {
+        if ('POST' == ZMRequest::getMethod()) {
+            $view = $args['view'];
+            if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
+                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
+                if (null != $account && !ZMTools::isEmpty($account->getNickName())) {
+                    $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
+                }
+            }
+        }
     }
 
 }

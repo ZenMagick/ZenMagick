@@ -72,6 +72,7 @@ class ZMPhpBB3 extends ZMObject {
                 'password' => $dbpasswd,
                 'driver' => $dbms
             );
+            var_dump($dbconf);
             if (isset($dbport)) {
                 $dbconf['port'] = $dbport;
             }
@@ -113,12 +114,10 @@ class ZMPhpBB3 extends ZMObject {
     public function vDuplicateChangedEmail($req) {
         // the current account
         $account = ZMRequest::getAccount();
-
         if ($account->getEmail() != $req['email']) {
             // changed
-            return $this->vDuplicateNickname($req);
+            return $this->vDuplicateEmail($req);
         }
-
         return true;
     }
 
@@ -153,11 +152,12 @@ class ZMPhpBB3 extends ZMObject {
     /**
      * Create a new account.
      *
-     * @param string nickName The nick name.
+     * @param ZMAccount account The store account.
      * @param string password The clear text password.
-     * @param string email The email address.
      */
-    public function createAccount($nickName, $password, $email) {
+    public function createAccount($account, $password) {
+        $nickName = $account->getNickName();
+        $email = $account->getEmail();
         if (false !== ($groupId = $this->getDefaultGroupId())) {
             $authentication = new ZMPhpBB3Authentication();
             $data = array(
