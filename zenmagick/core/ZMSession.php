@@ -193,7 +193,8 @@ class ZMSession extends ZMObject {
      */
     public function restoreCart() {
         if (isset($_SESSION['cart'])) {
-          $_SESSION['cart']->restore_contents();
+            //TODO: 
+            $_SESSION['cart']->restore_contents();
         }
     }
 
