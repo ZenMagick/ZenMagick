@@ -61,6 +61,9 @@ interface ZMDatabase {
     const MODEL_RAW = '@raw';
 
     /** Internal date format. */
+    const DATE_FORMAT = 'Y-m-d';
+
+    /** Internal date-time format. */
     const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
     /** NULL date. */
