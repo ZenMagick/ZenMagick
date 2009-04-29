@@ -647,4 +647,21 @@ array(
         'quantity' => 'column=discount_qty;type=float',
         'value' => 'column=discount_price;type=float'
     ),
+    'customers_basket' => array(
+        'cartId' => 'column=customers_basket_id;type=integer;key=true;auto=true',
+        'accountid' => 'column=customers_id;type=integer',
+        'skuId' => 'column=products_id;type=string',
+        'quantity' => 'column=customers_basket_quantity;type=float',
+        'calculatedPrice' => 'column=final_price;type=float',
+        'dateAdded' => 'column=customers_basket_date_added;type=string'
+    ),
+    'customers_basket_attributes' => array(
+        'cartAttributeId' => 'column=customers_basket_attributes_id;type=integer;key=true;auto=true',
+        'accountId' => 'column=customers_id;type=integer',
+        'skuId' => 'column=products_id;type=string',
+        'attributeId' => 'column=products_options_id;type=string',
+        'attributeValueId' => 'column=products_options_value_id;type=integer',
+        'attributeValueText' => 'column=products_options_value_text;type=blob',
+        'sortOrder' => 'column=products_options_sort_order;type=string'
+    ),
 );
