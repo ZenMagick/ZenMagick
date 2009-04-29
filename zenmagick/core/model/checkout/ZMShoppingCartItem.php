@@ -34,6 +34,7 @@
 class ZMShoppingCartItem extends ZMObject {
     private $cart_;
     private $zenItem_;
+    private $attributes_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMShoppingCartItem extends ZMObject {
         parent::__construct();
         $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
+        $this->attributes_ = null;
     }
 
     /**
@@ -112,6 +114,9 @@ class ZMShoppingCartItem extends ZMObject {
      * @return array List of product attributes.
      */
     public function getAttributes() { 
+        if (null !== $this->attributes_) {
+            return $this->attributes_;
+        }
         if (!isset($this->zenItem_['attributes']) || !is_array($this->zenItem_['attributes'])) {
             return array();
         }
@@ -127,6 +132,9 @@ class ZMShoppingCartItem extends ZMObject {
             $attrMap[$attributeId][$valueId] = $valueId;
         }
 
+        // values of text/upload attributes
+        $textValues = $this->zenItem_['attributes_values'];
+
         // now get all attributes and strip the not selected stuff
         $productAttributes = $this->getProduct()->getAttributes();
         $attributes = array();
@@ -138,12 +146,19 @@ class ZMShoppingCartItem extends ZMObject {
                 foreach ($productAttribute->getValues() as $value) {
                     if (!array_key_exists($value->getId(), $valueIds)) {
                         $attribute->removeValue($value);
+                    } else if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                        // these should have only a single value
+                        if (0 == $value->getId()) {
+                            $value->setName($textValues[$attribute->getId()]);
+                        }
                     }
                 }
                 $attributes[] = $attribute;
             }
         }
 
+        // keep copy
+        $this->attributes_ = $attributes;
         return $attributes;
     }
 

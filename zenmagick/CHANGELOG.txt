@@ -88,6 +88,8 @@ Release 0.9.6
   ZMShoppingCartController instead
 - improve zm_phpbb3 (and fix some minor things)
 - add user syncing to zm_wordpress
+- fix text/upload attribute values in ZMShoppingCartItem and also cache the
+  attributes internally
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
