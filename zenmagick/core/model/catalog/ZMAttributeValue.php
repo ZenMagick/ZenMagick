@@ -29,6 +29,9 @@
 /**
  * A single attribute value.
  *
+ * <p>For attributes that accept user input (text/upload), the name will be replaced
+ * with the entered data to allow handling all values the same way.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.model.catalog
  * @version $Id$
