@@ -51,6 +51,7 @@ class ZMAttributeValue extends ZMObject {
     private $image_;
     private $isPriceFactorOneTime_;
     private $isIncludeInBasePrice_;
+    private $sortOrder_;
     private $taxRate_;
 
 
@@ -61,6 +62,7 @@ class ZMAttributeValue extends ZMObject {
         parent::__construct();
         $this->setId($id);
         $this->name_ = $name;
+        $this->sortOrder_ = 0;
     }
 
     /**
@@ -428,6 +430,20 @@ class ZMAttributeValue extends ZMObject {
      * @param ZMTaxRate taxRate The tax rate.
      */
     public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
+
+    /**
+     * Get the attribute value sort order.
+     *
+     * @return int The attribute sort order.
+     */
+    public function getSortOrder() { return $this->sortOrder_; }
+
+    /**
+     * Set the attribute value sort order.
+     *
+     * @param int sortOrder The attribute sort order.
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
 }
 

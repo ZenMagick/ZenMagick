@@ -333,7 +333,7 @@ array(
         'attributeValueId' => 'column=products_options_values_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_options_values_name;type=string',
-        'sortOrder' => 'column=products_options_values_sort_order;type=integer'
+        //'sortOrder' => 'column=products_options_values_sort_order;type=integer'
     ),
     'group_pricing' => array(
         'id' => 'column=group_id;type=integer;key=true;auto=true',
@@ -649,7 +649,7 @@ array(
     ),
     'customers_basket' => array(
         'cartId' => 'column=customers_basket_id;type=integer;key=true;auto=true',
-        'accountid' => 'column=customers_id;type=integer',
+        'accountId' => 'column=customers_id;type=integer',
         'skuId' => 'column=products_id;type=string',
         'quantity' => 'column=customers_basket_quantity;type=float',
         'calculatedPrice' => 'column=final_price;type=float',
