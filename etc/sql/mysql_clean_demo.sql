@@ -32,6 +32,7 @@ TRUNCATE TABLE products_description;
 TRUNCATE TABLE products_discount_quantity;
 TRUNCATE TABLE products_options;
 TRUNCATE TABLE products_options_values;
+INSERT INTO products_options_values (products_options_values_id, language_id, products_options_values_name) VALUES (0, 1, 'TEXT');
 TRUNCATE TABLE products_options_values_to_products_options;
 TRUNCATE TABLE products_to_categories;
 TRUNCATE TABLE record_artists;
