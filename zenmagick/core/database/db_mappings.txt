@@ -333,6 +333,7 @@ array(
         'attributeValueId' => 'column=products_options_values_id;type=integer;key=true',
         'languageId' => 'column=language_id;type=integer;key=true',
         'name' => 'column=products_options_values_name;type=string',
+        // alternatively, enable this and add pov.products_options_values_sort_order to the values loaded in ZMAttributes ~line# 99
         //'sortOrder' => 'column=products_options_values_sort_order;type=integer'
     ),
     'group_pricing' => array(
