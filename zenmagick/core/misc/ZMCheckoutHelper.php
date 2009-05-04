@@ -28,7 +28,7 @@
  * Checkout helper.
  *
  * @author DerManoMann
- * @package org.zenmagick.model.checkout
+ * @package org.zenmagick.misc
  * @version $Id$
  */
 class ZMCheckoutHelper extends ZMObject {
