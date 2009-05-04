@@ -65,6 +65,10 @@ class ZMShoppingCartItem extends ZMObject {
     function getImageInfo() { return ZMLoader::make("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
     function getQty() { return $this->zenItem_['quantity']; }
     function getItemPrice() { return $this->getTaxRate()->addTax($this->zenItem_['final_price']); }
+    // ( item price + attribute price ) * qty
+    // item_price: product->getProductPrice() // the base price excl. attributes (as that would include all lowest option attrs as in catalog view)
+    // if attribute price - else qty discount price
+    // attribute_price = sum of all attributes in cart (the sku attributes) as calculated in cart->attributes_price(item)
     function getItemTotal() { return $this->getTaxRate()->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity']; }
     function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
     function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
