@@ -90,6 +90,9 @@ Release 0.9.6
 - add user syncing to zm_wordpress
 - fix text/upload attribute values in ZMShoppingCartItem and also cache the
   attributes internally
+- add new low_stock viewId to redirect to the shopping cart
+- add new methods to ZMCheckoutHelper to validate a checkout request - this
+  can be shared between all checkout controllers and more
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

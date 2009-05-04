@@ -63,29 +63,6 @@ class ZMCheckoutAddressController extends ZMController {
     }
 
     /**
-     * Check cart state.
-     *
-     * @return ZMView A <code>ZMView</code> or <code>null</code>.
-     */
-    protected function checkCart() {
-        $shoppingCart = ZMRequest::getShoppingCart();
-        if ($shoppingCart->isEmpty()) {
-            return $this->findView("empty_cart");
-        }
-
-        if (!$shoppingCart->readyForCheckout()) {
-            return $this->findView("cart_not_ready");
-        }
-
-        if ($shoppingCart->isVirtual()) {
-            return $this->findView("cart_is_virtual");
-        }
-
-        return null;
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function handleRequest() {
@@ -117,22 +94,19 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
-        if (null !== ($view = $this->checkCart())) {
-            return $view;
+    public function process() {
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', ZMRequest::getShoppingCart());
+        if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
+            return $this->findView($viewId);
         }
 
-        return $this->findView();
+        return parent::process();
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost() {
-        if (null !== ($view = $this->checkCart())) {
-            return $view;
-        }
-
         $shoppingCart = ZMRequest::getShoppingCart();
         // which addres do we update?
         $method = $this->settings_['method'];

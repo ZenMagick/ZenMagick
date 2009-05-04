@@ -33,6 +33,10 @@
         return (ZMRequest::isCheckout(false) && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
+    //custom class mappings
+    ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
+
+    // event fixes and other stuff
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
     // skip more zc request handling

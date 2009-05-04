@@ -49,6 +49,7 @@
         $urlMapper->setMappingInfo(null, array('viewId' => 'cart_not_ready', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'cart_is_virtual', 'view' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'check_cart', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'low_stock"', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
 
         // popups
         $urlMapper->setMappingInfo(null, array('viewId' => 'popup_search_help', 'viewDefinition' => 'PageView#subdir=popup'));

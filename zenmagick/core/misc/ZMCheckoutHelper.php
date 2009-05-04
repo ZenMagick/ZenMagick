@@ -217,6 +217,60 @@ class ZMCheckoutHelper extends ZMObject {
         return 0 == count($this->checkCartStatus());
     }
 
+    /**
+     * Check stock.
+     *
+     * @param boolean messages Optional flag to enable/hide messages related to stock checking; default is <code>true</code>.
+     * @return boolean <code>true</code> if the stock check was sucessful (or disabled).
+     */
+    public function checkStock($messages=true) {
+        if (ZMSettings::get('isEnableStock') && $this->cart_->hasOutOfStockItems()) {
+            if (ZMSettings::get('isAllowLowStockCheckout')) {
+                if ($messages) {
+                    ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
+                }
+                return false;
+            } else {
+                if ($messages) {
+                    ZMMessages::instance()->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validate the current checkout request.
+     *
+     * @param boolean messages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
+     * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
+     *  if everything is ok.
+     */
+    public function validateCheckout($messages=true) {
+        if ($this->cart_->isEmpty()) {
+            return "empty_cart";
+        }
+        $session = ZMRequest::getSession();
+        if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
+            $session->clear();
+            return "login";
+        }
+
+        if (!$this->readyForCheckout()) {
+            if ($messages) {
+                ZMMessages::instance()->error(zm_l10n_get('Please update your order ...'));
+            }
+            return "cart_not_ready";
+        }
+
+        if (!$this->checkStock($messages)) {
+            return "low_stock";
+        }
+
+        return null;
+    }
+
 }
 
 ?>
