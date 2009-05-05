@@ -31,7 +31,7 @@
         <?php foreach ($zm_cart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQty() ?> x <?php $html->encode($item->getName()) ?>
+                    <?php echo $item->getQty() ?> x <?php $html->encode($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>

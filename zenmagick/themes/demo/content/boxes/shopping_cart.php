@@ -58,7 +58,7 @@
             <?php zm_l10n("Cart is Empty") ?>
         <?php } ?>
         <?php foreach (ZMRequest::getShoppingCart()->getItems() as $item) { ?>
-            <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php $html->encode($item->getName()); ?></a><br />
+            <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php $html->encode($item->getProduct()->getName()); ?></a><br />
         <?php } ?>
         <hr/>
         <p><img id="cart_progress" src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php $utils->formatMoney(ZMRequest::getShoppingCart()->getTotal()) ?></p>
