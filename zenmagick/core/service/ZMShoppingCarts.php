@@ -99,7 +99,6 @@ class ZMShoppingCarts extends ZMObject {
                                       (customers_id, products_id, products_options_id,
                                        products_options_value_id, products_options_value_text, products_options_sort_order)
                                     VALUES (:accountId, :skuId, :attributeId, :attributeValueId, :attributeValueText, :sortOrder)";
-                            echo $value->getSortOrder();
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
                             $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
@@ -133,7 +132,7 @@ class ZMShoppingCarts extends ZMObject {
      * @param int accountId The owner's account id.
      * @return ZMShoppingCart The cart.
      */
-    public function loadCart($accountId) {
+    public function loadCartForAccountId($accountId) {
         // first read attributes so they are availabe to restore the products
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId
@@ -179,13 +178,12 @@ class ZMShoppingCarts extends ZMObject {
                     // now we have $productAttribute - a complete attribute with all available values,
                     // so lets find the value we are currently processing
                     foreach ($productAttribute->getValues() as $value) {
-                        if ($value->getId() == $attrbuteResult['attributeValueId']) {
+                        if ($value->getId() == $attributeResult['attributeValueId']) {
                             $tmp = clone $value;
                             // check for text/upload attributes where we also need to set the name...
                             if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                                 $tmp->setName($attributeResult['attributeValueText']);
                             }
-                            var_dump($tmp);
                             $attribute->addValue($tmp);
                             break;
                         }
