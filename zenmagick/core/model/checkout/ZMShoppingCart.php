@@ -120,7 +120,7 @@ class ZMShoppingCart extends ZMObject {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
                     $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
-                    $this->items_[] = $item;
+                    $this->items_[$item->getId()] = $item;
                 }
             }
         }
@@ -491,6 +491,10 @@ class ZMShoppingCart extends ZMObject {
      */
     public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = ZMProducts::instance()->getProductForId($productId);
+        if (null == $product) {
+            ZMLogging::instance()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
+            return false;
+        }
         $attributes = $this->sanitize_attributes($product, $attributes);
         $attributes = $this->prepare_uploads($product, $attributes);
 
