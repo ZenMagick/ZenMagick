@@ -57,7 +57,7 @@ class ZMBoxPlugin extends ZMPlugin {
     /**
      * Install this plugin.
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->createBoxes();
@@ -66,7 +66,7 @@ class ZMBoxPlugin extends ZMPlugin {
     /**
      * Remove this plugin.
      */
-    function remove() {
+    public function remove() {
         parent::remove();
 
         $this->removeBoxes();
@@ -75,7 +75,7 @@ class ZMBoxPlugin extends ZMPlugin {
     /**
      * Create zen-cart dummy sideboxes plus default boxes for the default theme.
      */
-    function createBoxes() {
+    public function createBoxes() {
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';
@@ -104,7 +104,7 @@ class ZMBoxPlugin extends ZMPlugin {
     /**
      * Remove zen-cart dummy sideboxes plus default boxes for the default theme.
      */
-    function removeBoxes() {
+    public function removeBoxes() {
         // zen-cart dummies
         foreach ($this->getBoxNames() as $box) {
             $file = _ZM_ZEN_DIR_FS_BOXES.$box . '.php';
@@ -129,7 +129,7 @@ class ZMBoxPlugin extends ZMPlugin {
      *
      * @return array List of box names.
      */
-    function getBoxNames() {
+    public function getBoxNames() {
         return array();
     }
 
@@ -138,7 +138,7 @@ class ZMBoxPlugin extends ZMPlugin {
      *
      * @return string Contents for the box implementation.
      */
-    function getBoxContents($id) {
+    public function getBoxContents($id) {
         return "<?php /* ZenMagick box created by " . $this->getName() . " */ ?>\n\n<h3>" . $id . ",/h3\n";
     }
 
@@ -149,7 +149,7 @@ class ZMBoxPlugin extends ZMPlugin {
      *
      * @return int The index or <code>0</code>.
      */
-    function getBoxIndex($id) {
+    public function getBoxIndex($id) {
         $off = strrpos($id, '_');
         if (null !== $off) {
             return (int)substr($id, $off+1);
