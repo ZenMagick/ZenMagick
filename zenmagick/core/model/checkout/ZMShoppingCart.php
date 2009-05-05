@@ -109,6 +109,15 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
+     * Set the cart items.
+     *
+     * @param array items List of <code>ZMShoppingCartItem</code>s.
+     */
+    public function setItems($items) {
+        $this->items_ = $items;
+    }
+
+    /**
      * Get the items in the cart.
      *
      * @return array List of <code>ZMShoppingCartItem</code>s.
@@ -119,7 +128,7 @@ class ZMShoppingCart extends ZMObject {
             if (null != $this->cart_) {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
-                    $item = ZMLoader::make("ShoppingCartItem", $this, $zenItem);
+                    $item = ZMLoader::make("ShoppingCartItem", $zenItem);
                     $this->items_[$item->getId()] = $item;
                 }
             }
@@ -143,6 +152,16 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart total.
      */
     public function getTotal() { return $this->cart_->show_total(); }
+
+    /**
+     * Get the owner's account id.
+     *
+     * @return int The account id.
+     */
+    public function getAccountId() {
+        // TODO: ugh!
+        return $_SESSION['customer_id'];
+    }
 
     /**
      * Get the customer comment.

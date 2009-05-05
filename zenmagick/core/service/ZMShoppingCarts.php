@@ -27,6 +27,13 @@
 /**
  * Shopping cart service.
  *
+ * <p><strong>NOTE1: This is work in progress (as are ZMShoppingCart and ZMShoppingCartItem). Eventually I also hope to work around
+ * the fact that basket attributes and items are associated by the customers_id rather than the basket id. Right now it is not
+ * possible to have more than one cart per customer (if possible, this could be used as wishlist storage by adding a type...)</strong></p>
+ *
+ * <p><strong>NOTE2: This service does not use the session to cache any values. Two more queries compared to much more complex
+ * code do currently not seem worth the effort.</strong></p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
@@ -59,13 +66,12 @@ class ZMShoppingCarts extends ZMObject {
      * Save the cart content.
      *
      * @param ZMShoppingCart cart The cart to save.
-     * @param ZMAccount account The cart owner.
      */
-    function saveCart($cart, $account) {
+    public function saveCart($cart) {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
             $skuIds[] = $result['skuId'];
         }
 
@@ -75,14 +81,14 @@ class ZMShoppingCarts extends ZMObject {
                 $sql = "UPDATE " . TABLE_CUSTOMERS_BASKET . "
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
-                $args = array('accountId' => $account->getId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
+                $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
                 ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
             } else {
                 // insert
                 $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
                           (customers_id, products_id, customers_basket_quantity, customers_basket_date_added)
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
-                $args = array('accountId' => $account->getId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
+                $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
                           'dateAdded' => date('Ymd'));
                           //column is 8 char, not date! 'dateAdded' => date(ZMDatabase::DATE_FORMAT));
                 ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
@@ -95,7 +101,7 @@ class ZMShoppingCarts extends ZMObject {
                                     VALUES (:accountId, :skuId, :attributeId, :attributeValueId, :attributeValueText, :sortOrder)";
                             echo $value->getSortOrder();
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
-                            $args = array('accountId' => $account->getId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
+                            $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
                             ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
                         }
@@ -105,193 +111,94 @@ class ZMShoppingCarts extends ZMObject {
         }
     }
 
-/****************
-
-    // reset
-    /    if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
-      $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
-                where customers_id = '" . (int)$_SESSION['customer_id'] . "'";
-
-      $db->Execute($sql);
-
-      $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                where customers_id = '" . (int)$_SESSION['customer_id'] . "'";
-
-      $db->Execute($sql);
+    /**
+     * Clear a cart.
+     *
+     * <p>This will remove all database entries and session data.</p>
+     *
+     * @param ZMShoppingCart cart The cart to save.
+     */
+    public function clearCart($cart) {
+        $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
+                WHERE customers_id = :accountId";
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET);
+        $sql = "DELETE FRMO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                WHERE customers_id = :accountId";
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
     }
 
+    /**
+     * Load and populate a cart.
+     *
+     * @param int accountId The owner's account id.
+     * @return ZMShoppingCart The cart.
+     */
+    public function loadCart($accountId) {
+        // first read attributes so they are availabe to restore the products
+        $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                WHERE customers_id = :accountId
+                ORDER BY LPAD(products_options_sort_order, 11, '0')";
+        $attributeResults = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
 
-        $sql = "insert into " . TABLE_CUSTOMERS_BASKET . "
-                              (customers_id, products_id, customers_basket_quantity,
-                              customers_basket_date_added)
-                              values ('" . (int)$_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
-        $qty . "', '" . date('Ymd') . "')";
+        $cart = ZMLoader::make('ShoppingCart');
+        $items = array();
 
-        $db->Execute($sql);
-      }
+        $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
+                WHERE customers_id = :accountId";
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
+            $item = ZMLoader::make('ShoppingCartItem');
+            $item->setId($productResult['skuId']);
+            $item->setQuantity($productResult['quantity']);
+            $productAttributes = null;
+            $attributeMap = array();
+            $attributes = array();
+            // find attributes
+            foreach ($attributeResults as $attributeResult) {
+                if ($item->getId() == $attributeResult['skuId']) {
+                    if (null === $productAttributes) {
+                        // load only if attributes are in the db
+                        $productAttributes = $item->getProduct()->getAttributes();
+                    }
+                    // find attribute in product's attributes and clone to avoid breaking anything
+                    foreach ($productAttributes as $productAttribute) {
+                        if ($productAttribute->getId() == $attributeResult['attributeId']) {
+                            break;
+                        }
+                    }
 
-      if (is_array($attributes)) {
-        reset($attributes);
-        while (list($option, $value) = each($attributes)) {
-          //CLR 020606 check if input was from text box.  If so, store additional attribute information
-          //CLR 020708 check if text input is blank, if so do not add to attribute lists
-          //CLR 030228 add htmlspecialchars processing.  This handles quotes and other special chars in the user input.
-          $attr_value = NULL;
-          $blank_value = FALSE;
-          if (strstr($option, TEXT_PREFIX)) {
-            if (trim($value) == NULL) {
-              $blank_value = TRUE;
-            } else {
-              $option = substr($option, strlen(TEXT_PREFIX));
-              $attr_value = stripslashes($value);
-              $value = PRODUCTS_OPTIONS_VALUES_TEXT_ID;
-              $this->contents[$products_id]['attributes_values'][$option] = $attr_value;
-            }
-          }
+                    // make sure the attribute itself is ready with the first value
+                    if (!array_key_exists($attributeResult['attributeId'], $attributeMap)) {
+                        $attribute = clone $productAttribute;
+                        $attribute->clearValues();
+                        $attributeMap[$attribute->getId()] = $attribute;
+                        $attributes[] = $attribute;
+                    } else {
+                        $attribute = $attributeMap[$attributeResult['attributeId']];
+                    }
 
-          if (!$blank_value) {
-            if (is_array($value) ) {
-              reset($value);
-              while (list($opt, $val) = each($value)) {
-                $this->contents[$products_id]['attributes'][$option.'_chk'.$val] = $val;
-              }
-            } else {
-              $this->contents[$products_id]['attributes'][$option] = $value;
-            }
-            // insert into database
-            //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
-            //CLR 030228 add zen_db_input() processing
-            if (isset($_SESSION['customer_id'])) {
-
-              //              if (zen_session_is_registered('customer_id')) zen_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text) values ('" . (int)$customer_id . "', '" . zen_db_input($products_id) . "', '" . (int)$option . "', '" . (int)$value . "', '" . zen_db_input($attr_value) . "')");
-              if (is_array($value) ) {
-                reset($value);
-                while (list($opt, $val) = each($value)) {
-                  $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
-                  $sql = "insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                                        (customers_id, products_id, products_options_id, products_options_value_id, products_options_sort_order)
-                                        values ('" . (int)$_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
-                                        (int)$option.'_chk'.$val . "', '" . $val . "',  '" . $products_options_sort_order . "')";
-
-                                        $db->Execute($sql);
+                    // now we have $productAttribute - a complete attribute with all available values,
+                    // so lets find the value we are currently processing
+                    foreach ($productAttribute->getValues() as $value) {
+                        if ($value->getId() == $attrbuteResult['attributeValueId']) {
+                            $tmp = clone $value;
+                            // check for text/upload attributes where we also need to set the name...
+                            if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                                $tmp->setName($attributeResult['attributeValueText']);
+                            }
+                            var_dump($tmp);
+                            $attribute->addValue($tmp);
+                            break;
+                        }
+                    }
                 }
-              } else {
-                if ($attr_value) {
-                  $attr_value = zen_db_input($attr_value);
-                }
-                $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
-                $sql = "insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                                      (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text, products_options_sort_order)
-                                      values ('" . (int)$_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
-                                      (int)$option . "', '" . $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
-
-                                      $db->Execute($sql);
-              }
             }
-          }
-        }
-      }
-    }
-
-
-
-
-
-
-
-    if (isset($_SESSION['customer_id'])) {
-      $sql = "update " . TABLE_CUSTOMERS_BASKET . "
-                set customers_basket_quantity = '" . (float)$quantity . "'
-                where customers_id = '" . (int)$_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
-
-      $db->Execute($sql);
-
-    }
-
-    if (is_array($attributes)) {
-      reset($attributes);
-      while (list($option, $value) = each($attributes)) {
-        //CLR 020606 check if input was from text box.  If so, store additional attribute information
-        //CLR 030108 check if text input is blank, if so do not update attribute lists
-        //CLR 030228 add htmlspecialchars processing.  This handles quotes and other special chars in the user input.
-        $attr_value = NULL;
-        $blank_value = FALSE;
-        if (strstr($option, TEXT_PREFIX)) {
-          if (trim($value) == NULL) {
-            $blank_value = TRUE;
-          } else {
-            $option = substr($option, strlen(TEXT_PREFIX));
-            $attr_value = stripslashes($value);
-            $value = PRODUCTS_OPTIONS_VALUES_TEXT_ID;
-            $this->contents[$products_id]['attributes_values'][$option] = $attr_value;
-          }
+            $item->setAttributes($attributes);
+            $items[] = $item;
         }
 
-        if (!$blank_value) {
-          if (is_array($value) ) {
-            reset($value);
-            while (list($opt, $val) = each($value)) {
-              $this->contents[$products_id]['attributes'][$option.'_chk'.$val] = $val;
-            }
-          } else {
-            $this->contents[$products_id]['attributes'][$option] = $value;
-          }
-          // update database
-          //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
-          //CLR 030228 add zen_db_input() processing
-          //          if (zen_session_is_registered('customer_id')) zen_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . (int)$value . "', products_options_value_text = '" . zen_db_input($attr_value) . "' where customers_id = '" . (int)$customer_id . "' and products_id = '" . zen_db_input($products_id) . "' and products_options_id = '" . (int)$option . "'");
-
-          if ($attr_value) {
-            $attr_value = zen_db_input($attr_value);
-          }
-          if (is_array($value) ) {
-            reset($value);
-            while (list($opt, $val) = each($value)) {
-              $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
-              $sql = "update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                        set products_options_value_id = '" . $val . "'
-                        where customers_id = '" . (int)$_SESSION['customer_id'] . "'
-                        and products_id = '" . zen_db_input($products_id) . "'
-                        and products_options_id = '" . (int)$option.'_chk'.$val . "'";
-
-              $db->Execute($sql);
-            }
-          } else {
-            if (isset($_SESSION['customer_id'])) {
-              $sql = "update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                        set products_options_value_id = '" . $value . "', products_options_value_text = '" . $attr_value . "'
-                        where customers_id = '" . (int)$_SESSION['customer_id'] . "'
-                        and products_id = '" . zen_db_input($products_id) . "'
-                        and products_options_id = '" . (int)$option . "'";
-
-              $db->Execute($sql);
-            }
-          }
-        }
-      }
+        $cart->setItems($items);
+        return $cart;
     }
-    $this->n
-
-
-
-
-      $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
-                where customers_id = '" . (int)$_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
-
-      $db->Execute($sql);
-
-      //        zen_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customer_id . "' and products_id = '" . zen_db_input($products_id) . "'");
-
-      $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
-                where customers_id = '" . (int)$_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
-
-      $db->Execute($sql);
-
-    }
-    ***********/
 
 }
 

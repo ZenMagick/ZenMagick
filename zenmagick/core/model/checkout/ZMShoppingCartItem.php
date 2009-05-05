@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMShoppingCartItem extends ZMObject {
-    private $cart_;
     private $zenItem_;
     private $attributes_;
 
@@ -40,13 +39,15 @@ class ZMShoppingCartItem extends ZMObject {
     /**
      * Create new shopping cart item
      *
-     * @param ZMShoppingCart cart The associated shopping cart.
      * @param array zenItem The zen-cart shopping item infos.
      */
-    function __construct($cart, $zenItem) {
+    function __construct($zenItem=null) {
         parent::__construct();
-        $this->cart_ = $cart;
         $this->zenItem_ = $zenItem;
+        if (null !== $zenItem) {
+            $this->setId($zenItem['id']);
+            $this->setQuantity($zenItem['quantity']);
+        }
         $this->attributes_ = null;
     }
 
@@ -58,12 +59,103 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
 
-    // getter/setter
-    function getId() { return $this->zenItem_['id']; }
-    function getName() { return $this->zenItem_['name']; }
-    function getImage() { return $this->zenItem_['image']; }
-    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->zenItem_['image'], $this->zenItem_['name']); }
-    function getQty() { return $this->zenItem_['quantity']; }
+    // @deprecated
+    function getName() { return $this->getProduct()->getName(); }
+    // @deprecated
+    function getImage() { return $this->getProduct()->getImage(); }
+    // @deprecated
+    function getImageInfo() { return $this->getProduct()->getImageInfo(); }
+    // @deprecated
+    function getQty() { return $this->getQuantity(); }
+    // @deprecated
+    function getTaxClassId() { return $this->getProduct()->getTaxClassId(); }
+    /**
+     * Get the tax rate for this item.
+     *
+     * @return ZMTaxRate The tax rate or <code>null</code>.
+     * @deprecated use getProduct() and use that instead
+     */
+    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->getTaxClassId()); }
+
+
+
+    /**
+     * Get the cart item id (the sku).
+     *
+     * <p>This will differ from the product id if attributes are attached to the cart item.</p>
+     *
+     * @return string The product/sku id.
+     */
+    public function getId() {
+        return $this->get('id');
+    }
+
+    /**
+     * Set the cart item id.
+     *
+     * @param string id The product/sku id.
+     */
+    public function setId($id) {
+        $this->set('id', $id);
+    }
+
+    /**
+     * Get the number of items in the cart.
+     *
+     * @return int The cart quantity.
+     */
+    public function getQuantity() { 
+        return $this->get('quantity');
+    }
+
+    /**
+     * Set the quantity for this item.
+     *
+     * @param int quantity The cart quantity.
+     */
+    public function setQuantity($quantity) { 
+        $this->set('quantity', $quantity);
+    }
+
+    /**
+     * Get the product this item is associated with.
+     *
+     * @return ZMProduct The product.
+     */
+    public function getProduct() { 
+        //TODO: use some sort of base product id method to extract the id from the sku (id:attr-hash)
+        return ZMProducts::instance()->getProductForId($this->getId());
+    }
+
+    /**
+     * Check if this cart item has attributes or not.
+     *
+     * @return boolean <code>true</code> if there are attributes (values) available,
+     *  <code>false</code> if not.
+     */
+    public function hasAttributes() { 
+        return 0 != $this->getAttributes();
+    }
+
+    /**
+     * Get the item/line total.
+     *
+     * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
+     * @return float The price for a single item.
+     */
+    public function getItemTotal($tax=true) { 
+        return $this->getItemPrice($tax) * $this->getQuantity();
+    }
+
+    /**
+     * Check stock availability for the current quantity.
+     *
+     * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
+     */
+    public function isStockAvailable() {
+        return ZMProducts::instance()->isQuantityAvailable($this->getId(), $this->getQty());
+    }
+
     /**
      * Get the item price.
      *
@@ -83,60 +175,17 @@ class ZMShoppingCartItem extends ZMObject {
     // if attribute price - else qty discount price
     // attribute_price = sum of all attributes in cart (the sku attributes) as calculated in cart->attributes_price(item)
 
-    /**
-     * Get the item/line total.
-     *
-     * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
-     * @return float The price for a single item.
-     */
-    public function getItemTotal() { 
-        if ($tax) {
-            return $this->getTaxRate()->addTax($this->zenItem_['final_price']) * $this->zenItem_['quantity'];
-        }
-
-        return $this->zenItem_['final_price'] * $this->zenItem_['quantity'];
-    }
-
-    function getTaxClassId() { return $this->zenItem_['tax_class_id']; }
     function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
     function getOneTimeCharges() { return $this->getTaxRate()->addTax($this->zenItem_['onetime_charges']); }
 
 
     /**
-     * Get the number of items in the cart.
+     * Set selected attributes for this cart item.
      *
-     * @return int The cart quantity.
+     * @param array attributes List of product attributes.
      */
-    public function getQuantity() { 
-        return $this->zenItem_['quantity'];
-    }
-
-    /**
-     * Get the tax rate for this item.
-     *
-     * @return ZMTaxRate The tax rate or <code>null</code>.
-     */
-    public function getTaxRate() {
-        return ZMTaxRates::instance()->getTaxRateForClassId($this->zenItem_['tax_class_id']);
-    }
-
-    /**
-     * Get the product this item is associated with.
-     *
-     * @return ZMProduct The product.
-     */
-    public function getProduct() { 
-        return ZMProducts::instance()->getProductForId($this->getId());
-    }
-
-    /**
-     * Check if this cart item has attributes or not.
-     *
-     * @return boolean <code>true</code> if there are attributes (values) available,
-     *  <code>false</code> if not.
-     */
-    function hasAttributes() { 
-        return 0 != $this->getAttributes();
+    public function setAttributes($attributes) { 
+        $this->attributes_ = $attributes;
     }
 
     /**
@@ -191,15 +240,6 @@ class ZMShoppingCartItem extends ZMObject {
         // keep copy
         $this->attributes_ = $attributes;
         return $attributes;
-    }
-
-    /**
-     * Check stock availability for the current quantity.
-     *
-     * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
-     */
-    public function isStockAvailable() {
-        return ZMProducts::instance()->isQuantityAvailable($this->getId(), $this->getQty());
     }
 
 }
