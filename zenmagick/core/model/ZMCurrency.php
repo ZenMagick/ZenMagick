@@ -202,7 +202,7 @@ class ZMCurrency extends ZMObject {
      *  convert before formatting.
      * @return string The formatted amount.
      */
-    function format($amount, $convert=true) {
+    public function format($amount, $convert=true) {
         $ratedValue = $convert ? $this->convertTo($amount) : $amount;
         $formattedAmount = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
         return $this->symbolLeft_ .  $formattedAmount . $this->symbolRight_;
@@ -214,7 +214,7 @@ class ZMCurrency extends ZMObject {
      * @param float amount The amount in the default currency.
      * @return float The converted amount.
      */
-    function convertTo($amount) {
+    public function convertTo($amount) {
         return round($amount * $this->rate_, $this->decimalPlaces_);
     }
 
@@ -224,7 +224,7 @@ class ZMCurrency extends ZMObject {
      * @param float amount The amount in this currency.
      * @return float The converted amount.
      */
-    function convertFrom($amount) {
+    public function convertFrom($amount) {
         return round($amount * (1/$this->rate_), $this->decimalPlaces_);
     }
 
@@ -234,7 +234,7 @@ class ZMCurrency extends ZMObject {
      * @param string value The formatted currency value.
      * @return float The amount.
      */
-    function parse($value) {
+    public function parse($value) {
         $value = preg_replace('/[^0-9\\'.$this->decimalPoint_.']/', '', $value);
         $value = str_replace($this->decimalPoint_, '.', $value);
 
