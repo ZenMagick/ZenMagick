@@ -576,6 +576,7 @@ class ZMToolboxMacro extends ZMObject {
      * @param ZMProduct product The product.
      * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
      * @return array Discount details.
+     * @todo The applied price logic should not be in here!
      */
     public function buildQuantityDiscounts($product, $tax=true) {
         $offers = $product->getOffers();

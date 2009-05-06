@@ -27,12 +27,19 @@
 /**
  * A single shopping cart item.
  *
+ * <p>This class can either be populated using the c'tor argument (zen-cart cart info) or
+ * implicit as done by the shopping cart service (<code>ZMShoppingCart</code>)</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.model.checkout
  * @version $Id$
+ * @todo remove deprecated code and zenItem references
  */
 class ZMShoppingCartItem extends ZMObject {
-    private $zenItem_;
+    private $id_;
+    private $quantity_;
+    private $itemPrice_;
+    private $oneTimeCharge_;
     private $attributes_;
 
 
@@ -43,12 +50,17 @@ class ZMShoppingCartItem extends ZMObject {
      */
     function __construct($zenItem=null) {
         parent::__construct();
-        $this->zenItem_ = $zenItem;
+        $this->id_ = null;
+        $this->quantity_ = 0;
+        $this->itemPrice_ = 0;
+        $this->oneTimeCharge_ = 0;
         if (null !== $zenItem) {
             $this->setId($zenItem['id']);
             $this->setQuantity($zenItem['quantity']);
+            $this->setItemPrice($zenItem['final_price']);
+            $this->setOneTimeCharge($zenItem['onetime_charges']);
+            $this->populateAttributes($zenItem);
         }
-        $this->attributes_ = null;
     }
 
     /**
@@ -75,7 +87,62 @@ class ZMShoppingCartItem extends ZMObject {
      * @return ZMTaxRate The tax rate or <code>null</code>.
      * @deprecated use getProduct() and use that instead
      */
-    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->getTaxClassId()); }
+    function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->getTaxClassId()); }
+    /**
+     * Get selected attributes for this cart item.
+     *
+     * @param array zenItem zc item data.
+     * @deprecated
+     */
+    private function populateAttributes($zenItem) { 
+        if (!isset($zenItem['attributes']) || !is_array($zenItem['attributes'])) {
+            $this->setAttributes(array());
+            return;
+        }
+
+        // build attribute => value list map
+        $attrMap = array();
+        foreach ($zenItem['attributes'] as $option => $valueId) {
+            $tmp = explode('_', $option);
+            $attributeId = $tmp[0];
+            if (!array_key_exists($attributeId, $attrMap)) {
+                $attrMap[$attributeId] = array();
+            }
+            $attrMap[$attributeId][$valueId] = $valueId;
+        }
+
+        // values of text/upload attributes
+        $textValues = $zenItem['attributes_values'];
+
+        // now get all attributes and strip the not selected stuff
+        $productAttributes = $this->getProduct()->getAttributes();
+        $attributes = array();
+        foreach ($productAttributes as $productAttribute) {
+            // drop optional attributes and unselected values
+            if (array_key_exists($productAttribute->getId(), $attrMap)) {
+                $attribute = clone $productAttribute;
+                $attribute->clearValues();
+                $valueIds = $attrMap[$productAttribute->getId()];
+                foreach ($productAttribute->getValues() as $value) {
+                    if (array_key_exists($value->getId(), $valueIds)) {
+                        $tmp = clone $value;
+                        if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                            // these should have only a single value
+                            if (0 == $tmp->getId()) {
+                                $tmp->setName($textValues[$attribute->getId()]);
+                            }
+                        }
+                        $attribute->addValue($tmp);
+                    }
+                }
+                $attributes[] = $attribute;
+            }
+        }
+
+        // keep copy
+        $this->attributes_ = $attributes;
+        return $attributes;
+    }
 
 
 
@@ -87,7 +154,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return string The product/sku id.
      */
     public function getId() {
-        return $this->get('id');
+        return $this->id_;
     }
 
     /**
@@ -96,7 +163,20 @@ class ZMShoppingCartItem extends ZMObject {
      * @param string id The product/sku id.
      */
     public function setId($id) {
-        $this->set('id', $id);
+        $this->id_ = $id;
+    }
+
+    /**
+     * Get the plain product id of this item.
+     *
+     * <p>For items without attributes this is going to be the same as <code>getId()</code>. If attributes are present,
+     * <code>getId()</code> will return something like a skuId while this method will always return the plain
+     * product id without any attribute hash.</p>
+     *
+     * @return int The product id.
+     */
+    public function getProductId() {
+        return ZMShoppingCart::extractBaseProductId($this->getId());
     }
 
     /**
@@ -105,7 +185,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return int The cart quantity.
      */
     public function getQuantity() { 
-        return $this->get('quantity');
+        return $this->quantity_;
     }
 
     /**
@@ -114,7 +194,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @param int quantity The cart quantity.
      */
     public function setQuantity($quantity) { 
-        $this->set('quantity', $quantity);
+        $this->quantity_ = $quantity;
     }
 
     /**
@@ -123,8 +203,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return ZMProduct The product.
      */
     public function getProduct() { 
-        //TODO: use some sort of base product id method to extract the id from the sku (id:attr-hash)
-        return ZMProducts::instance()->getProductForId($this->getId());
+        return ZMProducts::instance()->getProductForId($this->getProductId());
     }
 
     /**
@@ -138,7 +217,7 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
     /**
-     * Get the item/line total.
+     * Get the item/line total.itemPrice
      *
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The price for a single item.
@@ -163,11 +242,16 @@ class ZMShoppingCartItem extends ZMObject {
      * @return float The price for a single item.
      */
     public function getItemPrice($tax=true) { 
-        if ($tax) {
-            return $this->getTaxRate()->addTax($this->zenItem_['final_price']);
-        }
+        return $tax ? $this->getTaxRate()->addTax($this->itemPrice_) : $this->itemPrice_;
+    }
 
-        return $this->zenItem_['final_price'];
+    /**
+     * Set the item price.
+     *
+     * @param float itemPrice The price for a single item (excl. tax).
+     */
+    public function setItemPrice($itemPrice) { 
+        $this->itemPrice_ = $itemPrice;
     }
 
     // ( item price + attribute price ) * qty
@@ -175,9 +259,34 @@ class ZMShoppingCartItem extends ZMObject {
     // if attribute price - else qty discount price
     // attribute_price = sum of all attributes in cart (the sku attributes) as calculated in cart->attributes_price(item)
 
-    function hasOneTimeCharges() { return 0 != $this->zenItem_['onetime_charges']; }
-    function getOneTimeCharges() { return $this->getTaxRate()->addTax($this->zenItem_['onetime_charges']); }
+    /**
+     * Check if this item has a one time charge attached.
+     *
+     * @return boolean <code>true</code> if a one time charge is set.
+     */
+    public function hasOneTimeCharge() { 
+        // don't need tax for this
+        return 0 != $this->getOneTimeCharges(false);
+    }
 
+    /**
+     * Get optional one time charges for this item.
+     *
+     * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
+     * @return float The amount.
+     */
+    public function getOneTimeCharge($tax=true) {
+        return $tax ? $this->getTaxRate()->addTax($this->oneTimeCharge_) : $this->oneTimeCharge_;
+    }
+
+    /**
+     * Set optional one time charges for this item.
+     *
+     * @param float amount The amount.
+     */
+    public function setOneTimeCharge($amount) {
+        $this->oneTimeCharge_ = $amount;
+    }
 
     /**
      * Set selected attributes for this cart item.
@@ -194,52 +303,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return array List of product attributes.
      */
     public function getAttributes() { 
-        if (null !== $this->attributes_) {
-            return $this->attributes_;
-        }
-        if (!isset($this->zenItem_['attributes']) || !is_array($this->zenItem_['attributes'])) {
-            return array();
-        }
-
-        // build attribute => value list map
-        $attrMap = array();
-        foreach ($this->zenItem_['attributes'] as $option => $valueId) {
-            $tmp = explode('_', $option);
-            $attributeId = $tmp[0];
-            if (!array_key_exists($attributeId, $attrMap)) {
-                $attrMap[$attributeId] = array();
-            }
-            $attrMap[$attributeId][$valueId] = $valueId;
-        }
-
-        // values of text/upload attributes
-        $textValues = $this->zenItem_['attributes_values'];
-
-        // now get all attributes and strip the not selected stuff
-        $productAttributes = $this->getProduct()->getAttributes();
-        $attributes = array();
-        foreach ($productAttributes as $productAttribute) {
-            // drop optional attributes and unselected values
-            if (array_key_exists($productAttribute->getId(), $attrMap)) {
-                $attribute = clone $productAttribute;
-                $valueIds = $attrMap[$productAttribute->getId()];
-                foreach ($productAttribute->getValues() as $value) {
-                    if (!array_key_exists($value->getId(), $valueIds)) {
-                        $attribute->removeValue($value);
-                    } else if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                        // these should have only a single value
-                        if (0 == $value->getId()) {
-                            $value->setName($textValues[$attribute->getId()]);
-                        }
-                    }
-                }
-                $attributes[] = $attribute;
-            }
-        }
-
-        // keep copy
-        $this->attributes_ = $attributes;
-        return $attributes;
+        return $this->attributes_;
     }
 
 }

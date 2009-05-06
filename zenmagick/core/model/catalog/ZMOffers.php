@@ -51,6 +51,7 @@ class ZMOffers extends ZMObject {
     private $salePrice_;
     private $taxRate_;
     private $discountPercent_;
+    private $discounts_;
 
 
     /**
@@ -64,8 +65,9 @@ class ZMOffers extends ZMObject {
         $this->basePrice_ = null;
         $this->specialPrice_ = null;
         $this->salePrice_ = null;
-        $this->discountPercent_ = 0;
         $this->taxRate_ = null;
+        $this->discountPercent_ = 0;
+        $this->discounts_ = null;
         $this->calculatePrice();
     }
 
@@ -362,23 +364,26 @@ class ZMOffers extends ZMObject {
      * @return array A list of <code>ZMQuantityDiscount</code> instances.
      */
     public function getQuantityDiscounts($tax=true) {
-        $discounts = array();
+        if (null !== $this->discounts_) {
+            return $this->discounts_;
+        }
+
         $sql = "SELECT * FROM " . TABLE_PRODUCTS_DISCOUNT_QUANTITY . "
                 WHERE products_id = :productId
                   AND discount_qty != 0
                 ORDER BY discount_qty";
 
         $args = array('productId' => $this->product_->getId());
-        $discounts = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
+        $this->discounts_ = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
 
-        if (0 < count($discounts)) {
+        if (0 < count($this-_discounts_)) {
             $product = $this->product_;
             $basePrice = $this->getBasePrice($tax);
             if (ZMOffers::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {
                 $basePrice = $specialPrice;
             }
 
-            foreach ($discounts as $discount) {
+            foreach ($this->discounts_ as $discount) {
                 $price = 0;
                 switch ($product->getDiscountType()) {
                     case ZMOffers::DISCOUNT_TYPE_NONE:
@@ -401,7 +406,7 @@ class ZMOffers extends ZMObject {
             }
         }
 
-        return $discounts;
+        return $this->discounts_;
     }
 
     /**

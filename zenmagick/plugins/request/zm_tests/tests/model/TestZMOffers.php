@@ -27,13 +27,14 @@ class TestZMOffers extends ZMTestCase {
             if ($this->assertNotNull($offers)) {
                 $discounts = $offers->getQuantityDiscounts(false);
                 $this->assertTrue(is_array($discounts));
-                $this->assertEqual(5, count($discounts));
-                // grab one and check details
-                $discount = $discounts[3];
-                $this->assertEqual(176, $discount->getProductId());
-                $this->assertEqual(48, $discount->getQuantity());
-                $this->assertEqual(30.00, $discount->getValue());
-                $this->assertEqual(70.00, $discount->getPrice());
+                if ($this->assertEqual(5, count($discounts))) {
+                    // grab one and check details
+                    $discount = $discounts[3];
+                    $this->assertEqual(176, $discount->getProductId());
+                    $this->assertEqual(48, $discount->getQuantity());
+                    $this->assertEqual(30.00, $discount->getValue());
+                    $this->assertEqual(70.00, $discount->getPrice());
+                }
             }
 
         }

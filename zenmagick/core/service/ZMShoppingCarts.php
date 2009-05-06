@@ -191,11 +191,97 @@ class ZMShoppingCarts extends ZMObject {
                 }
             }
             $item->setAttributes($attributes);
-            $items[] = $item;
+
+            // now the funky bits
+            $item->setItemPrice($this->calculateProductPrice($item) + $this->calculateAttributePrice($item));
+            $item->setOneTimeCharge($this->calculateOneTimeCharge($item));
+
+            // for easy lookup
+            $items[$item->getId()] = $item;
         }
 
         $cart->setItems($items);
         return $cart;
+    }
+
+    /**
+     * Calculate the product price for the given item.
+     *
+     * @param ZMShoppingCartItem item The item.
+     * @return float The product price (excl. attribute pricing).
+     */
+    protected function calculateProductPrice($item) {
+        $product = $item->getProduct();
+
+        if ($product->isFree()) {
+            $productPrice = 0;
+        } else {
+            // start with the regular or offer price...
+            if ($product->isPricedByAttributes()) {
+                $productPrice = $product->getProductPrice();
+                if (!$item->hasAttributes()) {
+                    // apply quantity discounts
+                    foreach ($product->getOffers()->getQuantityDiscounts(false) as $discount) {
+                        if ($discount->getQuantity() < $item->getQuantity()) {
+                            $productPrice = $discount->getPrice();
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            } else {
+                // special, discount or base price
+                $productPrice = $product->getOffers()->getCalculatedPrice(false);
+            }
+        }
+
+        return $productPrice;
+    }
+
+    /**
+     * Calculate the attribute price for the given item.
+     *
+     * @param ZMShoppingCartItem item The item.
+     * @return float The attribute price.
+     */
+    protected function calculateAttributePrice($item) {
+        $attributePrice = 0;
+
+        foreach ($item->getAttributes() as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                $attributePrice += $value->getPrice(false) * $item->getQuantity();
+
+                // add special code to calculate word/letter price
+                if ($attribute->getType() == PRODUCTS_OPTIONS_TYPE_TEXT) {
+                }
+
+/*************
+          //////////////////////////////////////////////////
+          // calculate additional charges
+          // products_options_value_text
+          if (zen_get_attributes_type($attribute_price->fields['products_attributes_id']) == PRODUCTS_OPTIONS_TYPE_TEXT) {
+            $text_words = zen_get_word_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_words_free'], $attribute_price->fields['attributes_price_words']);
+            $text_letters = zen_get_letters_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_letters_free'], $attribute_price->fields['attributes_price_letters']);
+            $attributes_price += $text_letters;
+            $attributes_price += $text_words;
+          }
+
+          ************/
+
+            }
+        }
+
+        return $attributePrice;
+    }
+
+    /**
+     * Calculate optional one time charges.
+     *
+     * @param ZMShoppingCartItem item The item.
+     * @return float The amount.
+     */
+    protected function calculateOneTimeCharge($item) {
+        return 0;
     }
 
 }

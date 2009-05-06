@@ -14,14 +14,15 @@ class TestZMShoppingCarts extends ZMTestCase {
      */
     public function testLoadCart() {
         $html = ZMToolbox::instance()->html;
-        $cart = ZMShoppingCarts::instance()->loadCartForAccountId(17);
+        $utils = ZMToolbox::instance()->utils;
+        $cart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
         foreach ($cart->getItems() as $item) {
-            echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity()."<BR>";
+            echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
             if ($item->hasAttributes()) {
                 foreach ($item->getAttributes() as $attribute) {
                     echo '&nbsp;&nbsp;'.$html->encode($attribute->getName(), false).":<BR>";
                     foreach ($attribute->getValues() as $value) {
-                        echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$html->encode($value->getName(), false).",<BR>";
+                        echo '&nbsp;&nbsp;&nbsp;&nbsp; *'.$html->encode($value->getName(), false).",<BR>";
                     }
                 }
             }

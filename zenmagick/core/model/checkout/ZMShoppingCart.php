@@ -464,12 +464,12 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the cart quantity for the given product.
      *
-     * @param string productId The product id.
+     * @param string itemId The cart item/sku id.
      * @param boolean qtyMixed Indicates whether to return just the specified product variation quantity, or
      *  the quantity across all variations; default is <code>false</code>.
      * @return int The number of products in the cart.
      */
-    function getQty($productId, $isQtyMixed=false) {
+    function getQty($itemId, $isQtyMixed=false) {
         $contents = $this->cart_->contents;
 
         if (!is_array($contents)) {
@@ -477,14 +477,14 @@ class ZMShoppingCart extends ZMObject {
         }
 
         if (!$isQtyMixed) {
-            return $this->cart_->get_quantity($productId);
+            return $this->cart_->get_quantity($itemId);
         }
 
-        $baseProductId = ZMShoppingCart::base_product_id($productId);
+        $baseProductId = ZMShoppingCart::extractBaseProductId($itemId);
 
         $qty = 0;
         foreach ($contents as $pid) {
-            $bpid = ZMShoppingCart::base_product_id($pid);
+            $bpid = ZMShoppingCart::extractBaseProductId($pid);
             if ($bpid == $baseProductId) {
                 $qty += $contents[$pid]['qty'];
             }
@@ -519,7 +519,7 @@ class ZMShoppingCart extends ZMObject {
 
         //TODO: zc: comp
         $attributes = (0 < count($attributes) ? $attributes : '');
-        $sku = ZMShoppingCart::product_variation_id($productId, $attributes);
+        $sku = ZMShoppingCart::mkItemId($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
         $cartQty = $this->getQty($sku, $product->isQtyMixed());
@@ -571,7 +571,7 @@ class ZMShoppingCart extends ZMObject {
             }
 
 
-            $productId = ZMShoppingCart::base_product_id($sku);
+            $productId = ZMShoppingCart::extractBaseProductId($sku);
             $product = ZMProducts::instance()->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
@@ -742,21 +742,21 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Extract the base product id from a given string.
+     * Extract the base product id from a given cart item id.
      *
-     * @param string productId The full product id incl. attribute suffix.
+     * @param string itemId The full shopping cart item id incl. attribute suffix.
      * @return int The product id.
      */
-    public static function base_product_id($productId) {
+    public static function extractBaseProductId($productId) {
         $arr = explode(':', $productId);
         return (int) $arr[0];
     }
 
 
     /**
-     * Reverse of <code>base_product_id</code>, ie. the <em>sku</em>.
+     * Create unique cart item/sku id, based on the base product id and attribute information.
      *
-     * <p>Creates a unique id for the given product variation.</p>
+     * <p>This is the reverse of <code>extractBaseProductId</code>.</p>
      *
      * <p>Attributes are sorted using <code>krsort(..)</code> so to be compatible
      * for different attribute orders.</p>
@@ -766,7 +766,7 @@ class ZMShoppingCart extends ZMObject {
      * @return string The product id.
      * @todo currently uses <code>zen_get_uprid(..)</code>...
      */
-    public static function product_variation_id($productId, $attributes=array()) {
+    public static function mkItemId($productId, $attributes=array()) {
 return zen_get_uprid($productId, $attributes);
         $fullProductId = $productId;
 

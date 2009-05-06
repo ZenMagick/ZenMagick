@@ -308,10 +308,10 @@ array(
         'priceFactorOneTimeOffset' => 'column=attributes_price_factor_onetime_offset;type=float',
         'qtyPrices' => 'column=attributes_qty_prices;type=string',
         'qtyPricesOneTime' => 'column=attributes_qty_prices_onetime;type=string',
-        //'priceWords' => 'column=attributes_price_words;type=integer',
-        //'priceWordsFree' => 'column=attributes_price_words_free;type=integer',
-        //'priceLetters' => 'column=attributes_price_letters;type=integer',
-        //'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
+        'priceWords' => 'column=attributes_price_words;type=integer',
+        'priceWordsFree' => 'column=attributes_price_words_free;type=integer',
+        'priceLetters' => 'column=attributes_price_letters;type=integer',
+        'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
         'required' => 'column=attributes_required;type=integer'
     ),
     // attribute; model, size, memory, etc
