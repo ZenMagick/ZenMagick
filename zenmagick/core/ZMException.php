@@ -29,6 +29,7 @@
  * @version $Id$
  */
 class ZMException extends Exception {
+    protected $previous_;
     
     /**
      * Create new instance.
@@ -39,6 +40,7 @@ class ZMException extends Exception {
      */
     function __construct($message=null, $code=0, $previous=null) {
         parent::__construct((string)$message, (int)$code); //, $previous);
+        $this->previous_ = $previous;
     }
     
 }
