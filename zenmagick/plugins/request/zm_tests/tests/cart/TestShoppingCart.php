@@ -14,10 +14,9 @@ class TestShoppingCart extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
-        $shoppingCart = ZMRequest::getShoppingCart();
-        foreach ($shoppingCart->getItems() as $item) {
-            $shoppingCart->removeProduct($item->getId());
-        }
+        // clear session and database
+        $_SESSION['cart']->reset(true);
+        $_SESSION['cart']->restore_contents();
     }
 
 
@@ -25,12 +24,15 @@ class TestShoppingCart extends ZMTestCase {
      * Compare values for the given productIds.
      */
     protected function compareValues($ids) {
-        $shoppingCart = ZMRequest::getShoppingCart();
-        $qty = 1;
+        //$shoppingCart = new ZMShoppingCart();
+        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
+        $qty = 5;
         foreach ($ids as $id) {
             $shoppingCart->addProduct($id, $qty);
-            $qty = 1 == $qty ? 2: 1;
+            $qty = 5 == $qty ? 3: 5;
         }
+        // load again from DB
+        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
 
         $itemMap = $shoppingCart->getItems();
         ZMTools::resolveZCClass('order');

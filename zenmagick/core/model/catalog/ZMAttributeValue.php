@@ -108,17 +108,17 @@ class ZMAttributeValue extends ZMObject {
      * Get one time charge (if any) for the given range and quantity.
      *
      * @param string qtyPrices The qty/price mappings.
-     * @param int qty The quantity.
+     * @param int quantity The quantity.
      * @return float The one time charge.
      */
-    protected function getQtyPrice($qtyPrices, $qty) {
+    protected function getQtyPrice($qtyPrices, $quantity) {
         $qtyPriceMap = split("[:,]" , $qtyPrices);
         $price = 0;
         $size = count($qtyPriceMap);
         if (1 < $size) {
             for ($ii=0; $ii<$size; $ii+=2) {
                 $price = $qtyPriceMap[$ii+1];
-                if ($qty <= $qtyPriceMap[$ii]) {
+                if ($quantity <= $qtyPriceMap[$ii]) {
                     $price = $qtyPriceMap[$ii+1];
                     break;
                 }
@@ -151,17 +151,17 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Get the final attribute price without discount.
      *
-     * @param int qty The quantity.
+     * @param int quantity The quantity.
      * @return float The price.
      */
-    protected function getFinalPriceForQty($qty) {
+    protected function getFinalPriceForQty($quantity) {
         $price = $this->price_;
         if ('-' == $this->pricePrefix_) {
             $price = -$this->price_;
         }
 
-        // qty onetime discounts
-        $price += $this->getQtyPrice($this->getQtyPrices(), $qty);
+        // quantity onetime discounts
+        $price += $this->getQtyPrice($this->getQtyPrices(), $quantity);
 
         // price factor
         $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
@@ -177,13 +177,14 @@ class ZMAttributeValue extends ZMObject {
      * Get the final (and discounted) value price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
+     * @param int quantity Optional quantity; default is <em>1</em>.
      * @return double The price.
      */
-    public function getPrice($tax=true) { 
+    public function getPrice($tax=true, $quantity=1) { 
         $price = $this->price_;
         if ($this->isDiscounted_) {
             //TODO: cache value
-            $price = $this->getFinalPriceForQty(1);
+            $price = $this->getFinalPriceForQty($quantity);
             // no need to discount free attributes
             if (0 != $price) {
                 $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
@@ -197,14 +198,14 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Get the final one time attribute price.
      *
-     * @param int qty The quantity.
+     * @param int quantity The quantity.
      * @return float The price.
      */
-    protected function getFinalOneTimePriceForQty($qty) {
+    protected function getFinalOneTimePriceForQty($quantity) {
         $price = $this->oneTimePrice_;
 
-        // qty onetime discounts
-        $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $qty);
+        // quantity onetime discounts
+        $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $quantity);
 
         // price factor
         $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());

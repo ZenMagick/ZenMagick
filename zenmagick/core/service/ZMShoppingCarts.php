@@ -216,26 +216,35 @@ class ZMShoppingCarts extends ZMObject {
      */
     protected function calculateProductPrice($item) {
         $product = $item->getProduct();
+        $offers = $product->getOffers();
+        $hasOfferPrice = $offers->isSpecial() || $offers->isSale();
 
         if ($product->isFree()) {
             $productPrice = 0;
         } else {
-            // start with the regular or offer price...
-            if ($product->isPricedByAttributes()) {
+            if ($hasOfferPrice && !$product->isPricedByAttributes()) {
+//echo '-- special: offers && !pricedByAttributes<BR>';
+                $productPrice = $offers->getCalculatedPrice(false);
+            } else {
+//echo '-- no offers || pricedByAttributes<BR>';
                 $productPrice = $product->getProductPrice();
-                if (!$item->hasAttributes()) {
-                    // apply quantity discounts
-                    foreach ($product->getOffers()->getQuantityDiscounts(false) as $discount) {
-                        if ($discount->getQuantity() < $item->getQuantity()) {
-                            $productPrice = $discount->getPrice();
-                        } else {
-                            break;
-                        }
+            }
+
+            // start with the regular or offer price...
+            if ($product->isPricedByAttributes() && $item->hasAttributes()) {
+//echo '-- has attributes and  pricedByAttributes<BR>';
+                $productPrice = $product->getProductPrice();
+            } else {
+//echo '-- qty discount<BR>';
+                // apply quantity discounts
+                foreach ($product->getOffers()->getQuantityDiscounts(false) as $discount) {
+//echo $discount->getQuantity() . ' - '. $item->getQuantity()."<BR>";
+                    if ($discount->getQuantity() <= $item->getQuantity()) {
+                        $productPrice = $discount->getPrice();
+                    } else {
+                        break;
                     }
                 }
-            } else {
-                // special, discount or base price
-                $productPrice = $product->getOffers()->getCalculatedPrice(false);
             }
         }
 
@@ -256,7 +265,7 @@ class ZMShoppingCarts extends ZMObject {
             $attributePrice = 0;
             foreach ($attribute->getValues() as $value) {
 //echo $value->getName().": ".$value->getPrice(false)."<BR>";
-                $attributePrice += $value->getPrice(false) * $item->getQuantity();
+                $attributePrice += $value->getPrice(false, $item->getQuantity());
 
                 // add special code to calculate word/letter price
                 if ($attribute->getType() == PRODUCTS_OPTIONS_TYPE_TEXT) {

@@ -10,14 +10,15 @@
 class TestZMShoppingCarts extends ZMTestCase {
 
     /**
-     * Test load cart.
+     * Dump cart.
+     *
+     * @param ZMShoppingCart cart The cart to dump.
      */
-    public function testLoadCart() {
+    protected function dumpCart($cart) {
         $html = ZMToolbox::instance()->html;
         $utils = ZMToolbox::instance()->utils;
-        $cart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
         foreach ($cart->getItems() as $item) {
-            echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
+            echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice(), true, false).'/'.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
             if ($item->hasAttributes()) {
                 foreach ($item->getAttributes() as $attribute) {
                     echo '&nbsp;&nbsp;'.$html->encode($attribute->getName(), false).":<BR>";
@@ -27,6 +28,18 @@ class TestZMShoppingCarts extends ZMTestCase {
                 }
             }
         }
+    }
+
+    /**
+     * Test load cart.
+     */
+    public function testLoadCart() {
+        $cart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
+        $this->dumpCart($cart);
+        echo '<hr>';
+        $_SESSION['cart']->reset(false);
+        $_SESSION['cart']->restore_contents();
+        $this->dumpCart(new ZMShoppingCart());
     }
 
 }
