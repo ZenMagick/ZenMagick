@@ -138,6 +138,10 @@ class ZMShoppingCarts extends ZMObject {
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0')";
         $attributeResults = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        // fix zc attributeId format (checkboxes)...
+        foreach ($attributeResults as $ii => $attributeResult) {
+            $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
+        }
 
         $cart = ZMLoader::make('ShoppingCart');
         $items = array();
@@ -235,6 +239,7 @@ class ZMShoppingCarts extends ZMObject {
             }
         }
 
+//echo '** P: '.$item->getProduct()->getName().": ". $productPrice."<BR>";
         return $productPrice;
     }
 
@@ -245,33 +250,36 @@ class ZMShoppingCarts extends ZMObject {
      * @return float The attribute price.
      */
     protected function calculateAttributePrice($item) {
-        $attributePrice = 0;
+        $itemAttributesPrice = 0;
 
         foreach ($item->getAttributes() as $attribute) {
+            $attributePrice = 0;
             foreach ($attribute->getValues() as $value) {
+//echo $value->getName().": ".$value->getPrice(false)."<BR>";
                 $attributePrice += $value->getPrice(false) * $item->getQuantity();
 
                 // add special code to calculate word/letter price
                 if ($attribute->getType() == PRODUCTS_OPTIONS_TYPE_TEXT) {
+                    // special handling of customer input [text]
+
+                    $word_count = zen_get_word_count($value->getName()) - $value->getWordsFree();
+                    if (0 < $word_count) {
+                        $attributePrice += $word_count * $value->getPriceWords();
+                    }
+
+                    $letters_count = zen_get_letters_count($string) - $value->getLettersFree();
+                    $letters_price = $letters_count * $value->getPriceLetters();
+                    if (0 < $letters_price) {
+                        $attributePrice += $letters_price;
+                    }
                 }
-
-/*************
-          //////////////////////////////////////////////////
-          // calculate additional charges
-          // products_options_value_text
-          if (zen_get_attributes_type($attribute_price->fields['products_attributes_id']) == PRODUCTS_OPTIONS_TYPE_TEXT) {
-            $text_words = zen_get_word_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_words_free'], $attribute_price->fields['attributes_price_words']);
-            $text_letters = zen_get_letters_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_letters_free'], $attribute_price->fields['attributes_price_letters']);
-            $attributes_price += $text_letters;
-            $attributes_price += $text_words;
-          }
-
-          ************/
-
             }
+//echo '* '.$attribute->getName().": ". $attributePrice."<BR>";
+            $itemAttributesPrice += $attributePrice;
         }
+//echo '** A: '.$item->getProduct()->getName().": ". $itemAttributesPrice."<BR>";
 
-        return $attributePrice;
+        return $itemAttributesPrice;
     }
 
     /**
