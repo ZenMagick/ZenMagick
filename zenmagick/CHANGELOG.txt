@@ -93,6 +93,8 @@ Release 0.9.6
 - add new low_stock viewId to redirect to the shopping cart
 - add new methods to ZMCheckoutHelper to validate a checkout request - this
   can be shared between all checkout controllers and more
+- do not encode the product description on the product page; this means HTML
+  is allowed agan ;)
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495
