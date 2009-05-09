@@ -19,22 +19,60 @@ class TestShoppingCart extends ZMTestCase {
         $_SESSION['cart']->restore_contents();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function tearDown() {
+        parent::tearDown();
+        // clear session and database
+        $_SESSION['cart']->reset(true);
+        $_SESSION['cart']->restore_contents();
+    }
+
 
     /**
-     * Compare values for the given productIds.
+     * Compare values for the given productIds using the wrapper and service.
      */
-    protected function compareValues($ids) {
-        //$shoppingCart = new ZMShoppingCart();
-        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
+    protected function compareValues_Wrapper_Service($ids) {
+        $referenceCart = new ZMShoppingCart();
         $qty = 5;
         foreach ($ids as $id) {
-            $shoppingCart->addProduct($id, $qty);
+            $referenceCart->addProduct($id, $qty);
             $qty = 5 == $qty ? 3: 5;
         }
         // load again from DB
-        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
+        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(17);
+        $itemMap = $serviceShoppingCart->getItems();
 
-        $itemMap = $shoppingCart->getItems();
+        foreach ($referenceCart->getItems() as $item) {
+            if ($this->assertTrue(array_key_exists($item->getId(), $itemMap), "%s: productId: ".$item->getId())) {
+                // compare
+                $serviceItem = $itemMap[$item->getId()];
+                $this->assertEqual($item->getQuantity(), $serviceItem->getQuantity(), "%s: productId: ".$item->getId());
+                // no tax
+                $this->assertEqual($item->getItemPrice(false), $serviceItem->getItemPrice(false), "%s: productId: ".$item->getId());
+                $this->assertEqual($item->getOneTimeCharge(false), $serviceItem->getOneTimeCharge(false), "%s: productId: ".$item->getId());
+            }
+        }
+    }
+
+    /**
+     * Compare values for the given productIds using the service and order class data.
+     */
+    protected function compareValues_Service_Order($ids) {
+        // use to add products
+        $referenceCart = new ZMShoppingCart();
+        $qty = 5;
+        foreach ($ids as $id) {
+            $referenceCart->addProduct($id, $qty);
+            $qty = 5 == $qty ? 3: 5;
+        }
+
+        // load again from DB
+        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(17);
+        $itemMap = $serviceShoppingCart->getItems();
+
+        // get product data from order
         ZMTools::resolveZCClass('order');
         $order = new order();
         foreach ($order->products as $product) {
@@ -53,41 +91,28 @@ class TestShoppingCart extends ZMTestCase {
      *
      * @param int from The from value.
      * @param int to The to value.
+     * @param sting method The compare method.
      */
-    protected function compareRange($from, $to) {
+    protected function compareRange($from, $to, $method) {
         $range = array();
         for (; $from <= $to; ++$from) {
             $range[] = $from;
         }
-        $this->compareValues($range);
+        $this->$method($range);
     }
 
     /**
-     * Test products.
+     * Test products comparing wrapper and service data.
      */
-    public function testProducts_1_50() {
-        $this->compareRange(1, 50);
+    public function testProductsWS() {
+        $this->compareRange(1, 200, 'compareValues_Wrapper_Service');
     }
 
     /**
-     * Test products.
+     * Test products comparing service and order data.
      */
-    public function testProducts_51_100() {
-        $this->compareRange(51, 100);
-    }
-
-    /**
-     * Test products.
-     */
-    public function testProducts_101_151() {
-        $this->compareRange(101, 151);
-    }
-
-    /**
-     * Test products.
-     */
-    public function testProducts_151_201() {
-        $this->compareRange(151, 201);
+    public function testProductsSO() {
+        $this->compareRange(1, 200, 'compareValues_Service_Order');
     }
 
 }
