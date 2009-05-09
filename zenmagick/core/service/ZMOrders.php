@@ -260,7 +260,6 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                     WHERE orders_id = :orderId
                       AND orders_products_id = :orderItemId";
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
-            //TODO: do we need a specical case PRODUCTS_OPTIONS_VALUES_TEXT_ID
             foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'AttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
                     $attribute = ZMLoader::make("Attribute");
