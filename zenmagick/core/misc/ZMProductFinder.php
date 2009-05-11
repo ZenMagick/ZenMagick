@@ -179,12 +179,12 @@ class ZMProductFinder {
 
         if (!ZMTools::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
-            $args['1#dateAdded'] = zen_date_raw($criteria->getDateFrom());
+            $args['1#dateAdded'] = ZMTools::translateDateString($criteria->getDateFrom(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
         }
 
         if (!ZMTools::isEmpty($criteria->getDateTo())) {
             $where .= " AND p.products_date_added <= :2#dateAdded";
-            $args['2#dateAdded'] = zen_date_raw($criteria->getDateTo());
+            $args['2#dateAdded'] = ZMTools::translateDateString($criteria->getDateTo(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
         }
 
         if ($criteria->isIncludeTax()) {
