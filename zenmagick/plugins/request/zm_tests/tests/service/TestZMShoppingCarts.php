@@ -10,6 +10,24 @@
 class TestZMShoppingCarts extends ZMTestCase {
 
     /**
+     * {@inheritDoc}
+     */
+    public function skip() {
+        $account = ZMRequest::getAccount();
+        $this->skipIf(null == $account || ZMSacsMapper::REGISTERED != $account->getType(), 'Need to be logged in for this test');
+    }
+
+
+    /**
+     * Get the account id to test.
+     *
+     * @return int An account id.
+     */
+    protected function getAccountId() {
+        return ZMRequest::getAccountId();
+    }
+
+    /**
      * Dump cart.
      *
      * @param ZMShoppingCart cart The cart to dump.
@@ -34,7 +52,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * Test load cart.
      */
     public function testLoadCart() {
-        $cart = ZMShoppingCarts::instance()->loadCartForAccountId(90);
+        $cart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
         $this->dumpCart($cart);
         echo '<hr>';
         $_SESSION['cart']->reset(false);
