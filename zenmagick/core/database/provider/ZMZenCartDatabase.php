@@ -142,7 +142,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
-        $keyName = ZMSettings::get('dbModelKeyName');
+        $keyName = ZMSettings::get('database.model.keyName');
         if (null == $keyName) {
             // determine by looking at key and auto settings
             foreach ($mapping as $property => $field) {
