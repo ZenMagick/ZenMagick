@@ -13,7 +13,7 @@ class TestDBMappings extends ZMTestCase {
      * {@inheritDoc}
      */
     public function skip() {
-        $this->skipIf(true, 'skip until database API stable');
+        $this->skipIf(true, 'Skip until database API stable');
     }
 
     /**
