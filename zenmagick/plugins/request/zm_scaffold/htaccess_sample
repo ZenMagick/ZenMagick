@@ -1,2 +1,6 @@
-RewriteRule ^scaffold/([^/]+)/([^/]+)/([^/]+)/?$ index.php?main_page=scaffold&page=$1&action=$2&key=$3 [QSA,L]
-RewriteRule ^scaffold/([^/]+)/([^/]+)/?$ index.php?main_page=scaffold&page=$1&action=$2 [QSA,L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

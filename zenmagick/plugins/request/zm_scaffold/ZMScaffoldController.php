@@ -50,6 +50,7 @@ class ZMScaffoldController extends ZMController {
     function __destruct() {
     }
 
+
     /**
      * Set the table name.
      *
@@ -60,13 +61,20 @@ class ZMScaffoldController extends ZMController {
     }
 
     /**
+     * Set the method name.
+     *
+     * @param string method The method name.
+     */
+    public function setMethod($method) {
+        $this->method_ = $method;
+    }
+
+    /**
      * {@inhertDoc}
      *
      * <p>Supports CRUD style processing of a single database table.</p>
      */
     public function process() {
-        $this->method_ = 'todo';
-
         // check access on controller level
         ZMSacsMapper::instance()->ensureAuthorization($this->getId(), ZMRequest::getAccount());
 
@@ -105,9 +113,9 @@ class ZMScaffoldController extends ZMController {
     }
 
     /**
-     * Read.
+     * Edit.
      */
-    public function read() {
+    public function edit() {
         // todo: key
         $model = ZMRuntime::getInstance()->loadModel($this->table_, $key, 'ZMObject');
         $this->exportGlobal('data', $model);
