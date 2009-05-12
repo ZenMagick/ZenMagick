@@ -204,6 +204,11 @@
             <param name="plugin.name" value="zm_deprecated" />
             <param name="plugin.version" value="${plugins.zm_deprecated.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.name" value="zm_scaffold" />
+            <param name="plugin.version" value="${plugins.zm_scaffold.version}" />
+        </antcall>
     </target>
 
     
