@@ -38,6 +38,8 @@ class ZMShoppingCart extends ZMObject {
     private $payments_;
     private $items_;
     private $helper_;
+    private $comment_;
+    private $accountId_;
 
 
     /**
@@ -46,6 +48,8 @@ class ZMShoppingCart extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->cart_ = $_SESSION['cart'];
+        $this->setComment(isset($_SESSION['comments']) ?  $_SESSION['comments'] : '');
+        $this->setAccountId($_SESSION['customer_id']);
         $this->zenTotals_ = null;
         $this->payments_ = null;
         $this->items_ = null;
@@ -151,24 +155,45 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return float The cart total.
      */
-    public function getTotal() { return $this->cart_->show_total(); }
+    public function getTotal() { 
+        return $this->cart_->show_total();
+    }
 
     /**
-     * Get the owner's account id.
+     * Get the cart owner's account id.
      *
      * @return int The account id.
      */
     public function getAccountId() {
-        // TODO: ugh!
-        return $_SESSION['customer_id'];
+        return $this->accountId_;
     }
 
     /**
-     * Get the customer comment.
+     * Set the cart owner's account id.
+     *
+     * @param int accountId The account id.
+     */
+    public function setAccountId($accountId) {
+        $this->accountId_ = $accountId;
+    }
+
+    /**
+     * Get optional customer comment.
      *
      * @return string The customer comment.
      */
-    public function getComment() { return isset($_SESSION['comments']) ?  $_SESSION['comments'] : ''; }
+    public function getComment() { 
+        return $this->comment_;
+    }
+
+    /**
+     * Set the customer comment.
+     *
+     * @param string comment The customer comment.
+     */
+    public function setComment($comment) { 
+        $this->comment_ = $comment;
+    }
 
     /**
      * Get the selected shipping method id.
@@ -444,6 +469,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param mixed quantity The quantity.
      * @return The adjusted quantity.
+     * @todo move to helper?
      */
     function adjustQty($quantity) {
         $digits = ZMSettings::get('qtyDecimals');

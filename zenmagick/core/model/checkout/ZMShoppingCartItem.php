@@ -82,13 +82,6 @@ class ZMShoppingCartItem extends ZMObject {
     // @deprecated
     function getTaxClassId() { return $this->getProduct()->getTaxClassId(); }
     /**
-     * Get the tax rate for this item.
-     *
-     * @return ZMTaxRate The tax rate or <code>null</code>.
-     * @deprecated use getProduct() and use that instead
-     */
-    function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->getTaxClassId()); }
-    /**
      * Get selected attributes for this cart item.
      *
      * @param array zenItem zc item data.
@@ -145,6 +138,15 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
 
+    /**
+     * Get the tax rate for this item.
+     *
+     * @param ZMAddress address Optional shipping address; default is <code>null</code> to use the store address.
+     * @return ZMTaxRate The tax rate or <code>null</code>.
+     */
+    public function getTaxRate($address=null) { 
+        return ZMTaxRates::instance()->getTaxRateForClassId($this->getProduct()->getTaxClassId(), null != $address ? $address->getCountryId() : 0);
+    }
 
     /**
      * Get the cart item id (the sku).
@@ -170,7 +172,7 @@ class ZMShoppingCartItem extends ZMObject {
      * Get the plain product id of this item.
      *
      * <p>For items without attributes this is going to be the same as <code>getId()</code>. If attributes are present,
-     * <code>getId()</code> will return something like a skuId while this method will always return the plain
+      to use the store address.l return something like a skuId while this method will always return the plain
      * product id without any attribute hash.</p>
      *
      * @return int The product id.
@@ -217,10 +219,11 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
     /**
-     * Get the item/line total.itemPrice
+     * Get the item/line total.
      *
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The price for a single item.
+     * @todo include onetime charge
      */
     public function getItemTotal($tax=true) { 
         return $this->getItemPrice($tax) * $this->getQuantity();
