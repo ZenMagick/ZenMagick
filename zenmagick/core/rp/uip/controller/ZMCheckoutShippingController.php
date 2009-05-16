@@ -47,18 +47,11 @@ class ZMCheckoutShippingController extends ZMController {
         parent::__destruct();
     }
 
-
     /**
      * {@inheritDoc}
      */
-    public function process() { 
+    public function handleRequest() {
         $shoppingCart = ZMRequest::getShoppingCart();
-
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
-        if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
-            return $this->findView($viewId);
-        }
-
         // set default address if required
         if (!$shoppingCart->hasShippingAddress()) {
             $account = ZMRequest::getAccount();
@@ -70,15 +63,19 @@ class ZMCheckoutShippingController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $this->exportGlobal("zm_cart", $shoppingCart);
-
-        return parent::process();
+        $this->exportGlobal("zm_shipping", ZMLoader::make("Shipping"));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processGet() {
-        $this->exportGlobal("zm_shipping", ZMLoader::make("Shipping"));
+        $shoppingCart = ZMRequest::getShoppingCart();
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
+            return $this->findView($viewId);
+        }
+
         return $this->findView();
     }
 
@@ -86,6 +83,12 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost() {
+        $shoppingCart = ZMRequest::getShoppingCart();
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
+            return $this->findView($viewId);
+        }
+
         return parent::processPost();
     }
 
