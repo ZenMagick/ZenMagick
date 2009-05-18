@@ -27,7 +27,7 @@
 
 require_once 'includes/application_top.php';
 
-if ('true' == ZMRequest::getRequestParameter('remove', 'false')) {
+if ('true' == ZMRequest::getParameter('remove', 'false')) {
     // destry myself
     unlink(DIR_FS_ADMIN.'zmConsole.php');
   	zen_redirect(zen_href_link(FILENAME_DEFAULT));
