@@ -14,8 +14,8 @@ class TestAuthentication extends ZMTestCase {
      */
     public function testManagerSingle() {
         $manager = new ZMAuthenticationManager();
-        $this->assertNull($manager->getDefaultProvider());
-        $manager->addProvider('ZMZenCartAuthentication');
+        $this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
+        $manager->addProvider('ZMZenCartAuthentication', true);
         $this->assertNotNull($manager->getDefaultProvider());
 
         // check zc encryypted password
@@ -35,7 +35,7 @@ class TestAuthentication extends ZMTestCase {
      */
     public function testManagerMulti() {
         $manager = new ZMAuthenticationManager();
-        $this->assertNull($manager->getDefaultProvider());
+        $this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
         $manager->addProvider('ZMZenCartAuthentication');
         $this->assertNotNull($manager->getDefaultProvider());
         $manager->addProvider('ZMSha1Authentication', true);

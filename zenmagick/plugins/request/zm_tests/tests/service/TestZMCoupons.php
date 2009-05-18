@@ -15,7 +15,7 @@ class TestZMCoupons extends ZMTestCase {
      */
     public function setUp() {
         $this->createdCouponIds_ = array();
-        $this->accountIds_ = array(1);
+        $this->accountIds_ = array($this->getAccountId());
     }
 
     /**
@@ -42,6 +42,16 @@ class TestZMCoupons extends ZMTestCase {
         }
     }
 
+
+    /**
+     * Get the test account id.
+     *
+     * @return int An account id.
+     */
+    protected function getAccountId() {
+        $account = ZMAccounts::instance()->getAccountForEmailAddress('root@localhost');
+        return null != $account ? $account->getId() : 1;
+    }
 
     /**
      * Test create coupon code.
@@ -96,8 +106,8 @@ class TestZMCoupons extends ZMTestCase {
      * Test get voucher balance for id.
      */
     public function testGetVoucherBalance() {
-        ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 141);
-        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId(1);
+        ZMCoupons::instance()->setVoucherBalanceForAccountId($this->getAccountId(), 141);
+        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId());
         $this->assertEqual(141, $balance);
     }
 
@@ -105,8 +115,8 @@ class TestZMCoupons extends ZMTestCase {
      * Test set voucher balance for id.
      */
     public function testSetVoucherBalance() {
-        ZMCoupons::instance()->setVoucherBalanceForAccountId(1, 39);
-        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId(1);
+        ZMCoupons::instance()->setVoucherBalanceForAccountId($this->getAccountId(), 39);
+        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId());
         $this->assertEqual(39, $balance);
     }
 
@@ -140,7 +150,7 @@ class TestZMCoupons extends ZMTestCase {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $account = ZMAccounts::instance()->getAccountForId(1);
+        $account = ZMAccounts::instance()->getAccountForId($this->getAccountId());
         $gvReceiver = ZMLoader::make('GVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
@@ -161,7 +171,7 @@ class TestZMCoupons extends ZMTestCase {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        ZMCoupons::instance()->finalizeCoupon($coupon->getId(), 1, '127.0.0.1');
+        ZMCoupons::instance()->finalizeCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
 
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "
@@ -185,13 +195,13 @@ class TestZMCoupons extends ZMTestCase {
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
-        ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
+        ZMCoupons::instance()->creditCoupon($coupon->getId(), $this->getAccountId());
         $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
 
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => 1), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
 
         // new coupon worth $5
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
@@ -199,7 +209,7 @@ class TestZMCoupons extends ZMTestCase {
         $this->createdCouponIds_[] = $coupon->getId();
 
         ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
-        $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
+        $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId()));
     }
 }
 
