@@ -30,10 +30,10 @@
      */
     function _zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
-        return (ZMRequest::isCheckout(false) && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+        return (false === strpos($page, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
-    //custom class mappings
+    // custom class mappings
     ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
 
     // event fixes and other stuff
