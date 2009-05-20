@@ -79,9 +79,9 @@
 
         <!-- file changelog -->
         <delete file="${diff.html.filename}" />
-        <style in="${diff.xml.filename}" out="${diff.html.filename}" style="etc/build/zipdiff2html.xsl">
+        <xslt in="${diff.xml.filename}" out="${diff.html.filename}" style="etc/build/zipdiff2html.xsl">
             <param name="title" expression="File changes in ZenMagick from ${version.from} to ${version.to}"/>
-        </style>
+        </xslt>
 
         <!-- add to main release, update md5 -->
         <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" basedir="${build.dir}" update="true" includes="zenmagick/etc/docs/${from.to}.html" />
@@ -89,7 +89,7 @@
 
         <!-- incremental update -->
         <delete file="${diff.incr.filename}" />
-        <style in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
+    	<xslt in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
 
         <zip destfile="${version.incr.filename}">
             <zipfileset src="${version.dir}/${version.file}.zip" includesfile="${diff.incr.filename}" />
