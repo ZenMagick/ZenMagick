@@ -39,6 +39,9 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
      */
     function __construct() {
         parent::__construct('ajaxCheckout');
+        $this->set('ajaxShippingMethodMap', array(
+            'id', 'name', 'cost'
+        ));
     }
 
     /**
@@ -46,6 +49,49 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * Get all available shipping methods.
+     *
+     * <p>Parameters may be either an <code>addressId</code> (only accepted if owned by the current user),
+     * or any property of an address (<em>countryId, zoneId, postcode, etc.</em>).</p>
+     */
+    public function getShippingMethodsJSON() {
+        // try to set up an address using request information
+        $address = null;
+        if (null !== ($addressId = ZMRequest::getParameter('addressId'))) {
+            $address = ZMAddresses::instance()->getAddressForId($addressId, ZMRequest::getAccountId());
+        } else {
+            $data = array();
+            foreach (array('countryId', 'zoneId', 'state', 'suburb', 'postcode', 'city') as $property) {
+                if (null !== ($value = ZMRequest::getParameter($property))) {
+                    $data[$property] = $value;
+                }
+            }
+            if (0 < count($data)) {
+                $address = ZMBeanUtils::map2obj('Address', $data);
+            }
+        }
+
+        if (null == $address) {
+            // TODO
+            // use defaults from cart
+        }
+
+        $shippingMethods = array();
+        if (null != $address) {
+            foreach (ZMShippingProviders::instance()->getShippingProviders(true) as $provider) {
+                foreach ($provider->getShippingMethods($address) as $shippingMethod) {
+                    $shippingMethods[] = $shippingMethod;
+                }
+            }
+        }
+
+        $flatObj = $this->flattenObject($shippingMethods, $this->get('ajaxShippingMethodMap'));
+        $json = $this->toJSON($flatObj);
+        $this->setJSONHeader($json);
     }
 
 }
