@@ -59,13 +59,17 @@ class ZMAddresses extends ZMObject {
      * Get the address for the given id.
      *
      * @param int addressId The address id.
+     * @param int accountId Optional account id to make it easy to verify access; default is <code>null</code>.
      * @return ZMAddress The address or <code>null</code>.
      */
-    public function getAddressForId($addressId) {
-        $sql = "select *
-                from " . TABLE_ADDRESS_BOOK . "
-                where address_book_id = :id";
-        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK, 'Address');
+    public function getAddressForId($addressId, $accountId=null) {
+        $sql = "SELECT *
+                FROM " . TABLE_ADDRESS_BOOK . "
+                WHERE address_book_id = :id";
+        if (null !== $accountId) {
+            $sql .= " AND customers_id = :accountId";
+        }
+        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -82,9 +86,9 @@ class ZMAddresses extends ZMObject {
      * @return array A list of <code>ZMAddress</code> instances.
      */
     public function getAddressesForAccountId($accountId) {
-        $sql = "select *
-                from " . TABLE_ADDRESS_BOOK . "
-                where customers_id = :accountId";
+        $sql = "SELECT *
+                FROM " . TABLE_ADDRESS_BOOK . "
+                WHERE customers_id = :accountId";
         $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
@@ -152,9 +156,9 @@ class ZMAddresses extends ZMObject {
      * @return string The address format.
      */
     public function getAddressFormatForId($addressFormatId) {
-        $sql = "select address_format
-                from " . TABLE_ADDRESS_FORMAT . "
-                where address_format_id = :id";
+        $sql = "SELECT address_format
+                FROM " . TABLE_ADDRESS_FORMAT . "
+                WHERE address_format_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), TABLE_ADDRESS_FORMAT);
         return $result['format'];
     }
