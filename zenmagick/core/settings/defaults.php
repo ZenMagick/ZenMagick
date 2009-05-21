@@ -113,8 +113,11 @@
             'cacheMapping' => array(),
 
             // fix file permissions of created files to allow FTP access
-            'isSetFilePerms' => false,
-
+            'fs.permissions.fix' => true,
+            // default permissions; NOTE the leading 0 is required as this is octal
+            'fs.permissions.defaults.file' => 0666,
+            'fs.permissions.defaults.folder' => 0777,
+        
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,
 

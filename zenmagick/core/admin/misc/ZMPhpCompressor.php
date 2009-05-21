@@ -294,13 +294,13 @@ class ZMPhpCompressor {
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    ZMTools::mkdir(dirname($outdir), 755);
+                    ZMTools::mkdir(dirname($outdir));
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                ZMTools::mkdir($outdir, 755);
+                ZMTools::mkdir($outdir);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -322,7 +322,7 @@ class ZMPhpCompressor {
         $files = ZMLoader::findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         if (!file_exists($out)) {
-            ZMTools::mkdir($out, 755);
+            ZMTools::mkdir($out);
         }
 
         $inpath = explode(DIRECTORY_SEPARATOR, $in);
@@ -335,13 +335,13 @@ class ZMPhpCompressor {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    ZMTools::mkdir(dirname($outdir), 755);
+                    ZMTools::mkdir(dirname($outdir));
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                ZMTools::mkdir($outdir, 755);
+                ZMTools::mkdir($outdir);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;

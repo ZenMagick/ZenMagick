@@ -118,7 +118,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId())) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
-                    mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId());
+                    ZMTools::mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId());
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
                     fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");

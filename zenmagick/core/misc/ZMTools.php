@@ -75,26 +75,38 @@ class ZMTools {
      * Make directory.
      *
      * @param string dir The folder name.
-     * @param int perms The file permisssions; (default: 755)
+     * @param int perms The file permisssions (octal); default: <code>null</code> to use the value of setting
+     *  <em>fs.permissions.defaults.folder</em>.
      * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
      * @return boolean <code>true</code> on success.
      */
-    public static function mkdir($dir, $perms=755, $recursive=true) {
+    public static function mkdir($dir, $perms=null, $recursive=true) {
+    	clearstatcache();
         if (null == $dir || empty($dir)) {
             return false;
         }
-        if (file_exists($dir) && is_dir($dir))
+        if (file_exists($dir) && is_dir($dir)) {
             return true;
+        }
 
         $parent = dirname($dir);
         if (!file_exists($parent) && $recursive) {
             if (!self::mkdir($parent, $perms, $recursive))
                 return false;
         }
-        $result = @mkdir($dir, octdec($perms));
+        
+        if (null === $perms) {
+        	$perms = ZMSettings::get('fs.permissions.defaults.folder');
+        }
+
+        $result = @mkdir($dir, $perms);
+        // somehow this always ends up 0755, even with 0777
+        self::setFilePerms($dir, $recursive, array('folder' => $perms));
+
         if (!$result) {
             ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', ZMLogging::WARN);
         }
+        
         return $result;
     }
 
@@ -481,13 +493,16 @@ class ZMTools {
      * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
      *
      * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
+     * 
+     * <p>This method may be disabled by setting <em>fs.permissions.fix</em> to <code>false</code>.</p>
      *
      * @param mixed files Either a single filename or list of files.
      * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
-     * @param array perms Optional file permissions; defaults are to use <em>755</em> for folder, <em>644</em> for files.
+     * @param array perms Optional file permissions; defaults are taken from the settings <em>fs.permissions.defaults.folder</em> for folder,
+     *  <em>fs.permissions.defaults.file</em> for files.
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
-        if (!ZMSettings::get('isSetFilePerms')) {
+        if (!ZMSettings::get('fs.permissions.fix')) {
             return;
         }
         if (null == self::$fileOwner || null == self::$fileGroup) {
@@ -499,23 +514,24 @@ class ZMTools {
                 return;
             }
         }
-
+        
         if (!is_array($files)) {
             $files = array($files);
         }
-        $filePerms = array_merge(array('file' => 0664, 'folder' => 0755), $perms);
+
+        $filePerms = array_merge(array('file' => ZMSettings::get('fs.permissions.defaults.file'), 'folder' => ZMSettings::get('fs.permissions.defaults.folder')), $perms);
 
         foreach ($files as $file) {
             if (0 < count($perms)) {
-                @chgrp($file, self::$fileOwner);
+                @chgrp($file, self::$fileGroup);
             }
-            @chown($file, self::$fileGroup);
+            @chown($file, self::$fileOwner);
             $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
-            @chmod($file, octdec($mode));
+            @chmod($file, $mod);
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
-                if (!self::endsWith($dir, '/')) {
+                if (!self::endsWith($dir, DI)) {
                     $dir .= '/';
                 }
                 $subfiles = array();
@@ -541,7 +557,7 @@ class ZMTools {
     public static function normalizeFilename($filename) {
         if (strpos($filename, '\\')) {
             $filename = preg_replace('/\\\\+/', '\\', $filename);
-            $filename = str_replace('\\', '/', $filename);
+            $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
         }
 
         return $filename;
@@ -695,6 +711,7 @@ class ZMTools {
                     $fp = fopen($entryFilename, 'wb');
                     fwrite($fp, "$buffer");
                     fclose($fp);
+                    self::setFilePerms($entryFilename);
                 } else {
                     return false;
                 }

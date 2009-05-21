@@ -41,14 +41,14 @@ class TestZMDatabase extends ZMTestCase {
      * Test auto mapping.
      */
     public function testAutoMapping() {
-        static $create_table = "CREATE TABLE zm_db_test ( id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, PRIMARY KEY (id)) TYPE=MyISAM;";
-        static $drop_table = "DROP TABLE IF EXISTS zm_db_test;";
+        static $create_table = "CREATE TABLE db_test ( id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, PRIMARY KEY (id)) TYPE=MyISAM;";
+        static $drop_table = "DROP TABLE IF EXISTS db_test;";
 
         static $expectedMapping = array(
             'id' => 'column=id;type=integer;key=true;auto=true',
             'name' => 'column=name;type=string' 
         );
-        static $expectedOutput = "'zm_db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string'\n),\n";
+        static $expectedOutput = "'db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string'\n),\n";
 
         foreach ($this->getProviders() as $provider => $database) {
             // create test tabe
@@ -56,7 +56,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($create_table);
 
             ob_start();
-            $mapping = ZMDbTableMapper::buildTableMapping('zm_db_test', $database, true);
+            $mapping = ZMDbTableMapper::buildTableMapping('db_test', $database, true);
             $output = ob_get_clean();
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
                 $this->assertEqual($expectedMapping, $mapping, '%s: '.$provider);

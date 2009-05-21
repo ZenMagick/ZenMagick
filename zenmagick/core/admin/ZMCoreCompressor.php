@@ -125,7 +125,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                 }
                 $flag = $plugin->getLoaderPolicy();
                 $pluginBase = $out.$type.DIRECTORY_SEPARATOR.$plugin->getId().DIRECTORY_SEPARATOR;
-                ZMTools::mkdir($pluginBase, 755);
+                ZMTools::mkdir($pluginBase);
                 if (ZMPlugin::LP_NONE != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
@@ -146,7 +146,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                         }
                         $source = file_get_contents($file);
                         if (!empty($relDir)) {
-                            ZMTools::mkdir($pluginBase . $relDir, 755);
+                            ZMTools::mkdir($pluginBase . $relDir);
                         }
                         $outfile = $pluginBase . $relDir . basename($file);
 

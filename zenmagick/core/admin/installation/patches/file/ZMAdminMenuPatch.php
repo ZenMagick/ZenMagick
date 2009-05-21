@@ -96,6 +96,7 @@ class ZMAdminMenuPatch extends ZMFilePatch {
                     $handle = fopen(_ZM_ZEN_ADMIN_FILE, "ab");
                     fwrite($handle, "\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
                     fclose($handle);
+                    ZMTools::setFilePerms(_ZM_ZEN_ADMIN_FILE);
                     return true;
                 } else {
                     ZMLogging::instance()->log("** ZenMagick: no permission to patch zen-cart admin extras_dhtml.php", ZMLogging::ERROR);

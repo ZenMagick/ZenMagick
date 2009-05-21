@@ -132,12 +132,12 @@
      *
      * @package org.zenmagick.deprecated
      * @param string dir The folder name.
-     * @param int perms The file permisssions; (default: 755)
+     * @param int perms The file permisssions; (default: null)
      * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
      * @return boolean <code>true</code> on success.
      * @deprecated use ZMTools instead.
      */
-    function zm_mkdir($dir, $perms=755, $recursive=true) {
+    function zm_mkdir($dir, $perms=null, $recursive=true) {
         return ZMTools::mkdir($dir, $perms, $recursive);
     }
     /**

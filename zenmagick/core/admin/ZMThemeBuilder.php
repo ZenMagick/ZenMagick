@@ -154,7 +154,7 @@ class ZMThemeBuilder extends ZMObject {
         }
 
         // try base dir
-        ZMTools::mkdir($themeDir, 755);
+        ZMTools::mkdir($themeDir);
         $this->fsLog_[] = $themeDir;
         if (!file_exists($themeDir)) {
             array_push($this->messages_, 'Could not create theme dir "' . $themeDir . '".');
@@ -162,15 +162,15 @@ class ZMThemeBuilder extends ZMObject {
         }
 
         // do the common ones
-        ZMTools::mkdir($themeDir.'content/', 755);
+        ZMTools::mkdir($themeDir.'content/');
         $this->fsLog_[] = $themeDir.'content/';
-        ZMTools::mkdir($themeDir.'extra/', 755);
+        ZMTools::mkdir($themeDir.'extra/');
         $this->fsLog_[] = $themeDir.'extra/';
-        ZMTools::mkdir($themeDir.'content/'.'views/', 755);
+        ZMTools::mkdir($themeDir.'content/'.'views/');
         $this->fsLog_[] = $themeDir.'content/'.'views/';
-        ZMTools::mkdir($themeDir.'content/boxes/', 755);
+        ZMTools::mkdir($themeDir.'content/boxes/');
         $this->fsLog_[] = $themeDir.'content/boxes/';
-        ZMTools::mkdir($themeDir.'lang/', 755);
+        ZMTools::mkdir($themeDir.'lang/');
         $this->fsLog_[] = $themeDir.'lang/';
 
         return true;

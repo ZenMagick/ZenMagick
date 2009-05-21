@@ -198,9 +198,11 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        if (null != ($handle = fopen(ZMSettings::get('zmLogFilename'), "a"))) {
+    	$logfile = ZMSettings::get('zmLogFilename');
+        if (null != ($handle = fopen($logfile, "a"))) {
             fputs($handle, $line); 
-            fclose($handle); 
+            fclose($handle);
+            ZMTools::setFilePerms($logfile);
         } else {
             error_log($line);
         }

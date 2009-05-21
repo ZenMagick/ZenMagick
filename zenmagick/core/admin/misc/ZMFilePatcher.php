@@ -90,6 +90,7 @@ class ZMFilePatcher extends ZMObject {
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     protected function putLines($lines) {
+    	$fileExists = file_exists($this->target);
         $handle = fopen($this->target, 'wb');
         if ($handle) {
             foreach ($lines as $ii => $line) {
@@ -97,6 +98,9 @@ class ZMFilePatcher extends ZMObject {
                 fwrite($handle, $eol.$line);
             }
             fclose($handle);
+            if (!$fileExists) {
+                ZMTools::setFilePerms($file);
+            }
             return true;
         }
 
