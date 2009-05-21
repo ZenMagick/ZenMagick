@@ -1,6 +1,8 @@
 <project name="zenmagick" default="release" basedir=".">
 
-    <!-- Local properties 'win' over defaults... -->
+    <tstamp />
+
+	<!-- Local properties 'win' over defaults... -->
     <property file="local.properties" />
 
 
@@ -28,12 +30,12 @@
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
 
+	<!-- Flow control -->
+	<typedef resource="net/sf/antcontrib/antcontrib.properties"/>
 
 
     <!-- Init -->
     <target name="init" description="Initialize project.">
-        <tstamp />
-
         <!-- create required directories -->
         <mkdir dir="${build.dir}" />
         <mkdir dir="${dist.dir}" />
