@@ -96,9 +96,9 @@ require_once 'includes/application_top.php';
         <form action="<?php echo 'zmStaticPageEditor.php' ?>" method="get">
           <h2>ZenMagick Static Page Editor (
                   <select id="languageId" name="languageId" onChange="this.form.submit();">
-                    <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
-                      <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
-                      <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
+                    <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
+                      <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
+                      <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
                     <?php } ?>
                   </select>
                 )<?php echo (null!==$editContents?': '.$selectedFile:'') ?></h2>
