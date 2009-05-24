@@ -144,11 +144,9 @@ class ZMShippingProviders extends ZMObject {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address
-            if (!$provider->hasError()) {
-                $methods = $provider->getShippingMethods($address);
-                if (0 < count($methods)) {
-                    $available[] = $provider;
-                }
+            $methods = $provider->getShippingMethods($address);
+            if (0 < count($methods)) {
+                $available[] = $provider;
             }
         }
 
