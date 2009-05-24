@@ -69,6 +69,7 @@ class ZMShippingProviders extends ZMObject {
             return $this->provider_[$configured];
         }
 
+        // required by some
         ZMTools::resolveZCClass('http_client');
 
         $this->provider_[$configured] = array();
@@ -143,9 +144,11 @@ class ZMShippingProviders extends ZMObject {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address
-            $methods = $provider->getShippingMethods($address);
-            if (0 < count($methods)) {
-                $available[] = $provider;
+            if (!$provider->hasError()) {
+                $methods = $provider->getShippingMethods($address);
+                if (0 < count($methods)) {
+                    $available[] = $provider;
+                }
             }
         }
 
