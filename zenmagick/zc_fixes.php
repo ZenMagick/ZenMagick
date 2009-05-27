@@ -39,7 +39,6 @@
     // event fixes and other stuff
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
-    echo 'zx'._zm_needs_zc();
     // skip more zc request handling
     if (!_zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
         $code_page_directory = 'zenmagick';
