@@ -153,7 +153,12 @@ class ZMRequest extends ZMObject {
     public static function getShoppingCart() { 
         $self = ZMRequest::instance();
         if (null == $self->shoppingCart_) {
-            $self->shoppingCart_ = ZMLoader::make('ShoppingCart');
+        	// TODO: enable
+        	if (self::isAnonymous() || true) {
+                $self->shoppingCart_ = ZMLoader::make('ShoppingCart');
+        	} else {
+        		$self->shoppingCart_ = ZMShoppingCarts::instance()->loadCartForAccountId(self::getAccountId());
+        	}
         }
 
         return $self->shoppingCart_;
