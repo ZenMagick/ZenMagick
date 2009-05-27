@@ -30,7 +30,7 @@
      */
     function _zm_needs_zc() {
         $pageName = ZMRequest::getPageName();
-        return (false === strpos($page, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+        return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
     // custom class mappings
@@ -39,6 +39,7 @@
     // event fixes and other stuff
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
+    echo 'zx'._zm_needs_zc();
     // skip more zc request handling
     if (!_zm_needs_zc() && ZMSettings::get('isEnableZMThemes')) {
         $code_page_directory = 'zenmagick';
