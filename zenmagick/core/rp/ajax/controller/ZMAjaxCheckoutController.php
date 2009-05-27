@@ -40,7 +40,9 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
     function __construct() {
         parent::__construct('ajaxCheckout');
         $this->set('ajaxShippingMethodMap', array(
-            'id', 'name', 'cost'
+            'id', 'name', 'cost', 'provider' => array(
+                'name', 'errors'
+            )
         ));
     }
 
@@ -76,8 +78,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
         }
 
         if (null == $address) {
-            // TODO
-            // use defaults from cart
+        	$address = ZMRequest::getShoppingCart()->getShippingAddress();
         }
 
         $shippingMethods = array();
