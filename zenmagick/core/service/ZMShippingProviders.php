@@ -64,7 +64,7 @@ class ZMShippingProviders extends ZMObject {
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    function getShippingProviders($configured=true) {
+    public function getShippingProviders($configured=true) {
         if (isset($this->provider_[$configured])) {
             return $this->provider_[$configured];
         }
@@ -140,7 +140,7 @@ class ZMShippingProviders extends ZMObject {
      * @param ZMAddress address The address.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    function getShippingProvidersForAddress($address) {
+    public function getShippingProvidersForAddress($address) {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address
