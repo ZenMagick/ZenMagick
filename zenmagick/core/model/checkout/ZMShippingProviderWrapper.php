@@ -109,7 +109,7 @@ class ZMShippingProviderWrapper extends ZMObject {
      *
      * @return array List of error messages.
      */
-    public function getErrors() { return $this->errors_(); }
+    public function getErrors() { return $this->errors_; }
 
     /**
      * Get available shipping methods for the given address.
