@@ -47,8 +47,8 @@ class ZMMessages extends ZMObject {
     const T_MESSAGE = 'msg';
     const T_WARN = 'warn';
     const T_ERROR = 'error';
-    var $messages_;
-    var $uniqueMsgRef_;
+    private $messages_;
+    private $uniqueMsgRef_;
 
 
     /**
@@ -122,7 +122,7 @@ class ZMMessages extends ZMObject {
      * @param string type The message type; default is <code>ZMMessages::T_MESSAGE</code>.
      * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function add($text, $type=ZMMessages::T_MESSAGE, $ref=ZMMessages::T_GLOBAL) {
+    public function add($text, $type=ZMMessages::T_MESSAGE, $ref=ZMMessages::T_GLOBAL) {
         if (array_key_exists($text, $this->uniqueMsgRef_))
             return;
 
@@ -136,7 +136,7 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function error($text, $ref=ZMMessages::T_GLOBAL) {
+    public function error($text, $ref=ZMMessages::T_GLOBAL) {
         $this->add($text, ZMMessages::T_ERROR, $ref);
     }
 
@@ -146,7 +146,7 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function warn($text, $ref=ZMMessages::T_GLOBAL) {
+    public function warn($text, $ref=ZMMessages::T_GLOBAL) {
         $this->add($text, ZMMessages::T_WARN, $ref);
     }
 
@@ -156,7 +156,7 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function msg($text, $ref=ZMMessages::T_GLOBAL) {
+    public function msg($text, $ref=ZMMessages::T_GLOBAL) {
         $this->add($text, ZMMessages::T_MESSAGE, $ref);
     }
 
@@ -166,7 +166,7 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
      */
-    function success($text, $ref=ZMMessages::T_GLOBAL) {
+    public function success($text, $ref=ZMMessages::T_GLOBAL) {
         $this->add($text, ZMMessages::T_SUCCESS, $ref);
     }
 
@@ -175,7 +175,7 @@ class ZMMessages extends ZMObject {
      *
      * @param array messages List of <code>ZMMessage</code> instances.
      */
-    function addAll($messages) {
+    public function addAll($messages) {
         foreach ($messages as $msg) {
             $this->add($msg->getText(), $msg->getType(), $msg->getRef());
         }
@@ -187,13 +187,13 @@ class ZMMessages extends ZMObject {
      * @param string ref The referencing resource; default is <code>null</code> for all.
      * @return boolean <code>true</code> if messages are available, <code>false</code> if not.
      */
-    function hasMessages($ref=null) {
+    public function hasMessages($ref=null) {
         if (null === $ref) {
             return 0 != count($this->messages_);
         }
 
         foreach ($this->messages_ as $message) {
-            if ($ref == $message->ref_) {
+            if ($ref == $message->getRef()) {
                 return true;
               }
         }
@@ -207,7 +207,7 @@ class ZMMessages extends ZMObject {
      * @param string ref The referring resource; default is <code>null</code> for all.
      * @return array List of <code>ZMMessage</code> instances.
      */
-    function getMessages($ref=null) {
+    public function getMessages($ref=null) {
         if (null === $ref) {
             return $this->messages_;
         }
