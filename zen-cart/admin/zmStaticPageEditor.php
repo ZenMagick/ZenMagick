@@ -27,7 +27,7 @@
 require_once 'includes/application_top.php';
 
   // get selections and defaults
-  $selectedThemeId = ZMRequest::getParameter('themeId', ZM_DEFAULT_THEME);
+  $selectedThemeId = ZMRequest::getParameter('themeId', ZMRuntime::getThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
   if (null === ($file = ZMRequest::getParameter('file')) || empty($file)) {
       $selectedFile = ZMRequest::getParameter('newfile');
