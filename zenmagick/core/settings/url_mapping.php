@@ -165,6 +165,9 @@
         // search [forms]
         $urlMapper->setMappingInfo('search', array('formDefinition' => 'SearchCriteria', 'formId' => 'searchCriteria'));
         $urlMapper->setMappingInfo('advanced_search', array('view' => 'advanced_search', 'controllerDefinition' => 'SearchController#autoSearch=false', 'formDefinition' => 'SearchCriteria', 'formId' => 'searchCriteria'));
+
+        // shopping cart
+        $urlMapper->setMappingInfo('shopping_cart', array('viewId' => 'empty_cart', 'view' => 'shopping_cart'));
     }
 
 ?>
