@@ -102,7 +102,6 @@ class ZMProductAssociations extends ZMObject {
      *  <li>convert to uppercase</li>
      *  <li>prefix with <code>ZM_PA_</code></li>
      * </ol>
-     *zm_product_association_types
      */
     public function prepareAssociationTypes() {
         $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_ASSOCIATION_TYPES;
