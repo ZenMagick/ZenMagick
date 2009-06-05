@@ -35,12 +35,12 @@
         $themeBuilder = new ZMThemeBuilder();
         $themeBuilder->setName(ZMRequest::getParameter('name'));
         $themeBuilder->setInheritDefaults(ZMRequest::getParameter('inherit', false));
-        $themeBuilder->build();
-        foreach ($themeBuilder->getMessages() as $msg) {
-            ZMMessages::instance()->msg($msg);
+        $buildOK = $themeBuilder->build();
+        foreach ($themeBuilder->getMessages() as $msgInfo) {
+            ZMMessages::instance()->add($msgInfo[1], $msgInfo[0]);
         }
 
-        if ($switchto) {
+        if ($switchto && $buildOK) {
             // create dummy files
             $dummyPatch = new ZMThemeDummyPatch();
             $dummyPatch->patch(true);

@@ -100,6 +100,7 @@ Release 0.9.6
 - use new file permission defaults where possible
 - enable file permission adjustments method
 - make the static page editor default to the current theme
+- check status of ZMThemeBuilder, add status to messages, fix some typos
 
 Release 0.9.5.1
 - fix broken price filter in product search; b:#2689495

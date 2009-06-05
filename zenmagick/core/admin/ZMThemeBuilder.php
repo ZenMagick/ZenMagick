@@ -103,7 +103,7 @@ class ZMThemeBuilder extends ZMObject {
      */
     function build() {
         if (empty($this->name_)) {
-            array_push($this->messages_, 'Invalid theme name "' . $this->name_ . '".');
+            $this->messages_[] = array(ZMMessages::T_WARN, 'Invalid theme name "' . $this->name_ . '".');
             return false;
         }
 
@@ -128,7 +128,7 @@ class ZMThemeBuilder extends ZMObject {
             @chown($file, $owner);
         }
 
-        array_push($this->messages_, 'Successfully created new theme "' . $this->name_ . '".');
+        $this->messages_[] = array(ZMMessages::T_SUCCESS, 'Successfully created new theme "' . $this->name_ . '".');
         return true;
     }
 
@@ -149,7 +149,7 @@ class ZMThemeBuilder extends ZMObject {
     function _createFolder() {
         $themeDir = $this->getBaseDir();
         if (file_exists($themeDir)) {
-            array_push($this->messages_, 'Theme "' . $this->name_ . '" already exists!');
+            $this->messages_[] = array(ZMMessages::T_WARN, 'Theme "' . $this->name_ . '" already exists!');
             return false;
         }
 
@@ -157,10 +157,10 @@ class ZMThemeBuilder extends ZMObject {
         ZMTools::mkdir($themeDir);
         $this->fsLog_[] = $themeDir;
         if (!file_exists($themeDir)) {
-            array_push($this->messages_, 'Could not create theme dir "' . $themeDir . '".');
+            $this->messages_[] = array(ZMMessages::T_WARN, 'Could not create theme dir "' . $themeDir . '".');
             return false;
         }
-
+        
         // do the common ones
         ZMTools::mkdir($themeDir.'content/');
         $this->fsLog_[] = $themeDir.'content/';
@@ -188,7 +188,7 @@ class ZMThemeBuilder extends ZMObject {
         $infoClassFile = $this->getBaseDir() . $infoClass .  '.php';
 
         if (!$handle = fopen($infoClassFile, 'ab')) {
-            array_push($this->messages, 'could not open theme info class for writing ' . $infoClassFile);
+            $this->messages[] = array(ZMMessages::T_WARN, 'could not open theme info class for writing ' . $infoClassFile);
             return false;
         }
 
@@ -213,7 +213,7 @@ class '.$infoClass.' extends ZMThemeInfo {
 ';
 
         if (false === fwrite($handle, $contents)) {
-            array_push($this->errors_, 'could not write to file ' . $infoClassFile);
+            $this->errors_[] = array(ZMMessages::T_WARN, 'could not write to file ' . $infoClassFile);
             return;
         }
   
@@ -239,7 +239,7 @@ class '.$infoClass.' extends ZMThemeInfo {
         $localFile = $themeDir.ZM_THEME_EXTRA_DIR . 'local.php';
 
         if (!$handle = fopen($localFile, 'ab')) {
-            array_push($this->messages, 'could not open theme local.php file for writing ' . $localFile);
+            $this->messages_[] = array(ZMMessages::T_WARN, 'could not open theme local.php file for writing ' . $localFile);
             return false;
         }
 
@@ -251,7 +251,7 @@ class '.$infoClass.' extends ZMThemeInfo {
 ';
 
         if (false === fwrite($handle, $contents)) {
-            array_push($this->errors_, 'could not write to file ' . $localFileinfoClassFile);
+            $this->messages_[] = array(ZMMessages::T_WARN, 'could not write to file ' . $localFileinfoClassFile);
             return;
         }
   
