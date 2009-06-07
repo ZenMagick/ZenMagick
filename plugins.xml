@@ -191,8 +191,8 @@
         </antcall>
 
         <antcall target="plugin-release">
-            <param name="plugin.name" value="zm_snap_affiliates" />
-            <param name="plugin.version" value="${plugins.zm_snap_affiliates.version}" />
+            <param name="plugin.name" value="zm_snap_affiliate" />
+            <param name="plugin.version" value="${plugins.zm_snap_affiliate.version}" />
         </antcall>
 
         <antcall target="plugin-release">
