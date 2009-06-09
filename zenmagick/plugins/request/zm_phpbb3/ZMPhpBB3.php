@@ -72,7 +72,6 @@ class ZMPhpBB3 extends ZMObject {
                 'password' => $dbpasswd,
                 'driver' => $dbms
             );
-            var_dump($dbconf);
             if (isset($dbport)) {
                 $dbconf['port'] = $dbport;
             }
