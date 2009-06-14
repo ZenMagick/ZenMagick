@@ -643,6 +643,18 @@ class ZMProduct extends ZMObject {
      */
     public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom_ = $typeFrom; }
 
+    /**
+     * Get product associations for the given type and parameter.
+     *
+     * @param int type The association type.
+     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
+     * @return array A list of <code>ZMProductAssociation</code> instances.
+     */
+    public function getProductAssociationsForType($type, $args=null, $all=false) {
+        return ZMProductAssociations::instance()->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
+    }
+
 }
 
 ?>
