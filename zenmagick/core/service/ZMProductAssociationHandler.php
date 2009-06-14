@@ -44,36 +44,6 @@ interface ZMProductAssociationHandler {
      */
     public function getProductAssociationsForProductId($productId, $type, $args=null, $all=false);
 
-    /**
-     * Get associated products for the given category.
-     *
-     * <p>This is mostly a convenience method to avoid having to iterate over all products in a given category yourself.</p>
-     *
-     * <p>This method will also take care of duplicates.</p>
-     *
-     * @param int categoryId The category.
-     * @param int type The association type.
-     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
-     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
-     * @return array A list of <code>ZMProductAssociation</code> instances.
-     */
-    public function getProductAssociationsForCategoryId($categoryId, $type, $args=null, $all=false);
-
-    /**
-     * Get associated products for the given shopping cart.
-     *
-     * <p>This is mostly a convenience method to avoid having to iterate over all products in the given cart.</p>
-     *
-     * <p>This method will also take care of duplicates.</p>
-     *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
-     * @param int type The association type.
-     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
-     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
-     * @return array A list of <code>ZMProductAssociation</code> instances.
-     */
-    public function getProductAssociationsForShoppingCart($shoppingCart, $type, $args=null, $all=false);
-
 }
 
 ?>

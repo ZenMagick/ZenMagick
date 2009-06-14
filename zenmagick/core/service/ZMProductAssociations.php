@@ -101,23 +101,58 @@ class ZMProductAssociations extends ZMObject implements ZMProductAssociationHand
     }
 
     /**
-     * {@inheritDoc}
+     * Get associated products for the given category.
+     *
+     * <p>This is mostly a convenience method to avoid having to iterate over all products in a given category yourself.</p>
+     *
+     * <p>This method will also take care of duplicates.</p>
+     *
+     * @param int categoryId The category.
+     * @param int type The association type.
+     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
+     * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForCategoryId($categoryId, $type, $args=null, $all=false) {
         if (null != ($handler = $this->getHandler($type))) {
-            return $handler->getProductAssociationsForCategoryId($productId, $type, $args, $all);
+            $defaults = array('includeChildren' => false, 'languageId' => null);
+            if (null === $args) {
+                $args = $defaults;
+            } else {
+                $args = array_merge($defaults, $args);
+            }
+
+            $assoc = array();
+            $products = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all, $args['includeChildren'], $args['languageId']);
+            foreach ($products as $product) {
+                foreach ($product->getProductAssociationsForType($type, $args, $all) as $pa) {
+                    if (!array_key_exists($pa->getProductId(), $assoc)) {
+                        $assoc[$pa->getProductId()] = $pa;
+                    }
+                }
+            }
+
+            return $assoc;
         }
 
         return null;
     }
 
     /**
-     * {@inheritDoc}
+     * Get associated products for the given shopping cart.
+     *
+     * <p>This is mostly a convenience method to avoid having to iterate over all products in the given cart.</p>
+     *
+     * <p>This method will also take care of duplicates.</p>
+     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param int type The association type.
+     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
+     * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForShoppingCart($shoppingCart, $type, $args=null, $all=false) {
-        if (null != ($handler = $this->getHandler($type))) {
-            return $handler->getProductAssociationsForShoppingCart($productId, $type, $args, $all);
-        }
+        //TODO:
 
         return null;
     }
