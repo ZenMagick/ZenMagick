@@ -50,7 +50,8 @@
     //** db **//
 
     define('ZM_DB_PREFIX', DB_PREFIX);
-
+    define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'zm_token');
+    
 
     //** date/time formats used internally by all models **//
 

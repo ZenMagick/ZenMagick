@@ -50,7 +50,8 @@
 
         "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
 
-        "sqlConfig" => "Setup ZenMagick config groups and initial values"
+        "sqlConfig" => "Setup ZenMagick config groups and initial values",
+        "sqlToken" => "Create the database table used by the token service"
     );
 
     $coreCompressor = new ZMCoreCompressor();
