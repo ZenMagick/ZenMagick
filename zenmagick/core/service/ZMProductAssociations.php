@@ -152,7 +152,26 @@ class ZMProductAssociations extends ZMObject implements ZMProductAssociationHand
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForShoppingCart($shoppingCart, $type, $args=null, $all=false) {
-        //TODO:
+        if (null != ($handler = $this->getHandler($type))) {
+            $defaults = array('includeChildren' => false, 'languageId' => null);
+            if (null === $args) {
+                $args = $defaults;
+            } else {
+                $args = array_merge($defaults, $args);
+            }
+
+            $assoc = array();
+            foreach ($shoppingCart->getItems as $item) {
+                $product = $item->getProduct();
+                foreach ($product->getProductAssociationsForType($type, $args, $all) as $pa) {
+                    if (!array_key_exists($pa->getProductId(), $assoc)) {
+                        $assoc[$pa->getProductId()] = $pa;
+                    }
+                }
+            }
+
+            return $assoc;
+        }
 
         return null;
     }
