@@ -175,12 +175,6 @@
 
         <antcall target="plugin-release">
             <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_token" />
-            <param name="plugin.version" value="${plugins.zm_token.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
             <param name="plugin.name" value="zm_ssu" />
             <param name="plugin.version" value="${plugins.zm_ssu.version}" />
         </antcall>
