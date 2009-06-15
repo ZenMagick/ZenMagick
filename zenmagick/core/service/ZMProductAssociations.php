@@ -31,7 +31,7 @@
  * @package org.zenmagick.service
  * @version $Id$
  */
-class ZMProductAssociations extends ZMObject implements ZMProductAssociationHandler {
+class ZMProductAssociations extends ZMObject {
     private $handler_;
 
 
@@ -90,11 +90,17 @@ class ZMProductAssociations extends ZMObject implements ZMProductAssociationHand
     }
 
     /**
-     * {@inheritDoc}
+     * Get product associations for the given product, type and parameter.
+     *
+     * @param int productId The source product id.
+     * @param int type The association type.
+     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
+     * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForProductId($productId, $type, $args=null, $all=false) {
-        if (null != ($handler = $this->getHandler($type))) {
-            return $handler->getProductAssociationsForProductId($productId, $type, $args, $all);
+        if (null != ($handler = $this->getHandlerForType($type))) {
+            return $handler->getProductAssociationsForProductId($productId, $args, $all);
         }
 
         return null;
@@ -114,7 +120,7 @@ class ZMProductAssociations extends ZMObject implements ZMProductAssociationHand
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForCategoryId($categoryId, $type, $args=null, $all=false) {
-        if (null != ($handler = $this->getHandler($type))) {
+        if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {
                 $args = $defaults;
@@ -152,7 +158,7 @@ class ZMProductAssociations extends ZMObject implements ZMProductAssociationHand
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
     public function getProductAssociationsForShoppingCart($shoppingCart, $type, $args=null, $all=false) {
-        if (null != ($handler = $this->getHandler($type))) {
+        if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {
                 $args = $defaults;
