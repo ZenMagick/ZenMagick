@@ -28,12 +28,13 @@
  * ZenMagick logging service.
  *
  * <p>The <em>dump</em> and <em>trace</em> methods are browser oriented and
- * will generate HTML in the response page.</p>
+ *  will generate HTML in the response page.</p>
  *
  * <p>Browser output depends on the PHP ini setting <em>display_errors</em>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.service
+ * @version $Id$
  */
 class ZMLogging extends ZMObject {
     private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');

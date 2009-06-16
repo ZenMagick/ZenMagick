@@ -27,7 +27,8 @@
 /**
  * Token model class.
  *
- * @package org.zenmagick.plugins.zm_token
+ * @author DerManoMann
+ * @package org.zenmagick.model
  * @version $Id: ZMToken.php 2054 2009-03-12 03:41:22Z dermanomann $
  */
 class ZMToken extends ZMObject {
