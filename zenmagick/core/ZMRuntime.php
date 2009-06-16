@@ -76,6 +76,8 @@ class ZMRuntime extends ZMObject {
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
      *  <dd>The requested implementation class; default is <code>ZMSettings::get('dbProvider')</code>.</dd>
+     *  <dt>initQuery</dt>
+     *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
      * </dl>
      *
      * @param array conf Optional configuration; default is <code>null</code> to use zen-cart settings.
@@ -86,7 +88,8 @@ class ZMRuntime extends ZMObject {
                       'host' => DB_SERVER,
                       'username' => DB_SERVER_USERNAME,
                       'password' => DB_SERVER_PASSWORD,
-                      'database' => DB_DATABASE);
+                      'database' => DB_DATABASE,
+                      'initQuery' => null);
         if (null !== ($port = @ini_get('mysql.default_port')) && !empty($port)) {
             $defaults['port'] = $port;
         }

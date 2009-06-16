@@ -64,6 +64,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $this->queriesMap_ = array();
         $this->conn_ = Creole::getConnection($conf);
         $this->mapper_ = ZMDbTableMapper::instance();
+        if (null != $conf['initQuery']) {
+            $this->conn_->executeQuery($conf['initQuery']);
+        }
     }
 
     /**

@@ -63,6 +63,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->queriesTime = 0;
         $this->mapper = ZMDbTableMapper::instance();
         $this->debug = false;
+        if (null != $conf['initQuery']) {
+            $this->db_->Execute($conf['initQuery']);
+        }
     }
 
     /**

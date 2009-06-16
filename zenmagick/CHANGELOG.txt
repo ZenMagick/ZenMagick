@@ -2,6 +2,7 @@ Release 0.9.7
 - add ZMProductAssociation service and related code
 - Move zm_token plugin into core
 - removed zm_product_associations plugin
+- add support for initQuery parameter to ZMDatabase (and ZMRuntime::getDatabase())
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

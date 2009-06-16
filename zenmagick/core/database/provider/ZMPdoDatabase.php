@@ -80,6 +80,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->queriesMap_ = array();
         $this->savepointLevel_ = 0;
+        if (null !== $conf['initQuery']) {
+            try {
+                $this->pdo_->query($conf['initQuery']);
+            } catch (PDOException $pdoe) {
+                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            }
+        }
     }
 
     /**
