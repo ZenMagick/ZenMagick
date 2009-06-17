@@ -27,6 +27,9 @@
 /**
  * Manage pluggable product associations.
  *
+ * <p>Handler can be explicitely registered using the <code>registerHandler(..)</code> method, or, preferrably
+ * via the setting '<em>defaultProductAssociationHandler</em>' - as comma separated list of class names.</p>
+ * 
  * @author DerManoMann
  * @package org.zenmagick.service
  * @version $Id$
@@ -41,7 +44,13 @@ class ZMProductAssociations extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->handler_ = array();
-        // XXX: allow preset via setting?
+        $defaultHandler = ZMSettings::get('defaultProductAssociationHandler');
+        if (is_string($defaultHandler)) {
+            $defaultHandler = explode(',', $defaultHandler);
+        }
+        foreach ($defaultHandler as $handler) {
+            $this->registerHandler($handler);
+        }
     }
 
     /**
@@ -62,11 +71,22 @@ class ZMProductAssociations extends ZMObject {
     /**
      * Register an association handler.
      *
-     * @param string type The association type/name.
+     * <p>The optional <code>$type</code> parameter allows to register a 
+     * handler as string. If omitted, an instance of the handler will be
+     * created immediately in order to query the type. This also allows to
+     * register the same handler for different types, if required.</p>
+     *
      * @param mixed handler This can be either a <code>ZMProductAssociationHandler</code> instance, or a class definition compatible with
      *  <code>ZMBeanUtils::getBean(..)</code>.
+     * @param string type Optional association type/name; default is <code>null</code>.
      */
-    public function registerHandler($type, $handler) {
+    public function registerHandler($handler, $type=null) {
+    	if (null == $type) {
+            if (!is_object($handler)) {
+                $handler = ZMBeanUtils::getBean($handler);
+            } 
+            $type = $handler->getType();
+    	}
         $this->handler_[$type] = $handler;
     }
 

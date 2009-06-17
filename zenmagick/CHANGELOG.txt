@@ -3,6 +3,7 @@ Release 0.9.7
 - Move zm_token plugin into core
 - removed zm_product_associations plugin
 - add support for initQuery parameter to ZMDatabase (and ZMRuntime::getDatabase())
+- add ZMSimilarOrderProductAssociationHandler and new setting 'defaultProductAssociationHandler'
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

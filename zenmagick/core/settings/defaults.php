@@ -132,6 +132,10 @@
             'defaultViewClass' => 'PageView',
 
             'plugins.types' => 'init,admin,request,order_total',
+        
+            // default product association handler
+            'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
+        
 
             /**************************************
              * Logging options.
