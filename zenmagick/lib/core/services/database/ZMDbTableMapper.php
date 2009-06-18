@@ -98,9 +98,9 @@ class ZMDbTableMapper extends ZMObject {
           parent::__construct();
           $this->tableMap_ = array();
           $this->isCached_ = false;
-          $this->tablePrefix_ = ZMSettings::get('zenmagick.core.database.tablePrefix');
+          $this->tablePrefix_ = ZMSettings::get('zenmagick.core.database.tablePrefix', '');
           $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
-          if (ZMSettings::get('zenmagick.core.database.isCacheMappings')) {
+          if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true)) {
             if (false !== ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
               $this->tableMap_ = $cachedMap;
               $this->isCached_ = true;
@@ -125,7 +125,7 @@ class ZMDbTableMapper extends ZMObject {
          * Refresh cache if empty.
          */
         public function onZMInitDone() {
-          if (ZMSettings::get('zenmagick.core.database.isCacheMappings') && !$this->isCached()) {
+          if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true) && !$this->isCached()) {
             $this->updateCache();
           }
         }
@@ -303,7 +303,7 @@ class ZMDbTableMapper extends ZMObject {
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
-            if (null === $mapping && ZMSettings::get('zenmagick.core.database.isAutoMapping')) {
+            if (null === $mapping && ZMSettings::get('zenmagick.core.database.isAutoMapping', true)) {
               //XXX: refresh cache?
               ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
               $rawMapping = self::buildTableMapping($table, $database);

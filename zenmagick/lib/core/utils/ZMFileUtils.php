@@ -84,11 +84,10 @@ class ZMFileUtils {
         }
         
         if (null === $perms) {
-        	$perms = ZMSettings::get('zenmagick.core.fs.permissions.folder');
+        	$perms = ZMSettings::get('zenmagick.core.fs.permissions.folder', '0755');
         }
 
         $result = @mkdir($dir, $perms);
-        // somehow this always ends up 0755, even with 0777
         self::setFilePerms($dir, $recursive, array('folder' => $perms));
 
         if (!$result) {
