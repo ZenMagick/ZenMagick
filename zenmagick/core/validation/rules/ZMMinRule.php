@@ -40,7 +40,7 @@ class ZMMinRule extends ZMRule {
      * @param string msg Optional message.
      */
     function __construct($name, $min, $msg=null) {
-        parent::__construct($name, "%s must be at leat %s characters long.", $msg);
+        parent::__construct($name, "%s must be at least %s characters long.", $msg);
         $this->min_ = $min;
     }
 
