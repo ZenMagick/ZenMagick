@@ -214,7 +214,7 @@ class ZMDbTableMapper extends ZMObject {
             if (empty($table)) {
               continue;
             }
-            if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.isAutoMapping')) {
+            if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.isAutoMapping', true)) {
               //XXX: refresh cache?
               ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
               $rawMapping = self::buildTableMapping($table, $database);
@@ -243,7 +243,7 @@ class ZMDbTableMapper extends ZMObject {
          *  to cut&paste into a mapping file; default is <code>false</code>.
          * @return array The mapping.
          */
-        public static function buildTableMapping($table, $database, $print=false) {
+        public function buildTableMapping($table, $database, $print=false) {
           // check for prefix
           if (null === ($tableMetaData = $database->getMetaData($table))) {
             // try adding the prefix
@@ -336,7 +336,7 @@ class ZMDbTableMapper extends ZMObject {
          * @param string table The table name.
          * @return array A map of custom field details (if any)
          */
-        public static function getCustomFieldInfo($table) {
+        public function getCustomFieldInfo($table) {
           $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
           $setting = ZMSettings::get($customFieldKey);
           if (empty($setting)) {
@@ -365,7 +365,7 @@ class ZMDbTableMapper extends ZMObject {
          */
         protected function addCustomFields($mapping, $table) {
           $defaults = array('key' => false, 'auto' => false, 'custom' => true);
-          foreach (self::getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
+          foreach ($this->getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
             // merge in defaults
             $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
           }
