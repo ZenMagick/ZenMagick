@@ -1,0 +1,1 @@
+'zenmagick.mvc.validation.tokenSecuredForms'

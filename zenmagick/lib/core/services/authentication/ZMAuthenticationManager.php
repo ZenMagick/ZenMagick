@@ -161,7 +161,7 @@ class ZMAuthenticationManager extends ZMObject {
      * @return string The new password.
      */
     public function mkPassword() {
-        return ZMSecurityUtils::random(ZMSettings::get('core.authentication.minPasswordLength'), ZMSecurityUtils::RANDOM_MIXED);
+        return ZMSecurityUtils::random(ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), ZMSecurityUtils::RANDOM_MIXED);
     }
 
 }
