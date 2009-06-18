@@ -1,0 +1,104 @@
+<?php
+/*
+ * ZenMagick Core - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+<?php
+
+
+/**
+ * Email validation rules.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.mvc.validation.rules
+ * @version $Id: ZMEmailRule.php 2158 2009-04-16 01:34:04Z dermanomann $
+ */
+class ZMEmailRule extends ZMRule {
+
+    /**
+     * Create new email rule.
+     *
+     * @param string name The field name.
+     * @param string msg Optional message.
+     */
+    function __construct($name, $msg=null) {
+        parent::__construct($name, "%s is not a valid email.", $msg);
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /** 
+     * Build email regexp.
+     * see: http://php.inspire.net.nz/manual/en/function.eregi.php
+     *
+     * @return string regexp for email matching.
+     */
+    protected function emailRegexp() {
+        $atom = '[-a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~]';
+        $domain = '([a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9]+)?)';
+
+        $regexp = '^' . $atom . '+' .              // One or more atom characters.
+                  '(\.' . $atom . '+)*'.           // Followed by zero or more dot separated sets of one or more atom characters.
+                  '@'.                             // Followed by an "at" character.
+                  '(' . $domain . '{1,63}\.)+'.    // Followed by one or max 63 domain characters (dot separated).
+                  $domain . '{2,63}'.              // Must be followed by one set consisting a period of two
+                  '$';                             // or max 63 domain characters.
+
+        return $regexp;
+    }
+
+    /**
+     * Validate the given request data.
+     *
+     * @param array req The request data.
+     * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
+     */
+    public function validate($req) {
+        if (!array_key_exists($this->getName(), $req)) {
+            return true;
+        }
+
+        $email = $req[$this->getName()];
+
+        return empty($req[$this->getName()]) || 1 == preg_match('/'.$this->emailRegexp().'/i', $email);
+    }
+
+
+    /**
+     * Create JS validation call.
+     *
+     * @return string Formatted JavaScript .
+     */
+    public function toJSString() {
+        $js = "    new Array('regexp'";
+        $js .= ",'".$this->getJSName()."'";
+        $js .= ",'".addslashes($this->getErrorMsg())."'";
+        $js .= ",".'"'.$this->emailRegexp().'"';
+        $js .= ")";
+        return $js;
+    }
+
+}
+
+?>
