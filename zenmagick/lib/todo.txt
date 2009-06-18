@@ -1,1 +1,3 @@
 ZMValidator: move form session Token check to ZMController/POS
+ZMEvents: store events somewhere, readd zen-cart related code
+references ZMRuntime, ZMRequest
