@@ -7,6 +7,7 @@
 'zenmagick.core.database.isAutoMapping'
 'zenmagick.core.database.sql.[table].customFields'
 'zenmagick.core.authentication.minPasswordLength'
+'zenmagick.core.fs.permissions.file'
 'zenmagick.core.fs.permissions.folder'
  */
 ZMSettings::set('zenmagick.core.database.mappings', 'core/database/db_mappings.txt');

@@ -1,0 +1,1 @@
+ZMValidator: move form session Token check to ZMController/POS

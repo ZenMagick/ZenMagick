@@ -24,7 +24,7 @@
  * Misc. tools.
  *
  * @author DerManoMann
- * @package org.zenmagick.utils
+ * @package org.zenmagick.core.utils
  * @version $Id: ZMTools.php 2231 2009-05-21 04:57:23Z DerManoMann $
  */
 class ZMTools {
@@ -129,6 +129,66 @@ class ZMTools {
             }
         }
         return md5($key);
+    }
+
+    /**
+     * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
+     *
+     * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
+     * 
+     * <p>This method may be disabled by setting <em>zenmagick.core.fs.permissions.isFix</em> to <code>false</code>.</p>
+     *
+     * @param mixed files Either a single filename or list of files.
+     * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
+     * @param array perms Optional file permissions; defaults are taken from the settings <em>fs.permissions.defaults.folder</em> for folder,
+     *  <em>fs.permissions.defaults.file</em> for files.
+     */
+    public static function setFilePerms($files, $recursive=false, $perms=array()) {
+        if (!ZMSettings::get('zenmagick.core.fs.permissions.isFix')) {
+            return;
+        }
+        if (null == self::$fileOwner || null == self::$fileGroup) {
+            clearstatcache();
+            $referenceFile = ZMRuntime::getZMRootPath().'init.php';
+            self::$fileOwner = fileowner($referenceFile);
+            self::$fileGroup = filegroup($referenceFile);
+            if (0 == self::$fileOwner && 0 == self::$fileGroup) {
+                return;
+            }
+        }
+        
+        if (!is_array($files)) {
+            $files = array($files);
+        }
+
+        $filePerms = array_merge(array('file' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'), 
+                                    'folder' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
+
+        foreach ($files as $file) {
+            if (0 < count($perms)) {
+                @chgrp($file, self::$fileGroup);
+            }
+            @chown($file, self::$fileOwner);
+            $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
+            @chmod($file, $mod);
+
+            if (is_dir($file) && $recursive) {
+                $dir = $file;
+                if (!self::endsWith($dir, DI)) {
+                    $dir .= '/';
+                }
+                $subfiles = array();
+                $handle = @opendir($dir);
+                while (false !== ($file = readdir($handle))) { 
+                    if ("." == $file || ".." == $file) {
+                        continue;
+                    }
+                    $subfiles[] = $dir.$file;
+                }
+                @closedir($handle);
+                self::setFilePerms($subfiles, $recursive, $perms);
+            }
+        }
     }
 
 }
