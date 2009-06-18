@@ -273,6 +273,7 @@ class ZMValidator extends ZMObject {
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
      */
     public function insertJSValidation($id) {
+        //TODO:move
         $this->toJSString($id);
         // inline JS to allow PHP
         include_once ZMRuntime::getTheme()->themeFile("validation.js");

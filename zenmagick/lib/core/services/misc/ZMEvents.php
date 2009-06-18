@@ -25,7 +25,7 @@
  * Event service.
  *
  * @author DerManoMann
- * @package org.zenmagick.service
+ * @package org.zenmagick.core.services.misc
  * @version $Id: ZMEvents.php 1996 2009-02-27 00:46:48Z dermanomann $
  */
 class ZMEvents extends ZMObject {

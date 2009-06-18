@@ -30,7 +30,7 @@
  * <p>Browser output depends on the PHP ini setting <em>display_errors</em>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.service
+ * @package org.zenmagick.core.services.misc
  * @version $Id: ZMLogging.php 2266 2009-06-16 08:57:02Z dermanomann $
  */
 class ZMLogging extends ZMObject {
@@ -128,6 +128,7 @@ class ZMLogging extends ZMObject {
                     echo '<h3>'.$msg.":</h3>\n";
                 }
             }
+            //TODO
             $root = ZMTools::normalizeFilename(ZMRuntime::getZMRootPath());
             echo "<pre>";
             foreach (debug_backtrace() as $line) {

@@ -149,9 +149,8 @@ class ZMTools {
         }
         if (null == self::$fileOwner || null == self::$fileGroup) {
             clearstatcache();
-            $referenceFile = ZMRuntime::getZMRootPath().'init.php';
-            self::$fileOwner = fileowner($referenceFile);
-            self::$fileGroup = filegroup($referenceFile);
+            self::$fileOwner = fileowner(__FILE__);
+            self::$fileGroup = filegroup(__FILE__);
             if (0 == self::$fileOwner && 0 == self::$fileGroup) {
                 return;
             }
