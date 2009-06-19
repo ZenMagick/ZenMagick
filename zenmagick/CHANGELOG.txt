@@ -5,6 +5,7 @@ Release 0.9.7
 - add support for initQuery parameter to ZMDatabase (and ZMRuntime::getDatabase())
 - add ZMSimilarOrderProductAssociationHandler and new setting 'defaultProductAssociationHandler'
 - start migration of code into new lib folder
+- zm_firephp: fix issue with logging after response already written
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
