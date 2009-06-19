@@ -59,7 +59,7 @@
             'dbProvider' => 'ZMZenCartDatabase',
 
             // path to db mappings, relative to ZM root
-            'zenmagick.core.database.mappings' => 'core/database/db_mappings.txt',
+            'zenmagick.core.database.mappings' => 'lib/store/db_mappings.txt',
 
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
