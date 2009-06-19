@@ -26,7 +26,7 @@
  *
  * <p>A generic, lightweight database layer.</p>
  *
- * <p>As a convention, implementation classes must support an array as single constructor argument. 
+ * <p>As a convention, implementation classes must support an array as single constructor argument.
  * This array (or map) will contain the connection details.</p>
  * <p>Support for the following array keys is required:</p>
  * <dl>
@@ -177,14 +177,14 @@ interface ZMDatabase {
 
     /**
      * Commits statements in a transaction.
-     * 
+     *
      * @throws ZMDatabaseException
      */
     public function commit();
 
     /**
      * Rollback changes in a transaction.
-     * 
+     *
      * @throws ZMDatabaseException
      */
     public function rollback();

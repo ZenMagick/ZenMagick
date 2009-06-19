@@ -66,12 +66,12 @@ class ZMSecurityUtils {
      *  Any other value will be used as the valid character range.
      * @return string The random string.
      */
-    public static function random($length, $type='mixed') { 
+    public static function random($length, $type='mixed') {
         static $types	=	array(
-            self::RANDOM_DIGITS => '0123456789', 
-            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-            self::RANDOM_HEX => '0123456789abcdef',
+        self::RANDOM_DIGITS => '0123456789',
+        self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+        self::RANDOM_HEX => '0123456789abcdef',
         );
 
         if (!self::$seedDone) {

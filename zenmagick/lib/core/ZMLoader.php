@@ -71,7 +71,7 @@ class ZMLoader {
 
     /**
      * Create a new loader.
-     * 
+     *
      * @param string prefix Optional prefix to be used for class resolving; default is <em>ZM</em>.
      */
     public function __construct($prefix='ZM') {
@@ -212,14 +212,14 @@ class ZMLoader {
         }
 
         if (array_key_exists('local', $static)) {
-            // get local to top 
+            // get local to top
             $tmp = array();
             $tmp[] = $static['local'];
             unset($static['local']);
             foreach ($static as $name => $file) {
                 $tmp[] = $file;
             }
-            $static = $tmp; 
+            $static = $tmp;
         }
 
         return $static;
@@ -283,7 +283,7 @@ class ZMLoader {
 
         if (null != $classname || (!$isAutoLoad && (class_exists($name) || interface_exists($name)))) {
             // XXX: get rid of
-            // non prefix class exists, now make sure it's a ZenMagick class 
+            // non prefix class exists, now make sure it's a ZenMagick class
             // to avoid conflicts with zen cart class names
             $parent = $classname;
             while (false !== ($parent = get_parent_class($parent))) {
@@ -338,26 +338,26 @@ class ZMLoader {
             }
             $obj = null;
             switch (count($args)) {
-            case 0:
-                $obj = new $clazz();
-                break;
-            case 1:
-                $obj = new $clazz($args[0]);
-                break;
-            case 2:
-                $obj = new $clazz($args[0], $args[1]);
-                break;
-            case 3:
-                $obj = new $clazz($args[0], $args[1], $args[2]);
-                break;
-            case 4:
-                $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
-                break;
-            case 5:
-                $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
-                break;
-            default:
-                throw new ZMException('unsupported number of constructor arguments ' . $clazz);
+                case 0:
+                    $obj = new $clazz();
+                    break;
+                case 1:
+                    $obj = new $clazz($args[0]);
+                    break;
+                case 2:
+                    $obj = new $clazz($args[0], $args[1]);
+                    break;
+                case 3:
+                    $obj = new $clazz($args[0], $args[1], $args[2]);
+                    break;
+                case 4:
+                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
+                    break;
+                case 5:
+                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
+                    break;
+                default:
+                    throw new ZMException('unsupported number of constructor arguments ' . $clazz);
             }
             return $obj;
 
@@ -386,7 +386,7 @@ class ZMLoader {
         $includes = array();
 
         $handle = @opendir($dir);
-        while (false !== ($name = readdir($handle))) { 
+        while (false !== ($name = readdir($handle))) {
             if ("." == $name || ".." == $name || ".svn" == $name) {
                 continue;
             }

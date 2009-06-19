@@ -69,7 +69,7 @@ class ZMFileUtils {
      * @return boolean <code>true</code> on success.
      */
     public static function mkdir($dir, $perms=null, $recursive=true) {
-    	clearstatcache();
+        clearstatcache();
         if (null == $dir || empty($dir)) {
             return false;
         }
@@ -80,11 +80,11 @@ class ZMFileUtils {
         $parent = dirname($dir);
         if (!file_exists($parent) && $recursive) {
             if (!self::mkdir($parent, $perms, $recursive))
-                return false;
+            return false;
         }
-        
+
         if (null === $perms) {
-        	$perms = ZMSettings::get('zenmagick.core.fs.permissions.folder', '0755');
+            $perms = ZMSettings::get('zenmagick.core.fs.permissions.folder', '0755');
         }
 
         $result = @mkdir($dir, $perms);
@@ -93,7 +93,7 @@ class ZMFileUtils {
         if (!$result) {
             ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', ZMLogging::WARN);
         }
-        
+
         return $result;
     }
 

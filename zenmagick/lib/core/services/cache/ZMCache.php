@@ -87,7 +87,7 @@ interface ZMCache {
      * @return int last modification time
      */
     public function lastModified();
-    
+
 }
 
 ?>

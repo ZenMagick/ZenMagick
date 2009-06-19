@@ -28,9 +28,9 @@
  * which we will mask as T_ML_COMMENT for PHP 4.
  */
 if (!defined('T_ML_COMMENT')) {
-   define('T_ML_COMMENT', T_COMMENT);
+    define('T_ML_COMMENT', T_COMMENT);
 } else {
-   define('T_DOC_COMMENT', T_ML_COMMENT);
+    define('T_DOC_COMMENT', T_ML_COMMENT);
 }
 
 
@@ -201,38 +201,38 @@ class ZMPhpCompressor {
 
         ob_start();
         foreach ($tokens as $token) {
-           if (is_string($token)) {
-               // simple 1-character token
-               echo $token;
-           } else {
-               // token array
-               list($id, $text) = $token;
-         
-               switch ($id) {
-                   case T_COMMENT:
-                   case T_ML_COMMENT: // we've defined this
-                   case T_DOC_COMMENT: // and this
-                       // no action on comments
-                       break;
-                   case T_WHITESPACE:
-                       echo ' ';
-                       break;
-                   case T_END_HEREDOC:
-                       echo $text."\n";
-                       break;
-                   case T_OPEN_TAG:
-                       echo '<?php ';
-                       break;
-                   case T_CLOSE_TAG:
-                       echo '?>';
-                       break;
+            if (is_string($token)) {
+                // simple 1-character token
+                echo $token;
+            } else {
+                // token array
+                list($id, $text) = $token;
+                 
+                switch ($id) {
+                    case T_COMMENT:
+                    case T_ML_COMMENT: // we've defined this
+                    case T_DOC_COMMENT: // and this
+                        // no action on comments
+                        break;
+                    case T_WHITESPACE:
+                        echo ' ';
+                        break;
+                    case T_END_HEREDOC:
+                        echo $text."\n";
+                        break;
+                    case T_OPEN_TAG:
+                        echo '<?php ';
+                        break;
+                    case T_CLOSE_TAG:
+                        echo '?>';
+                        break;
 
-                   default:
-                       // anything else -> output "as is"
-                       echo $text;
-                       break;
-               }
-           }
+                    default:
+                        // anything else -> output "as is"
+                        echo $text;
+                        break;
+                }
+            }
         }
         return ob_get_clean();
     }
@@ -259,7 +259,7 @@ class ZMPhpCompressor {
                 array_push($this->errors_, 'could not write to file ' . $out);
                 return;
             }
-      
+
             fclose($handle);
             ZMFileUtils::setFilePerms($out);
         } else {
@@ -370,7 +370,7 @@ class ZMPhpCompressor {
                 array_push($this->errors_, 'could not write to file ' . $outfile);
                 return;
             }
-      
+
             fclose($handle);
             ZMFileUtils::setFilePerms($outfile);
         }

@@ -65,7 +65,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return string The database.
      */
-    public function getDatabase() { 
+    public function getDatabase() {
         return $this->database_;
     }
 
@@ -74,7 +74,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return string The sql.
      */
-    public function getSql() { 
+    public function getSql() {
         return $this->sql_;
     }
 
@@ -83,7 +83,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return array The parameter.
      */
-    public function getArgs() { 
+    public function getArgs() {
         return $this->args_;
     }
 
@@ -92,7 +92,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return mixed The mapping.
      */
-    public function getMapping() { 
+    public function getMapping() {
         return $this->mapping_;
     }
 
@@ -101,7 +101,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return string The model class.
      */
-    public function getModelClass() { 
+    public function getModelClass() {
         return $this->modelClass_;
     }
 
@@ -110,7 +110,7 @@ class ZMQueryDetails extends ZMObject {
      *
      * @return string The SQL fragment.
      */
-    public function getCountCol() { 
+    public function getCountCol() {
         return $this->countCol_;
     }
 

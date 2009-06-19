@@ -161,33 +161,33 @@ class ZMLogging extends ZMObject {
      * @return string A formatted log line.
      */
     protected function formatLog($errno, $errstr, $errfile, $errline, $errcontext) {
-        $time = date("d M Y H:i:s"); 
-        // Get the error names from the error number 
+        $time = date("d M Y H:i:s");
+        // Get the error names from the error number
         $errTypes = array (
-            1 => "Error",
-            2 => "Warning",
-            4 => "Parsing Error",
-            8 => "Notice",
-            16 => "Core Error",
-            32 => "Core Warning",
-            64 => "Compile Error",
-            128 => "Compile Warning",
-            256 => "User Error",
-            512 => "User Warning",
-            1024 => "User Notice",
-            2048 => "Strict",
-            4096 => "Recoverable Error",
-            8192 => "Deprecated",
-            16384 => "User Deprecated",
-        ); 
+        1 => "Error",
+        2 => "Warning",
+        4 => "Parsing Error",
+        8 => "Notice",
+        16 => "Core Error",
+        32 => "Core Warning",
+        64 => "Compile Error",
+        128 => "Compile Warning",
+        256 => "User Error",
+        512 => "User Warning",
+        1024 => "User Notice",
+        2048 => "Strict",
+        4096 => "Recoverable Error",
+        8192 => "Deprecated",
+        16384 => "User Deprecated",
+        );
 
         if (isset($errTypes[$errno])) {
-            $errlevel = $errTypes[$errno]; 
+            $errlevel = $errTypes[$errno];
         } else {
             $errlevel = "Unknown";
         }
 
-        return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n"; 
+        return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n";
     }
 
     /**
@@ -197,9 +197,9 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-    	$logfile = ZMSettings::get('zenmagick.core.logging.filename');
+        $logfile = ZMSettings::get('zenmagick.core.logging.filename');
         if (null != ($handle = fopen($logfile, "a"))) {
-            fputs($handle, $line); 
+            fputs($handle, $line);
             fclose($handle);
             ZMTools::setFilePerms($logfile);
         } else {
@@ -212,7 +212,7 @@ class ZMLogging extends ZMObject {
      *
      * <p>if configured, this method will append all messages to the file
      * configured with <em>zmLogFilename</em>.</p>
-     * 
+     *
      * <p>If no file is configured, the regular webserver error file will be used.</p>
      *
      * @param int errno The error level.
@@ -221,7 +221,7 @@ class ZMLogging extends ZMObject {
      * @param int errline The line number.
      * @param array errcontext All variables of scope when error triggered.
      */
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) { 
+    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) {
         // get current level
         $level = error_reporting(E_ALL);
         // set back
@@ -235,16 +235,16 @@ class ZMLogging extends ZMObject {
 
         $line = $this->formatLog($errno, $errstr, $errfile, $errline, $errcontext);
         $this->logError($line, $info);
-    } 
+    }
 
     /**
      * PHP exception handler callback.
      *
      * @param Exception e The exception.
      */
-    public function exceptionHandler($e) { 
+    public function exceptionHandler($e) {
         $this->logError('Uncaught exception: '.$e->getMessage(), array('errno' => E_ERROR, 'context' => array('exception' => $e)));
-    } 
+    }
 
 }
 

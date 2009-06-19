@@ -35,7 +35,7 @@ class ZMSha1Authentication implements ZMAuthentication {
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null) { 
+    public function encryptPassword($plaintext, $salt=null) {
         if (null === $salt) {
             $salt = substr(md5(uniqid(rand(), true)), 0, self::SALT_LENGTH);
         } else {
@@ -49,7 +49,7 @@ class ZMSha1Authentication implements ZMAuthentication {
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted) { 
+    public function validatePassword($plaintext, $encrypted) {
         return $encrypted == $this->encryptPassword($plaintext, $encrypted);
     }
 

@@ -59,7 +59,7 @@ class ZMFileCache extends ZMObject implements ZMCache {
     public function init($group, $config) {
         // set these, all others are passed through 'as is'
         $config['automaticSerialization'] = true;
-//TODO: get from settings
+        //TODO: get from settings
         $config['cacheDir'] = ZM_CACHE_BASE_DIR.$group.'/';
         $this->group_ = $group;
         $this->available_ = $this->_ensureCacheDir($config['cacheDir']);
@@ -107,7 +107,7 @@ class ZMFileCache extends ZMObject implements ZMCache {
     public function lastModified() {
         return $this->cache_->lastModified();
     }
-    
+
 
     /**
      * Ensure the given dir exists and is writeable.

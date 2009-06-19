@@ -51,22 +51,22 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             'oracle' => 'OCI8Connection',
             'mssql' => 'MSSQLConnection',
             'odbc' => 'ODBCConnection'
-        );
-        if (!array_key_exists($conf['driver'], $drivers)) {
-            throw ZMLoader::make('DatabaseException', 'invalid driver: ' . $conf['driver']);
-        }
-        // avoid creole dot notation as that does not work with the compressed version
-        Creole::registerDriver($conf['driver'], $drivers[$conf['driver']]);
-        // map some things that are named differently
-        $conf['phptype'] = $conf['driver'];
-        $conf['hostspec'] = $conf['host'];
-        $this->config_ = $conf;
-        $this->queriesMap_ = array();
-        $this->conn_ = Creole::getConnection($conf);
-        $this->mapper_ = ZMDbTableMapper::instance();
-        if (null != $conf['initQuery']) {
-            $this->conn_->executeQuery($conf['initQuery']);
-        }
+            );
+            if (!array_key_exists($conf['driver'], $drivers)) {
+                throw ZMLoader::make('DatabaseException', 'invalid driver: ' . $conf['driver']);
+            }
+            // avoid creole dot notation as that does not work with the compressed version
+            Creole::registerDriver($conf['driver'], $drivers[$conf['driver']]);
+            // map some things that are named differently
+            $conf['phptype'] = $conf['driver'];
+            $conf['hostspec'] = $conf['host'];
+            $this->config_ = $conf;
+            $this->queriesMap_ = array();
+            $this->conn_ = Creole::getConnection($conf);
+            $this->mapper_ = ZMDbTableMapper::instance();
+            if (null != $conf['initQuery']) {
+                $this->conn_->executeQuery($conf['initQuery']);
+            }
     }
 
     /**
@@ -404,37 +404,37 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
             foreach ($values as $value) {
                 switch ($type) {
-                case 'integer':
-                    $stmt->setInt($index, $value);
-                    break;
-                case 'boolean':
-                    $stmt->setBoolean($index, $value);
-                    break;
-                case 'string':
-                    $stmt->setString($index, $value);
-                    break;
-                case 'float':
-                    $stmt->setFloat($index, $value);
-                    break;
-                case 'datetime':
-                    //XXX: yeah, yeah
-                    if (null === $value) {
-                        $value = ZMDatabase::NULL_DATETIME;
-                    }
-                    $stmt->setTimestamp($index, $value);
-                    break;
-                case 'date':
-                    //XXX: yeah, yeah
-                    if (null === $value) {
-                        $value = ZMDatabase::NULL_DATE;
-                    }
-                    $stmt->setDate($index, $value);
-                    break;
-                case 'blob':
-                    $stmt->setBlob($index, $value);
-                    break;
-                default:
-                    throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
+                    case 'integer':
+                        $stmt->setInt($index, $value);
+                        break;
+                    case 'boolean':
+                        $stmt->setBoolean($index, $value);
+                        break;
+                    case 'string':
+                        $stmt->setString($index, $value);
+                        break;
+                    case 'float':
+                        $stmt->setFloat($index, $value);
+                        break;
+                    case 'datetime':
+                        //XXX: yeah, yeah
+                        if (null === $value) {
+                            $value = ZMDatabase::NULL_DATETIME;
+                        }
+                        $stmt->setTimestamp($index, $value);
+                        break;
+                    case 'date':
+                        //XXX: yeah, yeah
+                        if (null === $value) {
+                            $value = ZMDatabase::NULL_DATE;
+                        }
+                        $stmt->setDate($index, $value);
+                        break;
+                    case 'blob':
+                        $stmt->setBlob($index, $value);
+                        break;
+                    default:
+                        throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
                 ++$index;
             }
@@ -467,46 +467,46 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
 
             switch ($info['type']) {
-            case 'integer':
-                $value = $rs->getInt($info['column']);
-                break;
-            case 'boolean':
-                $value = $rs->getBoolean($info['column']);
-                break;
-            case 'string':
-                $value = $rs->getString($info['column']);
-                break;
-            case 'float':
-                $value = $rs->getFloat($info['column']);
-                break;
-            case 'datetime':
-                try {
-                    // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
-                    $value = $rs->getTimestamp($info['column']);
-                    if (ZMDatabase::NULL_DATETIME == $value) {
+                case 'integer':
+                    $value = $rs->getInt($info['column']);
+                    break;
+                case 'boolean':
+                    $value = $rs->getBoolean($info['column']);
+                    break;
+                case 'string':
+                    $value = $rs->getString($info['column']);
+                    break;
+                case 'float':
+                    $value = $rs->getFloat($info['column']);
+                    break;
+                case 'datetime':
+                    try {
+                        // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
+                        $value = $rs->getTimestamp($info['column']);
+                        if (ZMDatabase::NULL_DATETIME == $value) {
+                            $value = null;
+                        }
+                    } catch (SQLException $e) {
                         $value = null;
                     }
-                } catch (SQLException $e) {
-                    $value = null;
-                }
-                break;
-            case 'date':
-                try {
-                    // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
-                    $value = $rs->getDate($info['column']);
-                    if (ZMDatabase::NULL_DATE == $value) {
+                    break;
+                case 'date':
+                    try {
+                        // XXX creole will throw a fit as strtotime doesn't like ZMDatabase::NULL_DATETIME
+                        $value = $rs->getDate($info['column']);
+                        if (ZMDatabase::NULL_DATE == $value) {
+                            $value = null;
+                        }
+                    } catch (SQLException $e) {
                         $value = null;
                     }
-                } catch (SQLException $e) {
-                    $value = null;
-                }
-                break;
-            case 'blob':
-                $blob = $rs->getBlob($info['column']);
-                $value = null != $blob ? $blob->getContents() : null;
-                break;
-            default:
-                throw new ZMDatabaseException('unsupported data(read) type='.$info['type'].' for field='.$field);
+                    break;
+                case 'blob':
+                    $blob = $rs->getBlob($info['column']);
+                    $value = null != $blob ? $blob->getContents() : null;
+                    break;
+                default:
+                    throw new ZMDatabaseException('unsupported data(read) type='.$info['type'].' for field='.$field);
             }
 
             $data[$field] = $value;
@@ -532,7 +532,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                         $type = $col->getNativeType();
                         if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
                             $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
-                        } 
+                        }
                         $name = $col->getName();
                         $meta[$name] = array(
                             'type' => $type,

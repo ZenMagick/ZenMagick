@@ -38,7 +38,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     private $mapper_;
     private static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
     private $savepointLevel_;
-    
+
 
 
     /**
@@ -566,7 +566,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $type = $matches[1];
                 if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
                     $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
-                } 
+                }
                 $meta[$field] = array(
                     'type' => $type,
                     'name' => $field,

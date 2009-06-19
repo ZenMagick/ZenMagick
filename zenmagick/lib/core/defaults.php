@@ -17,5 +17,5 @@
 'zenmagick.core.logging.filename'
  */
 ZMSettings::set('zenmagick.core.database.mappings', 'core/database/db_mappings.txt');
-ZMSettings::set('zenmagick.core.database.tablePrefix', 'zen_');
+ZMSettings::set('zenmagick.core.database.tablePrefix', 'zm_');
 ?>

@@ -20,7 +20,7 @@
  * $Id: ZMPhpPackagePacker.php 2142 2009-04-07 04:46:01Z dermanomann $
  */
 ?>
-<?php  
+<?php
 
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.
@@ -39,7 +39,7 @@ class ZMPhpPackagePacker {
     private $debug;
     protected $treeMap;
 
-    
+
     /**
      * Create new instance.
      *
@@ -138,13 +138,13 @@ class ZMPhpPackagePacker {
     }
 
     /**
-	   * Get next token of a certain type.
+     * Get next token of a certain type.
      *
-	   * @param array tokens List of all token.
-	   * @param int key Key to start searching from.
-	   * @param int type Type of token to look for.
-	   * @return string Found token or <code>null</code>.
-	   */
+     * @param array tokens List of all token.
+     * @param int key Key to start searching from.
+     * @param int type Type of token to look for.
+     * @return string Found token or <code>null</code>.
+     */
     private function getToken($tokens, $key, $type) {
         ++$key;
         if (!is_array($type)) $type = array($type);
@@ -174,18 +174,18 @@ class ZMPhpPackagePacker {
                 // token array
                 list($id, $text) = $token;
                 switch ($id) {
-                case T_INTERFACE:
-                    $name = $this->getToken($tokens, $key, T_STRING);
-                    $info['interfaces'][] = $name[1];
-                    break;
-                case T_EXTENDS:
-                    $name = $this->getToken($tokens, $key, T_STRING);
-                    $info['parent'] = $name[1];
-                    break;
-                case T_CLASS:
-                    $name = $this->getToken($tokens, $key, T_STRING);
-                    $info['class'] = $name[1];
-                    break;
+                    case T_INTERFACE:
+                        $name = $this->getToken($tokens, $key, T_STRING);
+                        $info['interfaces'][] = $name[1];
+                        break;
+                    case T_EXTENDS:
+                        $name = $this->getToken($tokens, $key, T_STRING);
+                        $info['parent'] = $name[1];
+                        break;
+                    case T_CLASS:
+                        $name = $this->getToken($tokens, $key, T_STRING);
+                        $info['class'] = $name[1];
+                        break;
                 }
             }
         }
@@ -265,7 +265,7 @@ class ZMPhpPackagePacker {
 
             $levelIndex++;
 
-            if (10 == $levelIndex) { 
+            if (10 == $levelIndex) {
                 break;
             }
         }

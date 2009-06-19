@@ -35,7 +35,7 @@ class ZMTools {
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
-    public static function isEmpty($value) { 
+    public static function isEmpty($value) {
         return empty($value);
     }
 
@@ -135,7 +135,7 @@ class ZMTools {
      * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
      *
      * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
-     * 
+     *
      * <p>This method may be disabled by setting <em>zenmagick.core.fs.permissions.isFix</em> to <code>false</code>.</p>
      *
      * @param mixed files Either a single filename or list of files.
@@ -155,12 +155,12 @@ class ZMTools {
                 return;
             }
         }
-        
+
         if (!is_array($files)) {
             $files = array($files);
         }
 
-        $filePerms = array_merge(array('file' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'), 
+        $filePerms = array_merge(array('file' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'),
                                     'folder' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
 
         foreach ($files as $file) {
@@ -178,7 +178,7 @@ class ZMTools {
                 }
                 $subfiles = array();
                 $handle = @opendir($dir);
-                while (false !== ($file = readdir($handle))) { 
+                while (false !== ($file = readdir($handle))) {
                     if ("." == $file || ".." == $file) {
                         continue;
                     }

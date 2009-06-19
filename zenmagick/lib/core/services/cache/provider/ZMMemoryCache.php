@@ -101,7 +101,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
     public function lastModified() {
         return $this->cache_->lastModified();
     }
-    
+
 }
 
 ?>

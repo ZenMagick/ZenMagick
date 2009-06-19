@@ -1,5 +1,6 @@
-ZMValidator: move form session Token check to ZMController/POS
-ZMValidator: move insertJSValidatio method
-ZMEvents: store events somewhere, readd zen-cart related code
-references ZMRuntime, ZMRequest
-add missing database classes (ZMQueryPager)
+- ZMValidator: move form session Token check to ZMController/POS
+- ZMValidator: move insertJSValidatio method
+(ZMEvents: store events somewhere, readd zen-cart related code)
+? references ZMRuntime, ZMRequest
+- map/set new settings
+

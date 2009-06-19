@@ -30,7 +30,7 @@
  */
 class ZMException extends Exception {
     protected $previous_;
-    
+
     /**
      * Create new instance.
      *
@@ -42,7 +42,7 @@ class ZMException extends Exception {
         parent::__construct((string)$message, (int)$code); //, $previous);
         $this->previous_ = $previous;
     }
-    
+
 }
 
 ?>

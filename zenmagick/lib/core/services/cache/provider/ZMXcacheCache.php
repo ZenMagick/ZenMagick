@@ -65,7 +65,7 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { 
+    public function isAvailable() {
         return function_exists('xcache_info');
     }
 

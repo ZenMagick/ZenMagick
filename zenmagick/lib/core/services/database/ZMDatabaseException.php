@@ -29,7 +29,7 @@
  * @version $Id: ZMDatabaseException.php 2149 2009-04-13 22:59:14Z dermanomann $
  */
 class ZMDatabaseException extends ZMException {
-    
+
     /**
      * Create new instance.
      *
@@ -40,7 +40,7 @@ class ZMDatabaseException extends ZMException {
     function __construct($message=null, $code=0, $previous=null) {
         parent::__construct($msg, $code, $previous);
     }
-    
+
 }
 
 ?>

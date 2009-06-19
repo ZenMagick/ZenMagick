@@ -92,7 +92,7 @@ class ZMObject {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-   public function __get($name) {
+    public function __get($name) {
         ZMLogging::instance()->trace('accessing undeclated class property(get): '.$name.' on: '.get_class($this), ZMLogging::WARN);
         if (array_key_exists($name, $this->properties_)) {
             return $this->properties_[$name];
@@ -182,7 +182,7 @@ class ZMObject {
                 //XXX: use the best match
                 if ($this instanceof $className) {
                     $margs = array_merge(array($this), $args);
-                    $target = ZMObject::$methods_[$method][$className]; 
+                    $target = ZMObject::$methods_[$method][$className];
                     return call_user_func_array($target, $margs);
                 }
             }

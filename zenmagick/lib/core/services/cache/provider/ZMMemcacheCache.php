@@ -69,7 +69,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { 
+    public function isAvailable() {
         return class_exists('Memcache');
     }
 

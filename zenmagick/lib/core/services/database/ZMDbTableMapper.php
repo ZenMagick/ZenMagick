@@ -65,8 +65,8 @@
  * @version $Id: ZMDbTableMapper.php 2182 2009-04-28 03:21:16Z dermanomann $
  */
 class ZMDbTableMapper extends ZMObject {
-  /** Mapping of native data types to API types. */
-  public static $NATIVE_TO_API_TYPEMAP = array(
+    /** Mapping of native data types to API types. */
+    public static $NATIVE_TO_API_TYPEMAP = array(
         'char' => 'string',
         'varchar' => 'string',
         'tinyint' => 'integer',
@@ -81,306 +81,308 @@ class ZMDbTableMapper extends ZMObject {
         'tinytext' => 'string',
         'mediumtext' => 'string',
         'mediumblob', 'blob'
-        );
+    );
 
-        const CACHE_KEY = "ZMDbTableMapper::mappings";
-        private $tableMap_;
-        private $cache_;
-        private $isCached_;
-        private $tablePrefix_;
+    const CACHE_KEY = "ZMDbTableMapper::mappings";
+    private $tableMap_;
+    private $cache_;
+    private $isCached_;
+    private $tablePrefix_;
 
-        /**
-         * Create a new instance.
-         *
-         * @param string configFolder The folder that contains the mapping files.
-         */
-        function __construct() {
-          parent::__construct();
-          $this->tableMap_ = array();
-          $this->isCached_ = false;
-          $this->tablePrefix_ = ZMSettings::get('zenmagick.core.database.tablePrefix', '');
-          $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
-          if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true)) {
+    /**
+     * Create a new instance.
+     *
+     * @param string configFolder The folder that contains the mapping files.
+     */
+    function __construct() {
+        parent::__construct();
+        $this->tableMap_ = array();
+        $this->isCached_ = false;
+        $this->tablePrefix_ = ZMSettings::get('zenmagick.core.database.tablePrefix', '');
+        $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
+        if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true)) {
             if (false !== ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
-              $this->tableMap_ = $cachedMap;
-              $this->isCached_ = true;
+                $this->tableMap_ = $cachedMap;
+                $this->isCached_ = true;
             } else {
-              $this->loadMappingFile();
+                $this->loadMappingFile();
             }
             ZMEvents::instance()->attach($this);
-          } else {
+        } else {
             $this->loadMappingFile();
-          }
         }
+    }
 
-        /**
-         * Get instance.
-         */
-        public static function instance() {
-          return ZMObject::singleton('DbTableMapper');
+    /**
+     * Get instance.
+     */
+    public static function instance() {
+        return ZMObject::singleton('DbTableMapper');
+    }
+
+
+    /**
+     * Refresh cache if empty.
+     */
+    public function onZMInitDone() {
+        if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true) && !$this->isCached()) {
+            $this->updateCache(ZMRuntime::getDatabase());
         }
+    }
 
-
-        /**
-         * Refresh cache if empty.
-         */
-        public function onZMInitDone() {
-          if (ZMSettings::get('zenmagick.core.database.isCacheMappings', true) && !$this->isCached()) {
-            $this->updateCache();
-          }
-        }
-
-        /**
-         * Load mappings from file.
-         */
-        protected function loadMappingFile() {
-          // load from file
-          //TODO: make nicer
-          eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('zenmagick.core.database.mappings')));
-          foreach ($mappings as $table => $mapping) {
+    /**
+     * Load mappings from file.
+     */
+    protected function loadMappingFile() {
+        // load from file
+        //TODO: make nicer
+        eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('zenmagick.core.database.mappings')));
+        foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
-          }
         }
+    }
 
-        /**
-         * Check if cached mappings are used.
-         *
-         * @return boolean <code>true</code> if mappings have been loaded from cache.
-         */
-        public function isCached() {
-          return $this->isCached_;
-        }
+    /**
+     * Check if cached mappings are used.
+     *
+     * @return boolean <code>true</code> if mappings have been loaded from cache.
+     */
+    public function isCached() {
+        return $this->isCached_;
+    }
 
-        /**
-         * Create/update cache.
-         */
-        public function updateCache() {
-          if ($this->isCached_) {
+    /**
+     * Create/update cache.
+     *
+     * @param ZMDatabase database The database.
+     */
+    public function updateCache($database) {
+        if ($this->isCached_) {
             $this->cache_->remove(self::CACHE_KEY);
             $this->isCached_ = false;
-          }
-          $cachedMap = array();
-          foreach (array_keys($this->tableMap_) as $table) {
-            $cachedMap[$table] = $this->getMapping($table);
-          }
-          $this->cache_->save($cachedMap, self::CACHE_KEY);
-          $this->isCached_ = false;
         }
+        $cachedMap = array();
+        foreach (array_keys($this->tableMap_) as $table) {
+            $cachedMap[$table] = $this->getMapping($table, $database);
+        }
+        $this->cache_->save($cachedMap, self::CACHE_KEY);
+        $this->isCached_ = false;
+    }
 
-        /**
-         * Parse mapping for a single table.
-         *
-         * @param array mapping The mapping.
-         * @return array The parsed mapping.
-         */
-        protected function parseTable($mapping) {
-          $defaults = array('key' => false, 'auto' => false, 'custom' => false);
-          $tableInfo = array();
-          foreach ($mapping as $property => $info) {
+    /**
+     * Parse mapping for a single table.
+     *
+     * @param array mapping The mapping.
+     * @return array The parsed mapping.
+     */
+    protected function parseTable($mapping) {
+        $defaults = array('key' => false, 'auto' => false, 'custom' => false);
+        $tableInfo = array();
+        foreach ($mapping as $property => $info) {
             $arr = array();
             parse_str(str_replace(';', '&', $info), $arr);
             $tableInfo[$property] = array_merge($defaults, $arr);
             $tableInfo[$property]['property'] = $property;
             // handle boolean values
             foreach ($tableInfo[$property] as $name => $value) {
-              if ('false' == $value) {
-                $tableInfo[$property][$name] = false;
-              } else if ('true' == $value) {
-                $tableInfo[$property][$name] = true;
-              }
+                if ('false' == $value) {
+                    $tableInfo[$property][$name] = false;
+                } else if ('true' == $value) {
+                    $tableInfo[$property][$name] = true;
+                }
             }
-          }
-
-          return $tableInfo;
         }
 
-        /**
-         * Get a table map.
-         *
-         * @param mixed tables Either a single table or array of table names.
-         * @param ZMDatabase database The database.
-         * @return array The mapping or <code>null</code>.
-         */
-        public function getMapping($tables, $database) {
-          if (!is_array($tables)) {
-            $tables = array($tables);
-          }
-          foreach ($tables as $ii => $table) {
-            $tables[$ii] = str_replace($this->tablePrefix_, '', $table);
-          }
+        return $tableInfo;
+    }
 
-          $mappings = array();
-          foreach (array_reverse($tables) as $table) {
+    /**
+     * Get a table map.
+     *
+     * @param mixed tables Either a single table or array of table names.
+     * @param ZMDatabase database The database.
+     * @return array The mapping or <code>null</code>.
+     */
+    public function getMapping($tables, $database) {
+        if (!is_array($tables)) {
+            $tables = array($tables);
+        }
+        foreach ($tables as $ii => $table) {
+            $tables[$ii] = str_replace($this->tablePrefix_, '', $table);
+        }
+
+        $mappings = array();
+        foreach (array_reverse($tables) as $table) {
             if (empty($table)) {
-              continue;
+                continue;
             }
             if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.isAutoMapping', true)) {
-              //XXX: refresh cache?
-              ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-              $rawMapping = self::buildTableMapping($table, $database);
-              $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
+                //XXX: refresh cache?
+                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+                $rawMapping = self::buildTableMapping($table, $database);
+                $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
             }
 
             if ($this->isCached_) {
-              // assume all is good
-              $tableMap = $this->tableMap_[$table];
+                // assume all is good
+                $tableMap = $this->tableMap_[$table];
             } else {
-              // add the current custom fields at Runtime as they might change
-              $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
+                // add the current custom fields at Runtime as they might change
+                $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
             }
             $mappings = array_merge($mappings, $tableMap);
-          }
-
-          return $mappings;
         }
 
-        /**
-         * Generate a database mapping for the given table.
-         *
-         * @param string table The table name.
-         * @param ZMDatabase database The database.
-         * @param boolean print Optional flag to also print the mapping in a form that can be used
-         *  to cut&paste into a mapping file; default is <code>false</code>.
-         * @return array The mapping.
-         */
-        public function buildTableMapping($table, $database, $print=false) {
-          // check for prefix
-          if (null === ($tableMetaData = $database->getMetaData($table))) {
+        return $mappings;
+    }
+
+    /**
+     * Generate a database mapping for the given table.
+     *
+     * @param string table The table name.
+     * @param ZMDatabase database The database.
+     * @param boolean print Optional flag to also print the mapping in a form that can be used
+     *  to cut&paste into a mapping file; default is <code>false</code>.
+     * @return array The mapping.
+     */
+    public function buildTableMapping($table, $database, $print=false) {
+        // check for prefix
+        if (null === ($tableMetaData = $database->getMetaData($table))) {
             // try adding the prefix
             $table = $this->tablePrefix_.$table;
             if (null === ($tableMetaData = $database->getMetaData($table))) {
-              return null;
+                return null;
             }
-          }
+        }
 
-          $mapping = array();
-          ob_start();
-          echo "'".str_replace($this->tablePrefix_, '', $table)."' => array(\n";
-          $first = true;
-          foreach ($tableMetaData as $column) {
+        $mapping = array();
+        ob_start();
+        echo "'".str_replace($this->tablePrefix_, '', $table)."' => array(\n";
+        $first = true;
+        foreach ($tableMetaData as $column) {
             $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
             if (array_key_exists($type, self::$NATIVE_TO_API_TYPEMAP)) {
-              $type = self::$NATIVE_TO_API_TYPEMAP[$type];
+                $type = self::$NATIVE_TO_API_TYPEMAP[$type];
             }
 
             $line = 'column=' . $column['name'] . ';type=' . $type;
             if ($column['key']) {
-              $line .= ';key=true';
+                $line .= ';key=true';
             }
             if ($column['autoIncrement']) {
-              $line .= ';auto=true';
+                $line .= ';auto=true';
             }
             $mapping[$column['name']] = $line;
             if (!$first) {
-              echo ",\n";
+                echo ",\n";
             }
             echo "    '" . $column['name'] . "' => '" . $line . "'";
             $first = false;
-          }
-          echo "\n),\n";
+        }
+        echo "\n),\n";
 
-          $text = ob_get_clean();
+        $text = ob_get_clean();
 
-          if ($print) {
+        if ($print) {
             echo $text;
-          }
-
-          return $mapping;
         }
 
-        /**
-         * Handle mixed mapping values.
-         *
-         * <p>If enabled (via setting 'isEnableDBAutoMapping'), mappings for unknown tables will be build
-         * on demand.</p>
-         *
-         * @param mixed mapping The field mappings or table name.
-         * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
-         * @return array A mapping or <code>null</code>.
-         */
-        public function ensureMapping($mapping, $database) {
-          if (!is_array($mapping)) {
+        return $mapping;
+    }
+
+    /**
+     * Handle mixed mapping values.
+     *
+     * <p>If enabled (via setting 'isEnableDBAutoMapping'), mappings for unknown tables will be build
+     * on demand.</p>
+     *
+     * @param mixed mapping The field mappings or table name.
+     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
+     * @return array A mapping or <code>null</code>.
+     */
+    public function ensureMapping($mapping, $database) {
+        if (!is_array($mapping)) {
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
             if (null === $mapping && ZMSettings::get('zenmagick.core.database.isAutoMapping', true)) {
-              //XXX: refresh cache?
-              ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-              $rawMapping = self::buildTableMapping($table, $database);
-              $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
-              $mapping = $this->getMapping($table, $database);
+                //XXX: refresh cache?
+                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+                $rawMapping = self::buildTableMapping($table, $database);
+                $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
+                $mapping = $this->getMapping($table, $database);
             }
             return $mapping;
-          }
-          // either mapping or table list
-          return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping, $database);
         }
+        // either mapping or table list
+        return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping, $database);
+    }
 
-        /**
-         * Set the mapping for the given table.
-         *
-         * <p><strong>NOTE:</strong> This will silently override mappings for existing tables.</p>
-         *
-         * @param string table The (new) table.
-         * @param array The new mapping.
-         */
-        public function setMappingForTable($table, $mapping) {
-          $this->tableMap_[$table] = $this->parseTable($mapping);
-        }
+    /**
+     * Set the mapping for the given table.
+     *
+     * <p><strong>NOTE:</strong> This will silently override mappings for existing tables.</p>
+     *
+     * @param string table The (new) table.
+     * @param array The new mapping.
+     */
+    public function setMappingForTable($table, $mapping) {
+        $this->tableMap_[$table] = $this->parseTable($mapping);
+    }
 
-        /**
-         * Get field info map about custom fields for the given table.
-         *
-         * <p>The returned array is a map with the property as key and an info map as value.</p>
-         *
-         * @param string table The table name.
-         * @return array A map of custom field details (if any)
-         */
-        public function getCustomFieldInfo($table) {
-          $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
-          $setting = ZMSettings::get($customFieldKey);
-          if (empty($setting)) {
+    /**
+     * Get field info map about custom fields for the given table.
+     *
+     * <p>The returned array is a map with the property as key and an info map as value.</p>
+     *
+     * @param string table The table name.
+     * @return array A map of custom field details (if any)
+     */
+    public function getCustomFieldInfo($table) {
+        $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
+        $setting = ZMSettings::get($customFieldKey);
+        if (empty($setting)) {
             return array();
-          }
+        }
 
-          $customFields = array();
-          foreach (explode(',', $setting) as $field) {
+        $customFields = array();
+        foreach (explode(',', $setting) as $field) {
             // process single fields
             if (!empty($field)) {
-              $info = explode(';', trim($field));
-              $fieldId = (count($info) > 2 ? $info[2] : $info[0]);
-              $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId);
+                $info = explode(';', trim($field));
+                $fieldId = (count($info) > 2 ? $info[2] : $info[0]);
+                $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId);
             }
-          }
-
-          return $customFields;
         }
 
-        /**
-         * Add a field list of custom fields for the given table.
-         *
-         * @param array mapping The existing mapping.
-         * @param string table The table name.
-         * @return array The updated mapping
-         */
-        protected function addCustomFields($mapping, $table) {
-          $defaults = array('key' => false, 'auto' => false, 'custom' => true);
-          foreach ($this->getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
+        return $customFields;
+    }
+
+    /**
+     * Add a field list of custom fields for the given table.
+     *
+     * @param array mapping The existing mapping.
+     * @param string table The table name.
+     * @return array The updated mapping
+     */
+    protected function addCustomFields($mapping, $table) {
+        $defaults = array('key' => false, 'auto' => false, 'custom' => true);
+        foreach ($this->getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
             // merge in defaults
             $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
-          }
-
-          return $mapping;
         }
 
-        /**
-         * Get a list of all available tables.
-         *
-         * @return array List of table names.
-         */
-        public function getTableNames() {
-          return array_keys($this->tableMap_);
-        }
+        return $mapping;
+    }
+
+    /**
+     * Get a list of all available tables.
+     *
+     * @return array List of table names.
+     */
+    public function getTableNames() {
+        return array_keys($this->tableMap_);
+    }
 
 }
 

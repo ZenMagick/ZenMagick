@@ -87,7 +87,7 @@ class ZMFilePatcher extends ZMObject {
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     protected function putLines($lines) {
-    	$fileExists = file_exists($this->target);
+        $fileExists = file_exists($this->target);
         $handle = fopen($this->target, 'wb');
         if ($handle) {
             foreach ($lines as $ii => $line) {
@@ -134,37 +134,37 @@ class ZMFilePatcher extends ZMObject {
 
                     // line matches patch pattern
                     switch ($info['action']) {
-                    case 'insert-before':
-                        if (-1 < $lastData && (0 == $ii || false === strpos($lines[$ii-1], $data[$lastData]))) {
+                        case 'insert-before':
+                            if (-1 < $lastData && (0 == $ii || false === strpos($lines[$ii-1], $data[$lastData]))) {
+                                $modified = true;
+                                // prepend data
+                                foreach ($data as $dataLine) {
+                                    $patched[] = $dataLine;
+                                }
+                            }
+                            // add original line
+                            $patched[] = $line;
+                            break;
+                        case 'insert-after':
+                            // add original line
+                            $patched[] = $line;
+                            if (-1 < $lastData && (($ii == count($lines)-1) || false === strpos($lines[$ii+1], $data[0]))) {
+                                $modified = true;
+                                // append data
+                                foreach ($data as $dataLine) {
+                                    $patched[] = $dataLine;
+                                }
+                            }
+                            break;
+                        case 'replace':
                             $modified = true;
-                            // prepend data
+                            // remove matching line and append data
                             foreach ($data as $dataLine) {
                                 $patched[] = $dataLine;
                             }
-                        }
-                        // add original line
-                        $patched[] = $line;
-                        break;
-                    case 'insert-after':
-                        // add original line
-                        $patched[] = $line;
-                        if (-1 < $lastData && (($ii == count($lines)-1) || false === strpos($lines[$ii+1], $data[0]))) {
-                            $modified = true;
-                            // append data
-                            foreach ($data as $dataLine) {
-                                $patched[] = $dataLine;
-                            }
-                        }
-                        break;
-                    case 'replace':
-                        $modified = true;
-                        // remove matching line and append data
-                        foreach ($data as $dataLine) {
-                            $patched[] = $dataLine;
-                        }
-                        break;
+                            break;
                     }
-                } 
+                }
             }
         }
 
@@ -207,55 +207,55 @@ class ZMFilePatcher extends ZMObject {
 
                     // line matches patch pattern
                     switch ($info['action']) {
-                    case 'insert-before':
-                        // expect the data before the current line
-                        if (count($data) <= $ii) {
-                            // got at least $lastData lines already
-                            $dataFound = true;
-                            foreach (array_reverse($data) as $jj => $dataLine) {
-                                if (false === strpos($lines[$ii-1-$jj], $dataLine)) {
-                                    // no match, so ignore
-                                    $dataFound = false;
-                                    break;
+                        case 'insert-before':
+                            // expect the data before the current line
+                            if (count($data) <= $ii) {
+                                // got at least $lastData lines already
+                                $dataFound = true;
+                                foreach (array_reverse($data) as $jj => $dataLine) {
+                                    if (false === strpos($lines[$ii-1-$jj], $dataLine)) {
+                                        // no match, so ignore
+                                        $dataFound = false;
+                                        break;
+                                    }
+                                }
+                                if ($dataFound) {
+                                    // remove data already added to patched
+                                    array_splice($patched, -count($data));
+                                    $modified = true;
                                 }
                             }
-                            if ($dataFound) {
-                                // remove data already added to patched
-                                array_splice($patched, -count($data));
-                                $modified = true;
-                            }
-                        }
-                        // add original line
-                        $patched[] = $line;
-                        break;
-                    case 'insert-after':
-                        // add original line
-                        $patched[] = $line;
-                        // expect at least count($data) more lines
-                        if ($ii <= (count($lines)+count($data))) {
-                            $dataFound = true;
-                            foreach ($data as $jj => $dataLine) {
-                                if (false === strpos($lines[$ii+1+$jj], $dataLine)) {
-                                    // no match, so ignore
-                                    $dataFound = false;
-                                    break;
+                            // add original line
+                            $patched[] = $line;
+                            break;
+                        case 'insert-after':
+                            // add original line
+                            $patched[] = $line;
+                            // expect at least count($data) more lines
+                            if ($ii <= (count($lines)+count($data))) {
+                                $dataFound = true;
+                                foreach ($data as $jj => $dataLine) {
+                                    if (false === strpos($lines[$ii+1+$jj], $dataLine)) {
+                                        // no match, so ignore
+                                        $dataFound = false;
+                                        break;
+                                    }
+                                }
+                                if ($dataFound) {
+                                    $skipLines = count($data);
+                                    $modified = true;
                                 }
                             }
-                            if ($dataFound) {
-                                $skipLines = count($data);
-                                $modified = true;
+                            break;
+                        case 'replace':
+                            $modified = true;
+                            // append data
+                            foreach ($data as $dataLine) {
+                                $patched[] = $dataLine;
                             }
-                        }
-                        break;
-                    case 'replace':
-                        $modified = true;
-                        // append data
-                        foreach ($data as $dataLine) {
-                            $patched[] = $dataLine;
-                        }
-                        break;
+                            break;
                     }
-                } 
+                }
             }
         }
 
@@ -286,7 +286,7 @@ class ZMFilePatcher extends ZMObject {
         if (is_writeable($this->filename)) {
             // result of file change
             return $this->putLines($patched);
-        } 
+        }
 
         // no permission
         return false;
@@ -307,7 +307,7 @@ class ZMFilePatcher extends ZMObject {
         if (is_writeable($this->filename)) {
             // result of file change
             return $this->putLines($patched);
-        } 
+        }
 
         // no permission
         return false;
