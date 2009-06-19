@@ -136,7 +136,7 @@ class ZMDbTableMapper extends ZMObject {
     protected function loadMappingFile() {
         // load from file
         //TODO: make nicer
-        eval('$mappings = '.file_get_contents(ZMRuntime::getZMRootPath().'/'.ZMSettings::get('zenmagick.core.database.mappings')));
+        eval('$mappings = '.file_get_contents(ZMRuntime::getInstallationPath().'/'.ZMSettings::get('zenmagick.core.database.mappings')));
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }

@@ -138,7 +138,7 @@ class ZMRuntime extends ZMObject {
      *
      * @return string The ZenMagick installation folder.
      */
-    public static function getZMRootPath() { return ZM_BASE_DIR; }
+    public static function getInstallationPath() { return ZM_BASE_DIR; }
 
     /**
      * The application context.

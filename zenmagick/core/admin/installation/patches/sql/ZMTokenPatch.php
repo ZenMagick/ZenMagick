@@ -73,7 +73,7 @@ class ZMTokenPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = ZMRuntime::getZMRootPath();
+        $baseDir = ZMRuntime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;

@@ -129,7 +129,7 @@ class ZMLogging extends ZMObject {
                 }
             }
             //TODO
-            $root = ZMTools::normalizeFilename(ZMRuntime::getZMRootPath());
+            $root = ZMTools::normalizeFilename(ZMRuntime::getInstallationPath());
             echo "<pre>";
             foreach (debug_backtrace() as $line) {
                 echo ' ';

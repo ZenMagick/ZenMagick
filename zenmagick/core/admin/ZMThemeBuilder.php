@@ -120,9 +120,10 @@ class ZMThemeBuilder extends ZMObject {
         }
 
         // try to set group/owner
+        // XXX TODO: use FileUtils
         clearstatcache();
-        $owner = fileowner(ZMRuntime::getZMRootPath().'init.php');
-        $group = filegroup(ZMRuntime::getZMRootPath().'init.php');
+        $owner = fileowner(ZMRuntime::getInstallationPath().'init.php');
+        $group = filegroup(ZMRuntime::getInstallationPath().'init.php');
         foreach (array_reverse($this->fsLog_) as $file) {
             @chgrp($file, $group);
             @chown($file, $owner);
