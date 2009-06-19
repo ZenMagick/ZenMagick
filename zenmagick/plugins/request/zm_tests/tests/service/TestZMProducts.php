@@ -25,7 +25,7 @@ class TestZMProducts extends ZMTestCase {
         $product->setName($product->getName().'@@@');
         ZMProducts::instance()->updateProduct($product);
         $reloaded = ZMProducts::instance()->getProductForId($product->getId());
-        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION))) as $key) {
+        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), ZMRuntime::getDatabase())) as $key) {
             $prefixList = array('get', 'is', 'has');
             $done = false;
             foreach ($prefixList as $prefix) {

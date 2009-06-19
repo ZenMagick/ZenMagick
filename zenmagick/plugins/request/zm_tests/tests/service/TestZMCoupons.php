@@ -10,6 +10,7 @@
 class TestZMCoupons extends ZMTestCase {
     private $createdCouponIds_;
 
+    
     /**
      * {@inheritDoc}
      */

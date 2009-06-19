@@ -13,12 +13,8 @@ class TestZMQueryPager extends ZMTestCase {
      * Test simple.
      */
     public function testSimple() {
-        $resultList = ZMLoader::make('ResultList');
-        $resultList->setPageNumber(2); 
-        $resultList->setPagination(13); 
-
         $queryPager = new ZMQueryPager(new ZMQueryDetails(ZMRuntime::getDatabase(), 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'Product'));
-        $queryPager->getResults($resultList);
+        $queryPager->getResults(2, 13);
     }
 
     /**

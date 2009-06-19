@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS zm_token;
+DROP TABLE IF EXISTS token;

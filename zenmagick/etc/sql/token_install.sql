@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS zm_token;
-CREATE TABLE zm_token (
+DROP TABLE IF EXISTS token;
+CREATE TABLE token (
   hash_id int(11) NOT NULL auto_increment,
   hash mediumblob NOT NULL,
   resource varchar(128) NOT NULL,

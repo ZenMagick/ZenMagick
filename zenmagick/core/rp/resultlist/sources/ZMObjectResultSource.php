@@ -105,7 +105,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
 
                     // only use pager if final
                     if ($this->isFinal_) {
-                        $this->results_ = $queryPager->getResults($this->resultList_);
+                        $this->results_ = $queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination());
                         $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
                     }
                 }

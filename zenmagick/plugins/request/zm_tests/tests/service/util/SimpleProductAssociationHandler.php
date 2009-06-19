@@ -10,6 +10,13 @@
 class SimpleProductAssociationHandler extends ZMTestCase implements ZMProductAssociationHandler {
 
     /**
+     * {@inheritDoc}
+     */
+    public function getType() {
+        return "simple";
+    }
+
+    /**
      * Return some hardcoded test data.
      *
      * @param int productId The source product id.

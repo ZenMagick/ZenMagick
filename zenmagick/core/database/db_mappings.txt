@@ -665,7 +665,7 @@ array(
         'attributeValueText' => 'column=products_options_value_text;type=blob',
         'sortOrder' => 'column=products_options_sort_order;type=string'
     ),
-    'zm_token' => array(
+    'token' => array(
         'hashId' => 'column=hash_id;type=integer;key=true;auto=true',
         'hash' => 'column=hash;type=blob',
         'resource' => 'column=resource;type=string',

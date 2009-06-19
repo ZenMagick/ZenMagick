@@ -14,7 +14,7 @@ class TestZMProductAssociations extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
-        ZMProductAssociations::instance()->registerHandler('simple', new SimpleProductAssociationHandler());
+        ZMProductAssociations::instance()->registerHandler(new SimpleProductAssociationHandler());
     }
 
     /**

@@ -47,25 +47,15 @@
         require ZM_BASE_DIR.'core.php';
     } else {
         require_once ZM_BASE_DIR."core/settings/constants.php";
-        require_once ZM_BASE_DIR."core/ZMSettings.php";
+        require_once ZM_BASE_DIR."lib/core/ZMSettings.php";
         require_once ZM_BASE_DIR."core/settings/defaults.php";
-        require_once ZM_BASE_DIR."core/ZMLoader.php";
+        require_once ZM_BASE_DIR."lib/core/ZMLoader.php";
 
         // prepare loader
+        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();
-
-        /** using lib
-        // prepare core loader
-        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
-        // load static stuff and leave the rest to __autoload()
-        ZMLoader::instance()->loadStatic();
-        $loader = new ZMLoader();
-        $loader->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
-        $loader->loadStatic();
-        ZMLoader::instance()->setParent($loader);
-        */
     }
 
     // as default disable plugins for CLI calls
