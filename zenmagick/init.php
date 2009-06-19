@@ -25,11 +25,11 @@
 ?>
 <?php
 
-    // detect CLI calls
-    define('ZM_CLI_CALL', defined('STDIN'));
-
     // start time for stats
     define('ZM_START_TIME', microtime());
+
+    // detect CLI calls
+    define('ZM_CLI_CALL', defined('STDIN'));
 
     // base installation directory
     define('ZM_BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
@@ -46,13 +46,10 @@
     if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_DIR.'core.php')) {
         require ZM_BASE_DIR.'core.php';
     } else {
-        require_once ZM_BASE_DIR."lib/core/ZMSettings.php";
-        // TODO: do we need this??
-        require_once ZM_BASE_DIR."lib/store/defaults.php";
         require_once ZM_BASE_DIR."lib/core/ZMLoader.php";
-
-        // prepare loader
+        // configure loader
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
+        // needed until all code is migrated into lib
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();
