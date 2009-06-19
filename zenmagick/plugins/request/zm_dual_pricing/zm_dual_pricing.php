@@ -46,7 +46,7 @@ class zm_dual_pricing extends ZMPlugin {
             'products_attributes' => 'options_values_price_w;string'
         );
         foreach ($customFields as $table => $fields) {
-            ZMSettings::append('sql.'.$table.'.customFields', $fields, ',');
+            ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $fields, ',');
         }
     }
 

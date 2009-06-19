@@ -140,7 +140,6 @@ class ZMController extends ZMObject {
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->commit();
-            ZMRuntime::getDatabase()->setAutoCommit(true);
         }
 
         return $view;
@@ -301,6 +300,7 @@ class ZMController extends ZMObject {
             $req = ZMRequest::getParameterMap();
         }
 
+        // TODO: add token secured form test
         if (!ZMValidator::instance()->hasRuleSet($id)) {
             return true;
         }

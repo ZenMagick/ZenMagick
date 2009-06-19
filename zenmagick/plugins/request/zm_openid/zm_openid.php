@@ -45,7 +45,7 @@ class zm_openid extends ZMPlugin {
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
 
         // add OpenID field to accounts fields list
-        ZMSettings::append('sql.customers.customFields', 'openid;string', ',');
+        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string', ',');
     }
 
     /**

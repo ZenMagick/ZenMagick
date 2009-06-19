@@ -62,7 +62,7 @@ class ZMLogging extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton(ZMSettings::get('zenmagick.core.logging.defaultProvider', 'Logging'));
+        return ZMObject::singleton('Logging');
     }
 
 
@@ -80,7 +80,7 @@ class ZMLogging extends ZMObject {
             if (array_key_exists($level, self::$LABEL)) {
                 $msg = self::$LABEL[$level] . ': ' . $msg;
             }
-            if (ZMSettings::get('zenmagick.core.logging.isErrorHandler')) {
+            if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
                 @trigger_error($msg, E_USER_NOTICE);
             } else {
                 error_log($msg);

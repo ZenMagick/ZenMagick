@@ -59,7 +59,7 @@
             'dbProvider' => 'ZMZenCartDatabase',
 
             // path to db mappings, relative to ZM root
-            'dbMappings' => 'core/database/db_mappings.txt',
+            'zenmagick.core.database.mappings' => 'core/database/db_mappings.txt',
 
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
@@ -115,8 +115,8 @@
             // fix file permissions of created files to allow FTP access
             'fs.permissions.fix' => true,
             // default permissions; NOTE the leading 0 is required as this is octal
-            'fs.permissions.defaults.file' => 0666,
-            'fs.permissions.defaults.folder' => 0777,
+            'zenmagick.core.fs.permissions.file' => 0666,
+            'zenmagick.core.fs.permissions.folder' => 0777,
         
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,
@@ -244,7 +244,7 @@
             // discount decimals
             'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
 
-            // price calucaltion decimals for rounding
+            // price calculation decimals for rounding
             'calculationDecimals' => 4,
 
             // min length for coupon code generation
@@ -310,7 +310,7 @@
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 
             // comma separated list of forms to be secured by a session token
-            'tokenSecuredForms' => 'login',
+            'zenmagick.mvc.validation.tokenSecuredForms' => 'login',
 
 
             /**************************************

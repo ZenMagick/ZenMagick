@@ -26,9 +26,6 @@
     // disable ZenMagick themes
     //ZMSettings::set('isEnableZMThemes', false);
 
-    // enable ZenMagick's global variables; required if your theme is pre 0.9.1
-    //ZMSettings::set('isLegacyAPI', true);
-
     // enable zen-cart style define pages, rather than ZenMagick's static pages
     //ZMSettings::set('isZMDefinePages', false);
 
@@ -41,14 +38,14 @@
     //ZMSettings::set('isLogoffGuestAfterOrder', false);
 
     // set error logfile for ZenMagick log entries; 
-    //ZMSettings::set('zmLogFilename', ZMRuntime::getZMRootPath()."zenmagick.log");
-    // set to true to log all PHP errors in custom file using the ZenMagick error handler
-    //ZMSettings::set('isZMErrorHandler', true);
+    //ZMSettings::set('zenmagick.core.logging.filename', ZMRuntime::getZMRootPath()."zenmagick.log");
+    // set to true to log all PHP errors in custom file using the ZenMagick error/exception handler
+    //ZMSettings::set('zenmagick.core.logging.handleErrors', true);
 
     // disable view counts for product and review pages
     //ZMSettings::set('isLogPageStats', false);
 
     // enable database mapping caching
-    //ZMSettings::set('isCacheDbMappings', true);
+    //ZMSettings::set('zenmagick.core.database.isCacheMappings', true);
 
 ?>
