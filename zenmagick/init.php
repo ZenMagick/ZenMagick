@@ -46,9 +46,9 @@
     if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_DIR.'core.php')) {
         require ZM_BASE_DIR.'core.php';
     } else {
-        require_once ZM_BASE_DIR."core/settings/constants.php";
         require_once ZM_BASE_DIR."lib/core/ZMSettings.php";
-        require_once ZM_BASE_DIR."core/settings/defaults.php";
+        // TODO: do we need this??
+        require_once ZM_BASE_DIR."lib/store/defaults.php";
         require_once ZM_BASE_DIR."lib/core/ZMLoader.php";
 
         // prepare loader
