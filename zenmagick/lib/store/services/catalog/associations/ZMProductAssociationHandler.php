@@ -28,7 +28,7 @@
  * Product association handler.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog.associations
  * @version $Id$
  */
 interface ZMProductAssociationHandler {

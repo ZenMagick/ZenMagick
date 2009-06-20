@@ -28,7 +28,7 @@
  * Attribute service.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog
  * @version $Id: ZMAttributes.php 2103 2009-03-23 21:40:30Z dermanomann $
  */
 class ZMAttributes extends ZMObject {

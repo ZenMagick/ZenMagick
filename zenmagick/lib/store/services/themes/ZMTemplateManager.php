@@ -30,7 +30,7 @@
  * <p>This is a collection of things to make templating easier.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.themes
  * @version $Id: ZMTemplateManager.php 2117 2009-03-29 23:34:14Z dermanomann $
  */
 class ZMTemplateManager extends ZMObject {

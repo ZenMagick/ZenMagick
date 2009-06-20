@@ -28,7 +28,7 @@
  * Category DAO.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog
  * @version $Id: ZMCategories.php 1976 2009-02-19 23:17:07Z dermanomann $
  */
 class ZMCategories extends ZMObject {

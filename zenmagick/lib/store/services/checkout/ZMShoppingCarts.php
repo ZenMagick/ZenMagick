@@ -35,7 +35,7 @@
  * code do currently not seem worth the effort.</strong></p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.checkout
  * @version $Id: ZMShoppingCarts.php 2211 2009-05-07 05:13:40Z dermanomann $
  */
 class ZMShoppingCarts extends ZMObject {

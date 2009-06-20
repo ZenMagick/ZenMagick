@@ -28,7 +28,7 @@
  * Accounts.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.account
  * @version $Id: ZMAccounts.php 2100 2009-03-23 04:24:25Z dermanomann $
  */
 class ZMAccounts extends ZMObject {

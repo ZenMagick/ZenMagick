@@ -28,7 +28,7 @@
  * Group pricing.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog
  * @version $Id: ZMGroupPricing.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 class ZMGroupPricing extends ZMObject {

@@ -28,7 +28,7 @@
  * Product access.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog
  * @version $Id: ZMProducts.php 2157 2009-04-14 23:31:34Z dermanomann $
  */
 class ZMProducts extends ZMObject implements ZMSQLAware {

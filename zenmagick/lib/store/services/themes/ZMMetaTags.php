@@ -36,7 +36,7 @@
  * Only exception is the homepage where the keywords will include the top categories.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.themes
  * @version $Id: ZMMetaTags.php 803 2008-03-02 09:13:21Z dermanomann $
  */
 class ZMMetaTags extends ZMObject {

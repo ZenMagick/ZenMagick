@@ -28,7 +28,7 @@
  * Product association handler for <em>also purchased</em> products.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.provider
  * @version $Id$
  */
 class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHandler {

@@ -31,7 +31,7 @@
  * via the setting '<em>defaultProductAssociationHandler</em>' - as comma separated list of class names.</p>
  * 
  * @author DerManoMann
- * @package org.zenmagick.store.services
+ * @package org.zenmagick.store.services.catalog.associations
  * @version $Id$
  */
 class ZMProductAssociations extends ZMObject {
