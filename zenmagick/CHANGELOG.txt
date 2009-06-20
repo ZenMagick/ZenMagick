@@ -10,6 +10,7 @@ Release 0.9.7
   'zenmagick.core.database.sql.[table].customFields',
   'zenmagick.core.authentication.minPasswordLength' now has a default of 8 if
   not set
+- update demo theme with new(er) json2.js script from json.org
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

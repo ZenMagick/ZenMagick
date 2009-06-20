@@ -27,7 +27,7 @@
 <p>This is a demo page illustrating Ajax in <em>ZenMagick</em>. The examples use <a href="http://www.json.org">JSON</a>
 data format. If you want to use anything else, like XML, just write your own methods and you are good to go.</p>
 <p>The controller is using <a href="http://pear.php.net/pepr/pepr-proposal-show.php?id=198">PEAR Json</a> for the JSON encoding.
-Depending on your server configuration you might be better of using something different (which might already be installed.</p>
+Depending on your server configuration you might be better of using something different (possibly something already installed).</p>
 
 <p>The actual Ajax bits are implemented using <a href="http://www.jquery.com/">jQuery</a> and <a href="http://www.json.org/">json</a>.</p>
 
@@ -43,7 +43,7 @@ Depending on your server configuration you might be better of using something di
 
 <script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
 <script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.form.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("json.js") ?>"></script>
+<script type="text/javascript" src="<?php $zm_theme->themeURL("json2.js") ?>"></script>
 
 
 <label for="msgbox"><strong>Messages</strong></label>
@@ -69,13 +69,14 @@ Depending on your server configuration you might be better of using something di
             cartElem.innerHTML += 'Cart (still) empty!';
             return;
         }
-        var json = eval('(' + msg + ')');
-        for (var ii=0; ii < json.items.length; ++ii) {
-            var item = json.items[ii];
+        //var json = eval('(' + msg + ')');
+        var cartInfo =JSON.parse(msg);
+        for (var ii=0; ii < cartInfo.items.length; ++ii) {
+            var item = cartInfo.items[ii];
             cartElem.innerHTML += "Id: "+item.id+", Name: "+item.name + ', qty: ' + item.qty + ', line total: ' + item.itemTotal + '<br>';
         }
-        cartElem.innerHTML += '# of items in cart: ' + json.items.length + '<br>';
-        cartElem.innerHTML += 'Total: ' + json.total + '<br>';
+        cartElem.innerHTML += '# of items in cart: ' + cartInfo.items.length + '<br>';
+        cartElem.innerHTML += 'Total: ' + cartInfo.total + '<br>';
     }
 
     // refresh cart
@@ -225,7 +226,8 @@ Depending on your server configuration you might be better of using something di
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
 
-                var product = eval('(' + msg + ')');
+                //var product = eval('(' + msg + ')');
+                var product = JSON.parse(msg);
                 //productDetailsElem.innerHTML += 'id: ' + product.id + "<br>";
                 productDetailsElem.innerHTML += 'name: ' + product.name + "<br>";
                 productDetailsElem.innerHTML += 'model: ' + product.model + "<br>";
@@ -317,7 +319,7 @@ Depending on your server configuration you might be better of using something di
     function updateShippingInfoSuccess(msg) {
         msgboxElem.innerHTML += "got response ...";
 
-        var info = msg.parseJSON();
+        var info = JSON.parse(msg);
 
         if (0 == info.methods.length) {
             msgboxElem.innerHTML += "no shipping available ... ";
@@ -328,7 +330,7 @@ Depending on your server configuration you might be better of using something di
 
         for (var ii=0; ii < info.methods.length; ++ii) {
             var method = info.methods[ii];
-            methodListElem.innerHTML += method.id + ' ' + method.name + ' ' + method.cost + '<br>';
+            methodListElem.innerHTML += method.id + ': ' + method.name + ' ' + method.cost + '<br>';
         }
 
         if (undefined !== info.address) {
@@ -391,7 +393,7 @@ Depending on your server configuration you might be better of using something di
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ...";
 
-                var json = msg.parseJSON();
+                var countryList = JSON.parse(msg);
 
                 msgboxElem.innerHTML += "updating ... ";
 
@@ -399,8 +401,8 @@ Depending on your server configuration you might be better of using something di
                 var country = new Option('-- Select Country --', '', false, false);
                 countriesElem.options[countriesElem.length] = country;
 
-                for (var ii=0; ii < json.length; ++ii) {
-                    var country = new Option(json[ii].name+' ('+json[ii].id+')', json[ii].id, false, false);
+                for (var ii=0; ii < countryList.length; ++ii) {
+                    var country = new Option(countryList[ii].name+' ('+countryList[ii].id+')', countryList[ii].id, false, false);
                     countriesElem.options[countriesElem.length] = country;
                 }
 
@@ -421,7 +423,7 @@ Depending on your server configuration you might be better of using something di
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ...";
 
-                var json = msg.parseJSON();
+                var zoneList = JSON.parse(msg);
 
                 msgboxElem.innerHTML += "updating ... ";
 
@@ -430,9 +432,8 @@ Depending on your server configuration you might be better of using something di
                 zonesElem.options[zonesElem.length] = zone;
 
                 // zones are stored under their id
-                //if (undefined === json.length) json = Object.values(json) 
-                for (var ii=0; ii < json.length; ++ii) {
-                    var zone = new Option(json[ii].name+' ('+json[ii].id+')', json[ii].id, false, false);
+                for (var ii=0; ii < zoneList.length; ++ii) {
+                    var zone = new Option(zoneList[ii].name+' ('+zoneList[ii].id+')', zoneList[ii].id, false, false);
                     zonesElem.options[zonesElem.length] = zone;
                 }
 
