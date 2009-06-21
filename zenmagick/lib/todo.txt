@@ -18,3 +18,13 @@ far future:
 - default toolbox with url/form support
 - build in scaffolding (if it has to be...)
 
+shared folder here: share code across all apps
+
+how:
+- to allow views to implement full response (skipping layout)
+- to implement theme inheritance (theme being apps?) - allow default/base app? implement on top of app??
+- to abuse views for email or other content generation: allow getView ZMUrlMapping to be called directly - still would need
+  subclass to allow to select text/html or other specific options?
+- to implement plugins
+- to implement test cases - include support in lib; core;? - split core/mvc and app tests
+- loader: lib, apps, global plugins?, app plugins?
