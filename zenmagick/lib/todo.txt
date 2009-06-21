@@ -4,3 +4,17 @@
 ? references ZMRuntime, ZMRequest
 - map/set new settings
 
+
+far future:
+- make ZMView generic, let it look at ?layouts? / ?views? 
+  * allow subfolder in view name (as now?), remove subfolder property, etc.
+  * FLAG view content in layout via text replacement @VIEW_CONTENT@ or PHP?
+- property to either:
+  * use URL parameter: action=...
+  * use simple SEO: index.php/action/sub/whatever
+  * use advanced SEO: ../action/sub/whatever
+  * use custom SEO: SEO plugin handler
+  * allow plugins in any combination above
+- default toolbox with url/form support
+- build in scaffolding (if it has to be...)
+
