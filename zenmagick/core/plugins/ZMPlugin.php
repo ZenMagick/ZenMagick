@@ -392,8 +392,8 @@ class ZMPlugin extends ZMObject {
      * @return string A fully qualified filename.
      */
     public function getConfigPath($file) { 
-        $configPath = ZMRuntime::getZMRootPath().'config/';
-        $configFile = $configPath.$this->id_.'/'.$file;
+        $configPath = ZMRuntime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
+        $configFile = $configPath.$this->id_.DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($configFile) || !file_exists($this->pluginDir_.$file)) {
             return $configFile;

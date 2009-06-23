@@ -97,7 +97,7 @@ class ZMTokenPatch extends ZMSQLPatch {
             return true;
         }
 
-        $baseDir = ZMRuntime::getZMRootPath();
+        $baseDir = ZMRuntime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);
