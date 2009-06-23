@@ -132,8 +132,11 @@ class ZMValidator extends ZMObject {
         if ($compile) {
             $rules = $ruleSet;
             $ruleSet = ZMLoader::make('RuleSet', $id);
-            foreach ($rules as $rule) {
-                $ruleSet->addRule(ZMLoader::make($rule));
+            foreach ($rules as $ruleDef) {
+                if (null == ($rule = ZMLoader::make($ruleDef))) {
+                    ZMLogging::instance()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
+                }
+                $ruleSet->addRule($rule);
             }
         }
 
@@ -251,6 +254,9 @@ class ZMValidator extends ZMObject {
         $js .= '  var ' . $id . '_rules = new Array('.$n;
         $first = true;
         foreach ($set->getRules() as $rule) {
+            if (null == $rule) {
+                continue;
+            }
             $ruleJS = $rule->toJSString();
             if (empty($ruleJS)) {
                 continue;
