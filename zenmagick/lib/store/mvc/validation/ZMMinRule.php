@@ -22,31 +22,26 @@
 
 
 /**
- * Max field length validation rule based on the database column length.
+ * Min max length validation rules.
  *
  * @author DerManoMann
- * @package org.zenmagick.validation.rules
- * @version $Id: ZMMaxFieldLengthRule.php 2158 2009-04-16 01:34:04Z dermanomann $
+ * @package org.zenmagick.store.mvc.validation
+ * @version $Id: ZMMinRule.php 2269 2009-06-18 04:54:12Z DerManoMann $
  */
-class ZMMaxFieldLengthRule extends ZMRule {
-    private $table;
-    private $column;
-    private $max;
+class ZMMinRule extends ZMRule {
+    private $min_;
 
 
     /**
      * Create new min length rule.
      *
      * @param string name The field name.
-     * @param string table The database table.
-     * @param string column The table column.
+     * @param int min The minimun length.
      * @param string msg Optional message.
      */
-    function __construct($name, $table, $column, $msg=null) {
-        parent::__construct($name, "%s must not be longer than %s characters.", $msg);
-        $this->table = $table;
-        $this->column = $column;
-        $this->max = -1;
+    function __construct($name, $min, $msg=null) {
+        parent::__construct($name, "%s must be at least %s characters long.", $msg);
+        $this->min_ = $min;
     }
 
     /**
@@ -64,21 +59,9 @@ class ZMMaxFieldLengthRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     public function validate($req) {
-        return (!isset($req[$this->getName()]) || empty($req[$this->getName()]) || $this->getMaxFieldLength() >= strlen(trim($req[$this->getName()])));
+        return empty($req[$this->getName()]) || (!array_key_exists($this->getName(), $req) || $this->min_ <= strlen(trim($req[$this->getName()])));
     }
 
-    /**
-     * Get the field length.
-     *
-     * @return int The max field length.
-     */
-    protected function getMaxFieldLength() {
-        if (0 > $this->max) {
-            $this->max = ZMTemplateManager::instance()->getFieldLength($this->table, $this->column);
-        }
-
-        return $this->max;
-    }
 
     /**
      * Return an appropriate error message.
@@ -86,7 +69,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      * @return string Localized error message.
      */
     public function getErrorMsg() {
-        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getMaxFieldLength());
+        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min_);
     }
 
 
@@ -96,10 +79,10 @@ class ZMMaxFieldLengthRule extends ZMRule {
      * @return string Formatted JavaScript .
      */
     public function toJSString() {
-        $js = "    new Array('max'";
+        $js = "    new Array('min'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".$this->getMaxFieldLength();
+        $js .= ",".$this->min_;
         $js .= ")";
         return $js;
     }
