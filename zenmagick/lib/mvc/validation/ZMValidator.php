@@ -167,14 +167,14 @@ class ZMValidator extends ZMObject {
     /**
      * Validate the given request/object using the named (id) rule set.
      *
-     * <p>If the request parameter is an object, it will be added to the field map using the
-     * magic key <code>__obj</code>.</p>
+     * <p>If the request parameter is an object, it will be added to the
+     * internally used data map using the <em>magic key</em> <code>__obj</code>.</p>
      *
-     * @param mixed req A (request) map or an object.
+     * @param mixed data The data (map or object) to validate.
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($req, $id) {
+    public function validate($data, $id) {
         //TODO: have a request instance PLUS a map/object to validate or move session validation somewhere else (ZMController if POST???)
         $this->messages_ = array();
 
@@ -183,11 +183,11 @@ class ZMValidator extends ZMObject {
             return true;
         }
 
-        if (is_object($req)) {
-            $map = ZMBeanUtils::obj2map($req);
-            $map['__obj'] = $req;
+        if (is_object($data)) {
+            $map = ZMBeanUtils::obj2map($data);
+            $map['__obj'] = $data;
         } else {
-            $map = $req;
+            $map = $data;
         }
 
         // initial status
@@ -214,17 +214,17 @@ class ZMValidator extends ZMObject {
     /**
      * Validate session token.
      *
-     * @param mixed req A (request) map or an object.
+     * @param mixed data The data to validate.
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    protected function validateSession($req, $id) {
+    protected function validateSession($data, $id) {
         $id = $this->resolveAlias($id);
         $valid = true;
         if (ZMTools::inArray($id, ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
             $valid = false;
-            if (isset($req[ZMSession::TOKEN_NAME])) {
-                $valid = (ZMRequest::getSession()->getToken() == $req[ZMSession::TOKEN_NAME]);
+            if (isset($data[ZMSession::TOKEN_NAME])) {
+                $valid = (ZMRequest::getSession()->getToken() == $data[ZMSession::TOKEN_NAME]);
             }
         }
 

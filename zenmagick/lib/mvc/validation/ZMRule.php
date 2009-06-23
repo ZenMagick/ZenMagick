@@ -59,12 +59,10 @@ abstract class ZMRule extends ZMObject {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public public function validate($req) {
-        throw new ZMException("can't use ZMRule directly");
-    }
+    public abstract function validate($data);
 
 
     /**
@@ -110,10 +108,12 @@ abstract class ZMRule extends ZMObject {
     /**
      * Create JS validation call.
      *
+     * <p>Returns an empty string.<p>
+     *
      * @return string Formatted JavaScript .
      */
     public function toJSString() {
-        throw new ZMException("not implemented");
+        return "";
     }
 
 
