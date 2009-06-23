@@ -59,26 +59,26 @@ class ZMRuntime extends ZMObject {
      *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
      * </dl>
      *
-     * @param array conf Optional configuration; default is <code>null</code> to use zen-cart settings.
+     * <p>If the given parameter <code>$conf</code> is a string, the method will
+     * lookup database settings using a settings key build like:  <em>zenmagick.core.database.connections.[<code>$conf</code>]</em>.</p>
+     *
+     * @param mixed conf Optional configuration; either an array with any of the supported keys, or a string; default is <em>default</em>.
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
-    public static function getDatabase($conf=null) { 
-        $defaults = array('driver' => 'mysql',
-                      'host' => DB_SERVER,
-                      'username' => DB_SERVER_USERNAME,
-                      'password' => DB_SERVER_PASSWORD,
-                      'database' => DB_DATABASE,
-                      'initQuery' => null);
-        if (null !== ($port = @ini_get('mysql.default_port')) && !empty($port)) {
-            $defaults['port'] = $port;
+    public static function getDatabase($conf='default') { 
+        if (is_string($conf)) {
+            $dbconf = ZMSettings::get('zenmagick.core.database.connections.'.$conf);
+        } else {
+            $dbconf = $conf;
+        }
+        if (null !== ($port = @ini_get('mysql.default_port')) && !empty($port) && !isset($dbconf['port'])) {
+            $dbconf['port'] = $port;
         }
 
-        $dbconf = null === $conf ? array() : $conf;
-        $dbconf = array_merge($defaults, $dbconf);
         ksort($dbconf);
         $key = serialize($dbconf);
         if (!array_key_exists($key, ZMRuntime::$databaseMap_)) {
-            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('dbProvider');
+            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider');
             ZMRuntime::$databaseMap_[$key] = ZMLoader::make($provider, $dbconf);
         }
 
@@ -101,7 +101,7 @@ class ZMRuntime extends ZMObject {
      * @return long The execution time in milliseconds.
      */
     public static function getExecutionTime($time=null) {
-        $startTime = explode (' ', PAGE_PARSE_START_TIME);
+        $startTime = explode (' ', ZM_START_TIME);
         $endTime = explode (' ', (null!=$time?$time:microtime()));
         $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
         return round($executionTime, 4);

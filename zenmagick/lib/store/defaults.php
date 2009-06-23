@@ -83,6 +83,16 @@
             // version
             'ZenMagickVersion' => '${zenmagick.version}',
 
+            // default database connection; 
+            'zenmagick.core.database.connections.default' => array(
+                'driver' => 'mysql',
+                'host' => DB_SERVER,
+                'username' => DB_SERVER_USERNAME,
+                'password' => DB_SERVER_PASSWORD,
+                'database' => DB_DATABASE,
+                'initQuery' => null
+            ),
+
             // use ZenMagick themes
             'isEnableZMThemes' => true,
 

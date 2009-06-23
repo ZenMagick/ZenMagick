@@ -50,10 +50,13 @@ if (!function_exists('__autoload')) {
  *  <li>Parent classes following the above conventions will be automatically resolved</li>
  * </ul>
  *
- * <p><strong>Note:</strong> This is not as scalable as Java code and does not handle more than on
+ * <p><strong>Note1:</strong> This is not as scalable as Java code and does not handle more than on
  * level of inheritance.</p>
  *
- * <p><strong>Static methods operate all on the root loader.</strong></p>
+ * <p><strong>Note2:</strong> Static methods operate all on the root loader.</p>
+ *
+ * <p><strong>Note3:</strong> Custom classes without prefix that extend prefixed classes must extend
+ * <code>ZMObject</code> in order to be recognized properly.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.core
@@ -282,14 +285,12 @@ class ZMLoader {
         $classname = $this->resolveFromClassPath($name);
 
         if (null != $classname || (!$isAutoLoad && (class_exists($name) || interface_exists($name)))) {
-            // XXX: get rid of
             // non prefix class exists, now make sure it's a ZenMagick class
-            // to avoid conflicts with zen cart class names
+            // to avoid conflicts with external classes
             $parent = $classname;
             while (false !== ($parent = get_parent_class($parent))) {
                 if (0 === strpos($parent, $this->classPrefix_)) {
                     $this->cache_[$name] = $classname;
-                    return $classname;
                 }
             }
         }
