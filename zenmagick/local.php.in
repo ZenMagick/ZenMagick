@@ -20,8 +20,13 @@
     // report ALL errors, warnings and info messages (that might be a lot)
     //error_reporting(E_ALL);
 
-	// give Zen Cart and ZenMagick more memory
+    // give Zen Cart and ZenMagick more memory
     //@ini_set("memory_limit", "32M");
+
+    // enable logging
+    //ZMSettings::set('zenmagick.core.logging.isEnabled', true);
+    // set log level to enable all logging;
+    //ZMSettings::set('zenmagick.core.logging.level', ZMLogging::ALL);
 
     // disable ZenMagick themes
     //ZMSettings::set('isEnableZMThemes', false);
