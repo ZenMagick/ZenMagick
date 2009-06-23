@@ -68,7 +68,7 @@ class Logging extends ZMLogging {
      * {@inheritDoc}
      */
     public function log($msg, $level=ZMLogging::INFO) {
-        if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel') && !headers_sent()) {
+        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             FirePHP::getInstance(true)->fb($msg, $this->LEVEL_MAP[$level]);
         }
     }
@@ -77,7 +77,7 @@ class Logging extends ZMLogging {
      * {@inheritDoc}
      */
     public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel') && !headers_sent()) {
+        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             if ($obj instanceof Exception) {
                 FirePHP::getInstance(true)->fb($obj);
             } else {
@@ -90,7 +90,7 @@ class Logging extends ZMLogging {
      * {@inheritDoc}
      */
     public function trace($msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('isLogEnabled') && $level <= ZMSettings::get('logLevel') && !headers_sent()) {
+        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             FirePHP::getInstance(true)->fb($msg, FirePHP::TRACE);
         }
     }
