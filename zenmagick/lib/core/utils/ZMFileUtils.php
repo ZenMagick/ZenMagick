@@ -253,6 +253,23 @@ class ZMFileUtils {
         }
     }
 
+    /**
+     * Normalize filename.
+     *
+     * <p>Fix OS specific directory separator characters.</p>
+     *
+     * @param string filename The filename.
+     * @return string The normalized filename.
+     */
+    public static function normalizeFilename($filename) {
+        if (strpos($filename, '\\')) {
+            $filename = preg_replace('/\\\\+/', '\\', $filename);
+            $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
+        }
+
+        return $filename;
+    }
+
 }
 
 ?>
