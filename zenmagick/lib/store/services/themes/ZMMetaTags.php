@@ -99,7 +99,7 @@ class ZMMetaTags extends ZMObject {
         $name = $view->getName();
         if ('index' == $name) {
             $title = ZMSettings::get('storeName');
-        } else if (ZMTools::startsWith($name, 'product_')) {
+        } else if (ZMLangUtils::startsWith($name, 'product_')) {
             $title = $this->product_;
         } else if ('category' == $name || 'category_list' == $name || 'manufacturer' == $name) {
             $title = $this->category_;
@@ -243,7 +243,7 @@ class ZMMetaTags extends ZMObject {
 
         if (null != ($product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId()))) {
             $this->product_ = $product->getName();
-            if (!ZMTools::isEmpty($product->getModel())) {
+            if (!ZMLangUtils::isEmpty($product->getModel())) {
                 $this->product_ .= ' [' . $product->getModel() . ']';
             }
         }

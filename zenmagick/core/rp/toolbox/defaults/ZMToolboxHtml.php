@@ -64,7 +64,7 @@ class ZMToolboxHtml extends ZMObject {
         default:
             throw new ZMException('invalid image format: '.$format);
         }
-        if (!ZMTools::startsWith($imgSrc, '/')) {
+        if (!ZMLangUtils::startsWith($imgSrc, '/')) {
             $imgSrc = ZMRuntime::getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('isXHTML') ? '/' : '';

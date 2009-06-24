@@ -76,7 +76,7 @@ class ZMShippingProviders extends ZMObject {
 
         $moduleInfos = array();
         if ($configured) {
-            if (defined('MODULE_SHIPPING_INSTALLED') && !ZMTools::isEmpty(MODULE_SHIPPING_INSTALLED)) {
+            if (defined('MODULE_SHIPPING_INSTALLED') && !ZMLangUtils::isEmpty(MODULE_SHIPPING_INSTALLED)) {
                 $files = explode(';', MODULE_SHIPPING_INSTALLED);
                 foreach ($files as $file) {
                     $clazz = substr($file, 0, strrpos($file, '.'));

@@ -141,7 +141,7 @@ class zm_subscriptions extends ZMPlugin {
      */
     public function onZMInitDone($args=array()) {
         if ('checkout_shipping' == ZMRequest::getPageName() && 'POST' == ZMRequest::getMethod()) {
-            if (ZMTools::asBoolean(ZMRequest::getParameter('subscription'))) {
+            if (ZMLangUtils::asBoolean(ZMRequest::getParameter('subscription'))) {
                 ZMRequest::getSession()->setValue('subscription_schedule', ZMRequest::getParameter('schedule'));
             } else {
                 ZMRequest::getSession()->removeValue('subscription_schedule');
@@ -232,7 +232,7 @@ class zm_subscriptions extends ZMPlugin {
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
-            if (ZMTools::asBoolean($this->get('subscriptionComment'))) {
+            if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
                     $status = ZMLoader::make('OrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());

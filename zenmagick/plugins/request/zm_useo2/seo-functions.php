@@ -120,7 +120,7 @@
     function zm_build_seo_href($page=null, $parameters='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
         $sefu = explode(",", ereg_replace(' +', '', SEO_URLS_ONLY_IN));
-        if ((SEO_URLS_ONLY_IN != "" && !in_array($page, $sefu)) || (null != ZMSettings::get('seoEnabledPagesList') && !ZMTools::inArray($page, ZMSettings::get('seoEnabledPagesList')))) {
+        if ((SEO_URLS_ONLY_IN != "" && !in_array($page, $sefu)) || (null != ZMSettings::get('seoEnabledPagesList') && !ZMLangUtils::inArray($page, ZMSettings::get('seoEnabledPagesList')))) {
             return ZMToolbox::instance()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
         }
         

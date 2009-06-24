@@ -70,7 +70,7 @@ class ZMManufacturers extends ZMObject {
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
-        $cacheKey = ZMTools::mkUnique('manufacturer', $id, $languageId);
+        $cacheKey = ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache->lookup($cacheKey))) {
             $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturer, $cacheKey);
@@ -117,7 +117,7 @@ class ZMManufacturers extends ZMObject {
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
 
-        $cacheKey = ZMTools::mkUnique('manufacturer', $languageId);
+        $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache->lookup($cacheKey))) {
             $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturers, $cacheKey);
@@ -139,10 +139,10 @@ class ZMManufacturers extends ZMObject {
         }
 
         // clear global cache
-        $cacheKey = ZMTools::mkUnique('manufacturer', $languageId);
+        $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
         $this->cache->remove($cacheKey);
         // remove from cache
-        $cacheKey = ZMTools::mkUnique('manufacturer', $id, $languageId);
+        $cacheKey = ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
         $this->cache->remove($cacheKey);
 
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "

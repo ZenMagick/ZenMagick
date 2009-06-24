@@ -57,7 +57,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $context = array();
 
         // process...
-        $canceled = ZMTools::asBoolean(ZMRequest::getParameter('canceled', false));
+        $canceled = ZMLangUtils::asBoolean(ZMRequest::getParameter('canceled', false));
         // get all subscription orders
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
@@ -99,7 +99,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $order = ZMOrders::instance()->getOrderForId($orderId);
         $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION);
         $email = $order->getAccount()->getEmail();
-        if (!ZMTools::isEmpty($email)) {
+        if (!ZMLangUtils::isEmpty($email)) {
             $this->sendCancelEmail($order, $emailTemplate, $email);
         }
 

@@ -221,7 +221,7 @@ class ZMValidator extends ZMObject {
     protected function validateSession($data, $id) {
         $id = $this->resolveAlias($id);
         $valid = true;
-        if (ZMTools::inArray($id, ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
+        if (ZMLangUtils::inArray($id, ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
             $valid = false;
             if (isset($data[ZMSession::TOKEN_NAME])) {
                 $valid = (ZMRequest::getSession()->getToken() == $data[ZMSession::TOKEN_NAME]);

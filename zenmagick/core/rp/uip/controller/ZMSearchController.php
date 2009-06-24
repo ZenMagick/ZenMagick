@@ -61,7 +61,7 @@ class ZMSearchController extends ZMController {
      * @param boolean autoSearch The new value.
      */
     public function setAutoSearch($autoSearch) {
-        $this->autoSearch_ = ZMTools::asBoolean($autoSearch);
+        $this->autoSearch_ = ZMLangUtils::asBoolean($autoSearch);
     }
 
     /**
@@ -91,7 +91,7 @@ class ZMSearchController extends ZMController {
 
         $criteria = $this->getFormBean();
 
-        if (!ZMTools::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
+        if (!ZMLangUtils::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMLoader::make('ResultList');
             //TODO: filter??
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {

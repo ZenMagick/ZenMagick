@@ -97,7 +97,7 @@ class ZMRedirectView extends ZMView {
      * @param boolean secure <code>true</code> to create a secure redirect.
      */
     public function setSecure($secure) {
-        $this->secure_ = ZMTools::asBoolean($secure);
+        $this->secure_ = ZMLangUtils::asBoolean($secure);
     }
 
     /**

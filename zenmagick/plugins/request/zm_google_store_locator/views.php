@@ -36,7 +36,7 @@
         $location = $plugin->get('location');
         $zoom = $plugin->get('zoom');
         $markerText = $plugin->get('marker_text');
-        $controls = ZMTools::asBoolean($plugin->get('controls'));
+        $controls = ZMLangUtils::asBoolean($plugin->get('controls'));
 
         $script = '
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$storeKey.'" type="text/javascript"></script>

@@ -83,7 +83,7 @@ class ZMBoxPlugin extends ZMPlugin {
                 $handle = fopen($file, 'ab');
                 fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                 fclose($handle);
-                ZMTools::setFilePerms(_ZM_ZEN_DIR_FS_BOXES.$box);
+                ZMFileUtils::setFilePerms(_ZM_ZEN_DIR_FS_BOXES.$box);
             }
         }
 
@@ -96,7 +96,7 @@ class ZMBoxPlugin extends ZMPlugin {
                 $handle = fopen($file, 'ab');
                 fwrite($handle, $this->getBoxContents($box));
                 fclose($handle);
-                ZMTools::setFilePerms($file);
+                ZMFileUtils::setFilePerms($file);
             }
         }
     }

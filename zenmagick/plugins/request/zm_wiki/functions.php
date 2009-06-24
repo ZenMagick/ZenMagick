@@ -128,7 +128,7 @@
     global $pawfaliki_config;
 
         $mode = getMode();
-        if (!ZMRequest::isAdmin() && !ZMTools::inArray($mode, 'edit,save,cancel')) {
+        if (!ZMRequest::isAdmin() && !ZMLangUtils::inArray($mode, 'edit,save,cancel')) {
             $mode = '';
         }
 

@@ -114,7 +114,7 @@
 <fieldset>
     <legend><?php zm_l10n("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-    <div><?php $html->encode(!ZMTools::isEmpty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
+    <div><?php $html->encode(!ZMLangUtils::isEmpty($zm_cart->getComment()) ? $zm_cart->getComment() : "None") ?></div>
 </fieldset>
 
 

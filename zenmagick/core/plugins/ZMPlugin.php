@@ -332,7 +332,7 @@ class ZMPlugin extends ZMObject {
      */
     public function setKeys($keys) {
         foreach ($keys as $key) {
-            if (!ZMTools::startsWith($key, $this->configPrefix_)) {
+            if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
                 $key = strtoupper($this->configPrefix_ . $key);
             }
             array_push($this->keys_, $key);
@@ -419,7 +419,7 @@ class ZMPlugin extends ZMObject {
      */
     public function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
         $groupId = ZENMAGICK_PLUGIN_GROUP_ID;
-        if (!ZMTools::startsWith($key, $this->configPrefix_)) {
+        if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
         // keys are always upper case

@@ -61,7 +61,7 @@ class ZMListRule extends ZMRule {
      * @return boolean <code>true</code> if the regular expression does match.
      */
     public function validate($req) {
-        return empty($req[$this->getName()]) || ZMTools::inArray($req[$this->getName()], $this->values_);
+        return empty($req[$this->getName()]) || ZMLangUtils::inArray($req[$this->getName()], $this->values_);
     }
 
 

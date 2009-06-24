@@ -66,12 +66,12 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             ZMOrders::instance()->updateOrder($order);
 
             // 4) Create history entry if enabled
-            if (ZMTools::asBoolean($plugin->get('orderHistory'))) {
+            if (ZMLangUtils::asBoolean($plugin->get('orderHistory'))) {
                 $status = ZMLoader::make('OrderStatus');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());
                 $status->setOrderStatusId($order->getOrderStatusId());
-                $status->setCustomerNotified(!ZMTools::isEmpty($scheduleEmailTemplate));
+                $status->setCustomerNotified(!ZMLangUtils::isEmpty($scheduleEmailTemplate));
                 $status->setComment(zm_l10n_get('Scheduled order for subscription #%s', $scheduledOrderId));
                 ZMOrders::instance()->createOrderStatusHistory($status);
             }
@@ -83,7 +83,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $scheduledOrderId);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
-            if (!ZMTools::isEmpty($scheduleEmailTemplate)) {
+            if (!ZMLangUtils::isEmpty($scheduleEmailTemplate)) {
                 $this->sendOrderEmail($order, $scheduleEmailTemplate);
             }
 

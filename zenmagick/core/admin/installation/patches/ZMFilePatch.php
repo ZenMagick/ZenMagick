@@ -101,7 +101,7 @@ class ZMFilePatch extends ZMInstallationPatch {
             }
             fclose($handle);
             if (!$fileExists) {
-                ZMTools::setFilePerms($file);
+                ZMFileUtils::setFilePerms($file);
             }
             return true;
         }
@@ -140,7 +140,7 @@ class ZMFilePatch extends ZMInstallationPatch {
             fwrite($handle, $contents);
             fclose($handle);
             if (!$fileExists) {
-                ZMTools::setFilePerms($file);
+                ZMFileUtils::setFilePerms($file);
             }
             return true;
         }
@@ -194,7 +194,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                     if (false !== strpos($line, "function ") 
                         && false !== strpos($line, $fktCfg[0]."(") 
                         && false === strpos($line, $fktCfg[1])
-                        && ZMTools::endsWith(trim($line), "{")) {
+                        && ZMLangUtils::endsWith(trim($line), "{")) {
                         // modify
                         $lines[$ii] = str_replace($fktCfg[0], $fktCfg[0].$fktCfg[1], $line);
                         $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";

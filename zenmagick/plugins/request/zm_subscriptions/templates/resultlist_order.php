@@ -1,4 +1,4 @@
-        <?php if (!ZMTools::isEmpty($order->getSchedule())) { ?>
+        <?php if (!ZMLangUtils::isEmpty($order->getSchedule())) { ?>
             <?php zm_l10n("(S)") ?>
             <?php if ($order->isSubscription()) { ?>
                 <?php if ($zm_subscriptions->isCustomerCancel()) { ?>

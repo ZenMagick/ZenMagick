@@ -97,7 +97,7 @@ class ZMToolboxNet extends ZMObject {
         $sid = null;
         //TODO:$session = ZMRequest::getSession();
         if ($addSessionId && ($session_started/* || $session->isValid()*/) && !ZMSettings::get('isForceCookieUse')) {
-            if (defined('SID') && !ZMTools::isEmpty(SID)) {
+            if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;
             } elseif (($transport == 'NONSSL' && HTTPS_SERVER == $server) || ($transport == 'SSL' && HTTP_SERVER == $server)) {
@@ -227,7 +227,7 @@ class ZMToolboxNet extends ZMObject {
         }
 
         $href = $this->url(FILENAME_EZPAGES, $params, $page->isSSL(), false);
-        if (!ZMTools::isEmpty($page->getAltUrl())) {
+        if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
             $view = $query[ZM_PAGE_KEY];
@@ -237,7 +237,7 @@ class ZMToolboxNet extends ZMObject {
                 $params .= "&".$name."=".$value;
             }
             $href = $this->url($view, $params, $page->isSSL(), false);
-        } else if (!ZMTools::isEmpty($page->getAltUrlExternal())) {
+        } else if (!ZMLangUtils::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
 
@@ -285,7 +285,7 @@ class ZMToolboxNet extends ZMObject {
         $host = (ZMRequest::isSecure() ? HTTPS_SERVER : HTTP_SERVER);
         $context = (ZMRequest::isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
-        if (!ZMTools::startsWith($href, '/')) {
+        if (!ZMLangUtils::startsWith($href, '/')) {
             // make fully qualified
             $href = $context . $href;
         }

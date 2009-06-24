@@ -134,13 +134,13 @@ class zm_wordpress extends ZMPlugin {
         // create single request handler
         $this->requestHandler_ = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if ($this->initWP() && (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
+        if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
             $this->requestHandler_->handleRequest();
             $this->requestHandler_->register();
         }
 
-        if (ZMTools::asBoolean($this->get('syncUser'))) {
+        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
             // setup WP bridge hooks and additional validation rules
             if ('create_account' == $this->page_) {
                 $bridge = $this->getAdapter();
@@ -193,7 +193,7 @@ class zm_wordpress extends ZMPlugin {
      * @return boolean <code>true</code> if permalink support is enabled, <code>false</code> if not.
      */
     public function isPermalinksEnabled() {
-        return !ZMTools::isEmpty($this->get('permaPrefix'));
+        return !ZMLangUtils::isEmpty($this->get('permaPrefix'));
     }
 
     /**
@@ -201,7 +201,7 @@ class zm_wordpress extends ZMPlugin {
      */
     public function getGlobal() {
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if (empty($wordpressEnabled) || ZMTools::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+        if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
             if ($this->isPermalinksEnabled()) {
                 $path = ZMRuntime::getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
@@ -261,7 +261,7 @@ class zm_wordpress extends ZMPlugin {
      */
     public function onZMCreateAccount($args) {
         $account = $args['account'];
-        if (!ZMTools::isEmpty($account->getNickName())) {
+        if (!ZMLangUtils::isEmpty($account->getNickName())) {
             $password = $args['clearPassword'];
             if (!$this->getAdapter()->createAccount($account, $password)) {
                 ZMMessages::instance()->info(zm_l10n_get('Could not create wordpress account - please contact the store administrator.'));
@@ -279,7 +279,7 @@ class zm_wordpress extends ZMPlugin {
      */
     public function onZMPasswordChanged($args) {
         $account = $args['account'];
-        if (!ZMTools::isEmpty($account->getNickName())) {
+        if (!ZMLangUtils::isEmpty($account->getNickName())) {
             $password = $args['clearPassword'];
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
@@ -298,7 +298,7 @@ class zm_wordpress extends ZMPlugin {
             $view = $args['view'];
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
-                if (null != $account && !ZMTools::isEmpty($account->getNickName())) {
+                if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
                 }
             }

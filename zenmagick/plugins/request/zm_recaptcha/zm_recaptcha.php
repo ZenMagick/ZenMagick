@@ -150,7 +150,7 @@ class zm_recaptcha extends ZMPlugin {
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_recaptcha_validate($req) {
-    if (ZMTools::isEmpty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
+    if (ZMLangUtils::isEmpty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

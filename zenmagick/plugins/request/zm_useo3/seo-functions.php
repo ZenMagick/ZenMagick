@@ -29,7 +29,7 @@
  */
 function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     if ($view == 'category') { $view = 'index'; }
-    if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('seoEnabledPagesList') || ZMTools::inArray($view, ZMSettings::get('seoEnabledPagesList')))) {
+    if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('seoEnabledPagesList') || ZMLangUtils::inArray($view, ZMSettings::get('seoEnabledPagesList')))) {
         // no $seo parameter
         return $GLOBALS['SeoUrl']->buildHrefLink($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $isStatic, $useContext);
     } else {

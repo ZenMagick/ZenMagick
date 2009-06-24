@@ -123,7 +123,7 @@ class zm_auto_login extends ZMPlugin {
      * @param string optIn The users optIn preference.
      */
     protected function onOptIn($account, $optIn) {
-        if (!ZMTools::asBoolean($this->get('optIn')) || ZMTools::asBoolean($optIn)) {
+        if (!ZMLangUtils::asBoolean($this->get('optIn')) || ZMLangUtils::asBoolean($optIn)) {
             // cookie contains token hash only
             $resource = $this->getResource($account);
             $tokens = ZMTokens::instance()->getTokenForResource($resource);

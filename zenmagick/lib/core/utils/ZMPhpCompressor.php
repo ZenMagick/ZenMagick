@@ -278,8 +278,8 @@ class ZMPhpCompressor {
      */
     protected function stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";
-        if (!ZMTools::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
-        if (!ZMTools::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
+        if (!ZMLangUtils::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
+        if (!ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
         $files = ZMLoader::findIncludes($in, '.php', $recursive);
 
@@ -287,7 +287,7 @@ class ZMPhpCompressor {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
-            if (!ZMTools::endsWith($outdir, DIRECTORY_SEPARATOR)) $outdir .= DIRECTORY_SEPARATOR;
+            if (!ZMLangUtils::endsWith($outdir, DIRECTORY_SEPARATOR)) $outdir .= DIRECTORY_SEPARATOR;
             $outfile = $outdir.$name;
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {

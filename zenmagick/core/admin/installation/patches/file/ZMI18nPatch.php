@@ -140,7 +140,7 @@ class ZMI18nPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_LANGUAGES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_LANGUAGES);
             while (false !== ($file = readdir($handle))) {
-                if (ZMTools::endsWith($file, '.php')) {
+                if (ZMLangUtils::endsWith($file, '.php')) {
                     $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_LANGUAGES.$file);
                     $files[_ZM_ZEN_DIR_FS_LANGUAGES.$file] = $lines;
                 }
@@ -151,7 +151,7 @@ class ZMI18nPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES);
             while (false !== ($file = readdir($handle))) {
-                if (ZMTools::endsWith($file, '.php')) {
+                if (ZMLangUtils::endsWith($file, '.php')) {
                     $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file);
                     $files[_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file] = $lines;
                 }
@@ -172,7 +172,7 @@ class ZMI18nPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_LANGUAGES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_LANGUAGES);
             while (false !== ($file = readdir($handle))) {
-                if (ZMTools::endsWith($file, '.php')) {
+                if (ZMLangUtils::endsWith($file, '.php')) {
                     $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_LANGUAGES.$file);
                     foreach ($lines as $ii => $line) {
                         if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw(") && false === strpos($line, "_DISABLED ")) {
@@ -192,7 +192,7 @@ class ZMI18nPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES) && is_readable(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES);
             while (false !== ($file = readdir($handle))) {
-                if (ZMTools::endsWith($file, '.php')) {
+                if (ZMLangUtils::endsWith($file, '.php')) {
                     $lines = $this->getFileLines(_ZM_ZEN_DIR_FS_ADMIN_LANGUAGES.$file);
                     foreach ($lines as $ii => $line) {
                         if (false !== strpos($line, "function ") && false !== strpos($line, "zen_date_raw(") && false === strpos($line, "_DISABLED ")) {

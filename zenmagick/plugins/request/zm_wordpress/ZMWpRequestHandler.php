@@ -124,7 +124,7 @@ class ZMWpRequestHandler extends ZMController {
             $path = ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin->get('wordpressDir'));
-            if (!ZMTools::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
+            if (!ZMLangUtils::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:

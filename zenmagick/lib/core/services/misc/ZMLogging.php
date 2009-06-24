@@ -201,7 +201,7 @@ class ZMLogging extends ZMObject {
         if (null != ($handle = fopen($logfile, "a"))) {
             fputs($handle, $line);
             fclose($handle);
-            ZMTools::setFilePerms($logfile);
+            ZMFileUtils::setFilePerms($logfile);
         } else {
             error_log($line);
         }

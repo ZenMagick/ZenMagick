@@ -137,7 +137,7 @@ require 'includes/application_top.php';
                         <?php } ?>
                         </ul>
                     <?php } ?>
-                    <?php if (!ZMTools::isEmpty($contents)) {
+                    <?php if (!ZMLangUtils::isEmpty($contents)) {
                         echo $contents;
                     } else if (null != $page) {
                         echo $page->getContents();

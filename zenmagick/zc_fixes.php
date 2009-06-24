@@ -48,7 +48,7 @@
     if ('add_product' == ZMRequest::getParameter('action')) {
         $uploads = 0;
         foreach (ZMRequest::getParameterMap() as $name => $value) {
-            if (ZMTools::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+            if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }

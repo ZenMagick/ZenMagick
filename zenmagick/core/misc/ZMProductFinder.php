@@ -97,7 +97,7 @@ class ZMProductFinder {
         $args = array();
 
         $select = "SELECT DISTINCT p.products_id";
-        if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
+        if ($criteria->isIncludeTax() && (!ZMLangUtils::isEmpty($criteria->getPriceFrom()) || !ZMLangUtils::isEmpty($criteria->getPriceTo()))) {
             $select .= ", SUM(tr.tax_rate) AS tax_rate";
         }
 
@@ -108,7 +108,7 @@ class ZMProductFinder {
 
         $args['languageId'] = $criteria->getLanguageId();
 
-        if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
+        if ($criteria->isIncludeTax() && (!ZMLangUtils::isEmpty($criteria->getPriceFrom()) || !ZMLangUtils::isEmpty($criteria->getPriceTo()))) {
             $from .= " LEFT JOIN " . TABLE_TAX_RATES . " tr ON p.products_tax_class_id = tr.tax_class_id
                        LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " gz ON tr.tax_zone_id = gz.geo_zone_id
                          AND (gz.zone_country_id IS null OR gz.zone_country_id = 0 OR gz.zone_country_id = :zoneId)
@@ -144,7 +144,7 @@ class ZMProductFinder {
             $args['manufacturerId'] = $criteria->getManufacturerId();
         }
 
-        if (!ZMTools::isEmpty($criteria->getKeywords())) {
+        if (!ZMLangUtils::isEmpty($criteria->getKeywords())) {
             if (zen_parse_search_string(stripslashes($criteria->getKeywords()), $tokens)) {
                 $index = 0;
                 $where .= " AND (";
@@ -177,37 +177,37 @@ class ZMProductFinder {
         }
         $where .= ')';
 
-        if (!ZMTools::isEmpty($criteria->getDateFrom())) {
+        if (!ZMLangUtils::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
             $args['1#dateAdded'] = ZMTools::translateDateString($criteria->getDateFrom(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
         }
 
-        if (!ZMTools::isEmpty($criteria->getDateTo())) {
+        if (!ZMLangUtils::isEmpty($criteria->getDateTo())) {
             $where .= " AND p.products_date_added <= :2#dateAdded";
             $args['2#dateAdded'] = ZMTools::translateDateString($criteria->getDateTo(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
         }
 
         if ($criteria->isIncludeTax()) {
-            if (!ZMTools::isEmpty($criteria->getPriceFrom())) {
+            if (!ZMLangUtils::isEmpty($criteria->getPriceFrom())) {
                 $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) >= :1#productPrice)";
                 $args['1#productPrice'] = $criteria->getPriceFrom();
             }
-            if (!ZMTools::isEmpty($criteria->getPriceTo())) {
+            if (!ZMLangUtils::isEmpty($criteria->getPriceTo())) {
                 $where .= " AND (p.products_price_sorter * IF(gz.geo_zone_id IS null, 1, 1 + (tr.tax_rate / 100)) <= :2#productPrice)";
                 $args['2#productPrice'] = $criteria->getPriceTo();
             }
         } else {
-            if (!ZMTools::isEmpty($criteria->getPriceFrom())) {
+            if (!ZMLangUtils::isEmpty($criteria->getPriceFrom())) {
                 $where .= " AND (p.products_price_sorter >= :1#productPrice)";
                 $args['1#productPrice'] = $criteria->getPriceFrom();
             }
-            if (!ZMTools::isEmpty($criteria->getPriceTo())) {
+            if (!ZMLangUtils::isEmpty($criteria->getPriceTo())) {
                 $where .= " AND (p.products_price_sorter <= :2#productPrice)";
                 $args['2#productPrice'] = $criteria->getPriceTo();
             }
         }
 
-        if ($criteria->isIncludeTax() && (!ZMTools::isEmpty($criteria->getPriceFrom()) || !ZMTools::isEmpty($criteria->getPriceTo()))) {
+        if ($criteria->isIncludeTax() && (!ZMLangUtils::isEmpty($criteria->getPriceFrom()) || !ZMLangUtils::isEmpty($criteria->getPriceTo()))) {
             $where .= " GROUP BY p.products_id, tr.tax_priority";
         }
 

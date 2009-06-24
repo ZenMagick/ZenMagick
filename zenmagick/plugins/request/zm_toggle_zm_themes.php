@@ -62,7 +62,7 @@ class zm_toggle_zm_themes extends ZMPlugin {
         }
 
         if (null != ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
-            ZMSettings::set('isEnableZMThemes', ZMTools::asBoolean($themeToggle));
+            ZMSettings::set('isEnableZMThemes', ZMLangUtils::asBoolean($themeToggle));
         }
     }
 

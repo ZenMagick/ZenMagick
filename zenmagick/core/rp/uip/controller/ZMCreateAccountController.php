@@ -64,7 +64,7 @@ class ZMCreateAccountController extends ZMController {
      */
     public function setCreateDefaultAddress($value) {
         // make sure we convert to boolean; typically this would be set via a bean definition
-        $this->createDefaultAddress_ = ZMTools::asBoolean($value);
+        $this->createDefaultAddress_ = ZMLangUtils::asBoolean($value);
         ZMLogging::instance()->log('createDefaultAddress set to: '.$this->createDefaultAddress_, ZMLogging::TRACE);
     }
 

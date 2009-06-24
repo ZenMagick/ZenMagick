@@ -64,7 +64,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * @return boolean The value.
      */
     public function getValue() {
-        return ZMTools::asBoolean(parent::getValue());
+        return ZMLangUtils::asBoolean(parent::getValue());
     }
 
     /**
@@ -196,7 +196,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function compare($value) {
-        return ZMTools::asBoolean($value) == $this->getValue();
+        return ZMLangUtils::asBoolean($value) == $this->getValue();
     }
 
 }

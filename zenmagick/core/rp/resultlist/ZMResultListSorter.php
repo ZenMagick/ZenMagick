@@ -48,8 +48,8 @@ class ZMResultListSorter extends ZMObject {
 
         $this->id_ = $id;
         $this->sortId_ = ZMRequest::getSortId();
-        $this->descending_ = ZMTools::endsWith($this->sortId_, '_d');
-        if (ZMTools::endsWith($this->sortId_, '_a') || $this->descending_) {
+        $this->descending_ = ZMLangUtils::endsWith($this->sortId_, '_d');
+        if (ZMLangUtils::endsWith($this->sortId_, '_a') || $this->descending_) {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
     }

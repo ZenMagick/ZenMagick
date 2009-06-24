@@ -57,7 +57,7 @@
         $toolbox = ZMToolbox::instance();
         $href = $toolbox->net->furl($view, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
 
-        if (null != ZMSettings::get('seoEnabledPagesList') && !ZMTools::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {
+        if (null != ZMSettings::get('seoEnabledPagesList') && !ZMLangUtils::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {
             return $href;
         }
 
@@ -65,10 +65,10 @@
         $queryString = $toolbox->net->decode($url['query']);
         parse_str($queryString, $query);
         $path = dirname($url['path']);
-        if (!ZMTools::endsWith($path, '/')) {
+        if (!ZMLangUtils::endsWith($path, '/')) {
             $path .= '/';
         }
-        if (ZMTools::startsWith($path, '\\')) {
+        if (ZMLangUtils::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
         $page = $query[ZM_PAGE_KEY];
@@ -235,7 +235,7 @@
                 array_push($removeNames, 'action');
                 break;
             default:
-                if (ZMTools::startsWith($page, 'popup_')) {
+                if (ZMLangUtils::startsWith($page, 'popup_')) {
                     $path .= "popup/".substr($page, 6);
                 } else {
                     if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {

@@ -118,7 +118,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId())) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
-                    ZMTools::mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId());
+                    ZMFileUtils::mkdir(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId());
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
                     fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");
@@ -127,7 +127,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     fwrite($handle, '  $template_description = ' . "'" . addslashes($themeInfo->getDescription()) . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
-                    ZMTools::setFilePerms(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php");
+                    ZMFileUtils::setFilePerms(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId()."/template_info.php");
                 } else {
                     ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeInfo->getThemeId(), ZMLogging::ERROR);
                     return false;
@@ -148,7 +148,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         foreach ($dummies as $file) {
             // avoid recursive delete, just in case
             @unlink($file."/template_info.php");
-            ZMTools::rmdir($file, false);
+            ZMFileUtils::rmdir($file, false);
         }
 
         return true;
@@ -165,7 +165,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         if (file_exists(DIR_FS_CATALOG_TEMPLATES)) {
             $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !ZMTools::startsWith($file, '.')) {
+                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !ZMLangUtils::startsWith($file, '.')) {
                     if (file_exists(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php")) {
                         $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
                         if (false !== strpos($contents, 'created by ZenMagick')) {

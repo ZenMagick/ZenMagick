@@ -169,7 +169,7 @@
 
     // make zen-cart relative
     function zm_mk_relative($file) {
-      return ZMTools::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
+      return ZMLangUtils::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
     }
 
 ?>

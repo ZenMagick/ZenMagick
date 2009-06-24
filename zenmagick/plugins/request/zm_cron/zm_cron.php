@@ -83,9 +83,9 @@ class zm_cron extends ZMPlugin {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if ($this->isEnabled() && ZMTools::asBoolean($this->get('image'))) {
+        if ($this->isEnabled() && ZMLangUtils::asBoolean($this->get('image'))) {
             $pages = $this->get('triggerPages');
-            if (empty($pages) || ZMTools::inArray(ZMRequest::getPageName(), $pages)) {
+            if (empty($pages) || ZMLangUtils::inArray(ZMRequest::getPageName(), $pages)) {
                 $slash = ZMSettings::get('isXHTML') ? '/' : '';
                 $img = '<div><img src="'.ZMToolbox::instance()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'></div>';
                 $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
@@ -109,7 +109,7 @@ class zm_cron extends ZMPlugin {
         if ($cron->isTimeToRun()) {
             // update timestamp to stop other instances from running
             $cron->updateTimestamp();
-            foreach ($cron->getJobs(false, ZMTools::asBoolean($this->get('missedRuns'))) as $job) {
+            foreach ($cron->getJobs(false, ZMLangUtils::asBoolean($this->get('missedRuns'))) as $job) {
                 $cron->runJob($job);
             }
         }

@@ -121,7 +121,7 @@ class zm_google_analytics extends ZMPlugin {
         $code = !empty($checkoutCode) ? $checkoutCode : $trackerCode;
         $code .= $this->getConversionCode();
 
-        if (ZMTools::asBoolean($this->get('debug'))) {
+        if (ZMLangUtils::asBoolean($this->get('debug'))) {
             $code = str_replace('<script', '<!--script', $code);
             $code = str_replace('</script>', '/script-->', $code);
         }
@@ -221,7 +221,7 @@ class zm_google_analytics extends ZMPlugin {
      */
     protected function getPageview() {
         $view = '';
-        if (ZMTools::asBoolean($this->get('usePagename'))) {
+        if (ZMLangUtils::asBoolean($this->get('usePagename'))) {
             $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
             $view = ZMRequest::getPageName();
             foreach ($args as $name) {

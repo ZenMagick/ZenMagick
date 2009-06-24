@@ -90,7 +90,7 @@ class ZMEventFixes extends ZMObject {
             ZMRuntime::setTheme($theme);
 
             // now we can check for a static homepage
-            if (!ZMTools::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
                 && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
                 require ZMSettings::get('staticHome');
                 exit;

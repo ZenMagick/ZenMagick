@@ -113,7 +113,7 @@ class zm_page_stats extends ZMPlugin {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if (ZMTools::asBoolean($this->get('hideStats'))) {
+        if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
             $args['contents'] = $contents.$this->hiddenStats();
             return $args;
         }

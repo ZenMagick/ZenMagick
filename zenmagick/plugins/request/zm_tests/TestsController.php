@@ -71,7 +71,7 @@ class TestsController extends ZMController {
 
         $tests = array();
         foreach ($testsLoader->getClassPath() as $class => $file) {
-            if (ZMTools::startsWith($class, 'Test')) {
+            if (ZMLangUtils::startsWith($class, 'Test')) {
                 $tests[$class] = $file;
             }
         }

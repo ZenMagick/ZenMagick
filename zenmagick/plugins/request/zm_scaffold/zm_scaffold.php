@@ -127,7 +127,7 @@ class zm_scaffold extends ZMPlugin {
     protected function getMappings() {
         $mappings = array();
         foreach (explode(',', ZMSettings::get('plugins.zm_scaffold.pages')) as $mapping) {
-            if (!ZMTools::isEmpty($mapping)) {
+            if (!ZMLangUtils::isEmpty($mapping)) {
                 $token = explode(':', $mapping);
                 switch (count($token)) {
                 case 4:

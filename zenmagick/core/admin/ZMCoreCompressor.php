@@ -66,7 +66,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      */
     public function clean() {
         parent::clean();
-        ZMTools::rmdir($this->pluginsPreparedFolder);
+        ZMFileUtils::rmdir($this->pluginsPreparedFolder);
     }
 
     /**
@@ -116,7 +116,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @param string out The output directory.
      */
     private function preparePlugins($out) {
-        if (!ZMTools::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
+        if (!ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
@@ -125,7 +125,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                 }
                 $flag = $plugin->getLoaderPolicy();
                 $pluginBase = $out.$type.DIRECTORY_SEPARATOR.$plugin->getId().DIRECTORY_SEPARATOR;
-                ZMTools::mkdir($pluginBase);
+                ZMFileUtils::mkdir($pluginBase);
                 if (ZMPlugin::LP_NONE != $flag) {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
@@ -146,7 +146,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                         }
                         $source = file_get_contents($file);
                         if (!empty($relDir)) {
-                            ZMTools::mkdir($pluginBase . $relDir);
+                            ZMFileUtils::mkdir($pluginBase . $relDir);
                         }
                         $outfile = $pluginBase . $relDir . basename($file);
 
@@ -161,7 +161,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                         }
                   
                         fclose($handle);
-                        ZMTools::setFilePerms($outfile);
+                        ZMFileUtils::setFilePerms($outfile);
                     }
                 }
             }
@@ -197,7 +197,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
             return;
         }
         fclose($handle);
-        ZMTools::setFilePerms($outfile);
+        ZMFileUtils::setFilePerms($outfile);
     }
 
     /**

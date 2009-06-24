@@ -84,7 +84,7 @@ class ZMToolboxMacro extends ZMObject {
         if (null == $address) {
             $out = zm_l10n_get("N/A");    
         } else {
-            if (!ZMTools::isEmpty($address->getLastName())) {
+            if (!ZMLangUtils::isEmpty($address->getLastName())) {
                 $firstname = $address->getFirstName();
                 $lastname = $address->getLastName();
             } else {
@@ -159,14 +159,14 @@ class ZMToolboxMacro extends ZMObject {
 
         if (null != $banner) {
             $toolbox = ZMToolbox::instance();
-            if (!ZMTools::isEmpty($banner->getText())) {
+            if (!ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
                 $html = $banner->getText();
             } else {
                 $slash = ZMSettings::get('isXHTML') ? '/' : '';
                 $img = '<img src="'.$toolbox->net->image($banner->getImage(), false).'" alt="'.
                           $toolbox->html->encode($banner->getTitle(), false).'"'.$slash.'>';
-                if (ZMTools::isEmpty($banner->getUrl())) {
+                if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $html = $img;
                 } else {

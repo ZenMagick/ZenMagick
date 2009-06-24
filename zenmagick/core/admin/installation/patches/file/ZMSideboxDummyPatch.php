@@ -106,7 +106,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                             $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
                             fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                             fclose($handle);
-                            ZMTools::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
+                            ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
                         }
                     } else {
                         ZMLogging::instance()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
@@ -147,7 +147,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
             while (false !== ($file = readdir($handle))) {
-                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !ZMTools::startsWith($file, '.')) {
+                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !ZMLangUtils::startsWith($file, '.')) {
                     $contents = file_get_contents(_ZM_ZEN_DIR_FS_BOXES.$file);
                     if (false !== strpos($contents, '/** dummy file created by ZenMagick installation patcher **/')) {
                         array_push($dummies, _ZM_ZEN_DIR_FS_BOXES.$file);
@@ -190,7 +190,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                 closedir($handle);
 
                 foreach ($zmBoxes as $box) {
-                    if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && ZMTools::endsWith($box, '.php')) {
+                    if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && ZMLangUtils::endsWith($box, '.php')) {
                         $missingBoxes[$box] = $box;
                     } 
                 }

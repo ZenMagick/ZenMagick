@@ -68,7 +68,7 @@ class ZMWPBridge extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($req) {
-		    return ZMTools::isEmpty(email_exists($req['email']));
+		    return ZMLangUtils::isEmpty(email_exists($req['email']));
     }
 
     /**

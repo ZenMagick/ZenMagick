@@ -173,7 +173,7 @@ require_once 'includes/application_top.php';
                 </tr>
                 <?php if ($isEdit) { ?>
                   <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <?php if (!$plugin->isTraditional() && !(ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ENABLED_SUFFIX) || ZMTools::endsWith($value->getKey(), ZMPlugin::KEY_ORDER_SUFFIX))) { continue; } ?>
+                    <?php if (!$plugin->isTraditional() && !(ZMLangUtils::endsWith($value->getKey(), ZMPlugin::KEY_ENABLED_SUFFIX) || ZMLangUtils::endsWith($value->getKey(), ZMPlugin::KEY_ORDER_SUFFIX))) { continue; } ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                         <?php if ($value instanceof ZMWidget) { ?>
                           <td><?php echo $value->getTitle() ?></td>

@@ -133,7 +133,7 @@ class zm_phpbb2 extends ZMPlugin {
 
             if ('account_password' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMRequest::getAccount();
-                if (null != $account && !ZMTools::isEmpty($account->getNickName())) {
+                if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     $newPassword = ZMRequest::getParameter('password_new');
                     $phpBB->phpbb_change_password($account->getNickName(), $newPassword);
                 }

@@ -82,7 +82,7 @@ class zm_geo_ip extends ZMPlugin {
             $this->type = basename($database);
 
             $flags = GEOIP_STANDARD | GEOIP_MEMORY_CACHE;
-            if (ZMTools::asBoolean($this->get('shm'))) {
+            if (ZMLangUtils::asBoolean($this->get('shm'))) {
                 geoip_load_shared_mem($database);
                 $flags = GEOIP_SHARED_MEMORY;
             }
@@ -144,7 +144,7 @@ class zm_geo_ip extends ZMPlugin {
             $result->set('code3', $code3);
             $result->set('regionCode', $region);
             $result->set('region', $GEOIP_REGION_NAME[$code3][$region]);
-        } else if (!ZMTools::isEmpty($this->get('licenceKey'))) {
+        } else if (!ZMLangUtils::isEmpty($this->get('licenceKey'))) {
             $str = getdnsattributes($this->get('licenceKey'), $ip);
             $r = getrecordwithdnsservice($str);
             $result->set('countryCode', $r->country_code);

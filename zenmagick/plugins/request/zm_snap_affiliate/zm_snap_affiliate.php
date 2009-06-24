@@ -83,7 +83,7 @@ class zm_snap_affiliate extends ZMPlugin {
 
         // set up view mappings used by the wp controller
         $view = 'PageView#subdir=snap_affiliate&plugin=zm_snap_affiliate';
-        if (ZMTools::asBoolean($this->get('usePluginViews'))) {
+        if (ZMLangUtils::asBoolean($this->get('usePluginViews'))) {
             $view = 'PluginView#plugin=zm_snap_affiliate&subdir=views';
         }
 
