@@ -291,6 +291,7 @@ class ZMLoader {
             while (false !== ($parent = get_parent_class($parent))) {
                 if (0 === strpos($parent, $this->classPrefix_)) {
                     $this->cache_[$name] = $classname;
+                    return $name;
                 }
             }
         }
