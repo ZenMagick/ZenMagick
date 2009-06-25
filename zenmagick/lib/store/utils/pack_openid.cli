@@ -21,27 +21,42 @@
 <?php
 
     // load ZenMagick core
-    $coreDir = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
     require $coreDir.'lib/ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
+    ZMLoader->loadStatic();
+
 
     /**
-     * Custom class for SimpleTest specific dependency handling.
+     * Custom class for OpenID specific dependency handling.
      */
-    class SimpleTestPacker extends ZMPhpPackagePacker {
+    class OpenIDPacker extends ZMPhpPackagePacker {
+        /**
+         * {@inheritDoc}
+         */
+        public function finalizeDependencies($dependencies, $files) {
+            foreach ($dependencies as $class => $list) {
+                foreach ($list as $ii => $name) {
+                    if ('OpenID' == $name) {
+                        unset($dependencies[$class][$ii]);
+                    }
+                }
+            }
+            return $dependencies;
+        }
+
         /**
          * {@inheritDoc}
          */
         public function ignoreFile($file) {
-            return 'simpletest' != basename(dirname($file)) || false !== strpos($file, 'php4') || false !== strpos($file, 'eclipse') || false !== strpos($file, 'autorun') || false !== strpos($file, 'packed.php');
+          return in_array(basename($file), 
+              array('Server.php', 'ServerRequest.php', 'DumbStore.php', 'FileStore.php', 'PostgreSQLStore.php', 'SQLiteStore.php', 'SQLStore.php'));
         }
     }
 
-    $path = 'C:/Program Files/Apache Group/Apache2/htdocs/simpletest/';
-    $version = trim(file_get_contents($path.'VERSION'));
 
-    // pack; ideally path/version should be CLI args...
-    $packer = new SimpleTestPacker($path, $path.'simpletest-'.$version.'.packed.php');
+    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/php-openid-2.1.2/Auth/';
+    $packer = new OpenIDPacker($dir, dirname($dir).'/openid.packed.php');
     $packer->setDebug(false);
     $packer->packFiles(true);
 

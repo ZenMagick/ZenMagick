@@ -21,40 +21,29 @@
 <?php
 
     // load ZenMagick core
-    include dirname(dirname(dirname(__FILE__))) . '/external.php';
-    $coreDir = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
+    require $coreDir.'lib/ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
+    ZMLoader->loadStatic();
+
 
     /**
-     * Custom class for OpenID specific dependency handling.
+     * Custom class for SimpleTest specific dependency handling.
      */
-    class OpenIDPacker extends ZMPhpPackagePacker {
-        /**
-         * {@inheritDoc}
-         */
-        public function finalizeDependencies($dependencies, $files) {
-            foreach ($dependencies as $class => $list) {
-                foreach ($list as $ii => $name) {
-                    if ('OpenID' == $name) {
-                        unset($dependencies[$class][$ii]);
-                    }
-                }
-            }
-            return $dependencies;
-        }
-
+    class SimpleTestPacker extends ZMPhpPackagePacker {
         /**
          * {@inheritDoc}
          */
         public function ignoreFile($file) {
-          return in_array(basename($file), 
-              array('Server.php', 'ServerRequest.php', 'DumbStore.php', 'FileStore.php', 'PostgreSQLStore.php', 'SQLiteStore.php', 'SQLStore.php'));
+            return 'simpletest' != basename(dirname($file)) || false !== strpos($file, 'php4') || false !== strpos($file, 'eclipse') || false !== strpos($file, 'autorun') || false !== strpos($file, 'packed.php');
         }
     }
 
+    $path = 'C:/Program Files/Apache Group/Apache2/htdocs/simpletest/';
+    $version = trim(file_get_contents($path.'VERSION'));
 
-    $dir = 'C:/Program Files/Apache Group/Apache2/htdocs/php-openid-2.1.2/Auth/';
-    $packer = new OpenIDPacker($dir, dirname($dir).'/openid.packed.php');
+    // pack; ideally path/version should be CLI args...
+    $packer = new SimpleTestPacker($path, $path.'simpletest-'.$version.'.packed.php');
     $packer->setDebug(false);
     $packer->packFiles(true);
 

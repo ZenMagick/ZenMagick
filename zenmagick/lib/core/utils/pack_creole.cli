@@ -21,9 +21,10 @@
 <?php
 
     // load ZenMagick core
-    include dirname(dirname(dirname(__FILE__))) . '/external.php';
-    $coreDir = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
+    include $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
+    ZMLoader->loadStatic();
 
 
     /**
