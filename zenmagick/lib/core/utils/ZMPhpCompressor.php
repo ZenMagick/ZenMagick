@@ -50,23 +50,23 @@ if (!defined('T_ML_COMMENT')) {
  * @version $Id: ZMPhpCompressor.php 2231 2009-05-21 04:57:23Z DerManoMann $
  */
 class ZMPhpCompressor {
-    protected $rootFolder;
-    protected $outputFilename;
-    protected $tempFolder;
-    protected $errors;
+    protected $rootFolders_;
+    protected $outputFilename_;
+    protected $tempFolder_;
+    protected $errors_;
 
     //these two will be set once processing starts
-    protected $strippedFolder;
-    protected $flatFolder;
+    protected $strippedFolder_;
+    protected $flatFolder_;
 
-    // some optiones
-    protected $stripCode;
+    // options
+    protected $stripCode_;
 
 
     /**
      * Create new instance.
      *
-     * @param string root The root directory to compress; default is <code>null</code>.
+     * @param mixed root The root directory to compress (or array of directory names); default is <code>null</code>.
      * @param string out The [full] output filename; default is <code>null</code>.
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
@@ -75,7 +75,7 @@ class ZMPhpCompressor {
         $this->setOut($out);
         $this->setTemp($temp);
 
-        $this->stripCode = true;
+        $this->stripCode_ = true;
 
         $this->errors_ = array();
     }
@@ -99,35 +99,39 @@ class ZMPhpCompressor {
     }
 
     /**
-     * Set the root folder.
+     * Set the root folder(s).
      *
-     * @param string root The root directory to compress; default is <code>null</code>.
+     * @param mixed root The root directory to compress (or array of directory names); default is <code>null</code>.
      */
     public function setRoot($root) {
-        $this->rootFolder = $root;
+        if (!is_array($root)) {
+            $this->rootFolders_ = array($root);
+        } else {
+            $this->rootFolders_ = $root;
+        }
     }
 
     /**
      * Set the output filename.
      *
-     * @param string out The [full] output filename; default is <code>null</code>.
+     * @param string out The [full] output filename.
      */
     public function setOut($out) {
-        $this->outputFilename = $out;
+        $this->outputFilename_ = $out;
     }
 
     /**
      * Set the temp folder.
      *
-     * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
+     * @param string temp A temp folder for transient files and folders (unless stripping is off).
      */
     public function setTemp($temp) {
-        $this->tempFolder = $temp;
-        if (null == $this->tempFolder) {
-            if (null != $this->rootFolder && is_dir($this->rootFolder)) {
-                $this->tempFolder = dirname(dirname($this->rootFolder));
+        $this->tempFolder_ = $temp;
+        if (null == $this->tempFolder_) {
+            if (is_array($this->rootFolders_) && 0 < count($this->rootFolders_) && is_dir($this->rootFolders_[0])) {
+                $this->tempFolder_ = dirname(dirname($this->rootFolders_[0]));
             } else {
-                $this->tempFolder = dirname(__FILE__);
+                $this->tempFolder_ = dirname(__FILE__);
             }
         }
     }
@@ -144,15 +148,15 @@ class ZMPhpCompressor {
      * @param boolean strip The new value.
      */
     public function setStripCode($strip) {
-        $this->stripCode = $strip;
+        $this->stripCode_ = $strip;
     }
 
     /**
      * Clean up all temp. files.
      */
     public function clean() {
-        ZMFileUtils::rmdir($this->strippedFolder);
-        ZMFileUtils::rmdir($this->flatFolder);
+        ZMFileUtils::rmdir($this->strippedFolder_);
+        ZMFileUtils::rmdir($this->flatFolder_);
     }
 
     /**
@@ -161,27 +165,31 @@ class ZMPhpCompressor {
      * @return boolean <code>true</code> if successful, <code>false</code> on failure.
      */
     public function compress() {
-        $this->strippedFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'stripped';
-        $this->flatFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'flat';
+        $this->strippedFolder_ = $this->tempFolder_.DIRECTORY_SEPARATOR.'stripped';
+        $this->flatFolder_ = $this->tempFolder_.DIRECTORY_SEPARATOR.'flat';
 
         $this->clean();
-        @unlink($this->outputFilename);
+        @unlink($this->outputFilename_);
 
-        if ($this->stripCode) {
-            $this->stripPhpDir($this->rootFolder, $this->strippedFolder);
+        if ($this->stripCode_) {
+            foreach ($this->rootFolders_ as $folder) {
+                $this->stripPhpDir($folder, $this->strippedFolder_);
+            }
         }
         if (!$this->hasErrors()) {
-            if ($this->stripCode) {
-                $this->flattenDirStructure($this->strippedFolder, $this->flatFolder);
+            if ($this->stripCode_) {
+                $this->flattenDirStructure($this->strippedFolder_, $this->flatFolder_);
             } else {
-                $this->flattenDirStructure($this->rootFolder, $this->flatFolder);
+                foreach ($this->rootFolders_ as $folder) {
+                    $this->flattenDirStructure($folder, $this->flatFolder_);
+                }
             }
             if (!$this->hasErrors()) {
-                $this->compressToSingleFile($this->flatFolder, $this->outputFilename);
+                $this->compressToSingleFile($this->flatFolder_, $this->outputFilename_);
             }
         }
 
-        if ($this->stripCode) {
+        if ($this->stripCode_) {
             $this->clean();
         }
 
@@ -359,7 +367,7 @@ class ZMPhpCompressor {
                 return;
             }
 
-            if (!$this->stripCode) {
+            if (!$this->stripCode_) {
                 if (false === fwrite($handle, "<?php /* ".$infile." */ ?>\n")) {
                     array_push($this->errors_, 'could not write to file ' . $outfile);
                     return;
@@ -423,7 +431,7 @@ class ZMPhpCompressor {
                     unset($files[$key]);
                     $source = file_get_contents($infile);
 
-                    if (!$this->stripCode) {
+                    if (!$this->stripCode_) {
                         echo "<?php /* ".$infile." */ ?>\n";
                     }
                     echo $source;

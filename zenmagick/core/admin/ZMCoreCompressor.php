@@ -25,23 +25,26 @@
 
 
 /**
- * Compress core into a single file 'core.php'.
+ * Compress lib/core into a single file 'core.php'.
  *
  * @author DerManoMann
  * @package org.zenmagick.admin
  * @version $Id$
  */
 class ZMCoreCompressor extends ZMPhpCompressor {
-    private $pluginsPreparedFolder;
+    private $pluginsPreparedFolder_;
 
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct(ZMRuntime::getInstallationPath().'core', ZMRuntime::getInstallationPath().'core.php', ZMRuntime::getInstallationPath());
-        $this->pluginsPreparedFolder = ZMRuntime::getInstallationPath().'plugins.prepared';
-        $this->stripCode = ZMSettings::get('isStripCore');
+        parent::__construct();
+        $this->setRoot(array(ZMRuntime::getInstallationPath().'lib', ZMRuntime::getInstallationPath().'core'));
+        $this->setOut(ZMRuntime::getInstallationPath().'core.php');
+        $this->setTemp(ZMRuntime::getInstallationPath());
+        $this->pluginsPreparedFolder_ = ZMRuntime::getInstallationPath().'plugins.prepared';
+        $this->stripCode_ = ZMSettings::get('isStripCore');
     }
 
 
@@ -49,7 +52,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * Disable / remove the core.php file, effectively disabling the use of it.
      */
     public function disable() {
-        @unlink($this->outputFilename);
+        @unlink($this->outputFilename_);
     }
 
     /**
@@ -58,7 +61,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @return boolean <code>true</code> if core.php exists, <code>false</code> if not.
      */
     public function isEnabled() {
-        return file_exists($this->outputFilename);
+        return file_exists($this->outputFilename_);
     }
 
     /**
@@ -66,7 +69,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      */
     public function clean() {
         parent::clean();
-        ZMFileUtils::rmdir($this->pluginsPreparedFolder);
+        ZMFileUtils::rmdir($this->pluginsPreparedFolder_);
     }
 
     /**
@@ -75,33 +78,37 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @return boolean <code>true</code> if successful, <code>false</code> on failure.
      */
     public function compress() {
-        $this->strippedFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'stripped';
-        $this->flatFolder = $this->tempFolder.DIRECTORY_SEPARATOR.'flat';
+        $this->strippedFolder_ = $this->tempFolder_.DIRECTORY_SEPARATOR.'stripped';
+        $this->flatFolder_ = $this->tempFolder_.DIRECTORY_SEPARATOR.'flat';
 
         $this->clean();
-        @unlink($this->outputFilename);
+        @unlink($this->outputFilename_);
 
         // add some levels to make plugins load last
-        $this->preparePlugins($this->pluginsPreparedFolder.DIRECTORY_SEPARATOR.'1'.DIRECTORY_SEPARATOR.'2'.DIRECTORY_SEPARATOR.'3'.DIRECTORY_SEPARATOR.'4');
+        $this->preparePlugins($this->pluginsPreparedFolder_.DIRECTORY_SEPARATOR.'1'.DIRECTORY_SEPARATOR.'2'.DIRECTORY_SEPARATOR.'3'.DIRECTORY_SEPARATOR.'4');
 
-        if ($this->stripCode) {
-            $this->stripPhpDir($this->rootFolder, $this->strippedFolder);
-            $this->stripPhpDir($this->pluginsPreparedFolder, $this->strippedFolder);
+        if ($this->stripCode_) {
+            foreach ($this->rootFolders_ as $folder) {
+                $this->stripPhpDir($folder, $this->strippedFolder_);
+            }
+            $this->stripPhpDir($this->pluginsPreparedFolder_, $this->strippedFolder_);
         }
         if (!$this->hasErrors()) {
-            if ($this->stripCode) {
-                $this->flattenDirStructure($this->strippedFolder, $this->flatFolder);
+            if ($this->stripCode_) {
+                $this->flattenDirStructure($this->strippedFolder_, $this->flatFolder_);
             } else {
-                $this->flattenDirStructure($this->rootFolder, $this->flatFolder);
-                $this->flattenDirStructure($this->pluginsPreparedFolder, $this->flatFolder);
+                foreach ($this->rootFolders_ as $folder) {
+                    $this->flattenDirStructure($folder, $this->flatFolder_);
+                }
+                $this->flattenDirStructure($this->pluginsPreparedFolder_, $this->flatFolder_);
             }
             if (!$this->hasErrors()) {
-                $this->createInitBootstrap($this->flatFolder);
-                $this->compressToSingleFile($this->flatFolder, $this->outputFilename);
+                $this->createInitBootstrap($this->flatFolder_);
+                $this->compressToSingleFile($this->flatFolder_, $this->outputFilename_);
             }
         }
 
-        if ($this->stripCode) {
+        if ($this->stripCode_) {
             $this->clean();
         }
 
@@ -209,12 +216,11 @@ class ZMCoreCompressor extends ZMPhpCompressor {
     protected function finalizeFiles($files) {
         // some need to be in order :/
         $loadFirst = array(
-            'ZMSettings.php',
-            '1/constants.php',
+            '1/ZMSettings.php',
             '1/defaults.php',
-            'ZMObject.php',
-            'ZMLoader.php',
-            'ZMRuntime.php',
+            '1/ZMObject.php',
+            '1/ZMLoader.php',
+            '1/ZMRuntime.php',
             '1/ZMRequest.php',
             'init_bootstrap.php'
         );
