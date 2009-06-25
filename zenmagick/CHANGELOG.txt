@@ -12,6 +12,8 @@ Release 0.9.7
   not set
 - update demo theme with new(er) json2.js script from json.org
 - fix missing 'new' in ZMProductSorter.php
+- zm_auto_login: refresh cookie on onZMFinaliseContents rather onZMAllDone;
+  can't update headers after content has been sent!
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

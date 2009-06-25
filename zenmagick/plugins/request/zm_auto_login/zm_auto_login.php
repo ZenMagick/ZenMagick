@@ -145,7 +145,7 @@ class zm_auto_login extends ZMPlugin {
      *
      * @param array args Optional parameter.
      */
-    public function onZMAllDone($args=array()) {
+    public function onZMFinaliseContents($args=array()) {
         $session = ZMRequest::getSession();
         if ('GET' == ZMRequest::getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
