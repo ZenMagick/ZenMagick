@@ -78,9 +78,52 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
+     * Simple function to check if we need zen-cart...
+     */
+    private function needsZC() {
+        $pageName = ZMRequest::getPageName();
+        return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+    }
+
+    /**
      * More store startup code.
      */
     public function onZMBootstrapDone() {
+        // START: zc_fixes
+        // custom class mappings
+        ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
+
+        // skip more zc request handling
+        if (!$this->needsZC() && ZMSettings::get('isEnableZMThemes')) {
+        global $code_page_directory;
+            $code_page_directory = 'zenmagick';
+        }
+
+        // simulate the number of uploads parameter for add to cart
+        if ('add_product' == ZMRequest::getParameter('action')) {
+            $uploads = 0;
+            foreach (ZMRequest::getParameterMap() as $name => $value) {
+                if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+                    ++$uploads;
+                }
+            }
+            $_GET['number_of_uploads'] = $uploads;
+        }
+
+        // make action work with zen-cart cart and checkout code
+        if (isset($_POST['action']) && !isset($_GET['action'])) {
+            $_GET['action'] = $_POST['action'];
+        }
+
+        // used by some zen-cart validation code
+        if (defined('UI_DATE_FORMAT')) {
+            define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
+        }
+
+        // do not check for valid product id
+        $_SESSION['check_valid'] = 'false';
+        // END: zc_fixes
+
         // set the default authentication provider for zen cart
         ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
 

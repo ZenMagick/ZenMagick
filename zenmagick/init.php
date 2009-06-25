@@ -76,9 +76,6 @@
         set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
     }
 
-    // XXX: attach before bootstrap!
-    require_once(ZM_BASE_DIR.'zc_fixes.php');
-
     // core and plugins loaded
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
 
