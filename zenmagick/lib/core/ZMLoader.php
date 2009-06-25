@@ -379,12 +379,12 @@ class ZMLoader {
      * @return array List of full filenames of <code>.php</code> files.
      */
     public static function findIncludes($dir, $ext='.php', $recursive=false, $level=0) {
+        $includes = array();
+
         // sanity check
         if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
             return $includes;
         }
-
-        $includes = array();
 
         $handle = @opendir($dir);
         while (false !== ($name = readdir($handle))) {
