@@ -136,6 +136,7 @@ class ZMLogging extends ZMObject {
                     echo $line['class'].'::';
                 }
                 $file = ZMFileUtils::normalizeFilename($line['file']);
+                // make filename relative
                 $file = str_replace($root, '', $file);
                 $class = array_key_exists('class', $line) ? $line['class'].'::' : '';
                 echo $class.$line['function'].' (#'.$line['line'].':'.$file.")\n";
