@@ -33,9 +33,6 @@ class ZMDispatcher {
      * Dispatch a request.
      */
     public static function dispatch() {
-        // pick up messages from zen-cart request handling
-        ZMMessages::instance()->_loadMessageStack();
-
         // main request processor
         if (ZMSettings::get('isEnableZMThemes')) {
 
