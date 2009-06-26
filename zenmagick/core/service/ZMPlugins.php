@@ -120,7 +120,7 @@ class ZMPlugins extends ZMObject {
      * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances grouped by type.
      */
-    function getAllPlugins($scope=ZMPlugin::SCOPE_ALL, $configured=true) {
+    public function getAllPlugins($scope=ZMPlugin::SCOPE_ALL, $configured=true) {
         $plugins = array();
         foreach (ZMPlugins::getPluginTypes() as $type => $typeDir) {
             $plugins[$type] = ZMPlugins::getPluginsForType($type, $scope, $configured);
@@ -161,6 +161,9 @@ class ZMPlugins extends ZMObject {
      * @return array A list of <code>ZMPlugin</code> instances.
      */
     public static function getPluginsForType($type, $scope=ZMPlugin::SCOPE_ALL, $configured=true) {
+        // make sure the status is loaded...
+        ZMPlugins::instance();
+
         $idList = array();
         if ($configured) {
             // use plugin status to select plugins
@@ -234,23 +237,28 @@ class ZMPlugins extends ZMObject {
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
     public static function getPluginForId($id, $type=null) {
+        // make sure the status is loaded...
+        ZMPlugins::instance();
+
         if (array_key_exists($id, ZMPlugins::$plugins_)) {
             return ZMPlugins::$plugins_[$id];
         }
 
         $status = ZMPlugins::$pluginStatus_[$id];
         $type = null != $type ? $type : $status['type'];
-        $typeDir = Runtime::getPluginsDir() . $type . '/';
+        $typeDir = Runtime::getPluginsDir() . $type . DIRECTORY_SEPARATOR;
         $file = $typeDir.$id;
         if (is_dir($file)) {
             // expect plugin file in the directory with the same name and '.php' extension
-            $file .= '/' . $id . '.php';
+            $file .= DIRECTORY_SEPARATOR . $id . '.php';
             if (!file_exists($file)) {
+                //TODO: enable ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);
                 return null;
             }
         } else if (is_file($file.'.php')) {
             $file .= '.php';
         } else {
+            //TODO: enable ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);
             return null;
         }
 
@@ -265,7 +273,7 @@ class ZMPlugins extends ZMObject {
 
         $plugin = new $id();
         $plugin->setType($type);
-        $pluginDir = dirname($file) . '/';
+        $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
         if ($pluginDir != $typeDir) {
             $plugin->setPluginDir($pluginDir);
         }
@@ -281,6 +289,9 @@ class ZMPlugins extends ZMObject {
      * @param string scope The current scope.
      */
     public static function initPlugins($types, $scope) {
+        // make sure the status is loaded...
+        ZMPlugins::instance();
+
         if (!is_array($types)) {
             $types = array($types);
         }
