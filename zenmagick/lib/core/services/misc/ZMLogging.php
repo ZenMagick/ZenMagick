@@ -76,7 +76,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=ZMLogging::INFO) {
-        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
+        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             if (array_key_exists($level, self::$LABEL)) {
                 $msg = self::$LABEL[$level] . ': ' . $msg;
             }
@@ -96,7 +96,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
+        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             ob_start();
             if (null !== $msg) {
                 echo '<h3>'.$msg.":</h3>\n";
@@ -117,7 +117,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.isEnabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
+        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             ob_start();
             if (null !== $msg) {
                 if (is_array($msg)) {

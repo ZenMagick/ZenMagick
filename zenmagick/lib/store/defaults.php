@@ -109,7 +109,7 @@
             'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
 
             // path to db mappings, relative to ZM root
-            'zenmagick.core.database.mappings' => 'lib/store/db_mappings.txt',
+            'zenmagick.core.database.mappings.file' => 'lib/store/db_mappings.txt',
 
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
@@ -157,13 +157,13 @@
             'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
             // cache database mappings
-            'isCacheDbMappings' => false,
+            'zenmagick.core.database.mappings.cache.enabled' => false,
 
             // default authentication provider
             'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
 
             // persistent / transient implementation mappings
-            'cacheMapping' => array(),
+            'zenmagick.core.cache.mapping.defaults' => array(),
 
             // fix file permissions of created files to allow FTP access
             'fs.permissions.fix' => true,
@@ -175,7 +175,7 @@
             'isEnableTransactions' => false,
 
             // enable db table map building on demand
-            'isEnableDBAutoMapping' => true,
+            'zenmagick.core.database.mappings.autoMap.enabled' => true,
 
             // enable/disable plugins
             'plugins.enabled' => true,

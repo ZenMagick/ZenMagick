@@ -47,7 +47,7 @@ class ZMCaches extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->caches_ = array();
-        $this->types_ = array_merge(self::$DEFAULT_TYPES, ZMSettings::get('zenmagick.core.cache.defaultMapping', array()));
+        $this->types_ = array_merge(self::$DEFAULT_TYPES, ZMSettings::get('zenmagick.core.cache.mapping.defaults', array()));
     }
 
     /**

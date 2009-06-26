@@ -24,7 +24,7 @@
     //@ini_set("memory_limit", "32M");
 
     // enable logging
-    //ZMSettings::set('zenmagick.core.logging.isEnabled', true);
+    //ZMSettings::set('zenmagick.core.logging.enabled', true);
     // set log level to enable all logging;
     //ZMSettings::set('zenmagick.core.logging.level', ZMLogging::ALL);
 
@@ -55,6 +55,6 @@
     //ZMSettings::set('isLogPageStats', false);
 
     // enable database mapping caching
-    //ZMSettings::set('zenmagick.core.database.isCacheMappings', true);
+    //ZMSettings::set('zenmagick.core.database.mappings.cache.enabled', true);
 
 ?>

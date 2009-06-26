@@ -199,7 +199,7 @@ class ZMFileUtils {
      *
      * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
      *
-     * <p>This method may be disabled by setting <em>zenmagick.core.fs.permissions.isFix</em> to <code>false</code>.</p>
+     * <p>This method may be disabled by setting <em>zenmagick.core.fs.permissions.fix</em> to <code>false</code>.</p>
      *
      * @param mixed files Either a single filename or list of files.
      * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
@@ -207,7 +207,7 @@ class ZMFileUtils {
      *  <em>fs.permissions.defaults.file</em> for files.
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
-        if (!ZMSettings::get('zenmagick.core.fs.permissions.isFix')) {
+        if (!ZMSettings::get('zenmagick.core.fs.permissions.fix')) {
             return;
         }
         if (null == self::$fileOwner || null == self::$fileGroup) {
