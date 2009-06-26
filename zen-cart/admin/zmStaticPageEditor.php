@@ -27,14 +27,14 @@
 require_once 'includes/application_top.php';
 
   // get selections and defaults
-  $selectedThemeId = ZMRequest::getParameter('themeId', ZMRuntime::getThemeId());
+  $selectedThemeId = ZMRequest::getParameter('themeId', Runtime::getThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
   if (null === ($file = ZMRequest::getParameter('file')) || empty($file)) {
       $selectedFile = ZMRequest::getParameter('newfile');
   } else {
       $selectedFile = $file;
   }
-  $currentLanguage = ZMRuntime::getLanguage();
+  $currentLanguage = Runtime::getLanguage();
   $selectedLanguageId = ZMRequest::getParameter('languageId', $currentLanguage->getId());
 
   $editContents = ZMRequest::getParameter('editContents', null, false);

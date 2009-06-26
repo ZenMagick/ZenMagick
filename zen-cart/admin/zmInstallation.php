@@ -173,7 +173,7 @@
 
     if ($needRefresh) {
         ZMRequest::redirect('zmInstallation.php');
-        ZMRuntime::finish();
+        Runtime::finish();
     }
 
 ?>
