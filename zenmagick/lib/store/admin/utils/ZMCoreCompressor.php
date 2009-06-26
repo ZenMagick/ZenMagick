@@ -40,11 +40,11 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      */
     function __construct() {
         parent::__construct();
-        $this->pluginsPreparedFolder_ = ZMRuntime::getInstallationPath().'plugins.prepared';
+        $this->pluginsPreparedFolder_ = Runtime::getInstallationPath().'plugins.prepared';
 
-        $this->setRoot(array(ZMRuntime::getInstallationPath().'lib', ZMRuntime::getInstallationPath().'core', $this->pluginsPreparedFolder_));
-        $this->setOut(ZMRuntime::getInstallationPath().'core.php');
-        $this->setTemp(ZMRuntime::getInstallationPath());
+        $this->setRoot(array(Runtime::getInstallationPath().'lib', Runtime::getInstallationPath().'core', $this->pluginsPreparedFolder_));
+        $this->setOut(Runtime::getInstallationPath().'core.php');
+        $this->setTemp(Runtime::getInstallationPath());
         $this->setStripCode(ZMSettings::get('isStripCore'));
     }
 
@@ -116,7 +116,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                     $pluginDir = $plugin->getPluginDir();
                     $noDir = false;
                     if (empty($pluginDir)) {
-                        $pluginDir = ZMRuntime::getPluginsDir() . $type . DIRECTORY_SEPARATOR;
+                        $pluginDir = Runtime::getPluginsDir() . $type . DIRECTORY_SEPARATOR;
                         $noDir = true;
                     }
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {

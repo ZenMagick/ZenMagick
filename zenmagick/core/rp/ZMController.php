@@ -80,7 +80,7 @@ class ZMController extends ZMObject {
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 
         if ($enableTransactions) {
-            ZMRuntime::getDatabase()->beginTransaction();
+            Runtime::getDatabase()->beginTransaction();
         }
 
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
@@ -120,7 +120,7 @@ class ZMController extends ZMObject {
                 }
             } catch (Exception $e) {
                 if ($enableTransactions) {
-                    ZMRuntime::getDatabase()->rollback();
+                    Runtime::getDatabase()->rollback();
                     // re-throw
                     throw $e;
                 }
@@ -139,7 +139,7 @@ class ZMController extends ZMObject {
         ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controller' => $this, 'view' => $this->view_));
 
         if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
+            Runtime::getDatabase()->commit();
         }
 
         return $view;

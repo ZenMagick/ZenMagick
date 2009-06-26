@@ -60,9 +60,9 @@
      *
      * @package org.zenmagick.deprecated
      * @return long The execution time in milliseconds.
-     * @deprecated Use <code>ZMRuntime::getExecutionTime()</code> instead.
+     * @deprecated Use <code>Runtime::getExecutionTime()</code> instead.
      */
-    function zm_get_elapsed_time() { return ZMRuntime::getExecutionTime(); }
+    function zm_get_elapsed_time() { return Runtime::getExecutionTime(); }
     /**
      * Create a PHP directive for all global ZenMagick objects.
      *
@@ -247,7 +247,7 @@
      * @deprecated use ZMRuntime instead.
      */
     function zm_exit() {
-        ZMRuntime::finish();
+        Runtime::finish();
     }
     /**
      * Redirect to the given url.

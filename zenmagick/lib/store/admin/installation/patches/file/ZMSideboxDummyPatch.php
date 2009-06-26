@@ -167,7 +167,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      */
     function _getMissingZCSideboxes() {
         $missingBoxes = array();
-        $theme = ZMRuntime::getTheme();
+        $theme = Runtime::getTheme();
         $zcTheme = ZMThemes::instance()->getThemeForId(ZMThemes::instance()->getZCThemeId());
         $pathList = array($theme->getBoxesDir(), $zcTheme->getBoxesDir());
         foreach ($pathList as $boxPath) {

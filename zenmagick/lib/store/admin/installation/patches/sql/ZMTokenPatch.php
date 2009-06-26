@@ -61,7 +61,7 @@ class ZMTokenPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-	      $meta = ZMRuntime::getDatabase()->getMetaData();
+	      $meta = Runtime::getDatabase()->getMetaData();
         return !in_array(ZM_TABLE_TOKEN, $meta['tables']);
     }
 
@@ -73,7 +73,7 @@ class ZMTokenPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -97,7 +97,7 @@ class ZMTokenPatch extends ZMSQLPatch {
             return true;
         }
 
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);

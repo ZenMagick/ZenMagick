@@ -96,13 +96,13 @@ class ZMPlugins extends ZMObject {
      */
     public function getPluginTypes() {
         $types = array();
-        $handle = opendir(ZMRuntime::getPluginsDir());
+        $handle = opendir(Runtime::getPluginsDir());
         while (false !== ($file = readdir($handle))) { 
             if (ZMLangUtils::startsWith($file, '.')) {
                 continue;
             }
 
-            $name = ZMRuntime::getPluginsDir().$file;
+            $name = Runtime::getPluginsDir().$file;
             if (is_dir($name)) {
                 $types[$file] = $name;
             }
@@ -135,7 +135,7 @@ class ZMPlugins extends ZMObject {
      * @return array List of plugin ids.
      */
     protected static function _getPluginIdsForType($type) {
-        $typeDir = ZMRuntime::getPluginsDir() . $type . '/';
+        $typeDir = Runtime::getPluginsDir() . $type . '/';
         $idList = array();
         $handle = @opendir($typeDir);
         if (false !== $handle) {
@@ -240,7 +240,7 @@ class ZMPlugins extends ZMObject {
 
         $status = ZMPlugins::$pluginStatus_[$id];
         $type = null != $type ? $type : $status['type'];
-        $typeDir = ZMRuntime::getPluginsDir() . $type . '/';
+        $typeDir = Runtime::getPluginsDir() . $type . '/';
         $file = $typeDir.$id;
         if (is_dir($file)) {
             // expect plugin file in the directory with the same name and '.php' extension

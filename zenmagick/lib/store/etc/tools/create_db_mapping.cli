@@ -25,7 +25,7 @@
 
     $tables = array_slice($argv, 1, 1);
     foreach ($tables as $table) {
-        ZMDbTableMapper::instance()->buildTableMapping($table, ZMRuntime::getDatabase(), true);
+        ZMDbTableMapper::instance()->buildTableMapping($table, Runtime::getDatabase(), true);
     }
 
 ?>

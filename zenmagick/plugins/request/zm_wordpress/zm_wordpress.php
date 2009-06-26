@@ -203,7 +203,7 @@ class zm_wordpress extends ZMPlugin {
         $wordpressEnabled = $this->get('wordpressEnabled');
         if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
             if ($this->isPermalinksEnabled()) {
-                $path = ZMRuntime::getContext().$this->get('permaPrefix');
+                $path = Runtime::getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
                     // simulate empty query arg to make WP homepage work
                     $_SERVER['REQUEST_URI'] .= '?';

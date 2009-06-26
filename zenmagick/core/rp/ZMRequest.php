@@ -203,8 +203,8 @@ class ZMRequest extends ZMObject {
      * Get the language code.
      *
      * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you 
-     * want to find out the session language (ie the language for the current request), use <code>ZMRuntime::getLanguageId()</code>
-     * or <code>ZMRuntime::getLanguage()</code>.</p>
+     * want to find out the session language (ie the language for the current request), use <code>Runtime::getLanguageId()</code>
+     * or <code>Runtime::getLanguage()</code>.</p>
      *
      * @return string The language code or <code>null</code>.
      */
@@ -474,7 +474,7 @@ class ZMRequest extends ZMObject {
 
         ZMLogging::instance()->log('redirect url: ' . $url, ZMLogging::TRACE);
         header('Location: ' . $url, true, $status);
-        ZMRuntime::finish();
+        Runtime::finish();
     }
 
 }

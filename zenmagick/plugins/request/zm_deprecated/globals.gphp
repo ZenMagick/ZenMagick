@@ -54,7 +54,7 @@
     $zm_urlMapper = ZMUrlMapper::instance();
     $zm_sacsMapper = ZMSacsMapper::instance();
 
-    $zm_theme = ZMRuntime::getTheme();
+    $zm_theme = Runtime::getTheme();
     $zm_themeInfo = $zm_theme->getThemeInfo();
 
 ?>

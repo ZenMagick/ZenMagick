@@ -227,7 +227,7 @@ class ZMDbTableMapper extends ZMObject {
                 // assume all is good
                 $tableMap = $this->tableMap_[$table];
             } else {
-                // add the current custom fields at Runtime as they might change
+                // add the current custom fields at runtime as they might change
                 $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
             }
             $mappings = array_merge($mappings, $tableMap);

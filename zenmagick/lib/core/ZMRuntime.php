@@ -77,12 +77,12 @@ class ZMRuntime extends ZMObject {
 
         ksort($dbconf);
         $key = serialize($dbconf);
-        if (!array_key_exists($key, ZMRuntime::$databaseMap_)) {
+        if (!array_key_exists($key, self::$databaseMap_)) {
             $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider');
-            ZMRuntime::$databaseMap_[$key] = ZMLoader::make($provider, $dbconf);
+            self::$databaseMap_[$key] = ZMLoader::make($provider, $dbconf);
         }
 
-        return ZMRuntime::$databaseMap_[$key];
+        return self::$databaseMap_[$key];
     }
 
     /**

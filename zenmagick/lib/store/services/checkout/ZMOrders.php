@@ -85,7 +85,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
+        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
 
     /**
@@ -120,7 +120,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
-        $order = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
+        $order = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order');
 
         return $order;
     }
@@ -150,7 +150,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
+        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
 
     /**
@@ -189,7 +189,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                   ORDER BY orders_id desc";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
+        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
 
     /**
@@ -224,7 +224,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND os.language_id = :languageId
                   ORDER BY osh.date_added";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'OrderStatus');
+        return Runtime::getDatabase()->query($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'OrderStatus');
     }
 
     /**
@@ -237,7 +237,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         if (null == $orderStatus->getDateAdded()) {
             $orderStatus->setDateAdded(date(ZMDatabase::DATETIME_FORMAT));
         }
-        return ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_STATUS_HISTORY, $orderStatus);
+        return Runtime::getDatabase()->createModel(TABLE_ORDERS_STATUS_HISTORY, $orderStatus);
     }
 
     /**
@@ -253,14 +253,14 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 ORDER BY orders_products_id";
         $items = array();
         $attributes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'OrderItem') as $item) {
+        foreach (Runtime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'OrderItem') as $item) {
             // lookup selected attributes as well
             $sql = "SELECT *
                     FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
                     WHERE orders_id = :orderId
                       AND orders_products_id = :orderItemId";
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'AttributeValue') as $value) {
+            foreach (Runtime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'AttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
                     $attribute = ZMLoader::make("Attribute");
                     $attribute->setName($value->getAttributeName());
@@ -288,7 +288,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
         $totals = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotal') as $total) {
+        foreach (Runtime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotal') as $total) {
             $totals[$total->getType()] = $total;
         }
 
@@ -304,7 +304,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * @return ZMOrder The updated order.
      */
     public function updateOrder($order) {
-        return ZMRuntime::getDatabase()->updateModel(TABLE_ORDERS, $order);
+        return Runtime::getDatabase()->updateModel(TABLE_ORDERS, $order);
     }
 
     /**
@@ -330,7 +330,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         }
 
         $mapping = array(TABLE_ORDERS_PRODUCTS_DOWNLOAD, TABLE_ORDERS_PRODUCTS, TABLE_ORDERS);
-        return ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'Download');
+        return Runtime::getDatabase()->query($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'Download');
     }
 
 }

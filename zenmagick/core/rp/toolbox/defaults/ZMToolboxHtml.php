@@ -65,7 +65,7 @@ class ZMToolboxHtml extends ZMObject {
             throw new ZMException('invalid image format: '.$format);
         }
         if (!ZMLangUtils::startsWith($imgSrc, '/')) {
-            $imgSrc = ZMRuntime::getContext() . $imgSrc;
+            $imgSrc = Runtime::getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText(), false).'" ';
@@ -302,7 +302,7 @@ class ZMToolboxHtml extends ZMObject {
         $page = null == $page ? ZMRequest::getPageName() : $page;
 
         $onload = '';
-        $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
+        $themeInfo = Runtime::getTheme()->getThemeInfo();
         if ($themeInfo->hasPageEventHandler('onload', $page)) {
             $onload = ' onload="' . $themeInfo->getPageEventHandler('onload', $page) . '"';
         }

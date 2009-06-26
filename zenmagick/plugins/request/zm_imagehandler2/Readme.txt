@@ -20,8 +20,8 @@ These files are part of the ImageHandler2 distribution.
 
 b) Add the following two lines to the <head> element of the used layout file(s):
 
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php ZMRuntime::getTheme()->themeURL("style_imagehover.css") ?>" />
-    <script type="text/javascript" src="<?php ZMRuntime::getTheme()->themeURL("jscript_imagehover.js") ?>"></script>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php Runtime::getTheme()->themeURL("style_imagehover.css") ?>" />
+    <script type="text/javascript" src="<?php Runtime::getTheme()->themeURL("jscript_imagehover.js") ?>"></script>
 
 Ideally, they would be the last two lines before the closing head tag (</head>)
 

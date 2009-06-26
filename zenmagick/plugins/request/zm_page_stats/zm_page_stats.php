@@ -75,10 +75,10 @@ class zm_page_stats extends ZMPlugin {
         ob_start();
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
-        echo '  total page execution: '.ZMRuntime::getExecutionTime().' secconds;'."\n";
-        $db = ZMRuntime::getDB();
+        echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
+        $db = Runtime::getDB();
         echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
-        $stats = ZMRuntime::getDatabase()->getStats();
+        $stats = Runtime::getDatabase()->getStats();
         echo '  database ('.ZMSettings::get('zenmagick.core.database.provider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
 
         if (null !== ($exception = ZMRequest::getController()->getGlobal('exception'))) {
@@ -88,7 +88,7 @@ class zm_page_stats extends ZMPlugin {
         echo '-->'."\n";
         if (ZMSettings::get('plugins.zm_page_stats.showEventLog', true)) {
             echo '<!--'."\n";
-            echo '  '.ZMRuntime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
+            echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach (ZMEvents::instance()->getEventLog() as $event) {
                 echo '  '.$event['time'].' '.$event['method'].' / '.$event['id'].' args: '.implode(',', array_keys($event['args']))."\n";
             }
@@ -122,10 +122,10 @@ class zm_page_stats extends ZMPlugin {
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
-        $db = ZMRuntime::getDB();
+        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
+        $db = Runtime::getDB();
         echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
-        $stats = ZMRuntime::getDatabase()->getStats();
+        $stats = Runtime::getDatabase()->getStats();
         echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('zenmagick.core.database.provider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br'.$slash.'>';
         $lstats = ZMLoader::instance()->getStats(true);
         echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded.<br'.$slash.'>';
@@ -134,7 +134,7 @@ class zm_page_stats extends ZMPlugin {
             echo '<div id="event-log">';
             echo '<table border="1">';
             echo '<tr>';
-            echo '<td style="text-align:right;padding:4px;">'.ZMRuntime::getExecutionTime(ZM_START_TIME).'</td>';
+            echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime(ZM_START_TIME).'</td>';
             echo '<td colspan="3" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             echo '</tr>';
             foreach (ZMEvents::instance()->getEventLog() as $event) {

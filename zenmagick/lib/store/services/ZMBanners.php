@@ -120,7 +120,7 @@ class ZMBanners extends ZMObject {
             $sql .= " ORDER BY banners_sort_order";
         }
 
-        $banner = ZMRuntime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
+        $banner = Runtime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
         if (!$all) {
             shuffle($banner);
         }
@@ -142,7 +142,7 @@ class ZMBanners extends ZMObject {
             $sql .= " AND banners_on_ssl= :ssl";
         }
 
-        $banner = ZMRuntime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
+        $banner = Runtime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
 
         return $banner;
     }
@@ -156,18 +156,18 @@ class ZMBanners extends ZMObject {
         $sql = "SELECT count(*) AS total
                 FROM " . TABLE_BANNERS_HISTORY . "
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array(TABLE_BANNERS_HISTORY), ZMDatabase::MODEL_RAW);
+        $result = Runtime::getDatabase()->querySingle($sql, array('id' => $bannerId), array(TABLE_BANNERS_HISTORY), ZMDatabase::MODEL_RAW);
 
         if (0 < $result['total']) {
             $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
                     SET banners_shown = banners_shown +1
                     WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+            Runtime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         } else {
             $sql = "INSERT INTO " . TABLE_BANNERS_HISTORY . "
                       (banners_id, banners_shown, banners_history_date)
                     VALUES (:id, 1, now())";
-            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+            Runtime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         }
     }
 
@@ -180,7 +180,7 @@ class ZMBanners extends ZMObject {
         $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
                 SET banners_clicked = banners_clicked + 1
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+        Runtime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
 }

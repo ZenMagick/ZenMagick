@@ -392,7 +392,7 @@ class ZMPlugin extends ZMObject {
      * @return string A fully qualified filename.
      */
     public function getConfigPath($file) { 
-        $configPath = ZMRuntime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
+        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->id_.DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($configFile) || !file_exists($this->pluginDir_.$file)) {
@@ -557,7 +557,7 @@ class ZMPlugin extends ZMObject {
         }
 
         $type = basename(dirname($this->pluginDir_));
-        $url = ZMToolbox::instance()->html->encode(ZMRuntime::getPluginPathPrefix() . $type . '/' . $this->id_ . '/' . $uri, false);
+        $url = ZMToolbox::instance()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->id_ . '/' . $uri, false);
 
         if ($echo) echo $url;
         return $url;

@@ -58,7 +58,7 @@ class ZMAffiliateMainController extends ZMController {
         // check for existing referrer
         $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
                 WHERE referrer_customers_id = :referrer_customers_id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'AffiliateDetails');
+        $result = Runtime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'AffiliateDetails');
         if (null != $result) {
             $this->exportGlobal('affiliateDetails', $result);
         }
@@ -100,7 +100,7 @@ class ZMAffiliateMainController extends ZMController {
                    "WHERE c.commission_referrer_key = :commission_referrer_key AND o.orders_id = t.orders_id
                        AND o.orders_id = c.commission_orders_id AND t.class = :type";
             $args = array('commission_referrer_key' => $affiliateDetails->referrer_key, 'type' => 'ot_shipping');
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REFERRERS, TABLE_ORDERS_TOTAL, TABLE_COMMISSION)) as $result) {
+            foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_REFERRERS, TABLE_ORDERS_TOTAL, TABLE_COMMISSION)) as $result) {
               /*
 	$commission = floatval($totals->fields['commission_rate']);
 	$purchase_date = strtotime($totals->fields['date_purchased']);

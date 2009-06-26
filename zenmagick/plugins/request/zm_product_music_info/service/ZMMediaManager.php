@@ -57,7 +57,7 @@ class ZMMediaManager extends ZMObject {
      */
     function getMediaCollectionsForProductId($productId) {
         // media for product
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "select * from " . TABLE_MEDIA_TO_PRODUCTS . "
                 where product_id = :productId";
         $sql = $db->bindVars($sql, ":productId", $productId, "integer");

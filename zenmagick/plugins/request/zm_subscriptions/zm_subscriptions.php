@@ -230,7 +230,7 @@ class zm_subscriptions extends ZMPlugin {
                       is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
-            ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
+            Runtime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
@@ -276,7 +276,7 @@ class zm_subscriptions extends ZMPlugin {
                 FROM " . TABLE_ORDERS . "
                 WHERE subscription_order_id = :subscriptionOrderId";
         $results = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS) as $result) {
             $results[] = $result['orderId'];
         }
 
@@ -306,7 +306,7 @@ class zm_subscriptions extends ZMPlugin {
         $sql = "SELECT DATE_ADD(subscription_next_order, INTERVAL " . $distance . ") as subscription_next_order
                 FROM " . TABLE_ORDERS . "
                 WHERE orders_id = :orderId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS);
+        $result = Runtime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS);
 
         return $result['nextOrder'];
     }

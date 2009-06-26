@@ -31,7 +31,7 @@
   if (null != $template_name) {
       $source = $template_name.'.php';
   } else if (null != $view_name) {
-      $source = ZMRuntime::getTheme()->getViewsDir().$view_name.'.php';
+      $source = Runtime::getTheme()->getViewsDir().$view_name.'.php';
   }
 
   if (null != $source) {

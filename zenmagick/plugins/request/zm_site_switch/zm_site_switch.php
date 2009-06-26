@@ -88,7 +88,7 @@ class zm_site_switch extends ZMPlugin {
         $hostname = ZMRequest::getHostname();
 
         if (isset($zm_server_names[$hostname])) {
-            ZMRuntime::setThemeId($zm_server_names[$hostname]);
+            Runtime::setThemeId($zm_server_names[$hostname]);
         }
     }
 
@@ -114,7 +114,7 @@ class zm_site_switch extends ZMPlugin {
         $sql = 'UPDATE '.TABLE_ORDERS.'
                 SET site_id = :siteId
                 WHERE orders_id = :orderId';
-        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()), TABLE_ORDERS);
+        Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()), TABLE_ORDERS);
     }
 
     /**

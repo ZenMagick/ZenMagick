@@ -2,7 +2,7 @@ Release 0.9.7
 - add ZMProductAssociation service and related code
 - Move zm_token plugin into core
 - removed zm_product_associations plugin
-- add support for initQuery parameter to ZMDatabase (and ZMRuntime::getDatabase())
+- add support for initQuery parameter to ZMDatabase (and Runtime::getDatabase())
 - add ZMSimilarOrderProductAssociationHandler and new setting 'defaultProductAssociationHandler'
 - start migration of code into new lib folder
 - zm_firephp: fix issue with logging after response already written
@@ -15,6 +15,7 @@ Release 0.9.7
 - zm_auto_login: refresh cookie on onZMFinaliseContents rather onZMAllDone;
   can't update headers after content has been sent!
 - remove obsolete bootstrap.php
+- split ZMRuntime - all store code now uses Runtime
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
@@ -43,7 +44,7 @@ Release 0.9.6
 - split ZMAddressBookProcessController into individual controller
 - convert zm_dispatch (and stopre.php) into ZMDispatcher (still needs
   store.php)
-- remove ZMRuntime::instance()
+- remove Runtime::instance()
 - introduce define ZM_BASE_DIR that is going to replace ZM_ROOT in conjunction
   with Zen Cart path defines (DIR_WS_xxx)
 - make loader return files per level (accross the scanned tree); this means
@@ -225,7 +226,7 @@ Release 0.9.5
 - remove advanced_search_result.php from default theme, mark
   ZMAdvancedSearchResultController as deprecated
 - more improvements to discount calculations
-- move code depending on ZMRuntime::getDB() from ZMDbUtils to
+- move code depending on Runtime::getDB() from ZMDbUtils to
   ZMZenCartDatabase
 - re-added ZMPdoDatabase and improved on the last known version
 - change TestZMDatabase to run all tests on all supported implementations
@@ -290,7 +291,7 @@ Release 0.9.4
 - fix zm_site_switch: sql created different column than code expects! b:#2384579
 - use configured themeId to lookup static contents and boxes layout info;
   [this will make a difference only if the theme id is explicitely set using
-  ZMRuntime::seThemeId(...)]
+  Runtime::seThemeId(...)]
 - decouple cache type from actual implementation
 - add memcache cache provider
 - make group text clickable in cache admin
@@ -729,10 +730,10 @@ Release 0.9.1
   found, etc) to be displayed properly (and not only every second request!)
 - make ZenMagick resolve themes in admin too, as this is required to pick up
   the appropriate email templates!
-- add ZMRuntime::getDefaultLanguage() - right now this defaults to 'en' as we
+- add Runtime::getDefaultLanguage() - right now this defaults to 'en' as we
   know that it exists!
 - added new setting 'storeDefaultLanguageId' to be used by
-  ZMRuntime::getDefaultLanguage()
+  Runtime::getDefaultLanguage()
 - added ZMSettings::exists() method to allow for unambiguous checks for existence of
   settings
 
@@ -781,8 +782,8 @@ Release 0.9.0
 - make zm_ajax_href work in admin pages
 - make themeId case sensitive
 - use ZMRequest::getSession() rather than new ZMSession()
-- make the following methods deprecated: ZMRuntime::getLanguageId(),
-  ZMRuntime::getLanguageName() and ZMRuntime::getCurrencyCode();
+- make the following methods deprecated: Runtime::getLanguageId(),
+  Runtime::getLanguageName() and Runtime::getCurrencyCode();
 	this change affects a large number of files including the currency sidebox
 	and the plugins zm_page_cache and zm_product_music_info
 - explicitely display the coupon code in gv_send emails
@@ -853,9 +854,9 @@ Release 0.8.6.1
 Release 0.8.6
 - added setting 'isAccountNickname' to control use of nickname in account
   creation
-- removed ZMRuntime::isBBActive(); this requires a couple template changes;
+- removed Runtime::isBBActive(); this requires a couple template changes;
   please refer to the default theme changes to see what needs to be done
-- removed ZMRuntime::reconnectDB()
+- removed Runtime::reconnectDB()
 - removed all phpBB references (functions, nickname validation, controller
   code) plus the settings 'isEnablePHPBBLinks'
 - fix nickname population in ZMAccount
@@ -1129,7 +1130,7 @@ Release 0.8.3
   line with the new account types
 - removed obsolete function zm_clear_session()
 - added some more currency handling code
-- change ZMRuntime::getCurrencyId to getCurrencyCode; needs change in
+- change Runtime::getCurrencyId to getCurrencyCode; needs change in
   boxes/currencies.php
 - change id to code on ZMCurrency
 - reimplemented zm_format_currency(..) to use the changed currency code
@@ -1542,7 +1543,7 @@ Release 0.7.0
 - theme info will inherit default settings
 - added zm_phpinfo() function that strips some of the original formatting
 - removed unneccessary echo from eval(..) calls
-- renamed ZMRuntime::getApplicationRoot() to getContext()
+- renamed Runtime::getApplicationRoot() to getContext()
 - ZMLoader::getStatic() now guarantees that local.php is the first item if it
   exists
 - locale settings are now also inherited from the default theme

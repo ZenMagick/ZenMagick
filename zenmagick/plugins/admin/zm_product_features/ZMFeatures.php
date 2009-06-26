@@ -72,7 +72,7 @@ class ZMFeatures extends ZMObject {
         $session = ZMRequest::getSession();
         $languageId = $session->getLanguageId();
 
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "select f.feature_id, f.feature_type_id, f.language_id, f.feature_name, f.feature_description,
                 f.hidden
                 from " .ZM_TABLE_FEATURES . " f
@@ -104,7 +104,7 @@ class ZMFeatures extends ZMObject {
         if (null != $this->featureTypes_)
             return;
 
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $query = "select feature_type_id, feature_type
                   from " . ZM_TABLE_FEATURE_TYPES;
         $results = $db->Execute($query);
@@ -186,7 +186,7 @@ class ZMFeatures extends ZMObject {
      * @return boolean <code>true</code> if the feature was removed successfully, <code>false</code> if not.
      */
     function removeFeatureForId($featureId) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "delete from " . ZM_TABLE_FEATURES . "
                 where feature_id = :featureId";
         $sql = $db->bindVars($sql, ':featureId', $featureId, 'integer');
@@ -207,7 +207,7 @@ class ZMFeatures extends ZMObject {
      * @return boolean <code>true</code> if the feature was added, <code>false</code> if not.
      */
     function addFeature($type, $languageId, $name, $description, $hidden=false) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "insert into " . ZM_TABLE_FEATURES . "
                 (feature_type_id, language_id, feature_name, feature_description, hidden)
                 values (:type, :languageId, :name, :description, :hidden)";
@@ -232,7 +232,7 @@ class ZMFeatures extends ZMObject {
      * @return boolean <code>true</code> if the feature was updated, <code>false</code> if not.
      */
     function updateFeature($featureId, $languageId, $name, $description, $hidden) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "update " . ZM_TABLE_FEATURES . "
                 set feature_name = :name,
                     feature_description = :description,
@@ -253,7 +253,7 @@ class ZMFeatures extends ZMObject {
 
     // add feature for product
     function addFeatureForProduct($productId, $featureId, $value, $index=1) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "insert into " . ZM_TABLE_PRODUCT_FEATURES . "
                 (product_id, feature_id, feature_index_id, feature_value)
                 values (:productId, :featureId, :index, :value)";
@@ -268,7 +268,7 @@ class ZMFeatures extends ZMObject {
 
     // remove feature for product
     function removeFeatureForProduct($productId, $featureId, $index=null) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "delete from " . ZM_TABLE_PRODUCT_FEATURES . "
                 where product_id = :productId
                 and feature_id = :featureId";
@@ -284,7 +284,7 @@ class ZMFeatures extends ZMObject {
 
     // update feature for product
     function updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index) {
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "update " . ZM_TABLE_PRODUCT_FEATURES . "
                 set feature_value = :value,
                     feature_index_id = :index
@@ -333,7 +333,7 @@ class ZMFeatures extends ZMObject {
         if (array_key_exists($productId, $this->productFeatures_))
             return $this->productFeatures_[$productId];
 
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         $sql = "select f.product_feature_id, f.feature_id, f.feature_index_id, f.feature_value
                   from " . ZM_TABLE_PRODUCT_FEATURES . " f
                   where f.product_id = :productId

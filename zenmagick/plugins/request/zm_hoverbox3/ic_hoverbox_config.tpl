@@ -6,7 +6,7 @@ var Hoverbox = {
     border: <?php if(defined('HOVERBOX_BORDER_SIZE')){echo HOVERBOX_BORDER_SIZE;}else{echo '12';}?>,
     buttons: { opacity: { normal: <?php if(defined('HOVERBOX_CLOSE_NORMAL')){echo HOVERBOX_CLOSE_NORMAL;}else{echo '0.65';}?>, hover: <?php if(defined('HOVERBOX_CLOSE_HOVER')){echo HOVERBOX_CLOSE_HOVER;}else{echo '1';}?> } },
     cyclic: <?php if(defined('HOVERBOX_END_BEG')){echo HOVERBOX_END_BEG;}else{echo 'false';}?>,
-    images: '<?php ZMRuntime::getTheme()->themeURL('hover3/images');?>/',
+    images: '<?php Runtime::getTheme()->themeURL('hover3/images');?>/',
     imgNumberTemplate: '<?php if(defined('HOVERBOX_IMG_NUMBER')){echo HOVERBOX_IMG_NUMBER;}else{echo 'Image #{position} of #{total}';}?>',
     overlay: {                                            
       background: '<?php if(defined('HOVERBOX_OVERLAY_BACKGROUND')){echo HOVERBOX_OVERLAY_BACKGROUND;}else{echo '#000000';}?>',                                  

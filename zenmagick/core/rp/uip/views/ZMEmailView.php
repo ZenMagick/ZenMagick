@@ -103,7 +103,7 @@ class ZMEmailView extends ZMPageView {
         }
 
         // set for all
-        $language = ZMRuntime::getLanguage();
+        $language = Runtime::getLanguage();
 
         ob_start();
         include($this->getViewFilename());

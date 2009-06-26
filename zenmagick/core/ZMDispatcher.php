@@ -52,7 +52,7 @@ class ZMDispatcher {
 
             ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
 
-            ZMRuntime::finish();
+            Runtime::finish();
         }
     }
 

@@ -54,7 +54,7 @@ class ZMPageView extends ZMView {
      * @return string The layout name or <code>null</code>.
      */
     protected function getLayout() {
-        $themeInfo = ZMRuntime::getTheme()->getThemeInfo();
+        $themeInfo = Runtime::getTheme()->getThemeInfo();
         return $themeInfo->getLayoutFor($this->getName());
     }
 
@@ -70,11 +70,11 @@ class ZMPageView extends ZMView {
 
         // common view variables
         $zm_view = $this;
-        $zm_theme = ZMRuntime::getTheme();
+        $zm_theme = Runtime::getTheme();
 
         $layout = $this->getLayout();
         if (null != $layout) {
-            include ZMRuntime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix'));
+            include Runtime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix'));
         } else {
             if ($this->isViewFunction()) { 
                 $this->callView(); 

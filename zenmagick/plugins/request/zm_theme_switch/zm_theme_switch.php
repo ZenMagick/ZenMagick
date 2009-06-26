@@ -62,7 +62,7 @@ class zm_theme_switch extends ZMPlugin {
         }
 
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
-            ZMRuntime::setThemeId($themeId);
+            Runtime::setThemeId($themeId);
         }
     }
 

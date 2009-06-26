@@ -94,7 +94,7 @@ class zm_crossell extends ZMPlugin {
                 WHERE xp.products_id = :productId
                 ORDER BY xp.sort_order ASC limit ".(int)MAX_DISPLAY_XSELL;
 
-        foreach (ZMRuntime::getDatabase()->query($sql, array('productId' => $productId), TABLE_PRODUCTS_XSELL, ZMDatabase::MODEL_RAW) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, array('productId' => $productId), TABLE_PRODUCTS_XSELL, ZMDatabase::MODEL_RAW) as $result) {
             $productIds[] = $result['xsell_id'];
         }
 

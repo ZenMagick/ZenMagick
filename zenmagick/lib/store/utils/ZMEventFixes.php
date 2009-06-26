@@ -129,8 +129,8 @@ class ZMEventFixes extends ZMObject {
 
         if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
             // resolve theme to be used 
-            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : ZMRuntime::getThemeId());
-            ZMRuntime::setTheme($theme);
+            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : Runtime::getThemeId());
+            Runtime::setTheme($theme);
 
             // now we can check for a static homepage
             if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 

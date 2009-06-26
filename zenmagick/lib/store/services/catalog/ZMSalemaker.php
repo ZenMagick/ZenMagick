@@ -76,7 +76,7 @@ class ZMSaleMaker extends ZMObject {
             $sql = "SELECT * 
                     FROM " . TABLE_SALEMAKER_SALES . "
                     WHERE sale_status = '1'";
-            $this->sales_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZMDatabase::MODEL_RAW);
+            $this->sales_ = Runtime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZMDatabase::MODEL_RAW);
         }
 
         $hasSale = false;

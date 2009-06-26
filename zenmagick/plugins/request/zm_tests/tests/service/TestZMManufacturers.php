@@ -52,7 +52,7 @@ class TestZMManufacturers extends ZMTestCase {
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(ZMDatabase::NULL_DATETIME);
         $newManufacturer->setLastModified(ZMDatabase::NULL_DATETIME);
-        $newManufacturer = ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $newManufacturer);
+        $newManufacturer = Runtime::getDatabase()->createModel(TABLE_MANUFACTURERS, $newManufacturer);
 
         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($newManufacturer->getId());
         if ($this->assertNotNull($manufacturer)) {
@@ -61,7 +61,7 @@ class TestZMManufacturers extends ZMTestCase {
         }
 
         // remove again
-        ZMRuntime::getDatabase()->removeModel(TABLE_MANUFACTURERS, $newManufacturer);
+        Runtime::getDatabase()->removeModel(TABLE_MANUFACTURERS, $newManufacturer);
     }
 
 }

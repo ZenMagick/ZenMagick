@@ -77,7 +77,7 @@ class ZMDbUtils {
      * @return string The most specific filename or <code>null</code>.
      */
     public static function resolveSQLFilename($filename) {
-        $config = ZMRuntime::getDatabase()->getConfig();
+        $config = Runtime::getDatabase()->getConfig();
         $driver = $config['driver'];
         if (false !== ($ldot = strrpos($filename, '.'))) {
             $driverFilename = substr($filename, 0, $ldot) . '-' . $driver . substr($filename, $ldot);

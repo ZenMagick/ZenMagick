@@ -66,7 +66,7 @@
     // upset plugins if required
     if (ZMSettings::get('plugins.enabled')) {
         ZMLoader::make("Plugins");
-        ZMPlugins::initPlugins(explode(',', ZMSettings::get('plugins.types')), ZMRuntime::getScope());
+        ZMPlugins::initPlugins(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
     }
 
     // XXX: do after plugins to allow plugins to provide alternative implementations, however it would be good to have some before!

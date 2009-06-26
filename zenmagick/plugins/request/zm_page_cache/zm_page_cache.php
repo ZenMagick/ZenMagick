@@ -84,7 +84,7 @@ class zm_page_cache extends ZMPlugin {
     function getRequestKey() {
         $session = ZMRequest::getSession();
         return ZMRequest::getPageName() . '-' . ZMRequest::getQueryString() . '-' . ZMRequest::getAccountId() . '-' . 
-                  $session->getLanguageId() . '-' . ZMRuntime::getThemeId();
+                  $session->getLanguageId() . '-' . Runtime::getThemeId();
     }
 
     /**
@@ -120,7 +120,7 @@ class zm_page_cache extends ZMPlugin {
                 echo $contents;
                 if (ZMSettings::get('plugins.zm_page_cache.stats', true)) {
                     ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS);
-                    echo '<!-- zm_page_cache stats: page: ' . ZMRuntime::getExecutionTime() . ' sec.; ';
+                    echo '<!-- zm_page_cache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
                 }
                 require('includes/application_bottom.php');

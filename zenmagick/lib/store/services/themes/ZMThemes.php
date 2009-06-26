@@ -73,9 +73,9 @@ class ZMThemes extends ZMObject {
      */
     public function getThemeInfoForId($themeId=null) {
         // theme id
-        $themeId = null == $themeId ? ZMRuntime::getThemeId() : $themeId;
+        $themeId = null == $themeId ? Runtime::getThemeId() : $themeId;
         // theme base path
-        $basePath = ZMRuntime::getThemesDir();
+        $basePath = Runtime::getThemesDir();
         $infoName = $themeId. ' ThemeInfo';
         // theme info class name
         $infoClass = ZMLoader::makeClassname($infoName);
@@ -107,7 +107,7 @@ class ZMThemes extends ZMObject {
      */ 
     public function getThemeInfoList() {
         $infoList = array();
-        $basePath = ZMRuntime::getThemesDir();
+        $basePath = Runtime::getThemesDir();
         $dirs = $this->getThemeDirList();
         // load info classes and get instance
         foreach ($dirs as $dir) {
@@ -127,7 +127,7 @@ class ZMThemes extends ZMObject {
      */
     private function getThemeDirList() {
         $themes = array();
-        $handle = @opendir(ZMRuntime::getThemesDir());
+        $handle = @opendir(Runtime::getThemesDir());
         while (false !== ($file = readdir($handle))) { 
             if (ZMLangUtils::startsWith($file, '.') || 'CVS' == $file) {
                 continue;
@@ -153,14 +153,14 @@ class ZMThemes extends ZMObject {
         $sql = "SELECT template_dir
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
         if (null !== $result) {
             $themeId = $result['dir'];
         } else {
             $sql = "SELECT template_dir
                     FROM " . TABLE_TEMPLATE_SELECT . "
                     WHERE template_language = 0";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
             $themeId = $result['dir'];
         }
 
@@ -179,7 +179,7 @@ class ZMThemes extends ZMObject {
         $sql = "SELECT template_id
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
 
         $sql = '';
         if (null !== $result) {
@@ -193,7 +193,7 @@ class ZMThemes extends ZMObject {
                     values (:dir, :languageId)";
         }
         $args = array('id' => $result['id'], 'dir' => $themeId, 'languageId' => $languageId);
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
+        Runtime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
     }
 
     /**
@@ -237,8 +237,8 @@ class ZMThemes extends ZMObject {
         }
 
         // check for theme switching
-        if (null != $themeInfo && ZMRuntime::getThemeId() != $themeInfo->getThemeId()) {
-            return $this->resolveTheme(ZMRuntime::getThemeId());
+        if (null != $themeInfo && Runtime::getThemeId() != $themeInfo->getThemeId()) {
+            return $this->resolveTheme(Runtime::getThemeId());
         }
 
         // finalise i18n

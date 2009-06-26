@@ -117,7 +117,7 @@ class ZMScaffoldController extends ZMController {
      */
     public function edit() {
         // todo: key
-        $model = ZMRuntime::getInstance()->loadModel($this->table_, $key, 'ZMObject');
+        $model = Runtime::getInstance()->loadModel($this->table_, $key, 'ZMObject');
         $this->exportGlobal('data', $model);
         //todo: view
     }

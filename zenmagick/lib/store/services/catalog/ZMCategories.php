@@ -88,7 +88,7 @@ class ZMCategories extends ZMObject {
                 WHERE products_id = :productId";
         $args = array('productId' => $productId);
         $category = null;
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_PRODUCTS_TO_CATEGORIES);
+        $result = Runtime::getDatabase()->querySingle($sql, $args, TABLE_PRODUCTS_TO_CATEGORIES);
         if (null !== $result) {
             $category = $this->getCategoryForId($result['categoryId']);
         }
@@ -177,8 +177,8 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     public function updateCategory($category) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        Runtime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
+        Runtime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
     }
 
     /**
@@ -188,8 +188,8 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     public function createCategory($category) {
-        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
-        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        $category = Runtime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
+        $category = Runtime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
         return $category;
     }
 
@@ -203,7 +203,7 @@ class ZMCategories extends ZMObject {
             $this->productTypeIdMap_ = array();
             $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
                     ORDER BY category_id";
-            foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
+            foreach (Runtime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
                 if (!array_key_exists($result['categoryId'],  $this->productTypeIdMap_)) {
                     $this->productTypeIdMap_[$result['categoryId']] = array();
                 }
@@ -235,7 +235,7 @@ class ZMCategories extends ZMObject {
                 WHERE cd.language_id = :languageId
                 ORDER BY sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
             $this->categories_[$languageId][$category->getId()] = $category;
         }
     }

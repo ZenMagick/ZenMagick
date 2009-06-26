@@ -26,7 +26,7 @@
 <?php
 
     $toolbox = ZMToolbox::instance();
-    $currentLanguage = ZMRuntime::getLanguage();
+    $currentLanguage = Runtime::getLanguage();
     $selectedLanguageId = ZMRequest::getParameter('languageId', $currentLanguage->getId());
 
     $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $selectedLanguageId);

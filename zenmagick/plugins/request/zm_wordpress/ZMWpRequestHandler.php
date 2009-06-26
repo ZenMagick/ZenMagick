@@ -115,20 +115,20 @@ class ZMWpRequestHandler extends ZMController {
         $urlToken = parse_url($arg);
         if ($this->plugin->isPermalinksEnabled()) {
             // make sure we stay on the same server
-            $selfUrlToken = parse_url(ZMRuntime::getBaseURL());
+            $selfUrlToken = parse_url(Runtime::getBaseURL());
             if ($urlToken['host'] != $selfUrlToken['host']) {
                 $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
             }
 
             // fix path
-            $path = ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/';
+            $path = Runtime::getContext().$this->plugin->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin->get('wordpressDir'));
             if (!ZMLangUtils::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:
-                //$_SERVER['REQUEST_URI'] = str_replace(ZMRuntime::getContext().$this->plugin->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
+                //$_SERVER['REQUEST_URI'] = str_replace(Runtime::getContext().$this->plugin->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
             return ZMToolbox::instance()->net->url(FILENAME_WP, $urlToken['query'], false, false);
@@ -142,7 +142,7 @@ class ZMWpRequestHandler extends ZMController {
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
             return $this->plugin->getPluginDir().'wp/comments.php';
           } else {
-            return ZMRuntime::getTheme()->themeFile('views/wp/comments.php');
+            return Runtime::getTheme()->themeFile('views/wp/comments.php');
           }
     }
 

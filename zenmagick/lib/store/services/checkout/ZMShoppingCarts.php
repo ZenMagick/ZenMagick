@@ -71,7 +71,7 @@ class ZMShoppingCarts extends ZMObject {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
             $skuIds[] = $result['skuId'];
         }
 
@@ -82,7 +82,7 @@ class ZMShoppingCarts extends ZMObject {
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
                 $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
-                ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
+                Runtime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
             } else {
                 // insert
                 $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
@@ -91,7 +91,7 @@ class ZMShoppingCarts extends ZMObject {
                 $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
                           'dateAdded' => date('Ymd'));
                           //column is 8 char, not date! 'dateAdded' => date(ZMDatabase::DATE_FORMAT));
-                ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
+                Runtime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
                 if ($item->hasAttributes()) {
                     foreach ($item->getAttributes() as $attribute) {
                         foreach ($attribute->getValues() as $value) {
@@ -102,7 +102,7 @@ class ZMShoppingCarts extends ZMObject {
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
                             $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
-                            ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+                            Runtime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
                         }
                     }
                 }
@@ -120,10 +120,10 @@ class ZMShoppingCarts extends ZMObject {
     public function clearCart($cart) {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET);
+        Runtime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET);
         $sql = "DELETE FRMO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        Runtime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
     }
 
     /**
@@ -137,7 +137,7 @@ class ZMShoppingCarts extends ZMObject {
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0')";
-        $attributeResults = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        $attributeResults = Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
         // fix zc attributeId format (checkboxes)...
         foreach ($attributeResults as $ii => $attributeResult) {
             $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
@@ -148,7 +148,7 @@ class ZMShoppingCarts extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
+        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
             $item = ZMLoader::make('ShoppingCartItem');
             $item->setId($productResult['skuId']);
             $item->setQuantity($productResult['quantity']);

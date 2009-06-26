@@ -85,7 +85,7 @@ class ZMAttributes extends ZMObject {
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $languageId);
-        $attributes = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
+        $attributes = Runtime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
         if (0 == count($attributes)) {
             return $attributes;
         }
@@ -112,7 +112,7 @@ class ZMAttributes extends ZMObject {
         // read all in one go
         $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $languageId);
         $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
+        foreach (Runtime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
             $attribute = $attributeMap[$value->getAttributeId()];
             $value->setAttribute($attribute);
             $value->setTaxRate($product->getTaxRate());

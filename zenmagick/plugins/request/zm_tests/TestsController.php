@@ -59,7 +59,7 @@ class TestsController extends ZMController {
      */
     public function processGet() {
         // show test view only
-        ZMRuntime::getTheme()->getThemeInfo()->setLayout('tests', null);
+        Runtime::getTheme()->getThemeInfo()->setLayout('tests', null);
 
         $testsLoader = ZMLoader::make("Loader");
         $testBaseDir = $this->plugin->getPluginDir().'tests/';

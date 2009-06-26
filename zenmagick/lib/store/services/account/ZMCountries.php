@@ -86,7 +86,7 @@ class ZMCountries extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUNTRIES . "
                 ORDER BY countries_name";
-        $this->countries_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_COUNTRIES, 'Country');
+        $this->countries_ = Runtime::getDatabase()->query($sql, array(), TABLE_COUNTRIES, 'Country');
         return $this->countries_;
     }
 
@@ -120,7 +120,7 @@ class ZMCountries extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                  AND zone_id = :zoneId";
-        $zone = ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
+        $zone = Runtime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
         return null !== $zone ? $zone['code'] : $defaultZone;
     }
 
@@ -140,7 +140,7 @@ class ZMCountries extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
-        $zones = ZMRuntime::getDatabase()->query($sql, array('countryId' => $countryId), TABLE_ZONES, 'Zone');
+        $zones = Runtime::getDatabase()->query($sql, array('countryId' => $countryId), TABLE_ZONES, 'Zone');
         return $zones;
     }
 

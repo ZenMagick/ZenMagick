@@ -107,7 +107,7 @@ class ZMView extends ZMObject {
         }
         $filename .= ZMSettings::get('templateSuffix');
 
-        return ZMRuntime::getTheme()->themeFile($filename);
+        return Runtime::getTheme()->themeFile($filename);
     }
 
     /**

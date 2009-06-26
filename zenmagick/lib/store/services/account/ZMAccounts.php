@@ -72,7 +72,7 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        return Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
     /**
@@ -88,7 +88,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        return Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
     /**
@@ -103,7 +103,7 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        return Runtime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
     /**
@@ -117,7 +117,7 @@ class ZMAccounts extends ZMObject {
                     customers_info_number_of_logons = customers_info_number_of_logons+1
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId);
-        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
+        return Runtime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
@@ -132,7 +132,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZMDatabase::MODEL_RAW);
+        $result = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZMDatabase::MODEL_RAW);
         return 0 < $result['total'];
     }
 
@@ -143,13 +143,13 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The created account incl. the new account id.
      */
     public function createAccount($account) {
-        $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
+        $account = Runtime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
 
         $sql = "INSERT INTO `" . TABLE_CUSTOMERS_INFO . "`
                (customers_info_id, customers_info_date_account_created, global_product_notifications) 
                VALUES (:accountId, now(), :globalProductSubscriber)";
         $args = array('accountId' => $account->getId(), 'globalProductSubscriber' => $account->isGlobalProductSubscriber());
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
+        Runtime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
 
         return $account;
     }
@@ -167,12 +167,12 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The updated account.
      */
     public function updateAccount($account) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
+        Runtime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
 
         // check for existence in case record does not exist...
         $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
                 where customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZMDatabase::MODEL_RAW);
+        $result = Runtime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZMDatabase::MODEL_RAW);
         if ($result['total'] > 0) {
             $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
                     set customers_info_date_account_last_modified = now()
@@ -182,7 +182,7 @@ class ZMAccounts extends ZMObject {
                     customers_info_id, customers_info_date_account_created, customers_info_date_account_last_modified
                     ) values (:accountId, now(), now())";
         }
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId()), TABLE_CUSTOMERS_INFO);
+        Runtime::getDatabase()->update($sql, array('accountId' => $account->getId()), TABLE_CUSTOMERS_INFO);
 
         return $account;
     }
@@ -195,7 +195,7 @@ class ZMAccounts extends ZMObject {
         $sql = "UPDATE " . TABLE_CUSTOMERS . "
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
+        Runtime::getDatabase()->update($sql, array('accountId' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
     }
 
 
@@ -209,7 +209,7 @@ class ZMAccounts extends ZMObject {
         $sql = "SELECT global_product_notifications
                 FROM " . TABLE_CUSTOMERS_INFO . "
                 WHERE customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_INFO);
+        $result = Runtime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_INFO);
 
         return $result['globalProductSubscriber'];
     }
@@ -225,7 +225,7 @@ class ZMAccounts extends ZMObject {
                 SET global_product_notifications = :globalProductSubscriber
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
-        ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS_INFO);
+        Runtime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
@@ -239,7 +239,7 @@ class ZMAccounts extends ZMObject {
                 FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 WHERE customers_id = :accountId";
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;
@@ -271,14 +271,14 @@ class ZMAccounts extends ZMObject {
             $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     where  customers_id = :accountId
                     and products_id in (:productId)";
-            ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
+            Runtime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
         if (0 < count($add)) {
             $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     (products_id, customers_id) values (:productId, :accountId)";
             foreach ($add as $id) {
-                ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
+                Runtime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
             }
         }
 

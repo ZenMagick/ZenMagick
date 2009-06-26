@@ -129,7 +129,7 @@ class ZMTemplateManager extends ZMObject {
             return $this->leftColBoxes_;
         }
 
-        $theme = ZMRuntime::getTheme();
+        $theme = Runtime::getTheme();
 
         $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 WHERE layout_box_location = 0
@@ -137,11 +137,11 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMRuntime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }
@@ -159,7 +159,7 @@ class ZMTemplateManager extends ZMObject {
             return $this->rightColBoxes_;
         }
 
-        $theme = ZMRuntime::getTheme();
+        $theme = Runtime::getTheme();
 
         $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 WHERE layout_box_location = 1
@@ -167,11 +167,11 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMRuntime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }
@@ -188,7 +188,7 @@ class ZMTemplateManager extends ZMObject {
      */
     public function getFieldLength($table, $field) {
         if (!isset($this->tableMeta_[$table])) {
-            $this->tableMeta_[$table] = ZMRuntime::getDatabase()->getMetaData($table);
+            $this->tableMeta_[$table] = Runtime::getDatabase()->getMetaData($table);
         }
 
         return $this->tableMeta_[$table][$field]['maxLen'];
@@ -207,13 +207,13 @@ class ZMTemplateManager extends ZMObject {
         $sql = "SELECT products_type 
                 FROM " . TABLE_PRODUCTS . "
                 WHERE products_id = :productId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
+        $result = Runtime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
         if (null !== $result) {
             $typeId = $result['type'];
             $sql = "SELECT type_handler 
                     FROM " . TABLE_PRODUCT_TYPES . "
                     WHERE type_id = :id";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
+            $result = Runtime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
             if (null !== $result) {
                 $template = $result['handler'];
             }
@@ -242,7 +242,7 @@ class ZMTemplateManager extends ZMObject {
                     $attr .= ' '.$name.'="'.$value.'"';
                 }
             }
-            $css .= '<link '.$attr.' href="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
+            $css .= '<link '.$attr.' href="'.Runtime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
         }
 
         $jsTop = '';
@@ -250,9 +250,9 @@ class ZMTemplateManager extends ZMObject {
         foreach ($this->jsFiles_ as $filename => $info) {
             if (!$info['done']) {
                 if (ZMTemplateManager::PAGE_TOP == $info['position']) {
-                    $jsTop .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                    $jsTop .= '<script type="text/javascript" src="'.Runtime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
                 } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
-                    $jsBottom .= '<script type="text/javascript" src="'.ZMRuntime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                    $jsBottom .= '<script type="text/javascript" src="'.Runtime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
                 }
                 $this->jsFiles_[$filename]['done'] = true;
             }
@@ -299,7 +299,7 @@ class ZMTemplateManager extends ZMObject {
         $this->jsFiles_[$filename] = array('filename' => $filename, 'position' => $position, 'done' => false);
         if (ZMTemplateManager::PAGE_NOW == $position) {
             $this->jsFiles_[$filename]['done'] = true;
-            echo '<script type="text/javascript" src="',ZMRuntime::getTheme()->themeURL($filename, false),'"></script>',"\n";
+            echo '<script type="text/javascript" src="',Runtime::getTheme()->themeURL($filename, false),'"></script>',"\n";
         }
     }
 

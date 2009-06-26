@@ -26,7 +26,7 @@
 <?php
 
     if ('contact_us' == ZMRequest::getPageName()) {
-        ZMRuntime::setThemeId(ZM_DEFAULT_THEME);
+        Runtime::setThemeId(ZM_DEFAULT_THEME);
     }
 
     // add custom filter

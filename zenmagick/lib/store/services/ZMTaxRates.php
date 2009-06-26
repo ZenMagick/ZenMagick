@@ -121,7 +121,7 @@ class ZMTaxRates extends ZMObject {
                   AND tr.tax_class_id = :taxClassId
                 GROUP BY tr.tax_priority";
         $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
-        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
+        $results = Runtime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
 
         if (0 < count($results)) {
             $multiplier = 1.0;
@@ -168,7 +168,7 @@ class ZMTaxRates extends ZMObject {
                 ORDER BY tr.tax_priority";
         $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
             if (null !== $description) { $description .= _zm_l10n_lookup('tax.delim', ' + '); }
             $description .= $result['description'];
         }
@@ -188,7 +188,7 @@ class ZMTaxRates extends ZMObject {
             $sql = "SELECT tax_rate 
                     FROM " . TABLE_TAX_RATES . "
                     WHERE tax_description = :description";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), TABLE_TAX_RATES);
+            $result = Runtime::getDatabase()->querySingle($sql, array('description' => $description), TABLE_TAX_RATES);
             if (null != $result) {
                 $rate += $result['rate'];
             }

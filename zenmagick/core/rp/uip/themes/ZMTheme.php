@@ -83,10 +83,10 @@ class ZMTheme extends ZMObject {
      * @return string An absolute URL.
      */
     public function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
-        $url = ZMRuntime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
+        $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
-            if (file_exists(ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
-                $url = ZMRuntime::getThemesPathPrefix().ZM_DEFAULT_THEME."/".'content/'.$uri;
+            if (file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
+                $url = Runtime::getThemesPathPrefix().ZM_DEFAULT_THEME."/".'content/'.$uri;
             }
         }
 
@@ -103,7 +103,7 @@ class ZMTheme extends ZMObject {
      * @return string The themes root directory.
      */
     public function getRootDir() {
-        return ZMRuntime::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
+        return Runtime::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -166,7 +166,7 @@ class ZMTheme extends ZMObject {
         $file = $this->getRootDir().$baseDir.$name;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
-            $dfile = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.$baseDir.$name;
+            $dfile = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.$baseDir.$name;
             if (file_exists($dfile)) {
                 $file = $dfile;
             }
@@ -218,7 +218,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+            $path = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) { 
@@ -297,7 +297,7 @@ class ZMTheme extends ZMObject {
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
-            $filename = ZMRuntime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
+            $filename = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
         }
 
         $contents = null;
@@ -328,7 +328,7 @@ class ZMTheme extends ZMObject {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
         }
         $languageDir = $language->getDirectory();
-        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.ZMRuntime::getThemeId().'/define_' . $page . '.php';
+        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.Runtime::getThemeId().'/define_' . $page . '.php';
         if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
             $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
         }
@@ -384,7 +384,7 @@ class ZMTheme extends ZMObject {
     public function loadLocale($language) {
         if (null === $language) {
             // this may happen if the i18n patch hasn't been updated
-            $language = ZMRuntime::getDefaultLanguage();
+            $language = Runtime::getDefaultLanguage();
         }
         $path = $this->getLangDir().$language->getDirectory()."/";
         $l10n = $path . "l10n.php";

@@ -62,7 +62,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = Runtime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
@@ -92,7 +92,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET is_subscription_canceled = :subscriptionCanceled
                     WHERE orders_id = :orderId";
-            ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
+            Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
             ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
         }
 

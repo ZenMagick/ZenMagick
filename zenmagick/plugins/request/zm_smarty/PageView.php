@@ -66,7 +66,7 @@ class PageView extends ZMPageView {
         }
 
         $smarty->assign('zm_view', $this);
-        $smarty->assign('zm_theme', ZMRuntime::getTheme());
+        $smarty->assign('zm_theme', Runtime::getTheme());
 
         // function proxy 
         $smarty->assign('zm', ZMLoader::make('FunctionProxy'));

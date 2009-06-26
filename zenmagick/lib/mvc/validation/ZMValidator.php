@@ -282,7 +282,7 @@ class ZMValidator extends ZMObject {
         //TODO:move
         $this->toJSString($id);
         // inline JS to allow PHP
-        include_once ZMRuntime::getTheme()->themeFile("validation.js");
+        include_once Runtime::getTheme()->themeFile("validation.js");
     }
 
 }
