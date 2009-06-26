@@ -31,6 +31,10 @@
     // disable ZenMagick themes
     //ZMSettings::set('isEnableZMThemes', false);
 
+
+    // use PDO based database access layer
+    //ZMSettings::set('zenmagick.core.database.provider', 'ZMPdoDatabase');
+
     // enable zen-cart style define pages, rather than ZenMagick's static pages
     //ZMSettings::set('isZMDefinePages', false);
 

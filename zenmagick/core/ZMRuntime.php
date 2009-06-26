@@ -75,7 +75,7 @@ class ZMRuntime extends ZMObject {
      *  <dt>database</dt>
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
-     *  <dd>The requested implementation class; default is <code>ZMSettings::get('dbProvider')</code>.</dd>
+     *  <dd>The requested implementation class; default is <code>ZMSettings::get('zenmagick.core.database.provider')</code>.</dd>
      *  <dt>initQuery</dt>
      *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
      * </dl>
@@ -99,7 +99,7 @@ class ZMRuntime extends ZMObject {
         ksort($dbconf);
         $key = serialize($dbconf);
         if (!array_key_exists($key, ZMRuntime::$database_)) {
-            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('dbProvider');
+            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider');
             ZMRuntime::$database_[$key] = ZMLoader::make($provider, $dbconf);
         }
         return ZMRuntime::$database_[$key];

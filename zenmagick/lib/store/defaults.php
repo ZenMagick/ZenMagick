@@ -106,7 +106,7 @@
             'isEnablePatching' => true,
 
             // database provider class
-            'dbProvider' => 'ZMZenCartDatabase',
+            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
 
             // path to db mappings, relative to ZM root
             'zenmagick.core.database.mappings' => 'lib/store/db_mappings.txt',

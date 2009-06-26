@@ -79,7 +79,7 @@ class zm_page_stats extends ZMPlugin {
         $db = ZMRuntime::getDB();
         echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
-        echo '  database ('.ZMSettings::get('dbProvider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
+        echo '  database ('.ZMSettings::get('zenmagick.core.database.provider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
 
         if (null !== ($exception = ZMRequest::getController()->getGlobal('exception'))) {
             echo "\n".$exception."\n\n";
@@ -126,7 +126,7 @@ class zm_page_stats extends ZMPlugin {
         $db = ZMRuntime::getDB();
         echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
-        echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('dbProvider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br'.$slash.'>';
+        echo '&nbsp;&nbsp;<strong>database ('.ZMSettings::get('zenmagick.core.database.provider').')</strong>: SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;<br'.$slash.'>';
         $lstats = ZMLoader::instance()->getStats(true);
         echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded.<br'.$slash.'>';
         echo '</div>';
