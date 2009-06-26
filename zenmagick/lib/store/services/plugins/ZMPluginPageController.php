@@ -28,7 +28,7 @@
  * Plugin page controller base class.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins
+ * @package org.zenmagick.store.services.plugins
  * @version $Id: ZMPluginPageController.php 2149 2009-04-13 22:59:14Z dermanomann $
  */
 class ZMPluginPageController extends ZMObject {

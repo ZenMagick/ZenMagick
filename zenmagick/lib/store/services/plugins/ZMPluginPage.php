@@ -28,7 +28,7 @@
  * Container for all data/information related to a plugin admin page.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins
+ * @package org.zenmagick.store.services.plugins
  * @version $Id: ZMPluginPage.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 class ZMPluginPage extends ZMObject {

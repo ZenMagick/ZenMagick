@@ -28,7 +28,7 @@
     /**
      * Create a plugin admin page URL.
      *
-     * @package org.zenmagick.plugins
+     * @package org.zenmagick.store.services.plugins
      * @param string function The view function name; default is <code>null</code> to use the current.
      * @param string params Query string style parameter; if <code>''</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -60,7 +60,7 @@
      *   <dt>View and function</dt><dd>Viewname and function separated by <em>;</em>; example: <code>wiki;zm_wiki_admin</code>.</dd>
      * </dl>
      *
-     * @package org.zenmagick.plugins
+     * @package org.zenmagick.store.services.plugins
      * @param string target The target.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
@@ -78,7 +78,7 @@
     /**
      * Generate form element for the given config value.
      *
-     * @package org.zenmagick.plugins
+     * @package org.zenmagick.store.services.plugins
      * @param ZMConfigValue value The value.
      * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string HTML code.
@@ -96,7 +96,7 @@
     /**
      * Create a simple plugin config form.
      *
-     * @package org.zenmagick.plugins
+     * @package org.zenmagick.store.services.plugins
      * @param ZMPlugin plugin The plugin.
      * @param string fkt The view function.
      * @param string title Optional title; default is <code>null</code> to use the plugin name.
