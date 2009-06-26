@@ -25,7 +25,6 @@
 ?>
 <?php
 
-    ZMLoader::resolve('Dispatcher');
     ZMDispatcher::dispatch();
 
 ?>
