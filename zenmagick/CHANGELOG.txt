@@ -16,6 +16,7 @@ Release 0.9.7
   can't update headers after content has been sent!
 - remove obsolete bootstrap.php
 - split ZMRuntime - all store code now uses Runtime
+- zm_goggle_analytics: fix conversion URL (missing '/')
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

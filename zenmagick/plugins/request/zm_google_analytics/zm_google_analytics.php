@@ -381,7 +381,7 @@ var google_conversion_label = "Purchase";
 </script>
 <script type="text/javascript" src="$url/conversion.js">
 </script>
-<noscript><img height=1 width=1 border=0 src="$baseUrl/conversion$conversionId/?value=$totalValue&label=Purchase&script=0'; ?>" /></noscript>
+<noscript><img height=1 width=1 border=0 src="$baseUrl/conversion/$conversionId/?value=$totalValue&label=Purchase&script=0'; ?>" /></noscript>
 EOT;
             }
         }
