@@ -179,7 +179,7 @@ abstract class ZMPlugin extends ZMObject {
      * @param string The installation folder.
      */
     public function setPluginDirectory($directory) {
-        $this->pluginDirectory_ $directory;
+        $this->pluginDirectory_ = $directory;
     }
 
     /**
