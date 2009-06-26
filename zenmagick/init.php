@@ -39,8 +39,8 @@
     ini_set("display_errors", false);
     // enable logging
     ini_set("log_errors", true); 
-    // no, no
-    ini_set("register_globals", false);
+    // XXX: no, no
+    @ini_set("register_globals", false);
 
     // load initial code
     if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_DIR.'core.php')) {
@@ -65,7 +65,6 @@
 
     // upset plugins if required
     if (ZMSettings::get('plugins.enabled')) {
-        ZMLoader::make("Plugins");
         ZMPlugins::initPlugins(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
     }
 
