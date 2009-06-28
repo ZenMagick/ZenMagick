@@ -353,6 +353,7 @@ class ZMTheme extends ZMObject {
      * @return string The eval'ed content.
      */
     public function themeFileContents($file) {
+        //TODO: fix: this is returning the return code of eval!!!
         return eval('?>'.file_get_contents($this->themeFile($file)));
     }
 
