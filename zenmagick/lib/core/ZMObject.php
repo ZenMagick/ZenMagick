@@ -183,6 +183,8 @@ class ZMObject {
                 if ($this instanceof $className) {
                     $margs = array_merge(array($this), $args);
                     $target = ZMObject::$methods_[$method][$className];
+                    //XXX: consider adding explicit support for calls up to 3 parameters to avoid
+                    // usin call_user_func_array()
                     return call_user_func_array($target, $margs);
                 }
             }
