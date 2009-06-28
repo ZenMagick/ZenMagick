@@ -43,8 +43,8 @@
         <?php } ?>
         <?php if ($zm_resultList->hasSorters()) { ?>
             <div class="rls">
-                <?php if (ZMRequest::getParameter('keyword')) { ?>
-                    <input type="hidden" name="keyword" value="<?php echo ZMRequest::getParameter('keyword') ?>" />
+                <?php if (ZMRequest::getParameter('keywords')) { ?>
+                    <input type="hidden" name="keywords" value="<?php echo ZMRequest::getParameter('keywords') ?>" />
                 <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
                 <?php if (ZMRequest::getCategoryPath()) { ?>
