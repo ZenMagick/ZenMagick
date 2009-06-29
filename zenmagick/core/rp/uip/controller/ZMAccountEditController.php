@@ -60,8 +60,7 @@ class ZMAccountEditController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet() {
-        $this->exportGlobal("account", ZMRequest::getAccount());
-        return $this->findView();
+        return $this->findView(null, array('account' => ZMRequest::getAccount()));
     }
 
     /**

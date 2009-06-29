@@ -60,9 +60,8 @@ class ZMAccountHistoryInfoController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Order # ".ZMRequest::getOrderId());
 
         $order = ZMOrders::instance()->getOrderForId(ZMRequest::getOrderId());
-        $this->exportGlobal("zm_order", $order);
 
-        return $this->findView();
+        return $this->findView(null, array('zm_order' => $order));
     }
 
 }

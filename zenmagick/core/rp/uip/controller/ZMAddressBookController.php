@@ -49,19 +49,15 @@ class ZMAddressBookController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
-        $this->exportGlobal("zm_addressList", $addressList);
 
-        return $this->findView();
+        return $this->findView(null, array('zm_addressList' => $addressList));
     }
 
 }

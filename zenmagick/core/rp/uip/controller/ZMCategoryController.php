@@ -73,6 +73,7 @@ class ZMCategoryController extends ZMController {
         $viewName = 'error';
         $method = null;
         $args = null;
+        $data = array();
 
         // decide what to do
         if (null != ZMRequest::getCategoryPath()) {
@@ -97,7 +98,7 @@ class ZMCategoryController extends ZMController {
                 $resultList->addSorter(ZMLoader::make($sorter));
             }
             $resultList->setPageNumber(ZMRequest::getPageIndex());
-            $this->exportGlobal("zm_resultList", $resultList);
+            $data['zm_resultList'] = $resultList;
         }
 
         $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
@@ -109,7 +110,7 @@ class ZMCategoryController extends ZMController {
         }
 
         if (null != $category) {
-            $this->exportGlobal("zm_category", $category);
+            $data['zm_category'] = $category;
         }
 
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {
@@ -119,7 +120,7 @@ class ZMCategoryController extends ZMController {
             $viewName = 'product_info';
         }
 
-        return $this->findView($viewName);
+        return $this->findView($viewName, $data);
     }
 
 }

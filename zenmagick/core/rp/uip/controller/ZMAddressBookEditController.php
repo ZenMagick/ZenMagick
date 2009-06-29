@@ -58,23 +58,16 @@ class ZMAddressBookEditController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
         // populate with original data
         $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('id'));
-        $this->exportGlobal('address', $address);
-        return $this->findView();
+        return $this->findView(null, array('address' => $address));
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost() {
         $address = $this->getFormBean();

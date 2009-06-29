@@ -49,27 +49,24 @@ class ZMAccountNewslettersController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Newsletter");
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
-
-        return parent::process();
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
+    public function processGet() {
+        return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost() {
         $newsletterSubscriber = ZMLangUtils::asBoolean(ZMRequest::getParameter('newsletter_general', 0));
 
         $account = ZMRequest::getAccount();
@@ -79,7 +76,7 @@ class ZMAccountNewslettersController extends ZMController {
         }
 
         ZMMessages::instance()->success(zm_l10n_get('Your newsletter subscription has been updated.'));
-        return $this->findView('success');
+        return $this->findView('success', array('zm_account' => ZMRequest::getAccount()));
     }
 
 }

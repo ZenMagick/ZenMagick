@@ -75,7 +75,7 @@ class ZMView extends ZMObject {
      * @param array vars The name/value pairs.
      */
     public function setVars($vars) {
-        $this->vars_[$name] = array_merge($this->vars_, $vars);
+        $this->vars_ = array_merge($this->vars_, $vars);
     }
 
     /**

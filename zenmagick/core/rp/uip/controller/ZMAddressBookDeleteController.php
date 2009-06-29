@@ -62,8 +62,7 @@ class ZMAddressBookDeleteController extends ZMController {
      */
     public function processGet() {
         $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('id'));
-        $this->exportGlobal('address', $address);
-        return $this->findView();
+        return $this->findView(null, array('address' => $address));
     }
 
     /**

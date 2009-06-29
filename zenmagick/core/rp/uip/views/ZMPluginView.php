@@ -44,8 +44,7 @@ class ZMPluginView extends ZMPageView {
      */
     function __construct($view=null, $plugin=null) {
         parent::__construct($view);
-        $this->plugin_ = $plugin;
-        $this->setVar('plugin', $plugin);
+        $this->setPlugin($plugin);
     }
 
     /**
@@ -68,6 +67,7 @@ class ZMPluginView extends ZMPageView {
             // assume string
             $this->plugin_ = ZMPlugins::getPluginForId($plugin);
         }
+        $this->setVar('plugin', $this->plugin_);
     }
 
     /**

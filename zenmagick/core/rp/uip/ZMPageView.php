@@ -68,7 +68,7 @@ class ZMPageView extends ZMView {
             $$name = $instance;
         }
         // and for view data
-        foreach ($this->vars_ as $name => $instance) {
+        foreach ($this->getVars() as $name => $instance) {
             $$name = $instance;
         }
 

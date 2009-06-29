@@ -62,9 +62,8 @@ class ZMAccountHistoryController extends ZMController {
         $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array(ZMRequest::getAccountId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber(ZMRequest::getPageIndex());
-        $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView();
+        return $this->findView(null, array('zm_resultList' => $resultList));
     }
 
 }
