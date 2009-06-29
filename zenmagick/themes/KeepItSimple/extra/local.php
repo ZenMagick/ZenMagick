@@ -12,6 +12,6 @@
 
   ZMSettings::set('isUseCategoryPage', false);
   ZMSettings::set('resultListProductFilter', '');
-  ZMSettings::set('defaultResultListPagination', 6);
+  ZMSettings::set('zenmagick.mvc.resultlist.defaultPagination', 6);
 
 ?>

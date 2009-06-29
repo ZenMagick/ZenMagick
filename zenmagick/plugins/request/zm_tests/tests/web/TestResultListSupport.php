@@ -15,7 +15,7 @@ class TestResultListSupport extends ZMTestCase {
     public function setUp() {
         parent::setUp();
         // all tests assume this
-        ZMSettings::set('defaultResultListPagination', 10);
+        ZMSettings::set('zenmagick.mvc.resultlist.defaultPagination', 10);
     }
 
     /**

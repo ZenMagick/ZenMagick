@@ -281,7 +281,7 @@
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
             // result list 
-            'defaultResultListPagination' => 10,
+            'zenmagick.mvc.resultlist.defaultPagination' => 10,
             // comma separated lists
             'resultListProductFilter' => 'CategoryFilter,ManufacturerFilter',
             'resultListProductSorter' => 'ProductSorter',
