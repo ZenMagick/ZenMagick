@@ -28,7 +28,7 @@
  * Store runtime.
  *
  * @author DerManoMann
- * @package org.zenmagick
+ * @package org.zenmagick.store
  * @version $Id: ZMRuntime.php 2328 2009-06-26 02:18:36Z dermanomann $
  */
 class Runtime extends ZMRuntime {

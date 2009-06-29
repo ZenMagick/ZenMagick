@@ -28,7 +28,7 @@
  * result list handling.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.database
+ * @package org.zenmagick.core.services.database
  * @version $Id: ZMSQLAware.php 2004 2009-03-02 01:43:49Z dermanomann $
  */
 interface ZMSQLAware {

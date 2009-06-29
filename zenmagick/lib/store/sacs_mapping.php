@@ -31,7 +31,7 @@
      * to include in <code>core.php</code>. Also, this leaves the option of
      * alternative storage to improve loading time.</p>
      *
-     * @package org.zenmagick.settings
+     * @package org.zenmagick.store
      */
     function zm_set_default_sacs_mappings() {
         $sacsMapper = ZMSacsMapper::instance();

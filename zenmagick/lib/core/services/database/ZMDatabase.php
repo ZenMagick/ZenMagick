@@ -53,7 +53,7 @@
  * statement.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.database
+ * @package org.zenmagick.core.services.database
  * @version $Id: ZMDatabase.php 2186 2009-04-29 03:42:53Z dermanomann $
  */
 interface ZMDatabase {

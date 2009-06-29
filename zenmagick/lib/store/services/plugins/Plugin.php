@@ -32,7 +32,7 @@
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins
+ * @package org.zenmagick.store.services.plugins
  * @version $Id: ZMPlugin.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
 class Plugin extends ZMPlugin {

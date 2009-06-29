@@ -24,7 +24,7 @@
  * Security utils..
  *
  * @author DerManoMann
- * @package org.zenmagick.utils
+ * @package org.zenmagick.core.utils
  * @version $Id$
  */
 class ZMSecurityUtils {

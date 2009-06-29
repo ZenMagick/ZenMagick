@@ -28,7 +28,7 @@
  * http://www.kennynet.co.uk/2008/12/02/php-pdo-nested-transactions/.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.database.provider
+ * @package org.zenmagick.core.services.database.provider
  * @version $Id: ZMPdoDatabase.php 2265 2009-06-16 05:32:36Z DerManoMann $
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {

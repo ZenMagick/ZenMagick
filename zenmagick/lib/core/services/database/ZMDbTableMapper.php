@@ -61,7 +61,7 @@
  * </dl>
  *
  * @author DerManoMann
- * @package org.zenmagick.database
+ * @package org.zenmagick.core.services.database
  * @version $Id: ZMDbTableMapper.php 2182 2009-04-28 03:21:16Z dermanomann $
  */
 class ZMDbTableMapper extends ZMObject {
