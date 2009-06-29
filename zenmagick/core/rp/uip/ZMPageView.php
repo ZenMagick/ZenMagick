@@ -67,6 +67,10 @@ class ZMPageView extends ZMView {
         foreach ($controller->getGlobals() as $name => $instance) {
             $$name = $instance;
         }
+        // and for view data
+        foreach ($this->vars_ as $name => $instance) {
+            $$name = $instance;
+        }
 
         // common view variables
         $zm_view = $this;

@@ -101,6 +101,10 @@ class ZMEmailView extends ZMPageView {
         foreach ($this->args_ as $name => $instance) {
             $$name = $instance;
         }
+        // and for view data
+        foreach ($this->vars_ as $name => $instance) {
+            $$name = $instance;
+        }
 
         // set for all
         $language = Runtime::getLanguage();

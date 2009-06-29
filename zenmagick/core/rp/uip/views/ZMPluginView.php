@@ -45,6 +45,7 @@ class ZMPluginView extends ZMPageView {
     function __construct($view=null, $plugin=null) {
         parent::__construct($view);
         $this->plugin_ = $plugin;
+        $this->setVar('plugin', $plugin);
     }
 
     /**
@@ -93,17 +94,6 @@ class ZMPluginView extends ZMPageView {
         }
 
         return $plugin->getPluginDir() . $subdir . $this->getName() . ZMSettings::get('templateSuffix');
-    }
-
-    /**
-     * Generate view response.
-     */
-    public function generate() { 
-        $controller = $this->getController();
-        if (null != $controller) {
-            $controller->exportGlobal('plugin', $this->plugin_);
-        }
-        parent::generate();
     }
 
 }
