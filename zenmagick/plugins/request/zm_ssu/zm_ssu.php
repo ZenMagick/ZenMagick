@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_ssu extends ZMPlugin {
+class zm_ssu extends Plugin {
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class zm_ssu extends ZMPlugin {
     function __construct() {
         parent::__construct('Simple SEO URL', 'Simple SEO URL for ZenMagick', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
     }
 
     /**

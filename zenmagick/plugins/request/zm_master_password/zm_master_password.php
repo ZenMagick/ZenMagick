@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.zm_master_password
  * @version $Id$
  */
-class zm_master_password extends ZMPlugin {
+class zm_master_password extends Plugin {
 
     /**
      * Create new instance.

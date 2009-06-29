@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_page_stats extends ZMPlugin {
+class zm_page_stats extends Plugin {
 
 
     /**

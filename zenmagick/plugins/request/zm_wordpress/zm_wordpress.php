@@ -32,7 +32,7 @@ define('FILENAME_WP', 'wp');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_wordpress extends ZMPlugin {
+class zm_wordpress extends Plugin {
     private $page_;
     private $requestHandler_;
     private $bridge_;

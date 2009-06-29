@@ -30,7 +30,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_useo2 extends ZMPlugin {
+class zm_useo2 extends Plugin {
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class zm_useo2 extends ZMPlugin {
     function __construct() {
         parent::__construct('Ultimate SEO2', 'Ultimate SEO 2.x for ZenMagick', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
     }
 
     /**

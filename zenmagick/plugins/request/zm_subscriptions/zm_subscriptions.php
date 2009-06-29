@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_subscriptions extends ZMPlugin {
+class zm_subscriptions extends Plugin {
 
     /**
      * Create new instance.

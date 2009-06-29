@@ -30,7 +30,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_useo3 extends ZMPlugin {
+class zm_useo3 extends Plugin {
 
     /**
      * Create new instance.

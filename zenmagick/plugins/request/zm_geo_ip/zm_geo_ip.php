@@ -30,7 +30,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_geo_ip extends ZMPlugin {
+class zm_geo_ip extends Plugin {
     private $gi;
     private $type;
 

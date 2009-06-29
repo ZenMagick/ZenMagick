@@ -36,7 +36,7 @@
  * @package org.zenmagick.plugins.zm_product_music_info
  * @version $Id$
  */
-class zm_product_music_info extends ZMPlugin {
+class zm_product_music_info extends Plugin {
 
     /**
      * Create new instance.

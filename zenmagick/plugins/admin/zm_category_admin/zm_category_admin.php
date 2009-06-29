@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_category_admin extends ZMPlugin {
+class zm_category_admin extends Plugin {
 
     /**
      * Create new instance.
@@ -40,7 +40,7 @@ class zm_category_admin extends ZMPlugin {
         parent::__construct('Category Maintenance', 'Category Management', '${zenmagick.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(5);
-        $this->setScope(ZMPlugin::SCOPE_ADMIN);
+        $this->setScope(Plugin::SCOPE_ADMIN);
     }
 
     /**

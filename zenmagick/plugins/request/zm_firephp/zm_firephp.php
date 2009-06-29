@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_firephp extends ZMPlugin {
+class zm_firephp extends Plugin {
 
     /**
      * Create new instance.

@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_currency extends ZMPlugin {
+class zm_init_currency extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Currency', 'Set the session currency');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(20);
     }
 

@@ -30,7 +30,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_pretty_links extends ZMPlugin {
+class zm_pretty_links extends Plugin {
 
     /**
      * Create new instance.

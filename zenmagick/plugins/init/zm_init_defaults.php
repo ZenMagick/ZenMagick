@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_defaults extends ZMPlugin {
+class zm_init_defaults extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Defaults', 'Set request defaults');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(10);
     }
 

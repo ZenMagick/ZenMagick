@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_dual_pricing extends ZMPlugin {
+class zm_dual_pricing extends Plugin {
 
     /**
      * Create new instance.

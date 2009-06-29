@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_toggle_zm_themes extends ZMPlugin {
+class zm_toggle_zm_themes extends Plugin {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 

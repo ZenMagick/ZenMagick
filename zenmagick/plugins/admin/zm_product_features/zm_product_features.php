@@ -37,7 +37,7 @@ define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_product_features extends ZMPlugin {
+class zm_product_features extends Plugin {
 
     /**
      * Create new instance.

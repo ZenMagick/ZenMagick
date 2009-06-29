@@ -31,7 +31,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_phpbb2 extends ZMPlugin {
+class zm_phpbb2 extends Plugin {
     var $phpBBEnabled_;
     var $page_;
     // account before changes

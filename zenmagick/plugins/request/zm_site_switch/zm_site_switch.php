@@ -35,7 +35,7 @@ if (ZMSettings::get('isAdmin')) {
  * @author mano
  * @version $Id$
  */
-class zm_site_switch extends ZMPlugin {
+class zm_site_switch extends Plugin {
 
     /**
      * Create new instance.

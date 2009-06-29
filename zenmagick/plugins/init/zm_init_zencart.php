@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_zencart extends ZMPlugin {
+class zm_init_zencart extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('zen-cart', 'Set up zen-cart dependencies');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(0);
     }
 

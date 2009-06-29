@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_scaffold extends ZMPlugin {
+class zm_scaffold extends Plugin {
 
     /**
      * Create new instance.

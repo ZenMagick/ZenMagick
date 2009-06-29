@@ -36,7 +36,7 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS', 'plugins_page_cache_stats');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_page_cache extends ZMPlugin {
+class zm_page_cache extends Plugin {
     private $pageCache_;
 
 

@@ -32,7 +32,7 @@
  * @package org.zenmagick.plugins.zm_google_store_locator
  * @version $Id$
  */
-class zm_google_store_locator extends ZMPlugin {
+class zm_google_store_locator extends Plugin {
 
     /**
      * Create new instance.

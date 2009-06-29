@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_theme_switch extends ZMPlugin {
+class zm_theme_switch extends Plugin {
     const SESS_THEME_KEY = 'themeId';
 
 

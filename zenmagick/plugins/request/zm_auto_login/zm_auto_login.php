@@ -35,7 +35,7 @@ define('ZM_AUTO_LOGIN_OPT_IN', 'autoLogin');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_auto_login extends ZMPlugin {
+class zm_auto_login extends Plugin {
     private $cookieUpdated;
 
     /**
@@ -44,7 +44,7 @@ class zm_auto_login extends ZMPlugin {
     function __construct() {
         parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->cookieUpdated = false;
     }
 

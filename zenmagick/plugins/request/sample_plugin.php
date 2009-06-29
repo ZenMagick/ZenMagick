@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class sample_plugin extends ZMPlugin {
+class sample_plugin extends Plugin {
 
     /**
      * Create new instance.

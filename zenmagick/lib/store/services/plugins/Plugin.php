@@ -25,7 +25,7 @@
 
 
 /**
- * Plugin base class.
+ * Store plugin base class.
  *
  * <p>Plugins are <strong>NOT</strong> compatible with zen-cart modules.</p>
  *
@@ -35,7 +35,7 @@
  * @package org.zenmagick.plugins
  * @version $Id: ZMPlugin.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
-class ZMPlugin extends ZMObject {
+class Plugin extends ZMPlugin {
     // internal key constants
     const KEY_PREFIX = 'PLUGIN_';
     const KEY_ENABLED_SUFFIX = 'ENABLED';
@@ -46,16 +46,6 @@ class ZMPlugin extends ZMObject {
     const SCOPE_ADMIN = 'admin';
     const SCOPE_ALL =  'all';
 
-    // loader policy flags
-    const LP_NONE = 'NONE';
-    const LP_PLUGIN = 'PLUGIN';
-    const LP_FOLDER = 'FOLDER';
-    const LP_ALL = 'ALL';
-
-    var $id_;
-    var $title_;
-    var $description_;
-    var $version_;
     var $installed_;
     var $configPrefix_;
     var $enabledKey_;
@@ -64,9 +54,6 @@ class ZMPlugin extends ZMObject {
     var $keys_;
     var $type_;
     var $messages_ = null;
-    var $pluginDir_ = null;
-    var $loaderPolicy_;
-    var $handler_;
     var $traditional_;
     var $scope_;
 
@@ -81,15 +68,12 @@ class ZMPlugin extends ZMObject {
     function __construct($title='', $description='', $version='0.0') {
         parent::__construct();
 
-        $this->id_ = get_class($this);
-        $this->title_ = $title;
-        $this->description_ = $description;
-        $this->version_ = $version;
+        $this->setName($title);
+        $this->setDescription($description);
+        $this->setVersion($version);
+        $this->setLoaderPolicy(ZMPlugin::LP_PLUGIN);
         $this->keys_ = array();
         $this->messages_ = array();
-        $this->pluginDir_ = null;
-        $this->loaderPolicy_ = ZMPlugin::LP_PLUGIN;
-        $this->handler_ = null;
         $this->traditional_ = true;
         $this->preferredSortOrder_ = 0;
         $this->scope_ = self::SCOPE_ALL;
@@ -175,42 +159,6 @@ class ZMPlugin extends ZMObject {
      */
     public function set($name, $value) {
         $this->__set($name, $value);
-    }
-
-    /**
-     * Get Id.
-     *
-     * @return string A unique id.
-     */
-    public function getId() {
-        return $this->id_;
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string The name.
-     */
-    public function getName() {
-        return $this->title_;
-    }
-
-    /**
-     * Get description.
-     *
-     * @return string The description.
-     */
-    public function getDescription() {
-        return $this->description_;
-    }
-
-    /**
-     * Get version.
-     *
-     * @return string The version.
-     */
-    public function getVersion() {
-        return $this->version_;
     }
 
     /**
@@ -363,24 +311,10 @@ class ZMPlugin extends ZMObject {
      */
     public function setType($type) { 
         $this->type_ = $type; 
-        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $this->type_ . '_'. $this->id_ . '_');
+        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $this->type_ . '_'. $this->getId() . '_');
         $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED_SUFFIX;
         $this->orderKey_ = $this->configPrefix_.self::KEY_ORDER_SUFFIX;
     }
-
-    /**
-     * Set the plugin directory.
-     *
-     * @param string pluginDir The directory.
-     */
-    public function setPluginDir($pluginDir) { $this->pluginDir_ = $pluginDir; }
-
-    /**
-     * Get the plugin directory.
-     *
-     * @return string The directory or <code>null</code> if this plugin is single file only.
-     */
-    public function getPluginDir() { return $this->pluginDir_; }
 
     /**
      * Get a plugin config file path.
@@ -393,7 +327,7 @@ class ZMPlugin extends ZMObject {
      */
     public function getConfigPath($file) { 
         $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
-        $configFile = $configPath.$this->id_.DIRECTORY_SEPARATOR.$file;
+        $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($configFile) || !file_exists($this->pluginDir_.$file)) {
             return $configFile;
@@ -488,29 +422,6 @@ class ZMPlugin extends ZMObject {
     }
 
     /**
-     * Get this plugin's loader policy.
-     *
-     * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requests.</p>
-     * <p>It also affects the code included in <code>core.php</code>. Valid values are:</p>
-     * <dl>
-     *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
-     *   <dt>ZMPlugin::LP_PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
-     *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
-     *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
-     * </dl>
-     *
-     * @return string The loader policy.
-     */
-    public function getLoaderPolicy() { return $this->loaderPolicy_; }
-
-    /**
-     * Set the loader policy for this plugin.
-     *
-     * @param string loaderPolicy The loader policy.
-     */
-    public function setLoaderPolicy($loaderPolicy) { $this->loaderPolicy_ = $loaderPolicy; }
-
-    /**
      * Set the scope.
      *
      * <p>This determines where a plugin is active. Allowed values are:</p>
@@ -557,7 +468,7 @@ class ZMPlugin extends ZMObject {
         }
 
         $type = basename(dirname($this->pluginDir_));
-        $url = ZMToolbox::instance()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->id_ . '/' . $uri, false);
+        $url = ZMToolbox::instance()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
 
         if ($echo) echo $url;
         return $url;

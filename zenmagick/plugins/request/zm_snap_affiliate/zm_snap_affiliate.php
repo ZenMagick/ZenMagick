@@ -34,7 +34,7 @@ define('TABLE_COMMISSION', DB_PREFIX . 'commission');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_snap_affiliate extends ZMPlugin {
+class zm_snap_affiliate extends Plugin {
 
     /**
      * Create new instance.

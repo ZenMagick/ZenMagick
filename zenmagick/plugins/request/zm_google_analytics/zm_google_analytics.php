@@ -39,7 +39,7 @@
  * @package org.zenmagick.plugins.zm_google_analytics
  * @version $Id$
  */
-class zm_google_analytics extends ZMPlugin {
+class zm_google_analytics extends Plugin {
     private $eol_;
     private $order_;
 

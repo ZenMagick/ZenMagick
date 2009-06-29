@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_smarty extends ZMPlugin {
+class zm_smarty extends Plugin {
 
     /**
      * Create new instance.

@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_session extends ZMPlugin {
+class zm_init_session extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Session', 'Set up the session');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(5);
     }
 

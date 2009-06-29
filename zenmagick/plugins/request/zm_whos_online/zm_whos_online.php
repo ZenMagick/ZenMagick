@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_whos_online extends ZMPlugin {
+class zm_whos_online extends Plugin {
 
     /**
      * Create new instance.

@@ -35,7 +35,7 @@ define('Auth_OpenID_RAND_SOURCE', null);
  * @author DerManoMann
  * @version $Id$
  */
-class zm_openid extends ZMPlugin {
+class zm_openid extends Plugin {
 
     /**
      * Create new instance.

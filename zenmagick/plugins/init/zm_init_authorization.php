@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_authorization extends ZMPlugin {
+class zm_init_authorization extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Authorization', 'Check account authorization');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
     }
 
     /**

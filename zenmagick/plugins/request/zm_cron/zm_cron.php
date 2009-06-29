@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_cron extends ZMPlugin {
+class zm_cron extends Plugin {
 
     /**
      * Create new instance.

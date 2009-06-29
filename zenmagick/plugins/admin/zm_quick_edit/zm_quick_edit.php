@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_quick_edit extends ZMPlugin {
+class zm_quick_edit extends Plugin {
 
     /**
      * Create new instance.
@@ -39,7 +39,7 @@ class zm_quick_edit extends ZMPlugin {
         parent::__construct('Quick Edit', 'Quickly edit product properties');
         $this->setPreferredSortOrder(35);
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->setScope(ZMPlugin::SCOPE_ADMIN);
+        $this->setScope(Plugin::SCOPE_ADMIN);
     }
 
     /**

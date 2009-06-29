@@ -33,7 +33,7 @@ define('ZM_RECAPTCHA_FIELD', 'recaptcha_response_field');
  * @author mano
  * @version $Id$
  */
-class zm_recaptcha extends ZMPlugin {
+class zm_recaptcha extends Plugin {
     var $captchaEnabled_;
     var $error_;
     // page => (name, form)

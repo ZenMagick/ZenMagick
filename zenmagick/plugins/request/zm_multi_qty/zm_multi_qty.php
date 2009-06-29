@@ -34,7 +34,7 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_multi_qty extends ZMPlugin {
+class zm_multi_qty extends Plugin {
 
     /**
      * Create new instance.

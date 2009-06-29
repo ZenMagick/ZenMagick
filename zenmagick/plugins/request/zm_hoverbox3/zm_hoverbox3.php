@@ -30,7 +30,7 @@
  * @author mano
  * @version $Id$
  */
-class zm_hoverbox3 extends ZMPlugin {
+class zm_hoverbox3 extends Plugin {
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class zm_hoverbox3 extends ZMPlugin {
     function __construct() {
         parent::__construct('Hover Box3', 'Hover Box3 support for ZenMagick', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
     }
 
     /**

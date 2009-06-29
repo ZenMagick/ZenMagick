@@ -37,7 +37,7 @@ if (!defined('SHOW_PRODUCT_INFO_COLUMNS_XSELL_PRODUCTS')) define('SHOW_PRODUCT_I
  * @author DerManoMann
  * @version $Id$
  */
-class zm_crossell extends ZMPlugin {
+class zm_crossell extends Plugin {
 
     /**
      * Create new instance.

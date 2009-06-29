@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_product_facets extends ZMPlugin {
+class zm_product_facets extends Plugin {
 
     /**
      * Create new instance.

@@ -47,10 +47,10 @@ class Runtime extends ZMRuntime {
     /**
      * Get the application scope.
      *
-     * @return string Either <code>ZMPlugin::SCOPE_STORE</code> or <code>ZMPlugin::SCOPE_ADMIN</code>.
+     * @return string Either <code>Plugin::SCOPE_STORE</code> or <code>Plugin::SCOPE_ADMIN</code>.
      */
     public static function getScope() {
-        return ZMSettings::get('isAdmin') ? ZMPlugin::SCOPE_ADMIN : ZMPlugin::SCOPE_STORE;
+        return ZMSettings::get('isAdmin') ? Plugin::SCOPE_ADMIN : Plugin::SCOPE_STORE;
     }
 
     /**

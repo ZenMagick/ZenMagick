@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_catalog_default extends ZMPlugin {
+class zm_catalog_default extends Plugin {
 
     /**
      * Create new instance.
@@ -40,7 +40,7 @@ class zm_catalog_default extends ZMPlugin {
         parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${zenmagick.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(0);
-        $this->setScope(ZMPlugin::SCOPE_ADMIN);
+        $this->setScope(Plugin::SCOPE_ADMIN);
     }
 
     /**

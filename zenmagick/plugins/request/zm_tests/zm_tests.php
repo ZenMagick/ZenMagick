@@ -35,7 +35,7 @@ define('ZM_TESTS_GROUP_OTHER', '@other');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_tests extends ZMPlugin {
+class zm_tests extends Plugin {
     private $tests;
 
     /**

@@ -20,6 +20,8 @@ Release 0.9.7
 - move responsibility for model data from ZMController to ZMView [deprecate
   exportGlobal() and getGlobals()]
 - change all templates to use $this rather than $zm_view; remove $zm_view
+- move (and split) ZMPlugin; store and all plugins now use Plugin as base
+  class
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

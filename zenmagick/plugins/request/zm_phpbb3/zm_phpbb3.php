@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_phpbb3 extends ZMPlugin {
+class zm_phpbb3 extends Plugin {
     private $page_;
     private $prePostAccount_;
     private $phpBB3_;

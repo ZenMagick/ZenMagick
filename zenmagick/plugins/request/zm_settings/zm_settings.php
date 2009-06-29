@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: zm_settings.php 2027 2009-03-05 03:16:53Z dermanomann $
  */
-class zm_settings extends ZMPlugin {
+class zm_settings extends Plugin {
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class zm_settings extends ZMPlugin {
     function __construct() {
         parent::__construct('Settings', 'Manage (custom) settings');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->setScope(ZMPlugin::SCOPE_ALL);
+        $this->setScope(Plugin::SCOPE_ALL);
     }
 
     /**

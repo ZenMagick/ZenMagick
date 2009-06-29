@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_group_pricing extends ZMPlugin {
+class zm_group_pricing extends Plugin {
 
     /**
      * Create new instance.

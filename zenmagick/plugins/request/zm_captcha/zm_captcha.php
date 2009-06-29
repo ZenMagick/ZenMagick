@@ -33,7 +33,7 @@ define('ZM_CAPTCHA_FIELD', 'captcha');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_captcha extends ZMPlugin {
+class zm_captcha extends Plugin {
     var $captcha_;
     // page => (status, form_name)
     var $pageConfig_ = array(

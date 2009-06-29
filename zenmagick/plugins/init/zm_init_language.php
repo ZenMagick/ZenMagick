@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_language extends ZMPlugin {
+class zm_init_language extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Language', 'Set the session language');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(15);
     }
 

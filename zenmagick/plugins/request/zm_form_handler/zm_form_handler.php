@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_form_handler extends ZMPlugin {
+class zm_form_handler extends Plugin {
 
     /**
      * Create new instance.

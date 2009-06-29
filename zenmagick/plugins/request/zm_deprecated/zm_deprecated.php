@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_deprecated extends ZMPlugin {
+class zm_deprecated extends Plugin {
 
     /**
      * Create new instance.

@@ -30,14 +30,14 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_category_path extends ZMPlugin {
+class zm_init_category_path extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Category Path', 'Set the default category path if none exists');
-        $this->setScope(ZMPlugin::SCOPE_STORE);
+        $this->setScope(Plugin::SCOPE_STORE);
         $this->setPreferredSortOrder(40);
     }
 
