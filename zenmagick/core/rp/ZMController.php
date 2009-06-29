@@ -237,18 +237,23 @@ class ZMController extends ZMObject {
      * Lookup the appropriate view for the given name.
      *
      * @param string id The controller id or <code>null</code> to return to the current page.
+     * @param array data Optional model data; default is an empty array.
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return ZMView The actual view to be used to render the response.
      */
-    public function findView($id=null, $parameter=null) {
+    public function findView($id=null, $data=array(), $parameter=null) {
         $viewDefinition = ZMUrlMapper::instance()->getViewDefinition($this->id_, $id, $parameter);
 
         // ensure secure option is set
-        if (ZMSacsmapper::instance()->secureRequired($this->id_)) {
+        if (ZMSacsMapper::instance()->secureRequired($this->id_)) {
             $viewDefinition .= '&secure=true';
         }
 
-        return ZMBeanUtils::getBean($viewDefinition);
+        $view = ZMBeanUtils::getBean($viewDefinition);
+        if (null != $view) {
+            $view->setVars($data);
+        }
+        return $view;
     }
 
     /**

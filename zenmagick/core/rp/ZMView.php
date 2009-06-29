@@ -29,6 +29,7 @@
  * @version $Id$
  */
 class ZMView extends ZMObject {
+    protected $vars_;
     protected $controller_;
     protected $view_;
     protected $viewId_;
@@ -44,6 +45,7 @@ class ZMView extends ZMObject {
      */
     function __construct($view=null, $viewId=null) {
         parent::__construct();
+        $this->vars_ = array();
         $this->view_ = $view;
         $this->viewId_ = $viewId;
         $this->subdir_ = null;
@@ -56,6 +58,34 @@ class ZMView extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Add a variable.
+     *
+     * @param string name The variable name.
+     * @param mixed value The value.
+     */
+    public function setVar($name, $value) {
+        $this->vars_[$name] = $value;
+    }
+
+    /**
+     * Add a list of variable.
+     *
+     * @param array vars The name/value pairs.
+     */
+    public function setVars($vars) {
+        $this->vars_[$name] = array_merge($this->vars_, $vars);
+    }
+
+    /**
+     * Get the list of variable.
+     *
+     * @return array The name/value pairs.
+     */
+    public function getVars() {
+        return $this->vars_;
+    }
 
     /**
      * Returns the full view filename to be included by a template.

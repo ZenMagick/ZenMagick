@@ -74,7 +74,7 @@ class ZMOpenIDController extends ZMController {
                     }
 
                     $followUpUrl = $session->getLoginFollowUp();
-                    return $this->findView('success', array('url' => $followUpUrl));
+                    return $this->findView('success', array(), array('url' => $followUpUrl));
                 }
             }
         }

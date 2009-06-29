@@ -114,7 +114,7 @@ class ZMTellAFriendController extends ZMController {
         $emailMessage = ZMLoader::make("EmailMessage");
         $this->exportGlobal("zm_emailMessage", $emailMessage);
 
-        return $this->findView('success', array('parameter' => 'products_id='.$this->product_->getId()));
+        return $this->findView('success', array(), array('parameter' => 'products_id='.$this->product_->getId()));
     }
 
     /**

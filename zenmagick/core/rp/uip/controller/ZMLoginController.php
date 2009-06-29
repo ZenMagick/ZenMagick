@@ -131,7 +131,7 @@ class ZMLoginController extends ZMController {
             $session->removeValue(self::$KEY_REDIRECT);
         }
 
-        return $this->findView('success', array('url' => $followUpUrl));
+        return $this->findView('success', array(), array('url' => $followUpUrl));
     }
 
 }

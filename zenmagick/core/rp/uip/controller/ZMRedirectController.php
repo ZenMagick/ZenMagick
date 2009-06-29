@@ -63,13 +63,13 @@ class ZMRedirectController extends ZMController {
             $banner = ZMBanners::instance()->getBannerForId($goto);
             if (null != $banner) {
                 ZMBanners::instance()->updateBannerClickCount($goto);
-                return $this->findView('success', array('url' => $banner->getUrl()));
+                return $this->findView('success', array(), array('url' => $banner->getUrl()));
             }
             break;
 
         case 'url':
             if (null != $goto) {
-                return $this->findView('success', array('url' => $goto));
+                return $this->findView('success', array(), array('url' => $goto));
             }
             break;
 
@@ -88,7 +88,7 @@ class ZMRedirectController extends ZMController {
 
                 if (null != $manufacturer && null != $manufacturer->getUrl()) {
                     ZMManufacturers::instance()->updateManufacturerClickCount($manufacturerId);
-                    return $this->findView('success', array('url' => $manufacturer->getUrl()));
+                    return $this->findView('success', array(), array('url' => $manufacturer->getUrl()));
                 }
                 
             }
