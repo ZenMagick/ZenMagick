@@ -96,6 +96,7 @@ class ZMPlugins extends ZMObject {
      */
     public function getPluginTypes() {
         $types = array();
+        // XXX: remove dep.
         $handle = opendir(Runtime::getPluginsDir());
         while (false !== ($file = readdir($handle))) { 
             if (ZMLangUtils::startsWith($file, '.')) {
@@ -135,6 +136,7 @@ class ZMPlugins extends ZMObject {
      * @return array List of plugin ids.
      */
     protected static function _getPluginIdsForType($type) {
+        // XXX: remove dep.
         $typeDir = Runtime::getPluginsDir() . $type . '/';
         $idList = array();
         $handle = @opendir($typeDir);
@@ -169,6 +171,7 @@ class ZMPlugins extends ZMObject {
             // use plugin status to select plugins
             foreach (ZMPlugins::$pluginStatus_ as $id => $status) {
                 if ($status['type'] == $type && $status['enabled']) {
+                    // XXX: remove dep.
                     if (Plugin::SCOPE_ALL == $status['scope'] || $status['scope'] == $scope) {
                         $idList[] = $id;
                     }
@@ -246,6 +249,7 @@ class ZMPlugins extends ZMObject {
 
         $status = ZMPlugins::$pluginStatus_[$id];
         $type = null != $type ? $type : $status['type'];
+        // XXX: remove dep.
         $typeDir = Runtime::getPluginsDir() . $type . DIRECTORY_SEPARATOR;
         $file = $typeDir.$id;
         if (is_dir($file)) {
@@ -323,6 +327,7 @@ class ZMPlugins extends ZMObject {
                 }
             }
 
+            // XXX: remove dep.
             // use plugin loader to load static stuff
             if (Plugin::SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
                 $pluginLoader->loadStatic();
@@ -371,6 +376,7 @@ class ZMPlugins extends ZMObject {
             $pluginId = $plugin->getId();
         }
 
+        // XXX: remove dep.
         // use plugin loader to load static stuff
         if (Plugin::SCOPE_ADMIN == $scope || !defined('ZM_SINGLE_CORE')) {
             $pluginLoader->loadStatic();
