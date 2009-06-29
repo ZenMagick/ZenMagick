@@ -197,7 +197,10 @@ class ZMView extends ZMObject {
     }
 
     /**
-     * Set the view.
+     * Set the view name.
+     *
+     * <p>In most cases this will be used as template name (plus the extension
+     * as configued via the setting <em>templateSuffix</em>.</p>
      *
      * @param string view The view.
      */

@@ -64,29 +64,19 @@ class ZMSubscriptionRequestController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
-        // create model
-        $this->exportGlobal('zm_subscriptionRequest', $this->createModel());
-        return $this->findView();
+        return $this->findView(null, array('zm_subscriptionRequest' => $this->createModel()));
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost() {
-        // create model
-        $this->exportGlobal('zm_subscriptionRequest', $this->createModel());
-
+        $data = array('zm_subscriptionRequest' => $this->createModel());
         if (!$this->validate('subscription_request')) {
-            return $this->findView();
+            return $this->findView(null, $data);
         }
 
         $plugin = $this->getPlugin();
@@ -95,7 +85,7 @@ class ZMSubscriptionRequestController extends ZMController {
 
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 
-        return $this->findView('success');
+        return $this->findView('success', $data);
     }
 
     /**

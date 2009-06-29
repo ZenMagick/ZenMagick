@@ -69,7 +69,7 @@ class ZMCreateAccountController extends ZMController {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
@@ -77,10 +77,7 @@ class ZMCreateAccountController extends ZMController {
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost() {
         $registration = $this->getFormBean();
@@ -121,8 +118,6 @@ class ZMCreateAccountController extends ZMController {
         $session->setAccount($account);
         $session->restoreCart();
 
-        $this->exportGlobal("zm_account", $account);
-
         // account email
         $context = array('zm_account' => $account, 'office_only_html' => '', 'office_only_text' => '');
         zm_mail(zm_l10n_get("Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
@@ -136,7 +131,7 @@ class ZMCreateAccountController extends ZMController {
         ZMMessages::instance()->success(zm_l10n_get("Thank you for signing up"));
 
         $followUpUrl = $session->getLoginFollowUp();
-        return $this->findView('success', array(), array('url' => $followUpUrl));
+        return $this->findView('success', array('zm_account' => $account), array('url' => $followUpUrl));
     }
 
 }

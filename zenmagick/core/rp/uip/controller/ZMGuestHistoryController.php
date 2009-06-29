@@ -49,25 +49,16 @@ class ZMGuestHistoryController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb('Guest Order');
-
-        return parent::process();
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
+    public function processPost() {
         if (!$this->validate('guest_history')) {
             return $this->findView();
         }
@@ -89,8 +80,7 @@ class ZMGuestHistoryController extends ZMController {
 
         if (null != $account && null != $order && ZMSacsMapper::GUEST == $account->getType() && $account->getEmail() == $email) {
             ZMCrumbtrail::instance()->addCrumb("Order # ".$order->getId());
-            $this->exportGlobal("zm_order", $order);
-            return $this->findView('success');
+            return $this->findView('success', array('zm_order' => $order));
         } else {
             ZMMessages::instance()->warn(zm_l10n_get('No order information found'));
             return $this->findView();

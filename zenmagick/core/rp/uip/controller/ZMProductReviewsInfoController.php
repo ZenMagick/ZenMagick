@@ -49,29 +49,27 @@ class ZMProductReviewsInfoController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         // crumbtrail handling
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
 
+        $data = array();
         $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        $this->exportGlobal("zm_product", $product);
+        $data['zm_product'] = $product;
 
         $review = ZMReviews::instance()->getReviewForId(ZMRequest::getReviewId());
-        $this->exportGlobal("zm_review", $review);
+        $data['zm_review'] = $review;
 
         if (ZMSettings::get('isLogPageStats')) {
             ZMReviews::instance()->updateViewCount(ZMRequest::getReviewId());
         }
 
-        return $this->findView();
+        return $this->findView(null, $data);
     }
 
 }

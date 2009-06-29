@@ -81,10 +81,7 @@ class ZMSearchController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
@@ -101,8 +98,7 @@ class ZMSearchController extends ZMController {
             $source = ZMLoader::make('SearchResultSource', $criteria);
             $resultList->setResultSource($source);
             $resultList->setPageNumber(ZMRequest::getPageIndex());
-            $this->exportGlobal("zm_resultList", $resultList);
-            return $this->findView('results');
+            return $this->findView('results', array('zm_resultList' => $resultList));
         }
 
         return $this->findView();

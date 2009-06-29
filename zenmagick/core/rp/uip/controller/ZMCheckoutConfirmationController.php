@@ -49,19 +49,13 @@ class ZMCheckoutConfirmationController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        $shoppingCart = ZMRequest::getShoppingCart();
-        $this->exportGlobal("zm_cart", $shoppingCart);
-
-        return $this->findView();
+        return $this->findView(null, array('zm_cart' => ZMRequest::getShoppingCart()));
     }
 
 }

@@ -65,14 +65,8 @@ class ZMDispatcher {
             $view = $controller->process();
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
-
-            // TODO: extract somewhere into method/function??
             $controller = ZMLoader::make(ZMSettings::get('defaultControllerClass'));
-            $controller->exportGlobal('exception', $e);
-            $view = $controller->findView('error');
-            // uguu!
-            $view->setController($controller);
-            $controller->setView($view);
+            $view = $controller->findView('error', array('exception' => $e));
             ZMRequest::setController($controller);
         }
 

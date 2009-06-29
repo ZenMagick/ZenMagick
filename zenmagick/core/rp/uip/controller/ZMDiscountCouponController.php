@@ -49,25 +49,17 @@ class ZMDiscountCouponController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process() { 
+    public function handleRequest() { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        return parent::process();
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
+    public function processPost() {
+        $data = array();
         $viewName = null;
         $code = ZMRequest::getParameter('lookup_discount_coupon');
         if (null == $code) {
@@ -76,14 +68,14 @@ class ZMDiscountCouponController extends ZMController {
             $coupon = ZMCoupons::instance()->getCouponForCode($code);
             if (null == $coupon) {
                 ZMMessages::instance()->error(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
-                $this->exportGlobal("zm_coupon_code", $code);
+                $data['zm_coupon_code'] = $code;
             } else {
-                $this->exportGlobal("zm_coupon", $coupon);
+                $data['zm_coupon'] = $coupon;
                 $viewName = 'info';
             }
         }
 
-        return $this->findView($viewName);
+        return $this->findView($viewName, $data);
     }
 
 }

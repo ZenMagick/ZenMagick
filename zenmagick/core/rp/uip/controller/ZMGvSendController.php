@@ -54,16 +54,19 @@ class ZMGvSendController extends ZMController {
     public function handleRequest() {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost() {
+    public function processGet() {
+        return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost() {
         $gvReceiver = $this->getFormBean();
 
         // back from confirmation to edit or not valid
@@ -71,10 +74,12 @@ class ZMGvSendController extends ZMController {
             return $this->findView();
         }
 
+        $data = array();
+        $data['zm_account'] = ZMRequest::getAccount();
         // to fake the email content display
-        $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
+        $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
 
-        return $this->findView('success');
+        return $this->findView('success', $data);
     }
 
 }

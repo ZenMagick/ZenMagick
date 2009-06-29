@@ -69,9 +69,7 @@ class ZMFormHandlerController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet() {
-        // create model
-        $this->exportGlobal('formData', $this->createModel());
-        return $this->findView();
+        return $this->findView(null, array('formData' => $this->createModel()));
     }
 
     /**
@@ -82,10 +80,10 @@ class ZMFormHandlerController extends ZMController {
      */
     public function processPost() {
         // create model
-        $this->exportGlobal('formData', $this->createModel());
+        $data = array('formData' => $this->createModel());
 
         if (!$this->validate($this->getId())) {
-            return $this->findView();
+            return $this->findView(null, $data);
         }
 
         $plugin = $this->getPlugin();
@@ -96,7 +94,7 @@ class ZMFormHandlerController extends ZMController {
         $this->sendNotificationEmail(ZMRequest::getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 
-        return $this->findView('success');
+        return $this->findView('success', $data);
     }
 
     /**

@@ -49,12 +49,9 @@ class ZMProductInfoController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
@@ -62,9 +59,9 @@ class ZMProductInfoController extends ZMController {
             $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
         }
 
-        $this->exportGlobal("zm_product", $product);
+        $data = array('zm_product' => $product);
         if (null == $product || !$product->getStatus()) {
-            return $this->findView('product_not_found');
+            return $this->findView('product_not_found', $data);
         }
 
         if (ZMSettings::get('isLogPageStats')) {
@@ -77,7 +74,7 @@ class ZMProductInfoController extends ZMController {
         ZMCrumbtrail::instance()->addProduct($product->getId());
 
         $viewName = ZMTemplateManager::instance()->getProductTemplate($product->getId());
-        return $this->findView($viewName);
+        return $this->findView($viewName, $data);
     }
 
 }

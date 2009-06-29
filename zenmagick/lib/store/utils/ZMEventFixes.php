@@ -197,7 +197,7 @@ class ZMEventFixes extends ZMObject {
     public function onZMGenerateEmail($args=array()) {
         $context = $args['context'];
         $template = $args['template'];
-        $controller = $args['controller'];
+        $view = $args['view'];
 
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::getParameter('action')) {
             // gv mail
@@ -211,11 +211,11 @@ class ZMEventFixes extends ZMObject {
                         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_WORTH']));
                     }
-                    $controller->exportGlobal('zm_coupon', $coupon);
+                    $view->setVar('zm_coupon', $coupon);
                 }
 
-                $controller->exportGlobal('message', ZMRequest::getParameter('message', ''));
-                $controller->exportGlobal('htmlMessage', ZMRequest::getParameter('message_html', '', false));
+                $view->setVar('message', ZMRequest::getParameter('message', ''));
+                $view->setVar('htmlMessage', ZMRequest::getParameter('message_html', '', false));
             }
         }
 
@@ -225,10 +225,10 @@ class ZMEventFixes extends ZMObject {
             $billingAddress = $order->getBillingAddress();
             $paymentType = $order->getPaymentType();
 
-            $controller->exportGlobal('order', $order);
-            $controller->exportGlobal('shippingAddress', $shippingAddress);
-            $controller->exportGlobal('billingAddress', $billingAddress);
-            $controller->exportGlobal('paymentType', $paymentType);
+            $view->setVar('order', $order);
+            $view->setVar('shippingAddress', $shippingAddress);
+            $view->setVar('billingAddress', $billingAddress);
+            $view->setVar('paymentType', $paymentType);
         }
 
         if ('order_status' == $template) {
@@ -236,35 +236,35 @@ class ZMEventFixes extends ZMObject {
             preg_match('/[^:]*:(.*)/ms', $context['EMAIL_TEXT_STATUS_COMMENTS'], $matches);
             $comment = strip_tags(trim($matches[1]));
 
-            $controller->exportGlobal('newOrderStatus', $newOrderStatus);
-            $controller->exportGlobal('comment', $comment);
+            $view->setVar('newOrderStatus', $newOrderStatus);
+            $view->setVar('comment', $comment);
 
             // from zc_fixes
             if (null !== ZMRequest::getParameter("oID") && 'update_order' == ZMRequest::getParameter("action")) {
                 $orderId = ZMRequest::getParameter("oID");
                 $order = ZMOrders::instance()->getOrderForId($orderId);
-                $controller->exportGlobal('zm_order', $order);
+                $view->setVar('zm_order', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
-                $controller->exportGlobal('zm_account', $account);
+                $view->setVar('zm_account', $account);
             }
         }
 
         if ('gv_queue' == $template) {
             $queueId = ZMRequest::getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
-            $controller->exportGlobal('zm_couponQueue', $couponQueue);
+            $view->setVar('zm_couponQueue', $couponQueue);
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
-            $controller->exportGlobal('zm_account', $account);
+            $view->setVar('zm_account', $account);
             $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
-            $controller->exportGlobal('zm_order', $order);
+            $view->setVar('zm_order', $order);
         }
 
         if ('coupon' == $template) {
             $couponId = ZMRequest::getParameter('cid');
             $coupon = ZMCoupons::instance()->getCouponForId($couponId);
-            $controller->exportGlobal('zm_coupon', $coupon);
+            $view->setVar('zm_coupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
-            $controller->exportGlobal('zm_account', $account);
+            $view->setVar('zm_account', $account);
         }
     }
 

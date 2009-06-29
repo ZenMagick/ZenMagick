@@ -59,10 +59,7 @@ class ZMProductReviewsWriteController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
         if (null == $this->getProduct()) {
@@ -72,10 +69,7 @@ class ZMProductReviewsWriteController extends ZMController {
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost() {
         if (null == $this->getProduct()) {

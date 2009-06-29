@@ -49,12 +49,9 @@ class ZMReviewsController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         // crumbtrail handling
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
@@ -65,9 +62,8 @@ class ZMReviewsController extends ZMController {
         $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getAllReviews");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber(ZMRequest::getPageIndex());
-        $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView();
+        return $this->findView(null, array('zm_resultList' => $resultList));
     }
 
 }

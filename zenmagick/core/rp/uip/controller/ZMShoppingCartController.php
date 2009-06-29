@@ -55,7 +55,6 @@ class ZMShoppingCartController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
         
         $shoppingCart = ZMRequest::getShoppingCart();
-        $this->exportGlobal("zm_cart", $shoppingCart);
 
         $helper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
@@ -79,7 +78,7 @@ class ZMShoppingCartController extends ZMController {
             }
         }
 
-        return $this->findView($shoppingCart->isEmpty() ? 'empty_cart' : 'shopping_cart');
+        return $this->findView($shoppingCart->isEmpty() ? 'empty_cart' : 'shopping_cart', array('CheckoutHelper' => $shoppingCart));
     }
 
 }

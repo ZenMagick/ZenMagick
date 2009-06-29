@@ -49,23 +49,19 @@ class ZMCheckoutSuccessController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet() {
+    public function processGet() {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
-
-        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId(), 1);
-        $this->exportGlobal("zm_order", $orders[0]);
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
 
         // see: onZMViewDone()
         ZMEvents::instance()->attach($this);
 
-        return $this->findView();
+        $orders = ZMOrders::instance()->getOrdersForAccountId(ZMRequest::getAccountId(), 1);
+        $data = array('zm_order' => $orders[0], 'zm_account' => ZMRequest::getAccount());
+
+        return $this->findView(null, $data);
     }
 
     /**

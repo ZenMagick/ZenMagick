@@ -57,15 +57,13 @@ class ZMGvSendConfirmController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet() {
-        $this->exportGlobal("zm_account", ZMRequest::getAccount());
-        $this->exportGlobal("zm_coupon", ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE')));
-        return $this->findView();
+        $data = array();
+        $data['zm_account'] => ZMRequest::getAccount();
+        $data['zm_coupon'] => ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
+        return $this->findView(null, $data);
     }
 
     /**
