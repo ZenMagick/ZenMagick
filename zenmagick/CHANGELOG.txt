@@ -19,6 +19,7 @@ Release 0.9.7
 - zm_goggle_analytics: fix conversion URL (missing '/')
 - move responsibility for model data from ZMController to ZMView [deprecate
   exportGlobal() and getGlobals()]
+- change all templates to use $this rather than $zm_view; remove $zm_view
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

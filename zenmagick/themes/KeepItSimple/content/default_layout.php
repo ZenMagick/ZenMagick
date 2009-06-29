@@ -10,7 +10,7 @@
     <meta name="googlebot" content="noarchive" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("css/screen.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-    <?php $pageCSS = "css/".$zm_view->getName().".css"; ?>
+    <?php $pageCSS = "css/".$this->getName().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
@@ -48,7 +48,7 @@
     
       <!-- main -->
       <div id="main" class="grid_8">
-          <?php if (!ZMLangUtils::inArray($zm_view->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
               <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
           <?php } ?>
 
@@ -60,7 +60,7 @@
               </ul>
           <?php } ?>
         
-          <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
+          <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
       <!-- main ends -->
       </div>
       

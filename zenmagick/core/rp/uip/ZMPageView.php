@@ -62,23 +62,23 @@ class ZMPageView extends ZMView {
      * Generate view response.
      */
     public function generate() { 
-        $controller = $this->getController();
-        // *export* globals from controller into view space
-        foreach ($controller->getGlobals() as $name => $instance) {
-            $$name = $instance;
+        $_zm_controller = $this->getController();
+        if (null != $_zm_controller) {
+            // *export* globals from controller into view space
+            foreach ($_zm_controller->getGlobals() as $name => $instance) {
+                $$name = $instance;
+            }
         }
         // and for view data
         foreach ($this->getVars() as $name => $instance) {
             $$name = $instance;
         }
 
-        // common view variables
-        $zm_view = $this;
+        // TODO: kill! common view variables
         $zm_theme = Runtime::getTheme();
-
-        $layout = $this->getLayout();
-        if (null != $layout) {
-            include Runtime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix'));
+        $_zm_layout = $this->getLayout();
+        if (null != $_zm_layout) {
+            include Runtime::getTheme()->themeFile($_zm_layout.ZMSettings::get('templateSuffix'));
         } else {
             if ($this->isViewFunction()) { 
                 $this->callView(); 

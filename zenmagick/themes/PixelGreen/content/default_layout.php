@@ -47,7 +47,7 @@
         <?php } ?>
 
         <div id="main">		
-          <?php if (!ZMLangUtils::inArray($zm_view->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
               <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
           <?php } ?>
 
@@ -59,7 +59,7 @@
               </ul>
           <?php } ?>
         
-          <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
+          <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
                         
         </div>					
         

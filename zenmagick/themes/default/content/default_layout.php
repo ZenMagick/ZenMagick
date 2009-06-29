@@ -26,7 +26,7 @@
 <?php
 
     // allow for custom layout settings without having to copy the whole file every time...
-    $pageLayout = "layout/".$zm_view->getName().".php";
+    $pageLayout = "layout/".$this->getName().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
         include $zm_theme->themeFile($pageLayout);
     }
@@ -47,7 +47,7 @@
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
     <?php } ?>
-    <?php $pageCSS = "css/".$zm_view->getName().".css"; ?>
+    <?php $pageCSS = "css/".$this->getName().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
@@ -64,7 +64,7 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $zm_view->getName() ?>"<?php $html->onload() ?>>
+  <body id="b_<?php echo $this->getName() ?>"<?php $html->onload() ?>>
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
         <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
@@ -90,7 +90,7 @@
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $zm_view->getName()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $this->getName()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
@@ -106,7 +106,7 @@
             </ul>
         <?php } ?>
 
-        <?php if ($zm_view->isViewFunction()) { $zm_view->callView(); } else { include($zm_view->getViewFilename()); } ?>
+        <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
 
         <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer1'))) { ?>
             <div id="bannerFour"><?php $macro->showBanner($bannerBox); ?></div>
