@@ -28,7 +28,7 @@
  * Token service.
  *
  * @author DerManoMann
- * @package org.zenmagick.service
+ * @package org.zenmagick.store.services
  * @version $Id: ZMTokens.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 class ZMTokens extends ZMObject {
