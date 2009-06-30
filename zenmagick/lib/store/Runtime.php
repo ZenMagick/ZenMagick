@@ -65,7 +65,7 @@ class Runtime extends ZMRuntime {
      *
      * @return string The base directory for plugins.
      */
-    public static function getPluginsDir() { return ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR; }
+    public static function getPluginsDirectory() { return ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR; }
 
     /**
      * Return the base path for theme URIs.

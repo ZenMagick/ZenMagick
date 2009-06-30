@@ -96,6 +96,16 @@ class ZMRuntime extends ZMObject {
     }
 
     /**
+     * Return the plugin base directory.
+     *
+     * <p>May be configured via the setting <em></em>. Default is <em>../lib/plugins</em>.</p>
+     * @return string The base directory for plugins.
+     */
+    public static function getPluginsDirectory() { 
+        return ZMSettings::get('zenmagick.core.plugins.baseDir', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR);
+    }
+
+    /**
      * Get the currently elapsed page execution time.
      *
      * @param string time Optional execution timestamp to be used instead of the current time.

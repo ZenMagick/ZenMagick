@@ -22,6 +22,8 @@ Release 0.9.7
 - change all templates to use $this rather than $zm_view; remove $zm_view
 - move (and split) ZMPlugin; store and all plugins now use Plugin as base
   class
+- move and split ZMPlugins and make it regular service, rather than a
+  container of static methods to make it easier to extend
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
