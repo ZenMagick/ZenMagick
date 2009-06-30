@@ -57,7 +57,7 @@ class ZMAjaxController extends ZMController {
      * <p>Just return <code>null</code>.</p>
      */
     public function processGet() {
-        echo "Invalid Ajax request - method '".$this->method_."' not found!";
+        ZMLogging::instance()->log("Invalid Ajax request - method '".$this->method_."' not found!", ZMLogging::ERROR);
         return null;
     }
 
