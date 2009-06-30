@@ -52,7 +52,6 @@ class Plugin extends ZMPlugin {
     var $orderKey_;
     var $preferredSortOrder_;
     var $keys_;
-    var $type_;
     var $messages_ = null;
     var $traditional_;
     var $scope_;
@@ -288,30 +287,11 @@ class Plugin extends ZMPlugin {
     }
 
     /**
-     * Get the plugin type.
-     *
-     * <p>The plugin type is determined by the plugin folder. The type controls if and when a plugin is
-     * loaded during the <em>init</em> process. Valid types are:</p>
-     * <ul>
-     *  <li>request</li>
-     *  <li>init</li>
-     *  <li>admin</li>
-     * <ul>
-     *
-     * <p>Plugins do not have to set the type, as this is take care of during configuration.</p>
-     *
-     * @return string The type.
+     * {@inheritDoc}
      */
-    public function getType() { return $this->type_; }
-
-    /**
-     * Set the plugin type.
-     *
-     * @param string type The type.
-     */
-    public function setType($type) { 
-        $this->type_ = $type; 
-        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $this->type_ . '_'. $this->getId() . '_');
+    public function setGroup($group) { 
+        parent::setGroup($group);
+        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $group . '_'. $this->getId() . '_');
         $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED_SUFFIX;
         $this->orderKey_ = $this->configPrefix_.self::KEY_ORDER_SUFFIX;
     }

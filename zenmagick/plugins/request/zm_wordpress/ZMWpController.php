@@ -40,7 +40,7 @@ class ZMWpController extends ZMController {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin = ZMPlugins::getPluginForId('zm_wordpress');
+        $this->plugin = ZMPlugins::instance()->getPluginForId('zm_wordpress');
     }
 
     /**

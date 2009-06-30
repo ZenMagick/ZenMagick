@@ -57,7 +57,7 @@ class StoreLocatorController extends ZMController {
     function processGet() {
         ZMCrumbtrail::instance()->addCrumb("Store Locator");
 
-        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_google_store_locator');
         return ZMLoader::make("PluginView", zm_view_store_locator, $plugin);
     }
 

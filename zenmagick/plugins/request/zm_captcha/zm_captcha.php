@@ -165,7 +165,7 @@ function zm_captcha_validate($req) {
         // we have a required rule, so no need for additional checks
         return true;
     }
-    $plugin = ZMPlugins::getPluginForId('zm_captcha');
+    $plugin = ZMPlugins::instance()->getPluginForId('zm_captcha');
     $captcha = $plugin->getCaptcha();
     return $captcha->validateCaptchaCode();
 }

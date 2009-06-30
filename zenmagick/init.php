@@ -65,7 +65,8 @@
 
     // upset plugins if required
     if (ZMSettings::get('plugins.enabled')) {
-        ZMPlugins::initPlugins(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
+        // XXX: assuming store implementation
+        ZMPlugins::instance()->initPluginsForGroupsAndScope(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
     }
 
     // XXX: do after plugins to allow plugins to provide alternative implementations, however it would be good to have some before!

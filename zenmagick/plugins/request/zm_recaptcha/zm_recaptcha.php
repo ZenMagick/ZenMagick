@@ -155,7 +155,7 @@ function zm_recaptcha_validate($req) {
         return true;
     }
 
-    $plugin = ZMPlugins::getPluginForId('zm_recaptcha');
+    $plugin = ZMPlugins::instance()->getPluginForId('zm_recaptcha');
 
     $resp = recaptcha_check_answer ($plugin->get('privateKey'),
                                     $_SERVER["REMOTE_ADDR"],

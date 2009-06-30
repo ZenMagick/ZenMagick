@@ -111,7 +111,7 @@ class zm_google_adsense extends ZMBoxPlugin {
      * @return string The JavaScript or <code>null</code>.
      */
     function zm_google_adsense($id=null, $echo=ZM_ECHO_DEFAULT) {
-        $plugin = ZMPlugins::getPluginForId('zm_google_adsense');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_google_adsense');
 
         if (null == $plugin) {
             return null;

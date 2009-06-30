@@ -54,7 +54,7 @@ class PageView extends ZMPageView {
      * Generate view response.
      */
     public function generate() { 
-        $plugin = ZMPlugins::getPluginForId('zm_smarty');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_smarty');
 
         // get smarty instance
         $smarty = $plugin->getSmarty();

@@ -31,7 +31,7 @@
      * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function zm_view_store_locator() {
-        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_google_store_locator');
         $storeKey = $plugin->get('storeKey');
         $location = $plugin->get('location');
         $zoom = $plugin->get('zoom');
@@ -68,7 +68,7 @@ EOT;
      * @package org.zenmagick.plugins.zm_google_store_locator
      */
     function zm_store_locator_admin() {
-        $plugin = ZMPlugins::getPluginForId('zm_google_store_locator');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_google_store_locator');
 
         if ('POST' == ZMRequest::getMethod()) {
             $values = ZMRequest::getParameter('configuration', array());

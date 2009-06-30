@@ -60,7 +60,7 @@ class ZMPlugins extends ZMObject {
         parent::__construct();
         $this->plugins_ = array();
         $this->pluginStatus_ = $this->loadStatus();
-        if (!is_array(self::$pluginStatus_)) {
+        if (!is_array($this->pluginStatus_)) {
             $this->pluginStatus_ = array();
         }
         $this->pluginBaseDir_ = Runtime::getPluginsDirectory();
@@ -119,13 +119,13 @@ class ZMPlugins extends ZMObject {
     /**
      * Get all plugins.
      *
-     * @param boolean configured If <code>true</code>, return only enabled plugins: default is <code>true</code>.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A map containing separate lists of <code>ZMPlugin</code> instances for each group.
      */
-    public function getAllPlugins($configured=true) {
+    public function getAllPlugins($enabled=true) {
         $plugins = array();
         foreach ($this->getGroups() as $group => $dir) {
-            $plugins[$group] = $this->getPluginsForGroup($group, $configured);
+            $plugins[$group] = $this->getPluginsForGroup($group, $enabled);
         }
         return $plugins;
     }
@@ -157,13 +157,13 @@ class ZMPlugins extends ZMObject {
      * Get all plugins for the given group.
      *
      * @param string group The plugin group.
-     * @param boolean configured If <code>true</code>, return only enabled plugins: default is <code>true</code>.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    public function getPluginsForGroup($group, $configured=true) {
+    public function getPluginsForGroup($group, $enabled=true) {
         $idList = array();
         // populate list of plugin ids to load
-        if ($configured) {
+        if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
                 if ($status['group'] == $group && $status['enabled']) {
@@ -192,7 +192,7 @@ class ZMPlugins extends ZMObject {
             }
         }
 
-        if (!$configured) {
+        if (!$enabled) {
             // sort
             usort($plugins, array($this, "comparePlugins"));
         }
@@ -269,38 +269,62 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
-     * Init all plugins of the given type and scope.
+     * Init all plugins of the given group.
      *
      * @param mixed groups Either a single group or a group list.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
+     * @return array List of initialized plugins.
      */
-    public function initPlugins($groups) {
+    public function initPluginsForGroup($groups, $enabled=true) {
         if (!is_array($groups)) {
             $groups = array($groups);
+        }
+
+        $ids = array();
+        foreach ($groups as $group) {
+            foreach ($this->getPluginsForGroup($group, $enabled) as $plugin) {
+                $ids[] = $plugin->getId();
+            }
+        }
+
+        return $this->initPluginsForId($ids, $enabled);
+    }
+
+    /**
+     * Init all plugins of the given type and scope.
+     *
+     * <p><strong>NOTE:</strong> This method does not check for enabled or similar.
+     * It is the responsibility of the calling code to make sure that all ids are
+     * actually wanted!</p>
+     *
+     * @param mixed ids Either a single id or an id list.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
+     * @return array List of initialized plugins.
+     */
+    public function initPluginsForId($ids, $enabled=true) {
+        if (!is_array($ids)) {
+            $ids = array($ids);
         }
 
         // plugins get their own loader
         $pluginLoader = ZMLoader::make('Loader', 'plugins');
 
         $plugins = array();
-        foreach ($groups as $group) {
+        foreach ($ids as $id) {
             // get list
-            $pluginList = $this->getPluginsForGroup($group);
-
-            // instantiate, add to loader (if required) and make global
-            foreach ($pluginList as $plugin) {
-                if ($plugin->isEnabled()) {
-                    if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
-                        $pluginLoader->addPath($plugin->getPluginDirectory());
-                    } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
-                        $pluginLoader->addPath($plugin->getPluginDirectory(), false);
-                    }
-                    foreach ($plugin->getGlobal() as $file) {
-                        $pluginLoader->addGlobal($plugin->getPluginDirectory().$file);
-                    }
+            $plugin = $this->getPluginForId($id);
+            if ($plugin->isEnabled() || !$enabled) {
+                if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
+                    $pluginLoader->addPath($plugin->getPluginDirectory());
+                } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
+                    $pluginLoader->addPath($plugin->getPluginDirectory(), false);
                 }
-            }
+                foreach ($plugin->getGlobal() as $file) {
+                    $pluginLoader->addGlobal($plugin->getPluginDirectory().$file);
+                }
 
-            $plugins[$group] = $pluginList;
+                $plugins[] = $plugin;
+            }
         }
 
         // plugins prevail over defaults, *and* themes
@@ -308,14 +332,12 @@ class ZMPlugins extends ZMObject {
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
-        foreach ($plugins as $pluginList) {
+        foreach ($plugins as $plugin) {
             // call init only after everything set up
-            foreach ($pluginList as $plugin) {
-                if ($plugin->isEnabled()) {
-                    $plugin->init();
-                }
-            }
+            $plugin->init();
         }
+
+        return $plugins;
     }
 
 }

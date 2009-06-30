@@ -31,7 +31,7 @@
      * @package org.zenmagick.plugins.zm_master_password
      */
     function zm_master_password_admin() {
-        $plugin = ZMPlugins::getPluginForId('zm_master_password');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_master_password');
         if ('POST' == ZMRequest::getMethod()) {
             $values = ZMRequest::getParameter('configuration', array());
             $masterPassword = $values['MASTERPASSWORD'];

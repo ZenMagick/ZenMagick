@@ -34,7 +34,7 @@
     function zm_product_features_admin() {
     global $zm_nav_params;
 
-        $plugin = ZMPlugins::getPluginForId('zm_product_features');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_product_features');
         $template = file_get_contents($plugin->getPluginDir().'/views/manage_features.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_product_features_admin', zm_l10n_get('Features'));

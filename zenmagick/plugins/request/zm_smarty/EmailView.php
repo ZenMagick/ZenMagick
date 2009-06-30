@@ -63,7 +63,7 @@ class EmailView extends ZMEmailView {
      * code.</p>
      */
     public function generate() {
-        $plugin = ZMPlugins::getPluginForId('zm_smarty');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_smarty');
 
         // first, check for file
         $filename = $this->getViewFilename();

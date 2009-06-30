@@ -65,7 +65,7 @@ class ZMPluginView extends ZMPageView {
             $this->plugin_ = $plugin;
         } else {
             // assume string
-            $this->plugin_ = ZMPlugins::getPluginForId($plugin);
+            $this->plugin_ = ZMPlugins::instance()->getPluginForId($plugin);
         }
         $this->setVar('plugin', $this->plugin_);
     }

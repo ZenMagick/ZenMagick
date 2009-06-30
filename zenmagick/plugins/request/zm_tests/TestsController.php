@@ -39,7 +39,7 @@ class TestsController extends ZMController {
      * Create new instance.
      */
     function __construct() {
-        $this->plugin = ZMPlugins::getPluginForId('zm_tests');
+        $this->plugin = ZMPlugins::instance()->getPluginForId('zm_tests');
         parent::__construct();
     }
 

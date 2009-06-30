@@ -53,7 +53,7 @@
             ZMMessages::instance()->success(zm_l10n_get('Category updated'));
         }
 
-        $plugin = ZMPlugins::getPluginForId('zm_category_admin');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_category_admin');
         $template = file_get_contents($plugin->getPluginDir().'/views/category_admin.php');
         eval('?>'.$template);
         return new ZMPluginPage('zm_category_admin', zm_l10n_get('Category'));

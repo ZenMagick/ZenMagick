@@ -34,7 +34,7 @@
     function zm_quick_edit_admin() {
     global $zm_nav_params;
 
-        $plugin = ZMPlugins::getPluginForId('zm_quick_edit');
+        $plugin = ZMPlugins::instance()->getPluginForId('zm_quick_edit');
         $template = file_get_contents($plugin->getPluginDir().'views/quick_edit_admin.php');
         eval('?>'.$template);
 
