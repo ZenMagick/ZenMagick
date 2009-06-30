@@ -64,6 +64,8 @@ if (!function_exists('__autoload')) {
  */
 class ZMLoader {
     private static $root_ = null;
+    private static $counter_ = 1;
+    private $name_;
     private $parent_;
     private $path_;
     private $classPrefix_ = 'ZM';
@@ -77,7 +79,11 @@ class ZMLoader {
      *
      * @param string prefix Optional prefix to be used for class resolving; default is <em>ZM</em>.
      */
-    public function __construct($prefix='ZM') {
+    public function __construct($name=null, $prefix='ZM') {
+        $this->name_ = $name;
+        if (null == $this->name_) {
+            $this->name_ = 'loader@'.self::$counter_++;
+        }
         $this->classPrefix_ = $prefix;
         $this->parent_ = null;
         $this->path_ = array();
@@ -95,7 +101,7 @@ class ZMLoader {
      */
     public static function instance($prefix='ZM') {
         if (null == ZMLoader::$root_) {
-            ZMLoader::$root_ = new ZMLoader($prefix);
+            ZMLoader::$root_ = new ZMLoader('rootLoader', $prefix);
         }
         return ZMLoader::$root_;
     }
@@ -462,6 +468,15 @@ class ZMLoader {
             $list['class'] += $plist['class'];
         }
         return $list;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString() {
+        $s =  '['.get_class($this);
+        $s .= ' name='.$this->name_.']';
+        return $s;
     }
 
 }
