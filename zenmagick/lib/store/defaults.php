@@ -166,8 +166,7 @@
             'zenmagick.core.cache.mapping.defaults' => array(),
 
             // file cache folder
-            'zenmagick.core.cache.provider.file.baseDir' => ZM_CACHE_BASE_DIR,
-
+            'zenmagick.core.cache.provider.file.baseDir' => DIR_FS_SQL_CACHE.'/zenmagick/',
 
             // fix file permissions of created files to allow FTP access
             'fs.permissions.fix' => true,
