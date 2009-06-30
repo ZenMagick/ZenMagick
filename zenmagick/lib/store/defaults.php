@@ -165,6 +165,10 @@
             // persistent / transient implementation mappings
             'zenmagick.core.cache.mapping.defaults' => array(),
 
+            // file cache folder
+            'zenmagick.core.cache.provider.file.baseDir' => ZM_CACHE_BASE_DIR,
+
+
             // fix file permissions of created files to allow FTP access
             'fs.permissions.fix' => true,
             // default permissions; NOTE the leading 0 is required as this is octal

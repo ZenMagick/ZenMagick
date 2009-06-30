@@ -36,6 +36,14 @@
  * @version $Id: ZMEvents.php 2332 2009-06-26 04:05:17Z dermanomann $
  */
 class Events extends ZMEvents {
+    const THEME_RESOLVED = 'theme_resolved';
+    const CREATE_ACCOUNT = 'create_account';
+    const LOGIN_SUCCESS = 'login_success';
+    const LOGOFF_SUCCESS = 'logoff_success';
+    const GENERATE_EMAIL = 'generate_email';
+    const CREATE_ORDER = 'create_order';
+    const PASSWORD_CHANGED = 'password_changed';
+
 
     /**
      * Create new instance.

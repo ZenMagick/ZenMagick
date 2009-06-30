@@ -77,7 +77,7 @@ class ZMPhpPackagePacker {
     }
 
     /**
-     * Finalize dependencies.
+     * Finalise dependencies.
      *
      * <p>Callback to manipulate the computed dependencies.</p>
      *
@@ -85,7 +85,7 @@ class ZMPhpPackagePacker {
      * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
      * @return array The final dependencies.
      */
-    public function finalizeDependencies($dependencies, $files) {
+    public function finaliseDependencies($dependencies, $files) {
         return $dependencies;
     }
 
@@ -227,7 +227,7 @@ class ZMPhpPackagePacker {
             }
         }
 
-        $dependsOn = $this->finalizeDependencies($dependsOn, $files);
+        $dependsOn = $this->finaliseDependencies($dependsOn, $files);
 
         $resolved = array();
 

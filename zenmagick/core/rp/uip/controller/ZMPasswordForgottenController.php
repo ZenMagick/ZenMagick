@@ -85,7 +85,7 @@ class ZMPasswordForgottenController extends ZMController {
         $context = array('password' => $newPassword);
         zm_mail(zm_l10n_get("Forgotten Password - %s", ZMSettings::get('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::PASSWORD_CHANGED, array(
+        ZMEvents::instance()->fireEvent($this, Events::PASSWORD_CHANGED, array(
                 'controller' => $this, 
                 'account' => $account, 
                 'clearPassword' => $newPassword

@@ -67,7 +67,7 @@ class ZMLogoffController extends ZMController {
         }
 
         // info only
-        ZMEvents::instance()->fireEvent($this, ZMEvents::LOGOFF_SUCCESS, array('controller' => $this, 'account' => $account));
+        ZMEvents::instance()->fireEvent($this, Events::LOGOFF_SUCCESS, array('controller' => $this, 'account' => $account));
 
         // display page
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));

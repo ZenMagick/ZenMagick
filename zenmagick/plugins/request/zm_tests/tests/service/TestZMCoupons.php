@@ -166,13 +166,13 @@ class TestZMCoupons extends ZMTestCase {
     }
 
     /**
-     * Test finalize coupon.
+     * Test finalise coupon.
      */
-    public function testFinalizeCoupon() {
+    public function testFinaliseCoupon() {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        ZMCoupons::instance()->finalizeCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
+        ZMCoupons::instance()->finaliseCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
 
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "

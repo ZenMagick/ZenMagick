@@ -32,7 +32,6 @@
  * @version $Id$
  */
 class ZMEvents extends ZMObject {
-  //TODO: move
     const BOOTSTRAP_DONE = 'bootstrap_done';
     const INIT_DONE = 'init_done';
     const DISPATCH_START = 'dispatch_start';
@@ -43,13 +42,7 @@ class ZMEvents extends ZMObject {
     const CONTROLLER_PROCESS_END = 'controller_process_end';
     const THEME_RESOLVED = 'theme_resolved';
     const ALL_DONE = 'all_done';
-    const CREATE_ACCOUNT = 'create_account';
-    const LOGIN_SUCCESS = 'login_success';
-    const LOGOFF_SUCCESS = 'logoff_success';
-    const GENERATE_EMAIL = 'generate_email';
-    const CREATE_ORDER = 'create_order';
     const FINALISE_CONTENTS = 'finalise_contents';
-    const PASSWORD_CHANGED = 'password_changed';
 
     protected $subscribers_;
     protected $eventLog_;

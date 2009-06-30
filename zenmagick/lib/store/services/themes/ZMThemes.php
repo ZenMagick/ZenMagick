@@ -244,7 +244,7 @@ class ZMThemes extends ZMObject {
         // finalise i18n
         zm_i18n_finalise();
 
-        ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('theme' => $theme));
+        ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, array('theme' => $theme));
 
         return $theme;
     }

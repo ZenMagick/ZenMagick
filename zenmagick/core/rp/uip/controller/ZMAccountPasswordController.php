@@ -92,7 +92,7 @@ class ZMAccountPasswordController extends ZMController {
         $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
         ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::PASSWORD_CHANGED, array(
+        ZMEvents::instance()->fireEvent($this, Events::PASSWORD_CHANGED, array(
                 'controller' => $this, 
                 'account' => $account, 
                 'clearPassword' => $newPassword

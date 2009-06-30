@@ -390,7 +390,7 @@ class ZMPhpCompressor {
      * @param array files List of files.
      * @return array The final list.
      */
-    protected function finalizeFiles($files) {
+    protected function finaliseFiles($files) {
         return $files;
     }
 
@@ -410,7 +410,7 @@ class ZMPhpCompressor {
             $off = strpos($file, $in);
             $tmp[substr($file, $off+strlen($in)+1)] = $file;
         }
-        $files = $this->finalizeFiles($tmp);
+        $files = $this->finaliseFiles($tmp);
 
         // use ob to collect content
         ob_start();

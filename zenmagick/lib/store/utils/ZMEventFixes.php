@@ -70,7 +70,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMInitDone() {
         if (!ZMsettings::get('isEnableZMThemes')) {
-            ZMEvents::instance()->fireEvent(null, ZMEvents::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId()));
+            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId()));
         }
 
         // pick up messages from zen-cart request handling
@@ -272,7 +272,7 @@ class ZMEventFixes extends ZMObject {
      * Create ZenMagick order created event that contains the order id.
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
-        ZMEvents::instance()->fireEvent(null, ZMEvents::CREATE_ORDER, array('orderId' => $_SESSION['order_number_created']));
+        ZMEvents::instance()->fireEvent(null, Events::CREATE_ORDER, array('orderId' => $_SESSION['order_number_created']));
     }
 
 }

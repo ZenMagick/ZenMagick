@@ -99,7 +99,7 @@ class ZMCreateAccountController extends ZMController {
         }
 
         // here we have a proper account, so time to let other know about it
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CREATE_ACCOUNT, array(
+        ZMEvents::instance()->fireEvent($this, Events::CREATE_ACCOUNT, array(
                 'controller' => $this, 
                 'account' => $account, 
                 'address' => $address, 

@@ -189,7 +189,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
     /**
      * {@inheritDoc}
      */
-    protected function finalizeFiles($files) {
+    protected function finaliseFiles($files) {
         // some need to be in order :/
         $loadFirst = array(
             '1/ZMObject.php',

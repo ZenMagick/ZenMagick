@@ -206,25 +206,25 @@ class ZMCoupons extends ZMObject {
     /**
      * Redeem a coupon.
      *
-     * <p>This will call <code>finalizeCoupon(...)</code> and <code>creditCoupon(...)</code>.</p>
+     * <p>This will call <code>finaliseCoupon(...)</code> and <code>creditCoupon(...)</code>.</p>
      *
      * @param int couponId The coupon id.
      * @param int accountId The redeeming account id.
      * @param string remoteIp The redeeming IP addres; default is an empty string.
      */
     public function redeemCoupon($couponId, $accountId, $remoteIp='') {
-        $this->finalizeCoupon($couponId, $accountId, $remoteIp);
+        $this->finaliseCoupon($couponId, $accountId, $remoteIp);
         $this->creditCoupon($couponId, $accountId);
     }
 
     /**
-     * Finalize a coupon.
+     * Finalise a coupon.
      *
      * @param int couponId The coupon id.
      * @param int accountId The redeeming account id.
      * @param string remoteIp The redeeming IP addres; default is an empty string.
      */
-    public function finalizeCoupon($couponId, $accountId, $remoteIp='') {
+    public function finaliseCoupon($couponId, $accountId, $remoteIp='') {
         $tracker = new ZMObject();
         $tracker->set('couponId', $couponId);
         $tracker->set('accountId', $accountId);
