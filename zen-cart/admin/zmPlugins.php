@@ -67,7 +67,6 @@ require_once 'includes/application_top.php';
             /** XXX: need full name here, but without 'configuration[]' this time! */ 
             $value->setName($value->get('configurationKey'));
         }
-        $data = ZMWidgetForm::processRequest($data, $values);
         while (list($key, $value) = each($data)) {
             ZMConfig::instance()->updateConfigValue($key, $value);
         }
