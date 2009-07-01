@@ -24,6 +24,8 @@ Release 0.9.7
   class
 - move and split ZMPlugins and make it regular service, rather than a
   container of static methods to make it easier to extend
+- zm_wordpress: allow to disable URL rewriting; this allows to display any WP
+  content in store pages while linking back to the actual blog
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

@@ -70,6 +70,8 @@ class zm_wordpress extends Plugin {
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nick name as optional (will skip automatic WP registration)', 
             "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+        $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates', 
+            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
     }
 
     /**
@@ -137,7 +139,9 @@ class zm_wordpress extends Plugin {
         if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
             $this->requestHandler_->handleRequest();
-            $this->requestHandler_->register();
+            if (ZMLangUtils::asBoolean($this->get('urlRewrite')) {
+                $this->requestHandler_->register();
+            }
         }
 
         if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
