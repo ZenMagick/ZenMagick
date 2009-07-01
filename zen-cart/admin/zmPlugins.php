@@ -32,12 +32,12 @@ require_once 'includes/application_top.php';
     $install = ZMRequest::getParameter('install');
     $remove = ZMRequest::getParameter('remove');
     $edit = ZMRequest::getParameter('edit');
-    $type = ZMRequest::getParameter('type');
+    $group = ZMRequest::getParameter('group');
     $select = ZMRequest::getParameter('select');
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
-        if (null != ($plugin = ZMPlugins::initPluginForId($install, true)) && !$plugin->isInstalled()) {
+        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($install, false)) && !$plugin->isInstalled()) {
             $plugin->install();
             ZMMessages::instance()->addAll($plugin->getMessages());
         }
@@ -46,21 +46,21 @@ require_once 'includes/application_top.php';
         $needRefresh = true;
         $refresh = $edit;
     } else if (null != $remove) {
-        if (null != ($plugin = ZMPlugins::initPluginForId($remove, true)) && $plugin->isInstalled()) {
+        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, true)) && $plugin->isInstalled()) {
             $plugin->remove();
             ZMMessages::instance()->addAll($plugin->getMessages());
         }
         $needRefresh = true;
     } else if (null != $edit) {
-        $editPlugin = ZMPlugins::initPluginForId($edit);
+        $editPlugin = ZMPlugins::instance()->initPluginForId($edit, true);
     } else if (null != $select) {
         $edit = $select;
-        $editPlugin = ZMPlugins::initPluginForId($select);
+        $editPlugin = ZMPlugins::instance()->initPluginForId($select, true);
     }
 
     // update
     if ('POST' == ZMRequest::getMethod() && null !== ($pluginId = ZMRequest::getParameter('pluginId'))) {
-        $plugin = ZMPlugins::initPluginForId($pluginId);
+        $plugin = ZMPlugins::instance()->initPluginForId($pluginId);
         $data = ZMRequest::getParameter('configuration', array(), false);
         $values = $plugin->getConfigValues();
         foreach ($values as $value) {
@@ -86,10 +86,10 @@ require_once 'includes/application_top.php';
 
     // build/update plugin status for all plugins
     $pluginStatus = array();
-    foreach (ZMPlugins::getAllPlugins(Plugin::SCOPE_ALL, false) as $type => $plugins) {
+    foreach (ZMPlugins::instance()->getAllPlugins(false) as $group => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
-              'type' => $plugin->getType(),
+              'group' => $plugin->getGroup(),
               'scope' => $plugin->getScope(),
               'installed' => $plugin->isInstalled(),
               'enabled' => $plugin->isEnabled(),
@@ -136,8 +136,8 @@ require_once 'includes/application_top.php';
     <div id="main">
       <div id="content">
 
-        <?php foreach (ZMPlugins::getAllPlugins(Plugin::SCOPE_ALL, false) as $type => $plugins) { ?>
-        <h2><?php echo $type ?> plugins</h2>
+        <?php foreach (ZMPlugins::instance()->getAllPlugins(false) as $group => $plugins) { ?>
+        <h2><?php echo $group ?> plugins</h2>
         <form action="<?php echo 'zmPlugins.php' ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
           <table cellpadding="5" cellspacing="0" style="width:90%;"> 
             <thead>
@@ -150,7 +150,7 @@ require_once 'includes/application_top.php';
               </tr>
             </thead>
             <tbody>
-              <?php $odd = true; foreach ($plugins as $plugin) { $isEdit = (null != $edit && $plugin->getId() == $editPlugin->getId()); $odd = !$odd; ?>
+              <?php $odd = true; foreach ($plugins as $plugin) { $isEdit = (null != $edit && null != $editPlugin && $plugin->getId() == $editPlugin->getId()); $odd = !$odd; ?>
     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?><?php if ($odd) { echo ' style="background-color:#ddd;"'; } ?>>
                   <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
                   <td><?php echo $plugin->getDescription() ?></td>
@@ -158,16 +158,16 @@ require_once 'includes/application_top.php';
                   <td><?php echo $plugin->getSortOrder() ?></td>
                   <td>
                     <?php if ($plugin->isInstalled()) { ?>
-                        <a href="<?php echo 'zmPlugins.php' ?>?remove=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
+                        <a href="<?php echo 'zmPlugins.php' ?>?remove=<?php echo $plugin->getId() ?>&group=<?php echo $plugin->getGroup() ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
                         <?php if ($isEdit) { ?>
                           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
-                          <input type="hidden" name="type" value="<?php echo $plugin->getType() ?>">
+                          <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
                           <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                         <?php } else { ?>
-                            <a href="<?php echo 'zmPlugins.php' ?>?edit=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                            <a href="<?php echo 'zmPlugins.php' ?>?edit=<?php echo $plugin->getId() ?>&group=<?php echo $plugin->getGroup() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
                         <?php } ?>
                     <?php } else { ?>
-                        <a href="<?php echo 'zmPlugins.php' ?>?install=<?php echo $plugin->getId() ?>&type=<?php echo $plugin->getType() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                        <a href="<?php echo 'zmPlugins.php' ?>?install=<?php echo $plugin->getId() ?>&group=<?php echo $plugin->getGroup() ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
                     <?php } ?>
                   </td>
                 </tr>

@@ -127,6 +127,7 @@ class ZMPlugins extends ZMObject {
         foreach ($this->getGroups() as $group => $dir) {
             $plugins[$group] = $this->getPluginsForGroup($group, $enabled);
         }
+
         return $plugins;
     }
 
@@ -249,6 +250,7 @@ class ZMPlugins extends ZMObject {
 
         // load
         if (!file_exists($file)) {
+            ZMLogging::instance()->log("plugin file does not exist for '".$id."'", ZMLogging::DEBUG);
             return null;
         }
 
@@ -288,6 +290,21 @@ class ZMPlugins extends ZMObject {
         }
 
         return $this->initPluginsForId($ids, $enabled);
+    }
+
+    /**
+     * Convenience method to init a single plugin.
+     *
+     * @param string id Either a single id or an id list.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
+     * @return ZMPlugin A plugin or <code>null</code>.
+     */
+    public function initPluginForId($id, $enabled=true) {
+        $plugins = $this->initPluginsForId($id, $enabled);
+        if (1 == count($plugins)) {
+            return $plugins[0];
+        }
+        return null;
     }
 
     /**
