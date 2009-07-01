@@ -139,7 +139,7 @@ class zm_wordpress extends Plugin {
         if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
             $this->requestHandler_->handleRequest();
-            if (ZMLangUtils::asBoolean($this->get('urlRewrite')) {
+            if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
                 $this->requestHandler_->register();
             }
         }
