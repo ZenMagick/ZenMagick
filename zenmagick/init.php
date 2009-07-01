@@ -49,8 +49,6 @@
         require_once ZM_BASE_DIR."lib/core/ZMLoader.php";
         // configure loader
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
-        // needed until all code is migrated into lib
-        ZMLoader::instance()->addPath(ZM_BASE_DIR.'core'.DIRECTORY_SEPARATOR);
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();
     }

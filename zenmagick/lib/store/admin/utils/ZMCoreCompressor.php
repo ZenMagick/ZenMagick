@@ -42,7 +42,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
         parent::__construct();
         $this->pluginsPreparedFolder_ = Runtime::getInstallationPath().'plugins.prepared';
 
-        $this->setRoot(array(Runtime::getInstallationPath().'lib', Runtime::getInstallationPath().'core', $this->pluginsPreparedFolder_));
+        $this->setRoot(array(Runtime::getInstallationPath().'lib', $this->pluginsPreparedFolder_));
         $this->setOut(Runtime::getInstallationPath().'core.php');
         $this->setTemp(Runtime::getInstallationPath());
         $this->setStripCode(ZMSettings::get('isStripCore'));

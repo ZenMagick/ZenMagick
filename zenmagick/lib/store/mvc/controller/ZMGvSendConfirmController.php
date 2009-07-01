@@ -61,8 +61,8 @@ class ZMGvSendConfirmController extends ZMController {
      */
     public function processGet() {
         $data = array();
-        $data['zm_account'] => ZMRequest::getAccount();
-        $data['zm_coupon'] => ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
+        $data['zm_account'] = ZMRequest::getAccount();
+        $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
         return $this->findView(null, $data);
     }
 
