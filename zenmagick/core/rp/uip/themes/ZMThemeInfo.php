@@ -222,7 +222,6 @@ class ZMThemeInfo extends ZMObject {
      */
     function getLayoutFor($page) {
         if (array_key_exists($page, $this->layout_)) {
-            $this->layout_[$page];
             return $this->layout_[$page];
         } else if ($this->hasDefaultLayout()) {
             return $this->getDefaultLayout();
