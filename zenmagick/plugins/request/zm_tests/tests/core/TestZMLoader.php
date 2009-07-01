@@ -14,8 +14,8 @@ class TestZMLoader extends ZMTestCase {
      */
     public function testParentLoader() {
         $parentLoader = ZMLoader::make("Loader");
-        $parentLoader->registerClass('LoaderTestClass1', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/LoaderTestClass1.phpx');
-        $parentLoader->registerClass('LoaderTestClass2', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/LoaderTestClass2.phpx');
+        $parentLoader->registerClass('LoaderTestClass1', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass1.phpx');
+        $parentLoader->registerClass('LoaderTestClass2', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass2.phpx');
 
         // not available yet
         $this->assertNull(ZMLoader::resolve('LoaderTestClass1'));
@@ -36,12 +36,12 @@ class TestZMLoader extends ZMTestCase {
      * Test resolve ZM class.
      */
     public function testResolveZM() {
-        ZMLoader::instance()->registerClass('LoaderTestClass4', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/LoaderTestClass4.phpx');
-        ZMLoader::instance()->registerClass('ZMLoaderTestClass4', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/ZMLoaderTestClass4.phpx');
+        ZMLoader::instance()->registerClass('LoaderTestClass4', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass4.phpx');
+        ZMLoader::instance()->registerClass('ZMLoaderTestClass4', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/ZMLoaderTestClass4.phpx');
         $this->assertEqual('ZMLoaderTestClass4', ZMLoader::resolve('ZMLoaderTestClass4'));
         $this->assertEqual('LoaderTestClass4', ZMLoader::resolve('LoaderTestClass4'));
 
-        ZMLoader::instance()->registerClass('ZMLoaderTestClass6', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/ZMLoaderTestClass6.phpx');
+        ZMLoader::instance()->registerClass('ZMLoaderTestClass6', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/ZMLoaderTestClass6.phpx');
         $this->assertEqual('ZMLoaderTestClass6', ZMLoader::resolve('ZMLoaderTestClass6'));
     }
 
@@ -49,12 +49,12 @@ class TestZMLoader extends ZMTestCase {
      * Test resove custom class
      */
     public function testResolveCustom() {
-        ZMLoader::instance()->registerClass('LoaderTestClass5', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/LoaderTestClass5.phpx');
-        ZMLoader::instance()->registerClass('ZMLoaderTestClass5', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/ZMLoaderTestClass5.phpx');
+        ZMLoader::instance()->registerClass('LoaderTestClass5', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass5.phpx');
+        ZMLoader::instance()->registerClass('ZMLoaderTestClass5', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/ZMLoaderTestClass5.phpx');
         $this->assertEqual('LoaderTestClass5', ZMLoader::resolve('LoaderTestClass5'));
         $this->assertEqual('ZMLoaderTestClass5', ZMLoader::resolve('ZMLoaderTestClass5'));
 
-        ZMLoader::instance()->registerClass('LoaderTestClass7', $this->getTestPlugin()->getPluginDir().'tests/core/testclasses/LoaderTestClass7.phpx');
+        ZMLoader::instance()->registerClass('LoaderTestClass7', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass7.phpx');
         $this->assertEqual('LoaderTestClass7', ZMLoader::resolve('LoaderTestClass7'));
     }
 

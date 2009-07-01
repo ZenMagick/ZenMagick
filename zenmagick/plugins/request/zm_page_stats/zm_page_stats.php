@@ -32,6 +32,7 @@
  * @version $Id$
  */
 class zm_page_stats extends Plugin {
+    private $pageCache_;
 
 
     /**

@@ -177,24 +177,6 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function handleFormData($data) {
-        if ('checkbox' != $this->get('style')) {
-            return parent::handleFormData($data);
-        }
-
-        $name = $this->getName();
-        $_name = $this->getCheckboxHiddenValueName($name);
-        if (!array_key_exists($name, $data) && array_key_exists($_name, $data)) {
-            $data[$name] = false;
-            unset($data[$_name]);
-        }
-
-        return $data;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function compare($value) {
         return ZMLangUtils::asBoolean($value) == $this->getValue();
     }

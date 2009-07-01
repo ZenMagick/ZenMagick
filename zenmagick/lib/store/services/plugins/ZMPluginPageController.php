@@ -122,7 +122,7 @@ class ZMPluginPageController extends ZMObject {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId($this->plugin_);
+        return ZMPlugins::instance()->getPluginForId($this->plugin_, true);
     }
 
     /**
@@ -147,7 +147,7 @@ class ZMPluginPageController extends ZMObject {
         // the plugin
         $plugin = $this->getPlugin();
 
-        $template = file_get_contents($this->getPlugin()->getPluginDir().$viewDir.'/'.$this->getId().$this->ext_);
+        $template = file_get_contents($this->getPlugin()->getPluginDirectory().$viewDir.'/'.$this->getId().$this->ext_);
         ob_start();
         eval('?>'.$template);
         return ob_get_clean();

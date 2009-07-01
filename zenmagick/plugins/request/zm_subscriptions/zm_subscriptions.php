@@ -70,7 +70,7 @@ class zm_subscriptions extends Plugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/install.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install.sql")), $this->messages_);
 
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amoout to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
@@ -96,7 +96,7 @@ class zm_subscriptions extends Plugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**
@@ -110,14 +110,14 @@ class zm_subscriptions extends Plugin {
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestSubscriptions');
         }
 
         // if zm_cron available, load cron job
         if (null != ZMPlugins::instance()->getPluginForId('zm_cron')) {
             // add class path only now to avoid errors due to missing ZMCronJob
-            ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
+            ZMLoader::instance()->addPath($this->getPluginDirectory().'cron/');
         }
 
         // set mappings and permissions of custom pages

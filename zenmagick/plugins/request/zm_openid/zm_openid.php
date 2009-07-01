@@ -61,7 +61,7 @@ class zm_openid extends Plugin {
      */
     function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/install-openid.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install-openid.sql")), $this->messages_);
 
         $this->addConfigValue('Allowed OpenID provider', 'openIDProvider', '', 'A list of allowed OpenID identity providers (separated by \'|\').');
     }
@@ -73,7 +73,7 @@ class zm_openid extends Plugin {
      */
     function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**
@@ -93,7 +93,7 @@ class zm_openid extends Plugin {
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestZMDatabaseOpenIDStore');
         }
     }

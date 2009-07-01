@@ -140,7 +140,7 @@ class ZMWpRequestHandler extends ZMController {
      */
     public function comments_template_filter($arg) {
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
-            return $this->plugin->getPluginDir().'wp/comments.php';
+            return $this->plugin->getPluginDirectory().'wp/comments.php';
           } else {
             return Runtime::getTheme()->themeFile('views/wp/comments.php');
           }

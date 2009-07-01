@@ -71,7 +71,7 @@
 
         // execute view
         $plugin = ZMPlugins::instance()->getPluginForId('zm_group_pricing');
-        $template = file_get_contents($plugin->getPluginDir().'/views/group_pricing_admin.php');
+        $template = file_get_contents($plugin->getPluginDirectory().'/views/group_pricing_admin.php');
         eval('?>'.$template);
 
         return new ZMPluginPage('zm_group_pricing_admin', zm_l10n_get('Group Pricing'));

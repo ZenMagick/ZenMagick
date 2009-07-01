@@ -54,7 +54,7 @@ class zm_hoverbox3 extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/use-sql-patch-tool-to-install.txt")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/use-sql-patch-tool-to-install.txt")), $this->messages_);
     }
 
     /**
@@ -64,7 +64,7 @@ class zm_hoverbox3 extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall-HoverBox-sql.txt")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall-HoverBox-sql.txt")), $this->messages_);
     }
 
     /**
@@ -82,7 +82,7 @@ class zm_hoverbox3 extends Plugin {
         $h3head .= '<link rel="stylesheet" type="text/css" href="' . $theme->themeURL('hover3/stylesheet_hoverbox3.css', false) . '" />';
         $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_effects.js', false) . '"></script>';
         // eval js config
-        $h3config_tpl = file_get_contents($this->getPluginDir().'/ic_hoverbox_config.tpl');
+        $h3config_tpl = file_get_contents($this->getPluginDirectory().'/ic_hoverbox_config.tpl');
         ob_start();
         eval('?>'.$h3config_tpl);
         $h3config = ob_get_clean();

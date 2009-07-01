@@ -62,7 +62,7 @@ class TestsController extends ZMController {
         Runtime::getTheme()->getThemeInfo()->setLayout('tests', null);
 
         $testsLoader = ZMLoader::make("Loader");
-        $testBaseDir = $this->plugin->getPluginDir().'tests/';
+        $testBaseDir = $this->plugin->getPluginDirectory().'tests/';
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();

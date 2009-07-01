@@ -72,7 +72,7 @@ class zm_cron extends Plugin {
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDir().'tests/');
+            ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestZMCronParser');
         }
     }

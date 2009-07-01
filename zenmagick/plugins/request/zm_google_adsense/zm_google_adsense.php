@@ -89,7 +89,7 @@ class zm_google_adsense extends ZMBoxPlugin {
      * @return string Contents for the box implementation.
      */
     function getBoxContents($id) {
-        $contents = file_get_contents($this->getPluginDir()._ZM_GOOGLE_ADSENSE_BOX_TEMPLATE);
+        $contents = file_get_contents($this->getPluginDirectory()._ZM_GOOGLE_ADSENSE_BOX_TEMPLATE);
 
         // make them unique
         $contents = str_replace('BOX_ID', $id, $contents);

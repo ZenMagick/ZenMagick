@@ -147,6 +147,8 @@ class Plugin extends ZMPlugin {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
             ZMConfig::instance()->updateConfigValue($dname, $value);
+        } else {
+            ZMLogging::instance()->trace('invalid plugin config key: '.$dname, ZMLogging::TRACE);
         }
     }
 

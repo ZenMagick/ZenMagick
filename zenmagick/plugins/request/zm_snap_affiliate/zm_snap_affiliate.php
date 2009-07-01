@@ -56,7 +56,7 @@ class zm_snap_affiliate extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/snap.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/snap.sql")), $this->messages_);
         $this->addConfigValue('Affiliate key prefix', 'affiliatePrefix', 'CNWR_', 'Common prefix for all generated affiliate keys',
             'widget@TextFormWidget#id=affiliatePrefix&name=affiliatePrefix&default=CNWR_&size=8&maxlength=6');
         $this->addConfigValue('Default commision', 'defaultCommission', '0.1', 'Default commission for all new affiliates',
@@ -70,7 +70,7 @@ class zm_snap_affiliate extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDir()."sql/uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**

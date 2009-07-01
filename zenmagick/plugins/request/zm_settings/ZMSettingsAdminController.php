@@ -89,15 +89,13 @@ class ZMSettingsAdminController extends ZMPluginPageController {
             }
             foreach ($plugin->getConfigValues(false) as $widget) {
                 if ($widget instanceof ZMFormWidget) {
-                    $parameter = $widget->handleFormData($parameter);
                     $value = $parameter[$widget->getName()];
                     if (!$widget->compare($value)) {
-                    echo $widget->getName().' - '.$value.' : '.$widget->getValue()."<BR>";
-                        $plugin->set($name, $value);
+                        // value changed
+                        $plugin->set($widget->getName(), $value);
                     }
                 }
             }
-            var_dump($parameter);
         }
 
         return $page;

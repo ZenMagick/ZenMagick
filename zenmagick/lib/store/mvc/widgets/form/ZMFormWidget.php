@@ -89,18 +89,6 @@ abstract class ZMFormWidget extends ZMWidget {
     }
 
     /**
-     * Handle form data.
-     *
-     * <p>This default implementation will jsut return the given data.<p>
-     *
-     * @param array data The form data.
-     * @return The processed form data.
-     */
-    public function handleFormData($data) {
-        return $data;
-    }
-
-    /**
      * Compare the given value with the widget value.
      *
      * @param string value A string value.

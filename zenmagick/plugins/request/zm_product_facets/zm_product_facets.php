@@ -68,7 +68,7 @@ class zm_product_facets extends Plugin {
         // if zm_cron available, load cron job
         if (null != ZMPlugins::instance()->getPluginForId('zm_cron')) {
             // add class path only now to avoid errors due to missing ZMCronJob
-            ZMLoader::instance()->addPath($this->getPluginDir().'cron/');
+            ZMLoader::instance()->addPath($this->getPluginDirectory().'cron/');
         }
     }
 

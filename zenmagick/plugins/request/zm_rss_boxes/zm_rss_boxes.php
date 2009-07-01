@@ -89,7 +89,7 @@ class zm_rss_boxes extends ZMBoxPlugin {
      * @return string Contents for the box implementation.
      */
     function getBoxContents($id) {
-        $contents = file_get_contents($this->getPluginDir()._ZM_RSS_BOXES_TEMPLATE);
+        $contents = file_get_contents($this->getPluginDirectory()._ZM_RSS_BOXES_TEMPLATE);
 
         // make them unique
         $contents = str_replace('RSS_URL', $id, $contents);

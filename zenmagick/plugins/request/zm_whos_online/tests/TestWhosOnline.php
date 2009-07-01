@@ -68,7 +68,7 @@ class TestWhosOnline extends ZMTestCase {
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently one guest and 3 registered users online.')
         ); 
 
-        $sample1 = file_get_contents($this->getPlugin()->getPluginDir().'sidebox.php.sample1');
+        $sample1 = file_get_contents($this->getPlugin()->getPluginDirectory().'sidebox.php.sample1');
         $sample1 = str_replace('$stats = $zm_whos_online', '//$stats = $zm_whos_online', $sample1);
 
         foreach ($statsVariations as $stats) {
@@ -94,7 +94,7 @@ class TestWhosOnline extends ZMTestCase {
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently 1 guests and 3 registered users online.')
         ); 
 
-        $sample2 = file_get_contents($this->getPlugin()->getPluginDir().'sidebox.php.sample2');
+        $sample2 = file_get_contents($this->getPlugin()->getPluginDirectory().'sidebox.php.sample2');
         $sample2 = str_replace('$stats = $zm_whos_online', '//$stats = $zm_whos_online', $sample2);
 
         foreach ($statsVariations as $stats) {
