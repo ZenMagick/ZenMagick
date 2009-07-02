@@ -270,16 +270,19 @@ class ZMLoader {
      * Resolve and load the class code for the given class name.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param string key Optional key for the internal cache; default is <code>null</code>.
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public function resolveClass($name) {
-        if (isset($this->cache_[$name])) {
-            return $this->cache_[$name];
+    public function resolveClass($name, $key=null) {
+        $key = null !== $key ? $key : $name;
+        if (isset($this->cache_[$key])) {
+            return $this->cache_[$key];
         }
+
         if (0 === strpos($name, $this->classPrefix_)) {
             if (class_exists($name, false) || interface_exists($name, false)) {
-                $this->cache_[$name] = $name;
+                $this->cache_[$key] = $name;
                 return $name;
             }
             return $this->resolveFromClassPath($name);
@@ -291,14 +294,14 @@ class ZMLoader {
             $parent = $name;
             while (false !== ($parent = get_parent_class($parent))) {
                 if (0 === strpos($parent, $this->classPrefix_)) {
-                    $this->cache_[$name] = $name;
+                    $this->cache_[$key] = $name;
                     return $name;
                 }
             }
         }
 
         // default to prefixed name
-        return $this->resolveClass($this->classPrefix_.$name);
+        return $this->resolveClass($this->classPrefix_.$name, $name);
     }
 
     /**
