@@ -85,14 +85,6 @@ class ZMCoreCompressor extends ZMPhpCompressor {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    protected function compressToSingleFile($in, $outfile) {
-        $this->createInitBootstrap($this->flatFolder_);
-        parent::compressToSingleFile($in, $outfile);
-    }
-
-    /**
      * Prepare plugin files.
      *
      * <p>Prepare those plugin files that can be compressed.</p>
@@ -155,48 +147,19 @@ class ZMCoreCompressor extends ZMPhpCompressor {
     }
 
     /**
-     * Create init_bootstrap.php
-     *
-     * @param string out The output directory.
-     */
-    private function createInitBootstrap($out) {
-        $outfile = $out.DIRECTORY_SEPARATOR.'init_bootstrap.php';
-        if (!$handle = fopen($outfile, 'ab')) {
-            array_push($this->errors_, 'could not open file for writing ' . $outfile);
-            return;
-        }
-        if (false === fwrite($handle, "<?php \n")) {
-            array_push($this->errors_, 'could not write to file ' . $outfile);
-            return;
-        }
-        $lines = array(
-            "define('ZM_SINGLE_CORE', true);",
-        );
-        foreach ($lines as $line) {
-            if (false === fwrite($handle, $line."\n")) {
-                array_push($this->errors_, 'could not write to file ' . $outfile);
-                return;
-            }
-        }
-        if (false === fwrite($handle, "?>\n")) {
-            array_push($this->errors_, 'could not write to file ' . $outfile);
-            return;
-        }
-        fclose($handle);
-        ZMFileUtils::setFilePerms($outfile);
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected function finaliseFiles($files) {
         // some need to be in order :/
         $loadFirst = array(
-            '1/ZMObject.php',
-            '1/ZMSettings.php',
-            '1/defaults.php',
-            '1/ZMLoader.php',
-            'init_bootstrap.php'
+            implode(DIRECTORY_SEPARATOR, array('1', 'ZMObject.php')),
+            implode(DIRECTORY_SEPARATOR, array('1', 'ZMSettings.php')),
+            implode(DIRECTORY_SEPARATOR, array('1', 'defaults.php')),
+            implode(DIRECTORY_SEPARATOR, array('1', 'ZMLoader.php')),
+            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'ZMEvents.php')),
+            //implode(DIRECTORY_SEPARATOR, array('1', '2', 'Events.php')),
+            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'ZMPlugins.php')),
+            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'Plugins.php')),
         );
         $tmp2 = array();
         foreach ($loadFirst as $first) {

@@ -206,7 +206,7 @@ class ZMObject {
             return $this->set($property, $args[0]);
         }
 
-        throw new ZMException('invalid method: '.$method);
+        throw new ZMException('invalid method on: '.get_class($this).': '.$method);
     }
 
     /**

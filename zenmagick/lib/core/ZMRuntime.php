@@ -54,7 +54,8 @@ class ZMRuntime extends ZMObject {
      *  <dt>database</dt>
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
-     *  <dd>The requested implementation class; default is <code>ZMSettings::get('zenmagick.core.database.provider')</code>.</dd>
+     *  <dd>The requested implementation class; if omotted, this defaults to
+     *   <code>ZMSettings::get('zenmagick.core.database.provider')</code>.</dd>
      *  <dt>initQuery</dt>
      *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
      * </dl>
@@ -67,9 +68,9 @@ class ZMRuntime extends ZMObject {
      */
     public static function getDatabase($conf='default') { 
         if (is_string($conf)) {
-            $dbconf = ZMSettings::get('zenmagick.core.database.connections.'.$conf);
+            $dbconf = ZMLangUtils::toArray(ZMSettings::get('zenmagick.core.database.connections.'.$conf));
         } else {
-            $default = ZMSettings::get('zenmagick.core.database.connections.default');
+            $default = ZMLangUtils::toArray(ZMSettings::get('zenmagick.core.database.connections.default'));
             $dbconf = array_merge($default, $conf);
         }
 

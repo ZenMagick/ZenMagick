@@ -267,7 +267,7 @@ class ZMFileUtils {
             $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
         }
 
-        return $filename;
+        return realpath($filename);
     }
 
     /**
