@@ -28,6 +28,7 @@ Release 0.9.7
   content in store pages while linking back to the actual blog
 - zm_firephp: upgrade to FirePHP 0.3.1
 - improve ZMException's __toString() method
+- simplify and speed up autoload handling
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

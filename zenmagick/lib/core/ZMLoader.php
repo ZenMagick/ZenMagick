@@ -25,7 +25,7 @@ if (!function_exists('__autoload')) {
      * __autoload.
      */
     function __autoload($className) {
-        ZMLoader::resolve($className, true);
+        ZMLoader::resolve($className);
     }
 }
 
@@ -238,11 +238,10 @@ class ZMLoader {
      * Shortcut version of <code>ZMLoader::instance()->resolveClass($name)</code>.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
-     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public static function resolve($name, $isAutoLoad=false) {
+    public static function resolve($name) {
         return ZMLoader::instance()->resolveClass($name);
     }
 
@@ -250,14 +249,13 @@ class ZMLoader {
      * Resolve and load the class given.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
-     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
      * @return string The resolved class name or <code>null</code>.
      */
-    private function resolveFromClassPath($name, $isAutoLoad=false) {
+    private function resolveFromClassPath($name) {
         $classfile = $this->getClassFile($name);
         if (null != $classfile) {
             // we know about the class
-            if ($isAutoLoad || (!class_exists($name) && !interface_exists($name))) {
+            if (!class_exists($name, false) && !interface_exists($name, false)) {
                 ++$this->stats_['class'];
                 require_once $classfile;
             }
@@ -272,16 +270,15 @@ class ZMLoader {
      * Resolve and load the class code for the given class name.
      *
      * @param string name The class name (without the <em>ZM</em> prefix).
-     * @param boolean isAutoload Optional boolean to indicate that this is an autoload call; default is <code>false</code>.
      * @return string The resolved class name; this is either the given name, the ZenMagick default
      *  implementation or <code>null</code>.
      */
-    public function resolveClass($name, $isAutoLoad=false) {
+    public function resolveClass($name) {
         if (isset($this->cache_[$name])) {
             return $this->cache_[$name];
         }
         if (0 === strpos($name, $this->classPrefix_)) {
-            if (!$isAutoLoad && (class_exists($name) || interface_exists($name))) {
+            if (class_exists($name, false) || interface_exists($name, false)) {
                 $this->cache_[$name] = $name;
                 return $name;
             }
@@ -290,7 +287,7 @@ class ZMLoader {
 
         $classname = $this->resolveFromClassPath($name);
 
-        if (null != $classname || (!$isAutoLoad && (class_exists($name) || interface_exists($name)))) {
+        if (null != $classname || (class_exists($name, false) || interface_exists($name, false))) {
             // non prefix class exists, now make sure it's a ZenMagick class
             // to avoid conflicts with external classes
             $parent = $classname;
@@ -341,7 +338,7 @@ class ZMLoader {
         }
         $clazz = $this->resolveClass($name);
         if (null != $clazz) {
-            if (!class_exists($clazz)) {
+            if (!class_exists($clazz, false)) {
                 throw new ZMException('class not found ' . $clazz);
             }
             $obj = null;
