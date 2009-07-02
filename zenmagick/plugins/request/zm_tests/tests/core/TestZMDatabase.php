@@ -18,7 +18,7 @@ class TestZMDatabase extends ZMTestCase {
         //XXX: add variations with different drivers
         $providers = array();
         foreach (self::$PROVIDERS as $provider) {
-            $providers[$provider] = Runtime::getDatabase(array('provider' => $provider));
+            $providers[$provider] = ZMRuntime::getDatabase(array('provider' => $provider));
         }
         return $providers;
     }

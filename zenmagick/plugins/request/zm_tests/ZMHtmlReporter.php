@@ -154,6 +154,7 @@ class ZMHtmlReporter extends HtmlReporter {
      * {@inheritDoc}
      */
     public function paintException($exception) {
+        // just need to run this to get the stats right...
         ob_start(); parent::paintException($exception); $html = ob_get_clean();
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
 
@@ -162,7 +163,7 @@ class ZMHtmlReporter extends HtmlReporter {
 
         $this->ensureTestHeader();
 
-        echo '<div class="exception"><div class="msg"><strong>Exception: '.$msg.'</strong></div>';
+        echo '<div class="exception"><div class="msg"><strong>'.$exception.'</strong></div>';
         echo "<pre>";
         $root = ZMFileUtils::normalizeFilename(Runtime::getInstallationPath());
         foreach ($exception->getTrace() as  $level) {

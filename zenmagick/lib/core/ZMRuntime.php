@@ -69,10 +69,8 @@ class ZMRuntime extends ZMObject {
         if (is_string($conf)) {
             $dbconf = ZMSettings::get('zenmagick.core.database.connections.'.$conf);
         } else {
-            $dbconf = $conf;
-        }
-        if (null !== ($port = @ini_get('mysql.default_port')) && !empty($port) && !isset($dbconf['port'])) {
-            $dbconf['port'] = $port;
+            $default = ZMSettings::get('zenmagick.core.database.connections.default');
+            $dbconf = array_merge($default, $conf);
         }
 
         ksort($dbconf);

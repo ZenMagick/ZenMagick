@@ -270,6 +270,19 @@ class ZMFileUtils {
         return $filename;
     }
 
+    /**
+     * Make the given absolute filename relative to the installation path.
+     *
+     * @param string filename The filename.
+     * @return string A relative filename (if within the installation folder).
+     */
+    public function mkRelativePath($filename) {
+        $root = ZMFileUtils::normalizeFilename(ZMRuntime::getInstallationPath());
+        $filename = ZMFileUtils::normalizeFilename($filename);
+        // make filename relative
+        return str_replace($root, '', $filename);
+    }
+
 }
 
 ?>
