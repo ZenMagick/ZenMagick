@@ -33,6 +33,9 @@ class ZMSecurityUtils {
     const RANDOM_MIXED = 'mixed';
     const RANDOM_HEX = 'hex';
 
+    private static $seedDone_;
+
+
     /**
      * Sanitize a given value.
      *
@@ -74,9 +77,9 @@ class ZMSecurityUtils {
         self::RANDOM_HEX => '0123456789abcdef',
         );
 
-        if (!self::$seedDone) {
+        if (!self::$seedDone_) {
             mt_srand((double)microtime() * 1000200);
-            self::$seedDone = true;
+            self::$seedDone_ = true;
         }
 
         $chars = array_key_exists($type, $types) ? $types[$type] : $type;
