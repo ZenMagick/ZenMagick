@@ -285,15 +285,13 @@ class ZMLoader {
             return $this->resolveFromClassPath($name);
         }
 
-        $classname = $this->resolveFromClassPath($name);
-
-        if (null != $classname || (class_exists($name, false) || interface_exists($name, false))) {
+        if (null != $this->resolveFromClassPath($name) || (class_exists($name, false) || interface_exists($name, false))) {
             // non prefix class exists, now make sure it's a ZenMagick class
             // to avoid conflicts with external classes
-            $parent = $classname;
+            $parent = $name;
             while (false !== ($parent = get_parent_class($parent))) {
                 if (0 === strpos($parent, $this->classPrefix_)) {
-                    $this->cache_[$name] = $classname;
+                    $this->cache_[$name] = $name;
                     return $name;
                 }
             }
