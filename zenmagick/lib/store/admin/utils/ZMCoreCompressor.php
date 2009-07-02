@@ -155,11 +155,6 @@ class ZMCoreCompressor extends ZMPhpCompressor {
             implode(DIRECTORY_SEPARATOR, array('1', 'ZMObject.php')),
             implode(DIRECTORY_SEPARATOR, array('1', 'ZMSettings.php')),
             implode(DIRECTORY_SEPARATOR, array('1', 'defaults.php')),
-            implode(DIRECTORY_SEPARATOR, array('1', 'ZMLoader.php')),
-            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'ZMEvents.php')),
-            //implode(DIRECTORY_SEPARATOR, array('1', '2', 'Events.php')),
-            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'ZMPlugins.php')),
-            //implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'Plugins.php')),
         );
         $tmp2 = array();
         foreach ($loadFirst as $first) {
