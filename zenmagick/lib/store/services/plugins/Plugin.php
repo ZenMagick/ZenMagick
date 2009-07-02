@@ -311,11 +311,11 @@ class Plugin extends ZMPlugin {
         $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
-        if (file_exists($configFile) || !file_exists($this->pluginDir_.$file)) {
+        if (file_exists($configFile) || !file_exists($this->getPluginDirectory().$file)) {
             return $configFile;
         }
 
-        return $this->pluginDir_.$file;
+        return $this->getPluginDirectory().$file;
     }
 
     /**
@@ -445,11 +445,11 @@ class Plugin extends ZMPlugin {
      * @return string An absolute URL or <code>null</code>.
      */
     public function pluginURL($uri, $echo=ZM_ECHO_DEFAULT) {
-        if (null == $this->pluginDir_) {
-            throw new ZMException('pluginDir missing');
+        if (null == $this->getPluginDirectory()) {
+            throw new ZMException('pluginDirectory missing');
         }
 
-        $type = basename(dirname($this->pluginDir_));
+        $type = basename(dirname($this->getPluginDirectory()));
         $url = ZMToolbox::instance()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
 
         if ($echo) echo $url;
