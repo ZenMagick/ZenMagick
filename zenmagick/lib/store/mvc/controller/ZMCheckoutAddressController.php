@@ -85,7 +85,6 @@ class ZMCheckoutAddressController extends ZMController {
         $addressId = ZMRequest::getParameter('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
-          echo $addressId;die();
             return null;
         }
         return parent::validateFormBean($formBean);
