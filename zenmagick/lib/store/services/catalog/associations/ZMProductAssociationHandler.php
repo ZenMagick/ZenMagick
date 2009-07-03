@@ -33,12 +33,12 @@
  */
 interface ZMProductAssociationHandler {
 
-	/**
-	 * Get the type this handler handles.
-	 * 
-	 * @return string The type identifier.
-	 */
-	public function getType();
+    /**
+     * Get the type this handler handles.
+     * 
+     * @return string The type identifier.
+     */
+    public function getType();
 	
     /**
      * Get product associations for the given product, type and parameter.

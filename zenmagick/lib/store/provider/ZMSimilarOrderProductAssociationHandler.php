@@ -36,11 +36,11 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
     /**
      * {@inheritDoc}
      */
-	public function getType() {
-	   return "similarOrder";
-	}
+    public function getType() {
+       return "similarOrder";
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
     public function getProductAssociationsForProductId($productId, $args=null, $all=false) {
@@ -56,7 +56,7 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
 
         $assoc = array();
         foreach (Runtime::getDatabase()->query($sql, $args, TABLE_PRODUCTS) as $result) {
-        	$assoc[] = new ZMProductAssociation($result['productId']);
+            $assoc[] = new ZMProductAssociation($result['productId']);
         }
         
         return $assoc;

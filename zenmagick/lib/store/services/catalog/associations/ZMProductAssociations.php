@@ -91,6 +91,15 @@ class ZMProductAssociations extends ZMObject {
     }
 
     /**
+     * Get all handler types.
+     *
+     * @return array A list of all registered handler types.
+     */
+    public function getHandlerTypes() {
+        return array_keys($this->handler_);
+    }
+
+    /**
      * Get a handler for the given type.
      *
      * @param string type The association type/name.
