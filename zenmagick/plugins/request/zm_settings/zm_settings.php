@@ -52,7 +52,7 @@ class zm_settings extends Plugin {
     /**
      * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
         /*
         $this->addConfigValue('Text Widget', 'text', 'foo', 'Sample text widget',
@@ -69,9 +69,9 @@ class zm_settings extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function init() {
         parent::init();
 
         $this->addMenuItem('zm_settings', zm_l10n_get('Settings'), 'ZMSettingsAdminController');
