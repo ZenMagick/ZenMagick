@@ -30,6 +30,7 @@ Release 0.9.7
 - improve ZMException's __toString() method
 - simplify and speed up autoload handling
 - remove debug code from ZMCheckoutAddressController
+- zm_init_category_path: add option to verify (and fix) incomplete path
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

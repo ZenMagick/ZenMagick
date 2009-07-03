@@ -48,10 +48,20 @@ class zm_init_category_path extends Plugin {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+        $this->addConfigValue('Verify Path', 'verifyPath', 'false', 'Verify (and fix) the cPath value given',
+            'widget@BooleanFormWidget#id=bool&name=verifyPath&default=false&label=Verify');
+    }
+
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         if (0 != ($productId = ZMRequest::getProductId())) {
@@ -62,6 +72,36 @@ class zm_init_category_path extends Plugin {
                     if (null != $defaultCategory) {
                         ZMRequest::setCategoryPathArray($defaultCategory->getPathArray());
                     }
+                }
+            }
+        }
+
+        if (ZMLangUtils::asBoolean($this->get('verifyPath'))) {
+            if (null != ZMRequest::getCategoryPath()) {
+                $path = array_reverse(ZMRequest::getCategoryPathArray());
+                $last = count($path) - 1;
+                $valid = true;
+                foreach ($path as $ii => $categoryId) {
+                    $category = ZMCategories::instance()->getCategoryForId($categoryId);
+                    if ($ii < $last) {
+                        if (null == ($parent = $category->getParent())) {
+                            // can't have top level category in the middle
+                            $valid = false;
+                            break;
+                        } else if ($parent->getId() != $path[$ii+1]) {
+                            // not my parent!
+                            $valid = false;
+                            break;
+                        }
+                    } else if (null != $category->getParent()) {
+                        // must start with a root category
+                        $valid = false;
+                        break;
+                    }
+                }
+                if (!$valid) {
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop(ZMRequest::getCategoryPathArray()));
+                    ZMRequest::setCategoryPathArray($category->getPathArray());
                 }
             }
         }
