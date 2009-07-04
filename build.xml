@@ -155,8 +155,8 @@
             <!-- generated files and phpdoc -->
             <fileset dir="${build.dir}" includes="zenmagick/core.php" />
             <fileset dir="${build.dir}" includes="zenmagick/local.php" />
-            <fileset dir="${build.dir}" includes="zenmagick/core/*.html" />
-            <fileset dir="${build.dir}" includes="zenmagick/core/**/*.html" />
+            <fileset dir="${build.dir}" includes="zenmagick/lib/*.html" />
+            <fileset dir="${build.dir}" includes="zenmagick/lib/**/*.html" />
             <!-- editor / tmp files -->
             <fileset dir="${build.dir}" includes="**/*~" />
             <fileset dir="${build.dir}" includes="**/*swp" />
@@ -165,12 +165,16 @@
 
             <!-- experimental stuff -->
             <fileset dir="${build.dir}" includes="zenmagick/bootstrap.php" />
+            <fileset dir="${build.dir}" includes="zenmagick/apps" />
+            <fileset dir="${build.dir}" includes="zenmagick/lib/experimental" />
             <fileset dir="${build.dir}">
                 <include name="zenmagick/plugins/init/**" />
                 <exclude name="zenmagick/plugins/init/zm_init_category_path.php" />
                 <exclude name="zenmagick/plugins/init/zm_init_language.php" />
                 <exclude name="zenmagick/plugins/init/zm_init_authorization.php" />
             </fileset>
+            <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_promotions/**" />
+            <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_features/**" />
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_group_pricing/**" />
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_associations/**" />
         </delete>
