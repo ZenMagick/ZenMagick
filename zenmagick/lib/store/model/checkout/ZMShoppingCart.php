@@ -26,7 +26,8 @@
 
 /**
  * Shopping cart.
- * <p>This is assuming a properly configured zen cart.</p>
+ *
+ * <p>This class is assuming a properly configured zen cart.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
@@ -137,6 +138,7 @@ class ZMShoppingCart extends ZMObject {
                 }
             }
         }
+
         return $this->items_;
     }
 

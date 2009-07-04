@@ -257,11 +257,6 @@ class ZMShoppingCartItem extends ZMObject {
         $this->itemPrice_ = $itemPrice;
     }
 
-    // ( item price + attribute price ) * qty
-    // item_price: product->getProductPrice() // the base price excl. attributes (as that would include all lowest option attrs as in catalog view)
-    // if attribute price - else qty discount price
-    // attribute_price = sum of all attributes in cart (the sku attributes) as calculated in cart->attributes_price(item)
-
     /**
      * Check if this item has a one time charge attached.
      *
@@ -269,7 +264,7 @@ class ZMShoppingCartItem extends ZMObject {
      */
     public function hasOneTimeCharge() { 
         // don't need tax for this
-        return 0 != $this->getOneTimeCharges(false);
+        return 0 != $this->getOneTimeCharge(false);
     }
 
     /**
