@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 ZenMagick
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick Core - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +28,7 @@
  * usage of request methods this will have a temp. name of <code>ZMRequestN</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
+ * @package org.zenmagick.mvc
  * @version $Id$
  */
 class ZMRequestN extends ZMObject {
