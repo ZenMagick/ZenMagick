@@ -32,22 +32,23 @@ class ZMResultListFilter extends ZMObject {
     protected $list_;
     protected $id_;
     protected $name_;
+    protected $value_;
     protected $filterValues_;
 
 
     /**
      * Create a new result list filter.
      *
-     * @param string id An optional filter id.
-     * @param string name An optional filter name.
+     * @param string id Optional filter id.
+     * @param string name Optional filter name.
+     * @param string value Optional filter value.
      */
-    function __construct($id=null, $name='') {
+    function __construct($id=null, $name='', $value='') {
         parent::__construct();
 
         $this->id_ = $id;
         $this->name_ = $name;
-        //XXX: remove dep.
-        $value = ZMRequest::getParameter($this->id_, '');
+        $this->value_ = $value;
         $this->filterValues_ = explode(",", $value);
     }
 
@@ -100,7 +101,7 @@ class ZMResultListFilter extends ZMObject {
      * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
     function isActive() {
-        return null != ZMRequest::getParameter($this->id_, null);
+        return !ZMLangUtils::isEmpty($this->value_);
     }
 
     /**
@@ -141,14 +142,42 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return string The filters unique form field name.
      */
-    function getId() { return $this->id_ . ($this->isMultiSelection() ? '[]' : ''); }
+    public function getId() { return $this->id_ . ($this->isMultiSelection() ? '[]' : ''); }
 
     /**
      * Returns the filter name.
      *
      * @return string The filter name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
+
+    /**
+     * Returns the filter value.
+     *
+     * @return string The filter value.
+     */
+    public function getValue() { return $this->value_; }
+
+    /**
+     * Set the filters unique form field name.
+     *
+     * @param string id The filters unique form field name.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the filter name.
+     *
+     * @param string name The filter name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the filter value.
+     *
+     * @param string value The filter value.
+     */
+    public function setValue($value) { $this->value_ = $value; }
 
 }
 

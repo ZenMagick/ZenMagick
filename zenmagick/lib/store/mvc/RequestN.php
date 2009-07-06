@@ -197,6 +197,21 @@ class RequestN extends ZMRequestN {
     }
 
     /**
+     * Get the current category id.
+     *
+     * @return int The current category id or <code>0</code>.
+     */
+    public function getCategoryId() {
+        $cPath = $this->getCategoryPathArray();
+
+        if (0 < count($cPath)) {
+            return end($cPath);
+        }
+
+        return 0;
+    }
+
+    /**
      * Set the category path arry.
      *
      * @param array cPath The category path as array.

@@ -60,7 +60,7 @@ class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('psort');
+        parent::__construct('psort', '', ZMRequest::getSortId());
     }
 
     /**

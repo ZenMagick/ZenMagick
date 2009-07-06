@@ -36,7 +36,7 @@ class ZMCategoryFilter extends ZMResultListFilter {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('cfilter', zm_l10n_get('Category'));
+        parent::__construct('cfilter', zm_l10n_get('Category'), ZMRequest::getParameter('cfilter'));
         $this->productIds_ = null;
     }
 
