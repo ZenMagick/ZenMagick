@@ -31,6 +31,8 @@ Release 0.9.7
 - simplify and speed up autoload handling
 - remove debug code from ZMCheckoutAddressController
 - zm_init_category_path: add option to verify (and fix) incomplete path
+- add ZMRequestHandler interface in anticipation of having a proper request
+  object again
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
