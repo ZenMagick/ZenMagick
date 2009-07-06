@@ -71,7 +71,7 @@ class ZMCreateAccountController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
@@ -79,7 +79,7 @@ class ZMCreateAccountController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $registration = $this->getFormBean();
 
         $clearPassword = $registration->getPassword();

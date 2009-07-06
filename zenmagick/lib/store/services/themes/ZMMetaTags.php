@@ -87,7 +87,7 @@ class ZMMetaTags extends ZMObject {
         $title = str_replace('Popup ', '', $title);
 
         // lookup localized page title
-        $page = ZMRequest::getPageName();
+        $page = ZMRequest::getRequestId();
         $pageTitleKey = ZMSettings::get('metaTitlePrefix').$page;
         if (null != _zm_l10n_lookup($pageTitleKey, null)) {
             $title = zm_l10n_get($pageTitleKey);
@@ -158,7 +158,7 @@ class ZMMetaTags extends ZMObject {
         }
 
         // special handling for home
-        if ('index' == ZMRequest::getPageName()) {
+        if ('index' == ZMRequest::getRequestId()) {
             $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
             $value .= $this->topCategories_;
         }

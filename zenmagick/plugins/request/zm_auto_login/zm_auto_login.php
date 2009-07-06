@@ -74,7 +74,7 @@ class zm_auto_login extends Plugin {
         $this->zcoSubscribe();
 
         $session = ZMRequest::getSession();
-        if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getPageName() && $session->isAnonymous()) {
+        if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getRequestId() && $session->isAnonymous()) {
             // try to login
             if (isset($_COOKIE[ZM_AUTO_LOGIN_COOKIE])) {
                 // prepare cookie data

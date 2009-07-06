@@ -55,7 +55,7 @@ class ZMAdvancedSearchResultController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    function processGet($request) {
     global $listing_sql;
 
         ZMLogging::instance()->log('search SQL: '.$listing_sql, ZMLogging::TRACE);

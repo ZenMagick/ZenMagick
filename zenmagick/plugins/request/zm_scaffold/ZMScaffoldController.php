@@ -89,14 +89,14 @@ class ZMScaffoldController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return call_user_func(array($this, $this->method_));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         // todo: db processing
         return call_user_func(array($this, $this->method_));
     }

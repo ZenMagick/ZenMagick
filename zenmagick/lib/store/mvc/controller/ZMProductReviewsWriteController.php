@@ -51,7 +51,7 @@ class ZMProductReviewsWriteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         $product = $this->getProduct();
         $this->exportGlobal("zm_product", $product);
         $this->exportGlobal("zm_account", ZMRequest::getAccount());
@@ -61,7 +61,7 @@ class ZMProductReviewsWriteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         if (null == $this->getProduct()) {
             return $this->findView('error');
         }
@@ -71,7 +71,7 @@ class ZMProductReviewsWriteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         if (null == $this->getProduct()) {
             return $this->findView('error');
         }

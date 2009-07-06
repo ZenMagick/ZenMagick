@@ -85,7 +85,7 @@ require("../zen-cart/zenmagick/external.php");
 
         // execute
         $controller = ZMLoader::make("LoginController");
-        $view = $controller->processPost();
+        $view = $controller->processPost($request)();
         showMessages();
 
         echo "Login result: ".$view->getMappingId()."<br />";
@@ -97,7 +97,7 @@ require("../zen-cart/zenmagick/external.php");
             // get order history using ZenMagick controller
             $controller = ZMLoader::make("AccountHistoryInfoController");
             ZMRequest::setParameterMap($_GET);
-            $view = $controller->processGet();
+            $view = $controller->processGet($request)();
             $zm_order = $controller->getGlobal("zm_order");
             if ($zm_order) {
                 echo "ZenMagick order date: " . ZMToolbox::instance()->locale->shortDate($zm_order->getOrderDate(), false);

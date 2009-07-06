@@ -51,7 +51,7 @@ class ZMGvSendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
@@ -59,14 +59,14 @@ class ZMGvSendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $gvReceiver = $this->getFormBean();
 
         // back from confirmation to edit or not valid

@@ -54,7 +54,7 @@ class ZMTellAFriendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         if (ZMRequest::getProductId()) {
             $this->product_ = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
         } else if (ZMRequest::getModel()) {
@@ -67,7 +67,7 @@ class ZMTellAFriendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         if (null == $this->product_) {
             return $this->findView('error');
         }
@@ -85,7 +85,7 @@ class ZMTellAFriendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         if (null == $this->product_) {
             return $this->findView('error');
         }

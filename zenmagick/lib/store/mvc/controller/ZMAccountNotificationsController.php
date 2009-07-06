@@ -51,7 +51,7 @@ class ZMAccountNotificationsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb('Product Notifications');
     }
@@ -59,14 +59,14 @@ class ZMAccountNotificationsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public public function processPost() {
+    public public function processPost($request) {
         $globalProductSubscriber = ZMLangUtils::asBoolean(ZMRequest::getParameter('product_global', 0));
 
         $account = ZMRequest::getAccount();

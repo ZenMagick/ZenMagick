@@ -50,7 +50,7 @@ class ZMAffiliateTermsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Affilite Terms & Conditions");
 
         $session = ZMRequest::getSession();

@@ -51,14 +51,14 @@ class ZMDiscountCouponController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $data = array();
         $viewName = null;
         $code = ZMRequest::getParameter('lookup_discount_coupon');

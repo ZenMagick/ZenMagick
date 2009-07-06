@@ -54,10 +54,10 @@ class ZMDefaultController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    function processGet($request) {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        return parent::processGet();
+        return parent::processGet($request);
     }
 
 }

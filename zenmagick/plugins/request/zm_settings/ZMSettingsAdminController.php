@@ -51,8 +51,8 @@ class ZMSettingsAdminController extends ZMPluginPageController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
-        $page = parent::processGet();
+    public function processGet($request) {
+        $page = parent::processGet($request);
 
         $context = array();
 
@@ -65,8 +65,8 @@ class ZMSettingsAdminController extends ZMPluginPageController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
-        $page = self::processGet();
+    public function processPost($request) {
+        $page = self::processGet($request);
 
         $plugin = $this->getPlugin();
         $action = ZMRequest::getParameter('action', '');

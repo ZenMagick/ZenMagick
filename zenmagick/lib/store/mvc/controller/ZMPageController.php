@@ -51,7 +51,7 @@ class ZMPageController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         // prepare page name for crumbtrail
         $page = ZMEZPages::instance()->getPageForId(ZMRequest::getParameter("id"));
         

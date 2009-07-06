@@ -41,7 +41,7 @@ class ZMToolboxUtils extends ZMObject {
      * @return string A reasonable page title.
      */
     public function getTitle($page=null, $echo=ZM_ECHO_DEFAULT) {
-        $title = null == $page ? ZMRequest::getPageName() : $page;
+        $title = null == $page ? ZMRequest::getRequestId() : $page;
         // special case for static pages
         $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
 

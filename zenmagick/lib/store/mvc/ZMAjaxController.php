@@ -53,7 +53,7 @@ class ZMAjaxController extends ZMController {
      *
      * <p>Just return <code>null</code>.</p>
      */
-    public function processGet() {
+    public function processGet($request) {
         echo "Invalid Ajax request - method '".$this->method_."' not found!";
         return null;
     }

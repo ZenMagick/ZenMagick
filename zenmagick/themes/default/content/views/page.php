@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $toc = ZMEZPages::instance()->getPagesForChapterId(ZMRequest::getParameter("chapter"), $session->getLanguageId()); ?>
+<?php $toc = ZMEZPages::instance()->getPagesForChapterId($request->getParameter("chapter"), $session->getLanguageId()); ?>
 <?php if (1 < count($toc)) { ?>
     <div id="eztoc">
         <h4><?php zm_l10n("Table of Contents") ?></h4>

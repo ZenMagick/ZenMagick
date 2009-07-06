@@ -156,7 +156,7 @@ class ZMToolboxNet extends ZMObject {
         }
 
         // default to current view
-        $page = $page === null ? ZMRequest::getPageName() : $page;
+        $page = $page === null ? ZMRequest::getRequestId() : $page;
         $href = null;
         // no SEO in admin
         // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS

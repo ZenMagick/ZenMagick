@@ -80,7 +80,7 @@ class zm_wordpress extends Plugin {
     public function init() {
         parent::init();
 
-        $this->page_ = ZMRequest::getPageName();
+        $this->page_ = ZMRequest::getRequestId();
 
         // main define to get at things
         $wordpressDir = $this->get('wordpressDir');
@@ -136,9 +136,9 @@ class zm_wordpress extends Plugin {
         // create single request handler
         $this->requestHandler_ = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled))) {
+        if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getRequestId(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
-            $this->requestHandler_->handleRequest();
+            $this->requestHandler_->handleRequest($request);
             if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
                 $this->requestHandler_->register();
             }
@@ -181,7 +181,7 @@ class zm_wordpress extends Plugin {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if (FILENAME_WP == ZMRequest::getPageName()) {
+        if (FILENAME_WP == ZMRequest::getRequestId()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
@@ -205,7 +205,7 @@ class zm_wordpress extends Plugin {
      */
     public function getGlobal() {
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getPageName(), $wordpressEnabled)) {
+        if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getRequestId(), $wordpressEnabled)) {
             if ($this->isPermalinksEnabled()) {
                 $path = Runtime::getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {

@@ -51,14 +51,14 @@ class ZMUnsubscribeController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    function processGet() {
+    function processGet($request) {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    function processPost() {
+    function processPost($request) {
         if (!ZMSettings::get('isAllowAnonymousUnsubscribe')) {
             ZMMessages::instance()->error(zm_l10n_get('In order to unsubscribe you need to login first.'));
             return $this->findView();

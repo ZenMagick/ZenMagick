@@ -51,7 +51,7 @@ class ZMAccountEditController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
@@ -59,14 +59,14 @@ class ZMAccountEditController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('account' => ZMRequest::getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $currentAccount = ZMRequest::getAccount();
         $account = $this->getFormBean()->getAccount();
 

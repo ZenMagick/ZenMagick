@@ -51,7 +51,7 @@ class ZMFeaturedProductsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         // crumbtrail handling
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());

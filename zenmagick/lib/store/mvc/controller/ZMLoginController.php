@@ -68,7 +68,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         $session = ZMRequest::getSession();
         if ($session->isRegistered()) {
             // can't get any better than this!
@@ -80,7 +80,7 @@ class ZMLoginController extends ZMController {
             $session->setValue(self::$KEY_REDIRECT, $redirect);
         }
 
-        return parent::processGet();
+        return parent::processGet($request);
 
     }
 
@@ -90,7 +90,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() {
+    public function processPost($request) {
         $session = ZMRequest::getSession();
 
         if (!$session->isValid()) {

@@ -78,10 +78,20 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
+     * Final cleanup.
+     */
+    public function onZMAllDone() {
+        // clear messages if not redirect...
+        ZMRequest::getSession()->clearMessages();
+
+        Runtime::finish();
+    }
+
+    /**
      * Simple function to check if we need zen-cart...
      */
     private function needsZC() {
-        $pageName = ZMRequest::getPageName();
+        $pageName = ZMRequest::getRequestId();
         return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
@@ -133,7 +143,7 @@ class ZMEventFixes extends ZMObject {
             Runtime::setTheme($theme);
 
             // now we can check for a static homepage
-            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getPageName() 
+            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getRequestId() 
                 && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
                 require ZMSettings::get('staticHome');
                 exit;
@@ -185,7 +195,7 @@ class ZMEventFixes extends ZMObject {
      * Remove ajax requests from navigation history.
      */
     public function onZMDispatchStart() {
-        if (false !== strpos(ZMRequest::getPageName(), 'ajax')) {
+        if (false !== strpos(ZMRequest::getRequestId(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }
     }

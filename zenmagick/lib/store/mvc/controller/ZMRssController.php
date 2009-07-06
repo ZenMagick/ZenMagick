@@ -27,7 +27,7 @@
 /**
  * Request controller for RSS feeds.
  *
- * <p>The <code>processGet()</code> method is generic and will call an appropriate method
+ * <p>The <code>processGet($request)</code> method is generic and will call an appropriate method
  * for item generation based on the <em>channel</em> request parameter.</p>
  *
  * <p>The item method is expected to return the last modified date of the channel.</p>
@@ -64,7 +64,7 @@ class ZMRssController extends ZMController {
      * feed contents. The method name is generated as: <code>get[ucwords($channel)]Feed</code>. So, for example,
      * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($key)</code>.</p>
      */
-    function processGet() {
+    function processGet($request) {
         $channel = ucwords(ZMRequest::getParameter('channel', null));
         $key = ZMRequest::getParameter('key', null);
 

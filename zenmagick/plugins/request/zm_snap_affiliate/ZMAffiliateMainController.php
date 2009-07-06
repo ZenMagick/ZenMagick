@@ -50,7 +50,7 @@ class ZMAffiliateMainController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Affilite Overview");
 
         $account = ZMRequest::getAccount();
@@ -67,7 +67,7 @@ class ZMAffiliateMainController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         if (null == ($affiliateDetails = $this->getGlobal('affiliateDetails'))) {
             // logged in *and* signed up
             return $this->findView('signup');
@@ -147,7 +147,7 @@ class ZMAffiliateMainController extends ZMController {
 
         }
 
-        return parent::processGet();
+        return parent::processGet($request);
     }
 
 }

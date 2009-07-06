@@ -51,14 +51,14 @@ class ZMGuestHistoryController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb('Guest Order');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         if (!$this->validate('guest_history')) {
             return $this->findView();
         }

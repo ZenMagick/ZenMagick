@@ -31,56 +31,54 @@ class ZMDispatcher {
 
     /**
      * Dispatch a request.
+     *
+     * @param ZMRequest request The request to dispatch.
      */
-    public static function dispatch() {
+    public static function dispatch($request) {
         // main request processor
         if (ZMSettings::get('isEnableZMThemes')) {
 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START);
-            self::handleRequest();
-            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE);
+            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START, array('request' => $request));
+            self::handleRequest($request);
+            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE, array('request' => $request));
 
             // allow plugins and event subscribers to filter/modify the final contents
-            $args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('contents' => ob_get_clean()));
+            $args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
             echo $args['contents'];
 
-            // clear messages if not redirect...
-            ZMRequest::getSession()->clearMessages();
-
             ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
-
-            Runtime::finish();
         }
     }
 
     /**
      * Handle a request.
+     *
+     * @param ZMRequest request The request to dispatch.
      */
-    public static function handleRequest() {
-        $controller = ZMUrlMapper::instance()->findController(ZMRequest::getPageName());
-        ZMRequest::setController($controller);
+    public static function handleRequest($request) {
+        $controller = $request->getController();
 
         try {
             // execute controller
-            $view = $controller->process();
+            $view = $controller->process($request);
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
             $controller = ZMLoader::make(ZMSettings::get('defaultControllerClass'));
             $view = $controller->findView('error', array('exception' => $e));
-            ZMRequest::setController($controller);
+            $request->setController($controller);
         }
 
         // generate response
         if (null != $view) {
             header('Content-Type: '.$view->getContentType().'; charset='.$view->getEncoding());
-            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_START, array('view' => $view));
+            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_START, array('request' => $request, 'view' => $view));
             try {
                 $view->generate();
             } catch (Exception $e) {
                 ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
                 //TODO: what to do?
             } 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_DONE, array('view' => $view));
+            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_DONE, array('request' => $request, 'view' => $view));
         } else {
             ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }

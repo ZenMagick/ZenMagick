@@ -24,8 +24,8 @@
  */
 ?>
 <?php
-  $template_name = ZMRequest::getParameter("template_name");
-  $view_name = ZMRequest::getParameter("view_name");
+  $template_name = $request->getParameter("template_name");
+  $view_name = $request->getParameter("view_name");
 
   $source = null;
   if (null != $template_name) {

@@ -60,7 +60,7 @@ class ZMOpenIDController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         $action = ZMRequest::getParameter('action');
         if ('finishAuth' == $action) {
             $info = $this->finishAuthentication($openid);
@@ -85,7 +85,7 @@ class ZMOpenIDController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         if (!$this->validate('openid_login')) {
             return $this->findView('login');
         }

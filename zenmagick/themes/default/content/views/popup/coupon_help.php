@@ -25,7 +25,7 @@
 ?>
 
 <?php
-  $coupon = ZMCoupons::instance()->getCouponForId(ZMRequest::getParameter('cID'), $session->getLanguageId());
+  $coupon = ZMCoupons::instance()->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
   $restrictions = $coupon->getRestrictions();
   $fixed = 'This coupon entitles you to a %s discount against your order';
   if (ZMCoupons::TYPPE_FIXED == $coupon->getType()) {

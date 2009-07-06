@@ -55,7 +55,7 @@ class ZMCancelSubscriptionController extends ZMController {
      *  if the controller generates the contents itself.
      * @todo allow cancel at any time
      */
-    public function processGet() {
+    public function processGet($request) {
         if (!ZMLangUtils::asBoolean($this->getPlugin()->get('customerCancel'))) {
             ZMMessages::instance()->error(zm_l10n_get("Insufficient permission"));
             return $this->findView();

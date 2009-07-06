@@ -51,7 +51,7 @@ class MultiQtyProductInfoController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $productId = ZMRequest::getProductId();
         // prepare attributes
         $multiQtyId = ZMRequest::getParameter(MULTI_QUANTITY_ID);

@@ -51,7 +51,7 @@ class ZMAddressBookEditController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Edit");
@@ -60,7 +60,7 @@ class ZMAddressBookEditController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         // populate with original data
         $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('id'));
         return $this->findView(null, array('address' => $address));
@@ -69,7 +69,7 @@ class ZMAddressBookEditController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $address = $this->getFormBean();
 
         if (1 == count(ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId()))) {

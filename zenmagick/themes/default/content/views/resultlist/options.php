@@ -43,16 +43,16 @@
         <?php } ?>
         <?php if ($zm_resultList->hasSorters()) { ?>
             <div class="rls">
-                <?php if (ZMRequest::getParameter('keywords')) { ?>
-                    <input type="hidden" name="keywords" value="<?php echo ZMRequest::getParameter('keywords') ?>" />
+                <?php if ($request->getParameter('keywords')) { ?>
+                    <input type="hidden" name="keywords" value="<?php echo$request->getParameter('keywords') ?>" />
                 <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
                 <?php if (ZMRequest::getCategoryPath()) { ?>
                     <input type="hidden" name="cPath" value="<?php echo ZMRequest::getCategoryPath() ?>" />
                 <?php } else if (ZMRequest::getManufacturerId()) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo ZMRequest::getManufacturerId() ?>" />
-                <?php } else if (null != ZMRequest::getParameter("compareId")) { ?>
-                    <?php $form->hiddenList('compareId[]', ZMRequest::getParameter("compareId")) ?>
+                <?php } else if (null != $request->getParameter("compareId")) { ?>
+                    <?php $form->hiddenList('compareId[]',$request->getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

@@ -44,7 +44,7 @@ class ZMController extends ZMObject {
         parent::__construct();
 
         // use as controller id
-        $this->id_ = null != $id ? $id : ZMRequest::getPageName();
+        $this->id_ = null != $id ? $id : ZMRequest::getRequestId();
         $this->globals_ = array();
         $this->view_ = null;
         $this->formBean_ = null;
@@ -72,9 +72,10 @@ class ZMController extends ZMObject {
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
      *
+     * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    public function process() { 
+    public function process($request) { 
         ZMSacsMapper::instance()->ensureAuthorization($this->id_, ZMRequest::getAccount());
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
@@ -83,10 +84,11 @@ class ZMController extends ZMObject {
             Runtime::getDatabase()->beginTransaction();
         }
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controller' => $this));
+        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('request' => $request, 'controller' => $this));
 
         // XXX: add $request to globals
         // move custom template objects into ZMEventFixes (also $session?)
+        $this->exportGlobal('request', $request);
 
         // handle form bean
         if (null !== ($formBean = $this->getFormBean())) {
@@ -95,7 +97,7 @@ class ZMController extends ZMObject {
         }
 
         // method independant (pre-)processing
-        $this->handleRequest();
+        $this->handleRequest($request);
 
         // and validation
         $view = null;
@@ -110,10 +112,10 @@ class ZMController extends ZMObject {
             try {
                 switch (ZMRequest::getMethod()) {
                     case 'GET':
-                        $view = $this->processGet();
+                        $view = $this->processGet($request);
                         break;
                     case 'POST':
-                        $view = $this->processPost();
+                        $view = $this->processPost($request);
                         break;
                     default:
                         throw new ZMException('unsupported request method: ' . ZMRequest::getMethod());
@@ -135,7 +137,7 @@ class ZMController extends ZMObject {
             $this->view_ = $view;
         }
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controller' => $this, 'view' => $this->view_));
+        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('request' => $request, 'controller' => $this, 'view' => $this->view_));
 
         if ($enableTransactions) {
             Runtime::getDatabase()->commit();
@@ -147,8 +149,10 @@ class ZMController extends ZMObject {
 
     /**
      * Generic callback for request processing independant from the method.
+     *
+     * @param ZMRequest request The request to process.
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
     }
 
     /**
@@ -165,10 +169,11 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP GET request.
      * 
+     * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView();
     }
 
@@ -176,10 +181,11 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP POST request.
      * 
+     * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() { return $this->processGet(); }
+    public function processPost($request) { return $this->processGet($request); }
 
 
     /**

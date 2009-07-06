@@ -45,7 +45,7 @@ define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,pag
         return 'POST' != ZMRequest::getMethod()
           && ZMRequest::getShoppingCart()->isEmpty() 
           && !ZMMessages::instance()->hasMessages()
-          && ZMLangUtils::inArray(ZMRequest::getPageName(), ZMSettings::get('plugins.zm_page_cache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
+          && ZMLangUtils::inArray(ZMRequest::getRequestId(), ZMSettings::get('plugins.zm_page_cache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
 
 ?>

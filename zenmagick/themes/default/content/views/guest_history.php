@@ -29,11 +29,11 @@
     <legend><?php zm_l10n("Find Guest Order") ?></legend>
     <div>
       <label for="email"><?php zm_l10n("E-Mail Address") ?></label>
-      <input type="text" id="email" name="email" value="<?php $html->encode(ZMRequest::getParameter('email', '')) ?>" /> 
+      <input type="text" id="email" name="email" value="<?php $html->encode($request->getParameter('email', '')) ?>" /> 
     </div>
     <div>
       <label for="orderId"><?php zm_l10n("Order Number") ?></label>
-      <input type="text" id="orderId" name="orderId" value="<?php $html->encode(ZMRequest::getParameter('orderId', '')) ?>" /> 
+      <input type="text" id="orderId" name="orderId" value="<?php $html->encode($request->getParameter('orderId', '')) ?>" /> 
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>

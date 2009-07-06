@@ -50,7 +50,7 @@ class ZMCheckoutShippingController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         $shoppingCart = ZMRequest::getShoppingCart();
         // set default address if required
         if (!$shoppingCart->hasShippingAddress()) {
@@ -69,7 +69,7 @@ class ZMCheckoutShippingController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         $shoppingCart = ZMRequest::getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
@@ -82,14 +82,14 @@ class ZMCheckoutShippingController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $shoppingCart = ZMRequest::getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
             return $this->findView($viewId);
         }
 
-        return parent::processPost();
+        return parent::processPost($request);
     }
 
 }

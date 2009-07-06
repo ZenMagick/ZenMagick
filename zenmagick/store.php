@@ -25,6 +25,6 @@
 ?>
 <?php
 
-    ZMDispatcher::dispatch();
+    ZMDispatcher::dispatch($request);
 
 ?>

@@ -68,7 +68,7 @@ class ZMFormHandlerController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('formData' => $this->createModel()));
     }
 
@@ -78,7 +78,7 @@ class ZMFormHandlerController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() {
+    public function processPost($request) {
         // create model
         $data = array('formData' => $this->createModel());
 

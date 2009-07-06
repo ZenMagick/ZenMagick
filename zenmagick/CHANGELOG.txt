@@ -33,6 +33,9 @@ Release 0.9.7
 - zm_init_category_path: add option to verify (and fix) incomplete path
 - add ZMRequestHandler interface in anticipation of having a proper request
   object again
+- implement ZMRequestHandler in sample_plugin
+- introduce proper request instance in top levels of request processing and
+  also templates
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

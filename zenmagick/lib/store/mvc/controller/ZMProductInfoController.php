@@ -51,7 +51,7 @@ class ZMProductInfoController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         $product = null;
         if (ZMRequest::getProductId()) {
             $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());

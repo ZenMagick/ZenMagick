@@ -57,8 +57,8 @@ class ZMWpController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
-        $viewName = $this->plugin->getRequestHandler()->handleRequest();
+    function processGet($request) {
+        $viewName = $this->plugin->getRequestHandler()->handleRequest($request);
         return $this->findView($viewName);
     }
 

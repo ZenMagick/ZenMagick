@@ -57,7 +57,7 @@ class TestsController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         // show test view only
         Runtime::getTheme()->getThemeInfo()->setLayout('tests', null);
 

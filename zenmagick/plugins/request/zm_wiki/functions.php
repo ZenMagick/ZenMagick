@@ -71,7 +71,7 @@
      */
     function zm_wiki_is_page_cacheable() {
         $lastPageCacheStrategy = ZMSettings::get('plugins.zm_wiki.last-page-caching-strategy');
-        return 'wiki' == ZMRequest::getPageName() ? false : $lastPageCacheStrategy();
+        return 'wiki' == ZMRequest::getRequestId() ? false : $lastPageCacheStrategy();
     }
 
 

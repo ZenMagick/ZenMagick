@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class sample_plugin extends Plugin {
+class sample_plugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -48,7 +48,7 @@ class sample_plugin extends Plugin {
     }
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
     public function install() {
         parent::install();
@@ -58,7 +58,7 @@ class sample_plugin extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
     public function init() {
         parent::init();
@@ -74,6 +74,12 @@ class sample_plugin extends Plugin {
         $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), 'sample_plugin_admin');
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function initRequest($request) {
+        //var_dump($request);
+    }
 
     /**
      * As zco subscriber all methods that match a zen-cart zco event (see <code>ZMEvents</code> for more details)
@@ -89,7 +95,7 @@ class sample_plugin extends Plugin {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if ('login' == ZMRequest::getPageName()) {
+        if ('login' == ZMRequest::getRequestId()) {
             $args['contents'] = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 

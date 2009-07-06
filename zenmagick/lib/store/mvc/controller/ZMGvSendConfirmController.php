@@ -51,7 +51,7 @@ class ZMGvSendConfirmController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
@@ -59,7 +59,7 @@ class ZMGvSendConfirmController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         $data = array();
         $data['zm_account'] = ZMRequest::getAccount();
         $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
@@ -84,7 +84,7 @@ class ZMGvSendConfirmController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() {
+    public function processPost($request) {
         if (null != ZMRequest::getParameter('edit')) {
             return $this->findView('edit');
         }

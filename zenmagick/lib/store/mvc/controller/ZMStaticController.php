@@ -54,7 +54,7 @@ class ZMStaticController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    function processGet($request) {
         // prepare page name for crumbtrail
         $sub = ZMRequest::getSubPageName();
         $sub = str_replace('_', ' ', $sub);

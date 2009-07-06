@@ -66,7 +66,7 @@ class zm_phpbb2 extends Plugin {
         parent::init();
     
         $this->phpBBEnabled_ = $phpBB->phpBB['installed'] == true;
-        $this->page_ = ZMRequest::getPageName();
+        $this->page_ = ZMRequest::getRequestId();
         $this->prePostAccount_ = ZMRequest::getAccount();
 
         if (!$this->phpBBEnabled_) {

@@ -84,7 +84,7 @@ class zm_phpbb3 extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->page_ = ZMRequest::getPageName();
+        $this->page_ = ZMRequest::getRequestId();
         $this->prePostAccount_ = ZMRequest::getAccount();
 
         // main define to get at things

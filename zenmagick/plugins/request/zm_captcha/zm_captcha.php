@@ -92,7 +92,7 @@ class zm_captcha extends Plugin {
      */
     public function onZMInitDone($args=null) {
         // check if we need to do anything for this request...
-        $page = ZMRequest::getPageName();
+        $page = ZMRequest::getRequestId();
         if (array_key_exists($page, $this->pageConfig_)) {
             $this->captcha_ = new pcaptcha();
             $session = ZMRequest::getSession();

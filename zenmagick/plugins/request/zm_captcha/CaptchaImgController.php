@@ -55,7 +55,7 @@ class CaptchaImgController extends ZMController {
      * 
      * @return ZMView Always <code>null</code>.
      */
-    function processGet() {
+    function processGet($request) {
         $captcha = new pcaptcha();
         $captcha->generateCaptcha();
         return null;

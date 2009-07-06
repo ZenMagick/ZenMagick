@@ -65,7 +65,7 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url($this->settings_['url'], '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
@@ -105,7 +105,7 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $shoppingCart = ZMRequest::getShoppingCart();
         // which addres do we update?
         $method = $this->settings_['method'];

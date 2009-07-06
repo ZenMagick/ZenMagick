@@ -94,6 +94,7 @@ class zm_scaffold extends Plugin {
                 ));
             }
         }
+        //var_dump($path);
     }
 
     /**
@@ -104,16 +105,16 @@ class zm_scaffold extends Plugin {
      * @return array The path array or <code>null</code>.
      */
     protected function getPathInfo() {
-        $rewriteUrl = null;
-        if (array_key_exists('rewriteUrl', $_GET)) {
+        $zmUrl = null;
+        if (array_key_exists('zmUrl', $_GET)) {
             // rewritten from mod_rewrite
-            $rewriteUrl = $_GET['rewriteUrl'];
-        } else if (false !== strpos($_SERVER['REQUEST_URI'], 'index.php/') || array_key_exists('rewriteUrl', $_GET)) {
+            $zmUrl = $_GET['zmUrl'];
+        } else if (false !== strpos($_SERVER['REQUEST_URI'], 'index.php/') || array_key_exists('zmUrl', $_GET)) {
             // path like URL; example: index.php/page/action/key
-            $rewriteUrl =  preg_replace('/.*index.php\/(.*)/', '\1', $_SERVER['REQUEST_URI']);
+            $zmUrl =  preg_replace('/.*index.php\/(.*)/', '\1', $_SERVER['REQUEST_URI']);
         }
-        if (null !== $rewriteUrl) {
-            return explode('/', $rewriteUrl);
+        if (null !== $zmUrl) {
+            return explode('/', $zmUrl);
         }
 
         return null;

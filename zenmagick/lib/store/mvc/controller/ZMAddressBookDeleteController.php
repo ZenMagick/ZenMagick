@@ -51,7 +51,7 @@ class ZMAddressBookDeleteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Delete");
@@ -60,7 +60,7 @@ class ZMAddressBookDeleteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('id'));
         return $this->findView(null, array('address' => $address));
     }
@@ -68,7 +68,7 @@ class ZMAddressBookDeleteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $account = ZMRequest::getAccount();
         $addressId = ZMRequest::getParameter('id', 0);
         if (0 < $addressId) {

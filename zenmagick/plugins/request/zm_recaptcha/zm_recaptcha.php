@@ -89,7 +89,7 @@ class zm_recaptcha extends Plugin {
      */
     public function onZMInitDone($args=null) {
         // check if we need to do anything for this request...
-        $page = ZMRequest::getPageName();
+        $page = ZMRequest::getRequestId();
         if (true == $this->get($page) && isset($this->pageConfig_[$page])) { 
             $form = $this->pageConfig_[$page][1];
             // active for this page

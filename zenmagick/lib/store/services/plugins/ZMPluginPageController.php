@@ -84,10 +84,10 @@ class ZMPluginPageController extends ZMObject {
         $page = null;
         switch (ZMRequest::getMethod()) {
             case 'GET':
-                $page = $this->processGet();
+                $page = $this->processGet($request);
                 break;
             case 'POST':
-                $page = $this->processPost();
+                $page = $this->processPost($request);
                 break;
             default:
                 throw new ZMException('unsupported request method: ' . ZMRequest::getMethod());
@@ -103,7 +103,7 @@ class ZMPluginPageController extends ZMObject {
      * @return ZMPluginPage A <code>ZMPluginPage</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         return ZMLoader::make('PluginPage', $this->id_, $this->title_);
     }
 
@@ -114,7 +114,7 @@ class ZMPluginPageController extends ZMObject {
      * @return ZMPluginPage A <code>ZMPluginPage</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() { return $this->processGet(); }
+    public function processPost($request) { return $this->processGet($request); }
 
     /**
      * Get the plugin.

@@ -169,7 +169,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The value of the <code>ZM_PAGE_KEY</code> query parameter.
      */
-    public static function getPageName() { return ZMRequest::instance()->getParameter(ZM_PAGE_KEY); }
+    public static function getRequestId() { return ZMRequest::instance()->getParameter(ZM_PAGE_KEY); }
 
     /**
      * Get the current page index (if available).
@@ -441,7 +441,7 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if the current page is a checkout page.
      */
     public static function isCheckout($includeCart=true) {
-        $page = ZMRequest::instance()->getPageName();
+        $page = ZMRequest::instance()->getRequestId();
         return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
     }
 

@@ -66,14 +66,14 @@ class ZMSubscriptionRequestController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('zm_subscriptionRequest' => $this->createModel()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $data = array('zm_subscriptionRequest' => $this->createModel());
         if (!$this->validate('subscription_request')) {
             return $this->findView(null, $data);

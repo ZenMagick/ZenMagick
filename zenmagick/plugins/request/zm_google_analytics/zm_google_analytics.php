@@ -176,7 +176,7 @@ class zm_google_analytics extends Plugin {
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeUrchin() {
-        if ('checkout_success' != ZMRequest::getPageName()) {
+        if ('checkout_success' != ZMRequest::getRequestId()) {
             return '';
         }
         if (null == $this->order_) {
@@ -223,7 +223,7 @@ class zm_google_analytics extends Plugin {
         $view = '';
         if (ZMLangUtils::asBoolean($this->get('usePagename'))) {
             $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
-            $view = ZMRequest::getPageName();
+            $view = ZMRequest::getRequestId();
             foreach ($args as $name) {
                 $attr = '[';
                 if (null != ($value = ZMRequest::getParameter($name))) {
@@ -271,7 +271,7 @@ EOT;
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeGa() {
-        if ('checkout_success' != ZMRequest::getPageName()) {
+        if ('checkout_success' != ZMRequest::getRequestId()) {
             return '';
         }
         if (null == $this->order_) {
@@ -351,7 +351,7 @@ EOT;
 
     protected function getConversionCode() {
         $code = '';
-        if ('checkout_success' == ZMRequest::getPageName()) {
+        if ('checkout_success' == ZMRequest::getRequestId()) {
             if (null == $this->order_) {
                 ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
                 return;

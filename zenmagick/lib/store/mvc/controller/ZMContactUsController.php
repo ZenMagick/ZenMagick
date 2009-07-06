@@ -51,7 +51,7 @@ class ZMContactUsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
     }
 
@@ -61,7 +61,7 @@ class ZMContactUsController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet() {
+    public function processGet($request) {
         $contactInfo = $this->getFormBean();
         if (ZMRequest::isRegistered()) {
             $account = ZMRequest::getAccount();
@@ -78,7 +78,7 @@ class ZMContactUsController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost() {
+    public function processPost($request) {
         $contactInfo = $this->getFormBean();
 
         // send email

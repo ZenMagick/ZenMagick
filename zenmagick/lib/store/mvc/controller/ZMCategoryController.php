@@ -69,7 +69,7 @@ class ZMCategoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet() {
+    function processGet($request) {
         $viewName = 'error';
         $method = null;
         $args = null;

@@ -50,7 +50,7 @@ class ZMAffiliateSignupController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         $session = ZMRequest::getSession();
         if ($session->isRegistered()) {
             ZMCrumbtrail::instance()->addCrumb("Affiliates", ZMToolbox::instance()->net->url('affiliate', '', true, false));
@@ -76,7 +76,7 @@ class ZMAffiliateSignupController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         if (null != $this->getGlobal('referrer')) {
             // logged in *and* signed up
             return $this->findView('main');
@@ -87,7 +87,7 @@ class ZMAffiliateSignupController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $plugin = $this->getPlugin();
         $url = ZMRequest::getParameter('url');
         $key = $plugin->get('affiliatePrefix');

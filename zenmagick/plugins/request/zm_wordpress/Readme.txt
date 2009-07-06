@@ -42,7 +42,7 @@ Sidebar
 =======
 To only show wp-sidebar.php when in the blog add the following to your theme's local.php:
 
-    if (FILENAME_WP == ZMRequest::getPageName()) {
+    if (FILENAME_WP == ZMRequest::getRequestId()) {
         ZMLayout::instance()->setRightColBoxes(array('wp-sidebar.php'));
     }
 

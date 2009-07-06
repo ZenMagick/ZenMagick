@@ -51,7 +51,7 @@ class ZMAddressBookAddController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() {
+    public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Address Book", ZMToolbox::instance()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("New Entry");
@@ -60,7 +60,7 @@ class ZMAddressBookAddController extends ZMController {
     /**
      *{@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $address = $this->getFormBean();
         $address->setAccountId(ZMRequest::getAccountId());
         $address = ZMAddresses::instance()->createAddress($address);

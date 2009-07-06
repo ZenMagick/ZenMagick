@@ -56,6 +56,9 @@
     // as default disable plugins for CLI calls
     ZMSettings::set('plugins.enabled', !ZM_CLI_CALL);
 
+    // create the main request instance; XXX: fix name
+    $request = ZMLoader::make('RequestN');
+
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {
         require_once ZM_BASE_DIR.'local.php';
@@ -67,7 +70,7 @@
         $plugins = ZMPlugins::instance()->initPluginsForGroupsAndScope(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
         foreach ($plugins as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
-                $plugin->initRequest(null);
+                $plugin->initRequest($request);
             }
         }
     }
@@ -83,7 +86,7 @@
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
 
     // make sure we use HTTPS if required
-    ZMSacsMapper::instance()->ensureAccessMethod(ZMRequest::getPageName());
+    ZMSacsMapper::instance()->ensureAccessMethod($request->getRequestId());
 
     // start output buffering
     // XXX: handle admin?

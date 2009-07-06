@@ -51,7 +51,7 @@ class ZMAccountNewslettersController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest() { 
+    public function handleRequest($request) { 
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Newsletter");
     }
@@ -59,14 +59,14 @@ class ZMAccountNewslettersController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet() {
+    public function processGet($request) {
         return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost() {
+    public function processPost($request) {
         $newsletterSubscriber = ZMLangUtils::asBoolean(ZMRequest::getParameter('newsletter_general', 0));
 
         $account = ZMRequest::getAccount();
