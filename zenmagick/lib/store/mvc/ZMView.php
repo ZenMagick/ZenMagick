@@ -170,8 +170,10 @@ class ZMView extends ZMObject {
 
     /**
      * Generate view response.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate() { throw new ZMException('not implemented'); }
+    public function generate($request) { throw new ZMException('not implemented'); }
 
     /**
      * Set the controller for this view.

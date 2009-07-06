@@ -70,8 +70,10 @@ class ZMRedirectView extends ZMView {
 
     /**
      * Generate view response.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate() { 
+    public function generate($request) { 
         $url = null;
         if (null != $this->url_) {
             $url = $this->url_;

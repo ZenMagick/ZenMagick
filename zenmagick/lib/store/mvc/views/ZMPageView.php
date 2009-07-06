@@ -60,8 +60,10 @@ class ZMPageView extends ZMView {
 
     /**
      * Generate view response.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate() { 
+    public function generate($request) { 
         $_zm_controller = $this->getController();
         if (null != $_zm_controller) {
             // *export* globals from controller into view space

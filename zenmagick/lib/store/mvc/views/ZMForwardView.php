@@ -69,12 +69,15 @@ class ZMForwardView extends ZMView {
      *  <li>add the forward view as <em>ZM_PAGE_KEY</em> to the request</li>
      *  <li>call <code>ZMDispatcher::dispatch()</code></li>
      * </ul>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate() { 
+    public function generate($request) { 
         ZMCrumbtrail::instance()->reset();
-        ZMRequest::setParameter(ZM_PAGE_KEY, $this->getView());
+        $req = ZMLoader::make('RequestN');
+        $req->setRequestId($this->getView());
 
-        ZMDispatcher::dispatch();
+        ZMDispatcher::dispatch($req);
     }
 
 }

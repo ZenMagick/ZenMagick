@@ -80,8 +80,10 @@ class ZMEmailView extends ZMPageView {
      * <p>In contrast to other views, this version will actually not display anything, but rather
      * return the generated content in order to be captured and passed into the actual mail
      * code.</p>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate() {
+    public function generate($request=null) {
         $isAdmin = ZMSettings::get('isAdmin');
         //XXX: ugh!
         ZMSettings::set('isAdmin', false);

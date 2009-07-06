@@ -73,7 +73,7 @@ class ZMDispatcher {
             header('Content-Type: '.$view->getContentType().'; charset='.$view->getEncoding());
             ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_START, array('request' => $request, 'view' => $view));
             try {
-                $view->generate();
+                $view->generate($request);
             } catch (Exception $e) {
                 ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
                 //TODO: what to do?
