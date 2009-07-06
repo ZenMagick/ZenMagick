@@ -34,6 +34,18 @@
 class ZMToolboxForm extends ZMObject {
 
     /**
+     * Convenience method that will generate the JavaScript validation rules and
+     * include the generic validation code.
+     *
+     * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
+     */
+    public function insertJSValidation($id) {
+        ZMValidator::instance()->toJSString($id);
+        // inline JS to allow PHP
+        include_once Runtime::getTheme()->themeFile("validation.js");
+    }
+
+    /**
      * Create a HTML <code>form</code> tag.
      *
      * <p>The mother of all form methods.</p>
@@ -105,7 +117,7 @@ class ZMToolboxForm extends ZMObject {
 
         // create JS validation code if all go
         if ($hasId && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
-            ZMValidator::instance()->insertJSValidation($attr['id']);
+            $this->insertJSValidation($attr['id']);
         }
 
         echo '<form';

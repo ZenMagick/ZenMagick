@@ -249,19 +249,6 @@ class ZMValidator extends ZMObject {
         return $js;
     }
 
-    /**
-     * Convenience method that will generate the JavaScript validation rules and
-     * include the generic validation code.
-     *
-     * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
-     */
-    public function insertJSValidation($id) {
-        //TODO:move
-        $this->toJSString($id);
-        // inline JS to allow PHP
-        include_once Runtime::getTheme()->themeFile("validation.js");
-    }
-
 }
 
 ?>
