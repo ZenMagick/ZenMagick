@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php if (ZMRequest::isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
+<?php if ($request->isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
     <h3><?php zm_l10n("Login") ?></h3>
     <div id="sb_login" class="box">
         <?php $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>

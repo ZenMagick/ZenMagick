@@ -47,10 +47,10 @@
                     <input type="hidden" name="keywords" value="<?php echo$request->getParameter('keywords') ?>" />
                 <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
-                <?php if (ZMRequest::getCategoryPath()) { ?>
-                    <input type="hidden" name="cPath" value="<?php echo ZMRequest::getCategoryPath() ?>" />
-                <?php } else if (ZMRequest::getManufacturerId()) { ?>
-                    <input type="hidden" name="manufacturers_id" value="<?php echo ZMRequest::getManufacturerId() ?>" />
+                <?php if ($request->getCategoryPath()) { ?>
+                    <input type="hidden" name="cPath" value="<?php echo $request->getCategoryPath() ?>" />
+                <?php } else if ($request->getManufacturerId()) { ?>
+                    <input type="hidden" name="manufacturers_id" value="<?php echo $request->getManufacturerId() ?>" />
                 <?php } else if (null != $request->getParameter("compareId")) { ?>
                     <?php $form->hiddenList('compareId[]',$request->getParameter("compareId")) ?>
                 <?php } ?>

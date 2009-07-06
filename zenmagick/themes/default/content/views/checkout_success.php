@@ -27,14 +27,14 @@
 <?php $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
     <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $zm_order->getId()) ?></p>
-    <?php if (ZMRequest::getAccount()->isRegistered()) { ?>
+    <?php if ($request->getAccount()->isRegistered()) { ?>
         <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT, '', false, false) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
         <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
     <?php } ?>
     <?php $customercare = '<a href="' . $net->url(FILENAME_CONTACT_US, '', false, false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
-    <?php if (!ZMRequest::getAccount()->isGlobalProductSubscriber()) { ?>
+    <?php if (!$request->getAccount()->isGlobalProductSubscriber()) { ?>
         <fieldset>
             <legend><?php zm_l10n("Product Notifications") ?></legend>
             <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
@@ -49,7 +49,7 @@
     <?php } ?>
 
 
-    <?php $voucherBalance = ZMRequest::getAccount()->getVoucherBalance(); ?>
+    <?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
@@ -62,7 +62,7 @@
         </fieldset>
     <?php } ?>
 
-    <?php if (ZMRequest::isGuest()) { ?>
+    <?php if ($request->isGuest()) { ?>
         <fieldset>
             <legend><?php zm_l10n("Order Status Check") ?></legend>
             <p>

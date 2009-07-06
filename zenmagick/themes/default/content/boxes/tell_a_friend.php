@@ -24,12 +24,12 @@
  */
 ?>
 
-<?php if (null != ZMRequest::getProductId()) { ?>
+<?php if (null != $request->getProductId()) { ?>
     <h3><?php zm_l10n("Tell A Friend") ?></h3>
     <div id="sb_tellafriend" class="box">
         <?php $form->open(FILENAME_TELL_A_FRIEND, '', false, array('method' => 'get')) ?>
             <div>
-              <input type="hidden" name="products_id" value="<?php echo ZMRequest::getProductId() ?>" />
+              <input type="hidden" name="products_id" value="<?php echo $request->getProductId() ?>" />
               <input type="submit" class="btn" value="<?php zm_l10n("Email") ?>" />
               <?php $onfocus = "if(this.value=='" . zm_l10n_get("enter email") . "') this.value='';" ?>
               <input type="text" id="to_email_address" name="to_email_address" value="<?php zm_l10n("enter email") ?>" onfocus="<?php echo $onfocus ?>" />

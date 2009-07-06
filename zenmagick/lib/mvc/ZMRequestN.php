@@ -232,8 +232,6 @@ class ZMRequestN extends ZMObject {
      */
     public function getController() { 
         if (null === $this->controller_) {
-            echo 'x'.$this->getRequestId();
-            var_dump($this->getParameterMap());
             $this->controller_ = ZMUrlMapper::instance()->findController($this->getRequestId());
         }
 

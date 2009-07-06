@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . ZMRequest::getProductId(), true, array('id'=>'tell_a_friend')) ?>
+<?php $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $request->getProductId(), true, array('id'=>'tell_a_friend')) ?>
    <fieldset>
         <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
 

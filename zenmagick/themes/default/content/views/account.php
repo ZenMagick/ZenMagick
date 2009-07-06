@@ -41,7 +41,7 @@
     </ul>
 </fieldset>
 
-<?php $voucherBalance = ZMRequest::getAccount()->getVoucherBalance(); ?>
+<?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
 <?php if (0 < $voucherBalance) { ?>
     <fieldset>
         <legend><?php zm_l10n("Gift Certificate Account") ?></legend>

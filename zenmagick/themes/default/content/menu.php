@@ -27,16 +27,16 @@
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php $net->url(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>
-    <?php if (ZMRequest::isAnonymous()) { ?>
+    <?php if ($request->isAnonymous()) { ?>
         <li><a href="<?php $net->url(FILENAME_LOGIN, '', true); ?>"><?php zm_l10n("LOGIN") ?></a></li>
     <?php } ?>
-    <?php if (ZMRequest::isRegistered()) { ?>
+    <?php if ($request->isRegistered()) { ?>
         <li><a href="<?php $net->url(FILENAME_ACCOUNT, '', true); ?>"><?php zm_l10n("ACCOUNT") ?></a></li>
     <?php } ?>
-    <?php if (!ZMRequest::isAnonymous()) { ?>
+    <?php if (!$request->isAnonymous()) { ?>
         <li><a href="<?php $net->url(FILENAME_LOGOFF, '', true); ?>"><?php zm_l10n("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!ZMRequest::getShoppingCart()->isEmpty() && !ZMRequest::isCheckout()) { ?>
+    <?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
         <li><a href="<?php $net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("SHOPPING CART") ?></a></li>
         <li><a href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("CHECKOUT") ?></a></li>
     <?php } ?>

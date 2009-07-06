@@ -28,7 +28,7 @@
 <p><?php zm_l10n("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo $macro->categoryTree(ZMCategories::instance()->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
-    <?php if (ZMRequest::isRegistered()) { ?>
+    <?php if ($request->isRegistered()) { ?>
       <li><a href="<?php $net->url(FILENAME_ACCOUNT, '', true) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php $net->url(FILENAME_ACCOUNT_EDIT, '', true); ?>"><?php zm_l10n("Change Account") ?></a></li>
@@ -38,7 +38,7 @@
         <li><a href="<?php $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true); ?>"><?php zm_l10n("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php $net->url(FILENAME_ACCOUNT_NOTIFICATIONS, '', true); ?>"><?php zm_l10n("Change Product Notifications") ?></a></li>
       </ul></li>
-        <?php if (!ZMRequest::getShoppingCart()->isEmpty()) { ?>
+        <?php if (!$request->getShoppingCart()->isEmpty()) { ?>
             <li><a href="<?php $net->url(FILENAME_SHOPPING_CART, '', true); ?>"><?php zm_l10n("Shopping cart") ?></a></li>
             <li><a href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING, '', true); ?>"><?php zm_l10n("Checkout") ?></a></li>
         <?php } ?>

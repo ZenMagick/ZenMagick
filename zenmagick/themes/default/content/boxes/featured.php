@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $products = ZMProducts::instance()->getFeaturedProducts(ZMRequest::getCategoryId(), 1, false, $session->getLanguageId()); ?>
+<?php $products = ZMProducts::instance()->getFeaturedProducts($request->getCategoryId(), 1, false, $session->getLanguageId()); ?>
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>
