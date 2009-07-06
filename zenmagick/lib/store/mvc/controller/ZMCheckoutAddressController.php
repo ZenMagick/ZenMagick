@@ -93,13 +93,13 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process() {
+    public function process($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', ZMRequest::getShoppingCart());
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
             return $this->findView($viewId);
         }
 
-        return parent::process();
+        return parent::process($request);
     }
 
     /**

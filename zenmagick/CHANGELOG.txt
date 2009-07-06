@@ -36,6 +36,7 @@ Release 0.9.7
 - implement ZMRequestHandler in sample_plugin
 - introduce proper request instance in top levels of request processing and
   also templates
+- move session token validation from validator to controller
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

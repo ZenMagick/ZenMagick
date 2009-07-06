@@ -191,7 +191,7 @@ class ZMValidator extends ZMObject {
         }
 
         // initial status
-        $status = $this->validateSession($map, $id);
+        $status = true;
 
         // iterate over rules
         foreach ($set->getRules() as $rule) {
@@ -209,29 +209,6 @@ class ZMValidator extends ZMObject {
         }
 
         return $status;
-    }
-
-    /**
-     * Validate session token.
-     *
-     * @param mixed data The data to validate.
-     * @param string id The ruleset id.
-     * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
-     */
-    protected function validateSession($data, $id) {
-        $id = $this->resolveAlias($id);
-        $valid = true;
-        if (ZMLangUtils::inArray($id, ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
-            $valid = false;
-            if (isset($data[ZMSession::TOKEN_NAME])) {
-                $valid = (ZMRequest::getSession()->getToken() == $data[ZMSession::TOKEN_NAME]);
-            }
-        }
-
-        if (!$valid) {
-            $this->messages_[ZMSession::TOKEN_NAME] = array(zm_l10n_get('Invalid session request.'));
-        }
-        return $valid;
     }
 
     /**

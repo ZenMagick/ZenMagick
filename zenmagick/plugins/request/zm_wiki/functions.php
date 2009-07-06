@@ -53,7 +53,7 @@
         }
         // use controller to allow us to use custom config settings...
         $controller = ZMLoader::make("WikiController");
-        $view = $controller->process();
+        $view = $controller->process($request);
         // we know it's a function...
         $view->callView();
 

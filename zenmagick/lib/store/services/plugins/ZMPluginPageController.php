@@ -76,7 +76,7 @@ class ZMPluginPageController extends ZMObject {
      *
      * @return ZMPluginPage A <code>ZMPluginPage</code> instance or <code>null</code>.
      */
-    public function process() { 
+    public function process($request) { 
         if (!ZMSettings::get('isAdmin')) {
             throw new ZMException('illegal access');
         }

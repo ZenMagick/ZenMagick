@@ -55,12 +55,12 @@ class ZMCategoryController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    function process() { 
+    function process($request) { 
         ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
         ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
         ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
 
-        return parent::process();
+        return parent::process($request);
     }
 
     /**

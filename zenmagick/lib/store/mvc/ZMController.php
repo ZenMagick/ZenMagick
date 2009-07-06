@@ -99,9 +99,15 @@ class ZMController extends ZMObject {
         // method independant (pre-)processing
         $this->handleRequest($request);
 
-        // and validation
         $view = null;
-        if (null != $formBean && $this->isFormSubmit()) {
+
+        // session validation
+        if ($this->isFormSubmit() && null != ($view = $this->validateSession($request))) {
+            ZMLogging::instance()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
+        }
+
+        // form validation (only if not already error view from session validation...)
+        if (null == $view && null != $formBean && $this->isFormSubmit()) {
             // move to function
             if (null != ($view = $this->validateFormBean($formBean))) {
                 ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
@@ -281,6 +287,24 @@ class ZMController extends ZMObject {
         }
 
         return $this->formBean_;
+    }
+
+    /**
+     * Validate session token.
+     *
+     * @param ZMRequest request The request to process.
+     * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
+     */
+    protected function validateSession($request) {
+        $valid = true;
+        if (ZMLangUtils::inArray($this->getId(), ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
+            $valid = false;
+            if (null != ($token = $request->getParameter(ZMSession::TOKEN_NAME))) {
+                $valid = $request->getSession()->getToken() == $token;
+            }
+        }
+
+        return $valid ? null : $this->findView();
     }
 
     /**

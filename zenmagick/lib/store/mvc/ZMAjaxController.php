@@ -72,7 +72,7 @@ class ZMAjaxController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    public function process() {
+    public function process($request) {
         $method = $this->method_;
         if (!method_exists($this, $this->method_)) {
             $method = $this->method_.ZMSettings::get('ajaxFormat');
@@ -91,7 +91,7 @@ class ZMAjaxController extends ZMController {
             return null;
         }
 
-        return parent::process();
+        return parent::process($request);
     }
 
 

@@ -348,7 +348,7 @@ class ZMShoppingCart extends ZMObject {
                 ZMTools::resolveZCClass('order');
                 $GLOBALS['order'] = new order();
             }
-            $this->zenTotals_->process();
+            $this->zenTotals_->process($request);
         }
 
         return $this->zenTotals_;
