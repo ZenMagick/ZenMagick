@@ -54,14 +54,20 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         parent::__destruct();
     }
 
+
     /**
      * Get product information for the given product id.
      *
-     * @param int productd The product id.
+     * <p>Request parameter:</p>
+     * <ul>
+     *  <li>productd - The product id</li>
+     * </ul>
+     *
+     * @param ZMRequest request The current request.
      * @return void
      */
-    public function getProductForIdJSON() {
-        $productId = ZMRequest::getParameter('productId', 0);
+    public function getProductForIdJSON($request) {
+        $productId = $request->getParameter('productId', 0);
 
         $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId), $this->get('ajaxProductMap'));
         $json = $this->toJSON($flatObj);
@@ -71,18 +77,23 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     /**
      * Get products for the given category id.
      *
-     * @param int categoryId The categoryId id.
-     * @param boolean active Admin only parameter to allow to retrieve inactive products also.
+     * <p>Request parameter:</p>
+     * <ul>
+     *  <li>categoryId - The category id</li>
+     *  <li>active - Admin only parameter to allow to also retrieve inactive products</li>
+     * </ul>
+     *
+     * @param ZMRequest request The current request.
      * @return void
      */
-    public function getProductsForCategoryIdJSON() {
-        $categoryId = ZMRequest::getParameter('categoryId', 0);
+    public function getProductsForCategoryIdJSON($request) {
+        $categoryId = $request->getParameter('categoryId', 0);
         $activeOnly = true;
         if (ZMSettings::get('isAdmin')) {
-            $activeOnly = ZMRequest::getParameter('active', true);
+            $activeOnly = $request->getParameter('active', true);
         }
 
-        if (null === ($page = ZMRequest::getParameter('page'))) {
+        if (null === ($page = $request->getParameter('page'))) {
             // return all
             $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $activeOnly), $this->get('ajaxProductMap'));
         } else {
@@ -92,7 +103,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             $resultList = ZMLoader::make("ResultList");
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
-            if (null !== ($pagination = ZMRequest::getParameter('pagination'))) {
+            if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
             $flatObj = $this->flattenObject($resultList, $this->get('ajaxResultListMap'));

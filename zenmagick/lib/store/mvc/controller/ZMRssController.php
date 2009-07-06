@@ -64,9 +64,9 @@ class ZMRssController extends ZMController {
      * feed contents. The method name is generated as: <code>get[ucwords($channel)]Feed</code>. So, for example,
      * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($key)</code>.</p>
      */
-    function processGet($request) {
-        $channel = ucwords(ZMRequest::getParameter('channel', null));
-        $key = ZMRequest::getParameter('key', null);
+    public function processGet($request) {
+        $channel = ucwords($request->getParameter('channel', null));
+        $key = $request->getParameter('key', null);
 
         // delegate items to channel method
         $method = "get".$channel."Feed";

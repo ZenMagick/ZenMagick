@@ -31,14 +31,12 @@
  * @version $Id: ZMAjaxController.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 class ZMAjaxController extends ZMController {
-    private $method_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->method_ = ZMRequest::getParameter('method', null);
     }
 
     /**
@@ -54,10 +52,9 @@ class ZMAjaxController extends ZMController {
      * <p>Just return <code>null</code>.</p>
      */
     public function processGet($request) {
-        echo "Invalid Ajax request - method '".$this->method_."' not found!";
+        ZMLogging::instance()->trace("Invalid Ajax request - method '".$request->getParameter('method')."' not found!", ZMLogging::ERROR);
         return null;
     }
-
 
     /**
      * Process a HTTP request.
@@ -73,21 +70,21 @@ class ZMAjaxController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) {
-        $method = $this->method_;
-        if (!method_exists($this, $this->method_)) {
-            $method = $this->method_.ZMSettings::get('ajaxFormat');
+        $method = $request->getParameter('method');
+        if (!method_exists($this, $method)) {
+            $method = $method.ZMSettings::get('ajaxFormat');
         }
 
         // check access on controller level
-        ZMSacsMapper::instance()->ensureAuthorization($this->getId());
+        ZMSacsMapper::instance()->ensureAuthorization($this->getId(), $request->getAccount());
 
         // (re-)check on method level
         $page = $this->getId().'#'.$method;
         ZMSacsMapper::instance()->ensureAccessMethod($page);
-        ZMSacsMapper::instance()->ensureAuthorization($page);
+        ZMSacsMapper::instance()->ensureAuthorization($page, $request->getAccount());
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-            call_user_func(array($this, $method));
+            $this->$method($request);
             return null;
         }
 

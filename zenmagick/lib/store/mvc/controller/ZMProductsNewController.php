@@ -53,8 +53,8 @@ class ZMProductsNewController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
         ZMCrumbtrail::instance()->addCrumb("New Products");
 
         $resultList = ZMLoader::make("ResultList");
@@ -66,7 +66,7 @@ class ZMProductsNewController extends ZMController {
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(ZMLoader::make($sorter));
         }
-        $resultList->setPageNumber(ZMRequest::getPageIndex());
+        $resultList->setPageNumber($request->getPageIndex());
 
         return $this->findView(null, array('zm_resultList' => $resultList));
     }

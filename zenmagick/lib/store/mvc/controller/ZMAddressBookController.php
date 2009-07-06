@@ -55,7 +55,7 @@ class ZMAddressBookController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
+        $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
 
         return $this->findView(null, array('zm_addressList' => $addressList));
     }

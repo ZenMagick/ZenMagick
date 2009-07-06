@@ -60,14 +60,14 @@ class ZMAccountEditController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('account' => ZMRequest::getAccount()));
+        return $this->findView(null, array('account' => $request->getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $currentAccount = ZMRequest::getAccount();
+        $currentAccount = $request->getAccount();
         $account = $this->getFormBean()->getAccount();
 
         if ($account->getEmail() != $currentAccount->getEmail()) {

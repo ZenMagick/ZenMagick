@@ -55,13 +55,13 @@ class ZMTellAFriendController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        if (ZMRequest::getProductId()) {
-            $this->product_ = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        } else if (ZMRequest::getModel()) {
-            $this->product_ = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
+        if ($request->getProductId()) {
+            $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId());
+        } else if ($request->getModel()) {
+            $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel());
         }
         $this->exportGlobal("zm_product", $this->product_);
-        $this->handleCrumbtrail($this->product_);
+        $this->handleCrumbtrail($this->product_, $request);
     }
 
     /**
@@ -72,7 +72,7 @@ class ZMTellAFriendController extends ZMController {
             return $this->findView('error');
         }
 
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
         $emailMessage = $this->getFormBean();
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());
@@ -97,7 +97,7 @@ class ZMTellAFriendController extends ZMController {
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
-            $session = ZMRequest::getSession();
+            $session = $request->getSession();
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
             $context['zm_product'] = $this->product_;
@@ -115,10 +115,11 @@ class ZMTellAFriendController extends ZMController {
      * Handle crumbtrail.
      *
      * @param ZMProduct product The current product.
+     * @param ZMRequest request The current request.
      */
-    protected function handleCrumbtrail($product) {
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+    protected function handleCrumbtrail($product, $request) {
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
         ZMCrumbtrail::instance()->addCrumb("Tell A Friend");
     }

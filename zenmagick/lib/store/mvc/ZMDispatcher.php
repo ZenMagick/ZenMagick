@@ -46,7 +46,7 @@ class ZMDispatcher {
             $args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
             echo $args['contents'];
 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE);
+            ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE, array('request' => $request));
         }
     }
 

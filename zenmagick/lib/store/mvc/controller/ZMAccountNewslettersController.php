@@ -60,23 +60,23 @@ class ZMAccountNewslettersController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
+        return $this->findView(null, array('zm_account' => $request->getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $newsletterSubscriber = ZMLangUtils::asBoolean(ZMRequest::getParameter('newsletter_general', 0));
+        $newsletterSubscriber = ZMLangUtils::asBoolean($request->getParameter('newsletter_general', 0));
 
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
             $account->setNewsletterSubscriber($newsletterSubscriber);
             ZMAccounts::instance()->updateAccount($account);
         }
 
         ZMMessages::instance()->success(zm_l10n_get('Your newsletter subscription has been updated.'));
-        return $this->findView('success', array('zm_account' => ZMRequest::getAccount()));
+        return $this->findView('success', array('zm_account' => $request->getAccount()));
     }
 
 }

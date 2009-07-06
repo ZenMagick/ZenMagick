@@ -53,12 +53,12 @@ class ZMFeaturedProductsController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
         ZMCrumbtrail::instance()->addCrumb("Featured Products");
 
         $resultList = ZMLoader::make("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getFeaturedProducts", array(ZMRequest::getCategoryId(), 0));
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getFeaturedProducts", array($request->getCategoryId(), 0));
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(ZMLoader::make($filter));
@@ -66,7 +66,7 @@ class ZMFeaturedProductsController extends ZMController {
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(ZMLoader::make($sorter));
         }
-        $resultList->setPageNumber(ZMRequest::getPageIndex());
+        $resultList->setPageNumber($request->getPageIndex());
 
         return $this->findView(null, array('zm_resultList' => $resultList));
     }

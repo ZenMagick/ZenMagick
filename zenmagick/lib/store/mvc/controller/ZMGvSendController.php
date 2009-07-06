@@ -60,7 +60,7 @@ class ZMGvSendController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
+        return $this->findView(null, array('zm_account' => $request->getAccount()));
     }
 
     /**
@@ -70,12 +70,12 @@ class ZMGvSendController extends ZMController {
         $gvReceiver = $this->getFormBean();
 
         // back from confirmation to edit or not valid
-        if (null != ZMRequest::getParameter('edit')) {
+        if (null != $request->getParameter('edit')) {
             return $this->findView();
         }
 
         $data = array();
-        $data['zm_account'] = ZMRequest::getAccount();
+        $data['zm_account'] = $request->getAccount();
         // to fake the email content display
         $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
 

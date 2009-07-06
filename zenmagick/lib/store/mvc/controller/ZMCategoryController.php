@@ -56,9 +56,9 @@ class ZMCategoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process($request) { 
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($request->getProductId());
 
         return parent::process($request);
     }
@@ -76,13 +76,13 @@ class ZMCategoryController extends ZMController {
         $data = array();
 
         // decide what to do
-        if (null != ZMRequest::getCategoryPath()) {
+        if (null != $request->getCategoryPath()) {
             $method = "getProductsForCategoryId";
-            $args = array(ZMRequest::getCategoryId());
+            $args = array($request->getCategoryId());
             $viewName = 'category_list';
-        } else if (null != ZMRequest::getManufacturerId()) {
+        } else if (null != $request->getManufacturerId()) {
             $method = "getProductsForManufacturerId";
-            $args = array(ZMRequest::getManufacturerId());
+            $args = array($request->getManufacturerId());
             $viewName = 'manufacturer';
         }
 
@@ -97,11 +97,11 @@ class ZMCategoryController extends ZMController {
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(ZMLoader::make($sorter));
             }
-            $resultList->setPageNumber(ZMRequest::getPageIndex());
+            $resultList->setPageNumber($request->getPageIndex());
             $data['zm_resultList'] = $resultList;
         }
 
-        $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
+        $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
 
         if ($viewName == "category_list" 
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
@@ -116,7 +116,7 @@ class ZMCategoryController extends ZMController {
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {
             $results = $resultList->getResults();
             $product = array_pop($results);
-            ZMRequest::setParameter('products_id', $product->getId());
+            $request->setParameter('products_id', $product->getId());
             $viewName = 'product_info';
         }
 

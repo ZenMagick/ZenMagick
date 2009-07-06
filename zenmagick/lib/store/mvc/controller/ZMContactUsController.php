@@ -63,8 +63,8 @@ class ZMContactUsController extends ZMController {
      */
     public function processGet($request) {
         $contactInfo = $this->getFormBean();
-        if (ZMRequest::isRegistered()) {
-            $account = ZMRequest::getAccount();
+        if ($request->isRegistered()) {
+            $account = $request->getAccount();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());
 

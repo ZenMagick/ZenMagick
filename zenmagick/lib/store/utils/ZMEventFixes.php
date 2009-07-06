@@ -80,9 +80,10 @@ class ZMEventFixes extends ZMObject {
     /**
      * Final cleanup.
      */
-    public function onZMAllDone() {
+    public function onZMAllDone($args) {
+        $request = $args['request'];
         // clear messages if not redirect...
-        ZMRequest::getSession()->clearMessages();
+        $request->getSession()->clearMessages();
 
         Runtime::finish();
     }
@@ -98,7 +99,9 @@ class ZMEventFixes extends ZMObject {
     /**
      * More store startup code.
      */
-    public function onZMBootstrapDone() {
+    public function onZMBootstrapDone($args) {
+        $request = $args['request'];
+
         // START: zc_fixes
         // custom class mappings
         ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
@@ -110,9 +113,9 @@ class ZMEventFixes extends ZMObject {
         }
 
         // simulate the number of uploads parameter for add to cart
-        if ('add_product' == ZMRequest::getParameter('action')) {
+        if ('add_product' == $request->getParameter('action')) {
             $uploads = 0;
-            foreach (ZMRequest::getParameterMap() as $name => $value) {
+            foreach ($request->getParameterMap() as $name => $value) {
                 if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
                     ++$uploads;
                 }
@@ -143,8 +146,8 @@ class ZMEventFixes extends ZMObject {
             Runtime::setTheme($theme);
 
             // now we can check for a static homepage
-            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == ZMRequest::getRequestId() 
-                && (0 == ZMRequest::getCategoryId() && 0 == ZMRequest::getManufacturerId())) {
+            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId() 
+                && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
                 require ZMSettings::get('staticHome');
                 exit;
             }
@@ -194,8 +197,9 @@ class ZMEventFixes extends ZMObject {
     /**
      * Remove ajax requests from navigation history.
      */
-    public function onZMDispatchStart() {
-        if (false !== strpos(ZMRequest::getRequestId(), 'ajax')) {
+    public function onZMDispatchStart($args) {
+        $request = $args['request'];
+        if (false !== strpos($request->getRequestId(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }
     }

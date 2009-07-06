@@ -53,20 +53,20 @@ class ZMProductReviewsInfoController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($request->getProductId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
 
         $data = array();
-        $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        $product = ZMProducts::instance()->getProductForId($request->getProductId());
         $data['zm_product'] = $product;
 
-        $review = ZMReviews::instance()->getReviewForId(ZMRequest::getReviewId());
+        $review = ZMReviews::instance()->getReviewForId($request->getReviewId());
         $data['zm_review'] = $review;
 
         if (ZMSettings::get('isLogPageStats')) {
-            ZMReviews::instance()->updateViewCount(ZMRequest::getReviewId());
+            ZMReviews::instance()->updateViewCount($request->getReviewId());
         }
 
         return $this->findView(null, $data);

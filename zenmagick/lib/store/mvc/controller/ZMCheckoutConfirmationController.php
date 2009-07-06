@@ -55,7 +55,7 @@ class ZMCheckoutConfirmationController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        return $this->findView(null, array('zm_cart' => ZMRequest::getShoppingCart()));
+        return $this->findView(null, array('zm_cart' => $request->getShoppingCart()));
     }
 
 }

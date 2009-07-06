@@ -69,13 +69,13 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet($request) {
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         if ($session->isRegistered()) {
             // can't get any better than this!
             return $this->findView('index');
         }
 
-        $redirect = ZMRequest::getParameter('redirect');
+        $redirect = $request->getParameter('redirect');
         if (null != $redirect) {
             $session->setValue(self::$KEY_REDIRECT, $redirect);
         }
@@ -91,7 +91,7 @@ class ZMLoginController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processPost($request) {
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
 
         if (!$session->isValid()) {
             $session->removeValue(self::$KEY_REDIRECT);
@@ -108,14 +108,14 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $emailAddress = ZMRequest::getParameter('email_address');
+        $emailAddress = $request->getParameter('email_address');
         $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
-        $password = ZMRequest::getParameter('password');
+        $password = $request->getParameter('password');
         if (!ZMAuthenticationManager::instance()->validatePassword($password, $account->getPassword())) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();

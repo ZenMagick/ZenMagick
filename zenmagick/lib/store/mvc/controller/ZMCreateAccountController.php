@@ -113,7 +113,7 @@ class ZMCreateAccountController extends ZMController {
             ZMAddresses::instance()->updateAddress($address);
         }
 
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         $session->recreate();
         $session->setAccount($account);
         $session->restoreCart();

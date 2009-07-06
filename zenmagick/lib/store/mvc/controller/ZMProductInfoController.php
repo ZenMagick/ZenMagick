@@ -53,10 +53,10 @@ class ZMProductInfoController extends ZMController {
      */
     public function processGet($request) {
         $product = null;
-        if (ZMRequest::getProductId()) {
-            $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
-        } else if (ZMRequest::getModel()) {
-            $product = ZMProducts::instance()->getProductForModel(ZMRequest::getModel());
+        if ($request->getProductId()) {
+            $product = ZMProducts::instance()->getProductForId($request->getProductId());
+        } else if ($request->getModel()) {
+            $product = ZMProducts::instance()->getProductForModel($request->getModel());
         }
 
         $data = array('zm_product' => $product);
@@ -69,8 +69,8 @@ class ZMProductInfoController extends ZMController {
         }
 
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
         ZMCrumbtrail::instance()->addProduct($product->getId());
 
         $viewName = ZMTemplateManager::instance()->getProductTemplate($product->getId());

@@ -69,10 +69,10 @@ class ZMCheckoutAddressController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url($this->settings_['url'], '', true, false));
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         $this->exportGlobal("zm_cart", $shoppingCart);
 
-        $addressList = ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId());
+        $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
         $address = $this->getFormBean();
         $address->setPrimary(0 == count($addressList));
@@ -82,7 +82,7 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     protected function validateFormBean($formBean) {
-        $addressId = ZMRequest::getParameter('addressId', null);
+        $addressId = $request->getParameter('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
             return null;
@@ -94,7 +94,7 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     public function process($request) {
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', ZMRequest::getShoppingCart());
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
             return $this->findView($viewId);
         }
@@ -106,28 +106,28 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         // which addres do we update?
         $method = $this->settings_['method'];
 
         // if address field in request, it's a select; otherwise a new address
-        $addressId = ZMRequest::getParameter('addressId', null);
+        $addressId = $request->getParameter('addressId', null);
         if (null !== $addressId) {
             $shoppingCart->$method($addressId);
         } else {
             $address = $this->getFormBean();
-            $address->setAccountId(ZMRequest::getAccountId());
+            $address->setAccountId($request->getAccountId());
             $address = ZMAddresses::instance()->createAddress($address);
 
             // process primary setting
-            if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId()))) {
-                $account = ZMRequest::getAccount();
+            if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
+                $account = $request->getAccount();
                 $account->setDefaultAddressId($address->getId());
                 ZMAccounts::instance()->updateAccount($account);
                 $address->setPrimary(true);
                 $address = ZMAddresses::instance()->updateAddress($address);
 
-                $session = ZMRequest::getSession();
+                $session = $request->getSession();
                 $session->setAccount($account);
             }
             $shoppingCart->$method($address->getId());

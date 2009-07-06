@@ -61,7 +61,7 @@ class ZMGvSendConfirmController extends ZMController {
      */
     public function processGet($request) {
         $data = array();
-        $data['zm_account'] = ZMRequest::getAccount();
+        $data['zm_account'] = $request->getAccount();
         $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
         return $this->findView(null, $data);
     }
@@ -85,20 +85,20 @@ class ZMGvSendConfirmController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processPost($request) {
-        if (null != ZMRequest::getParameter('edit')) {
+        if (null != $request->getParameter('edit')) {
             return $this->findView('edit');
         }
 
         // the form data
         $gvReceiver = $this->getFormBean();
         // the sender account
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
         // current balance
         $balance = $account->getVoucherBalance();
         // coupon amount
         $amount = $gvReceiver->getAmount(); 
 
-        $currentCurrencyCode = ZMRequest::getCurrencyCode();
+        $currentCurrencyCode = $request->getCurrencyCode();
         if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
@@ -122,7 +122,7 @@ class ZMGvSendConfirmController extends ZMController {
         zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvReceiver->getEmail());
         if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
-            $session = ZMRequest::getSession();
+            $session = $request->getSession();
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['gvReceiver'] = $gvReceiver;

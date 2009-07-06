@@ -53,12 +53,12 @@ class ZMProductReviewsController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath(ZMRequest::getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer(ZMRequest::getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct(ZMRequest::getProductId());
+        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
+        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
+        ZMCrumbtrail::instance()->addProduct($request->getProductId());
         ZMCrumbtrail::instance()->addCrumb("Reviews");
 
-        $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+        $product = ZMProducts::instance()->getProductForId($request->getProductId());
         if (null == $product) {
             return $this->findView('error');
         }
@@ -68,7 +68,7 @@ class ZMProductReviewsController extends ZMController {
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId()));
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber(ZMRequest::getPageIndex());
+        $resultList->setPageNumber($request->getPageIndex());
         $data['zm_resultList'] = $resultList;
 
         return $this->findView(null, $data);

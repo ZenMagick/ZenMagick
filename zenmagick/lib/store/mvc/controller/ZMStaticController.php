@@ -56,7 +56,7 @@ class ZMStaticController extends ZMController {
      */
     function processGet($request) {
         // prepare page name for crumbtrail
-        $sub = ZMRequest::getSubPageName();
+        $sub = $request->getSubPageName();
         $sub = str_replace('_', ' ', $sub);
         $sub = ucwords($sub);
         ZMCrumbtrail::instance()->addCrumb($sub);

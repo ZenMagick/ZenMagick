@@ -54,7 +54,7 @@ class ZMShoppingCartController extends ZMController {
     public function processGet($request) {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
         
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
 
         $helper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 

@@ -58,11 +58,11 @@ class ZMIndexController extends ZMController {
         $viewName = null;
 
         // be nice to seo URL's that we do not control and also bookmarked pages
-        if (null != ZMRequest::getCategoryPath()) {
+        if (null != $request->getCategoryPath()) {
             $viewName = 'category';
-        } else if (null != ZMRequest::getManufacturerId()) {
+        } else if (null != $request->getManufacturerId()) {
             $viewName = 'category';
-        } else if (null != ZMRequest::getParameter('compareId')) {
+        } else if (null != $request->getParameter('compareId')) {
             $viewName = 'category';
         }
 

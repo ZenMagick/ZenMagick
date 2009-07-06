@@ -52,8 +52,10 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
     /**
      * Estimate shipping.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function estimateShippingJSON() {
+    public function estimateShippingJSON($request) {
         $shippingEstimator = ZMLoader::make("ShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
@@ -91,9 +93,11 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
     /**
      * Get cart content.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function getContentsJSON() {
-        $shoppingCart = ZMRequest::getShoppingCart();
+    public function getContentsJSON($request) {
+        $shoppingCart = $request->getShoppingCart();
         $cart = array();
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMToolbox::instance()->utils->formatMoney($value, true, false) : $value;');
@@ -117,15 +121,18 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * <dl>
      *  <dt>productId</dt><dd>The product id</dd>
      *  <dt>quantity</dt><dd>The product quantity</dd>
+     *  <dt>id</dt><dd>Attribute details</dd>
      * </dl>
      *
      * <p>Will return the new cart contents.</p>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function addProductJSON() {
-        $shoppingCart = ZMRequest::getShoppingCart();
-        $productId = ZMRequest::getParameter('productId', null);
-        $quantity = ZMRequest::getParameter('quantity', 0);
-        $id = ZMRequest::getParameter('id', array());
+    public function addProductJSON($request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productId = $request->getParameter('productId', null);
+        $quantity = $request->getParameter('quantity', 0);
+        $id = $request->getParameter('id', array());
 
         if (null !== $productId && 0 != $quantity) {
             $shoppingCart->addProduct($productId, $quantity, $id);
@@ -138,12 +145,19 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Remove from cart.
      *
      * <p>Will return the new cart contents.</p>
+     *
+     * <p>URL parameter:</p>
+     * <dl>
+     *  <dt>productId</dt><dd>The product id</dd>
+     * </dl>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function removeProductJSON() {
-        $productId = ZMRequest::getParameter('productId', null);
+    public function removeProductJSON($request) {
+        $productId = $request->getParameter('productId', null);
 
         if (null !== $productId) {
-            $shoppingCart = ZMRequest::getShoppingCart();
+            $shoppingCart = $request->getShoppingCart();
             $shoppingCart->removeProduct($productId);
         }
 
@@ -162,13 +176,15 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * </dl>
      *
      * <p>Will return the new cart contents.</p>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function updateProductJSON() {
-        $productId = ZMRequest::getParameter('productId', null);
-        $quantity = ZMRequest::getParameter('quantity', 0);
+    public function updateProductJSON($request) {
+        $productId = $request->getParameter('productId', null);
+        $quantity = $request->getParameter('quantity', 0);
 
         if (null !== $productId && 0 != $quantity) {
-            $shoppingCart = ZMRequest::getShoppingCart();
+            $shoppingCart = $request->getShoppingCart();
             $shoppingCart->updateProduct($productId, $quantity);
         }
 

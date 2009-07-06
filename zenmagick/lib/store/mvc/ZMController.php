@@ -76,7 +76,7 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) { 
-        ZMSacsMapper::instance()->ensureAuthorization($this->id_, ZMRequest::getAccount());
+        ZMSacsMapper::instance()->ensureAuthorization($this->id_, $request->getAccount());
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 
@@ -116,7 +116,7 @@ class ZMController extends ZMObject {
 
         if (null == $view) {
             try {
-                switch (ZMRequest::getMethod()) {
+                switch ($request->getMethod()) {
                     case 'GET':
                         $view = $this->processGet($request);
                         break;
@@ -124,7 +124,7 @@ class ZMController extends ZMObject {
                         $view = $this->processPost($request);
                         break;
                     default:
-                        throw new ZMException('unsupported request method: ' . ZMRequest::getMethod());
+                        throw new ZMException('unsupported request method: ' . $request->getMethod());
                 }
             } catch (Exception $e) {
                 if ($enableTransactions) {

@@ -62,23 +62,23 @@ class ZMAddressBookAddController extends ZMController {
      */
     public function processPost($request) {
         $address = $this->getFormBean();
-        $address->setAccountId(ZMRequest::getAccountId());
+        $address->setAccountId($request->getAccountId());
         $address = ZMAddresses::instance()->createAddress($address);
 
         // process primary setting
-        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId()))) {
-            $account = ZMRequest::getAccount();
+        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
+            $account = $request->getAccount();
             $account->setDefaultAddressId($address->getId());
             ZMAccounts::instance()->updateAccount($account);
             $address->setPrimary(true);
             $address = ZMAddresses::instance()->updateAddress($address);
 
-            $session = ZMRequest::getSession();
+            $session = $request->getSession();
             $session->setAccount($account);
         }
 
         // if guest, there is no address book!
-        if (ZMRequest::isRegistered()) {
+        if ($request->isRegistered()) {
             ZMMessages::instance()->success(zm_l10n_get('Address added to your address book.'));
         }
 

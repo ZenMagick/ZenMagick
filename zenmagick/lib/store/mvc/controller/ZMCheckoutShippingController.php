@@ -51,10 +51,10 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         // set default address if required
         if (!$shoppingCart->hasShippingAddress()) {
-            $account = ZMRequest::getAccount();
+            $account = $request->getAccount();
             $shoppingCart->setShippingAddressId($account->getDefaultAddresssId());
             // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
         }
@@ -70,7 +70,7 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
             return $this->findView($viewId);
@@ -83,7 +83,7 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
             return $this->findView($viewId);

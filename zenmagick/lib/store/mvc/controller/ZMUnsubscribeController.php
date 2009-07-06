@@ -68,7 +68,7 @@ class ZMUnsubscribeController extends ZMController {
             return $this->findView();
         }
 
-        $emailAddress = ZMRequest::getParameter('email_address');
+        $emailAddress = $request->getParameter('email_address');
         $account = ZMAccounts::getAccountForEmailAddress($emailAddress);
 
         if (null == $account) {

@@ -46,12 +46,13 @@ class ZMAjaxCountryController extends ZMAjaxController {
         parent::__destruct();
     }
 
+
     /**
      * Generates a JSON list of all countries.
      *
-     * @return void
+     * @param ZMRequest request The current request.
      */
-    public function getCountryListJSON() {
+    public function getCountryListJSON($request) {
         $flatObj = $this->flattenObject(ZMCountries::instance()->getCountries(), $this->get('ajaxCountryMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
@@ -60,11 +61,15 @@ class ZMAjaxCountryController extends ZMAjaxController {
     /**
      * Generates a JSON list of all zones for the requested country id.
      *
-     * @param int countryId The country id.
-     * @return void
+     * <p>Request parameter (either or):</p>
+     * <ul>
+     *  <li>countryId - A valid country id</li>
+     * </ul>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function getZonesForCountryIdJSON() {
-        $countryId = ZMRequest::getParameter('countryId', null);
+    public function getZonesForCountryIdJSON($request) {
+        $countryId = $request->getParameter('countryId', null);
 
         $flatObj = $this->flattenObject(ZMCountries::instance()->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));
         $json = $this->toJSON($flatObj);

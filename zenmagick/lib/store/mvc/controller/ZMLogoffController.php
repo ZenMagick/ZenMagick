@@ -56,9 +56,9 @@ class ZMLogoffController extends ZMController {
      */
     function processGet($request) {
         // pre logoff account
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
 
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();

@@ -62,7 +62,7 @@ class ZMAddressBookEditController extends ZMController {
      */
     public function processGet($request) {
         // populate with original data
-        $address = ZMAddresses::instance()->getAddressForId(ZMRequest::getParameter('id'));
+        $address = ZMAddresses::instance()->getAddressForId($request->getParameter('id'));
         return $this->findView(null, array('address' => $address));
     }
 
@@ -72,21 +72,21 @@ class ZMAddressBookEditController extends ZMController {
     public function processPost($request) {
         $address = $this->getFormBean();
 
-        if (1 == count(ZMAddresses::instance()->getAddressesForAccountId(ZMRequest::getAccountId()))) {
+        if (1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
             $address->setPrimary(true);
         }
 
-        $address->setAccountId(ZMRequest::getAccountId());
+        $address->setAccountId($request->getAccountId());
         $address = ZMAddresses::instance()->updateAddress($address);
 
         // process primary setting
         if ($address->isPrimary()) {
-            $account = ZMRequest::getAccount();
+            $account = $request->getAccount();
             if ($account->getDefaultAddressId() != $address->getId()) {
                 $account->setDefaultAddressId($address->getId());
                 ZMAccounts::instance()->updateAccount($account);
 
-                $session = ZMRequest::getSession();
+                $session = $request->getSession();
                 $session->setAccount($account);
             }
         }

@@ -71,6 +71,16 @@ class ZMRequestN extends ZMObject {
 
 
     /**
+     * Get instance.
+     *
+     * <p>A final straw to get the shared request instance if nothing else is 
+     * available.</p>
+     */
+    public static function instance() {
+        return ZMObject::singleton('RequestN');
+    }
+
+    /**
      * Get the request method.
      *
      * @return string The upper case request method.

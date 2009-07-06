@@ -57,7 +57,7 @@
     ZMSettings::set('plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance; XXX: fix name
-    $request = ZMLoader::make('RequestN');
+    $request = ZMRequestN::instance();
 
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {
@@ -83,7 +83,7 @@
     }
 
     // core and plugins loaded
-    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE);
+    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $request));
 
     // make sure we use HTTPS if required
     ZMSacsMapper::instance()->ensureAccessMethod($request->getRequestId());
@@ -97,6 +97,6 @@
         include_once $_zm_global;
     }
 
-    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE);
+    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $request));
 
 ?>

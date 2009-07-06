@@ -60,16 +60,16 @@ class ZMAccountNotificationsController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('zm_account' => ZMRequest::getAccount()));
+        return $this->findView(null, array('zm_account' => $request->getAccount()));
     }
 
     /**
      * {@inheritDoc}
      */
     public public function processPost($request) {
-        $globalProductSubscriber = ZMLangUtils::asBoolean(ZMRequest::getParameter('product_global', 0));
+        $globalProductSubscriber = ZMLangUtils::asBoolean($request->getParameter('product_global', 0));
 
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
         $isGlobalUpdate = false;
         if ($globalProductSubscriber != $account->isGlobalProductSubscriber()) {
             $account->setGlobalProductSubscriber($globalProductSubscriber);
@@ -80,12 +80,12 @@ class ZMAccountNotificationsController extends ZMController {
         if (!$isGlobalUpdate) {
             // if global update is on, products are not listed in the form,
             // therefore, they would all be removed if updated!
-            $subscribedProducts = ZMRequest::getParameter('notify', array());
+            $subscribedProducts = $request->getParameter('notify', array());
             $account = ZMAccounts::instance()->setSubscribedProductIds($account, $subscribedProducts);
         }
 
         ZMMessages::instance()->success(zm_l10n_get('Your product subscriptions have been updated.'));
-        return $this->findView('success', array('zm_account' => ZMRequest::getAccount()));
+        return $this->findView('success', array('zm_account' => $request->getAccount()));
     }
 
 }

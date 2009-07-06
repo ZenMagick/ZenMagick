@@ -57,18 +57,23 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
     /**
      * Get all available shipping methods.
      *
-     * <p>Parameters may be either an <code>addressId</code> (only accepted if owned by the current user),
-     * or any property of an address (<em>countryId, zoneId, postcode, etc.</em>).</p>
+     * <p>Request parameter (either or):</p>
+     * <ul>
+     *  <li>addressId - A valid address id (only accepted if owned by the current user)</li>
+     *  <li>Any address proerty (<em>countryId, zoneId, postcode, etc.</em>)</li>
+     * </ul>
+     *
+     * @param ZMRequest request The current request.
      */
-    public function getShippingMethodsJSON() {
+    public function getShippingMethodsJSON($request) {
         // try to set up an address using request information
         $address = null;
-        if (null !== ($addressId = ZMRequest::getParameter('addressId'))) {
-            $address = ZMAddresses::instance()->getAddressForId($addressId, ZMRequest::getAccountId());
+        if (null !== ($addressId = $request->getParameter('addressId'))) {
+            $address = ZMAddresses::instance()->getAddressForId($addressId, $request->getAccountId());
         } else {
             $data = array();
             foreach (array('countryId', 'zoneId', 'state', 'suburb', 'postcode', 'city') as $property) {
-                if (null !== ($value = ZMRequest::getParameter($property))) {
+                if (null !== ($value = $request->getParameter($property))) {
                     $data[$property] = $value;
                 }
             }
@@ -78,7 +83,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
         }
 
         if (null == $address) {
-        	$address = ZMRequest::getShoppingCart()->getShippingAddress();
+        	$address = $request->getShoppingCart()->getShippingAddress();
         }
 
         $shippingMethods = array();
