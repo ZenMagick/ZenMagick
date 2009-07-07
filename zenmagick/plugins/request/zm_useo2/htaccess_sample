@@ -8,8 +8,8 @@ RewriteBase /
 
 # From Ultimate SEO URLs
 RewriteRule ^(.*)-p-(.*).html$ index\.php?main_page=product_info&products_id=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-c-(.*).html$ index\.php?main_page=index&cPath=$2&%{QUERY_STRING} [L]
-RewriteRule ^(.*)-m-([0-9]+).html$ index\.php?main_page=index&manufacturers_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-c-(.*).html$ index\.php?main_page=category&cPath=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-m-([0-9]+).html$ index\.php?main_page=category&manufacturers_id=$2&%{QUERY_STRING} [L]
 RewriteRule ^(.*)-pi-([0-9]+).html$ index\.php?main_page=popup_image&pID=$2&%{QUERY_STRING} [L]
 RewriteRule ^(.*)-pr-([0-9]+).html$ index\.php?main_page=product_reviews&products_id=$2&%{QUERY_STRING} [L]
 RewriteRule ^(.*)-pri-([0-9]+).html$ index\.php?main_page=product_reviews_info&products_id=$2&%{QUERY_STRING} [L]

@@ -37,6 +37,9 @@ Release 0.9.7
 - introduce proper request instance in top levels of request processing and
   also templates
 - move session token validation from validator to controller
+- zm_seo2: change htaccess_samle - use main_page=categroy rather than
+  main_page=index to display category/manufacturer data; this is required as
+  using index will result in an ugly endless loop using ZMForwardView
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
