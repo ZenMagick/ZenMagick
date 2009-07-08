@@ -24,9 +24,7 @@
 /**
  * Abstract base class for plugins.
  *
- * <p>Plugins are a simple way to add custom code to ZenMagick. In addition,
- * the <code>init()</code> method provides an easy way to also execute custom
- * code on each request.</p>
+ * <p>Plugins are a simple way to add custom code to ZenMagick.</p>
  *
  * <p>This base class comes with the following defaults:</p>
  * <dl>
@@ -229,7 +227,7 @@ abstract class ZMPlugin extends ZMObject {
     /**
      * Get this plugin's loader policy.
      *
-     * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requests.</p>
+     * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requires.</p>
      * <p>It also affects the code included in <code>core.php</code>. Valid values are:</p>
      * <dl>
      *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>

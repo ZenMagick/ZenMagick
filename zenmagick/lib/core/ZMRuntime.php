@@ -54,7 +54,7 @@ class ZMRuntime extends ZMObject {
      *  <dt>database</dt>
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
-     *  <dd>The requested implementation class; if omotted, this defaults to
+     *  <dd>The requested implementation class; if omitted, this defaults to
      *   <code>ZMSettings::get('zenmagick.core.database.provider')</code>.</dd>
      *  <dt>initQuery</dt>
      *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
