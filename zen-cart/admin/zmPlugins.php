@@ -29,11 +29,11 @@ define('GZIP_LEVEL', 0);
 ob_start(); require 'sqlpatch.php'; ob_end_clean();
 require_once 'includes/application_top.php';
 
-    $install = ZMRequest::getParameter('install');
-    $remove = ZMRequest::getParameter('remove');
-    $edit = ZMRequest::getParameter('edit');
-    $group = ZMRequest::getParameter('group');
-    $select = ZMRequest::getParameter('select');
+    $install = ZMRequest::instance()->getParameter('install');
+    $remove = ZMRequest::instance()->getParameter('remove');
+    $edit = ZMRequest::instance()->getParameter('edit');
+    $group = ZMRequest::instance()->getParameter('group');
+    $select = ZMRequest::instance()->getParameter('select');
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
@@ -59,9 +59,9 @@ require_once 'includes/application_top.php';
     }
 
     // update
-    if ('POST' == ZMRequest::getMethod() && null !== ($pluginId = ZMRequest::getParameter('pluginId'))) {
+    if ('POST' == ZMRequest::instance()->getMethod() && null !== ($pluginId = ZMRequest::instance()->getParameter('pluginId'))) {
         $plugin = ZMPlugins::instance()->initPluginForId($pluginId);
-        $data = ZMRequest::getParameter('configuration', array(), false);
+        $data = ZMRequest::instance()->getParameter('configuration', array(), false);
         $values = $plugin->getConfigValues();
         foreach ($values as $value) {
             /** XXX: need full name here, but without 'configuration[]' this time! */ 
@@ -80,7 +80,7 @@ require_once 'includes/application_top.php';
         if ($editPlugin) {
             $fragment = '#' . $editPlugin->getId();
         }
-        ZMRequest::redirect('zmPlugins.php'.'?select='.$refresh.$fragment);
+        ZMRequest::instance()->redirect('zmPlugins.php'.'?select='.$refresh.$fragment);
     }
 
     // build/update plugin status for all plugins

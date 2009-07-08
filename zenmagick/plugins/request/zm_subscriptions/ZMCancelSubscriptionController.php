@@ -60,7 +60,7 @@ class ZMCancelSubscriptionController extends ZMController {
             ZMMessages::instance()->error(zm_l10n_get("Insufficient permission"));
             return $this->findView();
         }
-        $orderId = ZMRequest::getOrderId();
+        $orderId = $request->getOrderId();
         $order = ZMOrders::instance()->getOrderForId($orderId);
         $account = $order->getAccount();
 

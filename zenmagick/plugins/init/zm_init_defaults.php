@@ -54,7 +54,7 @@ class zm_init_defaults extends Plugin {
     function init() {
         parent::init();
 
-        $parameter = ZMRequest::getParameterMap();
+        $parameter = ZMRequest::instance()->getParameterMap();
 
         /** sanitize common parameter **/
         if (isset($parameter['products_id'])) $parameter['products_id'] = preg_replace('/[^0-9a-f:]/', '', $parameter['products_id']);
@@ -67,7 +67,7 @@ class zm_init_defaults extends Plugin {
 
         if (!isset($parameter[ZM_PAGE_KEY]) || empty($parameter[ZM_PAGE_KEY])) $parameter[ZM_PAGE_KEY] = 'index';
 
-        ZMRequest::setParameterMap($parameter);
+        ZMRequest::instance()->setParameterMap($parameter);
     }
 
 }

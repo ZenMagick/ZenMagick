@@ -46,7 +46,7 @@ class ZMFunctionProxy {
             'ZMRuntime' => new ZMRuntime(),
 
             // managed by ZMRequest
-            'ZMShoppingCart' => ZMRequest::getShoppingCart(),
+            'ZMShoppingCart' => ZMRequest::instance()->getShoppingCart(),
 
             'ZMLoader' => ZMLoader::instance(),
             'ZMTemplateManager' => ZMTemplateManager::instance(),

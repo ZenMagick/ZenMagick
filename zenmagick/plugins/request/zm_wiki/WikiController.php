@@ -59,7 +59,7 @@ class WikiController extends ZMController {
 
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
-        $page = ZMRequest::getParameter('page', 'WikiRoot');
+        $page = $request->getParameter('page', 'WikiRoot');
         $page = str_replace('_', ' ', $page);
         // capitalise words
         $page = ucwords($page);
@@ -81,7 +81,7 @@ class WikiController extends ZMController {
 
         ZMCrumbtrail::instance()->clear();
         ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
-        $page = ZMRequest::getParameter('page', 'WikiRoot');
+        $page = $request->getParameter('page', 'WikiRoot');
         ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
 
         return ZMLoader::make("PluginView", zm_view_wiki_edit, $plugin);

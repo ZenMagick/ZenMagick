@@ -32,15 +32,15 @@
      */
     function zm_master_password_admin() {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_master_password');
-        if ('POST' == ZMRequest::getMethod()) {
-            $values = ZMRequest::getParameter('configuration', array());
+        if ('POST' == ZMRequest::instance()->getMethod()) {
+            $values = ZMRequest::instance()->getParameter('configuration', array());
             $masterPassword = $values['MASTERPASSWORD'];
             // allow to reset to blank
             if (!empty($masterPassword)) {
                 $masterPassword = ZMAuthenticationManager::instance()->getDefaultProvider()->encryptPassword($masterPassword);
             }
             $plugin->set('masterPassword', $masterPassword);
-            ZMRequest::redirect(zm_plugin_admin_url());
+            ZMRequest::instance()->redirect(zm_plugin_admin_url());
         }
 
         //TODO: custom form; either single field to set or old, new, confirm to change

@@ -46,7 +46,7 @@
     function zm_wiki_admin() {
         // create contents into output buffer
         ob_start();
-        if (ZMRequest::isAdmin()) {
+        if (ZMRequest::instance()->isAdmin()) {
             echo '<a href="'.zm_plugin_admin_url('zm_wiki_admin', 'page=WikiRoot', false).'">WikiRoot</a>';
             echo '&nbsp;<a href="'.zm_plugin_admin_url('zm_wiki_admin', 'page=PageList', false).'">PageList</a>';
             echo '<hr>';
@@ -71,7 +71,7 @@
      */
     function zm_wiki_is_page_cacheable() {
         $lastPageCacheStrategy = ZMSettings::get('plugins.zm_wiki.last-page-caching-strategy');
-        return 'wiki' == ZMRequest::getRequestId() ? false : $lastPageCacheStrategy();
+        return 'wiki' == ZMRequest::instance()->getRequestId() ? false : $lastPageCacheStrategy();
     }
 
 
@@ -82,7 +82,7 @@
      */
     function zm_view_wiki() {
         $mode = getMode();
-        if (!ZMRequest::isAdmin()) {
+        if (!ZMRequest::instance()->isAdmin()) {
             $mode = 'display';
         }
 
@@ -103,12 +103,12 @@
             $canEdit = true;
             break;
         case 'REGISTERED':
-            if (ZMRequest::isRegistered()) {
+            if (ZMRequest::instance()->isRegistered()) {
                 $canEdit = true;
             }
             break;
         case 'ADMIN':
-            if (ZMRequest::isAdmin()) {
+            if (ZMRequest::instance()->isAdmin()) {
                 $canEdit = true;
             }
             break;
@@ -128,7 +128,7 @@
     global $pawfaliki_config;
 
         $mode = getMode();
-        if (!ZMRequest::isAdmin() && !ZMLangUtils::inArray($mode, 'edit,save,cancel')) {
+        if (!ZMRequest::instance()->isAdmin() && !ZMLangUtils::inArray($mode, 'edit,save,cancel')) {
             $mode = '';
         }
 

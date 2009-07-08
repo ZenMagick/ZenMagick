@@ -121,7 +121,7 @@ class ZMPayments extends ZMObject {
             return $paymentType;
         }
         //XXX: doh!
-        if ('checkout_confirmation' == ZMRequest::getRequestId()) {
+        if ('checkout_confirmation' == ZMRequest::instance()->getRequestId()) {
             $confirmation = $zenModule->confirmation();
         }
 

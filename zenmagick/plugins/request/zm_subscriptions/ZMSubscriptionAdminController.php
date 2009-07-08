@@ -57,7 +57,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $context = array();
 
         // process...
-        $canceled = ZMLangUtils::asBoolean(ZMRequest::getParameter('canceled', false));
+        $canceled = ZMLangUtils::asBoolean($request->getParameter('canceled', false));
         // get all subscription orders
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
@@ -73,7 +73,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orderIds);
         $resultList = ZMLoader::make('ResultList');
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber(ZMRequest::getPageIndex());
+        $resultList->setPageNumber($request->getPageIndex());
 
         $context['zm_resultList'] = $resultList;
 
@@ -86,8 +86,8 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
      */
     public function processPost($request) {
         $page = self::processGet($request);
-        $orderId = ZMRequest::getOrderId();
-        $cancel = ZMRequest::getParameter('cancel');
+        $orderId = $request->getOrderId();
+        $cancel = $request->getParameter('cancel');
         if (0 != $orderId && 'cancel' == $cancel) {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET is_subscription_canceled = :subscriptionCanceled

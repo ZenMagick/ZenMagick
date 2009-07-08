@@ -121,13 +121,13 @@ class ZMSacsMapper extends ZMObject {
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
             //TODO: group check
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             if (!$session->isValid()) {
                 // no valid session
-                ZMRequest::redirect(ZMToolbox::instance()->net->url(ZMSettings::get('invalidSessionPage'), '', false, false));
+                ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(ZMSettings::get('invalidSessionPage'), '', false, false));
             }
             $session->markRequestAsLoginFollowUp();
-            ZMRequest::redirect(ZMToolbox::instance()->net->url('login', '', true, false));
+            ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url('login', '', true, false));
         }
     }
 
@@ -141,8 +141,8 @@ class ZMSacsMapper extends ZMObject {
      */
     public function ensureAccessMethod($page) {
         $secure = $this->getMappingValue($page, 'level', false);
-        if ($secure && !ZMRequest::isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
-            ZMRequest::redirect(ZMToolbox::instance()->net->url(null, null, true, false));
+        if ($secure && !ZMRequest::instance()->isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
+            ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, null, true, false));
         }
     }
 

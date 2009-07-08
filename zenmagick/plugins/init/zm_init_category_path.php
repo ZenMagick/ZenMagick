@@ -64,21 +64,21 @@ class zm_init_category_path extends Plugin {
     public function init() {
         parent::init();
 
-        if (0 != ($productId = ZMRequest::getProductId())) {
-            if (null == ZMRequest::getCategoryPath()) {
+        if (0 != ($productId = ZMRequest::instance()->getProductId())) {
+            if (null == ZMRequest::instance()->getCategoryPath()) {
                 // set default based on product default category
                 if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
                     $defaultCategory = $product->getDefaultCategory();
                     if (null != $defaultCategory) {
-                        ZMRequest::setCategoryPathArray($defaultCategory->getPathArray());
+                        ZMRequest::instance()->setCategoryPathArray($defaultCategory->getPathArray());
                     }
                 }
             }
         }
 
         if (ZMLangUtils::asBoolean($this->get('verifyPath'))) {
-            if (null != ZMRequest::getCategoryPath()) {
-                $path = array_reverse(ZMRequest::getCategoryPathArray());
+            if (null != ZMRequest::instance()->getCategoryPath()) {
+                $path = array_reverse(ZMRequest::instance()->getCategoryPathArray());
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
@@ -100,8 +100,8 @@ class zm_init_category_path extends Plugin {
                     }
                 }
                 if (!$valid) {
-                    $category = ZMCategories::instance()->getCategoryForId(array_pop(ZMRequest::getCategoryPathArray()));
-                    ZMRequest::setCategoryPathArray($category->getPathArray());
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop(ZMRequest::instance()->getCategoryPathArray()));
+                    ZMRequest::instance()->setCategoryPathArray($category->getPathArray());
                 }
             }
         }

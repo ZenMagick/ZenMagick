@@ -25,7 +25,7 @@
 ?><?php
 require_once 'includes/application_top.php';
 
-  $fkt = ZMRequest::getParameter('fkt');
+  $fkt = ZMRequest::instance()->getParameter('fkt');
   // try to resolve plugin page controller
   ZMLoader::resolve($fkt);
   if (class_exists($fkt)) {

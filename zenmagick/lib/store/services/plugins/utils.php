@@ -36,7 +36,7 @@
      */
     function zm_plugin_admin_url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
         if (null == $function) {
-            $function = ZMRequest::getParameter('fkt');
+            $function = ZMRequest::instance()->getParameter('fkt');
         }
         $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, 'SSL');
 
@@ -68,7 +68,7 @@
      */
     function zm_plugin_url($target, $params='', $echo=ZM_ECHO_DEFAULT) {
         $target = explode(';', $target);
-        if (ZMRequest::isAdmin()) {
+        if (ZMRequest::instance()->isAdmin()) {
             return zm_plugin_admin_url($target[1], $params, $echo);
         } else {
             return ZMToolbox::instance()->net->url($target[0], $params, false, $echo);

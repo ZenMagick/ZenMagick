@@ -55,7 +55,7 @@ class ZMFormHandlerController extends ZMController {
      */
     protected function createModel() {
         $request = new ZMObject();
-        foreach (ZMRequest::getParameterMap() as $name => $value) {
+        foreach (ZMRequest::instance()->getParameterMap() as $name => $value) {
             $request->set($name, $value);
         }
 
@@ -91,7 +91,7 @@ class ZMFormHandlerController extends ZMController {
         if (empty($emailTemplate)) {
             $emailTemplate = $this->getId();
         }
-        $this->sendNotificationEmail(ZMRequest::getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
+        $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 
         return $this->findView('success', $data);

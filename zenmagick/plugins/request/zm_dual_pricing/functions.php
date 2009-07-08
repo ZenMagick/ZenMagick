@@ -32,7 +32,7 @@
      */
     function zm_dp_get_level($account=null) {
         if (null == $account) {
-            $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
+            $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
         }
         $level = null;
         if (null != $account) {

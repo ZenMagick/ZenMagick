@@ -34,21 +34,21 @@
     function zm_category_admin() {
     global $zm_nav_params;
 
-        if (null != ZMRequest::getParameter('update') && 'zm_category_admin' == ZMRequest::getParameter('fkt')) {
+        if (null != ZMRequest::instance()->getParameter('update') && 'zm_category_admin' == ZMRequest::instance()->getParameter('fkt')) {
             // load from db to start with
-            $languageId = ZMRequest::getParameter('languageId', Runtime::getLanguage()->getId());
-            $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId(), $languageId);
-            $category->setActive(ZMRequest::getParameter('status'), false);
-            $category->setName(ZMRequest::getParameter('categoryName'));
-            $category->setDescription(ZMRequest::getParameter('categoryDescription', '', false));
-            $imageName = ZMRequest::getParameter('imageName');
+            $languageId = ZMRequest::instance()->getParameter('languageId', Runtime::getLanguage()->getId());
+            $category = ZMCategories::instance()->getCategoryForId(ZMRequest::instance()->getCategoryId(), $languageId);
+            $category->setActive(ZMRequest::instance()->getParameter('status'), false);
+            $category->setName(ZMRequest::instance()->getParameter('categoryName'));
+            $category->setDescription(ZMRequest::instance()->getParameter('categoryDescription', '', false));
+            $imageName = ZMRequest::instance()->getParameter('imageName');
             if (!empty($imageName)) {
                 $category->setImage($imageName);
             }
-            if (ZMRequest::getParameter('imageDelete')) {
+            if (ZMRequest::instance()->getParameter('imageDelete')) {
                 $category->setImage('');
             }
-            $category->setSortOrder(ZMRequest::getParameter('sortOrder'));
+            $category->setSortOrder(ZMRequest::instance()->getParameter('sortOrder'));
             ZMCategories::instance()->updateCategory($category);
             ZMMessages::instance()->success(zm_l10n_get('Category updated'));
         }

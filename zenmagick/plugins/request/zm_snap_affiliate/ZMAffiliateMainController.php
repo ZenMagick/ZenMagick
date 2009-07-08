@@ -53,7 +53,7 @@ class ZMAffiliateMainController extends ZMController {
     public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Affilite Overview");
 
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
 
         // check for existing referrer
         $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
@@ -78,13 +78,13 @@ class ZMAffiliateMainController extends ZMController {
         $activityEnd = mktime(23, 59, 59, $activityBegin['mon'] + 1, 0, $today['year']);
 
         // date range selected?
-        if (null != ($start = ZMRequest::getParameter('start'))) {
+        if (null != ($start = $request->getParameter('start'))) {
             $activityBegin = intval($start);
         }
         if ($activityBegin > time()) {
             $activityNegin = time();
         }
-        if (null != ($end = ZMRequest::getParameter('end'))) {
+        if (null != ($end = $request->getParameter('end'))) {
             $activityEnd = intval($end);
         }
 

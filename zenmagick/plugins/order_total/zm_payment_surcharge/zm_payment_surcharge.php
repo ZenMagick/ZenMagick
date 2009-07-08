@@ -78,7 +78,7 @@ class zm_payment_surcharge extends ZMOrderTotalPlugin {
                             if (isset($payment->$name)) {
                                 $cvalue = $payment->$name;
                             } else {
-                                $cvalue = ZMRequest::getParameter($name, null);
+                                $cvalue = ZMRequest::instance()->getParameter($name, null);
                             }
                             if (null !== $cvalue) {
                                 break;

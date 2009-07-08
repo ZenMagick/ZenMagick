@@ -136,7 +136,7 @@ class zm_google_analytics extends Plugin {
      * @return string The tracking code.
      */
     protected function getTrackerCodeUrchin() {
-        if (ZMRequest::isSecure()) {
+        if (ZMRequest::instance()->isSecure()) {
             $url = "https://ssl.google-analytics.com/urchin.js";
         } else {
             $url = "http://www.google-analytics.com/urchin.js";
@@ -176,7 +176,7 @@ class zm_google_analytics extends Plugin {
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeUrchin() {
-        if ('checkout_success' != ZMRequest::getRequestId()) {
+        if ('checkout_success' != ZMRequest::instance()->getRequestId()) {
             return '';
         }
         if (null == $this->order_) {
@@ -223,10 +223,10 @@ class zm_google_analytics extends Plugin {
         $view = '';
         if (ZMLangUtils::asBoolean($this->get('usePagename'))) {
             $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
-            $view = ZMRequest::getRequestId();
+            $view = ZMRequest::instance()->getRequestId();
             foreach ($args as $name) {
                 $attr = '[';
-                if (null != ($value = ZMRequest::getParameter($name))) {
+                if (null != ($value = ZMRequest::instance()->getParameter($name))) {
                     if ('[' != $attr) {
                         $attr .= ',';
                     }
@@ -271,7 +271,7 @@ EOT;
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeGa() {
-        if ('checkout_success' != ZMRequest::getRequestId()) {
+        if ('checkout_success' != ZMRequest::instance()->getRequestId()) {
             return '';
         }
         if (null == $this->order_) {
@@ -351,7 +351,7 @@ EOT;
 
     protected function getConversionCode() {
         $code = '';
-        if ('checkout_success' == ZMRequest::getRequestId()) {
+        if ('checkout_success' == ZMRequest::instance()->getRequestId()) {
             if (null == $this->order_) {
                 ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
                 return;
@@ -359,7 +359,7 @@ EOT;
 
             $conversionId = $this->get('conversionId');
             if (!empty($conversionId)) {
-                if (ZMRequest::isSecure()) {
+                if (ZMRequest::instance()->isSecure()) {
                     $baseUrl = "https://www.googleadservices.com/pagead";
                 } else {
                     $baseUrl = "http://www.googleadservices.com/pagead";

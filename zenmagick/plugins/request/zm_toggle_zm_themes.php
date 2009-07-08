@@ -56,8 +56,8 @@ class zm_toggle_zm_themes extends Plugin {
 
         $this->zcoSubscribe();
 
-        $session = ZMRequest::getSession();
-        if (null != ($themeToggle = ZMRequest::getParameter('themeToggle'))) {
+        $session = ZMRequest::instance()->getSession();
+        if (null != ($themeToggle = ZMRequest::instance()->getParameter('themeToggle'))) {
             $session->setValue(self::SESS_THEME_TOGGLE_KEY, $themeToggle);
         }
 
@@ -78,9 +78,9 @@ class zm_toggle_zm_themes extends Plugin {
         }
 
         $toggleValue = ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
-        $url = ZMToolbox::instance()->net->url(null, 'themeToggle='.$toggleValue, ZMRequest::isSecure(), false);
+        $url = ZMToolbox::instance()->net->url(null, 'themeToggle='.$toggleValue, ZMRequest::instance()->isSecure(), false);
         // special case for ZM_PAGE_KEY=category
-        if ('category' == ZMRequest::getRequestId()) {
+        if ('category' == ZMRequest::instance()->getRequestId()) {
             $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);
         }      
         $link = '<a href="'.$url.'">'.zm_l10n_get('Toggle ZenMagick theme support').'</a>';

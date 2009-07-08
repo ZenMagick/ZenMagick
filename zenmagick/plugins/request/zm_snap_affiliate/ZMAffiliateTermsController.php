@@ -53,9 +53,9 @@ class ZMAffiliateTermsController extends ZMController {
     public function handleRequest($request) {
         ZMCrumbtrail::instance()->addCrumb("Affilite Terms & Conditions");
 
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         if ($session->isRegistered()) {
-            $account = ZMRequest::getAccount();
+            $account = $request->getAccount();
 
             // check for existing referrer
             $sql = "SELECT * FROM ". TABLE_REFERRERS ." 

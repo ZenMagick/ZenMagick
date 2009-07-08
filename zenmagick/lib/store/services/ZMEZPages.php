@@ -64,7 +64,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPageForId($pageId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -86,7 +86,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPagesForChapterId($chapterId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -109,7 +109,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPagesForHeader($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -132,7 +132,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPagesForSidebar($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -155,7 +155,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPagesForFooter($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 

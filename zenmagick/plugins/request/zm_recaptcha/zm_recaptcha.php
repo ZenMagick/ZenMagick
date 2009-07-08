@@ -89,7 +89,7 @@ class zm_recaptcha extends Plugin {
      */
     public function onZMInitDone($args=null) {
         // check if we need to do anything for this request...
-        $page = ZMRequest::getRequestId();
+        $page = ZMRequest::instance()->getRequestId();
         if (true == $this->get($page) && isset($this->pageConfig_[$page])) { 
             $form = $this->pageConfig_[$page][1];
             // active for this page
@@ -150,7 +150,7 @@ class zm_recaptcha extends Plugin {
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
 function zm_recaptcha_validate($req) {
-    if (ZMLangUtils::isEmpty(ZMRequest::getParameter(ZM_RECAPTCHA_FIELD))) {
+    if (ZMLangUtils::isEmpty(ZMRequest::instance()->getParameter(ZM_RECAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

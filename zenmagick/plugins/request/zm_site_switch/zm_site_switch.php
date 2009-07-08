@@ -85,7 +85,7 @@ class zm_site_switch extends Plugin {
 
         $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
 
-        $hostname = ZMRequest::getHostname();
+        $hostname = ZMRequest::instance()->getHostname();
 
         if (isset($zm_server_names[$hostname])) {
             Runtime::setThemeId($zm_server_names[$hostname]);
@@ -114,7 +114,7 @@ class zm_site_switch extends Plugin {
         $sql = 'UPDATE '.TABLE_ORDERS.'
                 SET site_id = :siteId
                 WHERE orders_id = :orderId';
-        Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::getHostname()), TABLE_ORDERS);
+        Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::instance()->getHostname()), TABLE_ORDERS);
     }
 
     /**

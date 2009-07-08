@@ -103,7 +103,7 @@ class ot_zenmagick {
     public function process() {
     global $order;
 
-        $cart = ZMRequest::getShoppingCart();
+        $cart = ZMRequest::instance()->getShoppingCart();
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {
             if (null != ($details = $plugin->calculate($cart))) {

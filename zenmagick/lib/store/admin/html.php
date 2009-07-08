@@ -43,7 +43,7 @@
         $toolbox = ZMToolbox::instance();
         if ($root) { 
             ob_start(); 
-            $path = ZMRequest::getCategoryPathArray();
+            $path = ZMRequest::instance()->getCategoryPathArray();
             echo '
 <script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
 <script type="text/javascript"> $(document).ready(function() { 
@@ -102,14 +102,14 @@
         $resultList = null;
         $products = null;
 
-        if (null != ZMRequest::getCategoryPath()) {
-            $products = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
-        } else if (null != ZMRequest::getManufacturerId()) {
-            $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::getManufacturerId(), false);
+        if (null != ZMRequest::instance()->getCategoryPath()) {
+            $products = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::instance()->getCategoryId(), false);
+        } else if (null != ZMRequest::instance()->getManufacturerId()) {
+            $products = ZMProducts::instance()->getProductsForManufacturerId(ZMRequest::instance()->getManufacturerId(), false);
         }
         if (null != $products) {
             $resultList = ZMLoader::make("ResultList");
-            $resultList->setPageNumber(ZMRequest::getPageIndex());
+            $resultList->setPageNumber(ZMRequest::instance()->getPageIndex());
             $resultList->setPagination(16);
             $resultList->setResultSource(ZMLoader::make('ArrayResultSource', 'Product', $products));
             ob_start(); 

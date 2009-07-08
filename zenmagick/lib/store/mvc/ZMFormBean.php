@@ -96,7 +96,7 @@ class ZMFormBean extends ZMObject {
             $fields = $this->fields_;
         }
 
-        ZMBeanUtils::setAll($this, ZMRequest::getParameterMap(), $fields);
+        ZMBeanUtils::setAll($this, ZMRequest::instance()->getParameterMap(), $fields);
     }
 
 }

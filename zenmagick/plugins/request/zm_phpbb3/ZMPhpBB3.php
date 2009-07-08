@@ -112,7 +112,7 @@ class ZMPhpBB3 extends ZMObject {
      */
     public function vDuplicateChangedEmail($req) {
         // the current account
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
         if ($account->getEmail() != $req['email']) {
             // changed
             return $this->vDuplicateEmail($req);

@@ -95,7 +95,7 @@ class sample_plugin extends Plugin implements ZMRequestHandler {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if ('login' == ZMRequest::getRequestId()) {
+        if ('login' == ZMRequest::instance()->getRequestId()) {
             $args['contents'] = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 
@@ -114,12 +114,12 @@ class sample_plugin extends Plugin implements ZMRequestHandler {
 function sample_plugin_admin() {
 global $sample_plugin;
 
-    if ('POST' == ZMRequest::getMethod()) {
-        $values = ZMRequest::getParameter('configuration', array());
+    if ('POST' == ZMRequest::instance()->getMethod()) {
+        $values = ZMRequest::instance()->getParameter('configuration', array());
         foreach ($values as $name => $value) {
             $sample_plugin->set($name, $value);
         }
-        ZMRequest::redirect(zm_plugin_admin_url());
+        ZMRequest::instance()->redirect(zm_plugin_admin_url());
     }
 
     return zm_simple_config_form($sample_plugin, 'sample_plugin_admin', 'Sample Plugin Admin Page');

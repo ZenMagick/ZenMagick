@@ -52,11 +52,11 @@ class MultiQtyProductInfoController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productId = ZMRequest::getProductId();
+        $productId = $request->getProductId();
         // prepare attributes
-        $multiQtyId = ZMRequest::getParameter(MULTI_QUANTITY_ID);
+        $multiQtyId = $request->getParameter(MULTI_QUANTITY_ID);
         // id is the shared form field for all attributes
-        $attributes = ZMRequest::getParameter('id');
+        $attributes = $request->getParameter('id');
         $multiQty = $attributes[$multiQtyId];
         unset($attributes[$multiQtyId]);
 
@@ -66,7 +66,7 @@ class MultiQtyProductInfoController extends ZMController {
             if (!empty($qty) && 0 < $qty) {
                 $addedSome = true;
                 $attributes[$multiQtyId] = $id;
-                ZMRequest::getShoppingCart()->addProduct($productId, $qty, $attributes);
+                $request->getShoppingCart()->addProduct($productId, $qty, $attributes);
             }
         }
 

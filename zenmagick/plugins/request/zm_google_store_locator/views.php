@@ -70,12 +70,12 @@ EOT;
     function zm_store_locator_admin() {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_google_store_locator');
 
-        if ('POST' == ZMRequest::getMethod()) {
-            $values = ZMRequest::getParameter('configuration', array());
+        if ('POST' == ZMRequest::instance()->getMethod()) {
+            $values = ZMRequest::instance()->getParameter('configuration', array());
             foreach ($values as $name => $value) {
                 $plugin->set($name, $value);
             }
-            ZMRequest::redirect(zm_plugin_admin_url());
+            ZMRequest::instance()->redirect(zm_plugin_admin_url());
         }
 
         $adminKey = $plugin->get('adminKey');

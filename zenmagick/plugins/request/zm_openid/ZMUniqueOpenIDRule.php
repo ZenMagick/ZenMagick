@@ -62,7 +62,7 @@ class ZMUniqueOpenIDRule extends ZMRule {
         $openid = $req[$this->getName()];
         $idExists = null != $plugin->getAccountForOpenID($openid);
         // empty or doesn't exist or exists but same as current account (account update)
-        return empty($openid) || !$idExists || $openid == ZMRequest::getAccount()->get('openid');
+        return empty($openid) || !$idExists || $openid == ZMRequest::instance()->getAccount()->get('openid');
     }
 
 

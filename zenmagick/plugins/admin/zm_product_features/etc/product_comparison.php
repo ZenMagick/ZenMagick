@@ -67,6 +67,6 @@
     </tbody>
 </table>
 <?php $toolbox->form->open('category', '', false, array('method'=>'get')) ?>
-    <?php zm_hidden_list('compareId[]', ZMRequest::getParameter("compareId")) ?>
+    <?php zm_hidden_list('compareId[]', ZMRequest::instance()->getParameter("compareId")) ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Change Selection") ?>" /></div>
 </form>

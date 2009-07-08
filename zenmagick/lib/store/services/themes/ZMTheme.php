@@ -196,7 +196,7 @@ class ZMTheme extends ZMObject {
      */
     public function getStaticPageList($includeDefaults=false, $languageId=null) {
         if (null == $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -244,7 +244,7 @@ class ZMTheme extends ZMObject {
      */
     public function saveStaticPageContent($page, $contents, $languageId=null) {
         if (null == $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -287,7 +287,7 @@ class ZMTheme extends ZMObject {
         }
 
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);
@@ -322,7 +322,7 @@ class ZMTheme extends ZMObject {
      */
     public function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
         if (null == $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
         } else {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);

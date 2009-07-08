@@ -51,7 +51,7 @@ class ZMAffiliateSignupController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         if ($session->isRegistered()) {
             ZMCrumbtrail::instance()->addCrumb("Affiliates", ZMToolbox::instance()->net->url('affiliate', '', true, false));
         } else {
@@ -59,9 +59,9 @@ class ZMAffiliateSignupController extends ZMController {
         }
         ZMCrumbtrail::instance()->addCrumb("Signup");
 
-        $session = ZMRequest::getSession();
+        $session = $request->getSession();
         if ($session->isRegistered()) {
-            $account = ZMRequest::getAccount();
+            $account = $request->getAccount();
 
             // check for existing referrer
             $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
@@ -89,11 +89,11 @@ class ZMAffiliateSignupController extends ZMController {
      */
     public function processPost($request) {
         $plugin = $this->getPlugin();
-        $url = ZMRequest::getParameter('url');
+        $url = $request->getParameter('url');
         $key = $plugin->get('affiliatePrefix');
         $key .= ZMTools::random(32-strlen($key));
 	      $commission = $plugin->get('defaultCommission');
-        $account = ZMRequest::getAccount();
+        $account = $request->getAccount();
 
         $sql = "INSERT INTO " . TABLE_REFERRERS ."
 	                (referrer_customers_id, referrer_key, referrer_homepage, referrer_approved, referrer_banned, referrer_commission)

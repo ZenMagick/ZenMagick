@@ -251,7 +251,7 @@ class ZMCheckoutHelper extends ZMObject {
         if ($this->cart_->isEmpty()) {
             return "empty_cart";
         }
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
             $session->clear();
             return "login";

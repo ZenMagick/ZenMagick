@@ -110,8 +110,8 @@ class TestsController extends ZMController {
 
         $this->exportGlobal('all_tests', $allTests);
 
-        $testCases = ZMRequest::getParameter('testCases', array());
-        $tests = ZMRequest::getParameter('tests', array());
+        $testCases = $request->getParameter('testCases', array());
+        $tests = $request->getParameter('tests', array());
         // build testCases from tests as there might be tests selected, but not the testCase
         $testCaseMap = array();
         foreach ($tests as $id) {

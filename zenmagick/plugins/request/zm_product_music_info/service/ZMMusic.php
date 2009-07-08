@@ -55,7 +55,7 @@ class ZMMusic extends ZMObject {
      * @return Artist Artist information.
      */
     function getArtistForProductId($productId) {
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
 
         $db = Runtime::getDB();
         $sql = "select * from " . TABLE_PRODUCT_MUSIC_EXTRA . "

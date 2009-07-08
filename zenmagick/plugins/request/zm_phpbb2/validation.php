@@ -61,7 +61,7 @@
      */
     function _zmp_is_not_duplicate_nickname_changed($req) {
         // the current account
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
 
         if ($account->getNickName() != $req['nickName']) {
             // changed
@@ -80,7 +80,7 @@
      */
     function _zmp_is_not_duplicate_email_changed($req) {
         // the current account
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
 
         if ($account->getEmail() != $req['email']) {
             // changed

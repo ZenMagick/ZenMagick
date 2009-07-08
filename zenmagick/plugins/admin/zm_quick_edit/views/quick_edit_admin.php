@@ -45,8 +45,8 @@
         );
     }
 
-    if (null != ZMRequest::getParameter('submit')) {
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(ZMRequest::getCategoryId(), false);
+    if (null != ZMRequest::instance()->getParameter('submit')) {
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(ZMRequest::instance()->getCategoryId(), false);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();
@@ -54,8 +54,8 @@
             $_formData = array();
             foreach ($zm_quick_edit_field_list as $field) {
                 $fieldname = $field['field'].'_'.$productId;
-                $value = ZMRequest::getParameter($fieldname);
-                $_value = ZMRequest::getParameter('_'.$fieldname);
+                $value = ZMRequest::instance()->getParameter($fieldname);
+                $_value = ZMRequest::instance()->getParameter('_'.$fieldname);
                 if (null != $field['property']) {
                     $formData[$field['property']] = $value;
                     $_formData[$field['property']] = $_value;
@@ -86,7 +86,7 @@
         }
     }
 
-    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::getCategoryId(), false);
+    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::instance()->getCategoryId(), false);
 
     $lastIndex = count($zm_quick_edit_field_list) - 1;
 

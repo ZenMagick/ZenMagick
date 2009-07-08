@@ -41,9 +41,9 @@ class ZMToolboxUtils extends ZMObject {
      * @return string A reasonable page title.
      */
     public function getTitle($page=null, $echo=ZM_ECHO_DEFAULT) {
-        $title = null == $page ? ZMRequest::getRequestId() : $page;
+        $title = null == $page ? ZMRequest::instance()->getRequestId() : $page;
         // special case for static pages
-        $title = 'static' != $title ? $title : ZMRequest::getSubPageName();
+        $title = 'static' != $title ? $title : ZMRequest::instance()->getSubPageName();
 
         // format
         $title = str_replace('_', ' ', $title);
@@ -85,7 +85,7 @@ class ZMToolboxUtils extends ZMObject {
      * @return string The formatted amount.
      */
     public function formatMoney($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::instance()->getCurrencyCode());
         if (null == $currency) {
             ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
             $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));

@@ -102,7 +102,7 @@ class ZMToolboxForm extends ZMObject {
         parse_str($params, $hidden);
         // set best ZM_PAGE_KEY value
         if (!isset($hidden[ZM_PAGE_KEY])) {
-            $page = null === $page ? ZMRequest::getRequestId() : $page;
+            $page = null === $page ? ZMRequest::instance()->getRequestId() : $page;
             if (null !== $page) {
                 $hidden[ZM_PAGE_KEY] = $page;
             }
@@ -110,7 +110,7 @@ class ZMToolboxForm extends ZMObject {
 
         // add session token if configured
         if ($hasId && 'post' == strtolower($attr['method']) && ZMLangUtils::inArray($attr['id'], ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
-            $hidden[ZMSession::TOKEN_NAME] = ZMRequest::getSession()->getToken();
+            $hidden[ZMSession::TOKEN_NAME] = ZMRequest::instance()->getSession()->getToken();
         }
 
         ob_start();

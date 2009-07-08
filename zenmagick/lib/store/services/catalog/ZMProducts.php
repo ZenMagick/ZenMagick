@@ -85,7 +85,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getAllProductsQueryDetails($active=true, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -112,7 +112,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getAllProducts($active=true, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -147,7 +147,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductIdsForCategoryId($categoryId, $active=true, $includeChildren=false, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -204,7 +204,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -246,7 +246,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -472,7 +472,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductForModel($model, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -503,7 +503,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductForId($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -537,7 +537,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -616,7 +616,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function updateViewCount($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 

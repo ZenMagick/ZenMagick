@@ -69,12 +69,12 @@ class ZMSettingsAdminController extends ZMPluginPageController {
         $page = self::processGet($request);
 
         $plugin = $this->getPlugin();
-        $action = ZMRequest::getParameter('action', '');
+        $action = $request->getParameter('action', '');
         if ('create' == $action) {
-            $title = ZMRequest::getParameter('title', '');
-            $key = ZMRequest::getParameter('key');
-            $value = ZMRequest::getParameter('value');
-            $type = ZMRequest::getParameter('type');
+            $title = $request->getParameter('title', '');
+            $key = $request->getParameter('key');
+            $value = $request->getParameter('value');
+            $type = $request->getParameter('type');
 
             if (!empty($key) && !empty($type)) {
                 $plugin->addConfigValue($title, $key, $value, '',
@@ -82,7 +82,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
             }
         } else if ('update' == $action) {
             $parameter = array();
-            foreach (ZMRequest::getParameterMap() as $name => $value) {
+            foreach ($request->getParameterMap() as $name => $value) {
                 // TODO:::: sanitized by zc
                 $lname = str_replace('_', '.', $name);
                 $parameter[$lname] = $value;

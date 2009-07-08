@@ -84,8 +84,8 @@ class zm_phpbb3 extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->page_ = ZMRequest::getRequestId();
-        $this->prePostAccount_ = ZMRequest::getAccount();
+        $this->page_ = ZMRequest::instance()->getRequestId();
+        $this->prePostAccount_ = ZMRequest::instance()->getAccount();
 
         // main define to get at things
         $phpBB3Dir = $this->get('phpBB3Dir');
@@ -187,10 +187,10 @@ class zm_phpbb3 extends Plugin {
      * @param array args Optional parameter ('view' => $view).
      */
     function onZMControllerProcessEnd($args) {
-        if ('POST' == ZMRequest::getMethod()) {
+        if ('POST' == ZMRequest::instance()->getMethod()) {
             $view = $args['view'];
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
+                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
                 }

@@ -41,20 +41,20 @@
 
         // request handling
         $groupPricingService = ZMLoader::make("ProductGroupPricingService");
-        if ('GET' == ZMRequest::getMethod()) {
-            $productId = ZMRequest::getProductId();
-            $groupId = ZMRequest::getParameter('groupId', 0);
+        if ('GET' == ZMRequest::instance()->getMethod()) {
+            $productId = ZMRequest::instance()->getProductId();
+            $groupId = ZMRequest::instance()->getParameter('groupId', 0);
             $productGroupPricing = $groupPricingService->getProductGroupPricing($productId, $groupId, false);
             if (null !== $productGroupPricing) {
                 // ugh: populate request for initial display
-                ZMRequest::setParameter('groupPricingId', $productGroupPricing->getId());
-                ZMRequest::setParameter('discount', $productGroupPricing->getDiscount());
-                ZMRequest::setParameter('type', $productGroupPricing->getType());
-                ZMRequest::setParameter('regularPriceOnly', $productGroupPricing->isRegularPriceOnly());
-                ZMRequest::setParameter('startDate', $productGroupPricing->getStartDate());
-                ZMRequest::setParameter('endDate', $productGroupPricing->getEndDate());
+                ZMRequest::instance()->setParameter('groupPricingId', $productGroupPricing->getId());
+                ZMRequest::instance()->setParameter('discount', $productGroupPricing->getDiscount());
+                ZMRequest::instance()->setParameter('type', $productGroupPricing->getType());
+                ZMRequest::instance()->setParameter('regularPriceOnly', $productGroupPricing->isRegularPriceOnly());
+                ZMRequest::instance()->setParameter('startDate', $productGroupPricing->getStartDate());
+                ZMRequest::instance()->setParameter('endDate', $productGroupPricing->getEndDate());
             }
-        } else if ('POST' == ZMRequest::getMethod()) {
+        } else if ('POST' == ZMRequest::instance()->getMethod()) {
             $productGroupPricing = ZMLoader::make("ProductGroupPricing");
             $productGroupPricing->populate();
             if (0 == $productGroupPricing->getId()) {
@@ -64,8 +64,8 @@
                 // update
                 $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
             }
-            $groupId = ZMRequest::getParameter('groupId', 0);
-            ZMRequest::redirect($toolbox->net->url('', $zm_nav_params.'&groupId='.$groupId, false, false));
+            $groupId = ZMRequest::instance()->getParameter('groupId', 0);
+            ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params.'&groupId='.$groupId, false, false));
         }
 
 

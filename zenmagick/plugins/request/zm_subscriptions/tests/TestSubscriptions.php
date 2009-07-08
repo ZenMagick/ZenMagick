@@ -48,7 +48,7 @@ class TestSubscriptions extends ZMTestCase {
         $plugin = $this->getPlugin();
 
         // fake subscription checkout
-        ZMRequest::getSession()->setValue('subscription_schedule', '1d');
+        ZMRequest::instance()->getSession()->setValue('subscription_schedule', '1d');
 
         $args = array('orderId' => 1);
         $plugin->onZMCreateOrder($args);

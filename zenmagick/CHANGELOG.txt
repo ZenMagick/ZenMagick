@@ -35,7 +35,8 @@ Release 0.9.7
   object again
 - implement ZMRequestHandler in sample_plugin
 - introduce proper request instance in top levels of request processing and
-  also templates
+  also templates; this requires to uninstall/install a couple plugins that
+	generate code that will break with these changes
 - move session token validation from validator to controller
 - zm_seo2: change htaccess_samle - use main_page=categroy rather than
   main_page=index to display category/manufacturer data; this is required as

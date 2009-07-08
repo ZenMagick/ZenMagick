@@ -74,7 +74,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     protected function getAllOrdersQueryDetails($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
         
@@ -108,7 +108,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderForId($orderId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
         
@@ -135,7 +135,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     protected function getOrdersForAccountIdQueryDetails($accountId, $limit=0, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
         
@@ -175,7 +175,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     protected function getOrdersForStatusIdQueryDetails($statusId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
         
@@ -213,7 +213,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderStatusHistoryForId($orderId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 

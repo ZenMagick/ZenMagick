@@ -73,8 +73,8 @@ class zm_auto_login extends Plugin {
 
         $this->zcoSubscribe();
 
-        $session = ZMRequest::getSession();
-        if ('GET' == ZMRequest::getMethod() && 'logoff' != ZMRequest::getRequestId() && $session->isAnonymous()) {
+        $session = ZMRequest::instance()->getSession();
+        if ('GET' == ZMRequest::instance()->getMethod() && 'logoff' != ZMRequest::instance()->getRequestId() && $session->isAnonymous()) {
             // try to login
             if (isset($_COOKIE[ZM_AUTO_LOGIN_COOKIE])) {
                 // prepare cookie data
@@ -95,7 +95,7 @@ class zm_auto_login extends Plugin {
 
                 if (null != $account) {
                     if ($session->registerAccount($account, $this)) {
-                        ZMRequest::redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::isSecure()));
+                        ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::instance()->isSecure()));
                     }
                 } else {
                     // remove cookie
@@ -146,10 +146,10 @@ class zm_auto_login extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMFinaliseContents($args=array()) {
-        $session = ZMRequest::getSession();
-        if ('GET' == ZMRequest::getMethod() && $session->isRegistered()) {
+        $session = ZMRequest::instance()->getSession();
+        if ('GET' == ZMRequest::instance()->getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
-                $this->onOptIn(ZMRequest::getAccount(), array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE));
+                $this->onOptIn(ZMRequest::instance()->getAccount(), array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE));
             }
         }
     }
@@ -160,7 +160,7 @@ class zm_auto_login extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMCreateAccount($args=array()) {
-        $this->onOptIn($args['account'], ZMRequest::getParameter(ZM_AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($args['account'], ZMRequest::instance()->getParameter(ZM_AUTO_LOGIN_OPT_IN));
     }
 
     /**
@@ -169,7 +169,7 @@ class zm_auto_login extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMLoginSuccess($args=array()) {
-        $this->onOptIn($args['account'], ZMRequest::getParameter(ZM_AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($args['account'], ZMRequest::instance()->getParameter(ZM_AUTO_LOGIN_OPT_IN));
     }
 
     /**

@@ -57,7 +57,7 @@
     ZMSettings::set('plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance; XXX: fix name
-    $request = ZMRequestN::instance();
+    $request = ZMRequest::instance();
 
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {

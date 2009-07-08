@@ -92,7 +92,7 @@ class ZMEventFixes extends ZMObject {
      * Simple function to check if we need zen-cart...
      */
     private function needsZC() {
-        $pageName = ZMRequest::getRequestId();
+        $pageName = ZMRequest::instance()->getRequestId();
         return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
@@ -167,17 +167,17 @@ class ZMEventFixes extends ZMObject {
      * Validate addresses for guest checkout.
      */
     public function onNotifyHeaderEndCheckoutShipping() {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = ZMRequest::instance()->getShoppingCart();
         // check for address
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         // if anonymous, we need to login/register first, so no point asking yet
         if (!$session->isAnonymous() && !$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
-            $account = ZMRequest::getAccount();
+            $account = ZMRequest::instance()->getAccount();
             if (0 < $account->getDefaultAddressId()) {
                 $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
             } else {
                 ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
-                ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
+                ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
             }
         }
     }
@@ -186,11 +186,11 @@ class ZMEventFixes extends ZMObject {
      * Validate addresses for guest checkout.
      */
     public function onNotifyHeaderStartCheckoutPayment() {
-        $shoppingCart = ZMRequest::getShoppingCart();
+        $shoppingCart = ZMRequest::instance()->getShoppingCart();
         // check for address
         if (!$shoppingCart->hasBillingAddress() && (!isset($_SESSION['customer_default_address_id']) || 0 == $_SESSION['customer_default_address_id'])) {
             ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
-            ZMRequest::redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
+            ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
         }
     }
 
@@ -213,7 +213,7 @@ class ZMEventFixes extends ZMObject {
         $template = $args['template'];
         $view = $args['view'];
 
-        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::getParameter('action')) {
+        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::instance()->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
@@ -228,8 +228,8 @@ class ZMEventFixes extends ZMObject {
                     $view->setVar('zm_coupon', $coupon);
                 }
 
-                $view->setVar('message', ZMRequest::getParameter('message', ''));
-                $view->setVar('htmlMessage', ZMRequest::getParameter('message_html', '', false));
+                $view->setVar('message', ZMRequest::instance()->getParameter('message', ''));
+                $view->setVar('htmlMessage', ZMRequest::instance()->getParameter('message_html', '', false));
             }
         }
 
@@ -254,8 +254,8 @@ class ZMEventFixes extends ZMObject {
             $view->setVar('comment', $comment);
 
             // from zc_fixes
-            if (null !== ZMRequest::getParameter("oID") && 'update_order' == ZMRequest::getParameter("action")) {
-                $orderId = ZMRequest::getParameter("oID");
+            if (null !== ZMRequest::instance()->getParameter("oID") && 'update_order' == ZMRequest::instance()->getParameter("action")) {
+                $orderId = ZMRequest::instance()->getParameter("oID");
                 $order = ZMOrders::instance()->getOrderForId($orderId);
                 $view->setVar('zm_order', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
@@ -264,7 +264,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('gv_queue' == $template) {
-            $queueId = ZMRequest::getParameter('gid');
+            $queueId = ZMRequest::instance()->getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
             $view->setVar('zm_couponQueue', $couponQueue);
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
@@ -274,7 +274,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('coupon' == $template) {
-            $couponId = ZMRequest::getParameter('cid');
+            $couponId = ZMRequest::instance()->getParameter('cid');
             $coupon = ZMCoupons::instance()->getCouponForId($couponId);
             $view->setVar('zm_coupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);

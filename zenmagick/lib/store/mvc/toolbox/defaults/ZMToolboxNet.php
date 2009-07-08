@@ -95,7 +95,7 @@ class ZMToolboxNet extends ZMObject {
 
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
-        //TODO:$session = ZMRequest::getSession();
+        //TODO:$session = ZMRequest::instance()->getSession();
         if ($addSessionId && ($session_started/* || $session->isValid()*/) && !ZMSettings::get('isForceCookieUse')) {
             if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
@@ -136,7 +136,7 @@ class ZMToolboxNet extends ZMObject {
     public function url($page=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
         // custom view and params handling
         if (null === $page || null === $params) {
-            $query = ZMRequest::getParameterMap();
+            $query = ZMRequest::instance()->getParameterMap();
             unset($query[ZM_PAGE_KEY]);
             unset($query[zen_session_name()]);
             if (null != $params) {
@@ -156,7 +156,7 @@ class ZMToolboxNet extends ZMObject {
         }
 
         // default to current view
-        $page = $page === null ? ZMRequest::getRequestId() : $page;
+        $page = $page === null ? ZMRequest::instance()->getRequestId() : $page;
         $href = null;
         // no SEO in admin
         // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
@@ -282,8 +282,8 @@ class ZMToolboxNet extends ZMObject {
      * @return string The absolute href.
      */
     public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
-        $host = (ZMRequest::isSecure() ? HTTPS_SERVER : HTTP_SERVER);
-        $context = (ZMRequest::isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+        $host = (ZMRequest::instance()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
+        $context = (ZMRequest::instance()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
         if (!ZMLangUtils::startsWith($href, '/')) {
             // make fully qualified
@@ -316,7 +316,7 @@ class ZMToolboxNet extends ZMObject {
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, ZMRequest::isSecure(), false));
+        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, ZMRequest::instance()->isSecure(), false));
 
         if ($echo) echo $url;
         return $url;
@@ -379,7 +379,7 @@ class ZMToolboxNet extends ZMObject {
             return null;
         }
 
-        $secure = null !== $secure ? $secure : ZMRequest::isSecure();
+        $secure = null !== $secure ? $secure : ZMRequest::instance()->isSecure();
         $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure, false);
 
         if ($echo) echo $url;
@@ -400,7 +400,7 @@ class ZMToolboxNet extends ZMObject {
             return null;
         }
 
-        $secure = null !== $secure ? $secure : ZMRequest::isSecure();
+        $secure = null !== $secure ? $secure : ZMRequest::instance()->isSecure();
         $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure, false);
 
         if ($echo) echo $url;

@@ -66,8 +66,8 @@ class zm_phpbb2 extends Plugin {
         parent::init();
     
         $this->phpBBEnabled_ = $phpBB->phpBB['installed'] == true;
-        $this->page_ = ZMRequest::getRequestId();
-        $this->prePostAccount_ = ZMRequest::getAccount();
+        $this->page_ = ZMRequest::instance()->getRequestId();
+        $this->prePostAccount_ = ZMRequest::instance()->getAccount();
 
         if (!$this->phpBBEnabled_) {
             // nothing to do
@@ -120,21 +120,21 @@ class zm_phpbb2 extends Plugin {
     function onZMControllerProcessEnd($args) {
     global $phpBB;
 
-        if ('POST' == ZMRequest::getMethod()) {
+        if ('POST' == ZMRequest::instance()->getMethod()) {
             $view = $args['view'];
 
             if ('create_account' == $this->page_ && 'success' == $view->getMappingId()) {
                 // account created
-                $email = ZMRequest::getParameter('email');
-                $password = ZMRequest::getParameter('password');
-                $nickName = ZMRequest::getParameter('nickName');
+                $email = ZMRequest::instance()->getParameter('email');
+                $password = ZMRequest::instance()->getParameter('password');
+                $nickName = ZMRequest::instance()->getParameter('nickName');
                 $phpBB->phpbb_create_account($nickName, $password, $email);
             }
 
             if ('account_password' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMRequest::getAccount();
+                $account = ZMRequest::instance()->getAccount();
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
-                    $newPassword = ZMRequest::getParameter('password_new');
+                    $newPassword = ZMRequest::instance()->getParameter('password_new');
                     $phpBB->phpbb_change_password($account->getNickName(), $newPassword);
                 }
             }
@@ -142,7 +142,7 @@ class zm_phpbb2 extends Plugin {
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = $this->prePostAccount_;
                 if (null != $account) {
-                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::getParameter('email'));
+                    $phpBB->phpbb_change_email($account->getEmail(), ZMRequest::instance()->getParameter('email'));
                 }
             }
         }

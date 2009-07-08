@@ -36,7 +36,7 @@ class ZMTestCase extends UnitTestCase {
      * {@inheritDoc}
      */
     public function setUp() {
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();

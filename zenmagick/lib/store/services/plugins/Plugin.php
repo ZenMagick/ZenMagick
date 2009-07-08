@@ -398,7 +398,7 @@ class Plugin extends ZMPlugin {
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
      */
     public function addMenuItem($id, $title, $function, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
-        if (ZMRequest::isAdmin()) {
+        if (ZMRequest::instance()->isAdmin()) {
             ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem", $menuKey, $id, $title, 'zmPluginPage.php', $function));
         }
     }

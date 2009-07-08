@@ -56,7 +56,7 @@ class Offers extends ZMOffers {
      * @return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
     private function getProductGroupPricing() {
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
         if (null == $account) {
             // no account, no price group
             return null;

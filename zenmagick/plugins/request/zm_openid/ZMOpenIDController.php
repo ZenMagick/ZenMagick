@@ -61,11 +61,11 @@ class ZMOpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $action = ZMRequest::getParameter('action');
+        $action = $request->getParameter('action');
         if ('finishAuth' == $action) {
             $info = $this->finishAuthentication($openid);
             if (null !== $info) {
-                $session = ZMRequest::getSession();
+                $session = $request->getSession();
                 if ($session->getValue('openid') == $info['openid']) {
                     $account = $this->plugin->getAccountForOpenID($info['openid']);
 
@@ -90,12 +90,12 @@ class ZMOpenIDController extends ZMController {
             return $this->findView('login');
         }
 
-        $action = ZMRequest::getParameter('action');
-        $openid = ZMRequest::getParameter('openid');
+        $action = $request->getParameter('action');
+        $openid = $request->getParameter('openid');
 
         $account = $this->plugin->getAccountForOpenID($openid);
         if (null != $account) {
-            $session = ZMRequest::getSession();
+            $session = $request->getSession();
             if ('initAuth' == $action && null != $openid) {
                 // save to compare with response
                 $session->setValue('openid', $openid);

@@ -1401,7 +1401,7 @@ if (!isset($PAWFALIKI_FUNCTIONS_ONLY))
         $pawfaliki_config['LOCALE']['HOMEPAGE_LINK'] = "[[WikiRoot]]"; // link to the homepage
         $pawfaliki_config['GENERAL']['ADMIN'] = ZMSettings::get('storeEmail');
         $pawfaliki_config['GENERAL']['CSS'] = '';
-        if (ZMRequest::isAdmin()) {
+        if (ZMRequest::instance()->isAdmin()) {
             $pawfaliki_config['GENERAL']['PAGES_DIRECTORY'] = "../wiki/files/";
             $pawfaliki_config['GENERAL']['TEMP_DIRECTORY'] = "../wiki/tmp/";
         } else {
@@ -1415,7 +1415,7 @@ if (!isset($PAWFALIKI_FUNCTIONS_ONLY))
         $pawfaliki_config['SYNTAX']['HTMLCODE'] = true; // Allows raw html using %% tags
 
         // BACKUP: Backup & Restore settings
-        $pawfaliki_config['BACKUP']['ENABLE'] = ZMRequest::isAdmin(); // Enable backup & restore
+        $pawfaliki_config['BACKUP']['ENABLE'] = ZMRequest::instance()->isAdmin(); // Enable backup & restore
 
         // RSS: RSS feed
         $pawfaliki_config['RSS']['ENABLE'] = false; // Enable rss support (http://mywiki.example?format=rss)

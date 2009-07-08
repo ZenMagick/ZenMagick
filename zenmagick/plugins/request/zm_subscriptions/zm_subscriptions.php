@@ -140,15 +140,15 @@ class zm_subscriptions extends Plugin {
      * Event handler to pick up subscription checkout options.
      */
     public function onZMInitDone($args=array()) {
-        if ('checkout_shipping' == ZMRequest::getRequestId() && 'POST' == ZMRequest::getMethod()) {
-            if (ZMLangUtils::asBoolean(ZMRequest::getParameter('subscription'))) {
-                ZMRequest::getSession()->setValue('subscription_schedule', ZMRequest::getParameter('schedule'));
+        if ('checkout_shipping' == ZMRequest::instance()->getRequestId() && 'POST' == ZMRequest::instance()->getMethod()) {
+            if (ZMLangUtils::asBoolean(ZMRequest::instance()->getParameter('subscription'))) {
+                ZMRequest::instance()->getSession()->setValue('subscription_schedule', ZMRequest::instance()->getParameter('schedule'));
             } else {
-                ZMRequest::getSession()->removeValue('subscription_schedule');
+                ZMRequest::instance()->getSession()->removeValue('subscription_schedule');
             }
         }
-        if ('checkout_success' == ZMRequest::getRequestId()) {
-            ZMRequest::getSession()->removeValue('subscription_schedule');
+        if ('checkout_success' == ZMRequest::instance()->getRequestId()) {
+            ZMRequest::instance()->getSession()->removeValue('subscription_schedule');
         }
     }
 
@@ -177,7 +177,7 @@ class zm_subscriptions extends Plugin {
      * @return string The subscription schedule key or <code>null</code>.
      */
     public function getSelectedSchedule() {
-        $schedule = ZMRequest::getSession()->getValue('subscription_schedule');
+        $schedule = ZMRequest::instance()->getSession()->getValue('subscription_schedule');
         return empty($schedule) ? null : $schedule;
     }
 

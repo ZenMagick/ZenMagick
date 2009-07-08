@@ -260,7 +260,7 @@
      * @deprecated Use ZMRequest instead
      */
     function zm_redirect($url) {
-        ZMRequest::redirect($url);
+        ZMRequest::instance()->redirect($url);
     }
 
 ?>

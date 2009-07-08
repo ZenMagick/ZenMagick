@@ -34,18 +34,18 @@ require 'includes/application_top.php';
   }
 
   // active fkt
-  $selectedFkt = ZMRequest::getParameter('fkt', '');
+  $selectedFkt = ZMRequest::instance()->getParameter('fkt', '');
   $zm_nav_params .= '&fkt='.$selectedFkt;
 
   $title = null;
-  if (0 < ZMRequest::getCategoryId()) {
-      $category = ZMCategories::instance()->getCategoryForId(ZMRequest::getCategoryId());
+  if (0 < ZMRequest::instance()->getCategoryId()) {
+      $category = ZMCategories::instance()->getCategoryForId(ZMRequest::instance()->getCategoryId());
       $title = $category->getName();
   }
-  if (0 < ZMRequest::getProductId()) {
-      $product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+  if (0 < ZMRequest::instance()->getProductId()) {
+      $product = ZMProducts::instance()->getProductForId(ZMRequest::instance()->getProductId());
       $title = $product->getName();
-      $zm_nav_params .= '&productId='.ZMRequest::getProductId();
+      $zm_nav_params .= '&productId='.ZMRequest::instance()->getProductId();
   } 
 
   // common nav params
@@ -54,7 +54,7 @@ require 'includes/application_top.php';
       $zm_nav_params .= '&productId='.$product->getId();
   }
   if (null != $category) {
-      $zm_nav_params .= '&cPath='.ZMRequest::getCategoryPath();
+      $zm_nav_params .= '&cPath='.ZMRequest::instance()->getCategoryPath();
   }
 
   // get available tabs...
@@ -121,7 +121,7 @@ require 'includes/application_top.php';
                   <?php 
                     if (function_exists($fkt)) {
                         // fake fkt request param to make URLs open the corresponding tab
-                        ZMRequest::setParameter('fkt', $fkt);
+                        ZMRequest::instance()->setParameter('fkt', $fkt);
                         ob_start();
                         $page = $fkt(); 
                         $contents = ob_get_clean();

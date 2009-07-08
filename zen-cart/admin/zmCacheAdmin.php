@@ -27,7 +27,7 @@
 require 'includes/application_top.php';
 
   $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) {
-      if ('x' == ZMRequest::getParameter('cache_'.++$ii)) {
+      if ('x' == ZMRequest::instance()->getParameter('cache_'.++$ii)) {
           $ok = $cacheInfo['instance']->clear();
           ZMMessages::instance()->add(zm_l10n_get('Clear page cache \'' . $cacheInfo['group'] . '\' ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');
       }

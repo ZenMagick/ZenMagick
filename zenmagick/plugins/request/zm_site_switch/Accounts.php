@@ -63,7 +63,7 @@ class Accounts extends ZMAccounts {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')
                 AND site_id = :siteId";
-        $args = array('email' => $emailAddress, 'siteId' => ZMRequest::getHostname());
+        $args = array('email' => $emailAddress, 'siteId' => ZMRequest::instance()->getHostname());
         return Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
     }
 
@@ -80,7 +80,7 @@ class Accounts extends ZMAccounts {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')
                 AND site_id = :siteId";
-        $args = array('email' => $emailAddress, 'siteId' => ZMRequest::getHostname());
+        $args = array('email' => $emailAddress, 'siteId' => ZMRequest::instance()->getHostname());
         $result = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS), ZMDatabase::MODEL_RAW);
         return 0 < $result['total'];
     }
@@ -89,7 +89,7 @@ class Accounts extends ZMAccounts {
      * {@inheritDoc}
      */
     public function createAccount($account) {
-        $account->set('siteId', ZMRequest::getHostname());
+        $account->set('siteId', ZMRequest::instance()->getHostname());
         return parent::createAccount($account);
     }
 

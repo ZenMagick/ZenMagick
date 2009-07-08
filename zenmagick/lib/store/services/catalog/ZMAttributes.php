@@ -64,7 +64,7 @@ class ZMAttributes extends ZMObject {
      */ 
     public function getAttributesForProduct($product, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 

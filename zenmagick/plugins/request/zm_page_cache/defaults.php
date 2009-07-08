@@ -42,10 +42,10 @@ define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,pag
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     function zm_page_cache_default_strategy() {
-        return 'POST' != ZMRequest::getMethod()
-          && ZMRequest::getShoppingCart()->isEmpty() 
+        return 'POST' != ZMRequest::instance()->getMethod()
+          && ZMRequest::instance()->getShoppingCart()->isEmpty() 
           && !ZMMessages::instance()->hasMessages()
-          && ZMLangUtils::inArray(ZMRequest::getRequestId(), ZMSettings::get('plugins.zm_page_cache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
+          && ZMLangUtils::inArray(ZMRequest::instance()->getRequestId(), ZMSettings::get('plugins.zm_page_cache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
 
 ?>

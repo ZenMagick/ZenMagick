@@ -36,12 +36,12 @@
 
     $zm_site_switch->checkPermissions();
 
-    if (null != ZMRequest::getParameter('save')) {
+    if (null != ZMRequest::instance()->getParameter('save')) {
         $zm_server_names = array();
-        foreach (ZMRequest::getParameterMap() as $name => $value) {
+        foreach (ZMRequest::instance()->getParameterMap() as $name => $value) {
             if (ZMLangUtils::startsWith($name, 'hostname_')) {
                 $index = str_replace('hostname_', '', $name);
-                $themeId = ZMRequest::getParameter('themeId_'.$index);
+                $themeId = ZMRequest::instance()->getParameter('themeId_'.$index);
                 if (!empty($name) && !empty($themeId)) {
                     $zm_server_names[$value] = $themeId;
                 }

@@ -59,11 +59,11 @@ class zm_scaffold extends Plugin {
                 // get configured pages and see if we need to do anything
                 switch (count($path)) {
                 case 3:
-                    ZMRequest::setParameter('key', $path[2]);
+                    ZMRequest::instance()->setParameter('key', $path[2]);
                 case 2:
-                    ZMRequest::setParameter('action', $path[1]);
+                    ZMRequest::instance()->setParameter('action', $path[1]);
                 case 1:
-                    ZMRequest::setParameter(ZM_PAGE_KEY, $path[0]);
+                    ZMRequest::instance()->setParameter(ZM_PAGE_KEY, $path[0]);
                     break;
                 }
 

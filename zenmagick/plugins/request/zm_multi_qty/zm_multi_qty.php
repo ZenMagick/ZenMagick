@@ -71,7 +71,7 @@ class zm_multi_qty extends Plugin {
      * Stop zen-cart processing multi qty requests.
      */
     function onZMInitDone($args) {
-        if (null != ZMRequest::getParameter(MULTI_QUANTITY_ID)) {
+        if (null != ZMRequest::instance()->getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi qty add, so leave it to the custom controller to do so
             unset($_GET['action']);
 
@@ -79,13 +79,13 @@ class zm_multi_qty extends Plugin {
             // create mapping for lookup
             ZMUrlMapper::instance()->setMappingInfo('product_info', array('controllerDefinition' => 'MultiQtyProductInfoController'));
             // tweak the main_page parameter as controller id is private!
-            ZMRequest::setParameter('main_page', 'multi_qty_product_info');
+            ZMRequest::instance()->setParameter('main_page', 'multi_qty_product_info');
 
             // add url mappings
             if (ZMSettings::get('isShowCartAfterAddProduct')) {
                 ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
             } else {
-                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView', 'parameter=products_id='.ZMRequest::getProductId()));
+                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView', 'parameter=products_id='.ZMRequest::instance()->getProductId()));
             }
         }
     }

@@ -44,7 +44,7 @@ class ZMController extends ZMObject {
         parent::__construct();
 
         // use as controller id
-        $this->id_ = null != $id ? $id : ZMRequest::getRequestId();
+        $this->id_ = null != $id ? $id : ZMRequest::instance()->getRequestId();
         $this->globals_ = array();
         $this->view_ = null;
         $this->formBean_ = null;
@@ -56,7 +56,7 @@ class ZMController extends ZMObject {
         }
 
         // some generic objects that should always be there
-        $this->exportGlobal('session', ZMRequest::getSession());
+        $this->exportGlobal('session', ZMRequest::instance()->getSession());
     }
 
     /**
@@ -169,7 +169,7 @@ class ZMController extends ZMObject {
      * @return boolean <code>true</code> if this is a form submit request.
      */
     public function isFormSubmit() {
-        return 'POST' == ZMRequest::getMethod();
+        return 'POST' == ZMRequest::instance()->getMethod();
     }
 
     /**
@@ -281,7 +281,7 @@ class ZMController extends ZMObject {
                 if ($this->formBean_ instanceof ZMFormBean) {
                     $this->formBean_->populate();
                 } else {
-                    ZMBeanUtils::setAll($this->formBean_, ZMRequest::getParameterMap());
+                    ZMBeanUtils::setAll($this->formBean_, ZMRequest::instance()->getParameterMap());
                 }
             }
         }
@@ -333,7 +333,7 @@ class ZMController extends ZMObject {
      */
     public function validate($id, $req=null) {
         if (null === $req) {
-            $req = ZMRequest::getParameterMap();
+            $req = ZMRequest::instance()->getParameterMap();
         }
 
         // TODO: add token secured form test

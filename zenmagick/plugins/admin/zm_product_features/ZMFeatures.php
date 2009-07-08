@@ -69,7 +69,7 @@ class ZMFeatures extends ZMObject {
         if (null != $this->features_)
             return;
 
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         $languageId = $session->getLanguageId();
 
         $db = Runtime::getDB();

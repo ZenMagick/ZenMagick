@@ -57,7 +57,7 @@ class zm_category_admin extends Plugin {
     function init() {
         parent::init();
 
-        $categoryId = ZMRequest::getCategoryId();
+        $categoryId = ZMRequest::instance()->getCategoryId();
         if (0 < $categoryId) {
             // only available if category involved
             $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);

@@ -80,7 +80,7 @@ class zm_wordpress extends Plugin {
     public function init() {
         parent::init();
 
-        $this->page_ = ZMRequest::getRequestId();
+        $this->page_ = ZMRequest::instance()->getRequestId();
 
         // main define to get at things
         $wordpressDir = $this->get('wordpressDir');
@@ -136,7 +136,7 @@ class zm_wordpress extends Plugin {
         // create single request handler
         $this->requestHandler_ = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getRequestId(), $wordpressEnabled))) {
+        if ($this->initWP() && (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::instance()->getRequestId(), $wordpressEnabled))) {
             // need to do this on all enabled pages, not just wp
             $this->requestHandler_->handleRequest($request);
             if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
@@ -181,7 +181,7 @@ class zm_wordpress extends Plugin {
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
 
-        if (FILENAME_WP == ZMRequest::getRequestId()) {
+        if (FILENAME_WP == ZMRequest::instance()->getRequestId()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
@@ -205,7 +205,7 @@ class zm_wordpress extends Plugin {
      */
     public function getGlobal() {
         $wordpressEnabled = $this->get('wordpressEnabled');
-        if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::getRequestId(), $wordpressEnabled)) {
+        if (empty($wordpressEnabled) || ZMLangUtils::inArray(ZMRequest::instance()->getRequestId(), $wordpressEnabled)) {
             if ($this->isPermalinksEnabled()) {
                 $path = Runtime::getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
@@ -298,10 +298,10 @@ class zm_wordpress extends Plugin {
      * @param array args Optional parameter ('view' => $view).
      */
     function onZMControllerProcessEnd($args) {
-        if ('POST' == ZMRequest::getMethod()) {
+        if ('POST' == ZMRequest::instance()->getMethod()) {
             $view = $args['view'];
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::getAccountId());
+                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
                 }

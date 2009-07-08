@@ -13,7 +13,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * {@inheritDoc}
      */
     public function skip() {
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
         $this->skipIf(null == $account || ZMSacsMapper::REGISTERED != $account->getType(), 'Need to be logged in for this test');
     }
 
@@ -24,7 +24,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * @return int An account id.
      */
     protected function getAccountId() {
-        return ZMRequest::getAccountId();
+        return ZMRequest::instance()->getAccountId();
     }
 
     /**

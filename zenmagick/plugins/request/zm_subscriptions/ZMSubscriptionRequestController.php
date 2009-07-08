@@ -55,9 +55,9 @@ class ZMSubscriptionRequestController extends ZMController {
      */
     protected function createModel() {
         $request = new ZMObject();
-        $request->set('type', ZMRequest::getParameter('type'));
-        $request->set('orderId', ZMRequest::getParameter('orderId'));
-        $request->set('message', ZMRequest::getParameter('message'));
+        $request->set('type', ZMRequest::instance()->getParameter('type'));
+        $request->set('orderId', ZMRequest::instance()->getParameter('orderId'));
+        $request->set('message', ZMRequest::instance()->getParameter('message'));
         $request->set('types', $this->getPlugin()->getRequestTypes());
 
         return $request;
@@ -81,7 +81,7 @@ class ZMSubscriptionRequestController extends ZMController {
 
         $plugin = $this->getPlugin();
         $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.request', ZM_TEMPLATE_SUBSCRIPTION_REQUEST_NOTIFICATION);
-        $this->sendNotificationEmail(ZMRequest::getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
+        $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
 
         ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
 

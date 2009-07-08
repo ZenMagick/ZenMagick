@@ -146,7 +146,7 @@ class ZMThemes extends ZMObject {
      */
     public function getZCThemeId($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -227,7 +227,7 @@ class ZMThemes extends ZMObject {
         ZMLoader::instance()->setParent($themeLoader);
 
         // init l10n/i18n
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         $language = $session->getLanguage();
         $theme->loadLocale($language);
 

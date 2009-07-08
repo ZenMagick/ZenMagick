@@ -56,8 +56,8 @@ class zm_theme_switch extends Plugin {
 
         $this->zcoSubscribe();
 
-        $session = ZMRequest::getSession();
-        if (null != ($themeId = ZMRequest::getParameter('themeId'))) {
+        $session = ZMRequest::instance()->getSession();
+        if (null != ($themeId = ZMRequest::instance()->getParameter('themeId'))) {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
         }
 
@@ -90,7 +90,7 @@ class zm_theme_switch extends Plugin {
                 if (!empty($links)) {
                     $links .= '&nbsp;|&nbsp;';
                 }
-                $links .= '<a href="'.ZMToolbox::instance()->net->url(null, 'themeId='.$details[0], ZMRequest::isSecure(), false).'">'.$details[1].'</a>';
+                $links .= '<a href="'.ZMToolbox::instance()->net->url(null, 'themeId='.$details[0], ZMRequest::instance()->isSecure(), false).'">'.$details[1].'</a>';
             }
         }
         if (!ZMLangUtils::isEmpty($links)) {

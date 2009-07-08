@@ -214,7 +214,7 @@ class ZMTools {
      * @return float The amount.
      */
     public static function parseMoney($money) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::instance()->getCurrencyCode());
         $amount = $currency->parse($money, false);
         return $amount;
     }
@@ -448,10 +448,10 @@ class ZMTools {
                 parse_str($url2, $query2);
             }
         } else {
-            parse_str(str_replace('&amp;', '&', ZMRequest::getQueryString()), $query2);
+            parse_str(str_replace('&amp;', '&', ZMRequest::instance()->getQueryString()), $query2);
         }
 
-        if (isset($url1Token) && null === $url2 && isset($url1Token['host']) && ZMRequest::getHostname() != $url1Token['host']) {
+        if (isset($url1Token) && null === $url2 && isset($url1Token['host']) && ZMRequest::instance()->getHostname() != $url1Token['host']) {
             return false;
         }
         if (isset($url1Token) && isset($url2Token) && isset($url1Token['host']) && isset($url2Token['host']) && $url1Token['host'] != $url2Token['host']) {

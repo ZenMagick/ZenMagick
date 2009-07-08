@@ -26,7 +26,7 @@
 <?php
     define('ZM_ADMIN_PAGE', true);
     require_once 'includes/application_top.php';
-    $zmPage = ZMRequest::getParameter('zmPage', 'index.php');
+    $zmPage = ZMRequest::instance()->getParameter('zmPage', 'index.php');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
        "http://www.w3.org/TR/html4/loose.dtd">

@@ -82,7 +82,7 @@ class ZMPluginPageController extends ZMObject {
         }
 
         $page = null;
-        switch (ZMRequest::getMethod()) {
+        switch ($request->getMethod()) {
             case 'GET':
                 $page = $this->processGet($request);
                 break;
@@ -90,7 +90,7 @@ class ZMPluginPageController extends ZMObject {
                 $page = $this->processPost($request);
                 break;
             default:
-                throw new ZMException('unsupported request method: ' . ZMRequest::getMethod());
+                throw new ZMException('unsupported request method: ' . $request->getMethod());
         }
 
         return $page;

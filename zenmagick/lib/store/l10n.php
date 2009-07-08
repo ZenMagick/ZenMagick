@@ -70,7 +70,7 @@
      * @return string A localized version based on the current language, or <code>null</code>.
      */
     function zm_l10n_chunk_get($name) {
-        $session = ZMRequest::getSession();
+        $session = ZMRequest::instance()->getSession();
         $language = $session->getLanguage();
 
         $file = $language->getDirectory().'/'.$name.'.txt';

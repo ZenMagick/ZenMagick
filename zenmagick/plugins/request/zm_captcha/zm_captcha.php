@@ -92,10 +92,10 @@ class zm_captcha extends Plugin {
      */
     public function onZMInitDone($args=null) {
         // check if we need to do anything for this request...
-        $page = ZMRequest::getRequestId();
+        $page = ZMRequest::instance()->getRequestId();
         if (array_key_exists($page, $this->pageConfig_)) {
             $this->captcha_ = new pcaptcha();
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $session->setValue('captcha_field', ZM_CAPTCHA_FIELD);
             $config = $this->pageConfig_[$page];
             if ('false' != $config[0]) {
@@ -161,7 +161,7 @@ class zm_captcha extends Plugin {
  */
 function zm_captcha_validate($req) {
 
-    if (ZMLangUtils::isEmpty(ZMRequest::getParameter(ZM_CAPTCHA_FIELD))) {
+    if (ZMLangUtils::isEmpty(ZMRequest::instance()->getParameter(ZM_CAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks
         return true;
     }

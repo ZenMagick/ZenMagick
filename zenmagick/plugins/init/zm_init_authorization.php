@@ -53,10 +53,10 @@ class zm_init_authorization extends Plugin {
     function init() {
         parent::init();
 
-        $account = ZMRequest::getAccount();
+        $account = ZMRequest::instance()->getAccount();
         if (null != $account && !ZMSettings::get('isAdmin') && ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
-            if (!in_array(ZMRequest::getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
-                ZMRequest::redirect(ZMToolbox::instance()->net->url(CUSTOMERS_AUTHORIZATION_FILENAME, '', false, false));
+            if (!in_array(ZMRequest::instance()->getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
+                ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(CUSTOMERS_AUTHORIZATION_FILENAME, '', false, false));
             }
         }
     }

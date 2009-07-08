@@ -164,7 +164,7 @@
      * @deprecated use ZMRequest instead
      */
     function zm_is_checkout_page($includeCart=true) {
-        return ZMRequest::isCheckout($includeCart);
+        return ZMRequest::instance()->isCheckout($includeCart);
     }
 
 ?>

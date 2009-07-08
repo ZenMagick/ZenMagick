@@ -77,7 +77,7 @@ class ZMCategories extends ZMObject {
      * @return ZMCategory The default category (or <code>null</code>).
      */
     public function getDefaultCategoryForProductId($productId, $languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
             $this->load($languageId);
@@ -104,7 +104,7 @@ class ZMCategories extends ZMObject {
      * @return array A list of <code>ZMCategory</code> instances.
      */
     public function getCategories($ids=null, $languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
             $this->categories_[$languageId] = array();
@@ -131,7 +131,7 @@ class ZMCategories extends ZMObject {
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
     public function getCategoryTree($languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
             $this->load($languageId);
@@ -158,7 +158,7 @@ class ZMCategories extends ZMObject {
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
     public function getCategoryForId($categoryId, $languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
             $this->load($languageId);
@@ -220,7 +220,7 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      */
     protected function load($languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
     //$check_categories = $db->Execute("select categories_id from " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCT_TYPES . " pt, " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " ptc where pt.type_master_type = 3 and ptc.product_type_id = pt.type_id and c.categories_id = ptc.category_id and c.categories_status=1 limit 1");
         //    $sql = "select product_type_id from " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " where category_id='" . (int)$lookup . "'";
@@ -247,7 +247,7 @@ class ZMCategories extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code>.
      */
     protected function buildTree($languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (array_key_exists($languageId, $this->categories_)) {
             foreach ($this->categories_[$languageId] as $id => $category) {

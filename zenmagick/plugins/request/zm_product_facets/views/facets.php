@@ -15,7 +15,7 @@
     function _req_parms($type, $ids, $FACET_TYPES) {
         $params = array();
         foreach ($FACET_TYPES as $ftype => $name) {
-            $params[$ftype] = ZMRequest::getParameter($ftype, array());
+            $params[$ftype] = ZMRequest::instance()->getParameter($ftype, array());
         }
         $merge = array();
         foreach ($params[$type] as $rid) {
@@ -48,7 +48,7 @@
 
     $query = array();
     foreach ($FACET_TYPES as $ftype => $name) {
-        if (null !== ($value = ZMRequest::getParameter($ftype))) {
+        if (null !== ($value = ZMRequest::instance()->getParameter($ftype))) {
             $query[$ftype] = $value;
         }
     }
@@ -64,7 +64,7 @@
      * none selected).
      * Also, it helps to have aggregated counts for a category sub-tree...
      */
-    $categories = ZMRequest::getParameter('categories');
+    $categories = ZMRequest::instance()->getParameter('categories');
     if (null === $categories) {
         $categories = array();
         foreach (ZMCategories::instance()->getCategoryTree() as $cat) {

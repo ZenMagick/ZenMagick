@@ -37,7 +37,7 @@
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
-        $view->setController(ZMRequest::getController());
+        $view->setController(ZMRequest::instance()->getController());
         return  $view->generate();
     }
 
@@ -101,7 +101,7 @@
         // use text format unless only HTML available
         $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
 
-        $controller = ZMRequest::getController();
+        $controller = ZMRequest::instance()->getController();
         $view->setController($controller);
         // event to allow additions to context (via the controller as we need an object to pass stuff back)
         ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller, 'view' => $view));

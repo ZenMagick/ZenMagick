@@ -158,8 +158,8 @@ class ZMShippingEstimator extends ZMObject {
     global $db, $order;
 
         // Only do when something is in the cart
-        if (!ZMRequest::getShoppingCart()->isEmpty()) {
-          if (ZMRequest::isRegistered()) {
+        if (!ZMRequest::instance()->getShoppingCart()->isEmpty()) {
+          if (ZMRequest::instance()->isRegistered()) {
               $sendto = $this->_getAddressId();
               $_SESSION['sendto'] = $sendto;
               // set session now
@@ -187,7 +187,7 @@ class ZMShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { return ZMRequest::getShoppingCart()->isEmpty(); }
+    function isCartEmpty() { return ZMRequest::instance()->getShoppingCart()->isEmpty(); }
 
     /**
      * Get current address (if any)

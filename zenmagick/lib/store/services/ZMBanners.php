@@ -102,7 +102,7 @@ class ZMBanners extends ZMObject {
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1";
 
-        if (ZMRequest::isSecure()) {
+        if (ZMRequest::instance()->isSecure()) {
             $sql .= " AND banners_on_ssl= :ssl";
         }
 
@@ -138,7 +138,7 @@ class ZMBanners extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1 AND banners_id = :id";
-        if (ZMRequest::isSecure()) {
+        if (ZMRequest::instance()->isSecure()) {
             $sql .= " AND banners_on_ssl= :ssl";
         }
 

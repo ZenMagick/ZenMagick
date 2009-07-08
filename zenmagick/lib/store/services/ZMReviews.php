@@ -64,7 +64,7 @@ class ZMReviews extends ZMObject {
      */
     public function getReviewCount($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -91,7 +91,7 @@ class ZMReviews extends ZMObject {
         $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
         
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -150,7 +150,7 @@ class ZMReviews extends ZMObject {
      */
     public function getAverageRatingForProductId($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -174,7 +174,7 @@ class ZMReviews extends ZMObject {
      */
     public function getReviewsForProductId($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -202,7 +202,7 @@ class ZMReviews extends ZMObject {
      */
     public function getAllReviews($languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -230,7 +230,7 @@ class ZMReviews extends ZMObject {
      */
     public function getReviewForId($reviewId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
@@ -271,7 +271,7 @@ class ZMReviews extends ZMObject {
      */
     public function createReview($review, $account, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::getSession();
+            $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
         }
 
