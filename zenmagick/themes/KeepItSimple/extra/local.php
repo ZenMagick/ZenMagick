@@ -1,7 +1,7 @@
 <?php
 
   ZMTemplateManager::instance()->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
-  if ('index' == $request->getRequestId()) {
+  if ('index' == ZMRequest::instance()->getRequestId()) {
       ZMTemplateManager::instance()->setLeftColBoxes(array('featured.php', 'reviews.php'));
   } else {
       ZMTemplateManager::instance()->setLeftColEnabled(false);

@@ -36,6 +36,15 @@
  * @version $Id: ZMEvents.php 2332 2009-06-26 04:05:17Z dermanomann $
  */
 class Events extends ZMEvents {
+    const DISPATCH_START = 'dispatch_start';
+    const DISPATCH_DONE = 'dispatch_done';
+    const VIEW_START = 'view_start';
+    const VIEW_DONE = 'view_done';
+    const CONTROLLER_PROCESS_START = 'controller_process_start';
+    const CONTROLLER_PROCESS_END = 'controller_process_end';
+    const ALL_DONE = 'all_done';
+    const FINALISE_CONTENTS = 'finalise_contents';
+
     const THEME_RESOLVED = 'theme_resolved';
     const CREATE_ACCOUNT = 'create_account';
     const LOGIN_SUCCESS = 'login_success';

@@ -34,15 +34,6 @@
 class ZMEvents extends ZMObject {
     const BOOTSTRAP_DONE = 'bootstrap_done';
     const INIT_DONE = 'init_done';
-    const DISPATCH_START = 'dispatch_start';
-    const DISPATCH_DONE = 'dispatch_done';
-    const VIEW_START = 'view_start';
-    const VIEW_DONE = 'view_done';
-    const CONTROLLER_PROCESS_START = 'controller_process_start';
-    const CONTROLLER_PROCESS_END = 'controller_process_end';
-    const THEME_RESOLVED = 'theme_resolved';
-    const ALL_DONE = 'all_done';
-    const FINALISE_CONTENTS = 'finalise_contents';
 
     protected $subscribers_;
     protected $eventLog_;

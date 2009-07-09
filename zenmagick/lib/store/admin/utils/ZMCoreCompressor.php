@@ -119,10 +119,13 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);
                         $relDir = dirname($fileBase).DIRECTORY_SEPARATOR;
-                        if ('./' == $relDir) {
+                        if ('.'.DIRECTORY_SEPARATOR == $relDir) {
                             $relDir = '';
                         }
-                        $source = file_get_contents($file);
+                        if (false === ($source = file_get_contents($file))) {
+                            ZMLogging::instance()->log('unable to read plugin source: '.$file, ZMLogging::WARN);
+                            continue;
+                        }
                         if (!empty($relDir)) {
                             ZMFileUtils::mkdir($pluginBase . $relDir);
                         }

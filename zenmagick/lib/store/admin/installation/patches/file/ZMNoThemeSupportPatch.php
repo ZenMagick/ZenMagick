@@ -104,7 +104,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes')) { \$_zm_args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('contents' => ob_get_clean())); echo \$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE); } /* added by ZenMagick installation patcher */";
+        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes')) { \$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean())); echo \$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE); } /* added by ZenMagick installation patcher */";
 
         if ((ZMSettings::get('isEnablePatching')) || $force) {
             if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {

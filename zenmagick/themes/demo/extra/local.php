@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    if (false && 'contact_us' == $request->getRequestId()) {
+    if (false && 'contact_us' == ZMRequest::instance()->getRequestId()) {
         Runtime::setThemeId(ZM_DEFAULT_THEME);
     }
 

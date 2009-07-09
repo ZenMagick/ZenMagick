@@ -84,7 +84,7 @@ class ZMController extends ZMObject {
             Runtime::getDatabase()->beginTransaction();
         }
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('request' => $request, 'controller' => $this));
+        ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_START, array('request' => $request, 'controller' => $this));
 
         // XXX: add $request to globals
         // move custom template objects into ZMEventFixes (also $session?)
@@ -143,7 +143,7 @@ class ZMController extends ZMObject {
             $this->view_ = $view;
         }
 
-        ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('request' => $request, 'controller' => $this, 'view' => $this->view_));
+        ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_END, array('request' => $request, 'controller' => $this, 'view' => $this->view_));
 
         if ($enableTransactions) {
             Runtime::getDatabase()->commit();

@@ -23,7 +23,6 @@
  * $Id$
  */
 ?>
-
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php $net->url(FILENAME_DEFAULT); ?>"><?php zm_l10n("HOME") ?></a></li>

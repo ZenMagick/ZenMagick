@@ -57,10 +57,10 @@ class ZMEventFixes extends ZMObject {
         if (!ZMsettings::get('isEnableZMThemes')) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
-                ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_START, array('controllerId' => $controllerId));
+                ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_START, array('controllerId' => $controllerId));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
-                ZMEvents::instance()->fireEvent($this, ZMEvents::CONTROLLER_PROCESS_END, array('controllerId' => $controllerId));
+                ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_END, array('controllerId' => $controllerId));
             }
         }
     }

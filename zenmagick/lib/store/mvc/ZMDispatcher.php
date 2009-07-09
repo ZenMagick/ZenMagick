@@ -38,15 +38,15 @@ class ZMDispatcher {
         // main request processor
         if (ZMSettings::get('isEnableZMThemes')) {
 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_START, array('request' => $request));
+            ZMEvents::instance()->fireEvent(null, Events::DISPATCH_START, array('request' => $request));
             self::handleRequest($request);
-            ZMEvents::instance()->fireEvent(null, ZMEvents::DISPATCH_DONE, array('request' => $request));
+            ZMEvents::instance()->fireEvent(null, Events::DISPATCH_DONE, array('request' => $request));
 
             // allow plugins and event subscribers to filter/modify the final contents
-            $args = ZMEvents::instance()->fireEvent(null, ZMEvents::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
+            $args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
             echo $args['contents'];
 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::ALL_DONE, array('request' => $request));
+            ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => $request));
         }
     }
 
@@ -71,14 +71,14 @@ class ZMDispatcher {
         // generate response
         if (null != $view) {
             header('Content-Type: '.$view->getContentType().'; charset='.$view->getEncoding());
-            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_START, array('request' => $request, 'view' => $view));
+            ZMEvents::instance()->fireEvent(null, Events::VIEW_START, array('request' => $request, 'view' => $view));
             try {
                 $view->generate($request);
             } catch (Exception $e) {
                 ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
                 //TODO: what to do?
             } 
-            ZMEvents::instance()->fireEvent(null, ZMEvents::VIEW_DONE, array('request' => $request, 'view' => $view));
+            ZMEvents::instance()->fireEvent(null, Events::VIEW_DONE, array('request' => $request, 'view' => $view));
         } else {
             ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }

@@ -144,7 +144,7 @@ class zm_page_stats extends Plugin {
                 echo '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
                 $eargs = is_array($event['args']) ? $event['args'] : array($event['args']);
-                if (ZMEvents::FINALISE_CONTENTS == $event['id']) {
+                if (Events::FINALISE_CONTENTS == $event['id']) {
                     $eargs['contents'] = '**response**';
                 }
                 $argsInfo = implode(',', $eargs);
