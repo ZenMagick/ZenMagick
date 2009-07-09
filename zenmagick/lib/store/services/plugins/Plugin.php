@@ -126,12 +126,11 @@ class Plugin extends ZMPlugin {
     }
 
     /**
-     * Support to access plugin config values by name.
+     * {@inheritDoc}
      *
-     * @param string name The property name.
-     * @return mixed The value or <code>null</code>.
+     * <p>Here, the <code>$default</code> parameter is always ingnored.</p>
      */
-    public function get($name) {
+    public function get($name, $default=null) {
         return $this->__get($name);
     }
 

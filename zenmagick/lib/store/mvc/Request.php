@@ -103,9 +103,9 @@ class Request extends ZMRequest {
         if (null == $this->shoppingCart_) {
         	// TODO: enable
         	if ($this->isAnonymous() || true) {
-                $this->shoppingCart_ = ZMLoader::make('ShoppingCart');
+              $this->shoppingCart_ = ZMLoader::make('ShoppingCart');
         	} else {
-        		$this->shoppingCart_ = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
+        		  $this->shoppingCart_ = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
         	}
         }
 
@@ -301,6 +301,18 @@ class Request extends ZMRequest {
             $base = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
         }
         return $base;
+    }
+
+    /**
+     * Checks, if the current page is a checkout page.
+     * 
+     * @package org.zenmagick.misc
+     * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
+     * @return boolean <code>true</code> if the current page is a checkout page.
+     */
+    public function isCheckout($includeCart=true) {
+        $page = $this->getRequestId();
+        return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
     }
 
 }
