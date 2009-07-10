@@ -53,7 +53,7 @@ class zm_quick_edit extends Plugin {
     /**
      * Init this plugin.
      */
-    function init() {
+    public function init() {
         parent::init();
 
         if (0 < ZMRequest::instance()->getCategoryId() && 0 == ZMRequest::instance()->getProductId()) {

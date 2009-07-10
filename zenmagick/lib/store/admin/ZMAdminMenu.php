@@ -49,7 +49,7 @@ class ZMAdminMenu extends ZMObject {
      * @param ZMAdminMenuItem item The new item.
      */
     public static function addItem($item) {
-        ZMAdminMenu::$items_[] = $item;
+        self::$items_[] = $item;
     }
 
     /**
@@ -60,9 +60,9 @@ class ZMAdminMenu extends ZMObject {
     public static function buildMenu($parent=null) {
         ob_start();
         $first = true;
-        $size = count (ZMAdminMenu::$items_);
+        $size = count (self::$items_);
         for ($ii=0; $ii < $size; ++$ii) { 
-            $item = ZMAdminMenu::$items_[$ii];
+            $item = self::$items_[$ii];
             if (null == $item) {
                 continue;
             }
@@ -86,7 +86,7 @@ class ZMAdminMenu extends ZMObject {
                     }
                     echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
                 }
-                ZMAdminMenu::buildMenu($item->getId());
+                self::buildMenu($item->getId());
                 echo "</li>";
             }
         }
@@ -110,7 +110,7 @@ class ZMAdminMenu extends ZMObject {
      */
     public static function getItemsForParentId($parentId) {
         $items = array();
-        foreach (ZMAdminMenu::$items_ as $item) {
+        foreach (self::$items_ as $item) {
             if (null !== $item && $item->getParent() == $parentId) {
                 $items[] = $item;
             }
