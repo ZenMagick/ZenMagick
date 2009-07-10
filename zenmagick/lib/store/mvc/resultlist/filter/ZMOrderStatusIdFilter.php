@@ -51,13 +51,14 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) { return !in_array($obj->getOrderStatusId(), $this->filterValues_); }
+    public function exclude($obj) {
+        return !in_array($obj->getOrderStatusId(), $this->filterValues_);
+    }
 
     /**
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        //TODO: allow mapped names
         return new ZMQueryDetails(Runtime::getDatabase(), 'o.orders_status = 2');
     }
 

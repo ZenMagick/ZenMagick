@@ -93,7 +93,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                         }
                     }
                     if ($this->resultList_->hasFilters()) {
-                        foreach ($this->resultList_->getFilters() as $filter) {
+                        foreach ($this->resultList_->getFilters(true) as $filter) {
                             if ($filter instanceof ZMSQLAware) {
                                 $filterDetails = $filter->getQueryDetails();
                                 $queryPager->addFilter($filterDetails->getSql());
@@ -110,7 +110,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                     }
                 }
             }
-            // check in case this methid is not supported
+            // check in case this method is not supported
             if (null === $this->results_) {
                 $this->results_ = call_user_func_array(array($this->object_, $this->method_), $this->args_);
                 $this->totalNumberOfResults_ = count($this->results_);

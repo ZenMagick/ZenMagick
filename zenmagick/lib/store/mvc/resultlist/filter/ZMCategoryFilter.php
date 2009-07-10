@@ -28,7 +28,7 @@
  * @package org.zenmagick.store.mvc.resultlist.filter
  * @version $Id: ZMCategoryFilter.php 2121 2009-03-31 01:56:56Z dermanomann $
  */
-class ZMCategoryFilter extends ZMResultListFilter {
+class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     private $productIds_;
 
 
@@ -84,6 +84,13 @@ class ZMCategoryFilter extends ZMResultListFilter {
         }
 
         return $options;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method=null, $args=array()) {
+        return new ZMQueryDetails(Runtime::getDatabase(), 'p.master_categories_id = '.(int)$this->getValue());
     }
 
 }

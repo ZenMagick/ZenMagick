@@ -28,7 +28,7 @@
  * @package org.zenmagick.store.mvc.resultlist.filter
  * @version $Id: ZMManufacturerFilter.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
-class ZMManufacturerFilter extends ZMResultListFilter {
+class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
 
     /**
      * Create new instance.
@@ -71,6 +71,12 @@ class ZMManufacturerFilter extends ZMResultListFilter {
         return $options;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method=null, $args=array()) {
+        return new ZMQueryDetails(Runtime::getDatabase(), 'p.manufacturers_id = '.(int)$this->getValue());
+    }
 
 }
 
