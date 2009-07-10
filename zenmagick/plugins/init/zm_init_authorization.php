@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_authorization extends Plugin {
+class zm_init_authorization extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -47,16 +47,15 @@ class zm_init_authorization extends Plugin {
         parent::__destruct();
     }
 
-    /**
-     * Init this plugin.
-     */
-    function init() {
-        parent::init();
 
-        $account = ZMRequest::instance()->getAccount();
+    /**
+     * {@inheritDoc}
+     */
+    public function initRequest($request) {
+        $account = $request->getAccount();
         if (null != $account && !ZMSettings::get('isAdmin') && ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
-            if (!in_array(ZMRequest::instance()->getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
-                ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(CUSTOMERS_AUTHORIZATION_FILENAME, '', false, false));
+            if (!in_array($request->getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
+                $request->redirect(ZMToolbox::instance()->net->url(CUSTOMERS_AUTHORIZATION_FILENAME, '', false, false));
             }
         }
     }

@@ -102,6 +102,9 @@ class ZMEventFixes extends ZMObject {
     public function onZMBootstrapDone($args) {
         $request = $args['request'];
 
+        // XXX: zen cart does this for us
+        //$this->sanitizeRequest($request);
+
         // START: zc_fixes
         // custom class mappings
         ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
@@ -287,6 +290,30 @@ class ZMEventFixes extends ZMObject {
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
         ZMEvents::instance()->fireEvent(null, Events::CREATE_ORDER, array('orderId' => $_SESSION['order_number_created']));
+    }
+
+    /**
+     * Fix a number of things...
+     *
+     * @param ZMRequest request The current request.
+     */
+    protected function sanitizeRequest($request) {
+        $parameter = $request->getParameterMap();
+
+        /** sanitize common parameter **/
+        if (isset($parameter['products_id'])) $parameter['products_id'] = preg_replace('/[^0-9a-f:]/', '', $parameter['products_id']);
+        if (isset($parameter['manufacturers_id'])) $parameter['manufacturers_id'] = preg_replace('/[^0-9]/', '', $parameter['manufacturers_id']);
+        if (isset($parameter['cPath'])) $parameter['cPath'] = preg_replace('/[^0-9_]/', '', $parameter['cPath']);
+        if (isset($parameter[ZM_PAGE_KEY])) $parameter[ZM_PAGE_KEY] = preg_replace('/[^0-9a-zA-Z_]/', '', $parameter[ZM_PAGE_KEY]);
+
+        /** sanitize other stuff **/
+        $_SERVER['REMOTE_ADDR'] = preg_replace('/[^0-9.%]/', '', $_SERVER['REMOTE_ADDR']);
+
+        if (!isset($parameter[ZM_PAGE_KEY]) || empty($parameter[ZM_PAGE_KEY])) {
+            $parameter[ZM_PAGE_KEY] = 'index';
+        }
+
+        $request->setParameterMap($parameter);
     }
 
 }

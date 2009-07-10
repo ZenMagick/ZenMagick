@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_group_pricing extends Plugin {
+class zm_group_pricing extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -51,32 +51,28 @@ class zm_group_pricing extends Plugin {
 
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
-        parent::init();
-
+    public function initRequest($request) {
         ZMLoader::resolve("ProductGroupPricingService");
-        if (0 < ZMRequest::instance()->getProductId()) {
+        if (0 < $request->getProductId()) {
             // only available if product involved
             $this->addMenuItem('zm_group_pricing_admin', zm_l10n_get('Group Pricing'), 'zm_group_pricing_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
     }
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/group_pricing.sql")), $this->messages_);
     }
 
     /**
-     * Remove this plugin.
-     *
-     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * {@inheritDoc}
      */
-    function remove($keepSettings=false) {
+    public function remove($keepSettings=false) {
         parent::remove($keepSettings);
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }

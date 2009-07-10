@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_init_category_path extends Plugin {
+class zm_init_category_path extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -59,26 +59,24 @@ class zm_init_category_path extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-
-        if (0 != ($productId = ZMRequest::instance()->getProductId())) {
-            if (null == ZMRequest::instance()->getCategoryPath()) {
+    public function initRequest($request) {
+        if (0 != ($productId = $request->getProductId())) {
+            if (null == $request->getCategoryPath()) {
                 // set default based on product default category
                 if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
                     $defaultCategory = $product->getDefaultCategory();
                     if (null != $defaultCategory) {
-                        ZMRequest::instance()->setCategoryPathArray($defaultCategory->getPathArray());
+                        $request->setCategoryPathArray($defaultCategory->getPathArray());
                     }
                 }
             }
         }
 
         if (ZMLangUtils::asBoolean($this->get('verifyPath'))) {
-            if (null != ZMRequest::instance()->getCategoryPath()) {
-                $path = array_reverse(ZMRequest::instance()->getCategoryPathArray());
+            if (null != $request->getCategoryPath()) {
+                $path = array_reverse($request->getCategoryPathArray());
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
@@ -100,8 +98,8 @@ class zm_init_category_path extends Plugin {
                     }
                 }
                 if (!$valid) {
-                    $category = ZMCategories::instance()->getCategoryForId(array_pop(ZMRequest::instance()->getCategoryPathArray()));
-                    ZMRequest::instance()->setCategoryPathArray($category->getPathArray());
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray()));
+                    $request->setCategoryPathArray($category->getPathArray());
                 }
             }
         }

@@ -43,6 +43,9 @@ Release 0.9.7
   using index will result in an ugly endless loop using ZMForwardView
 - make category and manufacturer filter SQL aware to fix page number
   calculations
+- remove obsolete/unused init plugins from repository; merge others into
+  additional store init code; merged language and currency plugins into new
+	locale plugin
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

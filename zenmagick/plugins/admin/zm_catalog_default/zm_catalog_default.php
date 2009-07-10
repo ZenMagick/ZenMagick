@@ -52,14 +52,11 @@ class zm_catalog_default extends Plugin {
 
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function init() {
         parent::init();
-
-        //if (0 == ZMRequest::instance()->getProductId() && 0 == ZMRequest::instance()->getCategoryId()) {
-            $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-        //}
+        $this->addMenuItem('zm_catalog_default_admin', zm_l10n_get('Catalog Manager'), 'zm_catalog_default_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
     }
 
 }

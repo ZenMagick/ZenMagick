@@ -37,7 +37,7 @@ define('ZM_TABLE_FEATURES', ZM_DB_PREFIX . 'zm_features');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_product_features extends Plugin {
+class zm_product_features extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -57,34 +57,27 @@ class zm_product_features extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/features.sql")), $this->messages_);
     }
 
     /**
-     * Remove this plugin.
-     *
-     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * {@inheritDoc}
      */
-    function remove($keepSettings=false) {
+    public function remove($keepSettings=false) {
         parent::remove($keepSettings);
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/features_undo.sql")), $this->messages_);
     }
 
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
-        parent::init();
-
-        // make ZMFeatures available by pre-loading it
-        ZMLoader::resolve("Features");
-
-        if (0 < ZMRequest::instance()->getProductId()) {
+    public function initRequest($request) {
+        if (0 < $request->getProductId()) {
             // only available if product selected
             $this->addMenuItem('zm_product_features', zm_l10n_get('Product Features'), 'zm_product_features_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
