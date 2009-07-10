@@ -33,10 +33,10 @@
  */
 class ZMTokenPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(
-        "etc/sql/token_install.sql"
+        "lib/store/etc/sql/token_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "etc/sql/token_uninstall.sql"
+        "lib/store/etc/sql/token_uninstall.sql"
     );
 
 

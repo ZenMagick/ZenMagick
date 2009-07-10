@@ -33,10 +33,10 @@
  */
 class ZMConfigPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(
-        "etc/sql/config.sql"
+        "lib/store/etc/sql/config.sql"
     );
     var $sqlUndoFiles_ = array(
-        "etc/sql/config_undo.sql"
+        "lib/store/etc/sql/config_undo.sql"
     );
 
 
