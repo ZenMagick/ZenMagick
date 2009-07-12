@@ -35,7 +35,7 @@ define('ZM_AUTO_LOGIN_OPT_IN', 'autoLogin');
  * @author DerManoMann
  * @version $Id$
  */
-class zm_auto_login extends Plugin {
+class zm_auto_login extends Plugin implements ZMRequestHandler {
     private $cookieUpdated;
 
     /**
@@ -56,9 +56,9 @@ class zm_auto_login extends Plugin {
     }
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in', 'zen_cfg_select_option(array(\'true\',\'false\'),');
@@ -66,15 +66,15 @@ class zm_auto_login extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function initRequest($request) {
         parent::init();
 
         $this->zcoSubscribe();
 
-        $session = ZMRequest::instance()->getSession();
-        if ('GET' == ZMRequest::instance()->getMethod() && 'logoff' != ZMRequest::instance()->getRequestId() && $session->isAnonymous()) {
+        $session = $request->getSession();
+        if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {
             // try to login
             if (isset($_COOKIE[ZM_AUTO_LOGIN_COOKIE])) {
                 // prepare cookie data
@@ -95,7 +95,7 @@ class zm_auto_login extends Plugin {
 
                 if (null != $account) {
                     if ($session->registerAccount($account, $this)) {
-                        ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, '', ZMRequest::instance()->isSecure()));
+                        $request->redirect(ZMToolbox::instance()->net->url(null, '', $request->isSecure()));
                     }
                 } else {
                     // remove cookie
@@ -146,10 +146,11 @@ class zm_auto_login extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMFinaliseContents($args=array()) {
-        $session = ZMRequest::instance()->getSession();
-        if ('GET' == ZMRequest::instance()->getMethod() && $session->isRegistered()) {
+        $request = $args['request'];
+        $session = $request->getSession();
+        if ('GET' == $request->getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
-                $this->onOptIn(ZMRequest::instance()->getAccount(), array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE));
+                $this->onOptIn($request->getAccount(), array_key_exists(ZM_AUTO_LOGIN_COOKIE, $_COOKIE));
             }
         }
     }
