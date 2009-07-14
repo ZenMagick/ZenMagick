@@ -46,6 +46,7 @@ Release 0.9.7
 - remove obsolete/unused init plugins from repository; merge others into
   additional store init code; merged language and currency plugins into new
 	locale plugin
+- zm_openid: fix!
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

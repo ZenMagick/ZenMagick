@@ -40,7 +40,7 @@ Example:
 
   <tr>
       <td><?php zm_l10n("OpenID") ?></td>
-      <td><input type="text" name="openid" value="<?php $html->encode($zm_account->get('openid')) ?>" /></td>
+      <td><input type="text" name="openid" value="<?php $html->encode($account->get('openid')) ?>" /></td>
   </tr>
 
 

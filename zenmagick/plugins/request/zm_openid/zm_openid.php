@@ -57,9 +57,9 @@ class zm_openid extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install-openid.sql")), $this->messages_);
 
@@ -67,27 +67,23 @@ class zm_openid extends Plugin {
     }
 
     /**
-     * Remove this plugin.
-     *
-     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * {@inheritDoc}
      */
-    function remove($keepSettings=false) {
+    public function remove($keepSettings=false) {
         parent::remove($keepSettings);
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function init() {
         parent::init();
 
         // make openid_login use session token
-        $tokenSecuredForms = ZMSettings::get('tokenSecuredForms', '');
-        ZMSettings::set('tokenSecuredForms', $tokenSecuredForms.',openid_login');
+        ZMSettings::append('zenmagick.mvc.validation.tokenSecuredForms', 'openid_login', ',');
 
         // add success URL mapping if none exists
-        ZMSacsMapper::instance()->setMapping('openID');
         ZMUrlMapper::instance()->setMappingInfo('openID', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
 
         // register tests
@@ -135,7 +131,7 @@ class zm_openid extends Plugin {
         $args = array('openid' => $openid);
         $result = Runtime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS);
         if (null != $result) {
-            return ZMAccounts::instance()->getAccountForId($result['id']);
+            return ZMAccounts::instance()->getAccountForId($result['accountId']);
         }
         return null;
     }

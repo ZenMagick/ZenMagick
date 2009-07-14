@@ -120,6 +120,7 @@ class ZMSacsMapper extends ZMObject {
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
             // not required level of authentication
+            ZMLogging::instance()->log('missing authorization for '.$page.'; current='.$level.', required='.$requiredLevel, ZMLogging::DEBUG);
             //TODO: group check
             $session = ZMRequest::instance()->getSession();
             if (!$session->isValid()) {
