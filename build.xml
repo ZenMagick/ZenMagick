@@ -170,8 +170,8 @@
             <fileset dir="${build.dir}">
                 <include name="zenmagick/plugins/init/**" />
                 <exclude name="zenmagick/plugins/init/zm_init_category_path.php" />
-                <exclude name="zenmagick/plugins/init/zm_init_language.php" />
                 <exclude name="zenmagick/plugins/init/zm_init_authorization.php" />
+                <exclude name="zenmagick/plugins/init/zm_init_locale.php" />
             </fileset>
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_promotions/**" />
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_features/**" />
