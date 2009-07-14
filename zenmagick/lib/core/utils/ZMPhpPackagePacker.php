@@ -85,7 +85,7 @@ class ZMPhpPackagePacker {
      * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
      * @return array The final dependencies.
      */
-    public function finaliseDependencies($dependencies, $files) {
+    public function finalizeDependencies($dependencies, $files) {
         return $dependencies;
     }
 
@@ -199,8 +199,6 @@ class ZMPhpPackagePacker {
         if ($this->debug) {
             echo 'preparing '.$this->rootFolder."<br>\n";
         }
-        ZMLoader::instance()->resolve('InstallationPatch');
-        $patch = ZMLoader::make('FilePatch', 'patch');
 
         $fileMap = array();
         $dependsOn = array();
@@ -210,7 +208,7 @@ class ZMPhpPackagePacker {
             if ($this->ignoreFile($file)) {
                 continue;
             }
-            $lines = $patch->getFileLines($file);
+            $lines = ZMFileUtils::getFileLines($file);
             $patched = false;
             $class = str_replace('.php', '', basename($file));
             $fileMap[$class] = $file;
@@ -227,7 +225,13 @@ class ZMPhpPackagePacker {
             }
         }
 
-        $dependsOn = $this->finaliseDependencies($dependsOn, $files);
+        $dependsOn = $this->finalizeDependencies($dependsOn, $files);
+
+        if ($this->debug) {
+            var_dump($files);
+            var_dump($dependsOn);
+            var_dump($classInfo);
+        }
 
         $resolved = array();
 
@@ -284,7 +288,7 @@ class ZMPhpPackagePacker {
 
             foreach ($classes as $class) {
                 $inFile = $fileMap[$class];
-                $lines = $patch->getFileLines($inFile);
+                $lines = ZMFileUtils::getFileLines($inFile);
                 foreach ($lines as $ii => $line) {
                     // match all statements, regardless whether they match the PEAR style expected above or not
                     if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {
@@ -302,7 +306,7 @@ class ZMPhpPackagePacker {
                     }
                 }
                 $extFile = $currentDir.basename($inFile);
-                $patch->putFileLines($extFile, $lines);
+                ZMFileUtils::putFileLines($extFile, $lines);
             }
         }
     }

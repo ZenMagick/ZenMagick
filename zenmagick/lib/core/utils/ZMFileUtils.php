@@ -276,11 +276,59 @@ class ZMFileUtils {
      * @param string filename The filename.
      * @return string A relative filename (if within the installation folder).
      */
-    public function mkRelativePath($filename) {
-        $root = ZMFileUtils::normalizeFilename(ZMRuntime::getInstallationPath());
-        $filename = ZMFileUtils::normalizeFilename($filename);
+    public static function mkRelativePath($filename) {
+        $root = self::normalizeFilename(ZMRuntime::getInstallationPath());
+        $filename = self::normalizeFilename($filename);
         // make filename relative
         return str_replace($root, '', $filename);
+    }
+
+    /**
+     * Load the given file line by line.
+     *
+     * @param string file The filename.
+     * @return array File contents as lines or <code>null</code>.
+     */
+    public static function getFileLines($file) {
+        $lines = array();
+        if (file_exists($file)) {
+            $handle = @fopen($file, 'rb');
+            if ($handle) {
+                while (!feof($handle)) {
+                    $line = rtrim(fgets($handle, 4096));
+                    array_push($lines, $line);
+                }
+                fclose($handle);
+            }
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Write the given lines to file.
+     *
+     * @param string file The filename.
+     * @param array lines The  lines to write.
+     * @return boolean <code>true</code> if successful, <code>false</code> if not.
+     */
+    public static function putFileLines($file, $lines) {
+        $fileExists = file_exists($file);
+        $handle = fopen($file, 'wb');
+        if ($handle) {
+            $lineCount = count($lines) - 1;
+            foreach ($lines as $ii => $line) {
+                $eol = $ii < $lineCount ? "\n" : '';
+                fwrite($handle, $line.$eol);
+            }
+            fclose($handle);
+            if (!$fileExists) {
+                self::setFilePerms($file);
+            }
+            return true;
+        }
+
+        return false;
     }
 
 }
