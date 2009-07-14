@@ -1,7 +1,7 @@
 #
 # ZenMagick features SQL - undo
 #
-# $Id: features_undo.sql 146 2007-03-15 09:29:34Z DerManoMann $
+# $Id$
 #
 
 ## upgrade cleanup

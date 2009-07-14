@@ -1,7 +1,7 @@
 #
 # ZenMagick features SQL
 #
-# $Id: features.sql 143 2007-03-13 04:58:44Z DerManoMann $
+# $Id$
 #
 
 ## upgrade cleanup
