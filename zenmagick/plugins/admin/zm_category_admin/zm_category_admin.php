@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class zm_category_admin extends Plugin {
+class zm_category_admin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
