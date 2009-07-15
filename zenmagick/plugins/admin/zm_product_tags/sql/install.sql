@@ -25,5 +25,5 @@ CREATE TABLE product_tags (
   tag_id int(11) NOT NULL,
   PRIMARY KEY (product_tag_id),
   KEY idx_product_id_tag_id_zm (product_id, tag_id),
-  FOREIGN KEY (product_id) REFERENCES products (products_id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products (products_id) ON DELETE CASCADE
 ) TYPE=MyISAM;
