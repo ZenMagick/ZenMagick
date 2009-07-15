@@ -119,6 +119,8 @@ require 'includes/application_top.php';
                 ?>
                 <div id="<?php echo $fkt ?>" style="position:relative;">
                   <?php 
+                    $page = null;
+                    $contents = null;
                     if (function_exists($fkt)) {
                         // fake fkt request param to make URLs open the corresponding tab
                         ZMRequest::instance()->setParameter('fkt', $fkt);
