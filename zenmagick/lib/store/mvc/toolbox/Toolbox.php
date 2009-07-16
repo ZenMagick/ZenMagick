@@ -33,11 +33,6 @@
  */
 class Toolbox extends ZMToolbox {
     /** 
-     * @var ZMToolboxHtml
-     * @return ZMToolboxHtml
-     */
-    public $html;
-    /** 
      * @var ZMToolboxForm
      * @return ZMToolboxForm
      */
@@ -76,7 +71,6 @@ class Toolbox extends ZMToolbox {
         parent::__construct();
 
         // setup build in tools
-        $this->html = ZMLoader::make('ToolboxHtml');
         $this->form = ZMLoader::make('ToolboxForm');
         $this->net = ZMLoader::make('ToolboxNet');
         $this->macro = ZMLoader::make('ToolboxMacro');
@@ -100,7 +94,6 @@ class Toolbox extends ZMToolbox {
      */
     public function getTools() {
         return array_merge(array(
-            'html' => $this->html, 
             'form' => $this->form, 
             'net' => $this->net, 
             'macro' => $this->macro, 
