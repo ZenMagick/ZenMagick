@@ -35,6 +35,9 @@ require_once 'includes/application_top.php';
       $page = $fkt(); 
       $page->setContents(ob_get_clean());
   }
+  if (null != $page && $page->isRefresh()) {
+      ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, null));
+  }
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

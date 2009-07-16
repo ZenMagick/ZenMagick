@@ -36,6 +36,7 @@ class ZMPluginPage extends ZMObject {
     private $title_;
     private $contents_;
     private $header_;
+    private $refresh_;
 
 
     /**
@@ -45,13 +46,15 @@ class ZMPluginPage extends ZMObject {
      * @param string title The title.
      * @param string contents The page contents.
      * @param string header Optional code to be injected into the header; default is <code>null</code>.
+     * @param boolean refresh Optional flag to indicate that a page refresh is required.
      */
-    function __construct($id, $title, $contents=null, $header='') {
+    function __construct($id, $title, $contents=null, $header='', $resfresh) {
         parent::__construct();
         $this->id_ = $id;
         $this->title_ = $title;
         $this->contents_ = $contents;
         $this->header_ = $header;
+        $this->refresh_ = $refresh;
     }
 
     /**
@@ -117,6 +120,20 @@ class ZMPluginPage extends ZMObject {
      * @param string header The header code.
      */
     public function setHeader($header) { $this->header_ = $header; }
+
+    /**
+     * Set the refresh flag.
+     *
+     * @param boolean refresh The new value.
+     */
+    public function setRefresh($refresh) { $this->refresh_ = $refresh; }
+
+    /**
+     * Get the refresh flag.
+     *
+     * @return boolean The value.
+     */
+    public function isRefresh() { return $this->refresh_; }
 
 }
 

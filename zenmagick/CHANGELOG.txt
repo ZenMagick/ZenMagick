@@ -51,6 +51,7 @@ Release 0.9.7
 - add putFileLines, getFileLines to ZMFileUtils
 - zm_settings: fix update with incomplete values (happends after a new setting
   was added, but no page refresh done yet)
+- allow plugin controllers to request a page request
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
