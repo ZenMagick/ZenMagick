@@ -26,8 +26,6 @@
 <?php
 
     $toolbox = ZMToolbox::instance();
-    // do show the not available image
-    ZMSettings::set('isShowNoPicture', false);
 
     // allow to override with custom fields
     if (function_exists('zm_quick_edit_field_list')) {

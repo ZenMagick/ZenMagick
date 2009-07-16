@@ -9,12 +9,6 @@ An example might be a file field_list.php in the plugin folder with the followin
 
 <?php
 
-  // default form element function
-  function zm_quick_edit_checkbox_field($field, $id, $value, $product) {
-      return '<input type="checkbox" name="'.$id.'" value="1"'.($value ? ' checked' : '').'>';
-  }
-
-
   // custom fields
   function zm_quick_edit_field_list() {
       return array(
@@ -40,9 +34,9 @@ Each field is configured separately, and requires the following information:
           The signature of the method is: function($field, $id, $value, $product)
 
 NOTE: For custom fields you also have to configure ZMProducts in order to actually read/write those columns. This is done
-by setting 'sql.products.customFields'.
+by setting 'zenmagick.core.database.sql.products.customFields'.
 
 Example:
 
-    ZMSettings::append('sql.products.customFields', 'metatags_title_status;integer', ',');
+    ZMSettings::append('zenmagick.core.database.sql.products.customFields', 'metatags_title_status;integer', ',');
 
