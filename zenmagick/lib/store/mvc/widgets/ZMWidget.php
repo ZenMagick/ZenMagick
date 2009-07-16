@@ -43,11 +43,8 @@ abstract class ZMWidget extends ZMObject {
     private $enabled_;
 
 /*
-zen_cfg_textarea(');
-zen_cfg_select_option(array(\'true\', \'false\'),');
 zen_cfg_select_option(array(\'shipping\', \'billing\'),');
 zen_cfg_select_option(array(\'ProductId\', \'Model\'),');
-zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
 zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
 zen_cfg_select_drop_down(array(array('id'=>'false', 'text'=>'Ignore'), array('id'=>'true', 'text'=>'Catch-up')), ");
 zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
