@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
- * @version $Id: ZMTextFormWidget.php 1975 2009-02-16 11:28:30Z dermanomann $
+ * @version $Id$
  */
 class ZMTextFormWidget extends ZMFormWidget {
 
@@ -50,7 +50,7 @@ class ZMTextFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render() {
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         return '<input type="text"'.$this->getAttributeString().$slash.'>';
     }
 

@@ -129,7 +129,7 @@ class ZMToolboxForm extends ZMObject {
         echo '>';
 
         // add hidden form fields if any params set
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         if (0 < count($hidden)) {
             echo '<div>';
             foreach ($hidden as $name => $value) {
@@ -176,7 +176,7 @@ class ZMToolboxForm extends ZMObject {
      * @return string HTML form to add a given productId to the shopping cart.
      */
     public function hiddenCartFields($item, $echo=ZM_ECHO_DEFAULT) {
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '"'.$slash.'>';
         if ($item->hasAttributes()) {
             foreach ($item->getAttributes() as $attribute) {
@@ -229,7 +229,7 @@ class ZMToolboxForm extends ZMObject {
      */
     public function checked($setting, $value=true, $default=false) {
         if ($setting == $value || ($default && empty($value))) {
-            echo ZMSettings::get('zenmagick.mvc.xhtml') ? ' checked="checked"' : ' checked';
+            echo ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         }
     }
 
@@ -297,7 +297,7 @@ class ZMToolboxForm extends ZMObject {
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
     public function hiddenList($name, $values, $echo=ZM_ECHO_DEFAULT) {
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';

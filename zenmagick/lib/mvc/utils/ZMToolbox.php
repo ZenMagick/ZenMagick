@@ -29,12 +29,19 @@
  * @version $Id: ZMToolbox.php 2149 2009-04-13 22:59:14Z dermanomann $
  */
 class ZMToolbox extends ZMObject {
+    /** 
+     * @var ZMToolboxHtml
+     * @return ZMToolboxHtml
+     */
+    public $html;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->html = ZMLoader::make('ToolboxHtml');
     }
 
     /**
@@ -58,7 +65,7 @@ class ZMToolbox extends ZMObject {
      * @return array A map of all available tools.
      */
     public function getTools() {
-        return $this->properties_;
+        return array_merge(array('html' => $this->html, $this->properties_));
     }
 
 }

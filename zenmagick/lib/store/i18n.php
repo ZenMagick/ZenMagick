@@ -106,6 +106,10 @@ if (!function_exists('zen_date_raw')) {
         if (defined('LC_TIME_LOCALE')) {
             @setlocale(LC_TIME, LC_TIME_LOCALE);
         }
+
+        if (defined('HTML_CHARSET')) {
+            ZMSettings::set('zenmagick.mvc.html.charset', HTML_CHARSET); 
+        }
     }
 
 ?>

@@ -120,7 +120,7 @@ class zm_page_stats extends Plugin {
         }
 
         ob_start();
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';

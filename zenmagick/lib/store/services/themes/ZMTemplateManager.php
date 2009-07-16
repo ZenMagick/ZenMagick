@@ -230,7 +230,7 @@ class ZMTemplateManager extends ZMObject {
             return null;
         }
 
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
 
         $css = '';
         foreach ($this->cssFiles_ as $info) {

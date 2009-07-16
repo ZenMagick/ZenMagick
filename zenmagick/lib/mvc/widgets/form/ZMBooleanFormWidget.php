@@ -34,7 +34,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
- * @version $Id: ZMBooleanFormWidget.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class ZMBooleanFormWidget extends ZMFormWidget {
 
@@ -88,8 +88,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      */
     protected function renderCheckbox() {
         $html = ZMToolbox::instance()->html;
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
-        $checked = ZMSettings::get('zenmagick.mvc.xhtml') ? ' checked="checked"' : ' checked';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = $html->encode($this->get('id'), false);
         $name = $this->getName();
         if (empty($idBase)) {
@@ -116,8 +116,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      */
     protected function renderRadio() {
         $html = ZMToolbox::instance()->html;
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
-        $checked = ZMSettings::get('zenmagick.mvc.xhtml') ? ' checked="checked"' : ' checked';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = $html->encode($this->get('id'), false);
         $name = $this->getName();
         if (empty($idBase)) {
@@ -141,8 +141,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      */
     protected function renderSelect() {
         $html = ZMToolbox::instance()->html;
-        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
-        $selected = ZMSettings::get('zenmagick.mvc.xhtml') ? ' selected="selected"' : ' selected';
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $selected = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' selected="selected"' : ' selected';
         $id = $html->encode($this->get('id'), false);
         $name = $this->getName();
         $value = $this->getValue();

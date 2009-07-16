@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
- * @version $Id: ZMFormWidget.php 1974 2009-02-16 11:05:06Z dermanomann $
+ * @version $Id$
  */
 abstract class ZMFormWidget extends ZMWidget {
     private $name_;

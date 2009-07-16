@@ -55,6 +55,7 @@ Release 0.9.7
 - zm_settings: reverse order of forms on plugin page
 - move form widget attribute handling into base class
 - add new ZMTextAreaFormWidget class
+- split ZMToolboxHtml, moved widgets into mvc
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
