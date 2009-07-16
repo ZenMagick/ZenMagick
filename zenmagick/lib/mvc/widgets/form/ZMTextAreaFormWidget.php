@@ -1,7 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 ZenMagick
+ * ZenMagick Core - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * <p>A text area form widget.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.widgets.form
+ * @package org.zenmagick.mvc.widgets.form
  * @version $Id$
  */
 class ZMTextAreaFormWidget extends ZMFormWidget {
