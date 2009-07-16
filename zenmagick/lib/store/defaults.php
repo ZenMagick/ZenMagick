@@ -311,7 +311,7 @@
             'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
 
             // HTML generation / validation
-            'isXHTML' => true,
+            'zenmagick.mvc.xhtml' => true,
             'isJSTarget' => true,
             'isAutoJSValidation' => true,
             'isEchoHTML' => true,

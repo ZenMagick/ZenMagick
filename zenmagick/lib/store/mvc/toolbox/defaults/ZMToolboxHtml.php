@@ -67,7 +67,7 @@ class ZMToolboxHtml extends ZMObject {
         if (!ZMLangUtils::startsWith($imgSrc, '/')) {
             $imgSrc = Runtime::getContext() . $imgSrc;
         }
-        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText(), false).'" ';
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';

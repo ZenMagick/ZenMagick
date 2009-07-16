@@ -50,7 +50,7 @@ class ZMTextFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render() {
-        $slash = ZMSettings::get('isXHTML') ? '/' : '';
+        $slash = ZMSettings::get('zenmagick.mvc.xhtml') ? '/' : '';
         return '<input type="text"'.$this->getAttributeString().$slash.'>';
     }
 
