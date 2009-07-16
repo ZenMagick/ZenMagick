@@ -52,6 +52,7 @@ Release 0.9.7
 - zm_settings: fix update with incomplete values (happends after a new setting
   was added, but no page refresh done yet)
 - allow plugin controllers to request a page request
+- zm_settings: reverse order of forms on plugin page
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
