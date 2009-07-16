@@ -20,6 +20,7 @@
                 <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
                 <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
                 <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
+                <option value="SelectFormWidget#">Select (dropdown)</option>
             </select>
         </p>
         <p><input type="submit" value="create"></p>
