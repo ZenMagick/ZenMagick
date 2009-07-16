@@ -36,7 +36,7 @@ require_once 'includes/application_top.php';
       $page->setContents(ob_get_clean());
   }
   if (null != $page && $page->isRefresh()) {
-      ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, null));
+      ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, 'fkt='.$fkt));
   }
 
 ?>
