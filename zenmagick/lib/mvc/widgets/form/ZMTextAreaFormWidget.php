@@ -35,7 +35,7 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'cols', 'rows', 'wrap'));
+        $this->setAttributeNames(array('id', 'class', 'cols', 'rows', 'wrap'));
     }
 
     /**
