@@ -57,6 +57,8 @@ Release 0.9.7
 - add new ZMTextAreaFormWidget class
 - split ZMToolboxHtml, moved widgets into mvc
 - add select widget and add to settings plugin
+- cleanup widgets, add manufacturer select widget
+- zm_quick_edit: convert to using widgets and simplify
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

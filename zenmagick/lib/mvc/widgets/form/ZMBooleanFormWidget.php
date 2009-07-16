@@ -105,7 +105,9 @@ class ZMBooleanFormWidget extends ZMFormWidget {
         ob_start();
         echo '<input type="hidden" name="'.$this->getCheckboxHiddenValueName($name).'" value="'.($value ? 'true' : 'false').'"'.$slash.'>';
         echo '<input type="checkbox" id="'.$idBase.'" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
-        echo ' <label for="'.$idBase.'">'.$html->encode(zm_l10n_get($label), false).'</label>';
+        if (!ZMLangUtils::isEmpty($label)) {
+            echo ' <label for="'.$idBase.'">'.$html->encode(zm_l10n_get($label), false).'</label>';
+        }
         return ob_get_clean();
     }
 

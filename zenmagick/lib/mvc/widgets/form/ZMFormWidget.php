@@ -136,9 +136,11 @@ abstract class ZMFormWidget extends ZMWidget {
      *
      * @param string value A string value.
      * @return boolean <code>true</code> if the given value evaluates to the
-     * same value as the widget value.
+     *  same value as the widget value.
      */
-    public abstract function compare($value);
+    public function compare($value) {
+        return $value == $this->getValue();
+    }
 
 }
 

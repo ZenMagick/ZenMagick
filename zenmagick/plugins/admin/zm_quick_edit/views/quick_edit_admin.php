@@ -26,45 +26,55 @@
 <?php
 
     $toolbox = ZMToolbox::instance();
+    $request = ZMRequest::instance();
+    $categoryId = $request->getCategoryId();
 
     // allow to override with custom fields
+    // XXX: function??
     if (function_exists('zm_quick_edit_field_list')) {
         $zm_quick_edit_field_list = zm_quick_edit_field_list();
     } else {
         // default fields
         $zm_quick_edit_field_list = array(
-            // title, form field name, getter/setter name
-            array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
-            array('title' => 'Model', 'field' => 'model', 'property' => 'model', 'size' => 14),
-            array('title' => 'Image', 'field' => 'image', 'property' => 'defaultImage', 'size' => 24),
-            array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4),
-            array('title' => 'Product Price', 'field' => 'productPrice', 'property' => 'productPrice', 'size' => 6),
-            array('title' => 'Status', 'field' => 'status', 'property' => 'status', 'size' => 2)
+            // name, widget, propert is optional in case the fieldname and product proerty name do not match
+            array('name' => 'name', 'widget' => 'TextFormWidget#title=Name&name=name&size=35'),
+            array('name' => 'model', 'widget' => 'TextFormWidget#title=Model&name=model&size=14'),
+            array('name' => 'image', 'widget' => 'TextFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
+            array('name' => 'quantity', 'widget' => 'TextFormWidget#title=Quantity&name=quantity&size=4'),
+            array('name' => 'productPrice', 'widget' => 'TextFormWidget#title=Product Price&name=productPrice&size=7'),
+            array('name' => 'status', 'widget' => 'TextFormWidget#title=Status&name=status&size=2')
         );
     }
 
-    if (null != ZMRequest::instance()->getParameter('submit')) {
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(ZMRequest::instance()->getCategoryId(), false);
+    // build map of field name = property name;
+    // while doing that instantiate all widgets
+    $fieldMap = array();
+    foreach ($zm_quick_edit_field_list as $ii => $field) {
+        $widget = ZMBeanUtils::getBean($field['widget']);
+        $zm_quick_edit_field_list[$ii]['widget'] = $widget;
+        $fieldMap[$field['name']] = isset($field['property']) ? $field['property'] : $field['name'];
+    }
+
+    // first handle updates
+    if ('POST' == $request->getMethod() && null != $request->getParameter('submit')) {
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();
             // and one with the original value to compare and detect state data
             $_formData = array();
             foreach ($zm_quick_edit_field_list as $field) {
-                $fieldname = $field['field'].'_'.$productId;
-                $value = ZMRequest::instance()->getParameter($fieldname);
-                $_value = ZMRequest::instance()->getParameter('_'.$fieldname);
-                if (null != $field['property']) {
-                    $formData[$field['property']] = $value;
-                    $_formData[$field['property']] = $_value;
-                } else {
-                    $formData[$field['field']] = $value;
-                    $_formData[$field['field']] = $_value;
-                }
+                $widget = $field['widget'];
+                $fieldName = $field['name'].'_'.$productId;
+                // use widget to *read* the value to allow for optional conversions, etc
+                $widget->setValue($request->getParameter($fieldName));
+                $formData[$fieldMap[$field['name']]] = $widget->getValue();
+                $widget->setValue($request->getParameter('_'.$fieldName));
+                $_formData[$fieldMap[$field['name']]] = $widget->getValue();
             }
             // load product, convert to map and compare with the submitted form data
             $product = ZMProducts::instance()->getProductForId($productId);
-            $productData = ZMBeanUtils::obj2map($product, array_keys($formData));
+            $productData = ZMBeanUtils::obj2map($product, $fieldMap);
             $isUpdate = false;
             foreach ($formData as $key => $value) {
                 if (array_key_exists($key, $productData) && $value != $productData[$key]) {
@@ -81,42 +91,39 @@
                 ZMBeanUtils::setAll($product, $formData);
                 ZMProducts::instance()->updateProduct($product);
             }
-        }
+        }    
     }
 
-    $productList = ZMProducts::instance()->getProductsForCategoryId(ZMRequest::instance()->getCategoryId(), false);
-
+    // prepare data for display
+    $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false);
     $lastIndex = count($zm_quick_edit_field_list) - 1;
 
 ?>
 
-  <h2>Quick Edit</h2>
+  <h2>Quick Edit: <em><?php $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId)->getName()) ?></em></h2>
 
   <?php $toolbox->form->open('', $zm_nav_params) ?>
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
       <thead><tr>
         <th class="first">Id</th>
         <?php foreach ($zm_quick_edit_field_list as $ii => $field) { ?>
-          <th<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>><?php echo $field['title'] ?></th>
+          <th<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>><?php echo $field['widget']->getTitle() ?></th>
         <?php } ?>
       </tr></thead>
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
             <td class="first" style="text-align:right;"><a href="<?php $toolbox->net->url('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
-            <?php foreach ($zm_quick_edit_field_list as $ii => $field) { 
-              if (null != $field['property']) {
-                $getMethod = 'get'.ucwords($field['property']);
-                $value = $product->$getMethod();
-              } else {
-                $value = $product->get($field['field']);
-              }
-              $value = $toolbox->html->encode($value, false);
+            <?php foreach ($zm_quick_edit_field_list as $ii => $field) { $widget = $field['widget'];
+              $fieldName = $field['name'].'_'.$product->getId();
+              $productData = ZMBeanUtils::obj2map($product, $fieldMap);
+              $value = $productData[$fieldMap[$field['name']]];
+              $widget->setName($fieldName);
+              $widget->setValue($value);
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
-                <?php $method = isset($field['method']) ? $field['method'] : 'zm_quick_edit_input_field'; ?>
-                <?php echo $method($field, $field['field'].'_'.$product->getId(), $value, $product); ?>
-              <input type="hidden" name="_<?php echo ($field['field'].'_'.$product->getId()) ?>" value="<?php echo $value ?>">
+                <?php echo $widget->render() ?>
+              <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php $toolbox->html->encode($value) ?>">
               </td>
             <?php } ?>
           </tr>

@@ -22,20 +22,29 @@
 
 
 /**
- * <p>A single line text input form widget.</p>
+ * <p>A manufacturer select form widget.</p>
+ *
+ * <p>This widget will append a list of all available manufacturers to the options list. That
+ * means the generic <em>options</em> propert may be used to set custom options that will show
+ * up at the top of the list.</p>
+ *
+ * <p>One typical use is to prepend an empty option if no manufactuer is set/available.</p>
+ *
+ * <p>Example:</p>
+ *
+ * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.widgets.form
+ * @package org.zenmagick.store.mvc.widgets
  * @version $Id$
  */
-class ZMTextFormWidget extends ZMFormWidget {
+class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'class', 'size', 'maxlength'));
     }
 
     /**
@@ -45,13 +54,17 @@ class ZMTextFormWidget extends ZMFormWidget {
         parent::__destruct();
     }
 
-
     /**
-     * {@inheritDoc}
+     * Get the options map.
+     *
+     * @return array Map of value/name pairs.
      */
-    public function render() {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        return '<input type="text"'.$this->getAttributeString().$slash.'>';
+    public function getOptions() {
+        $options = parent::getOptions();
+        foreach (ZMManufacturers::instance()->getManufacturers() as $manufacturer) {
+            $options[$manufacturer->getId()] = $manufacturer->getName();
+        }
+        return $options;
     }
 
 }

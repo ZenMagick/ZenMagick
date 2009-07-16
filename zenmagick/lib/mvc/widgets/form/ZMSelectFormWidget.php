@@ -29,6 +29,8 @@
  * @version $Id$
  */
 class ZMSelectFormWidget extends ZMFormWidget {
+    private $options_;
+
 
     /**
      * Create new instance.
@@ -36,6 +38,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
     function __construct() {
         parent::__construct();
         $this->setAttributeNames(array('id', 'class', 'size', 'multiple'));
+        $this->options_ = array();
     }
 
     /**
@@ -47,23 +50,43 @@ class ZMSelectFormWidget extends ZMFormWidget {
 
 
     /**
-     * {@inheritDoc}
+     * Get the options map.
+     *
+     * @return array Map of value/name pairs.
      */
-    public function render() {
-        $html = ZMToolbox::instance()->html;
-        $output = '<select'.$this->getAttributeString(false).'>';
-        foreach (ZMLangUtils::toArray($this->getValue()) as $value => $name) {
-            $output .= '<option value="'.$html->encode($value, false).'">'.$html->encode($name, false).'</option>';
-        }
-        $output .= '</select>';
-        return $output;
+    public function getOptions() {
+        return $this->options_;
+    }
+
+    /**
+     * Set the options map.
+     *
+     * @param mixed options Map of value/name pairs.
+     */
+    public function setOptions($options) {
+        $this->options_ = ZMLangUtils::toArray($options);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function compare($value) {
-        return $value == $this->getValue();
+    public function render() {
+        $html = ZMToolbox::instance()->html;
+        $output = '<select'.$this->getAttributeString(false).'>';
+        foreach ($this->getOptions() as $value => $name) {
+            $selected = '';
+            if ($value == $this->getValue()) {
+              if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
+                  $selected = ' selected="selected"';
+              } else {
+                  $selected = ' selected';
+              }
+              
+            }
+            $output .= '<option'.$selected.' value="'.$html->encode($value, false).'">'.$html->encode($name, false).'</option>';
+        }
+        $output .= '</select>';
+        return $output;
     }
 
 }

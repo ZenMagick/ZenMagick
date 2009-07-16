@@ -54,13 +54,6 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
         return '<textarea'.$this->getAttributeString(false).'>'.$html->encode($this->getValue(), false).'</textarea>';
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function compare($value) {
-        return $value == $this->getValue();
-    }
-
 }
 
 ?>
