@@ -46,9 +46,9 @@ class ZMPluginPage extends ZMObject {
      * @param string title The title.
      * @param string contents The page contents.
      * @param string header Optional code to be injected into the header; default is <code>null</code>.
-     * @param boolean refresh Optional flag to indicate that a page refresh is required.
+     * @param boolean refresh Optional flag to indicate that a page refresh is required; default is <code>false</code>.
      */
-    function __construct($id, $title, $contents=null, $header='', $resfresh) {
+    function __construct($id, $title, $contents=null, $header='', $resfresh=false) {
         parent::__construct();
         $this->id_ = $id;
         $this->title_ = $title;

@@ -33,6 +33,7 @@
 abstract class ZMFormWidget extends ZMWidget {
     private $name_;
     private $value_;
+    private $attributeNames_;
 
 
     /**
@@ -42,6 +43,7 @@ abstract class ZMFormWidget extends ZMWidget {
         parent::__construct();
         $this->name_ = '';
         $this->value_ = null;
+        $this->attributeNames_ = array();
     }
 
     /**
@@ -87,6 +89,47 @@ abstract class ZMFormWidget extends ZMWidget {
     public function getValue() {
         return $this->value_;
     }
+
+    /**
+     * Set the list of supported attributes.
+     *
+     * @param array names The attribute names.
+     */
+    public function setAttributeNames($names) {
+        $this->attributeNames_ = $names;
+    }
+
+    /**
+     * Get the list of supported attributes.
+     *
+     * @return array The attribute names.
+     */
+    public function getAttributeNames() {
+        return $this->attributeNames_;
+    }
+
+    /**
+     * Get the formatted attribute string.
+     *
+     * @param boolean addValue Optional flag to include/exclude the value; default is <code>true</code>.
+     * @return string All set (and allowed) attributes as formatted HTML string.
+     */
+    public function getAttributeString($addValue=true) {
+        $attr = ' name="'.$this->getName().'"';
+        $html = ZMToolbox::instance()->html;
+        foreach ($this->properties_ as $name => $value) {
+            if (in_array($name, $this->attributeNames_)) {
+                $attr .= ' '.$name.'="'.$html->encode($value, false).'"';
+            }
+        }
+
+        if ($addValue) {
+            $attr .= ' value="'.$html->encode($this->getValue(), false).'"';
+        }
+
+        return $attr;
+    }
+
 
     /**
      * Compare the given value with the widget value.

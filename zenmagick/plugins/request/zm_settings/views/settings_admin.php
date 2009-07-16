@@ -16,6 +16,7 @@
             Value: <input type="text" name="value">
             Type: <select name="type">
                 <option value="TextFormWidget#">Text</option>
+                <option value="TextAreaFormWidget#cols=80&rows=5">Text Area</option>
                 <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
                 <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
                 <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>

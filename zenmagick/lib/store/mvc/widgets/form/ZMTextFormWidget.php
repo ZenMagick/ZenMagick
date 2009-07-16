@@ -35,6 +35,7 @@ class ZMTextFormWidget extends ZMFormWidget {
      */
     function __construct() {
         parent::__construct();
+        $this->setAttributeNames(array('id', 'size', 'maxlength'));
     }
 
     /**
@@ -49,25 +50,8 @@ class ZMTextFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render() {
-        // XXX: move to utils? 
-        // generic attributes
-        $attrNames = array('id', 'size', 'maxlength');
-        $attr = '';
-        $html = ZMToolbox::instance()->html;
-        foreach ($this->properties_ as $name => $value) {
-            if (in_array($name, $attrNames)) {
-                $attr .= ' '.$name.'="'.$html->encode($value, false).'"';
-            }
-        }
-
-        // name
-        $attr .= ' name="'.$this->getName().'"';
-
-        // value
-        $attr .= ' value="'.$html->encode($this->getValue(), false).'"';
-
         $slash = ZMSettings::get('isXHTML') ? '/' : '';
-        return '<input type="text"'.$attr.$slash.'>';
+        return '<input type="text"'.$this->getAttributeString().$slash.'>';
     }
 
     /**
