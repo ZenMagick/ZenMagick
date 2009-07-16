@@ -27,14 +27,13 @@ require_once 'includes/application_top.php';
 
   $fkt = ZMRequest::instance()->getParameter('fkt');
   // try to resolve plugin page controller
-  ZMLoader::resolve($fkt);
   if (class_exists($fkt)) {
       $controller = ZMLoader::make($fkt);
-      $page = $controller->process();
+      $page = $controller->process(ZMRequest::instance());
   } else if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 
-      $_zm_pcontents = ob_get_clean();
+      $page->setContents(ob_get_clean());
   }
 
 ?>
@@ -67,12 +66,10 @@ require_once 'includes/application_top.php';
 
     <div id="main">
       <div id="content">
-        <?php if (!ZMLangUtils::isEmpty($_zm_pcontents)) {
-            echo $_zm_pcontents;
-        } else if (null != $page) {
+        <?php if (null != $page) {
             echo $page->getContents();
         } else { ?>
-            <h2>Invalid Contents Function: <?php echo $fkt ?></h2>
+            <h2>Invalid Plugin Function: <?php echo $fkt ?></h2>
         <?php } ?>
       </div>
     </div>

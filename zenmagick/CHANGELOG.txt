@@ -49,6 +49,8 @@ Release 0.9.7
 - zm_openid: fix! and upgrade to openidenabled 2.1.3
 - demove dependency onf ZMFilePatch in ZMPhpPackagePacker
 - add putFileLines, getFileLines to ZMFileUtils
+- zm_settings: fix update with incomplete values (happends after a new setting
+  was added, but no page refresh done yet)
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
