@@ -201,7 +201,7 @@ class ZMRequest extends ZMObject {
      */
     public function getParameter($name, $default=null, $sanitize=true) { 
         if (isset($this->parameter_[$name])) {
-            return $sanitize ? ZMTools::sanitize($this->parameter_[$name]) : $this->parameter_[$name];
+            return $sanitize ? ZMSecurityUtils::sanitize($this->parameter_[$name]) : $this->parameter_[$name];
         }
 
         // special case for checkboxes/radioboxes?
