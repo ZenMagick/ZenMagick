@@ -59,6 +59,9 @@ Release 0.9.7
 - add select widget and add to settings plugin
 - cleanup widgets, add manufacturer select widget
 - zm_quick_edit: convert to using widgets and simplify
+- refactor the xxxModel() methods of all database provider implementations to
+  avoid updating fields that are not set; there remains a limit in that it is
+	currently not possible to update columns with null
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

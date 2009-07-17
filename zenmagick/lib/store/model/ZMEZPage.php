@@ -54,16 +54,16 @@ class ZMEZPage extends ZMObject {
      * Create new page.
      *
      * @param int id The page id; default is <em>0</em>.
-     * @param string title The page title; default is <em>''</em>.
+     * @param string title The page title; default is <em>null</em>.
      */
-    function __construct($id=0, $title='') {
+    function __construct($id=0, $title=null) {
         parent::__construct();
 
         $this->id_ = $id;
         $this->title_ = $title;
         $this->altUrl_ = null;
         $this->altUrlExternal_ = null;
-        $this->htmlText_ = '';
+        $this->htmlText_ = null;
         $this->isHeader_ = false;
         $this->isSidebox_ = false;
         $this->isFooter_ = false;

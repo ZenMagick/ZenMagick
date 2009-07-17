@@ -45,9 +45,9 @@ class ZMCountry extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->name_ = '';
-        $this->isoCode2_ = '';
-        $this->isoCode3_ = '';
+        $this->name_ = null;
+        $this->isoCode2_ = null;
+        $this->isoCode3_ = null;
         $this->addressFormatId_ = 0;
     }
 

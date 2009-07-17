@@ -61,15 +61,15 @@ class ZMAddress extends ZMObject {
 
         $this->addressId_ = 0;
         $this->accountId_ = 0;
-        $this->firstName_ = '';
-        $this->lastName_ = '';
-        $this->companyName_ = '';
-        $this->gender_ = '';
-        $this->addressLine1_ = '';
-        $this->suburb_ = '';
-        $this->postcode_ = '';
-        $this->city_ = '';
-        $this->state_ = '';
+        $this->firstName_ = null;
+        $this->lastName_ = null;
+        $this->companyName_ = null;
+        $this->gender_ = null;
+        $this->addressLine1_ = null;
+        $this->suburb_ = null;
+        $this->postcode_ = null;
+        $this->city_ = null;
+        $this->state_ = null;
         $this->zoneId_ = 0;
         $this->country_ = null;
         $this->countryId_ = 0;

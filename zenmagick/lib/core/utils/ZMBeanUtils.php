@@ -43,7 +43,7 @@ class ZMBeanUtils {
      * @param array properties Optional list of properties to use; default is <code>null</code> for all.
      * @return array A property / method map.
      */
-    protected function getPropertyMap($obj, $properties=null) {
+    public static function getPropertyMap($obj, $properties=null) {
         $clazz = get_class($obj);
         // key depends on both class and properties
         $cacheKey = $clazz.serialize($properties);

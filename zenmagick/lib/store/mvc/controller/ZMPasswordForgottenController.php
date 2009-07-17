@@ -49,25 +49,18 @@ class ZMPasswordForgottenController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process($request) { 
+    public function process($request) { 
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         return parent::process($request);
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processPost($request) {
+    public function processPost($request) {
         $emailAddress = $request->getParameter('email_address');
         $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
         if (null === $account || ZMSacsMapper::REGISTERED != $account->getType()) {

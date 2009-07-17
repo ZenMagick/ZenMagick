@@ -47,8 +47,8 @@ class ZMConfigValue extends ZMObject {
     function __construct() {
         parent::__construct();
 		    $this->id_ = 0;
-		    $this->name_ = '';
-		    $this->description_ = '';
+		    $this->name_ = null;
+		    $this->description_ = null;
 		    $this->key_ = null;
 		    $this->value_ = null;
     }

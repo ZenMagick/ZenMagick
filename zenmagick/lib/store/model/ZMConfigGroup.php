@@ -42,7 +42,7 @@ class ZMConfigGroup extends ZMObject {
     function __construct() {
         parent::__construct();
 		    $this->id_ = 0;
-		    $this->name_ = '';
+		    $this->name_ = null;
     }
 
     /**

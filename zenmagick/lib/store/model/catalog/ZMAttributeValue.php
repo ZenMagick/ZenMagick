@@ -58,7 +58,7 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct($id=0, $name='') {
+    function __construct($id=0, $name=null) {
         parent::__construct();
         $this->setId($id);
         $this->name_ = $name;

@@ -47,9 +47,9 @@ class ZMBanner extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->id_ = 0;
-        $this->title_ = '';
+        $this->title_ = null;
         $this->image_ = null;
-        $this->text_ = '';
+        $this->text_ = null;
         $this->isNewWin_ = false;
         $this->url_ = null;
         $this->active_ = true;

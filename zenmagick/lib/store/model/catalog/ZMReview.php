@@ -48,9 +48,9 @@ class ZMReview extends ZMObject {
         $this->setId(0);
         $this->rating_ = 0;
         $this->productId_ = 0;
-        $this->text_ = '';
+        $this->text_ = null;
         $this->dateAdded_ = '';
-        $this->author_ = '';
+        $this->author_ = null;
         $this->languageId_ = 0;
         $this->setActive(true);
         $this->setViewCount(0);

@@ -59,18 +59,18 @@ class ZMAccount extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->firstName_ = '';
-        $this->lastName_ = '';
+        $this->firstName_ = null;
+        $this->lastName_ = null;
         $this->dob_ = null;
-        $this->nickName_ = '';
-        $this->gender_ = '';
-        $this->email_ = '';
-        $this->phone_ = '';
-        $this->fax_ = '';
+        $this->nickName_ = null;
+        $this->gender_ = null;
+        $this->email_ = null;
+        $this->phone_ = null;
+        $this->fax_ = null;
         $this->emailFormat_ = 'TEXT';
-        $this->referral_ = '';
+        $this->referral_ = null;
         $this->defaultAddressId_ = 0;
-        $this->password_ = '';
+        $this->password_ = null;
         $this->authorization_ = ZMSettings::get('defaultCustomerApproval');
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;

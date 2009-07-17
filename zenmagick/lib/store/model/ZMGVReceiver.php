@@ -45,10 +45,10 @@ class ZMGVReceiver extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->name_ = '';
-        $this->email_ = '';
+        $this->name_ = null;
+        $this->email_ = null;
         $this->amount_ = 0;
-        $this->message_ = '';
+        $this->message_ = null;
     }
 
     /**

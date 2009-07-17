@@ -46,7 +46,7 @@ class ZMOrderTotal extends ZMObject {
      * @param float amount The total amount.
      * @param string type The total type.
      */
-    function __construct($name='', $value='', $amount=0, $type='') {
+    function __construct($name=null, $value=null, $amount=0, $type=null) {
         parent::__construct();
         $this->setId(0);
         $this->name_ = $name;

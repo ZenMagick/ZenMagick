@@ -48,8 +48,8 @@ class ZMPriceGroup extends ZMObject {
         $this->id_ = 0;
         $this->name_ = 0;
         $this->discount_ = 0;
-        $this->dateAdded_ = '';
-        $this->lastModified_ = '';
+        $this->dateAdded_ = null;
+        $this->lastModified_ = null;
     }
 
     /**

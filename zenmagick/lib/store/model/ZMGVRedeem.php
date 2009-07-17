@@ -42,7 +42,7 @@ class ZMGVRedeem extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->couponCode_ = '';
+        $this->couponCode_ = null;
         $this->amount_ = 0;
         $this->redeemed_ = false;
     }

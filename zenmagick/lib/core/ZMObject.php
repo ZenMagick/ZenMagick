@@ -122,12 +122,17 @@ class ZMObject {
     }
 
     /**
-     * Get a list of all custom properties.
+     * Get a list of all properties.
      *
+     * @param boolean customOnly If set, consider only custom properties; default is <code>true</code>.
      * @return array List of custom properties set on this object.
      */
-    public function getPropertyNames() {
-        return array_keys($this->properties_);
+    public function getPropertyNames($customOnly=true) {
+        if ($customOnly) {
+            return array_keys($this->properties_);
+        }
+
+        return array_merge(array_keys($this->properties_), array_keys(ZMBeanUtils::getPropertyMap($this)));
     }
 
     /**

@@ -51,7 +51,7 @@ class ZMCategory extends ZMObject {
         parent::__construct();
         $this->setId(0);
         $this->parentId_ = 0;
-        $this->name_ = '';
+        $this->name_ = null;
         $this->active_ = false;
         $this->childrenIds_ = array();
         $this->image_ = null;

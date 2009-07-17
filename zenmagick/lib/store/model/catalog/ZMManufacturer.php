@@ -46,7 +46,7 @@ class ZMManufacturer extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->name_ = '';
+        $this->name_ = null;
         $this->image_ = null;
         $this->languageId_ = 0;
         $this->url_ = null;

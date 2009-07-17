@@ -49,10 +49,10 @@ class ZMCurrency extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->code_ = '';
-        $this->name_ = '';
+        $this->code_ = null;
+        $this->name_ = null;
         $this->decimalPlaces_ = 2;
-        $this->thousandsPoint_ = '';
+        $this->thousandsPoint_ = null;
         $this->rate_ = 1;
     }
 

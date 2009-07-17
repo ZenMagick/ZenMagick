@@ -47,7 +47,7 @@ class ZMAttribute extends ZMObject {
      * @param string name The name.
      * @param string type The type.
      */
-    function __construct($id=0, $name='', $type=null) {
+    function __construct($id=0, $name=null, $type=null) {
         parent::__construct();
         $this->set('attributeId', $id);
         $this->name_ = $name;

@@ -46,7 +46,7 @@ class ZMPaymentType extends ZMObject {
      * @param string name The name.
      * @param string instructions Optional instructions.
      */
-    function __construct($id, $name, $instructions='') {
+    function __construct($id, $name, $instructions=null) {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;

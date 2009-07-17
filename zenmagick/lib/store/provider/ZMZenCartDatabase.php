@@ -189,18 +189,18 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
+        // convert to array
+        if (is_object($model)) {
+            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+        } else {
+            $modelData = $model;
+        }
+
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
-        $beanModel = true;
-        if (is_array($model)) {
-            $properties = array_keys($model);
-            $beanModel = false;
-        } else {
-            $properties = $model->getPropertyNames();
-        }
+        $properties = array_keys($modelData);
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+            if (in_array($field['property'], $properties)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
                         $sql .= ',';
@@ -211,7 +211,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $sql = $this->bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $modelData);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -271,20 +271,20 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
+        // convert to array
+        if (is_object($model)) {
+            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+        } else {
+            $modelData = $model;
+        }
+
         $sql = 'UPDATE '.$table.' SET';
         $firstSet = true;
         $firstWhere = true;
         $where = ' WHERE ';
-        $beanModel = true;
-        if (is_array($model)) {
-            $properties = array_keys($model);
-            $beanModel = false;
-        } else {
-            $properties = $model->getPropertyNames();
-        }
+        $properties = array_keys($modelData);
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+            if (in_array($field['property'], $properties) && null !== $modelData[$field['property']]) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -305,7 +305,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $sql = $this->bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $modelData);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
@@ -321,19 +321,19 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
+        // convert to array
+        if (is_object($model)) {
+            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+        } else {
+            $modelData = $model;
+        }
+
         $sql = 'DELETE FROM '.$table;
         $firstWhere = true;
         $where = ' WHERE ';
-        $beanModel = true;
-        if (is_array($model)) {
-            $properties = array_keys($model);
-            $beanModel = false;
-        } else {
-            $properties = $model->getPropertyNames();
-        }
+        $properties = array_keys($modelData);
         foreach ($mapping as $field) {
-            // ignore unset custom fields as they might not allow NULL but have defaults
-            if (in_array($field['property'], $properties) || (!$field['custom'] && $beanModel)) {
+            if (in_array($field['property'], $properties)) {
                 if ($field['key']) {
                     if (!$firstWhere) {
                         $where .= ' AND ';
@@ -348,7 +348,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
         $sql .= $where;
 
-        $sql = $this->bindObject($sql, $model);
+        $sql = $this->bindObject($sql, $modelData);
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
