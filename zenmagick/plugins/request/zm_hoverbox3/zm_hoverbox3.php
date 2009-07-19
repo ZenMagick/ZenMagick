@@ -50,7 +50,7 @@ class zm_hoverbox3 extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
     public function install() {
         parent::install();
@@ -58,13 +58,19 @@ class zm_hoverbox3 extends Plugin {
     }
 
     /**
-     * Remove this plugin.
-     *
-     * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
+     * {@inheritDoc}
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall-HoverBox-sql.txt")), $this->messages_);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        $this->zcoSubscribe();
     }
 
     /**
@@ -90,7 +96,7 @@ class zm_hoverbox3 extends Plugin {
         $h3head .= '<script type="text/javascript" src="' . $theme->themeURL('hover3/ic_hoverbox3.js', false) . '"></script>';
         $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
 
-        $args['contents'] = $contents.$this->hiddenStats();
+        $args['contents'] = $contents;
         return $args;
     }
 

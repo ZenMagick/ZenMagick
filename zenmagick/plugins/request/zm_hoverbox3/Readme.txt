@@ -1,19 +1,19 @@
-======================================================
-This is the ZenMagick plugin for Hover Box3 support
-======================================================
+=====================================================
+This is the ZenMagick plugin for HoverBox3 support
+=====================================================
 
 
-Hover Box3
-==========
-HB3 is a zen-cart add-on and can be downloaded at http://zen-cart-templates.ichoze.net/.
-This plugin includes the full HB3 code, adapted for ZenMagick.
+HoverBox3
+=========
+HoverBox3 is a zen-cart add-on and can be downloaded at http://zen-cart-templates.ichoze.net/.
+This plugin includes the full HoverBox3 code, adapted for ZenMagick.
 
 
 Installation
 ============
 1) Unzip the plugin package into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
-3) Configure ImageHandler2 options
+3) Configure HoverBox3 options
 4) Copy the themes/hover3 folder into your theme's content directory.
 
 
@@ -21,10 +21,11 @@ Template changes
 ================
 1) Copy the hover3 folder from the theme_files directory into you theme's content directory.
    After that the file 'ic_hoverbox3.js' should have the path 'zenmagick/themes/[YOUR_THEME]/content/hover3/ic_hoverbox3.js'
+   To use the plugin from more than one theme, you can also copy the hover3 folder into the default theme.
 
 2) All required JavaScript and CSS will be included in the page dynamically as required, so no changes to your layout are required.
 
-3) To use Hover Box3 in your templates, use the function hover3_product_image_link(..). It expects two parameter (optionally three):
+3) To use HoverBox3 in your templates, use the function hover3_product_image_link(..). It expects two parameter (optionally three):
     - The product (a ZMProduct instance, usually this should be $zm_product)
     - A ZMImageInfo instance.
     - A flag to indicate whether to show the 'Larger Image' image. Default is true (usually false would be used for additional images).

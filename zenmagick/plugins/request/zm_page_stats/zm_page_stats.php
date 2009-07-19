@@ -53,7 +53,7 @@ class zm_page_stats extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
     public function install() {
         parent::install();
@@ -62,7 +62,7 @@ class zm_page_stats extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
     public function init() {
         parent::init();
