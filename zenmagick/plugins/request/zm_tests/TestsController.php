@@ -108,7 +108,9 @@ class TestsController extends ZMController {
             }
         }
 
-        $this->exportGlobal('all_tests', $allTests);
+        $context = array();
+
+        $context['all_tests'] = $allTests;
 
         $testCases = $request->getParameter('testCases', array());
         $tests = $request->getParameter('tests', array());
@@ -124,8 +126,8 @@ class TestsController extends ZMController {
             $testCases[] = $testCase;
         }
         
-        $this->exportGlobal('all_selected_testCases', array_flip($testCases));
-        $this->exportGlobal('all_selected_tests', array_flip($tests));
+        $context['all_selected_testCases'] = array_flip($testCases);
+        $context['all_selected_tests'] = array_flip($tests);
         if (0 < count($testCases)) {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
@@ -150,14 +152,14 @@ class TestsController extends ZMController {
             ob_start();
             $suite->run($reporter);
             $report = ob_get_clean();
-            $this->exportGlobal('all_results', $reporter->getResults());
+            $context['all_results'] = $reporter->getResults();
         } else {
             $report = '';
         }
 
-        $this->exportGlobal('html_report', $report);
+        $context['html_report'] = $report;
 
-        return $this->findView('tests');
+        return $this->findView('tests', $context);
     }
 
 }

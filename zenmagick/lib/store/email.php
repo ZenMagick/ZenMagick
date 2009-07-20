@@ -105,6 +105,11 @@
         $view->setController($controller);
         // event to allow additions to context (via the controller as we need an object to pass stuff back)
         ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller, 'view' => $view));
+        // this event is used to fix a few things, so make sure any context vars set on the view go back to the controller
+        // in order to preserver them for the HTML generation (if zen-cart wrapper code is used in zen_build_html_email_from_template)
+        foreach ($view->getVars() as $name => $value) {
+            $controller->exportGlobal($name, $value);
+        }
         $text = $view->generate();
 
         // call actual mail function; the name must match the one used in the installation patch

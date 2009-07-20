@@ -121,6 +121,8 @@
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
                 <exclude name="bin/**" />
+                <exclude name="apps/**" />
+                <exclude name="lib/experimental/**" />
            </fileset>
         </copy>
 
@@ -165,8 +167,6 @@
 
             <!-- experimental stuff -->
             <fileset dir="${build.dir}" includes="zenmagick/bootstrap.php" />
-            <fileset dir="${build.dir}" includes="zenmagick/apps" />
-            <fileset dir="${build.dir}" includes="zenmagick/lib/experimental" />
             <fileset dir="${build.dir}">
                 <include name="zenmagick/plugins/init/**" />
                 <exclude name="zenmagick/plugins/init/zm_init_category_path.php" />

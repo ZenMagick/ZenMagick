@@ -104,17 +104,18 @@ class ZMEmailView extends ZMPageView {
             $$name = $instance;
         }
         // and for view data
-        foreach ($this->vars_ as $name => $instance) {
+        foreach ($this->getVars() as $name => $instance) {
             $$name = $instance;
         }
 
         // set for all
         $language = Runtime::getLanguage();
 
-        ob_start();
-        include($this->getViewFilename());
+        //ob_start();
+        include $this->getViewFilename();
         ZMSettings::set('isAdmin', $isAdmin);
-        return ob_get_clean();
+        //return ob_get_clean();
+        return "foo";
     }
 
 }

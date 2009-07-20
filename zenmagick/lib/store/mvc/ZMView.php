@@ -137,6 +137,7 @@ class ZMView extends ZMObject {
         }
         $filename .= ZMSettings::get('templateSuffix');
 
+        ZMLogging::instance()->trace('viewFilename: '. Runtime::getTheme()->themeFile($filename), ZMLogging::TRACE);
         return Runtime::getTheme()->themeFile($filename);
     }
 
