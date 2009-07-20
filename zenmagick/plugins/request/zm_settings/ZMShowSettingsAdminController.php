@@ -117,13 +117,32 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
 
                                     // build real key
                                     $key = $group.'.'.$sub.'.'.$details['key'];
-                                    $settingDetails[$group][$sub][$subKey]['fullkey'] = '*'.$key;
+                                    $settingDetails[$group][$sub][$subKey]['fullkey'] = $key;
                                     $settingDetails[$group][$sub][$subKey]['key'] = $details['key'];
-                                    $settingDetails[$group][$sub][$subKey]['desc'] = str_replace($dynVar, $dynVal, $details['desc']);
+                                    $settingDetails[$group][$sub][$subKey]['desc'] = '* '.str_replace($dynVar, $dynVal, $details['desc']);
                                     $settingDetails[$group][$sub][$subKey]['value'] = $this->getStringValue($key, $type);
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+        // check for settings without details
+        foreach (ZMSettings::getAll() as $key => $value) {
+            foreach ($settingDetails as $group => $groupDetails) { 
+                if (ZMLangUtils::startsWith($key, $group.'.')) {
+                    $found = false;
+                    foreach ($groupDetails as $subDetails) {
+                        foreach ($subDetails as $details) {
+                            if ($key == $details['fullkey']) {
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!$found) {
+                        ZMMessages::instance()->warn('missing details for "'.$key.'"');
                     }
                 }
             }

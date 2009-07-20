@@ -72,6 +72,16 @@
                         'desc' => 'Plugin base directory.'
                     ),
                     array(
+                        'key' => 'enabled',
+                        'type' => 'boolean',
+                        'desc' => 'Enable/disable *all* plugins.'
+                    ),
+                    array(
+                        'key' => 'types',
+                        'type' => 'array',
+                        'desc' => 'List of plugin types (subfolder in baseDir) to load.'
+                    ),
+                    array(
                         'key' => '@name@.enabled',
                         'type' => 'dynamic:name:boolean',
                         'desc' => 'Enable/disable setting for plugin with name "@name@".'
