@@ -172,8 +172,8 @@
             // fix file permissions of created files to allow FTP access
             'fs.permissions.fix' => true,
             // default permissions; NOTE the leading 0 is required as this is octal
-            'zenmagick.core.fs.permissions.file' => 0666,
-            'zenmagick.core.fs.permissions.folder' => 0777,
+            'zenmagick.core.fs.permissions.defaults.file' => 0666,
+            'zenmagick.core.fs.permissions.defaults.folder' => 0777,
         
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,

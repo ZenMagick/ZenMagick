@@ -84,7 +84,7 @@ class ZMFileUtils {
         }
 
         if (null === $perms) {
-            $perms = ZMSettings::get('zenmagick.core.fs.permissions.folder', '0755');
+            $perms = ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755');
         }
 
         $result = @mkdir($dir, $perms);
