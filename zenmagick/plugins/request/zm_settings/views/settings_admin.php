@@ -1,4 +1,4 @@
-<h1>Settings</h1>
+<h1>Manage Settings</h1>
 
 <script type="text/javascript">
     var $widgetTemplates = [];

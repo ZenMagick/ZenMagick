@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
-    <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('ZenMagickVersion') ?>" />
+    <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php ZMMetaTags::instance()->getKeywords()?>" />
     <meta name="description" content="<?php ZMMetaTags::instance()->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />

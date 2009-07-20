@@ -101,7 +101,10 @@ class ZMRuntime extends ZMObject {
      * @return string The base directory for plugins.
      */
     public static function getPluginsDirectory() { 
-        return ZMSettings::get('zenmagick.core.plugins.baseDir', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR);
+        if (null === ZMSettings::get('zenmagick.core.plugins.baseDir')) {
+            ZMSettings::set('zenmagick.core.plugins.baseDir', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR);
+        }
+        return ZMSettings::get('zenmagick.core.plugins.baseDir');
     }
 
     /**

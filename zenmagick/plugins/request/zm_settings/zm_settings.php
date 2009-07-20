@@ -74,7 +74,8 @@ class zm_settings extends Plugin {
     public function init() {
         parent::init();
 
-        $this->addMenuItem('zm_settings', zm_l10n_get('Settings'), 'ZMSettingsAdminController');
+        $this->addMenuItem('zm_settings', zm_l10n_get('Manage Settings'), 'ZMSettingsAdminController');
+        $this->addMenuItem('zm_settings', zm_l10n_get('Show Settings'), 'ZMShowSettingsAdminController');
 
         // make all config values proper settings
         foreach ($this->getConfigValues(false) as $value) {

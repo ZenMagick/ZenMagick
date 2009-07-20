@@ -297,7 +297,7 @@ class ZMController extends ZMObject {
      */
     protected function validateSession($request) {
         $valid = true;
-        if (ZMLangUtils::inArray($this->getId(), ZMSettings::get('zenmagick.mvc.validation.tokenSecuredForms'))) {
+        if (ZMLangUtils::inArray($this->getId(), ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
             $valid = false;
             if (null != ($token = $request->getParameter(ZMSession::TOKEN_NAME))) {
                 $valid = $request->getSession()->getToken() == $token;

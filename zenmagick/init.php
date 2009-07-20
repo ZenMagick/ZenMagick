@@ -54,7 +54,7 @@
     }
 
     // as default disable plugins for CLI calls
-    ZMSettings::set('plugins.enabled', !ZM_CLI_CALL);
+    ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance; XXX: fix name
     $request = ZMRequest::instance();
@@ -65,9 +65,9 @@
     }
 
     // upset plugins if required
-    if (ZMSettings::get('plugins.enabled')) {
+    if (ZMSettings::get('zenmagick.core.plugins.enabled')) {
         // XXX: assuming store implementation
-        $plugins = ZMPlugins::instance()->initPluginsForGroupsAndScope(explode(',', ZMSettings::get('plugins.types')), Runtime::getScope());
+        $plugins = ZMPlugins::instance()->initPluginsForGroupsAndScope(explode(',', ZMSettings::get('zenmagick.core.plugins.types')), Runtime::getScope());
         foreach ($plugins as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($request);

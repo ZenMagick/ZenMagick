@@ -111,7 +111,7 @@ class ZMRssController extends ZMController {
         $toolbox = ZMToolbox::instance();
         $lines = array(
           '<?xml version="1.0" encoding="UTF-8"?>',
-          '<!-- generator="ZenMagick '.ZMSettings::get('ZenMagickVersion').'" -->',
+          '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
           '<rss version="2.0">',
           '  <channel>',
           '    <title><![CDATA['.$toolbox->utils->encodeXML($channel->getTitle()).']]></title>',

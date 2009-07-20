@@ -76,14 +76,11 @@
      */
     function zm_get_default_settings() {
         $map = array(
-            /**************************************
-             * System settings.
-             **************************************/
-
-            // version
+            /*** version ***/
             'ZenMagickVersion' => '${zenmagick.version}',
+            'zenmagick.version' => '${zenmagick.version}',
 
-            // default database connection; 
+            /*** database ***/
             'zenmagick.core.database.connections.default' => array(
                 'driver' => 'mysql',
                 'host' => DB_SERVER,
@@ -93,6 +90,43 @@
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),
+            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
+            'zenmagick.core.database.mappings.file' => 'lib/store/db_mappings.txt',
+            'zenmagick.core.database.tablePrefix' => ZM_DB_PREFIX,
+            'zenmagick.core.database.mappings.cache.enabled' => false,
+            'zenmagick.core.database.mappings.autoMap.enabled' => true,
+
+            /*** logging ***/
+            'zenmagick.core.logging.level' => 3,
+            'zenmagick.core.logging.enabled' => false,
+            'zenmagick.core.logging.filename' => null,
+            'zenmagick.core.logging.handleErrors' => false,
+
+            /*** cache ***/
+            'zenmagick.core.cache.mapping.defaults' => array(),
+            'zenmagick.core.cache.provider.file.baseDir' => DIR_FS_SQL_CACHE.'/zenmagick/',
+
+            /*** plugins ***/
+            'zenmagick.core.plugins.enabled' => true,
+            'zenmagick.core.plugins.baseDir' => ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR,
+            'zenmagick.core.plugins.types' => 'init,admin,request,order_total',
+        
+            /*** fs ***/
+            'zenmagick.core.fs.permissions.fix' => true,
+            'zenmagick.core.fs.permissions.defaults.file' => 0666,
+            'zenmagick.core.fs.permissions.defaults.folder' => 0777,
+        
+            /*** authentication ***/
+            'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
+
+            /*** html ***/
+            'zenmagick.mvc.html.xhtml' => true,
+            'zenmagick.mvc.html.tokenSecuredForms' => 'login',
+
+            /*** resultlist ***/
+            'zenmagick.mvc.resultlist.defaultPagination' => 10,
+
+
 
             // use ZenMagick themes
             'isEnableZMThemes' => true,
@@ -105,12 +139,6 @@
 
             // enable auto patching during installation
             'isEnablePatching' => true,
-
-            // database provider class
-            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
-
-            // path to db mappings, relative to ZM root
-            'zenmagick.core.database.mappings.file' => 'lib/store/db_mappings.txt',
 
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
@@ -130,8 +158,6 @@
             // default to default in ZM themes
             'isEnableThemeDefaults' => true,
 
-            // database table prefix
-            'zenmagick.core.database.tablePrefix' => ZM_DB_PREFIX,
 
             // template suffix/extension
             'templateSuffix' => '.php',
@@ -157,61 +183,22 @@
             // download base folder
             'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
-            // cache database mappings
-            'zenmagick.core.database.mappings.cache.enabled' => false,
 
             // default authentication provider
             'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
 
-            // persistent / transient implementation mappings
-            'zenmagick.core.cache.mapping.defaults' => array(),
-
-            // file cache folder
-            'zenmagick.core.cache.provider.file.baseDir' => DIR_FS_SQL_CACHE.'/zenmagick/',
-
-            // fix file permissions of created files to allow FTP access
-            'fs.permissions.fix' => true,
-            // default permissions; NOTE the leading 0 is required as this is octal
-            'zenmagick.core.fs.permissions.defaults.file' => 0666,
-            'zenmagick.core.fs.permissions.defaults.folder' => 0777,
-        
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,
 
-            // enable db table map building on demand
-            'zenmagick.core.database.mappings.autoMap.enabled' => true,
 
-            // enable/disable plugins
-            'plugins.enabled' => true,
 
             // default controller and view class
             'defaultControllerClass' => 'DefaultController',
             'defaultViewClass' => 'PageView',
 
-            'plugins.types' => 'init,admin,request,order_total',
-        
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
         
-
-            /**************************************
-             * Logging options.
-             **************************************/
-
-            // logging provider
-            'loggingProvider' => 'Logging',
-
-            // overal log leve
-            'logLevel' => 3,
-
-            // enable/disable loggin
-            'isLogEnabled' => false,
-
-            // filename for custom logfile
-            'zmLogFilename' => null,
-
-            // whether to use ZenMagick error handler for logging (using the filename)
-            'isZMErrorHandler' => false,
 
 
             /**************************************
@@ -284,8 +271,6 @@
             // default language
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
-            // result list 
-            'zenmagick.mvc.resultlist.defaultPagination' => 10,
             // comma separated lists
             'resultListProductFilter' => 'CategoryFilter,ManufacturerFilter',
             'resultListProductSorter' => 'ProductSorter',
@@ -311,7 +296,6 @@
             'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
 
             // HTML generation / validation
-            'zenmagick.mvc.html.xhtml' => true,
             'isJSTarget' => true,
             'isAutoJSValidation' => true,
             'isEchoHTML' => true,
@@ -341,6 +325,8 @@
             // cache folder
             'rssCacheDir' => DIR_FS_SQL_CACHE."/zenmagick/rss/",
 
+
+
             // cache TTL
             'rssCacheTimeout' => 1200,
 
@@ -361,13 +347,9 @@
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',
 
-            // minimum length of passwords
-            'minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
 
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 
-            // comma separated list of forms to be secured by a session token
-            'zenmagick.mvc.validation.tokenSecuredForms' => 'login',
 
 
             /**************************************

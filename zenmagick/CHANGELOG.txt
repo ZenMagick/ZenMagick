@@ -64,6 +64,7 @@ Release 0.9.7
 	currently not possible to update columns with null
 - zm_hoverbox3: fix cut&paste errors; b:#2824026
 - changed ZMMessages::T_GLOBAL to ZMMessages::
+- zm_settings: add option to show core and mvc settings
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

@@ -37,7 +37,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('settings_admin', zm_l10n_get('Settings'), 'zm_settings');
+        parent::__construct('settings_admin', zm_l10n_get('Manage Settings'), 'zm_settings');
     }
 
     /**
@@ -53,11 +53,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
      */
     public function processGet($request) {
         $page = parent::processGet($request);
-
         $context = array();
-
-        //$context['zm_resultList'] = $resultList;
-
         $page->setContents($this->getPageContents($context));
         return $page;
     }
