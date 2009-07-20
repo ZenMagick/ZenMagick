@@ -49,11 +49,87 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
 
 
     /**
+     * Get value for the given key and type.
+     *
+     * @param string key The key.
+     * @param string type The type.
+     * @return string The value as string.
+     */
+    protected function getStringValue($key, $type) {
+        if (null === ($value = ZMSettings::get($key))) {
+            return '-- NOT SET --';
+        }
+
+        switch ($type) {
+        case 'int':
+        case 'string':
+            break;
+        case 'array':
+            if (is_array($value)) {
+                $value = implode(',', $value);
+            }
+            break;
+        case 'octal':
+            $value = '0'.decoct($value);
+            break;
+        case 'boolean':
+            $value = ZMLangUtils::asBoolean($value) ? 'true' : 'false';
+            break;
+        default:
+            echo $details['type']."<BR>";
+            break;
+        }
+
+        return (string)$value;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
         $page = parent::processGet($request);
-        $context = array('settingDetails' => zm_get_settings_details());
+        $settingDetails = array();
+        // prepare values
+        foreach (zm_get_settings_details() as $group => $groupDetails) { 
+            foreach ($groupDetails as $sub => $subDetails) {
+                foreach ($subDetails as $subKey => $details) {
+                    $key = $group.'.'.$sub.'.'.$details['key'];
+                    $type = array_pop(explode(':', $details['type']));
+                    if (false === strpos($details['type'], 'dynamic:')) {
+                        $settingDetails[$group][$sub][$subKey]['fullkey'] = $key;
+                        $settingDetails[$group][$sub][$subKey]['key'] = $details['key'];
+                        $settingDetails[$group][$sub][$subKey]['desc'] = $details['desc'];
+                        $settingDetails[$group][$sub][$subKey]['value'] = $this->getStringValue($key, $type);
+                    } else {
+                        // dynamic
+                        $dt = explode(':', $details['type']);
+                        $dynVar = '@'.$dt[1].'@';
+                        $bits = explode($dynVar, $key);
+                        $prefix = $bits[0];
+                        $suffix = $bits[1];
+                        foreach (ZMSettings::getAll() as $akey => $avalue) {
+                            if (ZMLangUtils::startsWith($akey, $prefix) && ZMLangUtils::endsWith($akey, $suffix)) {
+                                // potential match
+                                $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
+                                if (!ZMLangUtils::isEmpty($dynVal)) {
+                                    // yep
+                                    $details['key'] = str_replace($dynVar, $dynVal, $details['key']);
+
+                                    // build real key
+                                    $key = $group.'.'.$sub.'.'.$details['key'];
+                                    $settingDetails[$group][$sub][$subKey]['fullkey'] = '*'.$key;
+                                    $settingDetails[$group][$sub][$subKey]['key'] = $details['key'];
+                                    $settingDetails[$group][$sub][$subKey]['desc'] = str_replace($dynVar, $dynVal, $details['desc']);
+                                    $settingDetails[$group][$sub][$subKey]['value'] = $this->getStringValue($key, $type);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $context = array('settingDetails' => $settingDetails);
         $page->setContents($this->getPageContents($context));
         return $page;
     }

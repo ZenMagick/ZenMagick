@@ -73,8 +73,8 @@
                     ),
                     array(
                         'key' => '@name@.enabled',
-                        'type' => 'dynamic:boolean',
-                        'desc' => 'Enable/disable setting for plugin with name @name@.'
+                        'type' => 'dynamic:name:boolean',
+                        'desc' => 'Enable/disable setting for plugin with name "@name@".'
                     )
                 ),
                 'database' => array(
@@ -100,8 +100,8 @@
                     ),
                     array(
                         'key' => 'sql.@table@.customFields',
-                        'type' => 'dynamic:string',
-                        'desc' => 'List of custom field mappings for table @table@.'
+                        'type' => 'dynamic:table:string',
+                        'desc' => 'List of custom field mappings for table "@table@".'
                     ),
                     array(
                         'key' => 'model.keyName',
@@ -110,8 +110,8 @@
                     ),
                     array(
                         'key' => 'connections.@name@',
-                        'type' => 'dynamic:string',
-                        'desc' => 'Connection settings for symbolic name @name@.'
+                        'type' => 'dynamic:name:string',
+                        'desc' => 'Connection settings for symbolic name "@name@".'
                     ),
                     array(
                         'key' => 'provider',
