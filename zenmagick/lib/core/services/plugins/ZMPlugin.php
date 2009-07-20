@@ -56,6 +56,8 @@
 abstract class ZMPlugin extends ZMObject {
     /** Do not load any plugin files (except, of course, the plugin itself). */
     const LP_NONE = 'NONE';
+    /** Alias for <code>LP_NONE</code>. */
+    const LP_PLUGIN = 'PLUGIN';
     /** Load files from the plugin folder, but ignore subfolder. */
     const LP_FOLDER = 'FOLDER';
     /** Load all files including subfolder. */
