@@ -65,6 +65,7 @@ Release 0.9.7
 - zm_hoverbox3: fix cut&paste errors; b:#2824026
 - changed ZMMessages::T_GLOBAL to ZMMessages::
 - zm_settings: add option to show core and mvc settings
+- zm_subscriptions: add option to do *hard* cancel of subscriptions
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

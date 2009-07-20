@@ -44,6 +44,7 @@
                         <?php $form->open(null, null) ?>
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">
+                            <input type="checkbox" name="hard" value="1"><label for="hard">Hard cancel</label>
                         </form>
                     <?php } else { ?>
                         &nbsp;

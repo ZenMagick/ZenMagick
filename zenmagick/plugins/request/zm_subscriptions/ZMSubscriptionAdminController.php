@@ -88,11 +88,12 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $page = self::processGet($request);
         $orderId = $request->getOrderId();
         $cancel = $request->getParameter('cancel');
+        $hard = ZMLangUtils::asBoolean($request->getParameter('hard'), false);
         if (0 != $orderId && 'cancel' == $cancel) {
             $sql = "UPDATE " . TABLE_ORDERS . "
-                    SET is_subscription_canceled = :subscriptionCanceled
+                    SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
-            Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
+            Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
             ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
         }
 
@@ -102,6 +103,8 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         if (!ZMLangUtils::isEmpty($email)) {
             $this->sendCancelEmail($order, $emailTemplate, $email);
         }
+
+        $page->setRefresh(true);
 
         return $page;
     }
