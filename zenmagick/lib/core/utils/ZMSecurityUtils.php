@@ -28,9 +28,13 @@
  * @version $Id$
  */
 class ZMSecurityUtils {
+    /** Random type digits only. */
     const RANDOM_DIGITS = 'digits';
+    /** Random type characters only. */
     const RANDOM_CHARS = 'chars';
+    /** Random type mixed (digits and characters). */
     const RANDOM_MIXED = 'mixed';
+    /** Random type hexadecimal. */
     const RANDOM_HEX = 'hex';
 
     private static $seedDone_;

@@ -32,7 +32,9 @@
  * @version $Id$
  */
 class ZMEvents extends ZMObject {
+    /** Fired after the inital code load is done. */
     const BOOTSTRAP_DONE = 'bootstrap_done';
+    /** Fired once all code has been loaded and plugins are initialized. */
     const INIT_DONE = 'init_done';
 
     protected $subscribers_;

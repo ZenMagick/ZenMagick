@@ -83,11 +83,13 @@ class ZMDbTableMapper extends ZMObject {
         'mediumblob', 'blob'
     );
 
+    /** Key used to cache table mappings. */
     const CACHE_KEY = "ZMDbTableMapper::mappings";
     private $tableMap_;
     private $cache_;
     private $isCached_;
     private $tablePrefix_;
+
 
     /**
      * Create a new instance.

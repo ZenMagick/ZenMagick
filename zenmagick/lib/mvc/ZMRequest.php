@@ -32,7 +32,13 @@
  * @version $Id$
  */
 class ZMRequest extends ZMObject {
+    /** Fired before a redirect. */
     const EVENT_REDIRECT = 'redirect';
+    /** 
+     * Paramter name containing the request id. 
+     *
+     * <p>The request/page id determines the page being displayed.</p>
+     */
     const REQUEST_ID = 'zmreq';
 
     private $controller_;

@@ -36,14 +36,18 @@
  * @version $Id: ZMPlugin.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
 class Plugin extends ZMPlugin {
-    // internal key constants
+    /** internal key constant */
     const KEY_PREFIX = 'PLUGIN_';
+    /** internal key constant */
     const KEY_ENABLED_SUFFIX = 'ENABLED';
+    /** internal key constant */
     const KEY_ORDER_SUFFIX = 'ORDER';
 
-    // scope constants
+    /** Load plugin files for storefront only. */
     const SCOPE_STORE = 'store';
+    /** Load plugin files for admin only. */
     const SCOPE_ADMIN = 'admin';
+    /** Load plugin files for both storefront and admin. */
     const SCOPE_ALL =  'all';
 
     var $installed_;

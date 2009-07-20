@@ -68,6 +68,7 @@ interface ZMDatabase {
 
     /** NULL date. */
     const NULL_DATE = '0001-01-01';
+
     /** NULL datetime. */
     const NULL_DATETIME = '0001-01-01 00:00:00';
 

@@ -63,6 +63,7 @@ Release 0.9.7
   avoid updating fields that are not set; there remains a limit in that it is
 	currently not possible to update columns with null
 - zm_hoverbox3: fix cut&paste errors; b:#2824026
+- changed ZMMessages::T_GLOBAL to ZMMessages::
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

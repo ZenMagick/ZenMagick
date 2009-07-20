@@ -47,9 +47,9 @@ class ZMMessage extends ZMObject {
      *
      * @param string text The message text.
      * @param string type The message type; default is <em>msg</em>.
-     * @param string ref The referencing resource; default is <code>ZMMessages::T_GLOBAL</code>.
+     * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    function __construct($text, $type='msg', $ref=ZMMessages::T_GLOBAL) {
+    function __construct($text, $type='msg', $ref=ZMMessages::REF_GLOBAL) {
         parent::__construct();
 
         $this->text_ = $text;

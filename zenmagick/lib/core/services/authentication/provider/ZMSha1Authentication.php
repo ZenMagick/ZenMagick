@@ -29,6 +29,7 @@
  * @version $Id: ZMSha1Authentication.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 class ZMSha1Authentication implements ZMAuthentication {
+    /** Number of characters taken from the given salt to encrypt the password. */
     const SALT_LENGTH = 9;
 
 

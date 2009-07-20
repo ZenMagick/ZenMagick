@@ -47,15 +47,18 @@
  *  <dd><code>ZMPlugin::LP_ALL</code>.</dd>
  * </dl>
  *
+ * <p>Files affected by the loader policy are all <em>.php</em> files, as documented for <code>ZMLoader</code>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.core.services.plugins
  * @version $Id$
  */
 abstract class ZMPlugin extends ZMObject {
-    // loader policy flags
+    /** Do not load any plugin files (except, of course, the plugin itself). */
     const LP_NONE = 'NONE';
-    const LP_PLUGIN = 'PLUGIN';
+    /** Load files from the plugin folder, but ignore subfolder. */
     const LP_FOLDER = 'FOLDER';
+    /** Load all files including subfolder. */
     const LP_ALL = 'ALL';
 
     private $id_;

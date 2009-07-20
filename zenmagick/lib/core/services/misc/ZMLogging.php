@@ -35,12 +35,19 @@
  */
 class ZMLogging extends ZMObject {
     private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
+    /** Log level: Disabled. */
     const NONE = 0;
+    /** Log level: Error. */
     const ERROR = 1;
+    /** Log level: Warning. */
     const WARN = 2;
+    /** Log level: Info. */
     const INFO = 3;
+    /** Log level: Debug. */
     const DEBUG = 4;
+    /** Log level: Trace. */
     const TRACE = 5;
+    /** Log level: ALL. */
     const ALL = 99999;
 
 

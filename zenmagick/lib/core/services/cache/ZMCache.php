@@ -31,7 +31,9 @@
  * @version $Id: ZMCache.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
 interface ZMCache {
+    /** Cache type <em>persistent</em>. */
     const PERSISTENT = 'persistent';
+    /** Cache type <em>transient</em>. */
     const TRANSIENT = 'transient';
 
 
