@@ -84,7 +84,7 @@ class ZMPlugins extends ZMObject {
     /**
      * Load the plugin status data.
      *
-     * <p>The default implementation is to look at settings in the form <em>zenmagick.plugins.[id].enabled</em>.</p>
+     * <p>The default implementation is to look at settings in the form <em>zenmagick.core.plugins.[id].enabled</em>.</p>
      *
      * @return array The status of all plugins.
      */

@@ -40,7 +40,7 @@
  *  <dd><em>0.0</em>.</dd>
  *  <dt>enabled</dt>
  *  <dd><code>null<code>; unless the status is explicitely set, the setting 
- *   <em>zenmagick.plugins.[id].enabled</em> will be checked instead.</dd>
+ *   <em>zenmagick.core.plugins.[id].enabled</em> will be checked instead.</dd>
  *  <dt>pluginDirectory</dt>
  *  <dd>Location of the plugin class file.</dd>
  *  <dt>loaderPolicy</dt>
@@ -210,7 +210,7 @@ abstract class ZMPlugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        return null !== $this->enabled_ ? $this->enabled_ : ZMSettings::get('zenmagick.plugins.'.$this->getId().'.enabled', false);
+        return null !== $this->enabled_ ? $this->enabled_ : ZMSettings::get('zenmagick.core.plugins.'.$this->getId().'.enabled', false);
     }
 
     /**
