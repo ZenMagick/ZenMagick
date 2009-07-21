@@ -34,6 +34,8 @@
 class ZMEvents extends ZMObject {
     /** Fired after the inital code load is done. */
     const BOOTSTRAP_DONE = 'bootstrap_done';
+    /** Fired once a group of plugins has been loaded and initialized. */
+    const INIT_PLUGIN_GROUP_DONE = 'init_plugin_group_done';
     /** Fired once all code has been loaded and plugins are initialized. */
     const INIT_DONE = 'init_done';
 

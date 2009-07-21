@@ -353,6 +353,7 @@ class ZMPlugins extends ZMObject {
             // call init only after everything set up
             $plugin->init();
         }
+        ZMEvents::instance()->fireEvent($this, ZMEvents::INIT_PLUGIN_GROUP_DONE, array('ids' => $ids, 'plugins' => $plugins));
 
         return $plugins;
     }
