@@ -28,7 +28,7 @@ Release 0.9.7
   content in store pages while linking back to the actual blog
 - zm_firephp: upgrade to FirePHP 0.3.1
 - improve ZMException's __toString() method
-- simplify and speed up autoload handling
+- simplify and speed up __autoload handling
 - remove debug code from ZMCheckoutAddressController
 - zm_init_category_path: add option to verify (and fix) incomplete path
 - add ZMRequestHandler interface in anticipation of having a proper request
@@ -66,6 +66,7 @@ Release 0.9.7
 - changed ZMMessages::T_GLOBAL to ZMMessages::
 - zm_settings: add option to show core and mvc settings
 - zm_subscriptions: add option to do *hard* cancel of subscriptions
+- add new theme PrecisionReloaded
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

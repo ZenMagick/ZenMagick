@@ -24,6 +24,11 @@
             <param name="theme.name" value="precision" />
             <param name="theme.version" value="${themes.precision.version}" />
         </antcall>
+
+        <antcall target="theme-release">
+            <param name="theme.name" value="PrecisionReloaded" />
+            <param name="theme.version" value="${themes.PrecisionReloaded.version}" />
+        </antcall>
     </target>
 
     
