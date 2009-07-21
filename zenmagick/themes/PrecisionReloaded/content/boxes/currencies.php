@@ -25,12 +25,12 @@
 ?>
 
 <?php $currencyList = ZMCurrencies::instance()->getCurrencies(); ?>
-<?php if (0 < count($currencyList) && !ZMTools::startsWith(ZMRequest::getPageName(), 'checkout')) { ?>
+<?php if (0 < count($currencyList) && !ZMTools::startsWith($request->getPageName(), 'checkout')) { ?>
     <h2><?php zm_l10n("Currencies") ?></h2>
     <div id="sb_currencies" class="box">
         <?php $form->open(null, '', false, null, array('method'=>'get')) ?>
             <div>
-                <?php $form->idpSelect('currency', $currencyList, ZMRequest::getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
+                <?php $form->idpSelect('currency', $currencyList, $request->getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
                 </noscript>

@@ -4,7 +4,7 @@
     $menu[] = array($net->url(FILENAME_DEFAULT, '', false, false), zm_l10n_get("Home"));
     $menu[] = array($net->url(FILENAME_LOGIN, '', true, false), zm_l10n_get("Login"));
     $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true, false), zm_l10n_get("Cart"));
-     if (ZMRequest::isRegistered()) {
+     if ($request->isRegistered()) {
     $menu[] = array($net->url(FILENAME_ACCOUNT, '', true, false), zm_l10n_get("Account")); }
     $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
    $menu[] = array($net->url(FILENAME_LOGOFF, '', true, false), zm_l10n_get("Logoff"));
@@ -12,13 +12,13 @@
    
    
 
-    /*if (ZMRequest::isAnonymous()) {
+    /*if ($request->isAnonymous()) {
         $menu[] = array($net->url(FILENAME_LOGIN, '', true, false), zm_l10n_get("Login"));
     }
-  /*  if (!ZMRequest::isAnonymous()) {
+  /*  if (!$request->isAnonymous()) {
         $menu[] = array($net->url(FILENAME_LOGOFF, '', true, false), zm_l10n_get("Logoff"));
     }
-   /* if (!ZMRequest::getShoppingCart()->isEmpty() && !ZMRequest::isCheckout()) {
+   /* if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) {
         $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true, false), zm_l10n_get("Cart"));
         $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
     }
