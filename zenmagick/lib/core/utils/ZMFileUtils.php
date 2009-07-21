@@ -28,6 +28,8 @@
  * @version $Id$
  */
 class ZMFileUtils {
+    private static $fileOwner_ = null;
+    private static $fileGroup_ = null;
 
     /**
      * Remove a directory (tree).
@@ -210,11 +212,11 @@ class ZMFileUtils {
         if (!ZMSettings::get('zenmagick.core.fs.permissions.fix')) {
             return;
         }
-        if (null == self::$fileOwner || null == self::$fileGroup) {
+        if (null == self::$fileOwner_ || null == self::$fileGroup_) {
             clearstatcache();
-            self::$fileOwner = fileowner(__FILE__);
-            self::$fileGroup = filegroup(__FILE__);
-            if (0 == self::$fileOwner && 0 == self::$fileGroup) {
+            self::$fileOwner_ = fileowner(__FILE__);
+            self::$fileGroup_ = filegroup(__FILE__);
+            if (0 == self::$fileOwner_ && 0 == self::$fileGroup_) {
                 return;
             }
         }
@@ -228,9 +230,9 @@ class ZMFileUtils {
 
         foreach ($files as $file) {
             if (0 < count($perms)) {
-                @chgrp($file, self::$fileGroup);
+                @chgrp($file, self::$fileGroup_);
             }
-            @chown($file, self::$fileOwner);
+            @chown($file, self::$fileOwner_);
             $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
             @chmod($file, $mod);
 
