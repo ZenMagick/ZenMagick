@@ -67,6 +67,10 @@ Release 0.9.7
 - zm_settings: add option to show core and mvc settings
 - zm_subscriptions: add option to do *hard* cancel of subscriptions
 - add new theme PrecisionReloaded
+- add new INIT_PLUGIN_GROUP_DONE event
+- zm_recaptcha: upgrade to recaptcha lib 1.10
+- zm_recaptcha: fix bugs as per b:#2824617
+- fix b:#2824616 - plugin globals not available in templates
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

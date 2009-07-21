@@ -32,12 +32,15 @@
  * @version $Id: ZMEventFixes.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
 class ZMEventFixes extends ZMObject {
+    private $plugins_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->plugins_ = array();
     }
 
     /**
@@ -61,6 +64,29 @@ class ZMEventFixes extends ZMObject {
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
                 ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_END, array('controllerId' => $controllerId));
+            }
+        }
+    }
+
+    /**
+     * Keep track of loaded plugins and make available to views - part I.
+     */
+    public function onZMInitPluginGroupDone($args) {
+        foreach ($args['plugins'] as $plugin) {
+            if (!array_key_exists($plugin->getId(), $this->plugins_)) {
+                $this->plugins_[$plugin->getId()] = $plugin;
+            }
+        }
+    }
+
+    /**
+     * Keep track of loaded plugins and make available to views - part II.
+     */
+    public function onZMViewStart($args) {
+        if (array_key_exists('view', $args)) {
+            $view = $args['view'];
+            foreach ($this->plugins_ as $id => $plugin) {
+                $view->setVar($id, $plugin);
             }
         }
     }

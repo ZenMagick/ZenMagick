@@ -34,15 +34,14 @@ define('ZM_RECAPTCHA_FIELD', 'recaptcha_response_field');
  * @version $Id$
  */
 class zm_recaptcha extends Plugin {
-    var $captchaEnabled_;
-    var $error_;
+    private $captchaEnabled_;
+    private $error_;
     // page => (name, form)
-    var $pageConfig_ = array(
-        'create_account' => array('Create Account', 'create_account'),
-        'contact_us' => array('Contact Us', 'contact_us'),
-        'tell_a_friend' => array('Tell A Friend', 'tell_a_friend'),
-        'links_submit' => array('Links Submit', 'links_submit'),
-        'product_reviews_write' => array('Write Review', 'review')
+    private $pageConfig_ = array(
+        'create_account' => array('Create Account', 'registration'),
+        'contact_us' => array('Contact Us', 'contactUs'),
+        'tell_a_friend' => array('Tell A Friend', 'tellAFriend'),
+        'product_reviews_write' => array('Write Review', 'newReview')
     );
 
 
@@ -65,9 +64,9 @@ class zm_recaptcha extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
 
         $this->addConfigValue('Public Key', 'publicKey', '', 'ReCAPTCHA public key');
@@ -80,6 +79,14 @@ class zm_recaptcha extends Plugin {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        $this->zcoSubscribe();
+    }
+
+    /**
      * Init done callback.
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
@@ -88,10 +95,11 @@ class zm_recaptcha extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMInitDone($args=null) {
+        $request = $args['request'];
         // check if we need to do anything for this request...
-        $page = ZMRequest::instance()->getRequestId();
-        if (true == $this->get($page) && isset($this->pageConfig_[$page])) { 
-            $form = $this->pageConfig_[$page][1];
+        $requestId = $request->getRequestId();
+        if (true == $this->get($requestId) && isset($this->pageConfig_[$requestId])) { 
+            $form = $this->pageConfig_[$requestId][1];
             // active for this page
             $this->captchaEnabled_ = true;
             $rules = array(
@@ -108,14 +116,14 @@ class zm_recaptcha extends Plugin {
      *
      * @return boolean <code>true</code> if the captcha is enabled, <code>false</code> if not.
      */
-    function isCaptchaEnabled() {
+    public function isCaptchaEnabled() {
         return $this->captchaEnabled_;
     }
 
     /**
      * Create the captcha image.
      */
-    function showCaptcha() {
+    public function showCaptcha() {
         if ($this->captchaEnabled_) {
             echo recaptcha_get_html($this->get('publicKey'), $this->getError());
         }
@@ -126,7 +134,7 @@ class zm_recaptcha extends Plugin {
      *
      * @return string The error or <code>null</code>.
      */
-    function getError() {
+    public function getError() {
         return $this->error_;
     }
 
@@ -135,7 +143,7 @@ class zm_recaptcha extends Plugin {
      *
      * @param string error The error.
      */
-    function setError($error) {
+    public function setError($error) {
         $this->error_ = $error;
     }
 
