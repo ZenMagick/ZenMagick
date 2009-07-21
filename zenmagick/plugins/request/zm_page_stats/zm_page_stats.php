@@ -147,6 +147,12 @@ class zm_page_stats extends Plugin {
                 if (Events::FINALISE_CONTENTS == $event['id']) {
                     $eargs['contents'] = '**response**';
                 }
+                // handle array eargs
+                foreach ($eargs as $key => $value) {
+                    if (is_array($value)) {
+                        $eargs[$key] = implode(',', $value);
+                    }
+                }
                 $argsInfo = implode(',', $eargs);
                 $argsInfo = empty($argsInfo) ? '&nbsp;' : $argsInfo;
                 echo '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
