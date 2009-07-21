@@ -71,6 +71,8 @@ Release 0.9.7
 - zm_recaptcha: upgrade to recaptcha lib 1.10
 - zm_recaptcha: fix bugs as per b:#2824617
 - fix b:#2824616 - plugin globals not available in templates
+- zm_recaptcha: added option to disable captcha for registered (logged in)
+  users
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
