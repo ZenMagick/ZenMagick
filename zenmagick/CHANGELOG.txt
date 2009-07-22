@@ -73,6 +73,9 @@ Release 0.9.7
 - fix b:#2824616 - plugin globals not available in templates
 - zm_recaptcha: added option to disable captcha for registered (logged in)
   users
+- addded: zm_fual_slimbox
+- added test theme; this is for development only and not intended to be
+  released at all
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()
