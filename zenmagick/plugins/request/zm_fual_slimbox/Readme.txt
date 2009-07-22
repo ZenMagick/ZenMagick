@@ -31,6 +31,9 @@ Template changes
    In the example below, the images are all grouped by the ref 'gallery'. In order to avoid mixing images, it is recommented to use
    different group references for unrelated images (for example in sideboxes); example: rel="lightbox[featured]".
 
+4) The Funky option of the 'Paranoia Mode' setting is not supported, in order to do that the template will nee to be changed manually by wrapping the image
+   in a div with an id of 'slimboxWrapper'. See the examples for more details.
+
 
 Template code examples
 ======================
@@ -46,4 +49,7 @@ Template code examples
 
       <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge</a>
 
+4) Image with funky display wrapper div:
+
+      <div id="slimboxWrapper"><a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a></div>
 

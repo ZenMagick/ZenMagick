@@ -115,7 +115,6 @@ class zm_fual_slimbox extends Plugin {
 		}
 
         $contents = preg_replace('/<\/head>/', ob_get_clean().'</head>', $contents, 1);
-
         $args['contents'] = $contents;
         return $args;
     }
