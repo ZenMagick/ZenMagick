@@ -36,7 +36,7 @@ Template code examples
 ======================
 1) Product info view:
 
-      <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php zm_image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
+          <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php $html->image($imageInfo, ZMProducts::IMAGE_SMALL) ?></a>
 
 2) For additional images (around line #71):
 

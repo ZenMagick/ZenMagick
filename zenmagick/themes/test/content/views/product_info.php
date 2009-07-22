@@ -31,7 +31,8 @@
   <?php $imageInfo = $zm_product->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <?php hover3_product_image_link($product, $imageInfo) ?>
+          <?php /* hover3_product_image_link($product, $imageInfo) */ ?><br>
+          <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
           <?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
