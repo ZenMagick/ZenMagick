@@ -5,7 +5,7 @@
  * @author Brian Tyler (btyler@math.ucl.ac.uk)
  * @copyright Copyright 2008 Fual Ltd
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: fual_slimbox.php 2008-01-13 btyler $
+ * @version $Id$
  */
 
 

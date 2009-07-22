@@ -3,7 +3,7 @@
  *
  * @author Brian Tyler (btyler@math.ucl.ac.uk)
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: slimbox_install.txt 2008-01-13 btyler $
+ * @version $Id$
  */
 
 SET @t4=0;
