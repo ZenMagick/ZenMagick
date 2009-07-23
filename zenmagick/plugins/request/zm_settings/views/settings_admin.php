@@ -16,15 +16,20 @@
             Value: <input type="text" name="value">
             Type: <select name="type">
                 <option value="TextFormWidget#">Text</option>
+                <option value="PasswordFormWidget#">Password</option>
                 <option value="TextAreaFormWidget#cols=80&rows=5">Text Area</option>
+                <option value="TextAreaFormWidget#cols=35&rows=2">Text Area (small)</option>
                 <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
                 <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
                 <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
-                <option value="SelectFormWidget#">Select (dropdown)</option>
+                <option value="SelectFormWidget#">Generic Select (dropdown)</option>
+                <option value="SelectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
                 <option value="ManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
                 <option value="ManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
                 <option value="OrderStatusSelectFormWidget#">Order Status (dropdown)</option>
                 <option value="OrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
+                <option value="CountrySelectFormWidget#">Country (dropdown)</option>
+                <option value="CountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
             </select>
         </p>
         <p><input type="submit" value="create"></p>

@@ -78,6 +78,11 @@ Release 0.9.7
   released at all
 - added ZMOrders::getOrderStatusList(), ZMOrderStatusSelectFormWidget,
   corresponding test and added new widget to options drop down of zm_settings
+- zm_settings: add special case to allow to intialize generic select dropdowns
+  with options via the value field (create only, of course)
+- add password widget, add to zm_settings
+- add support for attributes without value ('multiple', for example) to
+  ZMFormWidget
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

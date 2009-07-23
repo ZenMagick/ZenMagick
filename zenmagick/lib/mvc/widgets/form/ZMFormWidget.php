@@ -31,6 +31,7 @@
  * @version $Id$
  */
 abstract class ZMFormWidget extends ZMWidget {
+    private static $NO_VAL_ATTR = array('multiple');
     private $name_;
     private $value_;
     private $attributeNames_;
@@ -115,11 +116,22 @@ abstract class ZMFormWidget extends ZMWidget {
      * @return string All set (and allowed) attributes as formatted HTML string.
      */
     public function getAttributeString($addValue=true) {
+        $isXhtml = ZMSettings::get('zenmagick.mvc.html.xhtml');
+
         $attr = ' name="'.$this->getName().'"';
         $html = ZMToolbox::instance()->html;
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
-                $attr .= ' '.$name.'="'.$html->encode($value, false).'"';
+                if (in_array($name, self::$NO_VAL_ATTR)) {
+                    if ($isXhmtl) {
+                        $attr .= ' '.$name.'="'.$name.'"';
+                    } else {
+                        $selected = ' selected';
+                        $attr .= ' '.$name;
+                    }
+                } else {
+                    $attr .= ' '.$name.'="'.$html->encode($value, false).'"';
+                }
             }
         }
 

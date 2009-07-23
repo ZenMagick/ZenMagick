@@ -50,6 +50,15 @@ class ZMSelectFormWidget extends ZMFormWidget {
 
 
     /**
+     * Set the multiple flag.
+     *
+     * @param boolean multiple New value.
+     */
+    public function setMultiple($multiple) {
+        $this->set('multiple', ZMLangUtils::asBoolean($multiple));
+    }
+
+    /**
      * Get the options map.
      *
      * @return array Map of value/name pairs.
@@ -76,12 +85,11 @@ class ZMSelectFormWidget extends ZMFormWidget {
         foreach ($this->getOptions() as $value => $name) {
             $selected = '';
             if ($value == $this->getValue()) {
-              if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
-                  $selected = ' selected="selected"';
-              } else {
-                  $selected = ' selected';
-              }
-              
+                if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
+                    $selected = ' selected="selected"';
+                } else {
+                    $selected = ' selected';
+                }
             }
             $output .= '<option'.$selected.' value="'.$html->encode($value, false).'">'.$html->encode($name, false).'</option>';
         }

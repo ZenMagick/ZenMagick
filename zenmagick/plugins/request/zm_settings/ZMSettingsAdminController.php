@@ -71,9 +71,17 @@ class ZMSettingsAdminController extends ZMPluginPageController {
             $key = $request->getParameter('key');
             $value = $request->getParameter('value');
             $type = $request->getParameter('type');
+            // special case for generic select where the initial value gets added to the widget definition
+            $parValue = '';
+            if (0 === strpos($type, 'SelectFormWidget#')) {
+                $parValue = '&options='.urlencode($value);
+                $value = '';
+            }
+            //echo 'v:'.$value,'<br>',' pv:',$parValue,'<br>';
+            //echo $type;die();
 
             if (!empty($key) && !empty($type)) {
-                $plugin->addConfigValue($title, $key, $value, '', 'widget@'.$type.'&id='.$key.'&name='.$key);
+                $plugin->addConfigValue($title, $key, $value, '', 'widget@'.$type.'&id='.$key.'&name='.$key.$parValue);
             }
         } else if ('update' == $action) {
             $parameter = array();
