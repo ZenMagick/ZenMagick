@@ -77,8 +77,6 @@ class ZMSettingsAdminController extends ZMPluginPageController {
                 $parValue = '&options='.urlencode($value);
                 $value = '';
             }
-            //echo 'v:'.$value,'<br>',' pv:',$parValue,'<br>';
-            //echo $type;die();
 
             if (!empty($key) && !empty($type)) {
                 $plugin->addConfigValue($title, $key, $value, '', 'widget@'.$type.'&id='.$key.'&name='.$key.$parValue);
@@ -90,9 +88,14 @@ class ZMSettingsAdminController extends ZMPluginPageController {
                 $lname = str_replace('_', '.', $name);
                 $parameter[$lname] = $value;
             }
+
             foreach ($plugin->getConfigValues(false) as $widget) {
                 if ($widget instanceof ZMFormWidget && null !== $request->getParameter($widget->getName())) {
                     $value = $parameter[$widget->getName()];
+                    // check for multiple values and shrink
+                    if (is_array($value)) {
+                        $value = serialize($value);
+                    }
                     if (!$widget->compare($value)) {
                         // value changed
                         $plugin->set($widget->getName(), $value);

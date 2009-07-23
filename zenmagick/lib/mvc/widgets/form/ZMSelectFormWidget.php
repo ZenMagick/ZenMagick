@@ -59,6 +59,13 @@ class ZMSelectFormWidget extends ZMFormWidget {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function isMultiValue() {
+        return $this->isMultiple();
+    }
+
+    /**
      * Get the options map.
      *
      * @return array Map of value/name pairs.
@@ -80,18 +87,22 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render() {
+        $values = $this->getValue();
+        if (!is_array($values)) {
+            $values = array($values);
+        }
         $html = ZMToolbox::instance()->html;
         $output = '<select'.$this->getAttributeString(false).'>';
-        foreach ($this->getOptions() as $value => $name) {
+        foreach ($this->getOptions() as $oval => $name) {
             $selected = '';
-            if ($value == $this->getValue()) {
+            if (in_array($oval, $values)) {
                 if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
                     $selected = ' selected="selected"';
                 } else {
                     $selected = ' selected';
                 }
             }
-            $output .= '<option'.$selected.' value="'.$html->encode($value, false).'">'.$html->encode($name, false).'</option>';
+            $output .= '<option'.$selected.' value="'.$html->encode($oval, false).'">'.$html->encode($name, false).'</option>';
         }
         $output .= '</select>';
         return $output;

@@ -105,7 +105,7 @@ class ZMLangUtils {
         if (is_array($value)) {
             return $value;
         }
-        parse_str($value, $map);
+        parse_str(urldecode($value), $map);
         return $map;
     }
 

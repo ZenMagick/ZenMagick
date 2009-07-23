@@ -83,6 +83,7 @@ Release 0.9.7
 - add password widget, add to zm_settings
 - add support for attributes without value ('multiple', for example) to
   ZMFormWidget
+- add support for widgets with multi values
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

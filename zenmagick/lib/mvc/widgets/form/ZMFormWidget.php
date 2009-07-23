@@ -79,6 +79,13 @@ abstract class ZMFormWidget extends ZMWidget {
      * @param mixed value The value.
      */
     public function setValue($value) {
+        if ($this->isMultiValue()) {
+            // try
+            $arr = unserialize($value);
+            if (is_array($arr)) {
+                $value = $arr;
+            }
+        }
         $this->value_ = $value;
     }
 
@@ -110,6 +117,15 @@ abstract class ZMFormWidget extends ZMWidget {
     }
 
     /**
+     * Check if this widget allows multiple values.
+     *
+     * @return boolean <code>true</code> if multiple values are supported.
+     */
+    public function isMultiValue() {
+        return false;
+    }
+
+    /**
      * Get the formatted attribute string.
      *
      * @param boolean addValue Optional flag to include/exclude the value; default is <code>true</code>.
@@ -118,7 +134,7 @@ abstract class ZMFormWidget extends ZMWidget {
     public function getAttributeString($addValue=true) {
         $isXhtml = ZMSettings::get('zenmagick.mvc.html.xhtml');
 
-        $attr = ' name="'.$this->getName().'"';
+        $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
         $html = ZMToolbox::instance()->html;
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
