@@ -279,7 +279,7 @@ class ZMRequest extends ZMObject {
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
         ZMEvents::instance()->fireEvent($this, self::EVENT_REDIRECT, array('request' => $this, 'url' => $url));
-        ZMLogging::instance()->log('redirect url: ' . $url, ZMLogging::TRACE);
+        ZMLogging::instance()->trace('redirect url: ' . $url, ZMLogging::TRACE);
         header('Location: ' . $url, true, $status);
         exit;
     }

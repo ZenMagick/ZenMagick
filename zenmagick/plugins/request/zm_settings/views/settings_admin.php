@@ -21,6 +21,10 @@
                 <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
                 <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
                 <option value="SelectFormWidget#">Select (dropdown)</option>
+                <option value="ManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
+                <option value="ManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
+                <option value="OrderStatusSelectFormWidget#">Order Status (dropdown)</option>
+                <option value="OrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
             </select>
         </p>
         <p><input type="submit" value="create"></p>

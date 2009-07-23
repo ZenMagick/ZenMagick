@@ -333,6 +333,26 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         return Runtime::getDatabase()->query($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'Download');
     }
 
+    /**
+     * Get a list of all order stati.
+     *
+     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @return array List of <code>ZMObject</code> instances.
+     */
+    public function getOrderStatusList($languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::instance()->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        $sql = "SELECT orders_status_id, orders_status_name
+                FROM " . TABLE_ORDERS_STATUS . "
+                WHERE language_id = :languageId
+                ORDER BY orders_status_id";
+
+        return Runtime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMObject');
+    }
+
 }
 
 ?>

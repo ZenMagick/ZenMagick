@@ -74,7 +74,6 @@ class ZMSettingsAdminController extends ZMPluginPageController {
 
             if (!empty($key) && !empty($type)) {
                 $plugin->addConfigValue($title, $key, $value, '', 'widget@'.$type.'&id='.$key.'&name='.$key);
-                $page->setRefresh(true);
             }
         } else if ('update' == $action) {
             $parameter = array();
@@ -89,12 +88,12 @@ class ZMSettingsAdminController extends ZMPluginPageController {
                     if (!$widget->compare($value)) {
                         // value changed
                         $plugin->set($widget->getName(), $value);
-                        $page->setRefresh(true);
                     }
                 }
             }
         }
 
+        $page->setRefresh(true);
         return $page;
     }
 

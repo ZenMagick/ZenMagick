@@ -76,6 +76,8 @@ Release 0.9.7
 - addded: zm_fual_slimbox
 - added test theme; this is for development only and not intended to be
   released at all
+- added ZMOrders::getOrderStatusList(), ZMOrderStatusSelectFormWidget,
+  corresponding test and added new widget to options drop down of zm_settings
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

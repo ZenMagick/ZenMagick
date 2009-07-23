@@ -216,6 +216,16 @@ class TestZMOrders extends ZMTestCase {
         }
     }
 
+    /**
+     * Test order status list.
+     */
+    public function testOrderStatusList() {
+        $list = ZMOrders::instance()->getOrderStatusList();
+        if ($this->assertNotNull($list)) {
+            $this->assertTrue(0 < count($list));
+        }
+    }
+
 }
 
 ?>
