@@ -113,12 +113,12 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
                                 $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
                                 if (!ZMLangUtils::isEmpty($dynVal)) {
                                     // yep
-                                    $details['key'] = str_replace($dynVar, $dynVal, $details['key']);
+                                    $subKey = str_replace($dynVar, $dynVal, $details['key']);
 
                                     // build real key
-                                    $key = $group.'.'.$sub.'.'.$details['key'];
+                                    $key = $group.'.'.$sub.'.'.$subKey;
                                     $settingDetails[$group][$sub][$subKey]['fullkey'] = $key;
-                                    $settingDetails[$group][$sub][$subKey]['key'] = $details['key'];
+                                    $settingDetails[$group][$sub][$subKey]['key'] = $subKey;
                                     $settingDetails[$group][$sub][$subKey]['desc'] = '* '.str_replace($dynVar, $dynVal, $details['desc']);
                                     $settingDetails[$group][$sub][$subKey]['value'] = $this->getStringValue($key, $type);
                                 }
