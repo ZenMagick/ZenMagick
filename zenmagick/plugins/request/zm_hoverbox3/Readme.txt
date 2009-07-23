@@ -63,7 +63,7 @@ with this call:
 
 Replace the line:
 
-      <p><a href="<?php zm_product_href($review->getProductId()) ?>"><?php zm_image($review->getProductImageInfo(), false) ?></a></p>
+      <p><a href="<?php $net->product($review->getProductId()) ?>"><?php $html->image($review->getProductImageInfo()) ?></a></p>
 
 with:
 
