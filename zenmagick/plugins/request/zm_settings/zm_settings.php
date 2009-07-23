@@ -81,7 +81,7 @@ class zm_settings extends Plugin {
         foreach ($this->getConfigValues(false) as $value) {
             if ($value instanceof ZMWidget) {
                 //echo $value->getName() . ' = ' . $value->getValue()."<BR>";
-                ZMSettings::set($value->getName(), $value->getValue());
+                ZMSettings::set($value->getName(), $value->getEffectiveValue());
             }
         }
     }

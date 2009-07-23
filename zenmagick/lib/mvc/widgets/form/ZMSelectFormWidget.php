@@ -86,8 +86,15 @@ class ZMSelectFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
+    public function getEffectiveValue() {
+        return $this->value_;;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function render() {
-        $values = $this->getValue();
+        $values = $this->value_;
         if (!is_array($values)) {
             $values = array($values);
         }
