@@ -31,8 +31,8 @@
   <?php $imageInfo = $zm_product->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <?php /* hover3_product_image_link($product, $imageInfo) */ ?><br>
-          <div id="slimboxWrapper"><a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a></div>
+          <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <br><a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge - FTW!</a>
       <?php } else { ?>
           <?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -67,7 +67,7 @@
           <legend><?php zm_l10n("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php $net->absolute($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php $net->absolute($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
               <?php } else { ?>
                   <img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>

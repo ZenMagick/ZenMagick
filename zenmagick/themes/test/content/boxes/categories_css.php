@@ -1,40 +1,33 @@
 <?php
-/*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2008 ZenMagick
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
- */
-?>
+//
+// +----------------------------------------------------------------------+
+// |zen-cart Open Source E-commerce                                       |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2003 The zen-cart developers                           |
+// |                                                                      |
+// | http://www.zen-cart.com/index.php                                    |
+// |                                                                      |
+// | Portions Copyright (c) 2003 osCommerce                               |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.0 of the GPL license,       |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available through the world-wide-web at the following url:           |
+// | http://www.zen-cart.com/license/2_0.txt.                             |
+// | If you did not receive a copy of the zen-cart license and are unable |
+// | to obtain it through the world-wide-web, please send a note to       |
+// | license@zen-cart.com so we can mail you a copy immediately.          |
+// +----------------------------------------------------------------------+
+// $Id$
+//
 
-<h3><?php zm_l10n("Categories") ?></h3>
-<div id="sb_categories_css" class="box">
-<?php
-
-  $zen_CategoriesUL = new zen_categories_ul_generator($request);
+  $zen_CategoriesUL = new zen_categories_ul_generator;
   $menulist = $zen_CategoriesUL->buildTree(true);
 
   $content = '';
 
+  // NOTE: CSS should be in the <head> element, this is not valid HTML
   // Load CSS file if this sidebox is enabled
-  $utils->cssFile('categories_css.css');
+  $content .= '<link rel="stylesheet" type="text/css" href="' . $zm_theme->themeURL('categories_css.css', false) . '" />'."\n";
 
   // Load containing UL and content
   $content .= '<ul class="bullet-menu" id="siteMenu">';
@@ -49,7 +42,7 @@
       $content .= '  <li><a href="' . zen_href_link(FILENAME_PRODUCTS_NEW) . '">' . CATEGORIES_BOX_HEADING_WHATS_NEW . '</a></li>'."\n";
     }
     if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
-      $featured = ZMProducts::instance()->getFeaturedProducts(null, 1, false, $session->getLanguageId());
+      $featured = ZMProducts::instance()->getFeaturedProducts(null, 1);
       if (0 < count($featured)) {
         $content .= '  <li><a href="' . zen_href_link(FILENAME_FEATURED_PRODUCTS) . '">' . CATEGORIES_BOX_HEADING_FEATURED_PRODUCTS . '</a></li>'."\n";
       }
@@ -68,4 +61,3 @@
 
   echo $content;
 ?>
-</div>

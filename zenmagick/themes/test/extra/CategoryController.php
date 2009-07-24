@@ -71,7 +71,6 @@ class CategoryController extends ZMController {
             $viewName = 'category_list';
         }
 
-        $data = array();
         $resultList = null;
         if (null !== $method) {
             $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
@@ -84,7 +83,7 @@ class CategoryController extends ZMController {
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(ZMLoader::make($sorter));
             }
-            $data['zm_resultList'] = $resultList;
+            $this->exportGlobal("zm_resultList", $resultList);
         }
 
         if ($viewName == "category_list" 
@@ -95,7 +94,7 @@ class CategoryController extends ZMController {
 
         $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
         if (null != $category) {
-            $data['zm_category'] = $category;
+            $this->exportGlobal("zm_category", $category);
         }
 
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {
@@ -105,7 +104,7 @@ class CategoryController extends ZMController {
             $viewName = 'product_info';
         }
 
-        return $this->findView($viewName, $data);
+        return $this->findView($viewName);
     }
 
 }
