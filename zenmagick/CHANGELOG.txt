@@ -14,6 +14,8 @@ Release 0.9.7
 - fix missing 'new' in ZMProductSorter.php
 - zm_auto_login: refresh cookie on onZMFinaliseContents rather onZMAllDone;
   can't update headers after content has been sent!
+- zm_auto_login: change to always use token service; this might invalidate old
+  cookies and force users to login again (once)
 - remove obsolete bootstrap.php
 - split ZMRuntime - all store code now uses Runtime
 - zm_goggle_analytics: fix conversion URL (missing '/')
