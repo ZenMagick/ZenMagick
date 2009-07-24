@@ -78,23 +78,6 @@ class Request extends ZMRequest {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getController() {
-        $controller = parent::getController();
-        ZMRequest::setController($controller);
-        return $controller;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setController($controller) {
-        parent::setController($controller);
-        ZMRequest::setController($controller);
-    }
-
-    /**
      * Get the current shopping cart.
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
@@ -156,7 +139,7 @@ class Request extends ZMRequest {
      *
      * <p><strong>NOTE:</strong> This will return the currency code as found in the request. If not set,
      * the session currency code will be returned instead. To access the session currency code directly, use 
-     * <code>ZMRequest::getSession()->getCurrencyCode()</code>.</p>
+     * <code>$request->getSession()->getCurrencyCode()</code>.</p>
      *
      * @return string The currency code or <code>null</code>.
      */

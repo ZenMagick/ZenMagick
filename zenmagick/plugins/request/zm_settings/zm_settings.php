@@ -52,25 +52,6 @@ class zm_settings extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function install() {
-        parent::install();
-        /*
-        $this->addConfigValue('Text Widget', 'text', 'foo', 'Sample text widget',
-            'widget@TextFormWidget#id=text&name=text&default=foo&size=30&maxlength=32');
-        $this->addConfigValue('Text Widget', 'some.other', '', 'Sample other text widget',
-            'widget@TextFormWidget#id=some.other&name=some.other&default=&size=8&maxlength=5');
-        $this->addConfigValue('Boolean Widget', 'bool', 'false', 'Sample boolean widget',
-            'widget@BooleanFormWidget#id=bool&name=bool&default=false&label=Tickle me');
-        $this->addConfigValue('Select Boolean Widget', 'totallyother.bool', 'true', 'Select sample boolean widget',
-            'widget@BooleanFormWidget#id=other.bool&name=totallyother.bool&default=true&label.true=Yes&label.false=No&style=select');
-        $this->addConfigValue('Other Boolean Widget', 'other.bool', 'true', 'Other sample boolean widget',
-            'widget@BooleanFormWidget#id=other.bool&name=other.bool&default=true&label.true=Yup&label.false=Nix da&style=radio');
-        */
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function init() {
         parent::init();
 
