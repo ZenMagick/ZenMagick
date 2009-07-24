@@ -74,6 +74,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
             // special case for generic select where the initial value gets added to the widget definition
             $parValue = '';
             if (0 === strpos($type, 'SelectFormWidget#')) {
+                // urlencode to allow to set multiple value=name pairs
                 $parValue = '&options='.urlencode($value);
                 $value = '';
             }
@@ -95,7 +96,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
                     if (!$widget->compare($value)) {
                         // value changed, use widget to (optionally) format value
                         $widget->setValue($value);
-                        $plugin->set($widget->getName(), $widget->getValue());
+                        $plugin->set($widget->getName(), $widget->getStringValue());
                     }
                 }
             }

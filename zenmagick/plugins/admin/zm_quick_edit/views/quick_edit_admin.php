@@ -68,9 +68,9 @@
                 $fieldName = $field['name'].'_'.$productId;
                 // use widget to *read* the value to allow for optional conversions, etc
                 $widget->setValue($request->getParameter($fieldName));
-                $formData[$fieldMap[$field['name']]] = $widget->getValue();
+                $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
                 $widget->setValue($request->getParameter('_'.$fieldName));
-                $_formData[$fieldMap[$field['name']]] = $widget->getValue();
+                $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
             }
             // load product, convert to map and compare with the submitted form data
             $product = ZMProducts::instance()->getProductForId($productId);

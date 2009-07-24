@@ -50,6 +50,17 @@ class ZMSelectFormWidget extends ZMFormWidget {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function setValue($value) {
+        $arr = unserialize($value);
+        if (is_array($arr)) {
+            $value = $arr;
+        }
+        parent::setValue($value);
+    }
+
+    /**
      * Set the multiple flag.
      *
      * @param boolean multiple New value.
@@ -86,15 +97,20 @@ class ZMSelectFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function getEffectiveValue() {
-        return $this->value_;;
+    public function getStringValue() {
+        if ($this->isMultiValue()) {
+            // only for multi values, to avoid serializing int values, etc...
+            return serialize($this->getValue());
+        }
+
+        return parent::getStringValue();
     }
 
     /**
      * {@inheritDoc}
      */
     public function render() {
-        $values = $this->value_;
+        $values = $this->getValue();
         if (!is_array($values)) {
             $values = array($values);
         }

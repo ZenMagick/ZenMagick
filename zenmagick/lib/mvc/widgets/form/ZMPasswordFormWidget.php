@@ -35,6 +35,7 @@ class ZMPasswordFormWidget extends ZMTextFormWidget {
      */
     function __construct() {
         parent::__construct();
+        $this->set('autocomplete','off');
     }
 
     /**

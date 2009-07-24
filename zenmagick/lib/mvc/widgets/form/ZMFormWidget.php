@@ -33,7 +33,7 @@
 abstract class ZMFormWidget extends ZMWidget {
     private static $NO_VAL_ATTR = array('multiple');
     private $name_;
-    protected $value_;
+    private $value_;
     private $attributeNames_;
 
 
@@ -79,13 +79,6 @@ abstract class ZMFormWidget extends ZMWidget {
      * @param mixed value The value.
      */
     public function setValue($value) {
-        if ($this->isMultiValue()) {
-            // try
-            $arr = unserialize($value);
-            if (is_array($arr)) {
-                $value = $arr;
-            }
-        }
         $this->value_ = $value;
     }
 
@@ -95,25 +88,15 @@ abstract class ZMFormWidget extends ZMWidget {
      * @return mixed The value.
      */
     public function getValue() {
-        if ($this->isMultiValue() && is_array($this->value_)) {
-            return serialize($this->value_);
-        }
-
         return $this->value_;
     }
 
     /**
-     * Get the effective value.
+     * Get a stringified version of the value suitable for storing.
      *
-     * <p>This method allows wigets to use a compressed/encrypted or otherwise modified value internally and
-     * in the form. The effective value is the value usable by the calling application.</p>
-     *
-     * <p>The default implementation just returns <code>$this->getValue()</code>; subclasses might opt
-     * to override this method if required.</p>
-     *
-     * @return mixed The effective value.
+     * @return string The value as string.
      */
-    public function getEffectiveValue() {
+    public function getStringValue() {
         return $this->getValue();
     }
 
