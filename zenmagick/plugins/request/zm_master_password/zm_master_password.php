@@ -54,7 +54,8 @@ class zm_master_password extends Plugin {
      */
     public function install() {
         parent::install();
-        $this->addConfigValue('Master Password', 'masterPassword', '', 'The master password (will be encrypted in the database)');
+        $this->addConfigValue('Master Password', 'masterPassword', '', 'The master password (will be encrypted in the database)',
+            'widget@PasswordFormWidget#name=masterPassword&size=12&maxlength=28');
     }
 
     /**
@@ -62,7 +63,7 @@ class zm_master_password extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->addMenuItem('master_password', zm_l10n_get('Master Password'), 'zm_master_password_admin');
+        //$this->addMenuItem('master_password', zm_l10n_get('Master Password'), 'zm_master_password_admin');
         ZMAuthenticationManager::instance()->addProvider('ZMMasterPasswordAuthentication');
     }
 
