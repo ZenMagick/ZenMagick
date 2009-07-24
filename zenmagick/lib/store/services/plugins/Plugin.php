@@ -285,20 +285,25 @@ class Plugin extends ZMPlugin {
      * @param string key The configuration key (with or without the common prefix).
      * @param string value The value.
      * @param string description The description; defaults to <code>''</code>.
-     * @param string setFunction The set function; defaults to <code>null</code>.
-     * @param string useFunction The use function; defaults to <code>null</code>.
+     * @param string widget The widget definitio; default is <code>null</code> for a default text field.
      * @param int sortOrder The sort order; defaults to <code>0</code>.
      */
-    public function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
+    public function addConfigValue($title, $key, $value, $description='', $widget=null, $sortOrder=0) {
+        if (null == $widget) {
+            // do this first before fiddling with $key
+            $widget = 'widget@TextFormWidget#name='.$key.'&default=&size=12&maxlength=56';
+        }
+
         if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
         // keys are always upper case
         $key = strtoupper($key);
+
         // XXX: not a great test but will work while being based on zen-cart configuration
         if (!defined($key)) {
             // ZENMAGICK_PLUGIN_GROUP_ID is created via config.sql SQL
-            ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
+            ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
         }
     }
 

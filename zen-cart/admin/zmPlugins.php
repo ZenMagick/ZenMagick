@@ -173,6 +173,7 @@ require_once 'includes/application_top.php';
                 <?php if ($isEdit) { ?>
                   <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
+                        <?php /* TODO: remove to allow only widget! */ ?>
                         <?php if ($value instanceof ZMWidget) { ?>
                           <td><?php echo $value->getTitle() ?></td>
                           <td><?php echo $value->getDescription() ?></td>
