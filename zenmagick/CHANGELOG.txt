@@ -84,6 +84,11 @@ Release 0.9.7
 - add support for attributes without value ('multiple', for example) to
   ZMFormWidget
 - add support for widgets with multi values
+- remove Plugin methods: getKeys(), setKeys(), setTraditional(), isTraditional()
+  zcoSubscribe(), zcoUnsubscribe()
+- zm_master_password: change to using a password widget
+- srew up most plugins by refactoring the config value handling to use
+  widgets; this will require a re-install of all plugins!
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

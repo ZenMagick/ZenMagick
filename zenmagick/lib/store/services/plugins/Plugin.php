@@ -39,9 +39,9 @@ class Plugin extends ZMPlugin {
     /** internal key constant */
     const KEY_PREFIX = 'PLUGIN_';
     /** internal key constant */
-    const KEY_ENABLED_SUFFIX = 'ENABLED';
+    const KEY_ENABLED = 'ENABLED';
     /** internal key constant */
-    const KEY_ORDER_SUFFIX = 'ORDER';
+    const KEY_SORT_ORDER = 'SORT_ORDER';
 
     /** Load plugin files for storefront only. */
     const SCOPE_STORE = 'store';
@@ -50,15 +50,12 @@ class Plugin extends ZMPlugin {
     /** Load plugin files for both storefront and admin. */
     const SCOPE_ALL =  'all';
 
-    var $installed_;
-    var $configPrefix_;
-    var $enabledKey_;
-    var $orderKey_;
-    var $preferredSortOrder_;
-    var $keys_;
-    var $messages_ = null;
-    var $traditional_;
-    var $scope_;
+    private $configPrefix_;
+    private $enabledKey_;
+    private $orderKey_;
+    private $preferredSortOrder_;
+    private $messages_ = null;
+    private $scope_;
 
 
     /**
@@ -75,9 +72,7 @@ class Plugin extends ZMPlugin {
         $this->setDescription($description);
         $this->setVersion($version);
         $this->setLoaderPolicy(ZMPlugin::LP_PLUGIN);
-        $this->keys_ = array();
         $this->messages_ = array();
-        $this->traditional_ = true;
         $this->preferredSortOrder_ = 0;
         $this->scope_ = self::SCOPE_ALL;
     }
@@ -116,7 +111,7 @@ class Plugin extends ZMPlugin {
     /**
      * Support generic getter method for plugin config values.
      *
-     * <p>Supports <code>getXXX()</code> methods for all keys returned by <code>getKeys()</code>.</p>
+     * <p>Supports <code>getXXX()</code> methods for all keys.</p>
      *
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
@@ -141,7 +136,7 @@ class Plugin extends ZMPlugin {
     /**
      * Support generic setter method for plugin config values.
      *
-     * <p>Supports <code>setXXX()</code> methods for all keys returned by <code>getKeys()</code>.</p>
+     * <p>Supports <code>setXXX()</code> methods for all keys.</p>
      *
      * @param string name The property name.
      * @param mixed value The value.
@@ -166,24 +161,6 @@ class Plugin extends ZMPlugin {
     }
 
     /**
-     * Get the traditional flag.
-     *
-     * @return boolean <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
-     */
-    public function isTraditional() {
-        return $this->traditional_;
-    }
-
-    /**
-     * Set the traditional flag.
-     *
-     * @param boolean traditional <code>true</code> if this plugin required traditional configuration handling, <code>false</code> if not.
-     */
-    public function setTraditional($traditional) {
-        $this->traditional_ = $traditional;
-    }
-
-    /**
      * Set the preferred sort order.
      *
      * @param int sortOrder The preferred sort order.
@@ -202,11 +179,10 @@ class Plugin extends ZMPlugin {
      * </ul>
      */
     public function install() {
-        $this->addConfigValue('Plugin Status', $this->enabledKey_, true,
-            zm_l10n_get('Enable/disable this plugin.'),
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
-        $this->addConfigValue('Plugin sort order', $this->orderKey_, $this->preferredSortOrder_,
-            zm_l10n_get('Controls the execution order of plugins.'));
+        $this->addConfigValue('Plugin Enabled', self::KEY_ENABLED, 'true', 'Enable/disable this plugin',
+            'widget@BooleanFormWidget#name='.self::KEY_ENABLED.'&default=true&label.true=Enabled&label.false=Disabled&style=checkbox');
+        $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, $this->preferredSortOrder_, 'Controls the execution order of plugins',
+            'widget@TextFormWidget#name='.self::KEY_SORT_ORDER.'&default=0&size=6&maxlength=5');
     }
 
     /**
@@ -241,7 +217,7 @@ class Plugin extends ZMPlugin {
      * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
     public function isInstalled() {
-        return null !== $this->__get(self::KEY_ENABLED_SUFFIX);
+        return null !== $this->__get(self::KEY_ENABLED);
     }
 
     /**
@@ -250,8 +226,8 @@ class Plugin extends ZMPlugin {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        $enabled = $this->get(self::KEY_ENABLED_SUFFIX);
-        return null !== $enabled && 0 != $enabled;
+        $enabled = $this->get(self::KEY_ENABLED);
+        return null !== $enabled && ZMLangUtils::asBoolean($enabled);
     }
 
     /**
@@ -259,37 +235,14 @@ class Plugin extends ZMPlugin {
      *
      * @return int The sort order index.
      */
-    public function getSortOrder() { return (int)$this->get(self::KEY_ORDER_SUFFIX); }
+    public function getSortOrder() { return (int)$this->get(self::KEY_SORT_ORDER); }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order index.
      */
-    public function setSortOrder($sortOrder) { $this->set(self::KEY_ORDER_SUFFIX, $sortOrder); }
-
-    /**
-     * Get a list of configuration keys used by this plugin.
-     *
-     * @return array List of configuration keys.
-     */
-    public function getKeys() {
-        return $this->keys_;
-    }
-
-    /**
-     * Set the list of configuration keys the actual implementation is using.
-     *
-     * @param array keys List of configuration keys with or without the config prefix.
-     */
-    public function setKeys($keys) {
-        foreach ($keys as $key) {
-            if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
-                $key = strtoupper($this->configPrefix_ . $key);
-            }
-            array_push($this->keys_, $key);
-        }
-    }
+    public function setSortOrder($sortOrder) { $this->set(self::KEY_SORT_ORDER, $sortOrder); }
 
     /**
      * {@inheritDoc}
@@ -297,8 +250,8 @@ class Plugin extends ZMPlugin {
     public function setGroup($group) { 
         parent::setGroup($group);
         $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $group . '_'. $this->getId() . '_');
-        $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED_SUFFIX;
-        $this->orderKey_ = $this->configPrefix_.self::KEY_ORDER_SUFFIX;
+        $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED;
+        $this->orderKey_ = $this->configPrefix_.self::KEY_SORT_ORDER;
     }
 
     /**
@@ -337,7 +290,6 @@ class Plugin extends ZMPlugin {
      * @param int sortOrder The sort order; defaults to <code>0</code>.
      */
     public function addConfigValue($title, $key, $value, $description='', $setFunction=null, $useFunction=null, $sortOrder=0) {
-        $groupId = ZENMAGICK_PLUGIN_GROUP_ID;
         if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
@@ -345,6 +297,7 @@ class Plugin extends ZMPlugin {
         $key = strtoupper($key);
         // XXX: not a great test but will work while being based on zen-cart configuration
         if (!defined($key)) {
+            // ZENMAGICK_PLUGIN_GROUP_ID is created via config.sql SQL
             ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $setFunction, $useFunction);
         }
     }
@@ -352,33 +305,10 @@ class Plugin extends ZMPlugin {
     /**
      * Get all the config values.
      *
-     * @param boolean prefix If <code>true</code>, the plugin prefix will be kept, otherwise it will be stripped.
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
-    public function getConfigValues($prefix=true) {
-        $values = ZMConfig::instance()->getConfigValues($this->configPrefix_.'%');
-        if (!$prefix) {
-            foreach ($values as $name => $value) {
-                $key = $value->getKey();
-                $values[$name]->setKey(str_replace($this->configPrefix_, '', $key));
-            }
-        }
-
-        return $values;
-    }
-
-    /**
-     * Register this plugin as zen-cart zco subscriber.
-     */
-    public function zcoSubscribe() {
-        ZMEvents::instance()->attach($this);
-    }
-
-    /**
-     * Un-register this plugin as zen-cart zco subscriber.
-     */
-    public function zcoUnsubscribe() {
-        ZMEvents::instance()->detach($this);
+    public function getConfigValues() {
+        return ZMConfig::instance()->getConfigValues($this->configPrefix_.'%');
     }
 
     /**

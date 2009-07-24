@@ -78,7 +78,7 @@ class zm_site_switch extends Plugin {
 
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         define('ZM_FILE_SITE_SWITCHER', $this->getConfigPath('config.php'));
         define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include("'.ZM_FILE_SITE_SWITCHER.'"); /* added by zm_site_switch plugin */ ?>');

@@ -79,7 +79,7 @@ class zm_snap_affiliate extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // set up view mappings used by the wp controller
         $view = 'PageView#subdir=snap_affiliate&plugin=zm_snap_affiliate';

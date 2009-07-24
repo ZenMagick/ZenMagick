@@ -85,7 +85,7 @@ class zm_recaptcha extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
     }
 
     /**

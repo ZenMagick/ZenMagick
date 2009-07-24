@@ -70,7 +70,7 @@ class zm_fual_slimbox extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
     }
 
     /**

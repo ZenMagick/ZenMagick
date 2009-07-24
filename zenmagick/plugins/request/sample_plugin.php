@@ -37,7 +37,6 @@ class sample_plugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('ZenMagick Sample Plugin', 'This is the ZenMagick Sample Plugin');
-        $this->setKeys(array('rq1key1', 'rq1key2'));
     }
 
     /**
@@ -68,7 +67,7 @@ class sample_plugin extends Plugin implements ZMRequestHandler {
          */
       
         // set up as event subscriber
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // add admin page
         $this->addMenuItem('sample', zm_l10n_get('Sample Plugin Admin Page'), 'sample_plugin_admin');

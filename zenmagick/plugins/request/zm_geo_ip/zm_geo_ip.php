@@ -69,9 +69,8 @@ class zm_geo_ip extends Plugin {
      */
     public function init() {
         parent::init();
-        if ($this->isEnabled()) {
-            $this->zcoSubscribe();
-        }
+
+        ZMEvents::instance()->attach($this);
 
         $database = $this->get('database');
         if (!file_exists($database)) {

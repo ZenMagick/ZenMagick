@@ -71,7 +71,7 @@ class zm_auto_login extends Plugin implements ZMRequestHandler {
     public function initRequest($request) {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {

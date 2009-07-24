@@ -64,7 +64,7 @@ class zm_page_cache extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         $config = array('cacheTTL' => ZMSettings::get('plugins.zm_page_cache.ttl', 300));
 

@@ -54,7 +54,7 @@ class zm_theme_switch extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         $session = ZMRequest::instance()->getSession();
         if (null != ($themeId = ZMRequest::instance()->getParameter('themeId'))) {

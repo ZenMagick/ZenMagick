@@ -59,7 +59,7 @@ class zm_multi_qty extends Plugin {
         parent::init();
 
         // register as event listener
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // make sure this exists...
         if (null === ZMSettings::get('isShowCartAfterAddProduct')) {

@@ -66,7 +66,7 @@ class zm_page_stats extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
     }
 
     /**

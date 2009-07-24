@@ -95,9 +95,9 @@ class zm_phpbb2 extends Plugin {
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
             );
             ZMValidator::instance()->addRules('create_account', $rules);
-            $this->zcoSubscribe();
+            ZMEvents::instance()->attach($this);
         } else if ('account_password' == $this->page_) {
-            $this->zcoSubscribe();
+            ZMEvents::instance()->attach($this);
         } else if ('account_edit' == $this->page_) {
             $rules = array(
                 array('RequiredRule', 'nickName', 'Please enter a nickname.'),
@@ -105,7 +105,7 @@ class zm_phpbb2 extends Plugin {
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB).', '_zmp_is_not_duplicate_email')
             );
             ZMValidator::instance()->addRules('edit_account', $rules);
-            $this->zcoSubscribe();
+            ZMEvents::instance()->attach($this);
         }
     }
 

@@ -77,7 +77,7 @@ class zm_google_store_locator extends Plugin {
             zm_pretty_links_set_mapping('store_locator');
         }
         // subscribe to events to set the JS onload event
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
     }
 
     /**

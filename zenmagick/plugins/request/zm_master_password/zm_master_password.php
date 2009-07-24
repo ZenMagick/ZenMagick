@@ -39,7 +39,6 @@ class zm_master_password extends Plugin {
     function __construct() {
         parent::__construct('Master Password', 'Master password for all accounts.', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setTraditional(false);
     }
 
     /**
@@ -51,17 +50,17 @@ class zm_master_password extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
-    function install() {
+    public function install() {
         parent::install();
         $this->addConfigValue('Master Password', 'masterPassword', '', 'The master password (will be encrypted in the database)');
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function init() {
         parent::init();
         $this->addMenuItem('master_password', zm_l10n_get('Master Password'), 'zm_master_password_admin');
         ZMAuthenticationManager::instance()->addProvider('ZMMasterPasswordAuthentication');

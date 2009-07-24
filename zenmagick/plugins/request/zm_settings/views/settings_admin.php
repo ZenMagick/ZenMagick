@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
+                <?php foreach ($plugin->getConfigValues() as $value) { ?>
                     <?php if ($value instanceof ZMWidget) { ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>

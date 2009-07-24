@@ -89,7 +89,7 @@ class zm_wordpress extends Plugin {
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // use API
         define('WP_USE_THEMES', false);

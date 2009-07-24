@@ -114,8 +114,8 @@
 <h2><?php echo \$title ?></h2>
 <form action="<?php zm_plugin_admin_url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
-        <?php foreach (\$plugin->getConfigValues(false) as \$value) { ?>
-            <?php if (!\$all && (ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ENABLED_SUFFIX) || ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ORDER_SUFFIX))) { continue; } ?>
+        <?php foreach (\$plugin->getConfigValues() as \$value) { ?>
+            <?php if (!\$all && (ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_SORT_ORDER))) { continue; } ?>
             <tr>
                 <td><?php echo \$value->getName() ?></td>
                 <td><?php zm_plugin_value_element(\$value) ?></td>

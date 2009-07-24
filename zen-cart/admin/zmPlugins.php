@@ -52,23 +52,23 @@ require_once 'includes/application_top.php';
         }
         $needRefresh = true;
     } else if (null != $edit) {
-        $editPlugin = ZMPlugins::instance()->initPluginForId($edit, true);
+        $editPlugin = ZMPlugins::instance()->initPluginForId($edit, false);
     } else if (null != $select) {
         $edit = $select;
-        $editPlugin = ZMPlugins::instance()->initPluginForId($select, true);
+        $editPlugin = ZMPlugins::instance()->initPluginForId($select, false);
     }
 
     // update
     if ('POST' == ZMRequest::instance()->getMethod() && null !== ($pluginId = ZMRequest::instance()->getParameter('pluginId'))) {
-        $plugin = ZMPlugins::instance()->initPluginForId($pluginId);
-        $data = ZMRequest::instance()->getParameter('configuration', array(), false);
-        $values = $plugin->getConfigValues();
-        foreach ($values as $value) {
-            /** XXX: need full name here, but without 'configuration[]' this time! */ 
-            $value->setName($value->get('configurationKey'));
-        }
-        while (list($key, $value) = each($data)) {
-            ZMConfig::instance()->updateConfigValue($key, $value);
+        $plugin = ZMPlugins::instance()->initPluginForId($pluginId, false);
+        foreach ($plugin->getConfigValues() as $widget) {
+            if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
+                if (!$widget->compare($value)) {
+                    // value changed, use widget to (optionally) format value
+                    $widget->setValue($value);
+                    $plugin->set($widget->getName(), $widget->getStringValue());
+                }
+            }
         }
         $refresh = $pluginId;
         $needRefresh = true;
@@ -88,11 +88,11 @@ require_once 'includes/application_top.php';
     foreach (ZMPlugins::instance()->getAllPlugins(false) as $group => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
-              'group' => $plugin->getGroup(),
-              'scope' => $plugin->getScope(),
-              'installed' => $plugin->isInstalled(),
-              'enabled' => $plugin->isEnabled(),
-              'order' => $plugin->getSortOrder()
+                'group' => $plugin->getGroup(),
+                'scope' => $plugin->getScope(),
+                'installed' => $plugin->isInstalled(),
+                'enabled' => $plugin->isEnabled(),
+                'order' => $plugin->getSortOrder()
             );
         }
     }
@@ -171,14 +171,12 @@ require_once 'includes/application_top.php';
                   </td>
                 </tr>
                 <?php if ($isEdit) { ?>
-                  <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <?php if (!$plugin->isTraditional() && !(ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_ENABLED_SUFFIX) || ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_ORDER_SUFFIX))) { continue; } ?>
+                  <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
                     <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
                         <?php if ($value instanceof ZMWidget) { ?>
                           <td><?php echo $value->getTitle() ?></td>
                           <td><?php echo $value->getDescription() ?></td>
                           <td>
-                            <?php /** XXX: need full name here */ $value->setName('configuration['.$value->get('configurationKey').']') ?>
                             <?php echo $value->render() ?>
                           </td>
                         <?php } else { ?>
@@ -189,7 +187,7 @@ require_once 'includes/application_top.php';
                               <?php eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');"); ?>
                               <?php echo str_replace('<br>', '', $set) ?>
                             <?php } else { ?>
-                              <?php echo zen_draw_input_field('configuration[' . $value->getKey() . ']', $value->getValue()); ?>
+                              <?php echo zen_draw_input_field($value->getKey(), $value->getValue()); ?>
                             <?php } ?>
                           </td>
                         <?php } ?>

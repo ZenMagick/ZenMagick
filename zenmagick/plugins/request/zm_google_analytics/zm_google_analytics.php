@@ -92,7 +92,7 @@ class zm_google_analytics extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
     }
 
     /**

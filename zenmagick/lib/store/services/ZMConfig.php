@@ -126,7 +126,7 @@ class ZMConfig extends ZMObject {
                     $widget->setTitle($value['name']);
                     $widget->setDescription($value['description']);
                     $widget->setValue($value['value']);
-                    // XXX: still needed for generic plugin config support
+                    // needed for generic plugin config support
                     $widget->set('configurationKey', $value['key']);
                     $values[] = $widget;
                 } else {

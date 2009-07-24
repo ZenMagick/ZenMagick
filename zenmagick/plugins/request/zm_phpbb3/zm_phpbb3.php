@@ -98,7 +98,7 @@ class zm_phpbb3 extends Plugin {
         ZMSettings::set('isAccountNickname', true);
 
         // using events
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
@@ -130,7 +130,7 @@ class zm_phpbb3 extends Plugin {
             }
             ZMValidator::instance()->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
-            $this->zcoSubscribe();
+            ZMEvents::instance()->attach($this);
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
@@ -142,7 +142,7 @@ class zm_phpbb3 extends Plugin {
                 $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);
-            $this->zcoSubscribe();
+            ZMEvents::instance()->attach($this);
         }
     }
 

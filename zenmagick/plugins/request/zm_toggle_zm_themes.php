@@ -54,7 +54,7 @@ class zm_toggle_zm_themes extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         $session = ZMRequest::instance()->getSession();
         if (null != ($themeToggle = ZMRequest::instance()->getParameter('themeToggle'))) {

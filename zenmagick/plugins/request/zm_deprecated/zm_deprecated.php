@@ -54,7 +54,7 @@ class zm_deprecated extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // resolve
         ZMLoader::resolve('ZMDeprecatedMethods');

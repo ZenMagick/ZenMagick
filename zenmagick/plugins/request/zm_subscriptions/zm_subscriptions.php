@@ -105,7 +105,7 @@ class zm_subscriptions extends Plugin {
     public function init() {
         parent::init();
 
-        $this->zcoSubscribe();
+        ZMEvents::instance()->attach($this);
 
         // register tests
         if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {

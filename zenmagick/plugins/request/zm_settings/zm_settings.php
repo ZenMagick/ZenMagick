@@ -59,7 +59,7 @@ class zm_settings extends Plugin {
         $this->addMenuItem('zm_settings', zm_l10n_get('Show Settings'), 'ZMShowSettingsAdminController');
 
         // make all config values proper settings
-        foreach ($this->getConfigValues(false) as $value) {
+        foreach ($this->getConfigValues() as $value) {
             if ($value instanceof ZMWidget) {
                 //echo $value->getName() . ' = ' . $value->getValue()."<BR>";
                 ZMSettings::set($value->getName(), $value->getStringValue());
