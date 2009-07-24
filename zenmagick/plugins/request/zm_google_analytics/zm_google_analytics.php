@@ -74,17 +74,17 @@ class zm_google_analytics extends Plugin {
         $this->addConfigValue('AdWords Conversion id', 'conversionId', '', 'Optional AdWords conversion id (leave empty to ignore)');
         $this->addConfigValue('AdWords Conversion language', 'conversionLang', 'en_US', 'Optional AdWords conversion language');
 
-        $this->addConfigValue('Product identifier', 'identifier', 'ProductId', 'Select whether to use productId or model to identify products',
-           'zen_cfg_select_option(array(\'ProductId\', \'Model\'),');
+        $this->addConfigValue('Product identifier', 'identifier', 'productId', 'Select whether to use productId or model to identify products',
+            'widget@SelectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
 
         $this->addConfigValue('Track pagenames', 'usePagename', 'true', 'Select whether to use pagenames to track individual URLs',
-           'zen_cfg_select_option(array(\'true\', \'false\'),');
+            'widget@BooleanFormWidget#name=usePagename&default=true&label=Use pagename&style=checkbox');
 
         $this->addConfigValue('Transaction Address', 'address', 'shipping', 'Select which address to use for transaction (order) logging',
-           'zen_cfg_select_option(array(\'shipping\', \'billing\'),');
+            'widget@SelectFormWidget#name=address&options='.urlencode('shipping=Shipping&billing=Billing'));
 
         $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
-          'zen_cfg_select_option(array(\''.'true'.'\', \''.'false'.'\'), ');
+            'widget@BooleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
     }
 
     /**
@@ -201,7 +201,7 @@ class zm_google_analytics extends Plugin {
 
         //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
         foreach ($this->order_->getOrderItems() as $orderItem) {
-            $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
+            $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId());
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $code .= 'UTM:I|'.$this->order_->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
@@ -324,7 +324,7 @@ pageTracker._addTrans(
 EOT;
         // items
         foreach ($this->order_->getOrderItems() as $orderItem) {
-            $identifier = 'Model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
+            $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $name = $orderItem->getName();
             $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId())->getName();
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');

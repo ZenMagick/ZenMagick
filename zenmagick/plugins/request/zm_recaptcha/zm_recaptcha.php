@@ -72,11 +72,11 @@ class zm_recaptcha extends Plugin {
         $this->addConfigValue('Public Key', 'publicKey', '', 'ReCAPTCHA public key');
         $this->addConfigValue('Private Key', 'privateKey', '', 'ReCAPTCHA private key');
         $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+            'widget@BooleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
         foreach ($this->pageConfig_ as $key => $config) {
             $this->addConfigValue($config[0].' page', $key, true,
                 'Use ReCAPTCHA on '.$config[0].' page',
-                "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+                'widget@BooleanFormWidget#name='.$key.'&default=true&label=Enable&style=checkbox');
         }
     }
 
