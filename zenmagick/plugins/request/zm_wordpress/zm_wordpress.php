@@ -67,11 +67,11 @@ class zm_wordpress extends Plugin {
         $this->addConfigValue('WP enabled pages', 'wordpressEnabled', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
         // warning: screwed logic!
         $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)', 
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+            'widget@BooleanFormWidget#name=syncUser&default=false&label=Update WP');
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nick name as optional (will skip automatic WP registration)', 
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+            'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
         $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates', 
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+            'widget@BooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
     }
 
     /**

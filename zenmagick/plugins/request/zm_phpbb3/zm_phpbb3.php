@@ -62,9 +62,8 @@ class zm_phpbb3 extends Plugin {
         parent::install();
 
         $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation');
-        // warning: screwed logic!
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nickname as optional (will skip automatic phpBB registration)', 
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'No'), array('id'=>'0', 'text'=>'Yes')), ");
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)', 
+            'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
     }
 
 
@@ -125,7 +124,7 @@ class zm_phpbb3 extends Plugin {
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
             );
             // optionally, make nick name required
-            if ($this->get('requireNickname')) {
+            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('registration', $rules);
@@ -138,7 +137,7 @@ class zm_phpbb3 extends Plugin {
                 array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
             // optionally, make nick name required
-            if ($this->get('requireNickname')) {
+            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);

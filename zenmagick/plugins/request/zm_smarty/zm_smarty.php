@@ -50,16 +50,15 @@ class zm_smarty extends Plugin {
 
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
     public function install() {
         parent::install();
-
         $this->addConfigValue('Smarty Installation Folder', 'smartyDir', '', 'Path to your Smarty installation');
     }
 
     /**
-     * Init.
+     * {@inheritDoc}
      */
     public function init() {
         parent::init();

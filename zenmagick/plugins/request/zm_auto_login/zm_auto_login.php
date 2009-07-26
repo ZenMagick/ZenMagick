@@ -61,7 +61,8 @@ class zm_auto_login extends Plugin implements ZMRequestHandler {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+        $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in',
+            'widget@BooleanFormWidget#name=optIn&default=true&label=Allow opt in&style=checkbox');
         $this->addConfigValue('Lifetime', 'lifetime', '7', 'Cookie/hash lifetime in days');
     }
 

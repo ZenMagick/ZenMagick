@@ -55,7 +55,7 @@ class zm_init_category_path extends Plugin implements ZMRequestHandler {
     public function install() {
         parent::install();
         $this->addConfigValue('Verify Path', 'verifyPath', 'false', 'Verify (and fix) the cPath value given',
-            'widget@BooleanFormWidget#id=bool&name=verifyPath&default=false&label=Verify');
+            'widget@BooleanFormWidget#name=verifyPath&default=false&label=Verify');
     }
 
     /**

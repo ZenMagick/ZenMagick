@@ -60,7 +60,8 @@ class zm_geo_ip extends Plugin {
 
         $this->addConfigValue('Database', 'database', 'GeoIP.dat', 'Database filename; can be either relative to the plugin or absolute');
         $this->addConfigValue('Licence Key', 'licenceKey', '', 'Optional licence key for realtime lookups');
-        $this->addConfigValue('Shared Memory', 'shm', 'false', 'Enable/disable use of shared memory', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+        $this->addConfigValue('Shared Memory', 'shm', 'false', 'Enable/disable use of shared memory',
+            'widget@BooleanFormWidget#name=shm&default=false&label=Use SHM&style=checkbox');
     }
 
 

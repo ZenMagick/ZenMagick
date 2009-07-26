@@ -78,17 +78,17 @@ class zm_subscriptions extends Plugin {
         $this->addConfigValue('Admin notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+            'widget@BooleanFormWidget#name=subscriptionComment&default=true&label=Add comment');
         $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+            'widget@BooleanFormWidget#name=orderHistory&default=true&label=Create schedule history');
         $this->addConfigValue('Shipping Address', 'addressPolicy', 'order', 'use either the original shipping addres, or the current default address',
-            "zen_cfg_select_drop_down(array(array('id'=>'order', 'text'=>'Order Address'), array('id'=>'account', 'text'=>'Account Address')), ");
+            'widget@SelectFormWidget#name=addressPolicy&default=order&options='.urlencode('order=Order Address&account=Account Address'));
         $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders',
-            'zen_cfg_pull_down_order_statuses(', 'zen_get_order_status_name');
+            'widget@OrderStatusSelectFormWidget#name=orderStatus&default=2');
         $this->addConfigValue('Schedule offset', 'scheduleOffset', '0',
             'Optional offset (in days) to schedule subscription earlier that actually required');
         $this->addConfigValue('Customer cancel', 'customerCancel', false, 'Allow customers to cancel subscriptions directly',
-            "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), ");
+            'widget@BooleanFormWidget#name=customerCancen&default=false&label=Allow customer cancel');
     }
 
     /**

@@ -58,7 +58,8 @@ class zm_page_stats extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+        $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).',
+            'widget@BooleanFormWidget#name=hideStatus&default=false&label=Hide status');
     }
 
     /**

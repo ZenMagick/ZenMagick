@@ -55,10 +55,11 @@ class zm_cron extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger', 'zen_cfg_select_option(array(\'true\',\'false\'),');
+        $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger',
+            'widget@BooleanFormWidget#name=image&default=false&label=Enable image trigger&style=checkbox');
         $this->addConfigValue('Image trigger pages', 'triggerPages', 'index', 'List of pages (separated by comma \',\') to be used for imger trigger');
         $this->addConfigValue('Missed run policy', 'missedRuns', 'false', 'Select what should happen when one or more runs have been missed', 
-            "zen_cfg_select_drop_down(array(array('id'=>'false', 'text'=>'Ignore'), array('id'=>'true', 'text'=>'Catch-up')), ");
+            'widget@BooleanFormWidget#name=missedRuns&default=false&style=select&label_true=Catch-up&label_false=Ignore');
     }
 
     /**
