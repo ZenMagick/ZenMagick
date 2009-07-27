@@ -38,7 +38,7 @@
         if (null == $function) {
             $function = ZMRequest::instance()->getParameter('fkt');
         }
-        $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, 'SSL');
+        $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, true, false);
 
         if ($echo) echo $url;
         return $url;
@@ -84,7 +84,9 @@
      * @return string HTML code.
      */
     function zm_plugin_value_element($value, $echo=ZM_ECHO_DEFAULT) {
-        if ($value->hasSetFunction()) {
+        if ($value instanceof ZMWidget) {
+            echo $value->render();
+        } else if ($value->hasSetFunction()) {
             eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');");
             echo str_replace('<br>', '', $set);
         } else {
@@ -104,10 +106,6 @@
      * @return ZMPluginPage The plugin page instance.
      */
     function zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
-        // more reference stuff
-        $id = $plugin->getId();
-        global $id;
-
         $title = null == $title ? $plugin->getName() : $title;
         $title = zm_l10n_get($title);
         $contents = <<<EOT
@@ -116,6 +114,7 @@
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues() as \$value) { ?>
             <?php if (!\$all && (ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_SORT_ORDER))) { continue; } ?>
+            <?php if (!\$all && (\$value->getName() == Plugin::KEY_ENABLED || \$value->getName() == Plugin::KEY_SORT_ORDER)) { continue; } ?>
             <tr>
                 <td><?php echo \$value->getName() ?></td>
                 <td><?php zm_plugin_value_element(\$value) ?></td>
@@ -131,7 +130,7 @@ EOT;
         eval('?>'.$contents);
         $contents = ob_get_clean();
 
-        return ZMLoader::make("PluginPage", $fkts, $title, $contents);
+        return ZMLoader::make('PluginPage', $fkt, $title, $contents);
     }
 
 ?>

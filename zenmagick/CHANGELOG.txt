@@ -91,6 +91,7 @@ Release 0.9.7
 - zm_master_password: change to using a password widget
 - srew up most plugins by refactoring the config value handling to use
   widgets; this will require a re-install of all plugins!
+- allow plugins to hide widgets from plugin manager by setting hidden=true
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

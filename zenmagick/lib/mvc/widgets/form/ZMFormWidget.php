@@ -131,12 +131,17 @@ abstract class ZMFormWidget extends ZMWidget {
      * Get the formatted attribute string.
      *
      * @param boolean addValue Optional flag to include/exclude the value; default is <code>true</code>.
+     * @param boolean addName Optional flag to include/exclude the name; default is <code>true</code>.
      * @return string All set (and allowed) attributes as formatted HTML string.
      */
-    public function getAttributeString($addValue=true) {
+    public function getAttributeString($addValue=true, $addName=true) {
         $isXhtml = ZMSettings::get('zenmagick.mvc.html.xhtml');
 
-        $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
+        $attr = '';
+        if ($addName) {
+            $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
+        }
+
         $html = ZMToolbox::instance()->html;
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {

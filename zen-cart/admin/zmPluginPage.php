@@ -33,7 +33,10 @@ require_once 'includes/application_top.php';
   } else if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 
-      $page->setContents(ob_get_clean());
+      $contents = ob_get_clean();
+      if (!empty($contents)) {
+          $page->setContents($contents);
+      }
   }
   if (null != $page && $page->isRefresh()) {
       ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url('', 'fkt='.$fkt, ZMRequest::instance()->isSecure(), false));
