@@ -8,7 +8,7 @@ Installation
 ============
 1) Unzip the plugin package into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
-3) Configure CAPTCH as required - if CAPTCHA was already installed,
+3) Configure CAPTCH as required - if CAPTCHA was installed prior to installing this plugin,
    you are already done!
 
 After the plugin has been installed you should have the CAPTCHA
@@ -19,7 +19,7 @@ configuration options available in the admin interface.
 captcha modifications
 =====================
 There are a few modifications that I needed to make to the original captcha class
-in order ot get it to work the way I wanted. So, if you need to upgrade the captcha
+in order it get it to work the way I wanted. So, if you need to upgrade the captcha
 class you'll need to reapply those changes.
 
 1) Renamed class to pcaptcha in order to avoid name collisions
@@ -27,7 +27,7 @@ class you'll need to reapply those changes.
 2) added a new line in the c'tor to set the fonts directory. That line needs
    to be placed after the original code that initialises dir_fs_fonts:
 
-		$this->dir_fs_fonts = $zm_captcha->getPluginDir() . 'fonts/';
+		$this->dir_fs_fonts = $zm_captcha->getPluginDirectory() . 'fonts/';
 
 3) At the end of the c'tor, the img_href gets set. I removed the '.php' sufix
    from captcha_img.php to make it point to the new controller included in this
