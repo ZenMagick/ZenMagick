@@ -54,14 +54,13 @@ class ZMPageController extends ZMController {
     public function processGet($request) {
         // prepare page name for crumbtrail
         $page = ZMEZPages::instance()->getPageForId($request->getParameter("id"));
-        
         if (null == $page) {
             return $this->findView('error'); 
         }
 
         ZMCrumbtrail::instance()->addCrumb($page->getTitle());
 
-        return $this->findView(null, array('zm_page', $page));
+        return $this->findView(null, array('zm_page' => $page));
     }
 
 }
