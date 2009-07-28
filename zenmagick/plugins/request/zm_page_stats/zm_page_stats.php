@@ -137,12 +137,13 @@ class zm_page_stats extends Plugin {
             echo '<table border="1">';
             echo '<tr>';
             echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime(ZM_START_TIME).'</td>';
-            echo '<td colspan="3" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
+            echo '<td colspan="4" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             echo '</tr>';
             foreach (ZMEvents::instance()->getEventLog() as $event) {
                 echo '<tr>';
                 echo '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event['memory']).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
                 $eargs = is_array($event['args']) ? $event['args'] : array($event['args']);
                 if (Events::FINALISE_CONTENTS == $event['id']) {
