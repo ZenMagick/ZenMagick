@@ -89,6 +89,14 @@ class Plugins extends ZMPlugins {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function initPluginsForGroups($groups, $enabled=true) {
+        // we do groups and scope for the store
+        return $this->initPluginsForGroupsAndScope($groups, Runtime::getScope());
+    }
+
+    /**
      * Init all plugins of the given groups and scope.
      *
      * @param mixed groups The group or list of groups.

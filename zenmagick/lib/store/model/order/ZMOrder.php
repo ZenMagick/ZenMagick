@@ -168,7 +168,7 @@ class ZMOrder extends ZMObject {
         // orders has only name, not first/last...
         $address->setLastName($this->get($prefix.'_name'));
         $address->setCompanyName($this->get($prefix.'_company'));
-        $address->setAddress($this->get($prefix.'_street_address'));
+        $address->setAddressLine1($this->get($prefix.'_street_address'));
         $address->setSuburb($this->get($prefix.'_suburb'));
         $address->setPostcode($this->get($prefix.'_postcode'));
         $address->setCity($this->get($prefix.'_city'));

@@ -63,7 +63,7 @@ class ZMPlugins extends ZMObject {
         if (!is_array($this->pluginStatus_)) {
             $this->pluginStatus_ = array();
         }
-        $this->pluginBaseDir_ = Runtime::getPluginsDirectory();
+        $this->pluginBaseDir_ = ZMRuntime::getPluginsDirectory();
     }
 
     /**
@@ -269,13 +269,13 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
-     * Init all plugins of the given group.
+     * Init all plugins for the given group(s).
      *
      * @param mixed groups Either a single group or a group list.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function initPluginsForGroup($groups, $enabled=true) {
+    public function initPluginsForGroups($groups, $enabled=true) {
         if (!is_array($groups)) {
             $groups = array($groups);
         }

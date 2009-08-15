@@ -66,7 +66,23 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
             break;
         case 'array':
             if (is_array($value)) {
-                $value = implode(',', $value);
+                // find out if the array is a hash map
+                $isMap = false;
+                foreach (array_keys($value) as $ak) {
+                    if (!is_numeric($ak)) {
+                        $isMap = true;
+                        break;
+                    }
+                }
+                if ($isMap) {
+                    $mv = '';
+                    foreach ($value as $ak => $av) {
+                        $mv .= $ak.'='.$av.',';
+                    }
+                    $value = $mv;
+                } else {
+                    $value = implode(',', $value);
+                }
             }
             break;
         case 'octal':
@@ -80,7 +96,11 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
             break;
         }
 
-        return (string)$value;
+        $value = (string)$value;
+        if (60 < strlen($value)) {
+            $value = str_replace(array(','), array(', '), $value);
+        }
+        return $value;
     }
 
     /**
@@ -128,6 +148,7 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
                 }
             }
         }
+
         // check for settings without details
         foreach (ZMSettings::getAll() as $key => $value) {
             foreach ($settingDetails as $group => $groupDetails) { 
@@ -142,7 +163,7 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
                         }
                     }
                     if (!$found) {
-                        ZMMessages::instance()->warn('missing details for "'.$key.'"');
+                        ZMMessages::instance()->warn('No details found for key: "'.$key.'"');
                     }
                 }
             }

@@ -109,7 +109,7 @@
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
             'zenmagick.core.plugins.baseDir' => ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR,
-            'zenmagick.core.plugins.types' => 'init,admin,request,order_total',
+            'zenmagick.core.plugins.groups' => 'init,admin,request,order_total',
         
             /*** fs ***/
             'zenmagick.core.fs.permissions.fix' => true,
@@ -193,7 +193,7 @@
 
 
             // default controller and view class
-            'defaultControllerClass' => 'DefaultController',
+            'zenmagick.mvc.controller.defaultClass' => 'DefaultController',
             'defaultViewClass' => 'PageView',
 
             // default product association handler

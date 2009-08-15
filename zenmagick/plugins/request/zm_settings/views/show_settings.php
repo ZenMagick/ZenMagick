@@ -9,8 +9,8 @@ foreach ($settingDetails as $group => $groupDetails) {
         echo '<table width="98%" border="1">';
         foreach ($subDetails as $details) {
             echo '<tr>';
-            echo '<td width="35%">', $details['desc'], '</td>';
-            echo '<td width="20%">', $details['fullkey'], '</td>';
+            echo '<td width="32%">', $details['desc'], '</td>';
+            echo '<td width="28%">', $details['fullkey'], '</td>';
             echo '<td>', $details['value'], '</td>';
             echo '</tr>';
         }

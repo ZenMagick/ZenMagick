@@ -81,7 +81,7 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    protected function validateFormBean($formBean) {
+    protected function validateFormBean($request, $formBean) {
         $addressId = $request->getParameter('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate

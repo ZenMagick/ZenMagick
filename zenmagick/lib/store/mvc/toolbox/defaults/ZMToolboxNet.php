@@ -40,6 +40,10 @@ class ZMToolboxNet extends ZMObject {
     //TODO:
     global $session_started, $http_domain, $https_domain;
 
+        if (ZMLangUtils::asBoolean(ZMSettings::get('isCategoryAsIndex', false)) && 'category' == $page) {
+            $page = 'index';
+        }
+
         $isAdmin = false;
         if (ZMSettings::get('isAdmin')) {
             // admin links!
@@ -134,6 +138,10 @@ class ZMToolboxNet extends ZMObject {
      * @return string A full URL.
      */
     public function url($page=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
+        if (ZMLangUtils::asBoolean(ZMSettings::get('isCategoryAsIndex', false)) && 'category' == $page) {
+            $page = 'index';
+        }
+
         // custom view and params handling
         if (null === $page || null === $params) {
             $query = ZMRequest::instance()->getParameterMap();

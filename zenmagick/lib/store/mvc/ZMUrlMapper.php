@@ -135,7 +135,7 @@ class ZMUrlMapper extends ZMObject {
      * build from the given page name.</p>
      *
      * <p>If no page specific controller is found, an instance of 
-     * <code>ZMSettings::get('defaultControllerClass')</code> will be returned.</p>
+     * <code>ZMSettings::get('zenmagick.mvc.controller.defaultClass')</code> will be returned.</p>
      *
      * @param string page The page name.
      * @return ZMController A controller instance to handle the request.
@@ -153,7 +153,7 @@ class ZMUrlMapper extends ZMObject {
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = ZMBeanUtils::getBean($definition))) {
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('defaultControllerClass'));
+            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.defaultClass', 'DefaultController'));
         }
 
         return $controller;

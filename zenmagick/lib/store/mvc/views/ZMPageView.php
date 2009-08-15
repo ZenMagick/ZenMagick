@@ -64,10 +64,9 @@ class ZMPageView extends ZMView {
      * @param ZMRequest request The current request.
      */
     public function generate($request) { 
-        $_zm_controller = $this->getController();
-        if (null != $_zm_controller) {
+        if (null != ($controller = $this->getController())) {
             // *export* globals from controller into view space
-            foreach ($_zm_controller->getGlobals() as $name => $instance) {
+            foreach ($controller->getGlobals() as $name => $instance) {
                 $$name = $instance;
             }
         }
@@ -78,9 +77,8 @@ class ZMPageView extends ZMView {
 
         // TODO: kill! common view variables
         $zm_theme = Runtime::getTheme();
-        $_zm_layout = $this->getLayout();
-        if (null != $_zm_layout) {
-            include Runtime::getTheme()->themeFile($_zm_layout.ZMSettings::get('templateSuffix'));
+        if (null != ($layout = $this->getLayout())) {
+            include Runtime::getTheme()->themeFile($layout.ZMSettings::get('templateSuffix'));
         } else {
             if ($this->isViewFunction()) { 
                 $this->callView(); 

@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 ZenMagick
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick Core - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,15 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
-    // main request processor
-    if (ZMSettings::get('isEnableZMThemes')) {
-        ZMDispatcher::dispatch($request);
-    }
+
+/**
+ * ZenMagick MVC constants.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.mvc
+ * @version $Id$
+ */
+interface ZMMVCConstants {
+    const DISPATCH_START = 'dispatch_start';
+    const DISPATCH_DONE = 'dispatch_done';
+    const VIEW_START = 'view_start';
+    const VIEW_DONE = 'view_done';
+    const CONTROLLER_PROCESS_START = 'controller_process_start';
+    const CONTROLLER_PROCESS_END = 'controller_process_end';
+    const ALL_DONE = 'all_done';
+    const FINALISE_CONTENTS = 'finalise_contents';
+
+}
 
 ?>

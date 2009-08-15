@@ -77,9 +77,9 @@
                         'desc' => 'Enable/disable *all* plugins.'
                     ),
                     array(
-                        'key' => 'types',
+                        'key' => 'groups',
                         'type' => 'array',
-                        'desc' => 'List of plugin types (subfolder in baseDir) to load.'
+                        'desc' => 'List of plugin groups (subfolder in zenmagick.core.plugins.baseDir) to load.'
                     ),
                     array(
                         'key' => '@name@.enabled',
@@ -117,6 +117,11 @@
                         'key' => 'model.keyName',
                         'type' => 'string',
                         'desc' => 'Name of primary key column for model handling.'
+                    ),
+                    array(
+                        'key' => 'connections.default',
+                        'type' => 'array',
+                        'desc' => 'Default connection settings.'
                     ),
                     array(
                         'key' => 'connections.@name@',
@@ -170,6 +175,20 @@
                         'key' => 'tokenSecuredForms',
                         'type' => 'string',
                         'desc' => 'List of forms (formId) to be secured with a dynamic session token.'
+                    )
+                ),
+                'templates' => array(
+                    array(
+                        'key' => 'ext',
+                        'type' => 'string',
+                        'desc' => 'Template filename extension.'
+                    )
+                ),
+                'controller' => array(
+                    array(
+                        'key' => 'defaultClass',
+                        'type' => 'string',
+                        'desc' => 'Default controller class.'
                     )
                 ),
                 'resultlist' => array(

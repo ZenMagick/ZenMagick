@@ -147,7 +147,7 @@ class ZMEvents extends ZMObject {
      */
     public function fireEvent($source, $eventId, $args=array()) {
         $method = $this->event2method($eventId);
-        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => Runtime::getExecutionTime(), 'memory' => memory_get_usage(), 'args' => $args);
+        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'memory' => memory_get_usage(), 'args' => $args);
         $args['source'] = $source;
         ZMLogging::instance()->log('fire ZenMagick event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
         foreach($this->subscribers_ as $subscriber) {

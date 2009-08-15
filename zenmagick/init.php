@@ -48,7 +48,10 @@
     } else {
         require_once ZM_BASE_DIR."lib/core/ZMLoader.php";
         // configure loader
-        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
+        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
+        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+        //XXX: where do we get this from?
+        ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();
     }
@@ -56,7 +59,7 @@
     // as default disable plugins for CLI calls
     ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);
 
-    // create the main request instance; XXX: fix name
+    // create the main request instance
     $request = ZMRequest::instance();
 
     // load global settings
@@ -66,8 +69,7 @@
 
     // upset plugins if required
     if (ZMSettings::get('zenmagick.core.plugins.enabled')) {
-        // XXX: assuming store implementation
-        $plugins = ZMPlugins::instance()->initPluginsForGroupsAndScope(explode(',', ZMSettings::get('zenmagick.core.plugins.types')), Runtime::getScope());
+        $plugins = ZMPlugins::instance()->initPluginsForGroups(explode(',', ZMSettings::get('zenmagick.core.plugins.groups')));
         foreach ($plugins as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($request);
@@ -75,8 +77,8 @@
         }
     }
 
-    // XXX: do after plugins to allow plugins to provide alternative implementations, however it would be good to have some before!
     // register custom error handler
+    // XXX: done after plugins to allow plugins to provide alternative implementations, however it would be nice to have some logging before!
     if (ZMSettings::get('zenmagick.core.logging.handleErrors') && null != ZMSettings::get('zenmagick.core.logging.filename')) {
         set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
         set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
@@ -85,12 +87,11 @@
     // core and plugins loaded
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $request));
 
-    // make sure we use HTTPS if required
+    // make sure we use the appropriate protocol (HTTPS, for example) if required
     ZMSacsMapper::instance()->ensureAccessMethod($request->getRequestId());
 
     // start output buffering
-    // XXX: handle admin?
-    if (!ZMSettings::get('isAdmin')) { ob_start(); }
+    ob_start();
 
     // load stuff that really needs to be global!
     foreach (ZMLoader::instance()->getGlobal() as $_zm_global) {

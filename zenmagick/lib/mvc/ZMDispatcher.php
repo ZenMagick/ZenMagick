@@ -1,7 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 ZenMagick
+ * ZenMagick Core - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 
 
 /**
- * ZenMagick dispatcher.
+ * ZenMagick MVC request dispatcher.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
+ * @package org.zenmagick.mvc
  */
 class ZMDispatcher {
 
@@ -35,19 +35,15 @@ class ZMDispatcher {
      * @param ZMRequest request The request to dispatch.
      */
     public static function dispatch($request) {
-        // main request processor
-        if (ZMSettings::get('isEnableZMThemes')) {
+        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
+        self::handleRequest($request);
+        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
 
-            ZMEvents::instance()->fireEvent(null, Events::DISPATCH_START, array('request' => $request));
-            self::handleRequest($request);
-            ZMEvents::instance()->fireEvent(null, Events::DISPATCH_DONE, array('request' => $request));
+        // allow plugins and event subscribers to filter/modify the final contents
+        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
+        echo $args['contents'];
 
-            // allow plugins and event subscribers to filter/modify the final contents
-            $args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
-            echo $args['contents'];
-
-            ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => $request));
-        }
+        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request));
     }
 
     /**
@@ -63,22 +59,31 @@ class ZMDispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
-            $controller = ZMLoader::make(ZMSettings::get('defaultControllerClass'));
+            $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.defaultClass', 'DefaultController'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
         }
 
         // generate response
         if (null != $view) {
-            header('Content-Type: '.$view->getContentType().'; charset='.$view->getEncoding());
-            ZMEvents::instance()->fireEvent(null, Events::VIEW_START, array('request' => $request, 'view' => $view));
+            if (null !== $view->getContentType()) {
+                $s = 'Content-Type: '.$view->getContentType();
+                if (null !== $view->getEncoding()) {
+                    $s .= '; charset='.$view->getEncoding();
+                }
+                header($s);
+            }
+
+            ZMEvents::instance()->fireEvent(null, ZMMVCConstants::VIEW_START, array('request' => $request, 'view' => $view));
+
             try {
+                // generate response
                 $view->generate($request);
             } catch (Exception $e) {
                 ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
                 //TODO: what to do?
             } 
-            ZMEvents::instance()->fireEvent(null, Events::VIEW_DONE, array('request' => $request, 'view' => $view));
+            ZMEvents::instance()->fireEvent(null, ZMMVCConstants::VIEW_DONE, array('request' => $request, 'view' => $view));
         } else {
             ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }

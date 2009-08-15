@@ -92,7 +92,7 @@ class ZMToolboxMacro extends ZMObject {
                 $lastname = '';
             }
             $company = $address->getCompanyName();
-            $street = $address->getAddress();
+            $street = $address->getAddressLine1();
             $suburb = $address->getSuburb();
             $city = $address->getCity();
             $state = $address->getState();
