@@ -114,8 +114,7 @@ class ZMEmailView extends ZMPageView {
         //ob_start();
         include $this->getViewFilename();
         ZMSettings::set('isAdmin', $isAdmin);
-        //return ob_get_clean();
-        return "foo";
+        return ob_get_clean();
     }
 
 }
