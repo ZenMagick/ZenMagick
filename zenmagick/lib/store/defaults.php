@@ -116,8 +116,9 @@
             'zenmagick.core.fs.permissions.defaults.file' => 0666,
             'zenmagick.core.fs.permissions.defaults.folder' => 0777,
         
-            /*** authentication ***/
+            /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
+            'zenmagick.mvc.sacs.handler' => 'ZMZenCartUserSacsHandler',
 
             /*** html ***/
             'zenmagick.mvc.html.xhtml' => true,
