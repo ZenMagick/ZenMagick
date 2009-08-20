@@ -89,7 +89,7 @@ Release 0.9.7
 - remove Plugin methods: getKeys(), setKeys(), setTraditional(), isTraditional()
   zcoSubscribe(), zcoUnsubscribe()
 - zm_master_password: change to using a password widget
-- srew up most plugins by refactoring the config value handling to use
+- screw up most plugins by refactoring the config value handling to use
   widgets; this will require a re-install of all plugins!
 - allow plugins to hide widgets from plugin manager by setting hidden=true
 - log used memory as per memory_get_usage() for each event and report via
