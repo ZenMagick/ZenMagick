@@ -34,33 +34,33 @@
      * @package org.zenmagick.store
      */
     function zm_set_default_sacs_mappings() {
-        $sacsMapper = ZMSacsMapper::instance();
+        $sacsManager = ZMSacsManager::instance();
 
         // default access settings
-        $sacsMapper->setMapping('account');
-        $sacsMapper->setMapping('account_edit');
-        $sacsMapper->setMapping('account_history');
-        $sacsMapper->setMapping('account_history_info');
-        $sacsMapper->setMapping('account_newsletters');
-        $sacsMapper->setMapping('account_notifications');
-        $sacsMapper->setMapping('account_password');
-        $sacsMapper->setMapping('address_book');
-        $sacsMapper->setMapping('address_book_process');
-        $sacsMapper->setMapping('checkout_process', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('checkout_confirmation', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('checkout_payment', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('checkout_payment_address', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('checkout_shipping', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('checkout_shipping_address', ZMSacsMapper::GUEST);
-        $sacsMapper->setMapping('gv_redeem');
-        $sacsMapper->setMapping('gv_send');
-        $sacsMapper->setMapping('gv_send_confirm');
-        $sacsMapper->setMapping('product_reviews_write');
-        $sacsMapper->setMapping('login', ZMSacsMapper::ANONYMOUS);
-        $sacsMapper->setMapping('create_account', ZMSacsMapper::ANONYMOUS);
+        $sacsManager->setMapping('account', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_edit', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_history', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_history_info', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_newsletters', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_notifications', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('account_password', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('address_book', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('address_book_process', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('checkout_process', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('checkout_confirmation', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('checkout_payment', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('checkout_payment_address', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('checkout_shipping', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('checkout_shipping_address', ZMZenCartUserSacsHandler::GUEST);
+        $sacsManager->setMapping('gv_redeem', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('gv_send', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('gv_send_confirm', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('product_reviews_write', ZMZenCartUserSacsHandler::REGISTERED);
+        $sacsManager->setMapping('login', ZMZenCartUserSacsHandler::ANONYMOUS);
+        $sacsManager->setMapping('create_account', ZMZenCartUserSacsHandler::ANONYMOUS);
 
         if (!ZMSettings::get('isTellAFriendAnonymousAllow')) {
-            $sacsMapper->setMapping('tell_a_friend');
+            $sacsManager->setMapping('tell_a_friend', ZMZenCartUserSacsHandler::REGISTERED);
         }
     }
 

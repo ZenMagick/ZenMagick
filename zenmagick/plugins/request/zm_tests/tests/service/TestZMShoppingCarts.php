@@ -14,7 +14,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      */
     public function skip() {
         $account = ZMRequest::instance()->getAccount();
-        $this->skipIf(null == $account || ZMSacsMapper::REGISTERED != $account->getType(), 'Need to be logged in for this test');
+        $this->skipIf(null == $account || ZMZenCartUserSacsHandler::REGISTERED != $account->getType(), 'Need to be logged in for this test');
     }
 
 

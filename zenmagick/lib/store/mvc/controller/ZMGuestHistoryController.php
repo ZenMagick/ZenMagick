@@ -78,7 +78,7 @@ class ZMGuestHistoryController extends ZMController {
             }
         }
 
-        if (null != $account && null != $order && ZMSacsMapper::GUEST == $account->getType() && $account->getEmail() == $email) {
+        if (null != $account && null != $order && ZMZenCartUserSacsHandler::GUEST == $account->getType() && $account->getEmail() == $email) {
             ZMCrumbtrail::instance()->addCrumb("Order # ".$order->getId());
             return $this->findView('success', array('zm_order' => $order));
         } else {

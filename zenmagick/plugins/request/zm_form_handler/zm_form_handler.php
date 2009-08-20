@@ -82,7 +82,7 @@ class zm_form_handler extends Plugin {
             if ($secure) {
                 // mark as secure
                 foreach ($pages as $page) {
-                    ZMSacsMapper::instance()->setMapping($page, ZMSacsMapper::ANONYMOUS);
+                    ZMSacsManager::instance()->setMapping($page, ZMZenCartUserSacsHandler::ANONYMOUS);
                 }
             }
 

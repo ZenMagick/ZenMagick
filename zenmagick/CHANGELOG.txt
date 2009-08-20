@@ -101,6 +101,7 @@ Release 0.9.7
 - add $request as first parameter to ZMController::validateFormBean()
 - always do output buffering
 - send content type header only if content type on view is not null
+- refactor SACS code and move to generic bits to mvc
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

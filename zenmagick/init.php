@@ -88,7 +88,7 @@
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $request));
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
-    ZMSacsMapper::instance()->ensureAccessMethod($request->getRequestId());
+    ZMSacsManager::instance()->ensureAccessMethod($request->getRequestId());
 
     // start output buffering
     ob_start();

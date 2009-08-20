@@ -76,12 +76,12 @@ class ZMScaffoldController extends ZMController {
      */
     public function process($request) {
         // check access on controller level
-        ZMSacsMapper::instance()->ensureAuthorization($this->getId(), $request->getAccount());
+        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
 
         // (re-)check on method level
         $page = $this->getId().'#'.$this->method_;
-        ZMSacsMapper::instance()->ensureAccessMethod($page);
-        ZMSacsMapper::instance()->ensureAuthorization($page, $request->getAccount());
+        ZMSacsManager::instance()->ensureAccessMethod($page);
+        ZMSacsManager::instance()->authorize($request, $page, $request->getAccount());
 
         return parent::process($request);
     }

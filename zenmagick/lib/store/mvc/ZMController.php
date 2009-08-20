@@ -76,7 +76,7 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) { 
-        ZMSacsMapper::instance()->ensureAuthorization($this->id_, $request->getAccount());
+        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
 
@@ -256,7 +256,7 @@ class ZMController extends ZMObject {
         $viewDefinition = ZMUrlMapper::instance()->getViewDefinition($this->id_, $id, $parameter);
 
         // ensure secure option is set
-        if (ZMSacsMapper::instance()->secureRequired($this->id_)) {
+        if (ZMSacsManager::instance()->requiresSecurity($this->id_)) {
             $viewDefinition .= '&secure=true';
         }
 

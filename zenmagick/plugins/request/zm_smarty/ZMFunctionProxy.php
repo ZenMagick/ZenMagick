@@ -70,7 +70,7 @@ class ZMFunctionProxy {
             'ZMCountries' => ZMCountries::instance(),
             'ZMAccounts' => ZMAccounts::instance(),
             'ZMUrlMapper' => ZMUrlMapper::instance(),
-            'ZMSacsMapper' => ZMSacsMapper::instance()
+            'ZMSacsManager' => ZMSacsManager::instance()
         );
     }
 
