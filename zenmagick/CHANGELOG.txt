@@ -95,8 +95,6 @@ Release 0.9.7
 - log used memory as per memory_get_usage() for each event and report via
   zm_page_stats
 - fix regression in ZMToolboxMacro::formatAddress() [missing address line 1]
-- add store setting 'isCategoryAsIndex' to allow to use index as request id
-  for category pages
 - fix another addressLine1 regression in ZMOrder
 - add $request as first parameter to ZMController::validateFormBean()
 - always do output buffering
