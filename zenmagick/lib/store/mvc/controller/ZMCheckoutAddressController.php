@@ -87,7 +87,7 @@ class ZMCheckoutAddressController extends ZMController {
             // selected existing address, so do not validate
             return null;
         }
-        return parent::validateFormBean($formBean);
+        return parent::validateFormBean($request, $formBean);
     }
 
     /**

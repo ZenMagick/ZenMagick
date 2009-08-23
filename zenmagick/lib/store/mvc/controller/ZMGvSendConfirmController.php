@@ -71,7 +71,7 @@ class ZMGvSendConfirmController extends ZMController {
      */
     protected function validateFormBean($request, $formBean) {
         // need specific view to go back to in case of validation errors
-        $result = parent::validateFormBean($formBean);
+        $result = parent::validateFormBean($request, $formBean);
         if (null != $result) {
             return $this->findView('edit');
         }

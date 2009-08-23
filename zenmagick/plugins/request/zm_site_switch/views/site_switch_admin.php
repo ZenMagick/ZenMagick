@@ -34,7 +34,7 @@
        include(ZM_FILE_SITE_SWITCHER);
     }
 
-    $zm_site_switch->checkPermissions();
+    $plugin->checkPermissions();
 
     if (null != ZMRequest::instance()->getParameter('save')) {
         $zm_server_names = array();
@@ -47,9 +47,9 @@
                 }
             }
         }
-        $zm_site_switch->setupSwitcher(ZM_STORE_LOCAL_CONFIGURE);
-        $zm_site_switch->setupSwitcher(ZM_ADMIN_LOCAL_CONFIGURE);
-        $zm_site_switch->writeConfig($zm_server_names);
+        $plugin->setupSwitcher(ZM_STORE_LOCAL_CONFIGURE);
+        $plugin->setupSwitcher(ZM_ADMIN_LOCAL_CONFIGURE);
+        $plugin->writeConfig($zm_server_names);
     }
 
 ?>
