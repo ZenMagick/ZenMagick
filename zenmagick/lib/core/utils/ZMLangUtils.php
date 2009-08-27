@@ -89,7 +89,7 @@ class ZMLangUtils {
         if (is_integer($value)) {
             return $value;
         }
-        return self::inArray(strtolower($value), "on,true,yes,1");
+        return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
     }
 
     /**
@@ -106,6 +106,12 @@ class ZMLangUtils {
             return $value;
         }
         parse_str(urldecode($value), $map);
+        // handle booleans
+        foreach ($map as $key => $value) {
+            if ('false' == $value || 'true' == $value) {
+                $map[$key] = self::asBoolean($value);
+            }
+        }
         return $map;
     }
 

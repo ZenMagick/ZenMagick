@@ -116,6 +116,16 @@ class ZMPhpPackagePacker {
     }
 
     /**
+     * Decide whether a drop an include/require line or not.
+     *
+     * @param string line The line in question.
+     * @return boolean <code>true</code>, if the include/require should be dropped.
+     */
+    public function dropInclude($line) {
+        return true;
+    }
+
+    /**
      * Pack all.
      *
      * @param boolean strip If <code>true</code>, stript the files while compressing; default is <code>true</code>.
@@ -292,7 +302,9 @@ class ZMPhpPackagePacker {
                 foreach ($lines as $ii => $line) {
                     // match all statements, regardless whether they match the PEAR style expected above or not
                     if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {
-                        $lines[$ii] = '//'.$line;
+                        if ($this->dropInclude($line)) {
+                            $lines[$ii] = '//'.$line;
+                        }
                     }
                 }
                 // fix missing '?'.'>' at end of files

@@ -74,7 +74,7 @@ class Request extends ZMRequest {
      */
     public function setRequestId($requestId) {
         parent::setRequestId($requestId);
-        $this->setParameter(ZM_PAGE_ID, $requestId);
+        $this->setParameter(ZM_PAGE_KEY, $requestId);
     }
 
     /**
