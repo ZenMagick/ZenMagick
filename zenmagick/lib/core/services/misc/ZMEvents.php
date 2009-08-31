@@ -160,7 +160,7 @@ class ZMEvents extends ZMObject {
             if (null === $subscriber['methods']) {
                 $subscriber['methods'] = get_class_methods($subscriber['obj']);
             }
-            if (in_array($method, $subscriber['methods'])) {
+            if (null !== $subscriber['methods'] && in_array($method, $subscriber['methods'])) {
                 $result = call_user_func(array($subscriber['obj'], $method), $args);
                 if (null !== $result) {
                     $args = $result;
