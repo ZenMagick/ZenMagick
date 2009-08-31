@@ -138,7 +138,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
             $shoppingCart->addProduct($productId, $quantity, $id);
         }
 
-        $this->getContentsJSON();
+        $this->getContentsJSON($request);
     }
 
     /**
@@ -161,7 +161,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
             $shoppingCart->removeProduct($productId);
         }
 
-        $this->getContentsJSON();
+        $this->getContentsJSON($request);
     }
 
     /**
@@ -188,7 +188,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
             $shoppingCart->updateProduct($productId, $quantity);
         }
 
-        $this->getContentsJSON();
+        $this->getContentsJSON($request);
     }
 
 }
