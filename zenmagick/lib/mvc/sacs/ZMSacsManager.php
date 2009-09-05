@@ -165,7 +165,7 @@ class ZMSacsManager extends ZMObject {
             return null;
         }
 
-        if (!isset($this->mappings_[$requestId])) {
+        if (!array_key_exists($requestId, $this->mappings_) || !array_key_exists($key, $this->mappings_[$requestId])) {
             return $default;
         }
 
