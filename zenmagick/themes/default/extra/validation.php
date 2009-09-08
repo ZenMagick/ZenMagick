@@ -200,7 +200,7 @@
     ));
 
 
-    /* unsibscribe */
+    /* unsubscribe */
     $validator->addRules('unsubscribe', array(
         array('RequiredRule', 'email_address', 'Please enter your email address.'),
         array('EmailRule', 'email_address', 'Please enter a valid email address.')

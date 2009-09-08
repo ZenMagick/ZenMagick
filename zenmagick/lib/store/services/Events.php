@@ -88,11 +88,13 @@ class Events extends ZMEvents {
             if (null === $subscriber['methods']) {
                 $subscriber['methods'] = get_class_methods($subscriber['obj']);
             }
-            if (in_array($method, $subscriber['methods'])) {
-                call_user_func(array($subscriber['obj'], $method), $args);
-            }
-            if (in_array('update', $subscriber['methods'])) {
-                call_user_func(array($subscriber['obj'], 'update'), $eventId, $args);
+            if (is_array($subscriber['methods'])) {
+                if (in_array($method, $subscriber['methods'])) {
+                    call_user_func(array($subscriber['obj'], $method), $args);
+                }
+                if (in_array('update', $subscriber['methods'])) {
+                    call_user_func(array($subscriber['obj'], 'update'), $eventId, $args);
+                }
             }
         }
     }

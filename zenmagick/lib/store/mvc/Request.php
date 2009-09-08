@@ -308,6 +308,15 @@ class Request extends ZMRequest {
         return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
     }
 
+    /**
+     * Save messages in session before redirect.
+     */
+    public function redirect($url, $status=302) {
+        $session = $this->getSession();
+        $session->setMessages(ZMMessages::instance()->getMessages());
+        parent::redirect($url, $status);
+    }
+
 }
 
 ?>

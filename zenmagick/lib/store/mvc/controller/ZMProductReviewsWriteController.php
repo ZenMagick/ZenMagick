@@ -52,7 +52,7 @@ class ZMProductReviewsWriteController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        $product = $this->getProduct();
+        $product = $this->getProduct($request);
         $this->exportGlobal("zm_product", $product);
         $this->exportGlobal("zm_account", $request->getAccount());
         $this->handleCrumbtrail($product, $request);
@@ -81,9 +81,10 @@ class ZMProductReviewsWriteController extends ZMController {
         $session = $request->getSession();
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
 
+        $product = ZMProducts::instance()->getProductForId($review->getProductId());
+
         // account email
         if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
-            $product = ZMproducts::instance()->getProductForId($review->getProductId());
             $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
             $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;

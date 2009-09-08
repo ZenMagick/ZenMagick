@@ -41,4 +41,5 @@
     </div>
 <?php } else { ?>
     <h2><?php zm_l10n("There are no reviews available at this time") ?></h2>
+    <p><?php zm_l10n("New reviews might need approval before they are listed.") ?></p>
 <?php } ?>
