@@ -75,7 +75,7 @@ class ZMCancelSubscriptionController extends ZMController {
         // check for number of scheduled orders
         $sql = "SELECT COUNT(orders_id) AS total FROM " . TABLE_ORDERS . "
                 WHERE subscription_order_id = :subscriptionOrderId";
-        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
+        $results = Runtime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
             ZMMessages::instance()->error(zm_l10n_get("This subscription can only be canceled after a minimum of %s orders", $plugin->get('minOrders')));
@@ -89,7 +89,7 @@ class ZMCancelSubscriptionController extends ZMController {
                     FROM " . TABLE_ORDERS . "
                     WHERE orders_id = :orderId
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
+            $result = Runtime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
             if (null == $result) {
                 ZMMessages::instance()->error(zm_l10n_get("Can't cancel less than %s days before next subscription", $cancelDeadline));
                 return $this->findView();
@@ -99,10 +99,10 @@ class ZMCancelSubscriptionController extends ZMController {
         $sql = "UPDATE " . TABLE_ORDERS . "
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
-        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
+        Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
         ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
 
-        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION);
+        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', 'subscription_cancel');
         $this->sendCancelEmail($order, $emailTemplate, $account->getEmail());
         $adminEmail = $plugin->get('adminEmail');
         if (empty($adminEmail)) {

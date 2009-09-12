@@ -62,7 +62,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = Runtime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
@@ -86,6 +86,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
      */
     public function processPost($request) {
         $page = self::processGet($request);
+
         $orderId = $request->getOrderId();
         $cancel = $request->getParameter('cancel');
         $hard = ZMLangUtils::asBoolean($request->getParameter('hard'), false);
@@ -98,7 +99,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         }
 
         $order = ZMOrders::instance()->getOrderForId($orderId);
-        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', ZM_TEMPLATE_SUBSCRIPTION_CANCEL_CONFIRMATION);
+        $emailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.cancel', 'subscription_cancel');
         $email = $order->getAccount()->getEmail();
         if (!ZMLangUtils::isEmpty($email)) {
             $this->sendCancelEmail($order, $emailTemplate, $email);
