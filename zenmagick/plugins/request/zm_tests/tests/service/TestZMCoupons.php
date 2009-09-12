@@ -30,7 +30,7 @@ class TestZMCoupons extends ZMTestCase {
             $sql = "DELETE FROM " . $table . "
                     WHERE coupon_id = :couponId";
             foreach ($this->createdCouponIds_ as $couponId) {
-                Runtime::getDatabase()->update($sql, array('couponId' => $couponId), $table);
+                ZMRuntime::getDatabase()->update($sql, array('couponId' => $couponId), $table);
             }
         }
 
@@ -38,7 +38,7 @@ class TestZMCoupons extends ZMTestCase {
             $sql = "DELETE FROM " . $table . "
                     WHERE customer_id = :accountId";
             foreach ($this->accountIds_ as $accountId) {
-                Runtime::getDatabase()->update($sql, array('accountId' => $accountId), $table);
+                ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId), $table);
             }
         }
     }
@@ -160,7 +160,7 @@ class TestZMCoupons extends ZMTestCase {
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
                 WHERE coupon_id = :couponId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
         $this->assertNotNull($result);
         $this->assertEqual('foo@bar.com', $result->getEmailTo());
     }
@@ -177,7 +177,7 @@ class TestZMCoupons extends ZMTestCase {
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "
                 WHERE coupon_id = :couponId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_REDEEM_TRACK, 'ZMObject');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_REDEEM_TRACK, 'ZMObject');
         $this->assertNotNull($result);
         $this->assertEqual('127.0.0.1', $result->getRedeemIp());
 
@@ -202,7 +202,7 @@ class TestZMCoupons extends ZMTestCase {
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        Runtime::getDatabase()->update($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
 
         // new coupon worth $5
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');

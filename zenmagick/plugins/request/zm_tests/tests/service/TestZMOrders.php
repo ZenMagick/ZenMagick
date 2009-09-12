@@ -140,7 +140,7 @@ class TestZMOrders extends ZMTestCase {
 
             // clean up
             $sql = "DELETE FROM ".TABLE_ORDERS_STATUS_HISTORY." WHERE orders_status_history_id = :orderStatusHistoryId";
-            Runtime::getDatabase()->update($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), TABLE_ORDERS_STATUS_HISTORY);
+            ZMRuntime::getDatabase()->update($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), TABLE_ORDERS_STATUS_HISTORY);
         }
     }
 

@@ -88,7 +88,7 @@ class ZMCategories extends ZMObject {
                 WHERE products_id = :productId";
         $args = array('productId' => $productId);
         $category = null;
-        $result = Runtime::getDatabase()->querySingle($sql, $args, TABLE_PRODUCTS_TO_CATEGORIES);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_PRODUCTS_TO_CATEGORIES);
         if (null !== $result) {
             $category = $this->getCategoryForId($result['categoryId']);
         }
@@ -177,8 +177,8 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     public function updateCategory($category) {
-        Runtime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
-        Runtime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
     }
 
     /**
@@ -188,8 +188,8 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     public function createCategory($category) {
-        $category = Runtime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
-        $category = Runtime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
+        $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
         return $category;
     }
 

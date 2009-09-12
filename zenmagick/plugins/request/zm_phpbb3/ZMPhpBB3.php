@@ -76,7 +76,7 @@ class ZMPhpBB3 extends ZMObject {
                 $dbconf['port'] = $dbport;
             }
 
-            $this->database_ = Runtime::getDatabase($dbconf);
+            $this->database_ = ZMRuntime::getDatabase($dbconf);
         }
 
         return $this->database_;

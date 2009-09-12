@@ -25,7 +25,7 @@ class TestZMProducts extends ZMTestCase {
         $product->setName($product->getName().'@@@');
         ZMProducts::instance()->updateProduct($product);
         $reloaded = ZMProducts::instance()->getProductForId($product->getId());
-        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), Runtime::getDatabase())) as $key) {
+        foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), ZMRuntime::getDatabase())) as $key) {
             $prefixList = array('get', 'is', 'has');
             $done = false;
             foreach ($prefixList as $prefix) {
@@ -89,12 +89,12 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testNewProductsHome() {
         $sql = "UPDATE " . TABLE_PRODUCTS . " SET products_date_added = :dateAdded";
-        Runtime::getDatabase()->update($sql, array('dateAdded' => date(ZMDatabase::DATETIME_FORMAT)), TABLE_PRODUCTS);
+        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => date(ZMDatabase::DATETIME_FORMAT)), TABLE_PRODUCTS);
 
         $products = ZMProducts::instance()->getNewProducts();
         $this->assertEqual(125, count($products));
 
-        Runtime::getDatabase()->update($sql, array('dateAdded' => '2003-11-03 12:32:17'), TABLE_PRODUCTS);
+        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => '2003-11-03 12:32:17'), TABLE_PRODUCTS);
     }
 
     /**

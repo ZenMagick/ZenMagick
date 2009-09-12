@@ -58,7 +58,7 @@ class ZMAffiliateMainController extends ZMController {
         // check for existing referrer
         $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
                 WHERE referrer_customers_id = :referrer_customers_id";
-        $result = Runtime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'AffiliateDetails');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'AffiliateDetails');
         if (null != $result) {
             $this->exportGlobal('affiliateDetails', $result);
         }

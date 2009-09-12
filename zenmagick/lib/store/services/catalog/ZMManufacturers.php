@@ -72,7 +72,7 @@ class ZMManufacturers extends ZMObject {
 
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache->lookup($cacheKey))) {
-            $manufacturer = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+            $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturer, $cacheKey);
         }
 
@@ -96,8 +96,8 @@ class ZMManufacturers extends ZMObject {
      * @return ZMManufacturer The updated manufacturer.
      */
     public function updateManufacturer($manufacturer) {
-        Runtime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
-        Runtime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
+        ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
+        ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
     }
 
     /**
@@ -119,7 +119,7 @@ class ZMManufacturers extends ZMObject {
 
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache->lookup($cacheKey))) {
-            $manufacturers = Runtime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+            $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
             $this->cache->save($manufacturers, $cacheKey);
         }
 
@@ -150,7 +150,7 @@ class ZMManufacturers extends ZMObject {
                 WHERE manufacturers_id = :manufacturerId 
                 AND languages_id = :languageId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
-        return Runtime::getDatabase()->update($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
+        return ZMRuntime::getDatabase()->update($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
     }
 
 }

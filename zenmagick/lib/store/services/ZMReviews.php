@@ -75,7 +75,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
         return null != $result ? $result['count'] : 0;
     }
 
@@ -138,7 +138,7 @@ class ZMReviews extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return Runtime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -161,7 +161,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
         return null != $result ? $result['average_rating'] : 0;
     }
 
@@ -191,7 +191,7 @@ class ZMReviews extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return Runtime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -218,7 +218,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return Runtime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -246,7 +246,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                   AND r.reviews_id = :reviewId";
         $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
-        return Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 
     /**
@@ -258,7 +258,7 @@ class ZMReviews extends ZMObject {
         $sql = "UPDATE " . TABLE_REVIEWS . "
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = :reviewId";
-        Runtime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
+        ZMRuntime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
     }
 
     /**
@@ -282,8 +282,8 @@ class ZMReviews extends ZMObject {
         $review->setActive(ZMSettings::get('isApproveReviews') ? false : true);
         $review->setLanguageId($languageId);
 
-        $review = Runtime::getDatabase()->createModel(TABLE_REVIEWS, $review);
-        Runtime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);
+        $review = ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);
+        ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);
         return $review;
     }
 

@@ -310,7 +310,7 @@ class ZMPlugins extends ZMObject {
     public function initPluginForId($id, $enabled=true) {
         $plugins = $this->initPluginsForId($id, $enabled);
         if (1 == count($plugins)) {
-            return $plugins[0];
+            return array_pop($plugins);
         }
         return null;
     }

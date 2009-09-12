@@ -188,7 +188,7 @@ class ZMTemplateManager extends ZMObject {
      */
     public function getFieldLength($table, $field) {
         if (!isset($this->tableMeta_[$table])) {
-            $this->tableMeta_[$table] = Runtime::getDatabase()->getMetaData($table);
+            $this->tableMeta_[$table] = ZMRuntime::getDatabase()->getMetaData($table);
         }
 
         return $this->tableMeta_[$table][$field]['maxLen'];
@@ -207,13 +207,13 @@ class ZMTemplateManager extends ZMObject {
         $sql = "SELECT products_type 
                 FROM " . TABLE_PRODUCTS . "
                 WHERE products_id = :productId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
         if (null !== $result) {
             $typeId = $result['type'];
             $sql = "SELECT type_handler 
                     FROM " . TABLE_PRODUCT_TYPES . "
                     WHERE type_id = :id";
-            $result = Runtime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
             if (null !== $result) {
                 $template = $result['handler'];
             }

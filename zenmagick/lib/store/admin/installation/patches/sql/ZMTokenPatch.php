@@ -61,7 +61,7 @@ class ZMTokenPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-	      $meta = Runtime::getDatabase()->getMetaData();
+	      $meta = ZMRuntime::getDatabase()->getMetaData();
         return !in_array(ZM_TABLE_TOKEN, $meta['tables']);
     }
 

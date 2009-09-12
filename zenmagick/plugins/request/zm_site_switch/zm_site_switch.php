@@ -114,7 +114,7 @@ class zm_site_switch extends Plugin {
         $sql = 'UPDATE '.TABLE_ORDERS.'
                 SET site_id = :siteId
                 WHERE orders_id = :orderId';
-        Runtime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::instance()->getHostname()), TABLE_ORDERS);
+        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'siteId' => ZMRequest::instance()->getHostname()), TABLE_ORDERS);
     }
 
     /**

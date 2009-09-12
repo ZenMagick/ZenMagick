@@ -74,7 +74,7 @@ class ZMEZPages extends ZMObject {
         if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql .= " AND languages_id = :languageId";
         }
-        return Runtime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
     /**
@@ -98,7 +98,7 @@ class ZMEZPages extends ZMObject {
             $sql .= " AND languages_id = :languageId";
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        return Runtime::getDatabase()->query($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+        return ZMRuntime::getDatabase()->query($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
     /**
@@ -121,7 +121,7 @@ class ZMEZPages extends ZMObject {
             $sql .= " AND languages_id = :languageId";
         }
         $sql .= " ORDER BY header_sort_order, pages_title";
-        return Runtime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
     /**
@@ -144,7 +144,7 @@ class ZMEZPages extends ZMObject {
             $sql .= " AND languages_id = :languageId";
         }
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
-        return Runtime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
     /**
@@ -167,7 +167,7 @@ class ZMEZPages extends ZMObject {
             $sql .= " AND languages_id = :languageId";
         }
         $sql .= " ORDER BY footer_sort_order, pages_title";
-        return Runtime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
 }

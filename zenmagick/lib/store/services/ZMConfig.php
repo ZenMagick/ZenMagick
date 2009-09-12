@@ -88,7 +88,7 @@ class ZMConfig extends ZMObject {
             "useFunction" => $useFunction,
             "setFunction" => $setFunction
         );
-        Runtime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
     }
 
     /**
@@ -102,7 +102,7 @@ class ZMConfig extends ZMObject {
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
         $args = array("key" => $key, "value" => $value);
-        Runtime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
     }
 
     /**
@@ -147,7 +147,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValue($key) {
         $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key = :key";
-        Runtime::getDatabase()->update($sql, array('key' => $key), TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, array('key' => $key), TABLE_CONFIGURATION);
     }
 
     /**
@@ -158,7 +158,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValues($pattern) {
         $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key like :key";
-        Runtime::getDatabase()->update($sql, array('key' => $pattern), TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), TABLE_CONFIGURATION);
     }
 
     /**
@@ -171,7 +171,7 @@ class ZMConfig extends ZMObject {
                 FROM " . TABLE_CONFIGURATION_GROUP . " 
                 WHERE visible = '1'
                 ORDER BY sort_order";
-        return Runtime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
+        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
 
 }

@@ -153,14 +153,14 @@ class ZMThemes extends ZMObject {
         $sql = "SELECT template_dir
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
         if (null !== $result) {
             $themeId = $result['dir'];
         } else {
             $sql = "SELECT template_dir
                     FROM " . TABLE_TEMPLATE_SELECT . "
                     WHERE template_language = 0";
-            $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
             $themeId = $result['dir'];
         }
 
@@ -179,7 +179,7 @@ class ZMThemes extends ZMObject {
         $sql = "SELECT template_id
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
 
         $sql = '';
         if (null !== $result) {
@@ -193,7 +193,7 @@ class ZMThemes extends ZMObject {
                     values (:dir, :languageId)";
         }
         $args = array('id' => $result['id'], 'dir' => $themeId, 'languageId' => $languageId);
-        Runtime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
     }
 
     /**

@@ -69,7 +69,7 @@ class ZMAddresses extends ZMObject {
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
         }
-        $address = Runtime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -89,7 +89,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE customers_id = :accountId";
-        $addresses = Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {
@@ -107,7 +107,7 @@ class ZMAddresses extends ZMObject {
      * @return ZMAddress The updated address.
      */
     public function updateAddress($address) {
-        Runtime::getDatabase()->updateModel(TABLE_ADDRESS_BOOK, $address);
+        ZMRuntime::getDatabase()->updateModel(TABLE_ADDRESS_BOOK, $address);
         return $address;
     }
 
@@ -119,7 +119,7 @@ class ZMAddresses extends ZMObject {
      * @return ZMAddress The created address incl. the new address id.
      */
     public function createAddress($address) {
-        Runtime::getDatabase()->createModel(TABLE_ADDRESS_BOOK, $address);
+        ZMRuntime::getDatabase()->createModel(TABLE_ADDRESS_BOOK, $address);
         return $address;
     }
 
@@ -133,7 +133,7 @@ class ZMAddresses extends ZMObject {
     public function deleteAddressForId($addressId) {
         $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE  address_book_id = :id"; 
-        Runtime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
+        ZMRuntime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
         return true;
     }
 
@@ -159,7 +159,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT address_format
                 FROM " . TABLE_ADDRESS_FORMAT . "
                 WHERE address_format_id = :id";
-        $result = Runtime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), TABLE_ADDRESS_FORMAT);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), TABLE_ADDRESS_FORMAT);
         return $result['format'];
     }
 

@@ -2,7 +2,7 @@ Release 0.9.7
 - add ZMProductAssociation service and related code
 - Move zm_token plugin into core
 - removed zm_product_associations plugin
-- add support for initQuery parameter to ZMDatabase (and Runtime::getDatabase())
+- add support for initQuery parameter to ZMDatabase (and ZMRuntime::getDatabase())
 - add ZMSimilarOrderProductAssociationHandler and new setting 'defaultProductAssociationHandler'
 - start migration of code into new lib folder
 - zm_firephp: fix issue with logging after response already written

@@ -66,7 +66,7 @@ class ZMAffiliateSignupController extends ZMController {
             // check for existing referrer
             $sql = "SELECT * FROM ". TABLE_REFERRERS ." 
                     WHERE referrer_customers_id = :referrer_customers_id";
-            $result = Runtime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'ZMObject');
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'ZMObject');
             if (null != $result) {
                 $this->exportGlobal('referrer', $result);
             }
@@ -99,7 +99,7 @@ class ZMAffiliateSignupController extends ZMController {
 	                (referrer_customers_id, referrer_key, referrer_homepage, referrer_approved, referrer_banned, referrer_commission)
 	                VALUES (:referrer_customers_id, :referrer_key, :referrer_homepage, 0, 0, :referrer_commission)";
         $args = array('referrer_customers_id' => $account->getId(), 'referrer_key' => $key, 'referrer_homepage' => $url, 'referrer_commission' => $commission);
-        Runtime::getDatabase()->update($sql, $args, TABLE_REFERRERS);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_REFERRERS);
 
         //TODO: email
 

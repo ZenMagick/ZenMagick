@@ -177,6 +177,13 @@
                         'desc' => 'List of forms (formId) to be secured with a dynamic session token.'
                     )
                 ),
+                'sacs' => array(
+                    array(
+                        'key' => 'handler',
+                        'type' => 'string',
+                        'desc' => 'List of handler classes to handle (S)imple (A)ccess (C)ontrol (S)ystem requests.'
+                    )
+                ),
                 'templates' => array(
                     array(
                         'key' => 'ext',

@@ -125,7 +125,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $sql .= " pd.products_id = p.products_id
                     AND pd.language_id = :languageId
                   ORDER BY p.products_sort_order, pd.products_name";
-        $results = Runtime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
+        $results = ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -173,7 +173,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                         AND pd.language_id = :languageId
                       ORDER BY p.products_sort_order, pd.products_name";
             $args = array('languageId' => $languageId);
-            $results = Runtime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
             foreach ($results as $result) {
                 $cId = $result['categoryId'];
                 if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
@@ -261,7 +261,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                     AND p.manufacturers_id = m.manufacturers_id AND p.manufacturers_id = :manufacturerId
                   ORDER BY p.products_sort_order, pd.products_name";
         $args = array('manufacturerId' => $manufacturerId, 'languageId' => $languageId);
-        $results = Runtime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS));
+        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -282,7 +282,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
      */
     public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
-        $database = Runtime::getDatabase();
+        $database = ZMRuntime::getDatabase();
         $sql = "select products_type from " . TABLE_PRODUCTS . "
                 where products_id = :productId";
         $typeResult = $database->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS, ZMDatabase::MODEL_RAW);
@@ -486,7 +486,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $product = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
         if (null != $product) {
             $this->cache->save($product, ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));
         }
@@ -519,7 +519,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $product = Runtime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
 
         $this->cache->save($product, ZMLangUtils::mkUnique('product', $productId, $languageId));
 
@@ -568,7 +568,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('productId' => $needLoadIds, 'languageId' => $languageId);
-            $results = Runtime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
@@ -599,8 +599,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return ZMProduct The updated product.
      */
     public function updateProduct($product) {
-        Runtime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
-        Runtime::getDatabase()->updateModel(TABLE_PRODUCTS_DESCRIPTION, $product);
+        ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
+        ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS_DESCRIPTION, $product);
 
         // update cache
         $this->cache->remove(ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));
@@ -625,7 +625,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 WHERE products_id = :productId
                 AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return Runtime::getDatabase()->update($sql, $args, TABLE_PRODUCTS_DESCRIPTION);
+        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_PRODUCTS_DESCRIPTION);
     }
 
     /**
@@ -683,7 +683,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $sql = "SELECT products_quantity
                 from " . TABLE_PRODUCTS . "
                 where products_id = :productId";
-        $result = Runtime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
         $available = 0;
         if (null != $result) {
             $available = $result['quantity'];

@@ -82,7 +82,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             'lifetime' => $association->lifetime,
             'type' => $association->assoc_type
         );
-        Runtime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
 	
     /**
@@ -98,7 +98,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url AND handle = :handle";
-            $row = Runtime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), ZM_TABLE_OPENID_ASSOCIATIONS);
+            $row = ZMRuntime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), ZM_TABLE_OPENID_ASSOCIATIONS);
             if (null != $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
@@ -106,7 +106,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url";
-            $rows = Runtime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
+            $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
             foreach ($rows as $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
@@ -143,7 +143,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
-        Runtime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
         return true;
     }
 	
@@ -159,7 +159,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
                 (server_url, issued, salt) 
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
-        Runtime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
+        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
         return true;
     }
 	
@@ -172,7 +172,7 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".ZM_TABLE_OPENID_NONCES."
                 WHERE issued < :issued";
         $args = array('issued' => $timestamp);
-        return Runtime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
+        return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
     }
 	
     /**
@@ -183,15 +183,15 @@ class ZMDatabaseOpenIDStore extends Auth_OpenID_OpenIDStore {
                 WHERE (issued + lifetime) < :lifetime";
         // use lifetime mapping to compare times...
         $args = array('lifetime' => time());
-        return Runtime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
+        return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
 	
     /**
      * Reset.
      */
     public function reset() {
-        Runtime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS, array(), ZM_TABLE_OPENID_ASSOCIATIONS);
-        Runtime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_NONCES, array(), ZM_TABLE_OPENID_NONCES);
+        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_ASSOCIATIONS, array(), ZM_TABLE_OPENID_ASSOCIATIONS);
+        ZMRuntime::getDatabase()->update("DELETE FROM ".ZM_TABLE_OPENID_NONCES, array(), ZM_TABLE_OPENID_NONCES);
     }
 
 }

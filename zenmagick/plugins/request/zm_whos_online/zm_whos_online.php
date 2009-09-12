@@ -89,11 +89,11 @@ class zm_whos_online extends Plugin {
             $timeAgo = (time() - 1200);
             $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
                     WHERE time_last_click < :lastRequestTime";
-            Runtime::getDatabase()->update($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
+            ZMRuntime::getDatabase()->update($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
         }
 
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
-        $results = Runtime::getDatabase()->query($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {
