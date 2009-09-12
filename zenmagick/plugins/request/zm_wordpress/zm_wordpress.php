@@ -62,13 +62,13 @@ class zm_wordpress extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation');
+        $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation',
+              'widget@TextFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
         $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabled', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
-        // warning: screwed logic!
         $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)', 
             'widget@BooleanFormWidget#name=syncUser&default=false&label=Update WP');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Leave nick name as optional (will skip automatic WP registration)', 
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nick name mandatory (empty nickname will skip automatic WP registration)', 
             'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
         $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates', 
             'widget@BooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
@@ -133,6 +133,8 @@ class zm_wordpress extends Plugin {
      * @param array args Optional event args.
      */
     public function onZMInitDone($args=null) {
+        $request = $args['request'];
+
         // create single request handler
         $this->requestHandler_ = new ZMWpRequestHandler($this);
         $wordpressEnabled = $this->get('wordpressEnabled');

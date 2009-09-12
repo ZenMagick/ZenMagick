@@ -60,7 +60,7 @@
     ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance
-    $request = ZMRequest::instance();
+    $_zm_request = ZMRequest::instance();
 
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {
@@ -72,7 +72,7 @@
         $plugins = ZMPlugins::instance()->initPluginsForGroups(explode(',', ZMSettings::get('zenmagick.core.plugins.groups')));
         foreach ($plugins as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
-                $plugin->initRequest($request);
+                $plugin->initRequest($_zm_request);
             }
         }
     }
@@ -85,10 +85,10 @@
     }
 
     // core and plugins loaded
-    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $request));
+    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $_zm_request));
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
-    ZMSacsManager::instance()->ensureAccessMethod($request->getRequestId());
+    ZMSacsManager::instance()->ensureAccessMethod($_zm_request->getRequestId());
 
     // start output buffering
     ob_start();
@@ -98,6 +98,7 @@
         include_once $_zm_global;
     }
 
-    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $request));
+    $request = $_zm_request;
+    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
 
 ?>

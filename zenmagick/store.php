@@ -27,7 +27,7 @@
 
     // main request processor
     if (ZMSettings::get('isEnableZMThemes')) {
-        ZMDispatcher::dispatch($request);
+        ZMDispatcher::dispatch($_zm_request);
     }
 
 ?>
