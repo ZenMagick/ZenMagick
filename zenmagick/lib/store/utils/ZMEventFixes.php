@@ -242,6 +242,10 @@ class ZMEventFixes extends ZMObject {
         $template = $args['template'];
         $view = $args['view'];
 
+        // XXX: improve!
+        // simulate onZMViewStart ...
+        $this->onZMViewStart($args);
+
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::instance()->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {

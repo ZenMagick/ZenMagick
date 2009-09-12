@@ -45,7 +45,7 @@
  * @version $Id: ZMPlugins.php 2356 2009-06-29 09:52:41Z dermanomann $
  */
 class ZMPlugins extends ZMObject {
-    // list of loaded plugins
+    // internal plugin cache with some details
     protected $plugins_;
     // plugin status details
     protected $pluginStatus_;
@@ -227,7 +227,7 @@ class ZMPlugins extends ZMObject {
      */
     public function getPluginForId($id, $group=null) {
         if (array_key_exists($id, $this->plugins_)) {
-            return $this->plugins_[$id];
+            return $this->plugins_[$id]['plugin'];
         }
 
         $status = $this->pluginStatus_[$id];
@@ -264,7 +264,7 @@ class ZMPlugins extends ZMObject {
         $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
         $plugin->setPluginDirectory($pluginDir == $groupDir ? $groupDir : $pluginDir);
 
-        $this->plugins_[$id] = $plugin;
+        $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
         return $plugin;
     }
 
@@ -288,6 +288,16 @@ class ZMPlugins extends ZMObject {
         }
 
         return $this->initPluginsForId($ids, $enabled);
+    }
+
+    /**
+     * Check if a plugin needs be initialized.
+     *
+     * @param string id The plugin id.
+     * @return boolean <code>true</code> if the plugin needs to be initialized.
+     */
+    protected function needsInit($id) {
+        return !array_key_exists($id, $this->plugins_) || false == $this->plugins_[$id]['init'];
     }
 
     /**
@@ -338,7 +348,7 @@ class ZMPlugins extends ZMObject {
                     $pluginLoader->addGlobal($plugin->getPluginDirectory().$file);
                 }
 
-                $plugins[] = $plugin;
+                $plugins[$id] = $plugin;
             }
         }
 
@@ -349,9 +359,12 @@ class ZMPlugins extends ZMObject {
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
-        foreach ($plugins as $plugin) {
-            // call init only after everything set up
-            $plugin->init();
+        foreach ($plugins as $id => $plugin) {
+            if ($this->needsInit($id)) {
+                // call init only after everything set up
+                $plugin->init();
+                $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
+            }
         }
         ZMEvents::instance()->fireEvent($this, ZMEvents::INIT_PLUGIN_GROUP_DONE, array('ids' => $ids, 'plugins' => $plugins));
 

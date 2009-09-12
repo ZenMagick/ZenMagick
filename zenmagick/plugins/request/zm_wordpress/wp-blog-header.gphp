@@ -1,1 +1,1 @@
-<?php if (null != ($plugin = ZMPlugins::instance()->getPluginForId('zm_wordpress'))) { @require $plugin->get('wordpressDir').'/wp-blog-header.php'; } ?>
+<?php if (null != ($plugin = ZMPlugins::instance()->getPluginForId('zm_wordpress'))) { @require_once $plugin->get('wordpressDir').'/wp-blog-header.php'; } ?>
