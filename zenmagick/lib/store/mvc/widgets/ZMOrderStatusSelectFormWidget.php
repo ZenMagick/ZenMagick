@@ -35,12 +35,15 @@
  * @version $Id$
  */
 class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
+    private $showKey_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->showKey_ = true;
     }
 
     /**
@@ -51,6 +54,24 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     }
 
     /**
+     * Show/hide the numeric key.
+     *
+     * @param boolean enable <code>true</code> to append the numeric value to the description.
+     */
+    public function setShowKey($enable) {
+        $this->showKey_ = $enable;
+    }
+
+    /**
+     * Check if the numeric key should be appended to the description.
+     *
+     * @return boolean <code>true</code> to append, <code>false</code> to hide.
+     */
+    public function isShowKey() {
+        return $this->showKey_;
+    }
+
+    /**
      * Get the options map.
      *
      * @return array Map of value/name pairs.
@@ -58,7 +79,7 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     public function getOptions() {
         $options = parent::getOptions();
         foreach (ZMOrders::instance()->getOrderStatusList() as $idp) {
-            $options[$idp->getOrderStatusId()] = $idp->getStatusName();
+            $options[$idp->getOrderStatusId()] = $idp->getStatusName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
         }
         return $options;
     }
