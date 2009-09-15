@@ -15,7 +15,7 @@ Installation
 
 Usage
 =====
-The plugin will add validation rules for the nickname field ('nick') and enable the nickname
+The plugin will add validation rules for the nickname field ('nickName') and enable the nickname
 field via the 'isAccountNickname' setting.
 
 If nickname is set up as optional, phpBB registration will be skipped if it is not set during registration.
