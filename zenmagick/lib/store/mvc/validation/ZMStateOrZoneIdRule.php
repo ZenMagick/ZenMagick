@@ -89,7 +89,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
 
         // check for form bean
         if (array_key_exists('__obj', $req)) {
-            ZMBeanUtils::setAll($req['__obj'], array('state' => $state, 'zoneId' => $zoneId));
+            $req['__obj'] = ZMBeanUtils::setAll($req['__obj'], array('state' => $state, 'zoneId' => $zoneId));
         }
 
         return $valid;

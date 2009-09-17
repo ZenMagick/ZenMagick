@@ -281,7 +281,7 @@ class ZMController extends ZMObject {
                 if ($this->formBean_ instanceof ZMFormBean) {
                     $this->formBean_->populate();
                 } else {
-                    ZMBeanUtils::setAll($this->formBean_, ZMRequest::instance()->getParameterMap());
+                    $this->formBean_ = ZMBeanUtils::setAll($this->formBean_, ZMRequest::instance()->getParameterMap());
                 }
             }
         }

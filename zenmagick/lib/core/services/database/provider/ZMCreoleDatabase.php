@@ -212,7 +212,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
-                ZMBeanUtils::setAll($model, array($property => $newId));
+                $model = ZMBeanUtils::setAll($model, array($property => $newId));
             }
         }
 

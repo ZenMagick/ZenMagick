@@ -36,7 +36,7 @@ class TestZMBeanUtils extends ZMTestCase {
         // set all
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
         $obj = new ZMObject();
-        $map = ZMBeanUtils::setAll($obj, $data);
+        $obj = ZMBeanUtils::setAll($obj, $data);
         $this->assertEqual('bar',$obj->getFoo());
         $map = ZMBeanUtils::obj2map($obj);
         $this->assertEqual($expectAll, $map);
@@ -44,10 +44,21 @@ class TestZMBeanUtils extends ZMTestCase {
         // set some
         $expectSome = array('foo' => 'bar', 'propertyNames' => array('foo'), 'attachedMethods' => array());
         $obj = new ZMObject();
-        $map = ZMBeanUtils::setAll($obj, $data, array('foo'));
+        $obj = ZMBeanUtils::setAll($obj, $data, array('foo'));
         $this->assertEqual('bar',$obj->getFoo());
         $map = ZMBeanUtils::obj2map($obj);
         $this->assertEqual($expectSome, $map);
+    }
+
+    /**
+     * Test setAll with array
+     */
+    public function testSetAllArray() {
+        // set all
+        $map = array('foo' => 'bar', 'doh' => 'nut');
+        $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'deng' => 'foo');
+        $map = ZMBeanUtils::setAll($map, array('deng' => 'foo'));
+        $this->assertEqual($expectAll, $map);
     }
 
     /**

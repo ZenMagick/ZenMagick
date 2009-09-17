@@ -60,7 +60,7 @@ class ZMRegistrationForm extends ZMFormBean {
         // special treatment
         $properties['dob'] = ZMTools::translateDateString($properties['dob'], UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
 
-        ZMBeanUtils::setAll($account, $properties);
+        $account = ZMBeanUtils::setAll($account, $properties);
         return $account;
     }
 
@@ -83,7 +83,7 @@ class ZMRegistrationForm extends ZMFormBean {
             $properties['countryId'] = 0;
         }
 
-        ZMBeanUtils::setAll($address, $properties);
+        $address = ZMBeanUtils::setAll($address, $properties);
         return $address;
     }
 

@@ -88,7 +88,7 @@
                 }
             }
             if ($isUpdate) {
-                ZMBeanUtils::setAll($product, $formData);
+                $product = ZMBeanUtils::setAll($product, $formData);
                 ZMProducts::instance()->updateProduct($product);
             }
         }    

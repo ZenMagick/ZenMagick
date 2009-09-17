@@ -116,11 +116,12 @@ class ZMBeanUtils {
     /**
      * Set a given map of key/value pairs on an object.
      *
-     * @param mixed obj The class instance.
+     * @param mixed obj The class instance or array.
      * @param array data The data map.
      * @param array keys Optional list of data keys to be used; default is <code>null</code> to use all.
      * @param setGeneric Optional flag to indicate whether generic <code>ZMObject</code> properties should be
      *  included or not; default is <code>true</code> to include generic properties.
+     * @return mixed The (modified) <code>$obj</code>.
      */
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
@@ -131,9 +132,12 @@ class ZMBeanUtils {
                     $obj->$method($value);
                 } else if ($isModel && $setGeneric) {
                     $obj->set($property, $value);
+                } else if (is_array($obj)) {
+                    $obj[$property] = $value;
                 }
             }
         }
+        return $obj;
     }
 
     /**

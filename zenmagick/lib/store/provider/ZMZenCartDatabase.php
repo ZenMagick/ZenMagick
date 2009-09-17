@@ -220,7 +220,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
-                ZMBeanUtils::setAll($model, array($property => $this->db_->Insert_ID()));
+                $model = ZMBeanUtils::setAll($model, array($property => $this->db_->Insert_ID()));
             }
         }
 

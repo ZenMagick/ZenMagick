@@ -61,7 +61,8 @@ class zm_phpbb3 extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation');
+        $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation',
+              'widget@TextFormWidget#name=phpBB3Dir&default=&size=24&maxlength=255');
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)', 
             'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
     }
