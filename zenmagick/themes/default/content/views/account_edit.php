@@ -67,7 +67,7 @@
                 <?php if (ZMSettings::get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php zm_l10n("Nickname") ?></td>
-                        <td><?php $html->encode($account->getNickName()) ?></td>
+                        <td><input type="text" name="nickName" value="<?php $html->encode($account->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>

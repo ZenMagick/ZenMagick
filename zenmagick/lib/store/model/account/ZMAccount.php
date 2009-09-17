@@ -68,7 +68,7 @@ class ZMAccount extends ZMObject {
         $this->phone_ = null;
         $this->fax_ = null;
         $this->emailFormat_ = 'TEXT';
-        $this->referral_ = null;
+        $this->referral_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = null;
         $this->authorization_ = ZMSettings::get('defaultCustomerApproval');
