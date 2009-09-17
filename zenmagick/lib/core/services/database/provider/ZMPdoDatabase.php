@@ -513,7 +513,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
             }
         }
-
         return $stmt;
     }
 
