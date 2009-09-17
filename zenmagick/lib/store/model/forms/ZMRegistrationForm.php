@@ -53,7 +53,7 @@ class ZMRegistrationForm extends ZMFormBean {
         $properties = $this->properties_;
 
         // don't need these
-        foreach (array(ZM_PAGE_KEY, 'formId', 'action') as $name) {
+        foreach (array(ZM_PAGE_KEY, 'formId', 'action', 'confirmation') as $name) {
             unset($properties[$name]);
         }
 

@@ -42,6 +42,7 @@
 class ZMCreateAccountController extends ZMController {
     private $createDefaultAddress_;
 
+
     /**
      * Create new instance.
      */
