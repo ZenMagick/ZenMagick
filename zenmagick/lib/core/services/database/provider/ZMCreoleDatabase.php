@@ -65,7 +65,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $this->conn_ = Creole::getConnection($conf);
             $this->mapper_ = ZMDbTableMapper::instance();
             if (null != $conf['initQuery']) {
-                $this->conn_->executeQuery($conf['initQuery']);
+                try {
+                    $this->conn_->executeQuery($conf['initQuery']);
+                } catch (SQLException $e) {
+                    throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+                }
             }
     }
 
@@ -154,7 +158,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
         $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
-        $rs = $stmt->executeQuery();
+        try {
+            $rs = $stmt->executeQuery();
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
 
         $results = array();
         while ($rs->next()) {
@@ -201,13 +209,17 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $stmt = $this->prepareStatement($sql, $modelData, $mapping);
         $idgen = $this->conn_->getIdGenerator();
         $newId = null;
-        //XXX: add support for SEQUENCE?
-        if($idgen->isBeforeInsert()) {
-            $newId = $idgen->getId();
-            $stmt->executeUpdate();
-        } else { // isAfterInsert()
-            $stmt->executeUpdate();
-            $newId = $idgen->getId();
+        try {
+            //XXX: add support for SEQUENCE?
+            if($idgen->isBeforeInsert()) {
+                $newId = $idgen->getId();
+                $stmt->executeUpdate();
+            } else { // isAfterInsert()
+                $stmt->executeUpdate();
+                $newId = $idgen->getId();
+            }
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         foreach ($mapping as $property => $field) {
@@ -228,7 +240,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $data, $mapping);
-        $rows = $stmt->executeUpdate();
+        try {
+            $rows = $stmt->executeUpdate();
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $rows;
     }
@@ -279,7 +295,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         $stmt = $this->prepareStatement($sql, $modelData, $mapping);
-        $stmt->executeUpdate();
+        try {
+            $stmt->executeUpdate();
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -322,7 +342,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         $stmt = $this->prepareStatement($sql, $modelData, $mapping);
-        $stmt->executeUpdate();
+        try {
+            $stmt->executeUpdate();
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -342,7 +366,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         $stmt = $this->prepareStatement($sql, $args, $mapping);
-        $rs = $stmt->executeQuery();
+        try {
+            $rs = $stmt->executeQuery();
+        } catch (SQLException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
 
         $results = array();
         while ($rs->next()) {

@@ -33,7 +33,7 @@ class TestZMDatabase extends ZMTestCase {
             $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
             $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
             $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
-            $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
+            $this->assertEqual(128, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
         }
     }
 
@@ -41,7 +41,7 @@ class TestZMDatabase extends ZMTestCase {
      * Test auto mapping.
      */
     public function testAutoMapping() {
-        static $create_table = "CREATE TABLE db_test ( id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, PRIMARY KEY (id)) TYPE=MyISAM;";
+        static $create_table = "CREATE TABLE db_test (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, PRIMARY KEY (id)) TYPE=MyISAM;";
         static $drop_table = "DROP TABLE IF EXISTS db_test;";
 
         static $expectedMapping = array(
@@ -163,6 +163,34 @@ class TestZMDatabase extends ZMTestCase {
 
             // clean up
             $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+        }
+    }
+
+    /**
+     * Test exceptions.
+     */
+    public function testExceptions() {
+        static $create_table = "CREATE TABLE db_test (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
+        static $drop_table = "DROP TABLE IF EXISTS db_test;";
+        static $insert = "INSERT INTO db_test name = :name;";
+
+        foreach ($this->getProviders() as $provider => $database) {
+            if ('ZMZenCartDatabase' == $provider) {
+                continue;
+            }
+            // create test tabe
+            $database->update($drop_table);
+            $database->update($create_table);
+
+            try {
+                $database->update($insert, array('name' => 'foo'), 'db_test');
+            } catch (ZMDatabaseException $e) {
+            } catch (Exception $e) {
+                $this->fail('unexpected exception: '.$e);
+            }
+
+            // drop again
+            $database->update($drop_table);
         }
     }
 

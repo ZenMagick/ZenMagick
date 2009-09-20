@@ -52,6 +52,7 @@ class ZMException extends Exception {
         $s .= ' message='.$this->getMessage();
         $s .= ', file='.ZMFileUtils::mkRelativePath($this->getFile());
         $s .= ', line='.$this->getLine();
+        $s .= ', previous='.$this->previous_;
         $s .= ']';
         return $s;
     }

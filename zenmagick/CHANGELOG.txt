@@ -101,7 +101,9 @@ Release 0.9.7
 - send content type header only if content type on view is not null
 - refactor SACS code and move to generic bits to mvc
 - zm_site_switch: change SQL to set a default of '' to make the more
-  restrictive  database code work
+  restrictive database code work
+- improve excpetion handling in ZMCreoleDatabase, add new test to test
+  exception handling (not complete)
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

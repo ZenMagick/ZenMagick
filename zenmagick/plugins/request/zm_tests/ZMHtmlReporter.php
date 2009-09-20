@@ -198,22 +198,10 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintFail($message) {
+    public function xpaintFail($message) {
         ob_start(); parent::paintFail($message); $html = ob_get_clean();
+        echo $html;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
-    }
-
-    /**
-     * Custom method to gain access to the fail info.
-     */
-    public function zmPaintFail($info) {
-        $cmp = $info['expectation']->overlayMessage($info['compare'], $this->getDumper());
-        $msg = sprintf('line %s: %s; %s', $info['line'], $cmp, $info['message']);
-
-        $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['messages'][$msg] = $msg;
-
-        $this->ensureTestHeader();
-        echo '<div class="msg">'.$msg.'</div>';
     }
 
 }
