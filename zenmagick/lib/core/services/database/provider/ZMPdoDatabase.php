@@ -556,8 +556,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             try {
                 $columns = $this->pdo_->query("SHOW COLUMNS FROM " . $table, PDO::FETCH_ASSOC);
             } catch (PDOException $pdoe) {
-                ZMLogging::instance()->dump($pdoe);
-                return null;
+                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
             }
             foreach($columns as $key => $col) {
                 $field = $col['Field'];
@@ -577,7 +576,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             return $meta;
         } else {
             $tables = array();
-            $results = $this->pdo_->query("SHOW TABLES", PDO::FETCH_NUM);
+            try {
+                $results = $this->pdo_->query("SHOW TABLES", PDO::FETCH_NUM);
+            } catch (PDOException $pdoe) {
+                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            }
             foreach ($results as $row) {
                 $tables[] = $row[0];
             }
