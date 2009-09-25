@@ -277,7 +277,7 @@ class ZMToolboxForm extends ZMObject {
         }
         $html .= '>';
         foreach ($list as $item) {
-            $selected = $item->$oValue() == $selectedId;
+            $selected = $item->$oValue() === $selectedId;
             $html .= '<option value="' . $item->$oValue() . '"';
             $html .= ($selected ? ' selected="selected"' : '');
             $html .= '>' . $item->$oText() . '</option>';
