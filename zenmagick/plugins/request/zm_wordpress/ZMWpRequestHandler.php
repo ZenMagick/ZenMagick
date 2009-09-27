@@ -103,6 +103,7 @@ class ZMWpRequestHandler extends ZMController {
         add_filter('post_link', array($this, 'link_filter'));
         add_filter('page_link', array($this, 'link_filter'));
         add_filter('category_link', array($this, 'link_filter'));
+        add_filter('get_pagenum_link', array($this, 'link_filter'));
         add_filter('month_link', array($this, 'link_filter'));
         add_filter('comments_template', array($this, 'comments_template_filter'));
         add_filter('search_template', array($this, 'link_filter'));

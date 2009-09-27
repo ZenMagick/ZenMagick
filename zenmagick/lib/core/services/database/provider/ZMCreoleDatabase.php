@@ -289,7 +289,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 }
             }
         }
-        if (7 > strlen($where)) {
+        if (8 > strlen($where)) {
             throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;
@@ -336,7 +336,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 }
             }
         }
-        if (7 > strlen($where)) {
+        if (8 > strlen($where)) {
             throw new ZMDatabaseException('missing key');
         }
         $sql .= $where;

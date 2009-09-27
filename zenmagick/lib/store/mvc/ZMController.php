@@ -129,9 +129,9 @@ class ZMController extends ZMObject {
             } catch (Exception $e) {
                 if ($enableTransactions) {
                     ZMRuntime::getDatabase()->rollback();
-                    // re-throw
-                    throw $e;
                 }
+                // re-throw
+                throw $e;
             }
         }
 

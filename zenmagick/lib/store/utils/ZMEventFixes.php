@@ -313,6 +313,12 @@ class ZMEventFixes extends ZMObject {
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
             $view->setVar('zm_account', $account);
         }
+
+        if ('password_forgotten_admin' == $template) {
+            $view->setVar('adminName',  $context['EMAIL_CUSTOMERS_NAME']);
+            $view->setVar('htmlMessage',  $context['EMAIL_MESSAGE_HTML']);
+            $view->setVar('textMessage',  $context['text_msg']);
+        }
     }
 
     /**
