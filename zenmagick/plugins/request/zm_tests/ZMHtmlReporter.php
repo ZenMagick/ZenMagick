@@ -154,6 +154,9 @@ class ZMHtmlReporter extends HtmlReporter {
      * {@inheritDoc}
      */
     public function paintException($exception) {
+        // log just in case
+        ZMLogging::instance()->dump($exception, null, ZMLogging::WARN);
+
         // just need to run this to get the stats right...
         ob_start(); parent::paintException($exception); $html = ob_get_clean();
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
