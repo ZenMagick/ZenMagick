@@ -224,6 +224,7 @@ class ZMPhpBB3 extends ZMObject {
             $data = $this->getDatabase()->createModel(USERS_TABLE, $data);
             return true;
         }
+
         return false;
     }
 
@@ -252,6 +253,7 @@ class ZMPhpBB3 extends ZMObject {
             $this->getDatabase()->updateModel(USERS_TABLE, $data);
             return true;
         }
+
         return false;
     }
 
@@ -267,6 +269,7 @@ class ZMPhpBB3 extends ZMObject {
             $this->getDatabase()->removeModel(USERS_TABLE, $data);
             return true;
         }
+
         return false;
     }
 

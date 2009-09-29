@@ -17,6 +17,15 @@ class TestZMPhpBB3 extends ZMTestCase {
     public function setUp() {
         parent::setUp();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
+        $account = new ZMAccount();
+        $account->setEmail('martin@mixedmatter.co.nz');
+        $account->setGender('m');
+        $account->setFirstName('mano');
+        $account->setLastName('mann');
+        $account->setNickName('DerManoMann');
+        $account->setPhone('03 333 3333');
+        $account->setPassword('secret');
+        ZMAccounts::instance()->createAccount($account);
     }
 
     /**
@@ -25,6 +34,8 @@ class TestZMPhpBB3 extends ZMTestCase {
     public function tearDown() {
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
+        $account = ZMAccounts::instance()->getAccountForEmailAddress('martin@mixedmatter.co.nz');
+        ZMRuntime::getDatabase()->removeModel(TABLE_CUSTOMERS, $account);
     }
 
     /**
@@ -42,7 +53,7 @@ class TestZMPhpBB3 extends ZMTestCase {
      * Test duplicate nickname validation.
      */
     public function testVDuplicateNickname() {
-        $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nickName' => 'foobarx')));
+        $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nickName' => 'foobarxxx')));
         $this->assertFalse($this->getAdapter()->vDuplicateNickname(array('nickName' => 'Anonymous')));
     }
 
@@ -59,7 +70,8 @@ class TestZMPhpBB3 extends ZMTestCase {
      * Test create account.
      */
     public function testCreateAccount() {
-        $result = $this->getAdapter()->createAccount('DerManoMann', 'foob1', 'martin@mixedmatter.co.nz');
+        $account = ZMAccounts::instance()->getAccountForEmailAddress('martin@mixedmatter.co.nz');
+        $result = $this->getAdapter()->createAccount($account, 'foob123', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
     }
 
@@ -68,7 +80,7 @@ class TestZMPhpBB3 extends ZMTestCase {
      */
     public function testUpdateAccount() {
         $this->testCreateAccount();
-        $result = $this->getAdapter()->updateAccount('DerManoMann', 'foob12', 'martin@mixedmatter.co.nz');
+        $result = $this->getAdapter()->updateAccount('DerManoMann', 'foob1234', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
         $result = $this->getAdapter()->updateAccount('DerManoMann', null, 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
