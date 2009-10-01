@@ -166,7 +166,6 @@
             <fileset dir="${build.dir}" includes="**/*.db" />
 
             <!-- experimental stuff -->
-            <fileset dir="${build.dir}" includes="zenmagick/bootstrap.php" />
             <fileset dir="${build.dir}">
                 <include name="zenmagick/plugins/init/**" />
                 <exclude name="zenmagick/plugins/init/zm_init_category_path.php" />
@@ -177,6 +176,7 @@
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_features/**" />
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_group_pricing/**" />
             <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_associations/**" />
+            <fileset dir="${build.dir}" includes="zenmagick/plugins/admin/zm_product_tags/**" />
         </delete>
     </target>
 

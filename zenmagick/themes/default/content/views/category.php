@@ -28,7 +28,9 @@
 <?php if ($zm_category->hasChildren()) { ?>
     <h3><?php zm_l10n("Available Sub-categories") ?></h3>
     <?php foreach ($zm_category->getChildren() as $category) { ?>
-        <?php $html->encode($category->getName()) ?><br />
+        <?php if ($category->isActive()) { ?>
+            <?php $html->encode($category->getName()) ?><br />
+        <?php } ?>
     <?php } ?>
 <?php } ?>
 
