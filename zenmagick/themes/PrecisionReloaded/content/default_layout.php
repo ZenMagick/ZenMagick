@@ -16,8 +16,7 @@ Released   : 20090515
     <meta name="description" content="" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("style.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-    <!-- this script is an external script call - OK no need for CDATA tags  -->
-    <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
+    <?php $utils->jsBottom('common.js') ?>
   </head>
   <body>
 

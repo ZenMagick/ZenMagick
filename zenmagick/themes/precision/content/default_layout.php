@@ -18,7 +18,7 @@ Released   : 20081126
     <meta name="description" content="" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("style.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-    <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
+    <?php $utils->jsBottom('common.js') ?>
   </head>
   <body>
     <div id="header">

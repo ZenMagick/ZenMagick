@@ -38,6 +38,7 @@
     ?>
 </script>
 <?php $utils->jsNow('jquery.js') ?>
+<?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php include $zm_theme->themeFile("dynamicState.js") ?></script>
 <?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>

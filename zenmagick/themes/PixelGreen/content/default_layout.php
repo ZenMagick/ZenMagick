@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("PixelGreen.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
 
-    <script type="text/javascript" src="<?php $zm_theme->themeURL("common.js") ?>"></script>
+    <?php $utils->jsBottom('common.js') ?>
 
     <title>Pixel Green</title>
   </head>

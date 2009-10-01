@@ -24,8 +24,8 @@
  */
 ?>
 
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("interface.js") ?>"></script>
+<?php $utils->jsNow('jquery.js') ?>
+<?php $utils->jsBottom('interface.js') ?>
 
 <script type="text/javascript">
     // set up drag/drop
@@ -48,23 +48,23 @@
 
     // add to cart action
     var addProductToCart = function(dragged) {
-      // product_[id]
-      var productId = $(dragged).attr('id');
-      var loff = productId.lastIndexOf('_');
-      var productId = parseInt(productId.substring(loff+1));
-      if ('NaN' != productId) {
-          $('#cart_progress').show();
-          $.ajax({
-              type: "POST",
-              url: "<?php $net->ajax('shopping_cart', 'addProduct') ?>",
-              data: "productId="+productId+"&quantity=1",
-              success: function(msg) {
-                  // declared in sidebox, so easier to change layout...
-                  updateSBCartContent(msg);
-              }
-          });
-      }
-    };
+    // product_[id]
+    var productId = $(dragged).attr('id');
+    var loff = productId.lastIndexOf('_');
+    var productId = parseInt(productId.substring(loff+1));
+    if ('NaN' != productId) {
+        $('#cart_progress').show();
+        $.ajax({
+            type: "POST",
+            url: "<?php $net->ajax('shopping_cart', 'addProduct') ?>",
+            data: "productId="+productId+"&quantity=1",
+            success: function(msg) {
+                // declared in sidebox, so easier to change layout...
+                updateSBCartContent(msg);
+            }
+        });
+    }
+  };
 </script>
 
 <h2>Drag products into your shopping cart</h2>

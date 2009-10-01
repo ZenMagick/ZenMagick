@@ -27,10 +27,9 @@
 <p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick 
 check out the <a href="<?php $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
 
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.form.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("json.js") ?>"></script>
-
+<?php $utils->jsNow('jquery.js') ?>
+<?php $utils->jsNow('jquery.form.js') ?>
+<?php $utils->jsNow('json2.js') ?>
 
 <label for="msgbox"><strong>Messages</strong></label>
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>

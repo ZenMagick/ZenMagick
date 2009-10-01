@@ -23,9 +23,9 @@
  * $Id: product_info.php 215 2007-07-16 05:17:44Z DerManoMann $
  */
 ?>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("lightbox/prototype.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("lightbox/scriptaculous.js?load=effects") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("lightbox/lightbox.js") ?>"></script>
+<?php $utils->jsBottom('lightbox/prototype.js') ?>
+<?php $utils->jsBottom('lightbox/scriptaculous.js?load=effects') ?>
+<?php $utils->jsBottom('lightbox/lightbox.js') ?>
 
 <?php $manufacturer = $zm_product->getManufacturer() ?>
 <h2><?php $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php $html->encode($zm_product->getName()) ?></h2>

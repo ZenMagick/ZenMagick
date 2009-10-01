@@ -40,11 +40,9 @@ Depending on your server configuration you might be better of using something di
   <li>There is a lot more that could be implemented as Ajax controller; reviews, etc...</li>
 </ul>
 
-
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("jquery.form.js") ?>"></script>
-<script type="text/javascript" src="<?php $zm_theme->themeURL("json2.js") ?>"></script>
-
+<?php $utils->jsNow('jquery.js') ?>
+<?php $utils->jsNow('jquery.form.js') ?>
+<?php $utils->jsNow('json2.js') ?>
 
 <label for="msgbox"><strong>Messages</strong></label>
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
