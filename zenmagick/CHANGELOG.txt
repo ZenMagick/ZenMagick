@@ -104,6 +104,7 @@ Release 0.9.7
   restrictive database code work
 - improve excpetion handling in ZMCreoleDatabase, add new test to test
   exception handling (not complete)
+- add zm_vbulletin
 
 Release 0.9.6
 - add sanitize parameter to ZMRequest::getParameterMap()

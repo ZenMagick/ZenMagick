@@ -250,6 +250,12 @@
             <param name="plugin.name" value="zm_fual_slimbox" />
             <param name="plugin.version" value="${plugins.zm_fual_slimbox.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.type" value="request" />
+            <param name="plugin.name" value="zm_vbulletin" />
+            <param name="plugin.version" value="${plugins.zm_vbulletin.version}" />
+        </antcall>
     </target>
 
     
