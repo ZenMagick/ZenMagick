@@ -261,6 +261,9 @@ class ZMTemplateManager extends ZMObject {
         $contents = $args['contents'];
         $contents = preg_replace('/<\/head>/', $css.$jsTop . '</head>', $contents, 1);
         $contents = preg_replace('/<\/body>/', $jsBottom . '</body>', $contents, 1);
+        $args['css'] = $css;
+        $args['jsTop'] = $jsTop;
+        $args['jsBottom'] = $jsBottom;
         $args['contents'] = $contents;
         return $args;
     }
