@@ -256,6 +256,12 @@
             <param name="plugin.name" value="zm_vbulletin" />
             <param name="plugin.version" value="${plugins.zm_vbulletin.version}" />
         </antcall>
+
+        <antcall target="plugin-release">
+            <param name="plugin.type" value="request" />
+            <param name="plugin.name" value="zm_subscriptions" />
+            <param name="plugin.version" value="${plugins.zm_subscriptions.version}" />
+        </antcall>
     </target>
 
     
