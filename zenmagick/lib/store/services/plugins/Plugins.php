@@ -32,7 +32,7 @@
  * directories/plugins, zen-cart will not (yet) recognize them as such.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.service
+ * @package org.zenmagick.store.service
  * @version $Id: ZMPlugins.php 2360 2009-06-30 03:31:15Z dermanomann $
  */
 class Plugins extends ZMPlugins {

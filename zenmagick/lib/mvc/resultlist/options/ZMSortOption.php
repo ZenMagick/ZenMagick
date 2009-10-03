@@ -28,7 +28,7 @@
  * order.</p>
  *
  * @author DerManoMann
- * @rp.package org.zenmagick.mvc.resultlist.options
+ * @package org.zenmagick.mvc.resultlist.options
  * @version $Id: ZMSortOption.php 2121 2009-03-31 01:56:56Z dermanomann $
  */
 class ZMSortOption extends ZMObject {

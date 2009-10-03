@@ -23,6 +23,8 @@
 if (!function_exists('__autoload')) {
     /**
      * __autoload.
+     *
+     * @package org.zenmagick.core
      */
     function __autoload($className) {
         ZMLoader::resolve($className);

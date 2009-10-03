@@ -320,7 +320,6 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param boolean echo If <code>true</code>, echo the code.
      * @return mixed The form content for the actual order process.
-     * @see org.zenmagick.ZMShoppingCart#getOrderFormURL
      */
     function getOrderFormContent($echo=ZM_ECHO_DEFAULT) {
         $payments = $this->_getPayments();
