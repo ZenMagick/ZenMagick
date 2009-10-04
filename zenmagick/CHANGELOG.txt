@@ -1,3 +1,5 @@
+Release 0.9.8
+
 Release 0.9.7
 - add ZMProductAssociation service and related code
 - Move zm_token plugin into core
