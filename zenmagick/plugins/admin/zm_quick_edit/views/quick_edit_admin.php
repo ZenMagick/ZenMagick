@@ -65,12 +65,14 @@
             $_formData = array();
             foreach ($zm_quick_edit_field_list as $field) {
                 $widget = $field['widget'];
-                $fieldName = $field['name'].'_'.$productId;
-                // use widget to *read* the value to allow for optional conversions, etc
-                $widget->setValue($request->getParameter($fieldName));
-                $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
-                $widget->setValue($request->getParameter('_'.$fieldName));
-                $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                if ($widget instanceof ZMFormWidget) {
+                    $fieldName = $field['name'].'_'.$productId;
+                    // use widget to *read* the value to allow for optional conversions, etc
+                    $widget->setValue($request->getParameter($fieldName));
+                    $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                    $widget->setValue($request->getParameter('_'.$fieldName));
+                    $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                }
             }
             // load product, convert to map and compare with the submitted form data
             $product = ZMProducts::instance()->getProductForId($productId);
@@ -123,7 +125,7 @@
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
                 <?php echo $widget->render() ?>
-              <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php $toolbox->html->encode($value) ?>">
+                <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php $toolbox->html->encode($value) ?>">
               </td>
             <?php } ?>
           </tr>
