@@ -141,7 +141,7 @@ class ZMVBulletinAdapter extends ZMObject {
      * @param string nickName The nick name.
      * @return mixed A data array or <code>null</code>.
      */
-    protected function getAccountForNickName($nickName) {
+    public function getAccountForNickName($nickName) {
         $sql = "SELECT * FROM " . $this->userTable_ . "
                 WHERE username = :username";
         return $this->getDatabase()->querySingle($sql, array('username' => $nickName), $this->userTable_);
@@ -153,7 +153,7 @@ class ZMVBulletinAdapter extends ZMObject {
      * @param string email The email address.
      * @return mixed A data array or <code>null</code>.
      */
-    protected function getAccountForEmail($email) {
+    public function getAccountForEmail($email) {
         $sql = "SELECT * FROM " . $this->userTable_ . "
                 WHERE email = :email";
         // assum unique email address...

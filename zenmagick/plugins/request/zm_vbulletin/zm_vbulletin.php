@@ -179,6 +179,23 @@ class zm_vbulletin extends Plugin {
     }
 
     /**
+     * Event handler for login.
+     *
+     * @param array args Optional parameter.
+     */
+    public function onZMLoginSuccess($args=array()) {
+        $account = $args['account'];
+        // check if nickname set and no matching forum user 
+        if (!ZMLangUtils::isEmpty($account->getNickName())) {
+            if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
+                // no vBulletin user found, so create one now!
+                $password = ZMRequest::instance()->getParameter('password');
+                $this->getAdapter()->createAccount($account, $password);
+            }
+        }
+    }
+
+    /**
      * Event callback for controller processing.
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
