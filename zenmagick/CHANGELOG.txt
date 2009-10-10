@@ -1,4 +1,10 @@
 Release 0.9.8
+- add Savant3 and experimental views (not used yet)
+- fix forward view bug
+- fix error in SACS manager that breaks automatic redirects to secure pages
+  where configured
+- more changes to use $request where possible
+- zm_quick_edit: allow non form widgets, for example read only data
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

@@ -43,8 +43,7 @@ class ZMController extends ZMObject {
     function __construct($id=null) {
         parent::__construct();
 
-        // use as controller id
-        $this->id_ = null != $id ? $id : ZMRequest::instance()->getRequestId();
+        $this->id_ = $id;
         $this->globals_ = array();
         $this->view_ = null;
         $this->formBean_ = null;
@@ -54,9 +53,6 @@ class ZMController extends ZMObject {
         foreach (ZMToolbox::instance()->getTools() as $name => $tool) {
             $this->exportGlobal($name, $tool);
         }
-
-        // some generic objects that should always be there
-        $this->exportGlobal('session', ZMRequest::instance()->getSession());
     }
 
     /**
@@ -76,6 +72,10 @@ class ZMController extends ZMObject {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) { 
+        $this->id_ = null != $this->id_ ? $this->id_ : $request->getRequestId();
+        // some generic objects that should always be there
+        $this->exportGlobal('session', $request->getSession());
+
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
 
         $enableTransactions = ZMSettings::get('isEnableTransactions');
@@ -91,7 +91,7 @@ class ZMController extends ZMObject {
         $this->exportGlobal('request', $request);
 
         // handle form bean
-        if (null !== ($formBean = $this->getFormBean())) {
+        if (null !== ($formBean = $this->getFormBean($request))) {
             // put form bean in context
             $this->exportGlobal($formBean->getFormId(), $formBean);
         }
@@ -102,12 +102,12 @@ class ZMController extends ZMObject {
         $view = null;
 
         // session validation
-        if ($this->isFormSubmit() && null != ($view = $this->validateSession($request))) {
+        if ($this->isFormSubmit($request) && null != ($view = $this->validateSession($request))) {
             ZMLogging::instance()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
         }
 
         // form validation (only if not already error view from session validation...)
-        if (null == $view && null != $formBean && $this->isFormSubmit()) {
+        if (null == $view && null != $formBean && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormBean($request, $formBean))) {
                 ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
@@ -166,10 +166,11 @@ class ZMController extends ZMObject {
      *
      * <p>This default implementation will return <code>true</code> for all <em>POST</em> requests.</p>
      *
+     * @param ZMRequest request The request to process.
      * @return boolean <code>true</code> if this is a form submit request.
      */
-    public function isFormSubmit() {
-        return 'POST' == ZMRequest::instance()->getMethod();
+    public function isFormSubmit($request) {
+        return 'POST' == $request->getMethod();
     }
 
     /**
@@ -272,16 +273,17 @@ class ZMController extends ZMObject {
     /**
      * Get the form bean (if any) for this request.
      *
+     * @param ZMRequest request The request to process.
      * @return ZMView The actual view to be used to render the response.
      */
-    public function getFormBean() {
+    public function getFormBean($request) {
         if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
             if (null !== $mapping['formDefinition']) {
                 $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formBean_ instanceof ZMFormBean) {
-                    $this->formBean_->populate();
+                    $this->formBean_->populate($request);
                 } else {
-                    $this->formBean_ = ZMBeanUtils::setAll($this->formBean_, ZMRequest::instance()->getParameterMap());
+                    $this->formBean_ = ZMBeanUtils::setAll($this->formBean_, $request->getParameterMap());
                 }
             }
         }
@@ -315,7 +317,7 @@ class ZMController extends ZMObject {
      * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
      */
     protected function validateFormBean($request, $formBean) {
-        if (!$this->validate($formBean->getFormId(), $formBean)) {
+        if (!$this->validate($request, $formBean->getFormId(), $formBean)) {
             // put form bean in context
             $this->exportGlobal($formBean->getFormId(), $formbean);
             // back to same form
@@ -328,13 +330,14 @@ class ZMController extends ZMObject {
     /**
      * Validate the current request using the given rule id.
      *
+     * @param ZMRequest request The request to process.
      * @param string id The <code>ZMRuleSet</code> id.
      * @param mixed req A (request) map, an object or <code>null</code> to default to <code>$_POST</code>.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($id, $req=null) {
+    public function validate($request, $id, $req=null) {
         if (null === $req) {
-            $req = ZMRequest::instance()->getParameterMap();
+            $req = $request->getParameterMap();
         }
 
         // TODO: add token secured form test

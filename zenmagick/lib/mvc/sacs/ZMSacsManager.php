@@ -145,9 +145,9 @@ class ZMSacsManager extends ZMObject {
      * @param string requestId The request id.
      */
     public function ensureAccessMethod($request) {
-        $secure = $this->getMappingValue($requestId, 'level', false);
-        if ($secure && !ZMRequest::instance()->isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
-            ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(null, null, true, false));
+        $secure = $this->getMappingValue($request->getRequestId(), 'level', false);
+        if ($secure && !$request->isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
+            $request->redirect(ZMToolbox::instance()->net->url(null, null, true, false));
         }
     }
 

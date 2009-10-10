@@ -75,6 +75,8 @@ class ZMForwardView extends ZMView {
     public function generate($request) { 
         ZMCrumbtrail::instance()->reset();
         $req = ZMLoader::make('Request');
+        $req->setParameterMap($request->getParameterMap());
+        // uh uh, bad naming...
         $req->setRequestId($this->getView());
 
         ZMDispatcher::dispatch($req);

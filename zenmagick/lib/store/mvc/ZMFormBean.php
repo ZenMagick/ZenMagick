@@ -84,8 +84,10 @@ class ZMFormBean extends ZMObject {
 
     /**
      * Populate this form.
+     *
+     * @param ZMRequest request The request to process.
      */
-    public function populate() {
+    public function populate($request) {
         $fields = null;
         if (0 < count($this->fields_)) {
             // add custom table based names to the fields list, but only if we restrict fields anyway
@@ -96,7 +98,7 @@ class ZMFormBean extends ZMObject {
             $fields = $this->fields_;
         }
 
-        ZMBeanUtils::setAll($this, ZMRequest::instance()->getParameterMap(), $fields);
+        ZMBeanUtils::setAll($this, $request->getParameterMap(), $fields);
     }
 
 }
