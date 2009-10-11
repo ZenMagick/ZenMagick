@@ -28,7 +28,7 @@
  * @package org.zenmagick.mvc.view
  * @version $Id$
  */
-class ZMSavantView extends ZMBaseView {
+class ZMSavantView extends ZMView {
     private $savant_;
     private $config_;
 
@@ -49,10 +49,6 @@ class ZMSavantView extends ZMBaseView {
         parent::__destruct();
     }
 
-    //XXX: remove
-    public function setView($view) {
-        $this->setTemplate($view);
-    }
 
     /**
      * Get the template path array for <em>Savant</em>.

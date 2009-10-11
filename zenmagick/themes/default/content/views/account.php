@@ -60,8 +60,8 @@
     </h3>
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
-              <?php include('resultlist/order.php') ?>
+            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { $this->assign(array('order' => $order)); ?>
+              <?php echo $this->fetch('views/resultlist/order.php') ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>

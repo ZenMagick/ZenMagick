@@ -75,9 +75,6 @@ class zm_smarty extends Plugin {
         ZMSettings::set('templateSuffix', '.tpl');
         ZMSettings::set('isEnableThemeDefaults', false);
         ZMSettings::set('isLegacyAPI', true);
-
-        // make sure PageView is loaded as PopupView extends it
-        ZMLoader::resolve('PageView', 'dummy');
     }
 
 

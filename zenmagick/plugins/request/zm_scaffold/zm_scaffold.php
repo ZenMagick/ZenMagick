@@ -74,7 +74,7 @@ class zm_scaffold extends Plugin {
                     $urlMapper->setMappingInfo($mapping['page'], array(
                         'viewId' => $crud,
                         'view' => $crud,
-                        'viewDefinition' => 'PageView', 
+                        'viewDefinition' => 'SavantView', 
                         'controllerDefinition' => $mapping['controllerDefinition'].'#table='.$mapping['table'].'&method='.$crud, 
                         'formId' => $mapping['formId']
                     ));
@@ -89,7 +89,7 @@ class zm_scaffold extends Plugin {
                 // default index
                 $urlMapper->setMappingInfo($mapping['page'], array(
                     'view' => 'index',
-                    'viewDefinition' => 'PageView', 
+                    'viewDefinition' => 'SavantView', 
                     'controllerDefinition' => $mapping['controllerDefinition'].'#table='.$mapping['table'].'&method=index' 
                 ));
             }

@@ -48,6 +48,6 @@
 <?php } ?>
 
 <?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=create', true, array('id'=>'shippingAddress')) ?>
-    <?php $address = $shippingAddress; include "address.php" ?>
+    <?php $this->assign(array('address' => $shippingAddress)); echo $this->fetch('views/address.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>

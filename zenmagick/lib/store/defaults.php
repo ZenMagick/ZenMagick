@@ -162,6 +162,7 @@
 
             // template suffix/extension
             'templateSuffix' => '.php',
+            'zenmagick.mvc.templates.ext' => '.php',
 
             // enable gift vouchers 
             'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
@@ -195,7 +196,7 @@
 
             // default controller and view class
             'zenmagick.mvc.controller.defaultClass' => 'DefaultController',
-            'defaultViewClass' => 'PageView',
+            'defaultViewClass' => 'SavantView',
 
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',

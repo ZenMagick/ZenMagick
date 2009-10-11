@@ -25,9 +25,9 @@
 ?>
 <?php
     // allow for custom layout settings without having to copy the whole file every time...
-    $pageLayout = "layout/".$this->getName().".php";
+    $pageLayout = "layout/".$request->getRequestId().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
-        include $zm_theme->themeFile($pageLayout);
+        echo $this->fetch($pageLayout);
     }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -41,14 +41,14 @@
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL("theme.css") ?>" type="text/css" media="screen,projection" />
     <?php } ?>
-    <?php $pageCSS = "css/".$this->getName().".css"; ?>
+    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" href="<?php $zm_theme->themeURL($pageCSS) ?>" type="text/css" media="screen,projection" />
     <?php } ?>
   </head>
 
-  <body id="pb_<?php echo $this->getName() ?>"<?php $html->onload() ?>>
-    <?php include($this->getViewFilename()) ?>
+  <body id="pb_<?php echo $request->getRequestId() ?>"<?php $html->onload() ?>>
+    <?php echo $this->fetch($viewTemplate); ?>
   </body>
 </html>

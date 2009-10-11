@@ -60,9 +60,9 @@ class zm_tests extends Plugin {
      */
     public function init() {
         parent::init();
-
-        $parameter = array('plugin' => $this, 'subdir' => 'views');
-        ZMUrlMapper::instance()->setMappingInfo('tests', array('view' => 'tests', 'viewDefinition' => 'PluginView#plugin=zm_tests&subdir=views'));
+        ZMSettings::set('zenmagick.mvc.templates.ext', '.php');
+        // should be 'views/tests'
+        ZMUrlMapper::instance()->setMappingInfo('tests', array('view' => 'tests', 'viewDefinition' => 'PluginView#plugin=zm_tests'));
     }
 
     /**

@@ -5,6 +5,8 @@ Release 0.9.8
   where configured
 - more changes to use $request where possible
 - zm_quick_edit: allow non form widgets, for example read only data
+- add custom SavantView and start using (regular pages, popups, forward,
+  redirect, plugin, function views)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

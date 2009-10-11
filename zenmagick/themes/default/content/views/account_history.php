@@ -26,18 +26,18 @@
 
 <?php if ($zm_resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
+        <?php echo $this->fetch('views/resultlist/nav.php') ?>
     </div>
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
-              <?php include('resultlist/order.php') ?>
+            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { $this->assign(array('order' => $order)); ?>
+              <?php echo $this->fetch('views/resultlist/order.php') ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php include('resultlist/nav.php') ?>
+        <?php echo $this->fetch('views/resultlist/nav.php') ?>
     </div>
 <?php } else { ?>
     <h2><?php zm_l10n("No orders found") ?></h2>

@@ -117,6 +117,8 @@
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
             <td class="first" style="text-align:right;"><a href="<?php $toolbox->net->url('', $zm_nav_params.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <?php foreach ($zm_quick_edit_field_list as $ii => $field) { $widget = $field['widget'];
+              // allow widgets to do custom calculations, etc
+              $widget->setProduct($product);
               $fieldName = $field['name'].'_'.$product->getId();
               $productData = ZMBeanUtils::obj2map($product, $fieldMap);
               $value = $productData[$fieldMap[$field['name']]];

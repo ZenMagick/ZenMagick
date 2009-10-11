@@ -45,10 +45,10 @@ class DefaultThemeInfo extends ZMThemeInfo {
         $this->setDefaultLayout('default_layout');
 
         // popups use their own simple page layout
-        $this->setLayout('popup_cvv_help', 'popup_layout');
-        $this->setLayout('popup_search_help', 'popup_layout');
-        $this->setLayout('popup_shipping_estimator', 'popup_layout');
-        $this->setLayout('popup_coupon_help', 'popup_layout');
+        $this->setLayout('popup/cvv_help', 'popup_layout');
+        $this->setLayout('popup/search_help', 'popup_layout');
+        $this->setLayout('popup/shipping_estimator', 'popup_layout');
+        $this->setLayout('popup/coupon_help', 'popup_layout');
     }
 
 }

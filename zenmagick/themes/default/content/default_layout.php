@@ -26,9 +26,9 @@
 <?php
 
     // allow for custom layout settings without having to copy the whole file every time...
-    $pageLayout = "layout/".$this->getName().".php";
+    $pageLayout = "layout/".$request->getRequestId().".php";
     if ($zm_theme->themeFileExists($pageLayout)) {
-        include $zm_theme->themeFile($pageLayout);
+        echo $this->fetch($pageLayout);
     }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -47,7 +47,7 @@
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
     <?php } ?>
-    <?php $pageCSS = "css/".$this->getName().".css"; ?>
+    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
@@ -64,19 +64,19 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $this->getName() ?>"<?php $html->onload() ?>>
+  <body id="b_<?php echo $request->getRequestId() ?>"<?php $html->onload() ?>>
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
         <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <div id="container">
-      <?php include $zm_theme->themeFile("header.php") ?>
-      <?php include $zm_theme->themeFile("menu.php") ?>
+      <?php echo $this->fetch('header.php') ?>
+      <?php echo $this->fetch('menu.php') ?>
 
       <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
         <div id="leftcol">
           <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-              <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+              <?php echo $this->fetch('boxes/'.$box) ?>
           <?php } ?>
         </div>
       <?php } ?>
@@ -84,13 +84,13 @@
       <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
           <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-              <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+              <?php echo $this->fetch('boxes/'.$box) ?>
           <?php } ?>
         </div>
       <?php } ?>
 
       <div id="content">
-        <?php if ('index' != $this->getName()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
@@ -106,14 +106,14 @@
             </ul>
         <?php } ?>
 
-        <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
+        <?php echo $this->fetch($viewTemplate); ?>
 
         <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer1'))) { ?>
             <div id="bannerFour"><?php $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
       </div>
 
-      <?php include $zm_theme->themeFile("footer.php") ?>
+      <?php echo $this->fetch('footer.php') ?>
     </div>
 
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer3'))) { ?>

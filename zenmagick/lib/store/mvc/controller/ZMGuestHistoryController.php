@@ -59,7 +59,7 @@ class ZMGuestHistoryController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        if (!$this->validate('guest_history')) {
+        if (!$this->validate($request, 'guest_history')) {
             return $this->findView();
         }
 

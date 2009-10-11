@@ -31,20 +31,15 @@
  * @package org.zenmagick.store.mvc.views
  * @version $Id: ZMPluginView.php 2377 2009-07-01 11:09:13Z dermanomann $
  */
-class ZMPluginView extends ZMPageView {
+class ZMPluginView extends SavantView {
     protected $plugin_;
 
 
     /**
      * Create new theme view view.
-     *
-     * @param string view The view name.
-     * @param ZMPlugin plugin The plugin; default is <code>null</code>.
-     * @deprecated: contructor arguments
      */
-    function __construct($view=null, $plugin=null) {
-        parent::__construct($view);
-        $this->setPlugin($plugin);
+    function __construct() {
+        parent::__construct();
     }
 
     /**
@@ -71,29 +66,12 @@ class ZMPluginView extends ZMPageView {
     }
 
     /**
-     * Check if this view is valid.
+     * Get the template path array for <em>Savant</em>.
      *
-     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
+     * @return array List of folders to use for template lookups.
      */
-    public function isValid() {
-        return true;
-    }
-
-    /**
-     * Returns the full view filename to be included by a template.
-     *
-     * @return string The full view filename.
-     */
-    public function getViewFilename() {
-        $plugin = $this->plugin_;
-        $subdir = $this->getSubdir();
-        if (null != $subdir) {
-            $subdir .= '/';
-        } else {
-            $subdir = '';
-        }
-
-        return $plugin->getPluginDirectory() . $subdir . $this->getName() . ZMSettings::get('templateSuffix');
+    protected function getTemplatePath() {
+        return array($this->plugin_->getPluginDirectory());
     }
 
 }

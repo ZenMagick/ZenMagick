@@ -66,7 +66,8 @@ class WikiController extends ZMController {
         $page = zm_l10n_get($page);
         ZMCrumbtrail::instance()->addCrumb(zm_l10n_get($page));
 
-        return ZMLoader::make("PluginView", zm_view_wiki, $plugin);
+        $view = ZMLoader::make('FunctionView');
+        $view->setFunction(zm_view_wiki);
     }
 
 
@@ -84,7 +85,9 @@ class WikiController extends ZMController {
         $page = $request->getParameter('page', 'WikiRoot');
         ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
 
-        return ZMLoader::make("PluginView", zm_view_wiki_edit, $plugin);
+        $view = ZMLoader::make('FunctionView');
+        $view->setFunction(zm_view_wiki_edit);
+        return $view;
     }
 
 }

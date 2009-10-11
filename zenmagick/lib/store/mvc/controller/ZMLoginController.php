@@ -104,7 +104,7 @@ class ZMLoginController extends ZMController {
             return $this->findView('account');
         }
 
-        if (!$this->validate('login')) {
+        if (!$this->validate($request, 'login')) {
             return $this->findView();
         }
 

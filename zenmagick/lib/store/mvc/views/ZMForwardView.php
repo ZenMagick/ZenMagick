@@ -34,12 +34,9 @@ class ZMForwardView extends ZMView {
 
     /**
      * Create a new forward view.
-     *
-     * @param string view The view name.
-     * @deprecated: contructor arguments
      */
-    function __construct($view=null) {
-        parent::__construct($view);
+    function __construct() {
+        parent::__construct();
     }
 
     /**
@@ -51,26 +48,14 @@ class ZMForwardView extends ZMView {
 
 
     /**
-     * Check if this view is valid.
-     *
-     * @return boolean <code>true</code> if the forward url is not empty.
+     * {@inheritDoc}
      */
     public function isValid() {
-        $view = $this->getView();
-        return !empty($view);
+        return !ZMlangUtils::isEmpty($this->getTemplate());
     }
 
     /**
-     * Generate view response.
-     *
-     * <p>Will do the following:</p>
-     * <ul>
-     *  <li>Reset the crumbtrail</li>
-     *  <li>add the forward view as <em>ZM_PAGE_KEY</em> to the request</li>
-     *  <li>call <code>ZMDispatcher::dispatch()</code></li>
-     * </ul>
-     *
-     * @param ZMRequest request The current request.
+     * {@inheritDoc}
      */
     public function generate($request) { 
         ZMCrumbtrail::instance()->reset();
@@ -80,6 +65,7 @@ class ZMForwardView extends ZMView {
         $req->setRequestId($this->getView());
 
         ZMDispatcher::dispatch($req);
+        return null;
     }
 
 }

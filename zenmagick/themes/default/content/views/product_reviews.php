@@ -33,6 +33,6 @@
     <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
     <br /><br /><br /><br />
-    <?php include('reviews.php'); ?>
+    <?php echo $this->fetch('views/reviews.php'); ?>
   </div>
 </form>

@@ -82,7 +82,8 @@ class ZMUrlMapper extends ZMObject {
      *   default is the value of <code>$page</code>.</dd>
      *  <dt>view</dt><dd>The corresponding view template; this is the name of the view filename without the file extension;</dd>
      *   default is the value of <code>$page</code>.</dd>
-     *  <dt>viewDefinition</dt><dd>The actual <code>ZMView</code> implementation class to use; default is <em>PageView</em>.</dd>
+     *  <dt>viewDefinition</dt><dd>The actual <code>ZMView</code> implementation class to use; default is 
+     *   <code>ZMSettings::get('defaultViewClass')</code>.</dd>
      *  <dt>controllerDefinition</dt><dd>The class name for the controller to handle this page; default is <code>null</code> 
      *   to use <code>$page</code> to build a classname (see <code>ZMLoader::makeClassname(string)</code> for details).</dd>
      *  <dt>formId</dt><dd>Optional name of the form for automatic request validation; default is <code>null</code> for none.</dd>
@@ -97,7 +98,7 @@ class ZMUrlMapper extends ZMObject {
     public function setMappingInfo($page, $viewInfo=array()) {
         $mappingDefaults = array(
             'viewId' => $page,
-            'view' => $page,
+            'template' => $page,
             'controllerDefinition' => null, // leave null here to first try building the class based on $page 
             'viewDefinition' => ZMSettings::get('defaultViewClass') . '#',
             'formId' => null,
@@ -108,12 +109,12 @@ class ZMUrlMapper extends ZMObject {
         $viewInfo = array_merge($mappingDefaults, $viewInfo);
         // need this to store the data
         $viewId = $viewInfo['viewId'];
-        if (!isset($viewInfo['view']) && !empty($viewId)) {
-            $viewInfo['view'] = $viewId;
+        if (!isset($viewInfo['template']) && !empty($viewId)) {
+            $viewInfo['template'] = $viewId;
         }
         // sanity check
-        if (null == $page && (null == $viewInfo['view'] || null == $viewId)) {
-            $msg = zm_l10n_get("invalid url mapping; page=%s, view=%s, viewId=%s", $page, $viewInfo['view'], $viewId);
+        if (null == $page && (null == $viewInfo['template'] || null == $viewId)) {
+            $msg = zm_l10n_get("invalid url mapping; page=%s, template=%s, viewId=%s", $page, $viewInfo['template'], $viewId);
             throw new ZMException($msg);
         }
 
@@ -204,13 +205,13 @@ class ZMUrlMapper extends ZMObject {
         if (null === $viewInfo) {
             ZMLogging::instance()->log('no view found for: page='.$page.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
             // set some sensible defaults
-            $viewInfo = array('view' => $page, 'viewDefinition' => 'PageView#');
+            $viewInfo = array('template' => $page, 'viewDefinition' => ZMSettings::get('defaultViewClass'));
         }
 
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
         }
-        $definition = $viewInfo['viewDefinition'] . (false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&') . $parameter . '&view=' . $viewInfo['view'] . '&viewId=' . $viewInfo['viewId'];
+        $definition = $viewInfo['viewDefinition'] . (false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&') . $parameter . '&template=' . $viewInfo['template'] . '&viewId=' . $viewInfo['viewId'];
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return $definition;
     }

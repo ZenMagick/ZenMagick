@@ -100,17 +100,17 @@ class zm_wordpress extends Plugin {
         }
 
         // set up view mappings used by the wp controller
-        $view = 'PageView#subdir='.FILENAME_WP;
+        $view = 'SavantView';
         if (ZMSettings::get('plugins.zm_wordpress.isUseOwnViews', false)) {
-            $view = 'PluginView#plugin=zm_wordpress&subdir='.FILENAME_WP;
+            $view = 'PluginView#plugin=zm_wordpress';
         }
 
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_index', 'view' => 'index', 'viewDefinition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_single', 'view' => 'single', 'viewDefinition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_page', 'view' => 'page', 'viewDefinition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archive', 'view' => 'archive', 'viewDefinition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archives', 'view' => 'archives', 'viewDefinition' => $view));
-        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_search', 'view' => 'search', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_index', 'view' => FILENAME_WP.'/index', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_single', 'view' => FILENAME_WP.'/single', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_page', 'view' => FILENAME_WP.'/page', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archive', 'view' => FILENAME_WP.'/archive', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_archives', 'view' => FILENAME_WP.'/archives', 'viewDefinition' => $view));
+        ZMUrlMapper::instance()->setMappingInfo(null, array('viewId' => FILENAME_WP.'_search', 'view' => FILENAME_WP.'/search', 'viewDefinition' => $view));
     }
 
     /**

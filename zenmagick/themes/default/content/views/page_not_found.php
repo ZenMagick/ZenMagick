@@ -28,4 +28,4 @@
 
 <?php echo eval('?>'.$zm_theme->staticPageContent("page_not_found", null, false)) ?>
 
-<?php include('site_map.php'); ?>
+<?php echo $this->fetch('views/site_map.php'); ?>

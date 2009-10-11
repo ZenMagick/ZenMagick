@@ -64,7 +64,7 @@ class ZMUnsubscribeController extends ZMController {
             return $this->findView();
         }
 
-        if (!$this->validate('unsubscribe')) {
+        if (!$this->validate($request, 'unsubscribe')) {
             return $this->findView();
         }
 
