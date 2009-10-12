@@ -247,23 +247,26 @@ class ZMOffers extends ZMObject {
         $saleBasePrice = $saleBasePrice < 0 ? 0 : $saleBasePrice;
         $saleSpecialPrice = $saleSpecialPrice < 0 ? 0 : $saleSpecialPrice;
 
+        // default default
+        $salePrice = $specialPrice;
         if (!$specialPrice) {
-            return number_format($saleBasePrice, $calculationDecimals, '.', '');
+            $salePrice = $saleBasePrice;
         } else {
             switch($saleCondition){
                 case 0:
-                    return number_format($saleBasePrice, $calculationDecimals, '.', '');
+                    $salePrice = $saleBasePrice;
                     break;
                 case 1:
-                    return number_format($specialPrice, $calculationDecimals, '.', '');
+                    $salePrice = $specialPrice;
                     break;
                 case 2:
-                    return number_format($saleSpecialPrice, $calculationDecimals, '.', '');
+                    $salePrice = $saleSpecialPrice;
                     break;
                 default:
-                    return number_format($specialPrice, $calculationDecimals, '.', '');
+                    $salePrice = $specialPrice;
             }
         }
+        return number_format($salePrice, $calculationDecimals, '.', '');
     }
 
 
