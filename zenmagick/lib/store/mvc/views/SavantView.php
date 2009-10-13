@@ -100,7 +100,7 @@ class SavantView extends ZMSavantView {
             } else {
                 $template = 'views'.DIRECTORY_SEPARATOR.$this->getTemplate();
             }
-            echo $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+            return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, 'failed to fetch template: '.$tpl, ZMLogging::ERROR);
             throw new ZMException('failed to fetch template: '.$tpl, 0, $e);

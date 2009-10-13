@@ -7,6 +7,8 @@ Release 0.9.8
 - zm_quick_edit: allow non form widgets, for example read only data
 - add custom SavantView and start using (regular pages, popups, forward,
   redirect, plugin, function views)
+- update email view to extending SavantView; views now need a relative path
+  with the views folder as base
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

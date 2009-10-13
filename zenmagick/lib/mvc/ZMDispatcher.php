@@ -78,7 +78,7 @@ class ZMDispatcher {
 
             try {
                 // generate response
-                $view->generate($request);
+                echo $view->generate($request);
             } catch (Exception $e) {
                 ZMLogging::instance()->dump($e, null, ZMLogging::WARN);
                 //TODO: what to do?

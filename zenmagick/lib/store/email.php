@@ -38,7 +38,7 @@
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
         $view->setController(ZMRequest::instance()->getController());
-        return  $view->generate();
+        return $view->generate(ZMRequest::instance());
     }
 
 
@@ -95,6 +95,9 @@
             $attparam = array('file' => $attachment);
         }
 
+        //XXX: right now this is fixed
+        $template = 'email/'.$template;
+
         $formats = zm_email_formats($template);
         $hasTextTemplate = 'text' == $formats || 'both' == $formats;
 
@@ -110,7 +113,8 @@
         foreach ($view->getVars() as $name => $value) {
             $controller->exportGlobal($name, $value);
         }
-        $text = $view->generate();
+
+        $text = $view->generate(ZMRequest::instance());
 
         // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';

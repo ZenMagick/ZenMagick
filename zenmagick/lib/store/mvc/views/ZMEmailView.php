@@ -32,8 +32,6 @@
  * @version $Id: ZMEmailView.php 2347 2009-06-29 02:43:11Z dermanomann $
  */
 class ZMEmailView extends SavantView {
-    protected $args_ = null;
-
 
     /**
      * Create new email view.
@@ -44,8 +42,9 @@ class ZMEmailView extends SavantView {
      */
     function __construct($template, $html=true, $args=array()) {
         parent::__construct();
-        $this->setView('email_'.$template.($html ? '.html' : '.text'));
-        $this->args_ = $args;
+        $this->setTemplate($template.($html ? '.html' : '.text'));
+        $this->setVars($args);
+        $this->setVar('language', Runtime::getLanguage());
     }
 
     /**
@@ -57,64 +56,36 @@ class ZMEmailView extends SavantView {
 
 
     /**
-     * Returns the full view filename to be includes by a template.
-     *
-     * @return string The full view filename.
+     * {@inheritDoc}
      */
-    public function getViewFilename() {
-        return $this->_getViewFilename('email');
+    protected function getLayout() {
+        return null;
     }
 
     /**
-     * Check if this view is valid.
-     *
-     * @return boolean <code>true</code> if the view is valid, <code>false</code> if not.
+     * {@inheritDoc}
      */
     public function isValid() {
-        return file_exists($this->_getViewFilename('email'));
+        return Runtime::getTheme()->themeFileExists('views/'.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
     }
 
     /**
-     * Generate email content.
-     *
-     * <p>In contrast to other views, this version will actually not display anything, but rather
-     * return the generated content in order to be captured and passed into the actual mail
-     * code.</p>
-     *
-     * @param ZMRequest request The current request.
+     * {@inheritDoc}
      */
-    public function generate($request=null) {
+    public function generate($request) {
         $isAdmin = ZMSettings::get('isAdmin');
         //XXX: ugh!
         ZMSettings::set('isAdmin', false);
-        $filename = $this->getViewFilename();
-        if (!file_exists($filename)) {
+        if (!$this->isValid()) {
+            ZMLogging::instance()->trace('invalid email template', ZMLogging::ERROR);
             return "";
         }
 
-        $controller = $this->getController();
-        if (null !== $controller) {
-            // *export* globals from controller into view space
-            foreach ($controller->getGlobals() as $name => $instance) {
-                $$name = $instance;
-            }
-        }
-        // same for custom args
-        foreach ($this->args_ as $name => $instance) {
-            $$name = $instance;
-        }
-        // and for view data
-        foreach ($this->getVars() as $name => $instance) {
-            $$name = $instance;
-        }
+        $content = parent::generate($request);
 
-        // set for all
-        $language = Runtime::getLanguage();
-
-        ob_start();
-        include $this->getViewFilename();
         ZMSettings::set('isAdmin', $isAdmin);
-        return ob_get_clean();
+
+        return $content;
     }
 
 }

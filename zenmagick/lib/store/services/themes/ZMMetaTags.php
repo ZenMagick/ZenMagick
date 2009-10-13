@@ -96,7 +96,7 @@ class ZMMetaTags extends ZMObject {
         // special handling for categories, manufacturers
         $controller = ZMRequest::instance()->getController();
         $view = $controller->getView();
-        $name = $view->getName();
+        $name = ZMRequest::instance()->getRequestId();
         if ('index' == $name) {
             $title = ZMSettings::get('storeName');
         } else if (ZMLangUtils::startsWith($name, 'product_')) {
