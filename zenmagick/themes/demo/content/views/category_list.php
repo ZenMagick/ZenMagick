@@ -70,21 +70,21 @@
 <h2>Drag products into your shopping cart</h2>
 <?php if ($zm_resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php include($zm_theme->themeFile('views/resultlist/nav.php')) ?>
-        <?php include($zm_theme->themeFile('views/resultlist/options.php')) ?>
+        <?php echo $this->fetch('views/resultlist/nav.php') ?>
+        <?php echo $this->fetch('views/resultlist/options.php') ?>
     </div>
 
     <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
         <div class="rlist">
             <table cellspacing="0" cellpadding="0"><tbody>
                 <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>
-                  <?php include($zm_theme->themeFile('views/resultlist/product.php')) ?>
+                  <?php echo $this->fetch('views/resultlist/product.php') ?>
                 <?php $first = false; $odd = !$odd; } ?>
             </tbody></table>
         </div>
         <div class="rnblk">
-            <?php include($zm_theme->themeFile('views/resultlist/compare.php')) ?>
-            <?php include($zm_theme->themeFile('views/resultlist/nav.php')) ?>
+            <?php echo $this->fetch('views/resultlist/compare.php') ?>
+            <?php echo $this->fetch('views/resultlist/nav.php') ?>
         </div>
     </form>
 <?php } else { ?>

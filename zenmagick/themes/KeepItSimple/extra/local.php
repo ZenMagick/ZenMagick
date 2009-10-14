@@ -5,7 +5,7 @@
       ZMTemplateManager::instance()->setLeftColBoxes(array('featured.php', 'reviews.php'));
   } else {
       ZMTemplateManager::instance()->setLeftColEnabled(false);
-      if ($request->isCheckout(false)) {
+      if (ZMRequest::instance()->isCheckout(false)) {
           ZMTemplateManager::instance()->setRightColBoxes(array('information.php'));
       }
   }

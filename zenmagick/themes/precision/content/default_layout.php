@@ -27,7 +27,7 @@ Released   : 20081126
         <h2>As simple as that!</h2>
       </div>
       <div id="menu">
-        <?php include $zm_theme->themeFile("top-menu.php") ?>
+        <?php echo $this->fetch('top-menu.php') ?>
       </div>
     </div>
     <!-- start page -->
@@ -39,7 +39,7 @@ Released   : 20081126
           <ul>
             <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
               <li>
-                  <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                  <?php echo $this->fetch('boxes/'.$box) ?>
               </li>
             <?php } ?>
           </ul>
@@ -49,7 +49,7 @@ Released   : 20081126
 
       <!-- start content -->
       <div id="content">
-          <?php if (!ZMLangUtils::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
               <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
           <?php } ?>
 
@@ -61,7 +61,7 @@ Released   : 20081126
               </ul>
           <?php } ?>
         
-          <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
+          <?php echo $this->fetch($viewTemplate); ?>
       </div>
       <!-- end content -->
 
@@ -71,7 +71,7 @@ Released   : 20081126
           <ul>
             <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
               <li>
-                  <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                  <?php echo $this->fetch('boxes/'.$box) ?>
               </li>
             <?php } ?>
           </ul>

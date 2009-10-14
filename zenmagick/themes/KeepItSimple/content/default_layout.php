@@ -10,7 +10,7 @@
     <meta name="googlebot" content="noarchive" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("css/screen.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-    <?php $pageCSS = "css/".$this->getName().".css"; ?>
+    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
       <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
@@ -25,7 +25,7 @@
       
       <!-- navigation -->
       <div  id="nav">
-        <?php include $zm_theme->themeFile("top-menu.php") ?>
+        <?php echo $this->fetch('top-menu.php') ?>
       </div>		
       
       <div id="header-image"></div> 		
@@ -48,7 +48,7 @@
     
       <!-- main -->
       <div id="main" class="grid_8">
-          <?php if (!ZMLangUtils::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
               <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
           <?php } ?>
 
@@ -60,7 +60,7 @@
               </ul>
           <?php } ?>
         
-          <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
+          <?php echo $this->fetch($viewTemplate); ?>
       <!-- main ends -->
       </div>
       
@@ -73,7 +73,7 @@
             <div id="sidebar" >
               <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
                   <div class="sidebox">
-                      <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                      <?php echo $this->fetch('boxes/'.$box) ?>
                   </div>
               <?php } ?>
             </div>
@@ -84,7 +84,7 @@
         <div class="grid_4 omega">
       
           <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-                  <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                  <?php echo $this->fetch('boxes/'.$box) ?>
           <?php } ?>
         
         </div>	

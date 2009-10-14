@@ -62,8 +62,8 @@
   <li>Field specific error messages; Try an invalid email or blank password (using the demo theme!) to see field specific error messages
      being displayed [needs JavaScript disabled]</li>
   <li>Check out the actual used template files (
-     <a href="<?php $net->url('source_view', 'template_name='.$this->getLayout()) ?>">layout</a>
+     <a href="<?php $net->url('source_view', 'template_name='.$view->getLayout()) ?>">layout</a>
       and
-     <a href="<?php $net->url('source_view', 'view_name='.$this->getName()) ?>">view</a>
+     <a href="<?php $net->url('source_view', 'view_name='.$request->getRequestId()) ?>">view</a>
     ) on this site! (there are links in the footer on all other pages)</li>
 </ul>

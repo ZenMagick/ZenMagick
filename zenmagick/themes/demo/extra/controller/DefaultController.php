@@ -34,15 +34,8 @@ class DefaultController extends ZMController {
     /**
      * Create new instance.
      */
-    function DefaultController() {
-        parent::__construct();
-    }
-
-    /**
-     * Create new instance.
-     */
     function __construct() {
-        $this->DefaultController();
+        parent::__construct();
     }
 
     /**

@@ -33,13 +33,13 @@ Released   : 20090515
 	 <a href="http://www.zenmagick.org/index.php?main_page=create_account"> Create Your Account </a>
 	 </div>
 	  <div id="menu">
-        <?php include $zm_theme->themeFile("top-menu.php") ?>
+        <?php echo $this->fetch('top-menu.php') ?>
       </div> <!-- end of menu div -->
     </div> <!-- end of header div  -->
 	
 	<div id="pagebar">  <!-- insert page menu bar here  -->
 		  <div id="pagemenu">
-          <?php include $zm_theme->themeFile("page_menu.php") ?>
+          <?php echo $this->fetch('page_menu.php') ?>
                 </div> <!-- end pagemenu  -->
 	</div>  <!-- end page pagebar  -->
 
@@ -49,7 +49,7 @@ Released   : 20090515
 			<div id="colleft">
 				<!-- start content center column  -->
       <div id="content">
-          <?php if (!ZMTools::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMTools::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
               <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
           <?php } ?>
 
@@ -61,7 +61,7 @@ Released   : 20090515
               </ul>
           <?php } ?>
         
-          <?php if ($this->isViewFunction()) { $this->callView(); } else { include $this->getViewFilename(); } ?>
+          <?php echo $this->fetch($viewTemplate); ?>
       </div>
       <!-- end content center column-->			
 			
@@ -72,7 +72,7 @@ Released   : 20090515
 				<ul>
 					<?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
 					<li>
-					<?php include $zm_theme->themeFile("boxes/" .$box) ?>
+					<?php echo $this->fetch('boxes/'.$box) ?>
 					</li>
 					<?php } ?>
 				
@@ -89,7 +89,7 @@ Released   : 20090515
           <ul>
             <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
               <li>
-                  <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                  <?php echo $this->fetch('boxes/'.$box) ?>
               </li>
             <?php } ?>
  

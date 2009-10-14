@@ -68,14 +68,14 @@
         <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
           <div id="leftcol">
             <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-                <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+                <?php echo $this->fetch('boxes/'.$box) ?>
             <?php } ?>
           </div>
         <?php } ?>
       </div>
         
       <div id="main">	
-        <?php if (!ZMLangUtils::inArray($this->getName(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
             <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
         <?php } ?>
 
@@ -87,14 +87,14 @@
             </ul>
         <?php } ?>
 
-        <?php if ($this->isViewFunction()) { $this->callView(); } else { include($this->getViewFilename()); } ?>
+        <?php echo $this->fetch($viewTemplate); ?>
       </div>	
         
       <div id="rightbar">
       <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
           <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-              <?php include $zm_theme->themeFile("boxes/" .$box) ?>
+              <?php echo $this->fetch('boxes/'.$box) ?>
           <?php } ?>
         </div>
       <?php } ?>
