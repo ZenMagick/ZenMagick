@@ -9,6 +9,8 @@ Release 0.9.8
   redirect, plugin, function views)
 - update email view to extending SavantView; views now need a relative path
   with the views folder as base
+- fix bug in KeepItSimple theme's local.php; b:#2879221
+- fix bug in ZMFileUtils; b:#2880149
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

@@ -238,7 +238,7 @@ class ZMFileUtils {
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
-                if (!self::endsWith($dir, DI)) {
+                if (!ZMLangUtils::endsWith($dir, DIRECTORY_SEPARATOR)) {
                     $dir .= '/';
                 }
                 $subfiles = array();
