@@ -1,6 +1,6 @@
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
-- fix forward view bug
+- fix forward view bug; b:#2880154
 - fix error in SACS manager that breaks automatic redirects to secure pages
   where configured
 - more changes to use $request where possible
@@ -11,6 +11,7 @@ Release 0.9.8
   with the views folder as base
 - fix bug in KeepItSimple theme's local.php; b:#2879221
 - fix bug in ZMFileUtils; b:#2880149
+- fix file permission bug; b:#2880151
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

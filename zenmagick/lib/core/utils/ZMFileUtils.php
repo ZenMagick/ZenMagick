@@ -234,7 +234,7 @@ class ZMFileUtils {
             }
             @chown($file, self::$fileOwner_);
             $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
-            @chmod($file, octdec($mod));
+            @chmod($file, $mod);
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
