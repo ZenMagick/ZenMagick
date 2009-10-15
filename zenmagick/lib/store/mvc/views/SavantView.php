@@ -92,6 +92,7 @@ class SavantView extends ZMSavantView {
             // TODO: kill! common view variables
             $zm_theme = Runtime::getTheme();
             $savant->assign(array('zm_theme' => $zm_theme));
+            $savant->assign(array('view' => $this));
             $template = null;
             if (null != ($layout = $this->getLayout())) {
                 $template = $layout;
