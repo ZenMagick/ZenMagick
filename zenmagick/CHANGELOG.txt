@@ -18,6 +18,8 @@ Release 0.9.8
 - zm_theme_switch: if no config setting is found, display all existing themes
 - modify plugin build script to make plugins.properties only file to be
   changed for new plugins (except new groups)
+- change plugins build script to generate a zip of all released plugins (this
+  only makes sense if all plugins are released all the time)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
