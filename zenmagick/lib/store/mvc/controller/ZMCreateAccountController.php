@@ -81,7 +81,7 @@ class ZMCreateAccountController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $registration = $this->getFormBean();
+        $registration = $this->getFormBean($request);
 
         $clearPassword = $registration->getPassword();
         $account = $registration->getAccount();

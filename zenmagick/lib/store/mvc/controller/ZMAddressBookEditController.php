@@ -70,7 +70,7 @@ class ZMAddressBookEditController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $address = $this->getFormBean();
+        $address = $this->getFormBean($request);
 
         if (1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
             $address->setPrimary(true);

@@ -62,7 +62,7 @@ class ZMContactUsController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet($request) {
-        $contactInfo = $this->getFormBean();
+        $contactInfo = $this->getFormBean($request);
         if ($request->isRegistered()) {
             $account = $request->getAccount();
             $contactInfo->setName($account->getFullName());
@@ -79,7 +79,7 @@ class ZMContactUsController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processPost($request) {
-        $contactInfo = $this->getFormBean();
+        $contactInfo = $this->getFormBean($request);
 
         // send email
         $context = array();

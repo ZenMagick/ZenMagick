@@ -74,7 +74,7 @@ class ZMCheckoutAddressController extends ZMController {
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
         $this->exportGlobal("zm_addressList", $addressList);
-        $address = $this->getFormBean();
+        $address = $this->getFormBean($request);
         $address->setPrimary(0 == count($addressList));
     }
 
@@ -115,7 +115,7 @@ class ZMCheckoutAddressController extends ZMController {
         if (null !== $addressId) {
             $shoppingCart->$method($addressId);
         } else {
-            $address = $this->getFormBean();
+            $address = $this->getFormBean($request);
             $address->setAccountId($request->getAccountId());
             $address = ZMAddresses::instance()->createAddress($address);
 

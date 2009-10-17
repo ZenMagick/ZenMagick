@@ -57,7 +57,7 @@ class ZMGvRedeemController extends ZMController {
     function processGet($request) {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
-        $gvRedeem = $this->getFormBean();
+        $gvRedeem = $this->getFormBean($request);
         if (!ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
             // only try to redeem if code given - people might browse the page without code parameter...
             $coupon = ZMCoupons::instance()->getCouponForCode($gvRedeem->getCouponCode());
