@@ -12,6 +12,7 @@ Release 0.9.8
 - fix bug in KeepItSimple theme's local.php; b:#2879221
 - fix bug in ZMFileUtils; b:#2880149
 - fix file permission bug; b:#2880151
+- update theme infos and add preview images
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
