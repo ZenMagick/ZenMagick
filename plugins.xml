@@ -3,270 +3,32 @@
     <!-- Plugins properties -->
     <property file="plugins.properties" />
 
+
     <!-- Build plugin releases -->
     <target name="plugin-releases" depends="clean,init" description="Build plugin releases.">
-        <antcall target="plugin-release">
+        <!-- build request plugins -->
+        <foreach list="${plugins.type.request}" target="plugin-release" param="plugin.name">
             <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_google_adsense" />
-            <param name="plugin.version" value="${plugins.zm_google_adsense.version}" />
-        </antcall>
+        </foreach>
 
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_google_analytics" />
-            <param name="plugin.version" value="${plugins.zm_google_analytics.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_rss_boxes" />
-            <param name="plugin.version" value="${plugins.zm_rss_boxes.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_wiki" />
-            <param name="plugin.version" value="${plugins.zm_wiki.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_useo2" />
-            <param name="plugin.version" value="${plugins.zm_useo2.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_useo3" />
-            <param name="plugin.version" value="${plugins.zm_useo3.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_imagehandler2" />
-            <param name="plugin.version" value="${plugins.zm_imagehandler2.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_captcha" />
-            <param name="plugin.version" value="${plugins.zm_captcha.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_product_music_info" />
-            <param name="plugin.version" value="${plugins.zm_product_music_info.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_crossell" />
-            <param name="plugin.version" value="${plugins.zm_crossell.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_google_store_locator" />
-            <param name="plugin.version" value="${plugins.zm_google_store_locator.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_smarty" />
-            <param name="plugin.version" value="${plugins.zm_smarty.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_master_password" />
-            <param name="plugin.version" value="${plugins.zm_master_password.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_recaptcha" />
-            <param name="plugin.version" value="${plugins.zm_recaptcha.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_phpbb2" />
-            <param name="plugin.version" value="${plugins.zm_phpbb2.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_pretty_links" />
-            <param name="plugin.version" value="${plugins.zm_pretty_links.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_page_cache" />
-            <param name="plugin.version" value="${plugins.zm_page_cache.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_site_switch" />
-            <param name="plugin.version" value="${plugins.zm_site_switch.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_hoverbox3" />
-            <param name="plugin.version" value="${plugins.zm_hoverbox3.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_page_stats" />
-            <param name="plugin.version" value="${plugins.zm_page_stats.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_multi_qty" />
-            <param name="plugin.version" value="${plugins.zm_multi_qty.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_cron" />
-            <param name="plugin.version" value="${plugins.zm_cron.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_openid" />
-            <param name="plugin.version" value="${plugins.zm_openid.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_wordpress" />
-            <param name="plugin.version" value="${plugins.zm_wordpress.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_dual_pricing" />
-            <param name="plugin.version" value="${plugins.zm_dual_pricing.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_tests" />
-            <param name="plugin.version" value="${plugins.zm_tests.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_auto_login" />
-            <param name="plugin.version" value="${plugins.zm_auto_login.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_geo_ip" />
-            <param name="plugin.version" value="${plugins.zm_geo_ip.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_ssu" />
-            <param name="plugin.version" value="${plugins.zm_ssu.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_firephp" />
-            <param name="plugin.version" value="${plugins.zm_firephp.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_whos_online" />
-            <param name="plugin.version" value="${plugins.zm_whos_online.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_phpbb3" />
-            <param name="plugin.version" value="${plugins.zm_phpbb3.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_form_handler" />
-            <param name="plugin.version" value="${plugins.zm_form_handler.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_theme_switch" />
-            <param name="plugin.version" value="${plugins.zm_theme_switch.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_settings" />
-            <param name="plugin.version" value="${plugins.zm_settings.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_toggle_zm_themes" />
-            <param name="plugin.version" value="${plugins.zm_toggle_zm_themes.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_snap_affiliate" />
-            <param name="plugin.version" value="${plugins.zm_snap_affiliate.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
+        <!-- build order_total plugins -->
+        <foreach list="${plugins.type.order_total}" target="plugin-release" param="plugin.name">
             <param name="plugin.type" value="order_total" />
-            <param name="plugin.name" value="zm_payment_surcharge" />
-            <param name="plugin.version" value="${plugins.zm_payment_surcharge.version}" />
-        </antcall>
+        </foreach>
 
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_deprecated" />
-            <param name="plugin.version" value="${plugins.zm_deprecated.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_scaffold" />
-            <param name="plugin.version" value="${plugins.zm_scaffold.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_fual_slimbox" />
-            <param name="plugin.version" value="${plugins.zm_fual_slimbox.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_vbulletin" />
-            <param name="plugin.version" value="${plugins.zm_vbulletin.version}" />
-        </antcall>
-
-        <antcall target="plugin-release">
-            <param name="plugin.type" value="request" />
-            <param name="plugin.name" value="zm_subscriptions" />
-            <param name="plugin.version" value="${plugins.zm_subscriptions.version}" />
-        </antcall>
+        <!-- build zip of all plugins -->
+        <echo message="Building ful plugins archive ..." />
+        <zip zipfile="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" basedir="${build.dir}/plugins" />
+        <checksum file="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" fileext=".md5" todir="${dist.dir}/plugins/md5" />
     </target>
 
     
     <!-- Create release for a single plugin -->
     <target name="plugin-release" description="Create release for a single plugin.">
+        <!-- set dynamically based on plugin name -->
+        <var name="plugin.version" unset="true"/>
+        <propertycopy name="plugin.version" from="plugins.${plugin.name}.version" />
+
         <mkdir dir="${build.dir}/plugins" />
         <mkdir dir="${dist.dir}/plugins/md5" />
 
