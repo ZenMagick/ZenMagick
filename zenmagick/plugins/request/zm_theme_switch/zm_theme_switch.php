@@ -77,13 +77,21 @@ class zm_theme_switch extends Plugin {
             return null;
         }
 
-        $themes = explode(',', ZMSettings::get('plugins.zm_theme_switch.themes'));
+        $defaultConfig = null;
+        if (!ZMSettings::exists('plugins.zm_theme_switch.themes')) {
+            // iterate over all themes and build default config
+            $defaultConfig = '';
+            foreach (ZMThemes::instance()->getThemeInfoList() as $themeInfo) {
+                $defaultConfig .= $themeInfo->getThemeId().':'.$themeInfo->getName().',';
+            }
+        }
+        $themes = explode(',', ZMSettings::get('plugins.zm_theme_switch.themes', $defaultConfig));
         $links = '';
         foreach ($themes as $themeInfo) {
             if (!ZMLangUtils::isEmpty(trim($themeInfo))) {
                 // themeId:name
                 $details = explode(':', $themeInfo);
-                if (2> count($details)) {
+                if (2 > count($details)) {
                     // default
                     $details[1] = $details[0];
                 }

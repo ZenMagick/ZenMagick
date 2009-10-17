@@ -38,3 +38,4 @@ Setting examples:
 
   ZMSettings::set('plugins.zm_theme_switch.themes', 'default:Default,demo:Demo');
 
+If the setting is not set or null, a list of all themes will be build.

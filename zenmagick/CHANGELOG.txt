@@ -15,6 +15,7 @@ Release 0.9.8
 - update theme infos and add preview images
 - allow to set custom preview image with ZMThemeInfo::setPreview('image');
   default is 'preview.jpg'
+- zm_theme_switch: if no config setting is found, display all existing themes
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
