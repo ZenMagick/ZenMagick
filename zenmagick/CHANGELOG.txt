@@ -13,6 +13,8 @@ Release 0.9.8
 - fix bug in ZMFileUtils; b:#2880149
 - fix file permission bug; b:#2880151
 - update theme infos and add preview images
+- allow to set custom preview image with ZMThemeInfo::setPreview('image');
+  default is 'preview.jpg'
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
