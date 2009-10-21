@@ -104,7 +104,7 @@ class ZMSession extends ZMObject {
      */
     public function recreate($force=false) {
         if ($force || ZMSettings::get('isSessionRecreate')) {
-            require_once(DIR_WS_FUNCTIONS . 'whos_online.php');
+            include_once(DIR_WS_FUNCTIONS . 'whos_online.php');
             zen_session_recreate();
         }
     }
